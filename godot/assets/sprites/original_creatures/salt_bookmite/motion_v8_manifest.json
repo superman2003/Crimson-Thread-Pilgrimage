@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "salt_bookmite",
   "canvas": [
     320,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            224,
-            150
+            207,
+            139
           ],
           "margin": [
-            59,
-            35,
-            96,
-            41
+            67,
+            46,
+            113,
+            52
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            230,
+            213,
             2,
-            233,
-            152
+            211,
+            138
           ],
           "margin": [
-            58,
-            33,
-            87,
-            39
+            66,
+            48,
+            109,
+            53
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            467,
+            428,
             2,
-            232,
-            154
+            218,
+            144
           ],
           "margin": [
-            55,
-            31,
-            88,
-            37
+            61,
+            41,
+            102,
+            47
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            703,
+            650,
             2,
-            235,
-            153
+            216,
+            141
           ],
           "margin": [
-            54,
-            32,
-            85,
-            38
+            62,
+            44,
+            104,
+            50
           ]
         },
         {
@@ -157,16 +157,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            942,
+            870,
             2,
-            233,
-            154
+            216,
+            142
           ],
           "margin": [
-            49,
-            31,
-            87,
-            37
+            56,
+            43,
+            104,
+            49
           ]
         },
         {
@@ -187,16 +187,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1179,
+            1090,
             2,
-            232,
-            152
+            215,
+            141
           ],
           "margin": [
-            48,
-            33,
-            88,
-            39
+            56,
+            44,
+            105,
+            50
           ]
         }
       ]
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1415,
+            1309,
             2,
-            230,
-            149
+            215,
+            139
           ],
           "margin": [
-            56,
-            36,
-            90,
-            42
+            63,
+            48,
+            105,
+            52
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1649,
+            1528,
             2,
-            214,
-            144
+            206,
+            139
           ],
           "margin": [
-            64,
-            43,
-            106,
-            47
+            68,
+            47,
+            114,
+            52
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
+            1738,
             2,
-            164,
-            211,
-            144
+            204,
+            138
           ],
           "margin": [
-            64,
-            41,
-            109,
-            47
+            66,
+            48,
+            116,
+            53
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            217,
-            164,
-            219,
-            145
+            2,
+            154,
+            201,
+            133
           ],
           "margin": [
-            56,
-            40,
-            101,
-            46
+            64,
+            52,
+            119,
+            58
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            440,
-            164,
-            211,
-            142
+            207,
+            154,
+            196,
+            132
           ],
           "margin": [
-            60,
-            43,
-            109,
-            49
+            67,
+            52,
+            124,
+            59
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            655,
-            164,
-            228,
-            144
+            407,
+            154,
+            209,
+            132
           ],
           "margin": [
-            58,
-            41,
-            92,
-            47
+            66,
+            54,
+            111,
+            59
           ]
         },
         {
@@ -404,16 +404,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            887,
-            164,
-            242,
-            151
+            620,
+            154,
+            214,
+            133
           ],
           "margin": [
-            58,
-            34,
-            78,
-            40
+            70,
+            54,
+            106,
+            58
           ]
         },
         {
@@ -434,16 +434,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1133,
-            164,
-            244,
-            152
+            838,
+            154,
+            211,
+            131
           ],
           "margin": [
-            56,
-            33,
-            76,
-            39
+            70,
+            55,
+            109,
+            60
           ]
         }
       ]
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1381,
-            164,
-            242,
-            149
+            1053,
+            154,
+            214,
+            131
           ],
           "margin": [
-            60,
-            36,
-            78,
-            42
+            74,
+            55,
+            106,
+            60
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1627,
-            164,
-            239,
-            150
+            1271,
+            154,
+            217,
+            136
           ],
           "margin": [
-            58,
-            35,
-            81,
-            41
+            68,
+            51,
+            103,
+            55
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            324,
-            221,
-            145
+            1492,
+            154,
+            213,
+            139
           ],
           "margin": [
-            65,
-            40,
-            99,
-            46
+            69,
+            48,
+            107,
+            52
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            227,
-            324,
-            228,
-            145
+            1709,
+            154,
+            220,
+            140
           ],
           "margin": [
-            57,
-            40,
-            92,
-            46
+            60,
+            47,
+            100,
+            51
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            459,
-            324,
-            240,
-            151
+            2,
+            302,
+            225,
+            142
           ],
           "margin": [
-            54,
-            34,
-            80,
-            40
+            62,
+            43,
+            95,
+            49
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            703,
-            324,
-            238,
-            151
+            231,
+            302,
+            214,
+            136
           ],
           "margin": [
-            58,
-            34,
-            82,
-            40
+            68,
+            51,
+            106,
+            55
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            945,
-            324,
-            237,
-            153
+            449,
+            302,
+            216,
+            140
           ],
           "margin": [
-            58,
-            32,
-            83,
-            38
+            67,
+            46,
+            104,
+            51
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1186,
-            324,
-            253,
-            156
+            669,
+            302,
+            221,
+            136
           ],
           "margin": [
-            48,
-            29,
-            67,
-            35
+            62,
+            49,
+            99,
+            55
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1443,
-            324,
-            251,
-            152
+            894,
+            302,
+            216,
+            131
           ],
           "margin": [
-            46,
-            33,
-            69,
-            39
+            62,
+            55,
+            104,
+            60
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1698,
-            324,
-            245,
-            151
+            1114,
+            302,
+            209,
+            129
           ],
           "margin": [
-            46,
-            34,
-            75,
-            40
+            62,
+            57,
+            111,
+            62
           ]
         },
         {
@@ -771,16 +771,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            488,
-            224,
-            153
+            1327,
+            302,
+            210,
+            143
           ],
           "margin": [
-            56,
-            32,
-            96,
-            38
+            62,
+            42,
+            110,
+            48
           ]
         },
         {
@@ -801,16 +801,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            230,
-            488,
-            236,
-            148
+            1541,
+            302,
+            220,
+            138
           ],
           "margin": [
-            52,
-            37,
-            84,
-            43
+            58,
+            47,
+            100,
+            53
           ]
         }
       ]
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            470,
-            488,
-            244,
-            148
+            1765,
+            302,
+            228,
+            139
           ],
           "margin": [
-            50,
-            37,
-            76,
-            43
+            58,
+            46,
+            92,
+            52
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            718,
-            488,
-            248,
-            153
+            2,
+            453,
+            235,
+            145
           ],
           "margin": [
-            52,
-            32,
-            72,
-            38
+            58,
+            40,
+            85,
+            46
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            970,
-            488,
-            252,
-            150
+            241,
+            453,
+            237,
+            142
           ],
           "margin": [
-            55,
-            35,
-            68,
-            41
+            62,
+            43,
+            83,
+            49
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1226,
-            488,
-            255,
-            151
+            482,
+            453,
+            237,
+            141
           ],
           "margin": [
-            53,
-            34,
-            65,
-            40
+            60,
+            45,
+            83,
+            50
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1485,
-            488,
-            262,
-            156
+            723,
+            453,
+            236,
+            141
           ],
           "margin": [
-            46,
-            29,
-            58,
-            35
+            57,
+            44,
+            84,
+            50
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1751,
-            488,
-            246,
-            153
+            963,
+            453,
+            227,
+            141
           ],
           "margin": [
-            50,
-            32,
-            74,
-            38
+            58,
+            44,
+            93,
+            50
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            652,
-            243,
-            152
+            1194,
+            453,
+            228,
+            142
           ],
           "margin": [
-            48,
-            33,
-            77,
-            39
+            54,
+            45,
+            92,
+            49
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            249,
-            652,
-            237,
-            152
+            1426,
+            453,
+            223,
+            142
           ],
           "margin": [
-            52,
-            33,
-            83,
-            39
+            58,
+            44,
+            97,
+            49
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            490,
-            652,
-            227,
-            145
+            1653,
+            453,
+            210,
+            134
           ],
           "margin": [
+            58,
             50,
-            40,
-            93,
-            46
+            110,
+            57
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            721,
-            652,
-            221,
-            145
+            2,
+            606,
+            215,
+            141
           ],
           "margin": [
-            56,
-            41,
-            99,
-            46
+            58,
+            46,
+            105,
+            50
           ]
         },
         {
@@ -1138,16 +1138,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            946,
-            652,
-            240,
-            152
+            221,
+            606,
+            222,
+            141
           ],
           "margin": [
-            50,
-            33,
-            80,
-            39
+            58,
+            44,
+            98,
+            50
           ]
         },
         {
@@ -1168,16 +1168,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1190,
-            652,
-            236,
-            152
+            447,
+            606,
+            221,
+            142
           ],
           "margin": [
-            52,
-            33,
-            84,
-            39
+            60,
+            43,
+            99,
+            49
           ]
         }
       ]
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1430,
-            652,
-            244,
-            153
+            672,
+            606,
+            234,
+            147
           ],
           "margin": [
-            55,
-            32,
-            76,
-            38
+            59,
+            38,
+            86,
+            44
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1678,
-            652,
-            244,
-            157
+            910,
+            606,
+            232,
+            149
           ],
           "margin": [
-            52,
-            28,
-            76,
-            34
+            58,
+            36,
+            88,
+            42
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            817,
-            252,
-            153
+            1146,
+            606,
+            234,
+            142
           ],
           "margin": [
-            50,
-            32,
-            68,
-            38
+            58,
+            45,
+            86,
+            49
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            258,
-            817,
-            237,
-            152
+            1384,
+            606,
+            217,
+            139
           ],
           "margin": [
-            60,
-            33,
-            83,
-            39
+            68,
+            47,
+            103,
+            52
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            499,
-            817,
-            249,
-            154
+            1605,
+            606,
+            230,
+            141
           ],
           "margin": [
-            56,
-            31,
-            71,
-            37
+            64,
+            44,
+            90,
+            50
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            752,
-            817,
-            242,
-            149
+            2,
+            763,
+            225,
+            138
           ],
           "margin": [
-            57,
-            36,
-            78,
-            42
+            64,
+            47,
+            95,
+            53
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            998,
-            817,
-            230,
-            148
+            231,
+            763,
+            219,
+            141
           ],
           "margin": [
-            60,
-            37,
-            90,
-            43
+            64,
+            46,
+            101,
+            50
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1232,
-            817,
-            241,
-            151
+            454,
+            763,
+            220,
+            138
           ],
           "margin": [
-            52,
-            34,
-            79,
-            40
+            61,
+            47,
+            100,
+            53
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1477,
-            817,
-            231,
-            147
+            678,
+            763,
+            211,
+            134
           ],
           "margin": [
-            54,
-            38,
-            89,
-            44
+            62,
+            52,
+            109,
+            57
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1712,
-            817,
-            229,
-            148
+            893,
+            763,
+            208,
+            134
           ],
           "margin": [
-            56,
-            37,
-            91,
-            43
+            66,
+            50,
+            112,
+            57
           ]
         },
         {
@@ -1505,16 +1505,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            979,
-            225,
-            153
+            1105,
+            763,
+            207,
+            141
           ],
           "margin": [
-            60,
-            32,
-            95,
-            38
+            68,
+            44,
+            113,
+            50
           ]
         },
         {
@@ -1535,16 +1535,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            231,
-            979,
-            226,
-            152
+            1316,
+            763,
+            212,
+            143
           ],
           "margin": [
-            62,
-            33,
-            94,
-            39
+            68,
+            42,
+            108,
+            48
           ]
         }
       ]
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            461,
-            979,
-            254,
-            170
+            1532,
+            763,
+            204,
+            136
           ],
           "margin": [
-            42,
-            15,
-            66,
-            21
+            64,
+            50,
+            116,
+            55
           ]
         },
         {
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            719,
-            979,
-            229,
-            164
+            1740,
+            763,
+            207,
+            148
           ],
           "margin": [
-            42,
-            21,
-            91,
-            27
+            52,
+            37,
+            113,
+            43
           ]
         },
         {
@@ -1632,16 +1632,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            952,
-            979,
-            215,
-            151
+            2,
+            919,
+            208,
+            146
           ],
           "margin": [
-            52,
-            34,
-            105,
-            40
+            55,
+            39,
+            112,
+            45
           ]
         }
       ]
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1171,
-            979,
-            191,
-            124
+            214,
+            919,
+            194,
+            125
           ],
           "margin": [
-            46,
-            60,
-            129,
-            67
+            44,
+            61,
+            126,
+            66
           ]
         },
         {
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1366,
-            979,
-            215,
-            114
+            412,
+            919,
+            201,
+            107
           ],
           "margin": [
-            48,
-            73,
-            105,
-            77
+            54,
+            77,
+            119,
+            84
           ]
         },
         {
@@ -1729,16 +1729,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1585,
-            979,
-            211,
-            108
+            617,
+            919,
+            195,
+            100
           ],
           "margin": [
-            52,
-            79,
-            109,
-            83
+            59,
+            84,
+            125,
+            91
           ]
         }
       ]
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1800,
-            979,
-            219,
-            142
+            816,
+            919,
+            212,
+            137
           ],
           "margin": [
-            56,
-            43,
-            101,
-            49
+            58,
+            48,
+            108,
+            54
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            1157,
-            227,
-            145
+            1032,
+            919,
+            220,
+            141
           ],
           "margin": [
-            60,
-            40,
-            93,
-            46
+            62,
+            44,
+            100,
+            50
           ]
         },
         {
@@ -1826,16 +1826,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            233,
-            1157,
-            208,
-            142
+            1256,
+            919,
+            204,
+            139
           ],
           "margin": [
-            64,
-            43,
-            112,
-            49
+            65,
+            46,
+            116,
+            52
           ]
         },
         {
@@ -1856,16 +1856,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            445,
-            1157,
-            210,
-            146
+            1464,
+            919,
+            211,
+            147
           ],
           "margin": [
             63,
-            39,
-            110,
-            45
+            38,
+            109,
+            44
           ]
         },
         {
@@ -1886,16 +1886,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            659,
-            1157,
-            235,
-            158
+            1679,
+            919,
+            221,
+            148
           ],
           "margin": [
-            50,
-            27,
-            85,
-            33
+            56,
+            37,
+            99,
+            43
           ]
         },
         {
@@ -1916,16 +1916,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            898,
-            1157,
-            244,
-            164
+            2,
+            1075,
+            216,
+            146
           ],
           "margin": [
-            46,
-            21,
-            76,
-            27
+            59,
+            39,
+            104,
+            45
           ]
         },
         {
@@ -1946,16 +1946,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1146,
-            1157,
-            241,
-            168
+            222,
+            1075,
+            217,
+            151
           ],
           "margin": [
-            48,
-            17,
-            79,
-            23
+            59,
+            34,
+            103,
+            40
           ]
         },
         {
@@ -1976,16 +1976,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1391,
-            1157,
-            228,
-            170
+            443,
+            1075,
+            218,
+            162
           ],
           "margin": [
-            54,
-            15,
-            92,
-            21
+            60,
+            23,
+            102,
+            29
           ]
         },
         {
@@ -2006,16 +2006,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1623,
-            1157,
-            219,
-            168
+            665,
+            1075,
+            214,
+            164
           ],
           "margin": [
-            60,
-            17,
-            101,
-            23
+            62,
+            21,
+            106,
+            27
           ]
         },
         {
@@ -2036,16 +2036,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            1335,
-            221,
-            171
+            883,
+            1075,
+            214,
+            166
           ],
           "margin": [
-            59,
-            14,
-            99,
-            20
+            62,
+            21,
+            106,
+            25
           ]
         },
         {
@@ -2066,16 +2066,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            227,
-            1335,
-            227,
-            178
+            1101,
+            1075,
+            225,
+            176
           ],
           "margin": [
-            59,
-            7,
-            93,
-            13
+            60,
+            11,
+            95,
+            15
           ]
         },
         {
@@ -2096,16 +2096,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            458,
-            1335,
-            225,
-            178
+            1330,
+            1075,
+            223,
+            176
           ],
           "margin": [
             60,
-            7,
-            95,
-            13
+            9,
+            97,
+            15
           ]
         }
       ]
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            687,
-            1335,
-            233,
-            178
+            1557,
+            1075,
+            230,
+            176
           ],
           "margin": [
-            54,
-            8,
-            87,
-            13
+            55,
+            10,
+            90,
+            15
           ]
         },
         {
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            924,
-            1335,
-            244,
-            181
+            1791,
+            1075,
+            239,
+            177
           ],
           "margin": [
-            50,
-            4,
-            76,
-            10
+            52,
+            8,
+            81,
+            14
           ]
         },
         {
@@ -2193,16 +2193,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1172,
-            1335,
-            249,
-            177
+            2,
+            1260,
+            236,
+            168
           ],
           "margin": [
-            52,
-            8,
-            71,
-            14
+            56,
+            17,
+            84,
+            23
           ]
         },
         {
@@ -2223,16 +2223,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1425,
-            1335,
-            259,
-            179
+            242,
+            1260,
+            240,
+            166
           ],
           "margin": [
-            44,
-            6,
-            61,
-            12
+            52,
+            19,
+            80,
+            25
           ]
         },
         {
@@ -2253,16 +2253,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1688,
-            1335,
-            261,
-            183
+            486,
+            1260,
+            249,
+            174
           ],
           "margin": [
-            44,
-            2,
-            59,
-            8
+            49,
+            11,
+            71,
+            17
           ]
         },
         {
@@ -2283,16 +2283,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            1526,
-            253,
-            180
+            739,
+            1260,
+            244,
+            174
           ],
           "margin": [
-            47,
-            5,
-            67,
-            11
+            51,
+            11,
+            76,
+            17
           ]
         },
         {
@@ -2313,16 +2313,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            259,
-            1526,
-            254,
-            181
+            987,
+            1260,
+            247,
+            176
           ],
           "margin": [
-            46,
-            4,
-            66,
-            10
+            50,
+            9,
+            73,
+            15
           ]
         },
         {
@@ -2343,16 +2343,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            517,
-            1526,
-            260,
-            183
+            1238,
+            1260,
+            257,
+            181
           ],
           "margin": [
-            42,
-            2,
-            60,
-            8
+            43,
+            4,
+            63,
+            10
           ]
         },
         {
@@ -2373,16 +2373,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            781,
-            1526,
-            250,
-            177
+            1499,
+            1260,
+            243,
+            172
           ],
           "margin": [
-            46,
-            8,
-            70,
-            14
+            49,
+            13,
+            77,
+            19
           ]
         },
         {
@@ -2403,16 +2403,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1035,
-            1526,
-            242,
-            174
+            1746,
+            1260,
+            237,
+            171
           ],
           "margin": [
-            50,
-            11,
-            78,
-            17
+            52,
+            14,
+            83,
+            20
           ]
         },
         {
@@ -2433,16 +2433,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1281,
-            1526,
-            240,
-            173
+            2,
+            1449,
+            241,
+            174
           ],
           "margin": [
             47,
-            12,
-            80,
-            18
+            11,
+            79,
+            17
           ]
         },
         {
@@ -2463,16 +2463,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1525,
-            1526,
-            236,
-            164
+            247,
+            1449,
+            235,
+            163
           ],
           "margin": [
-            50,
-            21,
-            84,
-            27
+            51,
+            22,
+            85,
+            28
           ]
         }
       ]
@@ -2500,16 +2500,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1765,
-            1526,
-            233,
-            161
+            486,
+            1449,
+            232,
+            160
           ],
           "margin": [
-            52,
-            24,
-            87,
-            30
+            53,
+            25,
+            88,
+            31
           ]
         },
         {
@@ -2530,16 +2530,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            1717,
-            234,
-            164
+            722,
+            1449,
+            236,
+            165
           ],
           "margin": [
-            51,
-            21,
-            86,
-            27
+            50,
+            20,
+            84,
+            26
           ]
         },
         {
@@ -2560,15 +2560,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            240,
-            1717,
-            229,
+            962,
+            1449,
+            228,
             159
           ],
           "margin": [
             55,
             26,
-            91,
+            92,
             32
           ]
         },
@@ -2590,16 +2590,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            473,
-            1717,
-            229,
-            158
+            1194,
+            1449,
+            222,
+            153
           ],
           "margin": [
-            55,
-            27,
-            91,
-            33
+            58,
+            32,
+            98,
+            38
           ]
         },
         {
@@ -2620,16 +2620,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            706,
-            1717,
-            230,
-            159
+            1420,
+            1449,
+            222,
+            153
           ],
           "margin": [
-            54,
-            26,
-            90,
-            32
+            57,
+            32,
+            98,
+            38
           ]
         },
         {
@@ -2650,16 +2650,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            940,
-            1717,
-            226,
-            152
+            1646,
+            1449,
+            215,
+            145
           ],
           "margin": [
-            55,
-            33,
-            94,
-            39
+            60,
+            40,
+            105,
+            46
           ]
         },
         {
@@ -2680,16 +2680,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1170,
-            1717,
-            228,
-            152
+            2,
+            1631,
+            215,
+            144
           ],
           "margin": [
-            55,
-            33,
-            92,
-            39
+            61,
+            41,
+            105,
+            47
           ]
         },
         {
@@ -2710,16 +2710,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1402,
-            1717,
-            230,
-            156
+            221,
+            1631,
+            222,
+            150
           ],
           "margin": [
-            54,
-            29,
-            90,
-            35
+            58,
+            35,
+            98,
+            41
           ]
         },
         {
@@ -2740,16 +2740,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            1636,
-            1717,
-            222,
-            152
+            447,
+            1631,
+            214,
+            146
           ],
           "margin": [
-            58,
-            34,
-            98,
-            39
+            60,
+            40,
+            106,
+            45
           ]
         },
         {
@@ -2770,16 +2770,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            2,
-            1889,
-            226,
-            152
+            665,
+            1631,
+            220,
+            148
           ],
           "margin": [
-            57,
-            33,
-            94,
-            39
+            59,
+            37,
+            100,
+            43
           ]
         },
         {
@@ -2800,16 +2800,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            232,
-            1889,
-            235,
-            155
+            889,
+            1631,
+            220,
+            146
           ],
           "margin": [
-            54,
-            30,
-            85,
-            36
+            60,
+            39,
+            100,
+            45
           ]
         },
         {
@@ -2830,16 +2830,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            471,
-            1889,
-            233,
-            152
+            1113,
+            1631,
+            212,
+            139
           ],
           "margin": [
-            54,
-            33,
-            87,
-            39
+            64,
+            46,
+            108,
+            52
           ]
         }
       ]
@@ -2867,16 +2867,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            708,
-            1889,
-            194,
-            127
+            1329,
+            1631,
+            206,
+            135
           ],
           "margin": [
-            68,
-            58,
-            126,
-            64
+            63,
+            52,
+            114,
+            56
           ]
         },
         {
@@ -2897,16 +2897,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
           "region": [
-            906,
-            1889,
-            202,
-            127
+            1539,
+            1631,
+            213,
+            134
           ],
           "margin": [
-            67,
-            58,
-            118,
-            64
+            62,
+            51,
+            107,
+            57
           ]
         }
       ]

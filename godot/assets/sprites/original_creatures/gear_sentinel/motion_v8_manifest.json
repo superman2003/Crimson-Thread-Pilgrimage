@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "gear_sentinel",
   "canvas": [
     492,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            229,
-            213
+            207,
+            193
           ],
           "margin": [
-            135,
-            7,
-            263,
-            13
+            145,
+            27,
+            285,
+            33
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            235,
+            213,
             2,
-            227,
-            212
+            204,
+            191
           ],
           "margin": [
-            135,
-            8,
-            265,
-            14
+            145,
+            29,
+            288,
+            35
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            466,
+            421,
             2,
-            234,
-            212
+            211,
+            191
           ],
           "margin": [
-            128,
-            8,
-            258,
-            14
+            138,
+            29,
+            281,
+            35
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            704,
+            636,
             2,
-            248,
-            213
+            221,
+            190
           ],
           "margin": [
-            120,
-            7,
-            244,
-            13
+            134,
+            30,
+            271,
+            36
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            956,
+            861,
             2,
-            249,
-            212
+            217,
+            185
           ],
           "margin": [
-            114,
-            8,
-            243,
-            14
+            130,
+            35,
+            275,
+            41
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1209,
+            1082,
             2,
-            241,
-            212
+            217,
+            191
           ],
           "margin": [
-            128,
-            8,
-            251,
-            14
+            140,
+            29,
+            275,
+            35
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1454,
+            1303,
             2,
-            236,
-            211
+            219,
+            195
           ],
           "margin": [
-            145,
-            9,
-            256,
-            15
+            153,
+            25,
+            273,
+            31
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1694,
+            1526,
             2,
-            237,
-            210
+            217,
+            192
           ],
           "margin": [
-            150,
-            10,
-            255,
-            16
+            160,
+            28,
+            275,
+            34
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
+            1747,
             2,
-            223,
-            239,
-            210
+            216,
+            190
           ],
           "margin": [
-            150,
-            10,
-            253,
-            16
+            162,
+            30,
+            276,
+            36
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            245,
-            223,
-            234,
-            210
+            2,
+            205,
+            210,
+            188
           ],
           "margin": [
-            148,
-            10,
-            258,
-            16
+            159,
+            32,
+            282,
+            38
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            483,
-            223,
-            228,
-            209
+            216,
+            205,
+            206,
+            188
           ],
           "margin": [
-            138,
-            11,
-            264,
-            17
+            150,
+            32,
+            286,
+            38
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            715,
-            223,
-            234,
-            210
+            426,
+            205,
+            208,
+            186
           ],
           "margin": [
-            120,
-            10,
-            258,
-            16
+            134,
+            34,
+            284,
+            40
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            953,
-            223,
-            224,
-            198
+            638,
+            205,
+            232,
+            205
           ],
           "margin": [
-            151,
-            22,
-            268,
-            28
+            148,
+            15,
+            260,
+            21
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1181,
-            223,
-            215,
-            201
+            874,
+            205,
+            228,
+            213
           ],
           "margin": [
-            156,
-            19,
-            277,
-            25
+            150,
+            7,
+            264,
+            13
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1400,
-            223,
-            194,
-            198
+            1106,
+            205,
+            189,
+            193
           ],
           "margin": [
-            156,
-            22,
-            298,
-            28
+            160,
+            27,
+            303,
+            33
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1598,
-            223,
-            199,
-            198
+            1299,
+            205,
+            194,
+            193
           ],
           "margin": [
-            152,
-            22,
-            293,
-            28
+            155,
+            27,
+            298,
+            33
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1801,
-            223,
-            221,
-            203
+            1497,
+            205,
+            212,
+            194
           ],
           "margin": [
-            140,
-            17,
-            271,
-            23
+            146,
+            26,
+            280,
+            32
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            441,
-            225,
-            199
+            1713,
+            205,
+            213,
+            189
           ],
           "margin": [
-            137,
-            21,
-            267,
-            27
+            143,
+            31,
+            279,
+            37
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            231,
-            441,
-            226,
-            199
+            2,
+            426,
+            215,
+            190
           ],
           "margin": [
-            136,
-            21,
-            266,
-            27
+            142,
+            30,
+            277,
+            36
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            461,
-            441,
-            224,
-            203
+            221,
+            426,
+            219,
+            198
           ],
           "margin": [
-            138,
-            17,
-            268,
-            23
+            140,
+            22,
+            273,
+            28
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            689,
-            441,
-            206,
-            199
+            444,
+            426,
+            197,
+            190
           ],
           "margin": [
-            147,
-            21,
-            286,
-            27
+            152,
+            30,
+            295,
+            36
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            899,
-            441,
-            214,
-            198
+            645,
+            426,
+            202,
+            187
           ],
           "margin": [
-            140,
-            22,
-            278,
-            28
+            148,
+            33,
+            290,
+            39
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1117,
-            441,
-            277,
-            201
+            851,
+            426,
+            273,
+            198
           ],
           "margin": [
-            143,
-            19,
-            215,
-            25
+            145,
+            22,
+            219,
+            28
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1398,
-            441,
-            270,
-            196
+            1128,
+            426,
+            266,
+            193
           ],
           "margin": [
-            148,
-            24,
-            222,
-            30
+            150,
+            27,
+            226,
+            33
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1672,
-            441,
-            277,
-            197
+            1398,
+            426,
+            274,
+            195
           ],
           "margin": [
-            158,
-            23,
-            215,
-            29
+            160,
+            25,
+            218,
+            31
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            652,
-            285,
-            204
+            1676,
+            426,
+            267,
+            192
           ],
           "margin": [
-            160,
-            16,
-            207,
-            22
+            166,
+            28,
+            225,
+            34
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            291,
-            652,
-            276,
-            203
+            2,
+            632,
+            266,
+            196
           ],
           "margin": [
-            168,
-            17,
-            216,
-            23
+            173,
+            24,
+            226,
+            30
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            571,
-            652,
-            267,
-            201
+            272,
+            632,
+            260,
+            196
           ],
           "margin": [
-            180,
-            19,
-            225,
-            25
+            182,
+            24,
+            232,
+            30
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            842,
-            652,
-            264,
-            199
+            536,
+            632,
+            268,
+            201
           ],
           "margin": [
-            185,
-            21,
-            228,
-            27
+            183,
+            19,
+            224,
+            25
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1110,
-            652,
-            200,
-            187
+            808,
+            632,
+            203,
+            190
           ],
           "margin": [
-            188,
-            33,
-            292,
-            39
+            187,
+            30,
+            289,
+            36
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1314,
-            652,
-            244,
-            186
+            1015,
+            632,
+            250,
+            190
           ],
           "margin": [
-            188,
-            34,
-            248,
-            40
+            186,
+            30,
+            242,
+            36
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1562,
-            652,
-            254,
-            194
+            1269,
+            632,
+            260,
+            198
           ],
           "margin": [
-            166,
-            26,
-            238,
-            32
+            162,
+            22,
+            232,
+            28
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            864,
-            259,
-            194
+            1533,
+            632,
+            253,
+            190
           ],
           "margin": [
-            144,
-            26,
-            233,
-            32
+            147,
+            30,
+            239,
+            36
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            265,
-            864,
-            255,
-            198
+            1790,
+            632,
+            251,
+            195
           ],
           "margin": [
             142,
-            22,
-            237,
-            28
+            25,
+            241,
+            31
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            524,
-            864,
-            211,
-            205
+            2,
+            841,
+            200,
+            194
           ],
           "margin": [
-            144,
-            15,
-            281,
-            21
+            150,
+            26,
+            292,
+            32
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            739,
-            864,
-            208,
-            203
+            206,
+            841,
+            195,
+            191
           ],
           "margin": [
-            172,
-            17,
-            284,
-            23
+            178,
+            29,
+            297,
+            35
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            951,
-            864,
-            213,
-            204
+            405,
+            841,
+            191,
+            183
           ],
           "margin": [
-            157,
-            16,
-            279,
-            22
+            170,
+            37,
+            301,
+            43
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1168,
-            864,
-            265,
-            206
+            600,
+            841,
+            257,
+            200
           ],
           "margin": [
-            160,
-            14,
-            227,
-            20
+            162,
+            20,
+            235,
+            26
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1437,
-            864,
-            261,
-            201
+            861,
+            841,
+            252,
+            194
           ],
           "margin": [
-            150,
-            19,
-            231,
-            25
+            154,
+            26,
+            240,
+            32
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1702,
-            864,
-            257,
-            202
+            1117,
+            841,
+            244,
+            192
           ],
           "margin": [
-            148,
-            18,
-            235,
-            24
+            154,
+            28,
+            248,
+            34
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            1078,
-            233,
-            209
+            1365,
+            841,
+            221,
+            199
           ],
           "margin": [
-            144,
-            11,
-            259,
-            17
+            150,
+            21,
+            271,
+            27
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            239,
-            1078,
-            229,
-            210
+            1590,
+            841,
+            212,
+            194
           ],
           "margin": [
-            145,
-            10,
-            263,
-            16
+            153,
+            26,
+            280,
+            32
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            472,
-            1078,
-            247,
-            213
+            1806,
+            841,
+            223,
+            192
           ],
           "margin": [
-            131,
-            7,
-            245,
-            13
+            143,
+            28,
+            269,
+            34
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            723,
-            1078,
-            205,
-            217
+            2,
+            1049,
+            186,
+            197
           ],
           "margin": [
-            134,
-            3,
-            287,
-            9
+            144,
+            23,
+            306,
+            29
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            932,
-            1078,
-            220,
-            214
+            192,
+            1049,
+            202,
+            196
           ],
           "margin": [
-            142,
-            6,
-            272,
-            12
+            150,
+            24,
+            290,
+            30
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1156,
-            1078,
-            216,
-            215
+            398,
+            1049,
+            200,
+            199
           ],
           "margin": [
-            138,
-            5,
-            276,
-            11
+            146,
+            21,
+            292,
+            27
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1376,
-            1078,
-            234,
-            220
+            602,
+            1049,
+            221,
+            208
           ],
           "margin": [
-            132,
-            2,
-            258,
-            6
+            138,
+            12,
+            271,
+            18
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1614,
-            1078,
-            226,
-            218
+            827,
+            1049,
+            208,
+            201
           ],
           "margin": [
-            140,
-            2,
-            266,
-            8
+            148,
+            19,
+            284,
+            25
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            1306,
-            227,
-            196
+            1039,
+            1049,
+            204,
+            176
           ],
           "margin": [
-            145,
-            24,
-            265,
-            30
+            156,
+            44,
+            288,
+            50
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            233,
-            1306,
-            225,
-            208
+            1247,
+            1049,
+            207,
+            191
           ],
           "margin": [
-            144,
-            12,
-            267,
-            18
+            154,
+            29,
+            285,
+            35
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            462,
-            1306,
-            199,
-            202
+            1458,
+            1049,
+            192,
+            195
           ],
           "margin": [
-            150,
-            18,
-            293,
-            24
+            153,
+            25,
+            300,
+            31
           ]
         },
         {
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            665,
-            1306,
-            234,
-            189
+            1654,
+            1049,
+            226,
+            183
           ],
           "margin": [
-            154,
-            31,
-            258,
-            37
+            158,
+            37,
+            266,
+            43
           ]
         },
         {
@@ -1632,16 +1632,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            903,
-            1306,
-            206,
-            200
+            2,
+            1265,
+            184,
+            179
           ],
           "margin": [
-            134,
-            20,
-            286,
-            26
+            147,
+            41,
+            308,
+            47
           ]
         }
       ]
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1113,
-            1306,
-            203,
-            129
+            190,
+            1265,
+            213,
+            135
           ],
           "margin": [
-            135,
-            91,
-            289,
-            97
+            130,
+            85,
+            279,
+            91
           ]
         },
         {
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1320,
-            1306,
-            219,
-            118
+            407,
+            1265,
+            241,
+            130
           ],
           "margin": [
-            138,
-            102,
-            273,
-            108
+            128,
+            90,
+            251,
+            96
           ]
         },
         {
@@ -1729,16 +1729,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1543,
-            1306,
-            286,
-            115
+            652,
+            1265,
+            281,
+            113
           ],
           "margin": [
-            105,
-            105,
-            206,
-            111
+            108,
+            107,
+            211,
+            113
           ]
         }
       ]
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            1522,
-            238,
-            186
+            937,
+            1265,
+            226,
+            176
           ],
           "margin": [
-            123,
-            34,
-            254,
-            40
+            129,
+            44,
+            266,
+            50
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            244,
-            1522,
-            230,
-            189
+            1167,
+            1265,
+            227,
+            187
           ],
           "margin": [
-            126,
-            31,
-            262,
-            37
+            128,
+            33,
+            265,
+            39
           ]
         },
         {
@@ -1826,16 +1826,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            478,
-            1522,
-            217,
-            185
+            1398,
+            1265,
+            213,
+            182
           ],
           "margin": [
-            128,
-            35,
-            275,
-            41
+            130,
+            38,
+            279,
+            44
           ]
         },
         {
@@ -1856,16 +1856,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            699,
-            1522,
-            216,
-            185
+            1615,
+            1265,
+            211,
+            180
           ],
           "margin": [
-            128,
-            35,
-            276,
-            41
+            130,
+            40,
+            281,
+            46
           ]
         },
         {
@@ -1886,16 +1886,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            919,
-            1522,
-            224,
-            189
+            2,
+            1460,
+            219,
+            184
           ],
           "margin": [
-            123,
-            33,
-            268,
-            37
+            126,
+            37,
+            273,
+            42
           ]
         },
         {
@@ -1916,16 +1916,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1147,
-            1522,
-            207,
-            186
+            225,
+            1460,
+            200,
+            180
           ],
           "margin": [
-            138,
-            34,
-            285,
-            40
+            142,
+            40,
+            292,
+            46
           ]
         },
         {
@@ -1946,16 +1946,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1358,
-            1522,
-            208,
-            186
+            429,
+            1460,
+            205,
+            183
           ],
           "margin": [
-            136,
-            34,
-            284,
-            40
+            137,
+            37,
+            287,
+            43
           ]
         },
         {
@@ -1976,16 +1976,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1570,
-            1522,
-            221,
-            190
+            638,
+            1460,
+            216,
+            186
           ],
           "margin": [
-            126,
-            30,
-            271,
-            36
+            128,
+            34,
+            276,
+            40
           ]
         },
         {
@@ -2006,16 +2006,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1795,
-            1522,
-            247,
-            186
+            858,
+            1460,
+            239,
+            180
           ],
           "margin": [
-            106,
-            34,
-            245,
-            40
+            110,
+            40,
+            253,
+            46
           ]
         },
         {
@@ -2036,16 +2036,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            1720,
-            256,
-            186
+            1101,
+            1460,
+            244,
+            177
           ],
           "margin": [
-            101,
-            34,
-            236,
-            40
+            108,
+            43,
+            248,
+            49
           ]
         },
         {
@@ -2066,16 +2066,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            262,
-            1720,
-            253,
-            189
+            1349,
+            1460,
+            249,
+            186
           ],
           "margin": [
-            101,
-            31,
-            239,
-            37
+            103,
+            34,
+            243,
+            40
           ]
         },
         {
@@ -2096,16 +2096,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            519,
-            1720,
+            1602,
+            1460,
             212,
-            184
+            185
           ],
           "margin": [
             134,
-            36,
+            35,
             280,
-            42
+            41
           ]
         }
       ]
@@ -2133,8 +2133,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            735,
-            1720,
+            1818,
+            1460,
             211,
             183
           ],
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            950,
-            1720,
-            226,
-            185
+            2,
+            1654,
+            216,
+            177
           ],
           "margin": [
-            120,
-            35,
-            266,
-            41
+            126,
+            43,
+            276,
+            49
           ]
         },
         {
@@ -2193,16 +2193,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1180,
-            1720,
-            244,
-            180
+            222,
+            1654,
+            230,
+            170
           ],
           "margin": [
-            107,
-            40,
-            248,
-            46
+            114,
+            50,
+            262,
+            56
           ]
         },
         {
@@ -2223,16 +2223,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1428,
-            1720,
-            249,
-            180
+            456,
+            1654,
+            233,
+            168
           ],
           "margin": [
-            100,
-            40,
-            243,
-            46
+            109,
+            52,
+            259,
+            58
           ]
         },
         {
@@ -2253,16 +2253,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1681,
-            1720,
-            223,
-            182
+            693,
+            1654,
+            220,
+            180
           ],
           "margin": [
-            135,
-            38,
-            269,
-            44
+            136,
+            40,
+            272,
+            46
           ]
         },
         {
@@ -2281,18 +2281,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            219,
-            179
+            917,
+            1654,
+            217,
+            177
           ],
           "margin": [
-            136,
-            41,
-            273,
-            47
+            138,
+            43,
+            275,
+            49
           ]
         },
         {
@@ -2311,18 +2311,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            225,
-            2,
-            219,
-            180
+            1138,
+            1654,
+            221,
+            181
           ],
           "margin": [
-            136,
-            40,
-            273,
-            46
+            135,
+            39,
+            271,
+            45
           ]
         },
         {
@@ -2341,18 +2341,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            448,
-            2,
-            226,
-            185
+            1363,
+            1654,
+            228,
+            186
           ],
           "margin": [
             130,
-            35,
-            266,
-            41
+            34,
+            264,
+            40
           ]
         },
         {
@@ -2371,18 +2371,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            678,
-            2,
-            218,
-            182
+            1595,
+            1654,
+            220,
+            184
           ],
           "margin": [
-            136,
-            38,
-            274,
-            44
+            134,
+            36,
+            272,
+            42
           ]
         },
         {
@@ -2401,18 +2401,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            900,
-            2,
-            209,
-            181
+            1819,
+            1654,
+            213,
+            184
           ],
           "margin": [
-            141,
-            39,
-            283,
-            45
+            139,
+            36,
+            279,
+            42
           ]
         },
         {
@@ -2431,18 +2431,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1113,
             2,
-            212,
-            182
+            1848,
+            218,
+            187
           ],
           "margin": [
-            138,
-            38,
-            280,
-            44
+            135,
+            33,
+            274,
+            39
           ]
         },
         {
@@ -2461,18 +2461,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1329,
-            2,
-            202,
-            174
+            224,
+            1848,
+            212,
+            183
           ],
           "margin": [
-            145,
-            46,
-            290,
-            52
+            140,
+            38,
+            280,
+            43
           ]
         }
       ]
@@ -2498,18 +2498,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1535,
-            2,
-            198,
-            173
+            440,
+            1848,
+            212,
+            185
           ],
           "margin": [
-            147,
-            46,
-            294,
-            53
+            141,
+            35,
+            280,
+            41
           ]
         },
         {
@@ -2528,18 +2528,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            1737,
-            2,
-            197,
-            178
+            656,
+            1848,
+            205,
+            186
           ],
           "margin": [
-            148,
-            42,
-            295,
-            48
+            144,
+            34,
+            287,
+            40
           ]
         },
         {
@@ -2558,18 +2558,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            195,
-            175,
-            176
+            865,
+            1848,
+            180,
+            181
           ],
           "margin": [
-            154,
-            44,
-            317,
-            50
+            152,
+            39,
+            312,
+            45
           ]
         },
         {
@@ -2588,18 +2588,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            181,
-            195,
-            175,
-            178
+            1049,
+            1848,
+            179,
+            182
           ],
           "margin": [
-            146,
-            41,
-            317,
-            48
+            144,
+            39,
+            313,
+            44
           ]
         },
         {
@@ -2618,18 +2618,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            360,
-            195,
-            189,
-            182
+            1232,
+            1848,
+            193,
+            186
           ],
           "margin": [
-            143,
-            39,
-            303,
-            44
+            141,
+            34,
+            299,
+            40
           ]
         },
         {
@@ -2648,18 +2648,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            553,
-            195,
-            198,
-            179
+            1429,
+            1848,
+            203,
+            184
           ],
           "margin": [
-            143,
-            42,
-            294,
-            47
+            140,
+            36,
+            289,
+            42
           ]
         },
         {
@@ -2678,18 +2678,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            755,
-            195,
-            197,
-            179
+            1636,
+            1848,
+            202,
+            184
           ],
           "margin": [
-            144,
-            42,
-            295,
-            47
+            142,
+            36,
+            290,
+            42
           ]
         },
         {
@@ -2708,18 +2708,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
           "region": [
-            956,
-            195,
-            186,
-            183
+            1842,
+            1848,
+            190,
+            187
           ],
           "margin": [
-            144,
-            38,
-            306,
-            43
+            142,
+            33,
+            302,
+            39
           ]
         },
         {
@@ -2740,16 +2740,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1146,
-            195,
-            184,
-            179
+            2,
+            2,
+            189,
+            184
           ],
           "margin": [
-            145,
-            42,
-            308,
-            47
+            142,
+            36,
+            303,
+            42
           ]
         },
         {
@@ -2770,16 +2770,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1334,
             195,
+            2,
             199,
-            186
+            187
           ],
           "margin": [
             140,
-            34,
+            33,
             293,
-            40
+            39
           ]
         },
         {
@@ -2800,16 +2800,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1537,
-            195,
-            216,
-            202
+            398,
+            2,
+            204,
+            191
           ],
           "margin": [
-            133,
-            18,
-            276,
-            24
+            139,
+            29,
+            288,
+            35
           ]
         },
         {
@@ -2830,16 +2830,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1757,
-            195,
-            227,
-            211
+            606,
+            2,
+            197,
+            183
           ],
           "margin": [
-            134,
-            9,
-            265,
-            15
+            149,
+            37,
+            295,
+            43
           ]
         }
       ]
@@ -2867,16 +2867,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
+            807,
             2,
-            414,
-            179,
-            176
+            185,
+            182
           ],
           "margin": [
-            144,
-            45,
-            313,
-            50
+            142,
+            38,
+            307,
+            44
           ]
         },
         {
@@ -2897,16 +2897,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            185,
-            414,
-            183,
-            176
+            996,
+            2,
+            190,
+            183
           ],
           "margin": [
-            140,
-            45,
-            309,
-            50
+            138,
+            37,
+            302,
+            43
           ]
         }
       ]
@@ -2934,16 +2934,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            372,
-            414,
-            199,
-            186
+            1190,
+            2,
+            191,
+            179
           ],
           "margin": [
-            140,
-            34,
-            293,
-            40
+            145,
+            43,
+            301,
+            47
           ]
         },
         {
@@ -2964,16 +2964,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            575,
-            414,
-            201,
-            191
+            1385,
+            2,
+            197,
+            187
           ],
           "margin": [
-            140,
-            29,
-            291,
-            35
+            142,
+            33,
+            295,
+            39
           ]
         },
         {
@@ -2994,16 +2994,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            780,
-            414,
-            203,
-            189
+            1586,
+            2,
+            197,
+            183
           ],
           "margin": [
-            136,
-            31,
-            289,
-            37
+            138,
+            37,
+            295,
+            43
           ]
         },
         {
@@ -3024,16 +3024,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            987,
-            414,
-            203,
-            188
+            1787,
+            2,
+            199,
+            185
           ],
           "margin": [
-            134,
-            32,
-            289,
-            38
+            136,
+            35,
+            293,
+            41
           ]
         },
         {
@@ -3054,16 +3054,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1194,
-            414,
-            206,
-            190
+            2,
+            201,
+            198,
+            183
           ],
           "margin": [
-            133,
-            30,
-            286,
-            36
+            137,
+            37,
+            294,
+            43
           ]
         },
         {
@@ -3084,16 +3084,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1404,
-            414,
-            196,
-            185
+            204,
+            201,
+            190,
+            179
           ],
           "margin": [
-            138,
-            35,
-            296,
-            41
+            142,
+            41,
+            302,
+            47
           ]
         },
         {
@@ -3114,16 +3114,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1604,
-            414,
-            193,
-            185
+            398,
+            201,
+            190,
+            183
           ],
           "margin": [
-            142,
-            35,
-            299,
-            41
+            144,
+            37,
+            302,
+            43
           ]
         },
         {
@@ -3144,16 +3144,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1801,
-            414,
-            194,
-            190
+            592,
+            201,
+            187,
+            183
           ],
           "margin": [
-            141,
-            30,
-            298,
-            36
+            144,
+            37,
+            305,
+            43
           ]
         },
         {
@@ -3174,16 +3174,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            2,
-            613,
-            193,
-            189
+            783,
+            201,
+            185,
+            181
           ],
           "margin": [
-            141,
-            31,
-            299,
-            37
+            145,
+            39,
+            307,
+            45
           ]
         },
         {
@@ -3204,16 +3204,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            199,
-            613,
-            187,
-            188
+            972,
+            201,
+            179,
+            180
           ],
           "margin": [
-            143,
-            32,
-            305,
-            38
+            147,
+            40,
+            313,
+            46
           ]
         },
         {
@@ -3234,8 +3234,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            390,
-            613,
+            1155,
+            201,
             178,
             190
           ],
@@ -3264,16 +3264,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            572,
-            613,
-            172,
-            183
+            1337,
+            201,
+            184,
+            196
           ],
           "margin": [
-            149,
-            37,
-            320,
-            43
+            143,
+            24,
+            308,
+            30
           ]
         }
       ]
@@ -3301,16 +3301,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            748,
-            613,
-            169,
-            181
+            1525,
+            201,
+            180,
+            193
           ],
           "margin": [
-            150,
-            39,
-            323,
-            45
+            144,
+            27,
+            312,
+            33
           ]
         },
         {
@@ -3331,16 +3331,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            921,
-            613,
-            174,
-            183
+            1709,
+            201,
+            182,
+            192
           ],
           "margin": [
-            152,
-            37,
-            318,
-            43
+            148,
+            28,
+            310,
+            34
           ]
         },
         {
@@ -3361,16 +3361,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1099,
-            613,
-            173,
-            179
+            2,
+            405,
+            182,
+            189
           ],
           "margin": [
-            152,
-            41,
-            319,
-            47
+            146,
+            31,
+            310,
+            37
           ]
         },
         {
@@ -3391,16 +3391,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1276,
-            613,
-            178,
-            178
+            188,
+            405,
+            187,
+            187
           ],
           "margin": [
-            149,
-            42,
-            314,
-            48
+            145,
+            33,
+            305,
+            39
           ]
         },
         {
@@ -3421,16 +3421,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1458,
-            613,
-            198,
-            178
+            379,
+            405,
+            209,
+            188
           ],
           "margin": [
-            134,
-            42,
-            294,
-            48
+            128,
+            32,
+            283,
+            38
           ]
         },
         {
@@ -3451,16 +3451,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1660,
-            613,
-            209,
-            172
+            592,
+            405,
+            216,
+            178
           ],
           "margin": [
-            124,
-            48,
-            283,
-            54
+            120,
+            42,
+            276,
+            48
           ]
         },
         {
@@ -3481,16 +3481,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            2,
-            811,
-            202,
-            172
+            812,
+            405,
+            210,
+            179
           ],
           "margin": [
-            129,
-            48,
-            290,
-            54
+            125,
+            41,
+            282,
+            47
           ]
         },
         {
@@ -3511,16 +3511,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            208,
-            811,
-            194,
-            176
+            1026,
+            405,
+            200,
+            181
           ],
           "margin": [
-            135,
-            44,
-            298,
-            50
+            131,
+            39,
+            292,
+            45
           ]
         },
         {
@@ -3541,16 +3541,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            406,
-            811,
-            187,
-            173
+            1230,
+            405,
+            191,
+            177
           ],
           "margin": [
-            139,
-            48,
-            305,
-            53
+            137,
+            43,
+            301,
+            49
           ]
         },
         {
@@ -3571,16 +3571,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            597,
-            811,
-            181,
-            176
+            1425,
+            405,
+            188,
+            182
           ],
           "margin": [
-            146,
-            44,
-            311,
-            50
+            142,
+            38,
+            304,
+            44
           ]
         },
         {
@@ -3601,16 +3601,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            782,
-            811,
-            191,
-            185
+            1617,
+            405,
+            189,
+            184
           ],
           "margin": [
-            140,
-            35,
-            301,
-            41
+            142,
+            36,
+            303,
+            42
           ]
         },
         {
@@ -3631,16 +3631,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            977,
-            811,
-            190,
-            188
+            1810,
+            405,
+            186,
+            184
           ],
           "margin": [
-            140,
-            32,
-            302,
-            38
+            142,
+            36,
+            306,
+            42
           ]
         }
       ]
@@ -3668,16 +3668,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1171,
-            811,
-            193,
-            192
+            2,
+            602,
+            191,
+            190
           ],
           "margin": [
-            138,
-            28,
-            299,
-            34
+            139,
+            30,
+            301,
+            36
           ]
         },
         {
@@ -3698,16 +3698,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1368,
-            811,
-            198,
-            196
+            197,
+            602,
+            193,
+            190
           ],
           "margin": [
-            138,
-            24,
-            294,
-            30
+            140,
+            30,
+            299,
+            36
           ]
         },
         {
@@ -3728,16 +3728,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1570,
-            811,
-            208,
-            192
+            394,
+            602,
+            194,
+            180
           ],
           "margin": [
-            130,
-            28,
-            284,
-            34
+            138,
+            41,
+            298,
+            46
           ]
         },
         {
@@ -3758,16 +3758,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1782,
-            811,
-            200,
-            191
+            592,
+            602,
+            190,
+            181
           ],
           "margin": [
-            134,
-            29,
-            292,
-            35
+            140,
+            40,
+            302,
+            45
           ]
         },
         {
@@ -3788,16 +3788,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            2,
-            1015,
-            214,
-            193
+            786,
+            602,
+            199,
+            179
           ],
           "margin": [
-            125,
-            27,
-            278,
-            33
+            133,
+            43,
+            293,
+            47
           ]
         },
         {
@@ -3818,16 +3818,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            220,
-            1015,
-            214,
-            187
+            989,
+            602,
+            198,
+            173
           ],
           "margin": [
-            123,
-            33,
-            278,
-            39
+            132,
+            48,
+            294,
+            53
           ]
         },
         {
@@ -3848,16 +3848,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            438,
-            1015,
-            219,
-            186
+            1191,
+            602,
+            198,
+            169
           ],
           "margin": [
-            122,
-            34,
-            273,
-            40
+            134,
+            52,
+            294,
+            57
           ]
         },
         {
@@ -3878,16 +3878,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            661,
-            1015,
-            219,
-            190
+            1393,
+            602,
+            194,
+            168
           ],
           "margin": [
-            122,
-            30,
-            273,
-            36
+            135,
+            54,
+            298,
+            58
           ]
         },
         {
@@ -3908,16 +3908,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            884,
-            1015,
-            222,
-            187
+            1591,
+            602,
+            197,
+            166
           ],
           "margin": [
-            125,
-            33,
-            270,
-            39
+            138,
+            55,
+            295,
+            60
           ]
         },
         {
@@ -3938,16 +3938,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1110,
-            1015,
-            233,
-            193
+            1792,
+            602,
+            210,
+            173
           ],
           "margin": [
-            120,
-            27,
-            259,
-            33
+            132,
+            47,
+            282,
+            53
           ]
         },
         {
@@ -3968,16 +3968,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1347,
-            1015,
-            253,
-            206
+            2,
+            800,
+            220,
+            180
           ],
           "margin": [
-            118,
-            14,
-            239,
-            20
+            134,
+            40,
+            272,
+            46
           ]
         },
         {
@@ -3998,16 +3998,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            1604,
-            1015,
-            256,
-            213
+            226,
+            800,
+            213,
+            177
           ],
           "margin": [
-            120,
-            7,
-            236,
-            13
+            141,
+            45,
+            279,
+            49
           ]
         }
       ]
@@ -4035,16 +4035,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            2,
-            1236,
-            225,
-            182
+            443,
+            800,
+            212,
+            172
           ],
           "margin": [
-            131,
-            38,
-            267,
-            44
+            138,
+            49,
+            280,
+            54
           ]
         },
         {
@@ -4065,16 +4065,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
           "region": [
-            231,
-            1236,
-            214,
-            182
+            659,
+            800,
+            206,
+            175
           ],
           "margin": [
-            136,
-            38,
-            278,
-            44
+            140,
+            46,
+            286,
+            51
           ]
         }
       ]

@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7_manifest.json",
   "baseline_sha256": "2c00e778c6db95d437ef018a9ccceb89e1c6c996d07d5af069945193785188a9",
+  "baseline_canvas": [
+    360,
+    246
+  ],
+  "symmetric_padding": [
+    0,
+    0
+  ],
   "new_drawings": 133,
   "old_frame_refs": 133,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "erasure_bailiff__03",
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "sha256": "af2a40dd2b42dc698137669eecc6df7b678328810e6db899d18ebd21c48207c2",
-      "used_drawings": 24
+      "used_drawings": 21
+    },
+    {
+      "id": "death_settle_01",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
+      "sha256": "9274c2a13184390f8e31444d24792f50d742de4e0649ef49ce49e4d9d6919fc0",
+      "used_drawings": 3
     },
     {
       "id": "erasure_bailiff__04",
@@ -47,8 +61,8 @@
   "registrations": [
     {
       "margin_xy": [
-        74,
-        26
+        78,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -58,19 +72,25 @@
         166
       ],
       "source_index": 0,
-      "scale": 1.2911392405063291,
+      "scale": 1.2189512597286973,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.62967588255478,
+        "target": 144.6037928582472,
+        "registered": 144.59944674859582
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        68,
-        25
+        74,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -80,19 +100,25 @@
         165
       ],
       "source_index": 1,
-      "scale": 1.305732484076433,
+      "scale": 1.2275461375226253,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.06354221350468,
+        "target": 144.9284452264271,
+        "registered": 145.12753012437028
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        59,
-        25
+        64,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -102,19 +128,25 @@
         165
       ],
       "source_index": 2,
-      "scale": 1.3089171974522293,
+      "scale": 1.241810591906539,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.957257149781,
+        "target": 145.23876072893484,
+        "registered": 145.09307357692853
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        58,
-        25
+        64,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -124,19 +156,25 @@
         168
       ],
       "source_index": 3,
-      "scale": 1.278125,
+      "scale": 1.2160435317915448,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.16794871105233,
+        "target": 144.91341322694174,
+        "registered": 144.9310180741169
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        77,
-        38
+        80,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -146,19 +184,25 @@
         164
       ],
       "source_index": 4,
-      "scale": 1.233974358974359,
+      "scale": 1.195211162615146,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.52823934116992,
+        "target": 142.86148590830115,
+        "registered": 143.0314650697531
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        64,
-        40
+        68,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -168,19 +212,25 @@
         167
       ],
       "source_index": 5,
-      "scale": 1.1949685534591195,
+      "scale": 1.1678691000944172,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.55610959882824,
+        "target": 143.12949342825632,
+        "registered": 143.15027069481914
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        60,
-        37
+        65,
+        47
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -190,19 +240,25 @@
         166
       ],
       "source_index": 6,
-      "scale": 1.2215189873417722,
+      "scale": 1.161624750951472,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.20474622534103,
+        "target": 141.95605789909962,
+        "registered": 142.01408380861386
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        64,
-        38
+        70,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -212,12 +268,18 @@
         167
       ],
       "source_index": 7,
-      "scale": 1.2106918238993711,
+      "scale": 1.1590531760426996,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.45849504995596,
+        "target": 143.09496079710337,
+        "registered": 143.2515270424717
+      },
       "animation": "walk",
       "after": 3
     },
@@ -234,19 +296,25 @@
         170
       ],
       "source_index": 8,
-      "scale": 1.1574074074074074,
+      "scale": 1.1560326863717953,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.45481107614924,
+        "target": 143.8738295802551,
+        "registered": 144.23245127224317
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        72,
-        50
+        71,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -256,12 +324,18 @@
         170
       ],
       "source_index": 9,
-      "scale": 1.117283950617284,
+      "scale": 1.128328229270908,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.77144788949916,
+        "target": 143.03980331926778,
+        "registered": 143.09437445266673
+      },
       "animation": "walk",
       "after": 5
     },
@@ -278,19 +352,25 @@
         171
       ],
       "source_index": 10,
-      "scale": 1.1134969325153374,
+      "scale": 1.1126292067477608,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.08658465786229,
+        "target": 141.40024587615946,
+        "registered": 141.43549766589715
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        73,
-        40
+        76,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -300,19 +380,25 @@
         171
       ],
       "source_index": 11,
-      "scale": 1.1717791411042944,
+      "scale": 1.1326244655120645,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.33824833895642,
+        "target": 140.82854206761687,
+        "registered": 140.9538931707812
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        74,
-        24
+        78,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -322,19 +408,25 @@
         167
       ],
       "source_index": 12,
-      "scale": 1.2955974842767295,
+      "scale": 1.2376994988323202,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.33560397529412,
+        "target": 151.41471572957073,
+        "registered": 151.47937153289223
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        73,
-        21
+        78,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -344,19 +436,25 @@
         168
       ],
       "source_index": 13,
-      "scale": 1.303125,
+      "scale": 1.2433191534221517,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.45118572576347,
+        "target": 155.97586203236136,
+        "registered": 156.17618256315527
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        78,
-        26
+        82,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -366,19 +464,25 @@
         172
       ],
       "source_index": 14,
-      "scale": 1.2469512195121952,
+      "scale": 1.199374699868238,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.93546707863734,
+        "target": 148.64506363047056,
+        "registered": 148.4722196237397
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        76,
-        24
+        78,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -388,19 +492,25 @@
         174
       ],
       "source_index": 15,
-      "scale": 1.2439759036144578,
+      "scale": 1.2163958874449705,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.51922927220684,
+        "target": 150.2482825070848,
+        "registered": 150.3163331112092
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        76,
-        16
+        80,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -410,19 +520,25 @@
         174
       ],
       "source_index": 16,
-      "scale": 1.286144578313253,
+      "scale": 1.2421708349601337,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.42266674525185,
+        "target": 154.55420783891594,
+        "registered": 154.38588018338982
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        98,
-        17
+        100,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -432,19 +548,25 @@
         185
       ],
       "source_index": 17,
-      "scale": 1.2062146892655368,
+      "scale": 1.1868691220990082,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.62136844775465,
+        "target": 145.53551592016558,
+        "registered": 145.657131648265
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        100,
-        14
+        98,
+        13
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -454,19 +576,25 @@
         186
       ],
       "source_index": 18,
-      "scale": 1.2134831460674158,
+      "scale": 1.2191661786504566,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.28537211242626,
+        "target": 145.42869128720446,
+        "registered": 145.4819576442385
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        94,
-        10
+        96,
+        14
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -476,19 +604,25 @@
         183
       ],
       "source_index": 19,
-      "scale": 1.2571428571428571,
+      "scale": 1.2326096808179219,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.06664815842908,
+        "target": 147.99531286343898,
+        "registered": 148.16882263148344
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        89,
-        13
+        93,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -498,19 +632,25 @@
         182
       ],
       "source_index": 20,
-      "scale": 1.2471264367816093,
+      "scale": 1.181591437058958,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.25792407856433,
+        "target": 144.4589162038358,
+        "registered": 144.62019222777985
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        88,
-        15
+        92,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -520,19 +660,25 @@
         182
       ],
       "source_index": 21,
-      "scale": 1.2385057471264367,
+      "scale": 1.1689708641800973,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.16249429107873,
+        "target": 143.9733673860186,
+        "registered": 144.09024949662626
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
         90,
-        15
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -542,19 +688,25 @@
         185
       ],
       "source_index": 22,
-      "scale": 1.2175141242937852,
+      "scale": 1.2041800758664283,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.40988615179904,
+        "target": 148.60772606894065,
+        "registered": 148.7783586413024
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        88,
-        22
+        91,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__01.png",
       "source_region": [
@@ -564,19 +716,25 @@
         180
       ],
       "source_index": 23,
-      "scale": 1.2122093023255813,
+      "scale": 1.1701749232348453,
       "rgb_gain": [
         0.875995,
         0.872151,
         0.852579
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.3210196285638,
+        "target": 147.81768944680204,
+        "registered": 148.01013478812862
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        78,
-        28
+        82,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -586,19 +744,25 @@
         177
       ],
       "source_index": 0,
-      "scale": 1.198224852071006,
+      "scale": 1.147649198159841,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.28935030318273,
+        "target": 144.93587161157492,
+        "registered": 144.74805698177784
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
         78,
-        31
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -608,19 +772,25 @@
         171
       ],
       "source_index": 1,
-      "scale": 1.2208588957055215,
+      "scale": 1.2081346321473574,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.63546846704592,
+        "target": 150.57642584894808,
+        "registered": 150.6154042586614
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        70,
-        42
+        78,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -630,19 +800,25 @@
         169
       ],
       "source_index": 2,
-      "scale": 1.170807453416149,
+      "scale": 1.0940930715971982,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.62729734108285,
+        "target": 145.10660712554025,
+        "registered": 145.04137340772803
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        72,
-        48
+        79,
+        61
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -652,19 +828,25 @@
         165
       ],
       "source_index": 3,
-      "scale": 1.1624203821656052,
+      "scale": 1.0857832745155969,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.11622671066561,
+        "target": 140.19223943100468,
+        "registered": 139.97499776745846
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        66,
-        48
+        70,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -674,19 +856,25 @@
         160
       ],
       "source_index": 4,
-      "scale": 1.200657894736842,
+      "scale": 1.1705191943738924,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.84221193433206,
+        "target": 151.98280130909856,
+        "registered": 151.7893276880822
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        51,
-        55
+        63,
+        73
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -696,19 +884,25 @@
         155
       ],
       "source_index": 5,
-      "scale": 1.1904761904761905,
+      "scale": 1.0755215477761355,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.6735268670052,
+        "target": 148.0708447038008,
+        "registered": 148.17557153593165
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        60,
-        63
+        68,
+        76
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -718,19 +912,25 @@
         158
       ],
       "source_index": 6,
-      "scale": 1.12,
+      "scale": 1.0402327955904402,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.28437638711844,
+        "target": 142.80771064006245,
+        "registered": 142.71650219929018
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        66,
-        67
+        60,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -740,19 +940,25 @@
         159
       ],
       "source_index": 7,
-      "scale": 1.086092715231788,
+      "scale": 1.136768830366048,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.0,
+        "target": 150.05348560831834,
+        "registered": 150.25644744901965
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        76,
-        80
+        67,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -762,19 +968,25 @@
         162
       ],
       "source_index": 8,
-      "scale": 0.9935064935064936,
+      "scale": 1.0899898536052612,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.8565093427569,
+        "target": 140.45228775459657,
+        "registered": 140.62005546862795
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        73,
-        75
+        64,
+        61
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -784,19 +996,25 @@
         162
       ],
       "source_index": 9,
-      "scale": 1.0194805194805194,
+      "scale": 1.103883990953059,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.34306224540373,
+        "target": 144.9875037354523,
+        "registered": 145.0241359222664
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        62,
-        55
+        70,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -806,19 +1024,25 @@
         159
       ],
       "source_index": 10,
-      "scale": 1.1655629139072847,
+      "scale": 1.0883535477861201,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 138.6145735483827,
+        "target": 150.8616628962424,
+        "registered": 150.8542342793201
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        70,
-        43
+        82,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -828,19 +1052,25 @@
         163
       ],
       "source_index": 11,
-      "scale": 1.2096774193548387,
+      "scale": 1.0812701329107757,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.34953011039204,
+        "target": 140.94305374732076,
+        "registered": 140.65916251705752
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        68,
-        35
+        78,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -850,19 +1080,25 @@
         165
       ],
       "source_index": 12,
-      "scale": 1.2420382165605095,
+      "scale": 1.1226210451571152,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.13351974228405,
+        "target": 147.21324898821413,
+        "registered": 147.2820423541173
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        48,
-        33
+        68,
+        66
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -872,19 +1108,25 @@
         157
       ],
       "source_index": 13,
-      "scale": 1.3187919463087248,
+      "scale": 1.1109508956656124,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.4404632064843,
+        "target": 151.57865480427478,
+        "registered": 151.4859729479928
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        48,
-        38
+        74,
+        77
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -894,19 +1136,25 @@
         148
       ],
       "source_index": 14,
-      "scale": 1.3678571428571429,
+      "scale": 1.098386928378171,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.664991614216,
+        "target": 145.71749264245454,
+        "registered": 145.84580899017976
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        60,
-        38
+        78,
+        69
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -916,19 +1164,25 @@
         161
       ],
       "source_index": 15,
-      "scale": 1.2516339869281046,
+      "scale": 1.0625318862837922,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.1506518530117,
+        "target": 144.66440893214843,
+        "registered": 144.63747785411636
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        65,
-        35
+        75,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -938,19 +1192,25 @@
         163
       ],
       "source_index": 16,
-      "scale": 1.2580645161290323,
+      "scale": 1.1495500202183158,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.3687079018581,
+        "target": 149.8653508044167,
+        "registered": 149.6963593411677
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        72,
-        39
+        78,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -960,19 +1220,25 @@
         165
       ],
       "source_index": 17,
-      "scale": 1.2197452229299364,
+      "scale": 1.1499165021904265,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.5453588516393,
+        "target": 148.96634592568066,
+        "registered": 149.1274622596388
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        71,
-        41
+        78,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -982,19 +1248,25 @@
         164
       ],
       "source_index": 18,
-      "scale": 1.2115384615384615,
+      "scale": 1.1372365447849127,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.3560976529518,
+        "target": 147.10848154170264,
+        "registered": 147.2820423541173
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        58,
-        43
+        64,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -1004,19 +1276,25 @@
         162
       ],
       "source_index": 19,
-      "scale": 1.2175324675324675,
+      "scale": 1.147130137858274,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.56367279762298,
+        "target": 150.9206541134781,
+        "registered": 150.75145107095983
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        62,
-        52
+        70,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -1026,19 +1304,25 @@
         163
       ],
       "source_index": 20,
-      "scale": 1.1548387096774193,
+      "scale": 1.0828825566908138,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.6699669562594,
+        "target": 145.8317581270616,
+        "registered": 145.8629493737186
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        58,
-        49
+        60,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -1048,19 +1332,25 @@
         169
       ],
       "source_index": 21,
-      "scale": 1.1273291925465838,
+      "scale": 1.1070070542067705,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.37541002748594,
+        "target": 147.64751975814738,
+        "registered": 147.6787053031005
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        56,
-        36
+        62,
+        47
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -1070,19 +1360,25 @@
         173
       ],
       "source_index": 22,
-      "scale": 1.1818181818181819,
+      "scale": 1.1132707598189728,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.39281506003167,
+        "target": 151.84213285573009,
+        "registered": 151.99013125857877
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        64,
-        29
+        72,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__02.png",
       "source_region": [
@@ -1092,19 +1388,25 @@
         172
       ],
       "source_index": 23,
-      "scale": 1.228658536585366,
+      "scale": 1.128536638197936,
       "rgb_gain": [
         0.900988,
         0.884132,
         0.857039
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.639029847088,
+        "target": 145.17385828467667,
+        "registered": 145.11030287336595
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        86,
-        66
+        85,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1114,19 +1416,25 @@
         179
       ],
       "source_index": 0,
-      "scale": 0.9766081871345029,
+      "scale": 0.988146931284113,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.08145690656434,
+        "target": 133.4803271156087,
+        "registered": 133.52153384379613
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        74,
-        73
+        76,
+        77
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1136,19 +1444,25 @@
         170
       ],
       "source_index": 1,
-      "scale": 0.9876543209876543,
+      "scale": 0.9555219805698364,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.0074072041975,
+        "target": 129.0025451233532,
+        "registered": 128.89142717807107
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        86,
-        93
+        80,
+        82
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1158,19 +1472,25 @@
         157
       ],
       "source_index": 2,
-      "scale": 0.9295302013422819,
+      "scale": 1.012772255107165,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.00787377166819,
+        "target": 128.63005073609853,
+        "registered": 128.49124483792662
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        -12,
-        65
+        32,
+        107
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1180,85 +1500,124 @@
         120
       ],
       "source_index": 3,
-      "scale": 1.46875,
+      "scale": 1.1084643796369014,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.58731877683218,
+        "target": 138.10060501858615,
+        "registered": 138.06520198804623
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        108,
-        118
+        92,
+        107
       ],
-      "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1048,
-        91,
-        194,
-        140
+        556,
+        346,
+        164,
+        111
       ],
-      "source_index": 4,
-      "scale": 0.8674242424242424,
+      "source_index": 8,
+      "scale": 1.1982393785125391,
       "rgb_gain": [
-        0.899897,
-        0.874207,
-        0.869302
+        0.872188,
+        0.874082,
+        0.869393
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 92.90317540321213,
+        "target": 111.32024315698632,
+        "registered": 111.41813137905338
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
         54,
-        125
+        131
       ],
-      "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1288,
-        137,
-        226,
-        98
+        803,
+        385,
+        181,
+        77
       ],
-      "source_index": 5,
-      "scale": 1.1722222222222223,
+      "source_index": 9,
+      "scale": 1.4198725436957225,
       "rgb_gain": [
-        0.899897,
-        0.874207,
-        0.869302
+        0.85,
+        0.851029,
+        0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 81.17881497040962,
+        "target": 115.2635705062399,
+        "registered": 115.02173707608489
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        126,
-        116
+        47,
+        126
       ],
-      "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        32,
-        306,
-        207,
-        165
+        1046,
+        382,
+        191,
+        79
       ],
-      "source_index": 6,
-      "scale": 0.7452229299363057,
+      "source_index": 10,
+      "scale": 1.4376421096343155,
       "rgb_gain": [
-        0.899897,
-        0.874207,
-        0.869302
+        0.85,
+        0.85,
+        0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 84.84692098125895,
+        "target": 121.97950647547317,
+        "registered": 122.23747379588634
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        58,
-        21
+        80,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1268,19 +1627,25 @@
         154
       ],
       "source_index": 7,
-      "scale": 1.4246575342465753,
+      "scale": 1.1518804891272663,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.23977004130916,
+        "target": 144.26124757336953,
+        "registered": 143.97221954252146
+      },
       "animation": "charge",
       "after": 0
     },
     {
       "margin_xy": [
-        -29,
-        18
+        46,
+        99
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1290,19 +1655,25 @@
         121
       ],
       "source_index": 8,
-      "scale": 1.8407079646017699,
+      "scale": 1.1628300988104694,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.06046912695437,
+        "target": 144.26124757336953,
+        "registered": 144.30523206037958
+      },
       "animation": "charge",
       "after": 1
     },
     {
       "margin_xy": [
-        77,
-        44
+        68,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1312,19 +1683,25 @@
         180
       ],
       "source_index": 9,
-      "scale": 1.0901162790697674,
+      "scale": 1.2015716092269242,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.56426885516024,
+        "target": 147.26974576201627,
+        "registered": 147.31259280862582
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        -47,
-        33
+        16,
+        94
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1334,19 +1711,25 @@
         112
       ],
       "source_index": 10,
-      "scale": 1.8605769230769231,
+      "scale": 1.307841917102849,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.84903970253703,
+        "target": 151.5122301790901,
+        "registered": 151.32085117392117
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        -22,
-        35
+        23,
+        84
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1356,19 +1739,25 @@
         125
       ],
       "source_index": 11,
-      "scale": 1.6452991452991452,
+      "scale": 1.2449863035934623,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.22248110151038,
+        "target": 148.43035605181083,
+        "registered": 148.509258970611
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        -40,
-        32
+        16,
+        89
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1378,19 +1767,25 @@
         117
       ],
       "source_index": 12,
-      "scale": 1.7844036697247707,
+      "scale": 1.2878709451969692,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.52446553803169,
+        "target": 151.35634451623352,
+        "registered": 151.56186855538567
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        66,
-        30
+        58,
+        12
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1400,19 +1795,25 @@
         171
       ],
       "source_index": 13,
-      "scale": 1.2269938650306749,
+      "scale": 1.332235378245141,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.75391434103521,
+        "target": 159.54040136846527,
+        "registered": 159.55249919697278
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        72,
-        32
+        64,
+        14
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1422,19 +1823,25 @@
         172
       ],
       "source_index": 14,
-      "scale": 1.2073170731707317,
+      "scale": 1.3161783754276832,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.70726400694224,
+        "target": 154.92375551669465,
+        "registered": 154.80633061990713
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        28,
-        31
+        34,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1444,19 +1851,25 @@
         170
       ],
       "source_index": 15,
-      "scale": 1.228395061728395,
+      "scale": 1.1726030026685856,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.19832316001603,
+        "target": 153.84354768251825,
+        "registered": 153.8083222715858
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        28,
-        26
+        34,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1466,19 +1879,25 @@
         169
       ],
       "source_index": 16,
-      "scale": 1.263975155279503,
+      "scale": 1.1987504295104152,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.28650354928777,
+        "target": 154.98225165960855,
+        "registered": 155.19020587653074
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        30,
-        29
+        44,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1488,19 +1907,25 @@
         168
       ],
       "source_index": 17,
-      "scale": 1.25625,
+      "scale": 1.130268909902426,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.87686476043376,
+        "target": 146.79578235432027,
+        "registered": 146.80599442802054
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        22,
-        32
+        40,
+        60
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1510,19 +1935,25 @@
         164
       ],
       "source_index": 18,
-      "scale": 1.2692307692307692,
+      "scale": 1.100271955606974,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.190700889964,
+        "target": 144.34544902565028,
+        "registered": 144.1457595630201
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        29,
-        36
+        35,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1532,19 +1963,25 @@
         168
       ],
       "source_index": 19,
-      "scale": 1.215625,
+      "scale": 1.1561733268411745,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.19832316001603,
+        "target": 151.68800176389925,
+        "registered": 151.4133415521895
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 10
     },
     {
       "margin_xy": [
         34,
-        47
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1554,19 +1991,25 @@
         170
       ],
       "source_index": 20,
-      "scale": 1.1358024691358024,
+      "scale": 1.1228762105380843,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.49163542763543,
+        "target": 151.01745793805284,
+        "registered": 151.09268678529745
+      },
       "animation": "bailiff_elite_sweep_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        37,
-        50
+        39,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1576,12 +2019,18 @@
         164
       ],
       "source_index": 21,
-      "scale": 1.1602564102564104,
+      "scale": 1.1403663142483558,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.6560369826056,
+        "target": 148.9957433281508,
+        "registered": 149.04026301640775
+      },
       "animation": "bailiff_elite_sweep",
       "after": 0
     },
@@ -1598,19 +2047,25 @@
         168
       ],
       "source_index": 22,
-      "scale": 1.15625,
+      "scale": 1.1575790319603025,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.07573584879245,
+        "target": 152.8881024492898,
+        "registered": 152.75797851503535
+      },
       "animation": "bailiff_elite_sweep",
       "after": 1
     },
     {
       "margin_xy": [
-        47,
-        49
+        44,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__03.png",
       "source_region": [
@@ -1620,12 +2075,18 @@
         168
       ],
       "source_index": 23,
-      "scale": 1.134375,
+      "scale": 1.1659089485151921,
       "rgb_gain": [
         0.899897,
         0.874207,
         0.869302
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.05467582247826,
+        "target": 149.30009244063942,
+        "registered": 149.30840565755165
+      },
       "animation": "bailiff_elite_sweep",
       "after": 2
     },
@@ -1642,19 +2103,25 @@
         167
       ],
       "source_index": 0,
-      "scale": 1.1320754716981132,
+      "scale": 1.1334181247498263,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.43059004660978,
+        "target": 148.96581290539163,
+        "registered": 148.62032162527439
+      },
       "animation": "bailiff_elite_sweep",
       "after": 3
     },
     {
       "margin_xy": [
-        25,
-        50
+        23,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1664,19 +2131,25 @@
         169
       ],
       "source_index": 1,
-      "scale": 1.124223602484472,
+      "scale": 1.1353618341632994,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.67763667381033,
+        "target": 149.50176309226583,
+        "registered": 149.48913003961192
+      },
       "animation": "bailiff_elite_sweep",
       "after": 4
     },
     {
       "margin_xy": [
-        56,
-        56
+        57,
+        58
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1686,19 +2159,25 @@
         163
       ],
       "source_index": 2,
-      "scale": 1.1290322580645162,
+      "scale": 1.1195011293235733,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.59166639873106,
+        "target": 145.0780168843032,
+        "registered": 144.96896219536097
+      },
       "animation": "bailiff_elite_sweep",
       "after": 5
     },
     {
       "margin_xy": [
-        56,
-        57
+        58,
+        60
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1708,19 +2187,25 @@
         162
       ],
       "source_index": 3,
-      "scale": 1.1266233766233766,
+      "scale": 1.108718988854315,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.15639519291463,
+        "target": 145.41558586006525,
+        "registered": 145.30657245974803
+      },
       "animation": "bailiff_elite_sweep",
       "after": 6
     },
     {
       "margin_xy": [
-        50,
-        54
+        52,
+        58
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1730,19 +2215,25 @@
         162
       ],
       "source_index": 4,
-      "scale": 1.1493506493506493,
+      "scale": 1.1248974033880648,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.99248099046804,
+        "target": 149.60289653631406,
+        "registered": 149.55600957500837
+      },
       "animation": "bailiff_elite_sweep",
       "after": 7
     },
     {
       "margin_xy": [
-        48,
-        58
+        52,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1752,19 +2243,25 @@
         161
       ],
       "source_index": 5,
-      "scale": 1.130718954248366,
+      "scale": 1.0966767705251355,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.7460279784039,
+        "target": 146.6761620339204,
+        "registered": 146.76852523616907
+      },
       "animation": "bailiff_elite_sweep",
       "after": 8
     },
     {
       "margin_xy": [
-        31,
-        61
+        27,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1774,19 +2271,25 @@
         166
       ],
       "source_index": 6,
-      "scale": 1.0759493670886076,
+      "scale": 1.1101180508542388,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.49521064008442,
+        "target": 144.86508888158383,
+        "registered": 144.703144402601
+      },
       "animation": "bailiff_elite_sweep",
       "after": 9
     },
     {
       "margin_xy": [
-        60,
-        62
+        54,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1796,19 +2299,25 @@
         164
       ],
       "source_index": 7,
-      "scale": 1.0833333333333333,
+      "scale": 1.1634816715246001,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.52202879207786,
+        "target": 151.85998822978874,
+        "registered": 151.91774089947495
+      },
       "animation": "bailiff_elite_sweep",
       "after": 10
     },
     {
       "margin_xy": [
-        64,
-        71
+        52,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1818,19 +2327,25 @@
         164
       ],
       "source_index": 8,
-      "scale": 1.0320512820512822,
+      "scale": 1.165912195879765,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.12686117785213,
+        "target": 151.71649445881093,
+        "registered": 151.80579699076054
+      },
       "animation": "bailiff_elite_sweep",
       "after": 11
     },
     {
       "margin_xy": [
-        60,
-        70
+        50,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1840,19 +2355,25 @@
         161
       ],
       "source_index": 9,
-      "scale": 1.0588235294117647,
+      "scale": 1.1642201430409285,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.67516979135706,
+        "target": 152.13466486639135,
+        "registered": 152.1019395011122
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        55,
-        59
+        53,
+        57
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1862,19 +2383,25 @@
         161
       ],
       "source_index": 10,
-      "scale": 1.1241830065359477,
+      "scale": 1.1366313629508236,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.13053343664893,
+        "target": 152.45697103341928,
+        "registered": 152.5909564816998
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        51,
-        56
+        52,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1884,19 +2411,25 @@
         162
       ],
       "source_index": 11,
-      "scale": 1.1331168831168832,
+      "scale": 1.116881705039498,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.39254164525474,
+        "target": 146.74992594222536,
+        "registered": 146.7957765060017
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        40,
-        44
+        48,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1906,19 +2439,25 @@
         160
       ],
       "source_index": 12,
-      "scale": 1.2236842105263157,
+      "scale": 1.1564739463539353,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.31306712304652,
+        "target": 155.32956278269063,
+        "registered": 155.12253221244166
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        24,
-        24
+        50,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1928,19 +2467,25 @@
         160
       ],
       "source_index": 13,
-      "scale": 1.3486842105263157,
+      "scale": 1.1135525719958197,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.31580979475564,
+        "target": 151.79482060064308,
+        "registered": 151.47607071745688
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        11,
-        12
+        52,
+        74
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1950,19 +2495,25 @@
         158
       ],
       "source_index": 14,
-      "scale": 1.4433333333333334,
+      "scale": 1.0518704547997504,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.55035701161677,
+        "target": 143.63328613287763,
+        "registered": 143.49564453320525
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        24,
-        14
+        60,
+        71
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1972,19 +2523,25 @@
         161
       ],
       "source_index": 15,
-      "scale": 1.4150326797385622,
+      "scale": 1.0514211165952925,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.40381226344078,
+        "target": 143.41784859788154,
+        "registered": 143.2515270424717
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        38,
-        25
+        56,
+        57
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -1994,19 +2551,25 @@
         166
       ],
       "source_index": 16,
-      "scale": 1.2943037974683544,
+      "scale": 1.101535725027806,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.12126946219684,
+        "target": 149.94244124874632,
+        "registered": 150.04665940966495
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        48,
-        45
+        52,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -2016,19 +2579,25 @@
         166
       ],
       "source_index": 17,
-      "scale": 1.1740506329113924,
+      "scale": 1.1304437954733384,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.63654778699578,
+        "target": 152.199050089759,
+        "registered": 152.39422561238993
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        56,
-        49
+        58,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -2038,19 +2607,25 @@
         172
       ],
       "source_index": 18,
-      "scale": 1.1097560975609757,
+      "scale": 1.0901685995407369,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.37903770226373,
+        "target": 149.76631313813095,
+        "registered": 149.93665329064805
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        65,
-        36
+        63,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -2060,19 +2635,25 @@
         175
       ],
       "source_index": 19,
-      "scale": 1.1676646706586826,
+      "scale": 1.1905902109761397,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.06248474865697,
+        "target": 152.46994073503217,
+        "registered": 152.29248175796465
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        68,
-        29
+        64,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -2082,19 +2663,25 @@
         175
       ],
       "source_index": 20,
-      "scale": 1.2065868263473054,
+      "scale": 1.2495721149894656,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.77756633874505,
+        "target": 145.92199055322828,
+        "registered": 146.2908062729849
+      },
       "animation": "bailiff_elite_sweep_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        78,
-        56
+        66,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -2104,19 +2691,25 @@
         171
       ],
       "source_index": 21,
-      "scale": 1.0766871165644172,
+      "scale": 1.2335139016693277,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.55950847939775,
+        "target": 142.54426017941168,
+        "registered": 142.71299870719557
+      },
       "animation": "bailiff_elite_sweep_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        74,
-        56
+        65,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -2126,19 +2719,25 @@
         168
       ],
       "source_index": 22,
-      "scale": 1.096875,
+      "scale": 1.210962785647375,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.71151175649729,
+        "target": 142.54426017941168,
+        "registered": 142.3341139713175
+      },
       "animation": "bailiff_elite_sweep_charge",
       "after": 1
     },
     {
       "margin_xy": [
-        57,
-        48
+        63,
+        57
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__04.png",
       "source_region": [
@@ -2148,19 +2747,25 @@
         169
       ],
       "source_index": 23,
-      "scale": 1.1366459627329193,
+      "scale": 1.082123436085984,
       "rgb_gain": [
         0.897597,
         0.908278,
         0.883456
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.56500283747664,
+        "target": 147.78019011958236,
+        "registered": 147.7362514753911
+      },
       "animation": "bailiff_erase_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        51,
-        44
+        55,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2170,19 +2775,25 @@
         173
       ],
       "source_index": 0,
-      "scale": 1.1333333333333333,
+      "scale": 1.0992407952519125,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.93380742111214,
+        "target": 149.42398657120364,
+        "registered": 149.22801345591918
+      },
       "animation": "bailiff_erase_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        61,
-        47
+        64,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2192,19 +2803,25 @@
         173
       ],
       "source_index": 1,
-      "scale": 1.1151515151515152,
+      "scale": 1.08559163577782,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.860829441939,
+        "target": 144.2326051646725,
+        "registered": 144.1665703275208
+      },
       "animation": "bailiff_erase_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        60,
-        40
+        62,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2214,19 +2831,25 @@
         173
       ],
       "source_index": 2,
-      "scale": 1.1545454545454545,
+      "scale": 1.122539256356304,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.89768762188365,
+        "target": 148.06033217818535,
+        "registered": 147.898613921835
+      },
       "animation": "bailiff_erase_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        54,
-        26
+        64,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2236,19 +2859,25 @@
         173
       ],
       "source_index": 3,
-      "scale": 1.2393939393939395,
+      "scale": 1.1214779948601603,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.70267518026907,
+        "target": 148.8231300737473,
+        "registered": 148.82540105774956
+      },
       "animation": "bailiff_erase_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        56,
-        18
+        66,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2258,19 +2887,25 @@
         171
       ],
       "source_index": 4,
-      "scale": 1.3006134969325154,
+      "scale": 1.177648113330496,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.05240827972668,
+        "target": 146.09008456472452,
+        "registered": 146.10954794263105
+      },
       "animation": "bailiff_erase_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        55,
-        9
+        64,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2280,19 +2915,25 @@
         172
       ],
       "source_index": 5,
-      "scale": 1.3445121951219512,
+      "scale": 1.2257831652494098,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.42548754242313,
+        "target": 150.06710162695362,
+        "registered": 150.32298560100514
+      },
       "animation": "bailiff_erase_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        48,
-        3
+        64,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2302,19 +2943,25 @@
         170
       ],
       "source_index": 6,
-      "scale": 1.4074074074074074,
+      "scale": 1.2150453920751363,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.04799078753724,
+        "target": 151.93898499465124,
+        "registered": 152.2169504358828
+      },
       "animation": "bailiff_erase_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        46,
-        2
+        64,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2324,19 +2971,25 @@
         169
       ],
       "source_index": 7,
-      "scale": 1.4192546583850931,
+      "scale": 1.1952620371880178,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.3715579252256,
+        "target": 154.63291187989282,
+        "registered": 154.7320264198721
+      },
       "animation": "bailiff_erase_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        48,
-        9
+        65,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2346,18 +2999,24 @@
         170
       ],
       "source_index": 8,
-      "scale": 1.3611111111111112,
+      "scale": 1.1622963476041999,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.28873683998918,
+        "target": 149.10953026787578,
+        "registered": 149.24141516348604
+      },
       "animation": "bailiff_erase_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        64,
+        63,
         25
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
@@ -2368,19 +3027,25 @@
         173
       ],
       "source_index": 9,
-      "scale": 1.2424242424242424,
+      "scale": 1.2439235233701595,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.97520407091694,
+        "target": 150.48390208831907,
+        "registered": 150.5489953470298
+      },
       "animation": "bailiff_erase_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        67,
-        48
+        58,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2390,19 +3055,25 @@
         169
       ],
       "source_index": 10,
-      "scale": 1.1366459627329193,
+      "scale": 1.244927793490471,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.75795661885921,
+        "target": 151.57986427342487,
+        "registered": 151.33406754594287
+      },
       "animation": "bailiff_erase_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        72,
-        58
+        65,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2412,19 +3083,25 @@
         164
       ],
       "source_index": 11,
-      "scale": 1.108974358974359,
+      "scale": 1.1969022847086106,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.91246807567593,
+        "target": 143.52350700482486,
+        "registered": 143.5653161456485
+      },
       "animation": "bailiff_erase",
       "after": 0
     },
     {
       "margin_xy": [
-        70,
-        55
+        63,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2434,19 +3111,25 @@
         158
       ],
       "source_index": 12,
-      "scale": 1.1733333333333333,
+      "scale": 1.2696803201778968,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.66052864066182,
+        "target": 149.3912576767761,
+        "registered": 149.5259174858994
+      },
       "animation": "bailiff_erase",
       "after": 1
     },
     {
       "margin_xy": [
-        90,
-        61
+        70,
+        13
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2456,19 +3139,25 @@
         177
       ],
       "source_index": 13,
-      "scale": 1.017751479289941,
+      "scale": 1.2850120502569942,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.27510304370908,
+        "target": 151.98493265655387,
+        "registered": 151.93090534845106
+      },
       "animation": "bailiff_erase",
       "after": 2
     },
     {
       "margin_xy": [
-        94,
-        62
+        76,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2478,19 +3167,25 @@
         175
       ],
       "source_index": 14,
-      "scale": 1.0149700598802396,
+      "scale": 1.2650065816367058,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.23925528113634,
+        "target": 150.8384427200968,
+        "registered": 150.79787796915446
+      },
       "animation": "bailiff_erase",
       "after": 3
     },
     {
       "margin_xy": [
-        85,
-        62
+        65,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2500,19 +3195,25 @@
         167
       ],
       "source_index": 15,
-      "scale": 1.0628930817610063,
+      "scale": 1.3313000360492895,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.02520741422802,
+        "target": 158.45826292133592,
+        "registered": 158.31929762350515
+      },
       "animation": "bailiff_erase",
       "after": 4
     },
     {
       "margin_xy": [
-        66,
-        72
+        50,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2522,19 +3223,25 @@
         168
       ],
       "source_index": 16,
-      "scale": 1.003125,
+      "scale": 1.1627005320055215,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.7871443749361,
+        "target": 155.55438394023773,
+        "registered": 155.48954948806045
+      },
       "animation": "bailiff_erase",
       "after": 5
     },
     {
       "margin_xy": [
-        63,
-        75
+        50,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2544,19 +3251,25 @@
         165
       ],
       "source_index": 17,
-      "scale": 1.0063694267515924,
+      "scale": 1.1381093266198423,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.14171610651178,
+        "target": 152.6679381896122,
+        "registered": 152.85287043428397
+      },
       "animation": "bailiff_erase",
       "after": 6
     },
     {
       "margin_xy": [
-        53,
-        70
+        48,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2566,19 +3279,25 @@
         159
       ],
       "source_index": 18,
-      "scale": 1.0695364238410596,
+      "scale": 1.1085824425833615,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.55035701161677,
+        "target": 151.37732831156816,
+        "registered": 151.42985174660907
+      },
       "animation": "bailiff_erase",
       "after": 7
     },
     {
       "margin_xy": [
-        56,
-        75
+        52,
+        70
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2588,19 +3307,25 @@
         160
       ],
       "source_index": 19,
-      "scale": 1.0328947368421053,
+      "scale": 1.064536302587881,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.7664646712972,
+        "target": 143.463794014023,
+        "registered": 143.35271186831451
+      },
       "animation": "bailiff_erase",
       "after": 8
     },
     {
       "margin_xy": [
-        50,
-        69
+        46,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2610,19 +3335,25 @@
         159
       ],
       "source_index": 20,
-      "scale": 1.076158940397351,
+      "scale": 1.1087921637098284,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.85706605220514,
+        "target": 147.3108737321641,
+        "registered": 147.04421103872127
+      },
       "animation": "bailiff_erase",
       "after": 9
     },
     {
       "margin_xy": [
-        50,
-        53
+        53,
+        58
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2632,19 +3363,25 @@
         159
       ],
       "source_index": 21,
-      "scale": 1.1754966887417218,
+      "scale": 1.1428488316870196,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.7669683062202,
+        "target": 149.44687695201728,
+        "registered": 149.61951744341377
+      },
       "animation": "bailiff_erase",
       "after": 10
     },
     {
       "margin_xy": [
-        50,
-        45
+        58,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2654,19 +3391,25 @@
         161
       ],
       "source_index": 22,
-      "scale": 1.2124183006535947,
+      "scale": 1.12704733198785,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.06437824031127,
+        "target": 148.8428051463771,
+        "registered": 148.72457765951128
+      },
       "animation": "bailiff_erase",
       "after": 11
     },
     {
       "margin_xy": [
-        59,
-        39
+        65,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__05.png",
       "source_region": [
@@ -2676,19 +3419,25 @@
         161
       ],
       "source_index": 23,
-      "scale": 1.2483660130718954,
+      "scale": 1.1794320806646812,
       "rgb_gain": [
         0.916716,
         0.906455,
         0.883335
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.8614646459834,
+        "target": 153.16277744557513,
+        "registered": 153.03921066184313
+      },
       "animation": "bailiff_erase_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        63,
-        37
+        65,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2698,19 +3447,25 @@
         176
       ],
       "source_index": 0,
-      "scale": 1.1517857142857142,
+      "scale": 1.1286953064115033,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.6281681657612,
+        "target": 153.08287682588474,
+        "registered": 153.22206107476822
+      },
       "animation": "bailiff_erase_recover",
       "after": 1
     },
     {
       "margin_xy": [
         62,
-        41
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2720,19 +3475,25 @@
         173
       ],
       "source_index": 1,
-      "scale": 1.1484848484848484,
+      "scale": 1.1278387527520601,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.58582126305964,
+        "target": 149.53542728593675,
+        "registered": 149.46236984605858
+      },
       "animation": "bailiff_erase_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        53,
-        43
+        61,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2742,19 +3503,25 @@
         167
       ],
       "source_index": 2,
-      "scale": 1.1823899371069182,
+      "scale": 1.1019543462840506,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.3800580443393,
+        "target": 148.0806890158627,
+        "registered": 147.98310714402507
+      },
       "animation": "bailiff_erase_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        48,
-        42
+        54,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2764,19 +3531,25 @@
         165
       ],
       "source_index": 3,
-      "scale": 1.2006369426751593,
+      "scale": 1.1382918888969733,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.3800580443393,
+        "target": 152.96373010137592,
+        "registered": 152.83651396181477
+      },
       "animation": "bailiff_erase_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        48,
-        48
+        56,
+        61
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2786,19 +3559,25 @@
         161
       ],
       "source_index": 4,
-      "scale": 1.1895424836601307,
+      "scale": 1.1136828192782124,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.03284277865654,
+        "target": 152.61112267944225,
+        "registered": 152.35156710713545
+      },
       "animation": "bailiff_erase_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        47,
-        49
+        56,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2808,19 +3587,25 @@
         159
       ],
       "source_index": 5,
-      "scale": 1.1986754966887416,
+      "scale": 1.105244018273424,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.7534028617805,
+        "target": 152.25112450979208,
+        "registered": 152.499180325666
+      },
       "animation": "bailiff_erase_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        44,
-        44
+        54,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2830,19 +3615,25 @@
         160
       ],
       "source_index": 6,
-      "scale": 1.2269736842105263,
+      "scale": 1.1340416976563579,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.30258555467918,
+        "target": 155.7068572150357,
+        "registered": 155.56027770610336
+      },
       "animation": "bailiff_erase_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        47,
-        44
+        58,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2852,19 +3643,25 @@
         161
       ],
       "source_index": 7,
-      "scale": 1.2156862745098038,
+      "scale": 1.1054806910063792,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.0148140020198,
+        "target": 149.2562698790506,
+        "registered": 149.42222056976667
+      },
       "animation": "bailiff_erase_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        52,
-        40
+        60,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2874,19 +3671,25 @@
         167
       ],
       "source_index": 8,
-      "scale": 1.1981132075471699,
+      "scale": 1.1235585865253612,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.07405376311175,
+        "target": 151.7636129223325,
+        "registered": 151.88153278130952
+      },
       "animation": "bailiff_erase_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        50,
-        30
+        56,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2896,19 +3699,25 @@
         171
       ],
       "source_index": 9,
-      "scale": 1.2300613496932515,
+      "scale": 1.1639146307887438,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.23876100434853,
+        "target": 158.57028721349224,
+        "registered": 158.51813776347487
+      },
       "animation": "bailiff_erase_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        62,
-        27
+        71,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2918,19 +3727,25 @@
         177
       ],
       "source_index": 10,
-      "scale": 1.2041420118343196,
+      "scale": 1.0993795795015653,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.68577102244404,
+        "target": 150.26954547050178,
+        "registered": 150.41941364066008
+      },
       "animation": "bailiff_erase_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        64,
-        18
+        66,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2940,19 +3755,25 @@
         184
       ],
       "source_index": 11,
-      "scale": 1.2045454545454546,
+      "scale": 1.176783513007271,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.30934442547175,
+        "target": 158.05302216271016,
+        "registered": 158.36350589703426
+      },
       "animation": "bailiff_erase_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        65,
-        19
+        69,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/erasure_bailiff__06.png",
       "source_region": [
@@ -2962,12 +3783,18 @@
         188
       ],
       "source_index": 12,
-      "scale": 1.1777777777777778,
+      "scale": 1.1381329136597451,
       "rgb_gain": [
         0.952876,
         0.994767,
         0.987082
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 138.87044321957066,
+        "target": 158.05302216271016,
+        "registered": 158.00949338568236
+      },
       "animation": "bailiff_erase_charge",
       "after": 1
     }

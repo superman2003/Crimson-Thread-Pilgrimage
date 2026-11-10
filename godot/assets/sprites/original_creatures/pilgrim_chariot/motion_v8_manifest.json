@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "pilgrim_chariot",
   "canvas": [
     360,
-    211
+    219
   ],
   "display_height": 116,
   "visual_scale": 0.6105263157894737,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             97,
-            13,
+            17,
             167,
-            21
+            29
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            194,
-            197
+            181,
+            183
           ],
           "margin": [
-            96,
-            8,
-            166,
-            14
+            102,
+            28,
+            179,
+            36
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             103,
-            17,
+            21,
             174,
-            25
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            200,
+            187,
             2,
-            195,
-            196
+            181,
+            182
           ],
           "margin": [
-            94,
-            9,
-            165,
-            15
+            100,
+            29,
+            179,
+            37
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             102,
-            14,
+            18,
             179,
-            22
+            30
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            399,
+            372,
             2,
-            198,
-            196
+            182,
+            180
           ],
           "margin": [
-            84,
-            9,
-            162,
-            15
+            92,
+            30,
+            178,
+            39
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             83,
-            17,
+            21,
             169,
-            25
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            601,
+            558,
             2,
-            205,
-            197
+            195,
+            186
           ],
           "margin": [
-            78,
-            8,
-            155,
-            14
+            82,
+            24,
+            165,
+            33
           ]
         }
       ]
@@ -156,24 +156,24 @@
           ],
           "margin": [
             93,
-            22,
+            26,
             163,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            810,
+            757,
             2,
-            202,
-            190
+            188,
+            178
           ],
           "margin": [
-            82,
-            15,
-            158,
-            21
+            88,
+            32,
+            172,
+            41
           ]
         },
         {
@@ -186,24 +186,24 @@
           ],
           "margin": [
             85,
-            20,
+            24,
             161,
-            28
+            36
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1016,
+            949,
             2,
-            211,
-            192
+            194,
+            177
           ],
           "margin": [
-            72,
-            13,
-            149,
-            19
+            80,
+            33,
+            166,
+            42
           ]
         },
         {
@@ -216,24 +216,24 @@
           ],
           "margin": [
             79,
-            19,
+            23,
             159,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1231,
+            1147,
             2,
-            200,
-            191
+            181,
+            173
           ],
           "margin": [
-            82,
-            14,
-            160,
-            20
+            91,
+            37,
+            179,
+            46
           ]
         },
         {
@@ -246,24 +246,24 @@
           ],
           "margin": [
             79,
-            22,
+            26,
             168,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1435,
+            1332,
             2,
-            192,
-            191
+            179,
+            178
           ],
           "margin": [
-            86,
-            14,
-            168,
-            20
+            92,
+            33,
+            181,
+            41
           ]
         },
         {
@@ -276,24 +276,24 @@
           ],
           "margin": [
             94,
-            19,
+            23,
             150,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1631,
+            1515,
             2,
-            215,
-            192
+            205,
+            183
           ],
           "margin": [
-            71,
-            13,
-            145,
-            19
+            77,
+            28,
+            155,
+            36
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             87,
-            20,
+            24,
             165,
-            28
+            36
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
+            1724,
             2,
-            207,
-            203,
-            192
+            186,
+            176
           ],
           "margin": [
-            76,
-            13,
-            157,
-            19
+            84,
+            34,
+            174,
+            43
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             78,
-            19,
+            23,
             160,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            209,
-            207,
-            207,
-            191
+            2,
+            196,
+            193,
+            178
           ],
           "margin": [
-            68,
-            14,
-            153,
-            20
+            75,
+            32,
+            167,
+            41
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             78,
-            21,
+            25,
             165,
-            29
+            37
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            420,
-            207,
-            211,
-            190
+            199,
+            196,
+            199,
+            179
           ],
           "margin": [
-            72,
-            15,
-            149,
-            21
+            78,
+            32,
+            161,
+            40
           ]
         }
       ]
@@ -403,24 +403,24 @@
           ],
           "margin": [
             88,
-            22,
+            26,
             167,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            635,
-            207,
-            210,
-            193
+            402,
+            196,
+            204,
+            187
           ],
           "margin": [
-            76,
-            12,
-            150,
-            18
+            78,
+            22,
+            156,
+            32
           ]
         },
         {
@@ -433,24 +433,24 @@
           ],
           "margin": [
             91,
-            15,
+            19,
             161,
-            23
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            849,
-            207,
+            610,
+            196,
             220,
             198
           ],
           "margin": [
             80,
-            7,
+            11,
             140,
-            13
+            21
           ]
         },
         {
@@ -463,24 +463,24 @@
           ],
           "margin": [
             78,
-            13,
+            17,
             139,
-            21
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1073,
-            207,
-            229,
-            196
+            834,
+            196,
+            224,
+            192
           ],
           "margin": [
-            82,
-            9,
-            131,
-            15
+            85,
+            17,
+            136,
+            27
           ]
         },
         {
@@ -493,24 +493,24 @@
           ],
           "margin": [
             83,
-            19,
+            23,
             138,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1306,
-            207,
-            230,
-            196
+            1062,
+            196,
+            222,
+            189
           ],
           "margin": [
-            86,
-            9,
-            130,
-            15
+            90,
+            20,
+            138,
+            30
           ]
         },
         {
@@ -523,24 +523,24 @@
           ],
           "margin": [
             80,
-            13,
+            17,
             131,
-            21
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1540,
-            207,
-            219,
-            199
+            1288,
+            196,
+            226,
+            205
           ],
           "margin": [
-            86,
-            6,
-            141,
-            12
+            84,
+            4,
+            134,
+            14
           ]
         },
         {
@@ -553,24 +553,24 @@
           ],
           "margin": [
             88,
-            13,
+            17,
             144,
-            21
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1763,
-            207,
-            213,
-            196
+            1518,
+            196,
+            211,
+            194
           ],
           "margin": [
-            89,
-            9,
-            147,
-            15
+            90,
+            15,
+            149,
+            25
           ]
         },
         {
@@ -583,24 +583,24 @@
           ],
           "margin": [
             88,
-            19,
+            23,
             143,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            414,
+            1733,
+            196,
             202,
             196
           ],
           "margin": [
             88,
-            9,
+            13,
             158,
-            15
+            23
           ]
         },
         {
@@ -613,24 +613,24 @@
           ],
           "margin": [
             76,
-            13,
+            17,
             135,
-            21
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            208,
-            414,
-            211,
-            199
+            2,
+            409,
+            206,
+            194
           ],
           "margin": [
-            70,
-            6,
-            149,
-            12
+            72,
+            15,
+            154,
+            25
           ]
         },
         {
@@ -643,24 +643,24 @@
           ],
           "margin": [
             92,
-            13,
+            17,
             170,
-            21
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            423,
-            414,
-            209,
-            196
+            212,
+            409,
+            193,
+            181
           ],
           "margin": [
-            74,
-            9,
-            151,
-            15
+            82,
+            28,
+            167,
+            38
           ]
         },
         {
@@ -673,24 +673,24 @@
           ],
           "margin": [
             89,
-            19,
+            23,
             175,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            636,
-            414,
-            208,
-            196
+            409,
+            409,
+            191,
+            180
           ],
           "margin": [
-            73,
-            9,
-            152,
-            15
+            81,
+            29,
+            169,
+            39
           ]
         },
         {
@@ -703,24 +703,24 @@
           ],
           "margin": [
             89,
-            13,
+            17,
             168,
-            21
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            848,
-            414,
-            237,
-            199
+            604,
+            409,
+            220,
+            185
           ],
           "margin": [
-            70,
-            6,
-            123,
-            12
+            78,
+            24,
+            140,
+            34
           ]
         },
         {
@@ -733,24 +733,24 @@
           ],
           "margin": [
             79,
-            13,
+            17,
             133,
-            21
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1089,
-            414,
-            241,
-            195
+            828,
+            409,
+            219,
+            177
           ],
           "margin": [
-            66,
-            10,
-            119,
-            16
+            76,
+            32,
+            141,
+            42
           ]
         }
       ]
@@ -770,24 +770,24 @@
           ],
           "margin": [
             89,
-            21,
+            25,
             140,
-            29
+            37
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1334,
-            414,
-            232,
-            194
+            1051,
+            409,
+            220,
+            184
           ],
           "margin": [
-            78,
-            11,
-            128,
-            17
+            84,
+            25,
+            140,
+            35
           ]
         },
         {
@@ -800,24 +800,24 @@
           ],
           "margin": [
             84,
-            15,
+            19,
             136,
-            23
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1570,
-            414,
-            225,
-            196
+            1275,
+            409,
+            221,
+            193
           ],
           "margin": [
-            78,
-            9,
-            135,
-            15
+            80,
+            16,
+            139,
+            26
           ]
         },
         {
@@ -830,24 +830,24 @@
           ],
           "margin": [
             71,
-            18,
+            22,
             115,
-            26
+            34
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1799,
-            414,
-            237,
-            191
+            1500,
+            409,
+            227,
+            183
           ],
           "margin": [
-            73,
-            14,
-            123,
-            20
+            77,
+            26,
+            133,
+            36
           ]
         },
         {
@@ -860,24 +860,24 @@
           ],
           "margin": [
             74,
-            25,
+            29,
             124,
-            33
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            621,
-            261,
-            191
+            1731,
+            409,
+            246,
+            180
           ],
           "margin": [
-            55,
-            14,
-            99,
-            20
+            62,
+            29,
+            114,
+            39
           ]
         },
         {
@@ -890,24 +890,24 @@
           ],
           "margin": [
             70,
-            18,
+            22,
             116,
-            26
+            34
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            267,
-            621,
-            262,
-            194
+            2,
+            611,
+            246,
+            182
           ],
           "margin": [
-            54,
-            11,
-            98,
-            17
+            62,
+            27,
+            114,
+            37
           ]
         },
         {
@@ -920,24 +920,24 @@
           ],
           "margin": [
             76,
-            19,
+            23,
             145,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            533,
-            621,
-            236,
-            191
+            252,
+            611,
+            214,
+            173
           ],
           "margin": [
-            56,
-            14,
-            124,
-            20
+            68,
+            36,
+            146,
+            46
           ]
         },
         {
@@ -950,24 +950,24 @@
           ],
           "margin": [
             78,
-            25,
+            29,
             150,
-            33
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            773,
-            621,
-            242,
-            191
+            470,
+            611,
+            220,
+            174
           ],
           "margin": [
-            55,
-            14,
-            118,
-            20
+            66,
+            35,
+            140,
+            45
           ]
         },
         {
@@ -980,24 +980,24 @@
           ],
           "margin": [
             68,
-            19,
+            23,
             140,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1019,
-            621,
-            232,
-            194
+            694,
+            611,
+            220,
+            184
           ],
           "margin": [
-            64,
-            11,
-            128,
-            17
+            68,
+            25,
+            140,
+            35
           ]
         },
         {
@@ -1010,24 +1010,24 @@
           ],
           "margin": [
             76,
-            19,
+            23,
             156,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1255,
-            621,
-            233,
-            191
+            918,
+            611,
+            215,
+            176
           ],
           "margin": [
-            58,
-            14,
-            127,
-            20
+            66,
+            33,
+            145,
+            43
           ]
         },
         {
@@ -1040,24 +1040,24 @@
           ],
           "margin": [
             79,
-            25,
+            29,
             166,
-            33
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1492,
-            621,
-            231,
-            193
+            1137,
+            611,
+            211,
+            177
           ],
           "margin": [
-            59,
-            12,
-            129,
-            18
+            68,
+            32,
+            149,
+            42
           ]
         },
         {
@@ -1070,24 +1070,24 @@
           ],
           "margin": [
             79,
-            14,
+            18,
             156,
-            22
+            30
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1727,
-            621,
-            230,
-            200
+            1352,
+            611,
+            216,
+            187
           ],
           "margin": [
-            64,
-            5,
-            130,
-            11
+            72,
+            22,
+            144,
+            32
           ]
         },
         {
@@ -1100,24 +1100,24 @@
           ],
           "margin": [
             74,
-            13,
+            17,
             131,
-            21
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            829,
-            232,
-            199
+            1572,
+            611,
+            217,
+            186
           ],
           "margin": [
-            67,
-            6,
-            128,
-            12
+            74,
+            23,
+            143,
+            33
           ]
         }
       ]
@@ -1137,24 +1137,24 @@
           ],
           "margin": [
             86,
-            15,
+            19,
             137,
-            23
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            238,
-            829,
-            249,
-            201
+            1793,
+            611,
+            232,
+            187
           ],
           "margin": [
-            69,
-            4,
-            111,
-            10
+            76,
+            22,
+            128,
+            32
           ]
         },
         {
@@ -1167,24 +1167,24 @@
           ],
           "margin": [
             80,
-            9,
+            13,
             130,
-            17
+            25
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            491,
-            829,
-            235,
-            205
+            2,
+            806,
+            222,
+            193
           ],
           "margin": [
-            77,
-            0,
-            125,
-            6
+            82,
+            16,
+            138,
+            26
           ]
         },
         {
@@ -1197,24 +1197,24 @@
           ],
           "margin": [
             83,
-            8,
+            12,
             151,
-            16
+            24
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            730,
-            829,
-            234,
-            202
+            228,
+            806,
+            212,
+            184
           ],
           "margin": [
-            76,
-            3,
-            126,
-            9
+            86,
+            25,
+            148,
+            35
           ]
         },
         {
@@ -1227,24 +1227,24 @@
           ],
           "margin": [
             91,
-            14,
+            18,
             164,
-            22
+            30
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            968,
-            829,
-            238,
-            202
+            444,
+            806,
+            215,
+            182
           ],
           "margin": [
-            71,
-            3,
-            122,
-            9
+            81,
+            27,
+            145,
+            37
           ]
         },
         {
@@ -1257,24 +1257,24 @@
           ],
           "margin": [
             82,
-            9,
+            13,
             151,
-            17
+            25
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1210,
-            829,
-            248,
-            205
+            663,
+            806,
+            227,
+            188
           ],
           "margin": [
-            66,
-            0,
-            112,
-            6
+            74,
+            21,
+            133,
+            31
           ]
         },
         {
@@ -1287,24 +1287,24 @@
           ],
           "margin": [
             80,
-            9,
+            13,
             151,
-            17
+            25
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1462,
-            829,
-            235,
-            201
+            894,
+            806,
+            210,
+            179
           ],
           "margin": [
-            74,
-            4,
-            125,
-            10
+            84,
+            30,
+            150,
+            40
           ]
         },
         {
@@ -1317,24 +1317,24 @@
           ],
           "margin": [
             87,
-            16,
+            20,
             166,
-            24
+            32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1701,
-            829,
-            227,
-            200
+            1108,
+            806,
+            203,
+            179
           ],
           "margin": [
-            70,
-            5,
-            133,
-            11
+            80,
+            30,
+            157,
+            40
           ]
         },
         {
@@ -1347,24 +1347,24 @@
           ],
           "margin": [
             76,
-            10,
+            14,
             153,
-            18
+            26
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            1042,
-            235,
-            203
+            1315,
+            806,
+            214,
+            185
           ],
           "margin": [
-            64,
-            2,
-            125,
-            8
+            74,
+            24,
+            146,
+            34
           ]
         },
         {
@@ -1377,24 +1377,24 @@
           ],
           "margin": [
             75,
-            11,
+            15,
             156,
-            19
+            27
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            241,
-            1042,
-            225,
-            199
+            1533,
+            806,
+            203,
+            180
           ],
           "margin": [
-            60,
-            6,
-            135,
-            12
+            70,
+            29,
+            157,
+            39
           ]
         },
         {
@@ -1407,24 +1407,24 @@
           ],
           "margin": [
             77,
-            17,
+            21,
             167,
-            25
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            470,
-            1042,
-            229,
-            200
+            1740,
+            806,
+            203,
+            177
           ],
           "margin": [
-            60,
-            5,
-            131,
-            11
+            72,
+            32,
+            157,
+            42
           ]
         },
         {
@@ -1437,24 +1437,24 @@
           ],
           "margin": [
             75,
-            10,
+            14,
             150,
-            18
+            26
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            703,
-            1042,
-            235,
-            204
+            2,
+            1007,
+            217,
+            189
           ],
           "margin": [
-            64,
-            1,
-            125,
-            7
+            73,
+            20,
+            143,
+            30
           ]
         },
         {
@@ -1467,24 +1467,24 @@
           ],
           "margin": [
             84,
-            8,
+            12,
             157,
-            16
+            24
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            942,
-            1042,
-            234,
-            203
+            223,
+            1007,
+            216,
+            187
           ],
           "margin": [
-            71,
-            2,
-            126,
-            8
+            80,
+            22,
+            144,
+            32
           ]
         }
       ]
@@ -1504,24 +1504,24 @@
           ],
           "margin": [
             91,
-            22,
+            26,
             157,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1180,
-            1042,
-            214,
-            189
+            443,
+            1007,
+            197,
+            174
           ],
           "margin": [
-            82,
-            16,
-            146,
-            22
+            90,
+            34,
+            163,
+            45
           ]
         },
         {
@@ -1534,24 +1534,24 @@
           ],
           "margin": [
             88,
-            22,
+            26,
             155,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1398,
-            1042,
-            207,
-            181
+            644,
+            1007,
+            194,
+            170
           ],
           "margin": [
-            84,
-            26,
-            153,
-            30
+            90,
+            38,
+            166,
+            49
           ]
         },
         {
@@ -1564,24 +1564,24 @@
           ],
           "margin": [
             77,
-            38,
+            42,
             162,
-            46
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1609,
-            1042,
-            189,
-            173
+            842,
+            1007,
+            177,
+            161
           ],
           "margin": [
-            82,
-            33,
-            171,
-            38
+            88,
+            47,
+            183,
+            58
           ]
         },
         {
@@ -1594,24 +1594,24 @@
           ],
           "margin": [
             74,
-            38,
+            42,
             157,
-            46
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1802,
-            1042,
-            206,
-            186
+            1023,
+            1007,
+            192,
+            173
           ],
           "margin": [
-            77,
-            20,
-            154,
-            25
+            84,
+            38,
+            168,
+            46
           ]
         }
       ]
@@ -1631,24 +1631,24 @@
           ],
           "margin": [
             83,
-            27,
+            31,
             146,
-            35
+            43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            1254,
-            204,
-            173
+            1219,
+            1007,
+            200,
+            162
           ],
           "margin": [
-            87,
-            34,
-            156,
-            38
+            93,
+            47,
+            160,
+            57
           ]
         },
         {
@@ -1661,24 +1661,24 @@
           ],
           "margin": [
             83,
-            49,
+            53,
             149,
-            57
+            65
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            210,
-            1254,
-            192,
-            156
+            1423,
+            1007,
+            201,
+            139
           ],
           "margin": [
-            85,
-            49,
-            168,
-            55
+            80,
+            72,
+            159,
+            80
           ]
         },
         {
@@ -1691,24 +1691,24 @@
           ],
           "margin": [
             75,
-            60,
+            64,
             146,
-            68
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            406,
-            1254,
-            155,
-            138
+            1628,
+            1007,
+            200,
+            123
           ],
           "margin": [
-            94,
-            66,
-            205,
-            73
+            79,
+            88,
+            160,
+            96
           ]
         },
         {
@@ -1721,24 +1721,24 @@
           ],
           "margin": [
             76,
-            83,
+            87,
             160,
-            91
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            565,
-            1254,
-            150,
-            126
+            1832,
+            1007,
+            208,
+            108
           ],
           "margin": [
-            92,
-            78,
-            210,
-            85
+            68,
+            102,
+            152,
+            111
           ]
         }
       ]
@@ -1758,24 +1758,24 @@
           ],
           "margin": [
             97,
-            23,
+            27,
             156,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            719,
-            1254,
-            222,
-            192
+            2,
+            1204,
+            217,
+            187
           ],
           "margin": [
-            77,
-            13,
-            138,
-            19
+            79,
+            22,
+            143,
+            32
           ]
         },
         {
@@ -1788,24 +1788,24 @@
           ],
           "margin": [
             93,
-            17,
+            21,
             150,
-            25
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            945,
-            1254,
-            203,
-            195
+            223,
+            1204,
+            209,
+            201
           ],
           "margin": [
-            92,
-            10,
-            157,
-            16
+            90,
+            8,
+            151,
+            18
           ]
         },
         {
@@ -1818,24 +1818,24 @@
           ],
           "margin": [
             74,
-            16,
+            20,
             130,
-            24
+            32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1152,
-            1254,
-            250,
-            193
+            436,
+            1204,
+            245,
+            189
           ],
           "margin": [
-            68,
-            12,
-            110,
-            18
+            71,
+            20,
+            115,
+            30
           ]
         },
         {
@@ -1848,24 +1848,24 @@
           ],
           "margin": [
             75,
-            23,
+            27,
             135,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1406,
-            1254,
-            256,
-            195
+            685,
+            1204,
+            258,
+            197
           ],
           "margin": [
-            70,
-            10,
-            104,
-            16
+            68,
+            12,
+            102,
+            22
           ]
         },
         {
@@ -1878,24 +1878,24 @@
           ],
           "margin": [
             75,
-            12,
+            16,
             128,
-            20
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1666,
-            1254,
-            289,
-            203
+            947,
+            1204,
+            254,
+            179
           ],
           "margin": [
-            52,
-            2,
-            71,
-            8
+            68,
+            30,
+            106,
+            40
           ]
         },
         {
@@ -1908,24 +1908,24 @@
           ],
           "margin": [
             95,
-            10,
+            14,
             167,
-            18
+            26
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            1465,
-            301,
-            204
+            1205,
+            1204,
+            239,
+            162
           ],
           "margin": [
-            42,
-            2,
-            59,
-            7
+            70,
+            47,
+            121,
+            57
           ]
         },
         {
@@ -1938,24 +1938,24 @@
           ],
           "margin": [
             90,
-            12,
+            16,
             157,
-            20
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            307,
-            1465,
-            218,
-            201
+            1448,
+            1204,
+            204,
+            188
           ],
           "margin": [
-            83,
-            4,
-            142,
-            10
+            89,
+            21,
+            156,
+            31
           ]
         },
         {
@@ -1968,24 +1968,24 @@
           ],
           "margin": [
             91,
-            10,
+            14,
             162,
-            18
+            26
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            529,
-            1465,
-            224,
-            201
+            1656,
+            1204,
+            206,
+            184
           ],
           "margin": [
-            73,
-            4,
-            136,
-            10
+            82,
+            26,
+            154,
+            35
           ]
         },
         {
@@ -1998,24 +1998,24 @@
           ],
           "margin": [
             94,
-            12,
+            16,
             151,
-            20
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            757,
-            1465,
-            234,
-            194
+            2,
+            1413,
+            218,
+            181
           ],
           "margin": [
-            71,
-            11,
-            126,
-            17
+            78,
+            29,
+            142,
+            38
           ]
         },
         {
@@ -2028,24 +2028,24 @@
           ],
           "margin": [
             98,
-            23,
+            27,
             161,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            995,
-            1465,
-            223,
-            190
+            224,
+            1413,
+            209,
+            178
           ],
           "margin": [
-            73,
-            15,
-            137,
-            21
+            80,
+            32,
+            151,
+            41
           ]
         },
         {
@@ -2058,24 +2058,24 @@
           ],
           "margin": [
             95,
-            19,
+            23,
             156,
-            27
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1222,
-            1465,
-            220,
-            191
+            437,
+            1413,
+            210,
+            182
           ],
           "margin": [
-            72,
-            14,
-            140,
-            20
+            76,
+            28,
+            150,
+            37
           ]
         },
         {
@@ -2088,24 +2088,24 @@
           ],
           "margin": [
             82,
-            21,
+            25,
             132,
-            29
+            37
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1446,
-            1465,
-            182,
-            186
+            651,
+            1413,
+            204,
+            209
           ],
           "margin": [
-            90,
-            19,
-            178,
-            25
+            78,
+            0,
+            156,
+            10
           ]
         }
       ]
@@ -2125,24 +2125,24 @@
           ],
           "margin": [
             85,
-            29,
+            33,
             138,
-            37
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1632,
-            1465,
-            191,
-            186
+            859,
+            1413,
+            208,
+            203
           ],
           "margin": [
-            88,
-            20,
-            169,
-            25
+            80,
+            6,
+            152,
+            16
           ]
         },
         {
@@ -2155,23 +2155,23 @@
           ],
           "margin": [
             85,
-            21,
+            25,
             134,
-            29
+            37
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1827,
-            1465,
-            197,
-            191
+            1071,
+            1413,
+            206,
+            199
           ],
           "margin": [
-            84,
-            14,
-            163,
+            80,
+            10,
+            154,
             20
           ]
         },
@@ -2185,24 +2185,24 @@
           ],
           "margin": [
             84,
-            21,
+            25,
             125,
-            29
+            37
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            1677,
-            200,
-            187
+            1281,
+            1413,
+            193,
+            181
           ],
           "margin": [
-            93,
-            18,
-            160,
-            24
+            97,
+            28,
+            167,
+            38
           ]
         },
         {
@@ -2215,24 +2215,24 @@
           ],
           "margin": [
             85,
-            27,
+            31,
             124,
-            35
+            43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            206,
-            1677,
-            205,
-            187
+            1478,
+            1413,
+            198,
+            181
           ],
           "margin": [
-            93,
-            18,
-            155,
-            24
+            96,
+            28,
+            162,
+            38
           ]
         },
         {
@@ -2245,24 +2245,24 @@
           ],
           "margin": [
             85,
-            22,
+            26,
             124,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            415,
-            1677,
-            248,
-            190
+            1680,
+            1413,
+            245,
+            188
           ],
           "margin": [
-            76,
-            15,
-            112,
-            21
+            78,
+            21,
+            115,
+            31
           ]
         },
         {
@@ -2275,24 +2275,24 @@
           ],
           "margin": [
             64,
-            23,
+            27,
             74,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            667,
-            1677,
-            270,
-            185
+            2,
+            1630,
+            266,
+            182
           ],
           "margin": [
-            69,
-            20,
-            90,
-            26
+            71,
+            27,
+            94,
+            37
           ]
         },
         {
@@ -2305,24 +2305,24 @@
           ],
           "margin": [
             73,
-            31,
+            35,
             88,
-            39
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            941,
-            1677,
-            269,
-            185
+            272,
+            1630,
+            265,
+            182
           ],
           "margin": [
-            74,
-            20,
-            91,
-            26
+            76,
+            27,
+            95,
+            37
           ]
         },
         {
@@ -2335,24 +2335,24 @@
           ],
           "margin": [
             68,
-            25,
+            29,
             80,
-            33
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1214,
-            1677,
-            282,
-            188
+            541,
+            1630,
+            268,
+            178
           ],
           "margin": [
-            68,
-            17,
-            78,
-            23
+            74,
+            31,
+            92,
+            41
           ]
         },
         {
@@ -2365,24 +2365,24 @@
           ],
           "margin": [
             76,
-            26,
+            30,
             94,
-            34
+            42
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1500,
-            1677,
-            272,
-            184
+            813,
+            1630,
+            254,
+            172
           ],
           "margin": [
-            68,
-            21,
-            88,
-            27
+            76,
+            37,
+            106,
+            47
           ]
         },
         {
@@ -2395,24 +2395,24 @@
           ],
           "margin": [
             86,
-            32,
+            36,
             113,
-            40
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1776,
-            1677,
-            255,
-            186
+            1071,
+            1630,
+            246,
+            179
           ],
           "margin": [
-            79,
-            19,
-            105,
-            25
+            83,
+            30,
+            114,
+            40
           ]
         },
         {
@@ -2425,24 +2425,24 @@
           ],
           "margin": [
             81,
-            22,
+            26,
             101,
-            30
+            38
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            260,
-            192
+            1321,
+            1630,
+            247,
+            183
           ],
           "margin": [
-            76,
-            13,
-            100,
-            19
+            82,
+            26,
+            113,
+            36
           ]
         },
         {
@@ -2455,24 +2455,24 @@
           ],
           "margin": [
             84,
-            20,
+            24,
             125,
-            28
+            36
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            266,
-            2,
-            262,
-            191
+            1572,
+            1630,
+            247,
+            180
           ],
           "margin": [
-            78,
-            14,
-            98,
-            20
+            85,
+            29,
+            113,
+            39
           ]
         }
       ]
@@ -2492,24 +2492,24 @@
           ],
           "margin": [
             88,
-            23,
+            27,
             133,
-            31
+            39
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            532,
             2,
-            253,
-            193
+            1821,
+            238,
+            182
           ],
           "margin": [
-            84,
-            12,
-            107,
-            18
+            90,
+            27,
+            122,
+            37
           ]
         },
         {
@@ -2522,24 +2522,24 @@
           ],
           "margin": [
             85,
-            16,
+            20,
             127,
-            24
+            32
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            789,
-            2,
-            262,
-            198
+            244,
+            1821,
+            241,
+            182
           ],
           "margin": [
-            76,
-            7,
-            98,
-            13
+            84,
+            27,
+            119,
+            37
           ]
         },
         {
@@ -2552,24 +2552,24 @@
           ],
           "margin": [
             84,
-            15,
+            19,
             122,
-            23
+            31
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1055,
-            2,
-            252,
-            194
+            489,
+            1821,
+            237,
+            183
           ],
           "margin": [
-            80,
-            11,
-            108,
-            17
+            86,
+            26,
+            123,
+            36
           ]
         },
         {
@@ -2582,24 +2582,24 @@
           ],
           "margin": [
             88,
-            22,
+            26,
             133,
-            30
+            38
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1311,
-            2,
-            239,
-            194
+            730,
+            1821,
+            226,
+            183
           ],
           "margin": [
-            83,
-            11,
-            121,
-            17
+            88,
+            26,
+            134,
+            36
           ]
         },
         {
@@ -2612,24 +2612,24 @@
           ],
           "margin": [
             82,
-            16,
+            20,
             125,
-            24
+            32
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1554,
-            2,
-            245,
-            196
+            960,
+            1821,
+            236,
+            189
           ],
           "margin": [
-            80,
-            9,
-            115,
-            15
+            84,
+            20,
+            124,
+            30
           ]
         },
         {
@@ -2642,24 +2642,24 @@
           ],
           "margin": [
             73,
-            19,
+            23,
             119,
-            27
+            35
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            1803,
-            2,
-            239,
-            190
+            1200,
+            1821,
+            232,
+            185
           ],
           "margin": [
-            80,
-            15,
-            121,
-            21
+            84,
+            24,
+            128,
+            34
           ]
         },
         {
@@ -2672,24 +2672,24 @@
           ],
           "margin": [
             80,
-            26,
+            30,
             126,
-            34
+            42
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            2,
-            208,
-            233,
-            189
+            1436,
+            1821,
+            229,
+            186
           ],
           "margin": [
-            82,
-            16,
-            127,
-            22
+            84,
+            23,
+            131,
+            33
           ]
         },
         {
@@ -2702,24 +2702,24 @@
           ],
           "margin": [
             74,
-            21,
+            25,
             118,
-            29
+            37
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_00.png",
           "region": [
-            239,
-            208,
-            234,
-            191
+            1669,
+            1821,
+            226,
+            185
           ],
           "margin": [
-            82,
-            14,
-            126,
-            20
+            86,
+            24,
+            134,
+            34
           ]
         },
         {
@@ -2732,24 +2732,24 @@
           ],
           "margin": [
             84,
-            22,
+            26,
             134,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            477,
-            208,
-            227,
-            187
+            2,
+            2,
+            211,
+            174
           ],
           "margin": [
-            84,
-            18,
-            133,
-            24
+            92,
+            35,
+            149,
+            45
           ]
         },
         {
@@ -2762,24 +2762,24 @@
           ],
           "margin": [
             92,
-            29,
+            33,
             149,
-            37
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            708,
-            208,
-            224,
-            189
+            217,
+            2,
+            212,
+            178
           ],
           "margin": [
-            88,
-            16,
-            136,
-            22
+            92,
+            31,
+            148,
+            41
           ]
         },
         {
@@ -2792,24 +2792,24 @@
           ],
           "margin": [
             84,
-            18,
+            22,
             129,
-            26
+            34
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            936,
-            208,
-            245,
-            198
+            433,
+            2,
+            221,
+            179
           ],
           "margin": [
-            75,
-            7,
-            115,
-            13
+            86,
+            30,
+            139,
+            40
           ]
         },
         {
@@ -2822,24 +2822,24 @@
           ],
           "margin": [
             95,
-            12,
+            16,
             158,
-            20
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1185,
-            208,
-            234,
-            201
+            658,
+            2,
+            205,
+            177
           ],
           "margin": [
-            80,
-            4,
-            126,
-            10
+            94,
+            32,
+            155,
+            42
           ]
         }
       ]
@@ -2859,24 +2859,24 @@
           ],
           "margin": [
             86,
-            21,
+            25,
             143,
-            29
+            37
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1423,
-            208,
-            219,
-            190
+            867,
+            2,
+            212,
+            184
           ],
           "margin": [
-            84,
-            15,
-            141,
-            21
+            86,
+            25,
+            148,
+            35
           ]
         },
         {
@@ -2889,24 +2889,24 @@
           ],
           "margin": [
             94,
-            23,
+            27,
             150,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1646,
-            208,
-            245,
-            191
+            1083,
+            2,
+            220,
+            171
           ],
           "margin": [
-            74,
-            14,
-            115,
-            20
+            86,
+            38,
+            140,
+            48
           ]
         }
       ]
@@ -2926,24 +2926,24 @@
           ],
           "margin": [
             84,
-            38,
+            42,
             180,
-            46
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
+            1307,
             2,
-            417,
-            208,
-            175
+            197,
+            166
           ],
           "margin": [
-            70,
-            30,
-            152,
-            36
+            75,
+            43,
+            163,
+            53
           ]
         },
         {
@@ -2956,24 +2956,24 @@
           ],
           "margin": [
             72,
-            36,
+            40,
             164,
-            44
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            214,
-            417,
-            224,
-            175
+            1508,
+            2,
+            203,
+            159
           ],
           "margin": [
-            59,
-            30,
-            136,
-            36
+            69,
+            50,
+            157,
+            60
           ]
         }
       ]
@@ -2993,24 +2993,24 @@
           ],
           "margin": [
             76,
-            44,
+            48,
             139,
-            52
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            442,
-            417,
-            227,
-            168
+            1715,
+            2,
+            216,
+            159
           ],
           "margin": [
-            63,
-            37,
-            133,
-            43
+            68,
+            50,
+            144,
+            60
           ]
         },
         {
@@ -3023,24 +3023,24 @@
           ],
           "margin": [
             75,
-            44,
+            48,
             159,
-            52
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            673,
-            417,
-            228,
-            168
+            2,
+            194,
+            217,
+            159
           ],
           "margin": [
-            61,
-            37,
-            132,
-            43
+            66,
+            50,
+            143,
+            60
           ]
         }
       ]
@@ -3060,24 +3060,24 @@
           ],
           "margin": [
             88,
-            24,
+            28,
             146,
-            32
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            905,
-            417,
-            249,
-            188
+            223,
+            194,
+            226,
+            171
           ],
           "margin": [
-            62,
-            17,
-            111,
-            23
+            74,
+            38,
+            134,
+            48
           ]
         },
         {
@@ -3090,24 +3090,24 @@
           ],
           "margin": [
             90,
-            24,
+            28,
             149,
-            32
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1158,
-            417,
-            244,
-            184
+            453,
+            194,
+            235,
+            178
           ],
           "margin": [
-            66,
-            21,
-            116,
-            27
+            70,
+            31,
+            125,
+            41
           ]
         },
         {
@@ -3120,24 +3120,24 @@
           ],
           "margin": [
             61,
-            31,
+            35,
             88,
-            39
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1406,
-            417,
+            692,
+            194,
             245,
             174
           ],
           "margin": [
             66,
-            31,
+            35,
             115,
-            37
+            45
           ]
         },
         {
@@ -3150,24 +3150,24 @@
           ],
           "margin": [
             70,
-            44,
+            48,
             112,
-            52
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1655,
-            417,
-            260,
-            171
+            941,
+            194,
+            250,
+            165
           ],
           "margin": [
-            59,
-            34,
-            100,
-            40
+            64,
+            44,
+            110,
+            54
           ]
         },
         {
@@ -3180,24 +3180,24 @@
           ],
           "margin": [
             64,
-            37,
+            41,
             98,
-            45
+            53
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            2,
-            613,
-            279,
-            175
+            1195,
+            194,
+            260,
+            164
           ],
           "margin": [
-            52,
-            30,
-            81,
-            36
+            60,
+            45,
+            100,
+            55
           ]
         },
         {
@@ -3210,24 +3210,24 @@
           ],
           "margin": [
             62,
-            37,
+            41,
             93,
-            45
+            53
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            285,
-            613,
-            291,
-            171
+            1459,
+            194,
+            261,
+            154
           ],
           "margin": [
-            48,
-            34,
-            69,
-            40
+            62,
+            55,
+            99,
+            65
           ]
         },
         {
@@ -3240,24 +3240,24 @@
           ],
           "margin": [
             73,
-            45,
+            49,
             119,
-            53
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            580,
-            613,
-            282,
-            167
+            1724,
+            194,
+            251,
+            149
           ],
           "margin": [
-            51,
-            38,
-            78,
-            44
+            66,
+            60,
+            109,
+            70
           ]
         },
         {
@@ -3270,24 +3270,24 @@
           ],
           "margin": [
             68,
-            45,
+            49,
             112,
-            53
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            866,
-            613,
-            274,
-            164
+            2,
+            380,
+            258,
+            154
           ],
           "margin": [
-            62,
-            41,
-            86,
-            47
+            68,
+            55,
+            102,
+            65
           ]
         },
         {
@@ -3300,24 +3300,24 @@
           ],
           "margin": [
             65,
-            51,
+            55,
             75,
-            59
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1144,
-            613,
-            252,
-            153
+            264,
+            380,
+            251,
+            152
           ],
           "margin": [
             74,
-            52,
-            108,
-            58
+            57,
+            109,
+            67
           ]
         },
         {
@@ -3330,24 +3330,24 @@
           ],
           "margin": [
             80,
-            66,
+            70,
             103,
-            74
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1400,
-            613,
-            259,
-            153
+            519,
+            380,
+            255,
+            151
           ],
           "margin": [
-            70,
-            52,
-            101,
-            58
+            72,
+            58,
+            105,
+            68
           ]
         },
         {
@@ -3360,24 +3360,24 @@
           ],
           "margin": [
             67,
-            52,
+            56,
             75,
-            60
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1663,
-            613,
-            283,
-            164
+            778,
+            380,
+            276,
+            160
           ],
           "margin": [
-            57,
-            41,
-            77,
-            47
+            60,
+            49,
+            84,
+            59
           ]
         },
         {
@@ -3390,24 +3390,24 @@
           ],
           "margin": [
             70,
-            44,
+            48,
             111,
-            52
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            2,
-            796,
-            276,
-            168
+            1058,
+            380,
+            272,
+            166
           ],
           "margin": [
-            57,
-            37,
-            84,
-            43
+            59,
+            43,
+            88,
+            53
           ]
         }
       ]
@@ -3427,24 +3427,24 @@
           ],
           "margin": [
             71,
-            44,
+            48,
             104,
-            52
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            282,
-            796,
-            285,
-            174
+            1334,
+            380,
+            274,
+            168
           ],
           "margin": [
-            53,
-            31,
-            75,
-            37
+            59,
+            41,
+            86,
+            51
           ]
         },
         {
@@ -3457,24 +3457,24 @@
           ],
           "margin": [
             64,
-            33,
+            37,
             97,
-            41
+            49
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            571,
-            796,
-            274,
-            182
+            1612,
+            380,
+            247,
+            165
           ],
           "margin": [
-            55,
-            23,
-            86,
-            29
+            68,
+            44,
+            113,
+            54
           ]
         },
         {
@@ -3487,24 +3487,24 @@
           ],
           "margin": [
             77,
-            28,
+            32,
             131,
-            36
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            849,
-            796,
-            265,
-            184
+            2,
+            556,
+            235,
+            163
           ],
           "margin": [
-            52,
-            21,
-            95,
-            27
+            67,
+            46,
+            125,
+            56
           ]
         },
         {
@@ -3517,24 +3517,24 @@
           ],
           "margin": [
             70,
-            30,
+            34,
             125,
-            38
+            46
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1118,
-            796,
-            251,
-            186
+            241,
+            556,
+            232,
+            172
           ],
           "margin": [
-            59,
-            19,
-            109,
-            25
+            69,
+            37,
+            128,
+            47
           ]
         },
         {
@@ -3547,24 +3547,24 @@
           ],
           "margin": [
             78,
-            23,
+            27,
             138,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1373,
-            796,
-            244,
-            190
+            477,
+            556,
+            233,
+            181
           ],
           "margin": [
-            64,
-            15,
-            116,
-            21
+            70,
+            28,
+            127,
+            38
           ]
         },
         {
@@ -3577,24 +3577,24 @@
           ],
           "margin": [
             75,
-            22,
+            26,
             134,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1621,
-            796,
-            232,
-            187
+            714,
+            556,
+            230,
+            185
           ],
           "margin": [
-            68,
-            18,
-            128,
-            24
+            69,
+            24,
+            130,
+            34
           ]
         },
         {
@@ -3607,24 +3607,24 @@
           ],
           "margin": [
             76,
-            29,
+            33,
             139,
-            37
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            2,
-            994,
-            239,
-            186
+            948,
+            556,
+            233,
+            182
           ],
           "margin": [
-            62,
-            19,
-            121,
-            25
+            65,
+            27,
+            127,
+            37
           ]
         },
         {
@@ -3637,24 +3637,24 @@
           ],
           "margin": [
             73,
-            23,
+            27,
             131,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            245,
-            994,
-            243,
-            190
+            1185,
+            556,
+            235,
+            184
           ],
           "margin": [
-            60,
-            15,
-            117,
-            21
+            64,
+            25,
+            125,
+            35
           ]
         },
         {
@@ -3667,24 +3667,24 @@
           ],
           "margin": [
             68,
-            21,
+            25,
             135,
-            29
+            37
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            492,
-            994,
-            239,
-            188
+            1424,
+            556,
+            230,
+            181
           ],
           "margin": [
-            65,
-            17,
-            121,
-            23
+            69,
+            28,
+            130,
+            38
           ]
         },
         {
@@ -3697,24 +3697,24 @@
           ],
           "margin": [
             70,
-            28,
+            32,
             143,
-            36
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            735,
-            994,
-            236,
-            186
+            1658,
+            556,
+            227,
+            178
           ],
           "margin": [
-            63,
-            19,
-            124,
-            25
+            68,
+            31,
+            133,
+            41
           ]
         },
         {
@@ -3727,24 +3727,24 @@
           ],
           "margin": [
             69,
-            25,
+            29,
             137,
-            33
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            975,
-            994,
+            2,
+            749,
             230,
-            185
+            186
           ],
           "margin": [
             68,
-            20,
+            23,
             130,
-            26
+            33
           ]
         },
         {
@@ -3757,24 +3757,24 @@
           ],
           "margin": [
             47,
-            28,
+            32,
             95,
-            36
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1209,
-            994,
             236,
-            179
+            749,
+            232,
+            176
           ],
           "margin": [
-            62,
-            26,
-            124,
-            32
+            64,
+            33,
+            128,
+            43
           ]
         }
       ]
@@ -3794,24 +3794,24 @@
           ],
           "margin": [
             58,
-            37,
+            41,
             119,
-            45
+            53
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1449,
-            994,
-            251,
-            179
+            472,
+            749,
+            245,
+            175
           ],
           "margin": [
-            54,
-            26,
-            109,
-            32
+            57,
+            34,
+            115,
+            44
           ]
         },
         {
@@ -3824,24 +3824,24 @@
           ],
           "margin": [
             43,
-            28,
+            32,
             90,
-            36
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1704,
-            994,
-            260,
-            186
+            721,
+            749,
+            247,
+            177
           ],
           "margin": [
-            49,
-            19,
-            100,
-            25
+            55,
+            32,
+            113,
+            42
           ]
         },
         {
@@ -3854,24 +3854,24 @@
           ],
           "margin": [
             70,
-            24,
+            28,
             130,
-            32
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            2,
-            1192,
-            258,
-            187
+            972,
+            749,
+            234,
+            169
           ],
           "margin": [
-            53,
-            18,
-            102,
-            24
+            65,
+            40,
+            126,
+            50
           ]
         },
         {
@@ -3884,24 +3884,24 @@
           ],
           "margin": [
             77,
-            28,
+            32,
             143,
-            36
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            264,
-            1192,
-            225,
-            187
+            1210,
+            749,
+            215,
+            179
           ],
           "margin": [
-            75,
-            18,
-            135,
-            24
+            80,
+            30,
+            145,
+            40
           ]
         },
         {
@@ -3914,24 +3914,24 @@
           ],
           "margin": [
             70,
-            23,
+            27,
             128,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            493,
-            1192,
-            265,
-            189
+            1429,
+            749,
+            243,
+            172
           ],
           "margin": [
-            52,
-            16,
-            95,
-            22
+            63,
+            37,
+            117,
+            47
           ]
         },
         {
@@ -3944,24 +3944,24 @@
           ],
           "margin": [
             68,
-            25,
+            29,
             106,
-            33
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            762,
-            1192,
-            255,
-            184
+            1676,
+            749,
+            235,
+            169
           ],
           "margin": [
-            54,
-            21,
-            105,
-            27
+            65,
+            40,
+            125,
+            50
           ]
         },
         {
@@ -3974,24 +3974,24 @@
           ],
           "margin": [
             76,
-            32,
+            36,
             124,
-            40
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1021,
-            1192,
-            256,
-            185
+            2,
+            943,
+            237,
+            171
           ],
           "margin": [
-            52,
-            20,
-            104,
-            26
+            62,
+            38,
+            123,
+            48
           ]
         },
         {
@@ -4004,24 +4004,24 @@
           ],
           "margin": [
             62,
-            23,
+            27,
             95,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1281,
-            1192,
-            234,
-            190
+            243,
+            943,
+            215,
+            174
           ],
           "margin": [
-            70,
-            15,
-            126,
-            21
+            79,
+            35,
+            145,
+            45
           ]
         },
         {
@@ -4034,24 +4034,24 @@
           ],
           "margin": [
             79,
-            22,
+            26,
             130,
-            30
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1519,
-            1192,
-            244,
-            187
+            462,
+            943,
+            214,
+            164
           ],
           "margin": [
-            62,
-            18,
-            116,
-            24
+            78,
+            45,
+            146,
+            55
           ]
         },
         {
@@ -4064,24 +4064,24 @@
           ],
           "margin": [
             85,
-            28,
+            32,
             143,
-            36
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1767,
-            1192,
-            245,
-            190
+            680,
+            943,
+            214,
+            166
           ],
           "margin": [
-            64,
-            15,
-            115,
-            21
+            80,
+            43,
+            146,
+            53
           ]
         },
         {
@@ -4094,24 +4094,24 @@
           ],
           "margin": [
             70,
-            17,
+            21,
             115,
-            25
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            2,
-            1390,
-            263,
-            198
+            898,
+            943,
+            233,
+            176
           ],
           "margin": [
-            62,
-            7,
-            97,
-            13
+            76,
+            33,
+            127,
+            43
           ]
         },
         {
@@ -4124,24 +4124,24 @@
           ],
           "margin": [
             83,
-            12,
+            16,
             147,
-            20
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            269,
-            1390,
-            275,
-            201
+            1135,
+            943,
+            228,
+            167
           ],
           "margin": [
-            56,
-            4,
-            85,
-            10
+            78,
+            42,
+            132,
+            52
           ]
         }
       ]
@@ -4161,24 +4161,24 @@
           ],
           "margin": [
             78,
-            51,
+            55,
             132,
-            59
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            548,
-            1390,
-            226,
-            161
+            1367,
+            943,
+            228,
+            162
           ],
           "margin": [
             74,
-            44,
-            134,
-            50
+            47,
+            132,
+            57
           ]
         },
         {
@@ -4191,24 +4191,24 @@
           ],
           "margin": [
             74,
-            50,
+            54,
             124,
-            58
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            778,
-            1390,
-            236,
-            161
+            1599,
+            943,
+            235,
+            160
           ],
           "margin": [
             72,
-            44,
-            124,
-            50
+            49,
+            125,
+            59
           ]
         }
       ]
@@ -4228,24 +4228,24 @@
           ],
           "margin": [
             71,
-            47,
+            51,
             98,
-            55
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1018,
-            1390,
-            243,
-            166
+            2,
+            1127,
+            251,
+            172
           ],
           "margin": [
-            72,
-            39,
-            117,
-            45
+            68,
+            37,
+            109,
+            47
           ]
         },
         {
@@ -4258,24 +4258,24 @@
           ],
           "margin": [
             76,
-            44,
+            48,
             108,
-            52
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/motion_v8_01.png",
           "region": [
-            1265,
-            1390,
-            238,
-            166
+            257,
+            1127,
+            245,
+            171
           ],
           "margin": [
-            72,
-            39,
-            122,
-            45
+            68,
+            38,
+            115,
+            48
           ]
         }
       ]

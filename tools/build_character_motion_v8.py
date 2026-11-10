@@ -25,7 +25,7 @@ BASE = ROOT / 'godot/assets/sprites/original_creatures'
 REF = 'ff8ab652b224523afbf8789a7b5ad98a676eb389'
 SPEC = REQUEST / 'specification.json'
 REFERENCE_SPEC = REQUEST / 'reference_specification.json'
-REGISTRATION_OVERRIDES = REQUEST / 'registration_overrides.json'
+POSE_REPAIRS = REQUEST / 'pose_repairs.json'
 PROMPT = '''Use case: identity-preserve. Asset type: production 2D game animation IN-BETWEEN drawings for Crimson Thread Pilgrimage.
 Input image 1 is a REFERENCE BOARD with SIX columns and FOUR rows: TWENTY-FOUR numbered transition cells. Within EACH cell the EARLIER endpoint is ABOVE and the LATER endpoint is BELOW. Order is row-major 1 through 24.
 Draw ONE genuinely NEW anatomical MIDPOINT pose halfway between the two endpoints in EACH corresponding cell. Output exactly TWENTY-FOUR separate full-body sprites, SIX columns by FOUR rows, 1536x1024 or larger 3:2 landscape. Output ONLY new midpoint drawings, never the endpoint drawings. If endpoints look nearly identical, articulate the tiny intermediate cloth/limb/antenna settling movement; do not invent a different action.
@@ -69,6 +69,59 @@ def atlas(path, ref=None):
 def cel(frame, ref=None):
     x,y,w,h=frame['region']
     return atlas(frame['atlas'],ref).crop((x,y,x+w,y+h))
+
+
+def body_measure(image, kind):
+    pixels=np.asarray(image)
+    solid=pixels[:,:,3]>128
+    if kind=='wax_bee':
+        # The golden abdomen is a stable body reference while its pale wings
+        # fold, rotate and overlap. Measure that material rather than wing span.
+        r,g,b=(pixels[:,:,i].astype(np.float32) for i in range(3))
+        body=solid&(r>b*1.8)&(g>b*1.3)&(r>g*1.1)&(r>80)
+        value=math.sqrt(float(body.sum()))
+        metric='golden_body_area_sqrt'
+    else:
+        # Opaque painted mass stays stable when a pose rotates or spreads its
+        # limbs. Unlike full silhouette height it does not enlarge crouches or
+        # folded wings to the height of a standing / fully spread endpoint.
+        value=math.sqrt(float(solid.sum()))
+        metric='opaque_area_sqrt'
+    if not math.isfinite(value) or value<3:raise ValueError(kind+': no reliable body scale reference')
+    return metric,value
+
+
+@lru_cache(maxsize=16384)
+def endpoint_body_measure(kind, resource, region):
+    return body_measure(cel(dict(atlas=resource,region=region)),kind)[1]
+
+
+@lru_cache(maxsize=16384)
+def endpoint_opaque_area(resource, region):
+    return int((np.asarray(cel(dict(atlas=resource,region=region)))[:,:,3]>128).sum())
+
+
+@lru_cache(maxsize=1)
+def pose_repairs():
+    result={}
+    jobs={j['id']:j for j in read(SPEC)['jobs']}
+    for repair in read(POSE_REPAIRS) if POSE_REPAIRS.exists() else []:
+        source=ROOT/repair['source'];receipt=read(Path(str(source)+'.receipt.json'))
+        if receipt.get('generator')!='built-in image_gen' or sha256(source.read_bytes()).hexdigest()!=repair['sha256'] or receipt['sha256']!=repair['sha256']:
+            raise ValueError(repair['id']+': unverified repair source')
+        figures=extract(source)
+        if len(figures)!=24:raise ValueError(repair['id']+': repair must contain 24 complete figures')
+        used=[]
+        for slot in repair['slots']:
+            key=(slot['job'],slot['source_index'])
+            edge=jobs[slot['job']]['edges'][slot['source_index']]
+            if key in result or (edge['animation'],edge['after'])!=(slot['animation'],slot['after']) or jobs[slot['job']]['kind']!=slot['kind']:
+                raise ValueError(repair['id']+': invalid or duplicate repair slot')
+            drawing=figures[slot['repair_index']]
+            used.append(sha256(drawing['pixels'].tobytes()).hexdigest())
+            result[key]=(repair,slot['repair_index'],drawing)
+        if len(used)!=len(set(used)):raise ValueError(repair['id']+': duplicate repair cels')
+    return result
 
 
 def endpoint(animations, animation, index):
@@ -157,12 +210,6 @@ def register_job(job):
     if len(figures)!=24:raise ValueError(job['id']+': source must contain 24 complete sprites')
     used_hashes=[sha256(f['pixels'].tobytes()).hexdigest() for f in figures[:job['used_drawings']]]
     if len(set(used_hashes))!=len(used_hashes):raise ValueError(job['id']+': duplicated source cels cannot count as new drawings')
-    adjustments=read(REGISTRATION_OVERRIDES).get(job['id'],[]) if REGISTRATION_OVERRIDES.exists() else []
-    slots={(edge['animation'],edge['after']) for edge in job['edges']}
-    if any((item['animation'],item['after']) not in slots for item in adjustments):
-        raise ValueError(job['id']+': registration override has no matching drawing')
-    if len({(item['animation'],item['after']) for item in adjustments})!=len(adjustments):
-        raise ValueError(job['id']+': duplicate registration override')
     def mean_rgb(image):
         pixels=np.asarray(image);mask=pixels[:,:,3]>128
         if not mask.any():raise ValueError(job['id']+': no solid character ink')
@@ -171,26 +218,29 @@ def register_job(job):
     gain=np.clip(np.mean([mean_rgb(im) for im in targets],axis=0)/np.maximum(1,np.mean([mean_rgb(Image.fromarray(f['pixels'])) for f in figures[:len(job['edges'])]],axis=0)),.85,1.15)
     result=[]
     for index,edge in enumerate(job['edges']):
-        drawing=figures[index];pixels=drawing['pixels'].copy()
-        pixels[:,:,:3]=np.clip(np.round(pixels[:,:,:3].astype(np.float32)*gain),0,255).astype(np.uint8)
+        replacement=pose_repairs().get((job['id'],index))
+        drawing=replacement[2] if replacement else figures[index]
+        pixels=drawing['pixels'].copy()
+        frame_gain=gain
+        if replacement:
+            target_rgb=np.mean([mean_rgb(cel(edge[side])) for side in ['left','right']],axis=0)
+            frame_gain=np.clip(target_rgb/np.maximum(1,mean_rgb(Image.fromarray(pixels))),.85,1.15)
+        pixels[:,:,:3]=np.clip(np.round(pixels[:,:,:3].astype(np.float32)*frame_gain),0,255).astype(np.uint8)
         im=Image.fromarray(pixels)
         # Registration only: new silhouettes are independently authored pixels.
         left,right=edge['left'],edge['right']
         lb,rb=cel(left).getchannel('A').getbbox(),cel(right).getchannel('A').getbbox()
         if lb is None or rb is None:raise ValueError(job['id']+': empty baseline endpoint')
-        lh,rh=lb[3]-lb[1],rb[3]-rb[1]
-        scale=(lh+rh)*.5/drawing['height']
-        adjustment=next((item for item in adjustments if (item['animation'],item['after'])==(edge['animation'],edge['after'])),None)
-        if adjustment is not None:
-            # Wing angle changes the full silhouette height independently of
-            # body size. Keep the independently drawn pose, with a reviewed
-            # uniform calibration instead of changing collision or stretching.
-            factor=float(adjustment['uniform_scale'])
-            if not math.isfinite(factor) or not .5<=factor<=1.5:
-                raise ValueError(job['id']+': invalid registration override scale')
-            scale*=factor
+        metric,source_body=body_measure(im,job['kind'])
+        target_body=math.sqrt(math.prod(endpoint_body_measure(job['kind'],frame['atlas'],tuple(frame['region'])) for frame in [left,right]))
+        scale=target_body/source_body
         im=im.resize((round(im.width*scale),round(im.height*scale)),Image.Resampling.LANCZOS)
         if not .15<=scale<=4:raise ValueError(job['id']+': unexpected drawing scale')
+        reference_area=math.sqrt(endpoint_opaque_area(left['atlas'],tuple(left['region']))*endpoint_opaque_area(right['atlas'],tuple(right['region'])))
+        opaque_area=int((np.asarray(im)[:,:,3]>128).sum())
+        area_ratio=opaque_area/reference_area
+        if not .67<=area_ratio<=1.5:
+            raise ValueError(f"{job['id']}/{edge['animation']} after {edge['after']}: opaque area ratio {area_ratio:.3f} outside [0.67, 1.5]")
         baseline=(left['margin'][1]+lb[3]+right['margin'][1]+rb[3])*.5
         anchors=[]
         for frame in [left,right]:
@@ -199,8 +249,9 @@ def register_job(job):
         weights=np.asarray(im)[:,:,3].sum(axis=0);center=int(np.searchsorted(np.cumsum(weights),weights.sum()*.5))
         visible=im.getchannel('A').getbbox()
         result.append(dict(edge=edge,image=im,margin_xy=[round(sum(anchors)*.5-center),round(baseline-visible[3])],
-                           source=job['source'],source_region=drawing['region'],source_index=index,scale=scale,rgb_gain=[round(float(v),6) for v in gain]))
-        if adjustment is not None:result[-1]['registration_adjustment']=adjustment
+                            source=replacement[0]['source'] if replacement else job['source'],source_region=drawing['region'],source_index=replacement[1] if replacement else index,scale=scale,rgb_gain=[round(float(v),6) for v in frame_gain]))
+        if replacement:result[-1]['replaces']=dict(source=job['source'],source_index=index,repair_id=replacement[0]['id'])
+        result[-1]['body_registration']=dict(metric=metric,source=source_body,target=target_body,registered=body_measure(im,job['kind'])[1])
     return result
 
 
@@ -264,14 +315,26 @@ def build(only=None,check=False):
             x+=w+4;row_h=max(row_h,h+4)
         finish()
         if len(frames)!=character['frame_refs']:raise ValueError(kind+': duplicate or missing transition slots')
+        # A common symmetric canvas keeps every old pixel at its original
+        # world position in both facings, while fully containing extended art.
+        padding=[max(0,max(max(-f['margin'][axis],f['margin'][axis]+f['region'][axis+2]-canvas[axis]) for f in frames.values())) for axis in [0,1]]
         for animation in manifest['animations']:
             original=animation['frames'];animation['frames']=[f for i,old in enumerate(original) for f in [old,frames[(animation['name'],i)]]]
             animation['fps']*=2
+            for frame in animation['frames']:
+                frame['margin']=[frame['margin'][0]+padding[0],frame['margin'][1]+padding[1],frame['margin'][2]+padding[0]*2,frame['margin'][3]+padding[1]*2]
+        manifest['canvas']=[canvas[0]+padding[0]*2,canvas[1]+padding[1]*2]
         manifest['version']=8;manifest['generation_record']='motion_v8_generation.json'
-        manifest['source']='Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.'
+        manifest['source']='Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.'
+        sources={}
+        for drawing in drawings:
+            source=drawing['source']
+            if source not in sources:sources[source]=dict(id=Path(source).stem,source=source,sha256=sha256((ROOT/source).read_bytes()).hexdigest(),used_drawings=0)
+            sources[source]['used_drawings']+=1
         record=dict(schema=1,baseline_commit=REF,reference_baseline_commit=spec.get('reference_baseline_commit',REF),baseline_manifest=character['manifest'],baseline_sha256=character['baseline_sha256'],
+                    baseline_canvas=canvas,symmetric_padding=padding,
                     new_drawings=len(drawings),old_frame_refs=character['frame_refs'],
-                    sources=[dict(id=j['id'],source=j['source'],sha256=sha256((ROOT/j['source']).read_bytes()).hexdigest(),used_drawings=j['used_drawings']) for j in jobs],
+                    sources=list(sources.values()),
                     registrations=[{k:v for k,v in d.items() if k not in ['image','edge']}|dict(animation=d['edge']['animation'],after=d['edge']['after']) for d in drawings])
         for name,data in [('motion_v8_manifest.json',manifest),('motion_v8_generation.json',record)]:
             path=folder/name
@@ -284,6 +347,11 @@ def build(only=None,check=False):
                 with Image.open(path) as current:
                     if current.size!=image.size or current.convert('RGBA').tobytes()!=image.tobytes():raise ValueError(kind+': stale atlas pixels')
             else:image.save(path)
+        expected_pages={folder/f'motion_v8_{i:02}.png' for i in range(len(pages))}
+        for stale in folder.glob('motion_v8_[0-9][0-9].png'):
+            if stale not in expected_pages:
+                if check:raise ValueError(kind+': unreferenced motion v8 page '+stale.name)
+                stale.unlink()
         reports.append(dict(kind=kind,old_frames=character['frame_refs'],new_frames=character['frame_refs']*2,pages=len(pages)))
     if not check:write(REQUEST/'runtime_report.json',reports)
     print(json.dumps(dict(characters=len(reports),new_frames=sum(r['new_frames'] for r in reports),check=check)))

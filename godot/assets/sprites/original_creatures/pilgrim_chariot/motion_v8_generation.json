@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/pilgrim_chariot/combat_motion_v7_manifest.json",
   "baseline_sha256": "e6546e651a7ea4e70c5a62333467533f44eda9dac4a0731d21ccd7a5c23861d1",
+  "baseline_canvas": [
+    360,
+    211
+  ],
+  "symmetric_padding": [
+    0,
+    4
+  ],
   "new_drawings": 138,
   "old_frame_refs": 138,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "pilgrim_chariot__03",
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "sha256": "6dee331a51e58b7b7156f5b165909eb4e69cb9a5f744372df707f42cbef90c04",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_02",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
+      "sha256": "b132128db2823c11f26f60c00338a2317dfb05648f628c14638c3d591e9e66f3",
+      "used_drawings": 4
     },
     {
       "id": "pilgrim_chariot__04",
@@ -47,8 +61,8 @@
   "registrations": [
     {
       "margin_xy": [
-        96,
-        8
+        102,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -58,19 +72,25 @@
         182
       ],
       "source_index": 0,
-      "scale": 1.0804597701149425,
+      "scale": 1.0079461708975241,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.46586285850765,
+        "target": 136.54229775556192,
+        "registered": 136.28646301082145
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        94,
-        9
+        100,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -80,19 +100,25 @@
         182
       ],
       "source_index": 1,
-      "scale": 1.0775862068965518,
+      "scale": 0.9997018156684254,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.16780537819048,
+        "target": 134.12779864082495,
+        "registered": 134.16780537819048
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        84,
-        9
+        92,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -102,19 +128,25 @@
         181
       ],
       "source_index": 2,
-      "scale": 1.083815028901734,
+      "scale": 0.9923396281390865,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.04886320446334,
+        "target": 132.02965943664535,
+        "registered": 132.31779925618474
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        78,
-        8
+        82,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -124,19 +156,25 @@
         182
       ],
       "source_index": 3,
-      "scale": 1.0804597701149425,
+      "scale": 1.0240059535405108,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.25547607623844,
+        "target": 134.40638893686224,
+        "registered": 134.4730456262518
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        82,
-        15
+        88,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -146,19 +184,25 @@
         182
       ],
       "source_index": 4,
-      "scale": 1.0459770114942528,
+      "scale": 0.9755962004208684,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.80436739806413,
+        "target": 129.5634362328484,
+        "registered": 129.5067565804966
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        72,
-        13
+        80,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -168,19 +212,25 @@
         181
       ],
       "source_index": 5,
-      "scale": 1.060693641618497,
+      "scale": 0.9770225513172897,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.70421405558744,
+        "target": 128.67798723582848,
+        "registered": 128.56126943990557
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        82,
-        14
+        91,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -190,19 +240,25 @@
         179
       ],
       "source_index": 6,
-      "scale": 1.067251461988304,
+      "scale": 0.9689382811309927,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.5066538240556,
+        "target": 127.42183111356893,
+        "registered": 127.13772060250254
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        86,
-        14
+        92,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -212,19 +268,25 @@
         179
       ],
       "source_index": 7,
-      "scale": 1.067251461988304,
+      "scale": 0.992641810912967,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.330349496961,
+        "target": 129.37135414158325,
+        "registered": 129.60709857102736
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        71,
-        13
+        77,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -234,19 +296,25 @@
         182
       ],
       "source_index": 8,
-      "scale": 1.0545977011494252,
+      "scale": 1.0067387045728446,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.84606270503545,
+        "target": 130.72105696155174,
+        "registered": 130.621590864604
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        76,
-        13
+        84,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -256,19 +324,25 @@
         180
       ],
       "source_index": 9,
-      "scale": 1.066860465116279,
+      "scale": 0.9791540140619331,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.75355782672435,
+        "target": 129.00702501297818,
+        "registered": 128.84486796143648
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        68,
-        14
+        75,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -278,19 +352,25 @@
         182
       ],
       "source_index": 10,
-      "scale": 1.0517241379310345,
+      "scale": 0.9792816140188398,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.7915020022156,
+        "target": 129.06099479469685,
+        "registered": 129.0116273829611
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        72,
-        15
+        78,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -300,19 +380,25 @@
         180
       ],
       "source_index": 11,
-      "scale": 1.055232558139535,
+      "scale": 0.995038738960479,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.33802208104893,
+        "target": 129.69138113013,
+        "registered": 129.5453588516393
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        76,
-        12
+        78,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -322,12 +408,18 @@
         180
       ],
       "source_index": 12,
-      "scale": 1.072674418604651,
+      "scale": 1.0383675678064719,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.238243231395,
+        "target": 135.2351678595713,
+        "registered": 135.41787178950938
+      },
       "animation": "windup",
       "after": 0
     },
@@ -344,19 +436,25 @@
         179
       ],
       "source_index": 13,
-      "scale": 1.105263157894737,
+      "scale": 1.104700234146533,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.6789960169575,
+        "target": 144.36111749796683,
+        "registered": 144.45414497341363
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        82,
-        9
+        85,
+        13
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -366,19 +464,25 @@
         178
       ],
       "source_index": 14,
-      "scale": 1.1,
+      "scale": 1.0781083335922959,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.88252348207476,
+        "target": 142.18364762120643,
+        "registered": 142.15132781652093
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        86,
-        9
+        90,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -388,19 +492,25 @@
         176
       ],
       "source_index": 15,
-      "scale": 1.1130952380952381,
+      "scale": 1.0737236998364672,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.44287167173823,
+        "target": 143.28077388818167,
+        "registered": 143.19916200872126
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        86,
-        6
+        84,
+        0
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -410,19 +520,25 @@
         182
       ],
       "source_index": 16,
-      "scale": 1.0919540229885059,
+      "scale": 1.1258820736671902,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.48764200486676,
+        "target": 148.03957904204853,
+        "registered": 147.99324308900052
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        89,
-        9
+        90,
+        11
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -432,12 +548,18 @@
         182
       ],
       "source_index": 17,
-      "scale": 1.0747126436781609,
+      "scale": 1.0653348488939083,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.69513932318696,
+        "target": 141.3647561998235,
+        "registered": 141.4496376806954
+      },
       "animation": "windup",
       "after": 5
     },
@@ -454,19 +576,25 @@
         182
       ],
       "source_index": 18,
-      "scale": 1.0747126436781609,
+      "scale": 1.0753355096819601,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.3782459469833,
+        "target": 142.35102857620316,
+        "registered": 142.36923825040296
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        70,
-        6
+        72,
+        11
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -476,19 +604,25 @@
         179
       ],
       "source_index": 19,
-      "scale": 1.1111111111111112,
+      "scale": 1.083777931458499,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.21195104830727,
+        "target": 143.28839482122677,
+        "registered": 143.2724676970422
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        74,
-        9
+        82,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -498,19 +632,25 @@
         177
       ],
       "source_index": 20,
-      "scale": 1.106508875739645,
+      "scale": 1.020680250681349,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.20213412898434,
+        "target": 133.91542715269972,
+        "registered": 134.08206442324789
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        73,
-        9
+        81,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -520,19 +660,25 @@
         176
       ],
       "source_index": 21,
-      "scale": 1.1130952380952381,
+      "scale": 1.0221278409507062,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.04197800704932,
+        "target": 133.94165405425525,
+        "registered": 133.88427838995884
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        70,
-        6
+        78,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -542,19 +688,25 @@
         174
       ],
       "source_index": 22,
-      "scale": 1.144578313253012,
+      "scale": 1.064205274973685,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.81805642627265,
+        "target": 140.2814709856182,
+        "registered": 140.07854939283175
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        66,
-        10
+        76,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__01.png",
       "source_region": [
@@ -564,19 +716,25 @@
         173
       ],
       "source_index": 23,
-      "scale": 1.1272727272727272,
+      "scale": 1.0253616593500494,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.03758867327684,
+        "target": 136.4116426779605,
+        "registered": 136.12861565446113
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        78,
-        11
+        84,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -586,19 +744,25 @@
         164
       ],
       "source_index": 0,
-      "scale": 1.185897435897436,
+      "scale": 1.1240604471202722,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.51141024815865,
+        "target": 135.46210968663976,
+        "registered": 135.26270735128733
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        78,
-        9
+        80,
+        12
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -608,19 +772,25 @@
         164
       ],
       "source_index": 1,
-      "scale": 1.1955128205128205,
+      "scale": 1.175767779585202,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.3951826278776,
+        "target": 141.55677655113453,
+        "registered": 141.50971698084905
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        73,
-        14
+        77,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -630,19 +800,25 @@
         162
       ],
       "source_index": 2,
-      "scale": 1.1785714285714286,
+      "scale": 1.1293534661893503,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.39192724394815,
+        "target": 137.09439380035826,
+        "registered": 137.06202975295528
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        55,
-        14
+        62,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -652,19 +828,25 @@
         159
       ],
       "source_index": 3,
-      "scale": 1.2019867549668874,
+      "scale": 1.1345759914432816,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.6731121667126,
+        "target": 136.91281587709426,
+        "registered": 136.57964709282274
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        54,
-        11
+        62,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -674,19 +856,25 @@
         160
       ],
       "source_index": 4,
-      "scale": 1.2138157894736843,
+      "scale": 1.1393965587339596,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.5354200219516,
+        "target": 140.75583245476594,
+        "registered": 140.55248130146973
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        56,
-        14
+        68,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -696,19 +884,25 @@
         159
       ],
       "source_index": 5,
-      "scale": 1.1986754966887416,
+      "scale": 1.0875100756795397,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.85357137665962,
+        "target": 133.60449670533282,
+        "registered": 133.52902306240392
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        55,
-        14
+        66,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -718,19 +912,25 @@
         157
       ],
       "source_index": 6,
-      "scale": 1.2147651006711409,
+      "scale": 1.1066449945388004,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.72920767013971,
+        "target": 134.71101835733427,
+        "registered": 134.8109787814034
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        64,
-        11
+        68,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -740,19 +940,25 @@
         158
       ],
       "source_index": 7,
-      "scale": 1.2266666666666666,
+      "scale": 1.1657884100077776,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.44500819876264,
+        "target": 140.41339460140924,
+        "registered": 140.15348729161184
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        58,
-        14
+        66,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -762,19 +968,25 @@
         159
       ],
       "source_index": 8,
-      "scale": 1.1986754966887416,
+      "scale": 1.1079224042061553,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.29715577869086,
+        "target": 134.3878364536957,
+        "registered": 134.3800580443393
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        59,
-        12
+        68,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -784,19 +996,25 @@
         158
       ],
       "source_index": 9,
-      "scale": 1.2233333333333334,
+      "scale": 1.1184021364592454,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.9958676980334,
+        "target": 135.32203693622074,
+        "registered": 135.22943466568216
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        64,
-        5
+        72,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -806,19 +1024,25 @@
         157
       ],
       "source_index": 10,
-      "scale": 1.2718120805369129,
+      "scale": 1.1932712618119998,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.22478945708326,
+        "target": 143.46078621653575,
+        "registered": 143.36317518805168
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        67,
-        6
+        74,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -828,19 +1052,25 @@
         158
       ],
       "source_index": 11,
-      "scale": 1.26,
+      "scale": 1.1789414882766474,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.84990613262907,
+        "target": 141.2960267058182,
+        "registered": 141.1488575936766
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        69,
-        4
+        76,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -850,19 +1080,25 @@
         159
       ],
       "source_index": 12,
-      "scale": 1.2649006622516556,
+      "scale": 1.17794217785066,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.41251994749142,
+        "target": 143.01692816528475,
+        "registered": 142.8600713985542
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        77,
-        0
+        82,
+        12
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -872,19 +1108,25 @@
         156
       ],
       "source_index": 13,
-      "scale": 1.3141891891891893,
+      "scale": 1.238329633779895,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.96249413879323,
+        "target": 148.55311143421463,
+        "registered": 148.53282465502363
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        76,
-        3
+        86,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -894,19 +1136,25 @@
         156
       ],
       "source_index": 14,
-      "scale": 1.2972972972972974,
+      "scale": 1.180451988369499,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.23726543796644,
+        "target": 141.93431906235872,
+        "registered": 141.67215675636479
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        71,
-        3
+        81,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -916,19 +1164,25 @@
         155
       ],
       "source_index": 15,
-      "scale": 1.3027210884353742,
+      "scale": 1.1742948774395232,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.87183294713455,
+        "target": 141.9391742565459,
+        "registered": 141.940128223135
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        66,
-        0
+        74,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -938,19 +1192,25 @@
         153
       ],
       "source_index": 16,
-      "scale": 1.3379310344827586,
+      "scale": 1.2274654605212603,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.16655108639841,
+        "target": 147.5002909685176,
+        "registered": 147.59065011036438
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        74,
-        4
+        84,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -960,19 +1220,25 @@
         154
       ],
       "source_index": 17,
-      "scale": 1.3047945205479452,
+      "scale": 1.1646454983541314,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.30793822520607,
+        "target": 140.1160986702532,
+        "registered": 140.0142849854971
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        70,
-        5
+        80,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -982,19 +1248,25 @@
         155
       ],
       "source_index": 18,
-      "scale": 1.2925170068027212,
+      "scale": 1.1549123855702452,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.3577999134248,
+        "target": 139.00271381999968,
+        "registered": 138.85243966167826
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        64,
-        2
+        74,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -1004,19 +1276,25 @@
         153
       ],
       "source_index": 19,
-      "scale": 1.3275862068965518,
+      "scale": 1.2074770062924558,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.06300852909773,
+        "target": 143.76584509888806,
+        "registered": 143.96874660842192
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        60,
-        6
+        70,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -1026,19 +1304,25 @@
         153
       ],
       "source_index": 20,
-      "scale": 1.303448275862069,
+      "scale": 1.1758045217542838,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.34138229968147,
+        "target": 137.97052789686356,
+        "registered": 137.84774209249855
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        60,
-        5
+        72,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -1048,19 +1332,25 @@
         153
       ],
       "source_index": 21,
-      "scale": 1.306896551724138,
+      "scale": 1.1596391061567357,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.5867885679685,
+        "target": 138.67751660311353,
+        "registered": 138.56045611934164
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        64,
-        1
+        73,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -1070,19 +1360,25 @@
         156
       ],
       "source_index": 22,
-      "scale": 1.3108108108108107,
+      "scale": 1.2103045598840592,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.8966500776593,
+        "target": 146.32176686369854,
+        "registered": 146.5196232591389
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        71,
-        2
+        80,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__02.png",
       "source_region": [
@@ -1092,19 +1388,25 @@
         160
       ],
       "source_index": 23,
-      "scale": 1.2664473684210527,
+      "scale": 1.1674133781264258,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.48673397556162,
+        "target": 142.99265188608325,
+        "registered": 143.05593311708537
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        82,
-        16
+        90,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1114,19 +1416,25 @@
         185
       ],
       "source_index": 0,
-      "scale": 1.0225988700564972,
+      "scale": 0.9406700835120118,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 140.5844941663198,
+        "target": 132.24362786792597,
+        "registered": 132.38202294873727
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        84,
-        26
+        90,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1136,19 +1444,25 @@
         181
       ],
       "source_index": 1,
-      "scale": 1.0,
+      "scale": 0.9370254950510367,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 139.12584231550946,
+        "target": 130.36446127008273,
+        "registered": 130.47221926525202
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        82,
-        33
+        88,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1158,19 +1472,25 @@
         177
       ],
       "source_index": 2,
-      "scale": 0.9763313609467456,
+      "scale": 0.9118807693409664,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.80277774957642,
+        "target": 124.74782222226499,
+        "registered": 124.63546846704592
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        77,
-        20
+        84,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1180,107 +1500,157 @@
         176
       ],
       "source_index": 3,
-      "scale": 1.056547619047619,
+      "scale": 0.9835300033031068,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.90526903804866,
+        "target": 129.73278969268918,
+        "registered": 129.71121771072848
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        87,
-        34
+        93,
+        43
       ],
-      "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        1057,
-        46,
-        204,
-        173
+        297,
+        308,
+        197,
+        160
       ],
-      "source_index": 4,
-      "scale": 1.0,
+      "source_index": 7,
+      "scale": 1.0155793295216542,
       "rgb_gain": [
-        0.907281,
-        0.881983,
-        0.875161
+        0.877385,
+        0.884374,
+        0.870262
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.9728653632228,
+        "target": 130.9821761320684,
+        "registered": 130.76314465475355
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        85,
-        49
+        80,
+        68
       ],
-      "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        1315,
-        57,
-        198,
-        161
+        547,
+        332,
+        200,
+        139
       ],
-      "source_index": 5,
-      "scale": 0.9705882352941176,
+      "source_index": 8,
+      "scale": 1.003120469821102,
       "rgb_gain": [
-        0.907281,
-        0.881983,
-        0.875161
+        0.880474,
+        0.877769,
+        0.867965
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.54011683390797,
+        "target": 121.9193791005414,
+        "registered": 121.85236969382254
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        94,
-        66
+        79,
+        84
       ],
-      "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        30,
-        284,
+        799,
+        343,
         204,
-        181
+        125
       ],
-      "source_index": 6,
-      "scale": 0.7601156069364162,
+      "source_index": 9,
+      "scale": 0.9820596466930307,
       "rgb_gain": [
-        0.907281,
-        0.881983,
-        0.875161
+        0.884936,
+        0.885042,
+        0.87412
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.42330719205872,
+        "target": 110.40639334109524,
+        "registered": 110.4445562261898
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        92,
-        78
+        68,
+        98
       ],
-      "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        291,
-        297,
-        196,
-        165
+        1049,
+        358,
+        211,
+        110
       ],
-      "source_index": 7,
-      "scale": 0.7643312101910829,
+      "source_index": 10,
+      "scale": 0.9842773428342663,
       "rgb_gain": [
-        0.907281,
-        0.881983,
-        0.875161
+        0.88504,
+        0.88255,
+        0.875618
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.97195894251914,
+        "target": 105.29007550571896,
+        "registered": 105.23307464861035
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        77,
-        13
+        79,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1290,19 +1660,25 @@
         171
       ],
       "source_index": 8,
-      "scale": 1.1226993865030674,
+      "scale": 1.0936785919676573,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.7478489306803,
+        "target": 142.99612332130638,
+        "registered": 143.15725619052637
+      },
       "animation": "chariot_caltrops_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        92,
-        10
+        90,
+        4
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1312,19 +1688,25 @@
         179
       ],
       "source_index": 9,
-      "scale": 1.090643274853801,
+      "scale": 1.1240104262062531,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.7976435730753,
+        "target": 152.63796723037723,
+        "registered": 152.5745719312363
+      },
       "animation": "chariot_caltrops_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        68,
-        12
+        71,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1334,19 +1716,25 @@
         163
       ],
       "source_index": 10,
-      "scale": 1.1838709677419355,
+      "scale": 1.1593319402318771,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.05968819895114,
+        "target": 155.4196784265705,
+        "registered": 155.53456207544355
+      },
       "animation": "chariot_caltrops_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        70,
-        10
+        68,
+        8
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1356,19 +1744,25 @@
         159
       ],
       "source_index": 11,
-      "scale": 1.228476821192053,
+      "scale": 1.2410220146664028,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.43179979736111,
+        "target": 156.90464690242038,
+        "registered": 156.73544589530474
+      },
       "animation": "chariot_caltrops_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        52,
-        2
+        68,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1378,19 +1772,25 @@
         149
       ],
       "source_index": 12,
-      "scale": 1.3617021276595744,
+      "scale": 1.1987151349000735,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.62245022288015,
+        "target": 150.58553236539754,
+        "registered": 150.7083275734954
+      },
       "animation": "chariot_caltrops_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        42,
-        2
+        70,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1400,19 +1800,25 @@
         137
       ],
       "source_index": 13,
-      "scale": 1.4883720930232558,
+      "scale": 1.1853436017227215,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.45746137122433,
+        "target": 142.78348111614264,
+        "registered": 142.4850869389495
+      },
       "animation": "chariot_caltrops_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        83,
-        4
+        89,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1422,19 +1828,25 @@
         178
       ],
       "source_index": 14,
-      "scale": 1.1294117647058823,
+      "scale": 1.0573526509132218,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.3608386695422,
+        "target": 145.23884689890383,
+        "registered": 145.17919961206564
+      },
       "animation": "chariot_caltrops_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        73,
-        4
+        82,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1444,19 +1856,25 @@
         180
       ],
       "source_index": 15,
-      "scale": 1.1162790697674418,
+      "scale": 1.0247893612112051,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 146.0684770920817,
+        "target": 149.68942133228796,
+        "registered": 149.53594885511643
+      },
       "animation": "chariot_caltrops_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        71,
-        11
+        78,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1466,19 +1884,25 @@
         178
       ],
       "source_index": 16,
-      "scale": 1.0911764705882352,
+      "scale": 1.0185415676090634,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 147.37028194313805,
+        "target": 150.10275798935348,
+        "registered": 150.07664708408169
+      },
       "animation": "chariot_caltrops_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        73,
-        15
+        80,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1488,19 +1912,25 @@
         180
       ],
       "source_index": 17,
-      "scale": 1.058139534883721,
+      "scale": 0.990230108188198,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 149.46236984605858,
+        "target": 148.00213866272705,
+        "registered": 147.87494716820697
+      },
       "animation": "chariot_caltrops_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        72,
-        14
+        76,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1510,19 +1940,25 @@
         184
       ],
       "source_index": 18,
-      "scale": 1.0397727272727273,
+      "scale": 0.9896484975807661,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 153.55129436120035,
+        "target": 151.9618077661439,
+        "registered": 151.91774089947495
+      },
       "animation": "chariot_caltrops_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        90,
-        19
+        78,
+        -4
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1532,19 +1968,25 @@
         193
       ],
       "source_index": 19,
-      "scale": 0.9621621621621622,
+      "scale": 1.081739315088851,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 139.18333233544885,
+        "target": 150.56008259233238,
+        "registered": 150.4725888658795
+      },
       "animation": "chariot_caltrops_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        88,
-        20
+        80,
+        2
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1554,19 +1996,25 @@
         187
       ],
       "source_index": 20,
-      "scale": 0.994413407821229,
+      "scale": 1.0831681850673414,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 139.11146609823362,
+        "target": 150.68111425568068,
+        "registered": 150.8476052179815
+      },
       "animation": "chariot_caltrops",
       "after": 0
     },
     {
       "margin_xy": [
-        84,
-        14
+        80,
+        6
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1576,19 +2024,25 @@
         178
       ],
       "source_index": 21,
-      "scale": 1.0705882352941176,
+      "scale": 1.1195613663726778,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.26444877516658,
+        "target": 152.55641245874526,
+        "registered": 152.44999180059014
+      },
       "animation": "chariot_caltrops",
       "after": 1
     },
     {
       "margin_xy": [
-        93,
-        18
+        97,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1598,19 +2052,25 @@
         179
       ],
       "source_index": 22,
-      "scale": 1.0467836257309941,
+      "scale": 1.0099417049344204,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 147.45168700289597,
+        "target": 148.91760816716126,
+        "registered": 149.04697246170417
+      },
       "animation": "chariot_caltrops",
       "after": 2
     },
     {
       "margin_xy": [
-        93,
-        18
+        96,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__03.png",
       "source_region": [
@@ -1620,19 +2080,25 @@
         177
       ],
       "source_index": 23,
-      "scale": 1.0562130177514792,
+      "scale": 1.022488353417599,
       "rgb_gain": [
         0.907281,
         0.881983,
         0.875161
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 146.05136082899057,
+        "target": 149.33581544843418,
+        "registered": 149.21796138535066
+      },
       "animation": "chariot_caltrops",
       "after": 3
     },
     {
       "margin_xy": [
-        76,
-        15
+        78,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1642,19 +2108,25 @@
         158
       ],
       "source_index": 0,
-      "scale": 1.2033333333333334,
+      "scale": 1.1887251671715422,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.866344030847,
+        "target": 155.56411668519715,
+        "registered": 155.64703659241314
+      },
       "animation": "chariot_caltrops",
       "after": 4
     },
     {
       "margin_xy": [
-        69,
-        20
+        71,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1664,19 +2136,25 @@
         157
       ],
       "source_index": 1,
-      "scale": 1.1812080536912752,
+      "scale": 1.1604831204444437,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.04923324275686,
+        "target": 153.24090624585065,
+        "registered": 153.2351134694656
+      },
       "animation": "chariot_caltrops",
       "after": 5
     },
     {
       "margin_xy": [
-        74,
-        20
+        76,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1686,19 +2164,25 @@
         153
       ],
       "source_index": 2,
-      "scale": 1.206896551724138,
+      "scale": 1.189949799866545,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.79671357276759,
+        "target": 152.07167373951697,
+        "registered": 151.90786681406595
+      },
       "animation": "chariot_caltrops",
       "after": 6
     },
     {
       "margin_xy": [
-        68,
-        17
+        74,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1708,19 +2192,25 @@
         149
       ],
       "source_index": 3,
-      "scale": 1.2588652482269505,
+      "scale": 1.1966291459391676,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.34063553268942,
+        "target": 154.7727742327113,
+        "registered": 154.5509624686951
+      },
       "animation": "chariot_caltrops",
       "after": 7
     },
     {
       "margin_xy": [
-        68,
-        21
+        76,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1730,19 +2220,25 @@
         150
       ],
       "source_index": 4,
-      "scale": 1.2253521126760563,
+      "scale": 1.1453713010348485,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.29810516786392,
+        "target": 148.09433893745697,
+        "registered": 148.03040228277433
+      },
       "animation": "chariot_caltrops",
       "after": 8
     },
     {
       "margin_xy": [
-        79,
-        19
+        83,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1752,19 +2248,25 @@
         152
       ],
       "source_index": 5,
-      "scale": 1.2222222222222223,
+      "scale": 1.1769203596930569,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.22202660391727,
+        "target": 148.5532729518689,
+        "registered": 148.58667504187582
+      },
       "animation": "chariot_caltrops",
       "after": 9
     },
     {
       "margin_xy": [
-        76,
-        13
+        82,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1774,19 +2276,25 @@
         153
       ],
       "source_index": 6,
-      "scale": 1.2551724137931035,
+      "scale": 1.1941134410778098,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.47548783981962,
+        "target": 152.2201934374795,
+        "registered": 152.33843900998855
+      },
       "animation": "chariot_caltrops",
       "after": 10
     },
     {
       "margin_xy": [
-        78,
-        14
+        85,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1796,19 +2304,25 @@
         155
       ],
       "source_index": 7,
-      "scale": 1.2346938775510203,
+      "scale": 1.1639306433908583,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.8436545159751,
+        "target": 148.8011470542175,
+        "registered": 148.75147058096601
+      },
       "animation": "chariot_caltrops",
       "after": 11
     },
     {
       "margin_xy": [
-        84,
-        12
+        90,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1818,19 +2332,25 @@
         155
       ],
       "source_index": 8,
-      "scale": 1.248299319727891,
+      "scale": 1.1715047792713322,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.75366922323602,
+        "target": 149.6640340644699,
+        "registered": 149.9333185119305
+      },
       "animation": "chariot_caltrops_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        76,
-        7
+        84,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1840,19 +2360,25 @@
         152
       ],
       "source_index": 9,
-      "scale": 1.3020833333333333,
+      "scale": 1.1992959501040923,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.23416081528353,
+        "target": 153.79070973076642,
+        "registered": 153.5187284991639
+      },
       "animation": "chariot_caltrops_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        80,
-        11
+        86,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1862,19 +2388,25 @@
         156
       ],
       "source_index": 10,
-      "scale": 1.2466216216216217,
+      "scale": 1.171518563247933,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.73616430514,
+        "target": 150.81680624480745,
+        "registered": 151.06290080625354
+      },
       "animation": "chariot_caltrops_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        83,
-        11
+        88,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1884,19 +2416,25 @@
         156
       ],
       "source_index": 11,
-      "scale": 1.2432432432432432,
+      "scale": 1.1753577409104072,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.74584141959377,
+        "target": 150.14706358163286,
+        "registered": 150.0399946680884
+      },
       "animation": "chariot_caltrops_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        80,
-        9
+        84,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1906,19 +2444,25 @@
         154
       ],
       "source_index": 12,
-      "scale": 1.2705479452054795,
+      "scale": 1.2249985419977285,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.37346662472527,
+        "target": 156.03231090448477,
+        "registered": 155.9583277673879
+      },
       "animation": "chariot_caltrops_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        80,
-        15
+        84,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1928,19 +2472,25 @@
         155
       ],
       "source_index": 13,
-      "scale": 1.227891156462585,
+      "scale": 1.190430652026904,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.3560976529518,
+        "target": 153.98946367265927,
+        "registered": 154.14279094398154
+      },
       "animation": "chariot_caltrops_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        82,
-        16
+        84,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1950,19 +2500,25 @@
         157
       ],
       "source_index": 14,
-      "scale": 1.2046979865771812,
+      "scale": 1.184813239029805,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.4526940623485,
+        "target": 153.37726575314554,
+        "registered": 153.42098943756034
+      },
       "animation": "chariot_caltrops_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        82,
-        14
+        86,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1972,19 +2528,25 @@
         158
       ],
       "source_index": 15,
-      "scale": 1.21,
+      "scale": 1.1732207053084596,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.11149065320865,
+        "target": 152.6494948328925,
+        "registered": 152.38110119040354
+      },
       "animation": "chariot_caltrops_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        84,
-        18
+        92,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -1994,19 +2556,25 @@
         156
       ],
       "source_index": 16,
-      "scale": 1.1993243243243243,
+      "scale": 1.1150815323429653,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.0852431535069,
+        "target": 143.94057073847674,
+        "registered": 143.98958295654586
+      },
       "animation": "chariot_caltrops_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        88,
-        16
+        92,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -2016,19 +2584,25 @@
         156
       ],
       "source_index": 17,
-      "scale": 1.212837837837838,
+      "scale": 1.1440925443278618,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.94486992391619,
+        "target": 145.23667922062273,
+        "registered": 145.11374848717816
+      },
       "animation": "chariot_caltrops_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        75,
-        7
+        86,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -2038,19 +2612,25 @@
         153
       ],
       "source_index": 18,
-      "scale": 1.296551724137931,
+      "scale": 1.168454221685593,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.67928571228772,
+        "target": 149.18740041232363,
+        "registered": 149.2581656057718
+      },
       "animation": "chariot_caltrops_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        80,
-        4
+        94,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -2060,19 +2640,25 @@
         154
       ],
       "source_index": 19,
-      "scale": 1.3047945205479452,
+      "scale": 1.1467445103182186,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.29400629153443,
+        "target": 142.53346938027522,
+        "registered": 142.53771430747724
+      },
       "animation": "chariot_caltrops_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        84,
-        15
+        86,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -2082,19 +2668,25 @@
         164
       ],
       "source_index": 20,
-      "scale": 1.1602564102564104,
+      "scale": 1.124074519489137,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.24976007655445,
+        "target": 146.41043647162834,
+        "registered": 146.11296999240005
+      },
       "animation": "chariot_caltrops_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        74,
-        14
+        86,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -2104,19 +2696,25 @@
         153
       ],
       "source_index": 21,
-      "scale": 1.2482758620689656,
+      "scale": 1.1206120154935277,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.65221008463652,
+        "target": 146.41043647162834,
+        "registered": 146.30105946301276
+      },
       "animation": "chariot_caltrops_charge",
       "after": 1
     },
     {
       "margin_xy": [
-        70,
-        30
+        75,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -2126,19 +2724,25 @@
         151
       ],
       "source_index": 22,
-      "scale": 1.1608391608391608,
+      "scale": 1.098520790551703,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.85647295076286,
+        "target": 133.86186899971423,
+        "registered": 134.02984742213206
+      },
       "animation": "charge",
       "after": 0
     },
     {
       "margin_xy": [
-        59,
-        30
+        69,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__04.png",
       "source_region": [
@@ -2148,19 +2752,25 @@
         149
       ],
       "source_index": 23,
-      "scale": 1.177304964539007,
+      "scale": 1.0674844498585314,
       "rgb_gain": [
         0.898172,
         0.856721,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.39936203984452,
+        "target": 133.86186899971423,
+        "registered": 133.92161886715678
+      },
       "animation": "charge",
       "after": 1
     },
     {
       "margin_xy": [
-        63,
-        37
+        68,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2170,19 +2780,25 @@
         157
       ],
       "source_index": 0,
-      "scale": 1.0671140939597314,
+      "scale": 1.0125375153222,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.72490198887127,
+        "target": 132.36386745054983,
+        "registered": 132.50660360902774
+      },
       "animation": "travel",
       "after": 0
     },
     {
       "margin_xy": [
-        61,
-        37
+        66,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2192,19 +2808,25 @@
         155
       ],
       "source_index": 1,
-      "scale": 1.0816326530612246,
+      "scale": 1.0288624771495922,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.6506898543494,
+        "target": 132.36386745054983,
+        "registered": 132.09466302617983
+      },
       "animation": "travel",
       "after": 1
     },
     {
       "margin_xy": [
-        62,
-        17
+        74,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2214,19 +2836,25 @@
         163
       ],
       "source_index": 2,
-      "scale": 1.1548387096774193,
+      "scale": 1.0481957114639127,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.60014970051492,
+        "target": 140.03910396701647,
+        "registered": 139.92855319769444
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        66,
-        21
+        70,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2236,12 +2864,18 @@
         164
       ],
       "source_index": 3,
-      "scale": 1.125,
+      "scale": 1.0829471037121972,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.4695537750088,
+        "target": 146.70636090182953,
+        "registered": 146.81621163890588
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 1
     },
@@ -2258,19 +2892,25 @@
         162
       ],
       "source_index": 4,
-      "scale": 1.0746753246753247,
+      "scale": 1.0754712294957172,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.22973438726754,
+        "target": 147.58663116484533,
+        "registered": 147.39742195845895
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        59,
-        34
+        64,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2280,19 +2920,25 @@
         153
       ],
       "source_index": 5,
-      "scale": 1.1206896551724137,
+      "scale": 1.0768636306309238,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.11562175973387,
+        "target": 144.42423537251074,
+        "registered": 144.60981986020175
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        52,
-        30
+        60,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2302,19 +2948,25 @@
         151
       ],
       "source_index": 6,
-      "scale": 1.1608391608391608,
+      "scale": 1.0843175453051346,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.3994091567611,
+        "target": 146.81595497262475,
+        "registered": 146.90132742763083
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        48,
-        34
+        62,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2324,19 +2976,25 @@
         146
       ],
       "source_index": 7,
-      "scale": 1.173913043478261,
+      "scale": 1.0514921629940512,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.10366390294527,
+        "target": 142.06044378572923,
+        "registered": 142.35167719419397
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        51,
-        38
+        66,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2346,19 +3004,25 @@
         147
       ],
       "source_index": 8,
-      "scale": 1.1366906474820144,
+      "scale": 1.0129726620310178,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.78659727675628,
+        "target": 137.54811091156955,
+        "registered": 137.5499909123952
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        62,
-        41
+        68,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2368,19 +3032,25 @@
         147
       ],
       "source_index": 9,
-      "scale": 1.1151079136690647,
+      "scale": 1.048445246331391,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.36247633668646,
+        "target": 141.9201448468443,
+        "registered": 141.8555603422016
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 7
     },
     {
       "margin_xy": [
         74,
-        52
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2390,19 +3060,25 @@
         146
       ],
       "source_index": 10,
-      "scale": 1.0471014492753623,
+      "scale": 1.0435251269942494,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.5889216963742,
+        "target": 139.40339647823373,
+        "registered": 139.19410907075056
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        70,
-        52
+        72,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2412,19 +3088,25 @@
         140
       ],
       "source_index": 11,
-      "scale": 1.0909090909090908,
+      "scale": 1.0753705671524272,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.0891165048394,
+        "target": 138.8186364290149,
+        "registered": 139.05754204644924
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        57,
-        41
+        60,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2434,19 +3116,25 @@
         142
       ],
       "source_index": 12,
-      "scale": 1.1567164179104477,
+      "scale": 1.1268887926429714,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.7669683062202,
+        "target": 147.3598310321782,
+        "registered": 147.27185746095552
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        57,
-        37
+        59,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2456,19 +3144,25 @@
         145
       ],
       "source_index": 13,
-      "scale": 1.1605839416058394,
+      "scale": 1.142081830968582,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.37351331223505,
+        "target": 150.03930262441278,
+        "registered": 150.2531197679436
+      },
       "animation": "chariot_elite_drift_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        53,
-        31
+        59,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2478,19 +3172,25 @@
         145
       ],
       "source_index": 14,
-      "scale": 1.2007299270072993,
+      "scale": 1.1580995748913832,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.18271125595876,
+        "target": 155.39694086329905,
+        "registered": 155.2771715352904
+      },
       "animation": "chariot_elite_drift",
       "after": 0
     },
     {
       "margin_xy": [
-        55,
-        23
+        68,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2500,19 +3200,25 @@
         149
       ],
       "source_index": 15,
-      "scale": 1.2234042553191489,
+      "scale": 1.1045663652124764,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.78243719719867,
+        "target": 152.18984584502604,
+        "registered": 152.17095649301808
+      },
       "animation": "chariot_elite_drift",
       "after": 1
     },
     {
       "margin_xy": [
-        52,
-        21
+        67,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2522,19 +3228,25 @@
         154
       ],
       "source_index": 16,
-      "scale": 1.1917808219178083,
+      "scale": 1.0584170661473642,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.04378862246912,
+        "target": 145.04948468751329,
+        "registered": 145.03792607452715
+      },
       "animation": "chariot_elite_drift",
       "after": 2
     },
     {
       "margin_xy": [
-        59,
-        19
+        69,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2544,19 +3256,25 @@
         159
       ],
       "source_index": 17,
-      "scale": 1.1688741721854305,
+      "scale": 1.0789003675191555,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.46932735757994,
+        "target": 145.07900670614663,
+        "registered": 145.37193676910272
+      },
       "animation": "chariot_elite_drift",
       "after": 3
     },
     {
       "margin_xy": [
-        64,
-        15
+        70,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2566,19 +3284,25 @@
         162
       ],
       "source_index": 18,
-      "scale": 1.172077922077922,
+      "scale": 1.1180621953093035,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.41289293018121,
+        "target": 149.16391195208345,
+        "registered": 149.21796138535066
+      },
       "animation": "chariot_elite_drift",
       "after": 4
     },
     {
       "margin_xy": [
-        68,
-        18
+        69,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2588,19 +3312,25 @@
         162
       ],
       "source_index": 19,
-      "scale": 1.1525974025974026,
+      "scale": 1.1437747066665291,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.30498848101698,
+        "target": 150.1833246837272,
+        "registered": 150.0599880047976
+      },
       "animation": "chariot_elite_drift",
       "after": 5
     },
     {
       "margin_xy": [
-        62,
-        19
+        65,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2610,19 +3340,25 @@
         160
       ],
       "source_index": 20,
-      "scale": 1.1644736842105263,
+      "scale": 1.135196978161869,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.39335330748293,
+        "target": 150.29253460337128,
+        "registered": 150.4759116935332
+      },
       "animation": "chariot_elite_drift",
       "after": 6
     },
     {
       "margin_xy": [
-        60,
-        15
+        64,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2632,19 +3368,25 @@
         161
       ],
       "source_index": 21,
-      "scale": 1.1830065359477124,
+      "scale": 1.1443682051945854,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.48396129343357,
+        "target": 151.61043300243549,
+        "registered": 151.56846637740978
+      },
       "animation": "chariot_elite_drift",
       "after": 7
     },
     {
       "margin_xy": [
-        65,
-        17
+        69,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2654,19 +3396,25 @@
         161
       ],
       "source_index": 22,
-      "scale": 1.1666666666666667,
+      "scale": 1.123700233238446,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.83577492413914,
+        "target": 147.020190798188,
+        "registered": 146.91153800842193
+      },
       "animation": "chariot_elite_drift",
       "after": 8
     },
     {
       "margin_xy": [
-        63,
-        19
+        68,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__05.png",
       "source_region": [
@@ -2676,19 +3424,25 @@
         161
       ],
       "source_index": 23,
-      "scale": 1.15359477124183,
+      "scale": 1.1076835531992406,
       "rgb_gain": [
         0.89364,
         0.850291,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.53706701914862,
+        "target": 145.7014457731772,
+        "registered": 145.55411364849843
+      },
       "animation": "chariot_elite_drift",
       "after": 9
     },
     {
       "margin_xy": [
         68,
-        20
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2698,19 +3452,25 @@
         167
       ],
       "source_index": 0,
-      "scale": 1.110062893081761,
+      "scale": 1.1132166012370368,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.57232516143233,
+        "target": 152.03457963924916,
+        "registered": 151.960521188893
+      },
       "animation": "chariot_elite_drift",
       "after": 10
     },
     {
       "margin_xy": [
-        62,
-        26
+        64,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2720,19 +3480,25 @@
         167
       ],
       "source_index": 1,
-      "scale": 1.0723270440251573,
+      "scale": 1.055671833472741,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 144.86890625665674,
+        "target": 152.93402388115547,
+        "registered": 152.6957759730111
+      },
       "animation": "chariot_elite_drift",
       "after": 11
     },
     {
       "margin_xy": [
-        54,
-        26
+        57,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2742,19 +3508,25 @@
         161
       ],
       "source_index": 2,
-      "scale": 1.1143790849673203,
+      "scale": 1.0882596944522287,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 141.3859964777276,
+        "target": 153.8646813266757,
+        "registered": 153.7595525487766
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        49,
-        19
+        55,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2764,19 +3536,25 @@
         162
       ],
       "source_index": 3,
-      "scale": 1.1493506493506493,
+      "scale": 1.0935753580470193,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 142.04576727238302,
+        "target": 155.33775080395984,
+        "registered": 155.22886329545804
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        53,
-        18
+        65,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2786,19 +3564,25 @@
         157
       ],
       "source_index": 4,
-      "scale": 1.1879194630872483,
+      "scale": 1.0770303579831892,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 138.13761254633005,
+        "target": 148.77840229171696,
+        "registered": 148.8321201891581
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        75,
-        18
+        80,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2808,19 +3592,25 @@
         159
       ],
       "source_index": 5,
-      "scale": 1.1754966887417218,
+      "scale": 1.1264358047717569,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.51029922818688,
+        "target": 150.39078135642075,
+        "registered": 150.26975743641833
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        52,
-        16
+        63,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2830,19 +3620,25 @@
         157
       ],
       "source_index": 6,
-      "scale": 1.2013422818791946,
+      "scale": 1.0978040634876354,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 139.82131454109563,
+        "target": 153.49640726539758,
+        "registered": 153.4633506737032
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        54,
-        21
+        65,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2852,19 +3648,25 @@
         157
       ],
       "source_index": 7,
-      "scale": 1.1711409395973154,
+      "scale": 1.0791666119456726,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 138.07968713753664,
+        "target": 149.0109881467339,
+        "registered": 148.81532179181013
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        52,
-        20
+        62,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2874,19 +3676,25 @@
         161
       ],
       "source_index": 8,
-      "scale": 1.1470588235294117,
+      "scale": 1.0612327276759645,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 141.68627315304755,
+        "target": 150.36211013245043,
+        "registered": 150.50581384119351
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        70,
-        15
+        79,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2896,19 +3704,25 @@
         162
       ],
       "source_index": 9,
-      "scale": 1.172077922077922,
+      "scale": 1.0728315712708107,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 139.30183056945089,
+        "target": 149.44740177072424,
+        "registered": 149.70971912337555
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        62,
-        18
+        78,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2918,19 +3732,25 @@
         158
       ],
       "source_index": 10,
-      "scale": 1.1866666666666668,
+      "scale": 1.0386587856824794,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.31214179228496,
+        "target": 141.58180366775264,
+        "registered": 141.5203165626759
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        64,
-        15
+        80,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2940,19 +3760,25 @@
         158
       ],
       "source_index": 11,
-      "scale": 1.2033333333333334,
+      "scale": 1.0476987939818039,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 138.1882773609976,
+        "target": 144.7796915335402,
+        "registered": 145.04826782833362
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        62,
-        7
+        76,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2962,19 +3788,25 @@
         162
       ],
       "source_index": 12,
-      "scale": 1.224025974025974,
+      "scale": 1.0851219403123433,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.81509351301113,
+        "target": 149.5461816771657,
+        "registered": 149.49247472699085
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        56,
-        4
+        78,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -2984,19 +3816,25 @@
         159
       ],
       "source_index": 13,
-      "scale": 1.2615894039735098,
+      "scale": 1.0471884342823528,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 136.82470537150812,
+        "target": 143.28124898913381,
+        "registered": 143.39456056629206
+      },
       "animation": "chariot_elite_drift_recover",
       "after": 11
     },
     {
       "margin_xy": [
         74,
-        44
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -3006,19 +3844,25 @@
         157
       ],
       "source_index": 14,
-      "scale": 1.023489932885906,
+      "scale": 1.0304228750124662,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.35719857364595,
+        "target": 141.53599945791447,
+        "registered": 141.7321417322126
+      },
       "animation": "chariot_elite_drift_charge",
       "after": 0
     },
     {
       "margin_xy": [
         72,
-        44
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -3028,19 +3872,25 @@
         154
       ],
       "source_index": 15,
-      "scale": 1.0445205479452055,
+      "scale": 1.0414099238806902,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.9080571562996,
+        "target": 141.53599945791447,
+        "registered": 141.26216761751888
+      },
       "animation": "chariot_elite_drift_charge",
       "after": 1
     },
     {
       "margin_xy": [
-        72,
-        39
+        68,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -3050,19 +3900,25 @@
         157
       ],
       "source_index": 16,
-      "scale": 1.0570469798657718,
+      "scale": 1.0927537528132574,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.95587519485872,
+        "target": 148.5662928361927,
+        "registered": 148.60349928585129
+      },
       "animation": "chariot_elite_drift_travel",
       "after": 0
     },
     {
       "margin_xy": [
-        72,
-        39
+        68,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/pilgrim_chariot__06.png",
       "source_region": [
@@ -3072,12 +3928,18 @@
         155
       ],
       "source_index": 17,
-      "scale": 1.0714285714285714,
+      "scale": 1.1046813379734535,
       "rgb_gain": [
         0.862138,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.48791767292704,
+        "target": 148.5662928361927,
+        "registered": 148.38126566382968
+      },
       "animation": "chariot_elite_drift_travel",
       "after": 1
     }

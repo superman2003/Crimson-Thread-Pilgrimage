@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "obsidian_bellwheel",
   "canvas": [
     384,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            195,
-            201
+            183,
+            189
           ],
           "margin": [
-            100,
-            37,
-            189,
-            43
+            105,
+            49,
+            201,
+            55
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            201,
+            189,
             2,
-            197,
-            202
+            185,
+            189
           ],
           "margin": [
-            97,
-            36,
-            187,
-            42
+            102,
+            49,
+            199,
+            55
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            402,
+            378,
             2,
-            196,
-            204
+            183,
+            190
           ],
           "margin": [
-            93,
-            34,
-            188,
-            40
+            99,
+            48,
+            201,
+            54
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            602,
+            565,
             2,
-            194,
-            203
+            181,
+            190
           ],
           "margin": [
-            96,
-            35,
-            190,
-            41
+            102,
+            48,
+            203,
+            54
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            800,
+            750,
             2,
-            196,
-            205
+            181,
+            189
           ],
           "margin": [
-            102,
-            33,
-            188,
-            39
+            110,
+            49,
+            203,
+            55
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1000,
+            935,
             2,
-            203,
-            205
+            188,
+            190
           ],
           "margin": [
-            94,
-            33,
-            181,
-            39
+            101,
+            48,
+            196,
+            54
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1207,
+            1127,
             2,
-            202,
-            203
+            187,
+            188
           ],
           "margin": [
-            90,
-            35,
-            182,
-            41
+            98,
+            50,
+            197,
+            56
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1413,
+            1318,
             2,
-            199,
-            203
+            186,
+            190
           ],
           "margin": [
-            98,
-            35,
-            185,
-            41
+            104,
+            48,
+            198,
+            54
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1616,
+            1508,
             2,
-            203,
-            203
+            190,
+            190
           ],
           "margin": [
-            98,
-            35,
-            181,
-            41
+            104,
+            48,
+            194,
+            54
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1823,
+            1702,
             2,
-            201,
-            202
+            190,
+            191
           ],
           "margin": [
-            96,
-            36,
-            183,
-            42
+            102,
+            47,
+            194,
+            53
           ]
         },
         {
@@ -345,15 +345,15 @@
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
             2,
-            215,
-            200,
-            201
+            201,
+            188,
+            189
           ],
           "margin": [
-            90,
-            37,
-            184,
-            43
+            96,
+            49,
+            196,
+            55
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            206,
-            215,
-            202,
-            202
+            194,
+            201,
+            188,
+            188
           ],
           "margin": [
-            94,
-            36,
-            182,
-            42
+            101,
+            50,
+            196,
+            56
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            412,
-            215,
-            204,
-            202
+            386,
+            201,
+            195,
+            193
           ],
           "margin": [
-            95,
-            36,
-            180,
-            42
+            99,
+            45,
+            189,
+            51
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            620,
-            215,
-            207,
-            203
+            585,
+            201,
+            200,
+            196
           ],
           "margin": [
-            92,
-            35,
-            177,
-            41
+            95,
+            42,
+            184,
+            48
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            831,
-            215,
-            205,
-            196
+            789,
+            201,
+            194,
+            186
           ],
           "margin": [
-            92,
-            42,
-            179,
-            48
+            97,
+            52,
+            190,
+            58
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1040,
-            215,
-            206,
-            195
+            987,
+            201,
+            194,
+            184
           ],
           "margin": [
-            94,
-            43,
-            178,
-            49
+            98,
+            54,
+            190,
+            60
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1250,
-            215,
-            209,
-            198
+            1185,
+            201,
+            200,
+            189
           ],
           "margin": [
-            90,
-            40,
-            175,
-            46
+            94,
+            49,
+            184,
+            55
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1463,
-            215,
-            204,
-            194
+            1389,
+            201,
+            191,
+            182
           ],
           "margin": [
-            86,
-            44,
-            180,
-            50
+            92,
+            56,
+            193,
+            62
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1671,
-            215,
-            205,
-            196
+            1584,
+            201,
+            193,
+            185
           ],
           "margin": [
-            84,
-            42,
-            179,
-            48
+            90,
+            53,
+            191,
+            59
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            426,
-            209,
-            205
+            1781,
+            201,
+            192,
+            188
           ],
           "margin": [
-            78,
-            33,
-            175,
-            39
+            86,
+            50,
+            192,
+            56
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            215,
-            426,
-            191,
-            207
+            2,
+            405,
+            177,
+            192
           ],
           "margin": [
-            83,
-            31,
-            193,
-            37
+            90,
+            46,
+            207,
+            52
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            410,
-            426,
-            194,
-            210
+            183,
+            405,
+            182,
+            197
           ],
           "margin": [
-            82,
-            28,
-            190,
-            34
+            88,
+            41,
+            202,
+            47
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            608,
-            426,
-            201,
-            214
+            369,
+            405,
+            193,
+            205
           ],
           "margin": [
-            86,
-            24,
-            183,
-            30
+            90,
+            33,
+            191,
+            39
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            813,
-            426,
-            235,
-            212
+            566,
+            405,
+            215,
+            194
           ],
           "margin": [
-            84,
-            26,
-            149,
-            32
+            92,
+            44,
+            169,
+            50
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1052,
-            426,
-            249,
-            211
+            785,
+            405,
+            233,
+            198
           ],
           "margin": [
-            86,
-            27,
-            135,
-            33
+            92,
+            40,
+            151,
+            46
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1305,
-            426,
-            243,
-            210
+            1022,
+            405,
+            233,
+            202
           ],
           "margin": [
-            92,
-            28,
-            141,
-            34
+            96,
+            36,
+            151,
+            42
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1552,
-            426,
-            192,
-            202
+            1259,
+            405,
+            181,
+            191
           ],
           "margin": [
-            100,
-            36,
-            192,
-            42
+            106,
+            47,
+            203,
+            53
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1748,
-            426,
-            186,
-            196
+            1444,
+            405,
+            177,
+            187
           ],
           "margin": [
-            100,
-            42,
-            198,
-            48
+            104,
+            51,
+            207,
+            57
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            648,
-            180,
-            191
+            1625,
+            405,
+            187,
+            198
           ],
           "margin": [
-            95,
-            47,
-            204,
-            53
+            91,
+            40,
+            197,
+            46
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            186,
-            648,
-            232,
-            179
+            2,
+            618,
+            237,
+            183
           ],
           "margin": [
-            85,
-            59,
-            152,
-            65
+            83,
+            55,
+            147,
+            61
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            422,
-            648,
-            240,
-            175
+            243,
+            618,
+            244,
+            178
           ],
           "margin": [
-            84,
-            63,
-            144,
-            69
+            82,
+            60,
+            140,
+            66
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            666,
-            648,
-            245,
-            180
+            491,
+            618,
+            241,
+            177
           ],
           "margin": [
             86,
-            58,
-            139,
-            64
+            61,
+            143,
+            67
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            915,
-            648,
-            238,
-            180
+            736,
+            618,
+            228,
+            173
           ],
           "margin": [
-            92,
-            58,
-            146,
-            64
+            96,
+            65,
+            156,
+            71
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1157,
-            648,
-            245,
-            187
+            968,
+            618,
+            240,
+            183
           ],
           "margin": [
-            93,
-            51,
-            139,
-            57
+            95,
+            55,
+            144,
+            61
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1406,
-            648,
-            258,
-            201
+            1212,
+            618,
+            248,
+            193
           ],
           "margin": [
-            91,
-            37,
-            126,
-            43
+            94,
+            45,
+            136,
+            51
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1668,
-            648,
-            213,
-            208
+            1464,
+            618,
+            200,
+            195
           ],
           "margin": [
-            90,
-            30,
-            171,
-            36
+            96,
+            43,
+            184,
+            49
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            864,
-            215,
-            212
+            1668,
+            618,
+            200,
+            198
           ],
           "margin": [
-            92,
-            26,
-            169,
-            32
+            100,
+            40,
+            184,
+            46
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            221,
-            864,
-            215,
-            215
+            2,
+            824,
+            209,
+            209
           ],
           "margin": [
-            90,
-            23,
-            169,
-            29
+            94,
+            29,
+            175,
+            35
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            440,
-            864,
-            199,
-            211
+            215,
+            824,
+            189,
+            201
           ],
           "margin": [
-            90,
-            27,
-            185,
-            33
+            96,
+            37,
+            195,
+            43
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            643,
-            864,
-            195,
-            209
+            408,
+            824,
+            188,
+            202
           ],
           "margin": [
-            89,
-            29,
-            189,
-            35
+            93,
+            36,
+            196,
+            42
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            842,
-            864,
-            197,
-            212
+            600,
+            824,
+            193,
+            207
           ],
           "margin": [
-            89,
-            26,
-            187,
-            32
+            91,
+            31,
+            191,
+            37
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1043,
-            864,
-            197,
-            208
+            797,
+            824,
+            189,
+            200
           ],
           "margin": [
-            93,
-            30,
-            187,
-            36
+            97,
+            38,
+            195,
+            44
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1244,
-            864,
-            196,
-            207
+            990,
+            824,
+            188,
+            198
           ],
           "margin": [
-            94,
-            31,
-            188,
-            37
+            98,
+            40,
+            196,
+            46
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1444,
-            864,
-            205,
-            210
+            1182,
+            824,
+            199,
+            203
           ],
           "margin": [
-            88,
-            28,
-            179,
-            34
+            90,
+            35,
+            185,
+            41
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1653,
-            864,
-            201,
-            207
+            1385,
+            824,
+            192,
+            198
           ],
           "margin": [
-            88,
-            31,
-            183,
-            37
+            92,
+            40,
+            192,
+            46
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            1087,
-            200,
-            207
+            1581,
+            824,
+            187,
+            194
           ],
           "margin": [
-            87,
-            31,
-            184,
-            37
+            93,
+            44,
+            197,
+            50
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            206,
-            1087,
-            201,
-            210
+            1772,
+            824,
+            195,
+            203
           ],
           "margin": [
-            88,
-            28,
-            183,
-            34
+            91,
+            35,
+            189,
+            41
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            411,
-            1087,
-            197,
-            205
+            2,
+            1041,
+            187,
+            195
           ],
           "margin": [
-            94,
-            33,
-            187,
-            39
+            99,
+            43,
+            197,
+            49
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            612,
-            1087,
+            193,
+            1041,
             201,
-            212
+            211
           ],
           "margin": [
             95,
-            26,
+            27,
             183,
-            32
+            33
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            817,
-            1087,
-            182,
-            193
+            398,
+            1041,
+            190,
+            201
           ],
           "margin": [
-            100,
-            45,
-            202,
-            51
+            97,
+            37,
+            194,
+            43
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1003,
-            1087,
-            202,
-            177
+            592,
+            1041,
+            204,
+            179
           ],
           "margin": [
-            91,
-            61,
-            182,
-            67
+            90,
+            59,
+            180,
+            65
           ]
         },
         {
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1209,
-            1087,
-            234,
-            185
+            800,
+            1041,
+            201,
+            159
           ],
           "margin": [
+            94,
             79,
-            53,
-            150,
-            59
+            183,
+            85
           ]
         }
       ]
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1447,
-            1087,
-            216,
-            178
+            1005,
+            1041,
+            201,
+            166
           ],
           "margin": [
-            76,
-            60,
-            168,
-            66
+            84,
+            72,
+            183,
+            78
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1667,
-            1087,
-            232,
-            164
+            1210,
+            1041,
+            213,
+            151
           ],
           "margin": [
-            67,
-            74,
-            152,
-            80
+            76,
+            87,
+            171,
+            93
           ]
         },
         {
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            1307,
-            204,
-            133
+            1427,
+            1041,
+            202,
+            132
           ],
           "margin": [
-            90,
-            105,
-            180,
-            111
+            92,
+            106,
+            182,
+            112
           ]
         },
         {
@@ -1729,16 +1729,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            210,
-            1307,
-            204,
-            109
+            1633,
+            1041,
+            197,
+            105
           ],
           "margin": [
-            88,
-            129,
-            180,
-            135
+            91,
+            132,
+            187,
+            139
           ]
         }
       ]
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            418,
-            1307,
-            219,
-            201
+            1834,
+            1041,
+            200,
+            184
           ],
           "margin": [
-            68,
-            37,
-            165,
-            43
+            77,
+            54,
+            184,
+            60
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            641,
-            1307,
-            206,
-            201
+            2,
+            1260,
+            195,
+            190
           ],
           "margin": [
-            70,
-            37,
-            178,
-            43
+            76,
+            48,
+            189,
+            54
           ]
         }
       ]
@@ -1833,16 +1833,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            851,
-            1307,
-            181,
-            164
+            201,
+            1260,
+            180,
+            163
           ],
           "margin": [
-            103,
-            75,
-            203,
-            80
+            104,
+            77,
+            204,
+            81
           ]
         },
         {
@@ -1863,16 +1863,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1036,
-            1307,
-            184,
-            164
+            385,
+            1260,
+            180,
+            161
           ],
           "margin": [
-            100,
-            74,
-            200,
-            80
+            102,
+            77,
+            204,
+            83
           ]
         }
       ]
@@ -1900,16 +1900,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1224,
-            1307,
-            287,
-            196
+            569,
+            1260,
+            228,
+            156
           ],
           "margin": [
-            44,
-            42,
-            97,
-            48
+            74,
+            82,
+            156,
+            88
           ]
         },
         {
@@ -1930,16 +1930,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1515,
-            1307,
-            253,
-            199
+            801,
+            1260,
+            206,
+            163
           ],
           "margin": [
-            67,
-            39,
-            131,
-            45
+            90,
+            75,
+            178,
+            81
           ]
         },
         {
@@ -1960,16 +1960,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1772,
-            1307,
-            212,
-            194
+            1011,
+            1260,
+            190,
+            174
           ],
           "margin": [
-            85,
-            44,
-            172,
-            50
+            96,
+            64,
+            194,
+            70
           ]
         },
         {
@@ -1990,16 +1990,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            1516,
-            225,
-            197
+            1205,
+            1260,
+            207,
+            182
           ],
           "margin": [
-            85,
-            41,
-            159,
-            47
+            93,
+            56,
+            177,
+            62
           ]
         },
         {
@@ -2020,16 +2020,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            231,
-            1516,
-            228,
-            207
+            1416,
+            1260,
+            204,
+            185
           ],
           "margin": [
-            74,
-            31,
-            156,
-            37
+            86,
+            53,
+            180,
+            59
           ]
         },
         {
@@ -2050,16 +2050,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            463,
-            1516,
-            248,
-            208
+            1624,
+            1260,
+            215,
+            180
           ],
           "margin": [
-            66,
-            30,
-            136,
-            36
+            83,
+            58,
+            169,
+            64
           ]
         },
         {
@@ -2080,16 +2080,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            715,
-            1516,
-            241,
-            216
+            2,
+            1458,
+            212,
+            191
           ],
           "margin": [
-            71,
-            22,
-            143,
-            28
+            85,
+            47,
+            172,
+            53
           ]
         },
         {
@@ -2110,16 +2110,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            960,
-            1516,
-            251,
-            231
+            218,
+            1458,
+            224,
+            206
           ],
           "margin": [
-            65,
-            7,
-            133,
-            13
+            78,
+            32,
+            160,
+            38
           ]
         },
         {
@@ -2140,16 +2140,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1215,
-            1516,
-            237,
-            237
+            446,
+            1458,
+            212,
+            212
           ],
           "margin": [
-            69,
-            1,
-            147,
-            7
+            82,
+            26,
+            172,
+            32
           ]
         },
         {
@@ -2170,16 +2170,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1456,
-            1516,
-            230,
-            236
+            662,
+            1458,
+            212,
+            218
           ],
           "margin": [
-            78,
-            2,
-            154,
-            8
+            86,
+            20,
+            172,
+            26
           ]
         },
         {
@@ -2200,16 +2200,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1690,
-            1516,
-            267,
-            228
+            878,
+            1458,
+            232,
+            198
           ],
           "margin": [
-            62,
-            10,
-            117,
-            16
+            80,
+            40,
+            152,
+            46
           ]
         },
         {
@@ -2230,16 +2230,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            1761,
-            247,
-            211
+            1114,
+            1458,
+            229,
+            196
           ],
           "margin": [
-            73,
-            27,
-            137,
-            33
+            81,
+            42,
+            155,
+            48
           ]
         }
       ]
@@ -2267,16 +2267,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            253,
-            1761,
-            232,
-            199
+            1347,
+            1458,
+            227,
+            195
           ],
           "margin": [
-            86,
-            39,
-            152,
-            45
+            88,
+            43,
+            157,
+            49
           ]
         },
         {
@@ -2297,16 +2297,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            489,
-            1761,
-            228,
-            194
+            1578,
+            1458,
+            231,
+            196
           ],
           "margin": [
-            86,
-            44,
-            156,
-            50
+            84,
+            42,
+            153,
+            48
           ]
         },
         {
@@ -2327,16 +2327,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            721,
-            1761,
-            244,
-            180
+            2,
+            1684,
+            239,
+            177
           ],
           "margin": [
-            76,
-            58,
-            140,
-            64
+            78,
+            61,
+            145,
+            67
           ]
         },
         {
@@ -2357,16 +2357,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            969,
-            1761,
-            243,
-            167
+            245,
+            1684,
+            231,
+            158
           ],
           "margin": [
-            75,
-            71,
-            141,
-            77
+            80,
+            80,
+            153,
+            86
           ]
         },
         {
@@ -2387,16 +2387,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1216,
-            1761,
-            255,
-            154
+            480,
+            1684,
+            264,
+            159
           ],
           "margin": [
-            69,
-            84,
-            129,
-            90
+            65,
+            79,
+            120,
+            85
           ]
         },
         {
@@ -2417,16 +2417,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1475,
-            1761,
-            300,
-            135
+            748,
+            1684,
+            286,
+            128
           ],
           "margin": [
-            48,
-            103,
-            84,
-            109
+            54,
+            110,
+            98,
+            116
           ]
         },
         {
@@ -2445,18 +2445,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            289,
-            129
+            1038,
+            1684,
+            272,
+            121
           ],
           "margin": [
-            52,
-            109,
-            95,
-            115
+            60,
+            117,
+            112,
+            123
           ]
         },
         {
@@ -2475,18 +2475,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            295,
-            2,
-            305,
-            138
+            1314,
+            1684,
+            264,
+            119
           ],
           "margin": [
-            48,
-            100,
-            79,
-            106
+            66,
+            119,
+            120,
+            125
           ]
         },
         {
@@ -2505,18 +2505,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            604,
-            2,
-            270,
-            137
+            1582,
+            1684,
+            228,
+            116
           ],
           "margin": [
-            49,
-            101,
-            114,
-            107
+            71,
+            124,
+            156,
+            128
           ]
         },
         {
@@ -2535,18 +2535,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            878,
             2,
-            259,
-            139
+            1869,
+            234,
+            126
           ],
           "margin": [
-            56,
-            99,
-            125,
-            105
+            69,
+            112,
+            150,
+            118
           ]
         },
         {
@@ -2565,18 +2565,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1141,
-            2,
-            268,
-            143
+            240,
+            1869,
+            254,
+            136
           ],
           "margin": [
-            50,
-            95,
-            116,
-            101
+            56,
+            102,
+            130,
+            108
           ]
         },
         {
@@ -2595,17 +2595,17 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1413,
-            2,
-            240,
+            498,
+            1869,
+            239,
             140
           ],
           "margin": [
-            68,
+            70,
             98,
-            144,
+            145,
             104
           ]
         }
@@ -2632,10 +2632,10 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            1657,
-            2,
+            741,
+            1869,
             259,
             149
           ],
@@ -2662,18 +2662,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            2,
-            159,
-            288,
-            169
+            1004,
+            1869,
+            251,
+            148
           ],
           "margin": [
-            46,
-            69,
-            96,
-            75
+            64,
+            90,
+            133,
+            96
           ]
         },
         {
@@ -2692,18 +2692,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            294,
-            159,
-            257,
-            182
+            1259,
+            1869,
+            217,
+            153
           ],
           "margin": [
-            52,
-            56,
-            127,
-            62
+            74,
+            85,
+            167,
+            91
           ]
         },
         {
@@ -2722,18 +2722,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_00.png",
           "region": [
-            555,
-            159,
-            241,
-            192
+            1480,
+            1869,
+            216,
+            173
           ],
           "margin": [
-            61,
-            46,
-            143,
-            52
+            74,
+            65,
+            168,
+            71
           ]
         },
         {
@@ -2754,16 +2754,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            800,
-            159,
-            226,
-            199
+            2,
+            2,
+            207,
+            182
           ],
           "margin": [
-            68,
-            39,
-            158,
-            45
+            78,
+            56,
+            177,
+            62
           ]
         },
         {
@@ -2784,16 +2784,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            1030,
-            159,
-            203,
-            199
+            213,
+            2,
+            189,
+            186
           ],
           "margin": [
-            81,
-            39,
-            181,
-            45
+            88,
+            52,
+            195,
+            58
           ]
         },
         {
@@ -2814,16 +2814,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            1237,
-            159,
-            193,
-            201
+            406,
+            2,
+            188,
+            196
           ],
           "margin": [
-            92,
-            37,
-            191,
-            43
+            96,
+            42,
+            196,
+            48
           ]
         },
         {
@@ -2844,16 +2844,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            1434,
-            159,
-            204,
-            203
+            598,
+            2,
+            207,
+            206
           ],
           "margin": [
-            84,
-            35,
-            180,
-            41
+            82,
+            32,
+            177,
+            38
           ]
         },
         {
@@ -2874,16 +2874,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            1642,
-            159,
-            195,
-            198
+            809,
+            2,
+            191,
+            194
           ],
           "margin": [
-            94,
-            40,
-            189,
-            46
+            96,
+            44,
+            193,
+            50
           ]
         },
         {
@@ -2904,16 +2904,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            1841,
-            159,
-            201,
-            199
+            1004,
+            2,
+            198,
+            195
           ],
           "margin": [
-            92,
-            39,
-            183,
-            45
+            93,
+            43,
+            186,
+            49
           ]
         },
         {
@@ -2934,16 +2934,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
+            1206,
             2,
-            370,
-            206,
-            204
+            203,
+            201
           ],
           "margin": [
-            86,
-            34,
-            178,
-            40
+            88,
+            37,
+            181,
+            43
           ]
         },
         {
@@ -2964,16 +2964,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            212,
-            370,
-            197,
-            203
+            1413,
+            2,
+            192,
+            198
           ],
           "margin": [
-            96,
-            35,
-            187,
-            41
+            98,
+            40,
+            192,
+            46
           ]
         }
       ]
@@ -3001,16 +3001,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            413,
-            370,
-            176,
-            208
+            1609,
+            2,
+            178,
+            210
           ],
           "margin": [
-            102,
-            30,
-            208,
-            36
+            100,
+            28,
+            206,
+            34
           ]
         },
         {
@@ -3031,16 +3031,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/obsidian_bellwheel/motion_v8_01.png",
           "region": [
-            593,
-            370,
-            180,
-            208
+            1791,
+            2,
+            181,
+            210
           ],
           "margin": [
             100,
-            30,
-            204,
-            36
+            28,
+            203,
+            34
           ]
         }
       ]

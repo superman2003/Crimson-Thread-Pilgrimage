@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "moss_larva",
   "canvas": [
     332,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            206,
-            186
+            195,
+            177
           ],
           "margin": [
-            62,
-            49,
-            126,
-            55
+            68,
+            60,
+            137,
+            64
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            212,
+            201,
             2,
-            215,
-            189
+            201,
+            176
           ],
           "margin": [
-            56,
-            46,
-            117,
-            52
+            62,
+            60,
+            131,
+            65
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            431,
+            406,
             2,
-            209,
-            189
+            199,
+            180
           ],
           "margin": [
-            60,
-            46,
-            123,
-            52
+            64,
+            56,
+            133,
+            61
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            644,
+            609,
             2,
-            209,
-            187
+            198,
+            177
           ],
           "margin": [
-            59,
-            48,
-            123,
-            54
+            64,
+            60,
+            134,
+            64
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            857,
+            811,
             2,
-            206,
-            183
+            201,
+            179
           ],
           "margin": [
-            72,
-            52,
-            126,
-            58
+            76,
+            58,
+            131,
+            62
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1067,
+            1016,
             2,
-            205,
-            181
+            195,
+            172
           ],
           "margin": [
-            78,
-            55,
-            127,
-            60
+            82,
+            65,
+            137,
+            69
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1276,
+            1215,
             2,
-            206,
-            179
+            195,
+            170
           ],
           "margin": [
-            76,
-            56,
-            126,
-            62
+            80,
+            66,
+            137,
+            71
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1486,
+            1414,
             2,
-            210,
-            179
+            199,
+            170
           ],
           "margin": [
-            68,
-            56,
-            122,
-            62
+            73,
+            66,
+            133,
+            71
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1700,
+            1617,
             2,
-            209,
-            182
+            199,
+            174
           ],
           "margin": [
-            70,
-            54,
-            123,
-            59
+            74,
+            63,
+            133,
+            67
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
+            1820,
             2,
-            199,
-            204,
-            186
+            198,
+            180
           ],
           "margin": [
-            75,
-            50,
-            128,
-            55
+            77,
+            57,
+            134,
+            61
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            210,
-            199,
-            210,
-            186
+            2,
+            190,
+            197,
+            175
           ],
           "margin": [
-            67,
-            49,
-            122,
-            55
+            73,
+            61,
+            135,
+            66
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            424,
-            199,
-            207,
-            185
+            203,
+            190,
+            198,
+            177
           ],
           "margin": [
-            68,
-            50,
-            125,
-            56
+            72,
+            59,
+            134,
+            64
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            635,
-            199,
-            230,
-            200
+            405,
+            190,
+            218,
+            190
           ],
           "margin": [
-            70,
-            35,
-            102,
-            41
+            76,
+            45,
+            114,
+            51
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            869,
-            199,
-            228,
-            207
+            627,
+            190,
+            212,
+            193
           ],
           "margin": [
-            76,
-            28,
-            104,
-            34
+            82,
+            42,
+            120,
+            48
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1101,
-            199,
-            216,
-            208
+            843,
+            190,
+            191,
+            184
           ],
           "margin": [
-            84,
-            27,
-            116,
-            33
+            96,
+            51,
+            141,
+            57
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1321,
-            199,
-            206,
-            209
+            1038,
+            190,
+            193,
+            195
           ],
           "margin": [
-            86,
-            26,
-            126,
-            32
+            92,
+            40,
+            139,
+            46
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1531,
-            199,
-            216,
-            212
+            1235,
+            190,
+            202,
+            198
           ],
           "margin": [
-            80,
-            23,
-            116,
-            29
+            86,
+            37,
+            130,
+            43
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1751,
-            199,
-            189,
-            210
+            1441,
+            190,
+            180,
+            201
           ],
           "margin": [
-            94,
-            25,
-            143,
-            31
+            98,
+            34,
+            152,
+            40
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            419,
-            186,
-            212
+            1625,
+            190,
+            178,
+            202
           ],
           "margin": [
-            90,
-            23,
-            146,
-            29
+            94,
+            33,
+            154,
+            39
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            192,
-            419,
-            200,
-            219
+            1807,
+            190,
+            181,
+            198
           ],
           "margin": [
-            80,
-            16,
-            132,
-            22
+            88,
+            37,
+            151,
+            43
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            396,
-            419,
-            197,
-            219
+            2,
+            400,
+            170,
+            190
           ],
           "margin": [
-            78,
-            16,
-            135,
-            22
+            90,
+            45,
+            162,
+            51
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            597,
-            419,
-            193,
-            215
+            176,
+            400,
+            172,
+            191
           ],
           "margin": [
-            76,
-            20,
-            139,
-            26
+            86,
+            44,
+            160,
+            50
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            794,
-            419,
-            217,
-            206
+            352,
+            400,
+            191,
+            181
           ],
           "margin": [
-            58,
-            29,
-            115,
-            35
+            72,
+            54,
+            141,
+            60
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1015,
-            419,
-            222,
-            190
+            547,
+            400,
+            215,
+            184
           ],
           "margin": [
-            60,
-            45,
-            110,
-            51
+            64,
+            51,
+            117,
+            57
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1241,
-            419,
-            231,
-            185
+            766,
+            400,
+            223,
+            178
           ],
           "margin": [
-            60,
-            50,
-            101,
-            56
+            64,
+            58,
+            109,
+            63
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1476,
-            419,
-            243,
-            187
+            993,
+            400,
+            232,
+            179
           ],
           "margin": [
-            58,
-            48,
-            89,
-            54
+            63,
+            56,
+            100,
+            62
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1723,
-            419,
-            251,
-            185
+            1229,
+            400,
+            238,
+            175
           ],
           "margin": [
-            57,
-            50,
-            81,
-            56
+            64,
+            60,
+            94,
+            66
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            646,
-            256,
-            185
+            1471,
+            400,
+            240,
+            173
           ],
           "margin": [
-            60,
-            50,
-            76,
-            56
+            68,
+            62,
+            92,
+            68
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            262,
-            646,
-            266,
-            190
+            1715,
+            400,
+            250,
+            178
           ],
           "margin": [
-            62,
-            45,
-            66,
-            51
+            69,
+            57,
+            82,
+            63
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            532,
-            646,
-            247,
-            188
+            2,
+            599,
+            222,
+            169
           ],
           "margin": [
-            53,
-            47,
-            85,
-            53
+            66,
+            66,
+            110,
+            72
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            783,
-            646,
-            230,
-            185
+            228,
+            599,
+            218,
+            176
           ],
           "margin": [
-            66,
-            50,
-            102,
-            56
+            72,
+            59,
+            114,
+            65
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1017,
-            646,
-            237,
-            185
+            450,
+            599,
+            220,
+            172
           ],
           "margin": [
-            60,
-            50,
-            95,
-            56
+            70,
+            63,
+            112,
+            69
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1258,
-            646,
-            225,
-            178
+            674,
+            599,
+            201,
+            159
           ],
           "margin": [
-            64,
-            57,
-            107,
-            63
+            76,
+            78,
+            131,
+            82
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1487,
-            646,
-            235,
-            180
+            879,
+            599,
+            209,
+            160
           ],
           "margin": [
-            55,
-            55,
-            97,
-            61
+            69,
+            75,
+            123,
+            81
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1726,
-            646,
-            242,
-            190
+            1092,
+            599,
+            218,
+            170
           ],
           "margin": [
-            44,
-            45,
-            90,
-            51
+            56,
+            65,
+            114,
+            71
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            844,
-            216,
-            193
+            1314,
+            599,
+            198,
+            177
           ],
           "margin": [
-            51,
-            42,
-            116,
-            48
+            61,
+            58,
+            134,
+            64
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            222,
-            844,
-            232,
-            196
+            1516,
+            599,
+            209,
+            176
           ],
           "margin": [
-            36,
-            39,
-            100,
-            45
+            50,
+            59,
+            123,
+            65
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            458,
-            844,
-            234,
-            198
+            1729,
+            599,
+            212,
+            179
           ],
           "margin": [
-            40,
-            37,
-            98,
-            43
+            52,
+            56,
+            120,
+            62
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            696,
-            844,
-            229,
-            193
+            2,
+            786,
+            205,
+            172
           ],
           "margin": [
-            48,
-            42,
-            103,
-            48
+            62,
+            63,
+            127,
+            69
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            929,
-            844,
-            229,
-            192
+            211,
+            786,
+            202,
+            169
           ],
           "margin": [
-            51,
-            43,
-            103,
-            49
+            65,
+            66,
+            130,
+            72
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1162,
-            844,
-            236,
-            192
+            417,
+            786,
+            221,
+            180
           ],
           "margin": [
-            67,
-            43,
-            96,
-            49
+            74,
+            55,
+            111,
+            61
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1402,
-            844,
-            230,
-            187
+            642,
+            786,
+            219,
+            178
           ],
           "margin": [
-            63,
-            48,
-            102,
-            54
+            68,
+            57,
+            113,
+            63
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1636,
-            844,
-            225,
-            186
+            865,
+            786,
+            214,
+            177
           ],
           "margin": [
-            63,
-            49,
-            107,
-            55
+            68,
+            58,
+            118,
+            64
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            1050,
-            227,
-            189
+            1083,
+            786,
+            219,
+            182
           ],
           "margin": [
-            59,
-            46,
-            105,
-            52
+            62,
+            53,
+            113,
+            59
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            233,
-            1050,
-            236,
-            187
+            1306,
+            786,
+            214,
+            169
           ],
           "margin": [
-            50,
-            48,
-            96,
-            54
+            59,
+            67,
+            118,
+            72
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            473,
-            1050,
-            239,
-            187
+            1524,
+            786,
+            215,
+            169
           ],
           "margin": [
-            44,
-            48,
-            93,
-            54
+            54,
+            66,
+            117,
+            72
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            716,
-            1050,
-            249,
-            191
+            1743,
+            786,
+            227,
+            175
           ],
           "margin": [
-            38,
-            44,
-            83,
-            50
+            48,
+            60,
+            105,
+            66
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            969,
-            1050,
-            246,
-            189
+            2,
+            976,
+            221,
+            169
           ],
           "margin": [
-            36,
-            46,
-            86,
-            52
+            47,
+            66,
+            111,
+            72
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1219,
-            1050,
+            227,
+            976,
             178,
-            190
+            189
           ],
           "margin": [
             84,
-            45,
+            46,
             154,
-            51
+            52
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1401,
-            1050,
-            185,
-            176
+            409,
+            976,
+            176,
+            167
           ],
           "margin": [
-            74,
-            59,
-            147,
-            65
+            78,
+            70,
+            156,
+            74
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1590,
-            1050,
-            192,
-            157
+            589,
+            976,
+            178,
+            145
           ],
           "margin": [
-            58,
-            78,
-            140,
-            84
+            66,
+            89,
+            154,
+            96
           ]
         },
         {
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            1249,
-            262,
-            167
+            771,
+            976,
+            229,
+            146
           ],
           "margin": [
-            30,
-            68,
-            70,
-            74
+            46,
+            89,
+            103,
+            95
           ]
         }
       ]
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            268,
-            1249,
-            178,
-            165
+            1004,
+            976,
+            227,
+            135
           ],
           "margin": [
-            83,
-            72,
-            154,
-            76
+            74,
+            100,
+            105,
+            106
           ]
         },
         {
@@ -1669,15 +1669,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            450,
-            1249,
-            198,
+            1235,
+            976,
+            220,
             146
           ],
           "margin": [
-            82,
-            88,
-            134,
+            75,
+            89,
+            112,
             95
           ]
         },
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            652,
-            1249,
-            126,
-            116
+            1459,
+            976,
+            212,
+            108
           ],
           "margin": [
-            116,
-            118,
-            206,
-            125
+            76,
+            127,
+            120,
+            133
           ]
         },
         {
@@ -1729,16 +1729,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            782,
-            1249,
-            122,
-            98
+            1675,
+            976,
+            203,
+            90
           ],
           "margin": [
-            110,
-            135,
-            210,
-            143
+            77,
+            147,
+            129,
+            151
           ]
         }
       ]
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            908,
-            1249,
-            223,
-            151
+            2,
+            1173,
+            236,
+            160
           ],
           "margin": [
-            68,
-            84,
-            109,
-            90
+            63,
+            75,
+            96,
+            81
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1135,
-            1249,
-            159,
-            150
+            242,
+            1173,
+            189,
+            179
           ],
           "margin": [
-            94,
-            84,
-            173,
-            91
+            80,
+            56,
+            143,
+            62
           ]
         }
       ]
@@ -1833,16 +1833,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1298,
-            1249,
-            252,
-            177
+            435,
+            1173,
+            245,
+            171
           ],
           "margin": [
-            34,
-            58,
-            80,
-            64
+            38,
+            64,
+            87,
+            70
           ]
         },
         {
@@ -1863,16 +1863,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1554,
-            1249,
-            315,
-            188
+            684,
+            1173,
+            271,
+            162
           ],
           "margin": [
-            4,
-            47,
-            17,
-            53
+            24,
+            73,
+            61,
+            79
           ]
         },
         {
@@ -1893,16 +1893,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            1445,
-            242,
-            190
+            959,
+            1173,
+            216,
+            170
           ],
           "margin": [
-            40,
-            45,
-            90,
-            51
+            52,
+            65,
+            116,
+            71
           ]
         },
         {
@@ -1923,16 +1923,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            248,
-            1445,
-            236,
-            199
+            1179,
+            1173,
+            217,
+            183
           ],
           "margin": [
-            38,
-            36,
-            96,
-            42
+            47,
+            52,
+            115,
+            58
           ]
         },
         {
@@ -1953,16 +1953,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            488,
-            1445,
-            221,
-            211
+            1400,
+            1173,
+            214,
+            204
           ],
           "margin": [
-            46,
-            24,
-            111,
-            30
+            48,
+            31,
+            118,
+            37
           ]
         },
         {
@@ -1983,16 +1983,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            713,
-            1445,
-            213,
-            216
+            1618,
+            1173,
+            201,
+            203
           ],
           "margin": [
-            50,
-            19,
-            119,
-            25
+            56,
+            32,
+            131,
+            38
           ]
         },
         {
@@ -2013,16 +2013,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            930,
-            1445,
-            211,
-            223
+            1823,
+            1173,
+            202,
+            213
           ],
           "margin": [
-            50,
-            12,
-            121,
-            18
+            55,
+            22,
+            130,
+            28
           ]
         },
         {
@@ -2043,16 +2043,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1145,
-            1445,
-            232,
-            235
+            2,
+            1394,
+            216,
+            219
           ],
           "margin": [
-            42,
-            1,
-            100,
-            6
+            50,
+            17,
+            116,
+            22
           ]
         },
         {
@@ -2073,16 +2073,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1381,
-            1445,
-            214,
-            237
+            222,
+            1394,
+            202,
+            223
           ],
           "margin": [
-            46,
-            -2,
-            118,
-            4
+            52,
+            12,
+            130,
+            18
           ]
         },
         {
@@ -2103,16 +2103,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1599,
-            1445,
-            217,
-            231
+            428,
+            1394,
+            198,
+            211
           ],
           "margin": [
-            46,
-            4,
-            115,
-            10
+            56,
+            24,
+            134,
+            30
           ]
         },
         {
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1820,
-            1445,
-            215,
-            216
+            630,
+            1394,
+            221,
+            222
           ],
           "margin": [
-            49,
-            19,
-            117,
-            25
+            46,
+            13,
+            111,
+            19
           ]
         },
         {
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            1690,
-            231,
-            194
+            855,
+            1394,
+            233,
+            196
           ],
           "margin": [
+            38,
             39,
-            41,
-            101,
-            47
+            99,
+            45
           ]
         }
       ]
@@ -2200,8 +2200,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            237,
-            1690,
+            1092,
+            1394,
             229,
             182
           ],
@@ -2230,16 +2230,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            470,
-            1690,
-            261,
-            182
+            1325,
+            1394,
+            257,
+            179
           ],
           "margin": [
-            29,
-            53,
-            71,
-            59
+            31,
+            56,
+            75,
+            62
           ]
         },
         {
@@ -2260,16 +2260,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            735,
-            1690,
-            270,
-            174
+            1586,
+            1394,
+            255,
+            165
           ],
           "margin": [
-            26,
-            61,
-            62,
-            67
+            32,
+            70,
+            77,
+            76
           ]
         },
         {
@@ -2290,16 +2290,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1009,
-            1690,
-            261,
-            168
+            2,
+            1625,
+            250,
+            160
           ],
           "margin": [
-            31,
-            67,
-            71,
-            73
+            36,
+            75,
+            82,
+            81
           ]
         },
         {
@@ -2320,16 +2320,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1274,
-            1690,
-            264,
-            167
+            256,
+            1625,
+            268,
+            170
           ],
           "margin": [
-            29,
-            68,
-            68,
-            74
+            27,
+            65,
+            64,
+            71
           ]
         },
         {
@@ -2350,16 +2350,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1542,
-            1690,
-            278,
-            158
+            528,
+            1625,
+            268,
+            153
           ],
           "margin": [
-            22,
-            77,
-            54,
-            83
+            28,
+            82,
+            64,
+            88
           ]
         },
         {
@@ -2378,18 +2378,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            274,
-            157
+            800,
+            1625,
+            268,
+            153
           ],
           "margin": [
-            22,
-            78,
-            58,
-            84
+            24,
+            82,
+            64,
+            88
           ]
         },
         {
@@ -2408,18 +2408,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            280,
-            2,
-            285,
-            164
+            1072,
+            1625,
+            270,
+            155
           ],
           "margin": [
-            14,
-            71,
-            47,
-            77
+            22,
+            80,
+            62,
+            86
           ]
         },
         {
@@ -2438,18 +2438,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            569,
-            2,
-            264,
-            164
+            1346,
+            1625,
+            236,
+            146
           ],
           "margin": [
-            23,
-            71,
-            68,
-            77
+            36,
+            89,
+            96,
+            95
           ]
         },
         {
@@ -2468,18 +2468,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            837,
-            2,
-            262,
-            171
+            1586,
+            1625,
+            243,
+            158
           ],
           "margin": [
-            26,
-            64,
-            70,
-            70
+            36,
+            77,
+            89,
+            83
           ]
         },
         {
@@ -2498,18 +2498,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1103,
             2,
-            271,
-            180
+            1803,
+            247,
+            164
           ],
           "margin": [
-            20,
-            55,
-            61,
-            61
+            32,
+            71,
+            85,
+            77
           ]
         },
         {
@@ -2528,18 +2528,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1378,
-            2,
-            249,
-            182
+            253,
+            1803,
+            236,
+            172
           ],
           "margin": [
-            28,
-            53,
-            83,
-            59
+            36,
+            63,
+            96,
+            69
           ]
         }
       ]
@@ -2565,18 +2565,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            1631,
-            2,
-            246,
-            183
+            493,
+            1803,
+            233,
+            173
           ],
           "margin": [
-            32,
-            52,
-            86,
-            58
+            38,
+            62,
+            99,
+            68
           ]
         },
         {
@@ -2595,18 +2595,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            2,
-            193,
-            225,
-            179
+            730,
+            1803,
+            235,
+            187
           ],
           "margin": [
-            44,
-            56,
-            107,
-            62
+            39,
+            48,
+            97,
+            54
           ]
         },
         {
@@ -2625,18 +2625,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            231,
-            193,
-            225,
-            170
+            969,
+            1803,
+            235,
+            177
           ],
           "margin": [
-            42,
-            65,
-            107,
-            71
+            37,
+            58,
+            97,
+            64
           ]
         },
         {
@@ -2655,18 +2655,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            460,
-            193,
-            215,
-            166
+            1208,
+            1803,
+            231,
+            178
           ],
           "margin": [
-            49,
-            69,
-            117,
-            75
+            41,
+            57,
+            101,
+            63
           ]
         },
         {
@@ -2685,18 +2685,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            679,
-            193,
-            228,
-            168
+            1443,
+            1803,
+            243,
+            180
           ],
           "margin": [
-            40,
-            67,
-            104,
-            73
+            34,
+            55,
+            89,
+            61
           ]
         },
         {
@@ -2715,18 +2715,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
           "region": [
-            911,
-            193,
-            241,
-            164
+            1690,
+            1803,
+            235,
+            160
           ],
           "margin": [
-            33,
-            71,
-            91,
-            77
+            36,
+            75,
+            97,
+            81
           ]
         },
         {
@@ -2747,16 +2747,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
           "region": [
-            1156,
-            193,
-            250,
-            165
+            2,
+            2,
+            239,
+            157
           ],
           "margin": [
-            29,
-            70,
-            82,
-            76
+            35,
+            78,
+            93,
+            84
           ]
         },
         {
@@ -2777,16 +2777,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
           "region": [
-            1410,
-            193,
-            265,
-            168
+            245,
+            2,
+            258,
+            163
           ],
           "margin": [
-            26,
-            67,
-            67,
-            73
+            30,
+            72,
+            74,
+            78
           ]
         },
         {
@@ -2807,16 +2807,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
           "region": [
-            1679,
-            193,
-            256,
-            164
+            507,
+            2,
+            235,
+            150
           ],
           "margin": [
-            28,
-            71,
-            76,
-            77
+            38,
+            85,
+            97,
+            91
           ]
         },
         {
@@ -2837,16 +2837,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
           "region": [
+            746,
             2,
-            380,
-            258,
-            168
+            238,
+            155
           ],
           "margin": [
-            23,
-            67,
-            74,
-            73
+            33,
+            80,
+            94,
+            86
           ]
         },
         {
@@ -2867,16 +2867,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
           "region": [
-            264,
-            380,
-            283,
-            180
+            988,
+            2,
+            248,
+            157
           ],
           "margin": [
-            10,
-            55,
-            49,
-            61
+            28,
+            78,
+            84,
+            84
           ]
         },
         {
@@ -2897,16 +2897,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
           "region": [
-            551,
-            380,
-            293,
-            186
+            1240,
+            2,
+            233,
+            147
           ],
           "margin": [
-            6,
-            49,
-            39,
-            55
+            34,
+            88,
+            99,
+            94
           ]
         }
       ]

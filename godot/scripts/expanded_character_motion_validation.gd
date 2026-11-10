@@ -155,10 +155,10 @@ func _check_phase_pacing(stage: Node2D) -> void:
     a.active_attack = {"type":"lunge"}
     a._update_animation_motion(.025, point, "active")
     a._update_animation_motion(.025, point, "recover")
-    check(a.sprite.scale.x > a.sprite_base_scale.x and a.global_position == point, "impact feedback changes only the sprite")
+    check(a.sprite.scale == a.sprite_base_scale and a.sprite.position == a.sprite_base_position and a.global_position == point, "authored enemy motion keeps a fixed size through impact and recovery")
     var foot := Vector2(0, 40)
     var local_foot: Vector2 = (foot - a.sprite_base_position) / a.sprite_base_scale
-    check((a.sprite.position + local_foot * a.sprite.scale).distance_to(foot) < .001, "impact pulse preserves the grounded foot pivot")
+    check((a.sprite.position + local_foot * a.sprite.scale).distance_to(foot) < .001, "fixed-size enemy motion preserves the grounded foot anchor")
     a._pose_sprite("hurt")
     check(a.pose_feedback_time == 0 and a.sprite.scale == a.sprite_base_scale, "interrupt clears impact feedback")
     a.queue_free()
@@ -245,11 +245,15 @@ func _check_live_playback(stage: Node2D) -> void:
         check(seen.size() == sprite.sprite_frames.get_frame_count(sprite.animation), "live phase presents every "+pair[1]+" pose")
         enemy._pose_sprite(pair[0],command)
         check(sprite.frame == 0 and sprite.is_playing(), "repeated phase restarts "+pair[1])
+    var receiving_animation: StringName=enemy.animated_sprite.animation
+    var receiving_frame: int=enemy.animated_sprite.frame
+    var receiving_scale: Vector2=enemy.sprite.scale
     enemy.take_hit(1,1)
-    check(enemy.animated_sprite.animation == &"hurt" and enemy.animated_sprite.frame == 0, "hit restarts recoil")
+    check(enemy.animated_sprite.animation==receiving_animation and enemy.animated_sprite.frame==receiving_frame and enemy.sprite.scale==receiving_scale, "hit overlays current pose without a size or frame pop")
     await create_timer(0.10).timeout
+    receiving_frame=enemy.animated_sprite.frame
     enemy.take_hit(1,-1)
-    check(enemy.animated_sprite.frame == 0, "second hit restarts same recoil")
+    check(enemy.animated_sprite.frame==receiving_frame and enemy.sprite.scale==receiving_scale, "second hit keeps current body size and animation phase")
     enemy._begin_death_dissolve()
     check(enemy.animated_sprite.animation == &"death", "death sequence starts")
     var death_seen := {}

@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "sunken_hammer_smith",
   "canvas": [
     422,
-    315
+    317
   ],
   "display_height": 228,
   "visual_scale": 1.1515151515151516,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             130,
-            109,
+            110,
             248,
-            117
+            119
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            178,
-            207
+            180,
+            208
           ],
           "margin": [
             120,
-            103,
-            244,
-            108
+            102,
+            242,
+            109
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             113,
-            108,
+            109,
             226,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            184,
+            186,
             2,
-            196,
-            208
+            189,
+            201
           ],
           "margin": [
-            112,
-            101,
-            226,
-            107
+            116,
+            111,
+            233,
+            116
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             123,
-            106,
+            107,
             246,
-            114
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            384,
+            379,
             2,
-            198,
-            209
+            192,
+            202
           ],
           "margin": [
-            108,
-            100,
-            224,
-            106
+            112,
+            110,
+            230,
+            115
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             109,
-            107,
+            108,
             220,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            586,
+            575,
             2,
-            202,
-            208
+            192,
+            198
           ],
           "margin": [
-            109,
-            101,
-            220,
-            107
+            114,
+            113,
+            230,
+            119
           ]
         },
         {
@@ -149,24 +149,24 @@
           ],
           "margin": [
             124,
-            108,
+            109,
             233,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            792,
+            771,
             2,
-            204,
-            207
+            196,
+            199
           ],
           "margin": [
-            106,
-            102,
-            218,
-            108
+            110,
+            112,
+            226,
+            118
           ]
         },
         {
@@ -179,24 +179,24 @@
           ],
           "margin": [
             102,
-            108,
+            109,
             218,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1000,
+            971,
             2,
-            211,
-            207
+            198,
+            194
           ],
           "margin": [
-            96,
-            102,
-            211,
-            108
+            104,
+            116,
+            224,
+            123
           ]
         },
         {
@@ -209,24 +209,24 @@
           ],
           "margin": [
             114,
-            108,
+            109,
             239,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1215,
+            1173,
             2,
-            217,
-            207
+            208,
+            199
           ],
           "margin": [
-            92,
-            102,
-            205,
-            108
+            98,
+            112,
+            214,
+            118
           ]
         },
         {
@@ -239,24 +239,24 @@
           ],
           "margin": [
             105,
-            108,
+            109,
             208,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1436,
+            1385,
             2,
-            209,
-            207
+            203,
+            201
           ],
           "margin": [
-            101,
-            102,
-            213,
-            108
+            104,
+            110,
+            219,
+            116
           ]
         }
       ]
@@ -276,24 +276,24 @@
           ],
           "margin": [
             117,
-            107,
+            108,
             244,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1649,
+            1592,
             2,
-            204,
-            208
+            197,
+            201
           ],
           "margin": [
-            104,
-            101,
-            218,
-            107
+            108,
+            110,
+            225,
+            116
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             96,
-            107,
+            108,
             200,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
+            1793,
             2,
-            219,
-            207,
-            208
+            198,
+            199
           ],
           "margin": [
-            105,
-            101,
-            215,
-            107
+            110,
+            113,
+            224,
+            118
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             132,
-            107,
+            108,
             249,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            213,
-            219,
-            209,
-            206
+            2,
+            218,
+            199,
+            196
           ],
           "margin": [
-            103,
-            104,
-            213,
-            109
+            108,
+            116,
+            223,
+            121
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             109,
-            112,
+            113,
             221,
-            120
+            122
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            426,
-            219,
-            207,
-            200
+            205,
+            218,
+            198,
+            191
           ],
           "margin": [
-            104,
-            110,
-            215,
-            115
+            108,
+            119,
+            224,
+            126
           ]
         },
         {
@@ -396,24 +396,24 @@
           ],
           "margin": [
             113,
-            118,
+            119,
             221,
-            126
+            128
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            637,
-            219,
-            204,
-            197
+            407,
+            218,
+            197,
+            190
           ],
           "margin": [
-            100,
-            112,
-            218,
-            118
+            104,
+            120,
+            225,
+            127
           ]
         },
         {
@@ -426,24 +426,24 @@
           ],
           "margin": [
             99,
-            119,
+            120,
             209,
-            127
+            129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            845,
-            219,
-            205,
-            195
+            608,
+            218,
+            202,
+            192
           ],
           "margin": [
             88,
-            115,
-            217,
-            120
+            119,
+            220,
+            125
           ]
         },
         {
@@ -456,24 +456,24 @@
           ],
           "margin": [
             95,
-            120,
+            121,
             227,
-            128
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1054,
-            219,
-            209,
-            194
+            814,
+            218,
+            205,
+            190
           ],
           "margin": [
-            88,
-            117,
-            213,
-            121
+            90,
+            121,
+            217,
+            127
           ]
         },
         {
@@ -486,24 +486,24 @@
           ],
           "margin": [
             105,
-            122,
+            123,
             206,
-            130
+            132
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1267,
-            219,
-            207,
-            192
+            1023,
+            218,
+            203,
+            188
           ],
           "margin": [
-            102,
-            119,
-            215,
-            123
+            104,
+            122,
+            219,
+            129
           ]
         },
         {
@@ -516,24 +516,24 @@
           ],
           "margin": [
             126,
-            124,
+            125,
             230,
-            132
+            134
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1478,
-            219,
-            207,
-            190
+            1230,
+            218,
+            201,
+            184
           ],
           "margin": [
-            102,
-            121,
-            215,
-            125
+            104,
+            126,
+            221,
+            133
           ]
         },
         {
@@ -546,24 +546,24 @@
           ],
           "margin": [
             100,
-            126,
+            127,
             213,
-            134
+            136
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1689,
-            219,
-            207,
-            188
+            1435,
+            218,
+            206,
+            187
           ],
           "margin": [
             84,
-            121,
-            215,
-            127
+            122,
+            216,
+            130
           ]
         },
         {
@@ -576,24 +576,24 @@
           ],
           "margin": [
             80,
-            128,
+            129,
             203,
-            136
+            138
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            2,
-            435,
-            214,
-            187
+            1645,
+            218,
+            222,
+            194
           ],
           "margin": [
-            74,
-            122,
-            208,
-            128
+            70,
+            118,
+            200,
+            123
           ]
         },
         {
@@ -606,24 +606,24 @@
           ],
           "margin": [
             77,
-            127,
+            128,
             188,
-            135
+            137
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            220,
-            435,
-            225,
-            188
+            2,
+            422,
+            223,
+            187
           ],
           "margin": [
-            69,
-            122,
-            197,
-            127
+            70,
+            124,
+            199,
+            130
           ]
         },
         {
@@ -636,24 +636,24 @@
           ],
           "margin": [
             90,
-            126,
+            127,
             227,
-            134
+            136
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            449,
-            435,
-            217,
-            187
+            229,
+            422,
+            213,
+            184
           ],
           "margin": [
-            73,
-            123,
-            205,
-            128
+            75,
+            127,
+            209,
+            133
           ]
         },
         {
@@ -666,24 +666,24 @@
           ],
           "margin": [
             79,
-            129,
+            130,
             196,
-            137
+            139
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            670,
-            435,
+            446,
+            422,
             209,
             184
           ],
           "margin": [
             77,
-            125,
+            126,
             213,
-            131
+            133
           ]
         },
         {
@@ -696,24 +696,24 @@
           ],
           "margin": [
             93,
-            132,
+            133,
             233,
-            140
+            142
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            883,
-            435,
+            659,
+            422,
             204,
-            189
+            190
           ],
           "margin": [
             82,
             122,
             218,
-            126
+            127
           ]
         },
         {
@@ -726,24 +726,24 @@
           ],
           "margin": [
             89,
-            120,
+            121,
             206,
-            128
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1091,
-            435,
-            191,
-            202
+            867,
+            422,
+            189,
+            199
           ],
           "margin": [
-            100,
-            107,
-            231,
-            113
+            102,
+            112,
+            233,
+            118
           ]
         }
       ]
@@ -763,24 +763,24 @@
           ],
           "margin": [
             127,
-            103,
+            104,
             252,
-            111
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1286,
-            435,
-            187,
-            217
+            1060,
+            422,
+            185,
+            214
           ],
           "margin": [
-            117,
-            92,
-            235,
-            98
+            118,
+            96,
+            237,
+            103
           ]
         },
         {
@@ -793,24 +793,24 @@
           ],
           "margin": [
             126,
-            94,
+            95,
             251,
-            102
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1477,
-            435,
-            193,
-            223
+            1249,
+            422,
+            198,
+            229
           ],
           "margin": [
-            116,
-            86,
-            229,
-            92
+            114,
+            81,
+            224,
+            88
           ]
         },
         {
@@ -823,24 +823,24 @@
           ],
           "margin": [
             120,
-            92,
+            93,
             226,
-            100
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1674,
-            435,
-            198,
-            222
+            1451,
+            422,
+            186,
+            208
           ],
           "margin": [
-            120,
-            87,
-            224,
-            93
+            126,
+            102,
+            236,
+            109
           ]
         },
         {
@@ -853,24 +853,24 @@
           ],
           "margin": [
             130,
-            97,
+            98,
             238,
-            105
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            2,
-            666,
-            213,
-            219
+            1641,
+            422,
+            199,
+            204
           ],
           "margin": [
-            113,
-            90,
-            209,
-            96
+            120,
+            106,
+            223,
+            113
           ]
         },
         {
@@ -883,24 +883,24 @@
           ],
           "margin": [
             107,
-            97,
+            98,
             204,
-            105
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            219,
-            666,
-            253,
-            217
+            2,
+            659,
+            246,
+            211
           ],
           "margin": [
-            88,
-            92,
-            169,
-            98
+            91,
+            99,
+            176,
+            106
           ]
         },
         {
@@ -913,24 +913,24 @@
           ],
           "margin": [
             94,
-            102,
+            103,
             195,
-            110
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            476,
-            666,
-            257,
-            208
+            252,
+            659,
+            223,
+            181
           ],
           "margin": [
-            82,
-            101,
-            165,
-            107
+            100,
+            129,
+            199,
+            136
           ]
         },
         {
@@ -943,24 +943,24 @@
           ],
           "margin": [
             112,
-            115,
+            116,
             230,
-            123
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            737,
-            666,
-            255,
-            204
+            479,
+            659,
+            230,
+            184
           ],
           "margin": [
-            76,
-            105,
-            167,
-            111
+            88,
+            126,
+            192,
+            133
           ]
         },
         {
@@ -973,24 +973,24 @@
           ],
           "margin": [
             75,
-            109,
+            110,
             182,
-            117
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            996,
-            666,
-            266,
-            206
+            713,
+            659,
+            255,
+            198
           ],
           "margin": [
-            60,
-            103,
-            156,
-            109
+            66,
+            112,
+            167,
+            119
           ]
         },
         {
@@ -1003,24 +1003,24 @@
           ],
           "margin": [
             76,
-            111,
+            112,
             191,
-            119
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1266,
-            666,
-            256,
-            201
+            972,
+            659,
+            235,
+            184
           ],
           "margin": [
-            64,
-            108,
-            166,
-            114
+            74,
+            126,
+            187,
+            133
           ]
         },
         {
@@ -1033,24 +1033,24 @@
           ],
           "margin": [
             77,
-            120,
+            121,
             198,
-            128
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1526,
-            666,
-            249,
-            189
+            1211,
+            659,
+            235,
+            177
           ],
           "margin": [
-            66,
-            120,
-            173,
-            126
+            72,
+            135,
+            187,
+            140
           ]
         },
         {
@@ -1063,24 +1063,24 @@
           ],
           "margin": [
             92,
-            134,
+            135,
             215,
-            142
+            144
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1779,
-            666,
-            239,
-            172
+            1450,
+            659,
+            251,
+            181
           ],
           "margin": [
-            86,
-            139,
-            183,
-            143
+            80,
+            129,
+            171,
+            136
           ]
         },
         {
@@ -1093,24 +1093,24 @@
           ],
           "margin": [
             87,
-            152,
+            153,
             178,
-            160
+            162
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            2,
-            893,
-            208,
-            150
+            1705,
+            659,
+            221,
+            159
           ],
           "margin": [
-            110,
-            158,
-            214,
-            165
+            103,
+            151,
+            201,
+            158
           ]
         }
       ]
@@ -1130,24 +1130,24 @@
           ],
           "margin": [
             125,
-            177,
+            178,
             212,
-            185
+            187
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            214,
-            893,
-            195,
-            143
+            2,
+            878,
+            210,
+            155
           ],
           "margin": [
-            127,
-            165,
-            227,
-            172
+            120,
+            155,
+            212,
+            162
           ]
         },
         {
@@ -1160,24 +1160,24 @@
           ],
           "margin": [
             112,
-            164,
+            165,
             191,
-            172
+            174
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            413,
-            893,
-            218,
-            154
+            216,
+            878,
+            228,
+            161
           ],
           "margin": [
-            120,
-            155,
-            204,
-            161
+            116,
+            151,
+            194,
+            156
           ]
         },
         {
@@ -1190,24 +1190,24 @@
           ],
           "margin": [
             106,
-            157,
+            158,
             176,
-            165
+            167
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            635,
-            893,
-            237,
-            158
+            448,
+            878,
+            244,
+            163
           ],
           "margin": [
-            114,
-            153,
-            185,
-            157
+            112,
+            148,
+            178,
+            154
           ]
         },
         {
@@ -1220,24 +1220,24 @@
           ],
           "margin": [
             114,
-            157,
+            158,
             177,
-            165
+            167
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            876,
-            893,
-            237,
-            160
+            696,
+            878,
+            249,
+            168
           ],
           "margin": [
-            106,
-            150,
-            185,
-            155
+            100,
+            142,
+            173,
+            149
           ]
         },
         {
@@ -1250,24 +1250,24 @@
           ],
           "margin": [
             85,
-            153,
+            154,
             164,
-            161
+            163
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1117,
-            893,
-            245,
-            160
+            949,
+            878,
+            262,
+            171
           ],
           "margin": [
-            85,
-            150,
-            177,
-            155
+            77,
+            139,
+            160,
+            146
           ]
         },
         {
@@ -1280,24 +1280,24 @@
           ],
           "margin": [
             72,
-            157,
+            158,
             147,
-            165
+            167
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1366,
-            893,
-            254,
-            153
+            1215,
+            878,
+            262,
+            158
           ],
           "margin": [
-            67,
-            157,
-            168,
-            162
+            63,
+            153,
+            160,
+            159
           ]
         },
         {
@@ -1310,24 +1310,24 @@
           ],
           "margin": [
             68,
-            166,
+            167,
             165,
-            174
+            176
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1624,
-            893,
-            246,
-            149
+            1481,
+            878,
+            252,
+            153
           ],
           "margin": [
-            68,
-            162,
-            176,
-            166
+            66,
+            158,
+            170,
+            164
           ]
         },
         {
@@ -1340,24 +1340,24 @@
           ],
           "margin": [
             70,
+            167,
             166,
-            166,
-            174
+            176
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            2,
-            1061,
-            212,
-            145
+            1737,
+            878,
+            222,
+            152
           ],
           "margin": [
-            92,
-            164,
-            210,
-            170
+            87,
+            158,
+            200,
+            165
           ]
         },
         {
@@ -1370,24 +1370,24 @@
           ],
           "margin": [
             100,
-            173,
+            174,
             251,
-            181
+            183
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            218,
-            1061,
-            156,
-            134
+            2,
+            1057,
+            163,
+            140
           ],
           "margin": [
-            116,
-            174,
-            266,
-            181
+            113,
+            169,
+            259,
+            177
           ]
         },
         {
@@ -1400,24 +1400,24 @@
           ],
           "margin": [
             119,
-            187,
+            188,
             261,
-            195
+            197
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            378,
-            1061,
-            160,
-            143
+            169,
+            1057,
+            172,
+            154
           ],
           "margin": [
-            126,
-            165,
-            262,
-            172
+            118,
+            155,
+            250,
+            163
           ]
         },
         {
@@ -1430,23 +1430,23 @@
           ],
           "margin": [
             112,
-            155,
+            156,
             231,
-            163
+            165
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            542,
-            1061,
-            168,
-            171
+            345,
+            1057,
+            170,
+            173
           ],
           "margin": [
-            132,
-            138,
-            254,
+            130,
+            139,
+            252,
             144
           ]
         },
@@ -1460,24 +1460,24 @@
           ],
           "margin": [
             144,
-            132,
+            133,
             243,
-            140
+            142
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            714,
-            1061,
-            179,
-            192
+            519,
+            1057,
+            172,
+            185
           ],
           "margin": [
-            148,
-            117,
-            243,
-            123
+            150,
+            126,
+            250,
+            132
           ]
         }
       ]
@@ -1497,24 +1497,24 @@
           ],
           "margin": [
             154,
-            114,
+            115,
             228,
-            122
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            897,
-            1061,
-            217,
-            204
+            695,
+            1057,
+            208,
+            195
           ],
           "margin": [
-            136,
-            105,
-            205,
-            111
+            140,
+            116,
+            214,
+            122
           ]
         },
         {
@@ -1527,24 +1527,24 @@
           ],
           "margin": [
             140,
-            109,
+            110,
             219,
-            117
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1118,
-            1061,
-            219,
-            206
+            907,
+            1057,
+            210,
+            197
           ],
           "margin": [
-            129,
-            103,
-            203,
-            109
+            134,
+            114,
+            212,
+            120
           ]
         },
         {
@@ -1557,24 +1557,24 @@
           ],
           "margin": [
             139,
-            110,
+            111,
             226,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1341,
-            1061,
-            203,
-            202
+            1121,
+            1057,
+            191,
+            191
           ],
           "margin": [
-            130,
-            108,
-            219,
-            113
+            136,
+            119,
+            231,
+            126
           ]
         },
         {
@@ -1587,24 +1587,24 @@
           ],
           "margin": [
             145,
-            117,
+            118,
             225,
-            125
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1548,
-            1061,
-            204,
-            202
+            1316,
+            1057,
+            199,
+            197
           ],
           "margin": [
-            126,
-            107,
-            218,
-            113
+            128,
+            114,
+            223,
+            120
           ]
         },
         {
@@ -1617,24 +1617,24 @@
           ],
           "margin": [
             128,
-            109,
+            110,
             223,
-            117
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1756,
-            1061,
-            192,
-            208
+            1519,
+            1057,
+            196,
+            213
           ],
           "margin": [
-            122,
-            101,
-            230,
-            107
+            120,
+            97,
+            226,
+            104
           ]
         },
         {
@@ -1647,24 +1647,24 @@
           ],
           "margin": [
             114,
-            105,
+            106,
             224,
-            113
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            2,
-            1277,
-            186,
-            208
+            1719,
+            1057,
+            181,
+            202
           ],
           "margin": [
-            111,
-            101,
-            236,
-            107
+            114,
+            110,
+            241,
+            115
           ]
         },
         {
@@ -1677,24 +1677,24 @@
           ],
           "margin": [
             112,
-            110,
+            111,
             223,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            192,
-            1277,
-            196,
-            208
+            2,
+            1278,
+            194,
+            206
           ],
           "margin": [
-            107,
-            101,
-            226,
-            107
+            108,
+            104,
+            228,
+            111
           ]
         },
         {
@@ -1707,24 +1707,24 @@
           ],
           "margin": [
             103,
-            104,
+            105,
             207,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            392,
-            1277,
-            197,
-            210
+            200,
+            1278,
+            202,
+            216
           ],
           "margin": [
-            113,
-            99,
-            225,
-            105
+            111,
+            94,
+            220,
+            101
           ]
         },
         {
@@ -1737,24 +1737,24 @@
           ],
           "margin": [
             117,
-            106,
+            107,
             225,
-            114
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            593,
-            1277,
-            198,
-            205
+            406,
+            1278,
+            190,
+            197
           ],
           "margin": [
-            121,
-            105,
-            224,
-            110
+            125,
+            115,
+            232,
+            120
           ]
         },
         {
@@ -1767,24 +1767,24 @@
           ],
           "margin": [
             140,
-            115,
+            116,
             252,
-            123
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            795,
-            1277,
-            180,
-            204
+            600,
+            1278,
+            177,
+            201
           ],
           "margin": [
-            126,
-            105,
-            242,
-            111
+            128,
+            110,
+            245,
+            116
           ]
         },
         {
@@ -1797,24 +1797,24 @@
           ],
           "margin": [
             123,
-            107,
+            108,
             237,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            979,
-            1277,
-            179,
-            210
+            781,
+            1278,
+            182,
+            213
           ],
           "margin": [
-            121,
-            99,
-            243,
-            105
+            119,
+            97,
+            240,
+            104
           ]
         },
         {
@@ -1827,24 +1827,24 @@
           ],
           "margin": [
             129,
-            104,
+            105,
             249,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1162,
-            1277,
-            179,
-            209
+            967,
+            1278,
+            171,
+            200
           ],
           "margin": [
-            116,
-            100,
-            243,
-            106
+            120,
+            112,
+            251,
+            117
           ]
         }
       ]
@@ -1864,24 +1864,24 @@
           ],
           "margin": [
             104,
-            119,
+            120,
             236,
-            127
+            129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1345,
-            1277,
-            200,
-            198
+            1142,
+            1278,
+            187,
+            185
           ],
           "margin": [
-            100,
-            111,
-            222,
-            117
+            106,
+            124,
+            235,
+            132
           ]
         },
         {
@@ -1894,24 +1894,24 @@
           ],
           "margin": [
             111,
-            115,
+            116,
             239,
-            123
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1549,
-            1277,
-            202,
-            204
+            1333,
+            1278,
+            175,
+            177
           ],
           "margin": [
-            103,
-            105,
-            220,
-            111
+            116,
+            133,
+            247,
+            140
           ]
         }
       ]
@@ -1931,24 +1931,24 @@
           ],
           "margin": [
             92,
-            140,
+            141,
             242,
-            148
+            150
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1755,
-            1277,
-            149,
-            152
+            1512,
+            1278,
+            160,
+            163
           ],
           "margin": [
-            116,
-            156,
-            273,
-            163
+            110,
+            146,
+            262,
+            154
           ]
         },
         {
@@ -1961,24 +1961,24 @@
           ],
           "margin": [
             116,
-            182,
+            183,
             240,
-            190
+            192
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            2,
-            1495,
-            145,
-            114
+            1676,
+            1278,
+            163,
+            128
           ],
           "margin": [
-            120,
-            194,
-            277,
-            201
+            110,
+            181,
+            259,
+            189
           ]
         },
         {
@@ -1991,24 +1991,24 @@
           ],
           "margin": [
             70,
-            216,
+            217,
             197,
-            224
+            226
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            151,
-            1495,
-            176,
-            88
+            1843,
+            1278,
+            193,
+            97
           ],
           "margin": [
-            102,
-            220,
-            246,
-            227
+            94,
+            212,
+            229,
+            220
           ]
         },
         {
@@ -2021,24 +2021,24 @@
           ],
           "margin": [
             84,
-            233,
+            234,
             211,
-            241
+            243
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            331,
-            1495,
-            192,
-            81
+            2,
+            1502,
+            197,
+            82
           ],
           "margin": [
-            95,
+            93,
             227,
-            230,
-            234
+            225,
+            235
           ]
         }
       ]
@@ -2058,24 +2058,24 @@
           ],
           "margin": [
             106,
-            107,
+            108,
             219,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            527,
-            1495,
-            233,
-            222
+            203,
+            1502,
+            222,
+            212
           ],
           "margin": [
-            76,
-            87,
-            189,
-            93
+            82,
+            98,
+            200,
+            105
           ]
         },
         {
@@ -2088,24 +2088,24 @@
           ],
           "margin": [
             84,
-            81,
+            82,
             193,
-            89
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            764,
-            1495,
-            250,
-            245
+            429,
+            1502,
+            219,
+            215
           ],
           "margin": [
-            62,
-            64,
-            172,
-            70
+            78,
+            95,
+            203,
+            102
           ]
         },
         {
@@ -2118,24 +2118,24 @@
           ],
           "margin": [
             87,
-            64,
+            65,
             246,
-            72
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1018,
-            1495,
-            204,
-            258
+            652,
+            1502,
+            186,
+            236
           ],
           "margin": [
-            64,
-            51,
-            218,
-            57
+            74,
+            74,
+            236,
+            81
           ]
         },
         {
@@ -2148,24 +2148,24 @@
           ],
           "margin": [
             80,
-            53,
+            54,
             242,
-            61
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1226,
-            1495,
-            210,
-            274
+            842,
+            1502,
+            202,
+            263
           ],
           "margin": [
-            64,
-            35,
-            212,
-            41
+            69,
+            47,
+            220,
+            54
           ]
         },
         {
@@ -2178,24 +2178,24 @@
           ],
           "margin": [
             90,
-            34,
+            35,
             231,
-            42
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1440,
-            1495,
-            208,
-            289
+            1048,
+            1502,
+            200,
+            278
           ],
           "margin": [
-            86,
-            20,
-            214,
-            26
+            90,
+            32,
+            222,
+            39
           ]
         },
         {
@@ -2208,24 +2208,24 @@
           ],
           "margin": [
             111,
-            24,
+            25,
             242,
-            32
+            34
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            1652,
-            1495,
-            213,
-            296
+            1252,
+            1502,
+            200,
+            278
           ],
           "margin": [
-            98,
-            13,
-            209,
-            19
+            105,
+            32,
+            222,
+            39
           ]
         },
         {
@@ -2238,24 +2238,24 @@
           ],
           "margin": [
             134,
-            19,
+            20,
             247,
-            27
+            29
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            192,
-            304
+            1456,
+            1502,
+            191,
+            303
           ],
           "margin": [
             116,
-            5,
-            230,
-            11
+            7,
+            231,
+            14
           ]
         },
         {
@@ -2268,24 +2268,24 @@
           ],
           "margin": [
             118,
-            9,
+            10,
             239,
-            17
+            19
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            198,
-            2,
-            203,
-            309
+            1651,
+            1502,
+            204,
+            310
           ],
           "margin": [
-            104,
+            103,
             0,
-            219,
-            6
+            218,
+            7
           ]
         },
         {
@@ -2298,24 +2298,24 @@
           ],
           "margin": [
             121,
-            8,
+            9,
             252,
-            16
+            18
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
           "region": [
-            405,
-            2,
-            188,
-            307
+            1859,
+            1502,
+            181,
+            295
           ],
           "margin": [
-            97,
-            2,
-            234,
-            8
+            102,
+            15,
+            241,
+            22
           ]
         },
         {
@@ -2328,24 +2328,24 @@
           ],
           "margin": [
             109,
-            14,
+            15,
             253,
-            22
+            24
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            597,
             2,
-            178,
-            299
+            2,
+            175,
+            294
           ],
           "margin": [
-            102,
-            10,
-            244,
-            16
+            104,
+            16,
+            247,
+            23
           ]
         },
         {
@@ -2358,24 +2358,24 @@
           ],
           "margin": [
             123,
-            23,
+            24,
             257,
-            31
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            779,
+            181,
             2,
-            175,
-            286
+            182,
+            297
           ],
           "margin": [
-            112,
-            23,
-            247,
-            29
+            108,
+            13,
+            240,
+            20
           ]
         },
         {
@@ -2388,24 +2388,24 @@
           ],
           "margin": [
             128,
-            40,
+            41,
             218,
-            48
+            50
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            958,
+            367,
             2,
             202,
             265
           ],
           "margin": [
             126,
-            44,
+            45,
             220,
-            50
+            52
           ]
         }
       ]
@@ -2425,24 +2425,24 @@
           ],
           "margin": [
             147,
-            64,
+            65,
             241,
-            72
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1164,
+            573,
             2,
-            196,
-            250
+            195,
+            249
           ],
           "margin": [
-            128,
-            59,
-            226,
-            65
+            130,
+            61,
+            227,
+            68
           ]
         },
         {
@@ -2455,24 +2455,24 @@
           ],
           "margin": [
             131,
-            69,
+            70,
             236,
-            77
+            79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1364,
+            772,
             2,
-            208,
-            242
+            223,
+            260
           ],
           "margin": [
-            114,
-            67,
-            214,
-            73
+            106,
+            50,
+            199,
+            57
           ]
         },
         {
@@ -2485,24 +2485,24 @@
           ],
           "margin": [
             95,
-            80,
+            81,
             218,
-            88
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1576,
+            999,
             2,
-            203,
-            227
+            195,
+            218
           ],
           "margin": [
-            86,
-            82,
-            219,
-            88
+            90,
+            92,
+            227,
+            99
           ]
         },
         {
@@ -2515,24 +2515,24 @@
           ],
           "margin": [
             95,
-            98,
+            99,
             244,
-            106
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1783,
+            1198,
             2,
-            199,
-            209
+            190,
+            199
           ],
           "margin": [
-            80,
-            100,
-            223,
-            106
+            84,
+            111,
+            232,
+            118
           ]
         },
         {
@@ -2545,24 +2545,24 @@
           ],
           "margin": [
             94,
-            115,
+            116,
             248,
-            123
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
+            1392,
             2,
-            319,
-            186,
-            189
+            196,
+            199
           ],
           "margin": [
-            84,
-            121,
-            236,
-            126
+            79,
+            111,
+            226,
+            118
           ]
         },
         {
@@ -2575,24 +2575,24 @@
           ],
           "margin": [
             62,
-            137,
+            138,
             169,
-            145
+            147
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            192,
-            319,
-            228,
-            162
+            1592,
+            2,
+            223,
+            158
           ],
           "margin": [
-            66,
-            146,
-            194,
-            153
+            68,
+            151,
+            199,
+            159
           ]
         },
         {
@@ -2605,24 +2605,24 @@
           ],
           "margin": [
             80,
-            168,
+            169,
             207,
-            176
+            178
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            424,
-            319,
-            225,
-            166
+            2,
+            307,
+            231,
+            171
           ],
           "margin": [
-            70,
-            145,
-            197,
-            149
+            67,
+            140,
+            191,
+            146
           ]
         },
         {
@@ -2635,24 +2635,24 @@
           ],
           "margin": [
             58,
-            130,
+            131,
             154,
-            138
+            140
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            653,
-            319,
-            292,
-            199
+            237,
+            307,
+            234,
+            160
           ],
           "margin": [
-            46,
-            110,
-            130,
-            116
+            75,
+            149,
+            188,
+            157
           ]
         },
         {
@@ -2665,24 +2665,24 @@
           ],
           "margin": [
             106,
-            104,
+            105,
             260,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            949,
-            319,
-            177,
-            224
+            475,
+            307,
+            173,
+            220
           ],
           "margin": [
-            99,
-            85,
-            245,
-            91
+            101,
+            90,
+            249,
+            97
           ]
         },
         {
@@ -2695,24 +2695,24 @@
           ],
           "margin": [
             110,
-            79,
+            80,
             248,
-            87
+            89
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1130,
-            319,
-            185,
-            235
+            652,
+            307,
+            188,
+            238
           ],
           "margin": [
             106,
-            74,
-            237,
-            80
+            72,
+            234,
+            79
           ]
         },
         {
@@ -2725,24 +2725,24 @@
           ],
           "margin": [
             118,
-            84,
+            85,
             247,
-            92
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1319,
-            319,
-            167,
-            226
+            844,
+            307,
+            191,
+            259
           ],
           "margin": [
-            124,
-            83,
-            255,
-            89
+            112,
+            51,
+            231,
+            58
           ]
         },
         {
@@ -2755,24 +2755,24 @@
           ],
           "margin": [
             128,
-            95,
+            96,
             211,
-            103
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1490,
-            319,
-            180,
-            211
+            1039,
+            307,
+            184,
+            215
           ],
           "margin": [
-            140,
-            98,
-            242,
-            104
+            138,
+            95,
+            238,
+            102
           ]
         }
       ]
@@ -2792,24 +2792,24 @@
           ],
           "margin": [
             94,
-            101,
+            102,
             208,
-            109
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1674,
-            319,
-            201,
-            219
+            1227,
+            307,
+            208,
+            227
           ],
           "margin": [
-            92,
-            90,
-            221,
-            96
+            88,
+            83,
+            214,
+            90
           ]
         },
         {
@@ -2822,24 +2822,24 @@
           ],
           "margin": [
             83,
-            93,
+            94,
             200,
-            101
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            2,
-            562,
-            213,
-            223
+            1439,
+            307,
+            221,
+            231
           ],
           "margin": [
+            75,
             79,
-            86,
-            209,
-            92
+            201,
+            86
           ]
         },
         {
@@ -2852,24 +2852,24 @@
           ],
           "margin": [
             74,
-            93,
+            94,
             206,
-            101
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            219,
-            562,
-            226,
-            220
+            1664,
+            307,
+            222,
+            216
           ],
           "margin": [
-            70,
-            89,
-            196,
-            95
+            72,
+            94,
+            200,
+            101
           ]
         },
         {
@@ -2882,24 +2882,24 @@
           ],
           "margin": [
             69,
-            99,
+            100,
             204,
-            107
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            449,
-            562,
-            236,
-            220
+            2,
+            574,
+            233,
+            217
           ],
           "margin": [
-            64,
-            89,
-            186,
-            95
+            66,
+            93,
+            189,
+            100
           ]
         },
         {
@@ -2912,24 +2912,24 @@
           ],
           "margin": [
             76,
-            93,
+            94,
             203,
-            101
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            689,
-            562,
-            237,
-            223
+            239,
+            574,
+            242,
+            227
           ],
           "margin": [
-            76,
-            86,
-            185,
-            92
+            74,
+            83,
+            180,
+            90
           ]
         },
         {
@@ -2942,24 +2942,24 @@
           ],
           "margin": [
             87,
-            94,
+            95,
             190,
-            102
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            930,
-            562,
-            246,
-            218
+            485,
+            574,
+            237,
+            211
           ],
           "margin": [
-            84,
-            91,
-            176,
-            97
+            88,
+            99,
+            185,
+            106
           ]
         },
         {
@@ -2972,24 +2972,24 @@
           ],
           "margin": [
             105,
-            102,
+            103,
             203,
-            110
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1180,
-            562,
-            224,
-            216
+            726,
+            574,
+            228,
+            219
           ],
           "margin": [
-            96,
-            93,
-            198,
-            99
+            94,
+            91,
+            194,
+            98
           ]
         },
         {
@@ -3002,24 +3002,24 @@
           ],
           "margin": [
             86,
-            97,
+            98,
             190,
-            105
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1408,
-            562,
-            231,
-            218
+            958,
+            574,
+            234,
+            221
           ],
           "margin": [
-            80,
-            91,
-            191,
-            97
+            78,
+            89,
+            188,
+            96
           ]
         },
         {
@@ -3032,24 +3032,24 @@
           ],
           "margin": [
             69,
-            98,
+            99,
             195,
-            106
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1643,
-            562,
-            218,
-            213
+            1196,
+            574,
+            211,
+            206
           ],
           "margin": [
-            72,
-            96,
-            204,
-            102
+            76,
+            104,
+            211,
+            111
           ]
         },
         {
@@ -3062,24 +3062,24 @@
           ],
           "margin": [
             69,
-            107,
+            108,
             214,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            2,
-            793,
-            208,
-            211
+            1411,
+            574,
+            212,
+            215
           ],
           "margin": [
-            72,
-            98,
-            214,
-            104
+            70,
+            95,
+            210,
+            102
           ]
         },
         {
@@ -3092,24 +3092,24 @@
           ],
           "margin": [
             73,
-            102,
+            103,
             207,
-            110
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            214,
-            793,
-            208,
-            212
+            1627,
+            574,
+            213,
+            217
           ],
           "margin": [
-            81,
-            97,
-            214,
-            103
+            78,
+            93,
+            209,
+            100
           ]
         },
         {
@@ -3122,24 +3122,24 @@
           ],
           "margin": [
             101,
-            104,
+            105,
             216,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            426,
-            793,
-            210,
-            208
+            2,
+            809,
+            205,
+            203
           ],
           "margin": [
-            105,
-            102,
-            212,
-            107
+            108,
+            108,
+            217,
+            114
           ]
         }
       ]
@@ -3159,24 +3159,24 @@
           ],
           "margin": [
             123,
-            111,
+            112,
             227,
-            119
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            640,
-            793,
-            207,
-            210
+            211,
+            809,
+            208,
+            211
           ],
           "margin": [
-            112,
+            111,
             99,
-            215,
-            105
+            214,
+            106
           ]
         },
         {
@@ -3189,24 +3189,24 @@
           ],
           "margin": [
             102,
-            99,
+            100,
             205,
-            107
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            851,
-            793,
-            209,
-            220
+            423,
+            809,
+            210,
+            221
           ],
           "margin": [
             92,
             89,
-            213,
-            95
+            212,
+            96
           ]
         },
         {
@@ -3219,24 +3219,24 @@
           ],
           "margin": [
             98,
-            93,
+            94,
             221,
-            101
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1064,
-            793,
-            206,
-            223
+            637,
+            809,
+            196,
+            212
           ],
           "margin": [
-            86,
-            86,
-            216,
-            92
+            92,
+            98,
+            226,
+            105
           ]
         },
         {
@@ -3249,24 +3249,24 @@
           ],
           "margin": [
             94,
-            93,
+            94,
             230,
-            101
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1274,
-            793,
-            202,
-            219
+            837,
+            809,
+            185,
+            202
           ],
           "margin": [
-            80,
             90,
-            220,
-            96
+            108,
+            237,
+            115
           ]
         },
         {
@@ -3279,24 +3279,24 @@
           ],
           "margin": [
             95,
-            100,
+            101,
             229,
-            108
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1480,
-            793,
-            196,
-            210
+            1026,
+            809,
+            203,
+            217
           ],
           "margin": [
-            94,
-            99,
-            226,
-            105
+            90,
+            93,
+            219,
+            100
           ]
         },
         {
@@ -3309,24 +3309,24 @@
           ],
           "margin": [
             78,
-            111,
+            112,
             133,
-            119
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1680,
-            793,
-            196,
-            194
+            1233,
+            809,
+            229,
+            226
           ],
           "margin": [
-            104,
-            114,
-            226,
-            121
+            88,
+            84,
+            193,
+            91
           ]
         },
         {
@@ -3339,24 +3339,24 @@
           ],
           "margin": [
             98,
-            130,
+            131,
             159,
-            138
+            140
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            2,
-            1024,
-            189,
-            189
+            1466,
+            809,
+            212,
+            212
           ],
           "margin": [
-            104,
-            119,
-            233,
-            126
+            93,
+            98,
+            210,
+            105
           ]
         },
         {
@@ -3369,24 +3369,24 @@
           ],
           "margin": [
             89,
-            121,
+            122,
             153,
-            129
+            131
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            195,
-            1024,
-            188,
-            195
+            1682,
+            809,
+            206,
+            213
           ],
           "margin": [
-            100,
-            116,
-            234,
-            120
+            91,
+            97,
+            216,
+            104
           ]
         },
         {
@@ -3399,24 +3399,24 @@
           ],
           "margin": [
             93,
-            119,
+            120,
             242,
-            127
+            129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            387,
-            1024,
-            173,
-            195
+            2,
+            1043,
+            183,
+            207
           ],
           "margin": [
-            100,
-            116,
-            249,
-            120
+            95,
+            103,
+            239,
+            110
           ]
         },
         {
@@ -3429,24 +3429,24 @@
           ],
           "margin": [
             96,
-            120,
+            121,
             245,
-            128
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            564,
-            1024,
-            174,
-            198
+            189,
+            1043,
+            183,
+            209
           ],
           "margin": [
-            110,
-            113,
-            248,
-            117
+            106,
+            101,
+            239,
+            108
           ]
         },
         {
@@ -3459,24 +3459,24 @@
           ],
           "margin": [
             106,
-            113,
+            114,
             239,
-            121
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            742,
-            1024,
-            231,
-            203
+            376,
+            1043,
+            224,
+            197
           ],
           "margin": [
-            112,
-            106,
-            191,
-            112
+            116,
+            114,
+            198,
+            120
           ]
         },
         {
@@ -3489,24 +3489,24 @@
           ],
           "margin": [
             134,
-            111,
+            112,
             229,
-            119
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            977,
-            1024,
-            237,
-            203
+            604,
+            1043,
+            222,
+            190
           ],
           "margin": [
-            125,
-            106,
-            185,
-            112
+            132,
+            120,
+            200,
+            127
           ]
         }
       ]
@@ -3526,24 +3526,24 @@
           ],
           "margin": [
             50,
-            158,
+            159,
             155,
-            166
+            168
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1218,
-            1024,
-            254,
-            164
+            830,
+            1043,
+            275,
+            178
           ],
           "margin": [
-            63,
-            145,
-            168,
-            151
+            54,
+            132,
+            147,
+            139
           ]
         },
         {
@@ -3556,24 +3556,24 @@
           ],
           "margin": [
             48,
-            144,
+            145,
             121,
-            152
+            154
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1476,
-            1024,
-            256,
-            176
+            1109,
+            1043,
+            290,
+            199
           ],
           "margin": [
-            78,
-            135,
-            166,
-            139
+            62,
+            112,
+            132,
+            118
           ]
         },
         {
@@ -3586,24 +3586,24 @@
           ],
           "margin": [
             90,
-            140,
+            141,
             174,
-            148
+            150
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1736,
-            1024,
-            242,
-            176
+            1403,
+            1043,
+            252,
+            183
           ],
           "margin": [
-            100,
-            133,
-            180,
-            139
+            96,
+            127,
+            170,
+            134
           ]
         },
         {
@@ -3616,24 +3616,24 @@
           ],
           "margin": [
             106,
-            139,
+            140,
             169,
-            147
+            149
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            2,
-            1235,
-            264,
-            191
+            1659,
+            1043,
+            271,
+            195
           ],
           "margin": [
-            100,
-            118,
-            158,
-            124
+            97,
+            115,
+            151,
+            122
           ]
         },
         {
@@ -3646,24 +3646,24 @@
           ],
           "margin": [
             97,
-            111,
+            112,
             137,
-            119
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            270,
-            1235,
-            265,
-            217
+            2,
+            1260,
+            255,
+            208
           ],
           "margin": [
-            105,
-            93,
-            157,
-            98
+            110,
+            102,
+            167,
+            109
           ]
         },
         {
@@ -3676,24 +3676,24 @@
           ],
           "margin": [
             130,
-            92,
+            93,
             228,
-            100
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            539,
-            1235,
-            219,
-            231
+            261,
+            1260,
+            207,
+            217
           ],
           "margin": [
-            120,
-            78,
-            203,
-            84
+            128,
+            93,
+            215,
+            100
           ]
         },
         {
@@ -3706,24 +3706,24 @@
           ],
           "margin": [
             119,
-            79,
+            80,
             206,
-            87
+            89
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            762,
-            1235,
-            215,
-            239
+            472,
+            1260,
+            223,
+            249
           ],
           "margin": [
-            112,
-            70,
-            207,
-            76
+            106,
+            61,
+            199,
+            68
           ]
         },
         {
@@ -3736,24 +3736,24 @@
           ],
           "margin": [
             128,
-            75,
+            76,
             225,
-            83
+            85
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            981,
-            1235,
+            699,
+            1260,
             232,
-            243
+            244
           ],
           "margin": [
             94,
             67,
             190,
-            72
+            73
           ]
         },
         {
@@ -3766,24 +3766,24 @@
           ],
           "margin": [
             120,
-            76,
+            77,
             217,
-            84
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1217,
-            1235,
-            208,
-            236
+            935,
+            1260,
+            211,
+            239
           ],
           "margin": [
-            110,
-            73,
-            214,
-            79
+            108,
+            71,
+            211,
+            78
           ]
         },
         {
@@ -3796,24 +3796,24 @@
           ],
           "margin": [
             126,
-            85,
+            86,
             233,
-            93
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1429,
-            1235,
-            206,
-            238
+            1150,
+            1260,
+            210,
+            242
           ],
           "margin": [
-            106,
-            71,
-            216,
-            77
+            102,
+            68,
+            212,
+            75
           ]
         },
         {
@@ -3826,24 +3826,24 @@
           ],
           "margin": [
             98,
-            73,
+            74,
             204,
-            81
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1639,
-            1235,
-            235,
-            246
+            1364,
+            1260,
+            211,
+            221
           ],
           "margin": [
-            84,
-            65,
-            187,
-            69
+            98,
+            89,
+            211,
+            96
           ]
         },
         {
@@ -3856,24 +3856,24 @@
           ],
           "margin": [
             110,
-            71,
+            72,
             250,
-            79
+            81
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            2,
-            1489,
-            207,
-            246
+            1579,
+            1260,
+            187,
+            221
           ],
           "margin": [
-            80,
-            63,
-            215,
-            69
+            92,
+            89,
+            235,
+            96
           ]
         }
       ]
@@ -3893,24 +3893,24 @@
           ],
           "margin": [
             108,
-            72,
+            73,
             254,
-            80
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            213,
-            1489,
-            199,
-            232
+            1770,
+            1260,
+            181,
+            211
           ],
           "margin": [
-            81,
-            77,
-            223,
-            83
+            93,
+            99,
+            241,
+            106
           ]
         },
         {
@@ -3923,24 +3923,24 @@
           ],
           "margin": [
             114,
-            96,
+            97,
             267,
-            104
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            416,
-            1489,
-            160,
-            206
+            2,
+            1517,
+            191,
+            246
           ],
           "margin": [
-            108,
-            103,
-            262,
-            109
+            88,
+            64,
+            231,
+            71
           ]
         },
         {
@@ -3953,24 +3953,24 @@
           ],
           "margin": [
             89,
-            123,
+            124,
             194,
-            131
+            133
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            580,
-            1489,
-            169,
-            173
+            197,
+            1517,
+            199,
+            203
           ],
           "margin": [
-            112,
-            136,
-            253,
-            142
+            96,
+            107,
+            223,
+            114
           ]
         },
         {
@@ -3983,24 +3983,24 @@
           ],
           "margin": [
             104,
-            161,
+            162,
             240,
-            169
+            171
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            753,
-            1489,
-            184,
-            156
+            400,
+            1517,
+            183,
+            155
           ],
           "margin": [
-            104,
-            154,
-            238,
-            159
+            105,
+            156,
+            239,
+            162
           ]
         },
         {
@@ -4013,24 +4013,24 @@
           ],
           "margin": [
             110,
-            157,
+            158,
             243,
-            165
+            167
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            941,
-            1489,
-            151,
-            157
+            587,
+            1517,
+            159,
+            165
           ],
           "margin": [
-            127,
-            152,
-            271,
-            158
+            123,
+            145,
+            263,
+            152
           ]
         },
         {
@@ -4043,24 +4043,24 @@
           ],
           "margin": [
             79,
-            159,
+            160,
             120,
-            167
+            169
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1096,
-            1489,
-            233,
-            151
+            750,
+            1517,
+            270,
+            175
           ],
           "margin": [
-            102,
-            159,
-            189,
-            164
+            85,
+            135,
+            152,
+            142
           ]
         },
         {
@@ -4073,24 +4073,24 @@
           ],
           "margin": [
             90,
-            169,
+            170,
             142,
-            177
+            179
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1333,
-            1489,
-            248,
-            148
+            1024,
+            1517,
+            275,
+            163
           ],
           "margin": [
-            95,
-            161,
-            174,
-            167
+            82,
+            147,
+            147,
+            154
           ]
         },
         {
@@ -4103,24 +4103,24 @@
           ],
           "margin": [
             85,
-            166,
+            167,
             133,
-            174
+            176
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1585,
-            1489,
-            261,
-            148
+            1303,
+            1517,
+            311,
+            176
           ],
           "margin": [
-            86,
-            161,
-            161,
-            167
+            62,
+            134,
+            111,
+            141
           ]
         },
         {
@@ -4133,24 +4133,24 @@
           ],
           "margin": [
             55,
-            171,
+            172,
             101,
-            179
+            181
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            2,
-            1743,
-            248,
-            138
+            1618,
+            1517,
+            299,
+            167
           ],
           "margin": [
-            82,
-            171,
-            174,
-            177
+            58,
+            143,
+            123,
+            150
           ]
         },
         {
@@ -4163,24 +4163,24 @@
           ],
           "margin": [
             80,
-            184,
+            185,
             141,
-            192
+            194
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            254,
-            1743,
-            254,
-            148
+            2,
+            1771,
+            307,
+            179
           ],
           "margin": [
-            84,
-            161,
-            168,
-            167
+            56,
+            131,
+            115,
+            138
           ]
         },
         {
@@ -4193,24 +4193,24 @@
           ],
           "margin": [
             38,
-            151,
+            152,
             46,
-            159
+            161
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            512,
-            1743,
-            273,
-            175
+            313,
+            1771,
+            317,
+            203
           ],
           "margin": [
-            82,
-            134,
-            149,
-            140
+            60,
+            109,
+            105,
+            114
           ]
         },
         {
@@ -4223,24 +4223,24 @@
           ],
           "margin": [
             146,
-            132,
+            133,
             248,
-            140
+            142
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            789,
-            1743,
-            189,
-            193
+            634,
+            1771,
+            187,
+            190
           ],
           "margin": [
-            133,
-            116,
-            233,
-            122
+            134,
+            120,
+            235,
+            127
           ]
         }
       ]
@@ -4260,24 +4260,24 @@
           ],
           "margin": [
             112,
-            78,
+            79,
             235,
-            86
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            982,
-            1743,
-            189,
-            230
+            825,
+            1771,
+            192,
+            234
           ],
           "margin": [
-            116,
-            79,
-            233,
-            85
+            114,
+            76,
+            230,
+            83
           ]
         },
         {
@@ -4290,24 +4290,24 @@
           ],
           "margin": [
             123,
-            94,
+            95,
             219,
-            102
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1175,
-            1743,
-            185,
-            201
+            1021,
+            1771,
+            201,
+            218
           ],
           "margin": [
-            130,
-            108,
-            237,
-            114
+            122,
+            92,
+            221,
+            99
           ]
         },
         {
@@ -4320,24 +4320,24 @@
           ],
           "margin": [
             150,
-            135,
+            136,
             232,
-            143
+            145
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1364,
-            1743,
-            190,
-            182
+            1226,
+            1771,
+            195,
+            187
           ],
           "margin": [
-            143,
-            126,
-            232,
-            133
+            141,
+            124,
+            227,
+            130
           ]
         },
         {
@@ -4350,24 +4350,24 @@
           ],
           "margin": [
             148,
-            131,
+            132,
             229,
-            139
+            141
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1558,
-            1743,
-            191,
-            192
+            1425,
+            1771,
+            189,
+            190
           ],
           "margin": [
-            139,
-            119,
-            231,
-            123
+            140,
+            121,
+            233,
+            127
           ]
         }
       ]
@@ -4387,24 +4387,24 @@
           ],
           "margin": [
             94,
-            116,
+            117,
             220,
-            124
+            126
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            1753,
-            1743,
-            184,
-            192
+            1618,
+            1771,
+            196,
+            204
           ],
           "margin": [
-            109,
-            118,
-            238,
-            123
+            103,
+            106,
+            226,
+            113
           ]
         },
         {
@@ -4417,24 +4417,24 @@
           ],
           "margin": [
             121,
-            129,
+            130,
             218,
-            137
+            139
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
           "region": [
-            2,
-            2,
-            191,
-            193
+            1818,
+            1771,
+            194,
+            196
           ],
           "margin": [
-            130,
-            117,
-            231,
-            122
+            128,
+            114,
+            228,
+            121
           ]
         },
         {
@@ -4447,24 +4447,24 @@
           ],
           "margin": [
             154,
-            115,
+            116,
             245,
-            123
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            197,
             2,
-            184,
+            2,
+            183,
             194
           ],
           "margin": [
             146,
-            117,
-            238,
-            121
+            118,
+            239,
+            123
           ]
         },
         {
@@ -4477,24 +4477,24 @@
           ],
           "margin": [
             137,
-            126,
+            127,
             222,
-            134
+            136
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            385,
+            189,
             2,
-            208,
-            195
+            195,
+            182
           ],
           "margin": [
-            130,
-            114,
-            214,
-            120
+            138,
+            127,
+            227,
+            135
           ]
         }
       ]
@@ -4514,24 +4514,24 @@
           ],
           "margin": [
             118,
-            145,
+            146,
             191,
-            153
+            155
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            597,
+            388,
             2,
-            232,
-            175
+            217,
+            163
           ],
           "margin": [
-            118,
-            136,
-            190,
-            140
+            126,
+            146,
+            205,
+            154
           ]
         },
         {
@@ -4544,24 +4544,24 @@
           ],
           "margin": [
             145,
-            135,
+            136,
             233,
-            143
+            145
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            833,
+            609,
             2,
-            212,
-            186
+            193,
+            169
           ],
           "margin": [
-            130,
-            124,
-            210,
-            129
+            140,
+            140,
+            229,
+            148
           ]
         },
         {
@@ -4574,24 +4574,24 @@
           ],
           "margin": [
             151,
-            123,
+            124,
             242,
-            131
+            133
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1049,
+            806,
             2,
-            173,
-            176
+            186,
+            190
           ],
           "margin": [
-            150,
-            132,
-            249,
-            139
+            144,
+            120,
+            236,
+            127
           ]
         },
         {
@@ -4604,24 +4604,24 @@
           ],
           "margin": [
             132,
-            153,
+            154,
             213,
-            161
+            163
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1226,
+            996,
             2,
-            218,
-            182
+            196,
+            163
           ],
           "margin": [
-            126,
-            127,
-            204,
-            133
+            138,
+            146,
+            226,
+            154
           ]
         }
       ]
@@ -4641,24 +4641,24 @@
           ],
           "margin": [
             154,
-            114,
+            115,
             228,
-            122
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1448,
+            1196,
             2,
-            200,
-            203
+            193,
+            196
           ],
           "margin": [
-            132,
-            106,
-            222,
-            112
+            136,
+            115,
+            229,
+            121
           ]
         },
         {
@@ -4671,24 +4671,24 @@
           ],
           "margin": [
             143,
-            110,
+            111,
             223,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1652,
+            1393,
             2,
-            187,
-            205
+            196,
+            215
           ],
           "margin": [
-            147,
-            105,
-            235,
-            110
+            143,
+            95,
+            226,
+            102
           ]
         },
         {
@@ -4701,24 +4701,24 @@
           ],
           "margin": [
             135,
-            110,
+            111,
             213,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1843,
+            1593,
             2,
-            200,
-            202
+            185,
+            187
           ],
           "margin": [
-            129,
-            108,
-            222,
-            113
+            136,
+            123,
+            237,
+            130
           ]
         },
         {
@@ -4731,24 +4731,24 @@
           ],
           "margin": [
             145,
-            117,
+            118,
             225,
-            125
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
+            1782,
             2,
-            215,
-            188,
-            202
+            182,
+            196
           ],
           "margin": [
-            132,
-            108,
-            234,
-            113
+            135,
+            115,
+            240,
+            121
           ]
         },
         {
@@ -4761,24 +4761,24 @@
           ],
           "margin": [
             130,
-            109,
+            110,
             220,
-            117
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            194,
-            215,
-            239,
-            208
+            2,
+            225,
+            211,
+            184
           ],
           "margin": [
-            88,
-            101,
-            183,
-            107
+            104,
+            128,
+            211,
+            133
           ]
         },
         {
@@ -4791,24 +4791,24 @@
           ],
           "margin": [
             113,
-            107,
+            108,
             222,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            437,
-            215,
-            185,
-            207
+            217,
+            225,
+            181,
+            203
           ],
           "margin": [
-            122,
-            102,
-            237,
-            108
+            124,
+            107,
+            241,
+            114
           ]
         },
         {
@@ -4821,24 +4821,24 @@
           ],
           "margin": [
             112,
-            110,
+            111,
             223,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            626,
-            215,
-            184,
-            208
+            402,
+            225,
+            180,
+            203
           ],
           "margin": [
-            122,
-            101,
-            238,
-            107
+            124,
+            108,
+            242,
+            114
           ]
         },
         {
@@ -4851,23 +4851,23 @@
           ],
           "margin": [
             115,
-            105,
+            106,
             222,
-            113
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            814,
-            215,
-            191,
-            209
+            586,
+            225,
+            192,
+            211
           ],
           "margin": [
-            124,
-            100,
-            231,
+            123,
+            99,
+            230,
             106
           ]
         },
@@ -4881,24 +4881,24 @@
           ],
           "margin": [
             126,
-            107,
+            108,
             241,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1009,
-            215,
-            187,
-            204
+            782,
+            225,
+            182,
+            199
           ],
           "margin": [
-            135,
-            105,
-            235,
-            111
+            138,
+            111,
+            240,
+            118
           ]
         },
         {
@@ -4911,24 +4911,24 @@
           ],
           "margin": [
             140,
-            115,
+            116,
             252,
-            123
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1200,
-            215,
-            182,
-            204
+            968,
+            225,
+            176,
+            198
           ],
           "margin": [
-            138,
-            105,
-            240,
-            111
+            140,
+            114,
+            246,
+            119
           ]
         },
         {
@@ -4941,24 +4941,24 @@
           ],
           "margin": [
             129,
-            107,
+            108,
             243,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1386,
-            215,
-            181,
-            210
+            1148,
+            225,
+            178,
+            206
           ],
           "margin": [
-            124,
-            99,
-            241,
-            105
+            126,
+            104,
+            244,
+            111
           ]
         },
         {
@@ -4971,24 +4971,24 @@
           ],
           "margin": [
             127,
-            104,
+            105,
             239,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1571,
-            215,
-            175,
-            209
+            1330,
+            225,
+            172,
+            205
           ],
           "margin": [
-            122,
-            100,
-            247,
-            106
+            123,
+            105,
+            250,
+            112
           ]
         }
       ]
@@ -5008,24 +5008,24 @@
           ],
           "margin": [
             154,
-            114,
+            115,
             228,
-            122
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1750,
-            215,
-            200,
-            204
+            1506,
+            225,
+            197,
+            201
           ],
           "margin": [
-            138,
-            105,
-            222,
-            111
+            139,
+            109,
+            225,
+            116
           ]
         },
         {
@@ -5038,23 +5038,23 @@
           ],
           "margin": [
             145,
-            108,
+            109,
             225,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            2,
-            433,
-            200,
-            207
+            1707,
+            225,
+            202,
+            209
           ],
           "margin": [
-            134,
-            102,
-            222,
+            132,
+            101,
+            220,
             108
           ]
         },
@@ -5068,24 +5068,24 @@
           ],
           "margin": [
             142,
-            109,
+            110,
             222,
-            117
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            206,
-            433,
-            198,
-            202
+            2,
+            444,
+            191,
+            195
           ],
           "margin": [
-            130,
-            107,
-            224,
-            113
+            133,
+            117,
+            231,
+            122
           ]
         },
         {
@@ -5098,24 +5098,24 @@
           ],
           "margin": [
             145,
-            117,
+            118,
             225,
-            125
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            408,
-            433,
-            187,
-            203
+            197,
+            444,
+            183,
+            199
           ],
           "margin": [
-            128,
-            106,
-            235,
-            112
+            130,
+            111,
+            239,
+            118
           ]
         },
         {
@@ -5128,24 +5128,24 @@
           ],
           "margin": [
             132,
-            108,
+            109,
             222,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            599,
-            433,
-            189,
-            209
+            384,
+            444,
+            195,
+            215
           ],
           "margin": [
-            122,
-            100,
-            233,
-            106
+            118,
+            95,
+            227,
+            102
           ]
         },
         {
@@ -5158,24 +5158,24 @@
           ],
           "margin": [
             115,
-            105,
+            106,
             220,
-            113
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            792,
-            433,
-            186,
-            208
+            583,
+            444,
+            182,
+            204
           ],
           "margin": [
-            118,
-            101,
-            236,
-            107
+            120,
+            106,
+            240,
+            113
           ]
         },
         {
@@ -5188,24 +5188,24 @@
           ],
           "margin": [
             112,
-            110,
+            111,
             223,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            982,
-            433,
-            206,
-            207
+            769,
+            444,
+            202,
+            203
           ],
           "margin": [
-            109,
-            102,
-            216,
-            108
+            111,
+            106,
+            220,
+            114
           ]
         },
         {
@@ -5218,24 +5218,24 @@
           ],
           "margin": [
             115,
-            105,
+            106,
             221,
-            113
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1192,
-            433,
+            975,
+            444,
             203,
             209
           ],
           "margin": [
             117,
-            102,
+            103,
             219,
-            106
+            108
           ]
         },
         {
@@ -5248,24 +5248,24 @@
           ],
           "margin": [
             127,
-            106,
+            107,
             238,
-            114
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1399,
-            433,
-            188,
-            204
+            1182,
+            444,
+            178,
+            194
           ],
           "margin": [
-            127,
-            106,
-            234,
-            111
+            133,
+            115,
+            244,
+            123
           ]
         },
         {
@@ -5278,24 +5278,24 @@
           ],
           "margin": [
             140,
-            115,
+            116,
             252,
-            123
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1591,
-            433,
-            182,
-            204
+            1364,
+            444,
+            174,
+            196
           ],
           "margin": [
-            126,
-            106,
-            240,
-            111
+            130,
+            113,
+            248,
+            121
           ]
         },
         {
@@ -5308,24 +5308,24 @@
           ],
           "margin": [
             128,
-            106,
+            107,
             243,
-            114
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1777,
-            433,
-            178,
+            1542,
+            444,
+            177,
             210
           ],
           "margin": [
-            120,
-            99,
-            244,
-            105
+            121,
+            100,
+            245,
+            107
           ]
         },
         {
@@ -5338,24 +5338,24 @@
           ],
           "margin": [
             125,
-            104,
+            105,
             240,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            2,
-            651,
-            171,
-            209
+            1723,
+            444,
+            163,
+            200
           ],
           "margin": [
-            114,
-            100,
-            251,
-            106
+            119,
+            111,
+            259,
+            117
           ]
         }
       ]
@@ -5375,24 +5375,24 @@
           ],
           "margin": [
             154,
-            114,
+            115,
             228,
-            122
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            177,
-            651,
-            191,
-            204
+            2,
+            667,
+            190,
+            203
           ],
           "margin": [
-            146,
-            106,
-            231,
-            111
+            147,
+            108,
+            232,
+            114
           ]
         },
         {
@@ -5405,24 +5405,24 @@
           ],
           "margin": [
             140,
-            108,
+            109,
             224,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            372,
-            651,
+            196,
+            667,
             197,
             206
           ],
           "margin": [
             138,
-            103,
+            104,
             225,
-            109
+            111
           ]
         },
         {
@@ -5435,24 +5435,24 @@
           ],
           "margin": [
             137,
-            110,
+            111,
             222,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            573,
-            651,
-            191,
-            201
+            397,
+            667,
+            183,
+            193
           ],
           "margin": [
-            142,
-            109,
-            231,
-            114
+            146,
+            116,
+            239,
+            124
           ]
         },
         {
@@ -5465,24 +5465,24 @@
           ],
           "margin": [
             145,
-            117,
+            118,
             225,
-            125
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            768,
-            651,
-            195,
-            201
+            584,
+            667,
+            190,
+            196
           ],
           "margin": [
-            134,
-            109,
-            227,
-            114
+            136,
+            113,
+            232,
+            121
           ]
         },
         {
@@ -5495,24 +5495,24 @@
           ],
           "margin": [
             124,
-            110,
+            111,
             220,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            967,
-            651,
-            210,
-            207
+            778,
+            667,
+            207,
+            204
           ],
           "margin": [
-            118,
-            102,
-            212,
-            108
+            119,
+            107,
+            215,
+            113
           ]
         },
         {
@@ -5525,24 +5525,24 @@
           ],
           "margin": [
             108,
-            107,
+            108,
             215,
-            115
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1181,
-            651,
-            213,
-            207
+            989,
+            667,
+            197,
+            191
           ],
           "margin": [
-            104,
-            102,
-            209,
-            108
+            112,
+            118,
+            225,
+            126
           ]
         },
         {
@@ -5555,24 +5555,24 @@
           ],
           "margin": [
             112,
-            110,
+            111,
             223,
-            118
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1398,
-            651,
-            198,
-            208
+            1190,
+            667,
+            188,
+            197
           ],
           "margin": [
+            117,
             112,
-            102,
-            224,
-            107
+            234,
+            120
           ]
         },
         {
@@ -5585,24 +5585,24 @@
           ],
           "margin": [
             108,
-            105,
+            106,
             220,
-            113
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1600,
-            651,
-            203,
-            210
+            1382,
+            667,
+            196,
+            203
           ],
           "margin": [
-            118,
-            99,
-            219,
-            105
+            122,
+            108,
+            226,
+            114
           ]
         },
         {
@@ -5615,24 +5615,24 @@
           ],
           "margin": [
             122,
-            106,
+            107,
             234,
-            114
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1807,
-            651,
-            204,
-            205
+            1582,
+            667,
+            189,
+            190
           ],
           "margin": [
-            126,
-            104,
-            218,
-            110
+            134,
+            119,
+            233,
+            127
           ]
         },
         {
@@ -5645,24 +5645,24 @@
           ],
           "margin": [
             140,
-            115,
+            116,
             252,
-            123
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            2,
-            869,
-            199,
-            204
+            1775,
+            667,
+            182,
+            187
           ],
           "margin": [
-            124,
-            105,
-            223,
-            111
+            134,
+            122,
+            240,
+            130
           ]
         },
         {
@@ -5675,24 +5675,24 @@
           ],
           "margin": [
             127,
-            108,
+            109,
             240,
-            116
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            205,
-            869,
-            199,
-            209
+            2,
+            881,
+            189,
+            198
           ],
           "margin": [
-            118,
-            100,
-            223,
-            106
+            124,
+            114,
+            233,
+            119
           ]
         },
         {
@@ -5705,24 +5705,24 @@
           ],
           "margin": [
             131,
-            105,
+            106,
             246,
-            113
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            408,
-            869,
-            196,
-            208
+            195,
+            881,
+            179,
+            191
           ],
           "margin": [
-            110,
-            101,
-            226,
-            107
+            120,
+            118,
+            243,
+            126
           ]
         }
       ]
@@ -5742,24 +5742,24 @@
           ],
           "margin": [
             119,
-            97,
+            98,
             253,
-            105
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            608,
-            869,
-            198,
-            214
+            378,
+            881,
+            183,
+            199
           ],
           "margin": [
-            102,
-            94,
-            224,
-            101
+            110,
+            111,
+            239,
+            118
           ]
         },
         {
@@ -5772,24 +5772,24 @@
           ],
           "margin": [
             118,
-            99,
+            100,
             250,
-            107
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            810,
-            869,
-            200,
-            214
+            565,
+            881,
+            184,
+            197
           ],
           "margin": [
-            100,
-            94,
-            222,
-            101
+            109,
+            113,
+            238,
+            120
           ]
         },
         {
@@ -5802,24 +5802,24 @@
           ],
           "margin": [
             116,
-            99,
+            100,
             247,
-            107
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1014,
-            869,
-            193,
-            213
+            753,
+            881,
+            179,
+            197
           ],
           "margin": [
-            102,
-            94,
-            229,
-            102
+            110,
+            112,
+            243,
+            120
           ]
         },
         {
@@ -5832,24 +5832,24 @@
           ],
           "margin": [
             113,
-            101,
+            102,
             239,
-            109
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1211,
-            869,
-            210,
-            211
+            936,
+            881,
+            193,
+            194
           ],
           "margin": [
-            94,
-            96,
-            212,
-            104
+            103,
+            117,
+            229,
+            123
           ]
         },
         {
@@ -5862,24 +5862,24 @@
           ],
           "margin": [
             105,
-            103,
+            104,
             226,
-            111
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1425,
-            869,
-            218,
-            211
+            1133,
+            881,
+            198,
+            192
           ],
           "margin": [
-            87,
-            97,
-            204,
-            104
+            98,
+            117,
+            224,
+            125
           ]
         },
         {
@@ -5892,24 +5892,24 @@
           ],
           "margin": [
             95,
-            103,
+            104,
             212,
-            111
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1647,
-            869,
-            233,
-            209
+            1335,
+            881,
+            212,
+            191
           ],
           "margin": [
-            80,
-            98,
-            189,
-            106
+            92,
+            119,
+            210,
+            126
           ]
         },
         {
@@ -5922,24 +5922,24 @@
           ],
           "margin": [
             94,
-            104,
+            105,
             213,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            2,
-            1091,
-            208,
-            207
+            1551,
+            881,
+            207,
+            206
           ],
           "margin": [
-            92,
-            102,
-            214,
-            108
+            93,
+            103,
+            215,
+            111
           ]
         },
         {
@@ -5952,24 +5952,24 @@
           ],
           "margin": [
             94,
-            105,
+            106,
             213,
-            113
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            214,
-            1091,
-            214,
-            208
+            1762,
+            881,
+            205,
+            199
           ],
           "margin": [
-            92,
-            100,
-            208,
-            107
+            97,
+            110,
+            217,
+            118
           ]
         },
         {
@@ -5982,24 +5982,24 @@
           ],
           "margin": [
             102,
-            105,
+            106,
             224,
-            113
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            432,
-            1091,
-            211,
-            209
+            2,
+            1095,
+            198,
+            196
           ],
           "margin": [
-            94,
-            100,
-            211,
-            106
+            101,
+            113,
+            224,
+            121
           ]
         },
         {
@@ -6012,24 +6012,24 @@
           ],
           "margin": [
             109,
-            104,
+            105,
             235,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            647,
-            1091,
-            206,
-            209
+            204,
+            1095,
+            191,
+            194
           ],
           "margin": [
-            97,
-            99,
-            216,
-            106
+            105,
+            115,
+            231,
+            123
           ]
         },
         {
@@ -6042,24 +6042,24 @@
           ],
           "margin": [
             110,
-            104,
+            105,
             236,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            857,
-            1091,
-            204,
-            210
+            399,
+            1095,
+            189,
+            195
           ],
           "margin": [
-            98,
-            98,
-            218,
-            105
+            106,
+            115,
+            233,
+            122
           ]
         },
         {
@@ -6072,24 +6072,24 @@
           ],
           "margin": [
             109,
-            103,
+            104,
             236,
-            111
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1065,
-            1091,
-            206,
-            213
+            592,
+            1095,
+            190,
+            196
           ],
           "margin": [
-            97,
-            94,
-            216,
-            102
+            105,
+            115,
+            232,
+            121
           ]
         }
       ]
@@ -6109,24 +6109,24 @@
           ],
           "margin": [
             107,
-            100,
+            101,
             222,
-            108
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1275,
-            1091,
-            214,
-            213
+            786,
+            1095,
+            199,
+            198
           ],
           "margin": [
-            95,
-            96,
-            208,
-            102
+            103,
+            113,
+            223,
+            119
           ]
         },
         {
@@ -6139,24 +6139,24 @@
           ],
           "margin": [
             108,
-            100,
+            101,
             217,
-            108
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1493,
-            1091,
-            221,
-            215
+            989,
+            1095,
+            205,
+            199
           ],
           "margin": [
-            92,
-            93,
-            201,
-            100
+            100,
+            111,
+            217,
+            118
           ]
         },
         {
@@ -6169,24 +6169,24 @@
           ],
           "margin": [
             109,
-            98,
+            99,
             218,
-            106
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1718,
-            1091,
-            222,
-            215
+            1198,
+            1095,
+            211,
+            204
           ],
           "margin": [
-            94,
-            93,
-            200,
-            100
+            100,
+            106,
+            211,
+            113
           ]
         },
         {
@@ -6199,24 +6199,24 @@
           ],
           "margin": [
             107,
-            99,
+            100,
             215,
-            107
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            2,
-            1314,
-            229,
-            214
+            1413,
+            1095,
+            221,
+            207
           ],
           "margin": [
-            93,
-            94,
-            193,
-            101
+            97,
+            102,
+            201,
+            110
           ]
         },
         {
@@ -6229,24 +6229,24 @@
           ],
           "margin": [
             106,
-            99,
+            100,
             213,
-            107
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            235,
-            1314,
-            229,
-            214
+            1638,
+            1095,
+            221,
+            207
           ],
           "margin": [
-            95,
-            94,
-            193,
-            101
+            99,
+            102,
+            201,
+            110
           ]
         },
         {
@@ -6259,24 +6259,24 @@
           ],
           "margin": [
             106,
-            98,
+            99,
             218,
-            106
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            468,
-            1314,
-            224,
-            213
+            2,
+            1310,
+            216,
+            206
           ],
           "margin": [
-            99,
-            95,
-            198,
-            102
+            103,
+            104,
+            206,
+            111
           ]
         }
       ]
@@ -6296,24 +6296,24 @@
           ],
           "margin": [
             109,
-            101,
+            102,
             219,
-            109
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            696,
-            1314,
             222,
-            211
+            1310,
+            212,
+            202
           ],
           "margin": [
-            95,
-            97,
-            200,
-            104
+            101,
+            109,
+            210,
+            115
           ]
         },
         {
@@ -6326,24 +6326,24 @@
           ],
           "margin": [
             111,
-            103,
+            104,
             222,
-            111
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            922,
-            1314,
-            222,
-            211
+            438,
+            1310,
+            213,
+            202
           ],
           "margin": [
-            92,
             97,
-            200,
-            104
+            109,
+            209,
+            115
           ]
         },
         {
@@ -6356,24 +6356,24 @@
           ],
           "margin": [
             110,
-            102,
+            103,
             227,
-            110
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1148,
-            1314,
-            220,
-            211
+            655,
+            1310,
+            209,
+            200
           ],
           "margin": [
-            94,
-            97,
-            202,
-            104
+            99,
+            110,
+            213,
+            117
           ]
         },
         {
@@ -6386,24 +6386,24 @@
           ],
           "margin": [
             107,
-            103,
+            104,
             230,
-            111
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1372,
-            1314,
-            206,
-            210
+            868,
+            1310,
+            202,
+            206
           ],
           "margin": [
-            97,
-            98,
-            216,
-            105
+            99,
+            103,
+            220,
+            111
           ]
         },
         {
@@ -6416,24 +6416,24 @@
           ],
           "margin": [
             109,
-            102,
+            103,
             237,
-            110
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1582,
-            1314,
-            200,
-            211
+            1074,
+            1310,
+            196,
+            206
           ],
           "margin": [
-            96,
-            97,
-            222,
-            104
+            99,
+            103,
+            226,
+            111
           ]
         },
         {
@@ -6446,24 +6446,24 @@
           ],
           "margin": [
             105,
-            102,
+            103,
             234,
-            110
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
           "region": [
-            1786,
-            1314,
-            196,
-            209
+            1274,
+            1310,
+            188,
+            200
           ],
           "margin": [
-            97,
-            100,
-            226,
-            106
+            101,
+            111,
+            234,
+            117
           ]
         }
       ]

@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "echo_contract_scribe",
   "canvas": [
     480,
-    229
+    271
   ],
   "display_height": 98,
   "visual_scale": 0.46226415094339623,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             184,
-            9,
+            30,
             365,
-            17
+            59
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            125,
-            220
+            116,
+            205
           ],
           "margin": [
-            179,
-            3,
-            355,
-            9
+            184,
+            40,
+            364,
+            66
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             181,
-            11,
+            32,
             361,
-            19
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            131,
+            122,
             2,
-            133,
-            220
+            122,
+            201
           ],
           "margin": [
-            171,
-            3,
-            347,
-            9
+            177,
+            44,
+            358,
+            70
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             180,
-            8,
+            29,
             363,
-            16
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            268,
+            248,
             2,
-            143,
-            219
+            132,
+            203
           ],
           "margin": [
-            159,
-            4,
-            337,
-            10
+            166,
+            41,
+            348,
+            68
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             136,
-            14,
+            35,
             317,
-            22
+            64
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            415,
+            384,
             2,
-            179,
-            218
+            154,
+            188
           ],
           "margin": [
-            134,
-            5,
-            301,
-            11
+            150,
+            56,
+            326,
+            83
           ]
         }
       ]
@@ -156,24 +156,24 @@
           ],
           "margin": [
             156,
-            22,
+            43,
             313,
-            30
+            72
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            598,
+            542,
             2,
-            179,
-            206
+            170,
+            196
           ],
           "margin": [
-            144,
-            17,
-            301,
-            23
+            150,
+            49,
+            310,
+            75
           ]
         },
         {
@@ -186,24 +186,24 @@
           ],
           "margin": [
             136,
-            24,
+            45,
             286,
-            32
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            781,
+            716,
             2,
-            194,
-            207
+            176,
+            187
           ],
           "margin": [
-            128,
-            16,
-            286,
-            22
+            138,
+            57,
+            304,
+            84
           ]
         },
         {
@@ -216,24 +216,24 @@
           ],
           "margin": [
             140,
-            22,
+            43,
             295,
-            30
+            72
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            979,
+            896,
             2,
-            192,
-            205
+            173,
+            185
           ],
           "margin": [
-            128,
-            18,
-            288,
-            24
+            140,
+            60,
+            307,
+            86
           ]
         },
         {
@@ -246,24 +246,24 @@
           ],
           "margin": [
             136,
-            28,
+            49,
             285,
-            36
+            78
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1175,
+            1073,
             2,
-            196,
-            205
+            178,
+            186
           ],
           "margin": [
-            134,
-            18,
-            284,
-            24
+            145,
+            59,
+            302,
+            85
           ]
         },
         {
@@ -276,24 +276,24 @@
           ],
           "margin": [
             154,
-            22,
+            43,
             304,
-            30
+            72
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1375,
+            1255,
             2,
-            186,
-            210
+            166,
+            188
           ],
           "margin": [
-            144,
-            13,
-            294,
-            19
+            158,
+            57,
+            314,
+            83
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             156,
-            18,
+            39,
             294,
-            26
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1565,
+            1425,
             2,
-            164,
-            212
+            153,
+            197
           ],
           "margin": [
-            160,
-            11,
-            316,
-            17
+            166,
+            47,
+            327,
+            74
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             150,
-            19,
+            40,
             298,
-            27
+            69
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1733,
+            1582,
             2,
-            180,
-            211
+            158,
+            185
           ],
           "margin": [
-            142,
-            12,
-            300,
-            18
+            156,
+            60,
+            322,
+            86
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             157,
-            20,
+            41,
             298,
-            28
+            70
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
+            1744,
             2,
-            230,
-            190,
-            209
+            171,
+            188
           ],
           "margin": [
-            148,
-            14,
-            290,
-            20
+            160,
+            57,
+            309,
+            83
           ]
         }
       ]
@@ -403,24 +403,24 @@
           ],
           "margin": [
             146,
-            26,
+            47,
             299,
-            34
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            196,
-            230,
-            186,
-            209
+            2,
+            215,
+            179,
+            201
           ],
           "margin": [
-            144,
-            14,
-            294,
-            20
+            148,
+            43,
+            301,
+            70
           ]
         },
         {
@@ -433,24 +433,24 @@
           ],
           "margin": [
             139,
-            16,
+            37,
             285,
-            24
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            386,
-            230,
-            194,
-            215
+            185,
+            215,
+            189,
+            209
           ],
           "margin": [
-            141,
-            8,
-            286,
-            14
+            144,
+            35,
+            291,
+            62
           ]
         },
         {
@@ -463,24 +463,24 @@
           ],
           "margin": [
             139,
-            15,
+            36,
             261,
-            23
+            65
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            584,
-            230,
-            201,
-            214
+            378,
+            215,
+            183,
+            195
           ],
           "margin": [
-            138,
-            9,
-            279,
-            15
+            149,
+            49,
+            297,
+            76
           ]
         },
         {
@@ -493,24 +493,24 @@
           ],
           "margin": [
             150,
-            18,
+            39,
             275,
-            26
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            789,
-            230,
-            197,
-            215
+            565,
+            215,
+            186,
+            204
           ],
           "margin": [
-            140,
-            8,
-            283,
-            14
+            146,
+            40,
+            294,
+            67
           ]
         },
         {
@@ -523,24 +523,24 @@
           ],
           "margin": [
             137,
-            12,
+            33,
             257,
-            20
+            62
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            990,
-            230,
-            210,
-            219
+            755,
+            215,
+            206,
+            216
           ],
           "margin": [
-            132,
-            4,
-            270,
-            10
+            135,
+            28,
+            274,
+            55
           ]
         },
         {
@@ -553,24 +553,24 @@
           ],
           "margin": [
             149,
-            11,
+            32,
             274,
-            19
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1204,
-            230,
-            204,
-            216
+            965,
+            215,
+            189,
+            201
           ],
           "margin": [
-            141,
-            7,
-            276,
-            13
+            150,
+            43,
+            291,
+            70
           ]
         },
         {
@@ -583,24 +583,24 @@
           ],
           "margin": [
             158,
-            17,
+            38,
             293,
-            25
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1412,
-            230,
-            197,
-            216
+            1158,
+            215,
+            187,
+            205
           ],
           "margin": [
-            146,
-            7,
-            283,
-            13
+            152,
+            39,
+            293,
+            66
           ]
         },
         {
@@ -613,24 +613,24 @@
           ],
           "margin": [
             140,
-            11,
+            32,
             270,
-            19
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1613,
-            230,
-            202,
-            219
+            1349,
+            215,
+            187,
+            203
           ],
           "margin": [
-            141,
-            4,
-            278,
-            10
+            150,
+            41,
+            293,
+            68
           ]
         },
         {
@@ -643,24 +643,24 @@
           ],
           "margin": [
             149,
-            11,
+            32,
             282,
-            19
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1819,
-            230,
-            205,
-            217
+            1540,
+            215,
+            191,
+            202
           ],
           "margin": [
-            140,
-            6,
-            275,
-            12
+            148,
+            42,
+            289,
+            69
           ]
         },
         {
@@ -673,24 +673,24 @@
           ],
           "margin": [
             148,
-            16,
+            37,
             283,
-            24
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            2,
-            457,
-            193,
-            209
+            1735,
+            215,
+            187,
+            202
           ],
           "margin": [
-            146,
-            14,
-            287,
-            20
+            150,
+            42,
+            293,
+            69
           ]
         },
         {
@@ -703,24 +703,24 @@
           ],
           "margin": [
             152,
-            26,
+            47,
             292,
-            34
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            199,
-            457,
-            259,
-            196
+            2,
+            439,
+            250,
+            190
           ],
           "margin": [
-            130,
-            27,
-            221,
-            33
+            134,
+            54,
+            230,
+            81
           ]
         },
         {
@@ -733,24 +733,24 @@
           ],
           "margin": [
             119,
-            41,
+            62,
             130,
-            49
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            462,
-            457,
-            297,
-            177
+            256,
+            439,
+            285,
+            170
           ],
           "margin": [
-            129,
-            46,
-            183,
-            52
+            134,
+            74,
+            195,
+            101
           ]
         }
       ]
@@ -770,24 +770,24 @@
           ],
           "margin": [
             129,
-            66,
+            87,
             137,
-            74
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            763,
-            457,
-            308,
-            172
+            545,
+            439,
+            313,
+            175
           ],
           "margin": [
-            131,
-            53,
-            172,
-            57
+            129,
+            71,
+            167,
+            96
           ]
         },
         {
@@ -800,24 +800,24 @@
           ],
           "margin": [
             128,
-            53,
+            74,
             142,
-            61
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1075,
-            457,
-            319,
-            180
+            862,
+            439,
+            324,
+            183
           ],
           "margin": [
-            129,
-            43,
-            161,
-            49
+            127,
+            61,
+            156,
+            88
           ]
         },
         {
@@ -830,24 +830,24 @@
           ],
           "margin": [
             135,
-            51,
+            72,
             176,
-            59
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1398,
-            457,
-            288,
-            178
+            1190,
+            439,
+            282,
+            175
           ],
           "margin": [
-            138,
-            45,
-            192,
-            51
+            142,
+            69,
+            198,
+            96
           ]
         },
         {
@@ -860,24 +860,24 @@
           ],
           "margin": [
             152,
-            54,
+            75,
             195,
-            62
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1690,
-            457,
-            274,
-            177
+            1476,
+            439,
+            270,
+            174
           ],
           "margin": [
-            142,
-            46,
-            206,
-            52
+            144,
+            70,
+            210,
+            97
           ]
         },
         {
@@ -890,24 +890,24 @@
           ],
           "margin": [
             145,
-            53,
+            74,
             190,
-            61
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            2,
-            674,
-            266,
-            173
+            1750,
+            439,
+            261,
+            170
           ],
           "margin": [
-            141,
-            50,
-            214,
-            56
+            143,
+            74,
+            219,
+            101
           ]
         },
         {
@@ -920,24 +920,24 @@
           ],
           "margin": [
             163,
-            61,
+            82,
             242,
-            69
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            272,
-            674,
-            229,
-            164
+            2,
+            637,
+            219,
+            157
           ],
           "margin": [
-            153,
-            59,
-            251,
-            65
+            158,
+            87,
+            261,
+            114
           ]
         },
         {
@@ -950,24 +950,24 @@
           ],
           "margin": [
             176,
-            71,
+            92,
             268,
-            79
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            505,
-            674,
             225,
-            164
+            637,
+            217,
+            159
           ],
           "margin": [
-            150,
-            59,
-            255,
-            65
+            154,
+            86,
+            263,
+            112
           ]
         },
         {
@@ -980,24 +980,24 @@
           ],
           "margin": [
             156,
-            60,
+            81,
             242,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            734,
-            674,
-            230,
-            172
+            446,
+            637,
+            246,
+            183
           ],
           "margin": [
-            147,
-            51,
-            250,
-            57
+            139,
+            61,
+            234,
+            88
           ]
         },
         {
@@ -1010,24 +1010,24 @@
           ],
           "margin": [
             110,
-            56,
+            77,
             148,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            968,
-            674,
-            232,
-            171
+            696,
+            637,
+            254,
+            188
           ],
           "margin": [
-            141,
-            52,
-            248,
-            58
+            130,
+            56,
+            226,
+            83
           ]
         },
         {
@@ -1040,24 +1040,24 @@
           ],
           "margin": [
             119,
-            61,
+            82,
             176,
-            69
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1204,
-            674,
-            229,
-            177
+            954,
+            637,
+            256,
+            198
           ],
           "margin": [
-            140,
+            128,
             46,
-            251,
-            52
+            224,
+            73
           ]
         },
         {
@@ -1070,24 +1070,24 @@
           ],
           "margin": [
             93,
-            44,
+            65,
             128,
-            52
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1437,
-            674,
-            218,
-            190
+            1214,
+            637,
+            233,
+            204
           ],
           "margin": [
-            146,
-            33,
-            262,
-            39
+            138,
+            40,
+            247,
+            67
           ]
         },
         {
@@ -1100,24 +1100,24 @@
           ],
           "margin": [
             135,
-            36,
+            57,
             265,
-            44
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1659,
-            674,
-            209,
-            197
+            1451,
+            637,
+            205,
+            193
           ],
           "margin": [
-            151,
-            26,
-            271,
-            32
+            152,
+            51,
+            275,
+            78
           ]
         }
       ]
@@ -1137,24 +1137,24 @@
           ],
           "margin": [
             139,
-            32,
+            53,
             269,
-            40
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            2,
-            879,
-            206,
-            202
+            1660,
+            637,
+            205,
+            201
           ],
           "margin": [
             148,
-            21,
-            274,
-            27
+            43,
+            275,
+            70
           ]
         },
         {
@@ -1167,24 +1167,24 @@
           ],
           "margin": [
             130,
-            26,
+            47,
             256,
-            34
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            212,
-            879,
-            219,
-            205
+            2,
+            849,
+            221,
+            207
           ],
           "margin": [
-            137,
-            18,
-            261,
-            24
+            136,
+            37,
+            259,
+            64
           ]
         },
         {
@@ -1197,24 +1197,24 @@
           ],
           "margin": [
             130,
-            26,
+            47,
             219,
-            34
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            435,
-            879,
-            238,
-            202
+            227,
+            849,
+            226,
+            191
           ],
           "margin": [
-            136,
-            21,
-            242,
-            27
+            141,
+            53,
+            254,
+            80
           ]
         },
         {
@@ -1227,24 +1227,24 @@
           ],
           "margin": [
             137,
-            33,
+            54,
             226,
-            41
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            677,
-            879,
-            232,
-            201
+            457,
+            849,
+            225,
+            195
           ],
           "margin": [
-            136,
-            22,
-            248,
-            28
+            140,
+            49,
+            255,
+            76
           ]
         },
         {
@@ -1257,24 +1257,24 @@
           ],
           "margin": [
             137,
-            27,
+            48,
             221,
-            35
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            913,
-            879,
-            216,
-            203
+            686,
+            849,
+            223,
+            209
           ],
           "margin": [
-            144,
-            20,
-            264,
-            26
+            140,
+            35,
+            257,
+            62
           ]
         },
         {
@@ -1287,24 +1287,24 @@
           ],
           "margin": [
             138,
-            28,
+            49,
             241,
-            36
+            78
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1133,
-            879,
-            200,
-            197
+            913,
+            849,
+            210,
+            208
           ],
           "margin": [
-            152,
-            26,
-            280,
-            32
+            148,
+            36,
+            270,
+            63
           ]
         },
         {
@@ -1317,24 +1317,24 @@
           ],
           "margin": [
             154,
-            37,
+            58,
             263,
-            45
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1337,
-            879,
-            205,
-            198
+            1127,
+            849,
+            212,
+            205
           ],
           "margin": [
-            147,
-            25,
-            275,
-            31
+            143,
+            39,
+            268,
+            66
           ]
         },
         {
@@ -1347,24 +1347,24 @@
           ],
           "margin": [
             138,
-            27,
+            48,
             244,
-            35
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1546,
-            879,
-            185,
-            203
+            1343,
+            849,
+            192,
+            211
           ],
           "margin": [
-            154,
-            20,
-            295,
-            26
+            150,
+            33,
+            288,
+            60
           ]
         },
         {
@@ -1377,24 +1377,24 @@
           ],
           "margin": [
             160,
-            27,
+            48,
             321,
-            35
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1735,
-            879,
-            163,
-            202
+            1539,
+            849,
+            161,
+            199
           ],
           "margin": [
-            165,
-            21,
-            317,
-            27
+            166,
+            45,
+            319,
+            72
           ]
         },
         {
@@ -1407,24 +1407,24 @@
           ],
           "margin": [
             170,
-            30,
+            51,
             337,
-            38
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            2,
-            1092,
-            149,
-            207
+            1704,
+            849,
+            150,
+            209
           ],
           "margin": [
-            173,
-            16,
-            331,
-            22
+            172,
+            35,
+            330,
+            62
           ]
         },
         {
@@ -1437,24 +1437,24 @@
           ],
           "margin": [
             158,
-            16,
+            37,
             321,
-            24
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            155,
-            1092,
-            140,
-            218
+            1858,
+            849,
+            141,
+            219
           ],
           "margin": [
-            177,
-            5,
-            340,
-            11
+            176,
+            25,
+            339,
+            52
           ]
         },
         {
@@ -1467,24 +1467,24 @@
           ],
           "margin": [
             179,
-            10,
+            31,
             354,
-            18
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            299,
-            1092,
-            122,
-            221
+            2,
+            1076,
+            121,
+            219
           ],
           "margin": [
             186,
-            2,
-            358,
-            8
+            25,
+            359,
+            52
           ]
         }
       ]
@@ -1504,24 +1504,24 @@
           ],
           "margin": [
             143,
-            49,
+            70,
             294,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            425,
-            1092,
-            177,
-            177
+            127,
+            1076,
+            187,
+            187
           ],
           "margin": [
-            154,
-            47,
-            303,
-            52
+            149,
+            57,
+            293,
+            84
           ]
         },
         {
@@ -1534,24 +1534,24 @@
           ],
           "margin": [
             165,
-            55,
+            76,
             264,
-            63
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            606,
-            1092,
-            188,
-            166
+            318,
+            1076,
+            192,
+            169
           ],
           "margin": [
-            166,
-            58,
-            292,
-            63
+            164,
+            76,
+            288,
+            102
           ]
         },
         {
@@ -1564,24 +1564,24 @@
           ],
           "margin": [
             152,
-            71,
+            92,
             277,
-            79
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            798,
-            1092,
-            193,
+            514,
+            1076,
+            194,
             150
           ],
           "margin": [
             148,
-            73,
-            287,
-            79
+            94,
+            286,
+            121
           ]
         },
         {
@@ -1594,24 +1594,24 @@
           ],
           "margin": [
             134,
-            88,
+            109,
             251,
-            96
+            138
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            995,
-            1092,
-            289,
-            184
+            712,
+            1076,
+            204,
+            130
           ],
           "margin": [
-            104,
-            39,
-            191,
-            45
+            144,
+            114,
+            276,
+            141
           ]
         }
       ]
@@ -1631,24 +1631,24 @@
           ],
           "margin": [
             120,
-            97,
+            118,
             242,
-            105
+            147
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1288,
-            1092,
-            243,
-            132
+            920,
+            1076,
+            233,
+            127
           ],
           "margin": [
-            118,
-            91,
-            237,
-            97
+            122,
+            117,
+            247,
+            144
           ]
         },
         {
@@ -1661,24 +1661,24 @@
           ],
           "margin": [
             121,
-            100,
+            121,
             239,
-            108
+            150
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1535,
-            1092,
-            224,
-            111
+            1157,
+            1076,
+            229,
+            114
           ],
           "margin": [
-            136,
-            112,
-            256,
-            118
+            132,
+            130,
+            251,
+            157
           ]
         },
         {
@@ -1691,24 +1691,24 @@
           ],
           "margin": [
             121,
-            136,
+            157,
             236,
-            144
+            186
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1763,
-            1092,
-            215,
+            1390,
+            1076,
+            213,
             88
           ],
           "margin": [
             132,
-            135,
-            265,
-            141
+            156,
+            267,
+            183
           ]
         },
         {
@@ -1721,24 +1721,24 @@
           ],
           "margin": [
             121,
-            146,
+            167,
             244,
-            154
+            196
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            2,
-            1321,
-            226,
-            84
+            1607,
+            1076,
+            214,
+            79
           ],
           "margin": [
-            124,
-            139,
-            254,
-            145
+            131,
+            165,
+            266,
+            192
           ]
         }
       ]
@@ -1758,24 +1758,24 @@
           ],
           "margin": [
             139,
-            13,
+            34,
             266,
-            21
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            232,
-            1321,
-            206,
-            203
+            1825,
+            1076,
+            207,
+            204
           ],
           "margin": [
             146,
-            20,
-            274,
-            26
+            40,
+            273,
+            67
           ]
         },
         {
@@ -1788,24 +1788,24 @@
           ],
           "margin": [
             144,
-            44,
+            65,
             282,
-            52
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            442,
-            1321,
-            212,
-            202
+            2,
+            1303,
+            207,
+            198
           ],
           "margin": [
-            136,
-            21,
-            268,
-            27
+            140,
+            46,
+            273,
+            73
           ]
         }
       ]
@@ -1825,24 +1825,24 @@
           ],
           "margin": [
             150,
-            8,
+            29,
             310,
-            16
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            658,
-            1321,
-            183,
-            222
+            213,
+            1303,
+            172,
+            208
           ],
           "margin": [
-            140,
-            1,
-            297,
-            7
+            148,
+            36,
+            308,
+            63
           ]
         },
         {
@@ -1855,24 +1855,24 @@
           ],
           "margin": [
             154,
-            10,
+            31,
             320,
-            18
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            845,
-            1321,
-            137,
-            216
+            389,
+            1303,
+            155,
+            244
           ],
           "margin": [
-            172,
-            7,
-            343,
-            13
+            162,
+            0,
+            325,
+            27
           ]
         },
         {
@@ -1885,24 +1885,24 @@
           ],
           "margin": [
             140,
-            18,
+            39,
             277,
-            26
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            986,
-            1321,
-            176,
-            204
+            548,
+            1303,
+            188,
+            217
           ],
           "margin": [
-            152,
-            19,
-            304,
-            25
+            145,
+            27,
+            292,
+            54
           ]
         },
         {
@@ -1915,24 +1915,24 @@
           ],
           "margin": [
             154,
-            34,
+            55,
             291,
-            42
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1166,
-            1321,
-            185,
-            196
+            740,
+            1303,
+            202,
+            214
           ],
           "margin": [
-            152,
-            27,
-            295,
-            33
+            143,
+            30,
+            278,
+            57
           ]
         },
         {
@@ -1945,24 +1945,24 @@
           ],
           "margin": [
             145,
-            33,
+            54,
             284,
-            41
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1355,
-            1321,
-            163,
-            194
+            946,
+            1303,
+            182,
+            216
           ],
           "margin": [
-            158,
-            30,
-            317,
-            35
+            146,
+            28,
+            298,
+            55
           ]
         },
         {
@@ -1975,24 +1975,24 @@
           ],
           "margin": [
             142,
-            38,
+            59,
             281,
-            46
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1522,
-            1321,
-            162,
-            184
+            1132,
+            1303,
+            177,
+            201
           ],
           "margin": [
-            162,
-            39,
-            318,
-            45
+            154,
+            43,
+            303,
+            70
           ]
         },
         {
@@ -2005,24 +2005,24 @@
           ],
           "margin": [
             154,
-            52,
+            73,
             292,
-            60
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1688,
-            1321,
-            165,
-            187
+            1313,
+            1303,
+            189,
+            215
           ],
           "margin": [
-            162,
-            35,
-            315,
-            42
+            150,
+            29,
+            291,
+            56
           ]
         },
         {
@@ -2035,24 +2035,24 @@
           ],
           "margin": [
             137,
-            31,
+            52,
             269,
-            39
+            81
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1857,
-            1321,
-            183,
-            204
+            1506,
+            1303,
+            189,
+            210
           ],
           "margin": [
-            154,
-            19,
-            297,
-            25
+            152,
+            34,
+            291,
+            61
           ]
         },
         {
@@ -2065,24 +2065,24 @@
           ],
           "margin": [
             160,
-            20,
+            41,
             308,
-            28
+            70
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            2,
-            1551,
-            191,
-            213
+            1699,
+            1303,
+            186,
+            208
           ],
           "margin": [
-            154,
-            10,
-            289,
-            16
+            158,
+            36,
+            294,
+            63
           ]
         },
         {
@@ -2095,24 +2095,24 @@
           ],
           "margin": [
             157,
-            14,
+            35,
             303,
-            22
+            64
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            197,
-            1551,
-            185,
-            209
+            2,
+            1555,
+            177,
+            201
           ],
           "margin": [
-            155,
-            14,
-            295,
-            20
+            159,
+            43,
+            303,
+            70
           ]
         },
         {
@@ -2125,24 +2125,24 @@
           ],
           "margin": [
             165,
-            28,
+            49,
             313,
-            36
+            78
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            386,
-            1551,
-            190,
-            193
+            183,
+            1555,
+            202,
+            204
           ],
           "margin": [
-            152,
-            30,
-            290,
-            36
+            144,
+            40,
+            278,
+            67
           ]
         },
         {
@@ -2155,24 +2155,24 @@
           ],
           "margin": [
             125,
-            47,
+            68,
             225,
-            55
+            97
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            580,
-            1551,
-            221,
-            168
+            389,
+            1555,
+            224,
+            170
           ],
           "margin": [
-            137,
-            55,
-            259,
-            61
+            136,
+            74,
+            256,
+            101
           ]
         }
       ]
@@ -2192,24 +2192,24 @@
           ],
           "margin": [
             138,
-            75,
+            96,
             252,
-            83
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            805,
-            1551,
-            232,
-            156
+            617,
+            1555,
+            220,
+            148
           ],
           "margin": [
-            134,
-            67,
-            248,
-            73
+            140,
+            96,
+            260,
+            123
           ]
         },
         {
@@ -2222,24 +2222,24 @@
           ],
           "margin": [
             141,
-            74,
+            95,
             253,
-            82
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1041,
-            1551,
-            241,
-            154
+            841,
+            1555,
+            223,
+            142
           ],
           "margin": [
-            131,
-            69,
-            239,
-            75
+            140,
+            102,
+            257,
+            129
           ]
         },
         {
@@ -2252,24 +2252,24 @@
           ],
           "margin": [
             135,
-            79,
+            100,
             232,
-            87
+            129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1286,
-            1551,
-            234,
-            144
+            1068,
+            1555,
+            214,
+            131
           ],
           "margin": [
-            138,
-            79,
-            246,
-            85
+            146,
+            113,
+            266,
+            140
           ]
         },
         {
@@ -2282,24 +2282,24 @@
           ],
           "margin": [
             150,
-            93,
+            114,
             268,
-            101
+            143
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1524,
-            1551,
-            218,
-            135
+            1286,
+            1555,
+            203,
+            125
           ],
           "margin": [
-            146,
-            88,
-            262,
-            94
+            152,
+            119,
+            277,
+            146
           ]
         },
         {
@@ -2312,24 +2312,24 @@
           ],
           "margin": [
             149,
-            96,
+            117,
             261,
-            104
+            146
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1746,
-            1551,
-            215,
-            129
+            1493,
+            1555,
+            218,
+            131
           ],
           "margin": [
-            148,
-            94,
-            265,
-            100
+            146,
+            113,
+            262,
+            140
           ]
         },
         {
@@ -2342,24 +2342,24 @@
           ],
           "margin": [
             142,
-            104,
+            125,
             201,
-            112
+            154
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            2,
-            1772,
-            205,
-            116
+            1715,
+            1555,
+            209,
+            118
           ],
           "margin": [
-            160,
-            106,
-            275,
-            113
+            158,
+            126,
+            271,
+            153
           ]
         },
         {
@@ -2372,24 +2372,24 @@
           ],
           "margin": [
             163,
-            122,
+            143,
             250,
-            130
+            172
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            211,
-            1772,
-            210,
-            112
+            2,
+            1767,
+            208,
+            111
           ],
           "margin": [
             160,
-            112,
-            270,
-            117
+            134,
+            272,
+            160
           ]
         },
         {
@@ -2402,24 +2402,24 @@
           ],
           "margin": [
             158,
-            111,
+            132,
             238,
-            119
+            161
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            425,
-            1772,
-            209,
-            120
+            214,
+            1767,
+            196,
+            112
           ],
           "margin": [
-            156,
-            103,
-            271,
-            109
+            162,
+            131,
+            284,
+            159
           ]
         },
         {
@@ -2432,24 +2432,24 @@
           ],
           "margin": [
             161,
-            108,
+            129,
             286,
-            116
+            158
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            638,
-            1772,
-            195,
-            119
+            414,
+            1767,
+            178,
+            109
           ],
           "margin": [
-            156,
-            105,
-            285,
-            110
+            164,
+            134,
+            302,
+            162
           ]
         },
         {
@@ -2462,24 +2462,24 @@
           ],
           "margin": [
             159,
-            111,
+            132,
             288,
-            119
+            161
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            837,
-            1772,
-            198,
-            128
+            596,
+            1767,
+            183,
+            118
           ],
           "margin": [
-            151,
-            96,
-            282,
-            101
+            159,
+            126,
+            297,
+            153
           ]
         },
         {
@@ -2492,24 +2492,24 @@
           ],
           "margin": [
             149,
-            91,
+            112,
             264,
-            99
+            141
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1039,
-            1772,
-            227,
-            145
+            783,
+            1767,
+            192,
+            122
           ],
           "margin": [
-            138,
-            78,
-            253,
-            84
+            154,
+            122,
+            288,
+            149
           ]
         },
         {
@@ -2522,24 +2522,24 @@
           ],
           "margin": [
             156,
-            80,
+            101,
             306,
-            88
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1270,
-            1772,
-            215,
-            153
+            979,
+            1767,
+            187,
+            133
           ],
           "margin": [
-            134,
-            70,
-            265,
-            76
+            149,
+            112,
+            293,
+            138
           ]
         }
       ]
@@ -2559,24 +2559,24 @@
           ],
           "margin": [
             145,
-            74,
+            95,
             287,
-            82
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1489,
-            1772,
-            210,
-            163
+            1170,
+            1767,
+            191,
+            148
           ],
           "margin": [
-            136,
-            60,
-            270,
-            66
+            146,
+            96,
+            289,
+            123
           ]
         },
         {
@@ -2589,24 +2589,24 @@
           ],
           "margin": [
             141,
-            60,
+            81,
             280,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            1703,
-            1772,
-            202,
-            173
+            1365,
+            1767,
+            178,
+            153
           ],
           "margin": [
-            138,
-            50,
-            278,
-            56
+            151,
+            92,
+            302,
+            118
           ]
         },
         {
@@ -2619,24 +2619,24 @@
           ],
           "margin": [
             153,
-            53,
+            74,
             299,
-            61
+            103
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            198,
-            177
+            1547,
+            1767,
+            170,
+            152
           ],
           "margin": [
-            138,
-            46,
-            282,
-            52
+            154,
+            91,
+            310,
+            119
           ]
         },
         {
@@ -2649,24 +2649,24 @@
           ],
           "margin": [
             154,
-            52,
+            73,
             303,
-            60
+            102
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
           "region": [
-            204,
-            2,
-            193,
-            181
+            1721,
+            1767,
+            172,
+            162
           ],
           "margin": [
-            140,
-            42,
-            287,
-            48
+            152,
+            82,
+            308,
+            109
           ]
         },
         {
@@ -2679,24 +2679,24 @@
           ],
           "margin": [
             149,
-            45,
+            66,
             293,
-            53
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
           "region": [
-            401,
             2,
-            184,
-            185
+            2,
+            169,
+            170
           ],
           "margin": [
-            144,
-            38,
-            296,
-            44
+            153,
+            74,
+            311,
+            101
           ]
         },
         {
@@ -2709,24 +2709,24 @@
           ],
           "margin": [
             156,
-            43,
+            64,
             321,
-            51
+            93
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
           "region": [
-            589,
+            175,
             2,
-            170,
-            183
+            157,
+            170
           ],
           "margin": [
-            153,
-            40,
-            310,
-            46
+            161,
+            73,
+            323,
+            101
           ]
         },
         {
@@ -2739,24 +2739,24 @@
           ],
           "margin": [
             159,
-            49,
+            70,
             327,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
           "region": [
-            763,
+            336,
             2,
-            156,
-            182
+            148,
+            173
           ],
           "margin": [
-            160,
-            42,
-            324,
-            47
+            164,
+            70,
+            332,
+            98
           ]
         },
         {
@@ -2769,24 +2769,24 @@
           ],
           "margin": [
             160,
-            44,
+            65,
             328,
-            52
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
           "region": [
-            923,
+            488,
             2,
-            145,
-            184
+            143,
+            181
           ],
           "margin": [
-            166,
-            40,
-            335,
-            45
+            167,
+            64,
+            337,
+            90
           ]
         },
         {
@@ -2799,24 +2799,24 @@
           ],
           "margin": [
             161,
-            46,
+            67,
             331,
-            54
+            96
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
           "region": [
-            1072,
+            635,
             2,
-            131,
-            178
+            133,
+            180
           ],
           "margin": [
-            173,
-            44,
-            349,
-            51
+            172,
+            64,
+            347,
+            91
           ]
         },
         {
@@ -2829,24 +2829,24 @@
           ],
           "margin": [
             158,
-            55,
+            76,
             330,
-            63
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
           "region": [
-            1207,
+            772,
             2,
-            127,
-            185
+            130,
+            189
           ],
           "margin": [
-            174,
-            39,
-            353,
-            44
+            172,
+            55,
+            350,
+            82
           ]
         },
         {
@@ -2859,24 +2859,24 @@
           ],
           "margin": [
             158,
-            32,
+            53,
             324,
-            40
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
           "region": [
-            1338,
+            906,
             2,
-            132,
-            205
+            128,
+            198
           ],
           "margin": [
-            172,
-            18,
-            348,
-            24
+            174,
+            46,
+            352,
+            73
           ]
         },
         {
@@ -2889,24 +2889,24 @@
           ],
           "margin": [
             182,
-            18,
+            39,
             366,
-            26
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
           "region": [
-            1474,
+            1038,
             2,
-            122,
-            217
+            114,
+            203
           ],
           "margin": [
-            180,
-            6,
-            358,
-            12
+            184,
+            41,
+            366,
+            68
           ]
         }
       ]

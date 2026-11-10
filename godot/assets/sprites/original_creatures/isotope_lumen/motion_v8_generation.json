@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/isotope_lumen/combat_motion_v7_manifest.json",
   "baseline_sha256": "23ddcfb34347beec89d8b03f39ebd54ae14d5cb7d1d446fff5793283cf0b1148",
+  "baseline_canvas": [
+    362,
+    263
+  ],
+  "symmetric_padding": [
+    0,
+    0
+  ],
   "new_drawings": 94,
   "old_frame_refs": 94,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "isotope_lumen__03",
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "sha256": "ceb64b021e3f18e215eb49aca248a42eac9ca77f17e9eee39f0cae2446cb3315",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_01",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
+      "sha256": "9274c2a13184390f8e31444d24792f50d742de4e0649ef49ce49e4d9d6919fc0",
+      "used_drawings": 4
     },
     {
       "id": "isotope_lumen__04",
@@ -35,8 +49,8 @@
   "registrations": [
     {
       "margin_xy": [
-        86,
-        55
+        102,
+        86
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -46,19 +60,25 @@
         172
       ],
       "source_index": 0,
-      "scale": 1.173780487804878,
+      "scale": 1.006876800694869,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.8859078200635,
+        "target": 114.6690785100963,
+        "registered": 114.60802764204608
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        82,
-        52
+        96,
+        80
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -68,19 +88,25 @@
         174
       ],
       "source_index": 1,
-      "scale": 1.177710843373494,
+      "scale": 1.0155612321213132,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.46365056704283,
+        "target": 115.22928477084815,
+        "registered": 115.43396380615195
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        82,
-        53
+        94,
+        79
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -90,19 +116,25 @@
         177
       ],
       "source_index": 2,
-      "scale": 1.150887573964497,
+      "scale": 1.010413941552505,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.7673063757774,
+        "target": 114.95207245496069,
+        "registered": 115.02608399836969
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        86,
-        56
+        100,
+        84
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -112,19 +144,25 @@
         177
       ],
       "source_index": 3,
-      "scale": 1.1331360946745561,
+      "scale": 0.9858187700932591,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.03878661895772,
+        "target": 114.39321390781502,
+        "registered": 114.34159348198712
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        102,
-        81
+        112,
+        99
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -134,19 +172,25 @@
         175
       ],
       "source_index": 4,
-      "scale": 1.0119760479041917,
+      "scale": 0.8977505331204076,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.84573417523045,
+        "target": 107.59157174801979,
+        "registered": 107.67543823918248
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        96,
-        79
+        106,
+        98
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -156,19 +200,25 @@
         174
       ],
       "source_index": 5,
-      "scale": 1.0210843373493976,
+      "scale": 0.9077029490151642,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.12281744015421,
+        "target": 107.22042973640785,
+        "registered": 107.10742271196708
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        92,
-        72
+        104,
+        94
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -178,19 +228,25 @@
         175
       ],
       "source_index": 6,
-      "scale": 1.0568862275449102,
+      "scale": 0.9302540820628437,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.32007500849971,
+        "target": 109.13747868457587,
+        "registered": 109.17417276993676
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        94,
-        65
+        110,
+        92
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -200,19 +256,25 @@
         177
       ],
       "source_index": 7,
-      "scale": 1.0828402366863905,
+      "scale": 0.9285942146323292,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.16794871105233,
+        "target": 110.65866774268532,
+        "registered": 110.41286156965592
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        98,
-        68
+        114,
+        95
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -222,19 +284,25 @@
         172
       ],
       "source_index": 8,
-      "scale": 1.0975609756097562,
+      "scale": 0.9348961863050668,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.16513868311584,
+        "target": 110.47213750905432,
+        "registered": 110.39474625180313
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        86,
-        69
+        108,
+        102
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -244,19 +312,25 @@
         171
       ],
       "source_index": 9,
-      "scale": 1.1012269938650308,
+      "scale": 0.9031785733338905,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.86242113356462,
+        "target": 108.25717051575886,
+        "registered": 108.09255293497328
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        77,
-        63
+        97,
+        96
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -266,19 +340,25 @@
         175
       ],
       "source_index": 10,
-      "scale": 1.1077844311377245,
+      "scale": 0.9136001416235129,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.87493482792806,
+        "target": 109.51775743590446,
+        "registered": 109.61751684835777
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        92,
-        70
+        106,
+        95
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -288,12 +368,18 @@
         177
       ],
       "source_index": 11,
-      "scale": 1.0562130177514792,
+      "scale": 0.9102649006024168,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.50720143267229,
+        "target": 110.60374063458929,
+        "registered": 110.63001401066529
+      },
       "animation": "walk",
       "after": 7
     },
@@ -310,19 +396,25 @@
         169
       ],
       "source_index": 12,
-      "scale": 1.062111801242236,
+      "scale": 1.056914254584013,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.41105476462387,
+        "target": 126.20724593564317,
+        "registered": 126.2774722585149
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        74,
-        63
+        77,
+        68
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -332,19 +424,25 @@
         169
       ],
       "source_index": 13,
-      "scale": 1.1490683229813665,
+      "scale": 1.1180135095567443,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.8415620725965,
+        "target": 133.98448540354605,
+        "registered": 134.0708767779192
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        71,
-        55
+        89,
+        86
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -354,19 +452,25 @@
         168
       ],
       "source_index": 14,
-      "scale": 1.203125,
+      "scale": 1.0199071134106723,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.3287164395931,
+        "target": 122.72411384431669,
+        "registered": 122.74363527287271
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        68,
-        48
+        84,
+        75
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -376,19 +480,25 @@
         174
       ],
       "source_index": 15,
-      "scale": 1.1987951807228916,
+      "scale": 1.0476515165918274,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.5197079319395,
+        "target": 126.26265479410051,
+        "registered": 126.21014222319853
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        82,
-        44
+        88,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -398,19 +508,25 @@
         167
       ],
       "source_index": 16,
-      "scale": 1.279874213836478,
+      "scale": 1.205553684798026,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.55085460523432,
+        "target": 139.3027585509012,
+        "registered": 139.32695360195027
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        65,
-        45
+        85,
+        78
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -420,19 +536,25 @@
         169
       ],
       "source_index": 17,
-      "scale": 1.2546583850931676,
+      "scale": 1.0576660545659375,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.11782974045636,
+        "target": 130.2175492283093,
+        "registered": 130.49904214207857
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        76,
-        43
+        90,
+        70
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -442,19 +564,25 @@
         177
       ],
       "source_index": 18,
-      "scale": 1.2100591715976332,
+      "scale": 1.0576225081194264,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.33824833895642,
+        "target": 131.50293006342318,
+        "registered": 131.51805959639154
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        66,
-        39
+        76,
+        57
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -464,19 +592,25 @@
         164
       ],
       "source_index": 19,
-      "scale": 1.3429487179487178,
+      "scale": 1.222224896367801,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.17685275708986,
+        "target": 138.32756713226803,
+        "registered": 138.21360280377615
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        76,
-        40
+        94,
+        76
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -486,19 +620,25 @@
         175
       ],
       "source_index": 20,
-      "scale": 1.2425149700598803,
+      "scale": 1.0330915521375996,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.24142381059865,
+        "target": 124.2203991557263,
+        "registered": 124.44677577181339
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        68,
-        43
+        86,
+        80
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -508,19 +648,25 @@
         175
       ],
       "source_index": 21,
-      "scale": 1.221556886227545,
+      "scale": 1.0193740227631973,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.66068125118473,
+        "target": 122.99836403636809,
+        "registered": 122.6906679417795
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        61,
-        48
+        76,
+        74
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -530,19 +676,25 @@
         165
       ],
       "source_index": 22,
-      "scale": 1.2643312101910829,
+      "scale": 1.107614976365349,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.94626906192683,
+        "target": 133.9618989485032,
+        "registered": 133.86186910393863
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        80,
-        62
+        88,
+        80
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__01.png",
       "source_region": [
@@ -552,19 +704,25 @@
         184
       ],
       "source_index": 23,
-      "scale": 1.0596590909090908,
+      "scale": 0.9668950024683411,
       "rgb_gain": [
         0.986089,
         1.048574,
         1.040526
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.82546332150332,
+        "target": 124.56069667623015,
+        "registered": 124.61540835707277
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        78,
-        65
+        88,
+        85
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -574,19 +732,25 @@
         163
       ],
       "source_index": 0,
-      "scale": 1.1806451612903226,
+      "scale": 1.0569555793120469,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.65164630305141,
+        "target": 121.18169723732159,
+        "registered": 121.02479084881742
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        86,
-        60
+        88,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -596,19 +760,25 @@
         159
       ],
       "source_index": 1,
-      "scale": 1.2417218543046358,
+      "scale": 1.217333072808527,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.0,
+        "target": 133.90663800893796,
+        "registered": 134.09697983176207
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        96,
-        63
+        109,
+        88
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -618,19 +788,25 @@
         165
       ],
       "source_index": 2,
-      "scale": 1.1751592356687899,
+      "scale": 1.0222741992934625,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.22379965485794,
+        "target": 128.01305952465486,
+        "registered": 127.91012469699183
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        105,
-        63
+        113,
+        78
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -640,19 +816,25 @@
         173
       ],
       "source_index": 3,
-      "scale": 1.1242424242424243,
+      "scale": 1.0322188367618008,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.7457069962429,
+        "target": 127.73264972992848,
+        "registered": 127.76932339180638
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        106,
-        57
+        108,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -662,19 +844,25 @@
         168
       ],
       "source_index": 4,
-      "scale": 1.190625,
+      "scale": 1.1582489244446932,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.41805653305627,
+        "target": 135.9993376897986,
+        "registered": 136.04778572251738
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        112,
-        60
+        120,
+        80
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -684,19 +872,25 @@
         181
       ],
       "source_index": 5,
-      "scale": 1.0867052023121386,
+      "scale": 0.9846583881774449,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.82271089990152,
+        "target": 124.8770460989911,
+        "registered": 124.63546846704592
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        109,
-        59
+        117,
+        76
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -706,19 +900,25 @@
         173
       ],
       "source_index": 6,
-      "scale": 1.1454545454545455,
+      "scale": 1.0490943612488057,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.62859190009719,
+        "target": 125.50168120652653,
+        "registered": 125.36347155371855
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        96,
-        55
+        102,
+        68
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -728,19 +928,25 @@
         173
       ],
       "source_index": 7,
-      "scale": 1.1696969696969697,
+      "scale": 1.0920258992416196,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.65936051122412,
+        "target": 132.8551725634299,
+        "registered": 132.72904731067726
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        83,
-        58
+        98,
+        88
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -750,19 +956,25 @@
         171
       ],
       "source_index": 8,
-      "scale": 1.165644171779141,
+      "scale": 0.9932504641570011,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.54459755625716,
+        "target": 119.73097747437133,
+        "registered": 119.87076374162301
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        77,
-        58
+        96,
+        94
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -772,19 +984,25 @@
         155
       ],
       "source_index": 9,
-      "scale": 1.2857142857142858,
+      "scale": 1.0545399636337527,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.51222155837117,
+        "target": 118.64863403051746,
+        "registered": 118.49894514298428
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        84,
-        58
+        98,
+        86
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -794,19 +1012,25 @@
         158
       ],
       "source_index": 10,
-      "scale": 1.2566666666666666,
+      "scale": 1.0834888861439709,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.21828718783037,
+        "target": 129.17168919313437,
+        "registered": 128.89918541247653
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        86,
-        66
+        102,
+        95
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -816,19 +1040,25 @@
         164
       ],
       "source_index": 11,
-      "scale": 1.1634615384615385,
+      "scale": 0.9994823070556772,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.10412149464314,
+        "target": 120.04194443836127,
+        "registered": 120.10412149464314
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        90,
-        67
+        104,
+        94
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -838,19 +1068,25 @@
         161
       ],
       "source_index": 12,
-      "scale": 1.1830065359477124,
+      "scale": 1.0207929106996416,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.49042514179612,
+        "target": 119.93339305983243,
+        "registered": 120.08746812219833
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        95,
-        60
+        104,
+        78
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -860,19 +1096,25 @@
         162
       ],
       "source_index": 13,
-      "scale": 1.2175324675324675,
+      "scale": 1.1067311874734234,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.95338062132852,
+        "target": 130.5426850015476,
+        "registered": 130.3687079018581
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        96,
-        59
+        110,
+        89
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -882,19 +1124,25 @@
         158
       ],
       "source_index": 14,
-      "scale": 1.2533333333333334,
+      "scale": 1.0643326651243692,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.35033887138245,
+        "target": 121.70680092885324,
+        "registered": 121.63469899662678
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        93,
-        60
+        107,
+        88
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -904,19 +1152,25 @@
         154
       ],
       "source_index": 15,
-      "scale": 1.2773972602739727,
+      "scale": 1.0972367174525461,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.20889256316842,
+        "target": 120.92524351009124,
+        "registered": 120.93800064495858
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        86,
-        63
+        94,
+        79
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -926,19 +1180,25 @@
         161
       ],
       "source_index": 16,
-      "scale": 1.2058823529411764,
+      "scale": 1.1051634659577467,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.93275410920239,
+        "target": 131.44013474722655,
+        "registered": 131.31260411704582
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        88,
-        72
+        102,
+        99
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -948,19 +1208,25 @@
         159
       ],
       "source_index": 17,
-      "scale": 1.1622516556291391,
+      "scale": 1.0092011965836607,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.90332207301863,
+        "target": 119.9973749138628,
+        "registered": 119.93748371547571
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        86,
-        73
+        100,
+        98
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -970,19 +1236,25 @@
         163
       ],
       "source_index": 18,
-      "scale": 1.1258064516129032,
+      "scale": 0.9831212703688734,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.08674576517448,
+        "target": 119.04295532149115,
+        "registered": 118.97898974188678
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        75,
-        67
+        88,
+        87
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -992,19 +1264,25 @@
         162
       ],
       "source_index": 19,
-      "scale": 1.1753246753246753,
+      "scale": 1.0499686578932577,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.07784401765949,
+        "target": 128.17791004172437,
+        "registered": 128.03515142334936
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        68,
-        66
+        90,
+        104
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -1014,19 +1292,25 @@
         160
       ],
       "source_index": 20,
-      "scale": 1.1907894736842106,
+      "scale": 0.9713061782667114,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.77478866606278,
+        "target": 116.33799223193645,
+        "registered": 116.32282665066217
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        65,
-        62
+        90,
+        104
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -1036,19 +1320,25 @@
         159
       ],
       "source_index": 21,
-      "scale": 1.228476821192053,
+      "scale": 0.9769521448227249,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.97520407091694,
+        "target": 118.18698508744914,
+        "registered": 118.28778466096996
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        64,
-        55
+        86,
+        89
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -1058,19 +1348,25 @@
         158
       ],
       "source_index": 22,
-      "scale": 1.2833333333333334,
+      "scale": 1.0663221878414266,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.99180300331658,
+        "target": 130.08256627721684,
+        "registered": 129.96538000559994
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        61,
-        55
+        93,
+        103
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__02.png",
       "source_region": [
@@ -1080,19 +1376,25 @@
         155
       ],
       "source_index": 23,
-      "scale": 1.3061224489795917,
+      "scale": 1.0061914458763026,
       "rgb_gain": [
         0.965892,
         0.993223,
         0.97179
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.245654319489,
+        "target": 123.00253167182133,
+        "registered": 122.97154142320898
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        84,
-        54
+        98,
+        83
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1102,19 +1404,25 @@
         175
       ],
       "source_index": 0,
-      "scale": 1.158682634730539,
+      "scale": 1.0031059886588816,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.73011810331235,
+        "target": 115.08646854897339,
+        "registered": 114.97825881443848
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        86,
-        55
+        101,
+        85
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1124,19 +1432,25 @@
         167
       ],
       "source_index": 1,
-      "scale": 1.2075471698113207,
+      "scale": 1.0290986649846592,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.57189420649804,
+        "target": 112.76029004774745,
+        "registered": 112.75637454263949
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        101,
-        87
+        106,
+        99
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1146,19 +1460,25 @@
         162
       ],
       "source_index": 2,
-      "scale": 1.051948051948052,
+      "scale": 0.9878223007294971,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.5350623105628,
+        "target": 109.18899956289846,
+        "registered": 109.2291169972549
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        83,
-        84
+        102,
+        116
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1168,107 +1488,157 @@
         144
       ],
       "source_index": 3,
-      "scale": 1.2022058823529411,
+      "scale": 0.9888493218957826,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.58697108383514,
+        "target": 112.32039933244624,
+        "registered": 112.21853679316978
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        92,
-        88
+        91,
+        120
       ],
-      "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1057,
-        54,
-        185,
-        155
+        806,
+        595,
+        162,
+        114
       ],
-      "source_index": 4,
-      "scale": 1.08843537414966,
+      "source_index": 15,
+      "scale": 1.1988703285374946,
       "rgb_gain": [
-        0.87019,
-        0.85,
-        0.85
+        0.946736,
+        0.979175,
+        0.984816
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 94.53570753953238,
+        "target": 113.33605475644369,
+        "registered": 113.46805717910217
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        92,
-        128
+        86,
+        148
       ],
-      "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1300,
-        67,
-        206,
-        136
+        1048,
+        614,
+        175,
+        94
       ],
-      "source_index": 5,
-      "scale": 0.94921875,
+      "source_index": 16,
+      "scale": 1.1576740024358905,
       "rgb_gain": [
-        0.87019,
-        0.85,
-        0.85
+        0.928925,
+        0.957032,
+        0.969546
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 92.62828941527529,
+        "target": 107.23336254617178,
+        "registered": 107.44300814850634
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        131,
-        158
+        76,
+        171
       ],
-      "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        37,
-        302,
-        202,
-        161
+        1297,
+        635,
+        176,
+        74
       ],
-      "source_index": 6,
-      "scale": 0.6013071895424836,
+      "source_index": 17,
+      "scale": 1.1642006356770331,
       "rgb_gain": [
-        0.87019,
-        0.85,
-        0.85
+        0.89623,
+        0.868236,
+        0.882493
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 83.52843827104634,
+        "target": 97.24386093226197,
+        "registered": 97.16995420396162
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        121,
-        161
+        67,
+        169
       ],
-      "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        308,
-        315,
-        175,
-        146
+        44,
+        883,
+        172,
+        76
       ],
-      "source_index": 7,
-      "scale": 0.644927536231884,
+      "source_index": 18,
+      "scale": 1.1641167574301836,
       "rgb_gain": [
-        0.87019,
-        0.85,
-        0.85
+        0.908976,
+        0.873709,
+        0.893938
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 82.23746105030237,
+        "target": 95.73400649716902,
+        "registered": 95.36770941990795
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        66,
-        74
+        93,
+        114
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1278,19 +1648,25 @@
         138
       ],
       "source_index": 8,
-      "scale": 1.323076923076923,
+      "scale": 1.035891311098654,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.51190414844697,
+        "target": 119.65777783583678,
+        "registered": 119.86659251017358
+      },
       "animation": "lumen_focus_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        83,
-        73
+        89,
+        82
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1300,19 +1676,25 @@
         164
       ],
       "source_index": 9,
-      "scale": 1.1217948717948718,
+      "scale": 1.0682665691878455,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.02991070662235,
+        "target": 125.01914120292335,
+        "registered": 124.88794977899188
+      },
       "animation": "lumen_focus_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        68,
-        77
+        83,
+        100
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1322,19 +1704,25 @@
         156
       ],
       "source_index": 10,
-      "scale": 1.1554054054054055,
+      "scale": 1.011826357185833,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.2023102090055,
+        "target": 122.63569202128534,
+        "registered": 122.55202976695246
+      },
       "animation": "lumen_focus_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        80,
-        77
+        88,
+        90
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1344,19 +1732,25 @@
         156
       ],
       "source_index": 11,
-      "scale": 1.152027027027027,
+      "scale": 1.0719431973876932,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.25410277097274,
+        "target": 122.47390823897861,
+        "registered": 122.40098038823055
+      },
       "animation": "lumen_focus_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        54,
-        72
+        80,
+        109
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1366,19 +1760,25 @@
         138
       ],
       "source_index": 12,
-      "scale": 1.3384615384615384,
+      "scale": 1.073356647970455,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.70832576583096,
+        "target": 123.12294403831531,
+        "registered": 123.13813381727043
+      },
       "animation": "lumen_focus_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        62,
-        77
+        84,
+        110
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1388,19 +1788,25 @@
         149
       ],
       "source_index": 13,
-      "scale": 1.2092198581560283,
+      "scale": 1.0000807407023034,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.0,
+        "target": 116.00936592146718,
+        "registered": 116.0
+      },
       "animation": "lumen_focus_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        94,
-        81
+        99,
+        91
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1410,19 +1816,25 @@
         173
       ],
       "source_index": 14,
-      "scale": 1.0242424242424242,
+      "scale": 0.9640843103274598,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.41942890501528,
+        "target": 115.13039775559078,
+        "registered": 115.0173899895142
+      },
       "animation": "lumen_focus_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        90,
-        79
+        97,
+        91
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1432,19 +1844,25 @@
         169
       ],
       "source_index": 15,
-      "scale": 1.0527950310559007,
+      "scale": 0.9853264809244255,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.24768039018313,
+        "target": 119.46855023910862,
+        "registered": 119.52405615607262
+      },
       "animation": "lumen_focus_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        90,
-        86
+        97,
+        97
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1454,19 +1872,25 @@
         163
       ],
       "source_index": 16,
-      "scale": 1.0516129032258064,
+      "scale": 0.9853271169306534,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.58752042268192,
+        "target": 116.84749960203617,
+        "registered": 116.84605256490268
+      },
       "animation": "lumen_focus_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        83,
-        79
+        91,
+        92
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1476,19 +1900,25 @@
         162
       ],
       "source_index": 17,
-      "scale": 1.1006493506493507,
+      "scale": 1.0210921535822264,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.13742131409347,
+        "target": 122.67137825542298,
+        "registered": 122.50306118624138
+      },
       "animation": "lumen_focus_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        71,
-        59
+        89,
+        89
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1498,19 +1928,25 @@
         164
       ],
       "source_index": 18,
-      "scale": 1.205128205128205,
+      "scale": 1.022980276432978,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.82364302548172,
+        "target": 124.62318401827973,
+        "registered": 124.63145670335399
+      },
       "animation": "lumen_focus_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        66,
-        47
+        98,
+        101
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1520,19 +1956,25 @@
         155
       ],
       "source_index": 19,
-      "scale": 1.3571428571428572,
+      "scale": 1.011936981786728,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.61046265237096,
+        "target": 118.00243962119424,
+        "registered": 118.04236527620073
+      },
       "animation": "lumen_focus_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        78,
-        35
+        90,
+        61
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1542,19 +1984,25 @@
         178
       ],
       "source_index": 20,
-      "scale": 1.2470588235294118,
+      "scale": 1.1032944942241678,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.60457737256893,
+        "target": 125.33930473381878,
+        "registered": 125.27968710050325
+      },
       "animation": "lumen_focus",
       "after": 0
     },
     {
       "margin_xy": [
-        66,
-        22
+        84,
+        57
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1564,19 +2012,25 @@
         173
       ],
       "source_index": 21,
-      "scale": 1.3575757575757577,
+      "scale": 1.1583430945329558,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.19719786404568,
+        "target": 132.2795355608309,
+        "registered": 132.29134514396625
+      },
       "animation": "lumen_focus",
       "after": 1
     },
     {
       "margin_xy": [
-        76,
-        17
+        91,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1586,19 +2040,25 @@
         176
       ],
       "source_index": 22,
-      "scale": 1.3630952380952381,
+      "scale": 1.1760760990387185,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.48076755707302,
+        "target": 129.93379012732584,
+        "registered": 129.9730741346068
+      },
       "animation": "lumen_focus",
       "after": 2
     },
     {
       "margin_xy": [
-        74,
-        14
+        94,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__03.png",
       "source_region": [
@@ -1608,19 +2068,25 @@
         176
       ],
       "source_index": 23,
-      "scale": 1.3928571428571428,
+      "scale": 1.1486303257774189,
       "rgb_gain": [
         0.87019,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.23888232710347,
+        "target": 132.36687494960648,
+        "registered": 132.24220203853233
+      },
       "animation": "lumen_focus",
       "after": 3
     },
     {
       "margin_xy": [
-        85,
-        8
+        102,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1630,19 +2096,25 @@
         180
       ],
       "source_index": 0,
-      "scale": 1.3837209302325582,
+      "scale": 1.1619680951237517,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.02585918664856,
+        "target": 134.81834658420667,
+        "registered": 134.69224179588073
+      },
       "animation": "lumen_focus",
       "after": 4
     },
     {
       "margin_xy": [
-        85,
-        13
+        101,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1652,19 +2124,25 @@
         184
       ],
       "source_index": 1,
-      "scale": 1.3352272727272727,
+      "scale": 1.1307967671411696,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.67057666784312,
+        "target": 128.53832061506947,
+        "registered": 128.50291825480073
+      },
       "animation": "lumen_focus",
       "after": 5
     },
     {
       "margin_xy": [
-        90,
-        9
+        98,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1674,19 +2152,25 @@
         190
       ],
       "source_index": 2,
-      "scale": 1.304945054945055,
+      "scale": 1.1952356134181708,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.42577392917995,
+        "target": 130.78958202600148,
+        "registered": 130.99618315050253
+      },
       "animation": "lumen_focus",
       "after": 6
     },
     {
       "margin_xy": [
-        88,
-        1
+        101,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1696,19 +2180,25 @@
         182
       ],
       "source_index": 3,
-      "scale": 1.4080459770114941,
+      "scale": 1.2136692995984482,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.08403954581743,
+        "target": 137.24662707133547,
+        "registered": 137.42634390829147
+      },
       "animation": "lumen_focus",
       "after": 7
     },
     {
       "margin_xy": [
-        95,
-        1
+        109,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1718,19 +2208,25 @@
         188
       ],
       "source_index": 4,
-      "scale": 1.363888888888889,
+      "scale": 1.1655222375636258,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.13266548614507,
+        "target": 131.858637418949,
+        "registered": 131.91285001848757
+      },
       "animation": "lumen_focus",
       "after": 8
     },
     {
       "margin_xy": [
-        102,
-        7
+        110,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1740,19 +2236,25 @@
         189
       ],
       "source_index": 5,
-      "scale": 1.3204419889502763,
+      "scale": 1.1991025602678487,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.4377752492037,
+        "target": 127.629808810534,
+        "registered": 127.72235513018072
+      },
       "animation": "lumen_focus",
       "after": 9
     },
     {
       "margin_xy": [
-        106,
-        21
+        110,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1762,19 +2264,25 @@
         183
       ],
       "source_index": 6,
-      "scale": 1.2914285714285714,
+      "scale": 1.234131087363653,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.7564896518484,
+        "target": 136.68802700661686,
+        "registered": 136.5576801208925
+      },
       "animation": "lumen_focus",
       "after": 10
     },
     {
       "margin_xy": [
-        108,
-        42
+        106,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1784,19 +2292,25 @@
         184
       ],
       "source_index": 7,
-      "scale": 1.1676136363636365,
+      "scale": 1.1922879798062862,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.17713011328621,
+        "target": 131.36286788362435,
+        "registered": 131.33925536563697
+      },
       "animation": "lumen_focus",
       "after": 11
     },
     {
       "margin_xy": [
-        114,
-        54
+        115,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1806,19 +2320,25 @@
         181
       ],
       "source_index": 8,
-      "scale": 1.1213872832369942,
+      "scale": 1.1121726811101815,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.78550889985696,
+        "target": 124.32478914241999,
+        "registered": 124.22560122615627
+      },
       "animation": "lumen_focus_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        107,
-        56
+        102,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1828,19 +2348,25 @@
         181
       ],
       "source_index": 9,
-      "scale": 1.1127167630057804,
+      "scale": 1.1857652028549133,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.88932633336067,
+        "target": 133.8602349398319,
+        "registered": 134.0708767779192
+      },
       "animation": "lumen_focus_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        106,
-        64
+        104,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1850,19 +2376,25 @@
         174
       ],
       "source_index": 10,
-      "scale": 1.108433734939759,
+      "scale": 1.1359780420070396,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.23659658795863,
+        "target": 129.7702653175373,
+        "registered": 129.89996150884727
+      },
       "animation": "lumen_focus_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        104,
-        70
+        101,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1872,19 +2404,25 @@
         185
       ],
       "source_index": 11,
-      "scale": 1.0169491525423728,
+      "scale": 1.049824315709376,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.74767078498864,
+        "target": 126.76384085535173,
+        "registered": 126.62543188475212
+      },
       "animation": "lumen_focus_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        107,
-        67
+        105,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1894,19 +2432,25 @@
         178
       ],
       "source_index": 12,
-      "scale": 1.0647058823529412,
+      "scale": 1.08294206190205,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.59769734661919,
+        "target": 131.68326108708922,
+        "registered": 131.6510539266587
+      },
       "animation": "lumen_focus_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        105,
-        73
+        104,
+        72
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1916,19 +2460,25 @@
         172
       ],
       "source_index": 13,
-      "scale": 1.0670731707317074,
+      "scale": 1.076429780772606,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.42657280190033,
+        "target": 126.40146001802803,
+        "registered": 126.13484847574837
+      },
       "animation": "lumen_focus_recover",
       "after": 5
     },
     {
       "margin_xy": [
         106,
-        76
+        75
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1938,19 +2488,25 @@
         174
       ],
       "source_index": 14,
-      "scale": 1.0421686746987953,
+      "scale": 1.0465379878409267,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.57777573002414,
+        "target": 126.18922279083398,
+        "registered": 126.0317420335052
+      },
       "animation": "lumen_focus_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        90,
-        73
+        92,
+        77
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1960,19 +2516,25 @@
         177
       ],
       "source_index": 15,
-      "scale": 1.0384615384615385,
+      "scale": 1.0166753486937905,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.406336784564,
+        "target": 131.5642325736327,
+        "registered": 131.46862743635836
+      },
       "animation": "lumen_focus_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        86,
-        78
+        92,
+        90
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -1982,19 +2544,25 @@
         173
       ],
       "source_index": 16,
-      "scale": 1.0363636363636364,
+      "scale": 0.9710732655187817,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.90694317995442,
+        "target": 125.17808626180239,
+        "registered": 125.31560158256433
+      },
       "animation": "lumen_focus_recover",
       "after": 8
     },
     {
       "margin_xy": [
         93,
-        74
+        75
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -2004,19 +2572,25 @@
         176
       ],
       "source_index": 17,
-      "scale": 1.0386904761904763,
+      "scale": 1.0337076041457383,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.73171208638162,
+        "target": 128.93611926180958,
+        "registered": 128.88366847665378
+      },
       "animation": "lumen_focus_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        80,
-        62
+        94,
+        85
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -2026,19 +2600,25 @@
         164
       ],
       "source_index": 18,
-      "scale": 1.189102564102564,
+      "scale": 1.0517687682094934,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.25365491868058,
+        "target": 134.8931886521861,
+        "registered": 134.74791278531924
+      },
       "animation": "lumen_focus_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        84,
-        58
+        103,
+        92
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -2048,19 +2628,25 @@
         167
       ],
       "source_index": 19,
-      "scale": 1.1918238993710693,
+      "scale": 1.0016591660279277,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.88519188154072,
+        "target": 122.08741965121803,
+        "registered": 121.88519188154072
+      },
       "animation": "lumen_focus_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        75,
-        69
+        72,
+        65
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -2070,19 +2656,25 @@
         180
       ],
       "source_index": 20,
-      "scale": 1.0436046511627908,
+      "scale": 1.0690973103667183,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.21531740695802,
+        "target": 124.24548326319328,
+        "registered": 124.03225386970922
+      },
       "animation": "charge",
       "after": 0
     },
     {
       "margin_xy": [
-        75,
-        69
+        72,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/isotope_lumen__04.png",
       "source_region": [
@@ -2092,12 +2684,18 @@
         182
       ],
       "source_index": 21,
-      "scale": 1.0316091954022988,
+      "scale": 1.0634431641914517,
       "rgb_gain": [
         0.889486,
         0.854841,
         0.864705
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.83321445547922,
+        "target": 124.24548326319328,
+        "registered": 124.32216214336043
+      },
       "animation": "charge",
       "after": 1
     }

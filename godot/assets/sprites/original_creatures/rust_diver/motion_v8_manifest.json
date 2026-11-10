@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "rust_diver",
   "canvas": [
     474,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            235,
-            185
+            222,
+            175
           ],
           "margin": [
-            124,
-            47,
-            239,
-            53
+            130,
+            57,
+            252,
+            63
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            241,
+            228,
             2,
-            230,
-            186
+            221,
+            178
           ],
           "margin": [
-            118,
-            46,
-            244,
-            52
+            124,
+            54,
+            253,
+            60
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            475,
+            453,
             2,
-            225,
-            183
+            217,
+            177
           ],
           "margin": [
-            120,
-            49,
-            249,
-            55
+            124,
+            55,
+            257,
+            61
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            704,
+            674,
             2,
-            222,
-            183
+            217,
+            179
           ],
           "margin": [
-            122,
-            49,
-            252,
-            55
+            125,
+            53,
+            257,
+            59
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            930,
+            895,
             2,
-            227,
-            185
+            220,
+            180
           ],
           "margin": [
-            128,
-            47,
-            247,
-            53
+            131,
+            52,
+            254,
+            58
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1161,
+            1119,
             2,
-            227,
-            184
+            224,
+            182
           ],
           "margin": [
-            130,
-            48,
-            247,
-            54
+            132,
+            50,
+            250,
+            56
           ]
         },
         {
@@ -224,7 +224,7 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1392,
+            1347,
             2,
             231,
             182
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1627,
+            1582,
             2,
-            233,
-            184
+            231,
+            182
           ],
           "margin": [
-            114,
-            48,
-            241,
-            54
+            116,
+            50,
+            243,
+            56
           ]
         },
         {
@@ -284,15 +284,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
+            1817,
             2,
-            196,
-            228,
+            227,
             186
           ],
           "margin": [
             114,
             46,
-            246,
+            247,
             52
           ]
         },
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            234,
+            2,
             196,
             229,
-            187
+            186
           ],
           "margin": [
             118,
-            45,
+            46,
             245,
-            51
+            52
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            467,
+            235,
             196,
-            226,
-            186
+            224,
+            184
           ],
           "margin": [
-            130,
-            46,
-            248,
-            52
+            132,
+            48,
+            250,
+            54
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            697,
+            463,
             196,
-            219,
-            184
+            211,
+            177
           ],
           "margin": [
-            130,
-            48,
-            255,
-            54
+            132,
+            55,
+            263,
+            61
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            920,
+            678,
             196,
-            228,
-            186
+            225,
+            184
           ],
           "margin": [
-            121,
-            46,
-            246,
-            52
+            122,
+            48,
+            249,
+            54
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1152,
+            907,
             196,
-            227,
-            189
+            229,
+            191
           ],
           "margin": [
-            120,
-            43,
-            247,
-            49
+            118,
+            41,
+            245,
+            47
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1383,
+            1140,
             196,
-            219,
-            185
+            222,
+            187
           ],
           "margin": [
-            119,
-            47,
-            255,
-            53
+            118,
+            45,
+            252,
+            51
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1606,
+            1366,
             196,
-            220,
-            188
+            221,
+            189
           ],
           "margin": [
-            116,
-            44,
-            254,
-            50
+            114,
+            43,
+            253,
+            49
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            393,
-            230,
-            199
+            1591,
+            196,
+            219,
+            190
           ],
           "margin": [
-            109,
-            33,
-            244,
-            39
+            114,
+            42,
+            255,
+            48
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            236,
-            393,
-            195,
-            202
+            1814,
+            196,
+            187,
+            194
           ],
           "margin": [
-            124,
-            30,
-            279,
-            36
+            128,
+            38,
+            287,
+            44
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            435,
-            393,
-            201,
-            208
+            2,
+            398,
+            189,
+            196
           ],
           "margin": [
-            126,
-            24,
-            273,
-            30
+            132,
+            36,
+            285,
+            42
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            640,
-            393,
-            212,
-            218
+            195,
+            398,
+            202,
+            208
           ],
           "margin": [
-            123,
-            14,
-            262,
-            20
+            128,
+            24,
+            272,
+            30
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            856,
-            393,
-            228,
-            220
+            401,
+            398,
+            202,
+            195
           ],
           "margin": [
-            121,
-            12,
-            246,
-            18
+            134,
+            37,
+            272,
+            43
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1088,
-            393,
-            232,
-            217
+            607,
+            398,
+            195,
+            183
           ],
           "margin": [
-            116,
-            15,
-            242,
-            21
+            134,
+            49,
+            279,
+            55
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1324,
-            393,
-            291,
-            211
+            806,
+            398,
+            272,
+            197
           ],
           "margin": [
-            105,
-            21,
-            183,
-            27
+            114,
+            35,
+            202,
+            41
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1619,
-            393,
-            286,
-            196
+            1082,
+            398,
+            274,
+            188
           ],
           "margin": [
-            119,
-            36,
-            188,
-            42
+            125,
+            44,
+            200,
+            50
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            621,
-            297,
-            188
+            1360,
+            398,
+            279,
+            177
           ],
           "margin": [
-            134,
-            44,
-            177,
-            50
+            140,
+            55,
+            195,
+            61
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            303,
-            621,
-            282,
-            187
+            1643,
+            398,
+            266,
+            177
           ],
           "margin": [
-            136,
-            45,
-            192,
-            51
+            144,
+            55,
+            208,
+            61
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            589,
-            621,
-            249,
-            179
+            2,
+            614,
+            235,
+            169
           ],
           "margin": [
-            148,
-            53,
-            225,
-            59
+            154,
+            63,
+            239,
+            69
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            842,
-            621,
-            244,
-            178
+            241,
+            614,
+            226,
+            166
           ],
           "margin": [
-            150,
-            54,
-            230,
-            60
+            158,
+            66,
+            248,
+            72
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1090,
-            621,
-            252,
-            184
+            471,
+            614,
+            234,
+            171
           ],
           "margin": [
-            145,
-            48,
-            222,
-            54
+            153,
+            61,
+            240,
+            67
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1346,
-            621,
-            245,
-            183
+            709,
+            614,
+            225,
+            168
           ],
           "margin": [
-            146,
-            49,
-            229,
-            55
+            154,
+            64,
+            249,
+            70
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1595,
-            621,
-            239,
-            183
+            938,
+            614,
+            232,
+            178
           ],
           "margin": [
-            144,
-            49,
-            235,
-            55
+            148,
+            54,
+            242,
+            60
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            817,
-            237,
-            185
+            1174,
+            614,
+            238,
+            186
           ],
           "margin": [
-            143,
-            47,
-            237,
-            53
+            142,
+            46,
+            236,
+            52
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            243,
-            817,
-            221,
-            180
+            1416,
+            614,
+            219,
+            178
           ],
           "margin": [
             150,
-            52,
-            253,
-            58
+            54,
+            255,
+            60
           ]
         },
         {
@@ -1048,8 +1048,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            468,
-            817,
+            1639,
+            614,
             225,
             181
           ],
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            697,
-            817,
-            224,
-            189
+            2,
+            808,
+            227,
+            192
           ],
           "margin": [
-            146,
-            43,
-            250,
-            49
+            144,
+            40,
+            247,
+            46
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            925,
-            817,
-            219,
-            190
+            233,
+            808,
+            218,
+            189
           ],
           "margin": [
-            146,
-            42,
-            255,
-            48
+            148,
+            43,
+            256,
+            49
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1148,
-            817,
-            218,
-            193
+            455,
+            808,
+            216,
+            190
           ],
           "margin": [
             146,
-            39,
-            256,
-            45
+            42,
+            258,
+            48
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1370,
-            817,
-            220,
-            199
+            675,
+            808,
+            218,
+            198
           ],
           "margin": [
-            139,
-            33,
-            254,
-            39
+            140,
+            34,
+            256,
+            40
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1594,
-            817,
-            214,
-            198
+            897,
+            808,
+            212,
+            196
           ],
           "margin": [
-            141,
-            34,
-            260,
-            40
+            142,
+            36,
+            262,
+            42
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1812,
-            817,
-            215,
-            197
+            1113,
+            808,
+            214,
+            196
           ],
           "margin": [
             138,
-            35,
-            259,
-            41
+            36,
+            260,
+            42
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            1024,
-            221,
-            197
+            1331,
+            808,
+            222,
+            198
           ],
           "margin": [
             130,
-            35,
-            253,
-            41
+            34,
+            252,
+            40
           ]
         },
         {
@@ -1295,8 +1295,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            227,
-            1024,
+            1557,
+            808,
             219,
             190
           ],
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            450,
-            1024,
-            223,
-            188
+            1780,
+            808,
+            217,
+            183
           ],
           "margin": [
-            128,
-            44,
-            251,
-            50
+            130,
+            49,
+            257,
+            55
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            677,
-            1024,
-            225,
-            193
+            2,
+            1014,
+            221,
+            189
           ],
           "margin": [
-            122,
-            39,
-            249,
-            45
+            124,
+            43,
+            253,
+            49
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            906,
-            1024,
-            221,
-            190
+            227,
+            1014,
+            217,
+            185
           ],
           "margin": [
-            128,
-            42,
-            253,
-            48
+            130,
+            47,
+            257,
+            53
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1131,
-            1024,
-            226,
-            189
+            448,
+            1014,
+            220,
+            184
           ],
           "margin": [
-            128,
-            43,
-            248,
-            49
+            130,
+            48,
+            254,
+            54
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1361,
-            1024,
-            237,
-            192
+            672,
+            1014,
+            236,
+            191
           ],
           "margin": [
-            122,
-            40,
-            237,
-            46
+            124,
+            41,
+            238,
+            47
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1602,
-            1024,
-            224,
-            187
+            912,
+            1014,
+            222,
+            185
           ],
           "margin": [
             128,
-            45,
-            250,
-            51
+            47,
+            252,
+            53
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            1229,
-            243,
-            194
+            1138,
+            1014,
+            226,
+            180
           ],
           "margin": [
-            120,
-            38,
-            231,
-            44
+            128,
+            52,
+            248,
+            58
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            249,
-            1229,
-            241,
-            182
+            1368,
+            1014,
+            215,
+            163
           ],
           "margin": [
-            122,
-            50,
-            233,
-            56
+            134,
+            69,
+            259,
+            75
           ]
         }
       ]
@@ -1579,16 +1579,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            494,
-            1229,
-            240,
-            131
+            1587,
+            1014,
+            231,
+            126
           ],
           "margin": [
-            124,
-            101,
-            234,
-            107
+            128,
+            106,
+            243,
+            112
           ]
         },
         {
@@ -1609,16 +1609,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            738,
-            1229,
-            213,
-            116
+            1822,
+            1014,
+            208,
+            113
           ],
           "margin": [
-            132,
-            117,
-            261,
-            122
+            134,
+            119,
+            266,
+            125
           ]
         },
         {
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            955,
-            1229,
-            247,
-            101
+            2,
+            1213,
+            226,
+            93
           ],
           "margin": [
-            115,
-            131,
-            227,
-            137
+            126,
+            139,
+            248,
+            145
           ]
         }
       ]
@@ -1676,16 +1676,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1206,
-            1229,
-            237,
-            167
+            232,
+            1213,
+            213,
+            150
           ],
           "margin": [
-            102,
-            65,
-            237,
-            71
+            114,
+            82,
+            261,
+            88
           ]
         },
         {
@@ -1706,16 +1706,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1447,
-            1229,
-            232,
-            179
+            449,
+            1213,
+            228,
+            176
           ],
           "margin": [
-            113,
-            53,
-            242,
-            59
+            115,
+            56,
+            246,
+            62
           ]
         },
         {
@@ -1736,16 +1736,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1683,
-            1229,
-            229,
-            186
+            681,
+            1213,
+            224,
+            181
           ],
           "margin": [
-            118,
-            46,
-            245,
-            52
+            120,
+            51,
+            250,
+            57
           ]
         },
         {
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            1431,
-            271,
-            198
+            909,
+            1213,
+            240,
+            175
           ],
           "margin": [
-            96,
-            34,
-            203,
-            40
+            111,
+            57,
+            234,
+            63
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            277,
-            1431,
-            342,
-            214
+            1153,
+            1213,
+            263,
+            164
           ],
           "margin": [
-            52,
-            19,
-            132,
-            24
+            92,
+            68,
+            211,
+            74
           ]
         },
         {
@@ -1826,16 +1826,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            623,
-            1431,
-            292,
-            217
+            1420,
+            1213,
+            235,
+            175
           ],
           "margin": [
-            74,
-            15,
-            182,
-            21
+            104,
+            57,
+            239,
+            63
           ]
         },
         {
@@ -1856,16 +1856,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            919,
-            1431,
-            232,
-            223
+            1659,
+            1213,
+            210,
+            202
           ],
           "margin": [
-            103,
-            9,
-            242,
-            15
+            115,
+            30,
+            264,
+            36
           ]
         },
         {
@@ -1886,16 +1886,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1155,
-            1431,
-            234,
-            230
+            2,
+            1423,
+            209,
+            206
           ],
           "margin": [
-            102,
-            2,
-            240,
-            8
+            116,
+            26,
+            265,
+            32
           ]
         },
         {
@@ -1916,16 +1916,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1393,
-            1431,
-            221,
-            231
+            215,
+            1423,
+            201,
+            211
           ],
           "margin": [
-            103,
-            1,
-            253,
-            7
+            114,
+            21,
+            273,
+            27
           ]
         },
         {
@@ -1946,16 +1946,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1618,
-            1431,
-            193,
-            225
+            420,
+            1423,
+            177,
+            205
           ],
           "margin": [
-            122,
-            7,
-            281,
-            13
+            131,
+            27,
+            297,
+            33
           ]
         },
         {
@@ -1976,16 +1976,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1815,
-            1431,
-            170,
-            211
+            601,
+            1423,
+            175,
+            217
           ],
           "margin": [
-            134,
-            21,
-            304,
-            27
+            130,
+            15,
+            299,
+            21
           ]
         },
         {
@@ -2006,16 +2006,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            1670,
-            162,
-            192
+            780,
+            1423,
+            182,
+            216
           ],
           "margin": [
-            137,
-            40,
-            312,
-            46
+            126,
+            16,
+            292,
+            22
           ]
         }
       ]
@@ -2043,16 +2043,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            168,
-            1670,
-            191,
-            183
+            966,
+            1423,
+            198,
+            190
           ],
           "margin": [
-            124,
-            49,
-            283,
-            55
+            120,
+            42,
+            276,
+            48
           ]
         },
         {
@@ -2073,16 +2073,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            363,
-            1670,
-            213,
-            185
+            1168,
+            1423,
+            215,
+            187
           ],
           "margin": [
-            112,
-            47,
-            261,
-            53
+            111,
+            45,
+            259,
+            51
           ]
         },
         {
@@ -2103,16 +2103,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            580,
-            1670,
-            231,
-            180
+            1387,
+            1423,
+            219,
+            171
           ],
           "margin": [
-            104,
-            52,
-            243,
-            58
+            111,
+            61,
+            255,
+            67
           ]
         },
         {
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            815,
-            1670,
-            228,
-            173
+            1610,
+            1423,
+            216,
+            164
           ],
           "margin": [
-            105,
-            59,
-            246,
-            65
+            112,
+            68,
+            258,
+            74
           ]
         },
         {
@@ -2163,8 +2163,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1047,
-            1670,
+            2,
+            1648,
             230,
             164
           ],
@@ -2193,16 +2193,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1281,
-            1670,
             236,
-            148
+            1648,
+            230,
+            144
           ],
           "margin": [
-            103,
-            84,
-            238,
-            90
+            106,
+            88,
+            244,
+            94
           ]
         },
         {
@@ -2223,8 +2223,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1521,
-            1670,
+            470,
+            1648,
             223,
             143
           ],
@@ -2253,16 +2253,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1748,
-            1670,
-            251,
-            152
+            697,
+            1648,
+            223,
+            136
           ],
           "margin": [
-            102,
-            80,
-            223,
-            86
+            116,
+            96,
+            251,
+            102
           ]
         },
         {
@@ -2283,16 +2283,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            1870,
-            229,
-            153
+            924,
+            1648,
+            212,
+            141
           ],
           "margin": [
-            111,
-            79,
-            245,
-            85
+            119,
+            92,
+            262,
+            97
           ]
         },
         {
@@ -2313,16 +2313,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            235,
-            1870,
-            222,
-            160
+            1140,
+            1648,
+            221,
+            159
           ],
           "margin": [
-            114,
-            72,
-            252,
-            78
+            115,
+            73,
+            253,
+            79
           ]
         },
         {
@@ -2343,16 +2343,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            461,
-            1870,
-            239,
-            173
+            1365,
+            1648,
+            227,
+            164
           ],
           "margin": [
-            101,
-            59,
-            235,
-            65
+            107,
+            68,
+            247,
+            74
           ]
         },
         {
@@ -2371,18 +2371,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            216,
-            179
+            1596,
+            1648,
+            203,
+            168
           ],
           "margin": [
-            107,
-            53,
-            258,
-            59
+            114,
+            64,
+            271,
+            70
           ]
         }
       ]
@@ -2408,18 +2408,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            222,
-            2,
-            222,
-            187
+            1803,
+            1648,
+            207,
+            175
           ],
           "margin": [
-            108,
-            45,
-            252,
-            51
+            116,
+            57,
+            267,
+            63
           ]
         },
         {
@@ -2438,18 +2438,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            448,
             2,
-            252,
-            198
+            1831,
+            223,
+            176
           ],
           "margin": [
-            97,
-            34,
-            222,
-            40
+            112,
+            56,
+            251,
+            62
           ]
         },
         {
@@ -2468,18 +2468,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            704,
-            2,
-            236,
-            202
+            229,
+            1831,
+            214,
+            182
           ],
           "margin": [
-            103,
-            30,
-            238,
-            36
+            114,
+            50,
+            260,
+            56
           ]
         },
         {
@@ -2498,18 +2498,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            944,
-            2,
-            229,
-            200
+            447,
+            1831,
+            208,
+            182
           ],
           "margin": [
-            106,
-            32,
-            245,
-            38
+            117,
+            50,
+            266,
+            56
           ]
         },
         {
@@ -2528,18 +2528,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1177,
-            2,
-            204,
-            194
+            659,
+            1831,
+            197,
+            186
           ],
           "margin": [
-            117,
-            38,
-            270,
-            44
+            121,
+            46,
+            277,
+            52
           ]
         },
         {
@@ -2558,18 +2558,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1385,
-            2,
-            200,
-            181
+            860,
+            1831,
+            197,
+            179
           ],
           "margin": [
-            119,
-            51,
-            274,
-            57
+            120,
+            53,
+            277,
+            59
           ]
         },
         {
@@ -2588,18 +2588,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1589,
-            2,
-            185,
-            176
+            1061,
+            1831,
+            186,
+            177
           ],
           "margin": [
-            128,
-            57,
-            289,
-            62
+            127,
+            56,
+            288,
+            61
           ]
         },
         {
@@ -2618,18 +2618,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            1778,
-            2,
-            181,
-            181
+            1251,
+            1831,
+            185,
+            185
           ],
           "margin": [
-            126,
-            51,
-            293,
-            57
+            124,
+            47,
+            289,
+            53
           ]
         },
         {
@@ -2648,18 +2648,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            2,
-            212,
-            176,
-            177
+            1440,
+            1831,
+            181,
+            182
           ],
           "margin": [
-            130,
-            56,
-            298,
-            61
+            126,
+            50,
+            293,
+            56
           ]
         },
         {
@@ -2678,18 +2678,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            182,
-            212,
-            182,
-            179
+            1625,
+            1831,
+            185,
+            182
           ],
           "margin": [
-            127,
-            54,
-            292,
-            59
+            125,
+            50,
+            289,
+            56
           ]
         },
         {
@@ -2708,18 +2708,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
           "region": [
-            368,
-            212,
-            209,
-            186
+            1814,
+            1831,
+            200,
+            178
           ],
           "margin": [
-            114,
-            46,
-            265,
-            52
+            119,
+            54,
+            274,
+            60
           ]
         },
         {
@@ -2740,16 +2740,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
           "region": [
-            581,
-            212,
-            227,
-            185
+            2,
+            2,
+            206,
+            167
           ],
           "margin": [
-            116,
-            47,
-            247,
-            53
+            127,
+            65,
+            268,
+            71
           ]
         }
       ]
@@ -2777,16 +2777,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
           "region": [
-            812,
             212,
-            209,
-            181
+            2,
+            199,
+            172
           ],
           "margin": [
-            117,
-            51,
-            265,
-            57
+            122,
+            61,
+            275,
+            66
           ]
         },
         {
@@ -2807,16 +2807,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
           "region": [
-            1025,
-            212,
-            202,
-            181
+            415,
+            2,
+            198,
+            177
           ],
           "margin": [
-            120,
-            52,
-            272,
-            57
+            122,
+            57,
+            276,
+            61
           ]
         }
       ]
@@ -2844,16 +2844,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
           "region": [
-            1231,
-            212,
-            281,
-            171
+            617,
+            2,
+            279,
+            170
           ],
           "margin": [
-            143,
-            61,
-            193,
-            67
+            144,
+            62,
+            195,
+            68
           ]
         },
         {
@@ -2874,16 +2874,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
           "region": [
-            1516,
-            212,
-            286,
-            172
+            900,
+            2,
+            284,
+            170
           ],
           "margin": [
-            142,
-            60,
-            188,
-            66
+            143,
+            62,
+            190,
+            68
           ]
         }
       ]

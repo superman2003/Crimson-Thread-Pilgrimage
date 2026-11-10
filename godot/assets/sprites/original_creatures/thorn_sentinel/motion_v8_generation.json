@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7_manifest.json",
   "baseline_sha256": "cdcf433ece6fd8afe30e963cf7cd50d8cc6947c5b661373a261903b189008017",
+  "baseline_canvas": [
+    394,
+    233
+  ],
+  "symmetric_padding": [
+    0,
+    0
+  ],
   "new_drawings": 94,
   "old_frame_refs": 94,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "thorn_sentinel__03",
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "sha256": "ef02085027c3043db02105b16da1ff4edad0a16e083053c37468c9614a7572b5",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_03",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
+      "sha256": "5259272e95a4072c698eeab525197c653cb3047aed3a25f1959bcdc01addda9d",
+      "used_drawings": 4
     },
     {
       "id": "thorn_sentinel__04",
@@ -35,8 +49,8 @@
   "registrations": [
     {
       "margin_xy": [
-        114,
-        19
+        118,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -46,19 +60,25 @@
         181
       ],
       "source_index": 0,
-      "scale": 1.1502890173410405,
+      "scale": 1.104568280590223,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.42330719205872,
+        "target": 124.17921912339875,
+        "registered": 124.0927072796786
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        106,
-        19
+        109,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -68,19 +88,25 @@
         180
       ],
       "source_index": 1,
-      "scale": 1.1569767441860466,
+      "scale": 1.1154170794530325,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.90174261377702,
+        "target": 124.81711493196411,
+        "registered": 125.0799744163709
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        104,
-        19
+        106,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -90,19 +116,25 @@
         182
       ],
       "source_index": 2,
-      "scale": 1.1436781609195403,
+      "scale": 1.1141428867642218,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.51211389098522,
+        "target": 126.4687142532114,
+        "registered": 126.63727729227283
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        104,
-        19
+        106,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -112,19 +144,25 @@
         184
       ],
       "source_index": 3,
-      "scale": 1.1306818181818181,
+      "scale": 1.1063044808523779,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.7321414552632,
+        "target": 125.82237770889417,
+        "registered": 125.86897949852458
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        106,
-        19
+        110,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -134,19 +172,25 @@
         183
       ],
       "source_index": 4,
-      "scale": 1.1342857142857143,
+      "scale": 1.0979165618456,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.30993078838969,
+        "target": 127.69859931968851,
+        "registered": 127.72235513018072
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        96,
-        24
+        99,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -156,19 +200,25 @@
         183
       ],
       "source_index": 5,
-      "scale": 1.1114285714285714,
+      "scale": 1.0765059892954874,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.16090724093142,
+        "target": 127.2009243454512,
+        "registered": 127.24778976469493
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        86,
-        26
+        89,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -178,19 +228,25 @@
         183
       ],
       "source_index": 6,
-      "scale": 1.0971428571428572,
+      "scale": 1.0699807348543955,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.36917525056458,
+        "target": 127.72271785356222,
+        "registered": 127.7654100294755
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        87,
-        24
+        93,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -200,19 +256,25 @@
         181
       ],
       "source_index": 7,
-      "scale": 1.1242774566473988,
+      "scale": 1.0688094895947362,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.24142381059865,
+        "target": 128.5151748111503,
+        "registered": 128.21856339859684
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        94,
-        22
+        102,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -222,19 +284,25 @@
         179
       ],
       "source_index": 8,
-      "scale": 1.1432748538011697,
+      "scale": 1.0592233470604675,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.43670536842163,
+        "target": 127.56937016927492,
+        "registered": 127.83974342902914
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        99,
-        24
+        105,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -244,19 +312,25 @@
         182
       ],
       "source_index": 9,
-      "scale": 1.117816091954023,
+      "scale": 1.0603419770730143,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.02083152519816,
+        "target": 127.26312578937578,
+        "registered": 127.26743495490116
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        102,
-        24
+        107,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -266,19 +340,25 @@
         182
       ],
       "source_index": 10,
-      "scale": 1.1149425287356323,
+      "scale": 1.0637785228462315,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.82904489313098,
+        "target": 127.47156437048963,
+        "registered": 127.66362050325849
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        101,
-        22
+        106,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -288,19 +368,25 @@
         184
       ],
       "source_index": 11,
-      "scale": 1.1164772727272727,
+      "scale": 1.0639464578779072,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.824872209404,
+        "target": 127.48724835286828,
+        "registered": 127.54999019992123
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        103,
-        23
+        109,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -310,19 +396,25 @@
         182
       ],
       "source_index": 12,
-      "scale": 1.1206896551724137,
+      "scale": 1.0615719120830154,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.10828447696687,
+        "target": 127.50358120922448,
+        "registered": 127.29886095327012
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        98,
-        22
+        101,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -332,19 +424,25 @@
         182
       ],
       "source_index": 13,
-      "scale": 1.1264367816091954,
+      "scale": 1.1010581484473354,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.0541544470661,
+        "target": 132.18660500889703,
+        "registered": 132.19304066402285
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        104,
-        27
+        105,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -354,19 +452,25 @@
         181
       ],
       "source_index": 14,
-      "scale": 1.1040462427745665,
+      "scale": 1.0915056462777444,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.50738373620439,
+        "target": 129.35147847367043,
+        "registered": 129.3792873685738
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        104,
-        25
+        106,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -376,19 +480,25 @@
         183
       ],
       "source_index": 15,
-      "scale": 1.1028571428571428,
+      "scale": 1.0890789026827385,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.26021968787413,
+        "target": 129.88378919137227,
+        "registered": 129.84606270503545
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        104,
-        15
+        100,
+        8
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -398,19 +508,25 @@
         186
       ],
       "source_index": 16,
-      "scale": 1.1404494382022472,
+      "scale": 1.1794236910459488,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.16513868311584,
+        "target": 139.3667640185969,
+        "registered": 139.3197760549449
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        100,
-        11
+        101,
+        14
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -420,19 +536,25 @@
         184
       ],
       "source_index": 17,
-      "scale": 1.1732954545454546,
+      "scale": 1.1589382912547268,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.12077255828818,
+        "target": 139.2125628929002,
+        "registered": 139.19410907075056
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        98,
-        10
+        104,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -442,19 +564,25 @@
         181
       ],
       "source_index": 18,
-      "scale": 1.199421965317919,
+      "scale": 1.1280807100306354,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.26829758844642,
+        "target": 136.80042724778102,
+        "registered": 136.70771741200275
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        102,
-        11
+        104,
+        15
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -464,19 +592,25 @@
         184
       ],
       "source_index": 19,
-      "scale": 1.1732954545454546,
+      "scale": 1.1497705458217635,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.68139873236471,
+        "target": 138.75591769104486,
+        "registered": 138.83083231040575
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        98,
-        19
+        101,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -486,19 +620,25 @@
         180
       ],
       "source_index": 20,
-      "scale": 1.1540697674418605,
+      "scale": 1.1134919726610473,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.18319350058893,
+        "target": 133.82302121167513,
+        "registered": 133.5065541462291
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        100,
-        24
+        102,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -508,19 +648,25 @@
         179
       ],
       "source_index": 21,
-      "scale": 1.131578947368421,
+      "scale": 1.0933169262543028,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.77896309452674,
+        "target": 130.95636776043554,
+        "registered": 130.9770972345929
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        97,
-        26
+        100,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -530,19 +676,25 @@
         176
       ],
       "source_index": 22,
-      "scale": 1.1398809523809523,
+      "scale": 1.1123710444028974,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.26417442921878,
+        "target": 134.89075635848522,
+        "registered": 134.80356078383093
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        94,
-        36
+        98,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__01.png",
       "source_region": [
@@ -552,19 +704,25 @@
         177
       ],
       "source_index": 23,
-      "scale": 1.0798816568047338,
+      "scale": 1.0336525888728139,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.86897949852458,
+        "target": 130.10479651742907,
+        "registered": 130.13838787997952
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        96,
-        41
+        102,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -574,19 +732,25 @@
         171
       ],
       "source_index": 0,
-      "scale": 1.0858895705521472,
+      "scale": 1.0413022699316705,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.3951826278776,
+        "target": 125.36777695924698,
+        "registered": 125.31959144523253
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        88,
-        43
+        93,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -596,19 +760,25 @@
         161
       ],
       "source_index": 1,
-      "scale": 1.1437908496732025,
+      "scale": 1.094353293539851,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.11959699384215,
+        "target": 128.1702167082712,
+        "registered": 127.9531164137865
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        84,
-        52
+        92,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -618,19 +788,25 @@
         154
       ],
       "source_index": 2,
-      "scale": 1.1369863013698631,
+      "scale": 1.0575897559697718,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.07262703125782,
+        "target": 123.81481105272806,
+        "registered": 123.81437719424994
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        80,
-        52
+        90,
+        65
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -640,19 +816,25 @@
         149
       ],
       "source_index": 3,
-      "scale": 1.173758865248227,
+      "scale": 1.086070731406415,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.94735626595292,
+        "target": 123.75488856159085,
+        "registered": 123.79822292747178
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        77,
-        44
+        89,
+        61
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -662,19 +844,25 @@
         153
       ],
       "source_index": 4,
-      "scale": 1.196551724137931,
+      "scale": 1.0823648446855714,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.36150566231085,
+        "target": 125.94560300356632,
+        "registered": 126.05554331325537
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        78,
-        42
+        87,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -684,19 +872,25 @@
         150
       ],
       "source_index": 5,
-      "scale": 1.2359154929577465,
+      "scale": 1.1453791882403592,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.0596167240652,
+        "target": 124.9146152732145,
+        "registered": 124.87593843491227
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        84,
-        39
+        94,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -706,19 +900,25 @@
         153
       ],
       "source_index": 6,
-      "scale": 1.2310344827586206,
+      "scale": 1.1378862765930864,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.77208953938367,
+        "target": 127.18392679299835,
+        "registered": 127.20455966670377
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        85,
-        35
+        95,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -728,19 +928,25 @@
         152
       ],
       "source_index": 7,
-      "scale": 1.2604166666666667,
+      "scale": 1.1624646361826647,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.97344820797495,
+        "target": 131.32763836938472,
+        "registered": 131.31260411704582
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        94,
-        40
+        100,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -750,19 +956,25 @@
         151
       ],
       "source_index": 8,
-      "scale": 1.2377622377622377,
+      "scale": 1.1744931346933836,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.24310133513653,
+        "target": 133.003245069505,
+        "registered": 132.85330255586422
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        98,
-        37
+        104,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -772,19 +984,25 @@
         155
       ],
       "source_index": 9,
-      "scale": 1.227891156462585,
+      "scale": 1.1756172207838682,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.85643212288984,
+        "target": 135.02719952146276,
+        "registered": 134.9518432626987
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        92,
-        26
+        100,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -794,19 +1012,25 @@
         155
       ],
       "source_index": 10,
-      "scale": 1.2993197278911566,
+      "scale": 1.2109902579402203,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.89634800118532,
+        "target": 134.29439707058384,
+        "registered": 134.30189872075525
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        87,
-        23
+        98,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -816,19 +1040,25 @@
         158
       ],
       "source_index": 11,
-      "scale": 1.2933333333333332,
+      "scale": 1.1772017439912073,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.82554847093581,
+        "target": 128.1096254507853,
+        "registered": 128.18736287169654
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        88,
-        19
+        100,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -838,19 +1068,25 @@
         157
       ],
       "source_index": 12,
-      "scale": 1.325503355704698,
+      "scale": 1.197986399654766,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.57255638511971,
+        "target": 130.06844592512363,
+        "registered": 130.02307487519283
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        78,
-        16
+        92,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -860,19 +1096,25 @@
         159
       ],
       "source_index": 13,
-      "scale": 1.3278145695364238,
+      "scale": 1.1773537331616093,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.63856244737195,
+        "target": 134.97013946169363,
+        "registered": 134.8406466908254
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        84,
-        20
+        99,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -882,19 +1124,25 @@
         159
       ],
       "source_index": 14,
-      "scale": 1.3013245033112584,
+      "scale": 1.1487464464215953,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.84903970253703,
+        "target": 133.08117267964371,
+        "registered": 133.19159132617943
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        86,
-        21
+        100,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -904,19 +1152,25 @@
         159
       ],
       "source_index": 15,
-      "scale": 1.2980132450331126,
+      "scale": 1.1539524906325191,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.18519699169941,
+        "target": 134.07219744320142,
+        "registered": 133.79461872586654
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        101,
-        17
+        104,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -926,19 +1180,25 @@
         167
       ],
       "source_index": 16,
-      "scale": 1.2578616352201257,
+      "scale": 1.2209499079263237,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.24751652906124,
+        "target": 138.26954487904214,
+        "registered": 138.51714695300362
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        110,
-        20
+        112,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -948,19 +1208,25 @@
         170
       ],
       "source_index": 17,
-      "scale": 1.2191358024691359,
+      "scale": 1.1942497337410807,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.12938954618454,
+        "target": 133.9104936100808,
+        "registered": 133.98134198462114
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        106,
-        21
+        107,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -970,19 +1236,25 @@
         173
       ],
       "source_index": 18,
-      "scale": 1.187878787878788,
+      "scale": 1.1744329531158353,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.35784048754634,
+        "target": 133.13118336262283,
+        "registered": 132.92855223765886
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        97,
-        20
+        101,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -992,19 +1264,25 @@
         169
       ],
       "source_index": 19,
-      "scale": 1.2236024844720497,
+      "scale": 1.175127522387543,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.58546621439912,
+        "target": 135.8276625365359,
+        "registered": 136.0
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        94,
-        26
+        102,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -1014,19 +1292,25 @@
         166
       ],
       "source_index": 20,
-      "scale": 1.2120253164556962,
+      "scale": 1.1284065638417644,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.39064086831306,
+        "target": 130.2075565617122,
+        "registered": 130.011537949522
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        98,
-        25
+        102,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -1036,19 +1320,25 @@
         169
       ],
       "source_index": 21,
-      "scale": 1.1956521739130435,
+      "scale": 1.1380962755708766,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.7214016650773,
+        "target": 130.56399996329503,
+        "registered": 130.22288585344742
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        98,
-        17
+        104,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -1058,19 +1348,25 @@
         169
       ],
       "source_index": 22,
-      "scale": 1.2422360248447204,
+      "scale": 1.1670694033655138,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.83177456984762,
+        "target": 135.18372003800076,
+        "registered": 135.08515832614626
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        104,
-        16
+        114,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__02.png",
       "source_region": [
@@ -1080,19 +1376,25 @@
         168
       ],
       "source_index": 23,
-      "scale": 1.253125,
+      "scale": 1.1243431394761652,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.38630767989761,
+        "target": 129.73380342937884,
+        "registered": 129.94999038091538
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        122,
-        32
+        128,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1102,19 +1404,25 @@
         181
       ],
       "source_index": 0,
-      "scale": 1.0780346820809248,
+      "scale": 1.0073067654310714,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.64403628842203,
+        "target": 128.5767013202567,
+        "registered": 128.41339493993607
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        121,
-        35
+        119,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1124,19 +1432,25 @@
         181
       ],
       "source_index": 1,
-      "scale": 1.060693641618497,
+      "scale": 1.071584642301524,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.88977903109328,
+        "target": 126.32887669403982,
+        "registered": 126.57408897558773
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        117,
-        41
+        119,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1146,19 +1460,25 @@
         182
       ],
       "source_index": 2,
-      "scale": 1.0258620689655173,
+      "scale": 0.9919469752086745,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.82271089990152,
+        "target": 125.8014044649215,
+        "registered": 126.0674422680178
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        104,
-        28
+        116,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1168,107 +1488,157 @@
         174
       ],
       "source_index": 3,
-      "scale": 1.141566265060241,
+      "scale": 1.0154416859405961,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.494897852931,
+        "target": 124.38642559490138,
+        "registered": 124.69161960613071
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        123,
-        49
+        116,
+        56
       ],
-      "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
       "source_region": [
-        1068,
-        33,
-        166,
-        178
+        816,
+        87,
+        170,
+        152
       ],
-      "source_index": 4,
-      "scale": 1.0058823529411764,
+      "source_index": 3,
+      "scale": 1.126103566016397,
       "rgb_gain": [
-        0.872471,
-        0.85,
-        0.85
+        0.993352,
+        0.992128,
+        0.979125
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_03"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.59646834352883,
+        "target": 121.16476669241817,
+        "registered": 120.90492132250036
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        112,
-        66
+        102,
+        88
       ],
-      "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
       "source_region": [
-        1320,
-        53,
-        184,
-        160
+        1077,
+        111,
+        183,
+        125
       ],
-      "source_index": 5,
-      "scale": 1.0032894736842106,
+      "source_index": 4,
+      "scale": 1.1091018840521112,
       "rgb_gain": [
-        0.872471,
-        0.85,
-        0.85
+        0.979991,
+        0.979141,
+        0.965157
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_03"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.99528291391084,
+        "target": 117.55956798045506,
+        "registered": 117.73274820541648
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        118,
-        103
+        90,
+        108
       ],
-      "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
       "source_region": [
-        51,
-        305,
-        177,
-        153
+        1326,
+        126,
+        191,
+        110
       ],
-      "source_index": 6,
-      "scale": 0.803448275862069,
+      "source_index": 5,
+      "scale": 1.0785083225601586,
       "rgb_gain": [
-        0.872471,
-        0.85,
-        0.85
+        0.98289,
+        0.981069,
+        0.985909
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_03"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 101.1236866416568,
+        "target": 109.0627376509924,
+        "registered": 109.24284873619875
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        135,
-        128
+        77,
+        134
       ],
-      "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
       "source_region": [
-        318,
-        301,
-        163,
-        158
+        32,
+        393,
+        194,
+        82
       ],
-      "source_index": 7,
-      "scale": 0.6133333333333333,
+      "source_index": 6,
+      "scale": 1.1381708163844517,
       "rgb_gain": [
-        0.872471,
-        0.85,
-        0.85
+        0.958575,
+        0.968847,
+        0.966364
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_03"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 91.45490692138941,
+        "target": 104.09130607308182,
+        "registered": 103.91823709051265
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        100,
-        47
+        103,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1278,19 +1648,25 @@
         162
       ],
       "source_index": 8,
-      "scale": 1.1103896103896105,
+      "scale": 1.0916697489703382,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.76206305742359,
+        "target": 132.9239608120081,
+        "registered": 132.83824750424856
+      },
       "animation": "thorn_ring_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        113,
-        33
+        106,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1300,19 +1676,25 @@
         176
       ],
       "source_index": 9,
-      "scale": 1.1011904761904763,
+      "scale": 1.1922277524434506,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.89029809426262,
+        "target": 135.78317412203734,
+        "registered": 135.90437814875574
+      },
       "animation": "thorn_ring_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        99,
-        26
+        110,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1322,19 +1704,25 @@
         168
       ],
       "source_index": 10,
-      "scale": 1.196875,
+      "scale": 1.0600344839826592,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.85942247090212,
+        "target": 128.11515553338492,
+        "registered": 128.27704393226404
+      },
       "animation": "thorn_ring_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        84,
-        18
+        102,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1344,19 +1732,25 @@
         163
       ],
       "source_index": 11,
-      "scale": 1.2806451612903227,
+      "scale": 1.0921532984621034,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.73331507849443,
+        "target": 132.9514415957042,
+        "registered": 132.984961555809
+      },
       "animation": "thorn_ring_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        78,
-        10
+        94,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1366,19 +1760,25 @@
         164
       ],
       "source_index": 12,
-      "scale": 1.3205128205128205,
+      "scale": 1.150103013859414,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.67602959317438,
+        "target": 136.48965930797885,
+        "registered": 136.69308687713507
+      },
       "animation": "thorn_ring_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        79,
-        11
+        96,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1388,19 +1788,25 @@
         167
       ],
       "source_index": 13,
-      "scale": 1.2955974842767295,
+      "scale": 1.1252674867297454,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.37972567696688,
+        "target": 132.0835889055475,
+        "registered": 131.94316958448437
+      },
       "animation": "thorn_ring_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        86,
-        9
+        100,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1410,19 +1816,25 @@
         169
       ],
       "source_index": 14,
-      "scale": 1.2919254658385093,
+      "scale": 1.1427524071977233,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.68761716651858,
+        "target": 133.34505540720548,
+        "registered": 133.32666649999166
+      },
       "animation": "thorn_ring_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        88,
-        5
+        100,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1432,19 +1844,25 @@
         171
       ],
       "source_index": 15,
-      "scale": 1.3006134969325154,
+      "scale": 1.1621615948287338,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.5712549903249,
+        "target": 136.63679720557172,
+        "registered": 136.66747967237853
+      },
       "animation": "thorn_ring_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        91,
-        8
+        101,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1454,19 +1872,25 @@
         176
       ],
       "source_index": 16,
-      "scale": 1.244047619047619,
+      "scale": 1.1371886639032796,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.8075340035907,
+        "target": 132.83220352738022,
+        "registered": 132.9059818066892
+      },
       "animation": "thorn_ring_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        88,
-        9
+        100,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1476,19 +1900,25 @@
         176
       ],
       "source_index": 17,
-      "scale": 1.2380952380952381,
+      "scale": 1.119358092577321,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.1482120050913,
+        "target": 132.25015723143994,
+        "registered": 132.20816918783802
+      },
       "animation": "thorn_ring_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        92,
-        8
+        97,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1498,19 +1928,25 @@
         176
       ],
       "source_index": 18,
-      "scale": 1.244047619047619,
+      "scale": 1.1860181520557962,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.91522378386941,
+        "target": 139.84959581139046,
+        "registered": 140.0856880626997
+      },
       "animation": "thorn_ring_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        98,
-        14
+        96,
+        11
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1520,19 +1956,25 @@
         177
       ],
       "source_index": 19,
-      "scale": 1.2011834319526626,
+      "scale": 1.220119752467078,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.54220008291342,
+        "target": 140.9753205646659,
+        "registered": 140.78707327024026
+      },
       "animation": "thorn_ring_windup",
       "after": 11
     },
     {
       "margin_xy": [
         98,
-        14
+        11
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1542,19 +1984,25 @@
         176
       ],
       "source_index": 20,
-      "scale": 1.2113095238095237,
+      "scale": 1.225807760817365,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.32712495372694,
+        "target": 142.59469256184983,
+        "registered": 142.47455913249917
+      },
       "animation": "thorn_ring",
       "after": 0
     },
     {
       "margin_xy": [
-        92,
-        6
+        90,
+        4
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1564,19 +2012,25 @@
         174
       ],
       "source_index": 21,
-      "scale": 1.2710843373493976,
+      "scale": 1.2821890663181397,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.35291143757426,
+        "target": 149.18643087954055,
+        "registered": 149.21461054467824
+      },
       "animation": "thorn_ring",
       "after": 1
     },
     {
       "margin_xy": [
-        87,
-        5
+        89,
+        10
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1586,19 +2040,25 @@
         173
       ],
       "source_index": 22,
-      "scale": 1.2818181818181817,
+      "scale": 1.2545232773025052,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.2841347734075,
+        "target": 145.8811538542214,
+        "registered": 145.9212116177768
+      },
       "animation": "thorn_ring",
       "after": 2
     },
     {
       "margin_xy": [
-        92,
-        3
+        94,
+        10
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__03.png",
       "source_region": [
@@ -1608,19 +2068,25 @@
         173
       ],
       "source_index": 23,
-      "scale": 1.293939393939394,
+      "scale": 1.2547307896390079,
       "rgb_gain": [
         0.872471,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.53297409663384,
+        "target": 147.47224139689044,
+        "registered": 147.35671006099452
+      },
       "animation": "thorn_ring",
       "after": 3
     },
     {
       "margin_xy": [
-        98,
-        1
+        105,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1630,19 +2096,25 @@
         189
       ],
       "source_index": 0,
-      "scale": 1.1961325966850829,
+      "scale": 1.1162897993423007,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.64659966250537,
+        "target": 151.4209155187235,
+        "registered": 151.27127949482016
+      },
       "animation": "thorn_ring",
       "after": 4
     },
     {
       "margin_xy": [
-        96,
-        5
+        106,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1652,19 +2124,25 @@
         186
       ],
       "source_index": 1,
-      "scale": 1.1938202247191012,
+      "scale": 1.0894670543538405,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.62729734108285,
+        "target": 144.49307096110047,
+        "registered": 144.74114826130128
+      },
       "animation": "thorn_ring",
       "after": 5
     },
     {
       "margin_xy": [
-        94,
-        6
+        104,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1674,19 +2152,25 @@
         183
       ],
       "source_index": 2,
-      "scale": 1.2085714285714286,
+      "scale": 1.098082597741801,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.59407281484982,
+        "target": 144.501161323954,
+        "registered": 144.48529336925608
+      },
       "animation": "thorn_ring",
       "after": 6
     },
     {
       "margin_xy": [
-        95,
-        4
+        104,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1696,19 +2180,25 @@
         181
       ],
       "source_index": 3,
-      "scale": 1.2341040462427746,
+      "scale": 1.1243130629950038,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.2843045036508,
+        "target": 146.48034545667338,
+        "registered": 146.5708020036733
+      },
       "animation": "thorn_ring",
       "after": 7
     },
     {
       "margin_xy": [
-        95,
-        9
+        107,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1718,19 +2208,25 @@
         178
       ],
       "source_index": 4,
-      "scale": 1.2264705882352942,
+      "scale": 1.0964566779443603,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.1758762701504,
+        "target": 137.24992545394338,
+        "registered": 137.10579856446626
+      },
       "animation": "thorn_ring",
       "after": 8
     },
     {
       "margin_xy": [
-        101,
-        15
+        110,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1740,19 +2236,25 @@
         178
       ],
       "source_index": 5,
-      "scale": 1.1911764705882353,
+      "scale": 1.0869053710423908,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.67028980156523,
+        "target": 133.33099685264787,
+        "registered": 133.1277581873893
+      },
       "animation": "thorn_ring",
       "after": 9
     },
     {
       "margin_xy": [
-        102,
-        21
+        104,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1762,19 +2264,25 @@
         176
       ],
       "source_index": 6,
-      "scale": 1.1726190476190477,
+      "scale": 1.1537889830756562,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.64583156389784,
+        "target": 141.5074092785779,
+        "registered": 141.61920773680384
+      },
       "animation": "thorn_ring",
       "after": 10
     },
     {
       "margin_xy": [
-        102,
-        34
+        104,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1784,19 +2292,25 @@
         174
       ],
       "source_index": 7,
-      "scale": 1.1114457831325302,
+      "scale": 1.099109640882188,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.21806526801146,
+        "target": 138.72749238956865,
+        "registered": 138.58210562695314
+      },
       "animation": "thorn_ring",
       "after": 11
     },
     {
       "margin_xy": [
-        101,
-        38
+        105,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1806,19 +2320,25 @@
         171
       ],
       "source_index": 8,
-      "scale": 1.1042944785276074,
+      "scale": 1.062691322943198,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.10232098588916,
+        "target": 135.07053363764555,
+        "registered": 135.14806694880988
+      },
       "animation": "thorn_ring_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        96,
-        34
+        98,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1828,19 +2348,25 @@
         174
       ],
       "source_index": 9,
-      "scale": 1.1114457831325302,
+      "scale": 1.0834664171952695,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.30432572598633,
+        "target": 139.01342810498926,
+        "registered": 139.26234236145822
+      },
       "animation": "thorn_ring_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        95,
-        37
+        101,
+        47
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1850,19 +2376,25 @@
         176
       ],
       "source_index": 10,
-      "scale": 1.0803571428571428,
+      "scale": 1.021238931678862,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.10380470993152,
+        "target": 132.86707052932576,
+        "registered": 132.9473580030833
+      },
       "animation": "thorn_ring_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        97,
-        38
+        104,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1872,19 +2404,25 @@
         179
       ],
       "source_index": 11,
-      "scale": 1.0555555555555556,
+      "scale": 0.9873422960916676,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.79835574475496,
+        "target": 132.10477577431612,
+        "registered": 132.2800060477773
+      },
       "animation": "thorn_ring_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        90,
-        35
+        97,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1894,19 +2432,25 @@
         178
       ],
       "source_index": 12,
-      "scale": 1.076470588235294,
+      "scale": 1.0172442885874873,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.04103849194843,
+        "target": 136.35248084227007,
+        "registered": 136.2497706420088
+      },
       "animation": "thorn_ring_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        93,
-        39
+        100,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1916,19 +2460,25 @@
         179
       ],
       "source_index": 13,
-      "scale": 1.0497076023391814,
+      "scale": 0.9811684042060547,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.27749258468683,
+        "target": 132.73000152431356,
+        "registered": 132.64614581660487
+      },
       "animation": "thorn_ring_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        96,
-        40
+        102,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1938,19 +2488,25 @@
         178
       ],
       "source_index": 14,
-      "scale": 1.05,
+      "scale": 0.9988154344645871,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.82184947875675,
+        "target": 131.66569785904983,
+        "registered": 131.82184947875675
+      },
       "animation": "thorn_ring_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        97,
-        37
+        100,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1960,19 +2516,25 @@
         184
       ],
       "source_index": 15,
-      "scale": 1.03125,
+      "scale": 1.0098234358624538,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.1164903383499,
+        "target": 134.42415164342364,
+        "registered": 134.6439749858864
+      },
       "animation": "thorn_ring_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        94,
-        41
+        100,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -1982,19 +2544,25 @@
         183
       ],
       "source_index": 16,
-      "scale": 1.0171428571428571,
+      "scale": 0.9658596323820416,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.21464417732275,
+        "target": 130.59836651777752,
+        "registered": 130.4645545732633
+      },
       "animation": "thorn_ring_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        94,
-        38
+        100,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -2004,19 +2572,25 @@
         183
       ],
       "source_index": 17,
-      "scale": 1.0342857142857143,
+      "scale": 0.979071015062482,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.83813897429545,
+        "target": 132.99518460976194,
+        "registered": 132.9962405483704
+      },
       "animation": "thorn_ring_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        92,
-        26
+        102,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -2026,19 +2600,25 @@
         187
       ],
       "source_index": 18,
-      "scale": 1.0726256983240223,
+      "scale": 0.988638729652058,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.32183859229818,
+        "target": 133.78441060007052,
+        "registered": 133.86933928274988
+      },
       "animation": "thorn_ring_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        96,
-        21
+        110,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -2048,19 +2628,25 @@
         187
       ],
       "source_index": 19,
-      "scale": 1.1033519553072626,
+      "scale": 0.9535597661186472,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.664991614216,
+        "target": 126.50399837578411,
+        "registered": 126.46738710039043
+      },
       "animation": "thorn_ring_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        74,
-        6
+        93,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -2070,19 +2656,25 @@
         178
       ],
       "source_index": 20,
-      "scale": 1.2441176470588236,
+      "scale": 1.0637939078080139,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.51833846988617,
+        "target": 137.78081941368123,
+        "registered": 137.7497731395591
+      },
       "animation": "thorn_ring_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        81,
-        6
+        97,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/thorn_sentinel__04.png",
       "source_region": [
@@ -2092,12 +2684,18 @@
         178
       ],
       "source_index": 21,
-      "scale": 1.2441176470588236,
+      "scale": 1.085426848216456,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.93699224418388,
+        "target": 137.78081941368123,
+        "registered": 137.9202668210876
+      },
       "animation": "thorn_ring_charge",
       "after": 1
     }

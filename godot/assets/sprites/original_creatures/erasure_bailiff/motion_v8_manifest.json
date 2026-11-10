@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "erasure_bailiff",
   "canvas": [
     360,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            222,
-            214
+            210,
+            202
           ],
           "margin": [
-            74,
-            26,
-            138,
-            32
+            78,
+            38,
+            150,
+            44
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            228,
+            216,
             2,
-            217,
-            215
+            204,
+            203
           ],
           "margin": [
-            68,
-            25,
-            143,
-            31
+            74,
+            37,
+            156,
+            43
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            449,
+            424,
             2,
-            213,
-            216
+            202,
+            205
           ],
           "margin": [
-            59,
-            25,
-            147,
-            30
+            64,
+            35,
+            158,
+            41
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            666,
+            630,
             2,
-            216,
-            215
+            206,
+            204
           ],
           "margin": [
-            58,
-            25,
-            144,
-            31
+            64,
+            36,
+            154,
+            42
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            886,
+            840,
             2,
-            218,
-            202
+            212,
+            196
           ],
           "margin": [
-            77,
-            38,
-            142,
-            44
+            80,
+            44,
+            148,
+            50
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1108,
+            1056,
             2,
-            226,
-            200
+            221,
+            195
           ],
           "margin": [
-            64,
-            40,
-            134,
-            46
+            68,
+            45,
+            139,
+            51
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1338,
+            1281,
             2,
-            226,
-            203
+            215,
+            193
           ],
           "margin": [
-            60,
-            37,
-            134,
-            43
+            65,
+            47,
+            145,
+            53
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1568,
+            1500,
             2,
-            228,
-            202
+            218,
+            194
           ],
           "margin": [
-            64,
-            38,
-            132,
-            44
+            70,
+            46,
+            142,
+            52
           ]
         },
         {
@@ -284,7 +284,7 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1800,
+            1722,
             2,
             220,
             197
@@ -315,15 +315,15 @@
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
             2,
-            226,
-            217,
-            190
+            215,
+            219,
+            192
           ],
           "margin": [
-            72,
-            50,
-            143,
-            56
+            71,
+            48,
+            141,
+            54
           ]
         },
         {
@@ -344,8 +344,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            223,
-            226,
+            225,
+            215,
             223,
             190
           ],
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            450,
-            226,
-            221,
-            200
+            452,
+            215,
+            214,
+            194
           ],
           "margin": [
-            73,
-            40,
-            139,
-            46
+            76,
+            46,
+            146,
+            52
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            675,
-            226,
-            235,
-            216
+            670,
+            215,
+            224,
+            207
           ],
           "margin": [
-            74,
-            24,
-            125,
-            30
+            78,
+            33,
+            136,
+            39
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            914,
-            226,
-            238,
-            219
+            898,
+            215,
+            228,
+            209
           ],
           "margin": [
-            73,
-            21,
-            122,
-            27
+            78,
+            31,
+            132,
+            37
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1156,
-            226,
-            231,
-            214
+            1130,
+            215,
+            222,
+            206
           ],
           "margin": [
-            78,
-            26,
-            129,
-            32
+            82,
+            34,
+            138,
+            40
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1391,
-            226,
-            235,
-            216
+            1356,
+            215,
+            230,
+            212
           ],
           "margin": [
-            76,
-            24,
-            125,
-            30
+            78,
+            28,
+            130,
+            34
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1630,
-            226,
-            241,
-            224
+            1590,
+            215,
+            232,
+            216
           ],
           "margin": [
-            76,
-            16,
-            119,
-            22
+            80,
+            24,
+            128,
+            30
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            2,
-            458,
-            194,
-            223
+            1826,
+            215,
+            191,
+            220
           ],
           "margin": [
-            98,
-            17,
-            166,
-            23
+            100,
+            20,
+            169,
+            26
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            200,
-            458,
-            182,
-            226
+            2,
+            443,
+            183,
+            227
           ],
           "margin": [
-            100,
-            14,
-            178,
-            20
+            98,
+            13,
+            177,
+            19
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            386,
-            458,
             189,
-            230
+            443,
+            185,
+            226
           ],
           "margin": [
-            94,
-            10,
-            171,
-            16
+            96,
+            14,
+            175,
+            20
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            579,
-            458,
-            182,
-            227
+            378,
+            443,
+            173,
+            215
           ],
           "margin": [
-            89,
-            13,
-            178,
-            19
+            93,
+            25,
+            187,
+            31
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            765,
-            458,
-            182,
-            225
+            555,
+            443,
+            172,
+            213
           ],
           "margin": [
-            88,
-            15,
-            178,
-            21
+            92,
+            27,
+            188,
+            33
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            951,
-            458,
-            178,
-            225
+            731,
+            443,
+            176,
+            223
           ],
           "margin": [
             90,
-            15,
-            182,
-            21
+            17,
+            184,
+            23
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1133,
-            458,
-            183,
-            218
+            911,
+            443,
+            177,
+            211
           ],
           "margin": [
-            88,
-            22,
-            177,
-            28
+            91,
+            29,
+            183,
+            35
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1320,
-            458,
-            197,
-            212
+            1092,
+            443,
+            188,
+            203
           ],
           "margin": [
-            78,
-            28,
-            163,
-            34
+            82,
+            37,
+            172,
+            43
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1521,
-            458,
-            201,
-            209
+            1284,
+            443,
+            199,
+            207
           ],
           "margin": [
             78,
-            31,
-            159,
-            37
+            33,
+            161,
+            39
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1726,
-            458,
-            242,
-            198
+            1487,
+            443,
+            226,
+            185
           ],
           "margin": [
-            70,
-            42,
-            118,
-            48
+            78,
+            55,
+            134,
+            61
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            2,
-            696,
-            236,
-            192
+            1717,
+            443,
+            220,
+            179
           ],
           "margin": [
-            72,
-            48,
-            124,
-            54
+            79,
+            61,
+            140,
+            67
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            242,
-            696,
-            241,
-            192
+            2,
+            678,
+            235,
+            187
           ],
           "margin": [
-            66,
-            48,
-            119,
-            54
+            70,
+            53,
+            125,
+            59
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            487,
-            696,
-            268,
-            185
+            241,
+            678,
+            242,
+            167
           ],
           "margin": [
-            51,
-            55,
-            92,
-            61
+            63,
+            73,
+            118,
+            79
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            759,
-            696,
-            248,
-            177
+            487,
+            678,
+            230,
+            164
           ],
           "margin": [
-            60,
-            63,
-            112,
-            69
+            68,
+            76,
+            130,
+            82
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1011,
-            696,
-            237,
-            173
+            721,
+            678,
+            248,
+            181
           ],
           "margin": [
-            66,
-            67,
-            123,
-            73
+            60,
+            59,
+            112,
+            65
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1252,
-            696,
-            210,
-            161
+            973,
+            678,
+            230,
+            177
           ],
           "margin": [
-            76,
-            80,
-            150,
-            85
+            67,
+            63,
+            130,
+            69
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1466,
-            696,
-            217,
-            165
+            1207,
+            678,
+            235,
+            179
           ],
           "margin": [
-            73,
-            75,
-            143,
-            81
+            64,
+            61,
+            125,
+            67
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1687,
-            696,
-            262,
-            185
+            1446,
+            678,
+            245,
+            173
           ],
           "margin": [
-            62,
-            55,
-            98,
-            61
+            70,
+            67,
+            115,
+            73
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            2,
-            896,
-            242,
-            197
+            1695,
+            678,
+            216,
+            176
           ],
           "margin": [
-            70,
-            43,
-            118,
-            49
+            82,
+            64,
+            144,
+            70
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            248,
-            896,
-            248,
-            205
+            2,
+            873,
+            225,
+            185
           ],
           "margin": [
-            68,
-            35,
-            112,
-            41
+            78,
+            55,
+            135,
+            61
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            500,
-            896,
-            293,
-            207
+            231,
+            873,
+            247,
+            174
           ],
           "margin": [
-            48,
-            33,
-            67,
-            39
+            68,
+            66,
+            113,
+            72
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            797,
-            896,
-            295,
-            202
+            482,
+            873,
+            237,
+            163
           ],
           "margin": [
-            48,
-            38,
-            65,
-            44
+            74,
+            77,
+            123,
+            83
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1096,
-            896,
-            278,
-            202
+            723,
+            873,
+            236,
+            171
           ],
           "margin": [
-            60,
-            38,
-            82,
-            44
+            78,
+            69,
+            124,
+            75
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1378,
-            896,
-            253,
-            205
+            963,
+            873,
+            231,
+            187
           ],
           "margin": [
-            65,
-            35,
-            107,
-            41
+            75,
+            53,
+            129,
+            59
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1635,
-            896,
-            242,
-            201
+            1198,
+            873,
+            228,
+            190
           ],
           "margin": [
-            72,
-            39,
-            118,
-            45
+            78,
+            50,
+            132,
+            56
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            2,
-            1111,
-            239,
-            199
+            1430,
+            873,
+            224,
+            187
           ],
           "margin": [
-            71,
-            41,
-            121,
-            47
+            78,
+            53,
+            136,
+            59
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            245,
-            1111,
-            252,
-            197
+            1658,
+            873,
+            237,
+            186
           ],
           "margin": [
-            58,
-            43,
-            108,
-            49
+            64,
+            54,
+            123,
+            60
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            501,
-            1111,
-            244,
-            188
+            2,
+            1071,
+            228,
+            177
           ],
           "margin": [
-            62,
-            52,
-            116,
-            58
+            70,
+            63,
+            132,
+            69
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            749,
-            1111,
-            238,
-            191
+            234,
+            1071,
+            234,
+            187
           ],
           "margin": [
-            58,
-            49,
-            122,
-            55
+            60,
+            53,
+            126,
+            59
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            991,
-            1111,
-            252,
-            204
+            472,
+            1071,
+            237,
+            193
           ],
           "margin": [
-            56,
-            36,
-            108,
-            42
+            62,
+            47,
+            123,
+            53
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1247,
-            1111,
-            231,
-            211
+            713,
+            1071,
+            212,
+            194
           ],
           "margin": [
-            64,
-            29,
-            129,
-            35
+            72,
+            46,
+            148,
+            52
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1482,
-            1111,
-            182,
-            175
+            929,
+            1071,
+            184,
+            177
           ],
           "margin": [
-            86,
-            66,
-            178,
-            71
+            85,
+            64,
+            176,
+            69
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1668,
-            1111,
-            206,
-            168
+            1117,
+            1071,
+            200,
+            162
           ],
           "margin": [
-            74,
-            73,
-            154,
-            78
+            76,
+            77,
+            160,
+            84
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            2,
-            1330,
-            178,
-            146
+            1321,
+            1071,
+            193,
+            159
           ],
           "margin": [
-            86,
-            93,
-            182,
-            100
+            80,
+            82,
+            167,
+            87
           ]
         },
         {
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            184,
-            1330,
-            366,
-            176
+            1518,
+            1071,
+            276,
+            133
           ],
           "margin": [
-            -12,
-            65,
-            -6,
-            70
+            32,
+            107,
+            84,
+            113
           ]
         }
       ]
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            554,
-            1330,
-            168,
-            121
+            1798,
+            1071,
+            197,
+            133
           ],
           "margin": [
-            108,
-            118,
-            192,
-            125
+            92,
+            107,
+            163,
+            113
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            726,
-            1330,
-            265,
-            115
+            2,
+            1273,
+            257,
+            109
           ],
           "margin": [
             54,
-            125,
-            95,
-            131
+            131,
+            103,
+            137
           ]
         },
         {
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            995,
-            1330,
-            154,
-            123
+            263,
+            1273,
+            275,
+            114
           ],
           "margin": [
+            47,
             126,
-            116,
-            206,
-            123
+            85,
+            132
           ]
         }
       ]
@@ -1736,16 +1736,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1153,
-            1330,
-            274,
-            219
+            542,
+            1273,
+            221,
+            177
           ],
           "margin": [
-            58,
-            21,
-            86,
-            27
+            80,
+            63,
+            139,
+            69
           ]
         },
         {
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1431,
-            1330,
-            422,
-            223
+            767,
+            1273,
+            266,
+            141
           ],
           "margin": [
-            -29,
-            18,
-            -62,
-            23
+            46,
+            99,
+            94,
+            105
           ]
         }
       ]
@@ -1803,16 +1803,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            2,
-            1561,
-            209,
-            196
+            1037,
+            1273,
+            231,
+            216
           ],
           "margin": [
-            77,
-            44,
-            151,
-            50
+            68,
+            24,
+            129,
+            30
           ]
         },
         {
@@ -1833,16 +1833,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            215,
-            1561,
-            415,
-            208
+            1272,
+            1273,
+            292,
+            146
           ],
           "margin": [
-            -47,
-            33,
-            -55,
-            38
+            16,
+            94,
+            68,
+            100
           ]
         },
         {
@@ -1863,16 +1863,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            634,
-            1561,
-            365,
-            206
+            1568,
+            1273,
+            276,
+            156
           ],
           "margin": [
-            -22,
-            35,
-            -5,
-            40
+            23,
+            84,
+            84,
+            90
           ]
         },
         {
@@ -1893,16 +1893,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1003,
-            1561,
-            394,
-            209
+            2,
+            1497,
+            285,
+            151
           ],
           "margin": [
-            -40,
-            32,
-            -34,
-            37
+            16,
+            89,
+            75,
+            95
           ]
         },
         {
@@ -1923,16 +1923,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1401,
-            1561,
-            198,
-            210
+            291,
+            1497,
+            214,
+            228
           ],
           "margin": [
-            66,
-            30,
-            162,
-            36
+            58,
+            12,
+            146,
+            18
           ]
         },
         {
@@ -1953,16 +1953,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1603,
-            1561,
-            191,
-            208
+            509,
+            1497,
+            208,
+            226
           ],
           "margin": [
-            72,
-            32,
-            169,
-            38
+            64,
+            14,
+            152,
+            20
           ]
         },
         {
@@ -1983,16 +1983,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1798,
-            1561,
-            241,
-            209
+            721,
+            1497,
+            230,
+            199
           ],
           "margin": [
-            28,
-            31,
-            119,
-            37
+            34,
+            41,
+            130,
+            47
           ]
         },
         {
@@ -2013,16 +2013,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            2,
-            1779,
-            246,
-            214
+            955,
+            1497,
+            234,
+            203
           ],
           "margin": [
-            28,
-            26,
-            114,
-            32
+            34,
+            37,
+            126,
+            43
           ]
         },
         {
@@ -2043,16 +2043,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            252,
-            1779,
-            242,
-            211
+            1193,
+            1497,
+            218,
+            190
           ],
           "margin": [
-            30,
-            29,
-            118,
-            35
+            44,
+            50,
+            142,
+            56
           ]
         },
         {
@@ -2073,16 +2073,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            498,
-            1779,
-            255,
-            208
+            1415,
+            1497,
+            221,
+            180
           ],
           "margin": [
-            22,
-            32,
-            105,
-            38
+            40,
+            60,
+            139,
+            66
           ]
         },
         {
@@ -2103,16 +2103,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            757,
-            1779,
-            237,
-            204
+            1640,
+            1497,
+            225,
+            194
           ],
           "margin": [
-            29,
-            36,
-            123,
-            42
+            35,
+            46,
+            135,
+            52
           ]
         },
         {
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            998,
-            1779,
-            231,
-            193
+            2,
+            1733,
+            228,
+            191
           ],
           "margin": [
             34,
-            47,
-            129,
-            53
+            49,
+            132,
+            55
           ]
         }
       ]
@@ -2170,16 +2170,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1233,
-            1779,
-            229,
-            190
+            234,
+            1733,
+            225,
+            187
           ],
           "margin": [
-            37,
-            50,
-            131,
-            56
+            39,
+            53,
+            135,
+            59
           ]
         },
         {
@@ -2200,8 +2200,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1466,
-            1779,
+            463,
+            1733,
             227,
             194
           ],
@@ -2230,16 +2230,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            1697,
-            1779,
-            206,
-            191
+            694,
+            1733,
+            212,
+            196
           ],
           "margin": [
-            47,
-            49,
-            154,
-            55
+            44,
+            44,
+            148,
+            50
           ]
         },
         {
@@ -2258,10 +2258,10 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            2,
-            2,
+            910,
+            1733,
             241,
             189
           ],
@@ -2288,18 +2288,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            247,
-            2,
-            239,
-            190
+            1155,
+            1733,
+            242,
+            192
           ],
           "margin": [
-            25,
-            50,
-            121,
-            56
+            23,
+            48,
+            118,
+            54
           ]
         },
         {
@@ -2318,18 +2318,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            490,
-            2,
-            215,
-            184
+            1401,
+            1733,
+            213,
+            182
           ],
           "margin": [
-            56,
-            56,
-            145,
-            62
+            57,
+            58,
+            147,
+            64
           ]
         },
         {
@@ -2348,18 +2348,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
           "region": [
-            709,
-            2,
-            221,
-            183
+            1618,
+            1733,
+            217,
+            180
           ],
           "margin": [
-            56,
-            57,
-            139,
-            63
+            58,
+            60,
+            143,
+            66
           ]
         },
         {
@@ -2380,16 +2380,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            934,
             2,
-            229,
-            186
+            2,
+            224,
+            182
           ],
           "margin": [
-            50,
-            54,
-            131,
-            60
+            52,
+            58,
+            136,
+            64
           ]
         },
         {
@@ -2410,16 +2410,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1167,
+            230,
             2,
-            248,
-            182
+            240,
+            177
           ],
           "margin": [
-            48,
-            58,
-            112,
-            64
+            52,
+            63,
+            120,
+            69
           ]
         },
         {
@@ -2440,16 +2440,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1419,
+            474,
             2,
-            226,
-            179
+            233,
+            184
           ],
           "margin": [
-            31,
-            61,
-            134,
-            67
+            27,
+            56,
+            127,
+            62
           ]
         },
         {
@@ -2470,16 +2470,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1649,
+            711,
             2,
-            206,
-            178
+            221,
+            191
           ],
           "margin": [
-            60,
-            62,
-            154,
-            68
+            54,
+            49,
+            139,
+            55
           ]
         },
         {
@@ -2500,16 +2500,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
+            936,
             2,
-            200,
-            202,
-            169
+            229,
+            191
           ],
           "margin": [
-            64,
-            71,
-            158,
-            77
+            52,
+            49,
+            131,
+            55
           ]
         }
       ]
@@ -2537,16 +2537,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            208,
-            200,
-            210,
-            170
+            1169,
+            2,
+            231,
+            187
           ],
           "margin": [
-            60,
-            70,
-            150,
-            76
+            50,
+            53,
+            129,
+            59
           ]
         },
         {
@@ -2567,16 +2567,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            422,
-            200,
-            244,
-            181
+            1404,
+            2,
+            247,
+            183
           ],
           "margin": [
-            55,
-            59,
-            116,
-            65
+            53,
+            57,
+            113,
+            63
           ]
         },
         {
@@ -2597,16 +2597,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            670,
-            200,
-            241,
-            184
+            1655,
+            2,
+            238,
+            181
           ],
           "margin": [
-            51,
-            56,
-            119,
-            62
+            52,
+            59,
+            122,
+            65
           ]
         },
         {
@@ -2627,16 +2627,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            915,
-            200,
-            268,
-            196
+            2,
+            201,
+            253,
+            185
           ],
           "margin": [
-            40,
-            44,
-            92,
-            50
+            48,
+            55,
+            107,
+            61
           ]
         },
         {
@@ -2657,16 +2657,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1187,
-            200,
-            302,
-            216
+            259,
+            201,
+            249,
+            178
           ],
           "margin": [
-            24,
-            24,
-            58,
-            30
+            50,
+            62,
+            111,
+            68
           ]
         },
         {
@@ -2687,16 +2687,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1493,
-            200,
-            332,
-            228
+            512,
+            201,
+            242,
+            166
           ],
           "margin": [
-            11,
-            12,
-            28,
-            18
+            52,
+            74,
+            118,
+            80
           ]
         },
         {
@@ -2717,16 +2717,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            2,
-            436,
-            313,
-            228
+            758,
+            201,
+            232,
+            169
           ],
           "margin": [
-            24,
-            14,
-            47,
-            18
+            60,
+            71,
+            128,
+            77
           ]
         },
         {
@@ -2747,16 +2747,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            319,
-            436,
-            276,
-            215
+            994,
+            201,
+            235,
+            183
           ],
           "margin": [
-            38,
-            25,
-            84,
-            31
+            56,
+            57,
+            125,
+            63
           ]
         },
         {
@@ -2777,16 +2777,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            599,
-            436,
-            250,
-            195
+            1233,
+            201,
+            241,
+            188
           ],
           "margin": [
-            48,
-            45,
-            110,
-            51
+            52,
+            52,
+            119,
+            58
           ]
         },
         {
@@ -2807,16 +2807,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            853,
-            436,
-            231,
-            191
+            1478,
+            201,
+            227,
+            188
           ],
           "margin": [
-            56,
-            49,
-            129,
-            55
+            58,
+            52,
+            133,
+            58
           ]
         },
         {
@@ -2837,16 +2837,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1088,
-            436,
-            209,
-            204
+            1709,
+            201,
+            213,
+            208
           ],
           "margin": [
-            65,
-            36,
-            151,
-            42
+            63,
+            32,
+            147,
+            38
           ]
         },
         {
@@ -2867,16 +2867,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1301,
-            436,
-            197,
-            211
+            2,
+            417,
+            204,
+            219
           ],
           "margin": [
-            68,
-            29,
-            163,
-            35
+            64,
+            21,
+            156,
+            27
           ]
         }
       ]
@@ -2904,16 +2904,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1502,
-            436,
-            179,
-            184
+            210,
+            417,
+            205,
+            211
           ],
           "margin": [
-            78,
-            56,
-            181,
-            62
+            66,
+            29,
+            155,
+            35
           ]
         },
         {
@@ -2934,16 +2934,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1685,
-            436,
-            188,
-            184
+            419,
+            417,
+            207,
+            203
           ],
           "margin": [
-            74,
-            56,
-            172,
-            62
+            65,
+            37,
+            153,
+            43
           ]
         }
       ]
@@ -2971,16 +2971,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            2,
-            672,
-            240,
-            192
+            630,
+            417,
+            228,
+            183
           ],
           "margin": [
+            63,
             57,
-            48,
-            120,
-            54
+            132,
+            63
           ]
         },
         {
@@ -3001,16 +3001,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            246,
-            672,
-            233,
-            196
+            862,
+            417,
+            226,
+            190
           ],
           "margin": [
-            51,
-            44,
-            127,
-            50
+            55,
+            50,
+            134,
+            56
           ]
         },
         {
@@ -3031,16 +3031,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            483,
-            672,
-            213,
-            193
+            1092,
+            417,
+            207,
+            188
           ],
           "margin": [
-            61,
-            47,
-            147,
-            53
+            64,
+            52,
+            153,
+            58
           ]
         },
         {
@@ -3061,16 +3061,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            700,
-            672,
-            218,
-            200
+            1303,
+            417,
+            212,
+            194
           ],
           "margin": [
-            60,
-            40,
-            142,
-            46
+            62,
+            46,
+            148,
+            52
           ]
         },
         {
@@ -3091,16 +3091,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            922,
-            672,
-            234,
-            214
+            1519,
+            417,
+            212,
+            194
           ],
           "margin": [
-            54,
-            26,
-            126,
-            32
+            64,
+            46,
+            148,
+            52
           ]
         },
         {
@@ -3121,16 +3121,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1160,
-            672,
-            224,
-            222
+            1735,
+            417,
+            203,
+            201
           ],
           "margin": [
-            56,
-            18,
-            136,
-            24
+            66,
+            39,
+            157,
+            45
           ]
         },
         {
@@ -3151,16 +3151,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1388,
-            672,
-            235,
-            231
+            2,
+            644,
+            215,
+            211
           ],
           "margin": [
-            55,
-            9,
-            125,
-            15
+            64,
+            29,
+            145,
+            35
           ]
         },
         {
@@ -3181,16 +3181,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1627,
-            672,
-            246,
-            239
+            221,
+            644,
+            213,
+            207
           ],
           "margin": [
-            48,
-            3,
-            114,
-            7
+            64,
+            33,
+            147,
+            39
           ]
         },
         {
@@ -3211,16 +3211,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            2,
-            919,
-            258,
-            240
+            438,
+            644,
+            218,
+            202
           ],
           "margin": [
-            46,
-            2,
-            102,
-            6
+            64,
+            38,
+            142,
+            44
           ]
         },
         {
@@ -3241,16 +3241,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            264,
-            919,
-            244,
-            231
+            660,
+            644,
+            208,
+            198
           ],
           "margin": [
-            48,
-            9,
-            116,
-            15
+            65,
+            42,
+            152,
+            48
           ]
         },
         {
@@ -3271,15 +3271,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            512,
-            919,
-            212,
+            872,
+            644,
+            213,
             215
           ],
           "margin": [
-            64,
+            63,
             25,
-            148,
+            147,
             31
           ]
         },
@@ -3301,16 +3301,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            728,
-            919,
-            206,
-            192
+            1089,
+            644,
+            225,
+            210
           ],
           "margin": [
-            67,
-            48,
-            154,
-            54
+            58,
+            30,
+            135,
+            36
           ]
         }
       ]
@@ -3338,16 +3338,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            938,
-            919,
-            184,
-            182
+            1318,
+            644,
+            199,
+            196
           ],
           "margin": [
-            72,
-            58,
-            176,
-            64
+            65,
+            44,
+            161,
+            50
           ]
         },
         {
@@ -3368,16 +3368,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1126,
-            919,
-            183,
-            185
+            1521,
+            644,
+            198,
+            201
           ],
           "margin": [
-            70,
-            55,
-            177,
-            61
+            63,
+            39,
+            162,
+            45
           ]
         },
         {
@@ -3398,16 +3398,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1313,
-            919,
-            150,
-            180
+            1723,
+            644,
+            189,
+            227
           ],
           "margin": [
-            90,
-            61,
-            210,
-            66
+            70,
+            13,
+            171,
+            19
           ]
         },
         {
@@ -3428,16 +3428,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1467,
-            919,
-            148,
-            178
+            2,
+            879,
+            185,
+            221
           ],
           "margin": [
-            94,
-            62,
-            212,
-            68
+            76,
+            19,
+            175,
+            25
           ]
         },
         {
@@ -3458,16 +3458,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1619,
-            919,
-            157,
-            178
+            191,
+            879,
+            197,
+            222
           ],
           "margin": [
-            85,
-            62,
-            203,
-            68
+            65,
+            18,
+            163,
+            24
           ]
         },
         {
@@ -3488,16 +3488,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1780,
-            919,
-            214,
-            169
+            392,
+            879,
+            248,
+            195
           ],
           "margin": [
-            66,
-            72,
-            146,
-            77
+            50,
+            45,
+            112,
+            51
           ]
         },
         {
@@ -3518,16 +3518,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            2,
-            1167,
-            223,
-            166
+            644,
+            879,
+            253,
+            188
           ],
           "margin": [
-            63,
-            75,
-            137,
-            80
+            50,
+            52,
+            107,
+            58
           ]
         },
         {
@@ -3548,16 +3548,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            229,
-            1167,
-            251,
-            170
+            901,
+            879,
+            261,
+            176
           ],
           "margin": [
-            53,
-            70,
-            109,
-            76
+            48,
+            64,
+            99,
+            70
           ]
         },
         {
@@ -3578,16 +3578,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            484,
-            1167,
-            234,
-            165
+            1166,
+            879,
+            242,
+            170
           ],
           "margin": [
-            56,
-            75,
-            126,
-            81
+            52,
+            70,
+            118,
+            76
           ]
         },
         {
@@ -3608,16 +3608,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            722,
-            1167,
-            242,
-            171
+            1412,
+            879,
+            249,
+            176
           ],
           "margin": [
-            50,
-            69,
-            118,
-            75
+            46,
+            64,
+            111,
+            70
           ]
         },
         {
@@ -3638,16 +3638,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            968,
-            1167,
-            246,
-            187
+            1665,
+            879,
+            239,
+            182
           ],
           "margin": [
-            50,
             53,
-            114,
-            59
+            58,
+            121,
+            64
           ]
         },
         {
@@ -3668,16 +3668,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1218,
-            1167,
-            246,
-            195
+            2,
+            1109,
+            229,
+            181
           ],
           "margin": [
-            50,
-            45,
-            114,
-            51
+            58,
+            59,
+            131,
+            65
           ]
         }
       ]
@@ -3705,16 +3705,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1468,
-            1167,
-            238,
-            201
+            235,
+            1109,
+            225,
+            190
           ],
           "margin": [
-            59,
-            39,
-            122,
-            45
+            65,
+            50,
+            135,
+            56
           ]
         },
         {
@@ -3735,16 +3735,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1710,
-            1167,
-            233,
-            203
+            464,
+            1109,
+            228,
+            199
           ],
           "margin": [
-            63,
-            37,
-            127,
-            43
+            65,
+            41,
+            132,
+            47
           ]
         },
         {
@@ -3765,16 +3765,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            2,
-            1378,
-            226,
-            199
+            696,
+            1109,
+            222,
+            195
           ],
           "margin": [
             62,
-            41,
-            134,
-            47
+            45,
+            138,
+            51
           ]
         },
         {
@@ -3795,16 +3795,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            232,
-            1378,
-            245,
-            197
+            922,
+            1109,
+            228,
+            184
           ],
           "margin": [
-            53,
-            43,
-            115,
-            49
+            61,
+            56,
+            132,
+            62
           ]
         },
         {
@@ -3825,16 +3825,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            481,
-            1378,
-            247,
-            198
+            1154,
+            1109,
+            234,
+            188
           ],
           "margin": [
-            48,
-            42,
-            113,
-            48
+            54,
+            52,
+            126,
+            58
           ]
         },
         {
@@ -3855,16 +3855,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            732,
-            1378,
-            244,
-            192
+            1392,
+            1109,
+            228,
+            179
           ],
           "margin": [
-            48,
-            48,
-            116,
-            54
+            56,
+            61,
+            132,
+            67
           ]
         },
         {
@@ -3885,16 +3885,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            980,
-            1378,
-            247,
-            191
+            1624,
+            1109,
+            228,
+            176
           ],
           "margin": [
-            47,
-            49,
-            113,
-            55
+            56,
+            64,
+            132,
+            70
           ]
         },
         {
@@ -3915,16 +3915,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1231,
-            1378,
-            254,
-            196
+            2,
+            1316,
+            235,
+            181
           ],
           "margin": [
-            44,
-            44,
-            106,
-            50
+            54,
+            59,
+            125,
+            65
           ]
         },
         {
@@ -3945,16 +3945,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1489,
-            1378,
-            250,
-            196
+            241,
+            1316,
+            228,
+            178
           ],
           "margin": [
-            47,
-            44,
-            110,
-            50
+            58,
+            62,
+            132,
+            68
           ]
         },
         {
@@ -3975,16 +3975,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            1743,
-            1378,
-            243,
-            200
+            473,
+            1316,
+            228,
+            188
           ],
           "margin": [
+            60,
             52,
-            40,
-            117,
-            46
+            132,
+            58
           ]
         },
         {
@@ -4005,16 +4005,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            2,
-            1586,
-            248,
-            210
+            705,
+            1316,
+            235,
+            199
           ],
           "margin": [
-            50,
-            30,
-            112,
-            36
+            56,
+            41,
+            125,
+            47
           ]
         },
         {
@@ -4035,16 +4035,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            254,
-            1586,
-            232,
-            213
+            944,
+            1316,
+            212,
+            195
           ],
           "margin": [
-            62,
-            27,
-            128,
-            33
+            71,
+            45,
+            148,
+            51
           ]
         }
       ]
@@ -4072,16 +4072,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            490,
-            1586,
-            223,
-            222
+            1160,
+            1316,
+            218,
+            217
           ],
           "margin": [
-            64,
-            18,
-            137,
-            24
+            66,
+            23,
+            142,
+            29
           ]
         },
         {
@@ -4102,16 +4102,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
           "region": [
-            717,
-            1586,
-            223,
-            221
+            1382,
+            1316,
+            215,
+            214
           ],
           "margin": [
-            65,
-            19,
-            137,
-            25
+            69,
+            26,
+            145,
+            32
           ]
         }
       ]

@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "kneeling_crossbowman",
   "canvas": [
     332,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            206,
-            209
+            197,
+            200
           ],
           "margin": [
-            62,
-            14,
-            126,
-            20
+            67,
+            23,
+            135,
+            29
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            212,
+            203,
             2,
-            199,
-            207
+            193,
+            201
           ],
           "margin": [
-            62,
-            16,
-            133,
-            22
+            66,
+            22,
+            139,
+            28
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            415,
+            400,
             2,
-            198,
-            205
+            191,
+            198
           ],
           "margin": [
-            64,
-            18,
-            134,
-            24
+            68,
+            25,
+            141,
+            31
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            617,
+            595,
             2,
-            207,
-            207
+            194,
+            194
           ],
           "margin": [
-            60,
-            16,
-            125,
-            22
+            66,
+            29,
+            138,
+            35
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            828,
+            793,
             2,
-            221,
-            207
+            205,
+            192
           ],
           "margin": [
-            54,
-            16,
-            111,
-            22
+            64,
+            31,
+            127,
+            37
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1053,
+            1002,
             2,
-            219,
-            205
+            202,
+            189
           ],
           "margin": [
-            59,
-            18,
-            113,
-            24
+            68,
+            34,
+            130,
+            40
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1276,
+            1208,
             2,
-            239,
-            203
+            213,
+            181
           ],
           "margin": [
-            45,
-            20,
-            93,
-            26
+            59,
+            42,
+            119,
+            48
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1519,
+            1425,
             2,
-            224,
-            206
+            200,
+            184
           ],
           "margin": [
-            58,
-            17,
-            108,
-            23
+            71,
+            39,
+            132,
+            45
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1747,
+            1629,
             2,
-            226,
-            211
+            196,
+            183
           ],
           "margin": [
-            58,
-            12,
-            106,
-            18
+            74,
+            40,
+            136,
+            46
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
+            1829,
             2,
-            221,
-            232,
-            210
+            199,
+            179
           ],
           "margin": [
-            52,
-            13,
-            100,
-            19
+            68,
+            44,
+            133,
+            50
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            238,
-            221,
-            239,
-            210
+            2,
+            211,
+            198,
+            174
           ],
           "margin": [
-            52,
-            13,
-            93,
-            19
+            72,
+            49,
+            134,
+            55
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            481,
-            221,
-            239,
-            211
+            204,
+            211,
+            199,
+            175
           ],
           "margin": [
-            50,
-            12,
-            93,
-            18
+            72,
+            48,
+            133,
+            54
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            724,
-            221,
-            240,
-            209
+            407,
+            211,
+            209,
+            182
           ],
           "margin": [
-            60,
-            14,
-            92,
-            20
+            76,
+            41,
+            123,
+            47
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            968,
-            221,
-            250,
-            216
+            620,
+            211,
+            220,
+            190
           ],
           "margin": [
-            56,
-            7,
-            82,
-            13
+            71,
+            33,
+            112,
+            39
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1222,
-            221,
-            234,
-            216
+            844,
+            211,
+            205,
+            189
           ],
           "margin": [
-            64,
-            7,
-            98,
-            13
+            79,
+            34,
+            127,
+            40
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1460,
-            221,
-            238,
-            217
+            1053,
+            211,
+            210,
+            192
           ],
           "margin": [
-            57,
-            6,
-            94,
-            12
+            72,
+            31,
+            122,
+            37
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1702,
-            221,
-            241,
-            218
+            1267,
+            211,
+            222,
+            201
           ],
           "margin": [
-            50,
-            5,
-            91,
-            11
+            60,
+            22,
+            110,
+            28
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            2,
-            447,
-            236,
-            213
+            1493,
+            211,
+            218,
+            197
           ],
           "margin": [
-            48,
-            10,
-            96,
-            16
+            58,
+            26,
+            114,
+            32
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            242,
-            447,
-            233,
-            214
+            1715,
+            211,
+            215,
+            198
           ],
           "margin": [
-            52,
-            9,
-            99,
-            15
+            60,
+            25,
+            117,
+            31
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            479,
-            447,
-            253,
-            221
+            2,
+            420,
+            235,
+            206
           ],
           "margin": [
-            42,
-            2,
-            79,
-            8
+            50,
+            17,
+            97,
+            23
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            736,
-            447,
-            261,
-            220
+            241,
+            420,
+            227,
+            192
           ],
           "margin": [
-            34,
-            3,
-            71,
-            9
+            52,
+            31,
+            105,
+            37
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1001,
-            447,
-            244,
-            220
+            472,
+            420,
+            213,
+            193
           ],
           "margin": [
-            48,
-            3,
-            88,
-            9
+            64,
+            30,
+            119,
+            36
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1249,
-            447,
-            261,
-            222
+            689,
+            420,
+            244,
+            207
           ],
           "margin": [
-            44,
-            1,
-            71,
-            7
+            54,
+            16,
+            88,
+            22
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1514,
-            447,
-            261,
-            216
+            937,
+            420,
+            249,
+            206
           ],
           "margin": [
-            50,
-            7,
-            71,
-            13
+            56,
+            17,
+            83,
+            23
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1779,
-            447,
-            246,
-            213
+            1190,
+            420,
+            237,
+            205
           ],
           "margin": [
-            70,
-            10,
-            86,
-            16
+            75,
+            18,
+            95,
+            24
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            2,
-            677,
-            252,
-            215
+            1431,
+            420,
+            247,
+            211
           ],
           "margin": [
-            61,
-            8,
-            80,
-            14
+            63,
+            12,
+            85,
+            18
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            258,
-            677,
-            248,
-            211
+            1682,
+            420,
+            231,
+            196
           ],
           "margin": [
-            58,
-            12,
-            84,
-            18
+            66,
+            27,
+            101,
+            33
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            510,
-            677,
-            241,
-            209
+            2,
+            639,
+            225,
+            196
           ],
           "margin": [
-            58,
-            14,
-            91,
-            20
+            64,
+            27,
+            107,
+            33
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            755,
-            677,
-            239,
-            213
+            231,
+            639,
+            233,
+            208
           ],
           "margin": [
-            54,
-            10,
-            93,
-            16
+            58,
+            15,
+            99,
+            21
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            998,
-            677,
-            223,
-            210
+            468,
+            639,
+            202,
+            190
           ],
           "margin": [
-            56,
-            13,
-            109,
-            19
+            66,
+            33,
+            130,
+            39
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1225,
-            677,
-            217,
-            206
+            674,
+            639,
+            196,
+            185
           ],
           "margin": [
-            54,
-            17,
-            115,
-            23
+            66,
+            38,
+            136,
+            44
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1446,
-            677,
-            204,
-            201
+            874,
+            639,
+            198,
+            196
           ],
           "margin": [
-            60,
-            22,
-            128,
-            28
+            62,
+            27,
+            134,
+            33
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1654,
-            677,
-            195,
-            191
+            1076,
+            639,
+            189,
+            185
           ],
           "margin": [
-            58,
-            32,
-            137,
-            38
+            62,
+            38,
+            143,
+            44
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            2,
-            900,
-            203,
-            193
+            1269,
+            639,
+            192,
+            183
           ],
           "margin": [
-            56,
-            30,
-            129,
-            36
+            62,
+            40,
+            140,
+            46
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            209,
-            900,
-            217,
-            208
+            1465,
+            639,
+            198,
+            190
           ],
           "margin": [
-            57,
-            15,
-            115,
-            21
+            67,
+            33,
+            134,
+            39
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            430,
-            900,
-            214,
-            215
+            1667,
+            639,
+            183,
+            185
           ],
           "margin": [
-            66,
-            8,
-            118,
-            14
+            82,
+            38,
+            149,
+            44
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            648,
-            900,
-            220,
-            219
+            1854,
+            639,
+            188,
+            187
           ],
           "margin": [
-            64,
-            4,
-            112,
-            10
+            81,
+            36,
+            144,
+            42
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            872,
-            900,
-            226,
-            220
+            2,
+            855,
+            200,
+            195
           ],
           "margin": [
-            62,
-            3,
-            106,
-            9
+            76,
+            28,
+            132,
+            34
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1102,
-            900,
-            225,
-            213
+            206,
+            855,
+            196,
+            185
           ],
           "margin": [
-            64,
-            10,
-            107,
-            16
+            80,
+            38,
+            136,
+            44
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1331,
-            900,
-            229,
-            210
+            406,
+            855,
+            196,
+            179
           ],
           "margin": [
-            60,
-            13,
-            103,
-            19
+            78,
+            44,
+            136,
+            50
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1564,
-            900,
-            217,
-            210
+            606,
+            855,
+            206,
+            200
           ],
           "margin": [
-            62,
-            13,
-            115,
-            19
+            68,
+            23,
+            126,
+            29
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1785,
-            900,
-            208,
-            204
+            816,
+            855,
+            192,
+            188
           ],
           "margin": [
-            60,
-            19,
-            124,
-            25
+            70,
+            35,
+            140,
+            41
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            2,
-            1128,
-            216,
-            201
+            1012,
+            855,
+            193,
+            180
           ],
           "margin": [
-            54,
-            22,
-            116,
-            28
+            67,
+            43,
+            139,
+            49
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            222,
-            1128,
-            211,
-            203
+            1209,
+            855,
+            203,
+            195
           ],
           "margin": [
-            60,
-            20,
-            121,
-            26
+            64,
+            28,
+            129,
+            34
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            437,
-            1128,
-            213,
-            199
+            1416,
+            855,
+            196,
+            183
           ],
           "margin": [
-            62,
-            24,
-            119,
-            30
+            70,
+            40,
+            136,
+            46
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            654,
-            1128,
-            224,
-            202
+            1616,
+            855,
+            203,
+            183
           ],
           "margin": [
-            56,
-            21,
-            108,
-            27
+            68,
+            41,
+            129,
+            46
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            882,
-            1128,
-            228,
-            210
+            1823,
+            855,
+            212,
+            195
           ],
           "margin": [
-            55,
-            13,
-            104,
-            19
+            63,
+            28,
+            120,
+            34
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1114,
-            1128,
-            228,
-            210
+            2,
+            1063,
+            203,
+            188
           ],
           "margin": [
-            56,
-            13,
-            104,
-            19
+            68,
+            35,
+            129,
+            41
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1346,
-            1128,
-            189,
-            211
+            209,
+            1063,
+            176,
+            197
           ],
           "margin": [
-            77,
-            12,
-            143,
-            18
+            84,
+            26,
+            156,
+            32
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1539,
-            1128,
-            186,
-            206
+            389,
+            1063,
+            172,
+            191
           ],
           "margin": [
-            66,
-            17,
-            146,
-            23
+            74,
+            32,
+            160,
+            38
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1729,
-            1128,
-            167,
-            183
+            565,
+            1063,
+            170,
+            186
           ],
           "margin": [
-            82,
-            40,
-            165,
-            46
+            80,
+            37,
+            162,
+            43
           ]
         },
         {
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            2,
-            1347,
-            216,
-            188
+            739,
+            1063,
+            181,
+            158
           ],
           "margin": [
-            55,
-            35,
-            116,
-            41
+            75,
+            65,
+            151,
+            71
           ]
         }
       ]
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            222,
-            1347,
+            924,
+            1063,
             194,
-            179
+            164
           ],
           "margin": [
-            63,
-            44,
+            70,
+            59,
             138,
-            50
+            65
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            420,
-            1347,
-            168,
-            137
+            1122,
+            1063,
+            211,
+            127
           ],
           "margin": [
-            83,
-            85,
-            164,
-            92
+            58,
+            96,
+            121,
+            102
           ]
         },
         {
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            592,
-            1347,
-            90,
-            99
+            1337,
+            1063,
+            225,
+            92
           ],
           "margin": [
-            125,
-            122,
-            242,
-            130
+            58,
+            131,
+            107,
+            137
           ]
         },
         {
@@ -1729,16 +1729,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            686,
-            1347,
-            84,
-            87
+            1566,
+            1063,
+            228,
+            84
           ],
           "margin": [
-            134,
-            134,
-            248,
-            142
+            53,
+            139,
+            104,
+            145
           ]
         }
       ]
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            774,
-            1347,
-            217,
-            179
+            1798,
+            1063,
+            219,
+            180
           ],
           "margin": [
-            67,
-            44,
-            115,
-            50
+            66,
+            43,
+            113,
+            49
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            995,
-            1347,
-            185,
-            178
+            2,
+            1268,
+            204,
+            197
           ],
           "margin": [
-            85,
-            45,
-            147,
-            51
+            76,
+            26,
+            128,
+            32
           ]
         }
       ]
@@ -1833,16 +1833,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1184,
-            1347,
-            228,
-            196
+            210,
+            1268,
+            187,
+            161
           ],
           "margin": [
-            41,
-            27,
-            104,
-            33
+            63,
+            62,
+            145,
+            68
           ]
         },
         {
@@ -1863,16 +1863,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1416,
-            1347,
-            281,
-            200
+            401,
+            1268,
+            212,
+            151
           ],
           "margin": [
-            14,
-            24,
-            51,
-            29
+            50,
+            72,
+            120,
+            78
           ]
         },
         {
@@ -1893,16 +1893,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1701,
-            1347,
-            245,
-            196
+            617,
+            1268,
+            190,
+            151
           ],
           "margin": [
-            28,
-            27,
-            87,
-            33
+            58,
+            72,
+            142,
+            78
           ]
         },
         {
@@ -1923,16 +1923,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            2,
-            1555,
-            239,
-            195
+            811,
+            1268,
+            192,
+            156
           ],
           "margin": [
-            26,
-            30,
-            93,
-            34
+            53,
+            67,
+            140,
+            73
           ]
         },
         {
@@ -1953,16 +1953,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            245,
-            1555,
-            210,
-            196
+            1007,
+            1268,
+            202,
+            189
           ],
           "margin": [
-            41,
-            27,
-            122,
-            33
+            46,
+            34,
+            130,
+            40
           ]
         },
         {
@@ -1983,16 +1983,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            459,
-            1555,
-            204,
-            193
+            1213,
+            1268,
+            192,
+            181
           ],
           "margin": [
-            44,
-            30,
-            128,
-            36
+            52,
+            42,
+            140,
+            48
           ]
         },
         {
@@ -2013,16 +2013,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            667,
-            1555,
-            200,
-            188
+            1409,
+            1268,
+            189,
+            177
           ],
           "margin": [
-            53,
-            35,
-            132,
-            41
+            59,
+            47,
+            143,
+            52
           ]
         },
         {
@@ -2043,16 +2043,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            871,
-            1555,
-            203,
-            183
+            1602,
+            1268,
+            187,
+            169
           ],
           "margin": [
-            47,
-            40,
-            129,
-            46
+            56,
+            54,
+            145,
+            60
           ]
         },
         {
@@ -2073,16 +2073,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1078,
-            1555,
-            187,
-            170
+            1793,
+            1268,
+            186,
+            169
           ],
           "margin": [
-            60,
-            54,
-            145,
-            59
+            61,
+            55,
+            146,
+            60
           ]
         },
         {
@@ -2103,16 +2103,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1269,
-            1555,
-            218,
-            172
+            2,
+            1473,
+            214,
+            169
           ],
           "margin": [
+            56,
             54,
-            51,
-            114,
-            57
+            118,
+            60
           ]
         },
         {
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1491,
-            1555,
-            239,
-            187
+            220,
+            1473,
+            222,
+            175
           ],
           "margin": [
-            44,
-            36,
-            93,
-            42
+            54,
+            48,
+            110,
+            54
           ]
         },
         {
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1734,
-            1555,
-            246,
-            195
+            446,
+            1473,
+            223,
+            177
           ],
           "margin": [
-            44,
-            28,
-            86,
-            34
+            55,
+            46,
+            109,
+            52
           ]
         }
       ]
@@ -2200,16 +2200,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            2,
-            1759,
-            242,
-            200
+            673,
+            1473,
+            219,
+            180
           ],
           "margin": [
-            40,
-            23,
-            90,
-            29
+            52,
+            43,
+            113,
+            49
           ]
         },
         {
@@ -2230,16 +2230,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            248,
-            1759,
-            227,
-            200
+            896,
+            1473,
+            214,
+            189
           ],
           "margin": [
-            44,
-            23,
-            105,
-            29
+            50,
+            34,
+            118,
+            40
           ]
         },
         {
@@ -2260,16 +2260,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            479,
-            1759,
-            218,
-            193
+            1114,
+            1473,
+            206,
+            183
           ],
           "margin": [
-            62,
-            30,
-            114,
-            36
+            66,
+            40,
+            126,
+            46
           ]
         },
         {
@@ -2290,16 +2290,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            701,
-            1759,
-            218,
-            192
+            1324,
+            1473,
+            209,
+            184
           ],
           "margin": [
-            63,
-            31,
-            114,
-            37
+            67,
+            40,
+            123,
+            45
           ]
         },
         {
@@ -2320,16 +2320,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            923,
-            1759,
-            216,
-            196
+            1537,
+            1473,
+            204,
+            185
           ],
           "margin": [
-            64,
-            28,
-            116,
-            33
+            69,
+            40,
+            128,
+            44
           ]
         },
         {
@@ -2350,8 +2350,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1143,
-            1759,
+            1745,
+            1473,
             191,
             193
           ],
@@ -2380,16 +2380,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1338,
-            1759,
-            192,
-            189
+            2,
+            1674,
+            190,
+            187
           ],
           "margin": [
-            62,
-            34,
-            140,
-            40
+            64,
+            36,
+            142,
+            42
           ]
         },
         {
@@ -2410,16 +2410,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1534,
-            1759,
-            191,
-            185
+            196,
+            1674,
+            198,
+            192
           ],
           "margin": [
-            57,
-            39,
-            141,
-            44
+            54,
+            32,
+            134,
+            37
           ]
         },
         {
@@ -2440,16 +2440,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1729,
-            1759,
-            183,
-            174
+            398,
+            1674,
+            189,
+            180
           ],
           "margin": [
-            65,
-            48,
-            149,
-            55
+            62,
+            43,
+            143,
+            49
           ]
         },
         {
@@ -2468,18 +2468,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            180,
-            172
+            591,
+            1674,
+            189,
+            180
           ],
           "margin": [
-            70,
-            50,
-            152,
-            57
+            64,
+            43,
+            143,
+            49
           ]
         },
         {
@@ -2498,18 +2498,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            186,
-            2,
-            186,
-            180
+            784,
+            1674,
+            192,
+            186
           ],
           "margin": [
-            68,
-            43,
-            146,
-            49
+            66,
+            39,
+            140,
+            43
           ]
         },
         {
@@ -2528,18 +2528,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            376,
-            2,
-            185,
-            181
+            980,
+            1674,
+            183,
+            179
           ],
           "margin": [
-            66,
-            42,
-            147,
-            48
+            68,
+            44,
+            149,
+            50
           ]
         }
       ]
@@ -2565,18 +2565,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            565,
-            2,
-            199,
-            185
+            1167,
+            1674,
+            197,
+            184
           ],
           "margin": [
-            58,
-            40,
-            133,
-            44
+            59,
+            41,
+            135,
+            45
           ]
         },
         {
@@ -2595,18 +2595,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            768,
-            2,
-            214,
-            191
+            1368,
+            1674,
+            207,
+            185
           ],
           "margin": [
-            48,
-            33,
-            118,
-            38
+            52,
+            40,
+            125,
+            44
           ]
         },
         {
@@ -2625,18 +2625,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            986,
-            2,
-            219,
-            190
+            1579,
+            1674,
+            198,
+            173
           ],
           "margin": [
-            50,
-            33,
-            113,
-            39
+            60,
+            49,
+            134,
+            56
           ]
         },
         {
@@ -2655,18 +2655,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
           "region": [
-            1209,
-            2,
-            213,
-            193
+            1781,
+            1674,
+            199,
+            181
           ],
           "margin": [
-            52,
-            30,
-            119,
-            36
+            59,
+            41,
+            133,
+            48
           ]
         },
         {
@@ -2687,16 +2687,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            1426,
             2,
-            215,
-            199
+            2,
+            209,
+            194
           ],
           "margin": [
-            45,
-            24,
-            117,
-            30
+            48,
+            29,
+            123,
+            35
           ]
         },
         {
@@ -2717,16 +2717,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            1645,
-            2,
             215,
-            198
+            2,
+            200,
+            185
           ],
           "margin": [
-            44,
-            25,
-            117,
-            31
+            54,
+            40,
+            132,
+            44
           ]
         },
         {
@@ -2747,16 +2747,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
+            419,
             2,
-            209,
-            219,
-            200
+            203,
+            185
           ],
           "margin": [
-            43,
-            23,
-            113,
-            29
+            51,
+            40,
+            129,
+            44
           ]
         },
         {
@@ -2777,16 +2777,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            225,
-            209,
-            230,
-            204
+            626,
+            2,
+            212,
+            188
           ],
           "margin": [
-            34,
-            19,
-            102,
-            25
+            44,
+            36,
+            120,
+            41
           ]
         },
         {
@@ -2807,16 +2807,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            459,
-            209,
-            212,
-            199
+            842,
+            2,
+            192,
+            180
           ],
           "margin": [
-            47,
-            24,
-            120,
-            30
+            58,
+            42,
+            140,
+            49
           ]
         },
         {
@@ -2837,16 +2837,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            675,
-            209,
-            212,
-            202
+            1038,
+            2,
+            191,
+            182
           ],
           "margin": [
-            48,
-            21,
-            120,
-            27
+            58,
+            42,
+            141,
+            47
           ]
         },
         {
@@ -2867,16 +2867,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            891,
-            209,
-            215,
-            210
+            1233,
+            2,
+            193,
+            189
           ],
           "margin": [
-            50,
-            13,
-            117,
-            19
+            61,
+            34,
+            139,
+            40
           ]
         },
         {
@@ -2897,16 +2897,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            1110,
-            209,
-            228,
-            211
+            1430,
+            2,
+            199,
+            184
           ],
           "margin": [
-            62,
-            12,
-            104,
-            18
+            74,
+            39,
+            133,
+            45
           ]
         }
       ]
@@ -2934,16 +2934,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            1342,
-            209,
-            209,
-            165
+            1633,
+            2,
+            196,
+            155
           ],
           "margin": [
-            52,
-            57,
-            123,
-            64
+            60,
+            67,
+            136,
+            74
           ]
         },
         {
@@ -2964,16 +2964,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_01.png",
           "region": [
-            1555,
-            209,
-            216,
-            165
+            1833,
+            2,
+            199,
+            153
           ],
           "margin": [
-            50,
-            59,
-            116,
-            64
+            58,
+            69,
+            133,
+            76
           ]
         }
       ]

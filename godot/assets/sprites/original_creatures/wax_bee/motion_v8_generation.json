@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/wax_bee/combat_motion_v7_manifest.json",
   "baseline_sha256": "8f0145c5a7aaee8f1b6b193ab3fcaf1c41fefd27e64f9f30b37b35c3f63ac7ab",
+  "baseline_canvas": [
+    348,
+    241
+  ],
+  "symmetric_padding": [
+    0,
+    0
+  ],
   "new_drawings": 98,
   "old_frame_refs": 98,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "wax_bee__03",
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "sha256": "29505c95f0d5d75c11faaa10d3a1d896f611d91a3a3757f9b65c7961b52b4882",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_03",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
+      "sha256": "5259272e95a4072c698eeab525197c653cb3047aed3a25f1959bcdc01addda9d",
+      "used_drawings": 4
     },
     {
       "id": "wax_bee__04",
@@ -41,8 +55,8 @@
   "registrations": [
     {
       "margin_xy": [
-        102,
-        41
+        108,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -52,19 +66,25 @@
         181
       ],
       "source_index": 0,
-      "scale": 1.069364161849711,
+      "scale": 1.0012808387128813,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.584720195551874,
+        "target": 57.65847693444877,
+        "registered": 57.584720195551874
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        82,
-        67
+        88,
+        79
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -74,19 +94,25 @@
         162
       ],
       "source_index": 1,
-      "scale": 1.0357142857142858,
+      "scale": 0.9746378033087859,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.677082408722406,
+        "target": 57.18890270340581,
+        "registered": 57.148928248918196
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        80,
-        89
+        81,
+        91
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -96,19 +122,25 @@
         153
       ],
       "source_index": 2,
-      "scale": 0.9551724137931035,
+      "scale": 0.9413009282244443,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.924953066314536,
+        "target": 56.407413945128134,
+        "registered": 56.639209034025185
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        72,
-        81
+        87,
+        107
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -118,17 +150,17 @@
         133
       ],
       "source_index": 3,
-      "scale": 1.15456,
+      "scale": 0.9650175249916034,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
-      "registration_adjustment": {
-        "animation": "idle",
-        "after": 3,
-        "uniform_scale": 0.88,
-        "reason": "The lowered wings of the preceding pose make height-only registration enlarge this independently drawn loop midpoint. Uniformly reduce the complete sprite around the existing alpha-mass anchor and support baseline to preserve body scale and the production hurtbox fit."
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.93216439263028,
+        "target": 56.87057142457437,
+        "registered": 56.57738063926254
       },
       "animation": "idle",
       "after": 3
@@ -136,7 +168,7 @@
     {
       "margin_xy": [
         96,
-        60
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -146,19 +178,25 @@
         167
       ],
       "source_index": 4,
-      "scale": 1.050314465408805,
+      "scale": 1.0309407756394509,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.15767664977295,
+        "target": 58.92617949906585,
+        "registered": 59.09314681077663
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        88,
-        63
+        94,
+        79
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -168,19 +206,25 @@
         158
       ],
       "source_index": 5,
-      "scale": 1.0866666666666667,
+      "scale": 1.002224345058157,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.034472514187634,
+        "target": 58.163561206327316,
+        "registered": 58.034472514187634
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        78,
-        72
+        77,
+        70
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -190,19 +234,25 @@
         171
       ],
       "source_index": 6,
-      "scale": 0.9447852760736196,
+      "scale": 0.9589022379769063,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.91660871578097,
+        "target": 57.45417018954898,
+        "registered": 57.54997827975264
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        84,
-        91
+        86,
+        93
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -212,19 +262,25 @@
         147
       ],
       "source_index": 7,
-      "scale": 0.9964028776978417,
+      "scale": 0.9805018338763648,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.48949487094339,
+        "target": 58.329558817338594,
+        "registered": 58.34380858325929
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        68,
-        68
+        89,
+        101
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -234,19 +290,25 @@
         132
       ],
       "source_index": 8,
-      "scale": 1.2620967741935485,
+      "scale": 1.0156572525603431,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.71115737234278,
+        "target": 59.63041279143161,
+        "registered": 60.06662967072483
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        88,
-        48
+        92,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -256,19 +318,25 @@
         176
       ],
       "source_index": 9,
-      "scale": 1.0625,
+      "scale": 0.9971122699383232,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.787753826796276,
+        "target": 58.61799066281218,
+        "registered": 58.94913061275798
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        64,
-        59
+        76,
+        83
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -278,19 +346,25 @@
         158
       ],
       "source_index": 10,
-      "scale": 1.1133333333333333,
+      "scale": 0.96168882005324,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.85816569190874,
+        "target": 57.56492873480305,
+        "registered": 57.55866572463264
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        88,
-        63
+        91,
+        70
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -300,19 +374,25 @@
         171
       ],
       "source_index": 11,
-      "scale": 1.00920245398773,
+      "scale": 0.9634299114623679,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.654760736483,
+        "target": 58.43661076612092,
+        "registered": 58.66856057549052
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        106,
-        69
+        107,
+        75
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -322,19 +402,25 @@
         164
       ],
       "source_index": 12,
-      "scale": 1.0128205128205128,
+      "scale": 0.9818897879319317,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.799665550904216,
+        "target": 58.71668092617778,
+        "registered": 58.9406481131655
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        72,
-        65
+        92,
+        96
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -344,12 +430,18 @@
         131
       ],
       "source_index": 13,
-      "scale": 1.3008130081300813,
+      "scale": 1.0619533390661218,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.22370651203855,
+        "target": 61.83085954326523,
+        "registered": 62.161081071680215
+      },
       "animation": "windup",
       "after": 1
     },
@@ -366,12 +458,18 @@
         165
       ],
       "source_index": 14,
-      "scale": 0.9872611464968153,
+      "scale": 0.9861366402591414,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.382116557802114,
+        "target": 59.54501755404685,
+        "registered": 59.833101206606365
+      },
       "animation": "windup",
       "after": 2
     },
@@ -388,19 +486,25 @@
         168
       ],
       "source_index": 15,
-      "scale": 0.9625,
+      "scale": 0.9720493769909377,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.21627686929839,
+        "target": 58.53319441551532,
+        "registered": 58.872744118140105
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        98,
-        70
+        102,
+        79
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -410,19 +514,25 @@
         158
       ],
       "source_index": 16,
-      "scale": 1.0466666666666666,
+      "scale": 0.990929873163301,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.80802621722272,
+        "target": 59.265559833579886,
+        "registered": 59.61543424315552
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        104,
-        73
+        102,
+        72
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -432,19 +542,25 @@
         170
       ],
       "source_index": 17,
-      "scale": 0.9444444444444444,
+      "scale": 0.9524620877647785,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.15234568468101,
+        "target": 56.34036666701516,
+        "registered": 56.66568626602876
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        82,
-        73
+        86,
+        77
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -454,19 +570,25 @@
         165
       ],
       "source_index": 18,
-      "scale": 0.9936305732484076,
+      "scale": 0.9552012408420474,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.29096117993144,
+        "target": 57.590000930630225,
+        "registered": 58.23229344616267
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        68,
-        60
+        78,
+        80
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -476,19 +598,25 @@
         159
       ],
       "source_index": 19,
-      "scale": 1.1026490066225165,
+      "scale": 0.9816362285589916,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.806148561449774,
+        "target": 60.671154575618296,
+        "registered": 60.70420084310476
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        47,
-        55
+        71,
+        97
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -498,19 +626,25 @@
         143
       ],
       "source_index": 20,
-      "scale": 1.2592592592592593,
+      "scale": 0.973704322948528,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.94997914928745,
+        "target": 58.37355385833531,
+        "registered": 58.39520528262573
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        63,
-        55
+        77,
+        84
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -520,19 +654,25 @@
         155
       ],
       "source_index": 21,
-      "scale": 1.1598639455782314,
+      "scale": 0.9839647410171868,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.489668539346454,
+        "target": 59.519701038533505,
+        "registered": 60.0416522091123
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        77,
-        58
+        80,
+        65
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -542,19 +682,25 @@
         162
       ],
       "source_index": 22,
-      "scale": 1.094155844155844,
+      "scale": 1.0480845348394043,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 62.976185975335156,
+        "target": 66.00436658391897,
+        "registered": 65.88626564011653
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
         94,
-        68
+        69
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -564,12 +710,18 @@
         161
       ],
       "source_index": 23,
-      "scale": 1.0392156862745099,
+      "scale": 1.029521065889568,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.05735008989499,
+        "target": 62.8598281449412,
+        "registered": 63.095166217389426
+      },
       "animation": "windup",
       "after": 11
     },
@@ -586,19 +738,25 @@
         160
       ],
       "source_index": 0,
-      "scale": 1.0296052631578947,
+      "scale": 1.031695473336547,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.55575942881073,
+        "target": 62.47510288716096,
+        "registered": 62.44997998398398
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        90,
-        65
+        92,
+        70
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -608,19 +766,25 @@
         155
       ],
       "source_index": 1,
-      "scale": 1.098639455782313,
+      "scale": 1.0665696097838728,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 64.45928947793328,
+        "target": 68.750319225425,
+        "registered": 69.20260110718382
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        84,
-        67
+        96,
+        90
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -630,19 +794,25 @@
         152
       ],
       "source_index": 2,
-      "scale": 1.1041666666666667,
+      "scale": 0.9647650652680902,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 66.02272336097626,
+        "target": 63.696417012529324,
+        "registered": 63.93746945258312
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        88,
-        63
+        94,
+        76
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -652,19 +822,25 @@
         147
       ],
       "source_index": 3,
-      "scale": 1.169064748201439,
+      "scale": 1.0787231710057532,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.35726965329032,
+        "target": 65.10878531364665,
+        "registered": 65.55913361233506
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        75,
-        54
+        86,
+        76
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -674,19 +850,25 @@
         158
       ],
       "source_index": 4,
-      "scale": 1.1433333333333333,
+      "scale": 1.0112049350396097,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 66.783231428256,
+        "target": 67.53153319814483,
+        "registered": 67.68308503607086
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        80,
-        52
+        95,
+        82
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -696,19 +878,25 @@
         149
       ],
       "source_index": 5,
-      "scale": 1.2304964539007093,
+      "scale": 1.0238949505525459,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.0,
+        "target": 60.4098020826002,
+        "registered": 60.88513775955508
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        72,
-        51
+        90,
+        85
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -718,19 +906,25 @@
         160
       ],
       "source_index": 6,
-      "scale": 1.1480263157894737,
+      "scale": 0.9317916334530925,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 65.29931086925804,
+        "target": 60.84535153822722,
+        "registered": 60.88513775955508
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        62,
-        51
+        76,
+        78
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -740,19 +934,25 @@
         156
       ],
       "source_index": 7,
-      "scale": 1.179054054054054,
+      "scale": 1.0129149217210152,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 65.09992319503918,
+        "target": 65.94068360714721,
+        "registered": 66.01514977639603
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        68,
-        58
+        76,
+        73
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -762,19 +962,25 @@
         152
       ],
       "source_index": 8,
-      "scale": 1.1631944444444444,
+      "scale": 1.0674840813613131,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.23681287847955,
+        "target": 63.234354778355744,
+        "registered": 63.36402764976355
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        54,
-        51
+        68,
+        79
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -784,19 +990,25 @@
         162
       ],
       "source_index": 9,
-      "scale": 1.1331168831168832,
+      "scale": 0.9697617591515055,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 68.00735254367721,
+        "target": 65.95092983799303,
+        "registered": 66.332495807108
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        55,
-        30
+        68,
+        57
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -806,19 +1018,25 @@
         162
       ],
       "source_index": 10,
-      "scale": 1.2662337662337662,
+      "scale": 1.099023942704879,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 62.55397669213365,
+        "target": 68.74831809605783,
+        "registered": 68.9129886160802
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        62,
-        16
+        84,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -828,19 +1046,25 @@
         159
       ],
       "source_index": 11,
-      "scale": 1.3774834437086092,
+      "scale": 1.0814866959625438,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.034472514187634,
+        "target": 62.76350993129784,
+        "registered": 62.92058486695749
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        46,
-        7
+        76,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -850,19 +1074,25 @@
         167
       ],
       "source_index": 12,
-      "scale": 1.3679245283018868,
+      "scale": 1.0119703965653408,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 63.89835678638379,
+        "target": 64.66324545699044,
+        "registered": 64.8074069840786
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        44,
-        0
+        82,
+        78
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -872,19 +1102,25 @@
         162
       ],
       "source_index": 13,
-      "scale": 1.4512987012987013,
+      "scale": 0.9778527618421046,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 67.36467917239716,
+        "target": 65.87273757933586,
+        "registered": 66.15889962809237
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        56,
-        1
+        88,
+        78
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -894,19 +1130,25 @@
         162
       ],
       "source_index": 14,
-      "scale": 1.4448051948051948,
+      "scale": 0.9771603802955391,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 63.52164985262898,
+        "target": 62.07083952699501,
+        "registered": 62.27358990776106
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        44,
-        8
+        87,
+        93
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -916,19 +1158,25 @@
         160
       ],
       "source_index": 15,
-      "scale": 1.417763157894737,
+      "scale": 0.8821166691045995,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 69.17369442208505,
+        "target": 61.01926891326908,
+        "registered": 61.741396161732524
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        72,
-        21
+        86,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -938,19 +1186,25 @@
         165
       ],
       "source_index": 16,
-      "scale": 1.2993630573248407,
+      "scale": 1.0855090284002766,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.876925020897694,
+        "target": 66.08245173143115,
+        "registered": 66.71581521648372
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        78,
-        40
+        80,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -960,19 +1214,25 @@
         164
       ],
       "source_index": 17,
-      "scale": 1.189102564102564,
+      "scale": 1.1426428383310208,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 56.7097875150313,
+        "target": 64.79903256732445,
+        "registered": 64.91532946846992
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        83,
-        43
+        88,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -982,19 +1242,25 @@
         164
       ],
       "source_index": 18,
-      "scale": 1.169871794871795,
+      "scale": 1.0972947999601008,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.33801479658719,
+        "target": 65.11129507625064,
+        "registered": 65.29931086925804
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        84,
-        29
+        88,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -1004,19 +1270,25 @@
         163
       ],
       "source_index": 19,
-      "scale": 1.261290322580645,
+      "scale": 1.1880607096986708,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.12267500739089,
+        "target": 67.86520580916735,
+        "registered": 68.42514157822401
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        80,
-        24
+        91,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -1026,19 +1298,25 @@
         164
       ],
       "source_index": 20,
-      "scale": 1.2884615384615385,
+      "scale": 1.106111121279045,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.72252686302013,
+        "target": 61.63530666895691,
+        "registered": 61.66036003787198
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        78,
-        19
+        90,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -1048,19 +1326,25 @@
         160
       ],
       "source_index": 21,
-      "scale": 1.3519736842105263,
+      "scale": 1.1537651709178447,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.11805511808268,
+        "target": 63.593292283973845,
+        "registered": 63.52952069707436
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        59,
-        15
+        83,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -1070,19 +1354,25 @@
         163
       ],
       "source_index": 22,
-      "scale": 1.3483870967741935,
+      "scale": 1.0609319441457767,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 63.74166612193315,
+        "target": 67.62556976183353,
+        "registered": 67.54998149518622
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        72,
-        19
+        96,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__02.png",
       "source_region": [
@@ -1092,19 +1382,25 @@
         161
       ],
       "source_index": 23,
-      "scale": 1.3431372549019607,
+      "scale": 1.0407022495256415,
       "rgb_gain": [
         0.953283,
         0.969537,
         0.951634
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.531504264548865,
+        "target": 61.954570405761324,
+        "registered": 62.21736092120912
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
         86,
-        38
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1114,19 +1410,25 @@
         169
       ],
       "source_index": 0,
-      "scale": 1.1677018633540373,
+      "scale": 1.1518285888309012,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.40758070878027,
+        "target": 63.82003549832864,
+        "registered": 63.984373092185564
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        68,
-        34
+        84,
+        66
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1136,19 +1438,25 @@
         165
       ],
       "source_index": 1,
-      "scale": 1.2197452229299364,
+      "scale": 1.023239483716169,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 62.112800613078136,
+        "target": 63.55627003149141,
+        "registered": 63.56886030125127
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        95,
-        51
+        92,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1158,19 +1466,25 @@
         170
       ],
       "source_index": 2,
-      "scale": 1.0833333333333333,
+      "scale": 1.132304821793222,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 52.848841046895245,
+        "target": 59.84099754358303,
+        "registered": 59.824744044584094
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        54,
-        55
+        82,
+        97
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1180,107 +1494,157 @@
         132
       ],
       "source_index": 3,
-      "scale": 1.3629032258064515,
+      "scale": 1.0426663039730335,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 54.76312628037227,
+        "target": 57.09966647276425,
+        "registered": 57.227615711297986
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        69,
-        53
+        85,
+        83
       ],
-      "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
       "source_region": [
-        1049,
-        70,
-        209,
-        146
+        1325,
+        348,
+        187,
+        127
       ],
-      "source_index": 4,
-      "scale": 1.2463768115942029,
+      "source_index": 11,
+      "scale": 1.2002464464323757,
       "rgb_gain": [
-        0.922279,
-        0.897177,
-        0.85
+        1.048777,
+        1.049778,
+        1.007978
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_03"
+      },
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 53.59104402789705,
+        "target": 64.32246015508441,
+        "registered": 63.84355879804947
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        116,
-        81
+        104,
+        85
       ],
-      "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
       "source_region": [
-        1327,
-        50,
+        53,
+        581,
         174,
-        167
+        138
       ],
-      "source_index": 5,
-      "scale": 0.9245283018867925,
+      "source_index": 12,
+      "scale": 1.0891902934332993,
       "rgb_gain": [
-        0.922279,
-        0.897177,
-        0.85
+        1.022023,
+        1.053655,
+        1.090864
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_03"
+      },
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 52.41183072551463,
+        "target": 57.0864572872997,
+        "registered": 57.0350769263968
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        111,
-        131
+        81,
+        107
       ],
-      "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
       "source_region": [
-        34,
         304,
-        192,
-        163
+        596,
+        185,
+        122
       ],
-      "source_index": 6,
-      "scale": 0.6258064516129033,
+      "source_index": 13,
+      "scale": 1.0508307031483326,
       "rgb_gain": [
-        0.922279,
-        0.897177,
-        0.85
+        0.970604,
+        0.989075,
+        0.97964
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_03"
+      },
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 45.81484475582123,
+        "target": 48.14364552939132,
+        "registered": 48.05205510693585
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        124,
-        137
+        58,
+        134
       ],
-      "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_03.png",
       "source_region": [
-        306,
-        303,
-        161,
-        163
+        550,
+        627,
+        195,
+        88
       ],
-      "source_index": 7,
-      "scale": 0.5870967741935483,
+      "source_index": 14,
+      "scale": 1.1479037097375668,
       "rgb_gain": [
-        0.922279,
-        0.897177,
-        0.85
+        0.965402,
+        0.963435,
+        0.917827
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_03"
+      },
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 40.496913462633174,
+        "target": 46.486557196677836,
+        "registered": 46.42197755374064
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        24,
-        42
+        72,
+        115
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1290,19 +1654,25 @@
         128
       ],
       "source_index": 8,
-      "scale": 1.5125,
+      "scale": 0.9378656153430146,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 56.65686189686118,
+        "target": 53.13652264630391,
+        "registered": 53.24471804789655
+      },
       "animation": "charge",
       "after": 0
     },
     {
       "margin_xy": [
-        64,
-        44
+        72,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1312,19 +1682,25 @@
         165
       ],
       "source_index": 9,
-      "scale": 1.1560509554140128,
+      "scale": 1.0483615344645143,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 50.68530358989675,
+        "target": 53.13652264630391,
+        "registered": 53.150729063673246
+      },
       "animation": "charge",
       "after": 1
     },
     {
       "margin_xy": [
-        116,
-        89
+        114,
+        83
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1334,19 +1710,25 @@
         158
       ],
       "source_index": 10,
-      "scale": 0.9166666666666666,
+      "scale": 0.9580208302309524,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.262553208881634,
+        "target": 54.85871876631687,
+        "registered": 54.85435260760991
+      },
       "animation": "travel",
       "after": 0
     },
     {
       "margin_xy": [
-        34,
-        86
+        66,
+        120
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1356,19 +1738,25 @@
         101
       ],
       "source_index": 11,
-      "scale": 1.478494623655914,
+      "scale": 1.141404736537195,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 48.062459362791664,
+        "target": 54.85871876631687,
+        "registered": 54.62600113499065
+      },
       "animation": "travel",
       "after": 1
     },
     {
       "margin_xy": [
-        -16,
-        37
+        29,
+        85
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1378,19 +1766,25 @@
         103
       ],
       "source_index": 12,
-      "scale": 1.931578947368421,
+      "scale": 1.4608097279859296,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 47.791212581394085,
+        "target": 69.81386825114403,
+        "registered": 69.44782214007866
+      },
       "animation": "bee_stingers_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        -39,
-        28
+        23,
+        90
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1400,19 +1794,25 @@
         96
       ],
       "source_index": 13,
-      "scale": 2.1818181818181817,
+      "scale": 1.5163096750166987,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 46.776062254106,
+        "target": 70.92699575508433,
+        "registered": 71.26710321038733
+      },
       "animation": "bee_stingers_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        66,
-        30
+        65,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1422,19 +1822,25 @@
         155
       ],
       "source_index": 14,
-      "scale": 1.3197278911564625,
+      "scale": 1.3427647588381788,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 48.86716689148246,
+        "target": 65.61710956614648,
+        "registered": 65.90144156238162
+      },
       "animation": "bee_stingers_windup",
       "after": 2
     },
     {
       "margin_xy": [
         62,
-        27
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1444,19 +1850,25 @@
         150
       ],
       "source_index": 15,
-      "scale": 1.3873239436619718,
+      "scale": 1.4023228144664,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 47.21228653645151,
+        "target": 66.2068665331908,
+        "registered": 66.09084656743322
+      },
       "animation": "bee_stingers_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        44,
-        24
+        63,
+        58
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1466,19 +1878,25 @@
         138
       ],
       "source_index": 16,
-      "scale": 1.5346153846153847,
+      "scale": 1.285268792403277,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 53.0,
+        "target": 68.11924599737368,
+        "registered": 68.27151675479314
+      },
       "animation": "bee_stingers_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        43,
-        28
+        62,
+        60
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1488,19 +1906,25 @@
         136
       ],
       "source_index": 17,
-      "scale": 1.53125,
+      "scale": 1.2868913228256256,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 50.46781152378217,
+        "target": 64.94658873195438,
+        "registered": 65.0
+      },
       "animation": "bee_stingers_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        64,
-        30
+        80,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1510,19 +1934,25 @@
         163
       ],
       "source_index": 18,
-      "scale": 1.2580645161290323,
+      "scale": 1.0577705950852991,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 60.88513775955508,
+        "target": 64.40250839977499,
+        "registered": 64.35060217278468
+      },
       "animation": "bee_stingers_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        54,
-        28
+        73,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1532,19 +1962,25 @@
         159
       ],
       "source_index": 19,
-      "scale": 1.304635761589404,
+      "scale": 1.0809207863850356,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.335144900782616,
+        "target": 66.29843305919405,
+        "registered": 66.21933252457322
+      },
       "animation": "bee_stingers_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        68,
-        32
+        74,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1554,19 +1990,25 @@
         160
       ],
       "source_index": 20,
-      "scale": 1.2664473684210527,
+      "scale": 1.1703072783531203,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.380501984001555,
+        "target": 64.81220455072643,
+        "registered": 64.85368146836385
+      },
       "animation": "bee_stingers_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        74,
-        38
+        80,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1576,19 +2018,25 @@
         161
       ],
       "source_index": 21,
-      "scale": 1.2222222222222223,
+      "scale": 1.144066194052379,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.39855593785816,
+        "target": 63.379615047823215,
+        "registered": 63.3798075099633
+      },
       "animation": "bee_stingers_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        72,
-        44
+        71,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1598,19 +2046,25 @@
         162
       ],
       "source_index": 22,
-      "scale": 1.1785714285714286,
+      "scale": 1.1963013874955812,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.584720195551874,
+        "target": 68.88868066848353,
+        "registered": 69.26037828369117
+      },
       "animation": "bee_stingers_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        90,
-        57
+        77,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__03.png",
       "source_region": [
@@ -1620,19 +2074,25 @@
         164
       ],
       "source_index": 23,
-      "scale": 1.0865384615384615,
+      "scale": 1.2692723605139054,
       "rgb_gain": [
         0.922279,
         0.897177,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.87486017879597,
+        "target": 70.92041567252477,
+        "registered": 70.83784299369935
+      },
       "animation": "bee_stingers_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        69,
-        57
+        66,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1642,19 +2102,25 @@
         150
       ],
       "source_index": 0,
-      "scale": 1.1866197183098592,
+      "scale": 1.2247871333219484,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.68015256567895,
+        "target": 70.64590871049056,
+        "registered": 70.59745037889117
+      },
       "animation": "bee_stingers",
       "after": 0
     },
     {
       "margin_xy": [
-        74,
-        47
+        72,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1664,19 +2130,25 @@
         159
       ],
       "source_index": 1,
-      "scale": 1.1821192052980132,
+      "scale": 1.1969123093133855,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.215118311311535,
+        "target": 69.67839169494384,
+        "registered": 69.82836100038436
+      },
       "animation": "bee_stingers",
       "after": 1
     },
     {
       "margin_xy": [
-        94,
-        43
+        97,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1686,19 +2158,25 @@
         160
       ],
       "source_index": 2,
-      "scale": 1.1973684210526316,
+      "scale": 1.1542834521465979,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.263007518592396,
+        "target": 63.78917509456422,
+        "registered": 64.0
+      },
       "animation": "bee_stingers",
       "after": 2
     },
     {
       "margin_xy": [
         103,
-        44
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1708,19 +2186,25 @@
         158
       ],
       "source_index": 3,
-      "scale": 1.2066666666666668,
+      "scale": 1.2033358236024956,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 51.81698563212646,
+        "target": 62.353235082233574,
+        "registered": 62.71363488110062
+      },
       "animation": "bee_stingers",
       "after": 3
     },
     {
       "margin_xy": [
-        94,
-        50
+        88,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1730,19 +2214,25 @@
         155
       ],
       "source_index": 4,
-      "scale": 1.1904761904761905,
+      "scale": 1.2686897380122424,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 54.93632677928149,
+        "target": 69.69715402896156,
+        "registered": 69.96427659884722
+      },
       "animation": "bee_stingers",
       "after": 4
     },
     {
       "margin_xy": [
-        57,
-        63
+        61,
+        69
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1752,19 +2242,25 @@
         139
       ],
       "source_index": 5,
-      "scale": 1.2404580152671756,
+      "scale": 1.1918392764898156,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.09009739720506,
+        "target": 72.80957748257724,
+        "registered": 73.28028384224504
+      },
       "animation": "bee_stingers",
       "after": 5
     },
     {
       "margin_xy": [
-        67,
-        62
+        60,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1774,19 +2270,25 @@
         156
       ],
       "source_index": 6,
-      "scale": 1.1081081081081081,
+      "scale": 1.1844130779676536,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.95159400693416,
+        "target": 73.37627814275533,
+        "registered": 73.68174807915459
+      },
       "animation": "bee_stingers",
       "after": 6
     },
     {
       "margin_xy": [
-        80,
-        48
+        76,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1796,19 +2298,25 @@
         165
       ],
       "source_index": 7,
-      "scale": 1.1337579617834395,
+      "scale": 1.184229371794414,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 59.983331017875294,
+        "target": 71.03402240943484,
+        "registered": 71.11961754677819
+      },
       "animation": "bee_stingers",
       "after": 7
     },
     {
       "margin_xy": [
-        98,
-        41
+        100,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1818,19 +2326,25 @@
         165
       ],
       "source_index": 8,
-      "scale": 1.1751592356687899,
+      "scale": 1.1442372686119566,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 54.35991169970753,
+        "target": 62.200636885260494,
+        "registered": 62.473994589749104
+      },
       "animation": "bee_stingers",
       "after": 8
     },
     {
       "margin_xy": [
-        88,
-        36
+        87,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1840,19 +2354,25 @@
         166
       ],
       "source_index": 9,
-      "scale": 1.1993670886075949,
+      "scale": 1.213614274874902,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 52.96225070746144,
+        "target": 64.27574348807858,
+        "registered": 64.29618962271404
+      },
       "animation": "bee_stingers",
       "after": 9
     },
     {
       "margin_xy": [
-        52,
-        31
+        72,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1862,19 +2382,25 @@
         147
       ],
       "source_index": 10,
-      "scale": 1.3884892086330936,
+      "scale": 1.1444161070419103,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.35959582656978,
+        "target": 70.22090978550804,
+        "registered": 70.26378868236469
+      },
       "animation": "bee_stingers",
       "after": 10
     },
     {
       "margin_xy": [
-        46,
-        35
+        62,
+        61
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1884,19 +2410,25 @@
         154
       ],
       "source_index": 11,
-      "scale": 1.297945205479452,
+      "scale": 1.1297856651167586,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.220911460055866,
+        "target": 69.1665081729534,
+        "registered": 69.46941773183363
+      },
       "animation": "bee_stingers",
       "after": 11
     },
     {
       "margin_xy": [
-        45,
-        35
+        66,
+        70
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1906,19 +2438,25 @@
         149
       ],
       "source_index": 12,
-      "scale": 1.3404255319148937,
+      "scale": 1.1054386456987166,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.89507250177513,
+        "target": 68.42120512178617,
+        "registered": 68.70953354520753
+      },
       "animation": "bee_stingers_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        74,
-        33
+        72,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1928,19 +2466,25 @@
         160
       ],
       "source_index": 13,
-      "scale": 1.263157894736842,
+      "scale": 1.291844039506174,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 54.11099703387473,
+        "target": 69.90296898994734,
+        "registered": 70.37755323965163
+      },
       "animation": "bee_stingers_recover",
       "after": 1
     },
     {
       "margin_xy": [
         80,
-        36
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1950,19 +2494,25 @@
         161
       ],
       "source_index": 14,
-      "scale": 1.2352941176470589,
+      "scale": 1.224160235526923,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 53.85164807134504,
+        "target": 65.92304618653071,
+        "registered": 66.09841147864296
+      },
       "animation": "bee_stingers_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        74,
-        37
+        78,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1972,19 +2522,25 @@
         157
       ],
       "source_index": 15,
-      "scale": 1.2583892617449663,
+      "scale": 1.2071195278446867,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.018178813915675,
+        "target": 66.41351803272843,
+        "registered": 66.53570470055908
+      },
       "animation": "bee_stingers_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        66,
-        39
+        67,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -1994,19 +2550,25 @@
         160
       ],
       "source_index": 16,
-      "scale": 1.2269736842105263,
+      "scale": 1.2155148848015132,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.463663928973865,
+        "target": 71.06345372570105,
+        "registered": 71.42828571371429
+      },
       "animation": "bee_stingers_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        79,
-        47
+        77,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -2016,19 +2578,25 @@
         163
       ],
       "source_index": 17,
-      "scale": 1.1516129032258065,
+      "scale": 1.1760076700446882,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 56.630380539071076,
+        "target": 66.59776187149703,
+        "registered": 66.91038783328041
+      },
       "animation": "bee_stingers_recover",
       "after": 5
     },
     {
       "margin_xy": [
         77,
-        50
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -2038,19 +2606,25 @@
         157
       ],
       "source_index": 18,
-      "scale": 1.1812080536912752,
+      "scale": 1.1722331021503716,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 55.98214000911362,
+        "target": 65.6241176478997,
+        "registered": 66.12110101926616
+      },
       "animation": "bee_stingers_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        63,
-        46
+        66,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -2060,19 +2634,25 @@
         152
       ],
       "source_index": 19,
-      "scale": 1.2430555555555556,
+      "scale": 1.2097020886466436,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 58.63446085707619,
+        "target": 70.93022976547493,
+        "registered": 71.56116265125938
+      },
       "animation": "bee_stingers_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        69,
-        49
+        71,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -2082,12 +2662,18 @@
         155
       ],
       "source_index": 20,
-      "scale": 1.1972789115646258,
+      "scale": 1.176992008918029,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.0,
+        "target": 67.08854450832766,
+        "registered": 67.27555276621665
+      },
       "animation": "bee_stingers_recover",
       "after": 8
     },
@@ -2104,19 +2690,25 @@
         159
       ],
       "source_index": 21,
-      "scale": 1.1986754966887416,
+      "scale": 1.2018831920209194,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.54997827975264,
+        "target": 69.16835159560368,
+        "registered": 69.57010852370435
+      },
       "animation": "bee_stingers_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        72,
-        32
+        82,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -2126,19 +2718,25 @@
         163
       ],
       "source_index": 22,
-      "scale": 1.2483870967741935,
+      "scale": 1.1239195634480779,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 61.37589103222861,
+        "target": 68.98156465517917,
+        "registered": 69.07966415668217
+      },
       "animation": "bee_stingers_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        82,
-        25
+        92,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__04.png",
       "source_region": [
@@ -2148,19 +2746,25 @@
         167
       ],
       "source_index": 23,
-      "scale": 1.2578616352201257,
+      "scale": 1.1175982309169392,
       "rgb_gain": [
         0.888868,
         0.872389,
         0.85
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 53.563046963368315,
+        "target": 59.861966528781366,
+        "registered": 59.941638282582836
+      },
       "animation": "bee_stingers_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        60,
-        35
+        78,
+        68
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__05.png",
       "source_region": [
@@ -2170,19 +2774,25 @@
         147
       ],
       "source_index": 0,
-      "scale": 1.3597122302158273,
+      "scale": 1.1337957338262412,
       "rgb_gain": [
         0.930627,
         0.913273,
         0.866866
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.16642371182581,
+        "target": 64.81504732257137,
+        "registered": 64.8459713474939
+      },
       "animation": "bee_stingers_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        73,
-        36
+        82,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__05.png",
       "source_region": [
@@ -2192,12 +2802,18 @@
         160
       ],
       "source_index": 1,
-      "scale": 1.243421052631579,
+      "scale": 1.128969582312725,
       "rgb_gain": [
         0.930627,
         0.913273,
         0.866866
       ],
+      "body_registration": {
+        "metric": "golden_body_area_sqrt",
+        "source": 57.41080037762929,
+        "target": 64.81504732257137,
+        "registered": 64.89992295835181
+      },
       "animation": "bee_stingers_charge",
       "after": 1
     }

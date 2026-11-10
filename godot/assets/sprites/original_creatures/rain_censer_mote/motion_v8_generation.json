@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7_manifest.json",
   "baseline_sha256": "8dc3555989ce36f9339f5e82eb538dc06db7e4fa5fa094e45175a14efa02f220",
+  "baseline_canvas": [
+    408,
+    219
+  ],
+  "symmetric_padding": [
+    0,
+    0
+  ],
   "new_drawings": 94,
   "old_frame_refs": 94,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "rain_censer_mote__03",
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "sha256": "2ddf16b17830bb1c642c2a701958d621434d91450e13efccecdef4cf536051b2",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_02",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
+      "sha256": "b132128db2823c11f26f60c00338a2317dfb05648f628c14638c3d591e9e66f3",
+      "used_drawings": 4
     },
     {
       "id": "rain_censer_mote__04",
@@ -35,8 +49,8 @@
   "registrations": [
     {
       "margin_xy": [
-        116,
-        33
+        125,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -46,19 +60,25 @@
         175
       ],
       "source_index": 0,
-      "scale": 1.029940119760479,
+      "scale": 0.9304435365898949,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.01652779682617,
+        "target": 112.59904610910826,
+        "registered": 112.51222155837117
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        110,
-        30
+        118,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -68,19 +88,25 @@
         175
       ],
       "source_index": 1,
-      "scale": 1.0449101796407185,
+      "scale": 0.9491766425000893,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.85407794480753,
+        "target": 113.7626912935964,
+        "registered": 113.82003338604325
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        104,
-        35
+        114,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -90,19 +116,25 @@
         165
       ],
       "source_index": 2,
-      "scale": 1.0796178343949046,
+      "scale": 0.9610082860685273,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.95797577295941,
+        "target": 114.31960041175311,
+        "registered": 114.59057552870567
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        108,
-        37
+        118,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -112,19 +144,25 @@
         163
       ],
       "source_index": 3,
-      "scale": 1.0774193548387097,
+      "scale": 0.9671315545610335,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.99572641767733,
+        "target": 113.15025876732565,
+        "registered": 113.09730323929037
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        109,
-        19
+        125,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -134,19 +172,25 @@
         157
       ],
       "source_index": 4,
-      "scale": 1.2348993288590604,
+      "scale": 1.0365122117496686,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.22392180614109,
+        "target": 120.46751424950385,
+        "registered": 120.51141024815865
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        110,
-        27
+        122,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -156,19 +200,25 @@
         158
       ],
       "source_index": 5,
-      "scale": 1.1766666666666667,
+      "scale": 1.039078375369968,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.95088208674373,
+        "target": 116.32574067992853,
+        "registered": 116.081867662439
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        104,
-        34
+        114,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -178,19 +228,25 @@
         160
       ],
       "source_index": 6,
-      "scale": 1.118421052631579,
+      "scale": 1.0075031131575636,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.76080879454528,
+        "target": 113.60686590266914,
+        "registered": 113.46805717910217
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        109,
-        20
+        120,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -200,19 +256,25 @@
         162
       ],
       "source_index": 7,
-      "scale": 1.1915584415584415,
+      "scale": 1.0549221946504266,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.11397810960759,
+        "target": 120.38136822767798,
+        "registered": 120.59436139388939
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        116,
-        24
+        124,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -222,19 +284,25 @@
         163
       ],
       "source_index": 8,
-      "scale": 1.1580645161290322,
+      "scale": 1.0578859689949929,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.42464769445436,
+        "target": 121.04822930315852,
+        "registered": 120.80149005703531
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        108,
-        22
+        116,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -244,19 +312,25 @@
         167
       ],
       "source_index": 9,
-      "scale": 1.1446540880503144,
+      "scale": 1.0519838848174086,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.30993078838969,
+        "target": 122.3561728336141,
+        "registered": 122.32742946698423
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        111,
-        16
+        116,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -266,19 +340,25 @@
         174
       ],
       "source_index": 10,
-      "scale": 1.1295180722891567,
+      "scale": 1.060537882990542,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.43396380615195,
+        "target": 122.42209160018324,
+        "registered": 122.53162856993292
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        115,
-        25
+        123,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -288,19 +368,25 @@
         174
       ],
       "source_index": 11,
-      "scale": 1.0783132530120483,
+      "scale": 0.988593571995725,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.73303637676612,
+        "target": 118.36731011760129,
+        "registered": 118.23282116231516
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        108,
-        18
+        118,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -310,19 +396,25 @@
         164
       ],
       "source_index": 12,
-      "scale": 1.189102564102564,
+      "scale": 1.0681571834323529,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.25805586321442,
+        "target": 128.45450623590168,
+        "registered": 128.57682528356344
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        117,
-        15
+        121,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -332,19 +424,25 @@
         169
       ],
       "source_index": 13,
-      "scale": 1.173913043478261,
+      "scale": 1.1224789044943726,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.10588469674151,
+        "target": 132.5713640687371,
+        "registered": 132.68760303811354
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        109,
-        18
+        120,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -354,19 +452,25 @@
         167
       ],
       "source_index": 14,
-      "scale": 1.1666666666666667,
+      "scale": 1.0481343927488913,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.7998330549755,
+        "target": 125.56632527049528,
+        "registered": 125.42328332490742
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        122,
-        20
+        129,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -376,19 +480,25 @@
         170
       ],
       "source_index": 15,
-      "scale": 1.1358024691358024,
+      "scale": 1.0450317996187821,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.4026800369238,
+        "target": 124.7795975982921,
+        "registered": 124.73972903610141
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        116,
-        19
+        119,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -398,19 +508,25 @@
         168
       ],
       "source_index": 16,
-      "scale": 1.153125,
+      "scale": 1.1153169651230943,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.02520741422802,
+        "target": 132.75083310638362,
+        "registered": 132.5745073534124
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        114,
-        27
+        122,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -420,19 +536,25 @@
         167
       ],
       "source_index": 17,
-      "scale": 1.1163522012578617,
+      "scale": 1.029166487707275,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.74363527287271,
+        "target": 126.3236360022052,
+        "registered": 126.35663813191613
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        111,
-        26
+        118,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -442,19 +564,25 @@
         165
       ],
       "source_index": 18,
-      "scale": 1.1337579617834395,
+      "scale": 1.059886675745581,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.91663771137014,
+        "target": 127.09804651049126,
+        "registered": 127.02361985079783
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        92,
-        17
+        104,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -464,19 +592,25 @@
         152
       ],
       "source_index": 19,
-      "scale": 1.2916666666666667,
+      "scale": 1.1534954939184507,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.03780911962384,
+        "target": 137.30957642541077,
+        "registered": 137.17142559585798
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        98,
-        16
+        107,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -486,19 +620,25 @@
         162
       ],
       "source_index": 20,
-      "scale": 1.2142857142857142,
+      "scale": 1.1111771123040495,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.62124598907229,
+        "target": 131.80921357604566,
+        "registered": 131.8446055020834
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        106,
-        16
+        112,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -508,19 +648,25 @@
         163
       ],
       "source_index": 21,
-      "scale": 1.2096774193548387,
+      "scale": 1.1263877060041898,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.51595636338071,
+        "target": 132.36852850703687,
+        "registered": 132.4009063413087
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        100,
-        16
+        110,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -530,19 +676,25 @@
         154
       ],
       "source_index": 22,
-      "scale": 1.2808219178082192,
+      "scale": 1.1686988939102887,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.23054209547954,
+        "target": 137.00720487949047,
+        "registered": 136.88681455859802
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        109,
-        24
+        118,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__01.png",
       "source_region": [
@@ -552,19 +704,25 @@
         151
       ],
       "source_index": 23,
-      "scale": 1.2517482517482517,
+      "scale": 1.1394978278042085,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.98229949863828,
+        "target": 128.74308485902284,
+        "registered": 128.65846260545786
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        108,
-        29
+        120,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -574,19 +732,25 @@
         152
       ],
       "source_index": 0,
-      "scale": 1.2118055555555556,
+      "scale": 1.0763752304781178,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.09824934643558,
+        "target": 126.0416551288537,
+        "registered": 126.14673994994877
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        110,
-        28
+        118,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -596,19 +760,25 @@
         152
       ],
       "source_index": 1,
-      "scale": 1.2152777777777777,
+      "scale": 1.1230491984983648,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.0344776348823,
+        "target": 130.312427106031,
+        "registered": 130.29965464267354
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        120,
-        35
+        128,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -618,19 +788,25 @@
         150
       ],
       "source_index": 2,
-      "scale": 1.1866197183098592,
+      "scale": 1.0824981221791397,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.09645042682091,
+        "target": 123.50919333433893,
+        "registered": 123.39773093537822
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        114,
-        35
+        124,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -640,19 +816,25 @@
         147
       ],
       "source_index": 3,
-      "scale": 1.20863309352518,
+      "scale": 1.097221843512859,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.57508682497182,
+        "target": 122.42262245620287,
+        "registered": 122.25383429569807
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        105,
-        27
+        113,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -662,19 +844,25 @@
         151
       ],
       "source_index": 4,
-      "scale": 1.2307692307692308,
+      "scale": 1.1359306716884365,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.08032833642129,
+        "target": 127.31548265025155,
+        "registered": 127.4597975833949
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        102,
-        26
+        114,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -684,19 +872,25 @@
         158
       ],
       "source_index": 5,
-      "scale": 1.1833333333333333,
+      "scale": 1.059233715319952,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.69696565871932,
+        "target": 120.43165935529026,
+        "registered": 120.15406776301833
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        103,
-        24
+        112,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -706,19 +900,25 @@
         161
       ],
       "source_index": 6,
-      "scale": 1.173202614379085,
+      "scale": 1.070540044052742,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.81124724736128,
+        "target": 121.83949764188765,
+        "registered": 121.60592090848209
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        101,
-        19
+        108,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -728,19 +928,25 @@
         158
       ],
       "source_index": 7,
-      "scale": 1.2266666666666666,
+      "scale": 1.1370449155950475,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.40106761058811,
+        "target": 127.80506243407439,
+        "registered": 128.00781226159597
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        101,
-        21
+        114,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -750,19 +956,25 @@
         158
       ],
       "source_index": 8,
-      "scale": 1.2133333333333334,
+      "scale": 1.0713904317117489,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.28724553099524,
+        "target": 121.37487089688788,
+        "registered": 121.2023102090055
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        106,
-        19
+        118,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -772,19 +984,25 @@
         160
       ],
       "source_index": 9,
-      "scale": 1.2138157894736843,
+      "scale": 1.0606884309339122,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.60188677718727,
+        "target": 123.67827232962846,
+        "registered": 123.98386991863094
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        108,
-        12
+        118,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -794,19 +1012,25 @@
         162
       ],
       "source_index": 10,
-      "scale": 1.2435064935064934,
+      "scale": 1.1302962524929103,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.78552100319298,
+        "target": 134.2628292403269,
+        "registered": 134.21996870808755
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        113,
-        11
+        125,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -816,19 +1040,25 @@
         165
       ],
       "source_index": 11,
-      "scale": 1.2229299363057324,
+      "scale": 1.081374597621003,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.10919359982252,
+        "target": 128.8016563019702,
+        "registered": 128.53404218338423
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        111,
-        9
+        122,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -838,19 +1068,25 @@
         167
       ],
       "source_index": 12,
-      "scale": 1.220125786163522,
+      "scale": 1.0840520711814627,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.9663818059539,
+        "target": 128.965752597709,
+        "registered": 128.9844951922517
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        101,
-        7
+        111,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -860,19 +1096,25 @@
         163
       ],
       "source_index": 13,
-      "scale": 1.264516129032258,
+      "scale": 1.1464314121585957,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.48221624995077,
+        "target": 136.97816590326977,
+        "registered": 137.02554506368512
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        99,
-        12
+        114,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -882,19 +1124,25 @@
         162
       ],
       "source_index": 14,
-      "scale": 1.2402597402597402,
+      "scale": 1.0734359927718038,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.2331069215131,
+        "target": 129.06254449233285,
+        "registered": 129.15494570476193
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        96,
-        15
+        112,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -904,19 +1152,25 @@
         161
       ],
       "source_index": 15,
-      "scale": 1.2320261437908497,
+      "scale": 1.059137709059324,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.61923561356207,
+        "target": 127.75238087623495,
+        "registered": 127.7614965472775
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        94,
-        15
+        105,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -926,19 +1180,25 @@
         161
       ],
       "source_index": 16,
-      "scale": 1.2287581699346406,
+      "scale": 1.111196550003368,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.58947322856531,
+        "target": 135.10980316830864,
+        "registered": 135.24052647043342
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        99,
-        23
+        110,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -948,19 +1208,25 @@
         166
       ],
       "source_index": 17,
-      "scale": 1.1424050632911393,
+      "scale": 1.0335581164301044,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.54756169184401,
+        "target": 127.69358515175443,
+        "registered": 127.77323663428112
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        102,
-        27
+        112,
+        47
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -970,19 +1236,25 @@
         164
       ],
       "source_index": 18,
-      "scale": 1.1314102564102564,
+      "scale": 1.0092016063478932,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.76994788719918,
+        "target": 124.90883022535644,
+        "registered": 125.23977004130916
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        104,
-        27
+        111,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -992,19 +1264,25 @@
         164
       ],
       "source_index": 19,
-      "scale": 1.1314102564102564,
+      "scale": 1.0519030074079743,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.67020331009256,
+        "target": 132.19286480345792,
+        "registered": 132.4009063413087
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        98,
-        34
+        118,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -1014,19 +1292,25 @@
         155
       ],
       "source_index": 20,
-      "scale": 1.153061224489796,
+      "scale": 0.9523804268369772,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.48346197079218,
+        "target": 122.36513435323559,
+        "registered": 122.40098038823055
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        102,
-        35
+        118,
+        63
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -1036,19 +1320,25 @@
         158
       ],
       "source_index": 21,
-      "scale": 1.1266666666666667,
+      "scale": 0.9492390892603405,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.48346197079218,
+        "target": 121.96152442617036,
+        "registered": 122.11879462228572
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        95,
-        29
+        113,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -1058,19 +1348,25 @@
         156
       ],
       "source_index": 22,
-      "scale": 1.1824324324324325,
+      "scale": 1.0017570994991345,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.06974858579372,
+        "target": 129.29653697638724,
+        "registered": 129.06974858579372
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        96,
-        30
+        120,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__02.png",
       "source_region": [
@@ -1080,19 +1376,25 @@
         159
       ],
       "source_index": 23,
-      "scale": 1.1490066225165563,
+      "scale": 0.9141026275498245,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.4333805476779,
+        "target": 118.31539325128871,
+        "registered": 118.03812943282352
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        116,
-        21
+        120,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1102,19 +1404,25 @@
         178
       ],
       "source_index": 0,
-      "scale": 1.076470588235294,
+      "scale": 1.017460419028023,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.25180411028943,
+        "target": 123.36891141795883,
+        "registered": 123.3815221173738
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        103,
-        18
+        116,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1124,19 +1432,25 @@
         170
       ],
       "source_index": 1,
-      "scale": 1.1450617283950617,
+      "scale": 0.9922328784907491,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.16521251944927,
+        "target": 123.20080622658875,
+        "registered": 123.34909809155477
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        96,
-        18
+        107,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1146,19 +1460,25 @@
         170
       ],
       "source_index": 2,
-      "scale": 1.1450617283950617,
+      "scale": 1.027042497516919,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.18684994754919,
+        "target": 126.51813003137286,
+        "registered": 126.70438035048355
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        115,
-        29
+        126,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1168,107 +1488,157 @@
         171
       ],
       "source_index": 3,
-      "scale": 1.0766871165644172,
+      "scale": 0.9427855810352204,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.16917865583626,
+        "target": 119.89326798881433,
+        "registered": 119.59096955874219
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        120,
-        47
+        138,
+        75
       ],
-      "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        1060,
-        63,
-        175,
-        148
+        821,
+        586,
+        167,
+        140
       ],
-      "source_index": 4,
-      "scale": 1.1214285714285714,
+      "source_index": 15,
+      "scale": 0.9932622586603639,
       "rgb_gain": [
-        0.85,
-        0.85,
-        0.85
+        0.865529,
+        0.884847,
+        0.914327
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.9513169467271,
+        "target": 112.1902801891688,
+        "registered": 112.25862995778988
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        85,
-        45
+        114,
+        87
       ],
-      "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        1300,
-        74,
-        194,
-        138
+        1064,
+        606,
+        185,
+        119
       ],
-      "source_index": 5,
-      "scale": 1.2192307692307693,
+      "source_index": 16,
+      "scale": 1.0601722951634318,
       "rgb_gain": [
-        0.85,
-        0.85,
-        0.85
+        0.852556,
+        0.856334,
+        0.870524
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.53994705129266,
+        "target": 116.13121707744972,
+        "registered": 115.97844627343478
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        112,
-        59
+        114,
+        86
       ],
-      "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        43,
-        299,
-        178,
-        161
+        1326,
+        591,
+        174,
+        132
       ],
-      "source_index": 6,
-      "scale": 0.9607843137254902,
+      "source_index": 17,
+      "scale": 0.9708463701834732,
       "rgb_gain": [
-        0.85,
-        0.85,
-        0.85
+        0.872636,
+        0.8884,
+        0.911689
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.06894502837527,
+        "target": 112.68511397182321,
+        "registered": 112.62770529492288
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        110,
-        73
+        91,
+        104
       ],
-      "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        298,
-        305,
-        179,
-        156
+        36,
+        880,
+        197,
+        108
       ],
-      "source_index": 7,
-      "scale": 0.8918918918918919,
+      "source_index": 18,
+      "scale": 1.0175330645014613,
       "rgb_gain": [
-        0.85,
-        0.85,
-        0.85
+        0.874256,
+        0.88312,
+        0.890171
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.40398474441088,
+        "target": 107.25203960764568,
+        "registered": 107.23339032223126
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        106,
-        28
+        119,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1278,19 +1648,25 @@
         156
       ],
       "source_index": 8,
-      "scale": 1.1858108108108107,
+      "scale": 1.026730074698086,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.47784603038663,
+        "target": 121.6447677048472,
+        "registered": 121.65936051122412
+      },
       "animation": "censer_cloud_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        100,
-        18
+        109,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1300,19 +1676,25 @@
         153
       ],
       "source_index": 9,
-      "scale": 1.2724137931034483,
+      "scale": 1.1620040563204947,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.51255635770723,
+        "target": 127.25403470568259,
+        "registered": 127.20849028268515
+      },
       "animation": "censer_cloud_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        94,
-        17
+        108,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1322,19 +1704,25 @@
         163
       ],
       "source_index": 10,
-      "scale": 1.2,
+      "scale": 1.03543722039763,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.07689780652714,
+        "target": 121.22577763756786,
+        "registered": 121.4701609449827
+      },
       "animation": "censer_cloud_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        108,
-        13
+        122,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1344,19 +1732,25 @@
         168
       ],
       "source_index": 11,
-      "scale": 1.190625,
+      "scale": 1.0179053884757052,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.08674576517448,
+        "target": 123.25485098735889,
+        "registered": 123.24771803161306
+      },
       "animation": "censer_cloud_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        75,
-        4
+        107,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1366,19 +1760,25 @@
         133
       ],
       "source_index": 12,
-      "scale": 1.58,
+      "scale": 1.1856138609432985,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.72186407596185,
+        "target": 127.71653517511034,
+        "registered": 127.77714975691076
+      },
       "animation": "censer_cloud_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        90,
-        5
+        114,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1388,19 +1788,25 @@
         149
       ],
       "source_index": 13,
-      "scale": 1.3971631205673758,
+      "scale": 1.0906378614196994,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.22985472038724,
+        "target": 123.4927666011064,
+        "registered": 123.69721096289923
+      },
       "animation": "censer_cloud_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        90,
-        4
+        103,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1410,19 +1816,25 @@
         154
       ],
       "source_index": 14,
-      "scale": 1.3595890410958904,
+      "scale": 1.199153585746001,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.84940447080868,
+        "target": 123.33223216301101,
+        "registered": 123.3369368842927
+      },
       "animation": "censer_cloud_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        89,
-        0
+        103,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1432,19 +1844,25 @@
         161
       ],
       "source_index": 15,
-      "scale": 1.3202614379084967,
+      "scale": 1.160156514032793,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.60675400742676,
+        "target": 123.68052010160771,
+        "registered": 123.58397954427588
+      },
       "animation": "censer_cloud_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        90,
-        4
+        104,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1454,19 +1872,25 @@
         165
       ],
       "source_index": 16,
-      "scale": 1.2643312101910829,
+      "scale": 1.1060970190777375,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.35318518972528,
+        "target": 117.6369411077777,
+        "registered": 117.93642355099632
+      },
       "animation": "censer_cloud_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        92,
-        4
+        107,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1476,19 +1900,25 @@
         132
       ],
       "source_index": 17,
-      "scale": 1.5887096774193548,
+      "scale": 1.3715714648738326,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 85.44003745317531,
+        "target": 117.18711732852678,
+        "registered": 117.14094075087498
+      },
       "animation": "censer_cloud_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        99,
-        4
+        105,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1498,19 +1928,25 @@
         152
       ],
       "source_index": 18,
-      "scale": 1.375,
+      "scale": 1.2942360241396227,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 95.59811713627,
+        "target": 123.72652703768003,
+        "registered": 123.80226169178009
+      },
       "animation": "censer_cloud_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        102,
-        11
+        105,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1520,19 +1956,25 @@
         161
       ],
       "source_index": 19,
-      "scale": 1.2549019607843137,
+      "scale": 1.2062995550762727,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.93562304756433,
+        "target": 121.75859717362323,
+        "registered": 121.53600289626115
+      },
       "animation": "censer_cloud_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        92,
-        9
+        100,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1542,19 +1984,25 @@
         146
       ],
       "source_index": 20,
-      "scale": 1.394927536231884,
+      "scale": 1.2968242715350804,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 94.0,
+        "target": 121.90148152429755,
+        "registered": 121.69223475637219
+      },
       "animation": "censer_cloud",
       "after": 0
     },
     {
       "margin_xy": [
-        106,
-        3
+        113,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1564,19 +2012,25 @@
         161
       ],
       "source_index": 21,
-      "scale": 1.303921568627451,
+      "scale": 1.20328145641713,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.43718509140881,
+        "target": 126.8706096373129,
+        "registered": 127.04329970525797
+      },
       "animation": "censer_cloud",
       "after": 1
     },
     {
       "margin_xy": [
-        108,
-        3
+        116,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1586,19 +2040,25 @@
         165
       ],
       "source_index": 22,
-      "scale": 1.2707006369426752,
+      "scale": 1.1491418985817288,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.01414999895061,
+        "target": 121.8253016063223,
+        "registered": 121.76206305742359
+      },
       "animation": "censer_cloud",
       "after": 2
     },
     {
       "margin_xy": [
-        88,
-        2
+        100,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__03.png",
       "source_region": [
@@ -1608,19 +2068,25 @@
         155
       ],
       "source_index": 23,
-      "scale": 1.3639455782312926,
+      "scale": 1.2273510324015302,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 99.85990186255943,
+        "target": 122.5631536465278,
+        "registered": 122.65398485169571
+      },
       "animation": "censer_cloud",
       "after": 3
     },
     {
       "margin_xy": [
-        106,
-        1
+        113,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1630,19 +2096,25 @@
         173
       ],
       "source_index": 0,
-      "scale": 1.2272727272727273,
+      "scale": 1.1348319309943877,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.42710621747295,
+        "target": 126.45103811389157,
+        "registered": 126.21806526801146
+      },
       "animation": "censer_cloud",
       "after": 4
     },
     {
       "margin_xy": [
-        112,
-        6
+        120,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1652,19 +2124,25 @@
         178
       ],
       "source_index": 1,
-      "scale": 1.161764705882353,
+      "scale": 1.0619190572053414,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.71455491712571,
+        "target": 120.75565294811916,
+        "registered": 120.6855418018248
+      },
       "animation": "censer_cloud",
       "after": 5
     },
     {
       "margin_xy": [
-        104,
-        9
+        112,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1674,19 +2152,25 @@
         168
       ],
       "source_index": 2,
-      "scale": 1.2125,
+      "scale": 1.1051398008876718,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.96788517723927,
+        "target": 120.42474692792489,
+        "registered": 120.44915939930839
+      },
       "animation": "censer_cloud",
       "after": 6
     },
     {
       "margin_xy": [
-        106,
-        10
+        109,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1696,19 +2180,25 @@
         172
       ],
       "source_index": 3,
-      "scale": 1.1798780487804879,
+      "scale": 1.1382187759809876,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.98214143335535,
+        "target": 127.46017595400357,
+        "registered": 127.54607010802019
+      },
       "animation": "censer_cloud",
       "after": 7
     },
     {
       "margin_xy": [
-        97,
-        18
+        106,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1718,19 +2208,25 @@
         178
       ],
       "source_index": 4,
-      "scale": 1.0941176470588236,
+      "scale": 0.9975632276277493,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.90159966136622,
+        "target": 121.60455321117824,
+        "registered": 121.90159966136622
+      },
       "animation": "censer_cloud",
       "after": 8
     },
     {
       "margin_xy": [
-        89,
-        20
+        101,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1740,19 +2236,25 @@
         168
       ],
       "source_index": 5,
-      "scale": 1.146875,
+      "scale": 1.025886087467987,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.68761716651858,
+        "target": 119.70820303092205,
+        "registered": 119.63277142990545
+      },
       "animation": "censer_cloud",
       "after": 9
     },
     {
       "margin_xy": [
-        106,
-        17
+        108,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1762,19 +2264,25 @@
         177
       ],
       "source_index": 6,
-      "scale": 1.106508875739645,
+      "scale": 1.0823802458490683,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.14215427655886,
+        "target": 125.7099734993022,
+        "registered": 125.81335382223939
+      },
       "animation": "censer_cloud",
       "after": 10
     },
     {
       "margin_xy": [
-        105,
-        20
+        115,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1784,19 +2292,25 @@
         167
       ],
       "source_index": 7,
-      "scale": 1.1540880503144655,
+      "scale": 1.0377180628778193,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.58979193683152,
+        "target": 119.94961497713898,
+        "registered": 119.71633138381748
+      },
       "animation": "censer_cloud",
       "after": 11
     },
     {
       "margin_xy": [
-        107,
-        21
+        114,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1806,19 +2320,25 @@
         170
       ],
       "source_index": 8,
-      "scale": 1.126543209876543,
+      "scale": 1.0395828571981338,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.06138698087096,
+        "target": 118.57626257355585,
+        "registered": 118.83602147497197
+      },
       "animation": "censer_cloud_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        95,
-        20
+        103,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1828,19 +2348,25 @@
         166
       ],
       "source_index": 9,
-      "scale": 1.1613924050632911,
+      "scale": 1.0811347082643188,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.67194992737004,
+        "target": 125.0569598390921,
+        "registered": 124.79182665543445
+      },
       "animation": "censer_cloud_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        92,
-        27
+        102,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1850,19 +2376,25 @@
         165
       ],
       "source_index": 10,
-      "scale": 1.127388535031847,
+      "scale": 1.0219198772496136,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.17633993373013,
+        "target": 121.78867067613572,
+        "registered": 121.78669878110664
+      },
       "animation": "censer_cloud_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        90,
-        28
+        97,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1872,19 +2404,25 @@
         162
       ],
       "source_index": 11,
-      "scale": 1.1428571428571428,
+      "scale": 1.0736641815786114,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.96929411029973,
+        "target": 122.36474888602702,
+        "registered": 122.37238250520417
+      },
       "animation": "censer_cloud_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        88,
-        24
+        96,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1894,19 +2432,25 @@
         165
       ],
       "source_index": 12,
-      "scale": 1.143312101910828,
+      "scale": 1.062445755363485,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.9958676980334,
+        "target": 128.55154605229737,
+        "registered": 128.51848116127113
+      },
       "animation": "censer_cloud_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        88,
-        28
+        102,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1916,19 +2460,25 @@
         160
       ],
       "source_index": 13,
-      "scale": 1.1578947368421053,
+      "scale": 1.0115305265299084,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.32456108376212,
+        "target": 121.71196662753802,
+        "registered": 121.63469899662678
+      },
       "animation": "censer_cloud_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        94,
-        29
+        103,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1938,19 +2488,25 @@
         164
       ],
       "source_index": 14,
-      "scale": 1.125,
+      "scale": 1.0304917640745643,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.32007500849971,
+        "target": 120.89737105686909,
+        "registered": 120.84701072016635
+      },
       "animation": "censer_cloud_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        85,
-        25
+        95,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1960,19 +2516,25 @@
         160
       ],
       "source_index": 15,
-      "scale": 1.174342105263158,
+      "scale": 1.0797282913225397,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.95338062132852,
+        "target": 127.35760211398421,
+        "registered": 127.5695888525161
+      },
       "animation": "censer_cloud_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        93,
-        29
+        102,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -1982,19 +2544,25 @@
         165
       ],
       "source_index": 16,
-      "scale": 1.1146496815286624,
+      "scale": 1.0138362969333163,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.23726543796644,
+        "target": 121.90090394501611,
+        "registered": 121.97130810153674
+      },
       "animation": "censer_cloud_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        92,
-        29
+        98,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -2004,19 +2572,25 @@
         162
       ],
       "source_index": 17,
-      "scale": 1.1331168831168832,
+      "scale": 1.0654416685781536,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.0173899895142,
+        "target": 122.54431990593223,
+        "registered": 122.78029157808675
+      },
       "animation": "censer_cloud_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        103,
-        26
+        109,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -2026,19 +2600,25 @@
         172
       ],
       "source_index": 18,
-      "scale": 1.0853658536585367,
+      "scale": 1.0256303468847998,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.16917865583626,
+        "target": 130.42856881784041,
+        "registered": 130.21520648526422
+      },
       "animation": "censer_cloud_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        108,
-        30
+        122,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -2048,19 +2628,25 @@
         167
       ],
       "source_index": 19,
-      "scale": 1.0974842767295598,
+      "scale": 0.9550961804440791,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.7280552995271,
+        "target": 121.03748157168437,
+        "registered": 121.26417442921878
+      },
       "animation": "censer_cloud_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        100,
-        13
+        101,
+        15
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -2070,19 +2656,25 @@
         170
       ],
       "source_index": 20,
-      "scale": 1.1759259259259258,
+      "scale": 1.164081339893409,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.31651704001509,
+        "target": 130.74556164810164,
+        "registered": 130.79755349393963
+      },
       "animation": "charge",
       "after": 0
     },
     {
       "margin_xy": [
-        102,
-        13
+        104,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/rain_censer_mote__04.png",
       "source_region": [
@@ -2092,12 +2684,18 @@
         170
       ],
       "source_index": 21,
-      "scale": 1.1759259259259258,
+      "scale": 1.1604991187310558,
       "rgb_gain": [
         0.85,
         0.852074,
         0.882207
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.66321493726335,
+        "target": 130.74556164810164,
+        "registered": 130.51053597315428
+      },
       "animation": "charge",
       "after": 1
     }

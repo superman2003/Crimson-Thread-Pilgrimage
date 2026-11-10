@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/kneeling_crossbowman/combat_motion_v7_manifest.json",
   "baseline_sha256": "55cd0f0b47cb106ce939bc851a37133be7ba45f58346eafeac8c01dcc3ef12f7",
+  "baseline_canvas": [
+    332,
+    229
+  ],
+  "symmetric_padding": [
+    0,
+    0
+  ],
   "new_drawings": 96,
   "old_frame_refs": 96,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "kneeling_crossbowman__03",
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "sha256": "af06988f4d69072496bf2d0f8a07c80b59100b42d3c8321f3ee6107f0db9e469",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_01",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
+      "sha256": "9274c2a13184390f8e31444d24792f50d742de4e0649ef49ce49e4d9d6919fc0",
+      "used_drawings": 4
     },
     {
       "id": "kneeling_crossbowman__04",
@@ -35,8 +49,8 @@
   "registrations": [
     {
       "margin_xy": [
-        62,
-        14
+        67,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -46,19 +60,25 @@
         185
       ],
       "source_index": 0,
-      "scale": 1.1299435028248588,
+      "scale": 1.0828060850161878,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.34159348198712,
+        "target": 123.80977319274292,
+        "registered": 123.64465212858985
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        62,
-        16
+        66,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -68,19 +88,25 @@
         185
       ],
       "source_index": 1,
-      "scale": 1.11864406779661,
+      "scale": 1.0867293356935674,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.16801668316009,
+        "target": 122.98300359184911,
+        "registered": 122.84136111261549
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        64,
-        18
+        68,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -90,19 +116,25 @@
         180
       ],
       "source_index": 2,
-      "scale": 1.1395348837209303,
+      "scale": 1.0976156045786274,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.73863579093016,
+        "target": 123.74368588303149,
+        "registered": 123.81033882515628
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        60,
-        16
+        66,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -112,19 +144,25 @@
         178
       ],
       "source_index": 3,
-      "scale": 1.1647058823529413,
+      "scale": 1.0912158934395295,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.16216536138407,
+        "target": 124.57556927181403,
+        "registered": 124.39051410778879
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        54,
-        16
+        64,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -134,19 +172,25 @@
         177
       ],
       "source_index": 4,
-      "scale": 1.1715976331360947,
+      "scale": 1.0860252560731603,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.26753760548951,
+        "target": 121.92538127670488,
+        "registered": 121.79901477434043
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        59,
-        18
+        68,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -156,19 +200,25 @@
         173
       ],
       "source_index": 5,
-      "scale": 1.1848484848484848,
+      "scale": 1.0925213462431589,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.35212503553282,
+        "target": 122.74709489710003,
+        "registered": 122.69474316367429
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        45,
-        20
+        59,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -178,19 +228,25 @@
         166
       ],
       "source_index": 6,
-      "scale": 1.2246835443037976,
+      "scale": 1.0899317916375537,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.93803610830145,
+        "target": 123.09475603954773,
+        "registered": 123.30450113438681
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        58,
-        17
+        71,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -200,19 +256,25 @@
         168
       ],
       "source_index": 7,
-      "scale": 1.228125,
+      "scale": 1.0978383062718358,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.33432244866215,
+        "target": 123.32492229323351,
+        "registered": 123.2801687214939
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        58,
-        12
+        74,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -222,19 +284,25 @@
         166
       ],
       "source_index": 8,
-      "scale": 1.2721518987341771,
+      "scale": 1.1023456094559136,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.28535078094559,
+        "target": 123.77726343959252,
+        "registered": 123.68912644206038
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        52,
-        13
+        68,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -244,19 +312,25 @@
         166
       ],
       "source_index": 9,
-      "scale": 1.2626582278481013,
+      "scale": 1.079083437956975,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.16801668316009,
+        "target": 122.11773250923669,
+        "registered": 122.20883765096532
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        52,
-        13
+        72,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -266,19 +340,25 @@
         164
       ],
       "source_index": 10,
-      "scale": 1.2788461538461537,
+      "scale": 1.0607095364088537,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.564392373896,
+        "target": 121.51954352387725,
+        "registered": 121.37133104650373
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        50,
-        12
+        72,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -288,19 +368,25 @@
         165
       ],
       "source_index": 11,
-      "scale": 1.2770700636942676,
+      "scale": 1.0623782199813603,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.94781424629178,
+        "target": 122.1180542897235,
+        "registered": 122.07374820165063
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        60,
-        14
+        76,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -310,19 +396,25 @@
         162
       ],
       "source_index": 12,
-      "scale": 1.2922077922077921,
+      "scale": 1.1245551429518896,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.46029366269003,
+        "target": 130.96602218806544,
+        "registered": 130.89690599857585
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        56,
-        7
+        71,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -332,19 +424,25 @@
         161
       ],
       "source_index": 13,
-      "scale": 1.3431372549019607,
+      "scale": 1.18232078998872,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.54693361238441,
+        "target": 135.4312210393798,
+        "registered": 135.32183859229818
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        64,
-        7
+        79,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -354,19 +452,25 @@
         165
       ],
       "source_index": 14,
-      "scale": 1.3089171974522293,
+      "scale": 1.1445315349083982,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.60550608207397,
+        "target": 128.8805527152531,
+        "registered": 128.93796958227628
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        57,
-        6
+        72,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -376,19 +480,25 @@
         164
       ],
       "source_index": 15,
-      "scale": 1.3205128205128205,
+      "scale": 1.1688433739566233,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.01801655587259,
+        "target": 129.76267304113838,
+        "registered": 129.75361266646874
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        50,
-        5
+        60,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -398,19 +508,25 @@
         164
       ],
       "source_index": 16,
-      "scale": 1.330128205128205,
+      "scale": 1.224918377279781,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.78550889985696,
+        "target": 136.9281241650073,
+        "registered": 136.97445017228577
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        48,
-        10
+        58,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -420,19 +536,25 @@
         169
       ],
       "source_index": 17,
-      "scale": 1.2608695652173914,
+      "scale": 1.1646981242089203,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.4195750300626,
+        "target": 132.0995662860868,
+        "registered": 132.1854757528224
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        52,
-        9
+        60,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -442,19 +564,25 @@
         170
       ],
       "source_index": 18,
-      "scale": 1.2592592592592593,
+      "scale": 1.1625403863622366,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.30489839367051,
+        "target": 131.72152035531167,
+        "registered": 131.8104699938514
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        42,
-        2
+        50,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -464,19 +592,25 @@
         168
       ],
       "source_index": 19,
-      "scale": 1.315625,
+      "scale": 1.2238034491386443,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.64858116140297,
+        "target": 139.0835256150381,
+        "registered": 139.12943613772032
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        34,
-        3
+        52,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -486,19 +620,25 @@
         167
       ],
       "source_index": 20,
-      "scale": 1.3176100628930818,
+      "scale": 1.1483938765653612,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.64047325006874,
+        "target": 133.94920524006474,
+        "registered": 133.93655214316965
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        48,
-        3
+        64,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -508,19 +648,25 @@
         169
       ],
       "source_index": 21,
-      "scale": 1.3043478260869565,
+      "scale": 1.1405503738138925,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.74124171249427,
+        "target": 134.2898172484972,
+        "registered": 134.20506696842708
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        44,
-        1
+        54,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -530,19 +676,25 @@
         169
       ],
       "source_index": 22,
-      "scale": 1.313664596273292,
+      "scale": 1.2276249410655784,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.4229707446997,
+        "target": 145.3789924812727,
+        "registered": 145.15853402401115
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        50,
-        7
+        56,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__01.png",
       "source_region": [
@@ -552,19 +704,25 @@
         174
       ],
       "source_index": 23,
-      "scale": 1.2409638554216869,
+      "scale": 1.1834824499129897,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.20151005754919,
+        "target": 141.0728951562362,
+        "registered": 141.21260566960729
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        70,
-        10
+        75,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -574,19 +732,25 @@
         193
       ],
       "source_index": 0,
-      "scale": 1.1027027027027028,
+      "scale": 1.0620197051611286,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.18169313486644,
+        "target": 140.37956277078965,
+        "registered": 140.30680667736686
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        61,
-        8
+        63,
+        12
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -596,19 +760,25 @@
         189
       ],
       "source_index": 1,
-      "scale": 1.138121546961326,
+      "scale": 1.1159850719783315,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.90765951243984,
+        "target": 144.97500875152676,
+        "registered": 145.06205568652334
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        58,
-        12
+        66,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -618,19 +788,25 @@
         187
       ],
       "source_index": 2,
-      "scale": 1.1256983240223464,
+      "scale": 1.0505410037121339,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.96093153771584,
+        "target": 134.42820545357165,
+        "registered": 134.20879255846094
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        58,
-        14
+        64,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -640,19 +816,25 @@
         187
       ],
       "source_index": 3,
-      "scale": 1.1201117318435754,
+      "scale": 1.0466651818225818,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.45195173083854,
+        "target": 133.39952023200104,
+        "registered": 133.5327675141948
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        54,
-        10
+        58,
+        15
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -662,19 +844,25 @@
         185
       ],
       "source_index": 4,
-      "scale": 1.152542372881356,
+      "scale": 1.1246591386428435,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.98818842711317,
+        "target": 142.81842661425222,
+        "registered": 142.755034937476
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        56,
-        13
+        66,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -684,19 +872,25 @@
         177
       ],
       "source_index": 5,
-      "scale": 1.1863905325443787,
+      "scale": 1.0756544552916187,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.31064370271639,
+        "target": 136.94226110487074,
+        "registered": 136.7296602789607
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        54,
-        17
+        66,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -706,19 +900,25 @@
         179
       ],
       "source_index": 6,
-      "scale": 1.1491228070175439,
+      "scale": 1.0354596151104563,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.5379321445619,
+        "target": 133.095837745502,
+        "registered": 132.9473580030833
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        60,
-        22
+        62,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -728,19 +928,25 @@
         180
       ],
       "source_index": 7,
-      "scale": 1.119186046511628,
+      "scale": 1.0879826625084767,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.75567048459804,
+        "target": 137.90797186188013,
+        "registered": 138.00362314084367
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        58,
-        32
+        62,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -750,19 +956,25 @@
         178
       ],
       "source_index": 8,
-      "scale": 1.0735294117647058,
+      "scale": 1.0394411308920857,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.3051859584554,
+        "target": 131.28680533019207,
+        "registered": 131.190700889964
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        56,
-        30
+        62,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -772,19 +984,25 @@
         177
       ],
       "source_index": 9,
-      "scale": 1.0917159763313609,
+      "scale": 1.0335552982796978,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.60404348231046,
+        "target": 132.9193905213346,
+        "registered": 132.81566172707193
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        57,
-        15
+        67,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -794,19 +1012,25 @@
         178
       ],
       "source_index": 10,
-      "scale": 1.1676470588235295,
+      "scale": 1.0664118807757728,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.0228987620103,
+        "target": 139.72437589348908,
+        "registered": 139.62807740565648
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        66,
-        8
+        82,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -816,19 +1040,25 @@
         182
       ],
       "source_index": 11,
-      "scale": 1.1839080459770115,
+      "scale": 1.013752712954397,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.50660360902774,
+        "target": 134.32892889302477,
+        "registered": 134.3800580443393
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        64,
-        4
+        81,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -838,19 +1068,25 @@
         182
       ],
       "source_index": 12,
-      "scale": 1.2040229885057472,
+      "scale": 1.0290784575505276,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.2800060477773,
+        "target": 136.12650458842114,
+        "registered": 135.8712625980932
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        62,
-        3
+        76,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -860,19 +1096,25 @@
         180
       ],
       "source_index": 13,
-      "scale": 1.2209302325581395,
+      "scale": 1.0814476889665192,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.113587491976,
+        "target": 142.8739338742735,
+        "registered": 142.8775699681374
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        64,
-        10
+        80,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -882,19 +1124,25 @@
         177
       ],
       "source_index": 14,
-      "scale": 1.2041420118343196,
+      "scale": 1.0465024994741752,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.03029955279206,
+        "target": 138.17003848832096,
+        "registered": 138.16294727603346
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        60,
-        13
+        78,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -904,19 +1152,25 @@
         174
       ],
       "source_index": 15,
-      "scale": 1.2048192771084338,
+      "scale": 1.030896538007953,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.57020625873122,
+        "target": 137.69706321313421,
+        "registered": 137.62267255071018
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        62,
-        13
+        68,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -926,19 +1180,25 @@
         182
       ],
       "source_index": 16,
-      "scale": 1.1551724137931034,
+      "scale": 1.0975066147435313,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.08012816594282,
+        "target": 143.8613077235521,
+        "registered": 143.77760604489143
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        60,
-        19
+        70,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -948,19 +1208,25 @@
         183
       ],
       "source_index": 17,
-      "scale": 1.1142857142857143,
+      "scale": 1.0286284403236925,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.82813153141032,
+        "target": 134.5735368876175,
+        "registered": 134.3800580443393
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        54,
-        22
+        67,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -970,19 +1236,25 @@
         178
       ],
       "source_index": 18,
-      "scale": 1.1294117647058823,
+      "scale": 1.0097786384349292,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.76873680809118,
+        "target": 133.05725564236485,
+        "registered": 133.2516416409194
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        60,
-        20
+        64,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -992,19 +1264,25 @@
         178
       ],
       "source_index": 19,
-      "scale": 1.138235294117647,
+      "scale": 1.0951858055656678,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.432861838394,
+        "target": 140.65784725358563,
+        "registered": 140.82613393827157
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        62,
-        24
+        70,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -1014,19 +1292,25 @@
         178
       ],
       "source_index": 20,
-      "scale": 1.1176470588235294,
+      "scale": 1.0269271887547806,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.3459854098275,
+        "target": 130.77505479612148,
+        "registered": 130.80519867344722
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        56,
-        21
+        68,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -1036,19 +1320,25 @@
         177
       ],
       "source_index": 21,
-      "scale": 1.1420118343195267,
+      "scale": 1.0350663178440886,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.41202474448386,
+        "target": 130.84482898348872,
+        "registered": 130.82813153141032
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        55,
-        13
+        63,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -1058,19 +1348,25 @@
         180
       ],
       "source_index": 22,
-      "scale": 1.1656976744186047,
+      "scale": 1.0819541463304636,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.32770550430644,
+        "target": 138.84469305945902,
+        "registered": 138.88484438555562
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        56,
-        13
+        68,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__02.png",
       "source_region": [
@@ -1080,19 +1376,25 @@
         178
       ],
       "source_index": 23,
-      "scale": 1.1823529411764706,
+      "scale": 1.05353962376999,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.57126474432215,
+        "target": 131.240763391285,
+        "registered": 131.30498848101698
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        77,
-        12
+        84,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1102,19 +1404,25 @@
         181
       ],
       "source_index": 0,
-      "scale": 1.1676300578034682,
+      "scale": 1.0883675859514517,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.37869220780924,
+        "target": 126.66279629440035,
+        "registered": 126.57803916951787
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        66,
-        17
+        74,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1124,19 +1432,25 @@
         175
       ],
       "source_index": 1,
-      "scale": 1.1766467065868262,
+      "scale": 1.088993118302567,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.93419153177855,
+        "target": 124.07355051747345,
+        "registered": 124.24974849069112
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        82,
-        40
+        80,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1146,19 +1460,25 @@
         175
       ],
       "source_index": 2,
-      "scale": 1.0449101796407185,
+      "scale": 1.0648838573201653,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.73245007343446,
+        "target": 123.24161785131234,
+        "registered": 123.09752231462663
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        55,
-        35
+        75,
+        65
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1168,107 +1488,157 @@
         152
       ],
       "source_index": 3,
-      "scale": 1.2361111111111112,
+      "scale": 1.0362086976018645,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.96249413879323,
+        "target": 124.30617981263023,
+        "registered": 124.32618388738553
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        63,
-        44
+        70,
+        59
       ],
-      "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1053,
-        59,
-        172,
-        159
+        311,
+        821,
+        163,
+        138
       ],
-      "source_index": 4,
-      "scale": 1.1258278145695364,
+      "source_index": 19,
+      "scale": 1.190854300827939,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.98598038995577,
+        "target": 127.40471487567238,
+        "registered": 127.18490476467717
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        83,
-        85
+        58,
+        96
       ],
-      "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1309,
-        74,
-        183,
-        149
+        548,
+        847,
+        184,
+        111
       ],
-      "source_index": 5,
-      "scale": 0.9184397163120568,
+      "source_index": 20,
+      "scale": 1.147625467814864,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.1284928076114,
+        "target": 120.64813573900659,
+        "registered": 120.37441588643328
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        125,
-        122
+        58,
+        131
       ],
-      "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        50,
-        301,
-        156,
-        171
+        791,
+        880,
+        197,
+        80
       ],
-      "source_index": 6,
-      "scale": 0.5766871165644172,
+      "source_index": 21,
+      "scale": 1.1439883720449164,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 92.36882591004391,
+        "target": 105.66886278053143,
+        "registered": 105.83005244258362
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        134,
-        134
+        53,
+        139
       ],
-      "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        307,
-        309,
-        156,
-        163
+        1039,
+        886,
+        198,
+        73
       ],
-      "source_index": 7,
-      "scale": 0.535483870967742,
+      "source_index": 22,
+      "scale": 1.1499700945749067,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 84.40379138403677,
+        "target": 97.06183596038146,
+        "registered": 97.07213812418061
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        67,
-        44
+        66,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1278,19 +1648,25 @@
         166
       ],
       "source_index": 8,
-      "scale": 1.0759493670886076,
+      "scale": 1.0839294839093105,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.86659251017358,
+        "target": 129.92693375752006,
+        "registered": 129.96153277027784
+      },
       "animation": "charge",
       "after": 0
     },
     {
       "margin_xy": [
-        85,
-        45
+        76,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1300,19 +1676,25 @@
         170
       ],
       "source_index": 9,
-      "scale": 1.0493827160493827,
+      "scale": 1.1604320032814803,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.96428001822724,
+        "target": 129.92693375752006,
+        "registered": 129.7304898626379
+      },
       "animation": "charge",
       "after": 1
     },
     {
       "margin_xy": [
-        41,
-        27
+        63,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1322,19 +1704,25 @@
         155
       ],
       "source_index": 10,
-      "scale": 1.2653061224489797,
+      "scale": 1.038617438064874,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.85071659057932,
+        "target": 128.6335139678063,
+        "registered": 128.67400669909986
+      },
       "animation": "crossbow_low_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        14,
-        24
+        50,
+        72
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1344,19 +1732,25 @@
         135
       ],
       "source_index": 11,
-      "scale": 1.484251968503937,
+      "scale": 1.1221516330953065,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.26860441876563,
+        "target": 133.83745922551594,
+        "registered": 133.566462856512
+      },
       "animation": "crossbow_low_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        28,
-        27
+        58,
+        72
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1366,19 +1760,25 @@
         139
       ],
       "source_index": 12,
-      "scale": 1.4083969465648856,
+      "scale": 1.089920743496941,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.82904489313098,
+        "target": 130.60416170244963,
+        "registered": 130.50670480860362
+      },
       "animation": "crossbow_low_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        26,
-        30
+        53,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1388,19 +1788,25 @@
         140
       ],
       "source_index": 13,
-      "scale": 1.3901515151515151,
+      "scale": 1.1165919721529332,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.04740410711477,
+        "target": 129.5775998151917,
+        "registered": 129.40247292845683
+      },
       "animation": "crossbow_low_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        41,
-        27
+        46,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1410,19 +1816,25 @@
         171
       ],
       "source_index": 14,
-      "scale": 1.147239263803681,
+      "scale": 1.1027007477145168,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.65806129235861,
+        "target": 135.25513590029686,
+        "registered": 135.36986370680884
+      },
       "animation": "crossbow_low_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        44,
-        30
+        52,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1432,19 +1844,25 @@
         170
       ],
       "source_index": 15,
-      "scale": 1.132716049382716,
+      "scale": 1.0662744580028074,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.67028980156523,
+        "target": 130.8001967712113,
+        "registered": 130.80137613954986
+      },
       "animation": "crossbow_low_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        53,
-        35
+        59,
+        47
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1454,19 +1872,25 @@
         170
       ],
       "source_index": 16,
-      "scale": 1.1049382716049383,
+      "scale": 1.0423502019346105,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.60913505934214,
+        "target": 127.80165668813319,
+        "registered": 127.82800945019835
+      },
       "animation": "crossbow_low_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        47,
-        40
+        56,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1476,19 +1900,25 @@
         163
       ],
       "source_index": 17,
-      "scale": 1.1225806451612903,
+      "scale": 1.0358999357332295,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.53087269671951,
+        "target": 130.03742295906795,
+        "registered": 129.9192056625963
+      },
       "animation": "crossbow_low_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        60,
-        54
+        61,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1498,19 +1928,25 @@
         171
       ],
       "source_index": 18,
-      "scale": 0.9938650306748467,
+      "scale": 0.9907780432249362,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.41462936487815,
+        "target": 123.26728303068967,
+        "registered": 122.9186723000212
+      },
       "animation": "crossbow_low_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        54,
-        51
+        56,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1520,19 +1956,25 @@
         165
       ],
       "source_index": 19,
-      "scale": 1.0414012738853504,
+      "scale": 1.0229781998459786,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.12595177297108,
+        "target": 125.95516449903673,
+        "registered": 126.12295588036304
+      },
       "animation": "crossbow_low_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        44,
-        36
+        54,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1542,19 +1984,25 @@
         168
       ],
       "source_index": 20,
-      "scale": 1.115625,
+      "scale": 1.0388473822361417,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.0310040261642,
+        "target": 134.04352075988174,
+        "registered": 134.1044369139217
+      },
       "animation": "crossbow_low_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        44,
-        28
+        55,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1564,19 +2012,25 @@
         167
       ],
       "source_index": 21,
-      "scale": 1.169811320754717,
+      "scale": 1.061360495843766,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.26584406022437,
+        "target": 131.89085786820382,
+        "registered": 131.8142632646407
+      },
       "animation": "crossbow_low_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        40,
-        23
+        52,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1586,19 +2040,25 @@
         164
       ],
       "source_index": 22,
-      "scale": 1.2179487179487178,
+      "scale": 1.1005564773921686,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.64583156389784,
+        "target": 134.97866435279664,
+        "registered": 134.71822445385777
+      },
       "animation": "crossbow_low",
       "after": 0
     },
     {
       "margin_xy": [
-        44,
-        23
+        50,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__03.png",
       "source_region": [
@@ -1608,19 +2068,25 @@
         173
       ],
       "source_index": 23,
-      "scale": 1.1575757575757575,
+      "scale": 1.093957775365544,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.77579893553076,
+        "target": 136.49945542297164,
+        "registered": 136.09555466656508
+      },
       "animation": "crossbow_low",
       "after": 1
     },
     {
       "margin_xy": [
-        62,
-        30
+        66,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1630,19 +2096,25 @@
         189
       ],
       "source_index": 0,
-      "scale": 1.022099447513812,
+      "scale": 0.9662211542630527,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.28437638711844,
+        "target": 132.64706861504496,
+        "registered": 132.92479076530458
+      },
       "animation": "crossbow_low",
       "after": 2
     },
     {
       "margin_xy": [
-        63,
-        31
+        67,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1652,19 +2124,25 @@
         185
       ],
       "source_index": 1,
-      "scale": 1.036723163841808,
+      "scale": 0.9935314032174313,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.46160496562297,
+        "target": 132.59829565714588,
+        "registered": 132.72151295099073
+      },
       "animation": "crossbow_low",
       "after": 3
     },
     {
       "margin_xy": [
-        64,
-        28
+        69,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1674,12 +2152,18 @@
         185
       ],
       "source_index": 2,
-      "scale": 1.0593220338983051,
+      "scale": 0.9989258366046732,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.7145129523913,
+        "target": 134.56980755375855,
+        "registered": 134.7145129523913
+      },
       "animation": "crossbow_low",
       "after": 4
     },
@@ -1696,19 +2180,25 @@
         189
       ],
       "source_index": 3,
-      "scale": 1.0193370165745856,
+      "scale": 1.0226901115387457,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.81482563170601,
+        "target": 129.692268170056,
+        "registered": 129.4990347454374
+      },
       "animation": "crossbow_low",
       "after": 5
     },
     {
       "margin_xy": [
-        62,
-        34
+        64,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1718,19 +2208,25 @@
         185
       ],
       "source_index": 4,
-      "scale": 1.0197740112994351,
+      "scale": 1.0111433295999277,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.5503852226456,
+        "target": 127.96057787617937,
+        "registered": 127.87493890516625
+      },
       "animation": "crossbow_low",
       "after": 6
     },
     {
       "margin_xy": [
-        57,
-        39
+        54,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1740,19 +2236,25 @@
         190
       ],
       "source_index": 5,
-      "scale": 0.9725274725274725,
+      "scale": 1.00821806782586,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.5450113945378,
+        "target": 131.61783915250578,
+        "registered": 131.92422067232386
+      },
       "animation": "crossbow_low",
       "after": 7
     },
     {
       "margin_xy": [
-        65,
-        48
+        62,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1762,19 +2264,25 @@
         190
       ],
       "source_index": 6,
-      "scale": 0.9148351648351648,
+      "scale": 0.9472729380429545,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.62352732452865,
+        "target": 125.63067838232632,
+        "registered": 125.41132325272706
+      },
       "animation": "crossbow_low",
       "after": 8
     },
     {
       "margin_xy": [
-        70,
-        50
+        64,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1784,19 +2292,25 @@
         186
       ],
       "source_index": 7,
-      "scale": 0.9241573033707865,
+      "scale": 0.9682769450193637,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.77461527376022,
+        "target": 126.62604496335916,
+        "registered": 126.53062870309307
+      },
       "animation": "crossbow_low",
       "after": 9
     },
     {
       "margin_xy": [
-        68,
-        43
+        66,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1806,19 +2320,25 @@
         187
       ],
       "source_index": 8,
-      "scale": 0.9636871508379888,
+      "scale": 0.9936390317337855,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.0378733545796,
+        "target": 131.19798463223268,
+        "registered": 131.2707126513755
+      },
       "animation": "crossbow_low",
       "after": 10
     },
     {
       "margin_xy": [
-        66,
-        42
+        68,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1828,19 +2348,25 @@
         192
       ],
       "source_index": 9,
-      "scale": 0.9429347826086957,
+      "scale": 0.9323382954207831,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.79461872586654,
+        "target": 124.741846759348,
+        "registered": 124.69963913339926
+      },
       "animation": "crossbow_low",
       "after": 11
     },
     {
       "margin_xy": [
-        58,
-        40
+        59,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1850,19 +2376,25 @@
         187
       ],
       "source_index": 10,
-      "scale": 0.9888268156424581,
+      "scale": 0.9824969882187145,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.89918541247653,
+        "target": 126.64306145160384,
+        "registered": 126.52667702899653
+      },
       "animation": "crossbow_low_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        48,
-        33
+        52,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1872,19 +2404,25 @@
         188
       ],
       "source_index": 11,
-      "scale": 1.0166666666666666,
+      "scale": 0.983875264869575,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.75164782404775,
+        "target": 130.61106266475753,
+        "registered": 130.6560369826056
+      },
       "animation": "crossbow_low_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        50,
-        33
+        60,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1894,19 +2432,25 @@
         181
       ],
       "source_index": 12,
-      "scale": 1.0520231213872833,
+      "scale": 0.9530608214081868,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.59407281484982,
+        "target": 125.41715512936952,
+        "registered": 125.4631419979589
+      },
       "animation": "crossbow_low_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        52,
-        30
+        59,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1916,19 +2460,25 @@
         189
       ],
       "source_index": 13,
-      "scale": 1.022099447513812,
+      "scale": 0.9577647491718254,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 133.64131097830492,
+        "target": 127.99693668813012,
+        "registered": 127.89448776237387
+      },
       "animation": "crossbow_low_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        45,
-        24
+        48,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1938,19 +2488,25 @@
         189
       ],
       "source_index": 14,
-      "scale": 1.0552486187845305,
+      "scale": 1.0238842057729294,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.05383500689243,
+        "target": 133.16006756375566,
+        "registered": 133.34916572667413
+      },
       "animation": "crossbow_low_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        44,
-        25
+        54,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1960,19 +2516,25 @@
         188
       ],
       "source_index": 15,
-      "scale": 1.0555555555555556,
+      "scale": 0.9827560633789916,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.50287353158168,
+        "target": 128.2524902515436,
+        "registered": 128.21856339859684
+      },
       "animation": "crossbow_low_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        43,
-        23
+        51,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -1982,19 +2544,25 @@
         188
       ],
       "source_index": 16,
-      "scale": 1.0638888888888889,
+      "scale": 0.9858620958033946,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.7915020022156,
+        "target": 129.92824637298153,
+        "registered": 129.81910491141124
+      },
       "animation": "crossbow_low_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        34,
-        19
+        44,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -2004,19 +2572,25 @@
         182
       ],
       "source_index": 17,
-      "scale": 1.1206896551724137,
+      "scale": 1.032233520714851,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.43005788544295,
+        "target": 134.63427785813258,
+        "registered": 134.8406466908254
+      },
       "animation": "crossbow_low_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        47,
-        24
+        58,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -2026,19 +2600,25 @@
         188
       ],
       "source_index": 18,
-      "scale": 1.0611111111111111,
+      "scale": 0.9600899316115478,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.71661652133832,
+        "target": 130.30015707452236,
+        "registered": 130.02307487519283
+      },
       "animation": "crossbow_low_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        48,
-        21
+        58,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -2048,19 +2628,25 @@
         185
       ],
       "source_index": 19,
-      "scale": 1.0903954802259888,
+      "scale": 0.9859385925042434,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.93983601614678,
+        "target": 131.0705148095047,
+        "registered": 130.86252328302402
+      },
       "animation": "crossbow_low_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        50,
-        13
+        61,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -2070,19 +2656,25 @@
         186
       ],
       "source_index": 20,
-      "scale": 1.1292134831460674,
+      "scale": 1.0174678952088414,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 132.45754036671525,
+        "target": 134.77129480146192,
+        "registered": 134.57711543943867
+      },
       "animation": "crossbow_low_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        62,
-        12
+        74,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -2092,19 +2684,25 @@
         180
       ],
       "source_index": 21,
-      "scale": 1.1715116279069768,
+      "scale": 1.020059373710807,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.66096478394597,
+        "target": 129.2017044111185,
+        "registered": 129.4295174989075
+      },
       "animation": "crossbow_low_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        52,
-        57
+        60,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -2114,19 +2712,25 @@
         173
       ],
       "source_index": 22,
-      "scale": 0.9545454545454546,
+      "scale": 0.8953221310469776,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 137.2552366942697,
+        "target": 122.88765101447086,
+        "registered": 122.94307625889309
+      },
       "animation": "crossbow_low_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        50,
-        59
+        58,
+        69
       ],
       "source": "art_requests/character_motion_v8/incoming/kneeling_crossbowman__04.png",
       "source_region": [
@@ -2136,12 +2740,18 @@
         167
       ],
       "source_index": 23,
-      "scale": 0.9905660377358491,
+      "scale": 0.9150866301271005,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 134.29072938963435,
+        "target": 122.88765101447086,
+        "registered": 122.76400123814798
+      },
       "animation": "crossbow_low_charge",
       "after": 1
     }

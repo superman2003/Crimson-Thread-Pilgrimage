@@ -1,5 +1,7 @@
 # 补帧前后原生对照
 
+2026-11-10 最终复查：[全角色尺寸与 222 处评论回归](body_size_review_20261110/README.md)、[保持原尺寸的受击反馈](body_feedback_20261110/README.md)。下列两组身体对照录像已按最终素材重录。
+
 Godot 4.6.1，Windows 原生 Compatibility 渲染器；相同种子、相同升级后 AI、固定 60 Hz 模拟、固定靶、无声诊断。左侧只切回保留的 `combat_motion_v7_manifest.json` / `boss_behavior_manifest.json`，右侧使用 `motion_v8_manifest.json`。并未替换战斗脚本。
 
 - `bosses_v7_v8_comparison.mp4`：六位正式 Boss，两侧各 2,160 帧。
@@ -20,6 +22,6 @@ python -X utf8 tools/capture_combat_pose_review.py --engine <Godot-4.6.1.exe> --
 
 最终素材和录像使用生产基线 `ff8ab652b224523afbf8789a7b5ad98a676eb389`。`*_sample_frames.json` 标明取样位置，优先取新增奇数帧；视频保留完整序列。
 
-`validation/` 保存全量构建、可重复构建、导入、npm 和原生回归日志。全角色翻倍验证：13,516 项、零失败，46 个角色，5,439 → 10,878 帧。GPU 预热同步纹理加载数为 0；扩展角色播放验证 15,252 项、零失败；旧图集探针 3,325 项、零失败。
+`validation/` 保存初轮构建、导入和原生回归记录；`body_feedback_20261110/validation/` 保存最终相关回归日志。最终全角色素材验证 40,803 项、受击反馈验证 611 项均零失败，46 个角色、5,439 → 10,878 帧。GPU 预热同步纹理加载数为 0；扩展播放 15,252 项通过。旧图集探针 3,325 项属于原轮次验证，不作为本轮重新运行的结果。
 
 退出诊断：Boss 试炼留下 ObjectDB 警告；首次 GPU 图集探针也出现过退出警告，随后禁用 v8 和启用 v8 的 verbose 对照均未复现。保留首次日志和两次补跑日志，未将“断言通过”表述为“所有运行均零退出警告”。

@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "broken_string_gardener",
   "canvas": [
     356,
@@ -37,16 +37,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1302,
-            415,
-            197,
-            190
+            1307,
+            428,
+            204,
+            197
           ],
           "margin": [
-            105,
-            52,
-            159,
-            58
+            101,
+            46,
+            152,
+            51
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1503,
-            415,
-            206,
-            190
+            1515,
+            428,
+            213,
+            196
           ],
           "margin": [
-            94,
-            52,
-            150,
-            58
+            90,
+            48,
+            143,
+            52
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1713,
-            415,
-            204,
-            189
+            1732,
+            428,
+            212,
+            197
           ],
           "margin": [
-            96,
-            53,
-            152,
-            59
+            92,
+            46,
+            144,
+            51
           ]
         },
         {
@@ -128,7 +128,7 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             2,
-            620,
+            637,
             213,
             189
           ],
@@ -158,15 +158,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             219,
-            620,
-            213,
-            189
+            637,
+            221,
+            195
           ],
           "margin": [
-            90,
-            54,
-            143,
-            59
+            86,
+            47,
+            135,
+            53
           ]
         },
         {
@@ -187,16 +187,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            436,
-            620,
-            215,
-            189
+            444,
+            637,
+            218,
+            191
           ],
           "margin": [
-            87,
-            54,
-            141,
-            59
+            85,
+            52,
+            138,
+            57
           ]
         },
         {
@@ -217,16 +217,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            655,
-            620,
-            207,
-            189
+            666,
+            637,
+            213,
+            195
           ],
           "margin": [
-            96,
-            54,
-            149,
-            59
+            92,
+            47,
+            143,
+            53
           ]
         },
         {
@@ -247,16 +247,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            866,
-            620,
-            204,
-            190
+            883,
+            637,
+            212,
+            197
           ],
           "margin": [
-            94,
-            53,
-            152,
-            58
+            90,
+            45,
+            144,
+            51
           ]
         }
       ]
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1074,
-            620,
-            205,
-            188
+            1099,
+            637,
+            215,
+            197
           ],
           "margin": [
-            98,
-            54,
-            151,
-            60
+            94,
+            46,
+            141,
+            51
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1283,
-            620,
-            214,
-            188
+            1318,
+            637,
+            218,
+            191
           ],
           "margin": [
-            79,
-            55,
-            142,
-            60
+            77,
+            52,
+            138,
+            57
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1501,
-            620,
-            215,
-            188
+            1540,
+            637,
+            225,
+            197
           ],
           "margin": [
-            68,
-            55,
-            141,
-            60
+            63,
+            46,
+            131,
+            51
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1720,
-            620,
-            213,
-            189
+            1769,
+            637,
+            220,
+            196
           ],
           "margin": [
-            67,
-            54,
-            143,
-            59
+            63,
+            46,
+            136,
+            52
           ]
         },
         {
@@ -405,15 +405,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             2,
-            818,
-            210,
-            190
+            842,
+            214,
+            194
           ],
           "margin": [
-            66,
-            54,
-            146,
-            58
+            64,
+            49,
+            142,
+            54
           ]
         },
         {
@@ -434,16 +434,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            216,
-            818,
-            212,
-            190
+            220,
+            842,
+            220,
+            197
           ],
           "margin": [
-            58,
-            53,
-            144,
-            58
+            52,
+            47,
+            136,
+            51
           ]
         },
         {
@@ -464,16 +464,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            432,
-            818,
-            211,
-            189
+            444,
+            842,
+            224,
+            201
           ],
           "margin": [
-            63,
-            53,
-            145,
-            59
+            57,
+            41,
+            132,
+            47
           ]
         },
         {
@@ -494,16 +494,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            647,
-            818,
-            215,
-            189
+            672,
+            842,
+            223,
+            196
           ],
           "margin": [
-            82,
-            53,
-            141,
-            59
+            78,
+            48,
+            133,
+            52
           ]
         },
         {
@@ -524,16 +524,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            866,
-            818,
-            216,
-            190
+            899,
+            842,
+            222,
+            195
           ],
           "margin": [
-            83,
-            52,
-            140,
-            58
+            80,
+            49,
+            134,
+            53
           ]
         },
         {
@@ -554,16 +554,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1086,
-            818,
-            215,
-            192
+            1125,
+            842,
+            216,
+            193
           ],
           "margin": [
             64,
-            52,
-            141,
-            56
+            51,
+            140,
+            55
           ]
         },
         {
@@ -584,16 +584,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1305,
-            818,
-            214,
-            193
+            1345,
+            842,
+            217,
+            196
           ],
           "margin": [
-            55,
-            50,
-            142,
-            55
+            54,
+            46,
+            139,
+            52
           ]
         },
         {
@@ -614,16 +614,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1523,
-            818,
-            221,
-            194
+            1566,
+            842,
+            224,
+            196
           ],
           "margin": [
-            39,
-            49,
-            135,
-            54
+            37,
+            46,
+            132,
+            52
           ]
         },
         {
@@ -644,16 +644,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1748,
-            818,
-            220,
-            194
+            1794,
+            842,
+            222,
+            195
           ],
           "margin": [
-            52,
-            48,
-            136,
-            54
+            50,
+            47,
+            134,
+            53
           ]
         },
         {
@@ -675,7 +675,7 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             2,
-            1020,
+            1051,
             217,
             194
           ],
@@ -705,15 +705,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             223,
-            1020,
-            214,
-            192
+            1051,
+            217,
+            194
           ],
           "margin": [
-            101,
-            52,
-            142,
-            56
+            100,
+            49,
+            139,
+            54
           ]
         },
         {
@@ -734,16 +734,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            441,
-            1020,
-            211,
-            189
+            444,
+            1051,
+            208,
+            187
           ],
           "margin": [
-            98,
-            55,
-            145,
-            59
+            100,
+            56,
+            148,
+            61
           ]
         }
       ]
@@ -772,15 +772,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             656,
-            1020,
-            209,
-            199
+            1051,
+            208,
+            198
           ],
           "margin": [
-            98,
-            44,
-            147,
-            49
+            100,
+            45,
+            148,
+            50
           ]
         },
         {
@@ -801,16 +801,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            869,
-            1020,
-            218,
-            204
+            868,
+            1051,
+            223,
+            208
           ],
           "margin": [
-            91,
-            38,
-            138,
-            44
+            88,
+            34,
+            133,
+            40
           ]
         },
         {
@@ -831,16 +831,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1091,
-            1020,
-            217,
-            202
+            1095,
+            1051,
+            213,
+            197
           ],
           "margin": [
-            96,
-            41,
-            139,
-            46
+            98,
+            46,
+            143,
+            51
           ]
         },
         {
@@ -862,15 +862,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             1312,
-            1020,
-            223,
-            209
+            1051,
+            221,
+            207
           ],
           "margin": [
             94,
-            33,
-            133,
-            39
+            35,
+            135,
+            41
           ]
         },
         {
@@ -891,16 +891,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1539,
-            1020,
-            250,
-            224
+            1537,
+            1051,
+            237,
+            212
           ],
           "margin": [
-            81,
-            18,
-            106,
-            24
+            88,
+            30,
+            119,
+            36
           ]
         },
         {
@@ -921,16 +921,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1793,
-            1020,
-            227,
-            230
+            1778,
+            1051,
+            208,
+            211
           ],
           "margin": [
-            82,
-            12,
-            129,
-            18
+            92,
+            31,
+            148,
+            37
           ]
         },
         {
@@ -952,15 +952,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             2,
-            1258,
-            225,
-            237
+            1271,
+            211,
+            223
           ],
           "margin": [
-            86,
-            5,
-            131,
-            11
+            92,
+            19,
+            145,
+            25
           ]
         },
         {
@@ -981,16 +981,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            231,
-            1258,
-            233,
-            241
+            217,
+            1271,
+            221,
+            229
           ],
           "margin": [
-            82,
-            1,
-            123,
-            7
+            88,
+            13,
+            135,
+            19
           ]
         },
         {
@@ -1011,16 +1011,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            468,
-            1258,
-            216,
-            239
+            442,
+            1271,
+            200,
+            221
           ],
           "margin": [
-            92,
-            3,
-            140,
-            9
+            100,
+            21,
+            156,
+            27
           ]
         },
         {
@@ -1041,16 +1041,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            688,
-            1258,
-            183,
-            224
+            646,
+            1271,
+            174,
+            213
           ],
           "margin": [
-            102,
-            18,
-            173,
-            24
+            108,
+            29,
+            182,
+            35
           ]
         },
         {
@@ -1071,16 +1071,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            875,
-            1258,
-            170,
-            199
+            824,
+            1271,
+            193,
+            227
           ],
           "margin": [
-            98,
-            44,
-            186,
-            49
+            85,
+            15,
+            163,
+            21
           ]
         },
         {
@@ -1101,16 +1101,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1049,
-            1258,
-            186,
-            168
+            1021,
+            1271,
+            208,
+            187
           ],
           "margin": [
-            81,
-            73,
-            170,
-            80
+            70,
+            54,
+            148,
+            61
           ]
         }
       ]
@@ -1138,15 +1138,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1239,
-            1258,
-            206,
+            1233,
+            1271,
+            207,
             155
           ],
           "margin": [
             77,
             87,
-            150,
+            149,
             93
           ]
         },
@@ -1168,15 +1168,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1449,
-            1258,
-            226,
+            1444,
+            1271,
+            227,
             160
           ],
           "margin": [
             72,
             83,
-            130,
+            129,
             88
           ]
         },
@@ -1198,16 +1198,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1679,
-            1258,
-            248,
-            157
+            1675,
+            1271,
+            244,
+            154
           ],
           "margin": [
-            82,
-            85,
-            108,
-            91
+            84,
+            90,
+            112,
+            94
           ]
         },
         {
@@ -1229,15 +1229,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             2,
-            1507,
-            253,
-            156
+            1508,
+            252,
+            155
           ],
           "margin": [
             78,
-            86,
-            103,
-            92
+            87,
+            104,
+            93
           ]
         },
         {
@@ -1258,16 +1258,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            259,
-            1507,
-            249,
-            157
+            258,
+            1508,
+            262,
+            165
           ],
           "margin": [
-            61,
-            85,
-            107,
-            91
+            56,
+            77,
+            94,
+            83
           ]
         },
         {
@@ -1288,16 +1288,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            512,
-            1507,
+            524,
+            1508,
             259,
-            151
+            152
           ],
           "margin": [
             40,
-            91,
+            90,
             97,
-            97
+            96
           ]
         },
         {
@@ -1318,16 +1318,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            775,
-            1507,
-            261,
-            152
+            787,
+            1508,
+            255,
+            149
           ],
           "margin": [
-            38,
-            90,
-            95,
-            96
+            40,
+            94,
+            101,
+            99
           ]
         },
         {
@@ -1348,16 +1348,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1040,
-            1507,
-            250,
-            160
+            1046,
+            1508,
+            234,
+            149
           ],
           "margin": [
-            47,
-            82,
-            106,
-            88
+            53,
+            95,
+            122,
+            99
           ]
         },
         {
@@ -1378,16 +1378,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1294,
-            1507,
-            204,
-            159
+            1284,
+            1508,
+            196,
+            153
           ],
           "margin": [
-            74,
-            85,
-            152,
-            89
+            77,
+            89,
+            160,
+            95
           ]
         },
         {
@@ -1408,16 +1408,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1502,
-            1507,
-            182,
-            164
+            1484,
+            1508,
+            184,
+            166
           ],
           "margin": [
-            85,
-            79,
-            174,
-            84
+            84,
+            77,
+            172,
+            82
           ]
         },
         {
@@ -1438,16 +1438,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1688,
-            1507,
-            189,
-            174
+            1672,
+            1508,
+            196,
+            180
           ],
           "margin": [
-            85,
-            70,
-            167,
-            74
+            82,
+            62,
+            160,
+            68
           ]
         },
         {
@@ -1469,15 +1469,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             2,
-            1689,
-            209,
-            177
+            1696,
+            201,
+            170
           ],
           "margin": [
-            58,
-            66,
-            147,
-            71
+            64,
+            73,
+            155,
+            78
           ]
         }
       ]
@@ -1505,16 +1505,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            215,
-            1689,
-            228,
-            183
+            207,
+            1696,
+            235,
+            189
           ],
           "margin": [
-            51,
-            60,
-            128,
-            65
+            47,
+            53,
+            121,
+            59
           ]
         },
         {
@@ -1535,16 +1535,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            447,
-            1689,
-            231,
-            191
+            446,
+            1696,
+            235,
+            195
           ],
           "margin": [
-            62,
-            52,
-            125,
-            57
+            58,
+            47,
+            121,
+            53
           ]
         },
         {
@@ -1565,8 +1565,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            682,
-            1689,
+            685,
+            1696,
             210,
             191
           ],
@@ -1595,16 +1595,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            896,
-            1689,
-            210,
-            194
+            899,
+            1696,
+            218,
+            202
           ],
           "margin": [
-            94,
-            48,
-            146,
-            54
+            90,
+            40,
+            138,
+            46
           ]
         },
         {
@@ -1625,16 +1625,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1110,
-            1689,
-            230,
-            199
+            1121,
+            1696,
+            241,
+            208
           ],
           "margin": [
-            80,
-            43,
-            126,
-            49
+            74,
+            34,
+            115,
+            40
           ]
         },
         {
@@ -1655,16 +1655,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1344,
-            1689,
-            217,
-            196
+            1366,
+            1696,
+            220,
+            199
           ],
           "margin": [
-            85,
-            46,
-            139,
-            52
+            83,
+            43,
+            136,
+            49
           ]
         },
         {
@@ -1685,16 +1685,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1565,
-            1689,
-            209,
-            195
+            1590,
+            1696,
+            214,
+            200
           ],
           "margin": [
-            85,
-            47,
-            147,
-            53
+            82,
+            42,
+            142,
+            48
           ]
         },
         {
@@ -1715,16 +1715,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1778,
-            1689,
-            202,
-            197
+            1808,
+            1696,
+            215,
+            210
           ],
           "margin": [
-            92,
-            45,
-            154,
-            51
+            85,
+            32,
+            141,
+            38
           ]
         },
         {
@@ -1747,14 +1747,14 @@
           "region": [
             2,
             2,
-            196,
-            192
+            206,
+            202
           ],
           "margin": [
-            90,
-            51,
-            160,
-            56
+            85,
+            40,
+            150,
+            46
           ]
         },
         {
@@ -1775,16 +1775,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            202,
+            212,
             2,
-            200,
-            192
+            205,
+            196
           ],
           "margin": [
-            93,
-            51,
-            156,
-            56
+            90,
+            47,
+            151,
+            52
           ]
         },
         {
@@ -1805,16 +1805,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            406,
+            421,
             2,
-            200,
-            196
+            213,
+            209
           ],
           "margin": [
-            94,
-            47,
-            156,
-            52
+            86,
+            33,
+            143,
+            39
           ]
         },
         {
@@ -1835,16 +1835,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            610,
+            638,
             2,
-            205,
-            193
+            209,
+            198
           ],
           "margin": [
-            90,
-            49,
-            151,
-            55
+            88,
+            44,
+            147,
+            50
           ]
         }
       ]
@@ -1872,16 +1872,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            819,
+            851,
             2,
-            183,
-            218
+            180,
+            215
           ],
           "margin": [
-            101,
-            24,
-            173,
-            30
+            102,
+            27,
+            176,
+            33
           ]
         },
         {
@@ -1902,16 +1902,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1006,
+            1035,
             2,
-            172,
-            199
+            180,
+            209
           ],
           "margin": [
-            106,
-            43,
-            184,
-            49
+            102,
+            33,
+            176,
+            39
           ]
         },
         {
@@ -1932,16 +1932,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1182,
+            1219,
             2,
-            173,
-            170
+            183,
+            180
           ],
           "margin": [
-            107,
-            72,
-            183,
-            78
+            102,
+            64,
+            173,
+            68
           ]
         },
         {
@@ -1962,16 +1962,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1359,
+            1406,
             2,
-            254,
-            175
+            229,
+            158
           ],
           "margin": [
-            60,
-            67,
-            102,
-            73
+            72,
+            86,
+            127,
+            90
           ]
         }
       ]
@@ -1999,16 +1999,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1617,
+            1639,
             2,
-            203,
-            157
+            197,
+            153
           ],
           "margin": [
-            64,
-            86,
-            153,
-            91
+            67,
+            89,
+            159,
+            95
           ]
         },
         {
@@ -2029,16 +2029,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1824,
             2,
-            193,
-            116
+            225,
+            208,
+            125
           ],
           "margin": [
-            86,
-            125,
-            163,
-            132
+            78,
+            117,
+            148,
+            123
           ]
         },
         {
@@ -2059,16 +2059,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            2,
-            228,
-            196,
-            83
+            214,
+            225,
+            218,
+            93
           ],
           "margin": [
-            96,
-            158,
-            160,
-            165
+            84,
+            148,
+            138,
+            155
           ]
         },
         {
@@ -2089,16 +2089,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            202,
-            228,
-            201,
-            74
+            436,
+            225,
+            224,
+            83
           ],
           "margin": [
-            96,
-            167,
-            155,
-            174
+            84,
+            161,
+            132,
+            165
           ]
         }
       ]
@@ -2126,16 +2126,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            407,
-            228,
-            213,
-            216
+            664,
+            225,
+            209,
+            212
           ],
           "margin": [
-            84,
-            26,
-            143,
-            32
+            87,
+            30,
+            147,
+            36
           ]
         },
         {
@@ -2156,16 +2156,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            624,
-            228,
-            184,
-            213
+            877,
+            225,
+            203,
+            236
           ],
           "margin": [
-            92,
-            29,
-            172,
-            35
+            81,
+            6,
+            153,
+            12
           ]
         },
         {
@@ -2186,16 +2186,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            812,
-            228,
-            190,
-            204
+            1084,
+            225,
+            194,
+            209
           ],
           "margin": [
-            86,
-            38,
-            166,
-            44
+            84,
+            33,
+            162,
+            39
           ]
         },
         {
@@ -2216,16 +2216,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1006,
-            228,
-            181,
-            193
+            1282,
+            225,
+            190,
+            204
           ],
           "margin": [
-            78,
-            50,
-            175,
-            55
+            73,
+            38,
+            166,
+            44
           ]
         },
         {
@@ -2246,16 +2246,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1191,
-            228,
-            188,
-            184
+            1476,
+            225,
+            219,
+            215
           ],
           "margin": [
-            64,
-            58,
-            168,
-            64
+            48,
+            27,
+            137,
+            33
           ]
         },
         {
@@ -2276,16 +2276,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1383,
-            228,
-            235,
-            167
+            1699,
+            225,
+            246,
+            175
           ],
           "margin": [
-            30,
-            75,
-            121,
-            81
+            24,
+            67,
+            110,
+            73
           ]
         },
         {
@@ -2306,16 +2306,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1622,
-            228,
-            249,
-            168
+            2,
+            469,
+            252,
+            171
           ],
           "margin": [
-            30,
-            74,
-            107,
-            80
+            28,
+            71,
+            104,
+            77
           ]
         },
         {
@@ -2336,16 +2336,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            2,
-            452,
-            270,
-            186
+            258,
+            469,
+            250,
+            172
           ],
           "margin": [
-            36,
-            56,
-            86,
-            62
+            46,
+            70,
+            106,
+            76
           ]
         },
         {
@@ -2366,16 +2366,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            276,
-            452,
-            209,
-            196
+            512,
+            469,
+            205,
+            192
           ],
           "margin": [
-            84,
-            46,
-            147,
-            52
+            86,
+            50,
+            151,
+            56
           ]
         },
         {
@@ -2396,16 +2396,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            489,
-            452,
-            197,
-            204
+            721,
+            469,
+            198,
+            206
           ],
           "margin": [
             101,
-            38,
-            159,
-            44
+            36,
+            158,
+            42
           ]
         },
         {
@@ -2426,16 +2426,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            690,
-            452,
-            200,
-            209
+            923,
+            469,
+            190,
+            198
           ],
           "margin": [
-            96,
-            33,
-            156,
-            39
+            101,
+            44,
+            166,
+            50
           ]
         },
         {
@@ -2456,16 +2456,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            894,
-            452,
-            231,
-            207
+            1117,
+            469,
+            202,
+            181
           ],
           "margin": [
-            80,
-            35,
-            125,
-            41
+            94,
+            61,
+            154,
+            67
           ]
         }
       ]
@@ -2493,16 +2493,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1129,
-            452,
-            216,
-            201
+            1323,
+            469,
+            191,
+            178
           ],
           "margin": [
-            73,
-            41,
-            140,
-            47
+            86,
+            64,
+            165,
+            70
           ]
         },
         {
@@ -2523,16 +2523,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1349,
-            452,
-            204,
-            191
+            1518,
+            469,
+            199,
+            186
           ],
           "margin": [
-            66,
-            51,
-            152,
-            57
+            68,
+            56,
+            157,
+            62
           ]
         },
         {
@@ -2553,16 +2553,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1557,
-            452,
-            195,
-            173
+            1721,
+            469,
+            196,
+            174
           ],
           "margin": [
             60,
-            69,
-            161,
-            75
+            68,
+            160,
+            74
           ]
         },
         {
@@ -2583,16 +2583,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1756,
-            452,
-            190,
-            159
+            2,
+            683,
+            186,
+            155
           ],
           "margin": [
-            60,
-            83,
-            166,
-            89
+            62,
+            88,
+            170,
+            93
           ]
         },
         {
@@ -2613,16 +2613,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            2,
-            669,
-            174,
-            149
+            192,
+            683,
+            206,
+            176
           ],
           "margin": [
-            55,
-            92,
-            182,
-            99
+            39,
+            66,
+            150,
+            72
           ]
         },
         {
@@ -2643,16 +2643,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            180,
-            669,
-            132,
-            133
+            402,
+            683,
+            187,
+            188
           ],
           "margin": [
-            64,
-            108,
-            224,
-            115
+            32,
+            54,
+            169,
+            60
           ]
         },
         {
@@ -2673,16 +2673,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            316,
-            669,
-            146,
-            138
+            593,
+            683,
+            194,
+            183
           ],
           "margin": [
-            54,
-            103,
-            210,
-            110
+            28,
+            59,
+            162,
+            65
           ]
         },
         {
@@ -2703,16 +2703,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            466,
-            669,
-            208,
-            162
+            791,
+            683,
+            213,
+            166
           ],
           "margin": [
-            36,
-            80,
-            148,
-            86
+            32,
+            76,
+            143,
+            82
           ]
         },
         {
@@ -2733,16 +2733,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            678,
-            669,
-            258,
-            179
+            1008,
+            683,
+            186,
+            129
           ],
           "margin": [
-            9,
-            63,
-            98,
-            69
+            46,
+            112,
+            170,
+            119
           ]
         },
         {
@@ -2763,16 +2763,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            940,
-            669,
-            300,
-            189
+            1198,
+            683,
+            214,
+            135
           ],
           "margin": [
-            2,
-            53,
-            56,
-            59
+            44,
+            107,
+            142,
+            113
           ]
         },
         {
@@ -2793,16 +2793,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1244,
-            669,
-            322,
-            191
+            1416,
+            683,
+            250,
+            148
           ],
           "margin": [
-            -4,
-            53,
-            34,
-            57
+            33,
+            94,
+            106,
+            100
           ]
         },
         {
@@ -2823,16 +2823,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1570,
-            669,
-            233,
-            183
+            1670,
+            683,
+            226,
+            178
           ],
           "margin": [
-            40,
-            59,
-            123,
-            65
+            44,
+            64,
+            130,
+            70
           ]
         }
       ]
@@ -2860,16 +2860,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1807,
-            669,
-            210,
-            195
+            2,
+            879,
+            206,
+            192
           ],
           "margin": [
-            74,
-            47,
-            146,
-            53
+            76,
+            50,
+            150,
+            56
           ]
         },
         {
@@ -2890,16 +2890,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            2,
-            872,
-            190,
-            202
+            212,
+            879,
+            192,
+            204
           ],
           "margin": [
             86,
-            40,
-            166,
-            46
+            38,
+            164,
+            44
           ]
         },
         {
@@ -2920,16 +2920,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            196,
-            872,
-            185,
-            201
+            408,
+            879,
+            190,
+            207
           ],
           "margin": [
-            85,
-            41,
-            171,
-            47
+            83,
+            35,
+            166,
+            41
           ]
         },
         {
@@ -2950,16 +2950,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            385,
-            872,
-            186,
-            202
+            602,
+            879,
+            190,
+            206
           ],
           "margin": [
-            84,
-            40,
-            170,
-            46
+            82,
+            36,
+            166,
+            42
           ]
         },
         {
@@ -2980,16 +2980,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            575,
-            872,
-            201,
-            202
+            796,
+            879,
+            213,
+            215
           ],
           "margin": [
-            74,
-            40,
-            155,
-            46
+            68,
+            27,
+            143,
+            33
           ]
         },
         {
@@ -3010,16 +3010,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            780,
-            872,
-            244,
-            196
+            1013,
+            879,
+            257,
+            206
           ],
           "margin": [
-            74,
-            46,
-            112,
-            52
+            68,
+            36,
+            99,
+            42
           ]
         },
         {
@@ -3040,16 +3040,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1028,
-            872,
-            248,
-            195
+            1274,
+            879,
+            256,
+            201
           ],
           "margin": [
-            74,
-            47,
-            108,
-            53
+            70,
+            41,
+            100,
+            47
           ]
         },
         {
@@ -3070,16 +3070,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1280,
-            872,
-            270,
-            199
+            1534,
+            879,
+            259,
+            192
           ],
           "margin": [
-            72,
-            43,
-            86,
-            49
+            76,
+            50,
+            97,
+            56
           ]
         },
         {
@@ -3100,16 +3100,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1554,
-            872,
-            183,
-            196
+            1797,
+            879,
+            184,
+            197
           ],
           "margin": [
             94,
-            46,
-            173,
-            52
+            45,
+            172,
+            51
           ]
         },
         {
@@ -3130,16 +3130,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1741,
-            872,
-            167,
-            196
+            2,
+            1102,
+            172,
+            201
           ],
           "margin": [
-            102,
-            46,
-            189,
-            52
+            100,
+            41,
+            184,
+            47
           ]
         },
         {
@@ -3160,16 +3160,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            2,
-            1082,
-            183,
-            198
+            178,
+            1102,
+            181,
+            196
           ],
           "margin": [
-            87,
-            44,
-            173,
-            50
+            89,
+            46,
+            175,
+            52
           ]
         },
         {
@@ -3190,16 +3190,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            189,
-            1082,
-            194,
-            193
+            363,
+            1102,
+            186,
+            185
           ],
           "margin": [
-            80,
-            49,
-            162,
-            55
+            84,
+            58,
+            170,
+            63
           ]
         }
       ]
@@ -3227,16 +3227,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            387,
-            1082,
-            191,
-            191
+            553,
+            1102,
+            189,
+            189
           ],
           "margin": [
-            79,
-            51,
-            165,
-            57
+            80,
+            53,
+            167,
+            59
           ]
         },
         {
@@ -3257,16 +3257,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            582,
-            1082,
+            746,
+            1102,
             182,
-            192
+            193
           ],
           "margin": [
             78,
-            50,
+            49,
             174,
-            56
+            55
           ]
         },
         {
@@ -3287,16 +3287,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            768,
-            1082,
-            191,
-            187
+            932,
+            1102,
+            189,
+            185
           ],
           "margin": [
-            74,
-            55,
-            165,
-            61
+            75,
+            58,
+            167,
+            63
           ]
         },
         {
@@ -3317,8 +3317,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            963,
-            1082,
+            1125,
+            1102,
             198,
             185
           ],
@@ -3347,16 +3347,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1165,
-            1082,
-            201,
-            186
+            1327,
+            1102,
+            206,
+            191
           ],
           "margin": [
-            77,
-            57,
-            155,
-            62
+            75,
+            51,
+            150,
+            57
           ]
         },
         {
@@ -3377,16 +3377,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1370,
-            1082,
-            184,
-            181
+            1537,
+            1102,
+            199,
+            196
           ],
           "margin": [
-            82,
-            61,
-            172,
-            67
+            74,
+            46,
+            157,
+            52
           ]
         },
         {
@@ -3407,16 +3407,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1558,
-            1082,
-            213,
-            181
+            1740,
+            1102,
+            221,
+            188
           ],
           "margin": [
-            74,
-            61,
-            143,
-            67
+            70,
+            56,
+            135,
+            60
           ]
         },
         {
@@ -3437,16 +3437,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1775,
-            1082,
-            208,
-            185
+            2,
+            1311,
+            206,
+            183
           ],
           "margin": [
-            74,
-            58,
-            148,
-            63
+            75,
+            61,
+            150,
+            65
           ]
         },
         {
@@ -3467,8 +3467,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            2,
-            1288,
+            212,
+            1311,
             171,
             180
           ],
@@ -3497,16 +3497,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            177,
-            1288,
-            179,
-            179
+            387,
+            1311,
+            182,
+            182
           ],
           "margin": [
-            81,
-            63,
-            177,
-            69
+            80,
+            62,
+            174,
+            66
           ]
         },
         {
@@ -3527,16 +3527,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            360,
-            1288,
-            179,
-            183
+            573,
+            1311,
+            192,
+            196
           ],
           "margin": [
-            78,
-            60,
-            177,
-            65
+            71,
+            46,
+            164,
+            52
           ]
         },
         {
@@ -3557,16 +3557,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            543,
-            1288,
-            184,
-            180
+            769,
+            1311,
+            198,
+            193
           ],
           "margin": [
-            68,
-            62,
-            172,
-            68
+            60,
+            49,
+            158,
+            55
           ]
         }
       ]
@@ -3594,16 +3594,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            731,
-            1288,
-            172,
-            209
+            971,
+            1311,
+            182,
+            222
           ],
           "margin": [
-            82,
-            33,
-            184,
-            39
+            76,
+            20,
+            174,
+            26
           ]
         },
         {
@@ -3624,16 +3624,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            907,
-            1288,
-            178,
-            211
+            1157,
+            1311,
+            194,
+            231
           ],
           "margin": [
-            82,
-            31,
-            178,
-            37
+            72,
+            11,
+            162,
+            17
           ]
         },
         {
@@ -3654,16 +3654,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1089,
-            1288,
-            198,
-            207
+            1355,
+            1311,
+            201,
+            210
           ],
           "margin": [
-            68,
-            35,
-            158,
-            41
+            66,
+            32,
+            155,
+            38
           ]
         },
         {
@@ -3684,8 +3684,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1291,
-            1288,
+            1560,
+            1311,
             196,
             200
           ],
@@ -3714,16 +3714,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1491,
-            1288,
-            191,
-            191
+            1760,
+            1311,
+            222,
+            222
           ],
           "margin": [
-            63,
-            51,
-            165,
-            57
+            46,
+            20,
+            134,
+            26
           ]
         },
         {
@@ -3744,16 +3744,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1686,
-            1288,
-            236,
-            176
+            2,
+            1550,
+            245,
+            182
           ],
           "margin": [
-            34,
-            66,
-            120,
-            72
+            30,
+            60,
+            111,
+            66
           ]
         },
         {
@@ -3774,8 +3774,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            2,
-            1507,
+            251,
+            1550,
             281,
             176
           ],
@@ -3804,16 +3804,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            287,
-            1507,
-            256,
-            189
+            536,
+            1550,
+            242,
+            178
           ],
           "margin": [
-            38,
-            53,
-            100,
-            59
+            44,
+            64,
+            114,
+            70
           ]
         },
         {
@@ -3834,16 +3834,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            547,
-            1507,
-            194,
-            195
+            782,
+            1550,
+            199,
+            200
           ],
           "margin": [
-            85,
-            47,
-            162,
-            53
+            83,
+            42,
+            157,
+            48
           ]
         },
         {
@@ -3864,16 +3864,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            745,
-            1507,
-            196,
-            201
+            985,
+            1550,
+            201,
+            206
           ],
           "margin": [
-            94,
-            41,
-            160,
-            47
+            91,
+            36,
+            155,
+            42
           ]
         },
         {
@@ -3894,16 +3894,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            945,
-            1507,
-            192,
-            203
+            1190,
+            1550,
+            197,
+            208
           ],
           "margin": [
-            82,
-            39,
-            164,
-            45
+            80,
+            34,
+            159,
+            40
           ]
         },
         {
@@ -3924,16 +3924,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1141,
-            1507,
-            157,
-            200
+            1391,
+            1550,
+            170,
+            216
           ],
           "margin": [
-            94,
-            42,
-            199,
-            48
+            86,
+            26,
+            186,
+            32
           ]
         }
       ]
@@ -3961,16 +3961,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1302,
-            1507,
-            165,
-            196
+            1565,
+            1550,
+            177,
+            210
           ],
           "margin": [
-            84,
-            46,
-            191,
-            52
+            78,
+            32,
+            179,
+            38
           ]
         },
         {
@@ -3991,16 +3991,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1471,
-            1507,
-            173,
-            190
+            1746,
+            1550,
+            200,
+            220
           ],
           "margin": [
-            82,
-            52,
-            183,
-            58
+            68,
+            22,
+            156,
+            28
           ]
         },
         {
@@ -4021,16 +4021,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1648,
-            1507,
-            236,
-            178
+            2,
+            1778,
+            233,
+            176
           ],
           "margin": [
             62,
-            64,
-            120,
-            70
+            66,
+            123,
+            72
           ]
         },
         {
@@ -4051,16 +4051,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            2,
-            1718,
-            212,
-            169
+            239,
+            1778,
+            230,
+            183
           ],
           "margin": [
-            71,
-            73,
-            144,
-            79
+            62,
+            59,
+            126,
+            65
           ]
         },
         {
@@ -4081,16 +4081,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            218,
-            1718,
-            210,
-            162
+            473,
+            1778,
+            247,
+            190
           ],
           "margin": [
-            79,
-            80,
-            146,
-            86
+            63,
+            52,
+            109,
+            58
           ]
         },
         {
@@ -4111,16 +4111,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            432,
-            1718,
-            219,
-            148
+            724,
+            1778,
+            255,
+            172
           ],
           "margin": [
+            52,
             70,
-            95,
-            137,
-            100
+            101,
+            76
           ]
         },
         {
@@ -4141,16 +4141,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            655,
-            1718,
-            226,
-            142
+            983,
+            1778,
+            256,
+            161
           ],
           "margin": [
-            66,
-            101,
-            130,
-            106
+            52,
+            81,
+            100,
+            87
           ]
         },
         {
@@ -4171,16 +4171,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            885,
-            1718,
-            223,
-            142
+            1243,
+            1778,
+            251,
+            160
           ],
           "margin": [
-            68,
-            101,
-            133,
-            106
+            54,
+            82,
+            105,
+            88
           ]
         },
         {
@@ -4201,16 +4201,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1112,
-            1718,
-            227,
-            136
+            1498,
+            1778,
+            246,
+            147
           ],
           "margin": [
-            64,
-            107,
-            129,
-            112
+            56,
+            95,
+            110,
+            101
           ]
         },
         {
@@ -4231,16 +4231,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
           "region": [
-            1343,
-            1718,
-            247,
-            143
+            1748,
+            1778,
+            257,
+            148
           ],
           "margin": [
-            58,
+            54,
+            94,
             99,
-            109,
-            105
+            100
           ]
         },
         {
@@ -4259,18 +4259,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1594,
-            1718,
-            267,
-            163
+            2,
+            2,
+            256,
+            156
           ],
           "margin": [
-            54,
-            79,
-            89,
-            85
+            58,
+            86,
+            100,
+            92
           ]
         },
         {
@@ -4291,16 +4291,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
+            262,
             2,
-            2,
-            205,
-            174
+            209,
+            177
           ],
           "margin": [
-            60,
-            68,
-            151,
-            74
+            57,
+            65,
+            147,
+            71
           ]
         }
       ]
@@ -4328,16 +4328,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            211,
+            475,
             2,
-            215,
-            179
+            224,
+            188
           ],
           "margin": [
-            30,
-            63,
-            141,
-            69
+            25,
+            54,
+            132,
+            60
           ]
         },
         {
@@ -4358,16 +4358,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            430,
+            703,
             2,
-            206,
-            181
+            214,
+            188
           ],
           "margin": [
-            50,
-            61,
-            150,
-            67
+            46,
+            54,
+            142,
+            60
           ]
         },
         {
@@ -4388,16 +4388,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            640,
+            921,
             2,
-            198,
-            187
+            199,
+            188
           ],
           "margin": [
             76,
-            55,
-            158,
-            61
+            54,
+            157,
+            60
           ]
         }
       ]
@@ -4425,16 +4425,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            842,
+            1124,
             2,
-            217,
-            191
+            220,
+            193
           ],
           "margin": [
-            56,
-            51,
-            139,
-            57
+            55,
+            49,
+            136,
+            55
           ]
         },
         {
@@ -4455,16 +4455,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1063,
+            1348,
             2,
-            209,
-            184
+            213,
+            188
           ],
           "margin": [
-            59,
-            60,
-            147,
-            64
+            56,
+            55,
+            143,
+            60
           ]
         },
         {
@@ -4485,16 +4485,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1276,
+            1565,
             2,
-            203,
-            181
+            207,
+            185
           ],
           "margin": [
-            65,
             62,
-            153,
-            67
+            58,
+            149,
+            63
           ]
         },
         {
@@ -4515,16 +4515,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1483,
+            1776,
             2,
-            199,
-            179
+            203,
+            183
           ],
           "margin": [
-            65,
-            64,
-            157,
-            69
+            62,
+            61,
+            153,
+            65
           ]
         }
       ]
@@ -4552,16 +4552,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1686,
             2,
-            215,
-            183
+            203,
+            224,
+            191
           ],
           "margin": [
-            70,
-            61,
-            141,
-            65
+            64,
+            51,
+            132,
+            57
           ]
         },
         {
@@ -4582,16 +4582,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            2,
-            201,
-            228,
-            195
+            230,
+            203,
+            212,
+            182
           ],
           "margin": [
-            46,
-            47,
-            128,
-            53
+            56,
+            60,
+            144,
+            66
           ]
         },
         {
@@ -4612,16 +4612,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            234,
-            201,
-            193,
-            200
+            446,
+            203,
+            197,
+            205
           ],
           "margin": [
-            86,
-            42,
-            163,
-            48
+            84,
+            37,
+            159,
+            43
           ]
         }
       ]
@@ -4649,16 +4649,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            632,
-            208,
-            208,
-            183
+            649,
+            216,
+            214,
+            188
           ],
           "margin": [
-            68,
-            60,
-            148,
-            65
+            66,
+            56,
+            142,
+            60
           ]
         },
         {
@@ -4679,16 +4679,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            844,
-            208,
+            867,
             216,
-            191
+            217,
+            192
           ],
           "margin": [
-            75,
-            51,
-            140,
-            57
+            74,
+            50,
+            139,
+            56
           ]
         },
         {
@@ -4709,16 +4709,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1064,
-            208,
-            211,
-            192
+            1088,
+            216,
+            213,
+            194
           ],
           "margin": [
-            92,
-            50,
-            145,
-            56
+            91,
+            48,
+            143,
+            54
           ]
         },
         {
@@ -4739,16 +4739,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1279,
-            208,
+            1305,
             216,
-            194
+            217,
+            195
           ],
           "margin": [
             93,
-            48,
-            140,
-            54
+            47,
+            139,
+            53
           ]
         },
         {
@@ -4769,16 +4769,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1499,
-            208,
-            221,
-            199
+            1526,
+            216,
+            219,
+            198
           ],
           "margin": [
-            86,
-            43,
-            135,
-            49
+            87,
+            44,
+            137,
+            50
           ]
         },
         {
@@ -4799,16 +4799,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1724,
-            208,
-            217,
-            196
+            1749,
+            216,
+            213,
+            193
           ],
           "margin": [
-            86,
-            46,
-            139,
-            52
+            88,
+            49,
+            143,
+            55
           ]
         },
         {
@@ -4830,15 +4830,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             2,
-            415,
-            216,
-            195
+            428,
+            215,
+            194
           ],
           "margin": [
             83,
-            47,
-            140,
-            53
+            48,
+            141,
+            54
           ]
         },
         {
@@ -4859,16 +4859,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            222,
-            415,
-            217,
-            197
+            221,
+            428,
+            221,
+            201
           ],
           "margin": [
-            80,
-            45,
-            139,
-            51
+            78,
+            41,
+            135,
+            47
           ]
         },
         {
@@ -4889,16 +4889,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            443,
-            415,
-            213,
-            192
+            446,
+            428,
+            212,
+            191
           ],
           "margin": [
             82,
-            51,
-            143,
-            56
+            52,
+            144,
+            57
           ]
         },
         {
@@ -4919,16 +4919,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            660,
-            415,
+            662,
+            428,
             209,
-            192
+            193
           ],
           "margin": [
             86,
-            50,
+            49,
             147,
-            56
+            55
           ]
         },
         {
@@ -4949,16 +4949,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            873,
-            415,
-            213,
-            196
+            875,
+            428,
+            215,
+            198
           ],
           "margin": [
-            88,
-            46,
-            143,
-            52
+            86,
+            44,
+            141,
+            50
           ]
         },
         {
@@ -4979,15 +4979,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1090,
-            415,
-            208,
+            1094,
+            428,
+            209,
             193
           ],
           "margin": [
-            92,
+            90,
             50,
-            148,
+            147,
             55
           ]
         }
@@ -5018,14 +5018,14 @@
           "region": [
             2,
             2,
-            218,
-            183
+            221,
+            186
           ],
           "margin": [
-            60,
-            60,
-            138,
-            65
+            59,
+            56,
+            135,
+            62
           ]
         },
         {
@@ -5046,16 +5046,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            224,
+            227,
             2,
-            218,
-            191
+            221,
+            194
           ],
           "margin": [
-            72,
-            51,
-            138,
-            57
+            70,
+            48,
+            135,
+            54
           ]
         },
         {
@@ -5076,16 +5076,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            446,
+            452,
             2,
-            201,
-            192
+            205,
+            195
           ],
           "margin": [
-            98,
-            50,
-            155,
-            56
+            96,
+            47,
+            151,
+            53
           ]
         },
         {
@@ -5106,16 +5106,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            651,
+            661,
             2,
-            210,
-            194
+            218,
+            201
           ],
           "margin": [
-            96,
-            48,
-            146,
-            54
+            92,
+            41,
+            138,
+            47
           ]
         },
         {
@@ -5136,16 +5136,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            865,
+            883,
             2,
-            214,
-            198
+            222,
+            206
           ],
           "margin": [
-            92,
-            44,
-            142,
-            50
+            88,
+            36,
+            134,
+            42
           ]
         },
         {
@@ -5166,7 +5166,7 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1083,
+            1109,
             2,
             214,
             196
@@ -5196,16 +5196,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1301,
+            1327,
             2,
-            217,
-            195
+            215,
+            193
           ],
           "margin": [
             80,
-            47,
-            139,
-            53
+            49,
+            141,
+            55
           ]
         },
         {
@@ -5226,16 +5226,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1522,
+            1546,
             2,
-            218,
-            198
+            226,
+            205
           ],
           "margin": [
-            80,
-            44,
-            138,
-            50
+            76,
+            37,
+            130,
+            43
           ]
         },
         {
@@ -5256,16 +5256,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            1744,
+            1776,
             2,
-            203,
-            193
+            209,
+            198
           ],
           "margin": [
-            87,
-            49,
-            153,
-            55
+            84,
+            44,
+            147,
+            50
           ]
         },
         {
@@ -5287,15 +5287,15 @@
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
             2,
-            208,
-            202,
-            192
+            216,
+            210,
+            199
           ],
           "margin": [
-            90,
-            51,
-            154,
-            56
+            86,
+            43,
+            146,
+            49
           ]
         },
         {
@@ -5316,16 +5316,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            208,
-            208,
-            210,
-            196
+            216,
+            216,
+            218,
+            204
           ],
           "margin": [
-            85,
-            46,
-            146,
-            52
+            81,
+            38,
+            138,
+            44
           ]
         },
         {
@@ -5346,15 +5346,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
           "region": [
-            422,
-            208,
-            206,
+            438,
+            216,
+            207,
             194
           ],
           "margin": [
-            93,
+            92,
             48,
-            150,
+            149,
             54
           ]
         }
@@ -5383,16 +5383,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            431,
-            201,
-            185,
-            183
+            647,
+            203,
+            196,
+            194
           ],
           "margin": [
-            84,
-            61,
-            171,
-            65
+            78,
+            48,
+            160,
+            54
           ]
         },
         {
@@ -5413,16 +5413,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            620,
-            201,
-            199,
-            191
+            847,
+            203,
+            211,
+            202
           ],
           "margin": [
-            80,
-            51,
-            157,
-            57
+            74,
+            40,
+            145,
+            46
           ]
         },
         {
@@ -5443,16 +5443,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            823,
-            201,
-            219,
-            192
+            1062,
+            203,
+            221,
+            194
           ],
           "margin": [
             88,
-            50,
-            137,
-            56
+            48,
+            135,
+            54
           ]
         },
         {
@@ -5473,16 +5473,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1046,
-            201,
-            218,
-            195
+            1287,
+            203,
+            217,
+            194
           ],
           "margin": [
             81,
-            47,
-            138,
-            53
+            48,
+            139,
+            54
           ]
         },
         {
@@ -5503,16 +5503,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1268,
-            201,
-            179,
-            199
+            1508,
+            203,
+            205,
+            229
           ],
           "margin": [
-            112,
-            43,
-            177,
-            49
+            99,
+            13,
+            151,
+            19
           ]
         },
         {
@@ -5533,16 +5533,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1451,
-            201,
-            206,
-            196
+            1717,
+            203,
+            213,
+            203
           ],
           "margin": [
-            98,
-            46,
-            150,
-            52
+            94,
+            39,
+            143,
+            45
           ]
         },
         {
@@ -5563,16 +5563,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1661,
-            201,
-            212,
-            196
+            2,
+            440,
+            214,
+            197
           ],
           "margin": [
             78,
-            46,
-            144,
-            52
+            45,
+            142,
+            51
           ]
         },
         {
@@ -5593,16 +5593,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            2,
-            409,
-            216,
-            198
+            220,
+            440,
+            222,
+            204
           ],
           "margin": [
-            76,
-            44,
-            140,
-            50
+            74,
+            38,
+            134,
+            44
           ]
         },
         {
@@ -5623,16 +5623,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            222,
-            409,
-            205,
-            193
+            446,
+            440,
+            210,
+            197
           ],
           "margin": [
-            83,
-            49,
-            151,
-            55
+            81,
+            45,
+            146,
+            51
           ]
         },
         {
@@ -5653,16 +5653,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            431,
-            409,
-            195,
-            192
+            660,
+            440,
+            201,
+            198
           ],
           "margin": [
-            92,
-            50,
-            161,
-            56
+            88,
+            44,
+            155,
+            50
           ]
         },
         {
@@ -5683,16 +5683,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            630,
-            409,
-            204,
-            196
+            865,
+            440,
+            213,
+            205
           ],
           "margin": [
-            85,
-            46,
-            152,
-            52
+            80,
+            37,
+            143,
+            43
           ]
         },
         {
@@ -5713,16 +5713,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            838,
-            409,
-            201,
-            193
+            1082,
+            440,
+            209,
+            201
           ],
           "margin": [
-            88,
-            49,
-            155,
-            55
+            84,
+            41,
+            147,
+            47
           ]
         }
       ]
@@ -5750,16 +5750,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1043,
-            409,
-            199,
-            200
+            1295,
+            440,
+            206,
+            207
           ],
           "margin": [
-            92,
-            40,
-            157,
-            48
+            88,
+            34,
+            150,
+            41
           ]
         },
         {
@@ -5780,16 +5780,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1246,
-            409,
-            211,
-            200
+            1505,
+            440,
+            216,
+            204
           ],
           "margin": [
-            85,
-            40,
-            145,
-            48
+            82,
+            36,
+            140,
+            44
           ]
         },
         {
@@ -5810,16 +5810,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1461,
-            409,
-            204,
-            196
+            1725,
+            440,
+            216,
+            207
           ],
           "margin": [
-            87,
-            44,
-            152,
-            52
+            80,
+            33,
+            140,
+            41
           ]
         },
         {
@@ -5840,16 +5840,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1669,
-            409,
-            206,
-            191
+            2,
+            655,
+            218,
+            203
           ],
           "margin": [
-            88,
-            49,
-            150,
-            57
+            82,
+            37,
+            138,
+            45
           ]
         },
         {
@@ -5870,16 +5870,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            2,
-            617,
-            202,
-            188
+            224,
+            655,
+            216,
+            201
           ],
           "margin": [
-            94,
-            52,
-            154,
-            60
+            87,
+            40,
+            140,
+            47
           ]
         },
         {
@@ -5900,16 +5900,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            208,
-            617,
-            209,
-            189
+            444,
+            655,
+            222,
+            200
           ],
           "margin": [
-            87,
-            52,
-            147,
-            59
+            81,
+            40,
+            134,
+            48
           ]
         },
         {
@@ -5930,16 +5930,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            421,
-            617,
-            215,
-            189
+            670,
+            655,
+            219,
+            193
           ],
           "margin": [
-            85,
-            51,
-            141,
-            59
+            83,
+            47,
+            137,
+            55
           ]
         },
         {
@@ -5960,16 +5960,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            640,
-            617,
-            205,
-            188
+            893,
+            655,
+            210,
+            193
           ],
           "margin": [
-            89,
-            51,
-            151,
-            60
+            87,
+            47,
+            146,
+            55
           ]
         },
         {
@@ -5990,16 +5990,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            849,
-            617,
-            206,
-            192
+            1107,
+            655,
+            211,
+            197
           ],
           "margin": [
-            90,
-            48,
-            150,
-            56
+            88,
+            44,
+            145,
+            51
           ]
         },
         {
@@ -6020,16 +6020,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1059,
-            617,
-            205,
-            195
+            1322,
+            655,
+            207,
+            197
           ],
           "margin": [
-            92,
-            45,
-            151,
-            53
+            91,
+            44,
+            149,
+            51
           ]
         },
         {
@@ -6050,16 +6050,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1268,
-            617,
-            203,
-            196
+            1533,
+            655,
+            205,
+            198
           ],
           "margin": [
-            96,
-            45,
-            153,
-            52
+            95,
+            43,
+            151,
+            50
           ]
         },
         {
@@ -6080,16 +6080,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1475,
-            617,
-            203,
-            198
+            1742,
+            655,
+            201,
+            197
           ],
           "margin": [
-            96,
-            43,
-            153,
-            50
+            97,
+            44,
+            155,
+            51
           ]
         }
       ]
@@ -6117,16 +6117,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1682,
-            617,
-            197,
-            198
+            2,
+            866,
+            195,
+            196
           ],
           "margin": [
-            99,
-            42,
-            159,
-            50
+            100,
+            44,
+            161,
+            52
           ]
         },
         {
@@ -6147,16 +6147,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            2,
-            823,
-            202,
-            199
+            201,
+            866,
+            198,
+            195
           ],
           "margin": [
-            93,
-            42,
-            154,
-            49
+            95,
+            46,
+            158,
+            53
           ]
         },
         {
@@ -6177,16 +6177,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            208,
-            823,
-            208,
-            202
+            403,
+            866,
+            204,
+            198
           ],
           "margin": [
-            90,
-            40,
-            148,
-            46
+            92,
+            42,
+            152,
+            50
           ]
         },
         {
@@ -6207,16 +6207,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            420,
-            823,
-            205,
-            200
+            611,
+            866,
+            203,
+            199
           ],
           "margin": [
-            91,
-            40,
-            151,
-            48
+            92,
+            42,
+            153,
+            49
           ]
         },
         {
@@ -6237,16 +6237,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            629,
-            823,
-            197,
-            196
+            818,
+            866,
+            202,
+            201
           ],
           "margin": [
-            94,
-            44,
-            159,
-            52
+            91,
+            39,
+            154,
+            47
           ]
         },
         {
@@ -6267,16 +6267,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            830,
-            823,
-            195,
-            196
+            1024,
+            866,
+            196,
+            197
           ],
           "margin": [
             95,
             44,
-            161,
-            52
+            160,
+            51
           ]
         }
       ]
@@ -6304,16 +6304,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1029,
-            823,
-            201,
-            196
+            1224,
+            866,
+            199,
+            195
           ],
           "margin": [
-            91,
-            44,
-            155,
-            52
+            92,
+            46,
+            157,
+            53
           ]
         },
         {
@@ -6334,8 +6334,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1234,
-            823,
+            1427,
+            866,
             203,
             195
           ],
@@ -6364,16 +6364,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1441,
-            823,
-            201,
-            195
+            1634,
+            866,
+            205,
+            199
           ],
           "margin": [
-            92,
-            46,
-            155,
-            53
+            90,
+            42,
+            151,
+            49
           ]
         },
         {
@@ -6394,16 +6394,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1646,
-            823,
-            196,
-            194
+            1843,
+            866,
+            202,
+            200
           ],
           "margin": [
-            95,
-            46,
-            160,
-            54
+            92,
+            41,
+            154,
+            48
           ]
         },
         {
@@ -6424,16 +6424,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            1846,
-            823,
-            198,
-            193
+            2,
+            1075,
+            203,
+            198
           ],
           "margin": [
-            93,
-            46,
-            158,
-            55
+            90,
+            42,
+            153,
+            50
           ]
         },
         {
@@ -6454,16 +6454,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
           "region": [
-            2,
-            1033,
-            191,
-            191
+            209,
+            1075,
+            192,
+            192
           ],
           "margin": [
-            97,
+            96,
             49,
-            165,
-            57
+            164,
+            56
           ]
         }
       ]

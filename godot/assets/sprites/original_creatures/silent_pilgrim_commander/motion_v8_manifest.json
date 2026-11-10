@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "silent_pilgrim_commander",
   "canvas": [
     476,
-    264
+    272
   ],
   "display_height": 226,
   "visual_scale": 1.1894736842105262,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             136,
-            66,
+            70,
             234,
-            74
+            82
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            215,
-            197
+            224,
+            206
           ],
           "margin": [
-            138,
-            63,
-            261,
-            67
+            134,
+            57,
+            252,
+            66
           ]
         },
         {
@@ -59,23 +59,23 @@
           ],
           "margin": [
             129,
-            67,
+            71,
             230,
-            75
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            221,
+            230,
             2,
-            213,
-            197
+            221,
+            205
           ],
           "margin": [
-            145,
-            62,
-            263,
+            141,
+            57,
+            255,
             67
           ]
         },
@@ -89,24 +89,24 @@
           ],
           "margin": [
             141,
-            67,
+            71,
             235,
-            75
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            438,
+            455,
             2,
-            212,
-            198
+            221,
+            207
           ],
           "margin": [
-            144,
-            61,
-            264,
-            66
+            140,
+            55,
+            255,
+            65
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             145,
-            65,
+            69,
             238,
-            73
+            81
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            654,
+            680,
             2,
-            216,
-            200
+            223,
+            206
           ],
           "margin": [
-            142,
-            59,
-            260,
-            64
+            138,
+            56,
+            253,
+            66
           ]
         },
         {
@@ -149,24 +149,24 @@
           ],
           "margin": [
             140,
-            64,
+            68,
             234,
-            72
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            874,
+            907,
             2,
-            215,
-            200
+            222,
+            206
           ],
           "margin": [
-            142,
-            59,
-            261,
-            64
+            138,
+            56,
+            254,
+            66
           ]
         },
         {
@@ -179,24 +179,24 @@
           ],
           "margin": [
             147,
-            65,
+            69,
             247,
-            73
+            81
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1093,
+            1133,
             2,
-            215,
-            198
+            224,
+            207
           ],
           "margin": [
-            146,
-            61,
-            261,
-            66
+            142,
+            55,
+            252,
+            65
           ]
         },
         {
@@ -209,24 +209,24 @@
           ],
           "margin": [
             149,
-            66,
+            70,
             228,
-            74
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1312,
+            1361,
             2,
-            219,
-            198
+            225,
+            203
           ],
           "margin": [
-            143,
-            62,
-            257,
-            66
+            140,
+            60,
+            251,
+            69
           ]
         },
         {
@@ -239,24 +239,24 @@
           ],
           "margin": [
             134,
-            66,
+            70,
             241,
-            74
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1535,
+            1590,
             2,
-            220,
-            198
+            226,
+            204
           ],
           "margin": [
-            137,
-            61,
-            256,
-            66
+            134,
+            58,
+            250,
+            68
           ]
         }
       ]
@@ -276,24 +276,24 @@
           ],
           "margin": [
             149,
-            66,
+            70,
             228,
-            74
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1759,
+            1820,
             2,
-            218,
-            199
+            225,
+            205
           ],
           "margin": [
-            145,
-            59,
-            258,
-            65
+            142,
+            57,
+            251,
+            67
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             146,
-            65,
+            69,
             234,
-            73
+            81
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
             2,
-            210,
-            220,
-            200
+            217,
+            228,
+            207
           ],
           "margin": [
-            144,
-            58,
-            256,
-            64
+            140,
+            55,
+            248,
+            65
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             134,
-            64,
+            68,
             232,
-            72
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            226,
-            210,
-            216,
-            198
+            234,
+            217,
+            222,
+            203
           ],
           "margin": [
-            140,
-            61,
-            260,
-            66
+            138,
+            59,
+            254,
+            69
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             137,
-            69,
+            73,
             253,
-            77
+            85
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            446,
-            210,
-            215,
-            192
+            460,
+            217,
+            224,
+            201
           ],
           "margin": [
-            136,
-            67,
-            261,
-            72
+            132,
+            61,
+            252,
+            71
           ]
         },
         {
@@ -396,24 +396,24 @@
           ],
           "margin": [
             127,
-            74,
+            78,
             226,
-            82
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            665,
-            210,
-            219,
-            191
+            688,
+            217,
+            233,
+            203
           ],
           "margin": [
-            132,
-            67,
-            257,
-            73
+            126,
+            59,
+            243,
+            69
           ]
         },
         {
@@ -426,24 +426,24 @@
           ],
           "margin": [
             126,
-            72,
+            76,
             230,
-            80
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            888,
-            210,
-            214,
-            193
+            925,
+            217,
+            227,
+            204
           ],
           "margin": [
-            140,
-            67,
-            262,
-            71
+            134,
+            58,
+            249,
+            68
           ]
         },
         {
@@ -456,23 +456,23 @@
           ],
           "margin": [
             135,
-            70,
+            74,
             229,
-            78
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1106,
-            210,
+            1156,
             217,
-            194
+            226,
+            202
           ],
           "margin": [
-            136,
-            65,
-            259,
+            132,
+            60,
+            250,
             70
           ]
         },
@@ -486,24 +486,24 @@
           ],
           "margin": [
             131,
-            70,
+            74,
             248,
-            78
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1327,
-            210,
+            1386,
             217,
-            194
+            225,
+            201
           ],
           "margin": [
-            132,
-            65,
-            259,
-            70
+            128,
+            61,
+            251,
+            71
           ]
         },
         {
@@ -516,24 +516,24 @@
           ],
           "margin": [
             127,
-            70,
+            74,
             233,
-            78
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1548,
-            210,
-            211,
-            193
+            1615,
+            217,
+            218,
+            200
           ],
           "margin": [
-            136,
-            66,
-            265,
-            71
+            132,
+            62,
+            258,
+            72
           ]
         },
         {
@@ -546,24 +546,24 @@
           ],
           "margin": [
             132,
-            71,
+            75,
             258,
-            79
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1763,
-            210,
-            211,
-            193
+            2,
+            432,
+            218,
+            199
           ],
           "margin": [
-            137,
-            66,
-            265,
-            71
+            133,
+            63,
+            258,
+            73
           ]
         },
         {
@@ -576,24 +576,24 @@
           ],
           "margin": [
             129,
-            71,
+            75,
             226,
-            79
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            2,
-            418,
-            216,
-            193
+            224,
+            432,
+            228,
+            204
           ],
           "margin": [
-            132,
-            67,
-            260,
-            71
+            126,
+            58,
+            248,
+            68
           ]
         },
         {
@@ -606,24 +606,24 @@
           ],
           "margin": [
             122,
-            70,
+            74,
             240,
-            78
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            222,
-            418,
-            220,
-            195
+            456,
+            432,
+            219,
+            194
           ],
           "margin": [
             122,
-            64,
-            256,
-            69
+            69,
+            257,
+            78
           ]
         },
         {
@@ -636,24 +636,24 @@
           ],
           "margin": [
             131,
-            68,
+            72,
             279,
-            76
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            446,
-            418,
-            206,
-            197
+            679,
+            432,
+            203,
+            194
           ],
           "margin": [
-            129,
-            62,
-            270,
-            67
+            131,
+            69,
+            273,
+            78
           ]
         },
         {
@@ -666,24 +666,24 @@
           ],
           "margin": [
             128,
-            67,
+            71,
             259,
-            75
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            656,
-            418,
-            207,
-            198
+            886,
+            432,
+            201,
+            192
           ],
           "margin": [
-            128,
-            60,
-            269,
-            66
+            130,
+            71,
+            275,
+            80
           ]
         },
         {
@@ -696,24 +696,24 @@
           ],
           "margin": [
             150,
-            66,
+            70,
             308,
-            74
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            867,
-            418,
-            203,
-            198
+            1091,
+            432,
+            197,
+            192
           ],
           "margin": [
-            138,
-            60,
-            273,
-            66
+            141,
+            71,
+            279,
+            80
           ]
         },
         {
@@ -726,24 +726,24 @@
           ],
           "margin": [
             143,
-            66,
+            70,
             269,
-            74
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1074,
-            418,
-            206,
-            198
+            1292,
+            432,
+            209,
+            201
           ],
           "margin": [
-            148,
-            60,
-            270,
-            66
+            146,
+            61,
+            267,
+            71
           ]
         }
       ]
@@ -763,24 +763,24 @@
           ],
           "margin": [
             134,
-            71,
+            75,
             220,
-            79
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1284,
-            418,
-            257,
-            197
+            1505,
+            432,
+            254,
+            195
           ],
           "margin": [
-            128,
-            61,
-            219,
-            67
+            130,
+            67,
+            222,
+            77
           ]
         },
         {
@@ -793,24 +793,24 @@
           ],
           "margin": [
             124,
-            64,
+            68,
             207,
-            72
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1545,
-            418,
-            258,
-            203
+            1763,
+            432,
+            254,
+            199
           ],
           "margin": [
             126,
-            55,
-            218,
-            61
+            63,
+            222,
+            73
           ]
         },
         {
@@ -823,24 +823,24 @@
           ],
           "margin": [
             136,
-            61,
+            65,
             268,
-            69
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1807,
-            418,
-            215,
-            201
+            2,
+            644,
+            202,
+            189
           ],
           "margin": [
-            130,
-            57,
-            261,
-            63
+            137,
+            73,
+            274,
+            83
           ]
         },
         {
@@ -853,24 +853,24 @@
           ],
           "margin": [
             143,
-            67,
+            71,
             278,
-            75
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            2,
-            629,
-            218,
-            201
+            208,
+            644,
+            213,
+            196
           ],
           "margin": [
-            130,
-            57,
-            258,
-            63
+            132,
+            66,
+            263,
+            76
           ]
         },
         {
@@ -883,24 +883,24 @@
           ],
           "margin": [
             136,
-            61,
+            65,
             271,
-            69
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            224,
-            629,
-            223,
-            204
+            425,
+            644,
+            225,
+            206
           ],
           "margin": [
             128,
-            54,
-            253,
-            60
+            56,
+            251,
+            66
           ]
         },
         {
@@ -913,24 +913,24 @@
           ],
           "margin": [
             136,
-            61,
+            65,
             259,
-            69
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            451,
-            629,
-            208,
-            201
+            654,
+            644,
+            202,
+            194
           ],
           "margin": [
-            133,
-            57,
-            268,
-            63
+            136,
+            68,
+            274,
+            78
           ]
         },
         {
@@ -943,24 +943,24 @@
           ],
           "margin": [
             143,
-            68,
+            72,
             270,
-            76
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            663,
-            629,
-            207,
-            198
+            860,
+            644,
+            202,
+            192
           ],
           "margin": [
-            136,
-            60,
-            269,
-            66
+            138,
+            70,
+            274,
+            80
           ]
         },
         {
@@ -973,24 +973,24 @@
           ],
           "margin": [
             137,
-            66,
+            70,
             260,
-            74
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            874,
-            629,
-            223,
-            198
+            1066,
+            644,
+            233,
+            207
           ],
           "margin": [
-            131,
-            60,
-            253,
-            66
+            126,
+            55,
+            243,
+            65
           ]
         },
         {
@@ -1003,24 +1003,24 @@
           ],
           "margin": [
             111,
-            67,
+            71,
             217,
-            75
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1101,
-            629,
-            221,
-            192
+            1303,
+            644,
+            237,
+            205
           ],
           "margin": [
-            133,
-            66,
-            255,
-            72
+            126,
+            57,
+            239,
+            67
           ]
         },
         {
@@ -1033,24 +1033,24 @@
           ],
           "margin": [
             127,
-            78,
+            82,
             241,
-            86
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1326,
-            629,
-            210,
-            186
+            1544,
+            644,
+            225,
+            200
           ],
           "margin": [
-            136,
-            72,
-            266,
-            78
+            128,
+            62,
+            251,
+            72
           ]
         },
         {
@@ -1063,24 +1063,24 @@
           ],
           "margin": [
             120,
-            78,
+            82,
             234,
-            86
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1540,
-            629,
-            216,
-            184
+            1773,
+            644,
+            247,
+            211
           ],
           "margin": [
-            132,
-            74,
-            260,
-            80
+            117,
+            51,
+            229,
+            61
           ]
         },
         {
@@ -1093,24 +1093,24 @@
           ],
           "margin": [
             109,
-            82,
+            86,
             127,
-            90
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1760,
-            629,
-            242,
-            176
+            2,
+            863,
+            281,
+            204
           ],
           "margin": [
-            129,
-            82,
-            234,
-            88
+            112,
+            58,
+            195,
+            68
           ]
         }
       ]
@@ -1130,24 +1130,24 @@
           ],
           "margin": [
             121,
-            95,
+            99,
             150,
-            103
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            2,
-            841,
-            301,
-            175
+            287,
+            863,
+            305,
+            178
           ],
           "margin": [
             116,
-            83,
-            175,
-            89
+            84,
+            171,
+            94
           ]
         },
         {
@@ -1160,24 +1160,24 @@
           ],
           "margin": [
             103,
-            86,
+            90,
             124,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            307,
-            841,
-            313,
-            179
+            596,
+            863,
+            306,
+            175
           ],
           "margin": [
-            106,
-            79,
-            163,
-            85
+            109,
+            87,
+            170,
+            97
           ]
         },
         {
@@ -1190,24 +1190,24 @@
           ],
           "margin": [
             93,
-            88,
+            92,
             186,
-            96
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            624,
-            841,
-            303,
-            176
+            906,
+            863,
+            280,
+            162
           ],
           "margin": [
-            90,
-            82,
-            173,
-            88
+            100,
+            100,
+            196,
+            110
           ]
         },
         {
@@ -1220,24 +1220,24 @@
           ],
           "margin": [
             98,
-            92,
+            96,
             200,
-            100
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            931,
-            841,
-            294,
-            177
+            1190,
+            863,
+            291,
+            175
           ],
           "margin": [
-            97,
-            81,
-            182,
-            87
+            99,
+            87,
+            185,
+            97
           ]
         },
         {
@@ -1250,24 +1250,24 @@
           ],
           "margin": [
             98,
-            85,
+            89,
             177,
-            93
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1229,
-            841,
-            304,
-            182
+            1485,
+            863,
+            307,
+            184
           ],
           "margin": [
-            106,
-            76,
-            172,
-            82
+            105,
+            78,
+            169,
+            88
           ]
         },
         {
@@ -1280,24 +1280,24 @@
           ],
           "margin": [
             106,
-            83,
+            87,
             121,
-            91
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1537,
-            841,
-            307,
-            178
+            2,
+            1075,
+            303,
+            176
           ],
           "margin": [
-            120,
-            80,
-            169,
-            86
+            122,
+            86,
+            173,
+            96
           ]
         },
         {
@@ -1310,24 +1310,24 @@
           ],
           "margin": [
             126,
-            93,
+            97,
             140,
-            101
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            2,
-            1031,
-            316,
-            177
+            309,
+            1075,
+            305,
+            171
           ],
           "margin": [
-            122,
-            81,
-            160,
-            87
+            126,
+            91,
+            171,
+            101
           ]
         },
         {
@@ -1340,24 +1340,24 @@
           ],
           "margin": [
             118,
-            85,
+            89,
             127,
-            93
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            322,
-            1031,
-            291,
-            179
+            618,
+            1075,
+            301,
+            185
           ],
           "margin": [
-            134,
-            79,
-            185,
-            85
+            130,
+            77,
+            175,
+            87
           ]
         },
         {
@@ -1370,24 +1370,24 @@
           ],
           "margin": [
             136,
-            89,
+            93,
             184,
-            97
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            617,
-            1031,
-            270,
-            172
+            923,
+            1075,
+            262,
+            167
           ],
           "margin": [
-            142,
-            86,
-            206,
-            92
+            146,
+            95,
+            214,
+            105
           ]
         },
         {
@@ -1400,24 +1400,24 @@
           ],
           "margin": [
             148,
-            97,
+            101,
             194,
-            105
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            891,
-            1031,
-            272,
-            172
+            1189,
+            1075,
+            273,
+            173
           ],
           "margin": [
             145,
-            86,
-            204,
-            92
+            89,
+            203,
+            99
           ]
         },
         {
@@ -1430,24 +1430,24 @@
           ],
           "margin": [
             132,
-            89,
+            93,
             181,
-            97
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1167,
-            1031,
-            278,
-            177
+            1466,
+            1075,
+            281,
+            179
           ],
           "margin": [
-            136,
-            81,
-            198,
-            87
+            134,
+            83,
+            195,
+            93
           ]
         },
         {
@@ -1460,24 +1460,24 @@
           ],
           "margin": [
             129,
-            87,
+            91,
             206,
-            95
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1449,
-            1031,
-            252,
-            175
+            1751,
+            1075,
+            241,
+            167
           ],
           "margin": [
-            133,
-            83,
-            224,
-            89
+            138,
+            95,
+            235,
+            105
           ]
         }
       ]
@@ -1497,24 +1497,24 @@
           ],
           "margin": [
             136,
-            92,
+            96,
             218,
-            100
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1705,
-            1031,
-            235,
-            176
+            2,
+            1268,
+            248,
+            185
           ],
           "margin": [
-            136,
-            83,
-            241,
-            88
+            130,
+            77,
+            228,
+            87
           ]
         },
         {
@@ -1527,24 +1527,24 @@
           ],
           "margin": [
             128,
-            84,
+            88,
             210,
-            92
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            2,
-            1218,
-            241,
-            182
+            254,
+            1268,
+            237,
+            178
           ],
           "margin": [
-            132,
-            76,
-            235,
-            82
+            134,
+            85,
+            239,
+            94
           ]
         },
         {
@@ -1557,24 +1557,24 @@
           ],
           "margin": [
             144,
-            81,
+            85,
             244,
-            89
+            97
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            247,
-            1218,
-            213,
-            180
+            495,
+            1268,
+            210,
+            177
           ],
           "margin": [
-            147,
-            80,
-            263,
-            84
+            148,
+            86,
+            266,
+            95
           ]
         },
         {
@@ -1587,24 +1587,24 @@
           ],
           "margin": [
             153,
-            86,
+            90,
             257,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            464,
-            1218,
-            200,
-            179
+            709,
+            1268,
+            205,
+            183
           ],
           "margin": [
-            154,
-            81,
-            276,
-            85
+            152,
+            80,
+            271,
+            89
           ]
         },
         {
@@ -1617,24 +1617,24 @@
           ],
           "margin": [
             148,
-            84,
+            88,
             252,
-            92
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            668,
-            1218,
-            208,
-            179
+            918,
+            1268,
+            212,
+            183
           ],
           "margin": [
-            148,
-            80,
-            268,
-            85
+            146,
+            81,
+            264,
+            89
           ]
         },
         {
@@ -1647,24 +1647,24 @@
           ],
           "margin": [
             131,
-            85,
+            89,
             225,
-            93
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            880,
-            1218,
+            1134,
+            1268,
             209,
             174
           ],
           "margin": [
             140,
-            84,
+            88,
             267,
-            90
+            98
           ]
         },
         {
@@ -1677,24 +1677,24 @@
           ],
           "margin": [
             141,
-            94,
+            98,
             237,
-            102
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1093,
-            1218,
-            224,
-            173
+            1347,
+            1268,
+            209,
+            162
           ],
           "margin": [
-            142,
-            84,
-            252,
-            91
+            150,
+            99,
+            267,
+            110
           ]
         },
         {
@@ -1707,24 +1707,24 @@
           ],
           "margin": [
             134,
-            87,
+            91,
             229,
-            95
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1321,
-            1218,
-            211,
-            177
+            1560,
+            1268,
+            214,
+            180
           ],
           "margin": [
-            150,
-            83,
-            265,
-            87
+            148,
+            84,
+            262,
+            92
           ]
         },
         {
@@ -1737,24 +1737,24 @@
           ],
           "margin": [
             151,
-            86,
+            90,
             249,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1536,
-            1218,
-            208,
-            175
+            1778,
+            1268,
+            205,
+            173
           ],
           "margin": [
-            153,
-            83,
-            268,
-            89
+            155,
+            89,
+            271,
+            99
           ]
         },
         {
@@ -1767,24 +1767,24 @@
           ],
           "margin": [
             159,
-            91,
+            95,
             263,
-            99
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1748,
-            1218,
-            213,
-            181
+            2,
+            1461,
+            208,
+            177
           ],
           "margin": [
-            150,
-            78,
-            263,
-            83
+            152,
+            86,
+            268,
+            95
           ]
         },
         {
@@ -1797,24 +1797,24 @@
           ],
           "margin": [
             141,
-            76,
+            80,
             234,
-            84
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            2,
-            1408,
-            233,
-            193
+            214,
+            1461,
+            226,
+            187
           ],
           "margin": [
-            136,
-            65,
-            243,
-            71
+            139,
+            75,
+            250,
+            85
           ]
         },
         {
@@ -1827,24 +1827,24 @@
           ],
           "margin": [
             137,
-            68,
+            72,
             234,
-            76
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            239,
-            1408,
-            245,
-            198
+            444,
+            1461,
+            233,
+            189
           ],
           "margin": [
-            124,
-            60,
-            231,
-            66
+            130,
+            73,
+            243,
+            83
           ]
         }
       ]
@@ -1864,24 +1864,24 @@
           ],
           "margin": [
             142,
-            132,
+            136,
             238,
-            140
+            148
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            488,
-            1408,
-            199,
-            129
+            681,
+            1461,
+            198,
+            128
           ],
           "margin": [
-            158,
-            128,
-            277,
-            135
+            159,
+            133,
+            278,
+            144
           ]
         },
         {
@@ -1894,24 +1894,24 @@
           ],
           "margin": [
             153,
-            136,
+            140,
             238,
-            144
+            152
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            691,
-            1408,
-            278,
-            164
+            883,
+            1461,
+            234,
+            138
           ],
           "margin": [
-            118,
-            94,
-            198,
-            100
+            138,
+            124,
+            242,
+            134
           ]
         }
       ]
@@ -1931,24 +1931,24 @@
           ],
           "margin": [
             192,
-            68,
+            72,
             282,
-            76
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            973,
-            1408,
-            177,
-            174
+            1121,
+            1461,
+            176,
+            173
           ],
           "margin": [
             190,
-            84,
-            299,
-            90
+            88,
+            300,
+            99
           ]
         },
         {
@@ -1961,24 +1961,24 @@
           ],
           "margin": [
             151,
-            111,
+            115,
             243,
-            119
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1154,
-            1408,
-            167,
-            123
+            1301,
+            1461,
+            193,
+            143
           ],
           "margin": [
-            188,
-            134,
-            309,
-            141
+            175,
+            118,
+            283,
+            129
           ]
         },
         {
@@ -1991,24 +1991,24 @@
           ],
           "margin": [
             186,
-            166,
+            170,
             248,
-            174
+            182
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1325,
-            1408,
-            172,
-            82
+            1498,
+            1461,
+            189,
+            89
           ],
           "margin": [
-            187,
-            175,
-            304,
-            182
+            179,
+            172,
+            287,
+            183
           ]
         },
         {
@@ -2021,24 +2021,24 @@
           ],
           "margin": [
             143,
-            195,
+            199,
             260,
-            203
+            211
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1501,
-            1408,
-            190,
-            68
+            1691,
+            1461,
+            205,
+            73
           ],
           "margin": [
-            155,
-            189,
-            286,
-            196
+            147,
+            188,
+            271,
+            199
           ]
         }
       ]
@@ -2058,24 +2058,24 @@
           ],
           "margin": [
             139,
-            38,
+            42,
             248,
-            46
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1695,
-            1408,
-            219,
-            231
+            2,
+            1658,
+            217,
+            228
           ],
           "margin": [
             132,
-            27,
-            257,
-            33
+            34,
+            259,
+            44
           ]
         },
         {
@@ -2088,24 +2088,24 @@
           ],
           "margin": [
             135,
-            31,
+            35,
             248,
-            39
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            2,
-            1647,
-            217,
-            234
+            223,
+            1658,
+            213,
+            230
           ],
           "margin": [
-            133,
-            24,
-            259,
-            30
+            135,
+            32,
+            263,
+            42
           ]
         },
         {
@@ -2118,24 +2118,24 @@
           ],
           "margin": [
             139,
-            31,
+            35,
             259,
-            39
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            223,
-            1647,
-            215,
-            230
+            440,
+            1658,
+            197,
+            211
           ],
           "margin": [
-            132,
-            28,
-            261,
-            34
+            141,
+            51,
+            279,
+            61
           ]
         },
         {
@@ -2148,24 +2148,24 @@
           ],
           "margin": [
             153,
-            39,
+            43,
             292,
-            47
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            442,
-            1647,
-            185,
-            222
+            641,
+            1658,
+            187,
+            225
           ],
           "margin": [
             150,
-            36,
-            291,
-            42
+            37,
+            289,
+            47
           ]
         },
         {
@@ -2178,24 +2178,24 @@
           ],
           "margin": [
             150,
-            47,
+            51,
             287,
-            55
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            631,
-            1647,
-            178,
-            210
+            832,
+            1658,
+            194,
+            230
           ],
           "margin": [
-            152,
-            48,
-            298,
-            54
+            146,
+            32,
+            282,
+            42
           ]
         },
         {
@@ -2208,24 +2208,24 @@
           ],
           "margin": [
             131,
-            61,
+            65,
             203,
-            69
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            813,
-            1647,
-            230,
-            191
+            1030,
+            1658,
+            221,
+            183
           ],
           "margin": [
-            138,
-            69,
-            246,
-            73
+            142,
+            79,
+            255,
+            89
           ]
         },
         {
@@ -2238,24 +2238,24 @@
           ],
           "margin": [
             149,
-            84,
+            88,
             237,
-            92
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1047,
-            1647,
-            229,
-            182
+            1255,
+            1658,
+            234,
+            185
           ],
           "margin": [
-            148,
-            76,
-            247,
-            82
+            146,
+            77,
+            242,
+            87
           ]
         },
         {
@@ -2268,24 +2268,24 @@
           ],
           "margin": [
             141,
-            82,
+            86,
             227,
-            90
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1280,
-            1647,
-            237,
-            181
+            1493,
+            1658,
+            255,
+            194
           ],
           "margin": [
-            142,
-            77,
-            239,
-            83
+            135,
+            68,
+            221,
+            78
           ]
         },
         {
@@ -2298,24 +2298,24 @@
           ],
           "margin": [
             112,
-            86,
+            90,
             201,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
           "region": [
-            1521,
-            1647,
-            237,
-            172
+            1752,
+            1658,
+            256,
+            186
           ],
           "margin": [
-            134,
-            86,
-            239,
-            92
+            124,
+            76,
+            220,
+            86
           ]
         },
         {
@@ -2328,24 +2328,24 @@
           ],
           "margin": [
             139,
-            99,
+            103,
             240,
-            107
+            115
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1762,
-            1647,
-            250,
-            180
+            2,
+            2,
+            268,
+            193
           ],
           "margin": [
-            128,
-            78,
-            226,
-            84
+            120,
+            69,
+            208,
+            79
           ]
         },
         {
@@ -2358,24 +2358,24 @@
           ],
           "margin": [
             119,
-            71,
+            75,
             196,
-            79
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
+            274,
             2,
-            2,
-            279,
-            204
+            242,
+            177
           ],
           "margin": [
-            125,
-            54,
-            197,
-            60
+            141,
+            85,
+            234,
+            95
           ]
         },
         {
@@ -2388,24 +2388,24 @@
           ],
           "margin": [
             174,
-            53,
+            57,
             312,
-            61
+            69
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            285,
+            520,
             2,
-            195,
-            220
+            176,
+            199
           ],
           "margin": [
-            152,
-            38,
-            281,
-            44
+            162,
+            63,
+            300,
+            73
           ]
         }
       ]
@@ -2425,24 +2425,24 @@
           ],
           "margin": [
             172,
-            40,
+            44,
             289,
-            48
+            56
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            484,
+            700,
             2,
-            176,
-            219
+            159,
+            198
           ],
           "margin": [
-            163,
-            39,
-            300,
-            45
+            172,
+            64,
+            317,
+            74
           ]
         },
         {
@@ -2455,24 +2455,24 @@
           ],
           "margin": [
             188,
-            52,
+            56,
             333,
-            60
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            664,
+            863,
             2,
-            165,
-            204
+            180,
+            223
           ],
           "margin": [
-            168,
-            54,
-            311,
-            60
+            162,
+            39,
+            296,
+            49
           ]
         },
         {
@@ -2485,24 +2485,24 @@
           ],
           "margin": [
             162,
-            69,
+            73,
             245,
-            77
+            85
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            833,
+            1047,
             2,
-            198,
-            182
+            208,
+            191
           ],
           "margin": [
-            160,
-            76,
-            278,
-            82
+            155,
+            71,
+            268,
+            81
           ]
         },
         {
@@ -2515,24 +2515,24 @@
           ],
           "margin": [
             168,
-            95,
+            99,
             249,
-            103
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1035,
+            1259,
             2,
-            202,
-            168
+            208,
+            173
           ],
           "margin": [
-            159,
-            90,
-            274,
-            96
+            157,
+            91,
+            268,
+            99
           ]
         },
         {
@@ -2545,24 +2545,24 @@
           ],
           "margin": [
             168,
-            96,
+            100,
             268,
-            104
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1241,
+            1471,
             2,
-            156,
-            164
+            206,
+            217
           ],
           "margin": [
-            182,
-            93,
-            320,
-            100
+            160,
+            45,
+            270,
+            55
           ]
         },
         {
@@ -2575,24 +2575,24 @@
           ],
           "margin": [
             154,
-            103,
+            107,
             205,
-            111
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1401,
+            1681,
             2,
-            195,
-            153
+            252,
+            197
           ],
           "margin": [
-            168,
-            104,
-            281,
-            111
+            144,
+            65,
+            224,
+            75
           ]
         },
         {
@@ -2605,24 +2605,24 @@
           ],
           "margin": [
             168,
-            118,
+            122,
             218,
-            126
+            134
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1600,
             2,
-            248,
-            158
+            233,
+            256,
+            163
           ],
           "margin": [
-            160,
-            100,
-            228,
-            106
+            158,
+            99,
+            220,
+            109
           ]
         },
         {
@@ -2635,24 +2635,24 @@
           ],
           "margin": [
             157,
-            96,
+            100,
             201,
-            104
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            2,
-            230,
-            248,
-            175
+            262,
+            233,
+            228,
+            161
           ],
           "margin": [
-            158,
-            83,
-            228,
-            89
+            166,
+            101,
+            248,
+            111
           ]
         },
         {
@@ -2665,24 +2665,24 @@
           ],
           "margin": [
             178,
-            84,
+            88,
             309,
-            92
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            254,
-            230,
-            186,
-            185
+            494,
+            233,
+            180,
+            179
           ],
           "margin": [
-            170,
-            73,
-            290,
-            79
+            172,
+            83,
+            296,
+            93
           ]
         },
         {
@@ -2695,24 +2695,24 @@
           ],
           "margin": [
             177,
-            76,
+            80,
             288,
-            84
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            444,
-            230,
+            678,
+            233,
             179,
             189
           ],
           "margin": [
             168,
-            69,
+            73,
             297,
-            75
+            83
           ]
         },
         {
@@ -2725,24 +2725,24 @@
           ],
           "margin": [
             171,
-            75,
+            79,
             300,
-            83
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            627,
-            230,
-            180,
-            188
+            861,
+            233,
+            211,
+            220
           ],
           "margin": [
-            164,
-            70,
-            296,
-            76
+            148,
+            42,
+            265,
+            52
           ]
         },
         {
@@ -2755,24 +2755,24 @@
           ],
           "margin": [
             132,
-            79,
+            83,
             211,
-            87
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            811,
-            230,
+            1076,
             233,
-            179
+            253,
+            194
           ],
           "margin": [
-            138,
-            79,
-            243,
-            85
+            129,
+            68,
+            223,
+            78
           ]
         }
       ]
@@ -2792,24 +2792,24 @@
           ],
           "margin": [
             156,
-            16,
+            20,
             270,
-            24
+            32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1048,
-            230,
-            301,
-            256
+            1333,
+            233,
+            231,
+            197
           ],
           "margin": [
-            103,
-            3,
-            175,
-            8
+            136,
+            65,
+            245,
+            75
           ]
         },
         {
@@ -2822,24 +2822,24 @@
           ],
           "margin": [
             150,
-            9,
+            13,
             259,
-            17
+            25
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1353,
-            230,
-            240,
-            259
+            1568,
+            233,
+            223,
+            241
           ],
           "margin": [
-            133,
-            0,
-            236,
-            5
+            141,
+            21,
+            253,
+            31
           ]
         },
         {
@@ -2852,24 +2852,24 @@
           ],
           "margin": [
             155,
-            8,
+            12,
             288,
-            16
+            24
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1597,
-            230,
-            197,
-            256
+            1795,
+            233,
+            192,
+            249
           ],
           "margin": [
-            146,
-            2,
-            279,
-            8
+            150,
+            13,
+            284,
+            23
           ]
         },
         {
@@ -2882,24 +2882,24 @@
           ],
           "margin": [
             161,
-            15,
+            19,
             295,
-            23
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1798,
-            230,
-            194,
-            254
+            2,
+            490,
+            190,
+            249
           ],
           "margin": [
-            148,
-            4,
-            282,
-            10
+            150,
+            13,
+            286,
+            23
           ]
         },
         {
@@ -2912,24 +2912,24 @@
           ],
           "margin": [
             155,
-            12,
+            16,
             290,
-            20
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            2,
-            497,
-            197,
-            252
+            196,
+            490,
+            205,
+            262
           ],
           "margin": [
-            146,
-            6,
-            279,
-            12
+            142,
+            0,
+            271,
+            10
           ]
         },
         {
@@ -2942,23 +2942,23 @@
           ],
           "margin": [
             140,
-            17,
+            21,
             240,
-            25
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            203,
-            497,
-            222,
-            244
+            405,
+            490,
+            229,
+            252
           ],
           "margin": [
-            140,
-            14,
-            254,
+            136,
+            10,
+            247,
             20
           ]
         },
@@ -2972,24 +2972,24 @@
           ],
           "margin": [
             146,
-            28,
+            32,
             241,
-            36
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            429,
-            497,
-            229,
-            235
+            638,
+            490,
+            225,
+            231
           ],
           "margin": [
-            140,
-            23,
-            247,
-            29
+            142,
+            31,
+            251,
+            41
           ]
         },
         {
@@ -3002,24 +3002,24 @@
           ],
           "margin": [
             142,
-            33,
+            37,
             252,
-            41
+            49
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            662,
-            497,
-            231,
-            227
+            867,
+            490,
+            236,
+            231
           ],
           "margin": [
-            138,
+            136,
             31,
-            245,
-            37
+            240,
+            41
           ]
         },
         {
@@ -3032,24 +3032,24 @@
           ],
           "margin": [
             115,
-            45,
+            49,
             228,
-            53
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            897,
-            497,
-            227,
-            210
+            1107,
+            490,
+            225,
+            209
           ],
           "margin": [
             124,
-            48,
-            249,
-            54
+            53,
+            251,
+            63
           ]
         },
         {
@@ -3062,24 +3062,24 @@
           ],
           "margin": [
             132,
-            64,
+            68,
             251,
-            72
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1128,
-            497,
-            235,
-            213
+            1336,
+            490,
+            242,
+            220
           ],
           "margin": [
-            118,
-            45,
-            241,
-            51
+            114,
+            42,
+            234,
+            52
           ]
         },
         {
@@ -3092,24 +3092,24 @@
           ],
           "margin": [
             113,
-            39,
+            43,
             219,
-            47
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1367,
-            497,
-            265,
-            235
+            1582,
+            490,
+            238,
+            211
           ],
           "margin": [
-            106,
-            23,
-            211,
-            29
+            120,
+            51,
+            238,
+            61
           ]
         },
         {
@@ -3122,24 +3122,24 @@
           ],
           "margin": [
             152,
-            23,
+            27,
             267,
-            31
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1636,
-            497,
-            220,
-            249
+            1824,
+            490,
+            211,
+            239
           ],
           "margin": [
-            137,
-            9,
-            256,
-            15
+            142,
+            23,
+            265,
+            33
           ]
         }
       ]
@@ -3159,24 +3159,24 @@
           ],
           "margin": [
             154,
-            11,
+            15,
             264,
-            19
+            27
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
             2,
-            757,
-            234,
-            247
+            760,
+            202,
+            213
           ],
           "margin": [
-            135,
-            11,
-            242,
-            17
+            151,
+            49,
+            274,
+            59
           ]
         },
         {
@@ -3189,24 +3189,24 @@
           ],
           "margin": [
             157,
-            27,
+            31,
             280,
-            35
+            43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            240,
-            757,
-            244,
-            228
+            208,
+            760,
+            226,
+            212
           ],
           "margin": [
-            124,
-            30,
-            232,
-            36
+            134,
+            50,
+            250,
+            60
           ]
         },
         {
@@ -3219,24 +3219,24 @@
           ],
           "margin": [
             146,
-            48,
+            52,
             247,
-            56
+            64
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            488,
-            757,
-            204,
-            202
+            438,
+            760,
+            217,
+            215
           ],
           "margin": [
-            151,
-            56,
-            272,
-            62
+            144,
+            47,
+            259,
+            57
           ]
         },
         {
@@ -3249,24 +3249,24 @@
           ],
           "margin": [
             165,
-            78,
+            82,
             274,
-            86
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            696,
-            757,
-            198,
-            189
+            659,
+            760,
+            207,
+            198
           ],
           "margin": [
-            156,
-            69,
-            278,
-            75
+            152,
+            64,
+            269,
+            74
           ]
         },
         {
@@ -3279,24 +3279,24 @@
           ],
           "margin": [
             158,
-            73,
+            77,
             270,
-            81
+            89
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            898,
-            757,
-            185,
-            190
+            870,
+            760,
+            229,
+            235
           ],
           "margin": [
-            162,
-            69,
-            291,
-            74
+            140,
+            27,
+            247,
+            37
           ]
         },
         {
@@ -3309,24 +3309,24 @@
           ],
           "margin": [
             126,
-            75,
+            79,
             184,
-            83
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1087,
-            757,
-            173,
-            184
+            1103,
+            760,
+            230,
+            245
           ],
           "margin": [
-            170,
-            74,
-            303,
-            80
+            142,
+            17,
+            246,
+            27
           ]
         },
         {
@@ -3339,24 +3339,24 @@
           ],
           "margin": [
             140,
-            84,
+            88,
             203,
-            92
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1264,
-            757,
-            188,
-            192
+            1337,
+            760,
+            232,
+            237
           ],
           "margin": [
-            160,
-            66,
-            288,
-            72
+            138,
+            25,
+            244,
+            35
           ]
         },
         {
@@ -3369,24 +3369,24 @@
           ],
           "margin": [
             115,
-            61,
+            65,
             167,
-            69
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1456,
-            757,
-            228,
-            211
+            1573,
+            760,
+            224,
+            207
           ],
           "margin": [
-            139,
-            47,
-            248,
-            53
+            141,
+            55,
+            252,
+            65
           ]
         },
         {
@@ -3399,24 +3399,24 @@
           ],
           "margin": [
             156,
-            48,
+            52,
             284,
-            56
+            64
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1688,
-            757,
-            252,
-            222
+            1801,
+            760,
+            219,
+            192
           ],
           "margin": [
-            130,
-            36,
-            224,
-            42
+            144,
+            70,
+            257,
+            80
           ]
         },
         {
@@ -3429,24 +3429,24 @@
           ],
           "margin": [
             160,
-            40,
+            44,
             278,
-            48
+            56
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
             2,
-            1012,
-            248,
-            220
+            1013,
+            215,
+            191
           ],
           "margin": [
-            131,
-            38,
-            228,
-            44
+            147,
+            72,
+            261,
+            81
           ]
         },
         {
@@ -3459,24 +3459,24 @@
           ],
           "margin": [
             158,
-            51,
+            55,
             292,
-            59
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            254,
-            1012,
-            279,
-            206
+            221,
+            1013,
+            275,
+            203
           ],
           "margin": [
-            116,
-            52,
-            197,
-            58
+            118,
+            59,
+            201,
+            69
           ]
         },
         {
@@ -3489,24 +3489,24 @@
           ],
           "margin": [
             116,
-            67,
+            71,
             187,
-            75
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            537,
-            1012,
-            226,
-            184
+            500,
+            1013,
+            255,
+            208
           ],
           "margin": [
-            133,
-            75,
-            250,
-            80
+            119,
+            54,
+            221,
+            64
           ]
         }
       ]
@@ -3526,24 +3526,24 @@
           ],
           "margin": [
             176,
-            112,
+            116,
             280,
-            120
+            128
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            767,
-            1012,
-            197,
-            152
+            759,
+            1013,
+            201,
+            156
           ],
           "margin": [
-            160,
+            158,
             105,
-            279,
-            112
+            275,
+            116
           ]
         },
         {
@@ -3556,24 +3556,24 @@
           ],
           "margin": [
             165,
-            109,
+            113,
             272,
-            117
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            968,
-            1012,
-            188,
-            152
+            964,
+            1013,
+            218,
+            177
           ],
           "margin": [
-            163,
-            105,
-            288,
-            112
+            150,
+            87,
+            258,
+            95
           ]
         },
         {
@@ -3586,24 +3586,24 @@
           ],
           "margin": [
             149,
-            112,
+            116,
             244,
-            120
+            128
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1160,
-            1012,
-            205,
-            146
+            1186,
+            1013,
+            222,
+            158
           ],
           "margin": [
-            154,
-            111,
-            271,
-            118
+            146,
+            104,
+            254,
+            114
           ]
         },
         {
@@ -3616,23 +3616,23 @@
           ],
           "margin": [
             156,
-            123,
+            127,
             257,
-            131
+            139
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1369,
-            1012,
-            219,
-            144
+            1412,
+            1013,
+            230,
+            152
           ],
           "margin": [
-            140,
-            113,
-            257,
+            135,
+            111,
+            246,
             120
           ]
         },
@@ -3646,24 +3646,24 @@
           ],
           "margin": [
             133,
-            115,
+            119,
             236,
-            123
+            131
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1592,
-            1012,
-            223,
-            149
+            1646,
+            1013,
+            242,
+            161
           ],
           "margin": [
-            128,
-            108,
-            253,
-            115
+            120,
+            101,
+            234,
+            111
           ]
         },
         {
@@ -3676,24 +3676,24 @@
           ],
           "margin": [
             125,
-            115,
+            119,
             242,
-            123
+            131
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1819,
-            1012,
-            227,
-            147
+            2,
+            1229,
+            221,
+            143
           ],
           "margin": [
-            114,
-            112,
-            249,
-            117
+            116,
+            121,
+            255,
+            129
           ]
         },
         {
@@ -3706,24 +3706,24 @@
           ],
           "margin": [
             122,
-            120,
+            124,
             259,
-            128
+            136
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            2,
-            1240,
-            266,
-            149
+            227,
+            1229,
+            245,
+            137
           ],
           "margin": [
-            110,
-            109,
-            210,
-            115
+            118,
+            125,
+            231,
+            135
           ]
         },
         {
@@ -3736,24 +3736,24 @@
           ],
           "margin": [
             131,
-            114,
+            118,
             239,
-            122
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            272,
-            1240,
-            242,
-            149
+            476,
+            1229,
+            246,
+            152
           ],
           "margin": [
-            140,
-            109,
-            234,
-            115
+            139,
+            110,
+            230,
+            120
           ]
         },
         {
@@ -3766,24 +3766,24 @@
           ],
           "margin": [
             142,
-            117,
+            121,
             188,
-            125
+            133
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            518,
-            1240,
-            295,
-            146
+            726,
+            1229,
+            275,
+            136
           ],
           "margin": [
-            142,
-            112,
-            181,
-            118
+            150,
+            126,
+            201,
+            136
           ]
         },
         {
@@ -3796,24 +3796,24 @@
           ],
           "margin": [
             176,
-            123,
+            127,
             216,
-            131
+            139
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            817,
-            1240,
-            288,
-            145
+            1005,
+            1229,
+            270,
+            136
           ],
           "margin": [
-            152,
-            113,
-            188,
-            119
+            160,
+            126,
+            206,
+            136
           ]
         },
         {
@@ -3826,24 +3826,24 @@
           ],
           "margin": [
             166,
-            118,
+            122,
             202,
-            126
+            134
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1109,
-            1240,
-            270,
-            147
+            1279,
+            1229,
+            263,
+            143
           ],
           "margin": [
-            154,
-            111,
-            206,
-            117
+            156,
+            119,
+            213,
+            129
           ]
         },
         {
@@ -3856,24 +3856,24 @@
           ],
           "margin": [
             166,
-            118,
+            122,
             303,
-            126
+            134
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1383,
-            1240,
-            183,
-            143
+            1546,
+            1229,
+            174,
+            136
           ],
           "margin": [
-            160,
-            115,
-            293,
-            121
+            165,
+            126,
+            302,
+            136
           ]
         }
       ]
@@ -3893,24 +3893,24 @@
           ],
           "margin": [
             176,
-            126,
+            130,
             324,
-            134
+            142
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1570,
-            1240,
-            187,
-            145
+            1724,
+            1229,
+            172,
+            133
           ],
           "margin": [
-            160,
-            113,
-            289,
-            119
+            168,
+            131,
+            304,
+            139
           ]
         },
         {
@@ -3923,24 +3923,24 @@
           ],
           "margin": [
             158,
-            114,
+            118,
             301,
-            122
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1761,
-            1240,
-            203,
-            153
+            2,
+            1389,
+            187,
+            141
           ],
           "margin": [
-            146,
-            105,
-            273,
-            111
+            154,
+            121,
+            289,
+            131
           ]
         },
         {
@@ -3953,24 +3953,24 @@
           ],
           "margin": [
             159,
-            111,
+            115,
             246,
-            119
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            2,
-            1401,
-            287,
-            154
+            193,
+            1389,
+            253,
+            136
           ],
           "margin": [
-            135,
-            104,
-            189,
-            110
+            148,
+            126,
+            223,
+            136
           ]
         },
         {
@@ -3983,24 +3983,24 @@
           ],
           "margin": [
             161,
-            113,
+            117,
             255,
-            121
+            129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            293,
-            1401,
-            264,
-            153
+            450,
+            1389,
+            247,
+            143
           ],
           "margin": [
-            139,
-            105,
-            212,
-            111
+            146,
+            119,
+            229,
+            129
           ]
         },
         {
@@ -4013,24 +4013,24 @@
           ],
           "margin": [
             152,
-            111,
+            115,
             250,
-            119
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            561,
-            1401,
-            184,
-            152
+            701,
+            1389,
+            193,
+            159
           ],
           "margin": [
-            136,
-            106,
-            292,
-            112
+            132,
+            103,
+            283,
+            113
           ]
         },
         {
@@ -4043,24 +4043,24 @@
           ],
           "margin": [
             121,
-            115,
+            119,
             188,
-            123
+            131
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            749,
-            1401,
-            198,
-            143
+            898,
+            1389,
+            213,
+            154
           ],
           "margin": [
-            135,
-            115,
-            278,
-            121
+            128,
+            108,
+            263,
+            118
           ]
         },
         {
@@ -4073,24 +4073,24 @@
           ],
           "margin": [
             137,
-            128,
+            132,
             224,
-            136
+            144
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            951,
-            1401,
-            199,
-            144
+            1115,
+            1389,
+            196,
+            141
           ],
           "margin": [
-            132,
-            114,
-            277,
-            120
+            134,
+            121,
+            280,
+            131
           ]
         },
         {
@@ -4103,24 +4103,24 @@
           ],
           "margin": [
             124,
-            114,
+            118,
             188,
-            122
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1154,
-            1401,
-            248,
-            155
+            1315,
+            1389,
+            246,
+            153
           ],
           "margin": [
-            140,
-            103,
-            228,
-            109
+            141,
+            109,
+            230,
+            119
           ]
         },
         {
@@ -4133,24 +4133,24 @@
           ],
           "margin": [
             158,
-            106,
+            110,
             271,
-            114
+            122
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1406,
-            1401,
-            255,
-            160
+            1565,
+            1389,
+            229,
+            144
           ],
           "margin": [
-            152,
-            98,
-            221,
-            104
+            162,
+            118,
+            247,
+            128
           ]
         },
         {
@@ -4163,24 +4163,24 @@
           ],
           "margin": [
             175,
-            105,
+            109,
             275,
-            113
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1665,
-            1401,
-            260,
-            167
+            1798,
+            1389,
+            231,
+            148
           ],
           "margin": [
-            151,
-            91,
-            216,
-            97
+            162,
+            114,
+            245,
+            124
           ]
         },
         {
@@ -4193,24 +4193,24 @@
           ],
           "margin": [
             156,
-            93,
+            97,
             255,
-            101
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
             2,
-            1576,
-            268,
-            174
+            1556,
+            264,
+            171
           ],
           "margin": [
-            146,
-            84,
-            208,
-            90
+            148,
+            91,
+            212,
+            101
           ]
         },
         {
@@ -4223,24 +4223,24 @@
           ],
           "margin": [
             135,
-            89,
+            93,
             217,
-            97
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            274,
-            1576,
-            289,
-            176
+            270,
+            1556,
+            270,
+            164
           ],
           "margin": [
-            131,
-            82,
-            187,
-            88
+            138,
+            98,
+            206,
+            108
           ]
         }
       ]
@@ -4260,24 +4260,24 @@
           ],
           "margin": [
             141,
-            55,
+            59,
             205,
-            63
+            71
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            567,
-            1576,
-            305,
-            207
+            544,
+            1556,
+            292,
+            198
           ],
           "margin": [
-            127,
-            51,
-            171,
-            57
+            132,
+            64,
+            184,
+            74
           ]
         },
         {
@@ -4290,24 +4290,24 @@
           ],
           "margin": [
             144,
-            64,
+            68,
             211,
-            72
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            876,
-            1576,
-            259,
-            187
+            840,
+            1556,
+            276,
+            199
           ],
           "margin": [
-            138,
-            71,
-            217,
-            77
+            131,
+            63,
+            200,
+            73
           ]
         },
         {
@@ -4320,23 +4320,23 @@
           ],
           "margin": [
             143,
-            92,
+            96,
             213,
-            100
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1139,
-            1576,
-            248,
-            179
+            1120,
+            1556,
+            260,
+            187
           ],
           "margin": [
-            144,
-            79,
-            228,
+            139,
+            75,
+            216,
             85
           ]
         },
@@ -4350,24 +4350,24 @@
           ],
           "margin": [
             137,
-            79,
+            83,
             200,
-            87
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1391,
-            1576,
-            243,
-            179
+            1384,
+            1556,
+            257,
+            189
           ],
           "margin": [
-            141,
-            80,
-            233,
-            85
+            135,
+            73,
+            219,
+            83
           ]
         }
       ]
@@ -4387,24 +4387,24 @@
           ],
           "margin": [
             118,
-            41,
+            45,
             186,
-            49
+            57
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1638,
-            1576,
-            285,
-            206
+            1645,
+            1556,
+            305,
+            221
           ],
           "margin": [
-            115,
-            52,
-            191,
-            58
+            106,
+            41,
+            171,
+            51
           ]
         },
         {
@@ -4417,24 +4417,24 @@
           ],
           "margin": [
             133,
-            78,
+            82,
             207,
-            86
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
             2,
-            1791,
-            254,
-            177
+            1785,
+            260,
+            181
           ],
           "margin": [
-            128,
+            124,
             81,
-            222,
-            87
+            216,
+            91
           ]
         },
         {
@@ -4447,24 +4447,24 @@
           ],
           "margin": [
             133,
-            98,
+            102,
             218,
-            106
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            260,
-            1791,
-            239,
-            174
+            266,
+            1785,
+            243,
+            177
           ],
           "margin": [
-            136,
-            84,
-            237,
-            90
+            134,
+            87,
+            233,
+            95
           ]
         },
         {
@@ -4477,24 +4477,24 @@
           ],
           "margin": [
             132,
-            81,
+            85,
             212,
-            89
+            97
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            503,
-            1791,
+            513,
+            1785,
             236,
             177
           ],
           "margin": [
             140,
-            82,
+            86,
             240,
-            87
+            95
           ]
         }
       ]
@@ -4514,24 +4514,24 @@
           ],
           "margin": [
             151,
-            76,
+            80,
             225,
-            84
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            743,
-            1791,
-            244,
-            182
+            753,
+            1785,
+            252,
+            188
           ],
           "margin": [
-            150,
-            76,
-            232,
-            82
+            146,
+            74,
+            224,
+            84
           ]
         },
         {
@@ -4544,24 +4544,24 @@
           ],
           "margin": [
             144,
-            89,
+            93,
             207,
-            97
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            991,
-            1791,
+            1009,
+            1785,
             244,
             180
           ],
           "margin": [
             142,
-            79,
+            83,
             232,
-            84
+            92
           ]
         },
         {
@@ -4574,24 +4574,24 @@
           ],
           "margin": [
             138,
-            79,
+            83,
             219,
-            87
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1239,
-            1791,
-            244,
-            177
+            1257,
+            1785,
+            247,
+            179
           ],
           "margin": [
-            134,
-            81,
-            232,
-            87
+            133,
+            83,
+            229,
+            93
           ]
         },
         {
@@ -4604,24 +4604,24 @@
           ],
           "margin": [
             131,
-            96,
+            100,
             229,
-            104
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1487,
-            1791,
-            235,
-            170
+            1508,
+            1785,
+            239,
+            172
           ],
           "margin": [
-            136,
-            89,
-            241,
-            94
+            134,
+            90,
+            237,
+            100
           ]
         }
       ]
@@ -4641,24 +4641,24 @@
           ],
           "margin": [
             136,
-            92,
+            96,
             218,
-            100
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
           "region": [
-            1726,
-            1791,
-            244,
-            176
+            1751,
+            1785,
+            251,
+            181
           ],
           "margin": [
-            138,
-            83,
-            232,
-            88
+            135,
+            81,
+            225,
+            91
           ]
         },
         {
@@ -4671,9 +4671,9 @@
           ],
           "margin": [
             126,
-            83,
+            87,
             203,
-            91
+            99
           ]
         },
         {
@@ -4681,14 +4681,14 @@
           "region": [
             2,
             2,
-            244,
-            181
+            249,
+            185
           ],
           "margin": [
-            142,
-            79,
-            232,
-            83
+            138,
+            77,
+            227,
+            87
           ]
         },
         {
@@ -4701,24 +4701,24 @@
           ],
           "margin": [
             145,
-            83,
+            87,
             247,
-            91
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            250,
+            255,
             2,
-            247,
-            180
+            225,
+            164
           ],
           "margin": [
-            138,
-            78,
-            229,
-            84
+            148,
+            97,
+            251,
+            108
           ]
         },
         {
@@ -4731,24 +4731,24 @@
           ],
           "margin": [
             153,
-            86,
+            90,
             257,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            501,
+            484,
             2,
-            232,
-            180
+            223,
+            173
           ],
           "margin": [
-            146,
-            79,
-            244,
-            84
+            150,
+            90,
+            253,
+            99
           ]
         },
         {
@@ -4761,24 +4761,24 @@
           ],
           "margin": [
             146,
-            82,
+            86,
             245,
-            90
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            737,
+            711,
             2,
-            246,
-            181
+            242,
+            178
           ],
           "margin": [
-            136,
-            77,
-            230,
-            83
+            138,
+            84,
+            234,
+            94
           ]
         },
         {
@@ -4791,24 +4791,24 @@
           ],
           "margin": [
             126,
-            84,
+            88,
             213,
-            92
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            987,
+            957,
             2,
-            232,
-            175
+            228,
+            172
           ],
           "margin": [
-            144,
-            85,
-            244,
-            89
+            146,
+            90,
+            248,
+            100
           ]
         },
         {
@@ -4821,24 +4821,24 @@
           ],
           "margin": [
             141,
-            94,
+            98,
             237,
-            102
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1223,
+            1189,
             2,
-            235,
-            174
+            226,
+            167
           ],
           "margin": [
-            140,
-            85,
-            241,
-            90
+            144,
+            94,
+            250,
+            105
           ]
         },
         {
@@ -4851,24 +4851,24 @@
           ],
           "margin": [
             129,
-            86,
+            90,
             219,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1462,
+            1419,
             2,
-            236,
-            179
+            235,
+            178
           ],
           "margin": [
             140,
-            79,
-            240,
-            85
+            86,
+            241,
+            94
           ]
         },
         {
@@ -4881,24 +4881,24 @@
           ],
           "margin": [
             148,
-            85,
+            89,
             250,
-            93
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1702,
+            1658,
             2,
-            221,
-            176
+            213,
+            170
           ],
           "margin": [
-            148,
-            83,
-            255,
-            88
+            152,
+            91,
+            263,
+            102
           ]
         },
         {
@@ -4911,24 +4911,24 @@
           ],
           "margin": [
             159,
-            91,
+            95,
             263,
-            99
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
             2,
-            191,
-            228,
-            181
+            195,
+            223,
+            178
           ],
           "margin": [
-            145,
-            77,
-            248,
-            83
+            147,
+            84,
+            253,
+            94
           ]
         },
         {
@@ -4941,24 +4941,24 @@
           ],
           "margin": [
             139,
-            75,
+            79,
             238,
-            83
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            234,
-            191,
+            229,
+            195,
             244,
-            193
+            194
           ],
           "margin": [
             132,
-            65,
+            68,
             232,
-            71
+            78
           ]
         },
         {
@@ -4971,24 +4971,24 @@
           ],
           "margin": [
             136,
-            68,
+            72,
             239,
-            76
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            482,
-            191,
-            250,
-            198
+            477,
+            195,
+            242,
+            192
           ],
           "margin": [
-            124,
-            60,
-            226,
-            66
+            128,
+            70,
+            234,
+            80
           ]
         }
       ]
@@ -5008,24 +5008,24 @@
           ],
           "margin": [
             136,
-            92,
+            96,
             218,
-            100
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            736,
-            191,
-            223,
-            176
+            723,
+            195,
+            249,
+            197
           ],
           "margin": [
-            140,
-            82,
-            253,
-            88
+            128,
+            65,
+            227,
+            75
           ]
         },
         {
@@ -5038,24 +5038,24 @@
           ],
           "margin": [
             129,
-            83,
+            87,
             206,
-            91
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            963,
-            191,
-            226,
-            182
+            976,
+            195,
+            250,
+            202
           ],
           "margin": [
-            142,
-            78,
-            250,
-            82
+            132,
+            60,
+            226,
+            70
           ]
         },
         {
@@ -5068,24 +5068,24 @@
           ],
           "margin": [
             143,
-            81,
+            85,
             232,
-            89
+            97
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1193,
-            191,
-            219,
-            180
+            1230,
+            195,
+            223,
+            184
           ],
           "margin": [
-            146,
+            144,
             79,
-            257,
-            84
+            253,
+            88
           ]
         },
         {
@@ -5098,24 +5098,24 @@
           ],
           "margin": [
             153,
-            86,
+            90,
             257,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1416,
-            191,
-            214,
-            180
+            1457,
+            195,
+            217,
+            183
           ],
           "margin": [
-            150,
-            79,
-            262,
-            84
+            148,
+            80,
+            259,
+            89
           ]
         },
         {
@@ -5128,24 +5128,24 @@
           ],
           "margin": [
             138,
-            82,
+            86,
             237,
-            90
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1634,
-            191,
-            215,
-            181
+            1678,
+            195,
+            233,
+            195
           ],
           "margin": [
-            144,
-            78,
-            261,
-            83
+            136,
+            67,
+            243,
+            77
           ]
         },
         {
@@ -5158,24 +5158,24 @@
           ],
           "margin": [
             137,
-            84,
+            88,
             243,
-            92
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
             2,
-            397,
-            217,
-            175
+            405,
+            223,
+            180
           ],
           "margin": [
-            142,
+            140,
             84,
-            259,
-            89
+            253,
+            92
           ]
         },
         {
@@ -5188,24 +5188,24 @@
           ],
           "margin": [
             141,
-            94,
+            98,
             237,
-            102
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            223,
-            397,
-            216,
-            174
+            229,
+            405,
+            222,
+            179
           ],
           "margin": [
-            145,
-            86,
-            260,
-            90
+            142,
+            84,
+            254,
+            93
           ]
         },
         {
@@ -5218,24 +5218,24 @@
           ],
           "margin": [
             137,
-            86,
+            90,
             239,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            443,
-            397,
-            220,
-            179
+            455,
+            405,
+            223,
+            181
           ],
           "margin": [
-            144,
+            142,
             81,
-            256,
-            85
+            253,
+            91
           ]
         },
         {
@@ -5248,24 +5248,24 @@
           ],
           "margin": [
             155,
-            85,
+            89,
             272,
-            93
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            667,
-            397,
-            193,
-            176
+            682,
+            405,
+            195,
+            178
           ],
           "margin": [
-            163,
-            83,
-            283,
-            88
+            162,
+            85,
+            281,
+            94
           ]
         },
         {
@@ -5278,24 +5278,24 @@
           ],
           "margin": [
             159,
-            91,
+            95,
             263,
-            99
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            864,
-            397,
-            206,
-            181
+            881,
+            405,
+            208,
+            183
           ],
           "margin": [
-            154,
-            77,
-            270,
-            83
+            152,
+            79,
+            268,
+            89
           ]
         },
         {
@@ -5308,24 +5308,24 @@
           ],
           "margin": [
             143,
-            75,
+            79,
             252,
-            83
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1074,
-            397,
-            219,
-            193
+            1093,
+            405,
+            225,
+            198
           ],
           "margin": [
-            142,
-            65,
-            257,
-            71
+            140,
+            64,
+            251,
+            74
           ]
         },
         {
@@ -5338,24 +5338,24 @@
           ],
           "margin": [
             136,
-            68,
+            72,
             246,
-            76
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1297,
-            397,
-            220,
-            198
+            1322,
+            405,
+            221,
+            199
           ],
           "margin": [
             138,
-            60,
-            256,
-            66
+            63,
+            255,
+            73
           ]
         }
       ]
@@ -5375,24 +5375,24 @@
           ],
           "margin": [
             136,
-            92,
+            96,
             218,
-            100
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1521,
-            397,
-            225,
-            177
+            1547,
+            405,
+            247,
+            194
           ],
           "margin": [
-            138,
-            82,
-            251,
-            87
+            128,
+            68,
+            229,
+            78
           ]
         },
         {
@@ -5405,24 +5405,24 @@
           ],
           "margin": [
             130,
-            83,
+            87,
             208,
-            91
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1750,
-            397,
-            226,
-            182
+            1798,
+            405,
+            248,
+            200
           ],
           "margin": [
-            141,
-            76,
-            250,
-            82
+            131,
+            62,
+            228,
+            72
           ]
         },
         {
@@ -5435,24 +5435,24 @@
           ],
           "margin": [
             144,
-            81,
+            85,
             250,
-            89
+            97
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
             2,
-            603,
-            208,
-            181
+            613,
+            214,
+            186
           ],
           "margin": [
-            156,
-            77,
-            268,
-            83
+            152,
+            76,
+            262,
+            86
           ]
         },
         {
@@ -5465,24 +5465,24 @@
           ],
           "margin": [
             153,
-            86,
+            90,
             257,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            214,
-            603,
-            211,
-            180
+            220,
+            613,
+            217,
+            185
           ],
           "margin": [
-            151,
-            78,
-            265,
-            84
+            148,
+            77,
+            259,
+            87
           ]
         },
         {
@@ -5495,24 +5495,24 @@
           ],
           "margin": [
             144,
-            83,
+            87,
             246,
-            91
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            429,
-            603,
-            208,
-            181
+            441,
+            613,
+            225,
+            196
           ],
           "margin": [
-            151,
-            77,
-            268,
-            83
+            143,
+            66,
+            251,
+            76
           ]
         },
         {
@@ -5525,23 +5525,23 @@
           ],
           "margin": [
             129,
-            84,
+            88,
             230,
-            92
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            641,
-            603,
-            212,
-            175
+            670,
+            613,
+            221,
+            183
           ],
           "margin": [
-            144,
-            83,
-            264,
+            140,
+            79,
+            255,
             89
           ]
         },
@@ -5555,24 +5555,24 @@
           ],
           "margin": [
             141,
-            94,
+            98,
             237,
-            102
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            857,
-            603,
+            895,
+            613,
             229,
-            174
+            173
           ],
           "margin": [
             138,
-            85,
+            91,
             247,
-            90
+            99
           ]
         },
         {
@@ -5585,24 +5585,24 @@
           ],
           "margin": [
             131,
-            87,
+            91,
             228,
-            95
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1090,
-            603,
-            222,
-            178
+            1128,
+            613,
+            232,
+            185
           ],
           "margin": [
-            141,
-            80,
-            254,
-            86
+            136,
+            77,
+            244,
+            87
           ]
         },
         {
@@ -5615,24 +5615,24 @@
           ],
           "margin": [
             147,
-            86,
+            90,
             249,
-            94
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1316,
-            603,
-            205,
-            176
+            1364,
+            613,
+            209,
+            179
           ],
           "margin": [
-            153,
-            83,
-            271,
-            88
+            151,
+            84,
+            267,
+            93
           ]
         },
         {
@@ -5645,24 +5645,24 @@
           ],
           "margin": [
             159,
-            91,
+            95,
             263,
-            99
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1525,
-            603,
-            212,
-            181
+            1577,
+            613,
+            214,
+            183
           ],
           "margin": [
-            150,
-            78,
-            264,
-            83
+            148,
+            80,
+            262,
+            89
           ]
         },
         {
@@ -5675,24 +5675,24 @@
           ],
           "margin": [
             140,
-            75,
+            79,
             239,
-            83
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1741,
-            603,
-            230,
-            194
+            1795,
+            613,
+            236,
+            198
           ],
           "margin": [
-            135,
+            132,
             64,
-            246,
-            70
+            240,
+            74
           ]
         },
         {
@@ -5705,24 +5705,24 @@
           ],
           "margin": [
             129,
-            67,
+            71,
             225,
-            75
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
             2,
-            805,
-            247,
-            199
+            819,
+            244,
+            197
           ],
           "margin": [
-            121,
-            59,
-            229,
-            65
+            122,
+            65,
+            232,
+            75
           ]
         }
       ]
@@ -5742,24 +5742,24 @@
           ],
           "margin": [
             142,
-            64,
+            68,
             254,
-            72
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            253,
-            805,
-            213,
-            198
+            250,
+            819,
+            220,
+            204
           ],
           "margin": [
-            144,
-            57,
-            263,
-            66
+            141,
+            55,
+            256,
+            68
           ]
         },
         {
@@ -5772,24 +5772,24 @@
           ],
           "margin": [
             143,
-            59,
+            63,
             250,
-            67
+            75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            470,
-            805,
-            212,
-            201
+            474,
+            819,
+            222,
+            211
           ],
           "margin": [
-            146,
-            54,
-            264,
-            63
+            141,
+            48,
+            254,
+            61
           ]
         },
         {
@@ -5802,24 +5802,24 @@
           ],
           "margin": [
             139,
-            57,
+            61,
             245,
-            65
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            686,
-            805,
-            218,
-            201
+            700,
+            819,
+            228,
+            211
           ],
           "margin": [
-            141,
-            54,
-            258,
-            63
+            136,
+            48,
+            248,
+            61
           ]
         },
         {
@@ -5832,24 +5832,24 @@
           ],
           "margin": [
             130,
-            59,
+            63,
             235,
-            67
+            75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            908,
-            805,
-            228,
-            198
+            932,
+            819,
+            237,
+            207
           ],
           "margin": [
-            132,
-            58,
-            248,
-            66
+            127,
+            52,
+            239,
+            65
           ]
         },
         {
@@ -5862,24 +5862,24 @@
           ],
           "margin": [
             124,
-            63,
+            67,
             228,
-            71
+            79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1140,
-            805,
-            234,
-            197
+            1173,
+            819,
+            249,
+            210
           ],
           "margin": [
-            124,
-            58,
-            242,
-            67
+            117,
+            50,
+            227,
+            62
           ]
         },
         {
@@ -5892,24 +5892,24 @@
           ],
           "margin": [
             122,
-            61,
+            65,
             227,
-            69
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1378,
-            805,
-            236,
-            198
+            1426,
+            819,
+            247,
+            208
           ],
           "margin": [
-            125,
-            58,
-            240,
-            66
+            120,
+            52,
+            229,
+            64
           ]
         },
         {
@@ -5922,24 +5922,24 @@
           ],
           "margin": [
             118,
-            61,
+            65,
             229,
-            69
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1618,
-            805,
-            246,
-            199
+            1677,
+            819,
+            245,
+            198
           ],
           "margin": [
-            117,
-            56,
-            230,
-            65
+            118,
+            62,
+            231,
+            74
           ]
         },
         {
@@ -5952,24 +5952,24 @@
           ],
           "margin": [
             119,
-            59,
+            63,
             233,
-            67
+            75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
             2,
-            1014,
-            241,
+            1038,
+            242,
             200
           ],
           "margin": [
             119,
-            56,
-            235,
-            64
+            60,
+            234,
+            72
           ]
         },
         {
@@ -5982,24 +5982,24 @@
           ],
           "margin": [
             128,
-            60,
+            64,
             244,
-            68
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            247,
-            1014,
-            237,
-            201
+            248,
+            1038,
+            235,
+            200
           ],
           "margin": [
-            122,
-            55,
-            239,
-            63
+            123,
+            60,
+            241,
+            72
           ]
         },
         {
@@ -6012,24 +6012,24 @@
           ],
           "margin": [
             135,
-            58,
+            62,
             253,
-            66
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            488,
-            1014,
+            487,
+            1038,
             228,
             201
           ],
           "margin": [
             130,
-            55,
+            59,
             248,
-            63
+            71
           ]
         },
         {
@@ -6042,24 +6042,24 @@
           ],
           "margin": [
             137,
-            59,
+            63,
             256,
-            67
+            75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            720,
-            1014,
-            220,
-            201
+            719,
+            1038,
+            223,
+            204
           ],
           "margin": [
-            138,
-            54,
-            256,
-            63
+            136,
+            56,
+            253,
+            68
           ]
         },
         {
@@ -6072,24 +6072,24 @@
           ],
           "margin": [
             142,
-            57,
+            61,
             258,
-            65
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            944,
-            1014,
-            216,
-            199
+            946,
+            1038,
+            226,
+            208
           ],
           "margin": [
-            143,
-            56,
-            260,
-            65
+            139,
+            51,
+            250,
+            64
           ]
         }
       ]
@@ -6109,24 +6109,24 @@
           ],
           "margin": [
             144,
-            45,
+            49,
             252,
-            53
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1164,
-            1014,
-            241,
-            214
+            1176,
+            1038,
+            231,
+            205
           ],
           "margin": [
-            127,
-            41,
-            235,
-            50
+            131,
+            54,
+            245,
+            67
           ]
         },
         {
@@ -6139,24 +6139,24 @@
           ],
           "margin": [
             141,
-            45,
+            49,
             248,
-            53
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1409,
-            1014,
-            231,
-            216
+            1411,
+            1038,
+            228,
+            213
           ],
           "margin": [
-            135,
-            39,
-            245,
-            48
+            137,
+            46,
+            248,
+            59
           ]
         },
         {
@@ -6169,24 +6169,24 @@
           ],
           "margin": [
             142,
-            42,
+            46,
             245,
-            50
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1644,
-            1014,
-            232,
-            218
+            1643,
+            1038,
+            230,
+            216
           ],
           "margin": [
-            136,
-            38,
-            244,
-            46
+            137,
+            44,
+            246,
+            56
           ]
         },
         {
@@ -6199,24 +6199,24 @@
           ],
           "margin": [
             140,
-            43,
+            47,
             246,
-            51
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
             2,
-            1240,
-            226,
+            1262,
+            225,
             216
           ],
           "margin": [
             137,
-            40,
-            250,
-            48
+            44,
+            251,
+            56
           ]
         },
         {
@@ -6229,24 +6229,24 @@
           ],
           "margin": [
             141,
-            45,
+            49,
             249,
-            53
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            232,
-            1240,
-            221,
-            213
+            231,
+            1262,
+            220,
+            212
           ],
           "margin": [
             141,
-            42,
-            255,
-            51
+            47,
+            256,
+            60
           ]
         },
         {
@@ -6259,24 +6259,24 @@
           ],
           "margin": [
             144,
-            47,
+            51,
             254,
-            55
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            457,
-            1240,
-            219,
-            210
+            455,
+            1262,
+            221,
+            212
           ],
           "margin": [
-            143,
-            45,
-            257,
-            54
+            142,
+            47,
+            255,
+            60
           ]
         }
       ]
@@ -6296,24 +6296,24 @@
           ],
           "margin": [
             142,
-            51,
+            55,
             251,
-            59
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
             680,
-            1240,
-            215,
-            206
+            1262,
+            222,
+            213
           ],
           "margin": [
-            143,
-            49,
-            261,
-            58
+            140,
+            46,
+            254,
+            59
           ]
         },
         {
@@ -6326,24 +6326,24 @@
           ],
           "margin": [
             142,
-            54,
+            58,
             253,
-            62
+            70
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            899,
-            1240,
-            210,
-            203
+            906,
+            1262,
+            219,
+            212
           ],
           "margin": [
-            145,
-            52,
-            266,
-            61
+            141,
+            47,
+            257,
+            60
           ]
         },
         {
@@ -6356,24 +6356,24 @@
           ],
           "margin": [
             139,
-            57,
+            61,
             251,
-            65
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1113,
-            1240,
-            211,
-            202
+            1129,
+            1262,
+            218,
+            209
           ],
           "margin": [
-            144,
-            53,
-            265,
-            62
+            141,
+            50,
+            258,
+            63
           ]
         },
         {
@@ -6386,24 +6386,24 @@
           ],
           "margin": [
             139,
-            58,
+            62,
             251,
-            66
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1328,
-            1240,
-            209,
-            201
+            1351,
+            1262,
+            215,
+            207
           ],
           "margin": [
-            144,
-            54,
-            267,
-            63
+            142,
+            52,
+            261,
+            65
           ]
         },
         {
@@ -6416,24 +6416,24 @@
           ],
           "margin": [
             140,
-            58,
+            62,
             252,
-            66
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1541,
-            1240,
-            209,
-            202
+            1570,
+            1262,
+            216,
+            208
           ],
           "margin": [
-            146,
-            54,
-            267,
-            62
+            142,
+            52,
+            260,
+            64
           ]
         },
         {
@@ -6446,24 +6446,24 @@
           ],
           "margin": [
             143,
-            58,
+            62,
             258,
-            66
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
           "region": [
-            1754,
-            1240,
-            209,
-            201
+            1790,
+            1262,
+            212,
+            204
           ],
           "margin": [
-            146,
-            56,
-            267,
-            63
+            145,
+            57,
+            264,
+            68
           ]
         }
       ]

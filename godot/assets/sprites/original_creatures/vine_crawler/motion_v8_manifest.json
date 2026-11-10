@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "vine_crawler",
   "canvas": [
     340,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            208,
-            167
+            193,
+            155
           ],
           "margin": [
-            76,
-            41,
-            132,
-            47
+            84,
+            55,
+            147,
+            59
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            214,
+            199,
             2,
-            203,
-            163
+            189,
+            152
           ],
           "margin": [
-            69,
-            45,
-            137,
-            51
+            75,
+            58,
+            151,
+            62
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            421,
+            392,
             2,
-            205,
-            163
+            189,
+            151
           ],
           "margin": [
+            66,
             59,
-            45,
-            135,
-            51
+            151,
+            63
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            630,
+            585,
             2,
-            195,
-            167
+            186,
+            159
           ],
           "margin": [
-            70,
-            42,
-            145,
-            47
+            74,
+            50,
+            154,
+            55
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            829,
+            775,
             2,
-            194,
-            165
+            189,
+            161
           ],
           "margin": [
-            81,
-            44,
-            146,
-            49
+            84,
+            49,
+            151,
+            53
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1027,
+            968,
             2,
-            206,
-            163
+            192,
+            152
           ],
           "margin": [
-            75,
-            45,
-            134,
-            51
+            81,
+            57,
+            148,
+            62
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1237,
+            1164,
             2,
-            206,
-            166
+            188,
+            151
           ],
           "margin": [
-            64,
-            42,
-            134,
-            48
+            72,
+            57,
+            152,
+            63
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1447,
+            1356,
             2,
-            209,
-            166
+            190,
+            150
           ],
           "margin": [
-            70,
-            42,
-            131,
-            48
+            78,
+            59,
+            150,
+            64
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1660,
+            1550,
             2,
-            211,
-            170
+            193,
+            156
           ],
           "margin": [
-            81,
-            38,
-            129,
-            44
+            89,
+            54,
+            147,
+            58
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
+            1747,
             2,
-            180,
-            196,
-            170
+            188,
+            163
           ],
           "margin": [
-            78,
-            38,
-            144,
-            44
+            82,
+            47,
+            152,
+            51
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            202,
-            180,
-            206,
-            167
+            2,
+            173,
+            190,
+            154
           ],
           "margin": [
-            63,
-            41,
-            134,
-            47
+            70,
+            56,
+            150,
+            60
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            412,
-            180,
-            208,
-            170
+            196,
+            173,
+            190,
+            155
           ],
           "margin": [
-            66,
-            38,
-            132,
-            44
+            74,
+            54,
+            150,
+            59
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            624,
-            180,
-            216,
-            174
+            390,
+            173,
+            197,
+            158
           ],
           "margin": [
-            65,
-            34,
-            124,
-            40
+            74,
+            51,
+            143,
+            56
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            844,
-            180,
-            216,
-            170
+            591,
+            173,
+            206,
+            163
           ],
           "margin": [
-            66,
-            38,
-            124,
-            44
+            70,
+            45,
+            134,
+            51
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1064,
-            180,
-            207,
-            160
+            801,
+            173,
+            194,
+            149
           ],
           "margin": [
-            64,
-            48,
-            133,
-            54
+            70,
+            60,
+            146,
+            65
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1275,
-            180,
-            204,
-            156
+            999,
+            173,
+            192,
+            148
           ],
           "margin": [
-            63,
-            52,
-            136,
-            58
+            68,
+            62,
+            148,
+            66
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1483,
-            180,
-            211,
-            162
+            1195,
+            173,
+            198,
+            152
           ],
           "margin": [
-            54,
-            46,
-            129,
-            52
+            60,
+            57,
+            142,
+            62
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1698,
-            180,
-            210,
-            160
+            1397,
+            173,
+            193,
+            147
           ],
           "margin": [
-            51,
-            48,
-            130,
-            54
+            59,
+            63,
+            147,
+            67
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            362,
-            204,
-            160
+            1594,
+            173,
+            193,
+            151
           ],
           "margin": [
-            52,
-            48,
-            136,
-            54
+            58,
+            57,
+            147,
+            63
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            210,
-            362,
-            215,
-            164
+            1791,
+            173,
+            202,
+            154
           ],
           "margin": [
-            46,
-            44,
-            125,
-            50
+            54,
+            54,
+            138,
+            60
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            429,
-            362,
-            220,
-            160
+            2,
+            344,
+            202,
+            147
           ],
           "margin": [
-            45,
-            48,
-            120,
-            54
+            53,
+            63,
+            138,
+            67
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            653,
-            362,
-            214,
-            161
+            208,
+            344,
+            201,
+            152
           ],
           "margin": [
-            50,
-            47,
-            126,
-            53
+            56,
+            57,
+            139,
+            62
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            871,
-            362,
-            209,
-            168
+            413,
+            344,
+            202,
+            162
           ],
           "margin": [
-            56,
-            40,
-            131,
-            46
+            60,
+            46,
+            138,
+            52
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1084,
-            362,
-            216,
-            168
+            619,
+            344,
+            202,
+            157
           ],
           "margin": [
-            66,
-            40,
-            124,
-            46
+            72,
+            52,
+            138,
+            57
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1304,
-            362,
-            210,
-            170
+            825,
+            344,
+            214,
+            173
           ],
           "margin": [
-            73,
-            38,
-            130,
-            44
+            71,
+            35,
+            126,
+            41
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1518,
-            362,
-            222,
-            173
+            1043,
+            344,
+            217,
+            170
           ],
           "margin": [
-            61,
-            35,
-            118,
-            41
+            63,
+            38,
+            123,
+            44
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1744,
-            362,
-            195,
-            169
+            1264,
+            344,
+            183,
+            159
           ],
           "margin": [
-            66,
-            39,
-            145,
-            45
+            72,
+            49,
+            157,
+            55
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            543,
-            193,
-            168
+            1451,
+            344,
+            187,
+            163
           ],
           "margin": [
-            65,
-            40,
-            147,
-            46
+            68,
+            45,
+            153,
+            51
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            199,
-            543,
-            212,
-            170
+            1642,
+            344,
+            206,
+            164
           ],
           "margin": [
-            58,
-            38,
-            128,
-            44
+            60,
+            44,
+            134,
+            50
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            415,
-            543,
-            231,
-            164
+            2,
+            525,
+            233,
+            165
           ],
           "margin": [
             64,
-            44,
-            109,
-            50
+            43,
+            107,
+            49
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            650,
-            543,
             239,
-            163
+            525,
+            231,
+            158
           ],
           "margin": [
-            68,
-            45,
-            101,
-            51
+            70,
+            50,
+            109,
+            56
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            893,
-            543,
-            244,
-            167
+            474,
+            525,
+            241,
+            165
           ],
           "margin": [
-            76,
-            41,
-            96,
-            47
+            78,
+            43,
+            99,
+            49
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1141,
-            543,
-            211,
-            164
+            719,
+            525,
+            199,
+            154
           ],
           "margin": [
-            86,
-            44,
-            129,
-            50
+            92,
+            54,
+            141,
+            60
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1356,
-            543,
-            207,
-            166
+            922,
+            525,
+            190,
+            153
           ],
           "margin": [
-            86,
-            42,
-            133,
-            48
+            94,
+            55,
+            150,
+            61
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1567,
-            543,
-            244,
-            174
+            1116,
+            525,
+            239,
+            171
           ],
           "margin": [
-            86,
-            34,
-            96,
-            40
+            88,
+            37,
+            101,
+            43
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            725,
-            245,
-            175
+            1359,
+            525,
+            231,
+            165
           ],
           "margin": [
-            78,
-            33,
-            95,
-            39
+            84,
+            43,
+            109,
+            49
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            251,
-            725,
-            246,
-            177
+            1594,
+            525,
+            236,
+            170
           ],
           "margin": [
-            76,
-            31,
-            94,
-            37
+            80,
+            38,
+            104,
+            44
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            501,
-            725,
-            243,
-            181
+            2,
+            704,
+            229,
+            171
           ],
           "margin": [
-            71,
-            27,
-            97,
-            33
+            77,
+            37,
+            111,
+            43
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            748,
-            725,
             235,
-            178
+            704,
+            211,
+            160
           ],
           "margin": [
-            68,
-            30,
-            105,
-            36
+            78,
+            48,
+            129,
+            54
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            987,
-            725,
-            218,
-            176
+            450,
+            704,
+            202,
+            163
           ],
           "margin": [
-            72,
-            32,
-            122,
-            38
+            79,
+            45,
+            138,
+            51
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1209,
-            725,
-            212,
-            177
+            656,
+            704,
+            206,
+            172
           ],
           "margin": [
-            63,
-            31,
-            128,
-            37
+            66,
+            36,
+            134,
+            42
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1425,
-            725,
-            216,
-            173
+            866,
+            704,
+            204,
+            163
           ],
           "margin": [
-            58,
-            35,
-            124,
-            41
+            63,
+            45,
+            136,
+            51
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1645,
-            725,
-            212,
-            173
+            1074,
+            704,
+            199,
+            162
           ],
           "margin": [
-            57,
-            35,
-            128,
-            41
+            63,
+            46,
+            141,
+            52
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            914,
-            221,
-            179
+            1277,
+            704,
+            208,
+            168
           ],
           "margin": [
-            48,
-            29,
-            119,
-            35
+            54,
+            40,
+            132,
+            46
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            227,
-            914,
-            214,
-            178
+            1489,
+            704,
+            199,
+            165
           ],
           "margin": [
-            48,
-            30,
-            126,
-            36
+            54,
+            43,
+            141,
+            49
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            445,
-            914,
-            215,
-            178
+            1692,
+            704,
+            200,
+            165
           ],
           "margin": [
-            52,
-            30,
-            125,
-            36
+            58,
+            43,
+            140,
+            49
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            664,
-            914,
-            227,
-            180
+            2,
+            884,
+            209,
+            165
           ],
           "margin": [
-            54,
-            28,
-            113,
-            34
+            62,
+            43,
+            131,
+            49
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            895,
-            914,
-            223,
-            174
+            215,
+            884,
+            205,
+            160
           ],
           "margin": [
-            68,
-            34,
-            117,
-            40
+            76,
+            48,
+            135,
+            54
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1122,
-            914,
-            201,
-            175
+            424,
+            884,
+            193,
+            168
           ],
           "margin": [
-            79,
-            33,
-            139,
-            39
+            82,
+            41,
+            147,
+            46
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1327,
-            914,
-            205,
-            157
+            621,
+            884,
+            188,
+            144
           ],
           "margin": [
-            73,
-            51,
-            135,
-            57
+            81,
+            64,
+            152,
+            70
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1536,
-            914,
-            233,
-            152
+            813,
+            884,
+            197,
+            129
           ],
           "margin": [
-            46,
-            56,
-            107,
-            62
+            62,
+            79,
+            143,
+            85
           ]
         },
         {
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1773,
-            914,
-            228,
-            163
+            1014,
+            884,
+            199,
+            142
           ],
           "margin": [
-            52,
-            45,
-            112,
-            51
+            66,
+            66,
+            141,
+            72
           ]
         }
       ]
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1102,
-            205,
-            164
+            1217,
+            884,
+            197,
+            157
           ],
           "margin": [
-            70,
-            44,
-            135,
-            50
+            74,
+            51,
+            143,
+            57
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            211,
-            1102,
-            201,
-            143
+            1418,
+            884,
+            188,
+            134
           ],
           "margin": [
-            58,
-            65,
-            139,
-            71
+            64,
+            74,
+            152,
+            80
           ]
         },
         {
@@ -1699,8 +1699,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            416,
-            1102,
+            1610,
+            884,
             175,
             128
           ],
@@ -1729,16 +1729,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            595,
-            1102,
-            185,
-            126
+            1789,
+            884,
+            183,
+            125
           ],
           "margin": [
             60,
-            84,
-            155,
-            88
+            85,
+            157,
+            89
           ]
         }
       ]
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            784,
-            1102,
-            233,
-            160
+            2,
+            1060,
+            216,
+            148
           ],
           "margin": [
-            57,
-            48,
-            107,
-            54
+            65,
+            60,
+            124,
+            66
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1021,
-            1102,
-            235,
-            169
+            222,
+            1060,
+            226,
+            163
           ],
           "margin": [
-            61,
-            39,
-            105,
-            45
+            65,
+            45,
+            114,
+            51
           ]
         },
         {
@@ -1826,16 +1826,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1260,
-            1102,
-            233,
-            172
+            452,
+            1060,
+            205,
+            152
           ],
           "margin": [
-            58,
-            36,
-            107,
-            42
+            70,
+            56,
+            135,
+            62
           ]
         },
         {
@@ -1856,16 +1856,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1497,
-            1102,
-            283,
-            181
+            661,
+            1060,
+            222,
+            142
           ],
           "margin": [
-            38,
-            27,
-            57,
-            33
+            64,
+            66,
+            118,
+            72
           ]
         },
         {
@@ -1886,16 +1886,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1291,
-            277,
-            190
+            887,
+            1060,
+            216,
+            149
           ],
           "margin": [
-            40,
-            18,
-            63,
-            24
+            67,
+            59,
+            124,
+            65
           ]
         },
         {
@@ -1916,16 +1916,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            283,
-            1291,
-            279,
-            193
+            1107,
+            1060,
+            210,
+            145
           ],
           "margin": [
-            39,
-            16,
-            61,
-            21
+            70,
+            63,
+            130,
+            69
           ]
         },
         {
@@ -1946,16 +1946,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            566,
-            1291,
-            277,
-            198
+            1321,
+            1060,
+            211,
+            151
           ],
           "margin": [
-            34,
-            11,
-            63,
-            16
+            66,
+            57,
+            129,
+            63
           ]
         },
         {
@@ -1976,16 +1976,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            847,
-            1291,
-            283,
-            206
+            1536,
+            1060,
+            216,
+            158
           ],
           "margin": [
-            34,
-            3,
-            57,
-            8
+            64,
+            50,
+            124,
+            56
           ]
         },
         {
@@ -2006,16 +2006,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1134,
-            1291,
-            259,
-            207
+            1756,
+            1060,
+            200,
+            160
           ],
           "margin": [
-            32,
-            1,
-            81,
-            7
+            62,
+            48,
+            140,
+            54
           ]
         },
         {
@@ -2036,16 +2036,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1397,
-            1291,
-            227,
-            200
+            2,
+            1231,
+            192,
+            169
           ],
           "margin": [
-            48,
-            8,
-            113,
-            14
+            66,
+            39,
+            148,
+            45
           ]
         },
         {
@@ -2066,16 +2066,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1628,
-            1291,
-            193,
-            187
+            198,
+            1231,
+            198,
+            192
           ],
           "margin": [
-            64,
-            21,
-            147,
-            27
+            62,
+            16,
+            142,
+            22
           ]
         },
         {
@@ -2096,16 +2096,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1825,
-            1291,
-            167,
-            167
+            400,
+            1231,
+            202,
+            202
           ],
           "margin": [
-            78,
-            40,
-            173,
-            47
+            60,
+            6,
+            138,
+            12
           ]
         }
       ]
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1506,
-            164,
-            157
+            606,
+            1231,
+            199,
+            190
           ],
           "margin": [
-            80,
-            50,
-            176,
-            57
+            62,
+            18,
+            141,
+            24
           ]
         },
         {
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            170,
-            1506,
-            184,
-            160
+            809,
+            1231,
+            203,
+            177
           ],
           "margin": [
-            70,
-            48,
-            156,
-            54
+            60,
+            31,
+            137,
+            37
           ]
         },
         {
@@ -2193,16 +2193,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            358,
-            1506,
-            208,
-            157
+            1016,
+            1231,
+            211,
+            159
           ],
           "margin": [
-            66,
-            51,
-            132,
-            57
+            64,
+            49,
+            129,
+            55
           ]
         },
         {
@@ -2223,16 +2223,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            570,
-            1506,
-            219,
-            155
+            1231,
+            1231,
+            209,
+            147
           ],
           "margin": [
-            58,
-            53,
-            121,
-            59
+            64,
+            61,
+            131,
+            67
           ]
         },
         {
@@ -2253,16 +2253,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            793,
-            1506,
-            233,
-            154
+            1444,
+            1231,
+            236,
+            156
           ],
           "margin": [
-            63,
-            54,
-            107,
-            60
+            62,
+            52,
+            104,
+            58
           ]
         },
         {
@@ -2283,16 +2283,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1030,
-            1506,
-            228,
-            147
+            1684,
+            1231,
+            232,
+            150
           ],
           "margin": [
-            65,
-            61,
-            112,
-            67
+            63,
+            58,
+            108,
+            64
           ]
         },
         {
@@ -2313,16 +2313,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1262,
-            1506,
-            229,
-            144
+            2,
+            1441,
+            227,
+            143
           ],
           "margin": [
-            66,
-            64,
-            111,
-            70
+            68,
+            65,
+            113,
+            71
           ]
         },
         {
@@ -2343,16 +2343,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1495,
-            1506,
-            243,
-            145
+            233,
+            1441,
+            240,
+            143
           ],
           "margin": [
             62,
-            63,
-            97,
-            69
+            65,
+            100,
+            71
           ]
         },
         {
@@ -2373,16 +2373,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1742,
-            1506,
-            231,
-            139
+            477,
+            1441,
+            225,
+            135
           ],
           "margin": [
-            65,
-            69,
-            109,
-            75
+            67,
+            73,
+            115,
+            79
           ]
         },
         {
@@ -2403,16 +2403,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1674,
-            247,
-            150
+            706,
+            1441,
+            241,
+            146
           ],
           "margin": [
-            55,
-            58,
-            93,
-            64
+            57,
+            62,
+            99,
+            68
           ]
         },
         {
@@ -2433,16 +2433,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            253,
-            1674,
-            307,
-            178
+            951,
+            1441,
+            256,
+            148
           ],
           "margin": [
-            28,
-            31,
-            33,
-            36
+            51,
+            60,
+            84,
+            66
           ]
         },
         {
@@ -2463,16 +2463,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            564,
-            1674,
-            331,
-            196
+            1211,
+            1441,
+            235,
+            140
           ],
           "margin": [
-            20,
-            13,
-            9,
-            18
+            60,
+            68,
+            105,
+            74
           ]
         }
       ]
@@ -2500,16 +2500,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            899,
-            1674,
-            330,
-            208
+            1450,
+            1441,
+            244,
+            153
           ],
           "margin": [
-            23,
-            1,
-            10,
-            6
+            59,
+            55,
+            96,
+            61
           ]
         },
         {
@@ -2530,16 +2530,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1233,
-            1674,
-            326,
-            210
+            1698,
+            1441,
+            251,
+            162
           ],
           "margin": [
-            26,
-            -1,
-            14,
-            4
+            57,
+            46,
+            89,
+            52
           ]
         },
         {
@@ -2560,16 +2560,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1563,
-            1674,
-            309,
-            204
+            2,
+            1611,
+            239,
+            158
           ],
           "margin": [
-            35,
-            5,
-            31,
-            10
+            64,
+            50,
+            101,
+            56
           ]
         },
         {
@@ -2588,18 +2588,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            288,
-            200
+            245,
+            1611,
+            232,
+            161
           ],
           "margin": [
-            42,
-            8,
-            52,
-            14
+            66,
+            47,
+            108,
+            53
           ]
         },
         {
@@ -2618,18 +2618,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            294,
-            2,
-            276,
-            200
+            481,
+            1611,
+            232,
+            168
           ],
           "margin": [
-            44,
-            8,
             64,
-            14
+            40,
+            108,
+            46
           ]
         },
         {
@@ -2648,18 +2648,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            574,
-            2,
-            269,
-            193
+            717,
+            1611,
+            219,
+            158
           ],
           "margin": [
-            40,
-            15,
-            71,
-            21
+            62,
+            50,
+            121,
+            56
           ]
         },
         {
@@ -2678,18 +2678,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            847,
-            2,
-            229,
-            185
+            940,
+            1611,
+            206,
+            166
           ],
           "margin": [
-            54,
-            23,
-            111,
-            29
+            64,
+            42,
+            134,
+            48
           ]
         },
         {
@@ -2708,18 +2708,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1080,
-            2,
-            211,
-            177
+            1150,
+            1611,
+            215,
+            180
           ],
           "margin": [
-            61,
-            31,
-            129,
-            37
+            59,
+            28,
+            125,
+            34
           ]
         },
         {
@@ -2738,18 +2738,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1295,
-            2,
-            198,
-            163
+            1369,
+            1611,
+            212,
+            174
           ],
           "margin": [
-            68,
-            45,
-            142,
-            51
+            62,
+            34,
+            128,
+            40
           ]
         },
         {
@@ -2768,18 +2768,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1497,
-            2,
-            204,
-            162
+            1585,
+            1611,
+            208,
+            164
           ],
           "margin": [
-            64,
-            46,
-            136,
-            52
+            62,
+            44,
+            132,
+            50
           ]
         },
         {
@@ -2798,18 +2798,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            1705,
-            2,
+            1797,
+            1611,
             217,
-            170
+            169
           ],
           "margin": [
             64,
-            38,
+            39,
             123,
-            44
+            45
           ]
         },
         {
@@ -2828,18 +2828,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
             2,
-            210,
-            227,
-            170
+            1799,
+            211,
+            158
           ],
           "margin": [
-            66,
-            38,
-            113,
-            44
+            74,
+            50,
+            129,
+            56
           ]
         }
       ]
@@ -2865,18 +2865,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            233,
-            210,
-            279,
-            209
+            217,
+            1799,
+            217,
+            163
           ],
           "margin": [
-            28,
-            -1,
-            61,
-            5
+            58,
+            45,
+            123,
+            51
           ]
         },
         {
@@ -2895,18 +2895,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_v8_00.png",
           "region": [
-            516,
-            210,
-            280,
-            209
+            438,
+            1799,
+            220,
+            164
           ],
           "margin": [
-            32,
-            0,
-            60,
-            5
+            58,
+            44,
+            120,
+            50
           ]
         }
       ]

@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "wax_lancer",
   "canvas": [
     450,
-    243
+    245
   ],
   "display_height": 106,
   "visual_scale": 0.5196078431372549,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             129,
-            31,
+            32,
             297,
-            39
+            41
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            171,
-            213
+            148,
+            184
           ],
           "margin": [
-            116,
-            24,
-            279,
-            30
+            132,
+            53,
+            302,
+            61
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             121,
-            31,
+            32,
             290,
-            39
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            177,
+            154,
             2,
-            177,
-            212
+            155,
+            185
           ],
           "margin": [
-            110,
-            25,
-            273,
-            31
+            124,
+            52,
+            295,
+            60
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             118,
-            31,
+            32,
             286,
-            39
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            358,
+            313,
             2,
-            185,
-            212
+            159,
+            183
           ],
           "margin": [
-            108,
-            25,
-            265,
-            31
+            124,
+            54,
+            291,
+            62
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             130,
-            31,
+            32,
             296,
-            39
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            547,
+            476,
             2,
-            184,
-            212
+            157,
+            182
           ],
           "margin": [
-            109,
-            25,
-            266,
-            31
+            126,
+            55,
+            293,
+            63
           ]
         }
       ]
@@ -156,24 +156,24 @@
           ],
           "margin": [
             143,
-            61,
+            62,
             271,
-            69
+            71
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            735,
+            637,
             2,
-            184,
-            181
+            172,
+            170
           ],
           "margin": [
-            128,
-            55,
-            266,
-            62
+            136,
+            67,
+            278,
+            75
           ]
         },
         {
@@ -186,24 +186,24 @@
           ],
           "margin": [
             125,
-            61,
+            62,
             266,
-            69
+            71
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            923,
+            813,
             2,
-            181,
-            177
+            173,
+            168
           ],
           "margin": [
-            125,
-            59,
-            269,
-            66
+            129,
+            69,
+            277,
+            77
           ]
         },
         {
@@ -216,24 +216,24 @@
           ],
           "margin": [
             120,
-            70,
+            71,
             248,
-            78
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1108,
+            990,
             2,
-            179,
-            171
+            175,
+            167
           ],
           "margin": [
-            122,
-            65,
-            271,
-            72
+            124,
+            70,
+            275,
+            78
           ]
         },
         {
@@ -246,24 +246,24 @@
           ],
           "margin": [
             125,
-            72,
+            73,
             264,
-            80
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1291,
+            1169,
             2,
-            186,
-            177
+            177,
+            169
           ],
           "margin": [
-            124,
-            60,
-            264,
-            66
+            129,
+            69,
+            273,
+            76
           ]
         },
         {
@@ -276,24 +276,24 @@
           ],
           "margin": [
             137,
-            58,
+            59,
             269,
-            66
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1481,
+            1350,
             2,
-            191,
-            186
+            170,
+            166
           ],
           "margin": [
-            132,
-            53,
-            259,
-            57
+            144,
+            71,
+            280,
+            79
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             150,
-            56,
+            57,
             294,
-            64
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1676,
+            1524,
             2,
-            189,
-            187
+            167,
+            165
           ],
           "margin": [
-            128,
-            52,
-            261,
-            56
+            140,
+            72,
+            283,
+            80
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             122,
-            56,
+            57,
             266,
-            64
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
+            1695,
             2,
-            223,
-            202,
-            188
+            179,
+            167
           ],
           "margin": [
-            108,
-            51,
-            248,
-            55
+            120,
+            70,
+            271,
+            78
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             120,
-            54,
+            55,
             272,
-            62
+            64
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            208,
-            223,
-            194,
-            185
+            2,
+            195,
+            171,
+            163
           ],
           "margin": [
-            122,
-            54,
-            256,
-            58
+            136,
+            75,
+            279,
+            82
           ]
         }
       ]
@@ -403,24 +403,24 @@
           ],
           "margin": [
             135,
-            23,
+            24,
             254,
-            31
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            406,
-            223,
-            244,
-            222
+            177,
+            195,
+            181,
+            165
           ],
           "margin": [
-            104,
-            15,
-            206,
-            21
+            139,
+            72,
+            269,
+            80
           ]
         },
         {
@@ -433,24 +433,24 @@
           ],
           "margin": [
             137,
-            22,
+            23,
             254,
-            30
+            32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            654,
-            223,
-            232,
-            219
+            362,
+            195,
+            196,
+            185
           ],
           "margin": [
-            116,
-            18,
-            218,
-            24
+            135,
+            55,
+            254,
+            60
           ]
         },
         {
@@ -463,24 +463,24 @@
           ],
           "margin": [
             151,
-            28,
+            29,
             262,
-            36
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            890,
-            223,
-            208,
-            209
+            562,
+            195,
+            177,
+            178
           ],
           "margin": [
-            132,
-            28,
-            242,
-            34
+            148,
+            60,
+            273,
+            67
           ]
         },
         {
@@ -493,24 +493,24 @@
           ],
           "margin": [
             158,
-            41,
+            42,
             270,
-            49
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1102,
-            223,
-            191,
-            202
+            743,
+            195,
+            161,
+            170
           ],
           "margin": [
-            147,
-            35,
-            259,
-            41
+            161,
+            67,
+            289,
+            75
           ]
         },
         {
@@ -523,24 +523,24 @@
           ],
           "margin": [
             155,
-            42,
+            43,
             272,
-            50
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1297,
-            223,
-            193,
-            198
+            908,
+            195,
+            176,
+            181
           ],
           "margin": [
-            144,
-            39,
-            257,
-            45
+            154,
+            59,
+            274,
+            64
           ]
         },
         {
@@ -553,24 +553,24 @@
           ],
           "margin": [
             145,
-            49,
+            50,
             261,
-            57
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1494,
-            223,
-            187,
-            187
+            1088,
+            195,
+            169,
+            169
           ],
           "margin": [
-            144,
-            50,
-            263,
-            56
+            154,
+            68,
+            281,
+            76
           ]
         },
         {
@@ -583,24 +583,24 @@
           ],
           "margin": [
             152,
-            63,
+            64,
             275,
-            71
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1685,
-            223,
-            193,
-            189
+            1261,
+            195,
+            173,
+            169
           ],
           "margin": [
-            137,
-            48,
-            257,
-            54
+            147,
+            68,
+            277,
+            76
           ]
         },
         {
@@ -613,24 +613,24 @@
           ],
           "margin": [
             134,
-            46,
+            47,
             258,
-            54
+            56
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            453,
-            200,
-            202
+            1438,
+            195,
+            184,
+            186
           ],
           "margin": [
-            123,
-            35,
-            250,
-            41
+            131,
+            52,
+            266,
+            59
           ]
         },
         {
@@ -643,24 +643,24 @@
           ],
           "margin": [
             110,
-            37,
+            38,
             245,
-            45
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            206,
-            453,
-            213,
-            208
+            1626,
+            195,
+            187,
+            183
           ],
           "margin": [
-            108,
-            29,
-            237,
-            35
+            120,
+            56,
+            263,
+            62
           ]
         },
         {
@@ -673,24 +673,24 @@
           ],
           "margin": [
             96,
-            35,
+            36,
             241,
-            43
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            423,
-            453,
-            205,
-            205
+            1817,
+            195,
+            180,
+            180
           ],
           "margin": [
-            107,
-            32,
-            245,
-            38
+            120,
+            60,
+            270,
+            65
           ]
         },
         {
@@ -703,24 +703,24 @@
           ],
           "margin": [
             111,
-            44,
+            45,
             260,
-            52
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            632,
-            453,
-            257,
-            193
+            2,
+            389,
+            241,
+            182
           ],
           "margin": [
-            110,
-            44,
-            193,
-            50
+            116,
+            56,
+            209,
+            63
           ]
         },
         {
@@ -733,24 +733,24 @@
           ],
           "margin": [
             100,
-            57,
+            58,
             154,
-            65
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            893,
-            453,
-            289,
-            176
+            247,
+            389,
+            266,
+            162
           ],
           "margin": [
-            97,
-            61,
-            161,
-            67
+            106,
+            76,
+            184,
+            83
           ]
         }
       ]
@@ -770,24 +770,24 @@
           ],
           "margin": [
             115,
-            80,
+            81,
             166,
-            88
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1186,
-            453,
-            283,
-            167
+            517,
+            389,
+            270,
+            159
           ],
           "margin": [
-            122,
-            70,
-            167,
-            76
+            126,
+            79,
+            180,
+            86
           ]
         },
         {
@@ -800,24 +800,24 @@
           ],
           "margin": [
             124,
-            76,
+            77,
             164,
-            84
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1473,
-            453,
-            282,
-            167
+            791,
+            389,
+            278,
+            165
           ],
           "margin": [
-            138,
-            70,
-            168,
-            76
+            140,
+            73,
+            172,
+            80
           ]
         },
         {
@@ -830,24 +830,24 @@
           ],
           "margin": [
             137,
-            79,
+            80,
             162,
-            87
+            89
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1759,
-            453,
-            282,
-            160
+            1073,
+            389,
+            268,
+            153
           ],
           "margin": [
-            154,
-            77,
-            168,
-            83
+            158,
+            85,
+            182,
+            92
           ]
         },
         {
@@ -860,24 +860,24 @@
           ],
           "margin": [
             165,
-            90,
+            91,
             173,
-            98
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            669,
-            287,
-            158
+            1345,
+            389,
+            267,
+            146
           ],
           "margin": [
-            158,
-            79,
-            163,
-            85
+            165,
+            92,
+            183,
+            99
           ]
         },
         {
@@ -890,24 +890,24 @@
           ],
           "margin": [
             158,
-            85,
+            86,
             167,
-            93
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            293,
-            669,
-            295,
-            160
+            1616,
+            389,
+            278,
+            150
           ],
           "margin": [
-            150,
-            77,
-            155,
-            83
+            156,
+            88,
+            172,
+            95
           ]
         },
         {
@@ -920,24 +920,24 @@
           ],
           "margin": [
             157,
-            86,
+            87,
             186,
-            94
+            96
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            592,
-            669,
-            281,
-            155
+            2,
+            579,
+            254,
+            140
           ],
           "margin": [
-            148,
-            82,
-            169,
-            88
+            160,
+            98,
+            196,
+            105
           ]
         },
         {
@@ -950,24 +950,24 @@
           ],
           "margin": [
             165,
-            94,
+            95,
             202,
-            102
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            877,
-            669,
-            269,
-            152
+            260,
+            579,
+            242,
+            136
           ],
           "margin": [
-            149,
-            85,
-            181,
-            91
+            159,
+            102,
+            208,
+            109
           ]
         },
         {
@@ -980,24 +980,24 @@
           ],
           "margin": [
             151,
-            92,
+            93,
             203,
-            100
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1150,
-            669,
-            264,
-            150
+            506,
+            579,
+            254,
+            144
           ],
           "margin": [
-            138,
-            87,
-            186,
-            93
+            142,
+            94,
+            196,
+            101
           ]
         },
         {
@@ -1010,24 +1010,24 @@
           ],
           "margin": [
             130,
-            97,
+            98,
             218,
-            105
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1418,
-            669,
-            245,
-            141
+            764,
+            579,
+            234,
+            135
           ],
           "margin": [
-            130,
-            96,
-            205,
-            102
+            134,
+            103,
+            216,
+            110
           ]
         },
         {
@@ -1040,24 +1040,24 @@
           ],
           "margin": [
             129,
-            109,
+            110,
             236,
-            117
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1667,
-            669,
-            245,
-            148
+            1002,
+            579,
+            239,
+            144
           ],
           "margin": [
-            120,
-            89,
-            205,
-            95
+            124,
+            94,
+            211,
+            101
           ]
         },
         {
@@ -1070,24 +1070,24 @@
           ],
           "margin": [
             107,
-            84,
+            85,
             193,
-            92
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            837,
-            269,
-            169
+            1245,
+            579,
+            245,
+            153
           ],
           "margin": [
-            112,
-            68,
-            181,
-            74
+            122,
+            85,
+            205,
+            92
           ]
         },
         {
@@ -1100,24 +1100,24 @@
           ],
           "margin": [
             122,
-            68,
+            69,
             232,
-            76
+            78
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            275,
-            837,
-            269,
-            182
+            1494,
+            579,
+            220,
+            149
           ],
           "margin": [
-            112,
-            55,
-            181,
-            61
+            132,
+            89,
+            230,
+            96
           ]
         }
       ]
@@ -1137,24 +1137,24 @@
           ],
           "margin": [
             128,
-            58,
+            59,
             231,
-            66
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            548,
-            837,
-            282,
-            192
+            1718,
+            579,
+            221,
+            151
           ],
           "margin": [
-            106,
-            45,
-            168,
-            51
+            132,
+            87,
+            229,
+            94
           ]
         },
         {
@@ -1167,24 +1167,24 @@
           ],
           "margin": [
             118,
-            49,
+            50,
             225,
-            57
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            834,
-            837,
-            271,
-            197
+            2,
+            740,
+            221,
+            161
           ],
           "margin": [
-            106,
-            40,
-            179,
-            46
+            128,
+            77,
+            229,
+            84
           ]
         },
         {
@@ -1197,24 +1197,24 @@
           ],
           "margin": [
             126,
-            48,
+            49,
             274,
-            56
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1109,
-            837,
-            222,
-            194
+            227,
+            740,
+            195,
+            171
           ],
           "margin": [
-            114,
-            43,
-            228,
-            49
+            128,
+            67,
+            255,
+            74
           ]
         },
         {
@@ -1227,24 +1227,24 @@
           ],
           "margin": [
             126,
-            53,
+            54,
             265,
-            61
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1335,
-            837,
-            202,
-            195
+            426,
+            740,
+            187,
+            181
           ],
           "margin": [
-            123,
-            42,
-            248,
-            48
+            131,
+            57,
+            263,
+            64
           ]
         },
         {
@@ -1257,24 +1257,24 @@
           ],
           "margin": [
             134,
-            45,
+            46,
             284,
-            53
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1541,
-            837,
-            195,
-            200
+            617,
+            740,
+            189,
+            194
           ],
           "margin": [
-            130,
-            37,
-            255,
-            43
+            134,
+            44,
+            261,
+            51
           ]
         },
         {
@@ -1287,24 +1287,24 @@
           ],
           "margin": [
             136,
-            44,
+            45,
             279,
-            52
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1740,
-            837,
-            180,
+            810,
+            740,
+            181,
             197
           ],
           "margin": [
             142,
-            40,
-            270,
-            46
+            41,
+            269,
+            48
           ]
         },
         {
@@ -1317,24 +1317,24 @@
           ],
           "margin": [
             152,
-            50,
+            51,
             273,
-            58
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            1045,
-            174,
-            199
+            995,
+            740,
+            177,
+            203
           ],
           "margin": [
-            140,
-            38,
-            276,
-            44
+            138,
+            35,
+            273,
+            42
           ]
         },
         {
@@ -1347,24 +1347,24 @@
           ],
           "margin": [
             130,
-            40,
+            41,
             270,
-            48
+            50
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            180,
-            1045,
-            167,
-            206
+            1176,
+            740,
+            166,
+            204
           ],
           "margin": [
-            128,
-            31,
-            283,
-            37
+            130,
+            34,
+            284,
+            41
           ]
         },
         {
@@ -1377,24 +1377,24 @@
           ],
           "margin": [
             128,
-            37,
+            38,
             297,
-            45
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            351,
-            1045,
-            165,
-            206
+            1346,
+            740,
+            156,
+            194
           ],
           "margin": [
-            115,
-            31,
-            285,
-            37
+            121,
+            44,
+            294,
+            51
           ]
         },
         {
@@ -1407,24 +1407,24 @@
           ],
           "margin": [
             115,
-            40,
+            41,
             290,
-            48
+            50
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            520,
-            1045,
-            168,
-            209
+            1506,
+            740,
+            162,
+            201
           ],
           "margin": [
-            106,
-            28,
-            282,
-            34
+            110,
+            37,
+            288,
+            44
           ]
         },
         {
@@ -1437,24 +1437,24 @@
           ],
           "margin": [
             117,
-            30,
+            31,
             290,
-            38
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            692,
-            1045,
-            164,
-            216
+            1672,
+            740,
+            162,
+            213
           ],
           "margin": [
             112,
-            21,
-            286,
-            27
+            25,
+            288,
+            32
           ]
         },
         {
@@ -1467,24 +1467,24 @@
           ],
           "margin": [
             121,
-            27,
+            28,
             289,
-            35
+            37
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            860,
-            1045,
-            157,
-            215
+            1838,
+            740,
+            149,
+            204
           ],
           "margin": [
-            120,
-            22,
-            293,
-            28
+            125,
+            34,
+            301,
+            41
           ]
         }
       ]
@@ -1504,24 +1504,24 @@
           ],
           "margin": [
             122,
-            45,
+            46,
             269,
-            53
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1021,
-            1045,
-            169,
-            193
+            2,
+            961,
+            157,
+            180
           ],
           "margin": [
-            130,
-            44,
-            281,
-            50
+            136,
+            60,
+            293,
+            65
           ]
         },
         {
@@ -1534,24 +1534,24 @@
           ],
           "margin": [
             126,
-            56,
+            57,
             259,
-            64
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1194,
-            1045,
-            187,
-            190
+            163,
+            961,
+            173,
+            176
           ],
           "margin": [
-            130,
-            47,
-            263,
-            53
+            136,
+            64,
+            277,
+            69
           ]
         },
         {
@@ -1564,24 +1564,24 @@
           ],
           "margin": [
             126,
-            51,
+            52,
             276,
-            59
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1385,
-            1045,
-            226,
-            204
+            340,
+            961,
+            179,
+            162
           ],
           "margin": [
-            118,
-            33,
-            224,
-            39
+            140,
+            77,
+            271,
+            83
           ]
         }
       ]
@@ -1601,24 +1601,24 @@
           ],
           "margin": [
             129,
-            83,
+            84,
             253,
-            91
+            93
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1615,
-            1045,
-            216,
-            155
+            523,
+            961,
+            195,
+            140
           ],
           "margin": [
-            124,
-            82,
-            234,
-            88
+            134,
+            98,
+            255,
+            105
           ]
         },
         {
@@ -1631,24 +1631,24 @@
           ],
           "margin": [
             115,
-            95,
+            96,
             221,
-            103
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1835,
-            1045,
-            208,
-            126
+            722,
+            961,
+            214,
+            130
           ],
           "margin": [
-            114,
-            111,
-            242,
-            117
+            112,
+            108,
+            236,
+            115
           ]
         },
         {
@@ -1661,24 +1661,24 @@
           ],
           "margin": [
             93,
-            138,
+            139,
             204,
-            146
+            148
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            1269,
-            240,
-            101
+            940,
+            961,
+            223,
+            94
           ],
           "margin": [
-            100,
-            136,
-            210,
-            142
+            106,
+            146,
+            227,
+            151
           ]
         },
         {
@@ -1691,24 +1691,24 @@
           ],
           "margin": [
             102,
-            148,
+            149,
             213,
-            156
+            158
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            246,
-            1269,
-            240,
-            96
+            1167,
+            961,
+            220,
+            88
           ],
           "margin": [
-            97,
-            141,
-            210,
-            147
+            105,
+            151,
+            230,
+            157
           ]
         }
       ]
@@ -1728,24 +1728,24 @@
           ],
           "margin": [
             100,
-            88,
+            89,
             169,
-            96
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            490,
-            1269,
-            152,
-            154
+            1391,
+            961,
+            180,
+            183
           ],
           "margin": [
-            126,
-            82,
-            298,
-            89
+            112,
+            55,
+            270,
+            62
           ]
         },
         {
@@ -1758,24 +1758,24 @@
           ],
           "margin": [
             108,
-            89,
+            90,
             181,
-            97
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            646,
-            1269,
-            129,
-            154
+            1575,
+            961,
+            161,
+            192
           ],
           "margin": [
-            132,
-            82,
-            321,
-            89
+            114,
+            46,
+            289,
+            53
           ]
         }
       ]
@@ -1795,24 +1795,24 @@
           ],
           "margin": [
             155,
-            93,
+            94,
             169,
-            101
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            779,
-            1269,
-            228,
-            150
+            1740,
+            961,
+            224,
+            147
           ],
           "margin": [
-            165,
-            87,
-            222,
-            93
+            167,
+            91,
+            226,
+            98
           ]
         },
         {
@@ -1825,24 +1825,24 @@
           ],
           "margin": [
             158,
-            95,
+            96,
             173,
-            103
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1011,
-            1269,
-            266,
-            151
+            2,
+            1161,
+            244,
+            138
           ],
           "margin": [
-            161,
-            86,
-            184,
-            92
+            169,
+            100,
+            206,
+            107
           ]
         }
       ]
@@ -1862,24 +1862,24 @@
           ],
           "margin": [
             138,
-            78,
+            79,
             216,
-            86
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1281,
-            1269,
-            232,
-            166
+            250,
+            1161,
+            212,
+            152
           ],
           "margin": [
-            124,
-            71,
-            218,
-            77
+            132,
+            86,
+            238,
+            93
           ]
         },
         {
@@ -1892,24 +1892,24 @@
           ],
           "margin": [
             137,
-            78,
+            79,
             225,
-            86
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1517,
-            1269,
-            220,
-            162
+            466,
+            1161,
+            216,
+            160
           ],
           "margin": [
             138,
-            75,
-            230,
-            81
+            78,
+            234,
+            85
           ]
         },
         {
@@ -1922,24 +1922,24 @@
           ],
           "margin": [
             127,
-            84,
+            85,
             204,
-            92
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1741,
-            1269,
-            226,
-            153
+            686,
+            1161,
+            216,
+            146
           ],
           "margin": [
-            140,
-            84,
-            224,
-            90
+            144,
+            93,
+            234,
+            99
           ]
         },
         {
@@ -1952,24 +1952,24 @@
           ],
           "margin": [
             140,
-            96,
+            97,
             228,
-            104
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            1443,
-            234,
-            149
+            906,
+            1161,
+            217,
+            138
           ],
           "margin": [
-            135,
-            88,
-            216,
-            94
+            141,
+            102,
+            233,
+            107
           ]
         },
         {
@@ -1982,24 +1982,24 @@
           ],
           "margin": [
             136,
-            94,
+            95,
             216,
-            102
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            240,
-            1443,
-            250,
-            146
+            1127,
+            1161,
+            231,
+            135
           ],
           "margin": [
-            126,
-            91,
-            200,
-            97
+            133,
+            103,
+            219,
+            110
           ]
         },
         {
@@ -2012,24 +2012,24 @@
           ],
           "margin": [
             125,
-            101,
+            102,
             192,
-            109
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            494,
-            1443,
-            232,
-            136
+            1362,
+            1161,
+            211,
+            124
           ],
           "margin": [
-            137,
-            101,
-            218,
-            107
+            144,
+            114,
+            239,
+            121
           ]
         },
         {
@@ -2042,24 +2042,24 @@
           ],
           "margin": [
             139,
-            113,
+            114,
             228,
-            121
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            730,
-            1443,
-            189,
-            130
+            1577,
+            1161,
+            201,
+            139
           ],
           "margin": [
-            151,
-            106,
-            261,
-            113
+            147,
+            100,
+            249,
+            106
           ]
         },
         {
@@ -2072,24 +2072,24 @@
           ],
           "margin": [
             129,
-            111,
+            112,
             205,
-            119
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            923,
-            1443,
-            220,
-            131
+            1782,
+            1161,
+            219,
+            130
           ],
           "margin": [
-            135,
-            106,
-            230,
-            112
+            136,
+            108,
+            231,
+            115
           ]
         },
         {
@@ -2102,24 +2102,24 @@
           ],
           "margin": [
             123,
-            113,
+            114,
             193,
-            121
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1147,
-            1443,
-            214,
-            125
+            2,
+            1329,
+            212,
+            124
           ],
           "margin": [
-            137,
-            113,
-            236,
-            118
+            138,
+            114,
+            238,
+            121
           ]
         },
         {
@@ -2132,24 +2132,24 @@
           ],
           "margin": [
             141,
-            122,
+            123,
             235,
-            130
+            132
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1365,
-            1443,
-            209,
-            128
+            218,
+            1329,
+            208,
+            127
           ],
           "margin": [
             138,
-            109,
-            241,
-            115
+            111,
+            242,
+            118
           ]
         },
         {
@@ -2162,24 +2162,24 @@
           ],
           "margin": [
             130,
-            109,
+            110,
             202,
-            117
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1578,
-            1443,
-            241,
-            137
+            430,
+            1329,
+            224,
+            128
           ],
           "margin": [
-            130,
-            100,
-            209,
-            106
+            136,
+            110,
+            226,
+            117
           ]
         },
         {
@@ -2192,24 +2192,24 @@
           ],
           "margin": [
             130,
-            104,
+            105,
             207,
-            112
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1823,
-            1443,
-            219,
-            138
+            658,
+            1329,
+            213,
+            135
           ],
           "margin": [
-            138,
-            99,
-            231,
-            105
+            140,
+            104,
+            237,
+            110
           ]
         }
       ]
@@ -2229,24 +2229,24 @@
           ],
           "margin": [
             135,
-            106,
+            107,
             210,
-            114
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            1600,
-            235,
-            146
+            875,
+            1329,
+            234,
+            145
           ],
           "margin": [
-            128,
-            91,
-            215,
-            97
+            129,
+            93,
+            216,
+            100
           ]
         },
         {
@@ -2259,24 +2259,24 @@
           ],
           "margin": [
             119,
-            89,
+            90,
             184,
-            97
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            241,
-            1600,
-            255,
-            159
+            1113,
+            1329,
+            228,
+            143
           ],
           "margin": [
-            126,
-            78,
-            195,
-            84
+            136,
+            95,
+            222,
+            102
           ]
         },
         {
@@ -2289,24 +2289,24 @@
           ],
           "margin": [
             133,
-            81,
+            82,
             230,
-            89
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            500,
-            1600,
-            237,
-            165
+            1345,
+            1329,
+            203,
+            141
           ],
           "margin": [
-            129,
-            72,
-            213,
-            78
+            143,
+            98,
+            247,
+            104
           ]
         },
         {
@@ -2319,24 +2319,24 @@
           ],
           "margin": [
             135,
-            78,
+            79,
             226,
-            86
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            741,
-            1600,
-            245,
-            178
+            1552,
+            1329,
+            216,
+            157
           ],
           "margin": [
-            122,
-            59,
-            205,
-            65
+            134,
+            81,
+            234,
+            88
           ]
         },
         {
@@ -2349,24 +2349,24 @@
           ],
           "margin": [
             122,
-            55,
+            56,
             209,
-            63
+            65
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            990,
-            1600,
-            251,
-            198
+            1772,
+            1329,
+            211,
+            166
           ],
           "margin": [
-            119,
-            39,
-            199,
-            45
+            136,
+            72,
+            239,
+            79
           ]
         },
         {
@@ -2379,24 +2379,24 @@
           ],
           "margin": [
             130,
-            40,
+            41,
             278,
-            48
+            50
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1245,
-            1600,
-            211,
-            210
+            2,
+            1503,
+            179,
+            178
           ],
           "margin": [
-            121,
-            27,
-            239,
-            33
+            137,
+            60,
+            271,
+            67
           ]
         },
         {
@@ -2409,24 +2409,24 @@
           ],
           "margin": [
             130,
-            30,
+            31,
             279,
-            38
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1460,
-            1600,
-            190,
-            222
+            185,
+            1503,
+            175,
+            205
           ],
           "margin": [
-            130,
-            15,
-            260,
-            21
+            138,
+            33,
+            275,
+            40
           ]
         },
         {
@@ -2439,24 +2439,24 @@
           ],
           "margin": [
             126,
-            16,
+            17,
             273,
-            24
+            26
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1654,
-            1600,
-            192,
-            233
+            364,
+            1503,
+            178,
+            216
           ],
           "margin": [
-            126,
-            4,
-            258,
-            10
+            134,
+            22,
+            272,
+            29
           ]
         },
         {
@@ -2469,24 +2469,24 @@
           ],
           "margin": [
             126,
-            10,
+            11,
             284,
-            18
+            20
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1850,
-            1600,
-            192,
-            236
+            546,
+            1503,
+            173,
+            212
           ],
           "margin": [
-            126,
-            1,
-            258,
-            7
+            136,
+            26,
+            277,
+            33
           ]
         },
         {
@@ -2499,24 +2499,24 @@
           ],
           "margin": [
             130,
-            8,
+            9,
             295,
-            16
+            18
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            184,
-            234
+            723,
+            1503,
+            169,
+            215
           ],
           "margin": [
-            128,
-            3,
-            266,
-            9
+            136,
+            23,
+            281,
+            30
           ]
         },
         {
@@ -2529,24 +2529,24 @@
           ],
           "margin": [
             126,
-            14,
+            15,
             289,
-            22
+            24
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            190,
-            2,
-            164,
-            224
+            896,
+            1503,
+            174,
+            238
           ],
           "margin": [
-            134,
-            13,
-            286,
-            19
+            130,
+            0,
+            276,
+            7
           ]
         },
         {
@@ -2559,24 +2559,24 @@
           ],
           "margin": [
             118,
-            26,
+            27,
             264,
-            34
+            36
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            358,
-            2,
-            151,
-            209
+            1074,
+            1503,
+            172,
+            238
           ],
           "margin": [
-            140,
-            28,
-            299,
-            34
+            128,
+            0,
+            278,
+            7
           ]
         }
       ]
@@ -2596,24 +2596,24 @@
           ],
           "margin": [
             130,
-            44,
+            45,
             281,
-            52
+            54
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            513,
-            2,
-            151,
-            206
+            1250,
+            1503,
+            168,
+            229
           ],
           "margin": [
-            140,
-            31,
-            299,
-            37
+            130,
+            9,
+            282,
+            16
           ]
         },
         {
@@ -2626,24 +2626,24 @@
           ],
           "margin": [
             121,
-            32,
+            33,
             268,
-            40
+            42
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            668,
-            2,
-            160,
-            215
+            1422,
+            1503,
+            176,
+            237
           ],
           "margin": [
-            134,
-            22,
-            290,
-            28
+            124,
+            1,
+            274,
+            8
           ]
         },
         {
@@ -2656,24 +2656,24 @@
           ],
           "margin": [
             123,
-            26,
+            27,
             294,
-            34
+            36
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            832,
-            2,
-            161,
-            218
+            1602,
+            1503,
+            163,
+            222
           ],
           "margin": [
-            132,
-            19,
-            289,
-            25
+            130,
+            16,
+            287,
+            23
           ]
         },
         {
@@ -2686,24 +2686,24 @@
           ],
           "margin": [
             128,
-            26,
+            27,
             302,
-            34
+            36
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            997,
-            2,
-            156,
-            219
+            1769,
+            1503,
+            159,
+            224
           ],
           "margin": [
-            134,
-            18,
-            294,
-            24
+            132,
+            14,
+            291,
+            21
           ]
         },
         {
@@ -2716,24 +2716,24 @@
           ],
           "margin": [
             125,
-            24,
+            25,
             295,
-            32
+            34
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1157,
             2,
-            154,
-            218
+            1749,
+            162,
+            230
           ],
           "margin": [
-            135,
-            19,
-            296,
-            25
+            130,
+            8,
+            288,
+            15
           ]
         },
         {
@@ -2746,24 +2746,24 @@
           ],
           "margin": [
             125,
-            28,
+            29,
             293,
-            36
+            38
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1315,
-            2,
-            148,
-            210
+            168,
+            1749,
+            151,
+            214
           ],
           "margin": [
-            140,
-            27,
-            302,
-            33
+            138,
+            24,
+            299,
+            31
           ]
         },
         {
@@ -2776,24 +2776,24 @@
           ],
           "margin": [
             137,
-            40,
+            41,
             314,
-            48
+            50
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1467,
-            2,
-            150,
-            207
+            323,
+            1749,
+            151,
+            208
           ],
           "margin": [
             138,
             30,
-            300,
-            36
+            299,
+            37
           ]
         },
         {
@@ -2806,24 +2806,24 @@
           ],
           "margin": [
             124,
-            34,
+            35,
             292,
-            42
+            44
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1621,
-            2,
-            158,
-            211
+            478,
+            1749,
+            162,
+            216
           ],
           "margin": [
-            134,
-            26,
-            292,
-            32
+            132,
+            22,
+            288,
+            29
           ]
         },
         {
@@ -2836,24 +2836,24 @@
           ],
           "margin": [
             121,
-            32,
+            33,
             286,
-            40
+            42
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            1783,
-            2,
-            156,
-            208
+            644,
+            1749,
+            152,
+            203
           ],
           "margin": [
-            130,
-            29,
-            294,
-            35
+            132,
+            35,
+            298,
+            42
           ]
         },
         {
@@ -2866,24 +2866,24 @@
           ],
           "margin": [
             135,
-            39,
+            40,
             311,
-            47
+            49
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            2,
-            244,
-            155,
-            210
+            800,
+            1749,
+            149,
+            203
           ],
           "margin": [
-            129,
-            27,
-            295,
-            33
+            133,
+            35,
+            301,
+            42
           ]
         },
         {
@@ -2896,24 +2896,24 @@
           ],
           "margin": [
             120,
-            29,
+            30,
             285,
-            37
+            39
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            161,
-            244,
-            160,
-            216
+            953,
+            1749,
+            159,
+            215
           ],
           "margin": [
-            124,
-            21,
-            290,
-            27
+            125,
+            23,
+            291,
+            30
           ]
         },
         {
@@ -2926,24 +2926,24 @@
           ],
           "margin": [
             118,
-            27,
+            28,
             279,
-            35
+            37
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/motion_v8_00.png",
           "region": [
-            325,
-            244,
-            159,
-            215
+            1116,
+            1749,
+            150,
+            203
           ],
           "margin": [
-            125,
-            22,
-            291,
-            28
+            130,
+            35,
+            300,
+            42
           ]
         }
       ]

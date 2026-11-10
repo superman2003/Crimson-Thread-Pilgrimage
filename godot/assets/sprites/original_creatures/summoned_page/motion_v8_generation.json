@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/summoned_page/combat_motion_v7_manifest.json",
   "baseline_sha256": "e5a2ba1666912003b58b44625138aabb67967e87e6f3abefb3a4ae0408fa50c9",
+  "baseline_canvas": [
+    392,
+    170
+  ],
+  "symmetric_padding": [
+    0,
+    0
+  ],
   "new_drawings": 95,
   "old_frame_refs": 95,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "summoned_page__03",
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "sha256": "87d8676284a007d84226200ec4d6e058a766bc89c7347041f94b9b48fff09ee9",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_02",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
+      "sha256": "b132128db2823c11f26f60c00338a2317dfb05648f628c14638c3d591e9e66f3",
+      "used_drawings": 4
     },
     {
       "id": "summoned_page__04",
@@ -35,8 +49,8 @@
   "registrations": [
     {
       "margin_xy": [
-        106,
-        11
+        122,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -46,19 +60,25 @@
         126
       ],
       "source_index": 0,
-      "scale": 1.2118644067796611,
+      "scale": 1.0083278458674723,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 93.76566535784833,
+        "target": 94.54653136660947,
+        "registered": 94.41927769264072
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        112,
-        16
+        126,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -68,19 +88,25 @@
         129
       ],
       "source_index": 1,
-      "scale": 1.1487603305785123,
+      "scale": 0.9817076065753036,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 96.24448036121345,
+        "target": 94.48393846149067,
+        "registered": 94.49338601193207
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        120,
-        16
+        134,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -90,19 +116,25 @@
         128
       ],
       "source_index": 2,
-      "scale": 1.1541666666666666,
+      "scale": 0.9851419657431483,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 96.0728889958036,
+        "target": 94.64543471994924,
+        "registered": 94.64671151181112
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        100,
-        12
+        121,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -112,19 +144,25 @@
         128
       ],
       "source_index": 3,
-      "scale": 1.1875,
+      "scale": 0.9595403013864097,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.70157040290697,
+        "target": 94.70813461171728,
+        "registered": 94.64671151181112
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        86,
-        12
+        102,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -134,19 +172,25 @@
         131
       ],
       "source_index": 4,
-      "scale": 1.1626016260162602,
+      "scale": 0.9764832700102254,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 101.32620588969075,
+        "target": 98.94334486489458,
+        "registered": 98.78765105011861
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        84,
-        23
+        96,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -156,19 +200,25 @@
         130
       ],
       "source_index": 5,
-      "scale": 1.0819672131147542,
+      "scale": 0.9372061175245356,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.66610360199697,
+        "target": 92.47047588810118,
+        "registered": 92.38506372785592
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        91,
-        27
+        101,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -178,19 +228,25 @@
         130
       ],
       "source_index": 6,
-      "scale": 1.0532786885245902,
+      "scale": 0.9336889021062418,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.51395840184273,
+        "target": 91.9813896623565,
+        "registered": 91.96738552334735
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        92,
-        20
+        101,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -200,19 +256,25 @@
         130
       ],
       "source_index": 7,
-      "scale": 1.110655737704918,
+      "scale": 1.0072704669578914,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 97.8008179924892,
+        "target": 98.51187560815833,
+        "registered": 98.55962662266938
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        84,
-        15
+        100,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -222,19 +284,25 @@
         132
       ],
       "source_index": 8,
-      "scale": 1.1290322580645162,
+      "scale": 0.9616407736916699,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.79591431569642,
+        "target": 98.85274257488891,
+        "registered": 98.96969233053117
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        92,
-        21
+        104,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -244,19 +312,25 @@
         131
       ],
       "source_index": 9,
-      "scale": 1.0934959349593496,
+      "scale": 0.9443556110757473,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.812954616285,
+        "target": 93.3145681388619,
+        "registered": 93.30594836343501
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        82,
-        16
+        96,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -266,19 +340,25 @@
         129
       ],
       "source_index": 10,
-      "scale": 1.1487603305785123,
+      "scale": 0.9940831791044402,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.19877799647,
+        "target": 97.61775341490205,
+        "registered": 97.45768312452333
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        73,
-        5
+        91,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -288,19 +368,25 @@
         124
       ],
       "source_index": 11,
-      "scale": 1.2801724137931034,
+      "scale": 1.066747259570911,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 96.85040010242601,
+        "target": 103.31489889760924,
+        "registered": 103.14068062602651
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        105,
-        41
+        95,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -310,19 +396,25 @@
         126
       ],
       "source_index": 12,
-      "scale": 0.9830508474576272,
+      "scale": 1.0942722098191249,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 96.45206063117574,
+        "target": 105.54480952848489,
+        "registered": 105.59356040971439
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        104,
-        28
+        99,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -332,19 +424,25 @@
         130
       ],
       "source_index": 13,
-      "scale": 1.0450819672131149,
+      "scale": 1.1166345925251688,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.15987220439132,
+        "target": 111.8419780863235,
+        "registered": 111.63332835672328
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        94,
-        23
+        100,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -354,19 +452,25 @@
         123
       ],
       "source_index": 14,
-      "scale": 1.1478260869565218,
+      "scale": 1.0714805187837657,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 96.66954018717581,
+        "target": 103.57952907034323,
+        "registered": 103.62914647916386
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        92,
-        23
+        100,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -376,19 +480,25 @@
         121
       ],
       "source_index": 15,
-      "scale": 1.163716814159292,
+      "scale": 1.0738189095427848,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 96.36908217888141,
+        "target": 103.48294273896545,
+        "registered": 103.4553043589356
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        102,
-        28
+        100,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -398,19 +508,25 @@
         124
       ],
       "source_index": 16,
-      "scale": 1.0948275862068966,
+      "scale": 1.120735745793407,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 99.68951800465283,
+        "target": 111.72560630872987,
+        "registered": 111.6288493177279
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        114,
-        41
+        109,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -420,19 +536,25 @@
         127
       ],
       "source_index": 17,
-      "scale": 0.9747899159663865,
+      "scale": 1.0389877547151694,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.65476121447071,
+        "target": 106.65703986504477,
+        "registered": 106.5269918846862
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        100,
-        39
+        102,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -442,19 +564,25 @@
         119
       ],
       "source_index": 18,
-      "scale": 1.054054054054054,
+      "scale": 1.0423133951003074,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.55567251455508,
+        "target": 110.02209139074212,
+        "registered": 109.85444915887567
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        86,
-        23
+        88,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -464,19 +592,25 @@
         116
       ],
       "source_index": 19,
-      "scale": 1.212962962962963,
+      "scale": 1.1803811926148382,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 99.31767214348109,
+        "target": 117.23271229245171,
+        "registered": 117.2987638468539
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        74,
-        15
+        94,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -486,19 +620,25 @@
         115
       ],
       "source_index": 20,
-      "scale": 1.294392523364486,
+      "scale": 1.0633639835736386,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 99.22701245124736,
+        "target": 105.51443123826944,
+        "registered": 105.54619841567009
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        67,
-        10
+        88,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -508,19 +648,25 @@
         115
       ],
       "source_index": 21,
-      "scale": 1.341121495327103,
+      "scale": 1.0966545349085488,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 99.95498987044118,
+        "target": 109.61609292815739,
+        "registered": 109.43491216243562
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        42,
-        7
+        67,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -530,19 +676,25 @@
         108
       ],
       "source_index": 22,
-      "scale": 1.46,
+      "scale": 1.198420893086562,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.98019607824101,
+        "target": 121.01677676814174,
+        "registered": 120.84287318663024
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        42,
-        11
+        64,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__01.png",
       "source_region": [
@@ -552,19 +704,25 @@
         111
       ],
       "source_index": 23,
-      "scale": 1.3786407766990292,
+      "scale": 1.1687206057557387,
       "rgb_gain": [
         0.950529,
         0.958761,
         0.943011
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.23472452199387,
+        "target": 117.14638796110427,
+        "registered": 117.31581308587518
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        84,
-        17
+        90,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -574,19 +732,25 @@
         153
       ],
       "source_index": 0,
-      "scale": 0.9620689655172414,
+      "scale": 0.891534354987897,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 128.05467582247826,
+        "target": 114.1651428125774,
+        "registered": 113.82003338604325
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        86,
-        19
+        82,
+        13
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -596,19 +760,25 @@
         149
       ],
       "source_index": 1,
-      "scale": 0.9893617021276596,
+      "scale": 1.0204686300292471,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.70529495538985,
+        "target": 126.23737287049062,
+        "registered": 126.31706139710502
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        42,
-        22
+        47,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -618,19 +788,25 @@
         116
       ],
       "source_index": 2,
-      "scale": 1.2222222222222223,
+      "scale": 1.1810888080300508,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.71187255932988,
+        "target": 124.85510955572356,
+        "registered": 124.81586437628832
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        16,
-        20
+        32,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -640,19 +816,25 @@
         97
       ],
       "source_index": 3,
-      "scale": 1.4943820224719102,
+      "scale": 1.3585678331849247,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 91.64605828948673,
+        "target": 124.5073868302873,
+        "registered": 124.62343278854101
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        15,
-        12
+        44,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -662,19 +844,25 @@
         99
       ],
       "source_index": 4,
-      "scale": 1.543956043956044,
+      "scale": 1.2776373598118784,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.85848471426213,
+        "target": 126.30529340533282,
+        "registered": 125.98809467564783
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        92,
-        15
+        100,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -684,19 +872,25 @@
         145
       ],
       "source_index": 5,
-      "scale": 1.0255474452554745,
+      "scale": 0.9367491908778497,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.57065404222075,
+        "target": 111.07096423590772,
+        "registered": 111.23398761170077
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        90,
-        13
+        108,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -706,19 +900,25 @@
         138
       ],
       "source_index": 6,
-      "scale": 1.0961538461538463,
+      "scale": 0.9061664320233854,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.76377679438852,
+        "target": 113.0567464635331,
+        "registered": 113.06635220082056
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        42,
-        8
+        66,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -728,19 +928,25 @@
         111
       ],
       "source_index": 7,
-      "scale": 1.4029126213592233,
+      "scale": 1.171819294779327,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.3202708800161,
+        "target": 124.58814484336746,
+        "registered": 124.60337074092338
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        35,
-        12
+        65,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -750,19 +956,25 @@
         105
       ],
       "source_index": 8,
-      "scale": 1.458762886597938,
+      "scale": 1.1837148861606919,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.51395840184273,
+        "target": 116.61243905487639,
+        "registered": 116.54183798104438
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        38,
-        12
+        72,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -772,19 +984,25 @@
         104
       ],
       "source_index": 9,
-      "scale": 1.4739583333333333,
+      "scale": 1.1470870741547128,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.00490184299969,
+        "target": 117.00850440452517,
+        "registered": 116.90594510117953
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        83,
-        13
+        87,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -794,19 +1012,25 @@
         137
       ],
       "source_index": 10,
-      "scale": 1.1007751937984496,
+      "scale": 1.061466289012556,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.44360348695028,
+        "target": 124.66242596155519,
+        "registered": 124.49096352747857
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
         106,
-        21
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -816,19 +1040,25 @@
         148
       ],
       "source_index": 11,
-      "scale": 0.9678571428571429,
+      "scale": 0.9614003461061127,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.11105840184351,
+        "target": 112.59061208038553,
+        "registered": 112.41885962773328
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        104,
-        27
+        108,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -838,19 +1068,25 @@
         142
       ],
       "source_index": 12,
-      "scale": 0.9776119402985075,
+      "scale": 0.9375098350173856,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.78612931337351,
+        "target": 109.48814482489986,
+        "registered": 109.2291169972549
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        106,
-        27
+        102,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -860,19 +1096,25 @@
         142
       ],
       "source_index": 13,
-      "scale": 0.9626865671641791,
+      "scale": 1.0000106202790264,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.07848694132248,
+        "target": 121.0797728286379,
+        "registered": 121.07848694132248
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        104,
-        36
+        102,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -882,19 +1124,25 @@
         137
       ],
       "source_index": 14,
-      "scale": 0.9302325581395349,
+      "scale": 0.9495997706622196,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.62752588028987,
+        "target": 114.5478709114742,
+        "registered": 114.5294721894762
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        98,
-        37
+        99,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -904,19 +1152,25 @@
         131
       ],
       "source_index": 15,
-      "scale": 0.9878048780487805,
+      "scale": 0.9760697480829862,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.52038448271615,
+        "target": 113.73202232857744,
+        "registered": 113.63978176677391
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        84,
-        21
+        94,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -926,19 +1180,25 @@
         129
       ],
       "source_index": 16,
-      "scale": 1.1074380165289257,
+      "scale": 1.0198754140517965,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.1905241548577,
+        "target": 120.53960975943434,
+        "registered": 120.797350964332
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        94,
-        15
+        110,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -948,19 +1208,25 @@
         135
       ],
       "source_index": 17,
-      "scale": 1.1023622047244095,
+      "scale": 0.9447941724904668,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.49042514179612,
+        "target": 111.00426899739641,
+        "registered": 110.95945205344158
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        85,
-        9
+        104,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -970,19 +1236,25 @@
         132
       ],
       "source_index": 18,
-      "scale": 1.1774193548387097,
+      "scale": 0.9864302452651519,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.90594510117953,
+        "target": 115.3195600991109,
+        "registered": 115.08257904652642
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        84,
-        4
+        102,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -992,19 +1264,25 @@
         132
       ],
       "source_index": 19,
-      "scale": 1.2137096774193548,
+      "scale": 1.0250687752398895,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.56169955299231,
+        "target": 122.55896492638547,
+        "registered": 122.46223907801131
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        66,
-        5
+        108,
+        53
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -1014,19 +1292,25 @@
         122
       ],
       "source_index": 20,
-      "scale": 1.3070175438596492,
+      "scale": 0.9018758991752286,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.81390648431164,
+        "target": 108.95915054341054,
+        "registered": 108.97247358851683
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        62,
-        4
+        102,
+        49
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -1036,19 +1320,25 @@
         122
       ],
       "source_index": 21,
-      "scale": 1.3114035087719298,
+      "scale": 0.9352376420370534,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.45170672858342,
+        "target": 108.91001961203082,
+        "registered": 109.03210536351209
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        65,
-        1
+        96,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -1058,19 +1348,25 @@
         125
       ],
       "source_index": 22,
-      "scale": 1.3034188034188035,
+      "scale": 0.9968953888066248,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.39430472179149,
+        "target": 119.02363182692696,
+        "registered": 119.08400396358866
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        82,
-        6
+        111,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__02.png",
       "source_region": [
@@ -1080,19 +1376,25 @@
         133
       ],
       "source_index": 23,
-      "scale": 1.188,
+      "scale": 0.8886673308861074,
       "rgb_gain": [
         0.967976,
         0.983749,
         0.967245
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.06354221350468,
+        "target": 104.91921293383447,
+        "registered": 104.71867073258713
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        72,
-        23
+        76,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1102,19 +1404,25 @@
         134
       ],
       "source_index": 0,
-      "scale": 1.0515873015873016,
+      "scale": 1.0077960100743175,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.71389592599446,
+        "target": 105.53024651355456,
+        "registered": 105.54146104730596
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        88,
-        31
+        97,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1124,19 +1432,25 @@
         123
       ],
       "source_index": 1,
-      "scale": 1.0826086956521739,
+      "scale": 0.9746359371537369,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.64757312638311,
+        "target": 104.91719331635782,
+        "registered": 105.03332804400706
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        92,
-        25
+        113,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1146,107 +1460,157 @@
         119
       ],
       "source_index": 2,
-      "scale": 1.1711711711711712,
+      "scale": 0.9418792596983796,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.29569206893383,
+        "target": 97.29206997591918,
+        "registered": 97.24710792614863
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        88,
-        39
+        78,
+        50
       ],
-      "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        800,
-        69,
-        183,
-        131
+        281,
+        859,
+        214,
+        125
       ],
-      "source_index": 3,
-      "scale": 0.943089430894309,
+      "source_index": 19,
+      "scale": 0.9047577501924718,
       "rgb_gain": [
-        0.957563,
-        0.955166,
-        0.919615
+        0.976515,
+        0.968125,
+        0.961662
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
+        "source_index": 3,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.31470990619724,
+        "target": 107.95090849959844,
+        "registered": 107.97684937059425
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        56,
-        63
+        62,
+        70
       ],
-      "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        1043,
-        97,
-        199,
-        95
+        530,
+        886,
+        214,
+        98
       ],
-      "source_index": 4,
-      "scale": 1.0632183908045978,
+      "source_index": 20,
+      "scale": 0.9678506192321439,
       "rgb_gain": [
-        0.957563,
-        0.955166,
-        0.919615
+        1.009198,
+        0.979184,
+        0.968038
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.14942836991712,
+        "target": 103.70464059819453,
+        "registered": 103.79788051786029
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        50,
-        80
+        58,
+        83
       ],
-      "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        1283,
-        106,
-        238,
-        87
+        778,
+        899,
+        239,
+        84
       ],
-      "source_index": 5,
-      "scale": 0.9746835443037974,
+      "source_index": 21,
+      "scale": 0.9618647066105813,
       "rgb_gain": [
-        0.957563,
-        0.955166,
-        0.919615
+        1.014794,
+        1.01228,
+        1.001018
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 101.63168797181321,
+        "target": 97.75593373334625,
+        "registered": 97.82126558167197
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        118,
-        91
+        53,
+        96
       ],
-      "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        38,
-        307,
-        177,
-        119
+        1040,
+        919,
+        235,
+        65
       ],
-      "source_index": 6,
-      "scale": 0.5945945945945946,
+      "source_index": 22,
+      "scale": 1.0514805756368473,
       "rgb_gain": [
-        0.957563,
-        0.955166,
-        0.919615
+        1.008976,
+        0.999096,
+        0.987053
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 88.65100112237876,
+        "target": 93.2148056909416,
+        "registered": 92.90317540321213
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        96,
-        20
+        122,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1256,19 +1620,25 @@
         116
       ],
       "source_index": 7,
-      "scale": 1.2453703703703705,
+      "scale": 0.9524492187896303,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 99.92997548283498,
+        "target": 95.17822708229308,
+        "registered": 94.85778829384543
+      },
       "animation": "page_orbit_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        123,
-        23
+        125,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1278,19 +1648,25 @@
         136
       ],
       "source_index": 8,
-      "scale": 1.0390625,
+      "scale": 1.02173668827683,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 96.72641831474998,
+        "target": 98.82893031779196,
+        "registered": 98.75221516502808
+      },
       "animation": "page_orbit_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        60,
-        27
+        112,
+        74
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1300,19 +1676,25 @@
         97
       ],
       "source_index": 9,
-      "scale": 1.4157303370786516,
+      "scale": 0.9181235519183739,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.7496987947435,
+        "target": 95.25504196789133,
+        "registered": 95.13148795220224
+      },
       "animation": "page_orbit_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        28,
-        29
+        104,
+        85
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1322,19 +1704,25 @@
         85
       ],
       "source_index": 10,
-      "scale": 1.5974025974025974,
+      "scale": 0.914693188058103,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 101.61200716450787,
+        "target": 92.9438107782865,
+        "registered": 93.11820445004295
+      },
       "animation": "page_orbit_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        -8,
-        25
+        96,
+        93
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1344,19 +1732,25 @@
         74
       ],
       "source_index": 11,
-      "scale": 1.893939393939394,
+      "scale": 0.9826174817597804,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 92.98386956886662,
+        "target": 91.3675757600396,
+        "registered": 91.48223871331527
+      },
       "animation": "page_orbit_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        -2,
-        30
+        106,
+        98
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1366,19 +1760,25 @@
         74
       ],
       "source_index": 12,
-      "scale": 1.8257575757575757,
+      "scale": 0.8804770697731455,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 93.8829057922687,
+        "target": 82.66174579376502,
+        "registered": 82.68010643437755
+      },
       "animation": "page_orbit_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        134,
-        36
+        144,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1388,19 +1788,25 @@
         121
       ],
       "source_index": 13,
-      "scale": 1.0619469026548674,
+      "scale": 0.9195533418836577,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 88.70738413458037,
+        "target": 81.57117153071073,
+        "registered": 81.4555093287127
+      },
       "animation": "page_orbit_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        119,
-        31
+        135,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1410,19 +1816,25 @@
         116
       ],
       "source_index": 14,
-      "scale": 1.1481481481481481,
+      "scale": 0.9402888090689882,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 93.15041599477696,
+        "target": 87.58829372000966,
+        "registered": 87.49285685128815
+      },
       "animation": "page_orbit_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        119,
-        33
+        136,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1432,19 +1844,25 @@
         114
       ],
       "source_index": 15,
-      "scale": 1.1462264150943395,
+      "scale": 0.9235594661601637,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 94.7100839404126,
+        "target": 87.47039456399176,
+        "registered": 87.4414089547967
+      },
       "animation": "page_orbit_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        116,
-        30
+        130,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1454,19 +1872,25 @@
         109
       ],
       "source_index": 16,
-      "scale": 1.2326732673267327,
+      "scale": 1.049709176786898,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 85.41662601625049,
+        "target": 89.66261617943263,
+        "registered": 89.49860334105779
+      },
       "animation": "page_orbit_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        117,
-        21
+        130,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1476,19 +1900,25 @@
         116
       ],
       "source_index": 17,
-      "scale": 1.2314814814814814,
+      "scale": 1.047452469056685,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 93.06986622962343,
+        "target": 97.48626117699445,
+        "registered": 97.74968030638259
+      },
       "animation": "page_orbit_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        120,
-        19
+        126,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1498,19 +1928,25 @@
         120
       ],
       "source_index": 18,
-      "scale": 1.2053571428571428,
+      "scale": 1.1169147273548854,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 88.26664149042944,
+        "target": 98.58631181481441,
+        "registered": 98.70663604844408
+      },
       "animation": "page_orbit_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        118,
-        16
+        120,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1520,19 +1956,25 @@
         118
       ],
       "source_index": 19,
-      "scale": 1.2545454545454546,
+      "scale": 1.2433471116632981,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 81.75573374387878,
+        "target": 101.65075541236533,
+        "registered": 101.73986436004326
+      },
       "animation": "page_orbit",
       "after": 0
     },
     {
       "margin_xy": [
-        102,
-        9
+        113,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1542,19 +1984,25 @@
         107
       ],
       "source_index": 20,
-      "scale": 1.4545454545454546,
+      "scale": 1.2989100940553748,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 84.19619943916709,
+        "target": 109.36329333263362,
+        "registered": 109.48972554536796
+      },
       "animation": "page_orbit",
       "after": 1
     },
     {
       "margin_xy": [
-        101,
-        10
+        112,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1564,19 +2012,25 @@
         116
       ],
       "source_index": 21,
-      "scale": 1.3287037037037037,
+      "scale": 1.1911329605825676,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 91.60240171523888,
+        "target": 109.11063995154616,
+        "registered": 109.06878563548784
+      },
       "animation": "page_orbit",
       "after": 2
     },
     {
       "margin_xy": [
-        102,
-        7
+        116,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1586,19 +2040,25 @@
         113
       ],
       "source_index": 22,
-      "scale": 1.3904761904761904,
+      "scale": 1.2082900903599159,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 92.19544457292888,
+        "target": 111.39884205379684,
+        "registered": 111.44505372604026
+      },
       "animation": "page_orbit",
       "after": 3
     },
     {
       "margin_xy": [
-        76,
-        0
+        96,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__03.png",
       "source_region": [
@@ -1608,19 +2068,25 @@
         112
       ],
       "source_index": 23,
-      "scale": 1.4663461538461537,
+      "scale": 1.2370560172875729,
       "rgb_gain": [
         0.957563,
         0.955166,
         0.919615
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 93.69631796394135,
+        "target": 115.90759393498337,
+        "registered": 115.95688854052612
+      },
       "animation": "page_orbit",
       "after": 4
     },
     {
       "margin_xy": [
-        78,
-        3
+        94,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1630,19 +2096,25 @@
         139
       ],
       "source_index": 0,
-      "scale": 1.1564885496183206,
+      "scale": 1.0155101237208597,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.65856099730654,
+        "target": 111.35937884542619,
+        "registered": 111.32834320154055
+      },
       "animation": "page_orbit",
       "after": 5
     },
     {
       "margin_xy": [
-        70,
-        6
+        88,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1652,19 +2124,25 @@
         122
       ],
       "source_index": 1,
-      "scale": 1.2982456140350878,
+      "scale": 1.1222870434501806,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 97.95917517006765,
+        "target": 109.93831308043357,
+        "registered": 110.01818031580054
+      },
       "animation": "page_orbit",
       "after": 6
     },
     {
       "margin_xy": [
-        84,
-        12
+        90,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1674,19 +2152,25 @@
         133
       ],
       "source_index": 2,
-      "scale": 1.14,
+      "scale": 1.0798226058475415,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.43307756520056,
+        "target": 114.92884316482838,
+        "registered": 115.30394615970435
+      },
       "animation": "page_orbit",
       "after": 7
     },
     {
       "margin_xy": [
-        93,
-        26
+        100,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1696,19 +2180,25 @@
         132
       ],
       "source_index": 3,
-      "scale": 1.0443548387096775,
+      "scale": 0.9792069820966538,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.27239001672177,
+        "target": 107.9794942368593,
+        "registered": 107.95832529267949
+      },
       "animation": "page_orbit",
       "after": 8
     },
     {
       "margin_xy": [
-        90,
-        28
+        94,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1718,19 +2208,25 @@
         117
       ],
       "source_index": 4,
-      "scale": 1.165137614678899,
+      "scale": 1.1255168448666113,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 94.66784036831093,
+        "target": 106.55024900167734,
+        "registered": 106.68645649753299
+      },
       "animation": "page_orbit",
       "after": 9
     },
     {
       "margin_xy": [
-        72,
-        20
+        86,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1740,19 +2236,25 @@
         121
       ],
       "source_index": 5,
-      "scale": 1.1902654867256637,
+      "scale": 1.0614859590152106,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.8831137270991,
+        "target": 113.45492447714162,
+        "registered": 113.43279948938931
+      },
       "animation": "page_orbit",
       "after": 10
     },
     {
       "margin_xy": [
-        100,
-        21
+        102,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1762,19 +2264,25 @@
         135
       ],
       "source_index": 6,
-      "scale": 1.0590551181102361,
+      "scale": 1.0356699949199855,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.75208828467335,
+        "target": 108.48859474164551,
+        "registered": 108.66922287382016
+      },
       "animation": "page_orbit",
       "after": 11
     },
     {
       "margin_xy": [
-        97,
-        20
+        98,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1784,19 +2292,25 @@
         138
       ],
       "source_index": 7,
-      "scale": 1.0423076923076924,
+      "scale": 1.0334938245915983,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.55142275454696,
+        "target": 108.0532497690898,
+        "registered": 108.10180387024076
+      },
       "animation": "page_orbit_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        80,
-        19
+        98,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1806,19 +2320,25 @@
         123
       ],
       "source_index": 8,
-      "scale": 1.182608695652174,
+      "scale": 1.017296386669096,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.56453443805776,
+        "target": 108.4077158309106,
+        "registered": 108.31435731240803
+      },
       "animation": "page_orbit_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        80,
-        24
+        96,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1828,19 +2348,25 @@
         113
       ],
       "source_index": 9,
-      "scale": 1.2380952380952381,
+      "scale": 1.0811453587167392,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 94.01063769595439,
+        "target": 101.63916461498202,
+        "registered": 101.68087332433765
+      },
       "animation": "page_orbit_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        84,
-        26
+        102,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1850,19 +2376,25 @@
         118
       ],
       "source_index": 10,
-      "scale": 1.1727272727272726,
+      "scale": 0.9952356707789317,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.12613635737547,
+        "target": 102.63480949247216,
+        "registered": 102.43046421841503
+      },
       "animation": "page_orbit_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        100,
-        24
+        112,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1872,19 +2404,25 @@
         127
       ],
       "source_index": 11,
-      "scale": 1.1050420168067228,
+      "scale": 0.9739616937200591,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.62434668791258,
+        "target": 104.82199098567418,
+        "registered": 104.93807697875924
+      },
       "animation": "page_orbit_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        100,
-        27
+        116,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1894,19 +2432,25 @@
         125
       ],
       "source_index": 12,
-      "scale": 1.0982905982905984,
+      "scale": 0.9253305170758093,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.89995233554684,
+        "target": 97.0671271358793,
+        "registered": 97.10818709048172
+      },
       "animation": "page_orbit_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        100,
-        25
+        117,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1916,19 +2460,25 @@
         119
       ],
       "source_index": 13,
-      "scale": 1.1666666666666667,
+      "scale": 0.9803067649130628,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.22973610660661,
+        "target": 98.25588835075753,
+        "registered": 98.54947995803936
+      },
       "animation": "page_orbit_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        100,
-        22
+        114,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1938,19 +2488,25 @@
         124
       ],
       "source_index": 14,
-      "scale": 1.146551724137931,
+      "scale": 1.0025313701784015,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.78752289377042,
+        "target": 106.05531027447067,
+        "registered": 105.78752289377042
+      },
       "animation": "page_orbit_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        94,
-        24
+        110,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1960,19 +2516,25 @@
         115
       ],
       "source_index": 15,
-      "scale": 1.219626168224299,
+      "scale": 1.0412999430055592,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.16312953446422,
+        "target": 102.21726118948492,
+        "registered": 102.34256201600583
+      },
       "animation": "page_orbit_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        96,
-        20
+        112,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -1982,19 +2544,25 @@
         125
       ],
       "source_index": 16,
-      "scale": 1.1495726495726495,
+      "scale": 0.9730470240857164,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.95369377654477,
+        "target": 105.04402046832762,
+        "registered": 105.18555033843765
+      },
       "animation": "page_orbit_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        82,
-        11
+        104,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -2004,19 +2572,25 @@
         119
       ],
       "source_index": 17,
-      "scale": 1.2882882882882882,
+      "scale": 1.040769471157003,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.36602868097478,
+        "target": 109.66174594821173,
+        "registered": 109.63119993870357
+      },
       "animation": "page_orbit_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        80,
-        9
+        108,
+        47
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -2026,19 +2600,25 @@
         122
       ],
       "source_index": 18,
-      "scale": 1.2675438596491229,
+      "scale": 0.9671291371214661,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.74726273726225,
+        "target": 99.369871552681,
+        "registered": 99.24212815130478
+      },
       "animation": "page_orbit_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        114,
-        33
+        134,
+        60
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -2048,19 +2628,25 @@
         121
       ],
       "source_index": 19,
-      "scale": 1.084070796460177,
+      "scale": 0.8522321658114651,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 101.15334893121434,
+        "target": 86.20613763873165,
+        "registered": 86.3365507765975
+      },
       "animation": "page_orbit_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        108,
-        34
+        130,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -2070,19 +2656,25 @@
         126
       ],
       "source_index": 20,
-      "scale": 1.0381355932203389,
+      "scale": 0.7990960999490407,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.87956247593888,
+        "target": 86.20613763873165,
+        "registered": 86.26123115281858
+      },
       "animation": "page_orbit_charge",
       "after": 1
     },
     {
       "margin_xy": [
-        44,
-        42
+        52,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -2092,19 +2684,25 @@
         109
       ],
       "source_index": 21,
-      "scale": 1.1237623762376239,
+      "scale": 1.0596352268053897,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 97.96938297243685,
+        "target": 103.8118093459822,
+        "registered": 104.05287117614775
+      },
       "animation": "travel",
       "after": 0
     },
     {
       "margin_xy": [
-        42,
-        42
+        49,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/summoned_page__04.png",
       "source_region": [
@@ -2114,12 +2712,18 @@
         112
       ],
       "source_index": 22,
-      "scale": 1.0913461538461537,
+      "scale": 1.0362545110572903,
       "rgb_gain": [
         0.881044,
         0.861764,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.17983829094555,
+        "target": 103.8118093459822,
+        "registered": 103.69667304209909
+      },
       "animation": "travel",
       "after": 1
     }

@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/bronze_moth/combat_motion_v7_manifest.json",
   "baseline_sha256": "0ecf778e837bee8b246d248a0ec04acf00cbbcc6cd4bbfdba253269c5af81717",
+  "baseline_canvas": [
+    366,
+    271
+  ],
+  "symmetric_padding": [
+    0,
+    11
+  ],
   "new_drawings": 94,
   "old_frame_refs": 94,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "bronze_moth__03",
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "sha256": "95b2bce5269aa48c7a7114cad2615591e65e76e430b3eb3216827c6ee694c800",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_01",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
+      "sha256": "9274c2a13184390f8e31444d24792f50d742de4e0649ef49ce49e4d9d6919fc0",
+      "used_drawings": 4
     },
     {
       "id": "bronze_moth__04",
@@ -35,8 +49,8 @@
   "registrations": [
     {
       "margin_xy": [
-        89,
-        61
+        103,
+        88
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -46,19 +60,25 @@
         165
       ],
       "source_index": 0,
-      "scale": 1.2356687898089171,
+      "scale": 1.0744919563297628,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.16513868311584,
+        "target": 126.96749103359886,
+        "registered": 127.03542812932147
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        76,
-        60
+        90,
+        87
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -68,19 +88,25 @@
         160
       ],
       "source_index": 1,
-      "scale": 1.2828947368421053,
+      "scale": 1.110130110128926,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.45600027478189,
+        "target": 129.28131241021785,
+        "registered": 129.4797281430572
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        70,
-        64
+        83,
+        88
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -90,19 +116,25 @@
         159
       ],
       "source_index": 2,
-      "scale": 1.2649006622516556,
+      "scale": 1.1145982159057684,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.05127081753534,
+        "target": 130.4651376227278,
+        "registered": 130.4568894309534
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        76,
-        65
+        88,
+        87
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -112,19 +144,25 @@
         162
       ],
       "source_index": 3,
-      "scale": 1.2337662337662338,
+      "scale": 1.0977386229311863,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.72189169131899,
+        "target": 128.13012865115158,
+        "registered": 128.09371569284733
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        99,
-        80
+        107,
+        94
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -134,19 +172,25 @@
         159
       ],
       "source_index": 4,
-      "scale": 1.1622516556291391,
+      "scale": 1.0777993827007477,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.35720862928949,
+        "target": 125.40972763343032,
+        "registered": 125.13193037750197
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        88,
-        88
+        99,
+        105
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -156,19 +200,25 @@
         155
       ],
       "source_index": 5,
-      "scale": 1.1428571428571428,
+      "scale": 1.030191218056965,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.76206305742359,
+        "target": 125.4382080542562,
+        "registered": 125.62245022288015
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        82,
-        90
+        95,
+        113
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -178,19 +228,25 @@
         154
       ],
       "source_index": 6,
-      "scale": 1.1335616438356164,
+      "scale": 1.0020828984489458,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.5724275683565,
+        "target": 122.82773348762217,
+        "registered": 122.5724275683565
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        68,
-        79
+        90,
+        112
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -200,19 +256,25 @@
         151
       ],
       "source_index": 7,
-      "scale": 1.2307692307692308,
+      "scale": 1.01308828710416,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.34118164618461,
+        "target": 121.91624158202373,
+        "registered": 121.72920767013971
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        66,
-        63
+        92,
+        102
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -222,19 +284,25 @@
         150
       ],
       "source_index": 8,
-      "scale": 1.3485915492957747,
+      "scale": 1.0836198311648144,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.10340218959993,
+        "target": 125.81194907835481,
+        "registered": 125.93252161375949
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        80,
-        72
+        95,
+        97
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -244,19 +312,25 @@
         151
       ],
       "source_index": 9,
-      "scale": 1.2762237762237763,
+      "scale": 1.1133108305259918,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.24097338520886,
+        "target": 127.1857129595846,
+        "registered": 127.25564820470642
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        68,
-        77
+        92,
+        112
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -266,19 +340,25 @@
         148
       ],
       "source_index": 10,
-      "scale": 1.2714285714285714,
+      "scale": 1.0328922130943397,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.54078801814885,
+        "target": 123.47274909110708,
+        "registered": 123.4908903522847
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        65,
-        71
+        89,
+        106
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -288,19 +368,25 @@
         153
       ],
       "source_index": 11,
-      "scale": 1.2689655172413794,
+      "scale": 1.0393740443461148,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.36384583140241,
+        "target": 123.02430914614476,
+        "registered": 123.08533625091171
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        65,
-        77
+        74,
+        89
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -310,19 +396,25 @@
         154
       ],
       "source_index": 12,
-      "scale": 1.2226027397260273,
+      "scale": 1.1405536692540912,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.30133275246678,
+        "target": 132.64791180996698,
+        "registered": 132.61598696989742
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
         74,
-        82
+        83
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -332,19 +424,25 @@
         153
       ],
       "source_index": 13,
-      "scale": 1.193103448275862,
+      "scale": 1.1879339647570641,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.52092318158799,
+        "target": 134.85536035798594,
+        "registered": 134.8332303254654
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        77,
-        96
+        81,
+        102
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -354,19 +452,25 @@
         152
       ],
       "source_index": 14,
-      "scale": 1.1145833333333333,
+      "scale": 1.0730538563731793,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.21471008587291,
+        "target": 122.55853511219058,
+        "registered": 122.50306118624138
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        64,
-        100
+        76,
+        116
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -376,19 +480,25 @@
         151
       ],
       "source_index": 15,
-      "scale": 1.0944055944055944,
+      "scale": 0.9916815441790402,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.95900950729306,
+        "target": 120.94449887473863,
+        "registered": 120.92146211487851
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        83,
-        95
+        74,
+        80
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -398,19 +508,25 @@
         158
       ],
       "source_index": 16,
-      "scale": 1.0766666666666667,
+      "scale": 1.1716684110102291,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.44161493913951,
+        "target": 132.91595671817586,
+        "registered": 132.90974381135493
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        86,
-        97
+        82,
+        92
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -420,19 +536,25 @@
         157
       ],
       "source_index": 17,
-      "scale": 1.0671140939597314,
+      "scale": 1.104551258665231,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.82745788456207,
+        "target": 127.93736439438707,
+        "registered": 127.91403363196706
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        82,
-        97
+        81,
+        95
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -442,12 +564,18 @@
         159
       ],
       "source_index": 18,
-      "scale": 1.0596026490066226,
+      "scale": 1.0701930513561306,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.3827230128975,
+        "target": 128.83275367173266,
+        "registered": 128.71285872048682
+      },
       "animation": "windup",
       "after": 6
     },
@@ -464,19 +592,25 @@
         153
       ],
       "source_index": 19,
-      "scale": 1.1275862068965516,
+      "scale": 1.1330998266442653,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.04620951546504,
+        "target": 134.89123936463034,
+        "registered": 134.75904422338414
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        74,
-        96
+        76,
+        99
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -486,19 +620,25 @@
         158
       ],
       "source_index": 20,
-      "scale": 1.07,
+      "scale": 1.050019085165601,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.48628612628552,
+        "target": 124.41286176299197,
+        "registered": 124.31814026923021
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        64,
-        96
+        74,
+        111
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -508,19 +648,25 @@
         151
       ],
       "source_index": 21,
-      "scale": 1.118881118881119,
+      "scale": 1.0227308035302278,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.41379816699569,
+        "target": 120.0827081448675,
+        "registered": 119.7914855071094
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        66,
-        94
+        70,
+        101
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -530,19 +676,25 @@
         153
       ],
       "source_index": 22,
-      "scale": 1.1172413793103448,
+      "scale": 1.0703782362118799,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.5712549903249,
+        "target": 125.84571254576116,
+        "registered": 125.96031120952345
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        54,
-        98
+        70,
+        117
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__01.png",
       "source_region": [
@@ -552,19 +704,25 @@
         138
       ],
       "source_index": 23,
-      "scale": 1.2115384615384615,
+      "scale": 1.0735775114465422,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.91438139393827,
+        "target": 119.07518556053691,
+        "registered": 118.95797577295941
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        56,
-        97
+        72,
+        116
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -574,19 +732,25 @@
         135
       ],
       "source_index": 0,
-      "scale": 1.2440944881889764,
+      "scale": 1.1027445600544081,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.70602559196064,
+        "target": 119.87497836666986,
+        "registered": 119.91246807567593
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        50,
-        91
+        66,
+        111
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -596,19 +760,25 @@
         132
       ],
       "source_index": 1,
-      "scale": 1.3185483870967742,
+      "scale": 1.1661048994292729,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.69778678907723,
+        "target": 129.08523153072,
+        "registered": 129.0387538687506
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        58,
-        93
+        84,
+        124
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -618,19 +788,25 @@
         136
       ],
       "source_index": 2,
-      "scale": 1.26171875,
+      "scale": 1.0385388385208147,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.14645926587689,
+        "target": 120.6226089042889,
+        "registered": 120.48236385463227
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        70,
-        91
+        78,
+        103
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -640,19 +816,25 @@
         152
       ],
       "source_index": 3,
-      "scale": 1.1423611111111112,
+      "scale": 1.0631808254271755,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.33722053644648,
+        "target": 121.56114050698818,
+        "registered": 121.85647295076286
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        62,
-        83
+        74,
+        98
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -662,19 +844,25 @@
         152
       ],
       "source_index": 4,
-      "scale": 1.1944444444444444,
+      "scale": 1.0996373830192523,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.09397934992217,
+        "target": 128.7609170196588,
+        "registered": 128.77111477346153
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        66,
-        83
+        78,
+        100
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -684,19 +872,25 @@
         157
       ],
       "source_index": 5,
-      "scale": 1.157718120805369,
+      "scale": 1.0530408873474217,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.58114033007288,
+        "target": 121.71166657380682,
+        "registered": 121.61414391426682
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        47,
-        83
+        77,
+        120
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -706,19 +900,25 @@
         138
       ],
       "source_index": 6,
-      "scale": 1.3192307692307692,
+      "scale": 1.0534520943770187,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.23659658795863,
+        "target": 120.3427819300876,
+        "registered": 120.19983361053376
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        52,
-        86
+        68,
+        108
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -728,19 +928,25 @@
         148
       ],
       "source_index": 7,
-      "scale": 1.207142857142857,
+      "scale": 1.0592772143584557,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.11011811017717,
+        "target": 125.11135689929667,
+        "registered": 125.33554962579451
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        54,
-        96
+        68,
+        115
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -750,19 +956,25 @@
         147
       ],
       "source_index": 8,
-      "scale": 1.1474820143884892,
+      "scale": 1.0300479118789583,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.86949116279744,
+        "target": 118.32107951083795,
+        "registered": 118.20744477400736
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        46,
-        92
+        63,
+        113
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -772,19 +984,25 @@
         146
       ],
       "source_index": 9,
-      "scale": 1.184782608695652,
+      "scale": 1.0401571636352758,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.13036089581236,
+        "target": 119.75366963769386,
+        "registered": 119.75391434103521
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        48,
-        75
+        58,
+        88
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -794,19 +1012,25 @@
         158
       ],
       "source_index": 10,
-      "scale": 1.2033333333333334,
+      "scale": 1.1176122699117932,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.0762465528101,
+        "target": 131.96346193255064,
+        "registered": 132.09087780766694
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        54,
-        65
+        58,
+        71
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -816,19 +1040,25 @@
         167
       ],
       "source_index": 11,
-      "scale": 1.1981132075471699,
+      "scale": 1.1628154302350062,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.58979193683152,
+        "target": 134.4095936418016,
+        "registered": 134.27583550289307
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        35,
-        60
+        47,
+        77
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -838,19 +1068,25 @@
         156
       ],
       "source_index": 12,
-      "scale": 1.3141891891891893,
+      "scale": 1.2060690529548062,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.6778095361086,
+        "target": 138.30935714214613,
+        "registered": 138.2678559897419
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        38,
-        62
+        51,
+        79
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -860,19 +1096,25 @@
         153
       ],
       "source_index": 13,
-      "scale": 1.3275862068965518,
+      "scale": 1.2160768836280629,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.89826122551597,
+        "target": 143.37335009629274,
+        "registered": 143.3596874996594
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        32,
-        71
+        46,
+        90
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -882,19 +1124,25 @@
         147
       ],
       "source_index": 14,
-      "scale": 1.3201438848920863,
+      "scale": 1.1883823498309591,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.8781963646714,
+        "target": 136.51922094019054,
+        "registered": 136.517398158623
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        46,
-        72
+        54,
+        83
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -904,19 +1152,25 @@
         158
       ],
       "source_index": 15,
-      "scale": 1.2233333333333334,
+      "scale": 1.15087764555052,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.99583326099285,
+        "target": 138.10052205928423,
+        "registered": 138.1882773609976
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        59,
-        63
+        62,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -926,19 +1180,25 @@
         166
       ],
       "source_index": 16,
-      "scale": 1.2183544303797469,
+      "scale": 1.1917194519770835,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.22520198387892,
+        "target": 145.65815072601652,
+        "registered": 145.78065715313537
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        72,
-        61
+        76,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -948,19 +1208,25 @@
         178
       ],
       "source_index": 17,
-      "scale": 1.1441176470588235,
+      "scale": 1.1117258914851182,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.27389106324787,
+        "target": 138.15850233061371,
+        "registered": 138.31124321616085
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        70,
-        59
+        78,
+        71
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -970,19 +1236,25 @@
         175
       ],
       "source_index": 18,
-      "scale": 1.1796407185628743,
+      "scale": 1.1092127128497493,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.08464852672147,
+        "target": 137.63626961533237,
+        "registered": 137.69531582446805
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        60,
-        56
+        66,
+        66
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -992,19 +1264,25 @@
         171
       ],
       "source_index": 19,
-      "scale": 1.2239263803680982,
+      "scale": 1.1634513840767648,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.00399993600205,
+        "target": 145.4360767406734,
+        "registered": 145.557548756497
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        42,
-        60
+        58,
+        84
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -1014,19 +1292,25 @@
         163
       ],
       "source_index": 20,
-      "scale": 1.2580645161290323,
+      "scale": 1.1094235034146394,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.47489706764172,
+        "target": 138.0953763919597,
+        "registered": 137.96013917070394
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        42,
-        59
+        60,
+        85
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -1036,19 +1320,25 @@
         162
       ],
       "source_index": 21,
-      "scale": 1.2727272727272727,
+      "scale": 1.1138451655429265,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 124.1933975700802,
+        "target": 138.33221547578447,
+        "registered": 138.02173741842262
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        50,
-        53
+        60,
+        68
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -1058,19 +1348,25 @@
         168
       ],
       "source_index": 22,
-      "scale": 1.2625,
+      "scale": 1.1746298910835569,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.62148316932637,
+        "target": 148.73337898402426,
+        "registered": 148.69095466772686
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        56,
-        54
+        72,
+        79
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__02.png",
       "source_region": [
@@ -1080,19 +1376,25 @@
         165
       ],
       "source_index": 23,
-      "scale": 1.2770700636942676,
+      "scale": 1.126012039627659,
       "rgb_gain": [
         0.85,
         0.85,
         0.85552
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.5273249123448,
+        "target": 139.0932550742979,
+        "registered": 139.0323703315167
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
         88,
-        79
+        81
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1102,19 +1404,25 @@
         180
       ],
       "source_index": 0,
-      "scale": 1.0319767441860466,
+      "scale": 1.0213934041495405,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.68968472906042,
+        "target": 123.27164793114984,
+        "registered": 123.3774695801466
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        78,
-        73
+        87,
+        93
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1124,19 +1432,25 @@
         174
       ],
       "source_index": 1,
-      "scale": 1.1024096385542168,
+      "scale": 0.999108760892332,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.8332202622727,
+        "target": 122.72374649265417,
+        "registered": 122.8332202622727
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        85,
-        79
+        87,
+        81
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1146,19 +1460,25 @@
         174
       ],
       "source_index": 2,
-      "scale": 1.069277108433735,
+      "scale": 1.0574190671538575,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.04347004502254,
+        "target": 121.64915877715048,
+        "registered": 121.44134386608212
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        64,
-        75
+        86,
+        109
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1168,107 +1488,157 @@
         153
       ],
       "source_index": 3,
-      "scale": 1.2413793103448276,
+      "scale": 1.0199433344820883,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.87090053761618,
+        "target": 126.34129933963536,
+        "registered": 126.30122723077555
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        91,
-        87
+        74,
+        89
       ],
-      "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1049,
-        79,
-        176,
-        171
+        1056,
+        100,
+        149,
+        127
       ],
       "source_index": 4,
-      "scale": 1.039877300613497,
+      "scale": 1.3826078854643986,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 85.07055894961546,
+        "target": 117.61922562460231,
+        "registered": 117.71151175649729
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        74,
-        129
+        56,
+        140
       ],
-      "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1279,
-        99,
-        218,
-        144
+        1304,
+        131,
+        173,
+        93
       ],
       "source_index": 5,
-      "scale": 0.9558823529411765,
+      "scale": 1.3607992931337027,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 86.20904824900923,
+        "target": 117.31321191898103,
+        "registered": 117.3328598475295
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        122,
-        164
+        56,
+        161
       ],
-      "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        46,
-        323,
-        197,
-        168
+        43,
+        379,
+        179,
+        82
       ],
       "source_index": 6,
-      "scale": 0.590625,
+      "scale": 1.2686534584688944,
       "rgb_gain": [
         0.85,
         0.85,
-        0.85
+        0.854665
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 83.27664738688752,
+        "target": 105.64920671706946,
+        "registered": 105.49881515922347
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        129,
-        175
+        53,
+        173
       ],
-      "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        306,
-        325,
-        181,
-        170
+        291,
+        389,
+        184,
+        72
       ],
       "source_index": 7,
-      "scale": 0.5185185185185185,
+      "scale": 1.279823442278963,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 77.98717843338096,
+        "target": 99.80981915623332,
+        "registered": 99.50376877284599
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        90,
-        108
+        106,
+        132
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1278,19 +1648,25 @@
         136
       ],
       "source_index": 8,
-      "scale": 1.15625,
+      "scale": 0.9961677721779527,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.81181447096864,
+        "target": 116.36416498560916,
+        "registered": 116.17658972443631
+      },
       "animation": "travel",
       "after": 0
     },
     {
       "margin_xy": [
-        116,
-        110
+        108,
+        95
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1300,19 +1676,25 @@
         161
       ],
       "source_index": 9,
-      "scale": 0.9673202614379085,
+      "scale": 1.0585561486732364,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.92724866929036,
+        "target": 116.36416498560916,
+        "registered": 116.30993078838969
+      },
       "animation": "travel",
       "after": 1
     },
     {
       "margin_xy": [
-        31,
-        72
+        62,
+        110
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1322,19 +1704,25 @@
         130
       ],
       "source_index": 10,
-      "scale": 1.4918032786885247,
+      "scale": 1.1919870091224865,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.41735265844177,
+        "target": 138.76797200529376,
+        "registered": 138.76599006961325
+      },
       "animation": "moth_dust_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        -62,
-        56
+        36,
+        137
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1344,19 +1732,25 @@
         98
       ],
       "source_index": 11,
-      "scale": 2.15,
+      "scale": 1.3045180977548292,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.76609948855489,
+        "target": 139.27830900951247,
+        "registered": 139.43457247038842
+      },
       "animation": "moth_dust_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        -86,
-        50
+        44,
+        150
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1366,19 +1760,25 @@
         92
       ],
       "source_index": 12,
-      "scale": 2.363095238095238,
+      "scale": 1.2492808863936065,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.60879504133484,
+        "target": 130.6857681938059,
+        "registered": 130.80902109564155
+      },
       "animation": "moth_dust_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        -94,
-        38
+        32,
+        138
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1388,19 +1788,25 @@
         91
       ],
       "source_index": 13,
-      "scale": 2.5180722891566263,
+      "scale": 1.3938653145486448,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.18859404228171,
+        "target": 136.8616755198342,
+        "registered": 137.03649149040558
+      },
       "animation": "moth_dust_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        -15,
-        26
+        31,
+        82
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1410,19 +1816,25 @@
         131
       ],
       "source_index": 14,
-      "scale": 1.8333333333333333,
+      "scale": 1.4109814634496438,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 99.42836617384397,
+        "target": 140.29158161237743,
+        "registered": 140.41367454774482
+      },
       "animation": "moth_dust_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        10,
-        17
+        59,
+        84
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1432,19 +1844,25 @@
         140
       ],
       "source_index": 15,
-      "scale": 1.7803030303030303,
+      "scale": 1.293579470960422,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.82366145102927,
+        "target": 135.59773652395683,
+        "registered": 135.56917053666737
+      },
       "animation": "moth_dust_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        20,
-        9
+        61,
+        71
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1454,19 +1872,25 @@
         164
       ],
       "source_index": 16,
-      "scale": 1.5673076923076923,
+      "scale": 1.1845160061547921,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.60952342391326,
+        "target": 139.31036297186222,
+        "registered": 139.14381049834736
+      },
       "animation": "moth_dust_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        16,
-        0
+        62,
+        71
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1476,19 +1900,25 @@
         167
       ],
       "source_index": 17,
-      "scale": 1.5911949685534592,
+      "scale": 1.162759200530058,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.36195412172403,
+        "target": 139.95196954881135,
+        "registered": 139.83919336151794
+      },
       "animation": "moth_dust_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        22,
-        -2
+        68,
+        70
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1498,19 +1928,25 @@
         168
       ],
       "source_index": 18,
-      "scale": 1.59375,
+      "scale": 1.158854936086171,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.10340218959993,
+        "target": 134.54700072381584,
+        "registered": 134.55853744746187
+      },
       "animation": "moth_dust_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        51,
-        3
+        77,
+        52
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1520,19 +1956,25 @@
         178
       ],
       "source_index": 19,
-      "scale": 1.4705882352941178,
+      "scale": 1.196085686318275,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.61093136427094,
+        "target": 133.4962374414559,
+        "registered": 133.68619973654722
+      },
       "animation": "moth_dust_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        57,
-        16
+        63,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1542,19 +1984,25 @@
         176
       ],
       "source_index": 20,
-      "scale": 1.4136904761904763,
+      "scale": 1.3559567458429274,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.90987332063814,
+        "target": 150.3889909097038,
+        "registered": 150.4892022704619
+      },
       "animation": "moth_dust_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        100,
-        37
+        81,
+        -11
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1564,19 +2012,25 @@
         185
       ],
       "source_index": 21,
-      "scale": 1.231638418079096,
+      "scale": 1.4935176103601653,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.39180601889512,
+        "target": 160.39155349760267,
+        "registered": 160.23108312683902
+      },
       "animation": "moth_dust_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        106,
-        52
+        90,
+        9
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1586,19 +2040,25 @@
         175
       ],
       "source_index": 22,
-      "scale": 1.218562874251497,
+      "scale": 1.4605621282310013,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.04368005850722,
+        "target": 150.5016966470077,
+        "registered": 150.52242357868147
+      },
       "animation": "moth_dust",
       "after": 0
     },
     {
       "margin_xy": [
-        110,
-        60
+        90,
+        7
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__03.png",
       "source_region": [
@@ -1608,19 +2068,25 @@
         179
       ],
       "source_index": 23,
-      "scale": 1.1432748538011697,
+      "scale": 1.4413064648121285,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.20652570736632,
+        "target": 150.19353917763834,
+        "registered": 150.14659503298768
+      },
       "animation": "moth_dust",
       "after": 1
     },
     {
       "margin_xy": [
-        35,
-        75
+        50,
+        93
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1630,19 +2096,25 @@
         154
       ],
       "source_index": 0,
-      "scale": 1.2363013698630136,
+      "scale": 1.119867414590231,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 130.49521064008442,
+        "target": 146.13733415591895,
+        "registered": 145.86637720873168
+      },
       "animation": "moth_dust",
       "after": 2
     },
     {
       "margin_xy": [
-        34,
-        82
+        45,
+        95
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1652,19 +2124,25 @@
         151
       ],
       "source_index": 1,
-      "scale": 1.2132867132867133,
+      "scale": 1.125130426716515,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.28539107909513,
+        "target": 142.08753595288428,
+        "registered": 141.97887166758298
+      },
       "animation": "moth_dust",
       "after": 3
     },
     {
       "margin_xy": [
-        51,
-        81
+        56,
+        89
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1674,19 +2152,25 @@
         166
       ],
       "source_index": 2,
-      "scale": 1.1075949367088607,
+      "scale": 1.0619985688218847,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 135.46217184144066,
+        "target": 143.8606326251142,
+        "registered": 143.69063991784571
+      },
       "animation": "moth_dust",
       "after": 4
     },
     {
       "margin_xy": [
-        50,
-        87
+        60,
+        98
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1696,19 +2180,25 @@
         154
       ],
       "source_index": 3,
-      "scale": 1.1575342465753424,
+      "scale": 1.0830858140815331,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 127.43233498606232,
+        "target": 138.02015427868994,
+        "registered": 138.08692914247894
+      },
       "animation": "moth_dust",
       "after": 5
     },
     {
       "margin_xy": [
-        47,
-        86
+        52,
+        92
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1718,19 +2208,25 @@
         149
       ],
       "source_index": 4,
-      "scale": 1.202127659574468,
+      "scale": 1.1602301969873832,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.87183294713455,
+        "target": 140.23915055048,
+        "registered": 140.46707799338606
+      },
       "animation": "moth_dust",
       "after": 6
     },
     {
       "margin_xy": [
-        36,
-        79
+        51,
+        97
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1740,19 +2236,25 @@
         146
       ],
       "source_index": 5,
-      "scale": 1.2753623188405796,
+      "scale": 1.1484201428330534,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.23148948219364,
+        "target": 141.52152475267073,
+        "registered": 141.53444810363305
+      },
       "animation": "moth_dust",
       "after": 7
     },
     {
       "margin_xy": [
-        25,
-        80
+        53,
+        112
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1762,19 +2264,25 @@
         145
       ],
       "source_index": 6,
-      "scale": 1.2773722627737227,
+      "scale": 1.0581807321058911,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.63880959627976,
+        "target": 128.7158445910804,
+        "registered": 128.39003076563228
+      },
       "animation": "moth_dust",
       "after": 8
     },
     {
       "margin_xy": [
-        34,
-        80
+        64,
+        116
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1784,19 +2292,25 @@
         146
       ],
       "source_index": 7,
-      "scale": 1.2644927536231885,
+      "scale": 1.01936344307223,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.45157175772866,
+        "target": 128.90010956885345,
+        "registered": 128.9224573144648
+      },
       "animation": "moth_dust",
       "after": 9
     },
     {
       "margin_xy": [
-        42,
-        81
+        63,
+        108
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1806,19 +2320,25 @@
         144
       ],
       "source_index": 8,
-      "scale": 1.275735294117647,
+      "scale": 1.0936946724857117,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.44590642402056,
+        "target": 133.91843552363528,
+        "registered": 133.5926644692739
+      },
       "animation": "moth_dust",
       "after": 10
     },
     {
       "margin_xy": [
-        47,
-        89
+        61,
+        107
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1828,19 +2348,25 @@
         144
       ],
       "source_index": 9,
-      "scale": 1.2205882352941178,
+      "scale": 1.0955276772465952,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.36268572250722,
+        "target": 128.57407048500048,
+        "registered": 128.66234880492428
+      },
       "animation": "moth_dust",
       "after": 11
     },
     {
       "margin_xy": [
-        46,
-        88
+        64,
+        111
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1850,19 +2376,25 @@
         146
       ],
       "source_index": 10,
-      "scale": 1.213768115942029,
+      "scale": 1.0521877200680843,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.11782974045636,
+        "target": 129.54306857434136,
+        "registered": 129.81140165640304
+      },
       "animation": "moth_dust_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        56,
-        80
+        67,
+        96
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1872,19 +2404,25 @@
         165
       ],
       "source_index": 11,
-      "scale": 1.124203821656051,
+      "scale": 1.0258077401821921,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 129.55307792561317,
+        "target": 132.89655010052067,
+        "registered": 132.83071933856263
+      },
       "animation": "moth_dust_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        58,
-        78
+        72,
+        100
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1894,19 +2432,25 @@
         168
       ],
       "source_index": 12,
-      "scale": 1.115625,
+      "scale": 0.9864986012866515,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 131.83702059740276,
+        "target": 130.05703641713728,
+        "registered": 130.19984639007836
+      },
       "animation": "moth_dust_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        54,
-        72
+        64,
+        84
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1916,19 +2460,25 @@
         165
       ],
       "source_index": 13,
-      "scale": 1.1719745222929936,
+      "scale": 1.0961585595546102,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.09346042743294,
+        "target": 134.9299502727273,
+        "registered": 135.19615379144483
+      },
       "animation": "moth_dust_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        40,
-        62
+        62,
+        93
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1938,19 +2488,25 @@
         154
       ],
       "source_index": 14,
-      "scale": 1.3150684931506849,
+      "scale": 1.114485996667728,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.45118572576347,
+        "target": 139.81358975672575,
+        "registered": 140.0071426749364
+      },
       "animation": "moth_dust_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        30,
-        61
+        54,
+        92
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1960,19 +2516,25 @@
         154
       ],
       "source_index": 15,
-      "scale": 1.321917808219178,
+      "scale": 1.1258925100126436,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.22063050907694,
+        "target": 135.35550743916724,
+        "registered": 135.1332675546625
+      },
       "animation": "moth_dust_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        29,
-        62
+        51,
+        90
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -1982,19 +2544,25 @@
         156
       ],
       "source_index": 16,
-      "scale": 1.3006756756756757,
+      "scale": 1.1195477655624295,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.16517651536682,
+        "target": 135.6502026317563,
+        "registered": 135.70556362949898
+      },
       "animation": "moth_dust_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        16,
-        65
+        38,
+        90
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -2004,19 +2572,25 @@
         151
       ],
       "source_index": 17,
-      "scale": 1.3251748251748252,
+      "scale": 1.1564170206518418,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 123.75782803523985,
+        "target": 143.11565877885505,
+        "registered": 143.17122615944868
+      },
       "animation": "moth_dust_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        48,
-        76
+        52,
+        80
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -2026,19 +2600,25 @@
         168
       ],
       "source_index": 18,
-      "scale": 1.125,
+      "scale": 1.100582142107227,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.18637010390623,
+        "target": 138.87846551369248,
+        "registered": 138.87404365107253
+      },
       "animation": "moth_dust_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        32,
-        74
+        40,
+        84
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -2048,19 +2628,25 @@
         155
       ],
       "source_index": 19,
-      "scale": 1.2312925170068028,
+      "scale": 1.16573371743548,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.90332207301863,
+        "target": 138.60961165560818,
+        "registered": 138.77319625922004
+      },
       "animation": "moth_dust_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        38,
-        63
+        50,
+        77
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -2070,19 +2656,25 @@
         165
       ],
       "source_index": 20,
-      "scale": 1.2261146496815287,
+      "scale": 1.1366662729447188,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 126.76750372236569,
+        "target": 144.09234598660717,
+        "registered": 144.33294842134973
+      },
       "animation": "moth_dust_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        41,
-        57
+        59,
+        81
       ],
       "source": "art_requests/character_motion_v8/incoming/bronze_moth__04.png",
       "source_region": [
@@ -2092,12 +2684,18 @@
         163
       ],
       "source_index": 21,
-      "scale": 1.2741935483870968,
+      "scale": 1.1296113848506613,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.37441588643328,
+        "target": 135.97631063006335,
+        "registered": 135.812370570578
+      },
       "animation": "moth_dust_recover",
       "after": 11
     }

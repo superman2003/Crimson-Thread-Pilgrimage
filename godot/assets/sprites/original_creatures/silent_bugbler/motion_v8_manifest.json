@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "silent_bugbler",
   "canvas": [
     362,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            159,
-            165
+            149,
+            154
           ],
           "margin": [
-            99,
-            22,
-            203,
-            29
+            104,
+            33,
+            213,
+            40
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            165,
+            155,
             2,
-            163,
-            163
+            153,
+            153
           ],
           "margin": [
-            96,
-            24,
-            199,
-            31
+            101,
+            34,
+            209,
+            41
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            332,
+            312,
             2,
-            161,
-            163
+            154,
+            156
           ],
           "margin": [
-            101,
-            24,
-            201,
-            31
+            104,
+            31,
+            208,
+            38
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            497,
+            470,
             2,
-            164,
-            165
+            154,
+            155
           ],
           "margin": [
-            99,
-            22,
-            198,
-            29
+            104,
+            32,
+            208,
+            39
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            665,
+            628,
             2,
-            160,
-            154
+            156,
+            150
           ],
           "margin": [
-            100,
-            33,
-            202,
-            40
+            102,
+            37,
+            206,
+            44
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            829,
+            788,
             2,
-            159,
-            153
+            158,
+            152
           ],
           "margin": [
-            102,
-            34,
-            203,
-            41
+            103,
+            35,
+            204,
+            42
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            992,
+            950,
             2,
-            159,
-            153
+            155,
+            149
           ],
           "margin": [
-            106,
-            34,
-            203,
-            41
+            108,
+            38,
+            207,
+            45
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1155,
+            1109,
             2,
-            156,
-            154
+            151,
+            150
           ],
           "margin": [
-            102,
-            33,
-            206,
-            40
+            106,
+            37,
+            211,
+            44
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1315,
+            1264,
             2,
-            158,
-            152
+            159,
+            153
           ],
           "margin": [
             96,
-            35,
-            204,
-            42
+            34,
+            203,
+            41
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1477,
+            1427,
             2,
-            153,
-            152
+            157,
+            156
           ],
           "margin": [
-            98,
-            35,
-            209,
-            42
+            96,
+            31,
+            205,
+            38
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1634,
+            1588,
             2,
-            167,
-            157
+            162,
+            152
           ],
           "margin": [
-            99,
-            30,
-            195,
-            37
+            101,
+            35,
+            200,
+            42
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1805,
+            1754,
             2,
-            171,
-            156
+            156,
+            143
           ],
           "margin": [
-            101,
-            31,
-            191,
-            38
+            109,
+            44,
+            206,
+            51
           ]
         }
       ]
@@ -412,15 +412,15 @@
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
             2,
-            175,
-            173,
-            161
+            166,
+            176,
+            164
           ],
           "margin": [
-            90,
-            26,
-            189,
-            33
+            88,
+            23,
+            186,
+            30
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            179,
-            175,
-            173,
-            164
+            182,
+            166,
+            176,
+            167
           ],
           "margin": [
-            85,
-            23,
-            189,
-            30
+            83,
+            20,
+            186,
+            27
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            356,
-            175,
-            167,
-            160
+            362,
+            166,
+            173,
+            166
           ],
           "margin": [
-            84,
-            27,
-            195,
-            34
+            81,
+            21,
+            189,
+            28
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            527,
-            175,
-            168,
-            160
+            539,
+            166,
+            174,
+            165
           ],
           "margin": [
-            80,
-            27,
-            194,
-            34
+            77,
+            22,
+            188,
+            29
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            699,
-            175,
-            177,
-            163
+            717,
+            166,
+            186,
+            172
           ],
           "margin": [
-            74,
-            24,
-            185,
-            31
+            68,
+            16,
+            176,
+            22
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            880,
-            175,
-            177,
-            160
+            907,
+            166,
+            181,
+            163
           ],
           "margin": [
-            72,
-            27,
-            185,
-            34
+            70,
+            24,
+            181,
+            31
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1061,
-            175,
-            180,
-            160
+            1092,
+            166,
+            181,
+            161
           ],
           "margin": [
             74,
-            27,
-            182,
-            34
+            26,
+            181,
+            33
           ]
         },
         {
@@ -621,8 +621,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1245,
-            175,
+            1277,
+            166,
             195,
             165
           ],
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1444,
-            175,
-            198,
-            162
+            1476,
+            166,
+            190,
+            155
           ],
           "margin": [
-            74,
-            26,
-            164,
-            32
+            78,
+            32,
+            172,
+            39
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1646,
-            175,
-            192,
-            159
+            1670,
+            166,
+            182,
+            151
           ],
           "margin": [
-            78,
-            30,
-            170,
-            35
+            83,
+            36,
+            180,
+            43
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1842,
-            175,
-            201,
-            159
+            2,
+            346,
+            197,
+            156
           ],
           "margin": [
-            78,
-            29,
-            161,
-            35
+            80,
+            34,
+            165,
+            38
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            2,
-            348,
-            201,
-            151
+            203,
+            346,
+            199,
+            150
           ],
           "margin": [
-            78,
+            79,
             37,
-            161,
-            43
+            163,
+            44
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            207,
-            348,
-            211,
-            149
+            406,
+            346,
+            197,
+            139
           ],
           "margin": [
-            74,
-            39,
-            151,
-            45
+            80,
+            49,
+            165,
+            55
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            422,
-            348,
-            213,
-            151
+            607,
+            346,
+            209,
+            149
           ],
           "margin": [
-            69,
-            37,
-            149,
-            43
+            71,
+            39,
+            153,
+            45
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            639,
-            348,
-            224,
-            146
+            820,
+            346,
+            216,
+            141
           ],
           "margin": [
-            64,
-            42,
-            138,
-            48
+            68,
+            47,
+            146,
+            53
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            867,
-            348,
-            229,
-            147
+            1040,
+            346,
+            218,
+            140
           ],
           "margin": [
-            58,
-            41,
-            133,
-            47
+            64,
+            48,
+            144,
+            54
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1100,
-            348,
-            238,
-            153
+            1262,
+            346,
+            226,
+            146
           ],
           "margin": [
-            57,
-            35,
-            124,
-            41
+            63,
+            42,
+            136,
+            48
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1342,
-            348,
-            234,
-            152
+            1492,
+            346,
+            212,
+            138
           ],
           "margin": [
-            60,
-            36,
-            128,
-            42
+            72,
+            50,
+            150,
+            56
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1580,
-            348,
-            234,
-            153
+            1708,
+            346,
+            214,
+            140
           ],
           "margin": [
-            60,
-            35,
-            128,
-            41
+            70,
+            48,
+            148,
+            54
           ]
         },
         {
@@ -989,15 +989,15 @@
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
             2,
-            509,
-            233,
-            156
+            510,
+            223,
+            149
           ],
           "margin": [
-            64,
-            32,
-            129,
-            38
+            68,
+            39,
+            139,
+            45
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            239,
-            509,
-            221,
-            151
+            229,
+            510,
+            206,
+            141
           ],
           "margin": [
-            72,
-            37,
-            141,
-            43
+            78,
+            49,
+            156,
+            53
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            464,
-            509,
-            212,
-            151
+            439,
+            510,
+            204,
+            146
           ],
           "margin": [
-            76,
-            37,
-            150,
-            43
+            80,
+            43,
+            158,
+            48
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            680,
-            509,
-            222,
-            156
+            647,
+            510,
+            204,
+            144
           ],
           "margin": [
-            66,
-            32,
-            140,
-            38
+            76,
+            44,
+            158,
+            50
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            906,
-            509,
-            186,
-            153
+            855,
+            510,
+            172,
+            142
           ],
           "margin": [
-            78,
-            35,
-            176,
-            41
+            85,
+            47,
+            190,
+            52
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1096,
-            509,
-            192,
-            154
+            1031,
+            510,
+            175,
+            140
           ],
           "margin": [
-            74,
-            34,
-            170,
-            40
+            83,
+            49,
+            187,
+            54
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1292,
-            509,
-            192,
-            158
+            1210,
+            510,
+            184,
+            151
           ],
           "margin": [
-            84,
-            30,
-            170,
-            36
+            88,
+            37,
+            178,
+            43
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1488,
-            509,
-            185,
-            155
+            1398,
+            510,
+            172,
+            144
           ],
           "margin": [
-            92,
-            33,
-            177,
-            39
+            99,
+            45,
+            190,
+            50
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1677,
-            509,
-            180,
-            156
+            1574,
+            510,
+            166,
+            143
           ],
           "margin": [
-            94,
-            32,
-            182,
-            38
+            101,
+            46,
+            196,
+            51
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1861,
-            509,
-            182,
-            160
+            1744,
+            510,
+            177,
+            155
           ],
           "margin": [
-            88,
-            28,
-            180,
-            34
+            92,
+            33,
+            185,
+            39
           ]
         },
         {
@@ -1296,15 +1296,15 @@
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
             2,
-            677,
-            179,
-            157
+            673,
+            161,
+            141
           ],
           "margin": [
-            86,
-            31,
-            183,
-            37
+            95,
+            48,
+            201,
+            53
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            185,
-            677,
-            182,
-            158
+            167,
+            673,
+            158,
+            138
           ],
           "margin": [
-            82,
-            30,
-            180,
-            36
+            94,
+            49,
+            204,
+            56
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            371,
-            677,
-            179,
-            161
+            329,
+            673,
+            167,
+            151
           ],
           "margin": [
-            77,
-            27,
-            183,
-            33
+            83,
+            37,
+            195,
+            43
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            554,
-            677,
-            172,
-            158
+            500,
+            673,
+            155,
+            143
           ],
           "margin": [
-            76,
-            30,
-            190,
-            36
+            84,
+            46,
+            207,
+            51
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            730,
-            677,
-            176,
-            161
+            659,
+            673,
+            155,
+            142
           ],
           "margin": [
-            72,
-            27,
-            186,
-            33
+            84,
+            47,
+            207,
+            52
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            910,
-            677,
-            185,
-            169
+            818,
+            673,
+            165,
+            151
           ],
           "margin": [
-            71,
-            19,
-            177,
-            25
+            82,
+            37,
+            197,
+            43
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1099,
-            677,
-            177,
-            169
+            987,
+            673,
+            152,
+            145
           ],
           "margin": [
-            80,
-            19,
-            185,
-            25
+            93,
+            44,
+            210,
+            49
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1280,
-            677,
-            180,
-            137
+            1143,
+            673,
+            162,
+            123
           ],
           "margin": [
-            82,
-            53,
-            182,
-            57
+            92,
+            64,
+            200,
+            71
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1464,
-            677,
-            193,
-            147
+            1309,
+            673,
+            162,
+            123
           ],
           "margin": [
-            66,
-            41,
-            169,
-            47
+            82,
+            64,
+            200,
+            71
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1661,
-            677,
-            215,
-            158
+            1475,
+            673,
+            178,
+            131
           ],
           "margin": [
-            58,
-            30,
-            147,
-            36
+            78,
+            56,
+            184,
+            63
           ]
         }
       ]
@@ -1609,16 +1609,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            2,
-            854,
-            206,
-            106
+            1657,
+            673,
+            220,
+            112
           ],
           "margin": [
-            60,
-            82,
-            156,
-            88
+            54,
+            77,
+            142,
+            82
           ]
         },
         {
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            212,
-            854,
-            262,
-            109
+            2,
+            832,
+            268,
+            111
           ],
           "margin": [
-            42,
-            79,
-            100,
-            85
+            38,
+            77,
+            94,
+            83
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            478,
-            854,
-            284,
-            119
+            274,
+            832,
+            279,
+            116
           ],
           "margin": [
-            28,
-            69,
-            78,
-            75
+            31,
+            72,
+            83,
+            78
           ]
         }
       ]
@@ -1706,16 +1706,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            766,
-            854,
-            176,
-            157
+            557,
+            832,
+            158,
+            141
           ],
           "margin": [
-            87,
-            31,
-            186,
-            37
+            96,
+            46,
+            204,
+            53
           ]
         },
         {
@@ -1736,16 +1736,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            946,
-            854,
-            179,
-            162
+            719,
+            832,
+            162,
+            146
           ],
           "margin": [
-            88,
-            26,
-            183,
-            32
+            97,
+            41,
+            200,
+            48
           ]
         },
         {
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1129,
-            854,
+            885,
+            832,
             151,
-            160
+            159
           ],
           "margin": [
             102,
-            27,
+            28,
             211,
-            34
+            35
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1284,
-            854,
-            201,
-            165
+            1040,
+            832,
+            176,
+            144
           ],
           "margin": [
-            82,
-            23,
-            161,
-            29
+            94,
+            46,
+            186,
+            50
           ]
         },
         {
@@ -1826,16 +1826,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1489,
-            854,
-            206,
-            175
+            1220,
+            832,
+            178,
+            152
           ],
           "margin": [
-            80,
-            13,
-            156,
-            19
+            94,
+            37,
+            184,
+            42
           ]
         },
         {
@@ -1856,16 +1856,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1699,
-            854,
-            188,
-            177
+            1402,
+            832,
+            170,
+            160
           ],
           "margin": [
-            86,
-            11,
-            174,
-            17
+            95,
+            29,
+            192,
+            34
           ]
         },
         {
@@ -1886,16 +1886,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            2,
-            1039,
-            181,
-            180
+            1576,
+            832,
+            168,
+            167
           ],
           "margin": [
-            92,
-            8,
-            181,
-            14
+            98,
+            22,
+            194,
+            27
           ]
         },
         {
@@ -1916,16 +1916,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            187,
-            1039,
-            186,
-            186
+            1748,
+            832,
+            174,
+            174
           ],
           "margin": [
-            86,
-            2,
-            176,
-            8
+            92,
+            15,
+            188,
+            20
           ]
         },
         {
@@ -1946,16 +1946,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            377,
-            1039,
-            192,
-            184
+            2,
+            1014,
+            177,
+            170
           ],
           "margin": [
-            84,
-            4,
-            170,
-            10
+            92,
+            18,
+            185,
+            24
           ]
         },
         {
@@ -1976,16 +1976,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            573,
-            1039,
-            191,
-            178
+            183,
+            1014,
+            176,
+            163
           ],
           "margin": [
-            86,
-            10,
-            171,
-            16
+            92,
+            26,
+            186,
+            31
           ]
         },
         {
@@ -2006,16 +2006,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            768,
-            1039,
-            195,
-            168
+            363,
+            1014,
+            184,
+            159
           ],
           "margin": [
-            82,
-            20,
-            167,
-            26
+            88,
+            31,
+            178,
+            35
           ]
         },
         {
@@ -2036,16 +2036,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            967,
-            1039,
-            203,
-            153
+            551,
+            1014,
+            177,
+            133
           ],
           "margin": [
-            80,
-            35,
-            159,
-            41
+            92,
+            54,
+            185,
+            61
           ]
         }
       ]
@@ -2073,16 +2073,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1174,
-            1039,
-            178,
-            145
+            732,
+            1014,
+            163,
+            133
           ],
           "margin": [
-            93,
-            45,
-            184,
-            49
+            100,
+            54,
+            199,
+            61
           ]
         },
         {
@@ -2103,16 +2103,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1356,
-            1039,
-            178,
-            148
+            899,
+            1014,
+            166,
+            138
           ],
           "margin": [
-            92,
-            40,
-            184,
-            46
+            98,
+            50,
+            196,
+            56
           ]
         },
         {
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1538,
-            1039,
-            187,
-            144
+            1069,
+            1014,
+            181,
+            139
           ],
           "margin": [
-            82,
-            46,
-            175,
-            50
+            84,
+            49,
+            181,
+            55
           ]
         },
         {
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1729,
-            1039,
-            187,
-            141
+            1254,
+            1014,
+            176,
+            133
           ],
           "margin": [
-            82,
-            49,
-            175,
-            53
+            88,
+            55,
+            186,
+            61
           ]
         },
         {
@@ -2193,16 +2193,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            2,
-            1233,
-            193,
-            138
+            1434,
+            1014,
+            183,
+            131
           ],
           "margin": [
-            79,
-            51,
-            169,
-            56
+            84,
+            56,
+            179,
+            63
           ]
         },
         {
@@ -2223,16 +2223,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            199,
-            1233,
-            179,
-            128
+            1621,
+            1014,
+            177,
+            127
           ],
           "margin": [
-            87,
-            59,
-            183,
-            66
+            88,
+            60,
+            185,
+            67
           ]
         },
         {
@@ -2253,16 +2253,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            382,
-            1233,
-            182,
-            125
+            1802,
+            1014,
+            185,
+            127
           ],
           "margin": [
-            88,
-            65,
-            180,
-            69
+            86,
+            63,
+            177,
+            67
           ]
         },
         {
@@ -2283,16 +2283,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            568,
-            1233,
-            185,
-            128
+            2,
+            1192,
+            183,
+            127
           ],
           "margin": [
-            87,
-            60,
-            177,
-            66
+            88,
+            61,
+            179,
+            67
           ]
         },
         {
@@ -2313,16 +2313,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            757,
-            1233,
-            169,
-            123
+            189,
+            1192,
+            173,
+            126
           ],
           "margin": [
-            96,
-            64,
-            193,
-            71
+            94,
+            61,
+            189,
+            68
           ]
         },
         {
@@ -2343,16 +2343,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            930,
-            1233,
-            169,
-            126
+            366,
+            1192,
+            175,
+            132
           ],
           "margin": [
-            97,
-            62,
-            193,
-            68
+            94,
+            58,
+            187,
+            62
           ]
         },
         {
@@ -2373,16 +2373,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1103,
-            1233,
-            183,
-            138
+            545,
+            1192,
+            177,
+            134
           ],
           "margin": [
-            89,
-            52,
-            179,
-            56
+            92,
+            54,
+            185,
+            60
           ]
         },
         {
@@ -2403,16 +2403,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1290,
-            1233,
-            187,
-            144
+            726,
+            1192,
+            177,
+            136
           ],
           "margin": [
-            88,
-            44,
-            175,
-            50
+            92,
+            52,
+            185,
+            58
           ]
         }
       ]
@@ -2440,16 +2440,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1481,
-            1233,
-            197,
-            150
+            907,
+            1192,
+            180,
+            137
           ],
           "margin": [
-            84,
-            38,
-            165,
-            44
+            92,
+            50,
+            182,
+            57
           ]
         },
         {
@@ -2470,16 +2470,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1682,
-            1233,
-            195,
-            157
+            1091,
+            1192,
+            174,
+            140
           ],
           "margin": [
-            86,
-            31,
-            167,
-            37
+            96,
+            48,
+            188,
+            54
           ]
         },
         {
@@ -2500,16 +2500,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            2,
-            1398,
-            186,
-            156
+            1269,
+            1192,
+            167,
+            141
           ],
           "margin": [
-            92,
-            32,
-            176,
-            38
+            102,
+            46,
+            195,
+            53
           ]
         },
         {
@@ -2530,16 +2530,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            192,
-            1398,
-            184,
-            157
+            1440,
+            1192,
+            169,
+            144
           ],
           "margin": [
-            94,
-            31,
-            178,
-            37
+            100,
+            43,
+            193,
+            50
           ]
         },
         {
@@ -2560,16 +2560,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            380,
-            1398,
-            185,
-            159
+            1613,
+            1192,
+            174,
+            149
           ],
           "margin": [
-            90,
-            30,
-            177,
-            35
+            96,
+            39,
+            188,
+            45
           ]
         },
         {
@@ -2590,16 +2590,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            569,
-            1398,
-            175,
-            153
+            1791,
+            1192,
+            172,
+            150
           ],
           "margin": [
-            95,
-            35,
-            187,
-            41
+            96,
+            38,
+            190,
+            44
           ]
         },
         {
@@ -2620,16 +2620,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            748,
-            1398,
-            173,
-            152
+            2,
+            1350,
+            170,
+            149
           ],
           "margin": [
-            96,
-            36,
-            189,
-            42
+            97,
+            38,
+            192,
+            45
           ]
         },
         {
@@ -2650,16 +2650,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            925,
-            1398,
-            173,
-            153
+            176,
+            1350,
+            176,
+            155
           ],
           "margin": [
-            94,
-            35,
-            189,
-            41
+            93,
+            34,
+            186,
+            39
           ]
         },
         {
@@ -2680,16 +2680,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1102,
-            1398,
-            162,
-            147
+            356,
+            1350,
+            170,
+            154
           ],
           "margin": [
-            100,
-            40,
-            200,
-            47
+            96,
+            34,
+            192,
+            40
           ]
         },
         {
@@ -2710,16 +2710,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1268,
-            1398,
-            167,
-            151
+            530,
+            1350,
+            172,
+            156
           ],
           "margin": [
-            99,
-            36,
-            195,
-            43
+            96,
+            32,
+            190,
+            38
           ]
         },
         {
@@ -2740,16 +2740,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1439,
-            1398,
-            180,
-            162
+            706,
+            1350,
+            181,
+            163
           ],
           "margin": [
-            90,
-            28,
-            182,
-            32
+            89,
+            27,
+            181,
+            31
           ]
         },
         {
@@ -2770,16 +2770,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1623,
-            1398,
-            179,
-            165
+            891,
+            1350,
+            167,
+            154
           ],
           "margin": [
-            90,
-            25,
-            183,
-            29
+            96,
+            33,
+            195,
+            40
           ]
         }
       ]
@@ -2807,16 +2807,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            1806,
-            1398,
-            168,
-            155
+            1062,
+            1350,
+            169,
+            157
           ],
           "margin": [
             98,
-            32,
-            194,
-            39
+            30,
+            193,
+            37
           ]
         },
         {
@@ -2837,16 +2837,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            2,
-            1571,
-            174,
-            156
+            1235,
+            1350,
+            177,
+            158
           ],
           "margin": [
-            98,
-            31,
-            188,
-            38
+            96,
+            30,
+            185,
+            36
           ]
         }
       ]
@@ -2874,16 +2874,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            180,
-            1571,
-            188,
-            149
+            1416,
+            1350,
+            200,
+            159
           ],
           "margin": [
-            82,
-            38,
-            174,
-            45
+            76,
+            30,
+            162,
+            35
           ]
         },
         {
@@ -2904,16 +2904,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
           "region": [
-            372,
-            1571,
-            190,
-            150
+            1620,
+            1350,
+            201,
+            158
           ],
           "margin": [
-            78,
-            37,
-            172,
-            44
+            74,
+            31,
+            161,
+            36
           ]
         }
       ]

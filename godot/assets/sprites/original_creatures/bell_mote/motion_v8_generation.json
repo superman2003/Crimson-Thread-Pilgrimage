@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/bell_mote/combat_motion_v7_manifest.json",
   "baseline_sha256": "67071007c8d2e7bf482ffa9f230bf7c240fe256285a3c75a25c5fa26e7bc6e16",
+  "baseline_canvas": [
+    406,
+    177
+  ],
+  "symmetric_padding": [
+    0,
+    3
+  ],
   "new_drawings": 94,
   "old_frame_refs": 94,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "bell_mote__03",
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "sha256": "7b221bdf1d60daf8cd53382e25699e6cddb62b4984b73cff1327a3f70ac522a0",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_01",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
+      "sha256": "9274c2a13184390f8e31444d24792f50d742de4e0649ef49ce49e4d9d6919fc0",
+      "used_drawings": 4
     },
     {
       "id": "bell_mote__04",
@@ -35,8 +49,8 @@
   "registrations": [
     {
       "margin_xy": [
-        140,
-        13
+        144,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -46,19 +60,25 @@
         149
       ],
       "source_index": 0,
-      "scale": 1.0602836879432624,
+      "scale": 1.0024500144235409,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.0,
+        "target": 106.25970152889533,
+        "registered": 106.0
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        126,
-        13
+        136,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -68,19 +88,25 @@
         150
       ],
       "source_index": 1,
-      "scale": 1.0528169014084507,
+      "scale": 0.9502715502060547,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.09005356016353,
+        "target": 105.56571740909024,
+        "registered": 105.63616804863759
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        104,
-        14
+        112,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -90,19 +116,25 @@
         148
       ],
       "source_index": 2,
-      "scale": 1.0607142857142857,
+      "scale": 0.9813179883792361,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.29482418428742,
+        "target": 103.32770505527027,
+        "registered": 103.30053242844394
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        114,
-        14
+        120,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -112,19 +144,25 @@
         152
       ],
       "source_index": 3,
-      "scale": 1.03125,
+      "scale": 0.974371032935646,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.74268124794318,
+        "target": 104.0069765858788,
+        "registered": 103.84603988597736
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        81,
-        18
+        85,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -134,19 +172,25 @@
         152
       ],
       "source_index": 4,
-      "scale": 1.0104166666666667,
+      "scale": 0.9749011102494272,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.90174261377702,
+        "target": 109.09313311301685,
+        "registered": 108.8898526034451
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        108,
-        10
+        116,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -156,19 +200,25 @@
         151
       ],
       "source_index": 5,
-      "scale": 1.062937062937063,
+      "scale": 0.9647183578931127,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.21471008587291,
+        "target": 110.18502756128125,
+        "registered": 110.38115781237303
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        133,
-        9
+        140,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -178,19 +228,25 @@
         151
       ],
       "source_index": 6,
-      "scale": 1.06993006993007,
+      "scale": 0.9938455038014539,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.12824580978881,
+        "target": 112.43199845100428,
+        "registered": 112.47221879201993
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        130,
-        15
+        135,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -200,19 +256,25 @@
         150
       ],
       "source_index": 7,
-      "scale": 1.0387323943661972,
+      "scale": 0.9951894640463876,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.26332119068425,
+        "target": 109.73289551973176,
+        "registered": 109.61295543867067
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        104,
-        11
+        112,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -222,19 +284,25 @@
         146
       ],
       "source_index": 8,
-      "scale": 1.0978260869565217,
+      "scale": 1.0161383237961499,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.5926826756884,
+        "target": 108.3129099030089,
+        "registered": 108.15266986995744
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        101,
-        13
+        107,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -244,19 +312,25 @@
         147
       ],
       "source_index": 9,
-      "scale": 1.0755395683453237,
+      "scale": 1.0139550513592368,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.38921336219582,
+        "target": 110.91574545281178,
+        "registered": 111.04053313993049
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        94,
-        12
+        104,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -266,19 +340,25 @@
         145
       ],
       "source_index": 10,
-      "scale": 1.0985401459854014,
+      "scale": 1.002618265659746,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.21471008587291,
+        "target": 114.5137545391286,
+        "registered": 114.21471008587291
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        94,
-        11
+        98,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -288,19 +368,25 @@
         154
       ],
       "source_index": 11,
-      "scale": 1.0376712328767124,
+      "scale": 1.0014021035119614,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.28283188550682,
+        "target": 113.44166614193843,
+        "registered": 113.28283188550682
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        128,
-        13
+        139,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -310,19 +396,25 @@
         142
       ],
       "source_index": 12,
-      "scale": 1.1119402985074627,
+      "scale": 1.0083840441776537,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.40466776576285,
+        "target": 112.33868942190784,
+        "registered": 112.34767465328332
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        114,
-        8
+        126,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -332,19 +424,25 @@
         140
       ],
       "source_index": 13,
-      "scale": 1.1666666666666667,
+      "scale": 1.0577890369250822,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.1387996974259,
+        "target": 114.38803678617451,
+        "registered": 114.28035701729323
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        116,
-        10
+        134,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -354,19 +452,25 @@
         141
       ],
       "source_index": 14,
-      "scale": 1.1428571428571428,
+      "scale": 0.9725033142984495,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.65712810298305,
+        "target": 107.61442383089911,
+        "registered": 107.69401097554126
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        103,
-        9
+        128,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -376,19 +480,25 @@
         135
       ],
       "source_index": 15,
-      "scale": 1.2007874015748032,
+      "scale": 0.9773729119581042,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 111.31486872830601,
+        "target": 108.79613739321856,
+        "registered": 108.89903580840374
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        103,
-        6
+        124,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -398,19 +508,25 @@
         138
       ],
       "source_index": 16,
-      "scale": 1.1961538461538461,
+      "scale": 1.00257909120793,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.3153532995459,
+        "target": 114.61018302217217,
+        "registered": 114.3153532995459
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        104,
-        11
+        122,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -420,19 +536,25 @@
         144
       ],
       "source_index": 17,
-      "scale": 1.1139705882352942,
+      "scale": 0.9425258855445414,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.33284742365161,
+        "target": 107.76166826480618,
+        "registered": 107.74042880924505
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        100,
-        11
+        116,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -442,19 +564,25 @@
         145
       ],
       "source_index": 18,
-      "scale": 1.1058394160583942,
+      "scale": 0.9436259245902383,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.89375536317321,
+        "target": 106.5294742850385,
+        "registered": 106.68645649753299
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        94,
-        8
+        100,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -464,19 +592,25 @@
         147
       ],
       "source_index": 19,
-      "scale": 1.1115107913669064,
+      "scale": 1.0321424645800619,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.55363982999378,
+        "target": 113.07496381784621,
+        "registered": 113.28283188550682
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        83,
-        11
+        101,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -486,19 +620,25 @@
         138
       ],
       "source_index": 20,
-      "scale": 1.1576923076923078,
+      "scale": 0.9801728519006914,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.1918000568669,
+        "target": 109.96735662161137,
+        "registered": 109.79981785048643
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        72,
-        11
+        88,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -508,19 +648,25 @@
         139
       ],
       "source_index": 21,
-      "scale": 1.1526717557251909,
+      "scale": 0.9985714556689562,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.93634521849451,
+        "target": 109.77929627575696,
+        "registered": 109.93634521849451
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        68,
-        7
+        84,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -530,19 +676,25 @@
         139
       ],
       "source_index": 22,
-      "scale": 1.1793893129770991,
+      "scale": 1.019201272092176,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.94689017409908,
+        "target": 115.11561414429707,
+        "registered": 115.28226229563678
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        77,
-        11
+        91,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__01.png",
       "source_region": [
@@ -552,19 +704,25 @@
         145
       ],
       "source_index": 23,
-      "scale": 1.1058394160583942,
+      "scale": 0.97120146792357,
       "rgb_gain": [
         0.877415,
         0.917058,
         0.931567
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.92305161943047,
+        "target": 113.55583936689422,
+        "registered": 113.69256791892775
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        90,
-        11
+        96,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -574,19 +732,25 @@
         149
       ],
       "source_index": 0,
-      "scale": 1.070921985815603,
+      "scale": 1.0100253641250991,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.28535078094559,
+        "target": 113.41105230843905,
+        "registered": 113.23427043081966
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        103,
-        10
+        106,
+        15
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -596,19 +760,25 @@
         150
       ],
       "source_index": 1,
-      "scale": 1.0704225352112675,
+      "scale": 1.0392948396213015,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.97435616407556,
+        "target": 121.57084472934791,
+        "registered": 121.66757990524839
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        117,
-        17
+        121,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -618,19 +788,25 @@
         147
       ],
       "source_index": 2,
-      "scale": 1.0503597122302157,
+      "scale": 1.0198762659898424,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.59515040335039,
+        "target": 121.97225542386258,
+        "registered": 122.16382443260362
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        123,
-        16
+        127,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -640,19 +816,25 @@
         140
       ],
       "source_index": 3,
-      "scale": 1.106060606060606,
+      "scale": 1.0654849267758773,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.85207877961983,
+        "target": 122.37315874856051,
+        "registered": 122.3315167894194
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        116,
-        10
+        128,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -662,19 +844,25 @@
         141
       ],
       "source_index": 4,
-      "scale": 1.1428571428571428,
+      "scale": 1.0293410278001558,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.64777940955791,
+        "target": 121.09968617584035,
+        "registered": 121.1156472137271
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        152,
-        13
+        150,
+        9
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -684,19 +872,25 @@
         160
       ],
       "source_index": 5,
-      "scale": 1.0,
+      "scale": 1.010543617297373,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.34596626029271,
+        "target": 115.55158636803955,
+        "registered": 115.72380913191546
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        142,
-        10
+        144,
+        13
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -706,19 +900,25 @@
         156
       ],
       "source_index": 6,
-      "scale": 1.0304054054054055,
+      "scale": 1.02240935109583,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.41663658242689,
+        "target": 118.00304851390231,
+        "registered": 117.84311604841413
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        130,
-        9
+        138,
+        20
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -728,19 +928,25 @@
         151
       ],
       "source_index": 7,
-      "scale": 1.0734265734265733,
+      "scale": 1.0048756893224755,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.31852818876277,
+        "target": 116.88566119465878,
+        "registered": 117.05554237198682
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        131,
-        14
+        141,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -750,19 +956,25 @@
         143
       ],
       "source_index": 8,
-      "scale": 1.1,
+      "scale": 0.9994907809048595,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.35342959081565,
+        "target": 113.29570785996835,
+        "registered": 113.35342959081565
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        120,
-        14
+        134,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -772,19 +984,25 @@
         140
       ],
       "source_index": 9,
-      "scale": 1.121212121212121,
+      "scale": 0.9907927162721554,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.49891774384729,
+        "target": 114.4354864379207,
+        "registered": 114.51637437502114
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        150,
-        12
+        142,
+        -3
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -794,19 +1012,25 @@
         166
       ],
       "source_index": 10,
-      "scale": 0.9620253164556962,
+      "scale": 1.0483581976108638,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.36992480196825,
+        "target": 117.80393183105973,
+        "registered": 117.9279441014724
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
-        131,
-        15
+        132,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -816,19 +1040,25 @@
         159
       ],
       "source_index": 11,
-      "scale": 0.9867549668874173,
+      "scale": 0.9803602376487283,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.71084650973737,
+        "target": 113.43831298282164,
+        "registered": 113.3181362359971
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
-        116,
-        12
+        120,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -838,19 +1068,25 @@
         156
       ],
       "source_index": 12,
-      "scale": 1.0168918918918919,
+      "scale": 0.9674452353418567,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.15374513859982,
+        "target": 113.3398325367926,
+        "registered": 113.4195750300626
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        108,
-        6
+        110,
+        7
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -860,19 +1096,25 @@
         151
       ],
       "source_index": 13,
-      "scale": 1.0944055944055944,
+      "scale": 1.0869012166209344,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.68591523071684,
+        "target": 119.21775471044681,
+        "registered": 119.21409312660982
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        94,
-        6
+        100,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -882,19 +1124,25 @@
         142
       ],
       "source_index": 14,
-      "scale": 1.1604477611940298,
+      "scale": 1.0841905326717836,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.75899034419355,
+        "target": 116.83127714144479,
+        "registered": 117.0128198104806
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        90,
-        7
+        98,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -904,19 +1152,25 @@
         147
       ],
       "source_index": 15,
-      "scale": 1.1151079136690647,
+      "scale": 1.0542649966180715,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.65712810298305,
+        "target": 116.66193678525693,
+        "registered": 116.55899793666725
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        85,
-        5
+        94,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -926,19 +1180,25 @@
         152
       ],
       "source_index": 16,
-      "scale": 1.0902777777777777,
+      "scale": 1.0161268869638722,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.97058459972364,
+        "target": 120.88920976958917,
+        "registered": 120.59436139388939
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        99,
-        10
+        101,
+        13
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -948,19 +1208,25 @@
         153
       ],
       "source_index": 17,
-      "scale": 1.0517241379310345,
+      "scale": 1.0334060148335875,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.33432244866215,
+        "target": 116.08696449070317,
+        "registered": 116.14215427655886
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        100,
-        14
+        104,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -970,18 +1236,24 @@
         151
       ],
       "source_index": 18,
-      "scale": 1.0419580419580419,
+      "scale": 0.9943533778203659,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.28226229563678,
+        "target": 114.63130691643985,
+        "registered": 114.69524837585905
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        93,
+        94,
         14
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
@@ -992,19 +1264,25 @@
         151
       ],
       "source_index": 19,
-      "scale": 1.0419580419580419,
+      "scale": 1.039491709405439,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.5512985522207,
+        "target": 119.0751251466607,
+        "registered": 119.10499569707393
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
         92,
-        22
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -1014,19 +1292,25 @@
         152
       ],
       "source_index": 20,
-      "scale": 0.9895833333333334,
+      "scale": 0.9912467325170806,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.0,
+        "target": 113.99337423946427,
+        "registered": 114.07453703609758
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        98,
-        22
+        94,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -1036,19 +1320,25 @@
         154
       ],
       "source_index": 21,
-      "scale": 0.976027397260274,
+      "scale": 1.0053218792185548,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.56002793295748,
+        "target": 115.16970256489094,
+        "registered": 115.18246394308467
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        125,
-        13
+        130,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -1058,19 +1348,25 @@
         150
       ],
       "source_index": 22,
-      "scale": 1.0528169014084507,
+      "scale": 0.9921227557838116,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.23907198540937,
+        "target": 116.315551183701,
+        "registered": 116.45600027478189
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        132,
-        13
+        144,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__02.png",
       "source_region": [
@@ -1080,19 +1376,25 @@
         146
       ],
       "source_index": 23,
-      "scale": 1.0833333333333333,
+      "scale": 0.9466618084670109,
       "rgb_gain": [
         0.897507,
         0.915076,
         0.926519
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.68817000902072,
+        "target": 107.62424862204455,
+        "registered": 107.5220907534819
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        106,
-        17
+        104,
+        13
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1102,19 +1404,25 @@
         166
       ],
       "source_index": 0,
-      "scale": 0.9272151898734177,
+      "scale": 0.9491122319938853,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.67455869983394,
+        "target": 113.58458752048263,
+        "registered": 113.8859078200635
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        134,
-        16
+        133,
+        15
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1124,19 +1432,25 @@
         163
       ],
       "source_index": 1,
-      "scale": 0.9483870967741935,
+      "scale": 0.9602279745830795,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 121.92620719107111,
+        "target": 117.07695497967912,
+        "registered": 117.25186565679883
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        112,
-        22
+        117,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1146,19 +1460,25 @@
         156
       ],
       "source_index": 2,
-      "scale": 0.9594594594594594,
+      "scale": 0.914293661260032,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.89426349508751,
+        "target": 112.36144611877866,
+        "registered": 112.60106571431729
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        148,
-        20
+        150,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1168,107 +1488,157 @@
         161
       ],
       "source_index": 3,
-      "scale": 0.934640522875817,
+      "scale": 0.912125444311105,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.77564510725043,
+        "target": 105.6019117338556,
+        "registered": 105.80170130957252
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        118,
-        41
+        102,
+        46
       ],
-      "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1069,
-        61,
-        191,
-        139
+        52,
+        121,
+        165,
+        101
       ],
-      "source_index": 4,
-      "scale": 0.9274809160305344,
+      "source_index": 0,
+      "scale": 1.2353608044678086,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 94.69424480928078,
+        "target": 116.98155844606471,
+        "registered": 117.06408501329517
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
         86,
-        33
+        50
       ],
-      "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        1306,
-        76,
-        195,
-        133
+        303,
+        131,
+        158,
+        93
       ],
-      "source_index": 5,
-      "scale": 1.04,
+      "source_index": 1,
+      "scale": 1.3035294458233255,
       "rgb_gain": [
         0.85,
-        0.85,
-        0.85
+        0.882912,
+        0.894619
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 87.74964387392122,
+        "target": 114.38424465016669,
+        "registered": 114.28035701729323
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        91,
-        39
+        92,
+        23
       ],
-      "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        22,
-        300,
-        205,
-        159
+        566,
+        109,
+        141,
+        114
       ],
-      "source_index": 6,
-      "scale": 0.8245033112582781,
+      "source_index": 2,
+      "scale": 1.3026262029973013,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 87.39565206576354,
+        "target": 113.84386640889882,
+        "registered": 113.74972527439353
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        106,
-        58
+        71,
+        64
       ],
-      "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_01.png",
       "source_region": [
-        279,
-        302,
-        203,
-        156
+        799,
+        144,
+        169,
+        79
       ],
-      "source_index": 7,
-      "scale": 0.7162162162162162,
+      "source_index": 3,
+      "scale": 1.34868801906617,
       "rgb_gain": [
         0.85,
-        0.85,
-        0.85
+        0.876389,
+        0.892468
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_01"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 83.75559682791354,
+        "target": 112.96016997154351,
+        "registered": 113.22102278287367
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        140,
-        19
+        146,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1278,19 +1648,25 @@
         155
       ],
       "source_index": 8,
-      "scale": 0.9897959183673469,
+      "scale": 0.9121399642288104,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.05554237198682,
+        "target": 106.77103823196805,
+        "registered": 106.56453443805776
+      },
       "animation": "mote_seek_windup",
       "after": 0
     },
     {
       "margin_xy": [
         124,
-        14
+        13
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1300,19 +1676,25 @@
         164
       ],
       "source_index": 9,
-      "scale": 0.9519230769230769,
+      "scale": 0.9543656374125664,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.5294721894762,
+        "target": 109.30299272863425,
+        "registered": 109.33892262136115
+      },
       "animation": "mote_seek_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        106,
-        17
+        128,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1322,19 +1704,25 @@
         141
       ],
       "source_index": 10,
-      "scale": 1.0902255639097744,
+      "scale": 0.8919841976601651,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.25792407856433,
+        "target": 109.05213631681559,
+        "registered": 109.26573113286709
+      },
       "animation": "mote_seek_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        118,
-        17
+        129,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1344,19 +1732,25 @@
         154
       ],
       "source_index": 11,
-      "scale": 1.0034246575342465,
+      "scale": 0.9038623199985875,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.62544597268545,
+        "target": 110.83652008773292,
+        "registered": 110.80162453682708
+      },
       "animation": "mote_seek_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        84,
-        9
+        126,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1366,19 +1760,25 @@
         125
       ],
       "source_index": 12,
-      "scale": 1.294871794871795,
+      "scale": 0.9137746247266486,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 122.90646850349252,
+        "target": 112.30881213325654,
+        "registered": 112.07586716149021
+      },
       "animation": "mote_seek_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        78,
-        10
+        124,
+        58
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1388,19 +1788,25 @@
         121
       ],
       "source_index": 13,
-      "scale": 1.331858407079646,
+      "scale": 0.9214922752398957,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.94116192470965,
+        "target": 109.60336192167755,
+        "registered": 109.91815136727874
+      },
       "animation": "mote_seek_windup",
       "after": 5
     },
     {
       "margin_xy": [
-        108,
-        12
+        118,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1410,19 +1816,25 @@
         150
       ],
       "source_index": 14,
-      "scale": 1.0598591549295775,
+      "scale": 0.967557384610368,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.45483682946268,
+        "target": 109.77406519411096,
+        "registered": 109.54907576059234
+      },
       "animation": "mote_seek_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        124,
-        15
+        126,
+        18
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1432,19 +1844,25 @@
         159
       ],
       "source_index": 15,
-      "scale": 0.9966887417218543,
+      "scale": 0.9750900955534504,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.86744627996283,
+        "target": 113.95628936021669,
+        "registered": 113.9034679015525
+      },
       "animation": "mote_seek_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        124,
-        18
+        122,
+        14
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1454,19 +1872,25 @@
         163
       ],
       "source_index": 16,
-      "scale": 0.932258064516129,
+      "scale": 0.9621281944708889,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.72425408555367,
+        "target": 113.26582402876592,
+        "registered": 113.25634640054393
+      },
       "animation": "mote_seek_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        130,
-        18
+        128,
+        15
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1476,19 +1900,25 @@
         165
       ],
       "source_index": 17,
-      "scale": 0.9203821656050956,
+      "scale": 0.9374130224822778,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 120.18735374406077,
+        "target": 112.66519053736671,
+        "registered": 112.6587768440613
+      },
       "animation": "mote_seek_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        124,
-        14
+        126,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1498,19 +1928,25 @@
         163
       ],
       "source_index": 18,
-      "scale": 0.964516129032258,
+      "scale": 0.9461642432542546,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.66620241321273,
+        "target": 113.22388184940789,
+        "registered": 113.18568814121333
+      },
       "animation": "mote_seek_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        122,
-        17
+        124,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1520,19 +1956,25 @@
         158
       ],
       "source_index": 19,
-      "scale": 0.98,
+      "scale": 0.9675025707431442,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.5949388062143,
+        "target": 110.87089788916563,
+        "registered": 110.92339699089638
+      },
       "animation": "mote_seek_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        112,
-        16
+        124,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1542,19 +1984,25 @@
         145
       ],
       "source_index": 20,
-      "scale": 1.0693430656934306,
+      "scale": 0.9620273207383911,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.71084650973737,
+        "target": 111.31699564813385,
+        "registered": 111.07655018049489
+      },
       "animation": "mote_seek",
       "after": 0
     },
     {
       "margin_xy": [
-        118,
-        16
+        124,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1564,19 +2012,25 @@
         148
       ],
       "source_index": 21,
-      "scale": 1.05,
+      "scale": 0.9859973284373317,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.31972708154967,
+        "target": 112.71894549009285,
+        "registered": 112.71645842555559
+      },
       "animation": "mote_seek",
       "after": 1
     },
     {
       "margin_xy": [
-        116,
-        22
+        124,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1586,19 +2040,25 @@
         144
       ],
       "source_index": 22,
-      "scale": 1.036764705882353,
+      "scale": 0.9538133044937321,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.15641536623133,
+        "target": 109.8377210741179,
+        "registered": 109.64488132147346
+      },
       "animation": "mote_seek",
       "after": 2
     },
     {
       "margin_xy": [
-        110,
-        25
+        124,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__03.png",
       "source_region": [
@@ -1608,19 +2068,25 @@
         138
       ],
       "source_index": 23,
-      "scale": 1.0576923076923077,
+      "scale": 0.9330321394847597,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.83760362902936,
+        "target": 106.2141428678113,
+        "registered": 106.36258740741502
+      },
       "animation": "mote_seek",
       "after": 3
     },
     {
       "margin_xy": [
-        129,
-        27
+        131,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1630,12 +2096,18 @@
         150
       ],
       "source_index": 0,
-      "scale": 0.9647887323943662,
+      "scale": 0.9512864153924268,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.54652742510265,
+        "target": 109.91784188526863,
+        "registered": 109.92724866929036
+      },
       "animation": "mote_seek",
       "after": 4
     },
@@ -1652,19 +2124,25 @@
         146
       ],
       "source_index": 1,
-      "scale": 0.9420289855072463,
+      "scale": 0.9417913481103484,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.43023662262307,
+        "target": 109.65298950962703,
+        "registered": 109.76338187209795
+      },
       "animation": "mote_seek",
       "after": 5
     },
     {
       "margin_xy": [
-        122,
-        34
+        124,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1674,19 +2152,25 @@
         140
       ],
       "source_index": 2,
-      "scale": 0.9886363636363636,
+      "scale": 0.9710011169846986,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.84502647436439,
+        "target": 109.57264675277571,
+        "registered": 109.60839383915814
+      },
       "animation": "mote_seek",
       "after": 6
     },
     {
       "margin_xy": [
-        119,
-        23
+        122,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1696,18 +2180,24 @@
         147
       ],
       "source_index": 3,
-      "scale": 1.0107913669064748,
+      "scale": 0.9779162740999147,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.95257651298655,
+        "target": 113.39191159586508,
+        "registered": 113.44161493913951
+      },
       "animation": "mote_seek",
       "after": 7
     },
     {
       "margin_xy": [
-        134,
+        135,
         20
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
@@ -1718,19 +2208,25 @@
         154
       ],
       "source_index": 4,
-      "scale": 0.9897260273972602,
+      "scale": 0.9852639351324218,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.04781614615725,
+        "target": 113.35246406455427,
+        "registered": 113.29165900453572
+      },
       "animation": "mote_seek",
       "after": 8
     },
     {
       "margin_xy": [
-        132,
-        17
+        133,
+        19
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1740,19 +2236,25 @@
         155
       ],
       "source_index": 5,
-      "scale": 1.0034013605442176,
+      "scale": 0.9874670302398851,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.0128198104806,
+        "target": 115.54630167825007,
+        "registered": 115.57681428383462
+      },
       "animation": "mote_seek",
       "after": 9
     },
     {
       "margin_xy": [
-        118,
-        14
+        120,
+        16
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1762,19 +2264,25 @@
         153
       ],
       "source_index": 6,
-      "scale": 1.0275862068965518,
+      "scale": 1.0160562185117006,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.95257651298655,
+        "target": 117.81433641847374,
+        "registered": 117.54148203932091
+      },
       "animation": "mote_seek",
       "after": 10
     },
     {
       "margin_xy": [
-        114,
-        18
+        120,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1784,19 +2292,25 @@
         144
       ],
       "source_index": 7,
-      "scale": 1.0625,
+      "scale": 1.0052336089465945,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.82442620105756,
+        "target": 114.42013873636441,
+        "registered": 114.49890829173874
+      },
       "animation": "mote_seek",
       "after": 11
     },
     {
       "margin_xy": [
-        114,
-        19
+        118,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1806,19 +2320,25 @@
         149
       ],
       "source_index": 8,
-      "scale": 1.0177304964539007,
+      "scale": 0.9910088687668662,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.9130105775669,
+        "target": 113.8798126190695,
+        "registered": 114.02192771568107
+      },
       "animation": "mote_seek_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        133,
-        19
+        132,
+        17
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1828,19 +2348,25 @@
         158
       ],
       "source_index": 9,
-      "scale": 0.97,
+      "scale": 0.981559352627563,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.15374513859982,
+        "target": 114.99335423613854,
+        "registered": 115.013042738639
+      },
       "animation": "mote_seek_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        135,
-        23
+        139,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1850,19 +2376,25 @@
         155
       ],
       "source_index": 10,
-      "scale": 0.9625850340136054,
+      "scale": 0.9264937867520846,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.10678887237921,
+        "target": 108.4987122767475,
+        "registered": 108.4850220076486
+      },
       "animation": "mote_seek_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        134,
-        22
+        138,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1872,19 +2404,25 @@
         157
       ],
       "source_index": 11,
-      "scale": 0.9429530201342282,
+      "scale": 0.902413333621156,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 119.56169955299231,
+        "target": 107.89407186702687,
+        "registered": 107.92126759818937
+      },
       "animation": "mote_seek_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        121,
-        22
+        126,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1894,19 +2432,25 @@
         154
       ],
       "source_index": 12,
-      "scale": 0.976027397260274,
+      "scale": 0.9361761783348614,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.51160280748886,
+        "target": 110.94773940465396,
+        "registered": 110.73391531053167
+      },
       "animation": "mote_seek_recover",
       "after": 4
     },
     {
       "margin_xy": [
-        122,
-        26
+        126,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1916,19 +2460,25 @@
         150
       ],
       "source_index": 13,
-      "scale": 0.9788732394366197,
+      "scale": 0.9266560213104155,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.58114033007288,
+        "target": 107.10395963678614,
+        "registered": 107.13076122197583
+      },
       "animation": "mote_seek_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        124,
-        25
+        128,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1938,18 +2488,24 @@
         152
       ],
       "source_index": 14,
-      "scale": 0.9652777777777778,
+      "scale": 0.9235108676581275,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.74759098157016,
+        "target": 107.81766904438604,
+        "registered": 107.58717395675006
+      },
       "animation": "mote_seek_recover",
       "after": 6
     },
     {
       "margin_xy": [
-        120,
+        121,
         23
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
@@ -1960,19 +2516,25 @@
         154
       ],
       "source_index": 15,
-      "scale": 0.9691780821917808,
+      "scale": 0.9667460105095894,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.30828244319659,
+        "target": 111.47382203067323,
+        "registered": 111.43608033307704
+      },
       "animation": "mote_seek_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        116,
-        26
+        120,
+        29
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -1982,19 +2544,25 @@
         149
       ],
       "source_index": 16,
-      "scale": 0.9822695035460993,
+      "scale": 0.9475422962012309,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.27400407860578,
+        "target": 107.33190992454972,
+        "registered": 107.20541031123382
+      },
       "animation": "mote_seek_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        121,
-        23
+        125,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -2004,19 +2572,25 @@
         153
       ],
       "source_index": 17,
-      "scale": 0.9758620689655172,
+      "scale": 0.9458203657465711,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.66908912169835,
+        "target": 108.45635981291089,
+        "registered": 108.58176642512315
+      },
       "animation": "mote_seek_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        121,
-        14
+        126,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -2026,19 +2600,25 @@
         155
       ],
       "source_index": 18,
-      "scale": 1.010204081632653,
+      "scale": 0.9649907885285156,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.74973002128341,
+        "target": 111.69742324520108,
+        "registered": 111.8659912573969
+      },
       "animation": "mote_seek_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        135,
-        16
+        143,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -2048,19 +2628,25 @@
         156
       ],
       "source_index": 19,
-      "scale": 1.0067567567567568,
+      "scale": 0.9323768852104538,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.53820323368095,
+        "target": 106.79277316862137,
+        "registered": 106.60206376989143
+      },
       "animation": "mote_seek_recover",
       "after": 11
     },
     {
       "margin_xy": [
-        130,
-        21
+        134,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -2070,19 +2656,25 @@
         156
       ],
       "source_index": 20,
-      "scale": 0.9695945945945946,
+      "scale": 0.9353104104518426,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.4229707446997,
+        "target": 110.76223737415162,
+        "registered": 110.68423555321688
+      },
       "animation": "mote_seek_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        132,
-        21
+        134,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/bell_mote__04.png",
       "source_region": [
@@ -2092,12 +2684,18 @@
         156
       ],
       "source_index": 21,
-      "scale": 0.9695945945945946,
+      "scale": 0.9391015222264764,
       "rgb_gain": [
         0.881926,
         0.900021,
         0.927444
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 117.94490239090455,
+        "target": 110.76223737415162,
+        "registered": 110.48981853546506
+      },
       "animation": "mote_seek_charge",
       "after": 1
     }

@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "thorn_bloom_mote",
   "canvas": [
     418,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            184,
-            139
+            153,
+            116
           ],
           "margin": [
-            102,
-            45,
-            234,
-            51
+            119,
+            67,
+            265,
+            74
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            190,
+            159,
             2,
-            185,
-            141
+            152,
+            116
           ],
           "margin": [
-            104,
-            43,
-            233,
-            49
+            122,
+            67,
+            266,
+            74
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            379,
+            315,
             2,
-            185,
-            144
+            156,
+            122
           ],
           "margin": [
-            90,
-            40,
-            233,
-            46
+            106,
+            61,
+            262,
+            68
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            568,
+            475,
             2,
-            177,
-            142
+            154,
+            124
           ],
           "margin": [
-            100,
-            42,
-            241,
-            48
+            112,
+            59,
+            264,
+            66
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            749,
+            633,
             2,
-            160,
-            141
+            147,
+            130
           ],
           "margin": [
-            116,
-            44,
-            258,
-            49
+            122,
+            53,
+            271,
+            60
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            913,
+            784,
             2,
-            174,
-            140
+            157,
+            126
           ],
           "margin": [
-            97,
-            44,
-            244,
-            50
+            106,
+            57,
+            261,
+            64
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1091,
+            945,
             2,
-            167,
-            136
+            164,
+            134
           ],
           "margin": [
-            99,
-            49,
-            251,
-            54
+            101,
+            51,
+            254,
+            56
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1262,
+            1113,
             2,
-            185,
-            143
+            169,
+            131
           ],
           "margin": [
-            88,
-            41,
-            233,
-            47
+            96,
+            54,
+            249,
+            59
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1451,
+            1286,
             2,
-            175,
-            145
+            161,
+            134
           ],
           "margin": [
-            100,
-            39,
-            243,
-            45
+            106,
+            49,
+            257,
+            56
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1630,
+            1451,
             2,
-            188,
-            140
+            168,
+            125
           ],
           "margin": [
-            95,
-            45,
-            230,
-            50
+            106,
+            59,
+            250,
+            65
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1822,
+            1623,
             2,
-            198,
-            142
+            164,
+            118
           ],
           "margin": [
-            102,
-            42,
-            220,
-            48
+            120,
+            65,
+            254,
+            72
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
+            1791,
             2,
-            155,
-            192,
-            143
+            154,
+            115
           ],
           "margin": [
-            111,
-            41,
-            226,
-            47
+            130,
+            68,
+            264,
+            75
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            198,
-            155,
-            188,
-            139
+            2,
+            144,
+            180,
+            133
           ],
           "margin": [
-            99,
-            45,
-            230,
-            51
+            103,
+            53,
+            238,
+            57
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            390,
-            155,
-            175,
-            145
+            186,
+            144,
+            188,
+            156
           ],
           "margin": [
-            112,
-            39,
-            243,
-            45
+            105,
+            28,
+            230,
+            34
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            569,
-            155,
-            187,
-            144
+            378,
+            144,
+            188,
+            145
           ],
           "margin": [
             104,
-            40,
-            231,
-            46
+            39,
+            230,
+            45
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            760,
-            155,
-            203,
-            144
+            570,
+            144,
+            189,
+            134
           ],
           "margin": [
-            94,
-            40,
-            215,
-            46
+            101,
+            50,
+            229,
+            56
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            967,
-            155,
-            192,
-            143
+            763,
+            144,
+            200,
+            148
           ],
           "margin": [
-            98,
-            42,
-            226,
-            47
+            94,
+            36,
+            218,
+            42
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1163,
-            155,
-            163,
-            134
+            967,
+            144,
+            181,
+            149
           ],
           "margin": [
-            120,
-            51,
-            255,
-            56
+            111,
+            35,
+            237,
+            41
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1330,
-            155,
-            175,
-            131
+            1152,
+            144,
+            178,
+            133
           ],
           "margin": [
-            118,
-            54,
-            243,
-            59
+            116,
+            52,
+            240,
+            57
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1509,
-            155,
-            196,
-            135
+            1334,
+            144,
+            191,
+            131
           ],
           "margin": [
-            112,
-            49,
-            222,
-            55
+            114,
+            53,
+            227,
+            59
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1709,
-            155,
-            201,
-            131
+            1529,
+            144,
+            185,
+            121
           ],
           "margin": [
-            112,
-            53,
-            217,
-            59
+            120,
+            64,
+            233,
+            69
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            308,
-            198,
-            136
+            1718,
+            144,
+            192,
+            132
           ],
           "margin": [
-            109,
-            48,
-            220,
-            54
+            112,
+            52,
+            226,
+            58
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            204,
+            2,
             308,
-            229,
-            149
+            201,
+            131
           ],
           "margin": [
-            82,
-            35,
-            189,
-            41
+            96,
+            54,
+            217,
+            59
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            437,
+            207,
             308,
-            242,
-            154
+            215,
+            137
           ],
           "margin": [
-            84,
-            30,
-            176,
-            36
+            94,
+            48,
+            203,
+            53
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            683,
+            426,
             308,
-            252,
-            156
+            247,
+            152
           ],
           "margin": [
-            77,
-            28,
-            166,
-            34
+            79,
+            32,
+            171,
+            38
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            939,
+            677,
             308,
-            249,
-            153
+            256,
+            157
           ],
           "margin": [
-            80,
-            31,
-            169,
-            37
+            78,
+            27,
+            162,
+            33
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1192,
+            937,
             308,
-            273,
-            145
+            264,
+            140
           ],
           "margin": [
-            71,
-            39,
-            145,
-            45
+            74,
+            44,
+            154,
+            50
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1469,
+            1205,
             308,
-            278,
-            139
+            268,
+            134
           ],
           "margin": [
-            65,
-            45,
-            140,
-            51
+            69,
+            50,
+            150,
+            56
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1751,
+            1477,
             308,
-            290,
-            138
+            285,
+            136
           ],
           "margin": [
-            52,
-            46,
-            128,
-            52
+            54,
+            48,
+            133,
+            54
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            472,
-            270,
-            131
+            1766,
+            308,
+            254,
+            123
           ],
           "margin": [
-            40,
-            53,
-            148,
-            59
+            48,
+            61,
+            164,
+            67
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            276,
-            472,
-            254,
-            132
+            2,
+            473,
+            255,
+            133
           ],
           "margin": [
             48,
-            52,
-            164,
-            58
+            51,
+            163,
+            57
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            534,
-            472,
-            302,
-            146
+            261,
+            473,
+            286,
+            139
           ],
           "margin": [
-            18,
-            38,
-            116,
-            44
+            26,
+            45,
+            132,
+            51
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            840,
-            472,
-            318,
-            151
+            551,
+            473,
+            273,
+            130
           ],
           "margin": [
-            -1,
-            33,
-            100,
-            39
+            18,
+            54,
+            145,
+            60
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1162,
-            472,
-            326,
-            155
+            828,
+            473,
+            280,
+            133
           ],
           "margin": [
-            4,
-            30,
-            92,
-            35
+            22,
+            51,
+            138,
+            57
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1492,
-            472,
-            313,
-            156
+            1112,
+            473,
+            275,
+            137
           ],
           "margin": [
-            25,
-            28,
-            105,
-            34
+            41,
+            47,
+            143,
+            53
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            636,
-            300,
-            150
+            1391,
+            473,
+            270,
+            135
           ],
           "margin": [
-            51,
-            34,
-            118,
-            40
+            64,
+            49,
+            148,
+            55
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            306,
-            636,
-            274,
-            147
+            1665,
+            473,
+            245,
+            132
           ],
           "margin": [
-            84,
-            37,
-            144,
-            43
+            96,
+            52,
+            173,
+            58
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            584,
-            636,
-            255,
-            149
+            2,
+            620,
+            246,
+            143
           ],
           "margin": [
-            93,
-            35,
-            163,
-            41
+            97,
+            41,
+            172,
+            47
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            843,
-            636,
-            235,
-            142
+            252,
+            620,
+            227,
+            137
           ],
           "margin": [
-            110,
-            42,
-            183,
-            48
+            114,
+            47,
+            191,
+            53
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1082,
-            636,
-            236,
-            142
+            483,
+            620,
+            225,
+            135
           ],
           "margin": [
-            108,
-            42,
-            182,
-            48
+            112,
+            49,
+            193,
+            55
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1322,
-            636,
-            226,
-            149
+            712,
+            620,
+            215,
+            141
           ],
           "margin": [
-            100,
-            35,
-            192,
-            41
+            106,
+            43,
+            203,
+            49
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1552,
-            636,
-            229,
-            150
+            931,
+            620,
+            208,
+            136
           ],
           "margin": [
-            95,
-            34,
-            189,
-            40
+            105,
+            48,
+            210,
+            54
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1785,
-            636,
-            218,
-            151
+            1143,
+            620,
+            200,
+            139
           ],
           "margin": [
-            96,
-            33,
-            200,
-            39
+            105,
+            45,
+            218,
+            51
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            795,
-            228,
-            155
+            1347,
+            620,
+            208,
+            141
           ],
           "margin": [
-            92,
-            29,
-            190,
-            35
+            102,
+            43,
+            210,
+            49
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            234,
-            795,
-            240,
-            152
+            1559,
+            620,
+            204,
+            129
           ],
           "margin": [
-            80,
-            32,
-            178,
-            38
+            98,
+            55,
+            214,
+            61
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            478,
-            795,
-            236,
-            151
+            1767,
+            620,
+            205,
+            131
           ],
           "margin": [
-            77,
-            33,
-            182,
-            39
+            94,
+            53,
+            213,
+            59
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            718,
-            795,
-            232,
-            151
+            2,
+            771,
+            204,
+            133
           ],
           "margin": [
-            76,
-            33,
-            186,
-            39
+            90,
+            51,
+            214,
+            57
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            954,
-            795,
-            220,
-            144
+            210,
+            771,
+            178,
+            117
           ],
           "margin": [
-            86,
-            40,
-            198,
-            46
+            108,
+            66,
+            240,
+            73
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1178,
-            795,
-            180,
-            158
+            392,
+            771,
+            170,
+            148
           ],
           "margin": [
-            116,
-            26,
-            238,
-            32
+            121,
+            37,
+            248,
+            42
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1362,
-            795,
-            209,
-            152
+            566,
+            771,
+            195,
+            143
           ],
           "margin": [
-            92,
-            32,
-            209,
-            38
+            100,
+            43,
+            223,
+            47
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1575,
-            795,
-            189,
-            147
+            765,
+            771,
+            175,
+            136
           ],
           "margin": [
-            89,
-            37,
-            229,
-            43
+            97,
+            50,
+            243,
+            54
           ]
         },
         {
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1768,
-            795,
-            203,
-            141
+            944,
+            771,
+            179,
+            125
           ],
           "margin": [
-            82,
-            43,
-            215,
-            49
+            94,
+            58,
+            239,
+            65
           ]
         }
       ]
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            961,
-            217,
-            145
+            1127,
+            771,
+            199,
+            119
           ],
           "margin": [
-            82,
-            39,
-            201,
-            45
+            94,
+            65,
+            219,
+            71
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            223,
-            961,
-            192,
-            127
+            1330,
+            771,
+            200,
+            128
           ],
           "margin": [
-            82,
-            58,
-            226,
-            63
+            80,
+            56,
+            218,
+            62
           ]
         },
         {
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            419,
-            961,
-            154,
-            104
+            1534,
+            771,
+            220,
+            107
           ],
           "margin": [
-            84,
-            79,
-            264,
-            86
+            60,
+            77,
+            198,
+            83
           ]
         },
         {
@@ -1729,16 +1729,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            577,
-            961,
-            128,
-            95
+            1758,
+            771,
+            253,
+            89
           ],
           "margin": [
-            91,
-            88,
-            290,
-            95
+            35,
+            95,
+            165,
+            101
           ]
         }
       ]
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            709,
-            961,
-            175,
-            120
+            2,
+            927,
+            178,
+            122
           ],
           "margin": [
-            99,
-            64,
-            243,
-            70
+            97,
+            62,
+            240,
+            68
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            888,
-            961,
-            178,
-            125
+            184,
+            927,
+            179,
+            126
           ],
           "margin": [
             99,
-            59,
-            240,
-            65
+            58,
+            239,
+            64
           ]
         },
         {
@@ -1826,16 +1826,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1070,
-            961,
-            186,
-            122
+            367,
+            927,
+            175,
+            115
           ],
           "margin": [
-            95,
-            62,
-            232,
-            68
+            101,
+            68,
+            243,
+            75
           ]
         },
         {
@@ -1856,16 +1856,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1260,
-            961,
-            224,
-            126
+            546,
+            927,
+            196,
+            110
           ],
           "margin": [
-            83,
-            58,
-            194,
-            64
+            98,
+            73,
+            222,
+            80
           ]
         },
         {
@@ -1886,16 +1886,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1488,
-            961,
-            268,
-            135
+            746,
+            927,
+            210,
+            106
           ],
           "margin": [
-            62,
-            49,
-            150,
-            55
+            92,
+            78,
+            208,
+            84
           ]
         },
         {
@@ -1916,16 +1916,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            1114,
-            306,
-            139
+            960,
+            927,
+            232,
+            105
           ],
           "margin": [
-            44,
-            45,
-            112,
-            51
+            82,
+            79,
+            186,
+            85
           ]
         },
         {
@@ -1946,16 +1946,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            312,
-            1114,
-            211,
-            143
+            1196,
+            927,
+            195,
+            132
           ],
           "margin": [
-            82,
-            41,
-            207,
-            47
+            92,
+            52,
+            223,
+            58
           ]
         },
         {
@@ -1976,16 +1976,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            527,
-            1114,
-            225,
-            151
+            1395,
+            927,
+            197,
+            132
           ],
           "margin": [
-            78,
-            33,
-            193,
-            39
+            92,
+            52,
+            221,
+            58
           ]
         },
         {
@@ -2006,16 +2006,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            756,
-            1114,
-            231,
-            153
+            1596,
+            927,
+            197,
+            131
           ],
           "margin": [
-            74,
-            32,
-            187,
-            37
+            92,
+            53,
+            221,
+            59
           ]
         },
         {
@@ -2036,16 +2036,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            991,
-            1114,
-            231,
-            161
+            1797,
+            927,
+            202,
+            141
           ],
           "margin": [
-            72,
-            25,
-            187,
-            29
+            88,
+            43,
+            216,
+            49
           ]
         },
         {
@@ -2066,16 +2066,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1226,
-            1114,
-            261,
-            176
+            2,
+            1076,
+            197,
+            133
           ],
           "margin": [
-            58,
-            8,
-            157,
-            14
+            92,
+            51,
+            221,
+            57
           ]
         },
         {
@@ -2096,16 +2096,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1491,
-            1114,
-            251,
-            183
+            203,
+            1076,
+            185,
+            135
           ],
           "margin": [
-            62,
-            1,
-            167,
-            7
+            98,
+            49,
+            233,
+            55
           ]
         }
       ]
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1746,
-            1114,
-            244,
-            181
+            392,
+            1076,
+            187,
+            139
           ],
           "margin": [
-            66,
-            3,
-            174,
-            9
+            97,
+            45,
+            231,
+            51
           ]
         },
         {
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            1305,
-            231,
-            170
+            583,
+            1076,
+            181,
+            133
           ],
           "margin": [
-            74,
-            14,
-            187,
-            20
+            102,
+            51,
+            237,
+            57
           ]
         },
         {
@@ -2193,16 +2193,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            237,
-            1305,
-            199,
-            152
+            768,
+            1076,
+            184,
+            140
           ],
           "margin": [
-            89,
-            32,
-            219,
-            38
+            97,
+            45,
+            234,
+            50
           ]
         },
         {
@@ -2223,16 +2223,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            440,
-            1305,
-            188,
-            146
+            956,
+            1076,
+            187,
+            145
           ],
           "margin": [
-            94,
-            39,
-            230,
-            44
+            96,
+            41,
+            231,
+            45
           ]
         },
         {
@@ -2253,16 +2253,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            632,
-            1305,
-            201,
-            149
+            1147,
+            1076,
+            182,
+            135
           ],
           "margin": [
-            100,
-            36,
-            217,
-            41
+            110,
+            49,
+            236,
+            55
           ]
         },
         {
@@ -2283,16 +2283,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            837,
-            1305,
-            184,
-            146
+            1333,
+            1076,
+            175,
+            139
           ],
           "margin": [
-            106,
-            40,
-            234,
-            44
+            110,
+            44,
+            243,
+            51
           ]
         },
         {
@@ -2313,16 +2313,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1025,
-            1305,
-            175,
-            146
+            1512,
+            1076,
+            177,
+            147
           ],
           "margin": [
-            114,
-            38,
-            243,
-            44
+            112,
+            37,
+            241,
+            43
           ]
         },
         {
@@ -2343,16 +2343,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1204,
-            1305,
-            188,
-            149
+            1693,
+            1076,
+            183,
+            145
           ],
           "margin": [
-            104,
-            36,
-            230,
-            41
+            106,
+            41,
+            235,
+            45
           ]
         },
         {
@@ -2373,16 +2373,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1396,
-            1305,
-            181,
-            146
+            2,
+            1231,
+            180,
+            144
           ],
           "margin": [
             102,
-            38,
-            237,
-            44
+            40,
+            238,
+            46
           ]
         },
         {
@@ -2403,8 +2403,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1581,
-            1305,
+            186,
+            1231,
             175,
             144
           ],
@@ -2433,16 +2433,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1760,
-            1305,
-            182,
-            144
+            365,
+            1231,
+            186,
+            147
           ],
           "margin": [
-            110,
-            41,
-            236,
-            46
+            108,
+            38,
+            232,
+            43
           ]
         },
         {
@@ -2463,16 +2463,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            1483,
-            177,
-            137
+            555,
+            1231,
+            184,
+            142
           ],
           "margin": [
-            112,
-            46,
-            241,
-            53
+            108,
+            43,
+            234,
+            48
           ]
         }
       ]
@@ -2500,16 +2500,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            183,
-            1483,
-            175,
-            137
+            743,
+            1231,
+            178,
+            139
           ],
           "margin": [
-            112,
-            46,
-            243,
-            53
+            110,
+            44,
+            240,
+            51
           ]
         },
         {
@@ -2530,16 +2530,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            362,
-            1483,
+            925,
+            1231,
             185,
-            143
+            144
           ],
           "margin": [
             98,
             42,
             233,
-            47
+            46
           ]
         },
         {
@@ -2560,8 +2560,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            551,
-            1483,
+            1114,
+            1231,
             189,
             143
           ],
@@ -2590,16 +2590,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            744,
-            1483,
-            188,
-            141
+            1307,
+            1231,
+            187,
+            140
           ],
           "margin": [
-            96,
+            98,
             45,
-            230,
-            49
+            231,
+            50
           ]
         },
         {
@@ -2620,16 +2620,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            936,
-            1483,
-            194,
-            139
+            1498,
+            1231,
+            192,
+            137
           ],
           "margin": [
-            94,
-            46,
-            224,
-            51
+            96,
+            48,
+            226,
+            53
           ]
         },
         {
@@ -2650,16 +2650,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1134,
-            1483,
-            162,
-            130
+            1694,
+            1231,
+            157,
+            126
           ],
           "margin": [
-            110,
-            54,
-            256,
-            60
+            113,
+            57,
+            261,
+            64
           ]
         },
         {
@@ -2680,16 +2680,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1300,
-            1483,
-            159,
-            126
+            1855,
+            1231,
+            160,
+            127
           ],
           "margin": [
-            110,
-            57,
-            259,
-            64
+            109,
+            56,
+            258,
+            63
           ]
         },
         {
@@ -2710,16 +2710,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1463,
-            1483,
-            169,
-            126
+            2,
+            1386,
+            167,
+            125
           ],
           "margin": [
-            102,
-            57,
-            249,
-            64
+            104,
+            58,
+            251,
+            65
           ]
         },
         {
@@ -2740,16 +2740,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1636,
-            1483,
-            162,
-            119
+            173,
+            1386,
+            167,
+            123
           ],
           "margin": [
-            111,
-            64,
-            256,
-            71
+            108,
+            60,
+            251,
+            67
           ]
         },
         {
@@ -2770,16 +2770,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            1802,
-            1483,
-            168,
-            122
+            344,
+            1386,
+            181,
+            131
           ],
           "margin": [
-            108,
-            61,
-            250,
-            68
+            102,
+            52,
+            237,
+            59
           ]
         },
         {
@@ -2800,16 +2800,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            2,
-            1634,
-            192,
-            133
+            529,
+            1386,
+            186,
+            130
           ],
           "margin": [
-            94,
-            53,
-            226,
-            57
+            97,
+            54,
+            232,
+            60
           ]
         },
         {
@@ -2830,16 +2830,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            198,
-            1634,
-            195,
-            137
+            719,
+            1386,
+            172,
+            121
           ],
           "margin": [
-            92,
-            49,
-            223,
-            53
+            105,
+            62,
+            246,
+            69
           ]
         }
       ]
@@ -2867,16 +2867,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            397,
-            1634,
-            209,
-            146
+            895,
+            1386,
+            195,
+            136
           ],
           "margin": [
-            82,
-            38,
-            209,
-            44
+            89,
+            48,
+            223,
+            54
           ]
         },
         {
@@ -2897,16 +2897,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
           "region": [
-            610,
-            1634,
-            222,
-            146
+            1094,
+            1386,
+            194,
+            127
           ],
           "margin": [
-            73,
-            38,
-            196,
-            44
+            89,
+            59,
+            224,
+            63
           ]
         }
       ]

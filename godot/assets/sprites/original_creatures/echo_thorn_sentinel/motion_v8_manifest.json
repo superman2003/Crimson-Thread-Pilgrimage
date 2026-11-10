@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "echo_thorn_sentinel",
   "canvas": [
     386,
-    228
+    234
   ],
   "display_height": 108,
   "visual_scale": 0.54,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             111,
-            20,
+            23,
             167,
-            28
+            34
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            225,
-            211
+            201,
+            188
           ],
           "margin": [
-            96,
-            11,
-            161,
-            17
+            109,
+            37,
+            185,
+            46
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             114,
-            17,
+            20,
             176,
-            25
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            231,
+            207,
             2,
-            227,
-            212
+            204,
+            190
           ],
           "margin": [
-            88,
-            10,
-            159,
-            16
+            101,
+            35,
+            182,
+            44
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             92,
-            19,
+            22,
             162,
-            27
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            462,
+            415,
             2,
-            228,
-            210
+            208,
+            192
           ],
           "margin": [
-            72,
-            12,
-            158,
-            18
+            84,
+            33,
+            178,
+            42
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             80,
-            20,
+            23,
             166,
-            28
+            34
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            694,
+            627,
             2,
-            230,
-            210
+            205,
+            187
           ],
           "margin": [
-            76,
-            12,
-            156,
-            18
+            90,
+            38,
+            181,
+            47
           ]
         }
       ]
@@ -156,24 +156,24 @@
           ],
           "margin": [
             97,
-            28,
+            31,
             148,
-            36
+            42
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            928,
+            836,
             2,
-            238,
-            203
+            209,
+            178
           ],
           "margin": [
-            83,
-            19,
-            148,
-            25
+            99,
+            47,
+            177,
+            56
           ]
         },
         {
@@ -186,24 +186,24 @@
           ],
           "margin": [
             90,
-            26,
+            29,
             158,
-            34
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1170,
+            1049,
             2,
-            237,
-            203
+            209,
+            180
           ],
           "margin": [
-            72,
-            19,
-            149,
-            25
+            88,
+            45,
+            177,
+            54
           ]
         },
         {
@@ -216,24 +216,24 @@
           ],
           "margin": [
             76,
-            27,
+            30,
             136,
-            35
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1411,
+            1262,
             2,
-            232,
-            203
+            209,
+            183
           ],
           "margin": [
-            65,
-            19,
-            154,
-            25
+            79,
+            42,
+            177,
+            51
           ]
         },
         {
@@ -246,24 +246,24 @@
           ],
           "margin": [
             75,
-            27,
+            30,
             156,
-            35
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1647,
+            1475,
             2,
-            241,
-            202
+            215,
+            181
           ],
           "margin": [
-            72,
-            20,
-            145,
-            26
+            88,
+            44,
+            171,
+            53
           ]
         },
         {
@@ -276,24 +276,24 @@
           ],
           "margin": [
             94,
-            28,
+            31,
             131,
-            36
+            42
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
+            1694,
             2,
-            222,
-            256,
-            199
+            225,
+            175
           ],
           "margin": [
-            76,
-            23,
-            130,
-            29
+            94,
+            50,
+            161,
+            59
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             92,
-            34,
+            37,
             145,
-            42
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            262,
-            222,
-            252,
-            196
+            2,
+            202,
+            223,
+            174
           ],
           "margin": [
-            70,
-            26,
-            134,
-            32
+            88,
+            51,
+            163,
+            60
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             80,
-            33,
+            36,
             137,
-            41
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            518,
+            229,
+            202,
             222,
-            261,
-            201
+            171
           ],
           "margin": [
-            60,
-            21,
-            125,
-            27
+            83,
+            54,
+            164,
+            63
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             81,
-            26,
+            29,
             175,
-            34
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            783,
-            222,
-            251,
-            204
+            455,
+            202,
+            209,
+            169
           ],
           "margin": [
-            62,
-            18,
-            135,
-            24
+            88,
+            56,
+            177,
+            65
           ]
         }
       ]
@@ -403,24 +403,24 @@
           ],
           "margin": [
             102,
-            18,
+            21,
             146,
-            26
+            32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1038,
-            222,
-            281,
-            218
+            668,
+            202,
+            234,
+            181
           ],
           "margin": [
-            55,
-            6,
-            105,
-            10
+            83,
+            44,
+            152,
+            53
           ]
         },
         {
@@ -433,24 +433,24 @@
           ],
           "margin": [
             98,
-            9,
+            12,
             138,
-            17
+            23
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1323,
-            222,
-            265,
-            223
+            906,
+            202,
+            241,
+            202
           ],
           "margin": [
-            66,
-            -1,
-            121,
-            5
+            80,
+            23,
+            145,
+            32
           ]
         },
         {
@@ -463,24 +463,24 @@
           ],
           "margin": [
             100,
-            8,
+            11,
             181,
-            16
+            22
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1592,
-            222,
-            225,
-            220
+            1151,
+            202,
+            205,
+            200
           ],
           "margin": [
-            83,
-            2,
-            161,
-            8
+            95,
+            25,
+            181,
+            34
           ]
         },
         {
@@ -493,24 +493,24 @@
           ],
           "margin": [
             107,
-            13,
+            16,
             202,
-            21
+            27
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1821,
-            222,
-            206,
-            220
+            1360,
+            202,
+            193,
+            207
           ],
           "margin": [
-            92,
-            2,
-            180,
-            8
+            100,
+            18,
+            193,
+            27
           ]
         },
         {
@@ -523,24 +523,24 @@
           ],
           "margin": [
             96,
-            8,
+            11,
             181,
-            16
+            22
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            453,
-            224,
-            221
+            1557,
+            202,
+            211,
+            208
           ],
           "margin": [
-            82,
-            1,
-            162,
-            7
+            90,
+            17,
+            175,
+            26
           ]
         },
         {
@@ -553,24 +553,24 @@
           ],
           "margin": [
             79,
-            11,
+            14,
             152,
-            19
+            25
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
+            1772,
+            202,
             230,
-            453,
-            251,
-            215
+            197
           ],
           "margin": [
-            67,
-            7,
-            135,
-            13
+            79,
+            28,
+            156,
+            37
           ]
         },
         {
@@ -583,24 +583,24 @@
           ],
           "margin": [
             74,
-            20,
+            23,
             158,
-            28
+            34
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            485,
-            453,
-            244,
-            212
+            2,
+            418,
+            226,
+            197
           ],
           "margin": [
-            71,
-            10,
-            142,
-            16
+            81,
+            28,
+            160,
+            37
           ]
         },
         {
@@ -613,24 +613,24 @@
           ],
           "margin": [
             74,
-            16,
+            19,
             153,
-            24
+            30
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            733,
-            453,
-            243,
-            213
+            232,
+            418,
+            234,
+            205
           ],
           "margin": [
-            68,
-            9,
-            143,
-            15
+            73,
+            20,
+            152,
+            29
           ]
         },
         {
@@ -643,24 +643,24 @@
           ],
           "margin": [
             69,
-            17,
+            20,
             145,
-            25
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            980,
-            453,
-            239,
-            209
+            470,
+            418,
+            217,
+            190
           ],
           "margin": [
-            70,
-            13,
-            147,
-            19
+            82,
+            35,
+            169,
+            44
           ]
         },
         {
@@ -673,24 +673,24 @@
           ],
           "margin": [
             86,
-            25,
+            28,
             176,
-            33
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1223,
-            453,
-            232,
-            209
+            691,
+            418,
+            214,
+            192
           ],
           "margin": [
-            73,
-            13,
-            154,
-            19
+            83,
+            33,
+            172,
+            42
           ]
         },
         {
@@ -703,24 +703,24 @@
           ],
           "margin": [
             77,
-            17,
+            20,
             149,
-            25
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1459,
-            453,
-            249,
-            214
+            909,
+            418,
+            235,
+            202
           ],
           "margin": [
-            70,
-            8,
-            137,
-            14
+            78,
+            23,
+            151,
+            32
           ]
         },
         {
@@ -733,24 +733,24 @@
           ],
           "margin": [
             88,
-            16,
+            19,
             170,
-            24
+            30
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1712,
-            453,
-            230,
-            211
+            1148,
+            418,
+            206,
+            190
           ],
           "margin": [
-            85,
-            11,
-            156,
-            17
+            99,
+            35,
+            180,
+            44
           ]
         }
       ]
@@ -770,24 +770,24 @@
           ],
           "margin": [
             99,
-            22,
+            25,
             184,
-            30
+            36
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            682,
-            225,
-            211
+            1358,
+            418,
+            211,
+            198
           ],
           "margin": [
-            85,
-            11,
-            161,
-            17
+            93,
+            27,
+            175,
+            36
           ]
         },
         {
@@ -800,24 +800,24 @@
           ],
           "margin": [
             87,
-            16,
+            19,
             164,
-            24
+            30
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
+            1573,
+            418,
             231,
-            682,
-            239,
-            215
+            207
           ],
           "margin": [
-            72,
-            7,
-            147,
-            13
+            76,
+            18,
+            155,
+            27
           ]
         },
         {
@@ -830,24 +830,24 @@
           ],
           "margin": [
             69,
-            15,
+            18,
             78,
-            23
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            474,
-            682,
-            280,
-            212
+            2,
+            633,
+            262,
+            199
           ],
           "margin": [
-            72,
-            10,
-            106,
-            16
+            81,
+            26,
+            124,
+            35
           ]
         },
         {
@@ -860,24 +860,24 @@
           ],
           "margin": [
             74,
-            21,
+            24,
             94,
-            29
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            758,
-            682,
-            277,
-            208
+            268,
+            633,
+            263,
+            198
           ],
           "margin": [
-            71,
-            14,
-            109,
-            20
+            78,
+            27,
+            123,
+            36
           ]
         },
         {
@@ -890,24 +890,24 @@
           ],
           "margin": [
             74,
-            22,
+            25,
             93,
-            30
+            36
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1039,
-            682,
-            271,
-            202
+            535,
+            633,
+            275,
+            205
           ],
           "margin": [
-            76,
+            74,
             20,
-            115,
-            26
+            111,
+            29
           ]
         },
         {
@@ -920,24 +920,24 @@
           ],
           "margin": [
             75,
-            33,
+            36,
             106,
-            41
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1314,
-            682,
-            257,
-            189
+            814,
+            633,
+            240,
+            176
           ],
           "margin": [
-            69,
-            33,
-            129,
-            39
+            79,
+            49,
+            146,
+            58
           ]
         },
         {
@@ -950,24 +950,24 @@
           ],
           "margin": [
             84,
-            48,
+            51,
             112,
-            56
+            62
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1575,
-            682,
-            231,
-            184
+            1058,
+            633,
+            232,
+            185
           ],
           "margin": [
-            86,
-            38,
-            155,
-            44
+            84,
+            40,
+            154,
+            49
           ]
         },
         {
@@ -980,24 +980,24 @@
           ],
           "margin": [
             78,
-            41,
+            44,
             102,
-            49
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            905,
-            252,
-            189
+            1294,
+            633,
+            262,
+            196
           ],
           "margin": [
-            84,
-            33,
-            134,
-            39
+            78,
+            29,
+            124,
+            38
           ]
         },
         {
@@ -1010,24 +1010,24 @@
           ],
           "margin": [
             85,
-            39,
+            42,
             166,
-            47
+            53
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
+            1560,
+            633,
             258,
-            905,
-            237,
-            187
+            203
           ],
           "margin": [
-            94,
-            35,
-            149,
-            41
+            84,
+            22,
+            128,
+            31
           ]
         },
         {
@@ -1040,24 +1040,24 @@
           ],
           "margin": [
             93,
-            45,
+            48,
             180,
-            53
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            499,
-            905,
-            249,
-            188
+            2,
+            846,
+            251,
+            190
           ],
           "margin": [
-            88,
-            34,
-            137,
-            40
+            86,
+            35,
+            135,
+            44
           ]
         },
         {
@@ -1070,24 +1070,24 @@
           ],
           "margin": [
             81,
-            36,
+            39,
             163,
-            44
+            50
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            752,
-            905,
-            240,
-            195
+            257,
+            846,
+            229,
+            186
           ],
           "margin": [
-            76,
-            27,
-            146,
-            33
+            83,
+            39,
+            157,
+            48
           ]
         },
         {
@@ -1100,24 +1100,24 @@
           ],
           "margin": [
             95,
-            33,
+            36,
             126,
-            41
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            996,
-            905,
-            261,
-            193
+            490,
+            846,
+            242,
+            179
           ],
           "margin": [
-            76,
-            29,
-            125,
-            35
+            86,
+            46,
+            144,
+            55
           ]
         }
       ]
@@ -1137,24 +1137,24 @@
           ],
           "margin": [
             97,
-            38,
+            41,
             133,
-            46
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1261,
-            905,
-            279,
-            195
+            736,
+            846,
+            254,
+            177
           ],
           "margin": [
-            76,
-            27,
-            107,
-            33
+            88,
+            48,
+            132,
+            57
           ]
         },
         {
@@ -1167,24 +1167,24 @@
           ],
           "margin": [
             95,
-            31,
+            34,
             123,
-            39
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1544,
-            905,
-            258,
-            199
+            994,
+            846,
+            247,
+            191
           ],
           "margin": [
-            82,
-            23,
-            128,
-            29
+            88,
+            34,
+            139,
+            43
           ]
         },
         {
@@ -1197,24 +1197,24 @@
           ],
           "margin": [
             93,
-            29,
+            32,
             128,
-            37
+            43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1806,
-            905,
-            214,
-            197
+            1245,
+            846,
+            208,
+            191
           ],
           "margin": [
-            90,
-            25,
-            172,
-            31
+            92,
+            34,
+            178,
+            43
           ]
         },
         {
@@ -1227,24 +1227,24 @@
           ],
           "margin": [
             102,
-            35,
+            38,
             135,
-            43
+            49
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            1112,
-            230,
-            199
+            1457,
+            846,
+            224,
+            193
           ],
           "margin": [
-            84,
-            23,
-            156,
-            29
+            88,
+            32,
+            162,
+            41
           ]
         },
         {
@@ -1257,24 +1257,24 @@
           ],
           "margin": [
             96,
-            26,
+            29,
             123,
-            34
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            236,
-            1112,
-            272,
-            204
+            1685,
+            846,
+            266,
+            199
           ],
           "margin": [
-            86,
-            18,
-            114,
-            24
+            90,
+            26,
+            120,
+            35
           ]
         },
         {
@@ -1287,24 +1287,24 @@
           ],
           "margin": [
             103,
-            25,
+            28,
             177,
-            33
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            512,
-            1112,
-            227,
-            203
+            2,
+            1053,
+            206,
+            184
           ],
           "margin": [
-            94,
-            19,
-            159,
-            25
+            106,
+            41,
+            180,
+            50
           ]
         },
         {
@@ -1317,24 +1317,24 @@
           ],
           "margin": [
             113,
-            29,
+            32,
             191,
-            37
+            43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            743,
-            1112,
-            261,
-            204
+            212,
+            1053,
+            239,
+            187
           ],
           "margin": [
-            94,
-            18,
-            125,
-            24
+            105,
+            38,
+            147,
+            47
           ]
         },
         {
@@ -1347,24 +1347,24 @@
           ],
           "margin": [
             105,
-            22,
+            25,
             176,
-            30
+            36
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1008,
-            1112,
-            228,
-            207
+            455,
+            1053,
+            218,
+            197
           ],
           "margin": [
-            90,
-            15,
-            158,
-            21
+            96,
+            28,
+            168,
+            37
           ]
         },
         {
@@ -1377,24 +1377,24 @@
           ],
           "margin": [
             106,
-            24,
+            27,
             181,
-            32
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1240,
-            1112,
-            216,
-            202
+            677,
+            1053,
+            200,
+            187
           ],
           "margin": [
-            92,
-            20,
-            170,
-            26
+            101,
+            38,
+            186,
+            47
           ]
         },
         {
@@ -1407,24 +1407,24 @@
           ],
           "margin": [
             112,
-            30,
+            33,
             200,
-            38
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1460,
-            1112,
-            208,
-            205
+            881,
+            1053,
+            197,
+            193
           ],
           "margin": [
-            96,
-            17,
-            178,
-            23
+            102,
+            32,
+            189,
+            41
           ]
         },
         {
@@ -1437,24 +1437,24 @@
           ],
           "margin": [
             104,
-            19,
+            22,
             183,
-            27
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1672,
-            1112,
-            225,
-            212
+            1082,
+            1053,
+            214,
+            201
           ],
           "margin": [
-            88,
-            10,
-            161,
-            16
+            95,
+            24,
+            172,
+            33
           ]
         },
         {
@@ -1467,24 +1467,24 @@
           ],
           "margin": [
             102,
-            17,
+            20,
             158,
-            25
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            1332,
-            218,
-            211
+            1300,
+            1053,
+            198,
+            191
           ],
           "margin": [
-            96,
-            11,
-            168,
-            17
+            108,
+            34,
+            188,
+            43
           ]
         }
       ]
@@ -1504,24 +1504,24 @@
           ],
           "margin": [
             84,
-            24,
+            27,
             138,
-            32
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            224,
-            1332,
-            244,
-            199
+            1502,
+            1053,
+            212,
+            172
           ],
           "margin": [
-            85,
-            23,
-            142,
-            29
+            102,
+            54,
+            174,
+            62
           ]
         },
         {
@@ -1534,24 +1534,24 @@
           ],
           "margin": [
             130,
-            37,
+            40,
             203,
-            45
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            472,
-            1332,
-            184,
-            200
+            1718,
+            1053,
+            177,
+            193
           ],
           "margin": [
-            130,
-            22,
-            202,
-            28
+            132,
+            32,
+            209,
+            41
           ]
         }
       ]
@@ -1571,24 +1571,24 @@
           ],
           "margin": [
             81,
-            70,
+            73,
             131,
-            78
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            660,
-            1332,
-            213,
-            145
+            2,
+            1262,
+            224,
+            153
           ],
           "margin": [
-            88,
-            79,
-            173,
-            83
+            84,
+            72,
+            162,
+            81
           ]
         },
         {
@@ -1601,24 +1601,24 @@
           ],
           "margin": [
             60,
-            95,
+            98,
             128,
-            103
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            877,
-            1332,
-            208,
-            119
+            230,
+            1262,
+            214,
+            123
           ],
           "margin": [
-            86,
-            103,
-            178,
-            109
+            82,
+            104,
+            172,
+            111
           ]
         },
         {
@@ -1631,24 +1631,24 @@
           ],
           "margin": [
             64,
-            122,
+            125,
             137,
-            130
+            136
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1089,
-            1332,
-            231,
-            106
+            448,
+            1262,
+            233,
+            107
           ],
           "margin": [
-            68,
-            116,
-            155,
-            122
+            67,
+            118,
+            153,
+            127
           ]
         }
       ]
@@ -1668,24 +1668,24 @@
           ],
           "margin": [
             100,
-            56,
+            59,
             181,
-            64
+            70
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1324,
-            1332,
-            226,
-            177
+            685,
+            1262,
+            214,
+            168
           ],
           "margin": [
-            90,
-            45,
-            160,
-            51
+            96,
+            57,
+            172,
+            66
           ]
         },
         {
@@ -1698,24 +1698,24 @@
           ],
           "margin": [
             93,
-            48,
+            51,
             168,
-            56
+            62
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1554,
-            1332,
-            167,
-            181
+            903,
+            1262,
+            189,
+            205
           ],
           "margin": [
-            131,
-            41,
-            219,
-            47
+            120,
+            20,
+            197,
+            29
           ]
         },
         {
@@ -1728,24 +1728,24 @@
           ],
           "margin": [
             93,
-            47,
+            50,
             180,
-            55
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1725,
-            1332,
-            186,
-            179
+            1096,
+            1262,
+            195,
+            189
           ],
           "margin": [
-            109,
-            43,
-            200,
-            49
+            104,
+            36,
+            191,
+            45
           ]
         },
         {
@@ -1758,24 +1758,24 @@
           ],
           "margin": [
             95,
-            51,
+            54,
             188,
-            59
+            65
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            1551,
-            277,
-            182
+            1295,
+            1262,
+            234,
+            154
           ],
           "margin": [
-            57,
-            40,
-            109,
-            46
+            80,
+            71,
+            152,
+            80
           ]
         },
         {
@@ -1788,24 +1788,24 @@
           ],
           "margin": [
             89,
-            45,
+            48,
             176,
-            53
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            283,
-            1551,
-            396,
-            189
+            1533,
+            1262,
+            268,
+            128
           ],
           "margin": [
-            -18,
-            34,
-            -10,
-            39
+            56,
+            97,
+            118,
+            106
           ]
         },
         {
@@ -1818,24 +1818,24 @@
           ],
           "margin": [
             96,
-            47,
+            50,
             191,
-            55
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            683,
-            1551,
-            368,
-            183
+            2,
+            1475,
+            256,
+            127
           ],
           "margin": [
-            8,
-            40,
-            18,
-            45
+            70,
+            98,
+            130,
+            107
           ]
         },
         {
@@ -1848,24 +1848,24 @@
           ],
           "margin": [
             101,
-            55,
+            58,
             200,
-            63
+            69
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1055,
-            1551,
-            218,
-            179
+            262,
+            1475,
+            208,
+            170
           ],
           "margin": [
-            89,
-            43,
-            168,
-            49
+            95,
+            55,
+            178,
+            64
           ]
         },
         {
@@ -1878,24 +1878,24 @@
           ],
           "margin": [
             98,
-            47,
+            50,
             195,
-            55
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1277,
-            1551,
-            222,
-            185
+            474,
+            1475,
+            214,
+            178
           ],
           "margin": [
-            87,
-            37,
-            164,
-            43
+            92,
+            47,
+            172,
+            56
           ]
         },
         {
@@ -1908,24 +1908,24 @@
           ],
           "margin": [
             90,
-            45,
+            48,
             188,
-            53
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1503,
-            1551,
-            198,
-            180
+            692,
+            1475,
+            201,
+            183
           ],
           "margin": [
-            97,
+            95,
             42,
-            188,
-            48
+            185,
+            51
           ]
         },
         {
@@ -1938,24 +1938,24 @@
           ],
           "margin": [
             101,
-            51,
+            54,
             201,
-            59
+            65
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1705,
-            1551,
-            212,
-            186
+            897,
+            1475,
+            210,
+            185
           ],
           "margin": [
-            94,
-            36,
-            174,
-            42
+            95,
+            40,
+            176,
+            49
           ]
         },
         {
@@ -1968,24 +1968,24 @@
           ],
           "margin": [
             82,
-            37,
+            40,
             177,
-            45
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            1748,
-            194,
-            196
+            1111,
+            1475,
+            205,
+            207
           ],
           "margin": [
-            98,
-            26,
-            192,
-            32
+            92,
+            18,
+            181,
+            27
           ]
         },
         {
@@ -1998,24 +1998,24 @@
           ],
           "margin": [
             70,
-            29,
+            32,
             138,
-            37
+            43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            200,
-            1748,
-            219,
-            200
+            1320,
+            1475,
+            212,
+            194
           ],
           "margin": [
-            84,
-            22,
-            167,
-            28
+            88,
+            31,
+            174,
+            40
           ]
         }
       ]
@@ -2035,24 +2035,24 @@
           ],
           "margin": [
             69,
-            29,
+            32,
             137,
-            37
+            43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            423,
-            1748,
-            272,
-            206
+            1536,
+            1475,
+            250,
+            190
           ],
           "margin": [
-            51,
-            16,
-            114,
-            22
+            64,
+            35,
+            136,
+            44
           ]
         },
         {
@@ -2065,24 +2065,24 @@
           ],
           "margin": [
             60,
-            20,
+            23,
             127,
-            28
+            34
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            699,
-            1748,
-            263,
-            213
+            1790,
+            1475,
+            253,
+            205
           ],
           "margin": [
-            59,
-            9,
-            123,
-            15
+            65,
+            20,
+            133,
+            29
           ]
         },
         {
@@ -2095,24 +2095,24 @@
           ],
           "margin": [
             49,
-            16,
+            19,
             104,
-            24
+            30
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            966,
-            1748,
-            247,
-            212
+            2,
+            1690,
+            252,
+            216
           ],
           "margin": [
-            67,
-            10,
-            139,
-            16
+            65,
+            9,
+            134,
+            18
           ]
         },
         {
@@ -2125,24 +2125,24 @@
           ],
           "margin": [
             46,
-            21,
+            24,
             102,
-            29
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1217,
-            1748,
-            255,
-            213
+            258,
+            1690,
+            250,
+            208
           ],
           "margin": [
-            58,
-            9,
-            131,
-            15
+            61,
+            17,
+            136,
+            26
           ]
         },
         {
@@ -2155,24 +2155,24 @@
           ],
           "margin": [
             48,
-            13,
+            16,
             103,
-            21
+            27
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1476,
-            1748,
-            240,
-            216
+            512,
+            1690,
+            250,
+            225
           ],
           "margin": [
-            76,
-            6,
-            146,
-            12
+            70,
+            0,
+            136,
+            9
           ]
         },
         {
@@ -2185,24 +2185,24 @@
           ],
           "margin": [
             69,
-            15,
+            18,
             116,
-            23
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            1720,
-            1748,
-            242,
-            212
+            766,
+            1690,
+            247,
+            216
           ],
           "margin": [
-            72,
-            10,
-            144,
-            16
+            68,
+            9,
+            139,
+            18
           ]
         },
         {
@@ -2215,24 +2215,24 @@
           ],
           "margin": [
             63,
-            21,
+            24,
             111,
-            29
+            35
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            242,
-            212
+            1017,
+            1690,
+            243,
+            213
           ],
           "margin": [
-            69,
-            10,
-            144,
-            16
+            68,
+            12,
+            143,
+            21
           ]
         },
         {
@@ -2245,24 +2245,24 @@
           ],
           "margin": [
             66,
-            14,
+            17,
             111,
-            22
+            28
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            248,
-            2,
-            234,
+            1264,
+            1690,
+            235,
             216
           ],
           "margin": [
             90,
-            6,
-            152,
-            12
+            9,
+            151,
+            18
           ]
         },
         {
@@ -2275,24 +2275,24 @@
           ],
           "margin": [
             59,
-            15,
+            18,
             108,
-            23
+            29
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            486,
-            2,
-            235,
-            211
+            1503,
+            1690,
+            229,
+            206
           ],
           "margin": [
-            86,
-            11,
-            151,
-            17
+            89,
+            19,
+            157,
+            28
           ]
         },
         {
@@ -2305,24 +2305,24 @@
           ],
           "margin": [
             61,
-            22,
+            25,
             114,
-            30
+            36
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_00.png",
           "region": [
-            725,
-            2,
-            247,
-            212
+            1736,
+            1690,
+            240,
+            206
           ],
           "margin": [
-            78,
-            10,
-            139,
-            16
+            82,
+            19,
+            146,
+            28
           ]
         },
         {
@@ -2335,24 +2335,24 @@
           ],
           "margin": [
             57,
-            14,
+            17,
             106,
-            22
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            976,
             2,
-            246,
-            216
+            2,
+            249,
+            218
           ],
           "margin": [
-            74,
-            6,
-            140,
-            12
+            72,
+            7,
+            137,
+            16
           ]
         },
         {
@@ -2365,24 +2365,24 @@
           ],
           "margin": [
             69,
-            15,
+            18,
             153,
-            23
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            1226,
+            255,
             2,
-            241,
-            212
+            222,
+            196
           ],
           "margin": [
-            69,
-            10,
-            145,
-            16
+            80,
+            29,
+            164,
+            38
           ]
         }
       ]
@@ -2402,24 +2402,24 @@
           ],
           "margin": [
             76,
-            21,
+            24,
             149,
-            29
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            1471,
+            481,
             2,
-            261,
-            213
+            235,
+            191
           ],
           "margin": [
-            60,
-            9,
-            125,
-            15
+            74,
+            34,
+            151,
+            43
           ]
         },
         {
@@ -2432,24 +2432,24 @@
           ],
           "margin": [
             70,
-            14,
+            17,
             144,
-            22
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            1736,
+            720,
             2,
-            248,
-            216
+            231,
+            201
           ],
           "margin": [
-            67,
-            6,
-            138,
-            12
+            77,
+            24,
+            155,
+            33
           ]
         },
         {
@@ -2462,24 +2462,24 @@
           ],
           "margin": [
             80,
-            14,
+            17,
             146,
-            22
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
+            955,
             2,
-            226,
-            238,
-            213
+            220,
+            197
           ],
           "margin": [
-            76,
-            9,
-            148,
-            15
+            86,
+            28,
+            166,
+            37
           ]
         },
         {
@@ -2492,24 +2492,24 @@
           ],
           "margin": [
             91,
-            21,
+            24,
             156,
-            29
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            244,
+            1179,
+            2,
             226,
-            244,
-            210
+            194
           ],
           "margin": [
-            73,
-            12,
-            142,
-            18
+            83,
+            31,
+            160,
+            40
           ]
         },
         {
@@ -2522,24 +2522,24 @@
           ],
           "margin": [
             86,
-            19,
+            22,
             149,
-            27
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            492,
-            226,
-            244,
-            210
+            1409,
+            2,
+            225,
+            194
           ],
           "margin": [
-            72,
-            12,
-            142,
-            18
+            82,
+            31,
+            161,
+            40
           ]
         },
         {
@@ -2552,24 +2552,24 @@
           ],
           "margin": [
             78,
-            21,
+            24,
             140,
-            29
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            740,
+            1638,
+            2,
             226,
-            242,
-            205
+            190
           ],
           "margin": [
-            73,
-            17,
-            144,
-            23
+            82,
+            35,
+            160,
+            44
           ]
         },
         {
@@ -2582,24 +2582,24 @@
           ],
           "margin": [
             91,
-            30,
+            33,
             158,
-            38
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            986,
-            226,
-            254,
-            204
+            2,
+            228,
+            236,
+            190
           ],
           "margin": [
-            70,
-            18,
-            132,
-            24
+            80,
+            35,
+            150,
+            44
           ]
         },
         {
@@ -2612,24 +2612,24 @@
           ],
           "margin": [
             80,
-            21,
+            24,
             143,
-            29
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            1244,
-            226,
-            253,
-            210
+            242,
+            228,
+            233,
+            194
           ],
           "margin": [
-            69,
-            12,
-            133,
-            18
+            80,
+            31,
+            153,
+            40
           ]
         },
         {
@@ -2642,24 +2642,24 @@
           ],
           "margin": [
             93,
-            19,
+            22,
             167,
-            27
+            33
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            1501,
-            226,
-            251,
-            210
+            479,
+            228,
+            220,
+            184
           ],
           "margin": [
-            71,
-            12,
-            135,
-            18
+            88,
+            41,
+            166,
+            50
           ]
         },
         {
@@ -2672,24 +2672,24 @@
           ],
           "margin": [
             100,
-            22,
+            25,
             178,
-            30
+            36
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            1756,
-            226,
-            249,
-            212
+            703,
+            228,
+            225,
+            191
           ],
           "margin": [
-            73,
-            10,
-            137,
-            16
+            86,
+            34,
+            161,
+            43
           ]
         },
         {
@@ -2702,24 +2702,24 @@
           ],
           "margin": [
             96,
-            15,
+            18,
             158,
-            23
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            2,
-            447,
-            265,
-            216
+            932,
+            228,
+            237,
+            194
           ],
           "margin": [
-            68,
-            6,
-            121,
-            12
+            83,
+            31,
+            149,
+            40
           ]
         },
         {
@@ -2732,24 +2732,24 @@
           ],
           "margin": [
             105,
-            15,
+            18,
             160,
-            23
+            29
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            271,
-            447,
-            263,
-            214
+            1173,
+            228,
+            214,
+            174
           ],
           "margin": [
-            67,
-            8,
-            123,
-            14
+            96,
+            51,
+            172,
+            60
           ]
         }
       ]
@@ -2769,24 +2769,24 @@
           ],
           "margin": [
             92,
-            59,
+            62,
             182,
-            67
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            538,
-            447,
-            226,
-            170
+            1391,
+            228,
+            217,
+            163
           ],
           "margin": [
-            75,
-            52,
-            160,
-            58
+            80,
+            62,
+            169,
+            71
           ]
         },
         {
@@ -2799,24 +2799,24 @@
           ],
           "margin": [
             88,
-            59,
+            62,
             175,
-            67
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            768,
-            447,
-            218,
-            170
+            1612,
+            228,
+            212,
+            165
           ],
           "margin": [
-            85,
-            52,
-            168,
-            58
+            88,
+            60,
+            174,
+            69
           ]
         }
       ]
@@ -2836,24 +2836,24 @@
           ],
           "margin": [
             75,
-            73,
+            76,
             125,
-            81
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            990,
-            447,
-            232,
-            153
+            2,
+            430,
+            239,
+            157
           ],
           "margin": [
-            76,
-            69,
-            154,
-            75
+            72,
+            68,
+            147,
+            77
           ]
         },
         {
@@ -2866,24 +2866,24 @@
           ],
           "margin": [
             72,
-            78,
+            81,
             111,
-            86
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_01.png",
           "region": [
-            1226,
-            447,
-            257,
-            153
+            245,
+            430,
+            255,
+            152
           ],
           "margin": [
-            68,
             69,
-            129,
-            75
+            73,
+            131,
+            82
           ]
         }
       ]

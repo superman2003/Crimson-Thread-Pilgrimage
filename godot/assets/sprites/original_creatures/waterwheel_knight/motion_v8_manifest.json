@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "waterwheel_knight",
   "canvas": [
     376,
-    218
+    230
   ],
   "display_height": 108,
   "visual_scale": 0.5684210526315789,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             99,
-            20,
+            26,
             162,
-            28
+            40
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            204,
-            198
+            198,
+            191
           ],
           "margin": [
-            100,
-            14,
-            172,
-            20
+            102,
+            27,
+            178,
+            39
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             102,
-            22,
+            28,
             165,
-            30
+            42
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            210,
+            204,
             2,
-            208,
-            199
+            202,
+            193
           ],
           "margin": [
-            99,
-            13,
-            168,
-            19
+            101,
+            25,
+            174,
+            37
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             89,
-            18,
+            24,
             153,
-            26
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            422,
+            410,
             2,
-            217,
-            196
+            209,
+            189
           ],
           "margin": [
-            90,
-            16,
-            159,
-            22
+            94,
+            29,
+            167,
+            41
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             90,
-            28,
+            34,
             159,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            643,
+            623,
             2,
-            226,
-            195
+            215,
+            185
           ],
           "margin": [
-            82,
-            17,
-            150,
-            23
+            87,
+            33,
+            161,
+            45
           ]
         }
       ]
@@ -156,24 +156,24 @@
           ],
           "margin": [
             85,
-            26,
+            32,
             136,
-            34
+            46
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            873,
+            842,
             2,
-            228,
-            188
+            225,
+            185
           ],
           "margin": [
-            82,
-            24,
-            148,
-            30
+            84,
+            33,
+            151,
+            45
           ]
         },
         {
@@ -186,24 +186,24 @@
           ],
           "margin": [
             88,
-            34,
+            40,
             141,
-            42
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1105,
+            1071,
             2,
-            228,
-            188
+            224,
+            185
           ],
           "margin": [
-            82,
-            24,
-            148,
-            30
+            84,
+            33,
+            152,
+            45
           ]
         },
         {
@@ -216,24 +216,24 @@
           ],
           "margin": [
             88,
-            27,
+            33,
             134,
-            35
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1337,
+            1299,
             2,
-            230,
-            189
+            222,
+            182
           ],
           "margin": [
-            78,
-            23,
-            146,
-            29
+            82,
+            36,
+            154,
+            48
           ]
         },
         {
@@ -246,24 +246,24 @@
           ],
           "margin": [
             82,
-            32,
+            38,
             152,
-            40
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1571,
+            1525,
             2,
-            230,
-            189
+            224,
+            184
           ],
           "margin": [
-            80,
-            23,
-            146,
-            29
+            84,
+            34,
+            152,
+            46
           ]
         },
         {
@@ -276,24 +276,24 @@
           ],
           "margin": [
             80,
-            27,
+            33,
             120,
-            35
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1805,
+            1753,
             2,
-            232,
-            191
+            231,
+            190
           ],
           "margin": [
-            86,
-            21,
-            144,
-            27
+            87,
+            28,
+            145,
+            40
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             90,
-            28,
+            34,
             140,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
             2,
-            209,
-            229,
-            192
+            203,
+            228,
+            191
           ],
           "margin": [
             82,
-            20,
-            147,
-            26
+            27,
+            148,
+            39
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             83,
-            25,
+            31,
             126,
-            33
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            235,
-            209,
-            235,
-            193
+            234,
+            203,
+            230,
+            188
           ],
           "margin": [
-            74,
-            19,
-            141,
-            25
+            78,
+            30,
+            146,
+            42
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             88,
-            27,
+            33,
             157,
-            35
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            474,
-            209,
-            217,
-            192
+            468,
+            203,
+            214,
+            189
           ],
           "margin": [
-            82,
-            20,
-            159,
-            26
+            84,
+            29,
+            162,
+            41
           ]
         }
       ]
@@ -403,24 +403,24 @@
           ],
           "margin": [
             91,
-            36,
+            42,
             155,
-            44
+            56
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            695,
-            209,
-            225,
-            188
+            686,
+            203,
+            229,
+            192
           ],
           "margin": [
-            81,
-            24,
-            151,
-            30
+            79,
+            26,
+            147,
+            38
           ]
         },
         {
@@ -433,24 +433,24 @@
           ],
           "margin": [
             83,
-            25,
+            31,
             131,
-            33
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            924,
-            209,
-            226,
-            196
+            919,
+            203,
+            233,
+            202
           ],
           "margin": [
-            85,
+            82,
             16,
-            150,
-            22
+            143,
+            28
           ]
         },
         {
@@ -463,24 +463,24 @@
           ],
           "margin": [
             87,
-            21,
+            27,
             165,
-            29
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1154,
-            209,
-            212,
-            197
+            1156,
+            203,
+            208,
+            194
           ],
           "margin": [
-            86,
-            15,
-            164,
-            21
+            88,
+            24,
+            168,
+            36
           ]
         },
         {
@@ -493,24 +493,24 @@
           ],
           "margin": [
             97,
-            22,
+            28,
             172,
-            30
+            42
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1370,
-            209,
-            210,
-            200
+            1368,
+            203,
+            207,
+            197
           ],
           "margin": [
-            91,
-            12,
-            166,
-            18
+            93,
+            21,
+            169,
+            33
           ]
         },
         {
@@ -523,24 +523,24 @@
           ],
           "margin": [
             86,
-            15,
+            21,
             157,
-            23
+            35
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1584,
-            209,
-            218,
-            204
+            1579,
+            203,
+            227,
+            213
           ],
           "margin": [
-            86,
-            8,
-            158,
-            14
+            82,
+            5,
+            149,
+            17
           ]
         },
         {
@@ -553,24 +553,24 @@
           ],
           "margin": [
             89,
-            14,
+            20,
             143,
-            22
+            34
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1806,
-            209,
+            1810,
             203,
-            201
+            202,
+            200
           ],
           "margin": [
-            104,
-            11,
-            173,
-            17
+            105,
+            18,
+            174,
+            30
           ]
         },
         {
@@ -583,24 +583,24 @@
           ],
           "margin": [
             115,
-            22,
+            28,
             182,
-            30
+            42
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
             2,
-            421,
-            194,
-            202
+            424,
+            199,
+            207
           ],
           "margin": [
-            111,
-            10,
-            182,
-            16
+            109,
+            11,
+            177,
+            23
           ]
         },
         {
@@ -613,24 +613,24 @@
           ],
           "margin": [
             93,
-            12,
+            18,
             151,
-            20
+            32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            200,
-            421,
-            204,
-            209
+            205,
+            424,
+            213,
+            218
           ],
           "margin": [
-            102,
-            3,
-            172,
-            9
+            98,
+            0,
+            163,
+            12
           ]
         },
         {
@@ -643,24 +643,24 @@
           ],
           "margin": [
             93,
-            8,
+            14,
             164,
-            16
+            28
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            408,
-            421,
-            204,
-            209
+            422,
+            424,
+            206,
+            210
           ],
           "margin": [
-            102,
-            3,
-            172,
-            9
+            100,
+            8,
+            170,
+            20
           ]
         },
         {
@@ -673,24 +673,24 @@
           ],
           "margin": [
             90,
-            12,
+            18,
             168,
-            20
+            32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            616,
-            421,
-            213,
-            207
+            632,
+            424,
+            210,
+            205
           ],
           "margin": [
-            94,
-            5,
-            163,
-            11
+            96,
+            13,
+            166,
+            25
           ]
         },
         {
@@ -703,24 +703,24 @@
           ],
           "margin": [
             88,
-            11,
+            17,
             167,
-            19
+            31
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            833,
-            421,
-            230,
-            206
+            846,
+            424,
+            222,
+            199
           ],
           "margin": [
-            80,
-            6,
-            146,
-            12
+            86,
+            19,
+            154,
+            31
           ]
         },
         {
@@ -733,24 +733,24 @@
           ],
           "margin": [
             67,
-            16,
+            22,
             129,
-            24
+            36
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1067,
-            421,
-            257,
-            197
+            1072,
+            424,
+            237,
+            181
           ],
           "margin": [
-            60,
-            15,
-            119,
-            21
+            71,
+            37,
+            139,
+            49
           ]
         }
       ]
@@ -770,24 +770,24 @@
           ],
           "margin": [
             76,
-            29,
+            35,
             144,
-            37
+            49
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1328,
-            421,
-            221,
-            194
+            1313,
+            424,
+            225,
+            197
           ],
           "margin": [
-            80,
-            18,
-            155,
-            24
+            78,
+            21,
+            151,
+            33
           ]
         },
         {
@@ -800,24 +800,24 @@
           ],
           "margin": [
             71,
-            21,
+            27,
             134,
-            29
+            41
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1553,
-            421,
-            226,
-            199
+            1542,
+            424,
+            227,
+            200
           ],
           "margin": [
             83,
-            13,
-            150,
-            19
+            18,
+            149,
+            30
           ]
         },
         {
@@ -830,24 +830,24 @@
           ],
           "margin": [
             83,
-            20,
+            26,
             142,
-            28
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1783,
-            421,
-            221,
-            196
+            1773,
+            424,
+            218,
+            194
           ],
           "margin": [
-            90,
-            16,
-            155,
-            22
+            92,
+            24,
+            158,
+            36
           ]
         },
         {
@@ -860,24 +860,24 @@
           ],
           "margin": [
             101,
-            26,
+            32,
             156,
-            34
+            46
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
             2,
-            638,
-            214,
-            195
+            650,
+            215,
+            196
           ],
           "margin": [
-            96,
-            17,
-            162,
-            23
+            94,
+            22,
+            161,
+            34
           ]
         },
         {
@@ -890,24 +890,24 @@
           ],
           "margin": [
             89,
-            23,
+            29,
             148,
-            31
+            43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            220,
-            638,
-            213,
-            194
+            221,
+            650,
+            218,
+            198
           ],
           "margin": [
-            90,
-            18,
-            163,
-            24
+            86,
+            20,
+            158,
+            32
           ]
         },
         {
@@ -920,24 +920,24 @@
           ],
           "margin": [
             69,
-            28,
+            34,
             77,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            437,
-            638,
-            264,
-            186
+            443,
+            650,
+            259,
+            183
           ],
           "margin": [
-            76,
-            26,
-            112,
-            32
+            78,
+            35,
+            117,
+            47
           ]
         },
         {
@@ -950,24 +950,24 @@
           ],
           "margin": [
             79,
-            39,
+            45,
             97,
-            47
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            705,
-            638,
-            203,
-            179
+            706,
+            650,
+            207,
+            183
           ],
           "margin": [
-            85,
-            33,
-            173,
-            39
+            83,
+            35,
+            169,
+            47
           ]
         },
         {
@@ -980,24 +980,24 @@
           ],
           "margin": [
             71,
-            39,
+            45,
             93,
-            47
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            912,
-            638,
-            232,
-            175
+            917,
+            650,
+            242,
+            182
           ],
           "margin": [
-            84,
-            37,
-            144,
-            43
+            79,
+            36,
+            134,
+            48
           ]
         },
         {
@@ -1010,24 +1010,24 @@
           ],
           "margin": [
             76,
-            48,
+            54,
             149,
-            56
+            68
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1148,
-            638,
-            176,
-            163
+            1163,
+            650,
+            198,
+            183
           ],
           "margin": [
-            94,
-            48,
-            200,
-            55
+            80,
+            35,
+            178,
+            47
           ]
         },
         {
@@ -1040,24 +1040,24 @@
           ],
           "margin": [
             83,
-            62,
+            68,
             162,
-            70
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1328,
-            638,
-            182,
-            164
+            1365,
+            650,
+            206,
+            185
           ],
           "margin": [
-            94,
-            47,
-            194,
-            54
+            81,
+            33,
+            170,
+            45
           ]
         },
         {
@@ -1070,24 +1070,24 @@
           ],
           "margin": [
             71,
-            46,
+            52,
             140,
-            54
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1514,
-            638,
-            246,
-            177
+            1575,
+            650,
+            254,
+            183
           ],
           "margin": [
-            80,
+            76,
             35,
-            130,
-            41
+            122,
+            47
           ]
         },
         {
@@ -1100,24 +1100,24 @@
           ],
           "margin": [
             82,
-            38,
+            44,
             133,
-            46
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1764,
-            638,
-            237,
-            182
+            2,
+            856,
+            235,
+            181
           ],
           "margin": [
-            84,
-            30,
-            139,
-            36
+            85,
+            37,
+            141,
+            49
           ]
         }
       ]
@@ -1137,24 +1137,24 @@
           ],
           "margin": [
             86,
-            35,
+            41,
             126,
-            43
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            2,
-            841,
-            260,
-            188
+            241,
+            856,
+            254,
+            183
           ],
           "margin": [
-            78,
-            24,
-            116,
-            30
+            81,
+            35,
+            122,
+            47
           ]
         },
         {
@@ -1167,24 +1167,24 @@
           ],
           "margin": [
             80,
-            28,
+            34,
             123,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            266,
-            841,
-            230,
-            192
+            499,
+            856,
+            226,
+            188
           ],
           "margin": [
-            86,
-            20,
-            146,
-            26
+            88,
+            30,
+            150,
+            42
           ]
         },
         {
@@ -1197,24 +1197,24 @@
           ],
           "margin": [
             94,
-            27,
+            33,
             122,
-            35
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            500,
-            841,
-            230,
-            190
+            729,
+            856,
+            217,
+            179
           ],
           "margin": [
-            86,
-            22,
-            146,
-            28
+            94,
+            39,
+            159,
+            51
           ]
         },
         {
@@ -1227,24 +1227,24 @@
           ],
           "margin": [
             104,
-            32,
+            38,
             134,
-            40
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            734,
-            841,
-            228,
-            190
+            950,
+            856,
+            213,
+            178
           ],
           "margin": [
-            86,
-            22,
-            148,
-            28
+            94,
+            40,
+            163,
+            52
           ]
         },
         {
@@ -1257,24 +1257,24 @@
           ],
           "margin": [
             92,
-            26,
+            32,
             120,
-            34
+            46
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            966,
-            841,
-            246,
+            1167,
+            856,
+            245,
             195
           ],
           "margin": [
-            85,
-            17,
-            130,
-            23
+            86,
+            23,
+            131,
+            35
           ]
         },
         {
@@ -1287,24 +1287,24 @@
           ],
           "margin": [
             96,
-            22,
+            28,
             128,
-            30
+            42
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1216,
-            841,
-            246,
-            194
+            1416,
+            856,
+            240,
+            189
           ],
           "margin": [
-            82,
-            18,
-            130,
-            24
+            85,
+            29,
+            136,
+            41
           ]
         },
         {
@@ -1317,24 +1317,24 @@
           ],
           "margin": [
             106,
-            28,
+            34,
             149,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1466,
-            841,
-            232,
-            192
+            1660,
+            856,
+            229,
+            189
           ],
           "margin": [
-            86,
-            20,
-            144,
-            26
+            88,
+            29,
+            147,
+            41
           ]
         },
         {
@@ -1347,24 +1347,24 @@
           ],
           "margin": [
             94,
-            25,
+            31,
             134,
-            33
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1702,
-            841,
-            229,
-            192
+            2,
+            1059,
+            235,
+            198
           ],
           "margin": [
-            84,
+            80,
             20,
-            147,
-            26
+            141,
+            32
           ]
         },
         {
@@ -1377,24 +1377,24 @@
           ],
           "margin": [
             87,
-            28,
+            34,
             140,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            2,
-            1044,
-            219,
-            186
+            241,
+            1059,
+            223,
+            190
           ],
           "margin": [
-            88,
-            26,
-            157,
-            32
+            86,
+            28,
+            153,
+            40
           ]
         },
         {
@@ -1407,24 +1407,24 @@
           ],
           "margin": [
             93,
-            36,
+            42,
             162,
-            44
+            56
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            225,
-            1044,
-            219,
-            189
+            468,
+            1059,
+            222,
+            191
           ],
           "margin": [
             82,
-            23,
-            157,
-            29
+            27,
+            154,
+            39
           ]
         },
         {
@@ -1437,24 +1437,24 @@
           ],
           "margin": [
             76,
-            24,
+            30,
             137,
-            32
+            44
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            448,
-            1044,
-            223,
-            197
+            694,
+            1059,
+            225,
+            199
           ],
           "margin": [
-            81,
-            15,
-            153,
-            21
+            80,
+            19,
+            151,
+            31
           ]
         },
         {
@@ -1467,24 +1467,24 @@
           ],
           "margin": [
             95,
-            20,
+            26,
             158,
-            28
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            675,
-            1044,
-            210,
-            199
+            923,
+            1059,
+            205,
+            194
           ],
           "margin": [
-            86,
-            13,
-            166,
-            19
+            88,
+            24,
+            171,
+            36
           ]
         }
       ]
@@ -1504,24 +1504,24 @@
           ],
           "margin": [
             98,
-            25,
+            31,
             144,
-            33
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            889,
-            1044,
-            233,
-            190
+            1132,
+            1059,
+            221,
+            180
           ],
           "margin": [
-            92,
-            22,
-            143,
-            28
+            98,
+            38,
+            155,
+            50
           ]
         },
         {
@@ -1534,24 +1534,24 @@
           ],
           "margin": [
             100,
-            32,
+            38,
             159,
-            40
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1126,
-            1044,
-            213,
-            183
+            1357,
+            1059,
+            201,
+            173
           ],
           "margin": [
-            86,
-            29,
-            163,
-            35
+            93,
+            46,
+            175,
+            57
           ]
         },
         {
@@ -1564,23 +1564,23 @@
           ],
           "margin": [
             100,
-            38,
+            44,
             189,
-            46
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1343,
-            1044,
-            170,
-            160
+            1562,
+            1059,
+            183,
+            172
           ],
           "margin": [
-            110,
-            51,
-            206,
+            102,
+            48,
+            193,
             58
           ]
         },
@@ -1594,24 +1594,24 @@
           ],
           "margin": [
             106,
-            77,
+            83,
             192,
-            85
+            97
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1517,
-            1044,
-            223,
-            171
+            1749,
+            1059,
+            197,
+            151
           ],
           "margin": [
-            72,
-            41,
-            153,
-            47
+            88,
+            67,
+            179,
+            79
           ]
         }
       ]
@@ -1631,24 +1631,24 @@
           ],
           "margin": [
             79,
-            55,
+            61,
             142,
-            63
+            75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1744,
-            1044,
-            244,
-            156
+            2,
+            1266,
+            224,
+            144
           ],
           "margin": [
-            61,
-            56,
-            132,
-            62
+            72,
+            74,
+            152,
+            86
           ]
         },
         {
@@ -1661,24 +1661,24 @@
           ],
           "margin": [
             82,
-            70,
+            76,
             162,
-            78
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            2,
-            1251,
-            218,
-            133
+            230,
+            1266,
+            216,
+            132
           ],
           "margin": [
-            72,
-            79,
-            158,
-            85
+            73,
+            86,
+            160,
+            98
           ]
         },
         {
@@ -1691,23 +1691,23 @@
           ],
           "margin": [
             59,
-            100,
+            106,
             133,
-            108
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            224,
-            1251,
-            203,
-            110
+            450,
+            1266,
+            225,
+            122
           ],
           "margin": [
-            76,
-            102,
-            173,
+            64,
+            97,
+            151,
             108
           ]
         },
@@ -1721,24 +1721,24 @@
           ],
           "margin": [
             51,
-            114,
+            120,
             121,
-            122
+            134
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            431,
-            1251,
-            237,
-            104
+            679,
+            1266,
+            232,
+            102
           ],
           "margin": [
-            60,
-            109,
-            139,
-            114
+            63,
+            118,
+            144,
+            128
           ]
         }
       ]
@@ -1758,24 +1758,24 @@
           ],
           "margin": [
             67,
-            30,
+            36,
             129,
-            38
+            50
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            672,
-            1251,
-            257,
-            186
+            915,
+            1266,
+            248,
+            179
           ],
           "margin": [
-            60,
-            26,
-            119,
-            32
+            66,
+            39,
+            128,
+            51
           ]
         },
         {
@@ -1788,24 +1788,24 @@
           ],
           "margin": [
             80,
-            39,
+            45,
             149,
-            47
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            933,
-            1251,
-            239,
+            1167,
+            1266,
+            240,
             185
           ],
           "margin": [
             74,
-            27,
-            137,
-            33
+            33,
+            136,
+            45
           ]
         }
       ]
@@ -1825,24 +1825,24 @@
           ],
           "margin": [
             84,
-            35,
+            41,
             175,
-            43
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1176,
-            1251,
-            227,
-            183
+            1411,
+            1266,
+            209,
+            169
           ],
           "margin": [
-            68,
-            29,
-            149,
-            35
+            78,
+            49,
+            167,
+            61
           ]
         },
         {
@@ -1855,24 +1855,24 @@
           ],
           "margin": [
             84,
-            37,
+            43,
             176,
-            45
+            57
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1407,
-            1251,
-            248,
-            183
+            1624,
+            1266,
+            233,
+            172
           ],
           "margin": [
-            58,
-            30,
-            128,
-            35
+            66,
+            47,
+            143,
+            58
           ]
         },
         {
@@ -1885,24 +1885,24 @@
           ],
           "margin": [
             66,
-            43,
+            49,
             149,
-            51
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1659,
-            1251,
-            240,
-            170
+            2,
+            1459,
+            230,
+            163
           ],
           "margin": [
-            60,
-            42,
-            136,
-            48
+            66,
+            55,
+            146,
+            67
           ]
         },
         {
@@ -1915,24 +1915,24 @@
           ],
           "margin": [
             77,
-            57,
+            63,
             167,
-            65
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            2,
-            1445,
-            244,
-            166
+            236,
+            1459,
+            221,
+            150
           ],
           "margin": [
-            60,
-            46,
-            132,
-            52
+            74,
+            68,
+            155,
+            80
           ]
         },
         {
@@ -1945,24 +1945,24 @@
           ],
           "margin": [
             70,
-            51,
+            57,
             156,
-            59
+            71
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            250,
-            1445,
-            246,
-            170
+            461,
+            1459,
+            242,
+            167
           ],
           "margin": [
-            59,
-            42,
-            130,
-            48
+            61,
+            51,
+            134,
+            63
           ]
         },
         {
@@ -1975,24 +1975,24 @@
           ],
           "margin": [
             72,
-            52,
+            58,
             154,
-            60
+            72
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            500,
-            1445,
-            249,
-            165
+            707,
+            1459,
+            234,
+            154
           ],
           "margin": [
-            52,
-            47,
-            127,
-            53
+            60,
+            64,
+            142,
+            76
           ]
         },
         {
@@ -2005,24 +2005,24 @@
           ],
           "margin": [
             80,
-            58,
+            64,
             168,
-            66
+            78
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            753,
-            1445,
-            250,
-            164
+            945,
+            1459,
+            232,
+            153
           ],
           "margin": [
-            51,
-            48,
-            126,
-            54
+            61,
+            65,
+            144,
+            77
           ]
         },
         {
@@ -2035,24 +2035,24 @@
           ],
           "margin": [
             71,
-            54,
+            60,
             153,
-            62
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1007,
-            1445,
-            243,
-            163
+            1181,
+            1459,
+            239,
+            160
           ],
           "margin": [
-            56,
-            49,
-            133,
-            55
+            58,
+            58,
+            137,
+            70
           ]
         },
         {
@@ -2065,24 +2065,24 @@
           ],
           "margin": [
             68,
-            59,
+            65,
             144,
-            67
+            79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1254,
-            1445,
-            255,
-            155
+            1424,
+            1459,
+            239,
+            146
           ],
           "margin": [
-            50,
-            57,
-            121,
-            63
+            59,
+            72,
+            137,
+            84
           ]
         },
         {
@@ -2095,24 +2095,24 @@
           ],
           "margin": [
             85,
-            69,
+            75,
             174,
-            77
+            89
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1513,
-            1445,
-            240,
-            157
+            1667,
+            1459,
+            230,
+            151
           ],
           "margin": [
-            62,
-            55,
-            136,
-            61
+            68,
+            67,
+            146,
+            79
           ]
         },
         {
@@ -2125,24 +2125,24 @@
           ],
           "margin": [
             69,
-            56,
+            62,
             148,
-            64
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1757,
-            1445,
-            248,
-            166
+            2,
+            1634,
+            228,
+            152
           ],
           "margin": [
-            60,
-            46,
-            128,
-            52
+            71,
+            66,
+            148,
+            78
           ]
         },
         {
@@ -2155,24 +2155,24 @@
           ],
           "margin": [
             78,
-            54,
+            60,
             156,
-            62
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            2,
-            1623,
-            239,
-            166
+            234,
+            1634,
+            233,
+            161
           ],
           "margin": [
-            63,
-            46,
-            137,
-            52
+            66,
+            57,
+            143,
+            69
           ]
         }
       ]
@@ -2192,24 +2192,24 @@
           ],
           "margin": [
             85,
-            53,
+            59,
             161,
-            61
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            245,
-            1623,
-            258,
-            169
+            471,
+            1634,
+            240,
+            157
           ],
           "margin": [
-            54,
-            43,
-            118,
-            49
+            64,
+            61,
+            136,
+            73
           ]
         },
         {
@@ -2222,24 +2222,24 @@
           ],
           "margin": [
             78,
-            50,
+            56,
             154,
-            58
+            70
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            507,
-            1623,
-            247,
-            170
+            715,
+            1634,
+            236,
+            163
           ],
           "margin": [
-            58,
-            42,
-            129,
-            48
+            64,
+            55,
+            140,
+            67
           ]
         },
         {
@@ -2252,24 +2252,24 @@
           ],
           "margin": [
             74,
-            50,
+            56,
             147,
-            58
+            70
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            758,
-            1623,
-            214,
-            165
+            955,
+            1634,
+            215,
+            166
           ],
           "margin": [
             80,
-            47,
-            162,
-            53
+            52,
+            161,
+            64
           ]
         },
         {
@@ -2282,24 +2282,24 @@
           ],
           "margin": [
             82,
-            57,
+            63,
             156,
-            65
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            976,
-            1623,
-            217,
-            164
+            1174,
+            1634,
+            221,
+            167
           ],
           "margin": [
-            78,
-            48,
-            159,
-            54
+            76,
+            51,
+            155,
+            63
           ]
         },
         {
@@ -2312,24 +2312,24 @@
           ],
           "margin": [
             78,
-            52,
+            58,
             151,
-            60
+            72
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1197,
-            1623,
+            1399,
+            1634,
             223,
             167
           ],
           "margin": [
             73,
-            45,
+            51,
             153,
-            51
+            63
           ]
         },
         {
@@ -2342,24 +2342,24 @@
           ],
           "margin": [
             73,
-            52,
+            58,
             150,
-            60
+            72
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1424,
-            1623,
-            222,
-            163
+            1626,
+            1634,
+            220,
+            161
           ],
           "margin": [
             74,
-            49,
-            154,
-            55
+            57,
+            156,
+            69
           ]
         },
         {
@@ -2372,24 +2372,24 @@
           ],
           "margin": [
             82,
-            59,
+            65,
             160,
-            67
+            79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1650,
-            1623,
-            222,
-            160
+            2,
+            1809,
+            218,
+            157
           ],
           "margin": [
-            74,
-            52,
-            154,
-            58
+            76,
+            61,
+            158,
+            73
           ]
         },
         {
@@ -2402,24 +2402,24 @@
           ],
           "margin": [
             79,
-            58,
+            64,
             161,
-            66
+            78
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            2,
-            1801,
-            235,
-            161
+            224,
+            1809,
+            233,
+            159
           ],
           "margin": [
-            64,
-            51,
-            141,
-            57
+            66,
+            59,
+            143,
+            71
           ]
         },
         {
@@ -2432,24 +2432,24 @@
           ],
           "margin": [
             68,
-            59,
+            65,
             138,
-            67
+            79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            241,
-            1801,
-            218,
-            154
+            461,
+            1809,
+            231,
+            163
           ],
           "margin": [
-            74,
-            58,
-            158,
-            64
+            67,
+            55,
+            145,
+            67
           ]
         },
         {
@@ -2462,24 +2462,24 @@
           ],
           "margin": [
             78,
-            70,
+            76,
             147,
-            78
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            463,
-            1801,
-            219,
-            156
+            696,
+            1809,
+            234,
+            167
           ],
           "margin": [
-            76,
-            56,
-            157,
-            62
+            68,
+            51,
+            142,
+            63
           ]
         },
         {
@@ -2492,24 +2492,24 @@
           ],
           "margin": [
             66,
-            55,
+            61,
             130,
-            63
+            75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            686,
-            1801,
-            234,
-            168
+            934,
+            1809,
+            227,
+            163
           ],
           "margin": [
-            66,
-            44,
-            142,
-            50
+            70,
+            55,
+            149,
+            67
           ]
         },
         {
@@ -2522,24 +2522,24 @@
           ],
           "margin": [
             86,
-            47,
+            53,
             182,
-            55
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            924,
-            1801,
-            209,
-            173
+            1165,
+            1809,
+            200,
+            165
           ],
           "margin": [
-            76,
-            39,
-            167,
-            45
+            82,
+            53,
+            176,
+            65
           ]
         }
       ]
@@ -2559,24 +2559,24 @@
           ],
           "margin": [
             85,
-            45,
+            51,
             177,
-            53
+            65
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1137,
-            1801,
-            206,
-            178
+            1369,
+            1809,
+            202,
+            174
           ],
           "margin": [
-            78,
-            34,
-            170,
-            40
+            80,
+            44,
+            174,
+            56
           ]
         },
         {
@@ -2589,24 +2589,24 @@
           ],
           "margin": [
             79,
-            38,
+            44,
             172,
-            46
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1347,
-            1801,
-            211,
-            183
+            1575,
+            1809,
+            201,
+            174
           ],
           "margin": [
-            76,
-            29,
-            165,
-            35
+            82,
+            44,
+            175,
+            56
           ]
         },
         {
@@ -2619,24 +2619,24 @@
           ],
           "margin": [
             88,
-            35,
+            41,
             182,
-            43
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
           "region": [
-            1562,
-            1801,
-            214,
-            181
+            1780,
+            1809,
+            198,
+            168
           ],
           "margin": [
-            77,
-            31,
-            162,
-            37
+            86,
+            50,
+            178,
+            62
           ]
         },
         {
@@ -2649,24 +2649,24 @@
           ],
           "margin": [
             89,
-            41,
+            47,
             184,
-            49
+            61
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1780,
-            1801,
-            208,
-            181
+            2,
+            2,
+            199,
+            174
           ],
           "margin": [
-            80,
-            31,
-            168,
-            37
+            85,
+            44,
+            177,
+            56
           ]
         },
         {
@@ -2679,24 +2679,24 @@
           ],
           "margin": [
             84,
-            34,
+            40,
             176,
-            42
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
+            205,
             2,
-            2,
-            197,
-            184
+            195,
+            182
           ],
           "margin": [
             86,
-            28,
-            179,
-            34
+            36,
+            181,
+            48
           ]
         },
         {
@@ -2709,24 +2709,24 @@
           ],
           "margin": [
             89,
-            35,
+            41,
             181,
-            43
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            203,
+            404,
             2,
-            192,
-            181
+            188,
+            178
           ],
           "margin": [
-            88,
-            31,
-            184,
-            37
+            90,
+            40,
+            188,
+            52
           ]
         },
         {
@@ -2739,24 +2739,24 @@
           ],
           "margin": [
             90,
-            39,
+            45,
             184,
-            47
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            399,
+            596,
             2,
-            192,
-            182
+            188,
+            179
           ],
           "margin": [
-            90,
-            30,
-            184,
-            36
+            92,
+            39,
+            188,
+            51
           ]
         },
         {
@@ -2769,24 +2769,24 @@
           ],
           "margin": [
             89,
-            34,
+            40,
             181,
-            42
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            595,
+            788,
             2,
-            193,
-            186
+            189,
+            183
           ],
           "margin": [
-            88,
-            26,
-            183,
-            32
+            92,
+            35,
+            187,
+            47
           ]
         },
         {
@@ -2799,24 +2799,24 @@
           ],
           "margin": [
             91,
-            31,
+            37,
             186,
-            39
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            792,
+            981,
             2,
-            196,
-            184
+            189,
+            177
           ],
           "margin": [
-            87,
-            28,
-            180,
-            34
+            90,
+            41,
+            187,
+            53
           ]
         },
         {
@@ -2829,24 +2829,24 @@
           ],
           "margin": [
             95,
-            38,
+            44,
             195,
-            46
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            992,
+            1174,
             2,
-            195,
-            187
+            187,
+            179
           ],
           "margin": [
-            86,
-            25,
-            181,
-            31
+            90,
+            39,
+            189,
+            51
           ]
         },
         {
@@ -2859,24 +2859,24 @@
           ],
           "margin": [
             91,
-            25,
+            31,
             188,
-            33
+            45
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1191,
+            1365,
             2,
-            199,
-            197
+            190,
+            188
           ],
           "margin": [
-            84,
-            15,
-            177,
-            21
+            88,
+            30,
+            186,
+            42
           ]
         },
         {
@@ -2889,24 +2889,24 @@
           ],
           "margin": [
             94,
-            20,
+            26,
             162,
-            28
+            40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1394,
+            1559,
             2,
-            212,
-            199
+            206,
+            194
           ],
           "margin": [
-            88,
-            13,
-            164,
-            19
+            90,
+            24,
+            170,
+            36
           ]
         }
       ]
@@ -2926,24 +2926,24 @@
           ],
           "margin": [
             83,
-            57,
+            63,
             169,
-            65
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1610,
+            1769,
             2,
-            213,
-            162
+            216,
+            164
           ],
           "margin": [
-            77,
-            50,
-            163,
-            56
+            75,
+            54,
+            160,
+            66
           ]
         },
         {
@@ -2956,24 +2956,24 @@
           ],
           "margin": [
             79,
-            57,
+            63,
             157,
-            65
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1827,
             2,
-            219,
-            162
+            204,
+            217,
+            161
           ],
           "margin": [
-            72,
-            50,
-            157,
-            56
+            73,
+            57,
+            159,
+            69
           ]
         }
       ]
@@ -2993,24 +2993,24 @@
           ],
           "margin": [
             84,
-            59,
+            65,
             159,
-            67
+            79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            2,
-            209,
-            239,
-            160
+            223,
+            204,
+            225,
+            151
           ],
           "margin": [
-            69,
-            52,
-            137,
-            58
+            77,
+            67,
+            151,
+            79
           ]
         },
         {
@@ -3023,24 +3023,24 @@
           ],
           "margin": [
             77,
-            59,
+            65,
             151,
-            67
+            79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            245,
-            209,
-            233,
-            160
+            452,
+            204,
+            226,
+            155
           ],
           "margin": [
-            72,
-            52,
-            143,
-            58
+            76,
+            63,
+            150,
+            75
           ]
         }
       ]
@@ -3060,24 +3060,24 @@
           ],
           "margin": [
             84,
-            38,
+            44,
             151,
-            46
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            482,
-            209,
-            246,
-            185
+            682,
+            204,
+            226,
+            171
           ],
           "margin": [
-            71,
-            27,
-            130,
-            33
+            81,
+            47,
+            150,
+            59
           ]
         },
         {
@@ -3090,24 +3090,24 @@
           ],
           "margin": [
             82,
-            30,
+            36,
             147,
-            38
+            50
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            732,
-            209,
-            242,
-            191
+            912,
+            204,
+            228,
+            179
           ],
           "margin": [
-            74,
-            21,
-            134,
-            27
+            82,
+            39,
+            148,
+            51
           ]
         },
         {
@@ -3120,24 +3120,24 @@
           ],
           "margin": [
             79,
-            28,
+            34,
             153,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            978,
-            209,
-            227,
-            188
+            1144,
+            204,
+            214,
+            178
           ],
           "margin": [
-            77,
-            24,
-            149,
-            30
+            84,
+            40,
+            162,
+            52
           ]
         },
         {
@@ -3150,24 +3150,24 @@
           ],
           "margin": [
             86,
-            34,
+            40,
             162,
-            42
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1209,
-            209,
-            227,
-            189
+            1362,
+            204,
+            213,
+            177
           ],
           "margin": [
-            78,
-            23,
-            149,
-            29
+            85,
+            41,
+            163,
+            53
           ]
         },
         {
@@ -3180,24 +3180,24 @@
           ],
           "margin": [
             79,
-            27,
+            33,
             154,
-            35
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1440,
-            209,
-            229,
-            192
+            1579,
+            204,
+            215,
+            181
           ],
           "margin": [
-            74,
-            20,
-            147,
-            26
+            82,
+            37,
+            161,
+            49
           ]
         },
         {
@@ -3210,24 +3210,24 @@
           ],
           "margin": [
             83,
-            27,
+            33,
             173,
-            35
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1673,
-            209,
-            217,
-            189
+            1798,
+            204,
+            202,
+            175
           ],
           "margin": [
-            77,
-            23,
-            159,
-            29
+            85,
+            43,
+            174,
+            55
           ]
         },
         {
@@ -3240,24 +3240,24 @@
           ],
           "margin": [
             89,
-            34,
+            40,
             183,
-            42
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
             2,
-            409,
-            213,
-            188
+            393,
+            203,
+            179
           ],
           "margin": [
-            78,
-            24,
-            163,
-            30
+            83,
+            39,
+            173,
+            51
           ]
         },
         {
@@ -3270,24 +3270,24 @@
           ],
           "margin": [
             77,
-            28,
+            34,
             168,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            219,
-            409,
-            221,
-            191
+            209,
+            393,
+            217,
+            186
           ],
           "margin": [
-            78,
-            21,
-            155,
-            27
+            80,
+            32,
+            159,
+            44
           ]
         },
         {
@@ -3300,24 +3300,24 @@
           ],
           "margin": [
             74,
-            29,
+            35,
             157,
-            37
+            49
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            444,
-            409,
-            214,
-            185
+            430,
+            393,
+            211,
+            183
           ],
           "margin": [
-            82,
-            27,
-            162,
-            33
+            84,
+            35,
+            165,
+            47
           ]
         },
         {
@@ -3330,24 +3330,24 @@
           ],
           "margin": [
             82,
-            38,
+            44,
             166,
-            46
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            662,
-            409,
-            214,
-            185
+            645,
+            393,
+            204,
+            176
           ],
           "margin": [
-            84,
-            27,
-            162,
-            33
+            88,
+            42,
+            172,
+            54
           ]
         },
         {
@@ -3360,24 +3360,24 @@
           ],
           "margin": [
             77,
-            31,
+            37,
             160,
-            39
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            880,
-            409,
-            225,
-            187
+            853,
+            393,
+            209,
+            174
           ],
           "margin": [
-            74,
-            25,
-            151,
-            31
+            83,
+            44,
+            167,
+            56
           ]
         },
         {
@@ -3390,24 +3390,24 @@
           ],
           "margin": [
             75,
-            33,
+            39,
             131,
-            41
+            53
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1109,
-            409,
-            227,
-            183
+            1066,
+            393,
+            220,
+            177
           ],
           "margin": [
-            76,
-            29,
-            149,
-            35
+            80,
+            41,
+            156,
+            53
           ]
         }
       ]
@@ -3427,24 +3427,24 @@
           ],
           "margin": [
             79,
-            40,
+            46,
             135,
-            48
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1340,
-            409,
-            225,
-            181
+            1290,
+            393,
+            221,
+            179
           ],
           "margin": [
-            80,
-            31,
-            151,
-            37
+            82,
+            39,
+            155,
+            51
           ]
         },
         {
@@ -3457,24 +3457,24 @@
           ],
           "margin": [
             73,
-            35,
+            41,
             126,
-            43
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1569,
-            409,
-            230,
-            182
+            1515,
+            393,
+            228,
+            180
           ],
           "margin": [
-            77,
-            30,
-            146,
-            36
+            78,
+            38,
+            148,
+            50
           ]
         },
         {
@@ -3487,24 +3487,24 @@
           ],
           "margin": [
             72,
-            38,
+            44,
             126,
-            46
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1803,
-            409,
+            1747,
+            393,
             234,
             177
           ],
           "margin": [
             77,
-            35,
+            41,
             142,
-            41
+            53
           ]
         },
         {
@@ -3517,24 +3517,24 @@
           ],
           "margin": [
             81,
-            46,
+            52,
             141,
-            54
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
             2,
-            608,
-            228,
-            176
+            587,
+            225,
+            174
           ],
           "margin": [
-            79,
-            36,
-            148,
-            42
+            80,
+            44,
+            151,
+            56
           ]
         },
         {
@@ -3547,24 +3547,24 @@
           ],
           "margin": [
             73,
-            39,
+            45,
             128,
-            47
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            234,
-            608,
-            258,
-            179
+            231,
+            587,
+            245,
+            170
           ],
           "margin": [
-            68,
-            33,
-            118,
-            39
+            74,
+            48,
+            131,
+            60
           ]
         },
         {
@@ -3577,24 +3577,24 @@
           ],
           "margin": [
             66,
-            41,
+            47,
             118,
-            49
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            496,
-            608,
-            254,
-            175
+            480,
+            587,
+            241,
+            166
           ],
           "margin": [
-            70,
-            37,
-            122,
-            43
+            76,
+            52,
+            135,
+            64
           ]
         },
         {
@@ -3607,24 +3607,24 @@
           ],
           "margin": [
             82,
-            47,
+            53,
             141,
-            55
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            754,
-            608,
-            252,
-            176
+            725,
+            587,
+            234,
+            164
           ],
           "margin": [
-            70,
-            36,
-            124,
-            42
+            79,
+            54,
+            142,
+            66
           ]
         },
         {
@@ -3637,24 +3637,24 @@
           ],
           "margin": [
             73,
-            39,
+            45,
             130,
-            47
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1010,
-            608,
-            241,
-            181
+            963,
+            587,
+            223,
+            168
           ],
           "margin": [
-            74,
-            31,
-            135,
-            37
+            84,
+            50,
+            153,
+            62
           ]
         },
         {
@@ -3667,24 +3667,24 @@
           ],
           "margin": [
             86,
-            37,
+            43,
             159,
-            45
+            57
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1255,
-            608,
-            228,
-            179
+            1190,
+            587,
+            213,
+            167
           ],
           "margin": [
-            81,
-            33,
-            148,
-            39
+            89,
+            51,
+            163,
+            63
           ]
         },
         {
@@ -3697,24 +3697,24 @@
           ],
           "margin": [
             92,
-            43,
+            49,
             167,
-            51
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1487,
-            608,
-            217,
-            181
+            1407,
+            587,
+            206,
+            172
           ],
           "margin": [
-            83,
-            31,
-            159,
-            37
+            89,
+            46,
+            170,
+            58
           ]
         },
         {
@@ -3727,24 +3727,24 @@
           ],
           "margin": [
             84,
-            33,
+            39,
             158,
-            41
+            53
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1708,
-            608,
-            229,
-            187
+            1617,
+            587,
+            222,
+            181
           ],
           "margin": [
-            78,
-            25,
-            147,
-            31
+            82,
+            37,
+            154,
+            49
           ]
         },
         {
@@ -3757,24 +3757,24 @@
           ],
           "margin": [
             69,
-            31,
+            37,
             146,
-            39
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
             2,
-            803,
-            233,
-            187
+            776,
+            225,
+            181
           ],
           "margin": [
-            70,
-            25,
-            143,
-            31
+            74,
+            37,
+            151,
+            49
           ]
         }
       ]
@@ -3794,24 +3794,24 @@
           ],
           "margin": [
             74,
-            33,
+            39,
             148,
-            41
+            53
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            239,
-            803,
-            229,
-            189
+            231,
+            776,
+            222,
+            184
           ],
           "margin": [
-            72,
-            23,
-            147,
-            29
+            75,
+            34,
+            154,
+            46
           ]
         },
         {
@@ -3824,24 +3824,24 @@
           ],
           "margin": [
             66,
-            26,
+            32,
             142,
-            34
+            46
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            472,
-            803,
-            232,
-            192
+            457,
+            776,
+            219,
+            182
           ],
           "margin": [
-            67,
-            20,
-            144,
-            26
+            74,
+            36,
+            157,
+            48
           ]
         },
         {
@@ -3854,24 +3854,24 @@
           ],
           "margin": [
             70,
-            27,
+            33,
             163,
-            35
+            47
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            708,
-            803,
-            215,
-            188
+            680,
+            776,
+            205,
+            179
           ],
           "margin": [
-            72,
-            24,
-            161,
-            30
+            78,
+            39,
+            171,
+            51
           ]
         },
         {
@@ -3884,24 +3884,24 @@
           ],
           "margin": [
             81,
-            34,
+            40,
             174,
-            42
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            927,
-            803,
-            216,
-            188
+            889,
+            776,
+            207,
+            180
           ],
           "margin": [
-            72,
-            24,
-            160,
-            30
+            76,
+            38,
+            169,
+            50
           ]
         },
         {
@@ -3914,24 +3914,24 @@
           ],
           "margin": [
             80,
-            28,
+            34,
             172,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1147,
-            803,
-            216,
-            191
+            1100,
+            776,
+            208,
+            184
           ],
           "margin": [
-            72,
-            21,
-            160,
-            27
+            77,
+            34,
+            168,
+            46
           ]
         },
         {
@@ -3944,24 +3944,24 @@
           ],
           "margin": [
             79,
-            28,
+            34,
             170,
-            36
+            48
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1367,
-            803,
-            206,
-            187
+            1312,
+            776,
+            199,
+            180
           ],
           "margin": [
-            77,
-            25,
-            170,
-            31
+            81,
+            38,
+            177,
+            50
           ]
         },
         {
@@ -3974,24 +3974,24 @@
           ],
           "margin": [
             86,
-            35,
+            41,
             179,
-            43
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1577,
-            803,
-            205,
-            186
+            1515,
+            776,
+            200,
+            181
           ],
           "margin": [
-            77,
-            26,
-            171,
-            32
+            80,
+            37,
+            176,
+            49
           ]
         },
         {
@@ -4004,24 +4004,24 @@
           ],
           "margin": [
             78,
-            29,
+            35,
             172,
-            37
+            49
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1786,
-            803,
-            206,
-            188
+            1719,
+            776,
+            201,
+            184
           ],
           "margin": [
-            74,
-            24,
-            170,
-            30
+            78,
+            34,
+            175,
+            46
           ]
         },
         {
@@ -4034,24 +4034,24 @@
           ],
           "margin": [
             76,
-            31,
+            37,
             152,
-            39
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
             2,
-            1003,
-            203,
-            184
+            968,
+            199,
+            180
           ],
           "margin": [
-            82,
-            28,
-            173,
-            34
+            84,
+            40,
+            177,
+            50
           ]
         },
         {
@@ -4064,24 +4064,24 @@
           ],
           "margin": [
             82,
-            38,
+            44,
             156,
-            46
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            209,
-            1003,
-            209,
+            205,
+            968,
+            208,
             186
           ],
           "margin": [
-            81,
-            26,
-            167,
-            32
+            82,
+            32,
+            168,
+            44
           ]
         },
         {
@@ -4094,24 +4094,24 @@
           ],
           "margin": [
             72,
-            26,
+            32,
             147,
-            34
+            46
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            422,
-            1003,
-            224,
-            196
+            417,
+            968,
+            214,
+            188
           ],
           "margin": [
-            74,
-            16,
-            152,
-            22
+            80,
+            30,
+            162,
+            42
           ]
         },
         {
@@ -4124,24 +4124,24 @@
           ],
           "margin": [
             91,
-            19,
+            25,
             150,
-            27
+            39
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            650,
-            1003,
-            239,
-            199
+            635,
+            968,
+            216,
+            181
           ],
           "margin": [
-            70,
-            13,
-            137,
-            19
+            82,
+            37,
+            160,
+            49
           ]
         }
       ]
@@ -4161,24 +4161,24 @@
           ],
           "margin": [
             80,
-            35,
+            41,
             145,
-            43
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            893,
-            1003,
-            228,
-            185
+            855,
+            968,
+            230,
+            187
           ],
           "margin": [
             76,
-            27,
-            148,
-            33
+            31,
+            146,
+            43
           ]
         },
         {
@@ -4191,24 +4191,24 @@
           ],
           "margin": [
             80,
-            31,
+            37,
             145,
-            39
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
           "region": [
-            1125,
-            1003,
-            228,
-            185
+            1089,
+            968,
+            225,
+            183
           ],
           "margin": [
-            78,
-            27,
-            148,
-            33
+            80,
+            35,
+            151,
+            47
           ]
         }
       ]

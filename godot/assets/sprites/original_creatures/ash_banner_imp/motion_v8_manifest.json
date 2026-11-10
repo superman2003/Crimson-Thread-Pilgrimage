@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "ash_banner_imp",
   "canvas": [
     416,
-    248
+    282
   ],
   "display_height": 80,
   "visual_scale": 0.3686635944700461,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             129,
-            23,
+            40,
             228,
-            31
+            65
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            194,
-            227
+            191,
+            223
           ],
           "margin": [
-            120,
-            15,
-            222,
-            21
+            122,
+            36,
+            225,
+            59
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             131,
-            22,
+            39,
             237,
-            30
+            64
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            200,
+            197,
             2,
             194,
-            227
+            228
           ],
           "margin": [
             110,
-            15,
+            31,
             222,
-            21
+            54
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             113,
-            24,
+            41,
             232,
-            32
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            398,
+            395,
             2,
-            193,
-            226
+            190,
+            223
           ],
           "margin": [
-            103,
-            16,
-            223,
-            22
+            105,
+            36,
+            226,
+            59
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             119,
-            24,
+            41,
             237,
-            32
+            66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            595,
+            589,
             2,
-            199,
-            226
+            192,
+            218
           ],
           "margin": [
-            110,
-            16,
-            217,
-            22
+            114,
+            41,
+            224,
+            64
           ]
         }
       ]
@@ -156,24 +156,24 @@
           ],
           "margin": [
             117,
-            22,
+            39,
             230,
-            30
+            64
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            798,
+            785,
             2,
-            215,
-            228
+            205,
+            217
           ],
           "margin": [
-            92,
-            14,
-            201,
-            20
+            98,
+            42,
+            211,
+            65
           ]
         },
         {
@@ -186,24 +186,24 @@
           ],
           "margin": [
             105,
-            23,
+            40,
             227,
-            31
+            65
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1017,
+            994,
             2,
-            221,
-            226
+            214,
+            219
           ],
           "margin": [
-            93,
-            16,
-            195,
-            22
+            97,
+            40,
+            202,
+            63
           ]
         },
         {
@@ -216,24 +216,24 @@
           ],
           "margin": [
             115,
-            25,
+            42,
             209,
-            33
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1242,
+            1212,
             2,
-            217,
-            223
+            215,
+            221
           ],
           "margin": [
-            101,
-            19,
-            199,
-            25
+            102,
+            38,
+            201,
+            61
           ]
         },
         {
@@ -246,24 +246,24 @@
           ],
           "margin": [
             123,
-            29,
+            46,
             227,
-            37
+            71
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1463,
+            1431,
             2,
-            209,
-            220
+            205,
+            216
           ],
           "margin": [
-            102,
-            22,
-            207,
-            28
+            104,
+            43,
+            211,
+            66
           ]
         },
         {
@@ -276,24 +276,24 @@
           ],
           "margin": [
             121,
-            29,
+            46,
             232,
-            37
+            71
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1676,
+            1640,
             2,
-            210,
-            222
+            206,
+            217
           ],
           "margin": [
-            99,
-            20,
-            206,
-            26
+            101,
+            42,
+            210,
+            65
           ]
         },
         {
@@ -306,9 +306,9 @@
           ],
           "margin": [
             111,
-            27,
+            44,
             221,
-            35
+            69
           ]
         },
         {
@@ -316,14 +316,14 @@
           "region": [
             2,
             238,
-            216,
-            224
+            212,
+            219
           ],
           "margin": [
-            96,
-            18,
-            200,
-            24
+            98,
+            40,
+            204,
+            63
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             123,
-            25,
+            42,
             224,
-            33
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            222,
+            218,
             238,
-            224,
-            223
+            219,
+            218
           ],
           "margin": [
-            89,
-            19,
-            192,
-            25
+            92,
+            41,
+            197,
+            64
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             123,
-            29,
+            46,
             239,
-            37
+            71
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            450,
+            441,
             238,
-            214,
-            224
+            210,
+            219
           ],
           "margin": [
-            91,
-            18,
-            202,
-            24
+            94,
+            40,
+            206,
+            63
           ]
         }
       ]
@@ -403,24 +403,24 @@
           ],
           "margin": [
             119,
-            33,
+            50,
             220,
-            41
+            75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            668,
+            655,
             238,
-            197,
-            205
+            200,
+            208
           ],
           "margin": [
-            114,
-            37,
-            219,
-            43
+            112,
+            51,
+            216,
+            74
           ]
         },
         {
@@ -433,24 +433,24 @@
           ],
           "margin": [
             134,
-            55,
+            72,
             244,
-            63
+            97
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            869,
+            859,
             238,
-            160,
-            182
+            199,
+            226
           ],
           "margin": [
-            140,
-            60,
-            256,
-            66
+            118,
+            33,
+            217,
+            56
           ]
         },
         {
@@ -463,24 +463,24 @@
           ],
           "margin": [
             9,
-            78,
+            95,
             41,
-            86
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1033,
+            1062,
             238,
-            272,
-            153
+            314,
+            176
           ],
           "margin": [
-            74,
-            89,
-            144,
-            95
+            50,
+            83,
+            102,
+            106
           ]
         },
         {
@@ -493,24 +493,24 @@
           ],
           "margin": [
             47,
-            116,
+            133,
             104,
-            124
+            158
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1309,
+            1380,
             238,
-            268,
-            137
+            288,
+            148
           ],
           "margin": [
-            78,
-            105,
-            148,
-            111
+            66,
+            111,
+            128,
+            134
           ]
         },
         {
@@ -523,24 +523,24 @@
           ],
           "margin": [
             47,
-            108,
+            125,
             106,
-            116
+            150
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1581,
+            1672,
             238,
-            272,
-            140
+            304,
+            157
           ],
           "margin": [
-            80,
+            62,
             102,
-            144,
-            108
+            112,
+            125
           ]
         },
         {
@@ -553,24 +553,24 @@
           ],
           "margin": [
             54,
-            110,
+            127,
             105,
-            118
+            152
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
             2,
-            470,
-            259,
-            135
+            472,
+            294,
+            153
           ],
           "margin": [
-            98,
-            107,
-            157,
-            113
+            80,
+            106,
+            122,
+            129
           ]
         },
         {
@@ -583,24 +583,24 @@
           ],
           "margin": [
             63,
+            135,
             118,
-            118,
-            126
+            160
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            265,
-            470,
-            288,
-            136
+            300,
+            472,
+            308,
+            145
           ],
           "margin": [
-            78,
-            106,
-            128,
-            112
+            68,
+            114,
+            108,
+            137
           ]
         },
         {
@@ -613,24 +613,24 @@
           ],
           "margin": [
             56,
-            110,
+            127,
             102,
-            118
+            152
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            557,
-            470,
-            302,
-            142
+            612,
+            472,
+            310,
+            146
           ],
           "margin": [
-            72,
-            100,
-            114,
-            106
+            68,
+            113,
+            106,
+            136
           ]
         },
         {
@@ -643,24 +643,24 @@
           ],
           "margin": [
             57,
-            107,
+            124,
             74,
-            115
+            149
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            863,
-            470,
-            296,
-            139
+            926,
+            472,
+            313,
+            147
           ],
           "margin": [
-            87,
+            78,
+            112,
             103,
-            120,
-            109
+            135
           ]
         },
         {
@@ -673,24 +673,24 @@
           ],
           "margin": [
             63,
-            115,
+            132,
             87,
-            123
+            157
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1163,
-            470,
-            286,
-            138
+            1243,
+            472,
+            312,
+            151
           ],
           "margin": [
-            87,
+            74,
+            108,
             104,
-            130,
-            110
+            131
           ]
         },
         {
@@ -703,24 +703,24 @@
           ],
           "margin": [
             50,
-            108,
+            125,
             72,
-            116
+            150
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1453,
-            470,
-            261,
-            140
+            1559,
+            472,
+            284,
+            152
           ],
           "margin": [
-            92,
-            102,
-            155,
-            108
+            81,
+            107,
+            132,
+            130
           ]
         },
         {
@@ -733,24 +733,24 @@
           ],
           "margin": [
             101,
-            111,
+            128,
             134,
-            119
+            153
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1718,
-            470,
-            231,
-            132
+            2,
+            633,
+            257,
+            147
           ],
           "margin": [
-            106,
+            94,
             112,
-            185,
-            116
+            159,
+            135
           ]
         }
       ]
@@ -770,24 +770,24 @@
           ],
           "margin": [
             96,
-            120,
+            137,
             140,
-            128
+            162
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            2,
-            620,
-            258,
-            137
+            263,
+            633,
+            282,
+            150
           ],
           "margin": [
+            99,
             109,
-            105,
-            158,
-            111
+            134,
+            132
           ]
         },
         {
@@ -800,24 +800,24 @@
           ],
           "margin": [
             99,
-            103,
+            120,
             117,
-            111
+            145
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            264,
-            620,
-            265,
-            150
+            549,
+            633,
+            281,
+            159
           ],
           "margin": [
-            114,
-            92,
-            151,
-            98
+            106,
+            100,
+            135,
+            123
           ]
         },
         {
@@ -830,24 +830,24 @@
           ],
           "margin": [
             116,
-            96,
+            113,
             187,
-            104
+            138
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            533,
-            620,
+            834,
+            633,
             242,
             154
           ],
           "margin": [
             114,
-            88,
+            105,
             174,
-            94
+            128
           ]
         },
         {
@@ -860,24 +860,24 @@
           ],
           "margin": [
             119,
-            93,
+            110,
             171,
-            101
+            135
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            779,
-            620,
-            246,
-            163
+            1080,
+            633,
+            260,
+            172
           ],
           "margin": [
-            112,
-            79,
-            170,
-            85
+            105,
+            87,
+            156,
+            110
           ]
         },
         {
@@ -890,24 +890,24 @@
           ],
           "margin": [
             102,
-            79,
+            96,
             156,
-            87
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1029,
-            620,
+            1344,
+            633,
             251,
             173
           ],
           "margin": [
             101,
-            69,
+            86,
             165,
-            75
+            109
           ]
         },
         {
@@ -920,24 +920,24 @@
           ],
           "margin": [
             114,
-            73,
+            90,
             189,
-            81
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1284,
-            620,
-            232,
-            176
+            1599,
+            633,
+            225,
+            171
           ],
           "margin": [
-            112,
-            66,
-            184,
-            72
+            114,
+            88,
+            191,
+            111
           ]
         },
         {
@@ -950,24 +950,24 @@
           ],
           "margin": [
             125,
-            73,
+            90,
             204,
-            81
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1520,
-            620,
-            229,
-            179
+            2,
+            814,
+            228,
+            178
           ],
           "margin": [
             114,
-            63,
-            187,
-            69
+            81,
+            188,
+            104
           ]
         },
         {
@@ -980,24 +980,24 @@
           ],
           "margin": [
             105,
-            66,
+            83,
             182,
-            74
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1753,
-            620,
-            230,
-            183
+            234,
+            814,
+            237,
+            189
           ],
           "margin": [
-            110,
-            59,
-            186,
-            65
+            106,
+            70,
+            179,
+            93
           ]
         },
         {
@@ -1010,24 +1010,24 @@
           ],
           "margin": [
             115,
-            65,
+            82,
             216,
-            73
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            2,
-            811,
-            227,
-            180
+            475,
+            814,
+            224,
+            178
           ],
           "margin": [
-            98,
-            62,
-            189,
-            68
+            100,
+            81,
+            192,
+            104
           ]
         },
         {
@@ -1040,24 +1040,24 @@
           ],
           "margin": [
             125,
-            72,
+            89,
             231,
-            80
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            233,
-            811,
-            237,
-            190
+            703,
+            814,
+            229,
+            184
           ],
           "margin": [
-            93,
-            52,
-            179,
-            58
+            97,
+            75,
+            187,
+            98
           ]
         },
         {
@@ -1070,24 +1070,24 @@
           ],
           "margin": [
             100,
-            45,
+            62,
             194,
-            53
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            474,
-            811,
-            250,
-            214
+            936,
+            814,
+            246,
+            210
           ],
           "margin": [
-            95,
-            28,
-            166,
-            34
+            97,
+            49,
+            170,
+            72
           ]
         },
         {
@@ -1100,24 +1100,24 @@
           ],
           "margin": [
             102,
-            27,
+            44,
             157,
-            35
+            69
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            728,
-            811,
-            273,
-            230
+            1186,
+            814,
+            265,
+            223
           ],
           "margin": [
-            85,
-            12,
-            143,
-            18
+            89,
+            36,
+            151,
+            59
           ]
         }
       ]
@@ -1137,24 +1137,24 @@
           ],
           "margin": [
             101,
-            15,
+            32,
             143,
-            23
+            57
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1005,
-            811,
-            279,
-            238
+            1455,
+            814,
+            277,
+            236
           ],
           "margin": [
-            94,
-            4,
-            137,
-            10
+            96,
+            23,
+            139,
+            46
           ]
         },
         {
@@ -1167,24 +1167,24 @@
           ],
           "margin": [
             94,
-            10,
+            27,
             139,
-            18
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1288,
-            811,
-            268,
-            240
+            1736,
+            814,
+            287,
+            257
           ],
           "margin": [
-            102,
+            95,
             2,
-            148,
-            8
+            129,
+            25
           ]
         },
         {
@@ -1197,24 +1197,24 @@
           ],
           "margin": [
             92,
-            12,
+            29,
             206,
-            20
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1560,
-            811,
+            2,
+            1079,
             203,
             234
           ],
           "margin": [
             96,
-            8,
+            25,
             213,
-            14
+            48
           ]
         },
         {
@@ -1227,24 +1227,24 @@
           ],
           "margin": [
             99,
-            21,
+            38,
             217,
-            29
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1767,
-            811,
-            195,
-            234
+            209,
+            1079,
+            211,
+            254
           ],
           "margin": [
-            101,
-            8,
-            221,
-            14
+            92,
+            5,
+            205,
+            28
           ]
         },
         {
@@ -1257,24 +1257,24 @@
           ],
           "margin": [
             94,
-            10,
+            27,
             208,
-            18
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            2,
-            1059,
-            199,
-            241
+            424,
+            1079,
+            214,
+            259
           ],
           "margin": [
-            100,
-            1,
-            217,
-            7
+            90,
+            0,
+            202,
+            23
           ]
         },
         {
@@ -1287,24 +1287,24 @@
           ],
           "margin": [
             116,
-            8,
+            25,
             220,
-            16
+            50
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            205,
-            1059,
-            192,
-            241
+            642,
+            1079,
+            188,
+            236
           ],
           "margin": [
-            110,
-            1,
-            224,
-            7
+            112,
+            23,
+            228,
+            46
           ]
         },
         {
@@ -1317,24 +1317,24 @@
           ],
           "margin": [
             121,
-            10,
+            27,
             223,
-            18
+            52
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            401,
-            1059,
+            834,
+            1079,
             192,
             241
           ],
           "margin": [
             107,
-            1,
+            18,
             224,
-            7
+            41
           ]
         },
         {
@@ -1347,24 +1347,24 @@
           ],
           "margin": [
             111,
-            9,
+            26,
             215,
-            17
+            51
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            597,
-            1059,
+            1030,
+            1079,
             197,
             237
           ],
           "margin": [
             102,
-            5,
+            22,
             219,
-            11
+            45
           ]
         },
         {
@@ -1377,24 +1377,24 @@
           ],
           "margin": [
             105,
-            17,
+            34,
             226,
-            25
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            798,
-            1059,
-            183,
-            228
+            1231,
+            1079,
+            175,
+            217
           ],
           "margin": [
-            102,
-            14,
-            233,
-            20
+            107,
+            42,
+            241,
+            65
           ]
         },
         {
@@ -1407,24 +1407,24 @@
           ],
           "margin": [
             103,
-            28,
+            45,
             234,
-            36
+            70
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            985,
-            1059,
-            196,
-            226
+            1410,
+            1079,
+            181,
+            210
           ],
           "margin": [
-            93,
-            16,
-            220,
-            22
+            102,
+            49,
+            235,
+            72
           ]
         },
         {
@@ -1437,24 +1437,24 @@
           ],
           "margin": [
             113,
-            20,
+            37,
             232,
-            28
+            62
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1185,
-            1059,
-            219,
-            231
+            1595,
+            1079,
+            206,
+            217
           ],
           "margin": [
-            96,
-            11,
-            197,
-            17
+            104,
+            42,
+            210,
+            65
           ]
         },
         {
@@ -1467,24 +1467,24 @@
           ],
           "margin": [
             122,
-            19,
+            36,
             224,
-            27
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1408,
-            1059,
-            239,
-            230
+            1805,
+            1079,
+            211,
+            204
           ],
           "margin": [
-            101,
-            12,
-            177,
-            18
+            115,
+            55,
+            205,
+            78
           ]
         }
       ]
@@ -1504,24 +1504,24 @@
           ],
           "margin": [
             129,
-            13,
+            30,
             222,
-            21
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1651,
-            1059,
-            183,
-            232
+            2,
+            1346,
+            193,
+            244
           ],
           "margin": [
-            125,
-            10,
-            233,
-            16
+            119,
+            15,
+            223,
+            38
           ]
         },
         {
@@ -1534,24 +1534,24 @@
           ],
           "margin": [
             141,
-            21,
+            38,
             246,
-            29
+            63
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1838,
-            1059,
-            178,
-            208
+            199,
+            1346,
+            195,
+            229
           ],
           "margin": [
-            126,
-            34,
-            238,
-            40
+            116,
+            30,
+            221,
+            53
           ]
         },
         {
@@ -1564,24 +1564,24 @@
           ],
           "margin": [
             133,
-            59,
+            76,
             240,
-            67
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            2,
-            1308,
-            209,
-            208
+            398,
+            1346,
+            200,
+            198
           ],
           "margin": [
-            110,
-            34,
-            207,
-            40
+            114,
+            61,
+            216,
+            84
           ]
         }
       ]
@@ -1601,24 +1601,24 @@
           ],
           "margin": [
             103,
-            137,
+            154,
             216,
-            145
+            179
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            215,
-            1308,
-            163,
-            101
+            602,
+            1346,
+            182,
+            113
           ],
           "margin": [
-            111,
-            140,
-            253,
-            147
+            100,
+            145,
+            234,
+            169
           ]
         },
         {
@@ -1631,24 +1631,24 @@
           ],
           "margin": [
             95,
-            153,
+            170,
             218,
-            161
+            195
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            382,
-            1308,
-            211,
-            102
+            788,
+            1346,
+            218,
+            106
           ],
           "margin": [
-            90,
-            141,
-            205,
-            146
+            86,
+            153,
+            198,
+            176
           ]
         },
         {
@@ -1661,24 +1661,24 @@
           ],
           "margin": [
             73,
-            139,
+            156,
             185,
-            147
+            181
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            597,
-            1308,
-            241,
-            109
+            1010,
+            1346,
+            239,
+            108
           ],
           "margin": [
-            69,
-            135,
-            175,
-            139
+            70,
+            152,
+            177,
+            174
           ]
         }
       ]
@@ -1698,24 +1698,24 @@
           ],
           "margin": [
             119,
-            54,
+            71,
             235,
-            62
+            96
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            842,
-            1308,
-            162,
-            198
+            1253,
+            1346,
+            189,
+            229
           ],
           "margin": [
-            133,
-            46,
-            254,
-            50
+            118,
+            30,
+            227,
+            53
           ]
         },
         {
@@ -1728,24 +1728,24 @@
           ],
           "margin": [
             117,
-            47,
+            64,
             234,
-            55
+            89
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1008,
-            1308,
-            179,
-            202
+            1446,
+            1346,
+            185,
+            210
           ],
           "margin": [
-            120,
-            40,
-            237,
-            46
+            116,
+            49,
+            231,
+            72
           ]
         },
         {
@@ -1758,24 +1758,24 @@
           ],
           "margin": [
             119,
-            45,
+            62,
             235,
-            53
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1191,
-            1308,
-            172,
-            200
+            1635,
+            1346,
+            198,
+            231
           ],
           "margin": [
-            118,
-            42,
-            244,
-            48
+            102,
+            28,
+            218,
+            51
           ]
         },
         {
@@ -1788,24 +1788,24 @@
           ],
           "margin": [
             125,
-            51,
+            68,
             236,
-            59
+            93
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1367,
-            1308,
-            344,
-            209
+            2,
+            1598,
+            261,
+            158
           ],
           "margin": [
-            54,
-            34,
-            72,
-            39
+            94,
+            101,
+            155,
+            124
           ]
         },
         {
@@ -1818,24 +1818,24 @@
           ],
           "margin": [
             118,
-            38,
+            55,
             229,
-            46
+            80
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            2,
-            1525,
-            367,
-            217
+            267,
+            1598,
+            256,
+            151
           ],
           "margin": [
-            17,
-            26,
-            49,
-            31
+            78,
+            108,
+            160,
+            131
           ]
         },
         {
@@ -1848,24 +1848,24 @@
           ],
           "margin": [
             137,
-            34,
+            51,
             258,
-            42
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            373,
-            1525,
-            348,
-            218
+            527,
+            1598,
+            250,
+            157
           ],
           "margin": [
-            27,
-            25,
-            68,
-            30
+            81,
+            102,
+            166,
+            125
           ]
         },
         {
@@ -1878,24 +1878,24 @@
           ],
           "margin": [
             140,
-            35,
+            52,
             259,
-            43
+            77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            725,
-            1525,
-            196,
-            214
+            781,
+            1598,
+            203,
+            221
           ],
           "margin": [
-            103,
-            28,
-            220,
-            34
+            99,
+            38,
+            213,
+            61
           ]
         },
         {
@@ -1908,24 +1908,24 @@
           ],
           "margin": [
             132,
-            34,
+            51,
             253,
-            42
+            76
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            925,
-            1525,
-            191,
-            212
+            988,
+            1598,
+            212,
+            235
           ],
           "margin": [
-            112,
-            30,
-            225,
-            36
+            100,
+            24,
+            204,
+            47
           ]
         },
         {
@@ -1938,24 +1938,24 @@
           ],
           "margin": [
             97,
-            39,
+            56,
             198,
-            47
+            81
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1120,
-            1525,
-            180,
-            204
+            1204,
+            1598,
+            205,
+            232
           ],
           "margin": [
-            121,
-            39,
-            236,
-            44
+            107,
+            27,
+            211,
+            50
           ]
         },
         {
@@ -1968,24 +1968,24 @@
           ],
           "margin": [
             119,
-            50,
+            67,
             228,
-            58
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1304,
-            1525,
-            181,
-            194
+            1413,
+            1598,
+            204,
+            219
           ],
           "margin": [
-            116,
-            49,
-            235,
-            54
+            102,
+            40,
+            212,
+            63
           ]
         },
         {
@@ -1998,24 +1998,24 @@
           ],
           "margin": [
             116,
-            57,
+            74,
             226,
-            65
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1489,
-            1525,
-            171,
-            184
+            1621,
+            1598,
+            205,
+            221
           ],
           "margin": [
-            120,
-            57,
-            245,
-            64
+            100,
+            38,
+            211,
+            61
           ]
         },
         {
@@ -2028,24 +2028,24 @@
           ],
           "margin": [
             114,
-            69,
+            86,
             155,
-            77
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1664,
-            1525,
-            185,
-            167
+            2,
+            1841,
+            221,
+            199
           ],
           "margin": [
-            138,
-            74,
-            231,
-            81
+            122,
+            62,
+            195,
+            83
           ]
         }
       ]
@@ -2065,24 +2065,24 @@
           ],
           "margin": [
             131,
-            91,
+            108,
             187,
-            99
+            133
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1853,
-            1525,
-            186,
-            155
+            227,
+            1841,
+            219,
+            183
           ],
           "margin": [
-            140,
-            86,
-            230,
-            93
+            126,
+            75,
+            197,
+            99
           ]
         },
         {
@@ -2095,24 +2095,24 @@
           ],
           "margin": [
             121,
-            91,
+            108,
             181,
-            99
+            133
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            2,
-            1751,
-            204,
-            153
+            450,
+            1841,
+            240,
+            180
           ],
           "margin": [
-            128,
-            88,
-            212,
-            95
+            112,
+            79,
+            176,
+            102
           ]
         },
         {
@@ -2125,24 +2125,24 @@
           ],
           "margin": [
             109,
-            97,
+            114,
             145,
-            105
+            139
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            210,
-            1751,
-            212,
-            143
+            694,
+            1841,
+            247,
+            167
           ],
           "margin": [
-            126,
-            98,
-            204,
-            105
+            110,
+            92,
+            169,
+            115
           ]
         },
         {
@@ -2155,24 +2155,24 @@
           ],
           "margin": [
             123,
-            111,
+            128,
             168,
-            119
+            153
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            426,
-            1751,
-            223,
-            140
+            945,
+            1841,
+            249,
+            156
           ],
           "margin": [
-            125,
-            101,
-            193,
-            108
+            114,
+            103,
+            167,
+            126
           ]
         },
         {
@@ -2185,24 +2185,24 @@
           ],
           "margin": [
             112,
-            104,
+            121,
             150,
-            112
+            146
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            653,
-            1751,
-            229,
-            144
+            1198,
+            1841,
+            268,
+            168
           ],
           "margin": [
-            120,
-            97,
-            187,
-            104
+            104,
+            91,
+            148,
+            114
           ]
         },
         {
@@ -2215,24 +2215,24 @@
           ],
           "margin": [
             114,
-            104,
+            121,
             157,
-            112
+            146
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            886,
-            1751,
-            218,
-            139
+            1470,
+            1841,
+            255,
+            163
           ],
           "margin": [
-            131,
-            102,
-            198,
-            109
+            116,
+            96,
+            161,
+            119
           ]
         },
         {
@@ -2245,24 +2245,24 @@
           ],
           "margin": [
             122,
-            112,
+            129,
             172,
-            120
+            154
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
           "region": [
-            1108,
-            1751,
-            252,
+            1729,
+            1841,
+            251,
             138
           ],
           "margin": [
             118,
-            105,
-            164,
-            110
+            121,
+            165,
+            144
           ]
         },
         {
@@ -2275,24 +2275,24 @@
           ],
           "margin": [
             118,
-            108,
+            125,
             174,
-            116
+            150
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            1364,
-            1751,
-            238,
-            138
+            2,
+            2,
+            250,
+            145
           ],
           "margin": [
-            123,
-            106,
-            178,
-            110
+            118,
+            114,
+            166,
+            137
           ]
         },
         {
@@ -2305,24 +2305,24 @@
           ],
           "margin": [
             112,
-            112,
+            129,
             168,
-            120
+            154
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            1606,
-            1751,
-            218,
-            131
+            256,
+            2,
+            233,
+            140
           ],
           "margin": [
-            126,
-            112,
-            198,
-            117
+            120,
+            119,
+            183,
+            142
           ]
         },
         {
@@ -2335,24 +2335,24 @@
           ],
           "margin": [
             119,
-            121,
+            138,
             182,
-            129
+            163
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
+            493,
             2,
-            2,
-            255,
-            145
+            266,
+            151
           ],
           "margin": [
-            104,
-            97,
-            161,
-            103
+            100,
+            108,
+            150,
+            131
           ]
         },
         {
@@ -2365,24 +2365,24 @@
           ],
           "margin": [
             90,
-            87,
+            104,
             117,
-            95
+            129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            261,
+            763,
             2,
-            289,
-            174
+            266,
+            160
           ],
           "margin": [
-            94,
-            68,
-            127,
-            74
+            104,
+            99,
+            150,
+            122
           ]
         },
         {
@@ -2395,24 +2395,24 @@
           ],
           "margin": [
             119,
-            65,
+            82,
             234,
-            73
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            554,
+            1033,
             2,
-            198,
-            194
+            199,
+            195
           ],
           "margin": [
             104,
-            48,
-            218,
-            54
+            64,
+            217,
+            87
           ]
         }
       ]
@@ -2432,24 +2432,24 @@
           ],
           "margin": [
             112,
-            45,
+            62,
             211,
-            53
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            756,
+            1236,
             2,
-            199,
-            210
+            201,
+            212
           ],
           "margin": [
-            105,
-            32,
-            217,
-            38
+            104,
+            47,
+            215,
+            70
           ]
         },
         {
@@ -2462,24 +2462,24 @@
           ],
           "margin": [
             105,
-            33,
+            50,
             213,
-            41
+            75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            959,
+            1441,
             2,
             209,
-            219
+            218
           ],
           "margin": [
             95,
-            23,
+            41,
             207,
-            29
+            64
           ]
         },
         {
@@ -2492,24 +2492,24 @@
           ],
           "margin": [
             115,
-            29,
+            46,
             226,
-            37
+            71
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            1172,
+            1654,
             2,
-            207,
-            220
+            202,
+            214
           ],
           "margin": [
-            97,
-            22,
-            209,
-            28
+            100,
+            45,
+            214,
+            68
           ]
         },
         {
@@ -2522,24 +2522,24 @@
           ],
           "margin": [
             122,
-            32,
+            49,
             236,
-            40
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            1383,
             2,
-            208,
-            224
+            228,
+            204,
+            220
           ],
           "margin": [
-            98,
-            18,
-            208,
-            24
+            100,
+            39,
+            212,
+            62
           ]
         },
         {
@@ -2552,24 +2552,24 @@
           ],
           "margin": [
             114,
-            19,
+            36,
             224,
-            27
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            1595,
-            2,
-            206,
-            233
+            210,
+            228,
+            207,
+            234
           ],
           "margin": [
-            100,
-            9,
-            210,
-            15
+            98,
+            25,
+            209,
+            48
           ]
         },
         {
@@ -2582,24 +2582,24 @@
           ],
           "margin": [
             109,
-            13,
+            30,
             221,
-            21
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            1805,
-            2,
-            213,
-            235
+            421,
+            228,
+            207,
+            229
           ],
           "margin": [
-            102,
-            7,
-            203,
-            13
+            106,
+            30,
+            209,
+            53
           ]
         },
         {
@@ -2612,24 +2612,24 @@
           ],
           "margin": [
             124,
-            15,
+            32,
             238,
-            23
+            57
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            2,
-            245,
-            209,
-            236
+            632,
+            228,
+            207,
+            234
           ],
           "margin": [
             100,
-            6,
-            207,
-            12
+            25,
+            209,
+            48
           ]
         },
         {
@@ -2642,24 +2642,24 @@
           ],
           "margin": [
             107,
-            12,
+            29,
             218,
-            20
+            54
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            215,
-            245,
-            207,
-            236
+            843,
+            228,
+            213,
+            243
           ],
           "margin": [
-            96,
-            6,
-            209,
-            12
+            92,
+            16,
+            203,
+            39
           ]
         },
         {
@@ -2672,24 +2672,24 @@
           ],
           "margin": [
             108,
-            15,
+            32,
             211,
-            23
+            57
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            426,
-            245,
-            200,
-            229
+            1060,
+            228,
+            204,
+            234
           ],
           "margin": [
-            105,
-            13,
-            216,
-            19
+            103,
+            25,
+            212,
+            48
           ]
         },
         {
@@ -2702,24 +2702,24 @@
           ],
           "margin": [
             121,
-            25,
+            42,
             230,
-            33
+            67
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            630,
-            245,
+            1268,
+            228,
             201,
             228
           ],
           "margin": [
             106,
-            14,
+            31,
             215,
-            20
+            54
           ]
         },
         {
@@ -2732,24 +2732,24 @@
           ],
           "margin": [
             116,
-            17,
+            34,
             219,
-            25
+            59
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            835,
-            245,
-            205,
-            232
+            1473,
+            228,
+            211,
+            240
           ],
           "margin": [
-            106,
-            10,
-            211,
-            16
+            102,
+            19,
+            205,
+            42
           ]
         },
         {
@@ -2762,24 +2762,24 @@
           ],
           "margin": [
             117,
-            18,
+            35,
             217,
-            26
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
           "region": [
-            1044,
-            245,
-            206,
-            229
+            1688,
+            228,
+            198,
+            220
           ],
           "margin": [
-            112,
-            13,
-            210,
-            19
+            116,
+            39,
+            218,
+            62
           ]
         }
       ]

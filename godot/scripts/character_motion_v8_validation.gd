@@ -34,6 +34,12 @@ func run() -> void:
         var manifest := ART.manifest(path)
         var record := ART.manifest(path.get_base_dir()+"/motion_v8_generation.json")
         var baseline := ART.manifest("res://"+String(record.baseline_manifest).trim_prefix("godot/"))
+        var padding: Array=record.symmetric_padding
+        var pad := Vector2(float(padding[0]),float(padding[1]))
+        var old_canvas := Vector2(float(baseline.canvas[0]),float(baseline.canvas[1]))
+        var canvas := Vector2(float(manifest.canvas[0]),float(manifest.canvas[1]))
+        check(canvas==old_canvas+pad*2,kind+" uses symmetric padding only")
+        check(manifest.visual_scale==baseline.visual_scale and manifest.visual_offset==baseline.visual_offset,kind+" retains original sprite scale and offset")
         var originals := {}
         for animation: Dictionary in baseline.animations:originals[String(animation.name)]=animation
         var actor := ENEMY.new()
@@ -49,9 +55,19 @@ func run() -> void:
             check(is_equal_approx(float(animation.fps),float(previous.fps)*2),kind+"/"+name+" preserves cycle time")
             check(bool(animation.loop)==bool(previous.loop),kind+"/"+name+" preserves loop policy")
             for i in previous.frames.size():
-                check(animation.frames[i*2]==previous.frames[i],kind+"/"+name+" retains old pixels and placement")
+                var old: Dictionary=previous.frames[i]
+                var retained: Dictionary=animation.frames[i*2]
+                check(retained.atlas==old.atlas and retained.region==old.region,kind+"/"+name+" retains original source pixels")
+                check(frames.get_frame_texture(name,i*2).get_size()==canvas,kind+"/"+name+" retained pose has the common padded canvas")
+                for facing in [-1,1]:
+                    var old_origin:=Vector2(float(old.margin[0]),float(old.margin[1]))-old_canvas*.5
+                    var new_origin:=Vector2(float(retained.margin[0]),float(retained.margin[1]))-canvas*.5
+                    check((new_origin*Vector2(facing,1)).is_equal_approx(old_origin*Vector2(facing,1)),kind+"/"+name+" retains old world placement in both facings")
                 var texture := frames.get_frame_texture(name,i*2+1)
-                check(texture!=null and texture.get_size()==Vector2(manifest.canvas[0],manifest.canvas[1]),kind+"/"+name+" new pose uses original rig canvas")
+                check(texture!=null and texture.get_size()==canvas,kind+"/"+name+" new pose uses common padded rig canvas")
+            for frame: Dictionary in animation.frames:
+                var visible:=Rect2(Vector2(float(frame.margin[0]),float(frame.margin[1])),Vector2(float(frame.region[2]),float(frame.region[3])))
+                check(Rect2(Vector2.ZERO,canvas).encloses(visible),kind+"/"+name+" full pose fits the runtime canvas")
             old_poses+=previous.frames.size()
             new_poses+=animation.frames.size()
         for command: Dictionary in actor.ai_commands:

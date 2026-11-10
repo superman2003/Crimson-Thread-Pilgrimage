@@ -4,6 +4,14 @@
   "reference_baseline_commit": "ec31dbf79ca2729103fc9d90817d2470b9777c05",
   "baseline_manifest": "godot/assets/sprites/original_creatures/pollen_lutist/combat_motion_v7_manifest.json",
   "baseline_sha256": "87e8fd12ceab3719d51057f9b9aaa408ed859619cdcea08beb51f6e3560535aa",
+  "baseline_canvas": [
+    320,
+    232
+  ],
+  "symmetric_padding": [
+    0,
+    0
+  ],
   "new_drawings": 96,
   "old_frame_refs": 96,
   "sources": [
@@ -23,7 +31,13 @@
       "id": "pollen_lutist__03",
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "sha256": "baa830b841bfe77c8d587d2d9d1fbf264cfe69d26af9871741274cef16b62983",
-      "used_drawings": 24
+      "used_drawings": 20
+    },
+    {
+      "id": "death_settle_02",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
+      "sha256": "b132128db2823c11f26f60c00338a2317dfb05648f628c14638c3d591e9e66f3",
+      "used_drawings": 4
     },
     {
       "id": "pollen_lutist__04",
@@ -35,8 +49,8 @@
   "registrations": [
     {
       "margin_xy": [
-        99,
-        26
+        105,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -46,19 +60,25 @@
         196
       ],
       "source_index": 0,
-      "scale": 1.0212765957446808,
+      "scale": 0.9380121537198,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.6370102681402,
+        "target": 101.90283597529822,
+        "registered": 101.79390944452423
+      },
       "animation": "idle",
       "after": 0
     },
     {
       "margin_xy": [
-        96,
-        25
+        100,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -68,19 +88,25 @@
         194
       ],
       "source_index": 1,
-      "scale": 1.0349462365591398,
+      "scale": 0.9602162146207882,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.30145812734649,
+        "target": 102.07238373171087,
+        "registered": 101.70054080485511
+      },
       "animation": "idle",
       "after": 1
     },
     {
       "margin_xy": [
-        94,
-        25
+        98,
+        40
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -90,19 +116,25 @@
         192
       ],
       "source_index": 2,
-      "scale": 1.046195652173913,
+      "scale": 0.9715951588123924,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.59923517884822,
+        "target": 101.62811051524783,
+        "registered": 101.65628362280415
+      },
       "animation": "idle",
       "after": 2
     },
     {
       "margin_xy": [
-        94,
-        26
+        99,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -112,19 +144,25 @@
         191
       ],
       "source_index": 3,
-      "scale": 1.0491803278688525,
+      "scale": 0.9761118316652613,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.94229168149026,
+        "target": 101.4593007207043,
+        "registered": 101.43470806385751
+      },
       "animation": "idle",
       "after": 3
     },
     {
       "margin_xy": [
-        78,
-        22
+        82,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -134,19 +172,25 @@
         183
       ],
       "source_index": 4,
-      "scale": 1.1142857142857143,
+      "scale": 1.0662785370631456,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.53292154230269,
+        "target": 109.3286535829368,
+        "registered": 109.16501271011697
+      },
       "animation": "walk",
       "after": 0
     },
     {
       "margin_xy": [
-        78,
-        24
+        82,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -156,19 +200,25 @@
         188
       ],
       "source_index": 5,
-      "scale": 1.0722222222222222,
+      "scale": 1.0264728604941813,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.23088063270491,
+        "target": 109.04311591586853,
+        "registered": 109.01834707974616
+      },
       "animation": "walk",
       "after": 1
     },
     {
       "margin_xy": [
-        72,
-        26
+        76,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -178,19 +228,25 @@
         186
       ],
       "source_index": 6,
-      "scale": 1.0758426966292134,
+      "scale": 1.021853076609231,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.89518578085459,
+        "target": 107.18746831166314,
+        "registered": 107.29864864013899
+      },
       "animation": "walk",
       "after": 2
     },
     {
       "margin_xy": [
-        70,
-        21
+        78,
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -200,19 +256,25 @@
         180
       ],
       "source_index": 7,
-      "scale": 1.1366279069767442,
+      "scale": 1.0442013875345268,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.3599540053559,
+        "target": 108.97280877543203,
+        "registered": 108.85311203635843
+      },
       "animation": "walk",
       "after": 3
     },
     {
       "margin_xy": [
-        72,
-        18
+        82,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -222,19 +284,25 @@
         179
       ],
       "source_index": 8,
-      "scale": 1.1637426900584795,
+      "scale": 1.06404851354181,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.27148686835103,
+        "target": 109.88587209352147,
+        "registered": 109.60383204979651
+      },
       "animation": "walk",
       "after": 4
     },
     {
       "margin_xy": [
-        62,
-        18
+        72,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -244,19 +312,25 @@
         176
       ],
       "source_index": 9,
-      "scale": 1.1845238095238095,
+      "scale": 1.0798564563500224,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 101.90191362285597,
+        "target": 110.03943934006331,
+        "registered": 109.87265355856297
+      },
       "animation": "walk",
       "after": 5
     },
     {
       "margin_xy": [
-        60,
-        18
+        70,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -266,19 +340,25 @@
         176
       ],
       "source_index": 10,
-      "scale": 1.1845238095238095,
+      "scale": 1.0748375565894597,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 101.91172650877817,
+        "target": 109.5385511085084,
+        "registered": 109.37549999885715
+      },
       "animation": "walk",
       "after": 6
     },
     {
       "margin_xy": [
-        58,
-        20
+        70,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -288,19 +368,25 @@
         177
       ],
       "source_index": 11,
-      "scale": 1.165680473372781,
+      "scale": 1.0464458430622647,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.08734160894828,
+        "target": 107.87532009902355,
+        "registered": 107.87492757819122
+      },
       "animation": "walk",
       "after": 7
     },
     {
       "margin_xy": [
-        52,
-        16
+        62,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -310,19 +396,25 @@
         174
       ],
       "source_index": 12,
-      "scale": 1.2078313253012047,
+      "scale": 1.1092460396150974,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.18430113151904,
+        "target": 114.4567773805891,
+        "registered": 114.2584788976293
+      },
       "animation": "windup",
       "after": 0
     },
     {
       "margin_xy": [
-        56,
-        13
+        64,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -332,19 +424,25 @@
         176
       ],
       "source_index": 13,
-      "scale": 1.2113095238095237,
+      "scale": 1.1344558441601227,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.152270541344,
+        "target": 119.290607842334,
+        "registered": 119.18053532351665
+      },
       "animation": "windup",
       "after": 1
     },
     {
       "margin_xy": [
-        68,
-        17
+        78,
+        35
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -354,19 +452,25 @@
         176
       ],
       "source_index": 14,
-      "scale": 1.1875,
+      "scale": 1.084395556314217,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.85839598255775,
+        "target": 114.79237420203637,
+        "registered": 114.92606318846913
+      },
       "animation": "windup",
       "after": 2
     },
     {
       "margin_xy": [
-        72,
-        17
+        80,
+        34
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -376,19 +480,25 @@
         178
       ],
       "source_index": 15,
-      "scale": 1.173529411764706,
+      "scale": 1.081114220930422,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.77546534667971,
+        "target": 115.43647403275892,
+        "registered": 115.38630767989761
+      },
       "animation": "windup",
       "after": 3
     },
     {
       "margin_xy": [
-        75,
-        13
+        79,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -398,19 +508,25 @@
         183
       ],
       "source_index": 16,
-      "scale": 1.1628571428571428,
+      "scale": 1.1208539106307036,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.78615577567146,
+        "target": 123.05424203427297,
+        "registered": 122.94714311442947
+      },
       "animation": "windup",
       "after": 4
     },
     {
       "margin_xy": [
-        92,
-        17
+        98,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -420,19 +536,25 @@
         189
       ],
       "source_index": 17,
-      "scale": 1.1077348066298343,
+      "scale": 1.024301909586223,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.45994976614185,
+        "target": 118.26584702618847,
+        "registered": 118.60438440462477
+      },
       "animation": "windup",
       "after": 5
     },
     {
       "margin_xy": [
-        89,
-        13
+        97,
+        32
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -442,19 +564,25 @@
         188
       ],
       "source_index": 18,
-      "scale": 1.1305555555555555,
+      "scale": 1.0342967901259388,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.34431657799189,
+        "target": 120.33455318601305,
+        "registered": 120.10412149464314
+      },
       "animation": "windup",
       "after": 6
     },
     {
       "margin_xy": [
-        80,
-        3
+        88,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -464,19 +592,25 @@
         186
       ],
       "source_index": 19,
-      "scale": 1.196629213483146,
+      "scale": 1.0905297906602234,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.35908359199107,
+        "target": 124.71198748966901,
+        "registered": 124.79983974348686
+      },
       "animation": "windup",
       "after": 7
     },
     {
       "margin_xy": [
-        85,
-        1
+        95,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -486,19 +620,25 @@
         186
       ],
       "source_index": 20,
-      "scale": 1.2106741573033708,
+      "scale": 1.0741611226753602,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.4440496326776,
+        "target": 117.56054322357483,
+        "registered": 117.46914488494414
+      },
       "animation": "windup",
       "after": 8
     },
     {
       "margin_xy": [
-        85,
-        6
+        93,
+        26
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -508,19 +648,25 @@
         185
       ],
       "source_index": 21,
-      "scale": 1.189265536723164,
+      "scale": 1.080382061726328,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.0,
+        "target": 115.60088060471709,
+        "registered": 115.60709320798617
+      },
       "animation": "windup",
       "after": 9
     },
     {
       "margin_xy": [
-        74,
-        17
+        78,
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -530,19 +676,25 @@
         177
       ],
       "source_index": 22,
-      "scale": 1.183431952662722,
+      "scale": 1.1337944961702093,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.31651704001509,
+        "target": 127.34384884897663,
+        "registered": 127.62836675285006
+      },
       "animation": "windup",
       "after": 10
     },
     {
       "margin_xy": [
-        54,
-        34
+        64,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__01.png",
       "source_region": [
@@ -552,19 +704,25 @@
         173
       ],
       "source_index": 23,
-      "scale": 1.1090909090909091,
+      "scale": 1.0193381182605947,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 125.84514293368656,
+        "target": 128.27875119025964,
+        "registered": 128.06638903318856
+      },
       "animation": "windup",
       "after": 11
     },
     {
       "margin_xy": [
-        85,
-        44
+        82,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -574,19 +732,25 @@
         173
       ],
       "source_index": 0,
-      "scale": 1.0545454545454545,
+      "scale": 1.0812907756833694,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.70136322841516,
+        "target": 122.94423524150957,
+        "registered": 122.87391912037315
+      },
       "animation": "attack",
       "after": 0
     },
     {
       "margin_xy": [
-        88,
-        43
+        82,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -596,19 +760,25 @@
         173
       ],
       "source_index": 1,
-      "scale": 1.0575757575757576,
+      "scale": 1.116063263307438,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 115.02608399836969,
+        "target": 128.37638667269596,
+        "registered": 128.30432572598633
+      },
       "animation": "attack",
       "after": 1
     },
     {
       "margin_xy": [
-        88,
-        51
+        85,
+        46
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -618,19 +788,25 @@
         174
       ],
       "source_index": 2,
-      "scale": 1.0090361445783131,
+      "scale": 1.036293878633588,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 116.88883607941351,
+        "target": 121.1311853097011,
+        "registered": 120.9958676980334
+      },
       "animation": "attack",
       "after": 2
     },
     {
       "margin_xy": [
-        84,
-        47
+        78,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -640,19 +816,25 @@
         172
       ],
       "source_index": 3,
-      "scale": 1.0426829268292683,
+      "scale": 1.1009549329424464,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.96902230257638,
+        "target": 124.37380237370671,
+        "registered": 124.4025723206719
+      },
       "animation": "attack",
       "after": 3
     },
     {
       "margin_xy": [
-        78,
-        32
+        84,
+        41
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -662,19 +844,25 @@
         171
       ],
       "source_index": 4,
-      "scale": 1.1349693251533743,
+      "scale": 1.0794463058044996,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 113.56055653262712,
+        "target": 122.58252323424738,
+        "registered": 122.53162856993292
+      },
       "animation": "attack",
       "after": 4
     },
     {
       "margin_xy": [
-        91,
-        25
+        95,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -684,19 +872,25 @@
         178
       ],
       "source_index": 5,
-      "scale": 1.1294117647058823,
+      "scale": 1.085493837443823,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.85137579626765,
+        "target": 109.47354692457965,
+        "registered": 109.58558299338468
+      },
       "animation": "attack",
       "after": 5
     },
     {
       "margin_xy": [
-        76,
-        19
+        98,
+        56
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -706,19 +900,25 @@
         167
       ],
       "source_index": 6,
-      "scale": 1.2421383647798743,
+      "scale": 1.0166386182051534,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.63905277974861,
+        "target": 112.47993373753066,
+        "registered": 112.52999600106631
+      },
       "animation": "attack",
       "after": 6
     },
     {
       "margin_xy": [
-        58,
-        15
+        74,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -728,19 +928,25 @@
         167
       ],
       "source_index": 7,
-      "scale": 1.2610062893081762,
+      "scale": 1.091343918333177,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.2081327812286,
+        "target": 118.09228762498272,
+        "registered": 118.17783210061013
+      },
       "animation": "attack",
       "after": 7
     },
     {
       "margin_xy": [
-        50,
-        20
+        66,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -750,19 +956,25 @@
         162
       ],
       "source_index": 8,
-      "scale": 1.275974025974026,
+      "scale": 1.100800421733501,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.9417310909429,
+        "target": 113.3183009988866,
+        "registered": 113.08403954581743
+      },
       "animation": "attack",
       "after": 8
     },
     {
       "margin_xy": [
-        40,
-        20
+        60,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -772,19 +984,25 @@
         159
       ],
       "source_index": 9,
-      "scale": 1.2980132450331126,
+      "scale": 1.0762209581236315,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.24257693538296,
+        "target": 113.26426698479784,
+        "registered": 113.01769772916099
+      },
       "animation": "attack",
       "after": 9
     },
     {
       "margin_xy": [
-        50,
-        17
+        51,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -794,19 +1012,25 @@
         164
       ],
       "source_index": 10,
-      "scale": 1.2724358974358974,
+      "scale": 1.2527153946559975,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 96.81425514871248,
+        "target": 121.28070784694577,
+        "registered": 120.99173525493384
+      },
       "animation": "attack",
       "after": 10
     },
     {
       "margin_xy": [
         60,
-        22
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -816,19 +1040,25 @@
         164
       ],
       "source_index": 11,
-      "scale": 1.2435897435897436,
+      "scale": 1.227670657409836,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 95.00526301210897,
+        "target": 116.63517369947019,
+        "registered": 116.55899793666725
+      },
       "animation": "attack",
       "after": 11
     },
     {
       "margin_xy": [
         60,
-        23
+        25
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -838,19 +1068,25 @@
         171
       ],
       "source_index": 12,
-      "scale": 1.187116564417178,
+      "scale": 1.1781950639009153,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 98.77246579892596,
+        "target": 116.37323165361654,
+        "registered": 116.27553482998907
+      },
       "animation": "recover",
       "after": 0
     },
     {
       "margin_xy": [
-        62,
-        19
+        64,
+        21
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -860,19 +1096,25 @@
         170
       ],
       "source_index": 13,
-      "scale": 1.2160493827160495,
+      "scale": 1.2074577254659045,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 101.13851887386922,
+        "target": 122.12048595643257,
+        "registered": 122.35195135346228
+      },
       "animation": "recover",
       "after": 1
     },
     {
       "margin_xy": [
-        72,
-        23
+        78,
+        36
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -882,19 +1124,25 @@
         170
       ],
       "source_index": 14,
-      "scale": 1.1944444444444444,
+      "scale": 1.118323976034593,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.46980235798269,
+        "target": 115.71276077249271,
+        "registered": 115.61574287267284
+      },
       "animation": "recover",
       "after": 2
     },
     {
       "margin_xy": [
-        78,
-        23
+        85,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -904,19 +1152,25 @@
         168
       ],
       "source_index": 15,
-      "scale": 1.20625,
+      "scale": 1.1246638018257986,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.36698686588367,
+        "target": 115.12844463003633,
+        "registered": 114.8781963646714
+      },
       "animation": "recover",
       "after": 3
     },
     {
       "margin_xy": [
-        76,
-        20
+        88,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -926,19 +1180,25 @@
         166
       ],
       "source_index": 16,
-      "scale": 1.240506329113924,
+      "scale": 1.0987690014606248,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.55093557141026,
+        "target": 115.97609608103319,
+        "registered": 115.71948841919411
+      },
       "animation": "recover",
       "after": 4
     },
     {
       "margin_xy": [
-        76,
-        24
+        90,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -948,19 +1208,25 @@
         169
       ],
       "source_index": 17,
-      "scale": 1.1956521739130435,
+      "scale": 1.023596599487434,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.41428475538423,
+        "target": 108.9253000124988,
+        "registered": 108.816359064251
+      },
       "animation": "recover",
       "after": 5
     },
     {
       "margin_xy": [
-        74,
-        26
+        88,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -970,19 +1236,25 @@
         173
       ],
       "source_index": 18,
-      "scale": 1.1575757575757575,
+      "scale": 1.011899239928495,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.02336193560731,
+        "target": 108.29685859723325,
+        "registered": 108.36973747315253
+      },
       "animation": "recover",
       "after": 6
     },
     {
       "margin_xy": [
-        73,
-        25
+        85,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -992,19 +1264,25 @@
         173
       ],
       "source_index": 19,
-      "scale": 1.1606060606060606,
+      "scale": 1.0274937575624112,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.64090116995405,
+        "target": 108.54536649539541,
+        "registered": 108.76120631916511
+      },
       "animation": "recover",
       "after": 7
     },
     {
       "margin_xy": [
-        68,
-        33
+        84,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -1014,19 +1292,25 @@
         175
       ],
       "source_index": 20,
-      "scale": 1.1047904191616766,
+      "scale": 0.932773453083085,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.60303025955268,
+        "target": 98.50370319124048,
+        "registered": 98.3666610188635
+      },
       "animation": "recover",
       "after": 8
     },
     {
       "margin_xy": [
-        68,
-        32
+        84,
+        61
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -1036,19 +1320,25 @@
         174
       ],
       "source_index": 21,
-      "scale": 1.1144578313253013,
+      "scale": 0.9472639664073841,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.86529738079028,
+        "target": 98.38785356900988,
+        "registered": 98.41747812253675
+      },
       "animation": "recover",
       "after": 9
     },
     {
       "margin_xy": [
-        74,
-        25
+        82,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -1058,19 +1348,25 @@
         173
       ],
       "source_index": 22,
-      "scale": 1.1636363636363636,
+      "scale": 1.0626617219289447,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.60815076324582,
+        "target": 106.91243073015768,
+        "registered": 107.00934538627924
+      },
       "animation": "recover",
       "after": 10
     },
     {
       "margin_xy": [
-        72,
-        24
+        83,
+        48
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__02.png",
       "source_region": [
@@ -1080,19 +1376,25 @@
         172
       ],
       "source_index": 23,
-      "scale": 1.173780487804878,
+      "scale": 1.0373415656057492,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.58826969383657,
+        "target": 104.34439316577776,
+        "registered": 104.22091920531118
+      },
       "animation": "recover",
       "after": 11
     },
     {
       "margin_xy": [
-        63,
-        26
+        76,
+        51
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1102,19 +1404,25 @@
         181
       ],
       "source_index": 0,
-      "scale": 1.1040462427745665,
+      "scale": 0.9660379072535472,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 114.5294721894762,
+        "target": 110.63981163277492,
+        "registered": 110.61645447219867
+      },
       "animation": "hurt",
       "after": 0
     },
     {
       "margin_xy": [
-        68,
-        30
+        76,
+        44
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1124,19 +1432,25 @@
         179
       ],
       "source_index": 1,
-      "scale": 1.0935672514619883,
+      "scale": 1.0142775867421656,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.63040485158382,
+        "target": 104.09571935923587,
+        "registered": 104.14413089560064
+      },
       "animation": "hurt",
       "after": 1
     },
     {
       "margin_xy": [
-        53,
-        46
+        58,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1146,19 +1460,25 @@
         178
       ],
       "source_index": 2,
-      "scale": 1.0176470588235293,
+      "scale": 0.9674010704824374,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.8536725862641,
+        "target": 102.40295617444933,
+        "registered": 102.30347012687302
+      },
       "animation": "hurt",
       "after": 2
     },
     {
       "margin_xy": [
-        65,
-        37
+        79,
+        64
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1168,107 +1488,157 @@
         170
       ],
       "source_index": 3,
-      "scale": 1.1141975308641976,
+      "scale": 0.9527086298661227,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.47557862137798,
+        "target": 102.39291125244176,
+        "registered": 102.3132444994293
+      },
       "animation": "hurt",
       "after": 3
     },
     {
       "margin_xy": [
-        66,
-        62
+        56,
+        80
       ],
-      "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        1054,
-        52,
-        181,
-        170
+        1309,
+        314,
+        202,
+        161
       ],
-      "source_index": 4,
-      "scale": 0.9598765432098766,
+      "source_index": 11,
+      "scale": 0.8996923676126276,
       "rgb_gain": [
-        0.85,
-        0.85,
-        0.85
+        0.865899,
+        0.884384,
+        0.864486
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
+        "source_index": 4,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 118.3427226321923,
+        "target": 106.47204431468158,
+        "registered": 106.49413129370087
+      },
       "animation": "death",
       "after": 0
     },
     {
       "margin_xy": [
-        60,
-        97
+        52,
+        98
       ],
-      "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        1311,
-        84,
-        186,
-        140
+        28,
+        579,
+        201,
+        145
       ],
-      "source_index": 5,
-      "scale": 0.9204545454545454,
+      "source_index": 12,
+      "scale": 0.8763815105382664,
       "rgb_gain": [
-        0.85,
-        0.85,
-        0.85
+        0.880376,
+        0.906926,
+        0.905263
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
+        "source_index": 5,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.9778739399888,
+        "target": 99.01171982092923,
+        "registered": 98.88377015466189
+      },
       "animation": "death",
       "after": 1
     },
     {
       "margin_xy": [
-        106,
-        129
+        36,
+        124
       ],
-      "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        61,
-        304,
-        142,
-        170
+        276,
+        610,
+        219,
+        113
       ],
-      "source_index": 6,
-      "scale": 0.558641975308642,
+      "source_index": 13,
+      "scale": 0.8948577755589049,
       "rgb_gain": [
-        0.85,
-        0.85,
-        0.85
+        0.862335,
+        0.894054,
+        0.878865
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
+        "source_index": 6,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 100.72239075796404,
+        "target": 90.1322145426465,
+        "registered": 90.07774419910837
+      },
       "animation": "death",
       "after": 2
     },
     {
       "margin_xy": [
-        105,
-        141
+        33,
+        152
       ],
-      "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
+      "source": "art_requests/character_motion_v8/repairs/death_settle_02.png",
       "source_region": [
-        303,
-        303,
-        165,
-        173
+        533,
+        648,
+        220,
+        79
       ],
-      "source_index": 7,
-      "scale": 0.47878787878787876,
+      "source_index": 14,
+      "scale": 0.9318273873570811,
       "rgb_gain": [
-        0.85,
-        0.85,
-        0.85
+        0.853983,
+        0.889023,
+        0.878506
       ],
+      "replaces": {
+        "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
+        "source_index": 7,
+        "repair_id": "death_settle_02"
+      },
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 92.9569792968769,
+        "target": 86.61985915481507,
+        "registered": 86.83893136145792
+      },
       "animation": "death",
       "after": 3
     },
     {
       "margin_xy": [
-        78,
-        34
+        76,
+        30
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1278,19 +1648,25 @@
         177
       ],
       "source_index": 8,
-      "scale": 1.0857988165680474,
+      "scale": 1.1053279533393272,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.58717395675006,
+        "target": 118.91911079517672,
+        "registered": 119.1217864204529
+      },
       "animation": "charge",
       "after": 0
     },
     {
       "margin_xy": [
-        95,
-        36
+        82,
+        3
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1300,19 +1676,25 @@
         196
       ],
       "source_index": 9,
-      "scale": 0.976063829787234,
+      "scale": 1.1393521276673966,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.37432634513145,
+        "target": 118.91911079517672,
+        "registered": 118.71394189394942
+      },
       "animation": "charge",
       "after": 1
     },
     {
       "margin_xy": [
-        70,
-        44
+        78,
+        62
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1322,19 +1704,25 @@
         171
       ],
       "source_index": 10,
-      "scale": 1.0644171779141105,
+      "scale": 0.963894124140559,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.6876257906115,
+        "target": 104.7633638663583,
+        "registered": 104.86181383134664
+      },
       "animation": "pollen_spots_windup",
       "after": 0
     },
     {
       "margin_xy": [
-        36,
-        38
+        60,
+        72
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1344,19 +1732,25 @@
         151
       ],
       "source_index": 11,
-      "scale": 1.2447552447552448,
+      "scale": 1.0199397315689631,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.09808588392231,
+        "target": 109.23359296799748,
+        "registered": 109.1879114188013
+      },
       "animation": "pollen_spots_windup",
       "after": 1
     },
     {
       "margin_xy": [
-        51,
-        40
+        63,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1366,19 +1760,25 @@
         161
       ],
       "source_index": 12,
-      "scale": 1.15359477124183,
+      "scale": 1.036226554948313,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.9417310909429,
+        "target": 106.6709553687834,
+        "registered": 106.7707825203131
+      },
       "animation": "pollen_spots_windup",
       "after": 2
     },
     {
       "margin_xy": [
-        50,
-        39
+        66,
+        65
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1388,19 +1788,25 @@
         157
       ],
       "source_index": 13,
-      "scale": 1.191275167785235,
+      "scale": 1.0250521942155388,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.19692893746917,
+        "target": 106.80729063787335,
+        "registered": 106.8831137270991
+      },
       "animation": "pollen_spots_windup",
       "after": 3
     },
     {
       "margin_xy": [
-        82,
-        38
+        79,
+        31
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1410,19 +1816,25 @@
         183
       ],
       "source_index": 14,
-      "scale": 1.0314285714285714,
+      "scale": 1.065044221103181,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.48444860360799,
+        "target": 111.280558180425,
+        "registered": 111.22499719037982
+      },
       "animation": "pollen_spots_windup",
       "after": 4
     },
     {
       "margin_xy": [
-        86,
-        41
+        80,
+        27
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1432,19 +1844,25 @@
         192
       ],
       "source_index": 15,
-      "scale": 0.9646739130434783,
+      "scale": 1.035699474947976,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.99528291391084,
+        "target": 109.77925886089963,
+        "registered": 110.0
+      },
       "animation": "pollen_spots_windup",
       "after": 5
     },
     {
       "margin_xy": [
         82,
-        40
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1454,19 +1872,25 @@
         190
       ],
       "source_index": 16,
-      "scale": 0.9862637362637363,
+      "scale": 0.9924267823504227,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.53053876644228,
+        "target": 109.69346693943896,
+        "registered": 109.89540481748998
+      },
       "animation": "pollen_spots_windup",
       "after": 6
     },
     {
       "margin_xy": [
-        82,
-        34
+        78,
+        24
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1476,19 +1900,25 @@
         195
       ],
       "source_index": 17,
-      "scale": 0.9893048128342246,
+      "scale": 1.0367630201480593,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.31605554537722,
+        "target": 113.3348438978983,
+        "registered": 113.33578428722325
+      },
       "animation": "pollen_spots_windup",
       "after": 7
     },
     {
       "margin_xy": [
-        90,
-        34
+        85,
+        23
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1498,19 +1928,25 @@
         198
       ],
       "source_index": 18,
-      "scale": 0.968421052631579,
+      "scale": 1.023176456591556,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.17116066678771,
+        "target": 110.67818487643976,
+        "registered": 110.93241185514718
+      },
       "animation": "pollen_spots_windup",
       "after": 8
     },
     {
       "margin_xy": [
-        86,
-        36
+        83,
+        28
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1520,19 +1956,25 @@
         195
       ],
       "source_index": 19,
-      "scale": 0.9786096256684492,
+      "scale": 1.0136585861953762,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.54952786631547,
+        "target": 110.03216094914492,
+        "registered": 110.2315744240279
+      },
       "animation": "pollen_spots_windup",
       "after": 9
     },
     {
       "margin_xy": [
-        80,
-        37
+        74,
+        22
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1542,19 +1984,25 @@
         189
       ],
       "source_index": 20,
-      "scale": 1.0055248618784531,
+      "scale": 1.0771670203021162,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.47534925981694,
+        "target": 114.69173469782415,
+        "registered": 114.88690090693542
+      },
       "animation": "pollen_spots_windup",
       "after": 10
     },
     {
       "margin_xy": [
-        76,
-        43
+        77,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1564,19 +2012,25 @@
         178
       ],
       "source_index": 21,
-      "scale": 1.026470588235294,
+      "scale": 1.0152794507295515,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.71645842555559,
+        "target": 114.4387039984784,
+        "registered": 114.57312075700827
+      },
       "animation": "pollen_spots_windup",
       "after": 11
     },
     {
       "margin_xy": [
-        70,
-        47
+        72,
+        50
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1586,19 +2040,25 @@
         171
       ],
       "source_index": 22,
-      "scale": 1.049079754601227,
+      "scale": 1.028628198989363,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.23369443537099,
+        "target": 112.36085837601009,
+        "registered": 112.34322409473569
+      },
       "animation": "pollen_spots",
       "after": 0
     },
     {
       "margin_xy": [
-        60,
-        45
+        66,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__03.png",
       "source_region": [
@@ -1608,19 +2068,25 @@
         165
       ],
       "source_index": 23,
-      "scale": 1.0955414012738853,
+      "scale": 1.0370906251155145,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.37549999885715,
+        "target": 113.43230566613673,
+        "registered": 113.45483682946268
+      },
       "animation": "pollen_spots",
       "after": 1
     },
     {
       "margin_xy": [
-        75,
-        53
+        78,
+        59
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1630,19 +2096,25 @@
         172
       ],
       "source_index": 0,
-      "scale": 1.0121951219512195,
+      "scale": 0.9838692687463007,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 112.8228700219951,
+        "target": 111.00295462639924,
+        "registered": 110.95043938624129
+      },
       "animation": "pollen_spots",
       "after": 2
     },
     {
       "margin_xy": [
-        78,
-        55
+        79,
+        57
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1652,12 +2124,18 @@
         165
       ],
       "source_index": 1,
-      "scale": 1.035031847133758,
+      "scale": 1.0317854576157819,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.38138934982942,
+        "target": 109.76277049211642,
+        "registered": 109.49429208867465
+      },
       "animation": "pollen_spots",
       "after": 3
     },
@@ -1674,19 +2152,25 @@
         160
       ],
       "source_index": 2,
-      "scale": 1.0657894736842106,
+      "scale": 1.0685438993283474,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.58799181896617,
+        "target": 113.8939483998161,
+        "registered": 113.86834503056589
+      },
       "animation": "pollen_spots",
       "after": 4
     },
     {
       "margin_xy": [
-        67,
-        63
+        71,
+        70
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1696,19 +2180,25 @@
         153
       ],
       "source_index": 3,
-      "scale": 1.0655172413793104,
+      "scale": 1.0213089018250276,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.00467279516349,
+        "target": 109.28482486257484,
+        "registered": 109.12836478203089
+      },
       "animation": "pollen_spots",
       "after": 5
     },
     {
       "margin_xy": [
-        70,
-        69
+        73,
+        76
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1718,19 +2208,25 @@
         149
       ],
       "source_index": 4,
-      "scale": 1.053191489361702,
+      "scale": 1.0163961766739085,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.51341375644458,
+        "target": 104.19424179984073,
+        "registered": 104.05287117614775
+      },
       "animation": "pollen_spots",
       "after": 6
     },
     {
       "margin_xy": [
-        70,
-        74
+        66,
+        67
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1740,19 +2236,25 @@
         147
       ],
       "source_index": 5,
-      "scale": 1.039568345323741,
+      "scale": 1.081266965311282,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 102.37675517420935,
+        "target": 110.69660338563344,
+        "registered": 110.7925990308017
+      },
       "animation": "pollen_spots",
       "after": 7
     },
     {
       "margin_xy": [
-        78,
-        86
+        70,
+        71
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1762,19 +2264,25 @@
         145
       ],
       "source_index": 6,
-      "scale": 0.9744525547445255,
+      "scale": 1.0676876830404196,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.26180319944059,
+        "target": 110.25135540458652,
+        "registered": 110.22250223978767
+      },
       "animation": "pollen_spots",
       "after": 8
     },
     {
       "margin_xy": [
-        77,
-        83
+        70,
+        69
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1784,19 +2292,25 @@
         148
       ],
       "source_index": 7,
-      "scale": 0.975,
+      "scale": 1.058022262951927,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 104.64702575802143,
+        "target": 110.71888300369042,
+        "registered": 110.62549434917794
+      },
       "animation": "pollen_spots",
       "after": 9
     },
     {
       "margin_xy": [
-        67,
-        64
+        71,
+        71
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1806,19 +2320,25 @@
         150
       ],
       "source_index": 8,
-      "scale": 1.0809859154929577,
+      "scale": 1.0369667384731285,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.04715932074748,
+        "target": 109.96737692517574,
+        "registered": 110.12265888544464
+      },
       "animation": "pollen_spots",
       "after": 10
     },
     {
       "margin_xy": [
-        66,
-        53
+        76,
+        69
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1828,19 +2348,25 @@
         148
       ],
       "source_index": 9,
-      "scale": 1.167857142857143,
+      "scale": 1.0609465861693308,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 99.0101004948485,
+        "target": 105.04442811629188,
+        "registered": 104.98571331376475
+      },
       "animation": "pollen_spots",
       "after": 11
     },
     {
       "margin_xy": [
-        66,
-        45
+        72,
+        55
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1850,19 +2376,25 @@
         159
       ],
       "source_index": 10,
-      "scale": 1.1390728476821192,
+      "scale": 1.0740949993545086,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 103.17945531936094,
+        "target": 110.82453699464754,
+        "registered": 110.93691901256317
+      },
       "animation": "pollen_spots_recover",
       "after": 0
     },
     {
       "margin_xy": [
-        61,
-        38
+        74,
+        61
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1872,19 +2404,25 @@
         160
       ],
       "source_index": 11,
-      "scale": 1.174342105263158,
+      "scale": 1.0310517823506498,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 109.63119993870357,
+        "target": 113.03544409804077,
+        "registered": 112.96016997154351
+      },
       "animation": "pollen_spots_recover",
       "after": 1
     },
     {
       "margin_xy": [
-        58,
-        38
+        74,
+        66
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1894,19 +2432,25 @@
         156
       ],
       "source_index": 12,
-      "scale": 1.2060810810810811,
+      "scale": 1.0232100238352602,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.88779163215975,
+        "target": 109.36865982364048,
+        "registered": 109.47145746723207
+      },
       "animation": "pollen_spots_recover",
       "after": 2
     },
     {
       "margin_xy": [
-        68,
-        37
+        76,
+        54
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1916,19 +2460,25 @@
         167
       ],
       "source_index": 13,
-      "scale": 1.1320754716981132,
+      "scale": 1.0381048327120264,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.99528291391084,
+        "target": 110.03421543760932,
+        "registered": 109.79070998950685
+      },
       "animation": "pollen_spots_recover",
       "after": 3
     },
     {
       "margin_xy": [
-        71,
-        35
+        73,
+        39
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1938,12 +2488,18 @@
         176
       ],
       "source_index": 14,
-      "scale": 1.0833333333333333,
+      "scale": 1.0640856668808951,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.27107864936124,
+        "target": 112.01744592787672,
+        "registered": 111.8436408563312
+      },
       "animation": "pollen_spots_recover",
       "after": 4
     },
@@ -1960,19 +2516,25 @@
         183
       ],
       "source_index": 15,
-      "scale": 1.0114285714285713,
+      "scale": 1.0111922719823538,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.51727973000429,
+        "target": 109.73183463952766,
+        "registered": 109.82258419833327
+      },
       "animation": "pollen_spots_recover",
       "after": 5
     },
     {
       "margin_xy": [
-        74,
-        40
+        76,
+        43
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -1982,19 +2544,25 @@
         180
       ],
       "source_index": 16,
-      "scale": 1.0319767441860466,
+      "scale": 1.0182813214057098,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 108.38357809188622,
+        "target": 110.36497311808483,
+        "registered": 110.29959202100432
+      },
       "animation": "pollen_spots_recover",
       "after": 6
     },
     {
       "margin_xy": [
         78,
-        36
+        38
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -2004,19 +2572,25 @@
         188
       ],
       "source_index": 17,
-      "scale": 1.0166666666666666,
+      "scale": 1.0071888572781675,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 110.18620603324175,
+        "target": 110.97831894243748,
+        "registered": 110.76100396800311
+      },
       "animation": "pollen_spots_recover",
       "after": 7
     },
     {
       "margin_xy": [
-        78,
-        36
+        82,
+        45
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -2026,19 +2600,25 @@
         184
       ],
       "source_index": 18,
-      "scale": 1.03125,
+      "scale": 0.9867703151738056,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.76826991280875,
+        "target": 106.34252966759804,
+        "registered": 106.50821564555478
+      },
       "animation": "pollen_spots_recover",
       "after": 8
     },
     {
       "margin_xy": [
-        85,
-        34
+        86,
+        37
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -2048,19 +2628,25 @@
         187
       ],
       "source_index": 19,
-      "scale": 1.0307262569832403,
+      "scale": 1.0157328213122396,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.6255128944288,
+        "target": 108.30303303612274,
+        "registered": 108.11567878897121
+      },
       "animation": "pollen_spots_recover",
       "after": 9
     },
     {
       "margin_xy": [
-        83,
-        26
+        85,
+        33
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -2070,19 +2656,25 @@
         185
       ],
       "source_index": 20,
-      "scale": 1.07909604519774,
+      "scale": 1.0420103016486062,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.31728658515365,
+        "target": 111.82571816670588,
+        "registered": 112.02231920470135
+      },
       "animation": "pollen_spots_recover",
       "after": 10
     },
     {
       "margin_xy": [
-        84,
-        25
+        91,
+        42
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
       "source_region": [
@@ -2092,12 +2684,18 @@
         184
       ],
       "source_index": 21,
-      "scale": 1.0909090909090908,
+      "scale": 1.006546339273898,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 105.03332804400706,
+        "target": 105.72091184444977,
+        "registered": 105.61249926026748
+      },
       "animation": "pollen_spots_recover",
       "after": 11
     },
@@ -2114,18 +2712,24 @@
         184
       ],
       "source_index": 22,
-      "scale": 0.9971590909090909,
+      "scale": 1.0008573487060277,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 106.83164325236227,
+        "target": 106.9232352234675,
+        "registered": 106.83164325236227
+      },
       "animation": "pollen_spots_charge",
       "after": 0
     },
     {
       "margin_xy": [
-        82,
+        83,
         45
       ],
       "source": "art_requests/character_motion_v8/incoming/pollen_lutist__04.png",
@@ -2136,12 +2740,18 @@
         184
       ],
       "source_index": 23,
-      "scale": 0.9971590909090909,
+      "scale": 0.9954641966736216,
       "rgb_gain": [
         0.85,
         0.85,
         0.85
       ],
+      "body_registration": {
+        "metric": "opaque_area_sqrt",
+        "source": 107.41042779916668,
+        "target": 106.9232352234675,
+        "registered": 106.63957989414625
+      },
       "animation": "pollen_spots_charge",
       "after": 1
     }

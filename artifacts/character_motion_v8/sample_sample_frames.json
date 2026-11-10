@@ -1,26 +1,102 @@
 [
   {
-    "kind": "moss_larva",
-    "frame": 244,
-    "new_pose_index": 1,
-    "state": "active"
+    "index": 135,
+    "before": {
+      "animation": "larva_snap_windup",
+      "frame": 135,
+      "intent": "legacy",
+      "kind": "moss_larva",
+      "pose": 0,
+      "progress": 0.800000011920929,
+      "state": "windup",
+      "x": 454.741577148438,
+      "y": 350.0
+    },
+    "after": {
+      "animation": "larva_snap_windup",
+      "frame": 135,
+      "intent": "legacy",
+      "kind": "moss_larva",
+      "pose": 1,
+      "progress": 0.600000023841858,
+      "state": "windup",
+      "x": 454.741577148438,
+      "y": 350.0
+    }
   },
   {
-    "kind": "bronze_moth",
-    "frame": 528,
-    "new_pose_index": 19,
-    "state": "active"
+    "index": 495,
+    "before": {
+      "animation": "windup",
+      "frame": 495,
+      "intent": "legacy",
+      "kind": "bronze_moth",
+      "pose": 9,
+      "progress": 0.999999403953552,
+      "state": "windup",
+      "x": 351.366577148438,
+      "y": 251.520050048828
+    },
+    "after": {
+      "animation": "windup",
+      "frame": 495,
+      "intent": "legacy",
+      "kind": "bronze_moth",
+      "pose": 19,
+      "progress": 0.999999403953552,
+      "state": "windup",
+      "x": 351.366577148438,
+      "y": 251.520050048828
+    }
   },
   {
-    "kind": "rust_crown_guardian",
-    "frame": 960,
-    "new_pose_index": 1,
-    "state": "active"
+    "index": 833,
+    "before": {
+      "animation": "recover",
+      "frame": 833,
+      "intent": "scythe_pressure",
+      "kind": "rust_crown_guardian",
+      "pose": 3,
+      "progress": 0.684210479259491,
+      "state": "recover",
+      "x": 340.966674804688,
+      "y": 350.0
+    },
+    "after": {
+      "animation": "recover",
+      "frame": 833,
+      "intent": "scythe_pressure",
+      "kind": "rust_crown_guardian",
+      "pose": 7,
+      "progress": 0.36842092871666,
+      "state": "recover",
+      "x": 340.966674804688,
+      "y": 350.0
+    }
   },
   {
-    "kind": "sunken_hammer_smith",
-    "frame": 1294,
-    "new_pose_index": 7,
-    "state": "active"
+    "index": 1209,
+    "before": {
+      "animation": "heavy_recover",
+      "frame": 1209,
+      "intent": "pincer_pressure",
+      "kind": "sunken_hammer_smith",
+      "pose": 6,
+      "progress": 0.818182051181793,
+      "state": "recover",
+      "x": 340.0,
+      "y": 350.0
+    },
+    "after": {
+      "animation": "heavy_recover",
+      "frame": 1209,
+      "intent": "pincer_pressure",
+      "kind": "sunken_hammer_smith",
+      "pose": 13,
+      "progress": 0.63636314868927,
+      "state": "recover",
+      "x": 340.0,
+      "y": 350.0
+    }
   }
 ]

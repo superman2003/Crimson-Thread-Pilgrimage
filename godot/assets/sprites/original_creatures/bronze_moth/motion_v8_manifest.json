@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "bronze_moth",
   "canvas": [
     366,
-    271
+    293
   ],
   "display_height": 86,
   "visual_scale": 0.43434343434343436,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             101,
-            65,
+            76,
             172,
-            73
+            95
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            209,
-            204
+            182,
+            177
           ],
           "margin": [
-            89,
-            61,
-            157,
-            67
+            103,
+            99,
+            184,
+            116
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             103,
-            73,
+            84,
             180,
-            81
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            215,
+            188,
             2,
-            219,
-            205
+            190,
+            178
           ],
           "margin": [
-            76,
-            60,
-            147,
-            66
+            90,
+            98,
+            176,
+            115
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             80,
-            63,
+            74,
             162,
-            71
+            93
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            438,
+            382,
             2,
-            216,
-            201
+            191,
+            177
           ],
           "margin": [
-            70,
-            64,
-            150,
-            70
+            83,
+            99,
+            175,
+            116
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             78,
-            81,
+            92,
             167,
-            89
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            658,
+            577,
             2,
-            216,
-            200
+            192,
+            178
           ],
           "margin": [
-            76,
-            65,
-            150,
-            71
+            88,
+            98,
+            174,
+            115
           ]
         }
       ]
@@ -156,24 +156,24 @@
           ],
           "margin": [
             100,
-            78,
+            89,
             156,
-            86
+            108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            878,
+            773,
             2,
-            201,
-            185
+            186,
+            171
           ],
           "margin": [
-            99,
-            80,
-            165,
-            86
+            107,
+            105,
+            180,
+            122
           ]
         },
         {
@@ -186,24 +186,24 @@
           ],
           "margin": [
             97,
-            97,
+            108,
             166,
-            105
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1083,
+            963,
             2,
-            213,
-            177
+            192,
+            160
           ],
           "margin": [
-            88,
-            88,
-            153,
-            94
+            99,
+            116,
+            174,
+            133
           ]
         },
         {
@@ -216,24 +216,24 @@
           ],
           "margin": [
             90,
-            93,
+            104,
             153,
-            101
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1300,
+            1159,
             2,
-            211,
-            175
+            186,
+            154
           ],
           "margin": [
-            82,
-            90,
-            155,
-            96
+            95,
+            124,
+            180,
+            139
           ]
         },
         {
@@ -246,24 +246,24 @@
           ],
           "margin": [
             80,
-            102,
+            113,
             165,
-            110
+            132
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1515,
+            1349,
             2,
-            234,
-            186
+            192,
+            153
           ],
           "margin": [
-            68,
-            79,
-            132,
-            85
+            90,
+            123,
+            174,
+            140
           ]
         },
         {
@@ -276,24 +276,24 @@
           ],
           "margin": [
             95,
-            72,
+            83,
             154,
-            80
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1753,
+            1545,
             2,
-            256,
-            202
+            206,
+            163
           ],
           "margin": [
-            66,
-            63,
-            110,
-            69
+            92,
+            113,
+            160,
+            130
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             98,
-            71,
+            82,
             157,
-            79
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
+            1755,
             2,
-            215,
-            232,
-            193
+            203,
+            168
           ],
           "margin": [
-            80,
-            72,
-            134,
-            78
+            95,
+            108,
+            163,
+            125
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             73,
-            90,
+            101,
             137,
-            98
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            238,
-            215,
-            242,
-            188
+            2,
+            188,
+            196,
+            153
           ],
           "margin": [
-            68,
-            77,
-            124,
-            83
+            92,
+            123,
+            170,
+            140
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             88,
-            80,
+            91,
             172,
-            88
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            484,
-            215,
-            244,
-            194
+            202,
+            188,
+            200,
+            159
           ],
           "margin": [
-            65,
-            71,
-            122,
-            77
+            89,
+            117,
+            166,
+            134
           ]
         }
       ]
@@ -403,24 +403,24 @@
           ],
           "margin": [
             79,
-            83,
+            94,
             151,
-            91
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            732,
-            215,
-            229,
-            188
+            406,
+            188,
+            213,
+            176
           ],
           "margin": [
-            65,
-            77,
-            137,
-            83
+            74,
+            100,
+            153,
+            117
           ]
         },
         {
@@ -433,24 +433,24 @@
           ],
           "margin": [
             82,
-            86,
+            97,
             161,
-            94
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            965,
-            215,
-            217,
-            183
+            623,
+            188,
+            216,
+            182
           ],
           "margin": [
             74,
-            82,
-            149,
-            88
+            94,
+            150,
+            111
           ]
         },
         {
@@ -463,24 +463,24 @@
           ],
           "margin": [
             68,
-            94,
+            105,
             148,
-            102
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1186,
-            215,
-            214,
-            169
+            843,
+            188,
+            206,
+            163
           ],
           "margin": [
-            77,
-            96,
-            152,
-            102
+            81,
+            113,
+            160,
+            130
           ]
         },
         {
@@ -493,24 +493,24 @@
           ],
           "margin": [
             78,
-            111,
+            122,
             170,
-            119
+            141
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1404,
-            215,
-            216,
-            165
+            1053,
+            188,
+            195,
+            150
           ],
           "margin": [
-            64,
-            100,
-            150,
-            106
+            76,
+            127,
+            171,
+            143
           ]
         },
         {
@@ -523,24 +523,24 @@
           ],
           "margin": [
             69,
-            102,
+            113,
             152,
-            110
+            132
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1624,
-            215,
-            192,
-            170
+            1252,
+            188,
+            209,
+            185
           ],
           "margin": [
-            83,
-            95,
-            174,
-            101
+            74,
+            91,
+            157,
+            108
           ]
         },
         {
@@ -553,24 +553,24 @@
           ],
           "margin": [
             60,
-            101,
+            112,
             144,
-            109
+            131
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1820,
-            215,
-            189,
-            168
+            1465,
+            188,
+            196,
+            173
           ],
           "margin": [
-            86,
-            97,
-            177,
-            103
+            82,
+            103,
+            170,
+            120
           ]
         },
         {
@@ -583,24 +583,24 @@
           ],
           "margin": [
             69,
-            107,
+            118,
             157,
-            115
+            137
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            417,
-            195,
-            168
+            1665,
+            188,
+            197,
+            170
           ],
           "margin": [
-            82,
-            97,
-            171,
-            103
+            81,
+            106,
+            169,
+            123
           ]
         },
         {
@@ -613,24 +613,24 @@
           ],
           "margin": [
             56,
-            99,
+            110,
             140,
-            107
+            129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            201,
-            417,
-            212,
+            2,
+            381,
+            213,
             173
           ],
           "margin": [
             68,
-            92,
-            154,
-            98
+            103,
+            153,
+            120
           ]
         },
         {
@@ -643,24 +643,24 @@
           ],
           "margin": [
             57,
-            100,
+            111,
             139,
-            108
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            417,
-            417,
-            201,
-            169
+            219,
+            381,
+            197,
+            166
           ],
           "margin": [
-            74,
-            96,
-            165,
-            102
+            76,
+            110,
+            169,
+            127
           ]
         },
         {
@@ -673,24 +673,24 @@
           ],
           "margin": [
             68,
-            105,
+            116,
             156,
-            113
+            135
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            622,
-            417,
-            218,
-            169
+            420,
+            381,
+            199,
+            154
           ],
           "margin": [
-            64,
-            96,
-            148,
-            102
+            74,
+            122,
+            167,
+            139
           ]
         },
         {
@@ -703,24 +703,24 @@
           ],
           "margin": [
             72,
-            101,
+            112,
             156,
-            109
+            131
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            844,
-            417,
-            219,
-            171
+            623,
+            381,
+            210,
+            164
           ],
           "margin": [
-            66,
-            94,
-            147,
-            100
+            70,
+            112,
+            156,
+            129
           ]
         },
         {
@@ -733,24 +733,24 @@
           ],
           "margin": [
             54,
-            101,
+            112,
             71,
-            109
+            131
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1067,
-            417,
-            236,
-            167
+            837,
+            381,
+            209,
+            148
           ],
           "margin": [
-            54,
-            98,
-            130,
-            104
+            70,
+            128,
+            157,
+            145
           ]
         }
       ]
@@ -770,24 +770,24 @@
           ],
           "margin": [
             71,
-            110,
+            121,
             88,
-            118
+            140
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1307,
-            417,
-            284,
-            168
+            1050,
+            381,
+            251,
+            149
           ],
           "margin": [
-            56,
-            97,
-            82,
-            103
+            72,
+            127,
+            115,
+            144
           ]
         },
         {
@@ -800,24 +800,24 @@
           ],
           "margin": [
             58,
-            100,
+            111,
             66,
-            108
+            130
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1595,
-            417,
-            303,
-            174
+            1305,
+            381,
+            268,
+            154
           ],
           "margin": [
-            50,
-            91,
-            63,
-            97
+            66,
+            122,
+            98,
+            139
           ]
         },
         {
@@ -830,24 +830,24 @@
           ],
           "margin": [
             64,
-            99,
+            110,
             83,
-            107
+            129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            599,
-            290,
-            172
+            1577,
+            381,
+            239,
+            141
           ],
           "margin": [
-            58,
-            93,
-            76,
-            99
+            84,
+            135,
+            127,
+            152
           ]
         },
         {
@@ -860,24 +860,24 @@
           ],
           "margin": [
             76,
-            104,
+            115,
             99,
-            112
+            134
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            296,
-            599,
-            264,
-            174
+            2,
+            562,
+            246,
+            162
           ],
           "margin": [
-            70,
-            91,
-            102,
-            97
+            78,
+            114,
+            120,
+            131
           ]
         },
         {
@@ -890,24 +890,24 @@
           ],
           "margin": [
             60,
-            93,
+            104,
             75,
-            101
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            564,
-            599,
-            274,
-            182
+            252,
+            562,
+            252,
+            167
           ],
           "margin": [
-            62,
-            83,
-            92,
-            89
+            74,
+            109,
+            114,
+            126
           ]
         },
         {
@@ -920,24 +920,24 @@
           ],
           "margin": [
             60,
-            89,
+            100,
             84,
-            97
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            842,
-            599,
-            258,
-            182
+            508,
+            562,
+            235,
+            165
           ],
           "margin": [
-            66,
-            83,
-            108,
-            89
+            78,
+            111,
+            131,
+            128
           ]
         },
         {
@@ -950,24 +950,24 @@
           ],
           "margin": [
             64,
-            92,
+            103,
             90,
-            100
+            122
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1104,
-            599,
-            298,
-            182
+            747,
+            562,
+            238,
+            145
           ],
           "margin": [
-            47,
-            83,
-            68,
-            89
+            77,
+            131,
+            128,
+            148
           ]
         },
         {
@@ -980,24 +980,24 @@
           ],
           "margin": [
             60,
-            91,
+            102,
             93,
-            99
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1406,
-            599,
-            278,
-            179
+            989,
+            562,
+            244,
+            157
           ],
           "margin": [
-            52,
-            86,
-            88,
-            92
+            68,
+            119,
+            122,
+            136
           ]
         },
         {
@@ -1010,24 +1010,24 @@
           ],
           "margin": [
             58,
-            97,
+            108,
             123,
-            105
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1688,
-            599,
-            266,
-            169
+            1237,
+            562,
+            239,
+            151
           ],
           "margin": [
-            54,
-            96,
-            100,
-            102
+            68,
+            126,
+            127,
+            142
           ]
         },
         {
@@ -1040,24 +1040,24 @@
           ],
           "margin": [
             66,
-            110,
+            121,
             136,
-            118
+            140
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            789,
-            275,
-            173
+            1480,
+            562,
+            241,
+            152
           ],
           "margin": [
-            46,
-            92,
-            91,
-            98
+            63,
+            124,
+            125,
+            141
           ]
         },
         {
@@ -1070,24 +1070,24 @@
           ],
           "margin": [
             51,
-            89,
+            100,
             115,
-            97
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            281,
-            789,
-            270,
-            190
+            1725,
+            562,
+            250,
+            177
           ],
           "margin": [
-            48,
-            75,
-            96,
-            81
+            58,
+            99,
+            116,
+            116
           ]
         },
         {
@@ -1100,24 +1100,24 @@
           ],
           "margin": [
             74,
-            76,
+            87,
             162,
-            84
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            555,
-            789,
-            266,
-            200
+            2,
+            747,
+            258,
+            194
           ],
           "margin": [
-            54,
-            65,
-            100,
-            71
+            58,
+            82,
+            108,
+            99
           ]
         }
       ]
@@ -1137,24 +1137,24 @@
           ],
           "margin": [
             78,
-            69,
+            80,
             157,
-            77
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            825,
-            789,
-            298,
-            205
+            264,
+            747,
+            274,
+            188
           ],
           "margin": [
-            35,
-            60,
-            68,
-            66
+            47,
+            88,
+            92,
+            105
           ]
         },
         {
@@ -1167,24 +1167,24 @@
           ],
           "margin": [
             72,
-            68,
+            79,
             153,
-            76
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1127,
-            789,
-            287,
-            203
+            542,
+            747,
+            263,
+            186
           ],
           "margin": [
-            38,
-            62,
-            79,
-            68
+            51,
+            90,
+            103,
+            107
           ]
         },
         {
@@ -1197,24 +1197,24 @@
           ],
           "margin": [
             66,
-            73,
+            84,
             144,
-            81
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1418,
-            789,
-            281,
-            194
+            809,
+            747,
+            253,
+            175
           ],
           "margin": [
-            32,
-            71,
-            85,
-            77
+            46,
+            101,
+            113,
+            118
           ]
         },
         {
@@ -1227,24 +1227,24 @@
           ],
           "margin": [
             76,
-            86,
+            97,
             155,
-            94
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1703,
-            789,
-            258,
-            193
+            1066,
+            747,
+            243,
+            182
           ],
           "margin": [
-            46,
-            72,
-            108,
-            78
+            54,
+            94,
+            123,
+            111
           ]
         },
         {
@@ -1257,24 +1257,24 @@
           ],
           "margin": [
             62,
-            73,
+            84,
             136,
-            81
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            1002,
-            229,
-            202
+            1313,
+            747,
+            224,
+            198
           ],
           "margin": [
-            59,
-            63,
-            137,
-            69
+            62,
+            78,
+            142,
+            95
           ]
         },
         {
@@ -1287,24 +1287,24 @@
           ],
           "margin": [
             76,
-            68,
+            79,
             152,
-            76
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            235,
-            1002,
-            212,
-            204
+            1541,
+            747,
+            206,
+            198
           ],
           "margin": [
-            72,
-            61,
-            154,
-            67
+            76,
+            78,
+            160,
+            95
           ]
         },
         {
@@ -1317,24 +1317,24 @@
           ],
           "margin": [
             84,
-            69,
+            80,
             158,
-            77
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            451,
-            1002,
-            216,
-            206
+            1751,
+            747,
+            203,
+            194
           ],
           "margin": [
-            70,
-            59,
-            150,
-            65
+            78,
+            82,
+            163,
+            99
           ]
         },
         {
@@ -1347,24 +1347,24 @@
           ],
           "margin": [
             76,
-            63,
+            74,
             156,
-            71
+            93
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            671,
-            1002,
-            224,
-            209
+            2,
+            953,
+            213,
+            199
           ],
           "margin": [
-            60,
-            56,
-            142,
-            62
+            66,
+            77,
+            153,
+            94
           ]
         },
         {
@@ -1377,24 +1377,24 @@
           ],
           "margin": [
             60,
-            64,
+            75,
             137,
-            72
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            899,
-            1002,
-            245,
-            205
+            219,
+            953,
+            216,
+            181
           ],
           "margin": [
-            42,
-            60,
-            121,
-            66
+            58,
+            95,
+            150,
+            112
           ]
         },
         {
@@ -1407,24 +1407,24 @@
           ],
           "margin": [
             80,
-            72,
+            83,
             165,
-            80
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1148,
-            1002,
-            248,
-            206
+            439,
+            953,
+            217,
+            180
           ],
           "margin": [
-            42,
-            59,
-            118,
-            65
+            60,
+            96,
+            149,
+            113
           ]
         },
         {
@@ -1437,24 +1437,24 @@
           ],
           "margin": [
             69,
-            62,
+            73,
             139,
-            70
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1400,
-            1002,
-            245,
-            212
+            660,
+            953,
+            228,
+            197
           ],
           "margin": [
-            50,
-            53,
-            121,
-            59
+            60,
+            79,
+            138,
+            96
           ]
         },
         {
@@ -1467,24 +1467,24 @@
           ],
           "margin": [
             76,
-            60,
+            71,
             148,
-            68
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1649,
-            1002,
-            246,
-            211
+            892,
+            953,
+            217,
+            186
           ],
           "margin": [
-            56,
-            54,
-            120,
-            60
+            72,
+            90,
+            149,
+            107
           ]
         }
       ]
@@ -1504,24 +1504,24 @@
           ],
           "margin": [
             79,
-            81,
+            92,
             154,
-            89
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            1222,
-            183,
-            186
+            1113,
+            953,
+            181,
+            184
           ],
           "margin": [
             88,
-            79,
-            183,
-            85
+            92,
+            185,
+            109
           ]
         },
         {
@@ -1534,24 +1534,24 @@
           ],
           "margin": [
             78,
-            90,
+            101,
             161,
-            98
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            189,
-            1222,
-            206,
-            192
+            1298,
+            953,
+            187,
+            174
           ],
           "margin": [
-            78,
-            73,
-            160,
-            79
+            87,
+            104,
+            179,
+            119
           ]
         },
         {
@@ -1564,24 +1564,24 @@
           ],
           "margin": [
             86,
-            70,
+            81,
             156,
-            78
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            399,
-            1222,
-            194,
-            186
+            1489,
+            953,
+            191,
+            184
           ],
           "margin": [
-            85,
-            79,
-            172,
-            85
+            87,
+            92,
+            175,
+            109
           ]
         },
         {
@@ -1594,24 +1594,24 @@
           ],
           "margin": [
             75,
-            101,
+            112,
             155,
-            109
+            131
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            597,
-            1222,
-            248,
-            190
+            1684,
+            953,
+            204,
+            156
           ],
           "margin": [
-            64,
-            75,
-            118,
-            81
+            86,
+            120,
+            162,
+            137
           ]
         }
       ]
@@ -1631,24 +1631,24 @@
           ],
           "margin": [
             88,
-            79,
+            90,
             183,
-            87
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            849,
-            1222,
-            183,
-            178
+            2,
+            1160,
+            206,
+            176
           ],
           "margin": [
-            91,
-            87,
-            183,
-            93
+            74,
+            100,
+            160,
+            117
           ]
         },
         {
@@ -1661,24 +1661,24 @@
           ],
           "margin": [
             73,
-            108,
+            119,
             141,
-            116
+            138
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1036,
-            1222,
-            208,
-            138
+            212,
+            1160,
+            235,
+            127
           ],
           "margin": [
-            74,
-            129,
-            158,
-            133
+            56,
+            151,
+            131,
+            166
           ]
         },
         {
@@ -1691,24 +1691,24 @@
           ],
           "margin": [
             52,
-            158,
+            169,
             123,
-            166
+            188
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1248,
-            1222,
-            116,
-            99
+            451,
+            1160,
+            227,
+            104
           ],
           "margin": [
-            122,
-            164,
-            250,
-            172
+            56,
+            172,
+            139,
+            189
           ]
         },
         {
@@ -1721,24 +1721,24 @@
           ],
           "margin": [
             54,
-            179,
+            190,
             131,
-            187
+            209
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1368,
-            1222,
-            94,
-            88
+            682,
+            1160,
+            235,
+            92
           ],
           "margin": [
-            129,
-            175,
-            272,
-            183
+            53,
+            184,
+            131,
+            201
           ]
         }
       ]
@@ -1758,24 +1758,24 @@
           ],
           "margin": [
             74,
-            115,
+            126,
             97,
-            123
+            145
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1466,
-            1222,
-            227,
-            157
+            921,
+            1160,
+            195,
+            135
           ],
           "margin": [
-            90,
-            108,
-            139,
-            114
+            106,
+            143,
+            171,
+            158
           ]
         },
         {
@@ -1788,24 +1788,24 @@
           ],
           "margin": [
             82,
-            115,
+            126,
             90,
-            123
+            145
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1697,
-            1222,
-            163,
-            156
+            1120,
+            1160,
+            178,
+            170
           ],
           "margin": [
-            116,
-            110,
-            203,
-            115
+            108,
+            106,
+            188,
+            123
           ]
         }
       ]
@@ -1825,24 +1825,24 @@
           ],
           "margin": [
             69,
-            88,
+            99,
             148,
-            96
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            1422,
-            316,
-            194
+            1302,
+            1160,
+            253,
+            155
           ],
           "margin": [
-            31,
-            72,
-            50,
-            77
+            62,
+            121,
+            113,
+            138
           ]
         },
         {
@@ -1855,24 +1855,24 @@
           ],
           "margin": [
             55,
-            74,
+            85,
             122,
-            82
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            322,
-            1422,
-            479,
-            211
+            1559,
+            1160,
+            291,
+            128
           ],
           "margin": [
-            -62,
-            56,
-            -113,
-            60
+            36,
+            148,
+            75,
+            165
           ]
         },
         {
@@ -1885,24 +1885,24 @@
           ],
           "margin": [
             77,
-            65,
+            76,
             162,
-            73
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            805,
-            1422,
-            520,
-            217
+            2,
+            1344,
+            275,
+            115
           ],
           "margin": [
-            -86,
-            50,
-            -154,
-            54
+            44,
+            161,
+            91,
+            178
           ]
         },
         {
@@ -1915,24 +1915,24 @@
           ],
           "margin": [
             78,
-            64,
+            75,
             156,
-            72
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1329,
-            1422,
-            521,
-            229
+            281,
+            1344,
+            289,
+            127
           ],
           "margin": [
-            -94,
-            38,
-            -155,
-            42
+            32,
+            149,
+            77,
+            166
           ]
         },
         {
@@ -1945,24 +1945,24 @@
           ],
           "margin": [
             73,
-            44,
+            55,
             149,
-            52
+            74
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            1659,
-            390,
-            240
+            574,
+            1344,
+            301,
+            185
           ],
           "margin": [
-            -15,
-            26,
-            -24,
-            31
+            31,
+            93,
+            65,
+            108
           ]
         },
         {
@@ -1975,24 +1975,24 @@
           ],
           "margin": [
             103,
-            31,
+            42,
             192,
-            39
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            396,
-            1659,
-            377,
-            249
+            879,
+            1344,
+            274,
+            181
           ],
           "margin": [
-            10,
-            17,
-            -11,
-            22
+            59,
+            95,
+            92,
+            112
           ]
         },
         {
@@ -2005,24 +2005,24 @@
           ],
           "margin": [
             101,
-            25,
+            36,
             188,
-            33
+            55
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            777,
-            1659,
-            309,
-            257
+            1157,
+            1344,
+            233,
+            194
           ],
           "margin": [
-            20,
-            9,
-            57,
-            14
+            61,
+            82,
+            133,
+            99
           ]
         },
         {
@@ -2035,24 +2035,24 @@
           ],
           "margin": [
             95,
-            12,
+            23,
             182,
-            20
+            42
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1090,
-            1659,
-            312,
-            266
+            1394,
+            1344,
+            228,
+            194
           ],
           "margin": [
-            16,
-            0,
-            54,
-            5
+            62,
+            82,
+            138,
+            99
           ]
         },
         {
@@ -2065,24 +2065,24 @@
           ],
           "margin": [
             109,
-            8,
+            19,
             201,
-            16
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1406,
-            1659,
-            301,
-            268
+            1626,
+            1344,
+            219,
+            195
           ],
           "margin": [
-            22,
-            -2,
-            65,
-            3
+            68,
+            81,
+            147,
+            98
           ]
         },
         {
@@ -2095,24 +2095,24 @@
           ],
           "margin": [
             104,
-            8,
+            19,
             193,
-            16
+            38
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1711,
-            1659,
-            259,
-            262
+            2,
+            1547,
+            211,
+            213
           ],
           "margin": [
-            51,
-            3,
-            107,
-            9
+            77,
+            63,
+            155,
+            80
           ]
         },
         {
@@ -2125,24 +2125,24 @@
           ],
           "margin": [
             112,
-            18,
+            29,
             202,
-            26
+            48
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            246,
-            249
+            217,
+            1547,
+            236,
+            239
           ],
           "margin": [
-            57,
-            16,
-            120,
-            22
+            63,
+            37,
+            130,
+            54
           ]
         },
         {
@@ -2155,24 +2155,24 @@
           ],
           "margin": [
             47,
-            33,
+            44,
             87,
-            41
+            63
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            252,
-            2,
-            182,
-            228
+            457,
+            1547,
+            221,
+            276
           ],
           "margin": [
-            100,
-            37,
-            184,
-            43
+            81,
+            0,
+            145,
+            17
           ]
         }
       ]
@@ -2192,24 +2192,24 @@
           ],
           "margin": [
             57,
-            57,
+            68,
             108,
-            65
+            87
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            438,
-            2,
-            173,
-            213
+            682,
+            1547,
+            207,
+            256
           ],
           "margin": [
-            106,
-            52,
-            193,
-            58
+            90,
+            20,
+            159,
+            37
           ]
         },
         {
@@ -2222,24 +2222,24 @@
           ],
           "margin": [
             62,
-            62,
+            73,
             119,
-            70
+            92
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            615,
-            2,
-            161,
-            205
+            893,
+            1547,
+            203,
+            258
           ],
           "margin": [
-            110,
-            60,
-            205,
-            66
+            90,
+            18,
+            163,
+            35
           ]
         },
         {
@@ -2252,24 +2252,24 @@
           ],
           "margin": [
             42,
-            73,
+            84,
             71,
-            81
+            103
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            780,
-            2,
-            293,
-            190
+            1100,
+            1547,
+            265,
+            172
           ],
           "margin": [
-            35,
-            75,
-            73,
-            81
+            50,
+            104,
+            101,
+            121
           ]
         },
         {
@@ -2282,24 +2282,24 @@
           ],
           "margin": [
             41,
-            92,
+            103,
             73,
-            100
+            122
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1077,
-            2,
-            294,
-            183
+            1369,
+            1547,
+            272,
+            170
           ],
           "margin": [
-            34,
-            82,
-            72,
-            88
+            45,
+            106,
+            94,
+            123
           ]
         },
         {
@@ -2312,24 +2312,24 @@
           ],
           "margin": [
             46,
-            87,
+            98,
             81,
-            95
+            117
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1375,
-            2,
-            269,
-            184
+            1645,
+            1547,
+            258,
+            176
           ],
           "margin": [
-            51,
-            81,
-            97,
-            87
+            56,
+            100,
+            108,
+            117
           ]
         },
         {
@@ -2342,24 +2342,24 @@
           ],
           "margin": [
             41,
-            89,
+            100,
             58,
-            97
+            119
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1648,
             2,
-            278,
-            178
+            1831,
+            260,
+            167
           ],
           "margin": [
-            50,
-            87,
-            88,
-            93
+            60,
+            109,
+            106,
+            126
           ]
         },
         {
@@ -2372,24 +2372,24 @@
           ],
           "margin": [
             51,
-            99,
+            110,
             76,
-            107
+            129
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            2,
-            259,
-            290,
-            179
+            266,
+            1831,
+            280,
+            173
           ],
           "margin": [
-            47,
+            52,
+            103,
             86,
-            76,
-            92
+            120
           ]
         },
         {
@@ -2402,24 +2402,24 @@
           ],
           "margin": [
             31,
-            88,
+            99,
             43,
-            96
+            118
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            296,
-            259,
-            305,
-            186
+            550,
+            1831,
+            274,
+            168
           ],
           "margin": [
-            36,
-            79,
-            61,
-            85
+            51,
+            108,
+            92,
+            125
           ]
         },
         {
@@ -2432,24 +2432,24 @@
           ],
           "margin": [
             65,
-            86,
+            97,
             115,
-            94
+            116
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            605,
-            259,
-            309,
-            185
+            828,
+            1831,
+            256,
+            153
           ],
           "margin": [
-            25,
-            80,
-            57,
-            86
+            53,
+            123,
+            110,
+            140
           ]
         },
         {
@@ -2462,24 +2462,24 @@
           ],
           "margin": [
             75,
-            90,
+            101,
             132,
-            98
+            120
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            918,
-            259,
-            306,
-            185
+            1088,
+            1831,
+            247,
+            149
           ],
           "margin": [
-            34,
-            80,
-            60,
-            86
+            64,
+            127,
+            119,
+            144
           ]
         },
         {
@@ -2492,24 +2492,24 @@
           ],
           "margin": [
             65,
-            87,
+            98,
             114,
-            95
+            117
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1228,
-            259,
-            305,
-            184
+            1339,
+            1831,
+            261,
+            157
           ],
           "margin": [
-            42,
-            81,
-            61,
-            87
+            63,
+            119,
+            105,
+            136
           ]
         },
         {
@@ -2522,24 +2522,24 @@
           ],
           "margin": [
             57,
-            92,
+            103,
             122,
-            100
+            122
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
           "region": [
-            1537,
-            259,
-            292,
-            176
+            1604,
+            1831,
+            262,
+            158
           ],
           "margin": [
-            47,
-            89,
-            74,
-            95
+            61,
+            118,
+            104,
+            135
           ]
         }
       ]
@@ -2559,24 +2559,24 @@
           ],
           "margin": [
             58,
-            102,
+            113,
             119,
-            110
+            132
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
             2,
-            453,
-            295,
-            177
+            2,
+            256,
+            154
           ],
           "margin": [
-            46,
-            88,
-            71,
-            94
+            64,
+            122,
+            110,
+            139
           ]
         },
         {
@@ -2589,24 +2589,24 @@
           ],
           "margin": [
             54,
-            89,
+            100,
             119,
-            97
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            301,
-            453,
             262,
-            185
+            2,
+            239,
+            169
           ],
           "margin": [
-            56,
-            80,
-            104,
-            86
+            67,
+            107,
+            127,
+            124
           ]
         },
         {
@@ -2619,24 +2619,24 @@
           ],
           "margin": [
             58,
-            84,
+            95,
             137,
-            92
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            567,
-            453,
-            263,
-            187
+            505,
+            2,
+            233,
+            166
           ],
           "margin": [
-            58,
-            78,
-            103,
-            84
+            72,
+            111,
+            133,
+            127
           ]
         },
         {
@@ -2649,24 +2649,24 @@
           ],
           "margin": [
             55,
-            85,
+            96,
             131,
-            93
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            834,
-            453,
-            263,
-            193
+            742,
+            2,
+            246,
+            181
           ],
           "margin": [
-            54,
-            72,
-            103,
-            78
+            64,
+            95,
+            120,
+            112
           ]
         },
         {
@@ -2679,24 +2679,24 @@
           ],
           "margin": [
             48,
-            73,
+            84,
             121,
-            81
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            1101,
-            453,
-            296,
-            203
+            992,
+            2,
+            251,
+            172
           ],
           "margin": [
-            40,
             62,
-            70,
-            68
+            104,
+            115,
+            121
           ]
         },
         {
@@ -2709,24 +2709,24 @@
           ],
           "margin": [
             48,
-            69,
+            80,
             124,
-            77
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            1401,
-            453,
-            288,
-            204
+            1247,
+            2,
+            245,
+            173
           ],
           "margin": [
-            30,
-            61,
-            78,
-            67
+            54,
+            103,
+            121,
+            120
           ]
         },
         {
@@ -2739,24 +2739,24 @@
           ],
           "margin": [
             56,
-            71,
+            82,
             133,
-            79
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            1693,
-            453,
-            294,
-            203
+            1496,
+            2,
+            253,
+            175
           ],
           "margin": [
-            29,
-            62,
-            72,
-            68
+            51,
+            101,
+            113,
+            118
           ]
         },
         {
@@ -2769,24 +2769,24 @@
           ],
           "margin": [
             47,
-            70,
+            81,
             125,
-            78
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
+            1753,
             2,
-            665,
-            306,
-            200
+            267,
+            175
           ],
           "margin": [
-            16,
-            65,
-            60,
-            71
+            38,
+            101,
+            99,
+            118
           ]
         },
         {
@@ -2799,24 +2799,24 @@
           ],
           "margin": [
             56,
-            77,
+            88,
             129,
-            85
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            312,
-            665,
-            249,
-            189
+            2,
+            191,
+            243,
+            185
           ],
           "margin": [
-            48,
-            76,
-            117,
-            82
+            52,
+            91,
+            123,
+            108
           ]
         },
         {
@@ -2829,24 +2829,24 @@
           ],
           "margin": [
             74,
-            89,
+            100,
             155,
-            97
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            565,
-            665,
-            268,
-            191
+            249,
+            191,
+            254,
+            181
           ],
           "margin": [
-            32,
-            74,
-            98,
-            80
+            40,
+            95,
+            112,
+            112
           ]
         },
         {
@@ -2859,24 +2859,24 @@
           ],
           "margin": [
             62,
-            75,
+            86,
             132,
-            83
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            837,
-            665,
-            269,
-            202
+            507,
+            191,
+            249,
+            188
           ],
           "margin": [
-            38,
-            63,
-            97,
-            69
+            50,
+            88,
+            117,
+            105
           ]
         },
         {
@@ -2889,24 +2889,24 @@
           ],
           "margin": [
             84,
-            66,
+            77,
             162,
-            74
+            96
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
           "region": [
-            1110,
-            665,
-            270,
-            208
+            760,
+            191,
+            239,
+            184
           ],
           "margin": [
-            41,
-            57,
-            96,
-            63
+            59,
+            92,
+            127,
+            109
           ]
         }
       ]

@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "valve_crawler",
   "canvas": [
     368,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            193,
-            136
+            181,
+            128
           ],
           "margin": [
-            88,
-            24,
-            175,
-            30
+            94,
+            31,
+            187,
+            38
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            199,
+            187,
             2,
-            191,
-            135
+            182,
+            129
           ],
           "margin": [
-            87,
-            26,
-            177,
-            31
+            92,
+            30,
+            186,
+            37
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            394,
+            373,
             2,
-            205,
-            136
+            193,
+            128
           ],
           "margin": [
-            81,
-            25,
-            163,
-            30
+            87,
+            32,
+            175,
+            38
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            603,
+            570,
             2,
-            202,
-            136
+            192,
+            129
           ],
           "margin": [
-            84,
-            26,
-            166,
-            30
+            88,
+            30,
+            176,
+            37
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            809,
+            766,
             2,
-            202,
-            142
+            190,
+            134
           ],
           "margin": [
-            92,
-            19,
-            166,
-            24
+            98,
+            26,
+            178,
+            32
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1015,
+            960,
             2,
-            204,
-            142
+            189,
+            131
           ],
           "margin": [
-            87,
-            19,
-            164,
-            24
+            94,
+            29,
+            179,
+            35
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1223,
+            1153,
             2,
-            198,
-            143
+            179,
+            129
           ],
           "margin": [
-            85,
-            17,
-            170,
-            23
+            94,
+            30,
+            189,
+            37
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1425,
+            1336,
             2,
-            209,
-            143
+            191,
+            131
           ],
           "margin": [
-            88,
-            17,
-            159,
-            23
+            98,
+            29,
+            177,
+            35
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1638,
+            1531,
             2,
-            211,
-            143
+            200,
+            135
           ],
           "margin": [
-            92,
-            17,
-            157,
-            23
+            97,
+            26,
+            168,
+            31
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
+            1735,
             2,
-            153,
-            202,
-            142
+            192,
+            135
           ],
           "margin": [
-            84,
-            18,
-            166,
-            24
+            90,
+            26,
+            176,
+            31
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            208,
-            153,
-            189,
-            142
+            2,
+            145,
+            182,
+            136
           ],
           "margin": [
-            93,
-            19,
-            179,
-            24
+            96,
+            26,
+            186,
+            30
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            401,
-            153,
-            212,
-            143
+            188,
+            145,
+            201,
+            136
           ],
           "margin": [
-            80,
-            19,
-            156,
-            23
+            85,
+            23,
+            167,
+            30
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            617,
-            153,
-            202,
-            142
+            393,
+            145,
+            193,
+            136
           ],
           "margin": [
-            92,
-            18,
-            166,
-            24
+            96,
+            25,
+            175,
+            30
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            823,
-            153,
-            207,
-            145
+            590,
+            145,
+            206,
+            144
           ],
           "margin": [
             90,
-            15,
-            161,
-            21
+            16,
+            162,
+            22
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1034,
-            153,
-            213,
-            142
+            800,
+            145,
+            207,
+            138
           ],
           "margin": [
-            94,
-            18,
-            155,
-            24
+            96,
+            24,
+            161,
+            28
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1251,
-            153,
-            210,
-            142
+            1011,
+            145,
+            205,
+            139
           ],
           "margin": [
-            95,
-            18,
-            158,
-            24
+            97,
+            21,
+            163,
+            27
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1465,
-            153,
-            209,
-            143
+            1220,
+            145,
+            210,
+            144
           ],
           "margin": [
-            90,
-            17,
-            159,
-            23
+            89,
+            16,
+            158,
+            22
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1678,
-            153,
-            211,
-            137
+            1434,
+            145,
+            214,
+            139
           ],
           "margin": [
-            88,
-            25,
-            157,
-            29
+            86,
+            23,
+            154,
+            27
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            306,
-            222,
-            137
+            1652,
+            145,
+            220,
+            136
           ],
           "margin": [
-            80,
+            82,
             25,
-            146,
-            29
+            148,
+            30
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            228,
-            306,
-            243,
-            143
+            2,
+            297,
+            232,
+            136
           ],
           "margin": [
-            67,
-            17,
-            125,
-            23
+            72,
+            24,
+            136,
+            30
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            475,
-            306,
-            214,
-            141
+            238,
+            297,
+            205,
+            135
           ],
           "margin": [
-            70,
-            19,
-            154,
-            25
+            74,
+            27,
+            163,
+            31
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            693,
-            306,
-            202,
-            142
+            447,
+            297,
+            193,
+            136
           ],
           "margin": [
-            76,
-            18,
-            166,
-            24
+            81,
+            25,
+            175,
+            30
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            899,
-            306,
-            221,
-            144
+            644,
+            297,
+            214,
+            140
           ],
           "margin": [
-            80,
-            16,
-            147,
-            22
+            82,
+            22,
+            154,
+            26
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1124,
-            306,
-            220,
-            141
+            862,
+            297,
+            212,
+            136
           ],
           "margin": [
-            92,
-            19,
-            148,
-            25
+            96,
+            25,
+            156,
+            30
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1348,
-            306,
-            263,
-            140
+            1078,
+            297,
+            248,
+            132
           ],
           "margin": [
-            90,
-            20,
-            105,
-            26
+            96,
+            28,
+            120,
+            34
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1615,
-            306,
-            264,
-            141
+            1330,
+            297,
+            249,
+            133
           ],
           "margin": [
-            92,
-            19,
-            104,
-            25
+            98,
+            27,
+            119,
+            33
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            458,
-            224,
-            136
+            1583,
+            297,
+            210,
+            127
           ],
           "margin": [
-            100,
-            24,
-            144,
-            30
+            107,
+            33,
+            158,
+            39
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            230,
-            458,
-            222,
-            135
+            1797,
+            297,
+            209,
+            127
           ],
           "margin": [
-            98,
-            25,
-            146,
-            31
+            104,
+            33,
+            159,
+            39
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            456,
-            458,
-            218,
-            140
+            2,
+            445,
+            211,
+            136
           ],
           "margin": [
-            86,
-            20,
-            150,
-            26
+            90,
+            24,
+            157,
+            30
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            678,
-            458,
-            209,
-            139
+            217,
+            445,
+            196,
+            130
           ],
           "margin": [
-            82,
-            21,
-            159,
-            27
+            88,
+            30,
+            172,
+            36
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            891,
-            458,
-            213,
-            137
+            417,
+            445,
+            198,
+            127
           ],
           "margin": [
-            76,
-            23,
-            155,
-            29
+            83,
+            34,
+            170,
+            39
           ]
         },
         {
@@ -988,8 +988,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1108,
-            458,
+            619,
+            445,
             209,
             138
           ],
@@ -1018,8 +1018,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1321,
-            458,
+            832,
+            445,
             216,
             131
           ],
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1541,
-            458,
-            224,
-            131
+            1052,
+            445,
+            221,
+            130
           ],
           "margin": [
-            74,
-            29,
-            144,
-            35
+            76,
+            30,
+            147,
+            36
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1769,
-            458,
-            220,
-            141
+            1277,
+            445,
+            209,
+            133
           ],
           "margin": [
-            81,
-            19,
-            148,
-            25
+            87,
+            27,
+            159,
+            33
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            607,
-            218,
-            145
+            1490,
+            445,
+            191,
+            127
           ],
           "margin": [
-            93,
-            15,
-            150,
-            21
+            106,
+            34,
+            177,
+            39
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            224,
-            607,
-            215,
-            144
+            1685,
+            445,
+            195,
+            131
           ],
           "margin": [
-            99,
-            16,
-            153,
-            22
+            109,
+            29,
+            173,
+            35
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            443,
-            607,
-            239,
-            144
+            2,
+            591,
+            216,
+            130
           ],
           "margin": [
-            90,
-            16,
-            129,
-            22
+            101,
+            30,
+            152,
+            36
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            686,
-            607,
-            254,
-            137
+            222,
+            591,
+            225,
+            122
           ],
           "margin": [
-            85,
-            23,
-            114,
-            29
+            99,
+            38,
+            143,
+            44
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            944,
-            607,
-            247,
-            136
+            451,
+            591,
+            221,
+            122
           ],
           "margin": [
-            86,
-            24,
-            121,
-            30
+            98,
+            38,
+            147,
+            44
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1195,
-            607,
-            226,
-            143
+            676,
+            591,
+            225,
+            142
           ],
           "margin": [
-            86,
-            17,
-            142,
-            23
+            87,
+            18,
+            143,
+            24
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1425,
-            607,
-            233,
-            143
+            905,
+            591,
+            216,
+            133
           ],
           "margin": [
-            78,
-            17,
-            135,
-            23
+            86,
+            27,
+            152,
+            33
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1662,
-            607,
-            227,
-            144
+            1125,
+            591,
+            213,
+            135
           ],
           "margin": [
-            82,
-            16,
-            141,
-            22
+            88,
+            25,
+            155,
+            31
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            760,
-            234,
-            148
+            1342,
+            591,
+            219,
+            138
           ],
           "margin": [
-            76,
-            12,
-            134,
-            18
+            83,
+            22,
+            149,
+            28
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            240,
-            760,
-            225,
-            146
+            1565,
+            591,
+            207,
+            134
           ],
           "margin": [
-            76,
-            14,
-            143,
-            20
+            84,
+            26,
+            161,
+            32
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            469,
-            760,
-            226,
-            145
+            1776,
+            591,
+            205,
+            132
           ],
           "margin": [
-            78,
-            15,
-            142,
-            21
+            88,
+            28,
+            163,
+            34
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            699,
-            760,
-            233,
-            146
+            2,
+            741,
+            221,
+            138
           ],
           "margin": [
-            74,
-            14,
-            135,
-            20
+            80,
+            22,
+            147,
+            28
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            936,
-            760,
-            218,
-            140
+            227,
+            741,
+            215,
+            138
           ],
           "margin": [
-            86,
-            20,
-            150,
-            26
+            88,
+            22,
+            153,
+            28
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1158,
-            760,
-            207,
-            150
+            446,
+            741,
+            193,
+            140
           ],
           "margin": [
-            100,
-            10,
-            161,
-            16
+            106,
+            21,
+            175,
+            26
           ]
         },
         {
@@ -1542,15 +1542,15 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1369,
-            760,
-            194,
+            643,
+            741,
+            195,
             146
           ],
           "margin": [
             107,
             16,
-            174,
+            173,
             20
           ]
         },
@@ -1572,8 +1572,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1567,
-            760,
+            842,
+            741,
             194,
             126
           ],
@@ -1602,16 +1602,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1765,
-            760,
-            244,
-            129
+            1040,
+            741,
+            215,
+            113
           ],
           "margin": [
-            66,
-            31,
-            124,
-            37
+            80,
+            47,
+            153,
+            53
           ]
         }
       ]
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            918,
-            197,
-            140
+            1259,
+            741,
+            208,
+            139
           ],
           "margin": [
-            100,
-            20,
-            171,
-            26
+            90,
+            21,
+            160,
+            27
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            203,
-            918,
-            196,
-            122
+            1471,
+            741,
+            212,
+            119
           ],
           "margin": [
-            92,
-            40,
-            172,
-            44
+            80,
+            41,
+            156,
+            47
           ]
         },
         {
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            403,
-            918,
-            137,
-            105
+            1687,
+            741,
+            231,
+            104
           ],
           "margin": [
-            109,
-            54,
-            231,
-            61
+            59,
+            56,
+            137,
+            62
           ]
         },
         {
@@ -1729,16 +1729,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            544,
-            918,
-            173,
-            104
+            2,
+            895,
+            246,
+            97
           ],
           "margin": [
-            92,
-            55,
-            195,
-            62
+            51,
+            63,
+            122,
+            69
           ]
         }
       ]
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            721,
-            918,
-            253,
-            134
+            252,
+            895,
+            221,
+            117
           ],
           "margin": [
-            50,
-            26,
-            115,
-            32
+            65,
+            43,
+            147,
+            49
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            978,
-            918,
-            197,
-            133
+            477,
+            895,
+            195,
+            132
           ],
           "margin": [
-            70,
-            27,
-            171,
-            33
+            71,
+            28,
+            173,
+            34
           ]
         }
       ]
@@ -1833,16 +1833,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1179,
-            918,
-            222,
-            137
+            676,
+            895,
+            213,
+            131
           ],
           "margin": [
-            72,
-            23,
-            146,
-            29
+            76,
+            29,
+            155,
+            35
           ]
         },
         {
@@ -1863,16 +1863,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1405,
-            918,
-            268,
-            144
+            893,
+            895,
+            240,
+            129
           ],
           "margin": [
-            56,
-            16,
-            100,
-            22
+            70,
+            31,
+            128,
+            37
           ]
         },
         {
@@ -1893,16 +1893,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1677,
-            918,
-            293,
-            144
+            1137,
+            895,
+            237,
+            116
           ],
           "margin": [
-            40,
-            16,
-            75,
-            22
+            68,
+            44,
+            131,
+            50
           ]
         },
         {
@@ -1923,16 +1923,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1070,
-            321,
-            147
+            1378,
+            895,
+            245,
+            113
           ],
           "margin": [
-            31,
-            14,
+            67,
             47,
-            19
+            123,
+            53
           ]
         },
         {
@@ -1953,16 +1953,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            327,
-            1070,
-            243,
-            149
+            1627,
+            895,
+            230,
+            141
           ],
           "margin": [
-            63,
-            11,
-            125,
-            17
+            70,
+            19,
+            138,
+            25
           ]
         },
         {
@@ -1983,16 +1983,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            574,
-            1070,
-            231,
-            146
+            2,
+            1044,
+            223,
+            141
           ],
           "margin": [
-            72,
-            14,
-            137,
-            20
+            76,
+            19,
+            145,
+            25
           ]
         },
         {
@@ -2013,16 +2013,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            809,
-            1070,
-            244,
-            147
+            229,
+            1044,
+            227,
+            137
           ],
           "margin": [
-            64,
-            13,
-            124,
-            19
+            72,
+            23,
+            141,
+            29
           ]
         },
         {
@@ -2043,16 +2043,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1057,
-            1070,
-            233,
-            149
+            460,
+            1044,
+            222,
+            142
           ],
           "margin": [
-            67,
-            11,
-            135,
-            17
+            73,
+            18,
+            146,
+            24
           ]
         },
         {
@@ -2073,16 +2073,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1294,
-            1070,
-            228,
-            146
+            686,
+            1044,
+            216,
+            138
           ],
           "margin": [
-            72,
-            14,
-            140,
-            20
+            78,
+            22,
+            152,
+            28
           ]
         },
         {
@@ -2103,16 +2103,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1526,
-            1070,
-            212,
-            147
+            906,
+            1044,
+            205,
+            142
           ],
           "margin": [
-            79,
-            13,
-            156,
-            19
+            82,
+            18,
+            163,
+            24
           ]
         },
         {
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1742,
-            1070,
-            236,
-            153
+            1115,
+            1044,
+            219,
+            142
           ],
           "margin": [
-            67,
-            7,
-            132,
-            13
+            76,
+            18,
+            149,
+            24
           ]
         },
         {
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1231,
-            246,
-            152
+            1338,
+            1044,
+            219,
+            136
           ],
           "margin": [
-            62,
-            8,
-            122,
-            14
+            74,
+            24,
+            149,
+            30
           ]
         }
       ]
@@ -2200,16 +2200,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            252,
-            1231,
-            256,
-            153
+            1561,
+            1044,
+            232,
+            139
           ],
           "margin": [
-            60,
-            7,
-            112,
-            13
+            72,
+            21,
+            136,
+            27
           ]
         },
         {
@@ -2230,16 +2230,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            512,
-            1231,
-            274,
-            155
+            2,
+            1194,
+            250,
+            142
           ],
           "margin": [
-            54,
-            5,
-            94,
-            11
+            65,
+            18,
+            118,
+            24
           ]
         },
         {
@@ -2260,16 +2260,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            790,
-            1231,
-            267,
-            150
+            256,
+            1194,
+            255,
+            144
           ],
           "margin": [
-            56,
-            10,
-            101,
-            16
+            61,
+            16,
+            113,
+            22
           ]
         },
         {
@@ -2290,16 +2290,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1061,
-            1231,
-            253,
-            147
+            515,
+            1194,
+            243,
+            141
           ],
           "margin": [
-            64,
-            13,
-            115,
-            19
+            68,
+            19,
+            125,
+            25
           ]
         },
         {
@@ -2320,16 +2320,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1318,
-            1231,
-            261,
-            145
+            762,
+            1194,
+            256,
+            142
           ],
           "margin": [
-            60,
-            15,
-            107,
-            21
+            62,
+            18,
+            112,
+            24
           ]
         },
         {
@@ -2350,16 +2350,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1583,
-            1231,
-            270,
-            135
+            1022,
+            1194,
+            265,
+            133
           ],
           "margin": [
-            58,
-            25,
-            98,
-            31
+            60,
+            27,
+            103,
+            33
           ]
         },
         {
@@ -2380,16 +2380,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1394,
-            281,
-            134
+            1291,
+            1194,
+            272,
+            130
           ],
           "margin": [
-            52,
-            26,
-            87,
-            32
+            56,
+            30,
+            96,
+            36
           ]
         },
         {
@@ -2410,16 +2410,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            287,
-            1394,
-            300,
-            144
+            1567,
+            1194,
+            282,
+            136
           ],
           "margin": [
-            46,
-            16,
-            68,
-            22
+            54,
+            24,
+            86,
+            30
           ]
         },
         {
@@ -2440,16 +2440,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            591,
-            1394,
-            259,
-            145
+            2,
+            1346,
+            246,
+            138
           ],
           "margin": [
-            64,
-            15,
-            109,
-            21
+            70,
+            22,
+            122,
+            28
           ]
         },
         {
@@ -2470,16 +2470,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            854,
-            1394,
-            266,
-            148
+            252,
+            1346,
+            249,
+            139
           ],
           "margin": [
-            58,
-            12,
-            102,
-            18
+            66,
+            21,
+            119,
+            27
           ]
         },
         {
@@ -2500,16 +2500,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1124,
-            1394,
-            300,
-            153
+            505,
+            1346,
+            271,
+            138
           ],
           "margin": [
-            44,
-            7,
-            68,
-            13
+            58,
+            22,
+            97,
+            28
           ]
         },
         {
@@ -2530,16 +2530,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1428,
-            1394,
-            295,
-            150
+            780,
+            1346,
+            264,
+            134
           ],
           "margin": [
-            47,
-            10,
-            73,
-            16
+            61,
+            26,
+            104,
+            32
           ]
         }
       ]
@@ -2567,16 +2567,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1727,
-            1394,
-            284,
-            149
+            1048,
+            1346,
+            258,
+            135
           ],
           "margin": [
-            52,
-            11,
-            84,
-            17
+            64,
+            25,
+            110,
+            31
           ]
         },
         {
@@ -2597,16 +2597,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1555,
-            216,
-            150
+            1310,
+            1346,
+            209,
+            145
           ],
           "margin": [
-            65,
-            10,
-            152,
-            16
+            68,
+            15,
+            159,
+            21
           ]
         },
         {
@@ -2627,16 +2627,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            222,
-            1555,
-            204,
-            144
+            1523,
+            1346,
+            205,
+            145
           ],
           "margin": [
-            71,
-            16,
-            164,
-            22
+            70,
+            15,
+            163,
+            21
           ]
         },
         {
@@ -2657,8 +2657,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            430,
-            1555,
+            1732,
+            1346,
             200,
             141
           ],
@@ -2687,16 +2687,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            634,
-            1555,
-            211,
-            141
+            2,
+            1499,
+            219,
+            146
           ],
           "margin": [
-            69,
-            19,
-            157,
-            25
+            64,
+            14,
+            149,
+            20
           ]
         },
         {
@@ -2717,16 +2717,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            849,
-            1555,
-            245,
-            135
+            225,
+            1499,
+            259,
+            143
           ],
           "margin": [
-            67,
-            25,
-            123,
-            31
+            60,
+            17,
+            109,
+            23
           ]
         },
         {
@@ -2747,16 +2747,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1098,
-            1555,
-            252,
-            135
+            488,
+            1499,
+            260,
+            139
           ],
           "margin": [
-            65,
-            25,
-            116,
-            31
+            61,
+            21,
+            108,
+            27
           ]
         },
         {
@@ -2777,8 +2777,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1354,
-            1555,
+            752,
+            1499,
             258,
             139
           ],
@@ -2807,16 +2807,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1616,
-            1555,
-            245,
-            136
+            1014,
+            1499,
+            234,
+            130
           ],
           "margin": [
-            66,
-            24,
-            123,
-            30
+            71,
+            30,
+            134,
+            36
           ]
         },
         {
@@ -2837,16 +2837,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            2,
-            1713,
-            237,
-            138
+            1252,
+            1499,
+            231,
+            135
           ],
           "margin": [
-            68,
-            22,
-            131,
-            28
+            72,
+            25,
+            137,
+            31
           ]
         },
         {
@@ -2867,16 +2867,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
+            1487,
+            1499,
             243,
-            1713,
-            254,
-            143
+            136
           ],
           "margin": [
-            58,
-            17,
-            114,
-            23
+            64,
+            24,
+            125,
+            30
           ]
         },
         {
@@ -2897,16 +2897,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            501,
-            1713,
-            254,
-            140
+            1734,
+            1499,
+            232,
+            128
           ],
           "margin": [
-            65,
-            20,
-            114,
-            26
+            76,
+            32,
+            136,
+            38
           ]
         }
       ]
@@ -2934,16 +2934,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            759,
-            1713,
-            260,
-            138
+            2,
+            1653,
+            232,
+            124
           ],
           "margin": [
-            60,
-            22,
-            108,
-            28
+            73,
+            36,
+            136,
+            42
           ]
         },
         {
@@ -2964,16 +2964,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
           "region": [
-            1023,
-            1713,
-            263,
-            138
+            238,
+            1653,
+            233,
+            123
           ],
           "margin": [
-            58,
-            22,
-            105,
-            28
+            72,
+            37,
+            135,
+            43
           ]
         }
       ]

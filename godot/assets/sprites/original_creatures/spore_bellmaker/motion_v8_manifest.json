@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "spore_bellmaker",
   "canvas": [
     334,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            162,
-            160
+            146,
+            144
           ],
           "margin": [
-            94,
-            77,
-            172,
-            84
+            102,
+            93,
+            188,
+            100
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            168,
+            152,
             2,
-            165,
-            159
+            149,
+            144
           ],
           "margin": [
-            101,
-            78,
-            169,
-            85
+            108,
+            93,
+            185,
+            100
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            337,
+            305,
             2,
-            163,
-            160
+            146,
+            143
           ],
           "margin": [
-            100,
-            77,
-            171,
-            84
+            108,
+            94,
+            188,
+            101
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            504,
+            455,
             2,
-            180,
-            160
+            158,
+            140
           ],
           "margin": [
-            77,
-            78,
-            154,
-            84
+            87,
+            97,
+            176,
+            104
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            688,
+            617,
             2,
-            178,
-            157
+            155,
+            137
           ],
           "margin": [
-            85,
-            81,
-            156,
-            87
+            96,
+            100,
+            179,
+            107
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            870,
+            776,
             2,
-            182,
-            155
+            164,
+            140
           ],
           "margin": [
-            67,
-            82,
-            152,
-            89
+            76,
+            97,
+            170,
+            104
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1056,
+            944,
             2,
-            186,
-            153
+            167,
+            138
           ],
           "margin": [
-            61,
-            84,
-            148,
-            91
+            70,
+            99,
+            167,
+            106
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1246,
+            1115,
             2,
-            185,
-            155
+            168,
+            141
           ],
           "margin": [
-            70,
-            83,
-            149,
-            89
+            79,
+            96,
+            166,
+            103
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1435,
+            1287,
             2,
-            181,
-            151
+            169,
+            141
           ],
           "margin": [
-            74,
-            86,
-            153,
-            93
+            80,
+            96,
+            165,
+            103
           ]
         },
         {
@@ -314,16 +314,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1620,
+            1460,
             2,
-            188,
-            150
+            171,
+            136
           ],
           "margin": [
-            74,
-            87,
-            146,
-            94
+            82,
+            101,
+            163,
+            108
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1812,
+            1635,
             2,
-            189,
-            150
+            176,
+            140
           ],
           "margin": [
-            76,
-            87,
-            145,
-            94
+            82,
+            97,
+            158,
+            104
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
+            1815,
             2,
-            170,
-            204,
-            152
+            180,
+            134
           ],
           "margin": [
-            71,
-            85,
-            130,
-            92
+            83,
+            103,
+            154,
+            110
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            210,
-            170,
-            208,
-            155
+            2,
+            154,
+            192,
+            143
           ],
           "margin": [
-            62,
-            84,
-            126,
-            89
+            70,
+            94,
+            142,
+            101
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            422,
-            170,
-            218,
-            166
+            198,
+            154,
+            189,
+            144
           ],
           "margin": [
-            58,
-            72,
-            116,
-            78
+            73,
+            93,
+            145,
+            100
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            644,
-            170,
-            189,
-            170
+            391,
+            154,
+            168,
+            151
           ],
           "margin": [
-            74,
-            69,
-            145,
-            74
+            84,
+            87,
+            166,
+            93
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            837,
-            170,
-            198,
-            175
+            563,
+            154,
+            178,
+            157
           ],
           "margin": [
-            74,
-            63,
-            136,
-            69
+            84,
+            80,
+            156,
+            87
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1039,
-            170,
-            202,
-            180
+            745,
+            154,
+            184,
+            164
           ],
           "margin": [
-            74,
-            58,
-            132,
-            64
+            84,
+            73,
+            150,
+            80
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1245,
-            170,
-            201,
-            179
+            933,
+            154,
+            181,
+            161
           ],
           "margin": [
-            70,
-            59,
-            133,
-            65
+            80,
+            76,
+            153,
+            83
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1450,
-            170,
-            201,
-            179
+            1118,
+            154,
+            182,
+            162
           ],
           "margin": [
-            70,
-            60,
-            133,
-            65
+            80,
+            75,
+            152,
+            82
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1655,
-            170,
-            194,
-            180
+            1304,
+            154,
+            186,
+            173
           ],
           "margin": [
-            72,
-            60,
-            140,
-            64
+            76,
+            65,
+            148,
+            71
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            2,
-            358,
-            197,
-            174
+            1494,
+            154,
+            176,
+            155
           ],
           "margin": [
-            76,
-            66,
-            137,
-            70
+            86,
+            82,
+            158,
+            89
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            203,
-            358,
-            201,
-            171
+            1674,
+            154,
+            169,
+            144
           ],
           "margin": [
-            72,
-            67,
-            133,
-            73
+            86,
+            93,
+            165,
+            100
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            408,
-            358,
-            214,
-            170
+            1847,
+            154,
+            199,
+            158
           ],
           "margin": [
-            55,
-            69,
-            120,
-            74
+            62,
+            80,
+            135,
+            86
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            626,
-            358,
-            259,
-            161
+            2,
+            335,
+            225,
+            140
           ],
           "margin": [
-            34,
-            77,
-            75,
-            83
+            48,
+            97,
+            109,
+            104
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            889,
-            358,
-            238,
-            155
+            231,
+            335,
+            212,
+            138
           ],
           "margin": [
-            36,
-            83,
-            96,
-            89
+            48,
+            100,
+            122,
+            106
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1131,
-            358,
-            251,
-            152
+            447,
+            335,
+            243,
+            147
           ],
           "margin": [
-            29,
-            86,
-            83,
-            92
+            33,
+            91,
+            91,
+            97
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1386,
-            358,
-            262,
-            141
+            694,
+            335,
+            253,
+            136
           ],
           "margin": [
-            22,
-            97,
-            72,
-            103
+            26,
+            102,
+            81,
+            108
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1652,
-            358,
-            277,
-            139
+            951,
+            335,
+            256,
+            128
           ],
           "margin": [
-            20,
-            99,
-            57,
-            105
+            29,
+            110,
+            78,
+            116
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            2,
-            540,
-            290,
-            143
+            1211,
+            335,
+            264,
+            130
           ],
           "margin": [
-            16,
-            95,
-            44,
-            101
+            28,
+            108,
+            70,
+            114
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            296,
-            540,
-            280,
-            141
+            1479,
+            335,
+            246,
+            124
           ],
           "margin": [
-            28,
-            97,
-            54,
-            103
+            44,
+            114,
+            88,
+            120
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            580,
-            540,
-            258,
-            142
+            1729,
+            335,
+            243,
+            133
           ],
           "margin": [
-            43,
-            96,
-            76,
-            102
+            49,
+            105,
+            91,
+            111
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            842,
-            540,
-            277,
-            150
+            2,
+            490,
+            253,
+            137
           ],
           "margin": [
-            28,
-            88,
-            57,
-            94
+            38,
+            101,
+            81,
+            107
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1123,
-            540,
-            267,
-            151
+            259,
+            490,
+            237,
+            134
           ],
           "margin": [
-            26,
-            87,
-            67,
-            93
+            39,
+            104,
+            97,
+            110
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1394,
-            540,
-            255,
-            153
+            500,
+            490,
+            233,
+            140
           ],
           "margin": [
-            34,
-            85,
-            79,
-            91
+            42,
+            98,
+            101,
+            104
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1653,
-            540,
-            247,
-            157
+            737,
+            490,
+            233,
+            148
           ],
           "margin": [
-            45,
-            81,
-            87,
-            87
+            52,
+            90,
+            101,
+            96
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            2,
-            705,
-            253,
-            154
+            974,
+            490,
+            225,
+            136
           ],
           "margin": [
-            53,
-            84,
-            81,
-            90
+            65,
+            104,
+            109,
+            108
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            259,
-            705,
-            238,
-            152
+            1203,
+            490,
+            219,
+            139
           ],
           "margin": [
-            66,
-            86,
-            96,
-            92
+            74,
+            100,
+            115,
+            105
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            501,
-            705,
-            223,
-            153
+            1426,
+            490,
+            216,
+            148
           ],
           "margin": [
-            73,
-            85,
-            111,
-            91
+            76,
+            90,
+            118,
+            96
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            728,
-            705,
-            207,
-            147
+            1646,
+            490,
+            202,
+            143
           ],
           "margin": [
-            82,
-            92,
-            127,
-            97
+            86,
+            94,
+            132,
+            101
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            939,
-            705,
-            194,
-            147
+            1852,
+            490,
+            191,
+            145
           ],
           "margin": [
-            90,
-            90,
-            140,
-            97
+            92,
+            92,
+            143,
+            99
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1137,
-            705,
-            191,
-            154
+            2,
+            646,
+            188,
+            151
           ],
           "margin": [
             92,
-            85,
-            143,
-            90
+            88,
+            146,
+            93
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1332,
-            705,
-            193,
-            154
+            194,
+            646,
+            179,
+            143
           ],
           "margin": [
-            90,
-            85,
-            141,
-            90
+            96,
+            94,
+            155,
+            101
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1529,
-            705,
-            198,
-            157
+            377,
+            646,
+            181,
+            143
           ],
           "margin": [
-            88,
-            81,
-            136,
-            87
+            96,
+            94,
+            153,
+            101
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1731,
-            705,
-            200,
-            161
+            562,
+            646,
+            188,
+            151
           ],
           "margin": [
-            84,
-            77,
-            134,
-            83
+            89,
+            87,
+            146,
+            93
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            2,
-            874,
-            194,
-            159
+            754,
+            646,
+            171,
+            141
           ],
           "margin": [
-            86,
-            79,
-            140,
-            85
+            96,
+            96,
+            163,
+            103
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            200,
-            874,
-            184,
-            161
+            929,
+            646,
+            160,
+            140
           ],
           "margin": [
-            91,
-            77,
-            150,
-            83
+            101,
+            97,
+            174,
+            104
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            388,
-            874,
-            185,
-            166
+            1093,
+            646,
+            166,
+            150
           ],
           "margin": [
-            86,
-            73,
-            149,
-            78
+            96,
+            88,
+            168,
+            94
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            577,
-            874,
-            178,
-            165
+            1263,
+            646,
+            153,
+            142
           ],
           "margin": [
-            86,
-            74,
-            156,
-            79
+            96,
+            96,
+            181,
+            102
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            759,
-            874,
-            185,
-            137
+            1420,
+            646,
+            167,
+            123
           ],
           "margin": [
-            83,
-            101,
-            149,
-            107
+            92,
+            115,
+            167,
+            121
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            948,
-            874,
-            177,
-            154
+            1591,
+            646,
+            155,
+            134
           ],
           "margin": [
-            92,
-            84,
-            157,
-            90
+            101,
+            103,
+            179,
+            110
           ]
         }
       ]
@@ -1579,16 +1579,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1129,
-            874,
-            150,
-            112
+            1750,
+            646,
+            187,
+            140
           ],
           "margin": [
-            68,
-            125,
-            184,
-            132
+            48,
+            98,
+            147,
+            104
           ]
         },
         {
@@ -1609,16 +1609,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1283,
-            874,
-            199,
-            104
+            2,
+            805,
+            205,
+            108
           ],
           "margin": [
-            68,
-            133,
-            135,
-            140
+            66,
+            130,
+            129,
+            136
           ]
         },
         {
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1486,
-            874,
-            188,
-            94
+            211,
+            805,
+            207,
+            103
           ],
           "margin": [
-            62,
-            143,
-            146,
-            150
+            53,
+            134,
+            127,
+            141
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1678,
-            874,
-            204,
-            89
+            422,
+            805,
+            225,
+            98
           ],
           "margin": [
-            64,
-            148,
-            130,
-            155
+            54,
+            141,
+            109,
+            146
           ]
         }
       ]
@@ -1706,16 +1706,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            2,
-            1048,
-            209,
-            168
+            651,
+            805,
+            195,
+            156
           ],
           "margin": [
-            59,
-            70,
-            125,
-            76
+            67,
+            82,
+            139,
+            88
           ]
         },
         {
@@ -1736,16 +1736,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            215,
-            1048,
-            164,
-            180
+            850,
+            805,
+            170,
+            186
           ],
           "margin": [
-            88,
-            58,
-            170,
-            64
+            86,
+            52,
+            164,
+            58
           ]
         },
         {
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            383,
-            1048,
-            405,
-            193
+            1024,
+            805,
+            227,
+            108
           ],
           "margin": [
-            -28,
-            46,
-            -71,
-            51
+            58,
+            132,
+            107,
+            136
           ]
         },
         {
@@ -1796,16 +1796,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            792,
-            1048,
-            454,
-            206
+            1255,
+            805,
+            257,
+            117
           ],
           "margin": [
-            -34,
-            33,
-            -120,
-            38
+            54,
+            121,
+            77,
+            127
           ]
         },
         {
@@ -1826,16 +1826,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1250,
-            1048,
-            201,
-            212
+            1516,
+            805,
+            180,
+            189
           ],
           "margin": [
-            72,
-            26,
-            133,
-            32
+            82,
+            49,
+            154,
+            55
           ]
         },
         {
@@ -1856,16 +1856,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1455,
-            1048,
-            187,
-            218
+            1700,
+            805,
+            156,
+            182
           ],
           "margin": [
-            68,
-            20,
-            147,
-            26
+            85,
+            56,
+            178,
+            62
           ]
         },
         {
@@ -1886,16 +1886,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1646,
-            1048,
-            264,
-            229
+            1860,
+            805,
+            179,
+            155
           ],
           "margin": [
-            51,
-            10,
-            70,
-            15
+            88,
+            83,
+            155,
+            89
           ]
         },
         {
@@ -1917,15 +1917,15 @@
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
             2,
-            1285,
-            243,
-            237
+            1002,
+            174,
+            170
           ],
           "margin": [
-            62,
-            1,
-            91,
-            7
+            92,
+            68,
+            160,
+            74
           ]
         },
         {
@@ -1946,16 +1946,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            249,
-            1285,
-            192,
-            239
+            180,
+            1002,
+            163,
+            203
           ],
           "margin": [
-            70,
-            -1,
-            142,
-            5
+            85,
+            35,
+            171,
+            41
           ]
         },
         {
@@ -1976,16 +1976,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            445,
-            1285,
-            174,
-            226
+            347,
+            1002,
+            148,
+            193
           ],
           "margin": [
-            77,
-            12,
-            160,
-            18
+            90,
+            45,
+            186,
+            51
           ]
         },
         {
@@ -2006,16 +2006,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            623,
-            1285,
-            143,
-            201
+            499,
+            1002,
+            156,
+            219
           ],
           "margin": [
-            84,
-            37,
-            191,
-            43
+            76,
+            19,
+            178,
+            25
           ]
         },
         {
@@ -2036,16 +2036,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            770,
-            1285,
-            225,
-            171
+            659,
+            1002,
+            206,
+            156
           ],
           "margin": [
-            64,
-            67,
-            109,
-            73
+            72,
+            82,
+            128,
+            88
           ]
         }
       ]
@@ -2073,16 +2073,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            999,
-            1285,
-            216,
-            158
+            869,
+            1002,
+            197,
+            144
           ],
           "margin": [
-            60,
-            80,
-            118,
-            86
+            69,
+            94,
+            137,
+            100
           ]
         },
         {
@@ -2103,16 +2103,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1219,
-            1285,
-            237,
-            163
+            1070,
+            1002,
+            216,
+            148
           ],
           "margin": [
-            46,
-            75,
-            97,
-            81
+            58,
+            90,
+            118,
+            96
           ]
         },
         {
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1460,
-            1285,
-            250,
-            160
+            1290,
+            1002,
+            208,
+            133
           ],
           "margin": [
-            41,
-            78,
-            84,
-            84
+            63,
+            105,
+            126,
+            111
           ]
         },
         {
@@ -2163,16 +2163,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1714,
-            1285,
-            248,
-            161
+            1502,
+            1002,
+            209,
+            136
           ],
           "margin": [
-            40,
-            77,
-            86,
-            83
+            60,
+            102,
+            125,
+            108
           ]
         },
         {
@@ -2193,16 +2193,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            2,
-            1532,
-            289,
-            166
+            1715,
+            1002,
+            225,
+            130
           ],
           "margin": [
-            22,
-            72,
-            45,
-            78
+            54,
+            108,
+            109,
+            114
           ]
         },
         {
@@ -2223,16 +2223,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            295,
-            1532,
-            272,
-            163
+            2,
+            1229,
+            222,
+            133
           ],
           "margin": [
-            29,
-            75,
-            62,
-            81
+            54,
+            105,
+            112,
+            111
           ]
         },
         {
@@ -2253,16 +2253,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            571,
-            1532,
-            213,
-            162
+            228,
+            1229,
+            204,
+            155
           ],
           "margin": [
-            56,
-            77,
-            121,
-            82
+            60,
+            83,
+            130,
+            89
           ]
         },
         {
@@ -2283,16 +2283,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            788,
-            1532,
-            211,
-            168
+            436,
+            1229,
+            194,
+            155
           ],
           "margin": [
-            56,
-            70,
-            123,
-            76
+            65,
+            82,
+            140,
+            89
           ]
         },
         {
@@ -2313,16 +2313,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1003,
-            1532,
-            198,
-            167
+            634,
+            1229,
+            181,
+            153
           ],
           "margin": [
-            63,
             72,
-            136,
-            77
+            84,
+            153,
+            91
           ]
         },
         {
@@ -2343,16 +2343,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1205,
-            1532,
-            207,
-            173
+            819,
+            1229,
+            190,
+            159
           ],
           "margin": [
-            57,
-            65,
-            127,
-            71
+            66,
+            79,
+            144,
+            85
           ]
         },
         {
@@ -2373,16 +2373,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1416,
-            1532,
-            211,
-            184
+            1013,
+            1229,
+            187,
+            163
           ],
           "margin": [
-            59,
-            54,
-            123,
-            60
+            71,
+            75,
+            147,
+            81
           ]
         },
         {
@@ -2403,16 +2403,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1631,
-            1532,
-            186,
-            187
+            1204,
+            1229,
+            169,
+            170
           ],
           "margin": [
-            78,
-            51,
-            148,
-            57
+            86,
+            68,
+            165,
+            74
           ]
         }
       ]
@@ -2440,16 +2440,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1821,
-            1532,
-            201,
-            191
+            1377,
+            1229,
+            175,
+            167
           ],
           "margin": [
+            82,
             70,
-            47,
-            133,
-            53
+            159,
+            77
           ]
         },
         {
@@ -2470,16 +2470,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            2,
-            1731,
-            205,
-            195
+            1556,
+            1229,
+            181,
+            172
           ],
           "margin": [
-            70,
-            43,
-            129,
-            49
+            82,
+            67,
+            153,
+            72
           ]
         },
         {
@@ -2500,16 +2500,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            211,
-            1731,
-            200,
-            191
+            1741,
+            1229,
+            184,
+            176
           ],
           "margin": [
-            68,
-            47,
-            134,
-            53
+            76,
+            63,
+            150,
+            68
           ]
         },
         {
@@ -2530,16 +2530,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            415,
-            1731,
-            203,
-            193
+            2,
+            1413,
+            185,
+            176
           ],
           "margin": [
-            62,
-            45,
-            131,
-            51
+            70,
+            64,
+            149,
+            68
           ]
         },
         {
@@ -2560,16 +2560,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            622,
-            1731,
-            207,
-            202
+            191,
+            1413,
+            185,
+            181
           ],
           "margin": [
-            62,
-            36,
-            127,
-            42
+            74,
+            58,
+            149,
+            63
           ]
         },
         {
@@ -2590,16 +2590,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            833,
-            1731,
-            213,
-            205
+            380,
+            1413,
+            185,
+            178
           ],
           "margin": [
-            60,
-            33,
-            121,
-            39
+            74,
+            62,
+            149,
+            66
           ]
         },
         {
@@ -2620,16 +2620,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1050,
-            1731,
-            212,
-            199
+            569,
+            1413,
+            180,
+            170
           ],
           "margin": [
-            59,
-            39,
-            122,
-            45
+            75,
+            67,
+            154,
+            74
           ]
         },
         {
@@ -2650,16 +2650,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1266,
-            1731,
-            199,
-            187
+            753,
+            1413,
+            188,
+            176
           ],
           "margin": [
-            69,
-            51,
-            135,
-            57
+            74,
+            63,
+            146,
+            68
           ]
         },
         {
@@ -2680,16 +2680,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1469,
-            1731,
-            183,
-            168
+            945,
+            1413,
+            187,
+            172
           ],
           "margin": [
-            76,
-            70,
-            151,
-            76
+            74,
+            67,
+            147,
+            72
           ]
         },
         {
@@ -2710,16 +2710,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1656,
-            1731,
-            175,
-            161
+            1136,
+            1413,
+            179,
+            165
           ],
           "margin": [
-            78,
             76,
-            159,
-            83
+            73,
+            155,
+            79
           ]
         },
         {
@@ -2740,16 +2740,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            1835,
-            1731,
-            170,
-            166
+            1319,
+            1413,
+            182,
+            178
           ],
           "margin": [
-            78,
-            71,
-            164,
-            78
+            72,
+            62,
+            152,
+            66
           ]
         },
         {
@@ -2768,18 +2768,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            161,
-            165
+            1505,
+            1413,
+            164,
+            167
           ],
           "margin": [
-            85,
-            72,
-            173,
-            79
+            84,
+            70,
+            170,
+            77
           ]
         }
       ]
@@ -2805,18 +2805,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            167,
-            2,
-            159,
-            155
+            1673,
+            1413,
+            161,
+            158
           ],
           "margin": [
             86,
-            82,
-            175,
-            89
+            79,
+            173,
+            86
           ]
         },
         {
@@ -2835,18 +2835,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_v8_00.png",
           "region": [
-            330,
-            2,
-            170,
-            155
+            1838,
+            1413,
+            172,
+            157
           ],
           "margin": [
-            86,
-            82,
-            164,
-            89
+            84,
+            80,
+            162,
+            87
           ]
         }
       ]

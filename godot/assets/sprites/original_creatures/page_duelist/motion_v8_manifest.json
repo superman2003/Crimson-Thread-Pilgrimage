@@ -1,5 +1,5 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "page_duelist",
   "canvas": [
     416,
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            183,
-            235
+            169,
+            217
           ],
           "margin": [
-            132,
-            4,
-            233,
-            10
+            138,
+            22,
+            247,
+            28
           ]
         },
         {
@@ -67,16 +67,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            189,
+            175,
             2,
-            188,
-            235
+            174,
+            217
           ],
           "margin": [
-            132,
-            4,
-            228,
-            10
+            138,
+            22,
+            242,
+            28
           ]
         },
         {
@@ -97,16 +97,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            381,
+            353,
             2,
-            196,
-            232
+            176,
+            209
           ],
           "margin": [
-            128,
-            7,
-            220,
-            13
+            136,
+            30,
+            240,
+            36
           ]
         },
         {
@@ -127,16 +127,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            581,
+            533,
             2,
-            202,
-            233
+            186,
+            214
           ],
           "margin": [
-            120,
-            6,
-            214,
-            12
+            126,
+            25,
+            230,
+            31
           ]
         }
       ]
@@ -164,16 +164,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            787,
+            723,
             2,
-            230,
-            222
+            209,
+            202
           ],
           "margin": [
-            100,
-            17,
-            186,
-            23
+            110,
+            37,
+            207,
+            43
           ]
         },
         {
@@ -194,16 +194,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1021,
+            936,
             2,
-            243,
-            228
+            214,
+            201
           ],
           "margin": [
-            94,
-            11,
-            173,
-            17
+            108,
+            38,
+            202,
+            44
           ]
         },
         {
@@ -224,16 +224,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1268,
+            1154,
             2,
-            242,
-            228
+            221,
+            208
           ],
           "margin": [
-            86,
-            11,
-            174,
-            17
+            96,
+            31,
+            195,
+            37
           ]
         },
         {
@@ -254,16 +254,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1514,
+            1379,
             2,
-            244,
-            226
+            224,
+            208
           ],
           "margin": [
-            86,
-            13,
-            172,
-            19
+            95,
+            31,
+            192,
+            37
           ]
         },
         {
@@ -284,16 +284,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1762,
+            1607,
             2,
-            255,
-            226
+            229,
+            203
           ],
           "margin": [
-            86,
-            13,
-            161,
-            19
+            100,
+            36,
+            187,
+            42
           ]
         },
         {
@@ -315,15 +315,15 @@
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
             2,
-            245,
-            244,
-            224
+            227,
+            221,
+            203
           ],
           "margin": [
-            90,
-            15,
-            172,
-            21
+            101,
+            36,
+            195,
+            42
           ]
         },
         {
@@ -344,16 +344,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            250,
-            245,
-            243,
-            226
+            227,
+            227,
+            210,
+            195
           ],
           "margin": [
-            80,
-            13,
-            173,
-            19
+            96,
+            44,
+            206,
+            50
           ]
         },
         {
@@ -374,16 +374,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            497,
-            245,
-            247,
-            224
+            441,
+            227,
+            213,
+            194
           ],
           "margin": [
-            79,
-            15,
-            169,
-            21
+            95,
+            45,
+            203,
+            51
           ]
         }
       ]
@@ -411,16 +411,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            748,
-            245,
-            253,
-            223
+            658,
+            227,
+            231,
+            204
           ],
           "margin": [
-            76,
-            16,
-            163,
-            22
+            87,
+            35,
+            185,
+            41
           ]
         },
         {
@@ -441,16 +441,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1005,
-            245,
-            255,
-            228
+            893,
+            227,
+            237,
+            211
           ],
           "margin": [
-            76,
-            11,
-            161,
-            17
+            86,
+            28,
+            179,
+            34
           ]
         },
         {
@@ -471,16 +471,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1264,
-            245,
-            244,
-            224
+            1134,
+            227,
+            218,
+            201
           ],
           "margin": [
-            82,
-            15,
-            172,
-            21
+            96,
+            38,
+            198,
+            44
           ]
         },
         {
@@ -501,16 +501,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1512,
-            245,
-            234,
-            225
+            1356,
+            227,
+            203,
+            195
           ],
           "margin": [
-            84,
-            14,
-            182,
-            20
+            100,
+            44,
+            213,
+            50
           ]
         },
         {
@@ -531,16 +531,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1750,
-            245,
-            217,
-            229
+            1563,
+            227,
+            191,
+            201
           ],
           "margin": [
-            86,
-            10,
-            199,
-            16
+            100,
+            38,
+            225,
+            44
           ]
         },
         {
@@ -561,16 +561,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            2,
-            482,
-            212,
-            225
+            1758,
+            227,
+            187,
+            198
           ],
           "margin": [
-            85,
-            14,
-            204,
-            20
+            100,
+            41,
+            229,
+            47
           ]
         },
         {
@@ -591,16 +591,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            218,
-            482,
-            208,
-            225
+            2,
+            446,
+            183,
+            198
           ],
           "margin": [
-            84,
-            14,
-            208,
-            20
+            99,
+            41,
+            233,
+            47
           ]
         },
         {
@@ -621,16 +621,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            430,
-            482,
-            209,
-            230
+            189,
+            446,
+            193,
+            212
           ],
           "margin": [
-            84,
-            9,
-            207,
-            15
+            94,
+            27,
+            223,
+            33
           ]
         },
         {
@@ -651,16 +651,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            643,
-            482,
-            219,
-            227
+            386,
+            446,
+            208,
+            215
           ],
           "margin": [
-            90,
-            12,
-            197,
-            18
+            96,
+            24,
+            208,
+            30
           ]
         },
         {
@@ -681,16 +681,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            866,
-            482,
-            218,
-            225
+            598,
+            446,
+            207,
+            214
           ],
           "margin": [
-            86,
-            14,
-            198,
-            20
+            92,
+            25,
+            209,
+            31
           ]
         },
         {
@@ -711,16 +711,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1088,
-            482,
-            217,
-            224
+            809,
+            446,
+            206,
+            213
           ],
           "margin": [
-            74,
-            15,
-            199,
-            21
+            79,
+            26,
+            210,
+            32
           ]
         },
         {
@@ -741,16 +741,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1309,
-            482,
-            218,
-            217
+            1019,
+            446,
+            206,
+            205
           ],
           "margin": [
-            70,
-            22,
-            198,
-            28
+            76,
+            34,
+            210,
+            40
           ]
         }
       ]
@@ -778,16 +778,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1531,
-            482,
-            208,
-            208
+            1229,
+            446,
+            194,
+            194
           ],
           "margin": [
-            72,
-            31,
-            208,
-            37
+            79,
+            45,
+            222,
+            51
           ]
         },
         {
@@ -808,16 +808,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1743,
-            482,
-            197,
-            199
+            1427,
+            446,
+            202,
+            204
           ],
           "margin": [
-            82,
-            40,
-            219,
-            46
+            80,
+            35,
+            214,
+            41
           ]
         },
         {
@@ -838,16 +838,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            2,
-            720,
-            282,
-            184
+            1633,
+            446,
+            272,
+            177
           ],
           "margin": [
-            67,
-            55,
-            134,
-            61
+            71,
+            62,
+            144,
+            68
           ]
         },
         {
@@ -868,16 +868,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            288,
-            720,
-            309,
-            179
+            2,
+            669,
+            296,
+            172
           ],
           "margin": [
+            72,
             67,
-            60,
-            107,
-            66
+            120,
+            73
           ]
         },
         {
@@ -898,16 +898,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            601,
-            720,
-            310,
-            185
+            302,
+            669,
+            261,
+            156
           ],
           "margin": [
-            58,
-            54,
-            106,
-            60
+            78,
+            83,
+            155,
+            89
           ]
         },
         {
@@ -928,16 +928,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            915,
-            720,
-            255,
-            182
+            567,
+            669,
+            232,
+            166
           ],
           "margin": [
-            69,
-            57,
-            161,
-            63
+            80,
+            74,
+            184,
+            79
           ]
         },
         {
@@ -958,16 +958,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1174,
-            720,
-            199,
-            192
+            803,
+            669,
+            203,
+            196
           ],
           "margin": [
-            82,
-            47,
-            217,
-            53
+            80,
+            43,
+            213,
+            49
           ]
         },
         {
@@ -988,16 +988,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1377,
-            720,
-            319,
-            213
+            1010,
+            669,
+            264,
+            177
           ],
           "margin": [
-            46,
-            26,
-            97,
-            32
+            68,
+            62,
+            152,
+            68
           ]
         },
         {
@@ -1018,16 +1018,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1700,
-            720,
-            340,
-            226
+            1278,
+            669,
+            272,
+            181
           ],
           "margin": [
-            33,
-            14,
-            76,
-            19
+            62,
+            58,
+            144,
+            64
           ]
         },
         {
@@ -1048,16 +1048,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            2,
-            954,
-            337,
-            235
+            1554,
+            669,
+            263,
+            184
           ],
           "margin": [
-            32,
-            5,
-            79,
-            10
+            64,
+            55,
+            153,
+            61
           ]
         },
         {
@@ -1078,16 +1078,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            343,
-            954,
-            290,
-            239
+            2,
+            873,
+            247,
+            203
           ],
           "margin": [
-            60,
-            0,
-            126,
-            6
+            80,
+            36,
+            169,
+            42
           ]
         },
         {
@@ -1108,16 +1108,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            637,
-            954,
-            212,
-            235
+            253,
+            873,
+            192,
+            213
           ],
           "margin": [
-            96,
-            4,
-            204,
-            10
+            106,
+            26,
+            224,
+            32
           ]
         }
       ]
@@ -1145,16 +1145,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            853,
-            954,
-            182,
-            234
+            449,
+            873,
+            167,
+            214
           ],
           "margin": [
-            120,
-            5,
-            234,
-            11
+            127,
+            25,
+            249,
+            31
           ]
         },
         {
@@ -1175,16 +1175,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1039,
-            954,
-            200,
-            236
+            620,
+            873,
+            193,
+            228
           ],
           "margin": [
-            109,
-            3,
-            216,
-            9
+            113,
+            11,
+            223,
+            17
           ]
         },
         {
@@ -1205,16 +1205,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1243,
-            954,
-            205,
-            232
+            817,
+            873,
+            207,
+            233
           ],
           "margin": [
-            110,
-            7,
-            211,
-            13
+            108,
+            6,
+            209,
+            12
           ]
         },
         {
@@ -1235,16 +1235,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1452,
-            954,
-            229,
-            231
+            1028,
+            873,
+            217,
+            219
           ],
           "margin": [
-            100,
-            8,
-            187,
-            14
+            106,
+            20,
+            199,
+            26
           ]
         },
         {
@@ -1265,16 +1265,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1685,
-            954,
-            218,
-            238
+            1249,
+            873,
+            204,
+            223
           ],
           "margin": [
-            100,
-            1,
-            198,
-            7
+            106,
+            16,
+            212,
+            22
           ]
         },
         {
@@ -1295,16 +1295,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            2,
-            1201,
-            219,
-            237
+            1457,
+            873,
+            196,
+            213
           ],
           "margin": [
-            102,
-            2,
-            197,
-            8
+            114,
+            26,
+            220,
+            32
           ]
         },
         {
@@ -1325,16 +1325,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            225,
-            1201,
-            208,
-            236
+            1657,
+            873,
+            187,
+            212
           ],
           "margin": [
-            109,
-            3,
-            208,
-            9
+            120,
+            27,
+            229,
+            33
           ]
         },
         {
@@ -1355,16 +1355,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            437,
-            1201,
-            204,
-            238
+            1848,
+            873,
+            191,
+            222
           ],
           "margin": [
-            110,
-            1,
-            212,
-            7
+            118,
+            17,
+            225,
+            23
           ]
         },
         {
@@ -1385,16 +1385,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            645,
-            1201,
-            197,
-            233
+            2,
+            1114,
+            173,
+            205
           ],
           "margin": [
-            116,
-            6,
-            219,
-            12
+            128,
+            34,
+            243,
+            40
           ]
         },
         {
@@ -1415,16 +1415,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            846,
-            1201,
-            181,
-            232
+            179,
+            1114,
+            173,
+            222
           ],
           "margin": [
-            124,
-            7,
-            235,
-            13
+            128,
+            17,
+            243,
+            23
           ]
         },
         {
@@ -1445,16 +1445,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1031,
-            1201,
-            185,
-            238
+            356,
+            1114,
+            174,
+            225
           ],
           "margin": [
-            120,
-            1,
-            231,
-            7
+            125,
+            14,
+            242,
+            20
           ]
         },
         {
@@ -1475,16 +1475,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1220,
-            1201,
-            184,
-            237
+            534,
+            1114,
+            171,
+            220
           ],
           "margin": [
-            123,
-            2,
-            232,
-            8
+            129,
+            19,
+            245,
+            25
           ]
         }
       ]
@@ -1512,16 +1512,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1408,
-            1201,
-            185,
-            219
+            709,
+            1114,
+            172,
+            204
           ],
           "margin": [
-            118,
-            20,
-            231,
-            26
+            124,
+            35,
+            244,
+            41
           ]
         },
         {
@@ -1542,16 +1542,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1597,
-            1201,
-            190,
-            213
+            885,
+            1114,
+            169,
+            189
           ],
           "margin": [
-            128,
-            26,
-            226,
-            32
+            137,
+            50,
+            247,
+            56
           ]
         },
         {
@@ -1572,16 +1572,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1791,
-            1201,
-            188,
-            226
+            1058,
+            1114,
+            157,
+            189
           ],
           "margin": [
-            112,
-            13,
-            228,
-            19
+            128,
+            50,
+            259,
+            56
           ]
         }
       ]
@@ -1609,16 +1609,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            2,
-            1447,
-            195,
-            155
+            1219,
+            1114,
+            193,
+            154
           ],
           "margin": [
-            112,
-            83,
-            221,
-            90
+            113,
+            84,
+            223,
+            91
           ]
         },
         {
@@ -1639,16 +1639,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            201,
-            1447,
-            184,
-            138
+            1416,
+            1114,
+            186,
+            140
           ],
           "margin": [
             80,
-            100,
-            232,
-            107
+            98,
+            230,
+            105
           ]
         },
         {
@@ -1669,16 +1669,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            389,
-            1447,
-            170,
-            113
+            1606,
+            1114,
+            166,
+            110
           ],
           "margin": [
-            86,
-            126,
-            246,
-            132
+            88,
+            129,
+            250,
+            135
           ]
         },
         {
@@ -1699,16 +1699,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            563,
-            1447,
-            254,
-            103
+            1776,
+            1114,
+            218,
+            88
           ],
           "margin": [
-            40,
-            136,
-            162,
-            142
+            59,
+            152,
+            198,
+            157
           ]
         }
       ]
@@ -1736,16 +1736,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            821,
-            1447,
-            216,
-            204
+            2,
+            1347,
+            203,
+            192
           ],
           "margin": [
-            95,
-            35,
-            200,
-            41
+            102,
+            47,
+            213,
+            53
           ]
         },
         {
@@ -1766,16 +1766,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1041,
-            1447,
-            236,
-            204
+            209,
+            1347,
+            252,
+            218
           ],
           "margin": [
-            95,
-            35,
-            180,
-            41
+            87,
+            21,
+            164,
+            27
           ]
         }
       ]
@@ -1803,16 +1803,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1281,
-            1447,
-            245,
-            197
+            465,
+            1347,
+            221,
+            178
           ],
           "margin": [
-            75,
-            42,
-            171,
-            48
+            88,
+            61,
+            195,
+            67
           ]
         },
         {
@@ -1833,16 +1833,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1530,
-            1447,
-            241,
-            203
+            690,
+            1347,
+            224,
+            189
           ],
           "margin": [
-            85,
-            36,
-            175,
-            42
+            94,
+            50,
+            192,
+            56
           ]
         },
         {
@@ -1863,16 +1863,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1775,
-            1447,
-            236,
-            203
+            918,
+            1347,
+            211,
+            181
           ],
           "margin": [
-            90,
-            36,
-            180,
-            42
+            102,
+            58,
+            205,
+            64
           ]
         },
         {
@@ -1893,16 +1893,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            2,
-            1659,
-            209,
-            203
+            1133,
+            1347,
+            203,
+            198
           ],
           "margin": [
-            103,
-            36,
-            207,
-            42
+            106,
+            41,
+            213,
+            47
           ]
         },
         {
@@ -1923,8 +1923,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            215,
-            1659,
+            1340,
+            1347,
             200,
             205
           ],
@@ -1953,16 +1953,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            419,
-            1659,
-            208,
-            199
+            1544,
+            1347,
+            200,
+            191
           ],
           "margin": [
-            109,
-            40,
-            208,
-            46
+            113,
+            48,
+            216,
+            54
           ]
         },
         {
@@ -1983,16 +1983,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            631,
-            1659,
-            199,
-            199
+            1748,
+            1347,
+            193,
+            193
           ],
           "margin": [
-            112,
-            40,
-            217,
-            46
+            115,
+            46,
+            223,
+            52
           ]
         },
         {
@@ -2013,16 +2013,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            834,
-            1659,
-            190,
-            205
+            2,
+            1573,
+            188,
+            203
           ],
           "margin": [
             116,
-            34,
-            226,
-            40
+            36,
+            228,
+            42
           ]
         },
         {
@@ -2043,16 +2043,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1028,
-            1659,
-            179,
-            204
+            194,
+            1573,
+            169,
+            193
           ],
           "margin": [
-            116,
-            35,
-            237,
-            41
+            120,
+            46,
+            247,
+            52
           ]
         },
         {
@@ -2073,16 +2073,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1211,
-            1659,
-            181,
-            206
+            367,
+            1573,
+            175,
+            199
           ],
           "margin": [
-            112,
-            33,
-            235,
-            39
+            114,
+            40,
+            241,
+            46
           ]
         },
         {
@@ -2103,16 +2103,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1396,
-            1659,
-            205,
-            209
+            546,
+            1573,
+            206,
+            210
           ],
           "margin": [
             106,
-            30,
-            211,
-            36
+            29,
+            210,
+            35
           ]
         },
         {
@@ -2133,16 +2133,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1605,
-            1659,
-            249,
-            205
+            756,
+            1573,
+            245,
+            201
           ],
           "margin": [
-            94,
-            34,
-            167,
-            40
+            96,
+            38,
+            171,
+            44
           ]
         }
       ]
@@ -2168,18 +2168,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            2,
-            2,
-            266,
-            205
+            1005,
+            1573,
+            257,
+            197
           ],
           "margin": [
-            86,
-            34,
-            150,
-            40
+            90,
+            42,
+            159,
+            48
           ]
         },
         {
@@ -2198,18 +2198,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            272,
-            2,
-            266,
-            208
+            1266,
+            1573,
+            256,
+            199
           ],
           "margin": [
-            84,
-            31,
-            150,
-            37
+            90,
+            40,
+            160,
+            46
           ]
         },
         {
@@ -2228,18 +2228,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            542,
-            2,
-            262,
-            204
+            1526,
+            1573,
+            250,
+            194
           ],
           "margin": [
-            84,
-            35,
-            154,
-            41
+            88,
+            45,
+            166,
+            51
           ]
         },
         {
@@ -2258,18 +2258,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            808,
-            2,
-            236,
-            197
+            1780,
+            1573,
+            229,
+            191
           ],
           "margin": [
-            103,
-            42,
-            180,
-            48
+            106,
+            48,
+            187,
+            54
           ]
         },
         {
@@ -2288,18 +2288,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1048,
             2,
-            230,
-            191
+            1791,
+            239,
+            199
           ],
           "margin": [
-            103,
-            48,
-            186,
-            54
+            99,
+            40,
+            177,
+            46
           ]
         },
         {
@@ -2318,18 +2318,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1282,
-            2,
-            240,
-            178
+            245,
+            1791,
+            237,
+            176
           ],
           "margin": [
-            91,
-            61,
-            176,
-            67
+            93,
+            63,
+            179,
+            69
           ]
         },
         {
@@ -2348,18 +2348,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1526,
-            2,
-            237,
-            170
+            486,
+            1791,
+            229,
+            164
           ],
           "margin": [
-            94,
-            69,
-            179,
-            75
+            98,
+            75,
+            187,
+            81
           ]
         },
         {
@@ -2378,18 +2378,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            1767,
-            2,
-            254,
-            167
+            719,
+            1791,
+            251,
+            165
           ],
           "margin": [
-            87,
-            72,
-            162,
-            78
+            88,
+            74,
+            165,
+            80
           ]
         },
         {
@@ -2408,18 +2408,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            2,
-            218,
-            271,
-            157
+            974,
+            1791,
+            264,
+            153
           ],
           "margin": [
-            80,
-            82,
-            145,
-            88
+            84,
+            86,
+            152,
+            92
           ]
         },
         {
@@ -2438,18 +2438,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            277,
-            218,
-            260,
-            160
+            1242,
+            1791,
+            254,
+            157
           ],
           "margin": [
-            84,
-            79,
-            156,
-            85
+            88,
+            82,
+            162,
+            88
           ]
         },
         {
@@ -2468,18 +2468,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            541,
-            218,
-            283,
-            178
+            1500,
+            1791,
+            252,
+            159
           ],
           "margin": [
-            76,
-            61,
-            133,
-            67
+            90,
+            80,
+            164,
+            86
           ]
         },
         {
@@ -2498,18 +2498,18 @@
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
           "region": [
-            828,
-            218,
-            272,
-            188
+            1756,
+            1791,
+            230,
+            158
           ],
           "margin": [
-            80,
-            51,
-            144,
-            57
+            100,
+            81,
+            186,
+            87
           ]
         }
       ]
@@ -2537,16 +2537,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1104,
-            218,
-            278,
-            195
+            2,
+            2,
+            234,
+            165
           ],
           "margin": [
-            77,
-            44,
-            138,
-            50
+            98,
+            74,
+            182,
+            80
           ]
         },
         {
@@ -2567,16 +2567,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1386,
-            218,
-            259,
-            200
+            240,
+            2,
+            233,
+            180
           ],
           "margin": [
-            84,
-            39,
-            157,
-            45
+            96,
+            59,
+            183,
+            65
           ]
         },
         {
@@ -2597,16 +2597,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1649,
-            218,
-            228,
-            198
+            477,
+            2,
+            208,
+            181
           ],
           "margin": [
-            98,
-            41,
-            188,
-            47
+            108,
+            58,
+            208,
+            64
           ]
         },
         {
@@ -2627,16 +2627,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
+            689,
             2,
-            426,
-            228,
-            198
+            210,
+            183
           ],
           "margin": [
-            98,
-            41,
-            188,
-            47
+            106,
+            56,
+            206,
+            62
           ]
         },
         {
@@ -2657,16 +2657,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            234,
-            426,
-            219,
-            201
+            903,
+            2,
+            213,
+            195
           ],
           "margin": [
-            104,
-            38,
-            197,
-            44
+            106,
+            44,
+            203,
+            50
           ]
         },
         {
@@ -2687,16 +2687,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            457,
-            426,
-            207,
-            198
+            1120,
+            2,
+            203,
+            194
           ],
           "margin": [
-            108,
-            41,
-            209,
-            47
+            110,
+            45,
+            213,
+            51
           ]
         },
         {
@@ -2717,16 +2717,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            668,
-            426,
+            1327,
+            2,
             200,
-            196
+            195
           ],
           "margin": [
             111,
-            43,
+            44,
             216,
-            49
+            50
           ]
         },
         {
@@ -2747,16 +2747,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            872,
-            426,
-            198,
-            197
+            1531,
+            2,
+            199,
+            198
           ],
           "margin": [
-            114,
-            42,
-            218,
-            48
+            112,
+            41,
+            217,
+            47
           ]
         },
         {
@@ -2777,16 +2777,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1074,
-            426,
-            192,
-            192
+            1734,
+            2,
+            191,
+            191
           ],
           "margin": [
             119,
-            47,
-            224,
-            53
+            48,
+            225,
+            54
           ]
         },
         {
@@ -2807,16 +2807,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1270,
-            426,
-            194,
-            199
+            2,
+            208,
+            191,
+            197
           ],
           "margin": [
             116,
-            40,
-            222,
-            46
+            42,
+            225,
+            48
           ]
         },
         {
@@ -2837,16 +2837,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1468,
-            426,
-            209,
-            219
+            197,
+            208,
+            190,
+            199
           ],
           "margin": [
-            107,
-            20,
-            207,
-            26
+            116,
+            40,
+            226,
+            46
           ]
         },
         {
@@ -2867,16 +2867,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1681,
-            426,
-            219,
-            230
+            391,
+            208,
+            178,
+            187
           ],
           "margin": [
-            104,
-            9,
-            197,
-            15
+            124,
+            52,
+            238,
+            58
           ]
         }
       ]
@@ -2904,16 +2904,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            2,
-            664,
-            187,
-            195
+            573,
+            208,
+            181,
+            188
           ],
           "margin": [
-            122,
-            44,
-            229,
-            50
+            124,
+            51,
+            235,
+            57
           ]
         },
         {
@@ -2934,16 +2934,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            193,
-            664,
-            191,
-            195
+            758,
+            208,
+            182,
+            185
           ],
           "margin": [
-            118,
-            44,
-            225,
-            50
+            124,
+            54,
+            234,
+            60
           ]
         }
       ]
@@ -2971,16 +2971,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            388,
-            664,
-            231,
-            210
+            944,
+            208,
+            196,
+            178
           ],
           "margin": [
-            98,
-            29,
-            185,
-            35
+            115,
+            61,
+            220,
+            67
           ]
         },
         {
@@ -3001,16 +3001,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            623,
-            664,
-            213,
-            212
+            1144,
+            208,
+            197,
+            196
           ],
           "margin": [
-            104,
-            27,
-            203,
-            33
+            111,
+            43,
+            219,
+            49
           ]
         },
         {
@@ -3031,16 +3031,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            840,
-            664,
-            196,
-            208
+            1345,
+            208,
+            183,
+            194
           ],
           "margin": [
-            111,
-            31,
-            220,
-            37
+            117,
+            45,
+            233,
+            51
           ]
         },
         {
@@ -3061,16 +3061,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1040,
-            664,
-            196,
-            207
+            1532,
+            208,
+            182,
+            192
           ],
           "margin": [
-            114,
-            32,
-            220,
-            38
+            120,
+            48,
+            234,
+            53
           ]
         },
         {
@@ -3091,16 +3091,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1240,
-            664,
-            195,
-            211
+            1718,
+            208,
+            180,
+            195
           ],
           "margin": [
-            108,
-            28,
-            221,
-            34
+            116,
+            44,
+            236,
+            50
           ]
         },
         {
@@ -3121,16 +3121,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1439,
-            664,
-            200,
-            207
+            2,
+            415,
+            187,
+            194
           ],
           "margin": [
-            114,
-            32,
-            216,
-            38
+            120,
+            45,
+            229,
+            51
           ]
         },
         {
@@ -3151,16 +3151,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1643,
-            664,
-            196,
-            207
+            193,
+            415,
+            183,
+            193
           ],
           "margin": [
-            114,
-            32,
-            220,
-            38
+            121,
+            47,
+            233,
+            52
           ]
         },
         {
@@ -3181,16 +3181,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1843,
-            664,
-            193,
-            210
+            380,
+            415,
+            176,
+            193
           ],
           "margin": [
-            112,
-            29,
-            223,
-            35
+            120,
+            46,
+            240,
+            52
           ]
         },
         {
@@ -3211,16 +3211,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            2,
-            884,
-            188,
-            206
+            560,
+            415,
+            175,
+            192
           ],
           "margin": [
-            115,
-            33,
-            228,
-            39
+            121,
+            47,
+            241,
+            53
           ]
         },
         {
@@ -3241,16 +3241,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            194,
-            884,
-            182,
-            204
+            739,
+            415,
+            169,
+            189
           ],
           "margin": [
-            116,
-            35,
-            234,
-            41
+            123,
+            50,
+            247,
+            56
           ]
         },
         {
@@ -3271,16 +3271,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            380,
-            884,
-            188,
-            202
+            912,
+            415,
+            185,
+            199
           ],
           "margin": [
-            117,
-            37,
-            228,
-            43
+            118,
+            40,
+            231,
+            46
           ]
         },
         {
@@ -3301,16 +3301,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            572,
-            884,
-            192,
-            193
+            1101,
+            415,
+            194,
+            195
           ],
           "margin": [
             116,
-            46,
-            224,
-            52
+            44,
+            222,
+            50
           ]
         }
       ]
@@ -3338,16 +3338,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            768,
-            884,
-            215,
-            191
+            1299,
+            415,
+            212,
+            188
           ],
           "margin": [
-            110,
-            48,
-            201,
-            54
+            112,
+            52,
+            204,
+            57
           ]
         },
         {
@@ -3368,16 +3368,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            987,
-            884,
-            219,
-            195
+            1515,
+            415,
+            213,
+            189
           ],
           "margin": [
-            107,
-            44,
-            197,
-            50
+            110,
+            52,
+            203,
+            56
           ]
         },
         {
@@ -3398,16 +3398,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1210,
-            884,
-            188,
-            192
+            1732,
+            415,
+            181,
+            185
           ],
           "margin": [
-            114,
-            47,
-            228,
-            53
+            116,
+            56,
+            235,
+            60
           ]
         },
         {
@@ -3428,16 +3428,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1402,
-            884,
-            172,
-            191
+            2,
+            622,
+            171,
+            189
           ],
           "margin": [
             122,
-            49,
-            244,
-            54
+            52,
+            245,
+            56
           ]
         },
         {
@@ -3458,16 +3458,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1578,
-            884,
-            213,
-            194
+            177,
+            622,
+            202,
+            184
           ],
           "margin": [
-            112,
-            45,
-            203,
-            51
+            116,
+            56,
+            214,
+            61
           ]
         },
         {
@@ -3488,16 +3488,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1795,
-            884,
-            206,
-            190
+            383,
+            622,
+            201,
+            185
           ],
           "margin": [
-            116,
-            51,
-            210,
-            55
+            118,
+            54,
+            215,
+            60
           ]
         },
         {
@@ -3518,16 +3518,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            2,
-            1098,
-            207,
-            184
+            588,
+            622,
+            199,
+            177
           ],
           "margin": [
-            113,
-            56,
-            209,
-            61
+            117,
+            61,
+            217,
+            68
           ]
         },
         {
@@ -3548,8 +3548,8 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            213,
-            1098,
+            791,
+            622,
             197,
             178
           ],
@@ -3578,16 +3578,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            414,
-            1098,
-            192,
-            165
+            992,
+            622,
+            195,
+            167
           ],
           "margin": [
-            118,
-            73,
-            224,
-            80
+            116,
+            71,
+            221,
+            78
           ]
         },
         {
@@ -3608,16 +3608,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            610,
-            1098,
-            209,
-            167
+            1191,
+            622,
+            213,
+            170
           ],
           "margin": [
-            112,
-            71,
-            207,
-            78
+            110,
+            69,
+            203,
+            75
           ]
         },
         {
@@ -3638,16 +3638,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            823,
-            1098,
-            232,
-            183
+            1408,
+            622,
+            216,
+            171
           ],
           "margin": [
-            100,
-            58,
-            184,
-            62
+            107,
+            67,
+            200,
+            74
           ]
         },
         {
@@ -3668,16 +3668,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1059,
-            1098,
-            190,
-            193
+            1628,
+            622,
+            184,
+            187
           ],
           "margin": [
-            116,
-            46,
-            226,
-            52
+            119,
+            53,
+            232,
+            58
           ]
         }
       ]
@@ -3705,16 +3705,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1253,
-            1098,
-            200,
-            199
+            1816,
+            622,
+            194,
+            193
           ],
           "margin": [
-            110,
-            40,
-            216,
-            46
+            113,
+            46,
+            222,
+            52
           ]
         },
         {
@@ -3735,16 +3735,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1457,
-            1098,
-            228,
-            201
+            2,
+            823,
+            210,
+            185
           ],
           "margin": [
-            103,
-            38,
-            188,
-            44
+            111,
+            54,
+            206,
+            60
           ]
         },
         {
@@ -3765,16 +3765,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1689,
-            1098,
-            222,
-            197
+            216,
+            823,
+            204,
+            181
           ],
           "margin": [
-            106,
-            42,
-            194,
-            48
+            114,
+            59,
+            212,
+            64
           ]
         },
         {
@@ -3795,16 +3795,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            2,
-            1307,
-            220,
-            198
+            424,
+            823,
+            204,
+            183
           ],
           "margin": [
-            108,
-            41,
-            196,
-            47
+            115,
+            56,
+            212,
+            62
           ]
         },
         {
@@ -3825,16 +3825,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            226,
-            1307,
-            222,
-            201
+            632,
+            823,
+            207,
+            188
           ],
           "margin": [
-            108,
-            38,
-            194,
-            44
+            116,
+            51,
+            209,
+            57
           ]
         },
         {
@@ -3855,16 +3855,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            452,
-            1307,
-            212,
-            197
+            843,
+            823,
+            199,
+            185
           ],
           "margin": [
-            115,
-            42,
-            204,
-            48
+            121,
+            54,
+            217,
+            60
           ]
         },
         {
@@ -3885,16 +3885,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            668,
-            1307,
-            208,
-            197
+            1046,
+            823,
+            195,
+            184
           ],
           "margin": [
-            117,
-            42,
-            208,
-            48
+            122,
+            55,
+            221,
+            61
           ]
         },
         {
@@ -3915,16 +3915,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            880,
-            1307,
-            204,
-            200
+            1245,
+            823,
+            190,
+            186
           ],
           "margin": [
-            121,
-            39,
-            212,
-            45
+            127,
+            53,
+            226,
+            59
           ]
         },
         {
@@ -3945,16 +3945,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1088,
-            1307,
-            191,
-            197
+            1439,
+            823,
+            181,
+            187
           ],
           "margin": [
-            124,
-            42,
-            225,
-            48
+            128,
+            54,
+            235,
+            58
           ]
         },
         {
@@ -3975,16 +3975,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1283,
-            1307,
-            191,
-            204
+            1624,
+            823,
+            183,
+            195
           ],
           "margin": [
-            124,
-            35,
-            225,
-            41
+            128,
+            44,
+            233,
+            50
           ]
         },
         {
@@ -4005,16 +4005,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1478,
-            1307,
-            197,
-            221
+            1811,
+            823,
+            177,
+            198
           ],
           "margin": [
-            124,
-            18,
-            219,
-            24
+            132,
+            41,
+            239,
+            47
           ]
         },
         {
@@ -4035,16 +4035,16 @@
         {
           "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
           "region": [
-            1679,
-            1307,
-            184,
-            231
+            2,
+            1029,
+            155,
+            194
           ],
           "margin": [
-            133,
-            8,
-            232,
-            14
+            144,
+            45,
+            261,
+            51
           ]
         }
       ]

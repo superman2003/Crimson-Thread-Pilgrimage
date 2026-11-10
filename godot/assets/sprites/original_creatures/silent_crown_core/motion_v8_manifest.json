@@ -1,9 +1,9 @@
 {
-  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
   "kind": "silent_crown_core",
   "canvas": [
     522,
-    236
+    278
   ],
   "display_height": 232,
   "visual_scale": 1.3488372093023255,
@@ -29,9 +29,9 @@
           ],
           "margin": [
             181,
-            56,
+            77,
             328,
-            64
+            106
           ]
         },
         {
@@ -39,14 +39,14 @@
           "region": [
             2,
             2,
-            199,
-            179
+            205,
+            185
           ],
           "margin": [
-            179,
-            50,
-            323,
-            57
+            175,
+            66,
+            317,
+            93
           ]
         },
         {
@@ -59,24 +59,24 @@
           ],
           "margin": [
             181,
-            56,
+            77,
             320,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            205,
+            211,
             2,
-            199,
-            179
+            201,
+            182
           ],
           "margin": [
-            181,
-            50,
-            323,
-            57
+            179,
+            68,
+            321,
+            96
           ]
         },
         {
@@ -89,24 +89,24 @@
           ],
           "margin": [
             185,
-            56,
+            77,
             333,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            408,
+            416,
             2,
-            197,
-            179
+            204,
+            186
           ],
           "margin": [
-            181,
-            50,
-            325,
-            57
+            177,
+            65,
+            318,
+            92
           ]
         },
         {
@@ -119,24 +119,24 @@
           ],
           "margin": [
             183,
-            56,
+            77,
             315,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            609,
+            624,
             2,
-            199,
-            179
+            205,
+            184
           ],
           "margin": [
-            186,
-            50,
-            323,
-            57
+            184,
+            66,
+            317,
+            94
           ]
         },
         {
@@ -149,24 +149,24 @@
           ],
           "margin": [
             189,
-            56,
+            77,
             329,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            812,
+            833,
             2,
-            198,
-            179
+            202,
+            184
           ],
           "margin": [
-            190,
-            50,
-            324,
-            57
+            188,
+            66,
+            320,
+            94
           ]
         },
         {
@@ -179,24 +179,24 @@
           ],
           "margin": [
             183,
-            56,
+            77,
             322,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1014,
+            1039,
             2,
-            194,
-            179
+            201,
+            186
           ],
           "margin": [
-            190,
-            50,
-            328,
-            57
+            186,
+            64,
+            321,
+            92
           ]
         },
         {
@@ -209,24 +209,24 @@
           ],
           "margin": [
             184,
-            56,
+            77,
             329,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1212,
+            1244,
             2,
-            199,
-            179
+            209,
+            189
           ],
           "margin": [
-            182,
-            50,
-            323,
-            57
+            176,
+            63,
+            313,
+            89
           ]
         },
         {
@@ -239,24 +239,24 @@
           ],
           "margin": [
             159,
-            56,
+            77,
             286,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1415,
+            1457,
             2,
-            208,
-            179
+            218,
+            189
           ],
           "margin": [
-            176,
-            50,
-            314,
-            57
+            170,
+            63,
+            304,
+            89
           ]
         }
       ]
@@ -276,24 +276,24 @@
           ],
           "margin": [
             185,
-            67,
+            88,
             317,
-            75
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1627,
+            1679,
             2,
-            190,
-            167
+            197,
+            173
           ],
           "margin": [
-            196,
-            62,
-            332,
-            69
+            192,
+            77,
+            325,
+            105
           ]
         },
         {
@@ -306,24 +306,24 @@
           ],
           "margin": [
             194,
-            69,
+            90,
             324,
-            77
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1821,
             2,
-            193,
-            165
+            199,
+            205,
+            175
           ],
           "margin": [
-            198,
-            64,
-            329,
-            71
+            191,
+            75,
+            317,
+            103
           ]
         },
         {
@@ -336,24 +336,24 @@
           ],
           "margin": [
             194,
-            71,
+            92,
             315,
-            79
+            121
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            2,
-            189,
-            192,
-            163
+            211,
+            199,
+            210,
+            177
           ],
           "margin": [
-            186,
-            66,
-            330,
-            73
+            176,
+            73,
+            312,
+            101
           ]
         },
         {
@@ -366,24 +366,24 @@
           ],
           "margin": [
             163,
-            73,
+            94,
             318,
-            81
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            198,
-            189,
-            187,
-            161
+            425,
+            199,
+            206,
+            177
           ],
           "margin": [
-            160,
-            68,
-            335,
-            75
+            150,
+            73,
+            316,
+            101
           ]
         },
         {
@@ -396,24 +396,24 @@
           ],
           "margin": [
             134,
-            75,
+            96,
             312,
-            83
+            125
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            389,
-            189,
-            190,
-            160
+            635,
+            199,
+            206,
+            173
           ],
           "margin": [
-            141,
-            69,
-            332,
-            76
+            132,
+            77,
+            316,
+            105
           ]
         },
         {
@@ -426,24 +426,24 @@
           ],
           "margin": [
             129,
-            74,
+            95,
             318,
-            82
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            583,
-            189,
-            191,
-            162
+            845,
+            199,
+            206,
+            175
           ],
           "margin": [
-            136,
-            67,
-            331,
-            74
+            128,
+            75,
+            316,
+            103
           ]
         },
         {
@@ -456,24 +456,24 @@
           ],
           "margin": [
             119,
-            72,
+            93,
             316,
-            80
+            122
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            778,
-            189,
-            193,
-            164
+            1055,
+            199,
+            211,
+            180
           ],
           "margin": [
-            144,
-            65,
-            329,
-            72
+            134,
+            70,
+            311,
+            98
           ]
         },
         {
@@ -486,24 +486,24 @@
           ],
           "margin": [
             147,
-            70,
+            91,
             311,
-            78
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            975,
-            189,
-            197,
-            166
+            1270,
+            199,
+            210,
+            177
           ],
           "margin": [
-            170,
-            63,
-            325,
-            70
+            162,
+            73,
+            312,
+            101
           ]
         },
         {
@@ -516,24 +516,24 @@
           ],
           "margin": [
             173,
-            68,
+            89,
             316,
-            76
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1176,
-            189,
-            196,
-            166
+            1484,
+            199,
+            207,
+            175
           ],
           "margin": [
-            180,
-            63,
-            326,
-            70
+            174,
+            75,
+            315,
+            103
           ]
         },
         {
@@ -546,24 +546,24 @@
           ],
           "margin": [
             180,
-            70,
+            91,
             321,
-            78
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1376,
-            189,
-            189,
-            163
+            1695,
+            199,
+            205,
+            177
           ],
           "margin": [
-            185,
-            66,
-            333,
-            73
+            177,
+            73,
+            317,
+            101
           ]
         },
         {
@@ -576,24 +576,24 @@
           ],
           "margin": [
             182,
-            73,
+            94,
             320,
-            81
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1569,
-            189,
-            195,
-            162
+            2,
+            387,
+            209,
+            173
           ],
           "margin": [
-            180,
-            67,
-            327,
-            74
+            172,
+            77,
+            313,
+            105
           ]
         },
         {
@@ -606,24 +606,24 @@
           ],
           "margin": [
             174,
-            73,
+            94,
             315,
-            81
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1768,
-            189,
-            193,
-            161
+            215,
+            387,
+            205,
+            171
           ],
           "margin": [
-            179,
-            68,
-            329,
-            75
+            172,
+            79,
+            317,
+            107
           ]
         },
         {
@@ -636,24 +636,24 @@
           ],
           "margin": [
             173,
-            74,
+            95,
             321,
-            82
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            2,
-            363,
-            193,
-            161
+            424,
+            387,
+            206,
+            173
           ],
           "margin": [
-            168,
-            68,
-            329,
-            75
+            161,
+            77,
+            316,
+            105
           ]
         },
         {
@@ -666,24 +666,24 @@
           ],
           "margin": [
             155,
-            73,
+            94,
             318,
-            81
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            199,
-            363,
-            198,
-            162
+            634,
+            387,
+            209,
+            171
           ],
           "margin": [
-            152,
-            67,
-            324,
-            74
+            148,
+            79,
+            313,
+            107
           ]
         },
         {
@@ -696,24 +696,24 @@
           ],
           "margin": [
             138,
-            73,
+            94,
             318,
-            81
+            123
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            401,
-            363,
-            201,
-            164
+            847,
+            387,
+            213,
+            173
           ],
           "margin": [
-            154,
-            65,
-            321,
-            72
+            148,
+            77,
+            309,
+            105
           ]
         },
         {
@@ -726,24 +726,24 @@
           ],
           "margin": [
             161,
-            70,
+            91,
             318,
-            78
+            120
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            606,
-            363,
-            204,
-            167
+            1064,
+            387,
+            210,
+            172
           ],
           "margin": [
-            172,
-            62,
-            318,
-            69
+            168,
+            78,
+            312,
+            106
           ]
         }
       ]
@@ -763,24 +763,24 @@
           ],
           "margin": [
             189,
-            41,
+            62,
             343,
-            49
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            814,
-            363,
+            1278,
+            387,
             187,
             197
           ],
           "margin": [
             188,
-            32,
+            53,
             335,
-            39
+            81
           ]
         },
         {
@@ -793,24 +793,24 @@
           ],
           "margin": [
             180,
-            36,
+            57,
             327,
-            44
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1005,
-            363,
-            190,
-            198
+            1469,
+            387,
+            194,
+            201
           ],
           "margin": [
-            185,
-            32,
-            332,
-            38
+            183,
+            52,
+            328,
+            77
           ]
         },
         {
@@ -823,24 +823,24 @@
           ],
           "margin": [
             184,
-            40,
+            61,
             322,
-            48
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1199,
-            363,
+            1667,
+            387,
             191,
             191
           ],
           "margin": [
             182,
-            38,
+            59,
             331,
-            45
+            87
           ]
         },
         {
@@ -853,24 +853,24 @@
           ],
           "margin": [
             180,
-            49,
+            70,
             321,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1394,
-            363,
-            200,
-            190
+            2,
+            596,
+            199,
+            189
           ],
           "margin": [
-            174,
-            40,
-            322,
-            46
+            175,
+            62,
+            323,
+            89
           ]
         },
         {
@@ -883,24 +883,24 @@
           ],
           "margin": [
             177,
-            42,
+            63,
             319,
-            50
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1598,
-            363,
-            200,
-            194
+            205,
+            596,
+            198,
+            192
           ],
           "margin": [
             176,
-            38,
-            322,
-            42
+            61,
+            324,
+            86
           ]
         },
         {
@@ -913,24 +913,24 @@
           ],
           "margin": [
             179,
-            42,
+            63,
             336,
-            50
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1802,
-            363,
-            207,
-            191
+            407,
+            596,
+            198,
+            183
           ],
           "margin": [
-            175,
-            39,
-            315,
-            45
+            180,
+            70,
+            324,
+            95
           ]
         },
         {
@@ -943,24 +943,24 @@
           ],
           "margin": [
             181,
-            48,
+            69,
             335,
-            56
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            2,
-            569,
-            204,
-            192
+            609,
+            596,
+            195,
+            184
           ],
           "margin": [
-            174,
-            39,
-            318,
-            44
+            180,
+            67,
+            327,
+            94
           ]
         },
         {
@@ -973,24 +973,24 @@
           ],
           "margin": [
             176,
-            40,
+            61,
             333,
-            48
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            210,
-            569,
-            198,
-            196
+            808,
+            596,
+            182,
+            180
           ],
           "margin": [
-            182,
-            34,
-            324,
-            40
+            190,
+            71,
+            340,
+            98
           ]
         },
         {
@@ -1003,24 +1003,24 @@
           ],
           "margin": [
             194,
-            40,
+            61,
             340,
-            48
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            412,
-            569,
-            189,
-            194
+            994,
+            596,
+            178,
+            183
           ],
           "margin": [
-            188,
-            37,
-            333,
-            42
+            192,
+            68,
+            344,
+            95
           ]
         },
         {
@@ -1033,24 +1033,24 @@
           ],
           "margin": [
             194,
-            45,
+            66,
             329,
-            53
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            605,
-            569,
-            190,
-            192
+            1176,
+            596,
+            188,
+            190
           ],
           "margin": [
-            187,
-            39,
-            332,
-            44
+            188,
+            62,
+            334,
+            88
           ]
         },
         {
@@ -1063,24 +1063,24 @@
           ],
           "margin": [
             199,
-            43,
+            64,
             334,
-            51
+            93
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            799,
-            569,
-            196,
-            190
+            1368,
+            596,
+            220,
+            214
           ],
           "margin": [
-            191,
-            39,
-            326,
-            46
+            178,
+            37,
+            302,
+            64
           ]
         },
         {
@@ -1093,24 +1093,24 @@
           ],
           "margin": [
             169,
-            48,
+            69,
             280,
-            56
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            999,
-            569,
-            184,
-            181
+            1592,
+            596,
+            216,
+            213
           ],
           "margin": [
-            204,
-            48,
-            338,
-            55
+            188,
+            38,
+            306,
+            65
           ]
         }
       ]
@@ -1130,24 +1130,24 @@
           ],
           "margin": [
             192,
-            60,
+            81,
             302,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1187,
-            569,
-            190,
-            179
+            1812,
+            596,
+            205,
+            193
           ],
           "margin": [
-            191,
-            50,
-            332,
-            57
+            183,
+            60,
+            317,
+            85
           ]
         },
         {
@@ -1160,24 +1160,24 @@
           ],
           "margin": [
             148,
-            53,
+            74,
             287,
-            61
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1381,
-            569,
-            238,
-            183
+            2,
+            818,
+            246,
+            190
           ],
           "margin": [
-            140,
-            48,
-            284,
-            53
+            137,
+            61,
+            276,
+            88
           ]
         },
         {
@@ -1190,24 +1190,24 @@
           ],
           "margin": [
             117,
-            52,
+            73,
             245,
-            60
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1623,
-            569,
-            249,
-            181
+            252,
+            818,
+            253,
+            183
           ],
           "margin": [
-            108,
-            49,
-            273,
-            55
+            106,
+            68,
+            269,
+            95
           ]
         },
         {
@@ -1220,24 +1220,24 @@
           ],
           "margin": [
             97,
-            59,
+            80,
             256,
-            67
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            2,
-            773,
-            255,
-            180
+            509,
+            818,
+            257,
+            181
           ],
           "margin": [
             90,
-            50,
-            267,
-            56
+            70,
+            265,
+            97
           ]
         },
         {
@@ -1250,24 +1250,24 @@
           ],
           "margin": [
             79,
-            54,
+            75,
             238,
-            62
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            261,
-            773,
-            256,
-            181
+            770,
+            818,
+            277,
+            196
           ],
           "margin": [
-            84,
-            50,
-            266,
-            55
+            74,
+            55,
+            245,
+            82
           ]
         },
         {
@@ -1280,24 +1280,24 @@
           ],
           "margin": [
             64,
-            56,
+            77,
             219,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            521,
-            773,
-            248,
-            175
+            1051,
+            818,
+            264,
+            186
           ],
           "margin": [
-            90,
-            55,
-            274,
-            61
+            82,
+            65,
+            258,
+            92
           ]
         },
         {
@@ -1310,24 +1310,24 @@
           ],
           "margin": [
             72,
-            67,
+            88,
             229,
-            75
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            773,
-            773,
-            256,
-            175
+            1319,
+            818,
+            270,
+            184
           ],
           "margin": [
-            100,
-            55,
-            266,
-            61
+            94,
+            67,
+            252,
+            94
           ]
         },
         {
@@ -1340,24 +1340,24 @@
           ],
           "margin": [
             94,
-            57,
+            78,
             214,
-            65
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1033,
-            773,
-            267,
-            180
+            1593,
+            818,
+            270,
+            183
           ],
           "margin": [
-            124,
-            50,
-            255,
-            56
+            122,
+            68,
+            252,
+            95
           ]
         },
         {
@@ -1370,24 +1370,24 @@
           ],
           "margin": [
             139,
-            56,
+            77,
             256,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1304,
-            773,
-            254,
-            178
+            2,
+            1022,
+            251,
+            176
           ],
           "margin": [
             166,
-            52,
-            268,
-            58
+            75,
+            271,
+            102
           ]
         },
         {
@@ -1400,24 +1400,24 @@
           ],
           "margin": [
             190,
-            61,
+            82,
             276,
-            69
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1562,
-            773,
-            231,
-            176
+            257,
+            1022,
+            234,
+            178
           ],
           "margin": [
-            186,
-            55,
-            291,
-            60
+            184,
+            73,
+            288,
+            100
           ]
         },
         {
@@ -1430,24 +1430,24 @@
           ],
           "margin": [
             168,
-            59,
+            80,
             264,
-            67
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1797,
-            773,
-            224,
-            175
+            495,
+            1022,
+            229,
+            179
           ],
           "margin": [
-            183,
-            56,
-            298,
-            61
+            180,
+            72,
+            293,
+            99
           ]
         },
         {
@@ -1460,24 +1460,24 @@
           ],
           "margin": [
             156,
-            64,
+            85,
             294,
-            72
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            2,
-            962,
-            200,
-            165
+            728,
+            1022,
+            205,
+            169
           ],
           "margin": [
-            172,
-            64,
-            322,
-            71
+            169,
+            82,
+            317,
+            109
           ]
         }
       ]
@@ -1497,24 +1497,24 @@
           ],
           "margin": [
             157,
-            77,
+            98,
             310,
-            85
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            206,
-            962,
-            219,
-            165
+            937,
+            1022,
+            218,
+            164
           ],
           "margin": [
             154,
-            66,
-            303,
-            71
+            86,
+            304,
+            114
           ]
         },
         {
@@ -1527,24 +1527,24 @@
           ],
           "margin": [
             156,
-            65,
+            86,
             297,
-            73
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            429,
-            962,
-            219,
-            173
+            1159,
+            1022,
+            221,
+            175
           ],
           "margin": [
-            164,
-            57,
-            303,
-            63
+            162,
+            76,
+            301,
+            103
           ]
         },
         {
@@ -1557,24 +1557,24 @@
           ],
           "margin": [
             181,
-            61,
+            82,
             316,
-            69
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            652,
-            962,
-            212,
-            174
+            1384,
+            1022,
+            210,
+            172
           ],
           "margin": [
             176,
-            58,
-            310,
-            62
+            81,
+            312,
+            106
           ]
         },
         {
@@ -1587,24 +1587,24 @@
           ],
           "margin": [
             197,
-            63,
+            84,
             323,
-            71
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            868,
-            962,
-            209,
-            177
+            1598,
+            1022,
+            205,
+            173
           ],
           "margin": [
-            184,
-            54,
-            313,
-            59
+            186,
+            79,
+            317,
+            105
           ]
         },
         {
@@ -1617,24 +1617,24 @@
           ],
           "margin": [
             188,
-            55,
+            76,
             313,
-            63
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1081,
-            962,
-            211,
-            182
+            1807,
+            1022,
+            213,
+            184
           ],
           "margin": [
-            180,
-            48,
-            311,
-            54
+            179,
+            67,
+            309,
+            94
           ]
         },
         {
@@ -1647,24 +1647,24 @@
           ],
           "margin": [
             184,
-            54,
+            75,
             314,
-            62
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1296,
-            962,
-            204,
-            179
+            2,
+            1214,
+            201,
+            177
           ],
           "margin": [
-            183,
-            52,
-            318,
-            57
+            184,
+            75,
+            321,
+            101
           ]
         },
         {
@@ -1677,24 +1677,24 @@
           ],
           "margin": [
             186,
-            60,
+            81,
             313,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1504,
-            962,
-            199,
-            180
+            207,
+            1214,
+            200,
+            181
           ],
           "margin": [
             173,
-            51,
-            323,
-            56
+            71,
+            322,
+            97
           ]
         },
         {
@@ -1707,24 +1707,24 @@
           ],
           "margin": [
             157,
-            52,
+            73,
             301,
-            60
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1707,
-            962,
-            206,
-            185
+            411,
+            1214,
+            218,
+            196
           ],
           "margin": [
-            154,
-            46,
-            316,
-            51
+            146,
+            55,
+            304,
+            82
           ]
         },
         {
@@ -1737,24 +1737,24 @@
           ],
           "margin": [
             132,
-            51,
+            72,
             299,
-            59
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            2,
-            1155,
-            197,
-            182
+            633,
+            1214,
+            204,
+            189
           ],
           "margin": [
-            136,
-            49,
-            325,
-            54
+            132,
+            62,
+            318,
+            89
           ]
         },
         {
@@ -1767,24 +1767,24 @@
           ],
           "margin": [
             119,
-            56,
+            77,
             309,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            203,
-            1155,
-            200,
-            183
+            841,
+            1214,
+            205,
+            187
           ],
           "margin": [
-            136,
-            48,
-            322,
-            53
+            134,
+            65,
+            317,
+            91
           ]
         },
         {
@@ -1797,24 +1797,24 @@
           ],
           "margin": [
             130,
-            49,
+            70,
             299,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            407,
-            1155,
-            207,
-            187
+            1050,
+            1214,
+            215,
+            194
           ],
           "margin": [
-            154,
-            44,
-            315,
-            49
+            150,
+            57,
+            307,
+            84
           ]
         },
         {
@@ -1827,24 +1827,24 @@
           ],
           "margin": [
             156,
-            49,
+            70,
             319,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            618,
-            1155,
-            189,
-            183
+            1269,
+            1214,
+            194,
+            188
           ],
           "margin": [
-            184,
-            48,
-            333,
-            53
+            180,
+            65,
+            328,
+            90
           ]
         }
       ]
@@ -1864,24 +1864,24 @@
           ],
           "margin": [
             216,
-            56,
+            77,
             328,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            811,
-            1155,
-            177,
-            178
+            1467,
+            1214,
+            191,
+            192
           ],
           "margin": [
-            182,
-            52,
-            345,
-            58
+            174,
+            59,
+            331,
+            86
           ]
         },
         {
@@ -1894,24 +1894,24 @@
           ],
           "margin": [
             85,
-            60,
+            81,
             244,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            992,
-            1155,
-            206,
-            178
+            1662,
+            1214,
+            207,
+            179
           ],
           "margin": [
             156,
-            53,
-            316,
-            58
+            73,
+            315,
+            99
           ]
         },
         {
@@ -1924,24 +1924,24 @@
           ],
           "margin": [
             195,
-            55,
+            76,
             320,
-            63
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1202,
-            1155,
-            201,
-            181
+            2,
+            1418,
+            197,
+            177
           ],
           "margin": [
-            188,
-            49,
-            321,
-            55
+            190,
+            75,
+            325,
+            101
           ]
         }
       ]
@@ -1961,24 +1961,24 @@
           ],
           "margin": [
             187,
-            40,
+            61,
             308,
-            48
+            90
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1407,
-            1155,
-            184,
-            171
+            203,
+            1418,
+            193,
+            179
           ],
           "margin": [
-            194,
-            58,
-            338,
-            65
+            189,
+            74,
+            329,
+            99
           ]
         },
         {
@@ -1991,24 +1991,24 @@
           ],
           "margin": [
             169,
-            90,
+            111,
             306,
-            98
+            140
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1595,
-            1155,
-            180,
-            138
+            400,
+            1418,
+            208,
+            159
           ],
           "margin": [
-            146,
-            91,
-            342,
-            98
+            130,
+            92,
+            314,
+            119
           ]
         },
         {
@@ -2021,24 +2021,24 @@
           ],
           "margin": [
             68,
-            105,
+            126,
             250,
-            113
+            155
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1779,
-            1155,
-            217,
-            110
+            612,
+            1418,
+            245,
+            124
           ],
           "margin": [
-            58,
-            119,
-            305,
-            126
+            44,
+            126,
+            277,
+            154
           ]
         },
         {
@@ -2051,24 +2051,24 @@
           ],
           "margin": [
             9,
-            144,
+            165,
             253,
-            152
+            194
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            2,
-            1350,
-            214,
-            91
+            861,
+            1418,
+            243,
+            103
           ],
           "margin": [
-            36,
-            138,
-            308,
-            145
+            21,
+            148,
+            279,
+            175
           ]
         }
       ]
@@ -2088,24 +2088,24 @@
           ],
           "margin": [
             198,
-            57,
+            78,
             321,
-            65
+            107
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            220,
-            1350,
-            289,
-            187
+            1108,
+            1418,
+            242,
+            156
           ],
           "margin": [
-            144,
-            43,
-            233,
-            49
+            170,
+            95,
+            280,
+            122
           ]
         },
         {
@@ -2118,24 +2118,24 @@
           ],
           "margin": [
             193,
-            47,
+            68,
             315,
-            55
+            97
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            513,
-            1350,
-            249,
-            192
+            1354,
+            1418,
+            224,
+            173
           ],
           "margin": [
-            168,
-            38,
-            273,
-            44
+            182,
+            78,
+            298,
+            105
           ]
         },
         {
@@ -2148,24 +2148,24 @@
           ],
           "margin": [
             203,
-            45,
+            66,
             328,
-            53
+            95
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            766,
-            1350,
-            206,
-            190
+            1582,
+            1418,
+            196,
+            181
           ],
           "margin": [
-            192,
-            40,
-            316,
-            46
+            196,
+            70,
+            326,
+            97
           ]
         },
         {
@@ -2178,24 +2178,24 @@
           ],
           "margin": [
             200,
-            49,
+            70,
             328,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            976,
-            1350,
-            200,
-            196
+            1782,
+            1418,
+            196,
+            192
           ],
           "margin": [
-            189,
-            34,
-            322,
-            40
+            191,
+            59,
+            326,
+            86
           ]
         },
         {
@@ -2208,24 +2208,24 @@
           ],
           "margin": [
             189,
-            32,
+            53,
             315,
-            40
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1180,
-            1350,
-            226,
-            210
+            2,
+            1618,
+            211,
+            196
           ],
           "margin": [
-            176,
-            20,
-            296,
-            26
+            182,
+            55,
+            311,
+            82
           ]
         },
         {
@@ -2238,24 +2238,24 @@
           ],
           "margin": [
             196,
-            23,
+            44,
             345,
-            31
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1410,
-            1350,
-            180,
-            215
+            217,
+            1618,
+            187,
+            222
           ],
           "margin": [
-            193,
-            15,
-            342,
-            21
+            190,
+            29,
+            335,
+            56
           ]
         },
         {
@@ -2268,24 +2268,24 @@
           ],
           "margin": [
             186,
-            20,
+            41,
             337,
-            28
+            70
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1594,
-            1350,
-            186,
-            220
+            408,
+            1618,
+            194,
+            229
           ],
           "margin": [
-            186,
-            10,
-            336,
-            16
+            182,
+            22,
+            328,
+            49
           ]
         },
         {
@@ -2298,24 +2298,24 @@
           ],
           "margin": [
             183,
-            14,
+            35,
             336,
-            22
+            64
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            1784,
-            1350,
-            178,
-            223
+            606,
+            1618,
+            189,
+            237
           ],
           "margin": [
-            188,
-            7,
-            344,
-            13
+            182,
+            14,
+            333,
+            41
           ]
         },
         {
@@ -2328,24 +2328,24 @@
           ],
           "margin": [
             177,
-            15,
+            36,
             332,
-            23
+            65
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            2,
-            1581,
-            180,
-            218
+            799,
+            1618,
+            188,
+            227
           ],
           "margin": [
-            178,
-            12,
-            342,
-            18
+            173,
+            24,
+            334,
+            51
           ]
         },
         {
@@ -2358,24 +2358,24 @@
           ],
           "margin": [
             180,
-            23,
+            44,
             341,
-            31
+            73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
+            991,
+            1618,
             186,
-            1581,
-            180,
-            219
+            226
           ],
           "margin": [
-            178,
-            11,
-            342,
-            17
+            176,
+            25,
+            336,
+            52
           ]
         },
         {
@@ -2388,24 +2388,24 @@
           ],
           "margin": [
             180,
-            12,
+            33,
             333,
-            20
+            62
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            370,
-            1581,
-            182,
-            227
+            1181,
+            1618,
+            193,
+            241
           ],
           "margin": [
-            182,
-            3,
-            340,
-            9
+            176,
+            10,
+            329,
+            37
           ]
         },
         {
@@ -2418,24 +2418,24 @@
           ],
           "margin": [
             188,
-            8,
+            29,
             324,
-            16
+            58
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            556,
-            1581,
-            186,
-            227
+            1378,
+            1618,
+            196,
+            239
           ],
           "margin": [
-            185,
-            3,
-            336,
-            9
+            179,
+            12,
+            326,
+            39
           ]
         }
       ]
@@ -2455,24 +2455,24 @@
           ],
           "margin": [
             195,
-            11,
+            32,
             324,
-            19
+            61
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            746,
-            1581,
-            192,
-            226
+            1578,
+            1618,
+            201,
+            237
           ],
           "margin": [
-            190,
-            4,
-            330,
-            10
+            185,
+            14,
+            321,
+            41
           ]
         },
         {
@@ -2485,24 +2485,24 @@
           ],
           "margin": [
             190,
-            10,
+            31,
             321,
-            18
+            60
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
           "region": [
-            942,
-            1581,
-            188,
-            225
+            1783,
+            1618,
+            210,
+            251
           ],
           "margin": [
-            192,
-            5,
-            334,
-            11
+            180,
+            0,
+            312,
+            27
           ]
         },
         {
@@ -2515,24 +2515,24 @@
           ],
           "margin": [
             175,
-            14,
+            35,
             302,
-            22
+            64
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1134,
-            1581,
-            192,
-            216
+            2,
+            2,
+            214,
+            240
           ],
           "margin": [
-            188,
-            14,
-            330,
-            20
+            176,
+            11,
+            308,
+            38
           ]
         },
         {
@@ -2545,24 +2545,24 @@
           ],
           "margin": [
             190,
-            27,
+            48,
             326,
-            35
+            77
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1330,
-            1581,
-            190,
-            203
+            220,
+            2,
+            210,
+            225
           ],
           "margin": [
-            178,
+            166,
             26,
-            332,
-            33
+            312,
+            53
           ]
         },
         {
@@ -2575,24 +2575,24 @@
           ],
           "margin": [
             166,
-            38,
+            59,
             327,
-            46
+            88
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1524,
-            1581,
-            174,
-            190
+            434,
+            2,
+            224,
+            243
           ],
           "margin": [
-            160,
-            39,
-            348,
-            46
+            132,
+            8,
+            298,
+            35
           ]
         },
         {
@@ -2605,24 +2605,24 @@
           ],
           "margin": [
             127,
-            53,
+            74,
             285,
-            61
+            103
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1702,
-            1581,
-            157,
-            169
+            662,
+            2,
+            214,
+            231
           ],
           "margin": [
-            148,
-            60,
-            365,
-            67
+            115,
+            20,
+            308,
+            47
           ]
         },
         {
@@ -2635,24 +2635,24 @@
           ],
           "margin": [
             126,
-            78,
+            99,
             320,
-            86
+            128
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
+            880,
             2,
-            1816,
-            191,
-            165
+            212,
+            183
           ],
           "margin": [
-            125,
-            66,
-            331,
-            71
+            114,
+            68,
+            310,
+            95
           ]
         },
         {
@@ -2665,24 +2665,24 @@
           ],
           "margin": [
             110,
-            63,
+            84,
             297,
-            71
+            113
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            197,
-            1816,
-            213,
-            177
+            1096,
+            2,
+            223,
+            185
           ],
           "margin": [
-            108,
-            53,
-            309,
-            59
+            102,
+            66,
+            299,
+            93
           ]
         },
         {
@@ -2695,24 +2695,24 @@
           ],
           "margin": [
             121,
-            56,
+            77,
             330,
-            64
+            106
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            414,
-            1816,
-            195,
-            180
+            1323,
+            2,
+            197,
+            182
           ],
           "margin": [
-            117,
-            51,
-            327,
-            56
+            116,
+            70,
+            325,
+            96
           ]
         },
         {
@@ -2725,24 +2725,24 @@
           ],
           "margin": [
             122,
-            55,
+            76,
             330,
-            63
+            105
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            613,
-            1816,
-            194,
-            180
+            1524,
+            2,
+            199,
+            186
           ],
           "margin": [
-            121,
-            49,
-            328,
-            56
+            119,
+            66,
+            323,
+            92
           ]
         },
         {
@@ -2755,24 +2755,24 @@
           ],
           "margin": [
             131,
-            56,
+            77,
             326,
-            64
+            106
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            811,
-            1816,
-            190,
-            177
+            1727,
+            2,
+            206,
+            192
           ],
           "margin": [
-            138,
-            53,
-            332,
-            59
+            128,
+            60,
+            316,
+            86
           ]
         },
         {
@@ -2785,24 +2785,24 @@
           ],
           "margin": [
             128,
-            62,
+            83,
             289,
-            70
+            112
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1005,
-            1816,
-            184,
-            166
+            2,
+            253,
+            208,
+            187
           ],
           "margin": [
-            158,
-            63,
-            338,
-            70
+            144,
+            65,
+            314,
+            91
           ]
         }
       ]
@@ -2822,24 +2822,24 @@
           ],
           "margin": [
             191,
-            40,
+            61,
             325,
-            48
+            90
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1193,
-            1816,
-            207,
-            200
+            214,
+            253,
+            210,
+            203
           ],
           "margin": [
-            178,
-            30,
-            315,
-            36
+            177,
+            48,
+            312,
+            75
           ]
         },
         {
@@ -2852,24 +2852,24 @@
           ],
           "margin": [
             181,
-            33,
+            54,
             314,
-            41
+            83
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1404,
-            1816,
-            196,
-            203
+            428,
+            253,
+            207,
+            215
           ],
           "margin": [
-            186,
-            27,
-            326,
-            33
+            180,
+            36,
+            315,
+            63
           ]
         },
         {
@@ -2882,24 +2882,24 @@
           ],
           "margin": [
             182,
-            33,
+            54,
             313,
-            41
+            83
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1604,
-            1816,
-            192,
-            200
+            639,
+            253,
+            203,
+            212
           ],
           "margin": [
-            188,
-            30,
-            330,
-            36
+            182,
+            39,
+            319,
+            66
           ]
         },
         {
@@ -2912,24 +2912,24 @@
           ],
           "margin": [
             188,
-            40,
+            61,
             321,
-            48
+            90
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_00.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1800,
-            1816,
-            194,
-            199
+            846,
+            253,
+            203,
+            208
           ],
           "margin": [
-            184,
-            31,
-            328,
-            37
+            180,
+            43,
+            319,
+            70
           ]
         },
         {
@@ -2942,24 +2942,24 @@
           ],
           "margin": [
             182,
-            34,
+            55,
             317,
-            42
+            84
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            2,
-            200,
-            203
+            1053,
+            253,
+            207,
+            211
           ],
           "margin": [
-            180,
-            27,
-            322,
-            33
+            176,
+            40,
+            315,
+            67
           ]
         },
         {
@@ -2972,24 +2972,24 @@
           ],
           "margin": [
             184,
-            33,
+            54,
             314,
-            41
+            83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            206,
-            2,
+            1264,
+            253,
             196,
             199
           ],
           "margin": [
             192,
-            32,
+            53,
             326,
-            37
+            79
           ]
         },
         {
@@ -3002,24 +3002,24 @@
           ],
           "margin": [
             190,
-            41,
+            62,
             326,
-            49
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            406,
-            2,
-            193,
-            196
+            1464,
+            253,
+            192,
+            195
           ],
           "margin": [
             195,
-            35,
-            329,
-            40
+            57,
+            330,
+            83
           ]
         },
         {
@@ -3032,24 +3032,24 @@
           ],
           "margin": [
             191,
-            38,
+            59,
             323,
-            46
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            603,
-            2,
-            197,
-            198
+            1660,
+            253,
+            199,
+            200
           ],
           "margin": [
-            193,
-            33,
-            325,
-            38
+            192,
+            53,
+            323,
+            78
           ]
         },
         {
@@ -3062,24 +3062,24 @@
           ],
           "margin": [
             189,
-            37,
+            58,
             316,
-            45
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            804,
             2,
+            476,
             199,
             194
           ],
           "margin": [
             194,
-            37,
+            58,
             323,
-            42
+            84
           ]
         },
         {
@@ -3092,24 +3092,24 @@
           ],
           "margin": [
             196,
-            46,
+            67,
             328,
-            54
+            96
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1007,
-            2,
-            200,
-            194
+            205,
+            476,
+            198,
+            193
           ],
           "margin": [
-            192,
-            36,
-            322,
-            42
+            193,
+            58,
+            324,
+            85
           ]
         },
         {
@@ -3122,24 +3122,24 @@
           ],
           "margin": [
             187,
-            37,
+            58,
             317,
-            45
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1211,
-            2,
-            204,
-            199
+            407,
+            476,
+            203,
+            198
           ],
           "margin": [
             190,
-            32,
-            318,
-            37
+            54,
+            319,
+            80
           ]
         },
         {
@@ -3152,24 +3152,24 @@
           ],
           "margin": [
             189,
-            37,
+            58,
             315,
-            45
+            87
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1419,
-            2,
-            205,
-            196
+            614,
+            476,
+            202,
+            193
           ],
           "margin": [
-            186,
-            35,
-            317,
-            40
+            188,
+            58,
+            320,
+            85
           ]
         }
       ]
@@ -3189,24 +3189,24 @@
           ],
           "margin": [
             199,
-            42,
+            63,
             325,
-            50
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1628,
-            2,
-            207,
-            197
+            820,
+            476,
+            201,
+            191
           ],
           "margin": [
-            190,
-            34,
-            315,
-            39
+            192,
+            59,
+            321,
+            87
           ]
         },
         {
@@ -3219,24 +3219,24 @@
           ],
           "margin": [
             190,
-            36,
+            57,
             317,
-            44
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1839,
-            2,
-            205,
-            201
+            1025,
+            476,
+            206,
+            202
           ],
           "margin": [
             190,
-            29,
-            317,
-            35
+            49,
+            316,
+            76
           ]
         },
         {
@@ -3249,24 +3249,24 @@
           ],
           "margin": [
             183,
-            35,
+            56,
             301,
-            43
+            85
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            213,
-            202,
-            197
+            1235,
+            476,
+            206,
+            201
           ],
           "margin": [
-            190,
-            34,
-            320,
-            39
+            188,
+            50,
+            316,
+            77
           ]
         },
         {
@@ -3279,24 +3279,24 @@
           ],
           "margin": [
             190,
-            42,
+            63,
             303,
-            50
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            208,
-            213,
-            202,
-            197
+            1445,
+            476,
+            204,
+            199
           ],
           "margin": [
-            192,
-            34,
-            320,
-            39
+            190,
+            53,
+            318,
+            79
           ]
         },
         {
@@ -3309,24 +3309,24 @@
           ],
           "margin": [
             187,
-            36,
+            57,
             304,
-            44
+            86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            414,
-            213,
-            214,
-            199
+            1653,
+            476,
+            216,
+            201
           ],
           "margin": [
-            184,
-            32,
-            308,
-            37
+            182,
+            51,
+            306,
+            77
           ]
         },
         {
@@ -3339,24 +3339,24 @@
           ],
           "margin": [
             181,
-            38,
+            59,
             308,
-            46
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            632,
-            213,
-            201,
-            195
+            2,
+            686,
+            203,
+            197
           ],
           "margin": [
             190,
-            36,
-            321,
-            41
+            55,
+            319,
+            81
           ]
         },
         {
@@ -3369,24 +3369,24 @@
           ],
           "margin": [
             188,
-            43,
+            64,
             310,
-            51
+            93
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            837,
-            213,
-            200,
-            195
+            209,
+            686,
+            202,
+            197
           ],
           "margin": [
-            189,
-            36,
-            322,
-            41
+            187,
+            55,
+            320,
+            81
           ]
         },
         {
@@ -3399,24 +3399,24 @@
           ],
           "margin": [
             183,
-            39,
+            60,
             312,
-            47
+            89
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1041,
-            213,
+            415,
+            686,
             204,
             197
           ],
           "margin": [
             184,
-            34,
+            55,
             318,
-            39
+            81
           ]
         },
         {
@@ -3429,24 +3429,24 @@
           ],
           "margin": [
             177,
-            38,
+            59,
             312,
-            46
+            88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1249,
-            213,
-            201,
-            194
+            623,
+            686,
+            203,
+            195
           ],
           "margin": [
-            184,
-            35,
-            321,
-            42
+            182,
+            57,
+            319,
+            83
           ]
         },
         {
@@ -3459,24 +3459,24 @@
           ],
           "margin": [
             183,
-            46,
+            67,
             324,
-            54
+            96
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1454,
-            213,
-            196,
-            187
+            830,
+            686,
+            198,
+            190
           ],
           "margin": [
             180,
-            42,
-            326,
-            49
+            60,
+            324,
+            88
           ]
         },
         {
@@ -3489,24 +3489,24 @@
           ],
           "margin": [
             172,
-            50,
+            71,
             320,
-            58
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1654,
-            213,
-            188,
-            181
+            1032,
+            686,
+            204,
+            196
           ],
           "margin": [
-            180,
-            49,
-            334,
-            55
+            171,
+            55,
+            318,
+            82
           ]
         },
         {
@@ -3519,24 +3519,24 @@
           ],
           "margin": [
             146,
-            59,
+            80,
             281,
-            67
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1846,
-            213,
-            180,
-            167
+            1240,
+            686,
+            195,
+            180
           ],
           "margin": [
-            182,
-            62,
-            342,
-            69
+            174,
+            70,
+            327,
+            98
           ]
         }
       ]
@@ -3556,24 +3556,24 @@
           ],
           "margin": [
             228,
-            61,
+            82,
             333,
-            69
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            420,
-            182,
-            177
+            1439,
+            686,
+            190,
+            185
           ],
           "margin": [
-            228,
-            52,
-            340,
-            59
+            224,
+            66,
+            332,
+            93
           ]
         },
         {
@@ -3586,24 +3586,24 @@
           ],
           "margin": [
             214,
-            56,
+            77,
             328,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            188,
-            420,
-            194,
-            180
+            1633,
+            686,
+            204,
+            189
           ],
           "margin": [
-            206,
-            50,
-            328,
-            56
+            201,
+            64,
+            318,
+            89
           ]
         },
         {
@@ -3616,24 +3616,24 @@
           ],
           "margin": [
             174,
-            56,
+            77,
             295,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            386,
-            420,
-            196,
-            175
+            1841,
+            686,
+            198,
+            177
           ],
           "margin": [
-            192,
-            55,
-            326,
-            61
+            190,
+            74,
+            324,
+            101
           ]
         },
         {
@@ -3646,24 +3646,24 @@
           ],
           "margin": [
             184,
-            65,
+            86,
             334,
-            73
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            586,
-            420,
-            197,
-            174
+            2,
+            891,
+            201,
+            177
           ],
           "margin": [
-            186,
-            55,
-            325,
-            62
+            184,
+            74,
+            321,
+            101
           ]
         },
         {
@@ -3676,24 +3676,24 @@
           ],
           "margin": [
             171,
-            59,
+            80,
             306,
-            67
+            109
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            787,
-            420,
-            200,
-            176
+            207,
+            891,
+            210,
+            184
           ],
           "margin": [
-            183,
-            53,
-            322,
-            60
+            177,
+            67,
+            312,
+            94
           ]
         },
         {
@@ -3706,24 +3706,24 @@
           ],
           "margin": [
             174,
-            60,
+            81,
             303,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            991,
-            420,
-            209,
-            171
+            421,
+            891,
+            212,
+            174
           ],
           "margin": [
-            182,
-            59,
-            313,
-            65
+            180,
+            78,
+            310,
+            104
           ]
         },
         {
@@ -3736,24 +3736,24 @@
           ],
           "margin": [
             191,
-            69,
+            90,
             321,
-            77
+            119
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1204,
-            420,
-            206,
-            169
+            637,
+            891,
+            211,
+            173
           ],
           "margin": [
-            182,
-            62,
-            316,
-            67
+            180,
+            79,
+            311,
+            105
           ]
         },
         {
@@ -3766,24 +3766,24 @@
           ],
           "margin": [
             170,
-            65,
+            86,
             306,
-            73
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1414,
-            420,
-            213,
-            171
+            852,
+            891,
+            222,
+            179
           ],
           "margin": [
-            170,
-            61,
-            309,
-            65
+            165,
+            73,
+            300,
+            99
           ]
         },
         {
@@ -3796,24 +3796,24 @@
           ],
           "margin": [
             155,
-            65,
+            86,
             275,
-            73
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1631,
-            420,
-            223,
-            166
+            1078,
+            891,
+            231,
+            173
           ],
           "margin": [
-            164,
-            66,
-            299,
-            70
+            160,
+            79,
+            291,
+            105
           ]
         },
         {
@@ -3826,24 +3826,24 @@
           ],
           "margin": [
             173,
-            74,
+            95,
             312,
-            82
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            608,
-            217,
-            166
+            1313,
+            891,
+            227,
+            174
           ],
           "margin": [
-            168,
-            66,
-            305,
-            70
+            162,
+            77,
+            295,
+            104
           ]
         },
         {
@@ -3856,24 +3856,24 @@
           ],
           "margin": [
             167,
-            66,
+            87,
             289,
-            74
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            223,
-            608,
-            231,
-            171
+            1544,
+            891,
+            234,
+            173
           ],
           "margin": [
-            168,
-            59,
-            291,
-            65
+            166,
+            78,
+            288,
+            105
           ]
         },
         {
@@ -3886,24 +3886,24 @@
           ],
           "margin": [
             172,
-            65,
+            86,
             273,
-            73
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            458,
-            608,
-            220,
-            167
+            1782,
+            891,
+            225,
+            171
           ],
           "margin": [
-            182,
-            63,
-            302,
-            69
+            179,
+            82,
+            297,
+            107
           ]
         }
       ]
@@ -3923,24 +3923,24 @@
           ],
           "margin": [
             197,
-            72,
+            93,
             305,
-            80
+            122
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            682,
-            608,
-            220,
-            168
+            2,
+            1083,
+            223,
+            171
           ],
           "margin": [
-            186,
-            63,
-            302,
-            68
+            184,
+            81,
+            299,
+            107
           ]
         },
         {
@@ -3953,24 +3953,24 @@
           ],
           "margin": [
             182,
-            64,
+            85,
             272,
-            72
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            906,
-            608,
-            228,
-            174
+            229,
+            1083,
+            238,
+            181
           ],
           "margin": [
-            190,
-            58,
-            294,
-            62
+            184,
+            70,
+            284,
+            97
           ]
         },
         {
@@ -3983,24 +3983,24 @@
           ],
           "margin": [
             200,
-            60,
+            81,
             238,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1138,
-            608,
-            242,
-            174
+            471,
+            1083,
+            251,
+            181
           ],
           "margin": [
-            194,
-            57,
-            280,
-            62
+            190,
+            70,
+            271,
+            97
           ]
         },
         {
@@ -4013,24 +4013,24 @@
           ],
           "margin": [
             207,
-            64,
+            85,
             241,
-            72
+            114
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1384,
-            608,
-            246,
-            171
+            726,
+            1083,
+            258,
+            180
           ],
           "margin": [
-            193,
-            59,
-            276,
-            65
+            187,
+            71,
+            264,
+            98
           ]
         },
         {
@@ -4043,24 +4043,24 @@
           ],
           "margin": [
             183,
-            66,
+            87,
             238,
-            74
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1634,
-            608,
-            243,
-            166
+            988,
+            1083,
+            281,
+            193
           ],
           "margin": [
-            172,
-            65,
-            279,
-            70
+            152,
+            58,
+            241,
+            85
           ]
         },
         {
@@ -4073,24 +4073,24 @@
           ],
           "margin": [
             99,
-            74,
+            95,
             130,
-            82
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            790,
-            245,
-            153
+            1273,
+            1083,
+            307,
+            192
           ],
           "margin": [
-            152,
-            77,
-            277,
-            83
+            120,
+            59,
+            215,
+            86
           ]
         },
         {
@@ -4103,24 +4103,24 @@
           ],
           "margin": [
             110,
-            91,
+            112,
             187,
-            99
+            141
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            251,
-            790,
-            257,
-            154
+            1584,
+            1083,
+            310,
+            185
           ],
           "margin": [
-            144,
-            77,
-            265,
-            82
+            118,
+            66,
+            212,
+            93
           ]
         },
         {
@@ -4133,24 +4133,24 @@
           ],
           "margin": [
             102,
-            74,
+            95,
             132,
-            82
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            512,
-            790,
-            263,
-            166
+            2,
+            1284,
+            292,
+            184
           ],
           "margin": [
-            155,
-            64,
-            259,
-            70
+            140,
+            67,
+            230,
+            94
           ]
         },
         {
@@ -4163,24 +4163,24 @@
           ],
           "margin": [
             179,
-            68,
+            89,
             290,
-            76
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            779,
-            790,
-            242,
-            169
+            298,
+            1284,
+            232,
+            162
           ],
           "margin": [
-            178,
-            61,
-            280,
-            67
+            182,
+            91,
+            290,
+            116
           ]
         },
         {
@@ -4193,24 +4193,24 @@
           ],
           "margin": [
             193,
-            67,
+            88,
             283,
-            75
+            117
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1025,
-            790,
-            225,
-            171
+            534,
+            1284,
+            228,
+            174
           ],
           "margin": [
-            184,
-            60,
-            297,
-            65
+            182,
+            77,
+            294,
+            104
           ]
         },
         {
@@ -4223,24 +4223,24 @@
           ],
           "margin": [
             176,
-            63,
+            84,
             275,
-            71
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1254,
-            790,
-            219,
-            171
+            766,
+            1284,
+            224,
+            175
           ],
           "margin": [
-            174,
-            59,
-            303,
-            65
+            172,
+            77,
+            298,
+            103
           ]
         },
         {
@@ -4253,24 +4253,24 @@
           ],
           "margin": [
             160,
-            66,
+            87,
             297,
-            74
+            116
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1477,
-            790,
-            202,
-            164
+            994,
+            1284,
+            207,
+            167
           ],
           "margin": [
-            166,
-            65,
-            320,
-            72
+            164,
+            83,
+            315,
+            111
           ]
         }
       ]
@@ -4290,24 +4290,24 @@
           ],
           "margin": [
             108,
-            68,
+            89,
             311,
-            76
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1683,
-            790,
-            189,
-            163
+            1205,
+            1284,
+            204,
+            176
           ],
           "margin": [
-            128,
-            66,
-            333,
-            73
+            118,
+            76,
+            318,
+            102
           ]
         },
         {
@@ -4320,24 +4320,24 @@
           ],
           "margin": [
             132,
-            77,
+            98,
             317,
-            85
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            969,
-            188,
-            158
+            1413,
+            1284,
+            197,
+            165
           ],
           "margin": [
-            153,
-            71,
-            334,
-            78
+            148,
+            86,
+            325,
+            113
           ]
         },
         {
@@ -4350,24 +4350,24 @@
           ],
           "margin": [
             157,
-            78,
+            99,
             320,
-            86
+            128
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            194,
-            969,
-            193,
-            153
+            1614,
+            1284,
+            201,
+            159
           ],
           "margin": [
-            162,
-            76,
-            329,
-            83
+            158,
+            91,
+            321,
+            119
           ]
         },
         {
@@ -4380,24 +4380,24 @@
           ],
           "margin": [
             148,
-            86,
+            107,
             303,
-            94
+            136
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            391,
-            969,
-            191,
-            154
+            1819,
+            1284,
+            196,
+            158
           ],
           "margin": [
-            156,
-            75,
-            331,
-            82
+            154,
+            92,
+            326,
+            120
           ]
         }
       ]
@@ -4417,24 +4417,24 @@
           ],
           "margin": [
             177,
-            49,
+            70,
             323,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            586,
-            969,
-            202,
-            172
+            2,
+            1476,
+            204,
+            173
           ],
           "margin": [
-            166,
-            58,
-            320,
-            64
+            164,
+            79,
+            318,
+            105
           ]
         },
         {
@@ -4447,24 +4447,24 @@
           ],
           "margin": [
             157,
-            78,
+            99,
             303,
-            86
+            128
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            792,
-            969,
-            204,
-            159
+            210,
+            1476,
+            205,
+            160
           ],
           "margin": [
             160,
-            70,
-            318,
-            77
+            90,
+            317,
+            118
           ]
         },
         {
@@ -4477,24 +4477,24 @@
           ],
           "margin": [
             161,
-            74,
+            95,
             325,
-            82
+            124
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1000,
-            969,
-            198,
-            157
+            419,
+            1476,
+            202,
+            160
           ],
           "margin": [
-            160,
-            72,
-            324,
-            79
+            158,
+            90,
+            320,
+            118
           ]
         },
         {
@@ -4507,24 +4507,24 @@
           ],
           "margin": [
             154,
-            82,
+            103,
             319,
-            90
+            132
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1202,
-            969,
-            195,
-            156
+            625,
+            1476,
+            202,
+            162
           ],
           "margin": [
-            158,
-            73,
-            327,
-            80
+            154,
+            89,
+            320,
+            116
           ]
         }
       ]
@@ -4544,24 +4544,24 @@
           ],
           "margin": [
             192,
-            68,
+            89,
             289,
-            76
+            118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1401,
-            969,
-            206,
-            162
+            831,
+            1476,
+            219,
+            173
           ],
           "margin": [
-            190,
-            67,
-            316,
-            74
+            184,
+            79,
+            303,
+            105
           ]
         },
         {
@@ -4574,24 +4574,24 @@
           ],
           "margin": [
             170,
-            78,
+            99,
             299,
-            86
+            128
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1611,
-            969,
-            187,
-            154
+            1054,
+            1476,
+            206,
+            169
           ],
           "margin": [
-            178,
-            75,
-            335,
-            82
+            168,
+            82,
+            316,
+            109
           ]
         },
         {
@@ -4604,24 +4604,24 @@
           ],
           "margin": [
             154,
-            84,
+            105,
             308,
-            92
+            134
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1802,
-            969,
-            181,
-            150
+            1264,
+            1476,
+            199,
+            165
           ],
           "margin": [
-            170,
-            79,
-            341,
-            86
+            160,
+            86,
+            323,
+            113
           ]
         },
         {
@@ -4634,24 +4634,24 @@
           ],
           "margin": [
             150,
-            86,
+            107,
             308,
-            94
+            136
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            1149,
-            190,
-            154
+            1467,
+            1476,
+            201,
+            162
           ],
           "margin": [
-            164,
-            75,
-            332,
-            82
+            158,
+            88,
+            321,
+            116
           ]
         }
       ]
@@ -4671,24 +4671,24 @@
           ],
           "margin": [
             157,
-            77,
+            98,
             310,
-            85
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            196,
-            1149,
-            201,
-            165
+            1672,
+            1476,
+            214,
+            175
           ],
           "margin": [
-            160,
-            65,
-            321,
-            71
+            152,
+            78,
+            308,
+            103
           ]
         },
         {
@@ -4701,24 +4701,24 @@
           ],
           "margin": [
             154,
-            65,
+            86,
             292,
-            73
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            401,
-            1149,
-            218,
-            172
+            2,
+            1659,
+            232,
+            184
           ],
           "margin": [
-            160,
-            60,
-            304,
-            64
+            152,
+            67,
+            290,
+            94
           ]
         },
         {
@@ -4731,24 +4731,24 @@
           ],
           "margin": [
             174,
-            62,
+            83,
             308,
-            70
+            112
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            623,
-            1149,
-            223,
-            173
+            238,
+            1659,
+            222,
+            172
           ],
           "margin": [
             168,
-            59,
-            299,
-            63
+            81,
+            300,
+            106
           ]
         },
         {
@@ -4761,24 +4761,24 @@
           ],
           "margin": [
             197,
-            63,
+            84,
             323,
-            71
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            850,
-            1149,
-            215,
-            177
+            464,
+            1659,
+            212,
+            174
           ],
           "margin": [
-            179,
-            54,
-            307,
-            59
+            180,
+            79,
+            310,
+            104
           ]
         },
         {
@@ -4791,24 +4791,24 @@
           ],
           "margin": [
             180,
-            55,
+            76,
             304,
-            63
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1069,
-            1149,
-            219,
-            182
+            680,
+            1659,
+            220,
+            183
           ],
           "margin": [
-            171,
-            48,
-            303,
-            54
+            170,
+            68,
+            302,
+            95
           ]
         },
         {
@@ -4821,24 +4821,24 @@
           ],
           "margin": [
             178,
-            54,
+            75,
             301,
-            62
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1292,
-            1149,
-            226,
-            179
+            904,
+            1659,
+            219,
+            174
           ],
           "margin": [
-            166,
-            51,
-            296,
-            57
+            168,
+            78,
+            303,
+            104
           ]
         },
         {
@@ -4851,24 +4851,24 @@
           ],
           "margin": [
             186,
-            60,
+            81,
             313,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1522,
-            1149,
-            218,
-            181
+            1127,
+            1659,
+            214,
+            178
           ],
           "margin": [
-            162,
-            49,
-            304,
-            55
+            164,
+            73,
+            308,
+            100
           ]
         },
         {
@@ -4881,24 +4881,24 @@
           ],
           "margin": [
             157,
-            51,
+            72,
             300,
-            59
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1744,
-            1149,
-            223,
-            185
+            1345,
+            1659,
+            227,
+            189
           ],
           "margin": [
-            138,
-            45,
-            299,
-            51
+            136,
+            62,
+            295,
+            89
           ]
         },
         {
@@ -4911,24 +4911,24 @@
           ],
           "margin": [
             129,
-            51,
+            72,
             296,
-            59
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            1342,
-            217,
-            183
+            1576,
+            1659,
+            213,
+            180
           ],
           "margin": [
-            124,
-            47,
-            305,
-            53
+            126,
+            71,
+            309,
+            98
           ]
         },
         {
@@ -4941,24 +4941,24 @@
           ],
           "margin": [
             119,
-            56,
+            77,
             309,
-            64
+            106
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            223,
-            1342,
-            211,
-            183
+            1793,
+            1659,
+            206,
+            179
           ],
           "margin": [
-            131,
-            47,
-            311,
-            53
+            133,
+            72,
+            316,
+            99
           ]
         },
         {
@@ -4971,24 +4971,24 @@
           ],
           "margin": [
             128,
-            51,
+            72,
             295,
-            59
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            438,
-            1342,
-            212,
-            186
+            2,
+            1856,
+            207,
+            181
           ],
           "margin": [
-            145,
-            44,
-            310,
-            50
+            148,
+            70,
+            315,
+            97
           ]
         },
         {
@@ -5001,24 +5001,24 @@
           ],
           "margin": [
             153,
-            50,
+            71,
             315,
-            58
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            654,
-            1342,
-            212,
-            183
+            213,
+            1856,
+            206,
+            177
           ],
           "margin": [
-            162,
-            47,
-            310,
-            53
+            166,
+            76,
+            316,
+            101
           ]
         }
       ]
@@ -5038,24 +5038,24 @@
           ],
           "margin": [
             157,
-            77,
+            98,
             310,
-            85
+            127
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            870,
-            1342,
-            196,
-            165
+            423,
+            1856,
+            206,
+            174
           ],
           "margin": [
-            164,
-            64,
-            326,
-            71
+            159,
+            78,
+            316,
+            104
           ]
         },
         {
@@ -5068,24 +5068,24 @@
           ],
           "margin": [
             155,
-            65,
+            86,
             296,
-            73
+            115
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1070,
-            1342,
-            206,
-            173
+            633,
+            1856,
+            214,
+            179
           ],
           "margin": [
-            166,
-            58,
-            316,
-            63
+            161,
+            72,
+            308,
+            99
           ]
         },
         {
@@ -5098,24 +5098,24 @@
           ],
           "margin": [
             186,
-            61,
+            82,
             323,
-            69
+            111
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1280,
-            1342,
-            200,
-            174
+            851,
+            1856,
+            196,
+            170
           ],
           "margin": [
-            180,
-            57,
-            322,
-            62
+            182,
+            81,
+            326,
+            108
           ]
         },
         {
@@ -5128,24 +5128,24 @@
           ],
           "margin": [
             197,
-            63,
+            84,
             323,
-            71
+            113
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1484,
-            1342,
-            197,
-            177
+            1051,
+            1856,
+            199,
+            178
           ],
           "margin": [
-            188,
-            55,
-            325,
-            59
+            186,
+            75,
+            323,
+            100
           ]
         },
         {
@@ -5158,24 +5158,24 @@
           ],
           "margin": [
             186,
-            55,
+            76,
             312,
-            63
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            1685,
-            1342,
-            205,
-            182
+            1254,
+            1856,
+            211,
+            187
           ],
           "margin": [
-            176,
-            49,
-            317,
-            54
+            174,
+            64,
+            311,
+            91
           ]
         },
         {
@@ -5188,24 +5188,24 @@
           ],
           "margin": [
             178,
-            54,
+            75,
             300,
-            62
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            2,
-            1536,
-            215,
-            179
+            1469,
+            1856,
+            211,
+            176
           ],
           "margin": [
-            184,
-            52,
-            307,
-            57
+            186,
+            75,
+            311,
+            102
           ]
         },
         {
@@ -5218,24 +5218,24 @@
           ],
           "margin": [
             186,
-            60,
+            81,
             313,
-            68
+            110
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
           "region": [
-            221,
-            1536,
-            213,
-            180
+            1684,
+            1856,
+            214,
+            181
           ],
           "margin": [
             174,
-            52,
-            309,
-            56
+            72,
+            308,
+            97
           ]
         },
         {
@@ -5248,24 +5248,24 @@
           ],
           "margin": [
             157,
-            51,
+            72,
             299,
-            59
+            101
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            438,
-            1536,
-            214,
-            186
+            2,
+            2,
+            226,
+            196
           ],
           "margin": [
-            154,
-            45,
-            308,
-            50
+            148,
+            55,
+            296,
+            82
           ]
         },
         {
@@ -5278,24 +5278,24 @@
           ],
           "margin": [
             131,
-            50,
+            71,
             299,
-            58
+            100
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            656,
-            1536,
-            215,
-            183
+            232,
+            2,
+            217,
+            185
           ],
           "margin": [
-            134,
-            48,
-            307,
-            53
+            132,
+            67,
+            305,
+            93
           ]
         },
         {
@@ -5308,24 +5308,24 @@
           ],
           "margin": [
             119,
-            56,
+            77,
             309,
-            64
+            106
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            875,
-            1536,
-            215,
-            183
+            453,
+            2,
+            216,
+            184
           ],
           "margin": [
-            133,
-            49,
-            307,
-            53
+            132,
+            69,
+            306,
+            94
           ]
         },
         {
@@ -5338,24 +5338,24 @@
           ],
           "margin": [
             136,
-            49,
+            70,
             304,
-            57
+            99
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1094,
-            1536,
-            215,
-            187
+            673,
+            2,
+            217,
+            188
           ],
           "margin": [
-            151,
-            44,
-            307,
-            49
+            150,
+            63,
+            305,
+            90
           ]
         },
         {
@@ -5368,24 +5368,24 @@
           ],
           "margin": [
             157,
-            49,
+            70,
             317,
-            57
+            99
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1313,
-            1536,
-            211,
-            183
+            894,
+            2,
+            208,
+            181
           ],
           "margin": [
-            172,
-            49,
-            311,
-            53
+            174,
+            72,
+            314,
+            97
           ]
         }
       ]
@@ -5405,24 +5405,24 @@
           ],
           "margin": [
             157,
-            77,
+            98,
             310,
-            85
+            127
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1528,
-            1536,
-            189,
-            164
+            1106,
+            2,
+            200,
+            174
           ],
           "margin": [
-            176,
-            65,
-            333,
-            72
+            170,
+            77,
+            322,
+            104
           ]
         },
         {
@@ -5435,24 +5435,24 @@
           ],
           "margin": [
             148,
-            65,
+            86,
             301,
-            73
+            115
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1721,
-            1536,
-            204,
-            173
+            1310,
+            2,
+            214,
+            182
           ],
           "margin": [
-            172,
-            57,
-            318,
-            63
+            168,
+            71,
+            308,
+            96
           ]
         },
         {
@@ -5465,24 +5465,24 @@
           ],
           "margin": [
             175,
-            60,
+            81,
             316,
-            68
+            110
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
+            1528,
             2,
-            1731,
-            201,
-            174
+            202,
+            175
           ],
           "margin": [
             188,
-            56,
-            321,
-            62
+            76,
+            320,
+            103
           ]
         },
         {
@@ -5495,24 +5495,24 @@
           ],
           "margin": [
             197,
-            63,
+            84,
             323,
-            71
+            113
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            207,
-            1731,
-            203,
-            177
+            1734,
+            2,
+            205,
+            179
           ],
           "margin": [
-            191,
-            53,
-            319,
-            59
+            190,
+            72,
+            317,
+            99
           ]
         },
         {
@@ -5525,24 +5525,24 @@
           ],
           "margin": [
             179,
-            55,
+            76,
             301,
-            63
+            105
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            414,
-            1731,
-            208,
-            181
+            2,
+            206,
+            215,
+            188
           ],
           "margin": [
-            184,
-            51,
-            314,
-            55
+            180,
+            64,
+            307,
+            90
           ]
         },
         {
@@ -5555,24 +5555,24 @@
           ],
           "margin": [
             177,
-            54,
+            75,
             299,
-            62
+            104
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            626,
-            1731,
+            221,
             206,
-            179
+            206,
+            178
           ],
           "margin": [
             182,
-            52,
+            74,
             316,
-            57
+            100
           ]
         },
         {
@@ -5585,24 +5585,24 @@
           ],
           "margin": [
             186,
-            60,
+            81,
             313,
-            68
+            110
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            836,
-            1731,
-            211,
-            179
+            431,
+            206,
+            213,
+            181
           ],
           "margin": [
-            171,
-            52,
-            311,
-            57
+            170,
+            72,
+            309,
+            97
           ]
         },
         {
@@ -5615,24 +5615,24 @@
           ],
           "margin": [
             154,
-            53,
+            74,
             297,
-            61
+            103
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1051,
-            1731,
-            212,
-            185
+            648,
+            206,
+            219,
+            191
           ],
           "margin": [
-            152,
-            45,
-            310,
-            51
+            148,
+            60,
+            303,
+            87
           ]
         },
         {
@@ -5645,24 +5645,24 @@
           ],
           "margin": [
             126,
-            50,
+            71,
             295,
-            58
+            100
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1267,
-            1731,
+            871,
+            206,
             211,
             183
           ],
           "margin": [
             134,
-            49,
+            70,
             311,
-            53
+            95
           ]
         },
         {
@@ -5675,24 +5675,24 @@
           ],
           "margin": [
             119,
-            56,
+            77,
             309,
-            64
+            106
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1482,
-            1731,
-            213,
-            183
+            1086,
+            206,
+            211,
+            181
           ],
           "margin": [
-            132,
-            48,
-            309,
-            53
+            133,
+            71,
+            311,
+            97
           ]
         },
         {
@@ -5705,24 +5705,24 @@
           ],
           "margin": [
             128,
-            50,
+            71,
             298,
-            58
+            100
           ]
         },
         {
-          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_01.png",
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1699,
-            1731,
-            215,
-            187
+            1301,
+            206,
+            218,
+            189
           ],
           "margin": [
-            150,
-            43,
-            307,
-            49
+            148,
+            62,
+            304,
+            89
           ]
         },
         {
@@ -5735,24 +5735,24 @@
           ],
           "margin": [
             147,
-            49,
+            70,
             309,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            2,
-            2,
-            210,
-            184
+            1523,
+            206,
+            204,
+            179
           ],
           "margin": [
-            170,
-            47,
-            312,
-            52
+            174,
+            74,
+            318,
+            99
           ]
         }
       ]
@@ -5772,24 +5772,24 @@
           ],
           "margin": [
             194,
-            43,
+            64,
             338,
-            51
+            93
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            216,
-            2,
+            1731,
             206,
-            190
+            195,
+            180
           ],
           "margin": [
-            183,
-            38,
-            316,
-            46
+            189,
+            71,
+            327,
+            98
           ]
         },
         {
@@ -5802,24 +5802,24 @@
           ],
           "margin": [
             193,
-            44,
+            65,
             338,
-            52
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            426,
             2,
-            196,
-            189
+            405,
+            187,
+            180
           ],
           "margin": [
-            190,
-            40,
-            326,
-            47
+            195,
+            69,
+            335,
+            98
           ]
         },
         {
@@ -5832,24 +5832,24 @@
           ],
           "margin": [
             200,
-            46,
+            67,
             346,
-            54
+            96
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            626,
-            2,
-            188,
-            187
+            193,
+            405,
+            180,
+            179
           ],
           "margin": [
-            197,
-            43,
-            334,
-            49
+            201,
+            71,
+            342,
+            99
           ]
         },
         {
@@ -5862,24 +5862,24 @@
           ],
           "margin": [
             195,
-            48,
+            69,
             341,
-            56
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            818,
-            2,
-            190,
-            185
+            377,
+            405,
+            183,
+            178
           ],
           "margin": [
-            194,
-            44,
-            332,
-            51
+            197,
+            72,
+            339,
+            100
           ]
         },
         {
@@ -5892,24 +5892,24 @@
           ],
           "margin": [
             192,
-            51,
+            72,
             338,
-            59
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1012,
-            2,
-            199,
-            182
+            564,
+            405,
+            189,
+            173
           ],
           "margin": [
-            183,
-            49,
-            323,
-            54
+            189,
+            77,
+            333,
+            105
           ]
         },
         {
@@ -5922,24 +5922,24 @@
           ],
           "margin": [
             185,
-            52,
+            73,
             332,
-            60
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1215,
-            2,
-            189,
-            181
+            757,
+            405,
+            191,
+            183
           ],
           "margin": [
-            181,
-            47,
-            333,
-            55
+            180,
+            66,
+            331,
+            95
           ]
         },
         {
@@ -5952,24 +5952,24 @@
           ],
           "margin": [
             179,
-            52,
+            73,
             327,
-            60
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1408,
-            2,
-            190,
-            181
+            952,
+            405,
+            193,
+            183
           ],
           "margin": [
-            182,
-            47,
-            332,
-            55
+            180,
+            66,
+            329,
+            95
           ]
         },
         {
@@ -5982,24 +5982,24 @@
           ],
           "margin": [
             179,
-            53,
+            74,
             326,
-            61
+            103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1602,
-            2,
-            189,
-            179
+            1149,
+            405,
+            193,
+            182
           ],
           "margin": [
-            182,
-            49,
-            333,
-            57
+            180,
+            67,
+            329,
+            96
           ]
         },
         {
@@ -6012,24 +6012,24 @@
           ],
           "margin": [
             177,
-            55,
+            76,
             321,
-            63
+            105
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1795,
-            2,
-            191,
-            179
+            1346,
+            405,
+            193,
+            181
           ],
           "margin": [
-            181,
-            49,
-            331,
-            57
+            180,
+            68,
+            329,
+            97
           ]
         },
         {
@@ -6042,24 +6042,24 @@
           ],
           "margin": [
             182,
-            54,
+            75,
             326,
-            62
+            104
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            2,
-            200,
-            194,
-            180
+            1543,
+            405,
+            195,
+            182
           ],
           "margin": [
             179,
-            48,
-            328,
-            56
+            67,
+            327,
+            96
           ]
         },
         {
@@ -6072,24 +6072,24 @@
           ],
           "margin": [
             183,
-            52,
+            73,
             327,
-            60
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            200,
-            200,
-            189,
-            183
+            1742,
+            405,
+            186,
+            180
           ],
           "margin": [
-            184,
-            45,
-            333,
-            53
+            186,
+            69,
+            336,
+            98
           ]
         },
         {
@@ -6102,24 +6102,24 @@
           ],
           "margin": [
             189,
-            50,
+            71,
             335,
-            58
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            393,
-            200,
-            187,
-            187
+            2,
+            596,
+            184,
+            184
           ],
           "margin": [
-            184,
-            41,
-            335,
-            49
+            186,
+            65,
+            338,
+            94
           ]
         }
       ]
@@ -6139,24 +6139,24 @@
           ],
           "margin": [
             196,
-            48,
+            69,
             335,
-            56
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            584,
-            200,
-            180,
-            188
+            190,
+            596,
+            178,
+            186
           ],
           "margin": [
-            192,
-            40,
-            342,
-            48
+            194,
+            63,
+            344,
+            92
           ]
         },
         {
@@ -6169,24 +6169,24 @@
           ],
           "margin": [
             195,
-            44,
+            65,
             333,
-            52
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            768,
-            200,
-            176,
+            372,
+            596,
+            175,
             191
           ],
           "margin": [
             194,
-            37,
-            346,
-            45
+            58,
+            347,
+            87
           ]
         },
         {
@@ -6199,24 +6199,24 @@
           ],
           "margin": [
             189,
-            41,
+            62,
             326,
-            49
+            91
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            948,
-            200,
-            183,
-            192
+            551,
+            596,
+            181,
+            191
           ],
           "margin": [
-            191,
-            37,
-            339,
-            44
+            193,
+            59,
+            341,
+            87
           ]
         },
         {
@@ -6229,24 +6229,24 @@
           ],
           "margin": [
             186,
-            42,
+            63,
             322,
-            50
+            92
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1135,
-            200,
+            736,
+            596,
             182,
-            190
+            191
           ],
           "margin": [
             194,
-            38,
+            58,
             340,
-            46
+            87
           ]
         },
         {
@@ -6259,24 +6259,24 @@
           ],
           "margin": [
             192,
-            44,
+            65,
             327,
-            52
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1321,
-            200,
-            184,
-            189
+            922,
+            596,
+            186,
+            191
           ],
           "margin": [
-            196,
-            40,
-            338,
-            47
+            195,
+            59,
+            336,
+            87
           ]
         },
         {
@@ -6289,24 +6289,24 @@
           ],
           "margin": [
             190,
-            44,
+            65,
             326,
-            52
+            94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1509,
-            200,
-            188,
-            188
+            1112,
+            596,
+            187,
+            187
           ],
           "margin": [
             195,
-            40,
-            334,
-            48
+            62,
+            335,
+            91
           ]
         }
       ]
@@ -6326,24 +6326,24 @@
           ],
           "margin": [
             196,
-            48,
+            69,
             334,
-            56
+            98
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            1701,
-            200,
+            1303,
+            596,
             182,
             184
           ],
           "margin": [
             198,
-            44,
+            65,
             340,
-            52
+            94
           ]
         },
         {
@@ -6356,24 +6356,24 @@
           ],
           "margin": [
             194,
-            50,
+            71,
             333,
-            58
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            2,
-            400,
-            177,
+            1489,
+            596,
+            178,
             183
           ],
           "margin": [
-            200,
-            45,
-            345,
-            53
+            199,
+            66,
+            344,
+            95
           ]
         },
         {
@@ -6386,24 +6386,24 @@
           ],
           "margin": [
             193,
-            50,
+            71,
             333,
-            58
+            100
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            183,
-            400,
-            180,
-            183
+            1671,
+            596,
+            179,
+            182
           ],
           "margin": [
-            195,
-            45,
-            342,
-            53
+            196,
+            67,
+            343,
+            96
           ]
         },
         {
@@ -6416,24 +6416,24 @@
           ],
           "margin": [
             191,
-            51,
+            72,
             333,
-            59
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            367,
-            400,
+            1854,
+            596,
             182,
             181
           ],
           "margin": [
             192,
-            46,
+            67,
             340,
-            55
+            97
           ]
         },
         {
@@ -6446,24 +6446,24 @@
           ],
           "margin": [
             193,
-            51,
+            72,
             336,
-            59
+            101
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            553,
-            400,
-            183,
-            182
+            2,
+            795,
+            185,
+            184
           ],
           "margin": [
-            189,
-            46,
-            339,
-            54
+            188,
+            65,
+            337,
+            94
           ]
         },
         {
@@ -6476,24 +6476,24 @@
           ],
           "margin": [
             195,
-            49,
+            70,
             339,
-            57
+            99
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_v8_02.png",
           "region": [
-            740,
-            400,
-            180,
-            182
+            191,
+            795,
+            181,
+            183
           ],
           "margin": [
-            191,
-            46,
-            342,
-            54
+            190,
+            67,
+            341,
+            95
           ]
         }
       ]

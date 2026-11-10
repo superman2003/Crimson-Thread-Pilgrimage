@@ -72,6 +72,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine',type=Path,default=ROOT/'output/tools/godot-4.6.1/Godot_v4.6.1-stable_win64.exe')
     parser.add_argument('--all-bosses',action='store_true')
+    parser.add_argument('--hit-feedback',action='store_true',help='Capture production damage flash and recoil on three representative actors')
     parser.add_argument('--baseline-v7',action='store_true',help='Compare retained v7/defensive art against the current doubled layer')
     parser.add_argument('--warnings',action='store_true')
     parser.add_argument('--output',type=Path,default=ROOT/'output/combat_animation_v7/native-review')
@@ -79,6 +80,13 @@ def main():
     if engine.name.endswith('_console.exe'):
         native=engine.with_name(engine.name.replace('_console.exe','.exe'))
         if native.is_file():engine=native
+    if args.hit_feedback:
+        with tempfile.TemporaryDirectory(prefix='hit-feedback-review-') as profile,hidden_desktop() as desktop:
+            text=run_hidden([str(engine),'--display-driver','windows','--audio-driver','Dummy','--rendering-method','gl_compatibility','--fixed-fps','60','--path',str(ROOT/'godot'),'--script','res://scripts/enemy_hit_feedback_capture.gd','--','--capture-dir='+str(output)],desktop,dict(os.environ,APPDATA=profile,XDG_DATA_HOME=profile),output/'capture.log')
+            if 'ENEMY_HIT_FEEDBACK_CAPTURE frames=216' not in text:raise RuntimeError('Hit feedback capture did not complete')
+        subprocess.run(['ffmpeg','-v','error','-y','-framerate','60','-i',str(output/'frame_%05d.png'),'-c:v','libx264','-crf','18','-pix_fmt','yuv420p','-movflags','+faststart',str(output/'hit-feedback.mp4')],check=True)
+        print('ENEMY_HIT_FEEDBACK_REVIEW_PASS '+str(output/'hit-feedback.mp4'))
+        return
     if args.warnings:
         fixture=ROOT/'godot/scripts/combat_warning_legacy_fixture.gd'
         if fixture.exists():raise FileExistsError('Refusing to overwrite an existing fixture')
