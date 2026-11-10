@@ -1,0 +1,4162 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "echo_pilgrim_commander_minor",
+  "canvas": [
+    398,
+    320
+  ],
+  "display_height": 118,
+  "visual_scale": 0.5221238938053097,
+  "visual_offset": [
+    0,
+    -22.040992777947295
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            153,
+            226
+          ],
+          "margin": [
+            129,
+            86,
+            245,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            155,
+            217
+          ],
+          "margin": [
+            132,
+            97,
+            243,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            155,
+            0,
+            157,
+            227
+          ],
+          "margin": [
+            132,
+            85,
+            241,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            161,
+            2,
+            150,
+            213
+          ],
+          "margin": [
+            137,
+            101,
+            248,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            314,
+            0,
+            156,
+            223
+          ],
+          "margin": [
+            126,
+            89,
+            242,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            315,
+            2,
+            154,
+            211
+          ],
+          "margin": [
+            135,
+            103,
+            244,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            472,
+            0,
+            157,
+            223
+          ],
+          "margin": [
+            136,
+            89,
+            241,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            473,
+            2,
+            169,
+            212
+          ],
+          "margin": [
+            128,
+            102,
+            229,
+            108
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            631,
+            0,
+            206,
+            210
+          ],
+          "margin": [
+            107,
+            102,
+            192,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            646,
+            2,
+            197,
+            201
+          ],
+          "margin": [
+            105,
+            113,
+            201,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            839,
+            0,
+            197,
+            208
+          ],
+          "margin": [
+            113,
+            104,
+            201,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            847,
+            2,
+            198,
+            205
+          ],
+          "margin": [
+            106,
+            109,
+            200,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1038,
+            0,
+            198,
+            208
+          ],
+          "margin": [
+            107,
+            104,
+            200,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1049,
+            2,
+            208,
+            204
+          ],
+          "margin": [
+            102,
+            110,
+            190,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1238,
+            0,
+            187,
+            212
+          ],
+          "margin": [
+            112,
+            100,
+            211,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1261,
+            2,
+            209,
+            208
+          ],
+          "margin": [
+            101,
+            106,
+            189,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1427,
+            0,
+            210,
+            213
+          ],
+          "margin": [
+            108,
+            99,
+            188,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1474,
+            2,
+            217,
+            209
+          ],
+          "margin": [
+            96,
+            105,
+            181,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1639,
+            0,
+            212,
+            211
+          ],
+          "margin": [
+            107,
+            101,
+            186,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1695,
+            2,
+            224,
+            208
+          ],
+          "margin": [
+            96,
+            106,
+            174,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1853,
+            0,
+            198,
+            212
+          ],
+          "margin": [
+            116,
+            100,
+            200,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            2,
+            227,
+            214,
+            209
+          ],
+          "margin": [
+            102,
+            105,
+            184,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2053,
+            0,
+            197,
+            216
+          ],
+          "margin": [
+            110,
+            96,
+            201,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            220,
+            227,
+            209,
+            204
+          ],
+          "margin": [
+            100,
+            110,
+            189,
+            116
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2252,
+            0,
+            211,
+            200
+          ],
+          "margin": [
+            100,
+            112,
+            187,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            433,
+            227,
+            236,
+            217
+          ],
+          "margin": [
+            81,
+            97,
+            162,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2465,
+            0,
+            222,
+            217
+          ],
+          "margin": [
+            93,
+            95,
+            176,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            673,
+            227,
+            233,
+            222
+          ],
+          "margin": [
+            84,
+            92,
+            165,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2689,
+            0,
+            188,
+            227
+          ],
+          "margin": [
+            102,
+            85,
+            210,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            910,
+            227,
+            171,
+            205
+          ],
+          "margin": [
+            100,
+            109,
+            227,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2879,
+            0,
+            190,
+            230
+          ],
+          "margin": [
+            102,
+            82,
+            208,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1085,
+            227,
+            184,
+            229
+          ],
+          "margin": [
+            102,
+            85,
+            214,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3071,
+            0,
+            199,
+            239
+          ],
+          "margin": [
+            102,
+            73,
+            199,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1273,
+            227,
+            199,
+            233
+          ],
+          "margin": [
+            101,
+            81,
+            199,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3272,
+            0,
+            194,
+            243
+          ],
+          "margin": [
+            109,
+            69,
+            204,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1476,
+            227,
+            186,
+            239
+          ],
+          "margin": [
+            110,
+            75,
+            212,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3468,
+            0,
+            195,
+            239
+          ],
+          "margin": [
+            110,
+            73,
+            203,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1666,
+            227,
+            192,
+            242
+          ],
+          "margin": [
+            104,
+            72,
+            206,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3665,
+            0,
+            224,
+            247
+          ],
+          "margin": [
+            96,
+            65,
+            174,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            2,
+            477,
+            231,
+            248
+          ],
+          "margin": [
+            92,
+            66,
+            167,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            0,
+            249,
+            250,
+            248
+          ],
+          "margin": [
+            84,
+            64,
+            148,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            237,
+            477,
+            216,
+            221
+          ],
+          "margin": [
+            96,
+            93,
+            182,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            252,
+            249,
+            183,
+            241
+          ],
+          "margin": [
+            111,
+            71,
+            215,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            457,
+            477,
+            209,
+            210
+          ],
+          "margin": [
+            94,
+            104,
+            189,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            437,
+            249,
+            217,
+            229
+          ],
+          "margin": [
+            96,
+            83,
+            181,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            670,
+            477,
+            241,
+            222
+          ],
+          "margin": [
+            76,
+            92,
+            157,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            656,
+            249,
+            280,
+            214
+          ],
+          "margin": [
+            79,
+            98,
+            118,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            915,
+            477,
+            221,
+            196
+          ],
+          "margin": [
+            96,
+            118,
+            177,
+            124
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            938,
+            249,
+            231,
+            189
+          ],
+          "margin": [
+            101,
+            123,
+            167,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1140,
+            477,
+            227,
+            190
+          ],
+          "margin": [
+            92,
+            124,
+            171,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1171,
+            249,
+            263,
+            196
+          ],
+          "margin": [
+            87,
+            116,
+            135,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1371,
+            477,
+            251,
+            200
+          ],
+          "margin": [
+            86,
+            114,
+            147,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1436,
+            249,
+            263,
+            196
+          ],
+          "margin": [
+            84,
+            116,
+            135,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1626,
+            477,
+            226,
+            186
+          ],
+          "margin": [
+            98,
+            128,
+            172,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1701,
+            249,
+            207,
+            191
+          ],
+          "margin": [
+            106,
+            121,
+            191,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            2,
+            733,
+            215,
+            186
+          ],
+          "margin": [
+            95,
+            128,
+            183,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1910,
+            249,
+            249,
+            194
+          ],
+          "margin": [
+            84,
+            118,
+            149,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            221,
+            733,
+            229,
+            197
+          ],
+          "margin": [
+            80,
+            117,
+            169,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2161,
+            249,
+            272,
+            191
+          ],
+          "margin": [
+            81,
+            121,
+            126,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            454,
+            733,
+            210,
+            182
+          ],
+          "margin": [
+            86,
+            132,
+            188,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2435,
+            249,
+            225,
+            181
+          ],
+          "margin": [
+            92,
+            131,
+            173,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            668,
+            733,
+            216,
+            169
+          ],
+          "margin": [
+            86,
+            147,
+            182,
+            151
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2662,
+            249,
+            245,
+            185
+          ],
+          "margin": [
+            90,
+            127,
+            153,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            888,
+            733,
+            228,
+            178
+          ],
+          "margin": [
+            82,
+            136,
+            170,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2909,
+            249,
+            235,
+            185
+          ],
+          "margin": [
+            87,
+            127,
+            163,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1120,
+            733,
+            193,
+            171
+          ],
+          "margin": [
+            99,
+            144,
+            205,
+            149
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3146,
+            249,
+            200,
+            176
+          ],
+          "margin": [
+            106,
+            136,
+            198,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1317,
+            733,
+            206,
+            175
+          ],
+          "margin": [
+            99,
+            140,
+            192,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3348,
+            249,
+            237,
+            193
+          ],
+          "margin": [
+            91,
+            119,
+            161,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1527,
+            733,
+            226,
+            184
+          ],
+          "margin": [
+            92,
+            130,
+            172,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3587,
+            249,
+            212,
+            202
+          ],
+          "margin": [
+            100,
+            110,
+            186,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1757,
+            733,
+            192,
+            190
+          ],
+          "margin": [
+            111,
+            124,
+            206,
+            130
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3801,
+            249,
+            220,
+            206
+          ],
+          "margin": [
+            106,
+            106,
+            178,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            2,
+            938,
+            223,
+            188
+          ],
+          "margin": [
+            102,
+            126,
+            175,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            0,
+            499,
+            233,
+            212
+          ],
+          "margin": [
+            98,
+            100,
+            165,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            229,
+            938,
+            238,
+            200
+          ],
+          "margin": [
+            96,
+            114,
+            160,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            235,
+            499,
+            206,
+            211
+          ],
+          "margin": [
+            101,
+            101,
+            192,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            471,
+            938,
+            202,
+            191
+          ],
+          "margin": [
+            106,
+            123,
+            196,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            443,
+            499,
+            186,
+            203
+          ],
+          "margin": [
+            117,
+            109,
+            212,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            677,
+            938,
+            203,
+            194
+          ],
+          "margin": [
+            108,
+            120,
+            195,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            631,
+            499,
+            197,
+            217
+          ],
+          "margin": [
+            100,
+            95,
+            201,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            884,
+            938,
+            213,
+            200
+          ],
+          "margin": [
+            100,
+            114,
+            185,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            830,
+            499,
+            178,
+            224
+          ],
+          "margin": [
+            107,
+            88,
+            220,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1101,
+            938,
+            205,
+            199
+          ],
+          "margin": [
+            108,
+            115,
+            193,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1010,
+            499,
+            172,
+            224
+          ],
+          "margin": [
+            114,
+            88,
+            226,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1310,
+            938,
+            208,
+            199
+          ],
+          "margin": [
+            98,
+            115,
+            190,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1184,
+            499,
+            175,
+            229
+          ],
+          "margin": [
+            109,
+            83,
+            223,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1522,
+            938,
+            206,
+            208
+          ],
+          "margin": [
+            94,
+            106,
+            192,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1361,
+            499,
+            160,
+            227
+          ],
+          "margin": [
+            110,
+            85,
+            238,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1732,
+            938,
+            173,
+            205
+          ],
+          "margin": [
+            110,
+            109,
+            225,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1523,
+            499,
+            151,
+            218
+          ],
+          "margin": [
+            119,
+            94,
+            247,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            2,
+            1154,
+            162,
+            214
+          ],
+          "margin": [
+            116,
+            100,
+            236,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1676,
+            499,
+            168,
+            225
+          ],
+          "margin": [
+            110,
+            87,
+            230,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            168,
+            1154,
+            162,
+            229
+          ],
+          "margin": [
+            118,
+            85,
+            236,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1846,
+            499,
+            158,
+            229
+          ],
+          "margin": [
+            122,
+            83,
+            240,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            334,
+            1154,
+            154,
+            222
+          ],
+          "margin": [
+            126,
+            92,
+            244,
+            98
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2006,
+            499,
+            201,
+            221
+          ],
+          "margin": [
+            105,
+            91,
+            197,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            492,
+            1154,
+            195,
+            202
+          ],
+          "margin": [
+            105,
+            112,
+            203,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2209,
+            499,
+            179,
+            208
+          ],
+          "margin": [
+            104,
+            104,
+            219,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            691,
+            1154,
+            176,
+            184
+          ],
+          "margin": [
+            100,
+            130,
+            222,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2390,
+            499,
+            203,
+            169
+          ],
+          "margin": [
+            92,
+            143,
+            195,
+            151
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            871,
+            1154,
+            187,
+            155
+          ],
+          "margin": [
+            94,
+            158,
+            211,
+            165
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2595,
+            499,
+            183,
+            167
+          ],
+          "margin": [
+            76,
+            145,
+            215,
+            153
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1062,
+            1154,
+            180,
+            159
+          ],
+          "margin": [
+            92,
+            157,
+            218,
+            161
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2780,
+            499,
+            210,
+            136
+          ],
+          "margin": [
+            107,
+            176,
+            188,
+            184
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1246,
+            1154,
+            201,
+            133
+          ],
+          "margin": [
+            106,
+            182,
+            197,
+            187
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2992,
+            499,
+            207,
+            128
+          ],
+          "margin": [
+            104,
+            184,
+            191,
+            192
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1451,
+            1154,
+            196,
+            117
+          ],
+          "margin": [
+            100,
+            196,
+            202,
+            203
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3201,
+            499,
+            213,
+            109
+          ],
+          "margin": [
+            91,
+            203,
+            185,
+            211
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1651,
+            1154,
+            204,
+            103
+          ],
+          "margin": [
+            92,
+            210,
+            194,
+            217
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3416,
+            499,
+            221,
+            79
+          ],
+          "margin": [
+            74,
+            233,
+            177,
+            241
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            2,
+            1391,
+            206,
+            85
+          ],
+          "margin": [
+            82,
+            228,
+            192,
+            235
+          ]
+        }
+      ]
+    },
+    {
+      "name": "minor_banner_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3639,
+            499,
+            151,
+            228
+          ],
+          "margin": [
+            127,
+            84,
+            247,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            212,
+            1391,
+            174,
+            209
+          ],
+          "margin": [
+            111,
+            105,
+            224,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3792,
+            499,
+            160,
+            236
+          ],
+          "margin": [
+            122,
+            76,
+            238,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            390,
+            1391,
+            157,
+            214
+          ],
+          "margin": [
+            125,
+            100,
+            241,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            0,
+            737,
+            172,
+            237
+          ],
+          "margin": [
+            126,
+            75,
+            226,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            551,
+            1391,
+            178,
+            211
+          ],
+          "margin": [
+            125,
+            103,
+            220,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            174,
+            737,
+            171,
+            234
+          ],
+          "margin": [
+            127,
+            78,
+            227,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            733,
+            1391,
+            180,
+            231
+          ],
+          "margin": [
+            121,
+            83,
+            218,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            347,
+            737,
+            179,
+            250
+          ],
+          "margin": [
+            121,
+            62,
+            219,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            917,
+            1391,
+            173,
+            235
+          ],
+          "margin": [
+            126,
+            79,
+            225,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            528,
+            737,
+            148,
+            261
+          ],
+          "margin": [
+            141,
+            51,
+            250,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1094,
+            1391,
+            159,
+            238
+          ],
+          "margin": [
+            134,
+            76,
+            239,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            678,
+            737,
+            150,
+            265
+          ],
+          "margin": [
+            141,
+            47,
+            248,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1257,
+            1391,
+            151,
+            247
+          ],
+          "margin": [
+            146,
+            67,
+            247,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            830,
+            737,
+            158,
+            278
+          ],
+          "margin": [
+            137,
+            34,
+            240,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1412,
+            1391,
+            155,
+            261
+          ],
+          "margin": [
+            142,
+            53,
+            243,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            990,
+            737,
+            152,
+            283
+          ],
+          "margin": [
+            138,
+            29,
+            246,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1571,
+            1391,
+            151,
+            264
+          ],
+          "margin": [
+            142,
+            50,
+            247,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1144,
+            737,
+            148,
+            284
+          ],
+          "margin": [
+            141,
+            28,
+            250,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1726,
+            1391,
+            150,
+            269
+          ],
+          "margin": [
+            145,
+            45,
+            248,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1294,
+            737,
+            150,
+            262
+          ],
+          "margin": [
+            139,
+            50,
+            248,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1880,
+            1391,
+            163,
+            289
+          ],
+          "margin": [
+            136,
+            26,
+            235,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1446,
+            737,
+            278,
+            236
+          ],
+          "margin": [
+            100,
+            76,
+            120,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            2,
+            1688,
+            247,
+            221
+          ],
+          "margin": [
+            108,
+            93,
+            151,
+            99
+          ]
+        }
+      ]
+    },
+    {
+      "name": "minor_banner",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1726,
+            737,
+            233,
+            202
+          ],
+          "margin": [
+            117,
+            110,
+            165,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            253,
+            1688,
+            248,
+            199
+          ],
+          "margin": [
+            108,
+            115,
+            150,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1961,
+            737,
+            245,
+            203
+          ],
+          "margin": [
+            112,
+            109,
+            153,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            505,
+            1688,
+            260,
+            197
+          ],
+          "margin": [
+            104,
+            117,
+            138,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2208,
+            737,
+            258,
+            199
+          ],
+          "margin": [
+            96,
+            113,
+            140,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            769,
+            1688,
+            253,
+            183
+          ],
+          "margin": [
+            96,
+            131,
+            145,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2468,
+            737,
+            236,
+            188
+          ],
+          "margin": [
+            106,
+            124,
+            162,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1026,
+            1688,
+            243,
+            176
+          ],
+          "margin": [
+            99,
+            138,
+            155,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2706,
+            737,
+            244,
+            192
+          ],
+          "margin": [
+            98,
+            120,
+            154,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1273,
+            1688,
+            236,
+            183
+          ],
+          "margin": [
+            100,
+            131,
+            162,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2952,
+            737,
+            195,
+            191
+          ],
+          "margin": [
+            103,
+            121,
+            203,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1513,
+            1688,
+            187,
+            185
+          ],
+          "margin": [
+            108,
+            129,
+            211,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3149,
+            737,
+            169,
+            183
+          ],
+          "margin": [
+            116,
+            129,
+            229,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_00.png",
+          "region": [
+            1704,
+            1688,
+            179,
+            188
+          ],
+          "margin": [
+            112,
+            126,
+            219,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3320,
+            737,
+            188,
+            187
+          ],
+          "margin": [
+            106,
+            125,
+            210,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            178,
+            188
+          ],
+          "margin": [
+            114,
+            126,
+            220,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3510,
+            737,
+            184,
+            184
+          ],
+          "margin": [
+            108,
+            128,
+            214,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            184,
+            2,
+            169,
+            180
+          ],
+          "margin": [
+            120,
+            135,
+            229,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3696,
+            737,
+            163,
+            177
+          ],
+          "margin": [
+            121,
+            135,
+            235,
+            143
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            357,
+            2,
+            169,
+            185
+          ],
+          "margin": [
+            120,
+            129,
+            229,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3861,
+            737,
+            194,
+            194
+          ],
+          "margin": [
+            101,
+            118,
+            204,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            530,
+            2,
+            175,
+            192
+          ],
+          "margin": [
+            114,
+            122,
+            223,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            0,
+            1023,
+            183,
+            208
+          ],
+          "margin": [
+            127,
+            104,
+            215,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            709,
+            2,
+            183,
+            196
+          ],
+          "margin": [
+            122,
+            118,
+            215,
+            124
+          ]
+        }
+      ]
+    },
+    {
+      "name": "minor_banner_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            185,
+            1023,
+            191,
+            213
+          ],
+          "margin": [
+            122,
+            99,
+            207,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            896,
+            2,
+            183,
+            200
+          ],
+          "margin": [
+            120,
+            114,
+            215,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            378,
+            1023,
+            184,
+            214
+          ],
+          "margin": [
+            123,
+            98,
+            214,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1083,
+            2,
+            185,
+            206
+          ],
+          "margin": [
+            117,
+            108,
+            213,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            564,
+            1023,
+            209,
+            210
+          ],
+          "margin": [
+            116,
+            102,
+            189,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1272,
+            2,
+            183,
+            206
+          ],
+          "margin": [
+            118,
+            108,
+            215,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            775,
+            1023,
+            198,
+            198
+          ],
+          "margin": [
+            123,
+            114,
+            200,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1459,
+            2,
+            172,
+            208
+          ],
+          "margin": [
+            128,
+            106,
+            226,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            975,
+            1023,
+            195,
+            195
+          ],
+          "margin": [
+            119,
+            117,
+            203,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1635,
+            2,
+            192,
+            198
+          ],
+          "margin": [
+            118,
+            116,
+            206,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1172,
+            1023,
+            233,
+            189
+          ],
+          "margin": [
+            111,
+            123,
+            165,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            2,
+            218,
+            218,
+            175
+          ],
+          "margin": [
+            116,
+            140,
+            180,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1407,
+            1023,
+            215,
+            175
+          ],
+          "margin": [
+            122,
+            137,
+            183,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            224,
+            218,
+            224,
+            182
+          ],
+          "margin": [
+            112,
+            132,
+            174,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1624,
+            1023,
+            250,
+            196
+          ],
+          "margin": [
+            103,
+            116,
+            148,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            452,
+            218,
+            225,
+            175
+          ],
+          "margin": [
+            112,
+            140,
+            173,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1876,
+            1023,
+            161,
+            209
+          ],
+          "margin": [
+            124,
+            103,
+            237,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            681,
+            218,
+            173,
+            198
+          ],
+          "margin": [
+            120,
+            116,
+            225,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2039,
+            1023,
+            156,
+            218
+          ],
+          "margin": [
+            126,
+            94,
+            242,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            858,
+            218,
+            174,
+            206
+          ],
+          "margin": [
+            118,
+            108,
+            224,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2197,
+            1023,
+            168,
+            225
+          ],
+          "margin": [
+            117,
+            87,
+            230,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1036,
+            218,
+            171,
+            220
+          ],
+          "margin": [
+            117,
+            94,
+            227,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2367,
+            1023,
+            163,
+            229
+          ],
+          "margin": [
+            126,
+            83,
+            235,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1211,
+            218,
+            145,
+            211
+          ],
+          "margin": [
+            131,
+            103,
+            253,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "name": "minor_banner_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2532,
+            1023,
+            158,
+            239
+          ],
+          "margin": [
+            138,
+            73,
+            240,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1360,
+            218,
+            159,
+            219
+          ],
+          "margin": [
+            136,
+            95,
+            239,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2692,
+            1023,
+            155,
+            259
+          ],
+          "margin": [
+            134,
+            53,
+            243,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1523,
+            218,
+            163,
+            231
+          ],
+          "margin": [
+            138,
+            83,
+            235,
+            89
+          ]
+        }
+      ]
+    },
+    {
+      "name": "minor_elite_rally_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2849,
+            1023,
+            172,
+            191
+          ],
+          "margin": [
+            121,
+            121,
+            226,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1690,
+            218,
+            183,
+            198
+          ],
+          "margin": [
+            118,
+            116,
+            215,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3023,
+            1023,
+            190,
+            212
+          ],
+          "margin": [
+            110,
+            100,
+            208,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            2,
+            457,
+            178,
+            206
+          ],
+          "margin": [
+            122,
+            108,
+            220,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3215,
+            1023,
+            184,
+            225
+          ],
+          "margin": [
+            126,
+            87,
+            214,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            184,
+            457,
+            177,
+            208
+          ],
+          "margin": [
+            132,
+            106,
+            221,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3401,
+            1023,
+            184,
+            231
+          ],
+          "margin": [
+            125,
+            81,
+            214,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            365,
+            457,
+            189,
+            213
+          ],
+          "margin": [
+            128,
+            101,
+            209,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3587,
+            1023,
+            198,
+            246
+          ],
+          "margin": [
+            120,
+            66,
+            200,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            558,
+            457,
+            201,
+            216
+          ],
+          "margin": [
+            124,
+            98,
+            197,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3787,
+            1023,
+            191,
+            253
+          ],
+          "margin": [
+            133,
+            59,
+            207,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            763,
+            457,
+            175,
+            234
+          ],
+          "margin": [
+            132,
+            80,
+            223,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            0,
+            1284,
+            189,
+            257
+          ],
+          "margin": [
+            137,
+            55,
+            209,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            942,
+            457,
+            179,
+            242
+          ],
+          "margin": [
+            133,
+            72,
+            219,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            191,
+            1284,
+            200,
+            279
+          ],
+          "margin": [
+            131,
+            33,
+            198,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1125,
+            457,
+            178,
+            235
+          ],
+          "margin": [
+            134,
+            79,
+            220,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            393,
+            1284,
+            174,
+            295
+          ],
+          "margin": [
+            127,
+            17,
+            224,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1307,
+            457,
+            172,
+            238
+          ],
+          "margin": [
+            132,
+            76,
+            226,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            569,
+            1284,
+            184,
+            304
+          ],
+          "margin": [
+            124,
+            8,
+            214,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1483,
+            457,
+            183,
+            240
+          ],
+          "margin": [
+            132,
+            74,
+            215,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            755,
+            1284,
+            175,
+            284
+          ],
+          "margin": [
+            125,
+            28,
+            223,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1670,
+            457,
+            190,
+            253
+          ],
+          "margin": [
+            132,
+            61,
+            208,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            932,
+            1284,
+            233,
+            260
+          ],
+          "margin": [
+            93,
+            52,
+            165,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            2,
+            718,
+            197,
+            253
+          ],
+          "margin": [
+            126,
+            61,
+            201,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "name": "minor_elite_rally",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1167,
+            1284,
+            201,
+            226
+          ],
+          "margin": [
+            114,
+            86,
+            197,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            203,
+            718,
+            179,
+            226
+          ],
+          "margin": [
+            133,
+            88,
+            219,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1370,
+            1284,
+            189,
+            214
+          ],
+          "margin": [
+            116,
+            98,
+            209,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            386,
+            718,
+            200,
+            262
+          ],
+          "margin": [
+            117,
+            52,
+            198,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1561,
+            1284,
+            299,
+            198
+          ],
+          "margin": [
+            78,
+            114,
+            99,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            590,
+            718,
+            200,
+            251
+          ],
+          "margin": [
+            113,
+            63,
+            198,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1862,
+            1284,
+            235,
+            172
+          ],
+          "margin": [
+            113,
+            140,
+            163,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            794,
+            718,
+            189,
+            225
+          ],
+          "margin": [
+            117,
+            89,
+            209,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2099,
+            1284,
+            256,
+            166
+          ],
+          "margin": [
+            98,
+            146,
+            142,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            987,
+            718,
+            190,
+            218
+          ],
+          "margin": [
+            114,
+            96,
+            208,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2357,
+            1284,
+            283,
+            154
+          ],
+          "margin": [
+            95,
+            158,
+            115,
+            166
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1181,
+            718,
+            184,
+            194
+          ],
+          "margin": [
+            118,
+            120,
+            214,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2642,
+            1284,
+            248,
+            135
+          ],
+          "margin": [
+            115,
+            177,
+            150,
+            185
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1369,
+            718,
+            196,
+            174
+          ],
+          "margin": [
+            128,
+            142,
+            202,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2892,
+            1284,
+            251,
+            139
+          ],
+          "margin": [
+            108,
+            173,
+            147,
+            181
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1569,
+            718,
+            214,
+            161
+          ],
+          "margin": [
+            116,
+            153,
+            184,
+            159
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3145,
+            1284,
+            281,
+            136
+          ],
+          "margin": [
+            99,
+            176,
+            117,
+            184
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1787,
+            718,
+            211,
+            150
+          ],
+          "margin": [
+            121,
+            164,
+            187,
+            170
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3428,
+            1284,
+            258,
+            126
+          ],
+          "margin": [
+            114,
+            186,
+            140,
+            194
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            2,
+            988,
+            219,
+            153
+          ],
+          "margin": [
+            117,
+            161,
+            179,
+            167
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3688,
+            1284,
+            297,
+            143
+          ],
+          "margin": [
+            92,
+            169,
+            101,
+            177
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            225,
+            988,
+            225,
+            162
+          ],
+          "margin": [
+            116,
+            152,
+            173,
+            158
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            0,
+            1590,
+            244,
+            152
+          ],
+          "margin": [
+            113,
+            160,
+            154,
+            168
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            454,
+            988,
+            218,
+            160
+          ],
+          "margin": [
+            121,
+            155,
+            180,
+            160
+          ]
+        }
+      ]
+    },
+    {
+      "name": "minor_elite_rally_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            246,
+            1590,
+            254,
+            155
+          ],
+          "margin": [
+            113,
+            157,
+            144,
+            165
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            676,
+            988,
+            228,
+            173
+          ],
+          "margin": [
+            118,
+            141,
+            170,
+            147
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            502,
+            1590,
+            282,
+            173
+          ],
+          "margin": [
+            97,
+            139,
+            116,
+            147
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            908,
+            988,
+            217,
+            184
+          ],
+          "margin": [
+            116,
+            130,
+            181,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            786,
+            1590,
+            231,
+            182
+          ],
+          "margin": [
+            115,
+            130,
+            167,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1129,
+            988,
+            222,
+            176
+          ],
+          "margin": [
+            119,
+            138,
+            176,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1019,
+            1590,
+            229,
+            186
+          ],
+          "margin": [
+            115,
+            126,
+            169,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1355,
+            988,
+            234,
+            200
+          ],
+          "margin": [
+            113,
+            114,
+            164,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1250,
+            1590,
+            262,
+            216
+          ],
+          "margin": [
+            102,
+            96,
+            136,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1593,
+            988,
+            222,
+            203
+          ],
+          "margin": [
+            114,
+            111,
+            176,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1514,
+            1590,
+            167,
+            239
+          ],
+          "margin": [
+            130,
+            73,
+            231,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1819,
+            988,
+            172,
+            242
+          ],
+          "margin": [
+            128,
+            72,
+            226,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1683,
+            1590,
+            175,
+            257
+          ],
+          "margin": [
+            128,
+            55,
+            223,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            2,
+            1238,
+            162,
+            254
+          ],
+          "margin": [
+            135,
+            60,
+            236,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            1860,
+            1590,
+            168,
+            242
+          ],
+          "margin": [
+            129,
+            70,
+            230,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            168,
+            1238,
+            163,
+            274
+          ],
+          "margin": [
+            134,
+            42,
+            235,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2030,
+            1590,
+            205,
+            225
+          ],
+          "margin": [
+            97,
+            87,
+            193,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            335,
+            1238,
+            206,
+            212
+          ],
+          "margin": [
+            121,
+            102,
+            192,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2237,
+            1590,
+            178,
+            197
+          ],
+          "margin": [
+            114,
+            115,
+            220,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            545,
+            1238,
+            184,
+            198
+          ],
+          "margin": [
+            122,
+            116,
+            214,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2417,
+            1590,
+            193,
+            214
+          ],
+          "margin": [
+            103,
+            98,
+            205,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            733,
+            1238,
+            176,
+            258
+          ],
+          "margin": [
+            122,
+            56,
+            222,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2612,
+            1590,
+            168,
+            222
+          ],
+          "margin": [
+            117,
+            90,
+            230,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            913,
+            1238,
+            167,
+            241
+          ],
+          "margin": [
+            127,
+            73,
+            231,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "name": "minor_elite_rally_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2782,
+            1590,
+            183,
+            247
+          ],
+          "margin": [
+            126,
+            65,
+            215,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1084,
+            1238,
+            175,
+            241
+          ],
+          "margin": [
+            128,
+            73,
+            223,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            2967,
+            1590,
+            188,
+            280
+          ],
+          "margin": [
+            121,
+            32,
+            210,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1263,
+            1238,
+            164,
+            205
+          ],
+          "margin": [
+            124,
+            109,
+            234,
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3157,
+            1590,
+            248,
+            176
+          ],
+          "margin": [
+            89,
+            136,
+            150,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1431,
+            1238,
+            169,
+            203
+          ],
+          "margin": [
+            103,
+            111,
+            229,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/combat_motion_v7.png",
+          "region": [
+            3407,
+            1590,
+            271,
+            177
+          ],
+          "margin": [
+            77,
+            135,
+            127,
+            143
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_v8_01.png",
+          "region": [
+            1604,
+            1238,
+            174,
+            203
+          ],
+          "margin": [
+            99,
+            111,
+            224,
+            117
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "minor_banner",
+    "minor_banner_recover",
+    "minor_banner_windup",
+    "minor_elite_rally",
+    "minor_elite_rally_recover",
+    "minor_elite_rally_windup",
+    "recover",
+    "windup"
+  ]
+}

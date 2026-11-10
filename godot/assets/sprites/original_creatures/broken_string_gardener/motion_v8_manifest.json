@@ -1,0 +1,6488 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "broken_string_gardener",
+  "canvas": [
+    356,
+    248
+  ],
+  "display_height": 228,
+  "visual_scale": 1.252747252747253,
+  "visual_offset": [
+    0,
+    -76.7304460245637
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 24.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            192,
+            182
+          ],
+          "margin": [
+            107,
+            58,
+            164,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1307,
+            428,
+            204,
+            197
+          ],
+          "margin": [
+            101,
+            46,
+            152,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            194,
+            0,
+            206,
+            182
+          ],
+          "margin": [
+            91,
+            58,
+            150,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1515,
+            428,
+            213,
+            196
+          ],
+          "margin": [
+            90,
+            48,
+            143,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            402,
+            0,
+            190,
+            182
+          ],
+          "margin": [
+            101,
+            58,
+            166,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1732,
+            428,
+            212,
+            197
+          ],
+          "margin": [
+            92,
+            46,
+            144,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            594,
+            0,
+            207,
+            181
+          ],
+          "margin": [
+            91,
+            59,
+            149,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            637,
+            213,
+            189
+          ],
+          "margin": [
+            90,
+            55,
+            143,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            803,
+            0,
+            190,
+            181
+          ],
+          "margin": [
+            107,
+            59,
+            166,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            219,
+            637,
+            221,
+            195
+          ],
+          "margin": [
+            86,
+            47,
+            135,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            995,
+            0,
+            213,
+            181
+          ],
+          "margin": [
+            86,
+            59,
+            143,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            444,
+            637,
+            218,
+            191
+          ],
+          "margin": [
+            85,
+            52,
+            138,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1210,
+            0,
+            190,
+            181
+          ],
+          "margin": [
+            104,
+            59,
+            166,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            666,
+            637,
+            213,
+            195
+          ],
+          "margin": [
+            92,
+            47,
+            143,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1402,
+            0,
+            215,
+            182
+          ],
+          "margin": [
+            87,
+            58,
+            141,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            883,
+            637,
+            212,
+            197
+          ],
+          "margin": [
+            90,
+            45,
+            144,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 72.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1619,
+            0,
+            198,
+            180
+          ],
+          "margin": [
+            111,
+            60,
+            158,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1099,
+            637,
+            215,
+            197
+          ],
+          "margin": [
+            94,
+            46,
+            141,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1819,
+            0,
+            215,
+            180
+          ],
+          "margin": [
+            79,
+            60,
+            141,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1318,
+            637,
+            218,
+            191
+          ],
+          "margin": [
+            77,
+            52,
+            138,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2036,
+            0,
+            198,
+            180
+          ],
+          "margin": [
+            83,
+            60,
+            158,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1540,
+            637,
+            225,
+            197
+          ],
+          "margin": [
+            63,
+            46,
+            131,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2236,
+            0,
+            230,
+            181
+          ],
+          "margin": [
+            53,
+            59,
+            126,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1769,
+            637,
+            220,
+            196
+          ],
+          "margin": [
+            63,
+            46,
+            136,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2468,
+            0,
+            193,
+            182
+          ],
+          "margin": [
+            77,
+            58,
+            163,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            842,
+            214,
+            194
+          ],
+          "margin": [
+            64,
+            49,
+            142,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2663,
+            0,
+            206,
+            182
+          ],
+          "margin": [
+            60,
+            58,
+            150,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            220,
+            842,
+            220,
+            197
+          ],
+          "margin": [
+            52,
+            47,
+            136,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2871,
+            0,
+            206,
+            182
+          ],
+          "margin": [
+            54,
+            58,
+            150,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            444,
+            842,
+            224,
+            201
+          ],
+          "margin": [
+            57,
+            41,
+            132,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3079,
+            0,
+            208,
+            181
+          ],
+          "margin": [
+            72,
+            59,
+            148,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            672,
+            842,
+            223,
+            196
+          ],
+          "margin": [
+            78,
+            48,
+            133,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3289,
+            0,
+            192,
+            181
+          ],
+          "margin": [
+            112,
+            59,
+            164,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            899,
+            842,
+            222,
+            195
+          ],
+          "margin": [
+            80,
+            49,
+            134,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3483,
+            0,
+            202,
+            183
+          ],
+          "margin": [
+            76,
+            57,
+            154,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1125,
+            842,
+            216,
+            193
+          ],
+          "margin": [
+            64,
+            51,
+            140,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3687,
+            0,
+            198,
+            185
+          ],
+          "margin": [
+            66,
+            55,
+            158,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1345,
+            842,
+            217,
+            196
+          ],
+          "margin": [
+            54,
+            46,
+            139,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            187,
+            215,
+            185
+          ],
+          "margin": [
+            41,
+            55,
+            141,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1566,
+            842,
+            224,
+            196
+          ],
+          "margin": [
+            37,
+            46,
+            132,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            217,
+            187,
+            200,
+            186
+          ],
+          "margin": [
+            46,
+            54,
+            156,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1794,
+            842,
+            222,
+            195
+          ],
+          "margin": [
+            50,
+            47,
+            134,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            419,
+            187,
+            200,
+            186
+          ],
+          "margin": [
+            80,
+            54,
+            156,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            1051,
+            217,
+            194
+          ],
+          "margin": [
+            90,
+            49,
+            139,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            621,
+            187,
+            203,
+            186
+          ],
+          "margin": [
+            116,
+            54,
+            153,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            223,
+            1051,
+            217,
+            194
+          ],
+          "margin": [
+            100,
+            49,
+            139,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            826,
+            187,
+            215,
+            183
+          ],
+          "margin": [
+            95,
+            57,
+            141,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            444,
+            1051,
+            208,
+            187
+          ],
+          "margin": [
+            100,
+            56,
+            148,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1043,
+            187,
+            192,
+            186
+          ],
+          "margin": [
+            108,
+            54,
+            164,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            656,
+            1051,
+            208,
+            198
+          ],
+          "margin": [
+            100,
+            45,
+            148,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1237,
+            187,
+            208,
+            195
+          ],
+          "margin": [
+            99,
+            45,
+            148,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            868,
+            1051,
+            223,
+            208
+          ],
+          "margin": [
+            88,
+            34,
+            133,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1447,
+            187,
+            206,
+            196
+          ],
+          "margin": [
+            97,
+            44,
+            150,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1095,
+            1051,
+            213,
+            197
+          ],
+          "margin": [
+            98,
+            46,
+            143,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1655,
+            187,
+            186,
+            191
+          ],
+          "margin": [
+            115,
+            49,
+            170,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1312,
+            1051,
+            221,
+            207
+          ],
+          "margin": [
+            94,
+            35,
+            135,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1843,
+            187,
+            219,
+            209
+          ],
+          "margin": [
+            94,
+            31,
+            137,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1537,
+            1051,
+            237,
+            212
+          ],
+          "margin": [
+            88,
+            30,
+            119,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2064,
+            187,
+            194,
+            219
+          ],
+          "margin": [
+            99,
+            21,
+            162,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1778,
+            1051,
+            208,
+            211
+          ],
+          "margin": [
+            92,
+            31,
+            148,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2260,
+            187,
+            190,
+            223
+          ],
+          "margin": [
+            108,
+            17,
+            166,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            1271,
+            211,
+            223
+          ],
+          "margin": [
+            92,
+            19,
+            145,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2452,
+            187,
+            209,
+            231
+          ],
+          "margin": [
+            94,
+            9,
+            147,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            217,
+            1271,
+            221,
+            229
+          ],
+          "margin": [
+            88,
+            13,
+            135,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2663,
+            187,
+            215,
+            232
+          ],
+          "margin": [
+            92,
+            8,
+            141,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            442,
+            1271,
+            200,
+            221
+          ],
+          "margin": [
+            100,
+            21,
+            156,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2880,
+            187,
+            194,
+            226
+          ],
+          "margin": [
+            111,
+            14,
+            162,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            646,
+            1271,
+            174,
+            213
+          ],
+          "margin": [
+            108,
+            29,
+            182,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3076,
+            187,
+            183,
+            204
+          ],
+          "margin": [
+            99,
+            36,
+            173,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            824,
+            1271,
+            193,
+            227
+          ],
+          "margin": [
+            85,
+            15,
+            163,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3261,
+            187,
+            251,
+            179
+          ],
+          "margin": [
+            63,
+            61,
+            105,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1021,
+            1271,
+            208,
+            187
+          ],
+          "margin": [
+            70,
+            54,
+            148,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3514,
+            187,
+            208,
+            143
+          ],
+          "margin": [
+            74,
+            97,
+            148,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1233,
+            1271,
+            207,
+            155
+          ],
+          "margin": [
+            77,
+            87,
+            149,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3724,
+            187,
+            218,
+            151
+          ],
+          "margin": [
+            76,
+            89,
+            138,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1444,
+            1271,
+            227,
+            160
+          ],
+          "margin": [
+            72,
+            83,
+            129,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            421,
+            260,
+            152
+          ],
+          "margin": [
+            77,
+            88,
+            96,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1675,
+            1271,
+            244,
+            154
+          ],
+          "margin": [
+            84,
+            90,
+            112,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            262,
+            421,
+            244,
+            145
+          ],
+          "margin": [
+            92,
+            95,
+            112,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            1508,
+            252,
+            155
+          ],
+          "margin": [
+            78,
+            87,
+            104,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            508,
+            421,
+            249,
+            150
+          ],
+          "margin": [
+            69,
+            90,
+            107,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            258,
+            1508,
+            262,
+            165
+          ],
+          "margin": [
+            56,
+            77,
+            94,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            759,
+            421,
+            278,
+            148
+          ],
+          "margin": [
+            43,
+            92,
+            78,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            524,
+            1508,
+            259,
+            152
+          ],
+          "margin": [
+            40,
+            90,
+            97,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1039,
+            421,
+            265,
+            138
+          ],
+          "margin": [
+            34,
+            102,
+            91,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            787,
+            1508,
+            255,
+            149
+          ],
+          "margin": [
+            40,
+            94,
+            101,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1306,
+            421,
+            271,
+            149
+          ],
+          "margin": [
+            39,
+            91,
+            85,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1046,
+            1508,
+            234,
+            149
+          ],
+          "margin": [
+            53,
+            95,
+            122,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1579,
+            421,
+            191,
+            153
+          ],
+          "margin": [
+            72,
+            87,
+            165,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1284,
+            1508,
+            196,
+            153
+          ],
+          "margin": [
+            77,
+            89,
+            160,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1772,
+            421,
+            180,
+            150
+          ],
+          "margin": [
+            88,
+            90,
+            176,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1484,
+            1508,
+            184,
+            166
+          ],
+          "margin": [
+            84,
+            77,
+            172,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1954,
+            421,
+            198,
+            163
+          ],
+          "margin": [
+            83,
+            77,
+            158,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1672,
+            1508,
+            196,
+            180
+          ],
+          "margin": [
+            82,
+            62,
+            160,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2154,
+            421,
+            210,
+            169
+          ],
+          "margin": [
+            59,
+            71,
+            146,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            1696,
+            201,
+            170
+          ],
+          "margin": [
+            64,
+            73,
+            155,
+            78
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2366,
+            421,
+            211,
+            169
+          ],
+          "margin": [
+            62,
+            71,
+            145,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            207,
+            1696,
+            235,
+            189
+          ],
+          "margin": [
+            47,
+            53,
+            121,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2579,
+            421,
+            231,
+            181
+          ],
+          "margin": [
+            60,
+            59,
+            125,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            446,
+            1696,
+            235,
+            195
+          ],
+          "margin": [
+            58,
+            47,
+            121,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2812,
+            421,
+            210,
+            184
+          ],
+          "margin": [
+            87,
+            56,
+            146,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            685,
+            1696,
+            210,
+            191
+          ],
+          "margin": [
+            92,
+            51,
+            146,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3024,
+            421,
+            201,
+            182
+          ],
+          "margin": [
+            106,
+            58,
+            155,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            899,
+            1696,
+            218,
+            202
+          ],
+          "margin": [
+            90,
+            40,
+            138,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3227,
+            421,
+            218,
+            190
+          ],
+          "margin": [
+            91,
+            50,
+            138,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1121,
+            1696,
+            241,
+            208
+          ],
+          "margin": [
+            74,
+            34,
+            115,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3447,
+            421,
+            219,
+            190
+          ],
+          "margin": [
+            87,
+            50,
+            137,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1366,
+            1696,
+            220,
+            199
+          ],
+          "margin": [
+            83,
+            43,
+            136,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3668,
+            421,
+            204,
+            184
+          ],
+          "margin": [
+            92,
+            56,
+            152,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1590,
+            1696,
+            214,
+            200
+          ],
+          "margin": [
+            82,
+            42,
+            142,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3874,
+            421,
+            218,
+            190
+          ],
+          "margin": [
+            80,
+            50,
+            138,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1808,
+            1696,
+            215,
+            210
+          ],
+          "margin": [
+            85,
+            32,
+            141,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            613,
+            212,
+            188
+          ],
+          "margin": [
+            83,
+            52,
+            144,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            206,
+            202
+          ],
+          "margin": [
+            85,
+            40,
+            150,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            214,
+            613,
+            200,
+            180
+          ],
+          "margin": [
+            92,
+            60,
+            156,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            212,
+            2,
+            205,
+            196
+          ],
+          "margin": [
+            90,
+            47,
+            151,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            416,
+            613,
+            210,
+            188
+          ],
+          "margin": [
+            84,
+            52,
+            146,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            421,
+            2,
+            213,
+            209
+          ],
+          "margin": [
+            86,
+            33,
+            143,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            628,
+            613,
+            205,
+            188
+          ],
+          "margin": [
+            91,
+            52,
+            151,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            638,
+            2,
+            209,
+            198
+          ],
+          "margin": [
+            88,
+            44,
+            147,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            835,
+            613,
+            183,
+            213
+          ],
+          "margin": [
+            116,
+            27,
+            173,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            851,
+            2,
+            180,
+            215
+          ],
+          "margin": [
+            102,
+            27,
+            176,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1020,
+            613,
+            179,
+            205
+          ],
+          "margin": [
+            102,
+            35,
+            177,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1035,
+            2,
+            180,
+            209
+          ],
+          "margin": [
+            102,
+            33,
+            176,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1201,
+            613,
+            194,
+            176
+          ],
+          "margin": [
+            100,
+            64,
+            162,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1219,
+            2,
+            183,
+            180
+          ],
+          "margin": [
+            102,
+            64,
+            173,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1397,
+            613,
+            220,
+            150
+          ],
+          "margin": [
+            86,
+            90,
+            136,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1406,
+            2,
+            229,
+            158
+          ],
+          "margin": [
+            72,
+            86,
+            127,
+            90
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1619,
+            613,
+            201,
+            166
+          ],
+          "margin": [
+            54,
+            74,
+            155,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1639,
+            2,
+            197,
+            153
+          ],
+          "margin": [
+            67,
+            89,
+            159,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1822,
+            613,
+            216,
+            133
+          ],
+          "margin": [
+            75,
+            107,
+            140,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            225,
+            208,
+            125
+          ],
+          "margin": [
+            78,
+            117,
+            148,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2040,
+            613,
+            208,
+            86
+          ],
+          "margin": [
+            88,
+            154,
+            148,
+            162
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            214,
+            225,
+            218,
+            93
+          ],
+          "margin": [
+            84,
+            148,
+            138,
+            155
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2250,
+            613,
+            223,
+            67
+          ],
+          "margin": [
+            86,
+            173,
+            133,
+            181
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            436,
+            225,
+            224,
+            83
+          ],
+          "margin": [
+            84,
+            161,
+            132,
+            165
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2475,
+            613,
+            196,
+            208
+          ],
+          "margin": [
+            108,
+            32,
+            160,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            664,
+            225,
+            209,
+            212
+          ],
+          "margin": [
+            87,
+            30,
+            147,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2673,
+            613,
+            189,
+            207
+          ],
+          "margin": [
+            100,
+            33,
+            167,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            877,
+            225,
+            203,
+            236
+          ],
+          "margin": [
+            81,
+            6,
+            153,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2864,
+            613,
+            210,
+            203
+          ],
+          "margin": [
+            84,
+            37,
+            146,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1084,
+            225,
+            194,
+            209
+          ],
+          "margin": [
+            84,
+            33,
+            162,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3076,
+            613,
+            191,
+            189
+          ],
+          "margin": [
+            84,
+            51,
+            165,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1282,
+            225,
+            190,
+            204
+          ],
+          "margin": [
+            73,
+            38,
+            166,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3269,
+            613,
+            191,
+            182
+          ],
+          "margin": [
+            70,
+            58,
+            165,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1476,
+            225,
+            219,
+            215
+          ],
+          "margin": [
+            48,
+            27,
+            137,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3462,
+            613,
+            273,
+            169
+          ],
+          "margin": [
+            24,
+            71,
+            83,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1699,
+            225,
+            246,
+            175
+          ],
+          "margin": [
+            24,
+            67,
+            110,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3737,
+            613,
+            224,
+            148
+          ],
+          "margin": [
+            45,
+            92,
+            132,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            469,
+            252,
+            171
+          ],
+          "margin": [
+            28,
+            71,
+            104,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            828,
+            266,
+            170
+          ],
+          "margin": [
+            39,
+            70,
+            90,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            258,
+            469,
+            250,
+            172
+          ],
+          "margin": [
+            46,
+            70,
+            106,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            268,
+            828,
+            191,
+            183
+          ],
+          "margin": [
+            86,
+            57,
+            165,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            512,
+            469,
+            205,
+            192
+          ],
+          "margin": [
+            86,
+            50,
+            151,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            461,
+            828,
+            170,
+            190
+          ],
+          "margin": [
+            116,
+            50,
+            186,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            721,
+            469,
+            198,
+            206
+          ],
+          "margin": [
+            101,
+            36,
+            158,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            633,
+            828,
+            189,
+            199
+          ],
+          "margin": [
+            103,
+            41,
+            167,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            923,
+            469,
+            190,
+            198
+          ],
+          "margin": [
+            101,
+            44,
+            166,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            824,
+            828,
+            184,
+            199
+          ],
+          "margin": [
+            92,
+            41,
+            172,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1117,
+            469,
+            202,
+            181
+          ],
+          "margin": [
+            94,
+            61,
+            154,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1010,
+            828,
+            178,
+            195
+          ],
+          "margin": [
+            96,
+            45,
+            178,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1323,
+            469,
+            191,
+            178
+          ],
+          "margin": [
+            86,
+            64,
+            165,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1190,
+            828,
+            174,
+            188
+          ],
+          "margin": [
+            83,
+            52,
+            182,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1518,
+            469,
+            199,
+            186
+          ],
+          "margin": [
+            68,
+            56,
+            157,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1366,
+            828,
+            209,
+            175
+          ],
+          "margin": [
+            66,
+            65,
+            147,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1721,
+            469,
+            196,
+            174
+          ],
+          "margin": [
+            60,
+            68,
+            160,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1577,
+            828,
+            178,
+            154
+          ],
+          "margin": [
+            68,
+            86,
+            178,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            683,
+            186,
+            155
+          ],
+          "margin": [
+            62,
+            88,
+            170,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1757,
+            828,
+            184,
+            147
+          ],
+          "margin": [
+            58,
+            93,
+            172,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            192,
+            683,
+            206,
+            176
+          ],
+          "margin": [
+            39,
+            66,
+            150,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1943,
+            828,
+            251,
+            136
+          ],
+          "margin": [
+            23,
+            104,
+            105,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            402,
+            683,
+            187,
+            188
+          ],
+          "margin": [
+            32,
+            54,
+            169,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2196,
+            828,
+            213,
+            117
+          ],
+          "margin": [
+            37,
+            123,
+            143,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            593,
+            683,
+            194,
+            183
+          ],
+          "margin": [
+            28,
+            59,
+            162,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2411,
+            828,
+            268,
+            145
+          ],
+          "margin": [
+            8,
+            95,
+            88,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            791,
+            683,
+            213,
+            166
+          ],
+          "margin": [
+            32,
+            76,
+            143,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2681,
+            828,
+            171,
+            163
+          ],
+          "margin": [
+            50,
+            77,
+            185,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1008,
+            683,
+            186,
+            129
+          ],
+          "margin": [
+            46,
+            112,
+            170,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2854,
+            828,
+            187,
+            176
+          ],
+          "margin": [
+            49,
+            64,
+            169,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1198,
+            683,
+            214,
+            135
+          ],
+          "margin": [
+            44,
+            107,
+            142,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3043,
+            828,
+            189,
+            181
+          ],
+          "margin": [
+            54,
+            59,
+            167,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1416,
+            683,
+            250,
+            148
+          ],
+          "margin": [
+            33,
+            94,
+            106,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3234,
+            828,
+            217,
+            179
+          ],
+          "margin": [
+            42,
+            61,
+            139,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1670,
+            683,
+            226,
+            178
+          ],
+          "margin": [
+            44,
+            64,
+            130,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3453,
+            828,
+            172,
+            180
+          ],
+          "margin": [
+            104,
+            60,
+            184,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            879,
+            206,
+            192
+          ],
+          "margin": [
+            76,
+            50,
+            150,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3627,
+            828,
+            185,
+            191
+          ],
+          "margin": [
+            89,
+            49,
+            171,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            212,
+            879,
+            192,
+            204
+          ],
+          "margin": [
+            86,
+            38,
+            164,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3814,
+            828,
+            190,
+            194
+          ],
+          "margin": [
+            82,
+            46,
+            166,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            408,
+            879,
+            190,
+            207
+          ],
+          "margin": [
+            83,
+            35,
+            166,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            1029,
+            188,
+            190
+          ],
+          "margin": [
+            80,
+            50,
+            168,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            602,
+            879,
+            190,
+            206
+          ],
+          "margin": [
+            82,
+            36,
+            166,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            190,
+            1029,
+            189,
+            194
+          ],
+          "margin": [
+            81,
+            46,
+            167,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            796,
+            879,
+            213,
+            215
+          ],
+          "margin": [
+            68,
+            27,
+            143,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            381,
+            1029,
+            262,
+            192
+          ],
+          "margin": [
+            74,
+            48,
+            94,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1013,
+            879,
+            257,
+            206
+          ],
+          "margin": [
+            68,
+            36,
+            99,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            645,
+            1029,
+            255,
+            182
+          ],
+          "margin": [
+            79,
+            58,
+            101,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1274,
+            879,
+            256,
+            201
+          ],
+          "margin": [
+            70,
+            41,
+            100,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            902,
+            1029,
+            260,
+            190
+          ],
+          "margin": [
+            82,
+            50,
+            96,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1534,
+            879,
+            259,
+            192
+          ],
+          "margin": [
+            76,
+            50,
+            97,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1164,
+            1029,
+            177,
+            191
+          ],
+          "margin": [
+            99,
+            49,
+            179,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1797,
+            879,
+            184,
+            197
+          ],
+          "margin": [
+            94,
+            45,
+            172,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1343,
+            1029,
+            158,
+            184
+          ],
+          "margin": [
+            117,
+            56,
+            198,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            1102,
+            172,
+            201
+          ],
+          "margin": [
+            100,
+            41,
+            184,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1503,
+            1029,
+            176,
+            190
+          ],
+          "margin": [
+            100,
+            50,
+            180,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            178,
+            1102,
+            181,
+            196
+          ],
+          "margin": [
+            89,
+            46,
+            175,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1681,
+            1029,
+            190,
+            189
+          ],
+          "margin": [
+            88,
+            51,
+            166,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            363,
+            1102,
+            186,
+            185
+          ],
+          "margin": [
+            84,
+            58,
+            170,
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1873,
+            1029,
+            180,
+            180
+          ],
+          "margin": [
+            88,
+            60,
+            176,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            553,
+            1102,
+            189,
+            189
+          ],
+          "margin": [
+            80,
+            53,
+            167,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2055,
+            1029,
+            195,
+            185
+          ],
+          "margin": [
+            77,
+            55,
+            161,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            746,
+            1102,
+            182,
+            193
+          ],
+          "margin": [
+            78,
+            49,
+            174,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2252,
+            1029,
+            204,
+            183
+          ],
+          "margin": [
+            84,
+            57,
+            152,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            932,
+            1102,
+            189,
+            185
+          ],
+          "margin": [
+            75,
+            58,
+            167,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2458,
+            1029,
+            197,
+            174
+          ],
+          "margin": [
+            89,
+            66,
+            159,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1125,
+            1102,
+            198,
+            185
+          ],
+          "margin": [
+            77,
+            58,
+            158,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2657,
+            1029,
+            209,
+            179
+          ],
+          "margin": [
+            77,
+            61,
+            147,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1327,
+            1102,
+            206,
+            191
+          ],
+          "margin": [
+            75,
+            51,
+            150,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2868,
+            1029,
+            228,
+            177
+          ],
+          "margin": [
+            74,
+            63,
+            128,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1537,
+            1102,
+            199,
+            196
+          ],
+          "margin": [
+            74,
+            46,
+            157,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3098,
+            1029,
+            223,
+            170
+          ],
+          "margin": [
+            77,
+            70,
+            133,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1740,
+            1102,
+            221,
+            188
+          ],
+          "margin": [
+            70,
+            56,
+            135,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3323,
+            1029,
+            228,
+            177
+          ],
+          "margin": [
+            73,
+            63,
+            128,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            1311,
+            206,
+            183
+          ],
+          "margin": [
+            75,
+            61,
+            150,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3553,
+            1029,
+            183,
+            176
+          ],
+          "margin": [
+            81,
+            64,
+            173,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            212,
+            1311,
+            171,
+            180
+          ],
+          "margin": [
+            78,
+            63,
+            185,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3738,
+            1029,
+            175,
+            168
+          ],
+          "margin": [
+            90,
+            72,
+            181,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            387,
+            1311,
+            182,
+            182
+          ],
+          "margin": [
+            80,
+            62,
+            174,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            1225,
+            186,
+            175
+          ],
+          "margin": [
+            78,
+            65,
+            170,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            573,
+            1311,
+            192,
+            196
+          ],
+          "margin": [
+            71,
+            46,
+            164,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            188,
+            1225,
+            208,
+            176
+          ],
+          "margin": [
+            60,
+            64,
+            148,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            769,
+            1311,
+            198,
+            193
+          ],
+          "margin": [
+            60,
+            49,
+            158,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            398,
+            1225,
+            176,
+            197
+          ],
+          "margin": [
+            84,
+            43,
+            180,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            971,
+            1311,
+            182,
+            222
+          ],
+          "margin": [
+            76,
+            20,
+            174,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            576,
+            1225,
+            186,
+            203
+          ],
+          "margin": [
+            82,
+            37,
+            170,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1157,
+            1311,
+            194,
+            231
+          ],
+          "margin": [
+            72,
+            11,
+            162,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            764,
+            1225,
+            206,
+            202
+          ],
+          "margin": [
+            70,
+            38,
+            150,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1355,
+            1311,
+            201,
+            210
+          ],
+          "margin": [
+            66,
+            32,
+            155,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            972,
+            1225,
+            190,
+            194
+          ],
+          "margin": [
+            80,
+            46,
+            166,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1560,
+            1311,
+            196,
+            200
+          ],
+          "margin": [
+            66,
+            42,
+            160,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1164,
+            1225,
+            193,
+            188
+          ],
+          "margin": [
+            67,
+            52,
+            163,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1760,
+            1311,
+            222,
+            222
+          ],
+          "margin": [
+            46,
+            20,
+            134,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1359,
+            1225,
+            259,
+            177
+          ],
+          "margin": [
+            30,
+            63,
+            97,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            1550,
+            245,
+            182
+          ],
+          "margin": [
+            30,
+            60,
+            111,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1620,
+            1225,
+            243,
+            157
+          ],
+          "margin": [
+            37,
+            83,
+            113,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            251,
+            1550,
+            281,
+            176
+          ],
+          "margin": [
+            16,
+            66,
+            75,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1865,
+            1225,
+            253,
+            175
+          ],
+          "margin": [
+            37,
+            65,
+            103,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            536,
+            1550,
+            242,
+            178
+          ],
+          "margin": [
+            44,
+            64,
+            114,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2120,
+            1225,
+            172,
+            184
+          ],
+          "margin": [
+            92,
+            56,
+            184,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            782,
+            1550,
+            199,
+            200
+          ],
+          "margin": [
+            83,
+            42,
+            157,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2294,
+            1225,
+            169,
+            188
+          ],
+          "margin": [
+            112,
+            52,
+            187,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            985,
+            1550,
+            201,
+            206
+          ],
+          "margin": [
+            91,
+            36,
+            155,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2465,
+            1225,
+            181,
+            195
+          ],
+          "margin": [
+            94,
+            45,
+            175,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1190,
+            1550,
+            197,
+            208
+          ],
+          "margin": [
+            80,
+            34,
+            159,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2648,
+            1225,
+            175,
+            194
+          ],
+          "margin": [
+            95,
+            46,
+            181,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1391,
+            1550,
+            170,
+            216
+          ],
+          "margin": [
+            86,
+            26,
+            186,
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2825,
+            1225,
+            167,
+            188
+          ],
+          "margin": [
+            84,
+            52,
+            189,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1565,
+            1550,
+            177,
+            210
+          ],
+          "margin": [
+            78,
+            32,
+            179,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2994,
+            1225,
+            168,
+            186
+          ],
+          "margin": [
+            88,
+            54,
+            188,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1746,
+            1550,
+            200,
+            220
+          ],
+          "margin": [
+            68,
+            22,
+            156,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3164,
+            1225,
+            253,
+            177
+          ],
+          "margin": [
+            66,
+            63,
+            103,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            2,
+            1778,
+            233,
+            176
+          ],
+          "margin": [
+            62,
+            66,
+            123,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3419,
+            1225,
+            227,
+            162
+          ],
+          "margin": [
+            78,
+            78,
+            129,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            239,
+            1778,
+            230,
+            183
+          ],
+          "margin": [
+            62,
+            59,
+            126,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3648,
+            1225,
+            229,
+            159
+          ],
+          "margin": [
+            75,
+            81,
+            127,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            473,
+            1778,
+            247,
+            190
+          ],
+          "margin": [
+            63,
+            52,
+            109,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            1430,
+            289,
+            148
+          ],
+          "margin": [
+            41,
+            92,
+            67,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            724,
+            1778,
+            255,
+            172
+          ],
+          "margin": [
+            52,
+            70,
+            101,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            291,
+            1430,
+            259,
+            132
+          ],
+          "margin": [
+            56,
+            108,
+            97,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            983,
+            1778,
+            256,
+            161
+          ],
+          "margin": [
+            52,
+            81,
+            100,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            552,
+            1430,
+            268,
+            135
+          ],
+          "margin": [
+            48,
+            105,
+            88,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1243,
+            1778,
+            251,
+            160
+          ],
+          "margin": [
+            54,
+            82,
+            105,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            822,
+            1430,
+            254,
+            133
+          ],
+          "margin": [
+            52,
+            107,
+            102,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1498,
+            1778,
+            246,
+            147
+          ],
+          "margin": [
+            56,
+            95,
+            110,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1078,
+            1430,
+            242,
+            122
+          ],
+          "margin": [
+            63,
+            118,
+            114,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_01.png",
+          "region": [
+            1748,
+            1778,
+            257,
+            148
+          ],
+          "margin": [
+            54,
+            94,
+            99,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1322,
+            1430,
+            284,
+            146
+          ],
+          "margin": [
+            42,
+            94,
+            72,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            2,
+            2,
+            256,
+            156
+          ],
+          "margin": [
+            58,
+            86,
+            100,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1608,
+            1430,
+            197,
+            160
+          ],
+          "margin": [
+            61,
+            80,
+            159,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            262,
+            2,
+            209,
+            177
+          ],
+          "margin": [
+            57,
+            65,
+            147,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_settle",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1807,
+            1430,
+            214,
+            170
+          ],
+          "margin": [
+            23,
+            70,
+            142,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            475,
+            2,
+            224,
+            188
+          ],
+          "margin": [
+            25,
+            54,
+            132,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2023,
+            1430,
+            196,
+            171
+          ],
+          "margin": [
+            50,
+            69,
+            160,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            703,
+            2,
+            214,
+            188
+          ],
+          "margin": [
+            46,
+            54,
+            142,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2221,
+            1430,
+            183,
+            174
+          ],
+          "margin": [
+            76,
+            66,
+            173,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            921,
+            2,
+            199,
+            188
+          ],
+          "margin": [
+            76,
+            54,
+            157,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2406,
+            1430,
+            208,
+            184
+          ],
+          "margin": [
+            63,
+            56,
+            148,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1124,
+            2,
+            220,
+            193
+          ],
+          "margin": [
+            55,
+            49,
+            136,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2616,
+            1430,
+            201,
+            180
+          ],
+          "margin": [
+            64,
+            60,
+            155,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1348,
+            2,
+            213,
+            188
+          ],
+          "margin": [
+            56,
+            55,
+            143,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2819,
+            1430,
+            190,
+            173
+          ],
+          "margin": [
+            76,
+            67,
+            166,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1565,
+            2,
+            207,
+            185
+          ],
+          "margin": [
+            62,
+            58,
+            149,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3011,
+            1430,
+            182,
+            174
+          ],
+          "margin": [
+            73,
+            66,
+            174,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1776,
+            2,
+            203,
+            183
+          ],
+          "margin": [
+            62,
+            61,
+            153,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_settle",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3195,
+            1430,
+            222,
+            178
+          ],
+          "margin": [
+            74,
+            62,
+            134,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            2,
+            203,
+            224,
+            191
+          ],
+          "margin": [
+            64,
+            51,
+            132,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3419,
+            1430,
+            197,
+            172
+          ],
+          "margin": [
+            66,
+            68,
+            159,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            230,
+            203,
+            212,
+            182
+          ],
+          "margin": [
+            56,
+            60,
+            144,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3618,
+            1430,
+            178,
+            201
+          ],
+          "margin": [
+            89,
+            39,
+            178,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            446,
+            203,
+            197,
+            205
+          ],
+          "margin": [
+            84,
+            37,
+            159,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3798,
+            1430,
+            211,
+            169
+          ],
+          "margin": [
+            62,
+            71,
+            145,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            649,
+            216,
+            214,
+            188
+          ],
+          "margin": [
+            66,
+            56,
+            142,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            1633,
+            221,
+            181
+          ],
+          "margin": [
+            63,
+            59,
+            135,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            867,
+            216,
+            217,
+            192
+          ],
+          "margin": [
+            74,
+            50,
+            139,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            223,
+            1633,
+            207,
+            185
+          ],
+          "margin": [
+            93,
+            55,
+            149,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1088,
+            216,
+            213,
+            194
+          ],
+          "margin": [
+            91,
+            48,
+            143,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            432,
+            1633,
+            201,
+            182
+          ],
+          "margin": [
+            106,
+            58,
+            155,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1305,
+            216,
+            217,
+            195
+          ],
+          "margin": [
+            93,
+            47,
+            139,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            635,
+            1633,
+            206,
+            190
+          ],
+          "margin": [
+            95,
+            50,
+            150,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1526,
+            216,
+            219,
+            198
+          ],
+          "margin": [
+            87,
+            44,
+            137,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            843,
+            1633,
+            205,
+            191
+          ],
+          "margin": [
+            96,
+            49,
+            151,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1749,
+            216,
+            213,
+            193
+          ],
+          "margin": [
+            88,
+            49,
+            143,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1050,
+            1633,
+            204,
+            184
+          ],
+          "margin": [
+            92,
+            56,
+            152,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            428,
+            215,
+            194
+          ],
+          "margin": [
+            83,
+            48,
+            141,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1256,
+            1633,
+            213,
+            189
+          ],
+          "margin": [
+            87,
+            51,
+            143,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            221,
+            428,
+            221,
+            201
+          ],
+          "margin": [
+            78,
+            41,
+            135,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1471,
+            1633,
+            217,
+            188
+          ],
+          "margin": [
+            81,
+            52,
+            139,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            446,
+            428,
+            212,
+            191
+          ],
+          "margin": [
+            82,
+            52,
+            144,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1690,
+            1633,
+            200,
+            180
+          ],
+          "margin": [
+            92,
+            60,
+            156,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            662,
+            428,
+            209,
+            193
+          ],
+          "margin": [
+            86,
+            49,
+            147,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1892,
+            1633,
+            213,
+            188
+          ],
+          "margin": [
+            85,
+            52,
+            143,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            875,
+            428,
+            215,
+            198
+          ],
+          "margin": [
+            86,
+            44,
+            141,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2107,
+            1633,
+            208,
+            187
+          ],
+          "margin": [
+            92,
+            53,
+            148,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1094,
+            428,
+            209,
+            193
+          ],
+          "margin": [
+            90,
+            50,
+            147,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2317,
+            1633,
+            211,
+            169
+          ],
+          "margin": [
+            62,
+            71,
+            145,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            221,
+            186
+          ],
+          "margin": [
+            59,
+            56,
+            135,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2530,
+            1633,
+            223,
+            181
+          ],
+          "margin": [
+            62,
+            59,
+            133,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            227,
+            2,
+            221,
+            194
+          ],
+          "margin": [
+            70,
+            48,
+            135,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2755,
+            1633,
+            208,
+            185
+          ],
+          "margin": [
+            88,
+            55,
+            148,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            452,
+            2,
+            205,
+            195
+          ],
+          "margin": [
+            96,
+            47,
+            151,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2965,
+            1633,
+            201,
+            182
+          ],
+          "margin": [
+            106,
+            58,
+            155,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            661,
+            2,
+            218,
+            201
+          ],
+          "margin": [
+            92,
+            41,
+            138,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3168,
+            1633,
+            217,
+            189
+          ],
+          "margin": [
+            91,
+            51,
+            139,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            883,
+            2,
+            222,
+            206
+          ],
+          "margin": [
+            88,
+            36,
+            134,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3387,
+            1633,
+            217,
+            191
+          ],
+          "margin": [
+            86,
+            49,
+            139,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1109,
+            2,
+            214,
+            196
+          ],
+          "margin": [
+            86,
+            46,
+            142,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3606,
+            1633,
+            204,
+            184
+          ],
+          "margin": [
+            92,
+            56,
+            152,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1327,
+            2,
+            215,
+            193
+          ],
+          "margin": [
+            80,
+            49,
+            141,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3812,
+            1633,
+            212,
+            190
+          ],
+          "margin": [
+            84,
+            50,
+            144,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1546,
+            2,
+            226,
+            205
+          ],
+          "margin": [
+            76,
+            37,
+            130,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            0,
+            1826,
+            212,
+            189
+          ],
+          "margin": [
+            83,
+            51,
+            144,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            1776,
+            2,
+            209,
+            198
+          ],
+          "margin": [
+            84,
+            44,
+            147,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            214,
+            1826,
+            200,
+            180
+          ],
+          "margin": [
+            92,
+            60,
+            156,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            2,
+            216,
+            210,
+            199
+          ],
+          "margin": [
+            86,
+            43,
+            146,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            416,
+            1826,
+            209,
+            187
+          ],
+          "margin": [
+            84,
+            53,
+            147,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            216,
+            216,
+            218,
+            204
+          ],
+          "margin": [
+            81,
+            38,
+            138,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            627,
+            1826,
+            204,
+            189
+          ],
+          "margin": [
+            92,
+            51,
+            152,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_00.png",
+          "region": [
+            438,
+            216,
+            207,
+            194
+          ],
+          "margin": [
+            92,
+            48,
+            149,
+            54
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            833,
+            1826,
+            211,
+            169
+          ],
+          "margin": [
+            62,
+            71,
+            145,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            647,
+            203,
+            196,
+            194
+          ],
+          "margin": [
+            78,
+            48,
+            160,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1046,
+            1826,
+            219,
+            181
+          ],
+          "margin": [
+            62,
+            59,
+            137,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            847,
+            203,
+            211,
+            202
+          ],
+          "margin": [
+            74,
+            40,
+            145,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1267,
+            1826,
+            202,
+            185
+          ],
+          "margin": [
+            92,
+            55,
+            154,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1062,
+            203,
+            221,
+            194
+          ],
+          "margin": [
+            88,
+            48,
+            135,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1471,
+            1826,
+            201,
+            182
+          ],
+          "margin": [
+            106,
+            58,
+            155,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1287,
+            203,
+            217,
+            194
+          ],
+          "margin": [
+            81,
+            48,
+            139,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1674,
+            1826,
+            202,
+            190
+          ],
+          "margin": [
+            97,
+            50,
+            154,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1508,
+            203,
+            205,
+            229
+          ],
+          "margin": [
+            99,
+            13,
+            151,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            1878,
+            1826,
+            213,
+            191
+          ],
+          "margin": [
+            87,
+            49,
+            143,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1717,
+            203,
+            213,
+            203
+          ],
+          "margin": [
+            94,
+            39,
+            143,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2093,
+            1826,
+            204,
+            184
+          ],
+          "margin": [
+            92,
+            56,
+            152,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            2,
+            440,
+            214,
+            197
+          ],
+          "margin": [
+            78,
+            45,
+            142,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2299,
+            1826,
+            211,
+            190
+          ],
+          "margin": [
+            83,
+            50,
+            145,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            220,
+            440,
+            222,
+            204
+          ],
+          "margin": [
+            74,
+            38,
+            134,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2512,
+            1826,
+            210,
+            189
+          ],
+          "margin": [
+            83,
+            51,
+            146,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            446,
+            440,
+            210,
+            197
+          ],
+          "margin": [
+            81,
+            45,
+            146,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2724,
+            1826,
+            200,
+            180
+          ],
+          "margin": [
+            92,
+            60,
+            156,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            660,
+            440,
+            201,
+            198
+          ],
+          "margin": [
+            88,
+            44,
+            155,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            2926,
+            1826,
+            202,
+            188
+          ],
+          "margin": [
+            87,
+            52,
+            154,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            865,
+            440,
+            213,
+            205
+          ],
+          "margin": [
+            80,
+            37,
+            143,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/combat_motion_v7.png",
+          "region": [
+            3130,
+            1826,
+            199,
+            188
+          ],
+          "margin": [
+            93,
+            52,
+            157,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1082,
+            440,
+            209,
+            201
+          ],
+          "margin": [
+            84,
+            41,
+            147,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backstep",
+      "fps": 36,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            0,
+            0,
+            192,
+            196
+          ],
+          "margin": [
+            100,
+            44,
+            164,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1295,
+            440,
+            206,
+            207
+          ],
+          "margin": [
+            88,
+            34,
+            150,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            224,
+            0,
+            198,
+            194
+          ],
+          "margin": [
+            98,
+            46,
+            158,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1505,
+            440,
+            216,
+            204
+          ],
+          "margin": [
+            82,
+            36,
+            140,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            448,
+            0,
+            204,
+            193
+          ],
+          "margin": [
+            93,
+            47,
+            152,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1725,
+            440,
+            216,
+            207
+          ],
+          "margin": [
+            80,
+            33,
+            140,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            672,
+            0,
+            204,
+            188
+          ],
+          "margin": [
+            92,
+            52,
+            152,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            2,
+            655,
+            218,
+            203
+          ],
+          "margin": [
+            82,
+            37,
+            138,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            896,
+            0,
+            215,
+            184
+          ],
+          "margin": [
+            86,
+            56,
+            141,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            224,
+            655,
+            216,
+            201
+          ],
+          "margin": [
+            87,
+            40,
+            140,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            1120,
+            0,
+            220,
+            183
+          ],
+          "margin": [
+            83,
+            57,
+            136,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            444,
+            655,
+            222,
+            200
+          ],
+          "margin": [
+            81,
+            40,
+            134,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            0,
+            201,
+            218,
+            186
+          ],
+          "margin": [
+            83,
+            54,
+            138,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            670,
+            655,
+            219,
+            193
+          ],
+          "margin": [
+            83,
+            47,
+            137,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            224,
+            201,
+            213,
+            185
+          ],
+          "margin": [
+            84,
+            55,
+            143,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            893,
+            655,
+            210,
+            193
+          ],
+          "margin": [
+            87,
+            47,
+            146,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            448,
+            201,
+            208,
+            184
+          ],
+          "margin": [
+            90,
+            56,
+            148,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1107,
+            655,
+            211,
+            197
+          ],
+          "margin": [
+            88,
+            44,
+            145,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            672,
+            201,
+            203,
+            190
+          ],
+          "margin": [
+            95,
+            50,
+            153,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1322,
+            655,
+            207,
+            197
+          ],
+          "margin": [
+            91,
+            44,
+            149,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            896,
+            201,
+            196,
+            192
+          ],
+          "margin": [
+            98,
+            48,
+            160,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1533,
+            655,
+            205,
+            198
+          ],
+          "margin": [
+            95,
+            43,
+            151,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            1120,
+            201,
+            197,
+            195
+          ],
+          "margin": [
+            98,
+            45,
+            159,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1742,
+            655,
+            201,
+            197
+          ],
+          "margin": [
+            97,
+            44,
+            155,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ready_guard",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            0,
+            402,
+            200,
+            193
+          ],
+          "margin": [
+            99,
+            47,
+            156,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            2,
+            866,
+            195,
+            196
+          ],
+          "margin": [
+            100,
+            44,
+            161,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            224,
+            402,
+            203,
+            194
+          ],
+          "margin": [
+            98,
+            46,
+            153,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            201,
+            866,
+            198,
+            195
+          ],
+          "margin": [
+            95,
+            46,
+            158,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            448,
+            402,
+            205,
+            197
+          ],
+          "margin": [
+            92,
+            43,
+            151,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            403,
+            866,
+            204,
+            198
+          ],
+          "margin": [
+            92,
+            42,
+            152,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            672,
+            402,
+            209,
+            197
+          ],
+          "margin": [
+            88,
+            43,
+            147,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            611,
+            866,
+            203,
+            199
+          ],
+          "margin": [
+            92,
+            42,
+            153,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            896,
+            402,
+            213,
+            195
+          ],
+          "margin": [
+            89,
+            45,
+            143,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            818,
+            866,
+            202,
+            201
+          ],
+          "margin": [
+            91,
+            39,
+            154,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            1120,
+            402,
+            205,
+            193
+          ],
+          "margin": [
+            95,
+            47,
+            151,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1024,
+            866,
+            196,
+            197
+          ],
+          "margin": [
+            95,
+            44,
+            160,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ready_settle",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            0,
+            603,
+            199,
+            192
+          ],
+          "margin": [
+            101,
+            48,
+            157,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1224,
+            866,
+            199,
+            195
+          ],
+          "margin": [
+            92,
+            46,
+            157,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            224,
+            603,
+            200,
+            191
+          ],
+          "margin": [
+            100,
+            49,
+            156,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1427,
+            866,
+            203,
+            195
+          ],
+          "margin": [
+            90,
+            46,
+            153,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            448,
+            603,
+            206,
+            190
+          ],
+          "margin": [
+            95,
+            50,
+            150,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1634,
+            866,
+            205,
+            199
+          ],
+          "margin": [
+            90,
+            42,
+            151,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            672,
+            603,
+            206,
+            191
+          ],
+          "margin": [
+            94,
+            49,
+            150,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            1843,
+            866,
+            202,
+            200
+          ],
+          "margin": [
+            92,
+            41,
+            154,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            896,
+            603,
+            201,
+            190
+          ],
+          "margin": [
+            97,
+            50,
+            155,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            2,
+            1075,
+            203,
+            198
+          ],
+          "margin": [
+            90,
+            42,
+            153,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/boss_behavior_v1.png",
+          "region": [
+            1120,
+            603,
+            201,
+            190
+          ],
+          "margin": [
+            96,
+            50,
+            155,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/motion_v8_02.png",
+          "region": [
+            209,
+            1075,
+            192,
+            192
+          ],
+          "margin": [
+            96,
+            49,
+            164,
+            56
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "cast",
+    "cast_recover",
+    "cast_windup",
+    "heavy",
+    "heavy_recover",
+    "heavy_windup",
+    "phase",
+    "phase_recover",
+    "phase_windup",
+    "recover",
+    "windup"
+  ],
+  "behavior_generation_record": "boss_behavior_v1.json"
+}

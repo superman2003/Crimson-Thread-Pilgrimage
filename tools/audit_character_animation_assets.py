@@ -19,7 +19,7 @@ CHAPTERS = [
     "moss_bell_court", "rain_foundry_canal", "saltwhite_archive",
     "broken_string_greenhouse", "obsidian_pilgrim_road", "silent_crown_core",
 ]
-LAYERS = ["motion_onion_manifest.json", "boss_behavior_manifest.json", "combat_motion_v7_manifest.json",
+LAYERS = ["motion_onion_manifest.json", "motion_v8_manifest.json", "boss_behavior_manifest.json", "combat_motion_v7_manifest.json",
           "motion_manifest.json", "manifest.json"]
 CORE = ["idle", "walk", "windup", "attack", "recover", "hurt", "death"]
 OPTIONAL = ["turn", "brake", "jump", "land", "intro", "stagger"]
@@ -245,14 +245,18 @@ def resolve_signature(command):
 
 def markdown(report):
     s = report["summary"]
+    has_v8 = any(Path(a["manifest"]).name == "motion_v8_manifest.json" for a in report["actors"])
+    priority = ("`motion_v8_manifest` → " if has_v8 else "") + "`boss_behavior_manifest` → `combat_motion_v7_manifest` → `motion_manifest` → `manifest`"
+    phase_note = ("当前正式角色的攻击阶段为 24 帧，通常三段合计 72 个姿势引用。" if has_v8 else
+                  "十二帧是每个阶段的数量，通常三段合计 36 个姿势引用。")
     lines = ["# 敌人动作素材逐项盘点（自动生成）", "",
              f"审计基线：`{report['source_commit']}`。范围为正式六章、可选挑战敌人和二十 Boss 备用库。", "",
              f"共 {s['minor_species']} 种小怪、{s['chapter_bosses']} 位正式 Boss；小怪 {s['minor_commands_including_elites']} 条攻击（含 {s['elite_signature_commands']} 条精英专属），Boss {s['boss_commands']} 条攻击。",
              f"检查 {s['body_atlases_checked']} 张身体图集、{s['body_frame_refs_checked']} 个帧引用；缺少基础动作或无效资源：{s['missing_core_or_invalid_assets']}。", "",
              f"未取得本地 LFS 实体的图片：{s['unresolved_lfs_images']}；若非零，相关图片仅验证 Git 指针及动画登记，不能据此宣称像素资源验收完成。", "",
              "帧数指 manifest 引用数；`unique_regions` 记录不同图集区域，不等于新画姿势数。本次只检查 Git 中的 PNG、尺寸、裁切边界、动作选择和特效登记，不证明动作顺滑、碰撞同步或自然通关。", "",
-             "正式读取优先级：`boss_behavior_manifest` → `combat_motion_v7_manifest` → `motion_manifest` → `manifest`。左右采用水平翻转；没有单独左右图不计作缺失。", "",
-             "十二帧是每个阶段的数量，通常三段合计 36 个姿势引用。平滑程度还取决于时长：`姿势更新率 = 帧数 / 秒数`。下列 Boss 名义更新率依据配置计算；连击子节拍和运行时改写时长需单独测量，不等于渲染 FPS。", "",
+             f"正式读取优先级：{priority}。左右采用水平翻转；没有单独左右图不计作缺失。", "",
+             phase_note + "平滑程度还取决于时长：`姿势更新率 = 帧数 / 秒数`。下列 Boss 名义更新率依据配置计算；连击子节拍和运行时改写时长需单独测量，不等于渲染 FPS。", "",
              "## 40 种小怪", "",
              "每行均有待机、移动、前摇、出手、收招、受击、死亡。驻足怪的 `walk` 存在不代表其 AI 会行走；飞行怪的 `walk` 表示飞行循环。", "",
              "| 章节 / kind | 移动方式 | 待机 / 移动 / 受击 / 死亡 | 攻击 → 实际身体动画（前摇 / 出手 / 收招帧数） |", "| --- | --- | --- | --- |"]

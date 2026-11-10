@@ -8,6 +8,8 @@ from __future__ import annotations
 import argparse
 from contextlib import contextmanager
 import ctypes
+import json
+import math
 import os
 from pathlib import Path
 import re
@@ -44,16 +46,47 @@ def run_hidden(command,desktop,env,log,timeout=240):
     if code or re.search(r'^\s*(?:ERROR:|SCRIPT ERROR:|WARNING: ObjectDB)',text,re.M):raise RuntimeError(text[-5000:])
     return text
 
+
+def compare_v7_timeline(output):
+    """Compare the same seeded actor simulation, allowing only doubled cel time."""
+    before=json.loads((output/'before/events.json').read_text(encoding='utf8'))
+    after=json.loads((output/'after/events.json').read_text(encoding='utf8'))
+    if len(before)!=len(after):raise RuntimeError('Before/after capture lengths differ')
+    mismatches=[];max_position=0.0;max_progress=0.0
+    for index,(old,new) in enumerate(zip(before,after)):
+        for field in ['kind','frame','state','intent','animation']:
+            if old[field]!=new[field]:mismatches.append(f'{index}: {field}')
+        max_position=max(max_position,math.hypot(new['x']-old['x'],new['y']-old['y']))
+        max_progress=max(max_progress,abs(new['pose']+new['progress']-2*(old['pose']+old['progress'])))
+    report=dict(frames_per_side=len(before),state_or_clip_mismatches=len(mismatches),
+                max_position_delta_px=max_position,max_doubled_pose_progress_delta=max_progress,
+                fixed_fps=60,baseline='retained v7 / boss_behavior',current='motion_v8',
+                diagnostic='same seeded AI, static target, silent; not a natural playthrough or performance benchmark')
+    (output/'timeline_comparison.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8')
+    if mismatches or max_position>.001 or max_progress>.001:
+        raise RuntimeError('Animation timing changed: '+json.dumps(report)+' '+str(mismatches[:20]))
+    print('DOUBLED_TIMELINE_PASS '+json.dumps(report),flush=True)
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine',type=Path,default=ROOT/'output/tools/godot-4.6.1/Godot_v4.6.1-stable_win64.exe')
     parser.add_argument('--all-bosses',action='store_true')
+    parser.add_argument('--hit-feedback',action='store_true',help='Capture production damage flash and recoil on three representative actors')
+    parser.add_argument('--baseline-v7',action='store_true',help='Compare retained v7/defensive art against the current doubled layer')
     parser.add_argument('--warnings',action='store_true')
     parser.add_argument('--output',type=Path,default=ROOT/'output/combat_animation_v7/native-review')
     args=parser.parse_args();engine=args.engine.resolve();output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
     if engine.name.endswith('_console.exe'):
         native=engine.with_name(engine.name.replace('_console.exe','.exe'))
         if native.is_file():engine=native
+    if args.hit_feedback:
+        with tempfile.TemporaryDirectory(prefix='hit-feedback-review-') as profile,hidden_desktop() as desktop:
+            text=run_hidden([str(engine),'--display-driver','windows','--audio-driver','Dummy','--rendering-method','gl_compatibility','--fixed-fps','60','--path',str(ROOT/'godot'),'--script','res://scripts/enemy_hit_feedback_capture.gd','--','--capture-dir='+str(output)],desktop,dict(os.environ,APPDATA=profile,XDG_DATA_HOME=profile),output/'capture.log')
+            if 'ENEMY_HIT_FEEDBACK_CAPTURE frames=216' not in text:raise RuntimeError('Hit feedback capture did not complete')
+        subprocess.run(['ffmpeg','-v','error','-y','-framerate','60','-i',str(output/'frame_%05d.png'),'-c:v','libx264','-crf','18','-pix_fmt','yuv420p','-movflags','+faststart',str(output/'hit-feedback.mp4')],check=True)
+        print('ENEMY_HIT_FEEDBACK_REVIEW_PASS '+str(output/'hit-feedback.mp4'))
+        return
     if args.warnings:
         fixture=ROOT/'godot/scripts/combat_warning_legacy_fixture.gd'
         if fixture.exists():raise FileExistsError('Refusing to overwrite an existing fixture')
@@ -72,7 +105,7 @@ def main():
             frames=output/name;frames.mkdir(exist_ok=True)
             command=[str(engine),'--display-driver','windows','--audio-driver','Dummy','--rendering-method','gl_compatibility','--fixed-fps','60',
                      '--path',str(ROOT/'godot'),'--script','res://scripts/enemy_combat_showcase_capture.gd','--','--capture-dir='+str(frames)]
-            if name=='before':command.append('--legacy-art')
+            if name=='before':command.append('--baseline-v7' if args.baseline_v7 else '--legacy-art')
             if args.all_bosses:command.append('--all-bosses')
             text=run_hidden(command,desktop,dict(os.environ,APPDATA=profile,XDG_DATA_HOME=profile),output/(name+'.log'))
             if f'COMBAT_SHOWCASE_CAPTURE_PASS frames={count}' not in text:raise RuntimeError('Capture did not complete')
@@ -80,6 +113,7 @@ def main():
             print('COMBAT_POSE_CAPTURE',name,'frames='+str(count),flush=True)
     subprocess.run(['ffmpeg','-v','error','-y','-i',str(output/'before.mp4'),'-i',str(output/'after.mp4'),'-filter_complex','[0:v][1:v]hstack=inputs=2',
                     '-c:v','libx264','-crf','19','-pix_fmt','yuv420p','-movflags','+faststart',str(output/'combat-poses-comparison.mp4')],check=True)
+    if args.baseline_v7:compare_v7_timeline(output)
     print('COMBAT_POSE_REVIEW_PASS '+str(output/'combat-poses-comparison.mp4'))
 
 if __name__=='__main__':main()

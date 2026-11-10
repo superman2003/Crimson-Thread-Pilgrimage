@@ -1,0 +1,2924 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "bronze_moth",
+  "canvas": [
+    366,
+    293
+  ],
+  "display_height": 86,
+  "visual_scale": 0.43434343434343436,
+  "visual_offset": [
+    0,
+    2.060951534892901
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            194,
+            198
+          ],
+          "margin": [
+            101,
+            76,
+            172,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            182,
+            177
+          ],
+          "margin": [
+            103,
+            99,
+            184,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            196,
+            0,
+            186,
+            190
+          ],
+          "margin": [
+            103,
+            84,
+            180,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            188,
+            2,
+            190,
+            178
+          ],
+          "margin": [
+            90,
+            98,
+            176,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            384,
+            0,
+            204,
+            200
+          ],
+          "margin": [
+            80,
+            74,
+            162,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            382,
+            2,
+            191,
+            177
+          ],
+          "margin": [
+            83,
+            99,
+            175,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            590,
+            0,
+            199,
+            182
+          ],
+          "margin": [
+            78,
+            92,
+            167,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            577,
+            2,
+            192,
+            178
+          ],
+          "margin": [
+            88,
+            98,
+            174,
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            791,
+            0,
+            210,
+            185
+          ],
+          "margin": [
+            100,
+            89,
+            156,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            773,
+            2,
+            186,
+            171
+          ],
+          "margin": [
+            107,
+            105,
+            180,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1003,
+            0,
+            200,
+            166
+          ],
+          "margin": [
+            97,
+            108,
+            166,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            963,
+            2,
+            192,
+            160
+          ],
+          "margin": [
+            99,
+            116,
+            174,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1205,
+            0,
+            213,
+            170
+          ],
+          "margin": [
+            90,
+            104,
+            153,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1159,
+            2,
+            186,
+            154
+          ],
+          "margin": [
+            95,
+            124,
+            180,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1420,
+            0,
+            201,
+            161
+          ],
+          "margin": [
+            80,
+            113,
+            165,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1349,
+            2,
+            192,
+            153
+          ],
+          "margin": [
+            90,
+            123,
+            174,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1623,
+            0,
+            212,
+            191
+          ],
+          "margin": [
+            95,
+            83,
+            154,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1545,
+            2,
+            206,
+            163
+          ],
+          "margin": [
+            92,
+            113,
+            160,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1837,
+            0,
+            209,
+            192
+          ],
+          "margin": [
+            98,
+            82,
+            157,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1755,
+            2,
+            203,
+            168
+          ],
+          "margin": [
+            95,
+            108,
+            163,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2048,
+            0,
+            229,
+            173
+          ],
+          "margin": [
+            73,
+            101,
+            137,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            188,
+            196,
+            153
+          ],
+          "margin": [
+            92,
+            123,
+            170,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2279,
+            0,
+            194,
+            183
+          ],
+          "margin": [
+            88,
+            91,
+            172,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            202,
+            188,
+            200,
+            159
+          ],
+          "margin": [
+            89,
+            117,
+            166,
+            134
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2475,
+            0,
+            215,
+            180
+          ],
+          "margin": [
+            79,
+            94,
+            151,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            406,
+            188,
+            213,
+            176
+          ],
+          "margin": [
+            74,
+            100,
+            153,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2692,
+            0,
+            205,
+            177
+          ],
+          "margin": [
+            82,
+            97,
+            161,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            623,
+            188,
+            216,
+            182
+          ],
+          "margin": [
+            74,
+            94,
+            150,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2899,
+            0,
+            218,
+            169
+          ],
+          "margin": [
+            68,
+            105,
+            148,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            843,
+            188,
+            206,
+            163
+          ],
+          "margin": [
+            81,
+            113,
+            160,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3119,
+            0,
+            196,
+            152
+          ],
+          "margin": [
+            78,
+            122,
+            170,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1053,
+            188,
+            195,
+            150
+          ],
+          "margin": [
+            76,
+            127,
+            171,
+            143
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3317,
+            0,
+            214,
+            161
+          ],
+          "margin": [
+            69,
+            113,
+            152,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1252,
+            188,
+            209,
+            185
+          ],
+          "margin": [
+            74,
+            91,
+            157,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3533,
+            0,
+            222,
+            162
+          ],
+          "margin": [
+            60,
+            112,
+            144,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1465,
+            188,
+            196,
+            173
+          ],
+          "margin": [
+            82,
+            103,
+            170,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3757,
+            0,
+            209,
+            156
+          ],
+          "margin": [
+            69,
+            118,
+            157,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1665,
+            188,
+            197,
+            170
+          ],
+          "margin": [
+            81,
+            106,
+            169,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            0,
+            202,
+            226,
+            164
+          ],
+          "margin": [
+            56,
+            110,
+            140,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            381,
+            213,
+            173
+          ],
+          "margin": [
+            68,
+            103,
+            153,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            228,
+            202,
+            227,
+            163
+          ],
+          "margin": [
+            57,
+            111,
+            139,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            219,
+            381,
+            197,
+            166
+          ],
+          "margin": [
+            76,
+            110,
+            169,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            457,
+            202,
+            210,
+            158
+          ],
+          "margin": [
+            68,
+            116,
+            156,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            420,
+            381,
+            199,
+            154
+          ],
+          "margin": [
+            74,
+            122,
+            167,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            669,
+            202,
+            210,
+            162
+          ],
+          "margin": [
+            72,
+            112,
+            156,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            623,
+            381,
+            210,
+            164
+          ],
+          "margin": [
+            70,
+            112,
+            156,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            881,
+            202,
+            295,
+            162
+          ],
+          "margin": [
+            54,
+            112,
+            71,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            837,
+            381,
+            209,
+            148
+          ],
+          "margin": [
+            70,
+            128,
+            157,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1178,
+            202,
+            278,
+            153
+          ],
+          "margin": [
+            71,
+            121,
+            88,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1050,
+            381,
+            251,
+            149
+          ],
+          "margin": [
+            72,
+            127,
+            115,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1458,
+            202,
+            300,
+            163
+          ],
+          "margin": [
+            58,
+            111,
+            66,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1305,
+            381,
+            268,
+            154
+          ],
+          "margin": [
+            66,
+            122,
+            98,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1760,
+            202,
+            283,
+            164
+          ],
+          "margin": [
+            64,
+            110,
+            83,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1577,
+            381,
+            239,
+            141
+          ],
+          "margin": [
+            84,
+            135,
+            127,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2045,
+            202,
+            267,
+            159
+          ],
+          "margin": [
+            76,
+            115,
+            99,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            562,
+            246,
+            162
+          ],
+          "margin": [
+            78,
+            114,
+            120,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2314,
+            202,
+            291,
+            170
+          ],
+          "margin": [
+            60,
+            104,
+            75,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            252,
+            562,
+            252,
+            167
+          ],
+          "margin": [
+            74,
+            109,
+            114,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2607,
+            202,
+            282,
+            174
+          ],
+          "margin": [
+            60,
+            100,
+            84,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            508,
+            562,
+            235,
+            165
+          ],
+          "margin": [
+            78,
+            111,
+            131,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2891,
+            202,
+            276,
+            171
+          ],
+          "margin": [
+            64,
+            103,
+            90,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            747,
+            562,
+            238,
+            145
+          ],
+          "margin": [
+            77,
+            131,
+            128,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3169,
+            202,
+            273,
+            172
+          ],
+          "margin": [
+            60,
+            102,
+            93,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            989,
+            562,
+            244,
+            157
+          ],
+          "margin": [
+            68,
+            119,
+            122,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3444,
+            202,
+            243,
+            166
+          ],
+          "margin": [
+            58,
+            108,
+            123,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1237,
+            562,
+            239,
+            151
+          ],
+          "margin": [
+            68,
+            126,
+            127,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3689,
+            202,
+            230,
+            153
+          ],
+          "margin": [
+            66,
+            121,
+            136,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1480,
+            562,
+            241,
+            152
+          ],
+          "margin": [
+            63,
+            124,
+            125,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            0,
+            378,
+            251,
+            174
+          ],
+          "margin": [
+            51,
+            100,
+            115,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1725,
+            562,
+            250,
+            177
+          ],
+          "margin": [
+            58,
+            99,
+            116,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            253,
+            378,
+            204,
+            187
+          ],
+          "margin": [
+            74,
+            87,
+            162,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            747,
+            258,
+            194
+          ],
+          "margin": [
+            58,
+            82,
+            108,
+            99
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            459,
+            378,
+            209,
+            194
+          ],
+          "margin": [
+            78,
+            80,
+            157,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            264,
+            747,
+            274,
+            188
+          ],
+          "margin": [
+            47,
+            88,
+            92,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            670,
+            378,
+            213,
+            195
+          ],
+          "margin": [
+            72,
+            79,
+            153,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            542,
+            747,
+            263,
+            186
+          ],
+          "margin": [
+            51,
+            90,
+            103,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            885,
+            378,
+            222,
+            190
+          ],
+          "margin": [
+            66,
+            84,
+            144,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            809,
+            747,
+            253,
+            175
+          ],
+          "margin": [
+            46,
+            101,
+            113,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1109,
+            378,
+            211,
+            177
+          ],
+          "margin": [
+            76,
+            97,
+            155,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1066,
+            747,
+            243,
+            182
+          ],
+          "margin": [
+            54,
+            94,
+            123,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1322,
+            378,
+            230,
+            190
+          ],
+          "margin": [
+            62,
+            84,
+            136,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1313,
+            747,
+            224,
+            198
+          ],
+          "margin": [
+            62,
+            78,
+            142,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1554,
+            378,
+            214,
+            195
+          ],
+          "margin": [
+            76,
+            79,
+            152,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1541,
+            747,
+            206,
+            198
+          ],
+          "margin": [
+            76,
+            78,
+            160,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1770,
+            378,
+            208,
+            194
+          ],
+          "margin": [
+            84,
+            80,
+            158,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1751,
+            747,
+            203,
+            194
+          ],
+          "margin": [
+            78,
+            82,
+            163,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1980,
+            378,
+            210,
+            200
+          ],
+          "margin": [
+            76,
+            74,
+            156,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            953,
+            213,
+            199
+          ],
+          "margin": [
+            66,
+            77,
+            153,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2192,
+            378,
+            229,
+            199
+          ],
+          "margin": [
+            60,
+            75,
+            137,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            219,
+            953,
+            216,
+            181
+          ],
+          "margin": [
+            58,
+            95,
+            150,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2423,
+            378,
+            201,
+            191
+          ],
+          "margin": [
+            80,
+            83,
+            165,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            439,
+            953,
+            217,
+            180
+          ],
+          "margin": [
+            60,
+            96,
+            149,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2626,
+            378,
+            227,
+            201
+          ],
+          "margin": [
+            69,
+            73,
+            139,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            660,
+            953,
+            228,
+            197
+          ],
+          "margin": [
+            60,
+            79,
+            138,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2855,
+            378,
+            218,
+            203
+          ],
+          "margin": [
+            76,
+            71,
+            148,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            892,
+            953,
+            217,
+            186
+          ],
+          "margin": [
+            72,
+            90,
+            149,
+            107
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3075,
+            378,
+            212,
+            182
+          ],
+          "margin": [
+            79,
+            92,
+            154,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1113,
+            953,
+            181,
+            184
+          ],
+          "margin": [
+            88,
+            92,
+            185,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3289,
+            378,
+            205,
+            173
+          ],
+          "margin": [
+            78,
+            101,
+            161,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1298,
+            953,
+            187,
+            174
+          ],
+          "margin": [
+            87,
+            104,
+            179,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3496,
+            378,
+            210,
+            193
+          ],
+          "margin": [
+            86,
+            81,
+            156,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1489,
+            953,
+            191,
+            184
+          ],
+          "margin": [
+            87,
+            92,
+            175,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3708,
+            378,
+            211,
+            162
+          ],
+          "margin": [
+            75,
+            112,
+            155,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1684,
+            953,
+            204,
+            156
+          ],
+          "margin": [
+            86,
+            120,
+            162,
+            137
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            0,
+            583,
+            183,
+            184
+          ],
+          "margin": [
+            88,
+            90,
+            183,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            1160,
+            206,
+            176
+          ],
+          "margin": [
+            74,
+            100,
+            160,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            185,
+            583,
+            225,
+            155
+          ],
+          "margin": [
+            73,
+            119,
+            141,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            212,
+            1160,
+            235,
+            127
+          ],
+          "margin": [
+            56,
+            151,
+            131,
+            166
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            412,
+            583,
+            243,
+            105
+          ],
+          "margin": [
+            52,
+            169,
+            123,
+            188
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            451,
+            1160,
+            227,
+            104
+          ],
+          "margin": [
+            56,
+            172,
+            139,
+            189
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            657,
+            583,
+            235,
+            84
+          ],
+          "margin": [
+            54,
+            190,
+            131,
+            209
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            682,
+            1160,
+            235,
+            92
+          ],
+          "margin": [
+            53,
+            184,
+            131,
+            201
+          ]
+        }
+      ]
+    },
+    {
+      "name": "travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            894,
+            583,
+            269,
+            148
+          ],
+          "margin": [
+            74,
+            126,
+            97,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            921,
+            1160,
+            195,
+            135
+          ],
+          "margin": [
+            106,
+            143,
+            171,
+            158
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1165,
+            583,
+            276,
+            148
+          ],
+          "margin": [
+            82,
+            126,
+            90,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1120,
+            1160,
+            178,
+            170
+          ],
+          "margin": [
+            108,
+            106,
+            188,
+            123
+          ]
+        }
+      ]
+    },
+    {
+      "name": "moth_dust_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1443,
+            583,
+            218,
+            175
+          ],
+          "margin": [
+            69,
+            99,
+            148,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1302,
+            1160,
+            253,
+            155
+          ],
+          "margin": [
+            62,
+            121,
+            113,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1663,
+            583,
+            244,
+            189
+          ],
+          "margin": [
+            55,
+            85,
+            122,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1559,
+            1160,
+            291,
+            128
+          ],
+          "margin": [
+            36,
+            148,
+            75,
+            165
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1909,
+            583,
+            204,
+            198
+          ],
+          "margin": [
+            77,
+            76,
+            162,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            1344,
+            275,
+            115
+          ],
+          "margin": [
+            44,
+            161,
+            91,
+            178
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2115,
+            583,
+            210,
+            199
+          ],
+          "margin": [
+            78,
+            75,
+            156,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            281,
+            1344,
+            289,
+            127
+          ],
+          "margin": [
+            32,
+            149,
+            77,
+            166
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2327,
+            583,
+            217,
+            219
+          ],
+          "margin": [
+            73,
+            55,
+            149,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            574,
+            1344,
+            301,
+            185
+          ],
+          "margin": [
+            31,
+            93,
+            65,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2546,
+            583,
+            174,
+            232
+          ],
+          "margin": [
+            103,
+            42,
+            192,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            879,
+            1344,
+            274,
+            181
+          ],
+          "margin": [
+            59,
+            95,
+            92,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2722,
+            583,
+            178,
+            238
+          ],
+          "margin": [
+            101,
+            36,
+            188,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1157,
+            1344,
+            233,
+            194
+          ],
+          "margin": [
+            61,
+            82,
+            133,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2902,
+            583,
+            184,
+            251
+          ],
+          "margin": [
+            95,
+            23,
+            182,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1394,
+            1344,
+            228,
+            194
+          ],
+          "margin": [
+            62,
+            82,
+            138,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3088,
+            583,
+            165,
+            255
+          ],
+          "margin": [
+            109,
+            19,
+            201,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1626,
+            1344,
+            219,
+            195
+          ],
+          "margin": [
+            68,
+            81,
+            147,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3255,
+            583,
+            173,
+            255
+          ],
+          "margin": [
+            104,
+            19,
+            193,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            1547,
+            211,
+            213
+          ],
+          "margin": [
+            77,
+            63,
+            155,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3430,
+            583,
+            164,
+            245
+          ],
+          "margin": [
+            112,
+            29,
+            202,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            217,
+            1547,
+            236,
+            239
+          ],
+          "margin": [
+            63,
+            37,
+            130,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3596,
+            583,
+            279,
+            230
+          ],
+          "margin": [
+            47,
+            44,
+            87,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            457,
+            1547,
+            221,
+            276
+          ],
+          "margin": [
+            81,
+            0,
+            145,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "moth_dust",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            0,
+            840,
+            258,
+            206
+          ],
+          "margin": [
+            57,
+            68,
+            108,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            682,
+            1547,
+            207,
+            256
+          ],
+          "margin": [
+            90,
+            20,
+            159,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            260,
+            840,
+            247,
+            201
+          ],
+          "margin": [
+            62,
+            73,
+            119,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            893,
+            1547,
+            203,
+            258
+          ],
+          "margin": [
+            90,
+            18,
+            163,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            509,
+            840,
+            295,
+            190
+          ],
+          "margin": [
+            42,
+            84,
+            71,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1100,
+            1547,
+            265,
+            172
+          ],
+          "margin": [
+            50,
+            104,
+            101,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            806,
+            840,
+            293,
+            171
+          ],
+          "margin": [
+            41,
+            103,
+            73,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1369,
+            1547,
+            272,
+            170
+          ],
+          "margin": [
+            45,
+            106,
+            94,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1101,
+            840,
+            285,
+            176
+          ],
+          "margin": [
+            46,
+            98,
+            81,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1645,
+            1547,
+            258,
+            176
+          ],
+          "margin": [
+            56,
+            100,
+            108,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1388,
+            840,
+            308,
+            174
+          ],
+          "margin": [
+            41,
+            100,
+            58,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            2,
+            1831,
+            260,
+            167
+          ],
+          "margin": [
+            60,
+            109,
+            106,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1698,
+            840,
+            290,
+            164
+          ],
+          "margin": [
+            51,
+            110,
+            76,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            266,
+            1831,
+            280,
+            173
+          ],
+          "margin": [
+            52,
+            103,
+            86,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1990,
+            840,
+            323,
+            175
+          ],
+          "margin": [
+            31,
+            99,
+            43,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            550,
+            1831,
+            274,
+            168
+          ],
+          "margin": [
+            51,
+            108,
+            92,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2315,
+            840,
+            251,
+            177
+          ],
+          "margin": [
+            65,
+            97,
+            115,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            828,
+            1831,
+            256,
+            153
+          ],
+          "margin": [
+            53,
+            123,
+            110,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2568,
+            840,
+            234,
+            173
+          ],
+          "margin": [
+            75,
+            101,
+            132,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1088,
+            1831,
+            247,
+            149
+          ],
+          "margin": [
+            64,
+            127,
+            119,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            2804,
+            840,
+            252,
+            176
+          ],
+          "margin": [
+            65,
+            98,
+            114,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1339,
+            1831,
+            261,
+            157
+          ],
+          "margin": [
+            63,
+            119,
+            105,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3058,
+            840,
+            244,
+            171
+          ],
+          "margin": [
+            57,
+            103,
+            122,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_00.png",
+          "region": [
+            1604,
+            1831,
+            262,
+            158
+          ],
+          "margin": [
+            61,
+            118,
+            104,
+            135
+          ]
+        }
+      ]
+    },
+    {
+      "name": "moth_dust_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3304,
+            840,
+            247,
+            161
+          ],
+          "margin": [
+            58,
+            113,
+            119,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            256,
+            154
+          ],
+          "margin": [
+            64,
+            122,
+            110,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3553,
+            840,
+            247,
+            174
+          ],
+          "margin": [
+            54,
+            100,
+            119,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            262,
+            2,
+            239,
+            169
+          ],
+          "margin": [
+            67,
+            107,
+            127,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            3802,
+            840,
+            229,
+            179
+          ],
+          "margin": [
+            58,
+            95,
+            137,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            505,
+            2,
+            233,
+            166
+          ],
+          "margin": [
+            72,
+            111,
+            133,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            0,
+            1048,
+            235,
+            178
+          ],
+          "margin": [
+            55,
+            96,
+            131,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            742,
+            2,
+            246,
+            181
+          ],
+          "margin": [
+            64,
+            95,
+            120,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            237,
+            1048,
+            245,
+            190
+          ],
+          "margin": [
+            48,
+            84,
+            121,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            992,
+            2,
+            251,
+            172
+          ],
+          "margin": [
+            62,
+            104,
+            115,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            484,
+            1048,
+            242,
+            194
+          ],
+          "margin": [
+            48,
+            80,
+            124,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            1247,
+            2,
+            245,
+            173
+          ],
+          "margin": [
+            54,
+            103,
+            121,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            728,
+            1048,
+            233,
+            192
+          ],
+          "margin": [
+            56,
+            82,
+            133,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            1496,
+            2,
+            253,
+            175
+          ],
+          "margin": [
+            51,
+            101,
+            113,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            963,
+            1048,
+            241,
+            193
+          ],
+          "margin": [
+            47,
+            81,
+            125,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            1753,
+            2,
+            267,
+            175
+          ],
+          "margin": [
+            38,
+            101,
+            99,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1206,
+            1048,
+            237,
+            186
+          ],
+          "margin": [
+            56,
+            88,
+            129,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            2,
+            191,
+            243,
+            185
+          ],
+          "margin": [
+            52,
+            91,
+            123,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1445,
+            1048,
+            211,
+            174
+          ],
+          "margin": [
+            74,
+            100,
+            155,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            249,
+            191,
+            254,
+            181
+          ],
+          "margin": [
+            40,
+            95,
+            112,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1658,
+            1048,
+            234,
+            188
+          ],
+          "margin": [
+            62,
+            86,
+            132,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            507,
+            191,
+            249,
+            188
+          ],
+          "margin": [
+            50,
+            88,
+            117,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/combat_motion_v7.png",
+          "region": [
+            1894,
+            1048,
+            204,
+            197
+          ],
+          "margin": [
+            84,
+            77,
+            162,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bronze_moth/motion_v8_01.png",
+          "region": [
+            760,
+            191,
+            239,
+            184
+          ],
+          "margin": [
+            59,
+            92,
+            127,
+            109
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "moth_dust",
+    "moth_dust_recover",
+    "moth_dust_windup",
+    "recover",
+    "windup"
+  ]
+}

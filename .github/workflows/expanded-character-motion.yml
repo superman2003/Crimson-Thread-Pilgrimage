@@ -36,6 +36,11 @@ on:
       - 'tools/build_creature_attack_motion.py'
       - 'tools/build_character_motion_v5.py'
       - 'tools/build_boss_motion_v6.py'
+      - 'tools/build_character_motion_v8.py'
+      - 'art_requests/character_motion_v8/**'
+      - 'godot/scripts/character_motion_v8_validation.gd'
+      - 'godot/scripts/combat_motion_v7_validation.gd'
+      - 'godot/scripts/boss_behavior_validation.gd'
       - 'art_requests/character_motion_v5/**'
       - 'art_requests/boss_motion_v6/**'
       - 'tools/requirements-hero.txt'
@@ -71,6 +76,7 @@ jobs:
       - name: Check reproducible production sprites and JavaScript
         run: |
           npm run test:character-motion
+          python3 tools/build_character_motion_v8.py --check
           python3 tools/validate_hero_v3.py
           npm test
       - name: Import all resources
@@ -83,6 +89,7 @@ jobs:
           python3 tools/run_godot_regressions.py \
             --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl \
             --suite character_art_prewarm --suite expanded_character_motion --suite enemy_atlas_integrity \
+            --suite character_motion_v8 --suite combat_motion_v7 --suite boss_behavior \
             --suite hero_animation --suite player_motion_continuity --suite player_idle_motion --suite npc_dialogue_motion \
             --suite player_guard_art --suite player_heal_art --suite player_hook_art --suite player_ability_art \
             --suite seal_combat --suite seal_identity \
