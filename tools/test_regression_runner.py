@@ -130,7 +130,7 @@ class CompletionContractTests(unittest.TestCase):
             'player_action_sfx_sync',
             'fragile_gate_crack',
             'hidden_drone',
-            'hazard_readability',
+            'hazard_readability', 'trap_free_world',
             'audio_construction',
             'settings_construction',
             'world_save_backup',

@@ -141,7 +141,7 @@
       "damp_knot": {
         "name": "防潮线结",
         "category": "Charms",
-        "description": "锈泵修女编的防潮线结，陷阱触发判定略微缩小。"
+        "description": "锈泵修女编的防潮线结，地面移动速度提高5%；不增加跳高。"
       },
       "map_fragment_02": {
         "name": "地图残页·其二",
@@ -1205,7 +1205,7 @@
       "danger": "敲击声从墙那边来。",
       "next": "暗渠走道",
       "setpiece": "黑潮水面与隐苔龛",
-      "traversal_focus": "陷阱即通路",
+      "traversal_focus": "平台间转移",
       "pacing_role": "reward",
       "visit_rects": [
         [
@@ -6764,151 +6764,7 @@
       "map_marker": "ability_gate"
     }
   ],
-  "hazards": [
-    {
-      "id": "ch02_hazard_deck_clapper",
-      "kind": "falling_clapper",
-      "rect": [
-        1735,
-        770,
-        110,
-        30
-      ],
-      "damage": 1,
-      "message": "钟坠从渠顶松脱砸下。",
-      "platform_id": "rd_run"
-    },
-    {
-      "id": "ch02_hazard_causeway_clapper",
-      "kind": "falling_clapper",
-      "rect": [
-        4575,
-        3650,
-        110,
-        30
-      ],
-      "damage": 1,
-      "message": "炉前吊锤突然脱钩。",
-      "platform_id": "ra_b"
-    },
-    {
-      "id": "ch02_hazard_atrium_gap",
-      "kind": "bell_gap",
-      "rect": [
-        3055,
-        3312,
-        120,
-        20
-      ],
-      "damage": 1,
-      "message": "泵井深不见底。",
-      "platform_id": "hub_floor_w"
-    },
-    {
-      "id": "ch02_hazard_wheel_gap",
-      "kind": "bell_gap",
-      "rect": [
-        4675,
-        4562,
-        110,
-        20
-      ],
-      "damage": 1,
-      "message": "水轮齿隙深不见底。",
-      "platform_id": "ws_base"
-    },
-    {
-      "id": "trap_wet_moss_tide",
-      "kind": "fake_moss_floor",
-      "rect": [
-        1845,
-        4754,
-        120,
-        22
-      ],
-      "damage": 1,
-      "message": "湿苔板轰然塌陷——下面还有房间。",
-      "platform_id": "uc_end"
-    },
-    {
-      "id": "ch02_hazard_overflow_moss",
-      "kind": "fake_moss_floor",
-      "rect": [
-        3555,
-        4254,
-        130,
-        22
-      ],
-      "damage": 1,
-      "message": "溢流庭的假苔一踩就塌。",
-      "platform_id": "oc_upper"
-    },
-    {
-      "id": "ch02_hazard_lock_spikes",
-      "kind": "spikes",
-      "rect": [
-        2580,
-        1152,
-        120,
-        20
-      ],
-      "damage": 1,
-      "message": "闸齿锈刺外露。",
-      "platform_id": "sl_lock_b"
-    },
-    {
-      "id": "ch02_hazard_causeway_spikes",
-      "kind": "spikes",
-      "rect": [
-        4080,
-        3752,
-        120,
-        20
-      ],
-      "damage": 1,
-      "message": "长堤上布满铸渣尖刺。",
-      "platform_id": "ra_a"
-    },
-    {
-      "id": "ch02_hazard_undercanal_spikes",
-      "kind": "spikes",
-      "rect": [
-        2170,
-        4692,
-        120,
-        20
-      ],
-      "damage": 1,
-      "message": "暗渠底的锈钉阵。",
-      "platform_id": "uw_b"
-    },
-    {
-      "id": "ch02_hazard_silt_chest",
-      "kind": "spore_chest",
-      "rect": [
-        4195,
-        4440,
-        90,
-        34
-      ],
-      "damage": 1,
-      "message": "淤金库的孢箱炸开湿雾。",
-      "platform_id": "sv_floor"
-    },
-    {
-      "id": "ch02_hazard_spillway_revenge",
-      "kind": "shortcut_revenge",
-      "rect": [
-        4680,
-        3988,
-        110,
-        30
-      ],
-      "damage": 1,
-      "message": "复仇伏兵顺着泄洪栈梯杀回来。",
-      "platform_id": "sw206"
-    }
-  ],
+  "hazards": [],
   "collectibles": [
     {
       "id": "col_silk_wall_grip",

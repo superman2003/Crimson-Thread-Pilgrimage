@@ -1,0 +1,168 @@
+
+> crimson-thread-odyssey@1.0.0 test
+> npm run check && npm run test:font && npm run test:export && npm run test:map-quality && npm run test:runner && node tools/run_python_tool.mjs tools/validate_thread_skills.py
+
+
+> crimson-thread-odyssey@1.0.0 check
+> node --check tools/build_item_lore.mjs && node --check tools/handcraft_ch01_boxgarden.mjs && node --check tools/handcraft_ch02_boxgarden.mjs && node --check tools/run_python_tool.mjs
+
+
+> crimson-thread-odyssey@1.0.0 test:font
+> node tools/run_python_tool.mjs tools/test_apply_global_font.py && node tools/run_python_tool.mjs tools/test_font_coverage.py && npm run font:check && npm run font:coverage
+
+Applied one shared font to 5 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833292985Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Already applied. All text uses the shared font. No new backup needed.
+Applied one shared font to 5 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833340995Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+FAIL: godot\scripts\new_label.gd: uncentralized font res://assets/fonts/OtherFont.ttf
+Applied one shared font to 1 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833371140Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Applied one shared font to 5 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833406227Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Applied one shared font to 1 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833437982Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Restored 5 files to their exact pre-application contents.
+Applied one shared font to 5 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833500514Z.json
+.........
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+----------------------------------------------------------------------
+Applied one shared font to 1 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833534198Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Restored 6 files to their exact pre-application contents.
+Ran 9 tests in 0.464s
+
+OK
+Applied one shared font to 5 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833598512Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Restore stopped: these files changed after applying the font. No files were overwritten:
+godot/scripts/ui.gd
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Applied one shared font to 5 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833649831Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Restored 5 files to their exact pre-application contents.
+Applied one shared font to 5 files. Menus, body text, dialogue, maps, loading, signs, numbers are included.
+Backup: tmp\font_switch_backups\20261110T113833707872Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.040s
+
+OK
+
+> crimson-thread-odyssey@1.0.0 font:check
+> node tools/run_python_tool.mjs tools/apply_global_font.py check
+
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+
+> crimson-thread-odyssey@1.0.0 font:coverage
+> node tools/run_python_tool.mjs tools/check_font_coverage.py
+
+FONT_COVERAGE_PASS characters=44780 missing=0 system_fonts_used=false
+
+> crimson-thread-odyssey@1.0.0 test:export
+> node tools/run_python_tool.mjs tools/test_export_audit.py && node tools/run_python_tool.mjs tools/test_player_guide_bindings.py && node tools/run_python_tool.mjs tools/test_release_save_contract.py && node tools/run_python_tool.mjs tools/audit_export_contents.py
+
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 1.003s
+
+OK
+PLAYER_GUIDE_BINDINGS_OK actions=22 keyboard=30 gamepad=21
+....................
+----------------------------------------------------------------------
+Ran 20 tests in 1.328s
+
+OK
+EXPORT_AUDIT_PASS presets=2 reachable=405 dynamic_loaders=0 errors=0
+
+> crimson-thread-odyssey@1.0.0 test:map-quality
+> node tools/run_python_tool.mjs tools/audit_platform_geometry.py --scope active --strict && node tools/run_python_tool.mjs tools/audit_map_uniqueness.py --scope active --strict && node tools/run_python_tool.mjs tools/test_map_audits.py
+
+{
+  "suite": "platform_geometry",
+  "scope": "active",
+  "files": 6,
+  "checks": 1469,
+  "errors": [],
+  "limitation": "Collision/recovery data audit; does not certify physical traversal or player experience."
+}
+{
+  "suite": "map_uniqueness",
+  "scope": "active",
+  "files": 6,
+  "checks": 650,
+  "errors": [],
+  "warnings": [],
+  "limitation": "Unique IDs/outlines do not establish visual identity; repeated collision shapes require design review."
+}
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK
+
+> crimson-thread-odyssey@1.0.0 test:runner
+> node tools/run_python_tool.mjs tools/test_regression_runner.py && node tools/run_python_tool.mjs tools/test_build_ledger.py && node tools/run_python_tool.mjs tools/test_build_shortcut_runner.py && node tools/run_python_tool.mjs tools/test_godot_import.py && node tools/run_python_tool.mjs tools/test_rock_gpu_validation.py && node tools/run_python_tool.mjs tools/test_metsys_probe_contract.py
+
+Running audio_construction
+PASS: audio_construction
+AUDIO_CONSTRUCTION checks=200 failures=0
+Running audio_construction
+FAIL: audio_construction: exit=0 engine_errors=1 completion_marker=True
+AUDIO_CONSTRUCTION checks=200 failures=0
+WARNING: ObjectDB instances leaked at exit
+Running audio_construction
+FAIL: audio_construction: exit=0 engine_errors=2 completion_marker=True
+AUDIO_CONSTRUCTION checks=200 failures=0
+ERROR: 2 resources still in use
+Running audio_construction
+FAIL: audio_construction: exit=0 engine_errors=1 completion_marker=True
+AUDIO_CONSTRUCTION checks=200 failures=0
+Leaked instance: AudioStreamOggVorbis
+Running audio_construction
+FAIL: audio_construction: exit=0 engine_errors=1 completion_marker=True
+AUDIO_CONSTRUCTION checks=200 failures=0
+A function exited without its completion
+Running world_neighbor_gameplay
+FAIL: world_neighbor_gameplay: timeout after 300s
+Running enemy_visibility
+FAIL: enemy_visibility: timeout after 180s
+Running world_neighbor_gameplay
+FAIL: world_neighbor_gameplay: timeout after 0.05s
+......ssssssssssssssssssssssssssssssss
+----------------------------------------------------------------------
+Ran 38 tests in 0.039s
+
+OK (skipped=32)
+build_ledger self-test OK
+...
+----------------------------------------------------------------------
+Ran 3 tests in 1.801s
+
+OK
+sssssssssss
+----------------------------------------------------------------------
+Ran 11 tests in 0.000s
+
+OK (skipped=11)
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.083s
+
+OK
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK
+THREAD_SKILLS PASS: errors=0

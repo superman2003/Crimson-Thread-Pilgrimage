@@ -6,7 +6,6 @@ const FLAT_MAP_ART_SCRIPT := preload("res://scripts/flat_map_art.gd")
 const TERRAIN_SCRIPT := preload("res://scripts/chapter_terrain.gd")
 const CAVE_WORLD_SCRIPT := preload("res://scripts/cave_world.gd")
 const CAVE_LIFT_SCRIPT := preload("res://scripts/cave_lift.gd")
-const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
 const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
 var ui_shell: Control
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
@@ -92,19 +91,19 @@ const ROOM_MAP_COPY := {
     "gear_lift": {
         "objective": "Clear the lift guards and confirm the map updates.",
         "guide": "Open the map to check explored rooms and the current route.",
-        "danger": "Bell-gap traps punish rushed jumps.",
+        "danger": "Choose your landing before jumping.",
         "next": "Climb into the Upper Gallery."
     },
     "upper_bells": {
         "objective": "Win the upper-gallery fight and return toward the shortcut.",
-        "guide": "Save a dash for the falling clapper trap.",
-        "danger": "Watch the warning flash before the clapper falls.",
+        "guide": "Save a dash for the next landing.",
+        "danger": "Watch enemy windups before crossing the upper platform.",
         "next": "Head for the Back Chapel."
     },
     "backdoor": {
         "objective": "After every enemy falls, use the shortcut lever.",
         "guide": "Opening the shortcut also moves the checkpoint near the boss run.",
-        "danger": "The bite trap sits close to the lever.",
+        "danger": "Look for the lever beside the path.",
         "next": "Enter the Crown Runback."
     },
     "runback": {
@@ -223,14 +222,7 @@ const SPRITES := {
     "echo_pilgrim_commander_minor": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/manifest.json",
     "isotope_lumen": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/manifest.json",
     "silent_crown_core": "res://assets/sprites/bosses/boss_06_hundred_key_gatekeeper/manifest.json",
-    "spikes": "res://assets/sprites/gothicvania/demo/hazard_spikes.png",
-    "bell": "res://assets/sprites/gothicvania/demo/hazard_bell.png",
-    "fake_moss_floor": "res://assets/sprites/gothicvania/demo/trap_fake_moss_floor.png",
-    "bell_gap": "res://assets/sprites/gothicvania/demo/trap_bell_gap.png",
-    "spore_chest": "res://assets/sprites/gothicvania/demo/trap_spore_chest.png",
-    "falling_clapper": "res://assets/sprites/gothicvania/demo/trap_falling_clapper.png",
-    "shortcut_revenge": "res://assets/sprites/gothicvania/demo/trap_shortcut_revenge.png",
-    "false_lamp": "res://assets/sprites/gothicvania/demo/trap_false_lamp.png",
+    "falling_clapper": "res://assets/sprites/original_creatures/falling_clapper/manifest.json",
     "bell_key": "res://assets/sprites/gothicvania/demo/pickup_bell_key.png",
     "pump_key": "res://assets/sprites/gothicvania/demo/pickup_bell_key.png",
     "lever": "res://assets/sprites/gothicvania/demo/shortcut_lever.png",
@@ -1464,7 +1456,7 @@ func _update_first_journey_hint() -> void:
 
 
 func _first_journey_heal_safe() -> bool:
-    if _ground_is_hazardous(player.global_position) or is_instance_valid(boss_arena_lock_body):
+    if is_instance_valid(boss_arena_lock_body):
         return false
     for enemy in get_tree().get_nodes_in_group("enemy"):
         if not is_instance_valid(enemy) or enemy.get_parent() != self or enemy.dying or not enemy.world_residency_active():
@@ -3352,7 +3344,7 @@ func _refresh_map_overlay() -> void:
     var current_map_room_id := String(current_room.get("id", current_room_id))
     var objective := _room_map_copy(current_map_room_id, "objective", "Keep exploring toward the next bell.")
     var guide := _room_map_copy(current_map_room_id, "guide", "Use the map for route status and F for nearby interactions.")
-    var danger := _room_map_copy(current_map_room_id, "danger", "Watch traps and melee windups.")
+    var danger := _room_map_copy(current_map_room_id, "danger", "Watch enemy windups.")
     var next_step := _room_map_copy(current_map_room_id, "next", "Move forward.")
     if world_mode:
         objective = "找回被删去的名字，接通旧运书线。"
@@ -3617,8 +3609,6 @@ func _region_build_jobs() -> Array:
     locked_gate_bodies.clear()
     for data in config.get("locked_gates", []):
         jobs.append({"method": "_region_gate", "args": [data]})
-    for data in config.get("hazards", []):
-        jobs.append({"method": "_hazard", "args": [data]})
     collectible_total = 0
     for data in config.get("collectibles", []):
         if not _combat_progression_enabled() or (data is Dictionary and (String(data.get("kind", "")) == "item" or (world_mode and String(data.get("kind", "")) == "currency"))):
@@ -3702,7 +3692,7 @@ func _region_gate(data: Dictionary) -> void:
 
 
 func _finish_region_geometry() -> void:
-    hazard_total = config.get("hazards", []).size()
+    hazard_total = 0
     save_point_total = config.get("save_points", []).size()
     hidden_save_point_total = 0
     for point in config.get("save_points", []):
@@ -4962,70 +4952,12 @@ func _add_crack(parent: Node, local_position: Vector2, crack_color: Color) -> vo
     parent.add_child(crack)
 
 
-func _hazard(data: Dictionary) -> void:
-    var rect := _rect2(data.get("rect", []))
-    var area := Area2D.new()
-    area.name = String(data.get("id", "hazard"))
-    area.position = rect.position + rect.size * 0.5
-    area.set_meta("message", String(data.get("message", "Trap hit.")))
-    area.set_meta("damage", int(data.get("damage", 1)))
+func _hazard(_data: Dictionary) -> void:
+    # Legacy level data cannot recreate graphics, colliders or damage triggers.
+    pass
 
-    var shape := CollisionShape2D.new()
-    var rectangle := RectangleShape2D.new()
-    shape.name = "TriggerShape"
-    rectangle.size = rect.size * _hazard_trigger_multiplier()
-    shape.shape = rectangle
-    area.set_meta("hazard_authored_size", rect.size)
-    area.add_child(shape)
-    HAZARD_POGO.mark(area, String(data.get("kind", "spikes")), rect.size)
-
-    _add_hazard_visual(area, String(data.get("kind", "spikes")), rect.size)
-    area.body_entered.connect(_on_hazard_body_entered.bind(area))
-    add_child(area)
-
-
-## V01: the drawn danger spans the damaging width. Each sheet has a small
-## opaque motif inside a wide transparent cell; traps repeat the cropped motif
-## along their width (spikes, gaps, moss, spore pods) and the hanging clapper
-## scales to it, all standing on the trap's floor.
-const HAZARD_MOTIFS := {
-    "spikes": Rect2(34, 47, 28, 49), "bell_gap": Rect2(38, 20, 35, 52),
-    "fake_moss_floor": Rect2(27, 22, 58, 50), "shortcut_revenge": Rect2(42, 23, 28, 49),
-    "spore_chest": Rect2(35, 20, 42, 52), "falling_clapper": Rect2(19, 8, 73, 88),
-}
-const HAZARD_OBJECTS := ["falling_clapper"]
-
-func _add_hazard_visual(area: Area2D, kind: String, size: Vector2) -> void:
-    var motif := kind if HAZARD_MOTIFS.has(kind) else "spikes"
-    var crop := AtlasTexture.new()
-    crop.atlas = load(SPRITES.get(kind, SPRITES["spikes"]))
-    crop.region = HAZARD_MOTIFS[motif]
-    var floor_y := size.y * 0.5 + 2.0
-    if HAZARD_OBJECTS.has(motif):
-        var scale_value := size.x * 0.9 / crop.region.size.x
-        var sprite := Sprite2D.new()
-        sprite.name = "HazardMotif"
-        sprite.texture = crop
-        sprite.scale = Vector2.ONE * scale_value
-        sprite.position = Vector2(0, floor_y - crop.region.size.y * scale_value * 0.5)
-        sprite.z_index = 6
-        area.add_child(sprite)
-        return
-    # Strip traps: tiles about twice the trap's height, never thinner than 32px.
-    var tile_height := clampf(size.y * 2.2, 32.0, 56.0)
-    var tile_width := tile_height * crop.region.size.x / crop.region.size.y
-    var count := maxi(1, roundi(size.x / tile_width))
-    var scale_x := size.x / count / crop.region.size.x
-    var scale_y := tile_height / crop.region.size.y
-    for index in count:
-        var tile := Sprite2D.new()
-        tile.name = "HazardMotif%d" % index
-        tile.texture = crop
-        tile.scale = Vector2(scale_x, scale_y)
-        tile.position = Vector2(-size.x * 0.5 + (index + 0.5) * size.x / count, floor_y - tile_height * 0.5)
-        tile.z_index = 6
-        area.add_child(tile)
-
+func _add_hazard_visual(_area: Area2D, _kind: String, _size: Vector2) -> void:
+    pass
 
 func _apply_original_prop(sprite: Sprite2D, key: String, height: float) -> void:
     var props := ORIGINAL_ART.manifest("res://assets/sprites/original_interactables/manifest.json")
@@ -6359,16 +6291,8 @@ func _world_label(text: String, position_value: Vector2, color: Color) -> void:
     pass
 
 
-func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
-    if world_loading:
-        return
-    if body == player:
-        if area.is_in_group(HAZARD_POGO.GROUP) and float(player.get("hazard_pogo_guard_timer")) > 0.0:
-            return
-        player.take_damage(int(area.get_meta("damage", 1)), area.global_position, false)
-        _toast(String(area.get_meta("message", "Trap hit.")))
-        _refresh_hud()
-
+func _on_hazard_body_entered(_body: Node, _area: Area2D) -> void:
+    pass
 
 func _forget_world_pickup(instance_id: int) -> void:
     world_pickup_leases.erase(instance_id)
@@ -8046,25 +7970,12 @@ func _sync_player_build() -> void:
             applied_build_profile = profile.duplicate(true)
             _sync_hazard_trigger_sizes()
 
-## Only trap triggers change. Player collision, enemy attacks and the authored
-## spike pogo surface retain their original geometry.
+## Legacy compatibility hooks; environmental traps no longer have a trigger.
 func _hazard_trigger_multiplier() -> float:
-    if not is_instance_valid(player):return 1.0
-    var profile: Variant = player.get("build_profile")
-    if not profile is Dictionary:return 1.0
-    return clampf(float(profile.get("hazard_trigger_mult", 1.0)), 0.5, 1.0)
+    return 1.0
 
 func _sync_hazard_trigger_sizes() -> void:
-    var multiplier := _hazard_trigger_multiplier()
-    for child in get_children():
-        if not child is Area2D or not child.has_meta("hazard_authored_size"):continue
-        var shape := child.get_node_or_null("TriggerShape") as CollisionShape2D
-        if shape == null or not shape.shape is RectangleShape2D:continue
-        var authored: Vector2 = child.get_meta("hazard_authored_size")
-        var size := authored * multiplier
-        if not shape.shape.size.is_equal_approx(size):
-            # Pickups may sync progress inside a physics body-entered callback.
-            shape.shape.set_deferred("size", size)
+    pass
 
 func _bind_build_inputs() -> void:
     var bindings := {"skill_cycle": [KEY_C, JOY_AXIS_TRIGGER_LEFT],
@@ -8479,7 +8390,7 @@ func restore_save_backup(index: int = 0) -> bool:
 func _update_safe_ground() -> void:
     if player == null or not is_instance_valid(player):
         return
-    if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position) and _standing_on_permanent_floor():
+    if player.is_on_floor() and player.hp > 0 and _standing_on_permanent_floor():
         last_safe_ground = player.global_position
 
 
@@ -8498,10 +8409,7 @@ func _standing_on_permanent_floor() -> bool:
     return false
 
 
-func _ground_is_hazardous(position_value: Vector2) -> bool:
-    for hazard in config.get("hazards", []):
-        if _rect2(hazard.get("rect", [])).grow(36).has_point(position_value):
-            return true
+func _ground_is_hazardous(_position_value: Vector2) -> bool:
     return false
 
 func _record_death_cache() -> void:

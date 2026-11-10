@@ -1047,34 +1047,34 @@
     },
     "quiet_sole": {
       "name": "静靴",
-      "description": "陷阱触发宽高缩小20%；不降低命中后的伤害。",
+      "description": "地面移动速度提高5%；不增加跳高。",
       "cost": 1,
-      "group": "trap_trigger_reduction",
+      "group": "light_travel",
       "modifiers": {
-        "hazard_trigger_mult": -0.2
+        "move_mult": 0.05
       },
       "unlock_item": "quiet_sole",
       "icon": "res://assets/ui/seals/quiet_sole.svg",
       "source": "苔钟庭·织线暗室的原静靴遗物。",
       "unlock_hint": "取得静靴后，在钟龛将它装入行旅饰件槽。",
-      "risk": "占用1点铭饰容量；只影响环境陷阱，不改变敌人攻击；与防潮线结互斥。",
-      "synergy": "卸下或槽位休眠时恢复原范围；不影响地刺下劈反弹；不能与防潮线结叠加。",
+      "risk": "占用1点铭饰容量；与防潮线结互斥。",
+      "synergy": "装备后生效，卸下或槽位休眠时恢复原速度；不能与防潮线结叠加。",
       "family": "travel_accessory"
     },
     "damp_knot": {
       "name": "防潮线结",
-      "description": "锈泵修女编的防潮线结，装备后陷阱触发宽高缩小20%；不降低命中后的伤害。",
+      "description": "地面移动速度提高5%；不增加跳高。",
       "cost": 1,
-      "group": "trap_trigger_reduction",
+      "group": "light_travel",
       "modifiers": {
-        "hazard_trigger_mult": -0.2
+        "move_mult": 0.05
       },
       "unlock_item": "damp_knot",
       "icon": "res://assets/ui/seals/damp_knot.svg",
       "source": "铸雨渠·水轮内部，冲刺门后；雨铸匠柳接受旧工人徽章的原心愿奖励。",
       "unlock_hint": "取得原防潮线结后，在钟龛将它装入行旅饰件槽。",
-      "risk": "占用1点铭饰容量；只影响环境陷阱，不改变敌人攻击；与静靴互斥。",
-      "synergy": "持有不装备不生效；卸下或槽位休眠时恢复原范围；不影响地刺下劈反弹；不能与静靴叠加。",
+      "risk": "占用1点铭饰容量；与静靴互斥。",
+      "synergy": "装备后生效，卸下或槽位休眠时恢复原速度；不能与静靴叠加。",
       "family": "travel_accessory"
     },
     "pilgrim_braid": {

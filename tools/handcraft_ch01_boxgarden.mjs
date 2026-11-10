@@ -143,7 +143,7 @@ const ROOMS = {
   fake_moss_grotto: { name: "假苔穴", kind: "secret", depth: 6,
     objective: "从塌落的苔板下探出隐藏石穴。", guide: "塌方不是终点，是入口。",
     danger: "穴壁渗水，回声很远。", next: "暗河走道", setpiece: "苔板塌出的石穴",
-    traversal_focus: "陷阱即通路", pacing_role: "reward" },
+    traversal_focus: "平台间转移", pacing_role: "reward" },
   underway: { name: "暗河走道", kind: "corridor", depth: 6,
     objective: "沿暗河西行，寻找闸厅。", guide: "东侧深廊被钟隙封住。",
     danger: "低照度，孢虫巢就在头顶。", next: "闸厅", setpiece: "半沉的暗河栈道",
@@ -816,18 +816,7 @@ function build() {
   ];
   const npcs = NPC_STORY.map(({ platform: pid, dx, ...npc }) => ({ ...structuredClone(npc), position: onPlat(pid, dx) }));
 
-  const hz = (id, kind, pid, dx, dy, w, h, msg) => { const p = byId[pid]; return { id, kind, rect: [round(centerX(p) + dx - w / 2), round(p.y + dy), w, h], damage: 1, message: msg, platform_id: pid }; };
-  const hazards = [
-    hz("trap_fake_moss_01", "fake_moss_floor", "cr_upper", 250, -6, 130, 22, "假苔地板轰然塌陷——下面还有路。"),
-    hz("ch01_hazard_underway_moss", "fake_moss_floor", "uw_a", 0, -6, 120, 22, "暗河苔板一踩就塌。"),
-    hz("ch01_hazard_clapper", "falling_clapper", "ba05", 0, -150, 110, 30, "钟锤毫无预兆地砸落。"),
-    hz("ch01_hazard_crown_spikes", "spikes", "cw_b", 0, -8, 120, 20, "钟冠残齿锈刺外露。"),
-    hz("ch01_hazard_tangle_spikes", "spikes", "tm_b", 40, -8, 120, 20, "缠根间藏着旧钟齿。"),
-    hz("ch01_hazard_approach_spikes", "spikes", "ra_b", 0, -8, 120, 20, "前庭布满钟齿尖刺。"),
-    hz("ch01_hazard_cistern_spikes", "spikes", "cr_lower", -280, -8, 120, 20, "水窖底部暗藏锈钉。"),
-    hz("ch01_hazard_bell_gap", "bell_gap", "bgc_w", 140, -8, 110, 20, "钟隙深不见底。"),
-    hz("ch01_hazard_vault_chest", "spore_chest", "rv_floor", 150, -30, 90, 34, "孢箱炸开一团苔云。"),
-  ];
+  const hazards = [];
 
   const lb = (text, pid, dy, color) => { const p = byId[pid]; return { text, position: [round(centerX(p)), round(p.y + dy)], color }; };
   const labels = [

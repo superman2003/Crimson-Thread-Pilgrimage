@@ -1,3 +1,4 @@
+"""Validate the retained GothicVania library, not the current original hero."""
 from __future__ import annotations
 
 import json
@@ -9,8 +10,6 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 GOTHIC_DIR = ROOT / "godot" / "assets" / "sprites" / "gothicvania"
 PLAYER_MANIFEST = ROOT / "godot" / "assets" / "sprites" / "gothicvania" / "player" / "manifest.json"
-MAIN_SCRIPT = ROOT / "godot" / "scripts" / "main_level.gd"
-PLAYER_SCRIPT = ROOT / "godot" / "scripts" / "player_controller.gd"
 
 
 REQUIRED_DEMO = [
@@ -27,14 +26,6 @@ REQUIRED_DEMO = [
     "enemy_spore_bellmaker.png",
     "enemy_gear_sentinel.png",
     "boss_rust_crown_guardian.png",
-    "hazard_spikes.png",
-    "hazard_bell.png",
-    "trap_fake_moss_floor.png",
-    "trap_bell_gap.png",
-    "trap_spore_chest.png",
-    "trap_falling_clapper.png",
-    "trap_shortcut_revenge.png",
-    "trap_false_lamp.png",
     "pickup_bell_key.png",
     "shortcut_lever.png",
     "boss_gate.png",
@@ -73,14 +64,7 @@ def main() -> None:
             with Image.open(path) as image:
                 assert_true(image.size == (128, 128), f"{frame} must be normalized to 128x128")
 
-    main_source = MAIN_SCRIPT.read_text(encoding="utf-8")
-    player_source = PLAYER_SCRIPT.read_text(encoding="utf-8")
-    assert_true("res://assets/sprites/gothicvania/demo/" in main_source, "main_level.gd does not use gothicvania runtime assets")
-    assert_true("res://assets/sprites/demo/" not in main_source, "main_level.gd still references old demo assets")
-    assert_true("res://assets/sprites/gothicvania/player/manifest.json" in player_source, "player controller does not load GothicVania hero manifest")
-    assert_true("res://assets/sprites/player/abyss_hero/manifest.json" not in player_source, "player controller still loads Abyss hero manifest")
-    assert_true("lumen_animations_manifest" not in player_source, "player controller still references lumen manifest")
-    print(f"GOTHICVANIA_ASSET_VALIDATION_PASS demo_assets={len(REQUIRED_DEMO)} player_anims={len(player_manifest['animations'])} player=gothicvania_hero")
+    print(f"GOTHICVANIA_ASSET_VALIDATION_PASS scope=legacy_library demo_assets={len(REQUIRED_DEMO)} player_anims={len(player_manifest['animations'])}")
 
 
 if __name__ == "__main__":

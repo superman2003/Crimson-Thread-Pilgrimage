@@ -13,7 +13,7 @@ const LABELS := {
     "skill_cost_mult":"线技耗线倍率", "skill_damage_mult":"线技伤害倍率",
     "ranged_range_mult":"远程触及倍率", "knockback_mult":"受到击退倍率",
     "status_buildup_mult":"状态积累倍率", "tool_capacity_bonus":"战具容量加成",
-    "pogo_bounce_mult":"下击反弹倍率", "hazard_trigger_mult":"环境陷阱触发范围倍率",
+    "pogo_bounce_mult":"下击反弹倍率",
     "status_resist_duration":"状态抗性持续秒数", "guard_refund":"格挡取线返还",
     "mechanism_unlocked":"当前契印机制启用", "crimson_repaired":"缝名机制修复",
     "description":"契印说明", "mechanism":"契印机制", "attack_description":"针击动作",
@@ -23,7 +23,7 @@ const LABELS := {
 # provenance/UI metadata, or exact aliases derived by BuildSystem.profile().
 const METADATA := ["name","crest_id","source","unlock_flag","unlock_hint","mechanism_flag","slot_layout"]
 const ALIASES := {"speed_multiplier":"move_mult","skill_range_mult":"ranged_range_mult","downstrike_bounce_mult":"pogo_bounce_mult","heal_energy_cost":"heal_cost"}
-const DEFAULTS := {"hazard_trigger_mult":1.0,"tool_capacity_bonus":0}
+const DEFAULTS := {"move_mult":1.0,"tool_capacity_bonus":0}
 
 static func value(profile: Dictionary, key: String) -> Variant:
     return profile.get(key,DEFAULTS.get(key,0))

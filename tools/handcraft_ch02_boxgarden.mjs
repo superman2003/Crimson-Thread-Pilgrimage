@@ -140,7 +140,7 @@ const ROOMS = {
   tide_listening_cell: { name: "听潮暗室", kind: "secret", depth: 8,
     objective: "从塌落的湿苔板坠入听潮暗室。", guide: "黑潮在这里学人敲击；隐藏钟龛也在这里。",
     danger: "敲击声从墙那边来。", next: "暗渠走道", setpiece: "黑潮水面与隐苔龛",
-    traversal_focus: "陷阱即通路", pacing_role: "reward" },
+    traversal_focus: "平台间转移", pacing_role: "reward" },
   rain_curtain_gallery: { name: "水幕暗渠", kind: "secret", depth: 5,
     objective: "从暗渠尽头穿过水幕，沿暗壁攀回立管井底。", guide: "水幕后面不是墙。",
     danger: "水声盖过一切脚步。", next: "湿墙试炼间", setpiece: "整面下坠的水幕",
@@ -732,20 +732,7 @@ function build() {
         leave: { condition: "sidequest_done 播毕", effect: "沉眠于水轮下；原位留「半枚锈工牌」拾取点与一段绯线低语" } }),
   ];
 
-  const hz = (id, kind, pid, dx, dy, w, h, msg) => { const p = byId[pid]; return { id, kind, rect: [round(centerX(p) + dx - w / 2), round(p.y + dy), w, h], damage: 1, message: msg, platform_id: pid }; };
-  const hazards = [
-    hz("ch02_hazard_deck_clapper", "falling_clapper", "rd_run", 90, -150, 110, 30, "钟坠从渠顶松脱砸下。"),
-    hz("ch02_hazard_causeway_clapper", "falling_clapper", "ra_b", 0, -150, 110, 30, "炉前吊锤突然脱钩。"),
-    hz("ch02_hazard_atrium_gap", "bell_gap", "hub_floor_w", 365, -8, 120, 20, "泵井深不见底。"),
-    hz("ch02_hazard_wheel_gap", "bell_gap", "ws_base", -230, -8, 110, 20, "水轮齿隙深不见底。"),
-    hz("trap_wet_moss_tide", "fake_moss_floor", "uc_end", 60, -6, 120, 22, "湿苔板轰然塌陷——下面还有房间。"),
-    hz("ch02_hazard_overflow_moss", "fake_moss_floor", "oc_upper", 250, -6, 130, 22, "溢流庭的假苔一踩就塌。"),
-    hz("ch02_hazard_lock_spikes", "spikes", "sl_lock_b", 0, -8, 120, 20, "闸齿锈刺外露。"),
-    hz("ch02_hazard_causeway_spikes", "spikes", "ra_a", -90, -8, 120, 20, "长堤上布满铸渣尖刺。"),
-    hz("ch02_hazard_undercanal_spikes", "spikes", "uw_b", 20, -8, 120, 20, "暗渠底的锈钉阵。"),
-    hz("ch02_hazard_silt_chest", "spore_chest", "sv_floor", 150, -30, 90, 34, "淤金库的孢箱炸开湿雾。"),
-    hz("ch02_hazard_spillway_revenge", "shortcut_revenge", "sw206", 0, -30, 110, 30, "复仇伏兵顺着泄洪栈梯杀回来。"),
-  ];
+  const hazards = [];
 
   const lb = (text, pid, dy, color) => { const p = byId[pid]; return { text, position: [round(centerX(p)), round(p.y + dy)], color }; };
   const labels = [

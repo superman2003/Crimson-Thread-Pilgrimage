@@ -162,14 +162,6 @@ def make_demo_sprites() -> dict[str, str]:
         "enemy_spore_bellmaker.png": fit_to_canvas(skeleton_clothed, (116, 116), 92),
         "enemy_gear_sentinel.png": fit_to_canvas(gato, (116, 116), 86),
         "boss_rust_crown_guardian.png": boss,
-        "hazard_spikes.png": fit_to_canvas(stone_1, (96, 96), 52),
-        "hazard_bell.png": fit_to_canvas(statue, (96, 96), 84),
-        "trap_fake_moss_floor.png": fit_to_canvas(bush, (112, 72), 50),
-        "trap_bell_gap.png": fit_to_canvas(stone_2, (112, 72), 52),
-        "trap_spore_chest.png": fit_to_canvas(stone_3, (112, 72), 52),
-        "trap_falling_clapper.png": fit_to_canvas(statue, (112, 96), 88),
-        "trap_shortcut_revenge.png": fit_to_canvas(stone_1, (112, 72), 52),
-        "trap_false_lamp.png": fit_to_canvas(tint(ghost, (228, 190, 80), 0.22), (112, 72), 58),
         "boss_gate.png": make_door(),
     }
 

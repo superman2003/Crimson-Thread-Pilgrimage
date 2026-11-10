@@ -203,16 +203,7 @@ def update_first_chapter() -> None:
     data["boss_checkpoint"] = [12760, 500]
     data["map_rooms"] = build_rooms()
     data["platforms"] = build_platforms()
-    data["hazards"] = [
-        hazard("trap_fake_moss_01", "fake_moss_floor", 700, 406),
-        hazard("ch01_hazard_outer_gap", "bell_gap", 1600, 586),
-        hazard("ch01_hazard_upper_leaf", "spore_chest", 3010, 346),
-        hazard("ch01_hazard_runback_lamp", "false_lamp", 4860, 476),
-        hazard("ch01_hazard_rope_clapper", "falling_clapper", 7040, 516),
-        hazard("ch01_hazard_lower_bite", "fake_moss_floor", 9260, 586),
-        hazard("ch01_hazard_crossway", "spore_chest", 12160, 516),
-        hazard("ch01_hazard_boss_ante", "falling_clapper", 12920, 516),
-    ]
+    data["hazards"] = []
     data["enemy_spawns"] = build_enemies(data.get("enemy_spawns", []))
     data["save_points"] = [
         {

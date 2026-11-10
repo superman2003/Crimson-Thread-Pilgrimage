@@ -442,14 +442,6 @@ def main() -> None:
         "enemy_spore_bellmaker": spore_bellmaker,
         "enemy_gear_sentinel": gear_sentinel,
         "boss_rust_crown_guardian": rust_crown_guardian,
-        "hazard_spikes": hazard_spikes,
-        "hazard_bell": hazard_bell,
-        "trap_fake_moss_floor": trap_fake_moss_floor,
-        "trap_bell_gap": trap_bell_gap,
-        "trap_spore_chest": trap_spore_chest,
-        "trap_falling_clapper": trap_falling_clapper,
-        "trap_shortcut_revenge": trap_shortcut_revenge,
-        "trap_false_lamp": trap_false_lamp,
         "pickup_bell_key": bell_key,
         "shortcut_lever": shortcut_lever,
         "boss_gate": boss_gate,
@@ -462,15 +454,9 @@ def main() -> None:
         "platform_moss_stone",
         "platform_bronze_bridge",
         "platform_boss_stone",
-        "trap_fake_moss_floor",
-        "trap_bell_gap",
-        "trap_spore_chest",
-        "trap_falling_clapper",
-        "trap_shortcut_revenge",
-        "trap_false_lamp",
         "boss_gate",
     ])
-    print(f"GODOT_DEMO_ASSETS_PASS png=27 background_layers={background_layers} platforms=3 traps=6 formal_enemies=5")
+    print(f"GODOT_DEMO_ASSETS_PASS png=19 background_layers={background_layers} platforms=3 traps=0 formal_enemies=5")
 
 
 if __name__ == "__main__":

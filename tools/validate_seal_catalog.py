@@ -42,8 +42,8 @@ def validate(data: dict) -> list[str]:
         row = data.get('passives', {}).get(key, {})
         check(row.get('name') == name and row.get('unlock_item') == key, f'{key}: original name and inventory unlock identity')
         check(row.get('family') == 'travel_accessory' and row.get('cost') == 1, f'{key}: one-capacity independent travel accessory')
-        check(row.get('modifiers') == {'hazard_trigger_mult': -0.2}, f'{key}: only the promised trap trigger reduction')
-        check(row.get('group') == 'trap_trigger_reduction', f'{key}: same-effect rewards cannot stack')
+        check(row.get('modifiers') == {'move_mult': 0.05}, f'{key}: only the promised five percent ground movement')
+        check(row.get('group') == 'light_travel', f'{key}: same-effect rewards cannot stack')
         check(all(row.get(field) for field in ('description', 'source', 'unlock_hint', 'risk', 'synergy')), f'{key}: readable source and equipment tradeoff')
         other_name = LEGACY_TRAVEL_PASSIVES['damp_knot' if key == 'quiet_sole' else 'quiet_sole']
         check(other_name in row.get('risk', '') and '互斥' in row.get('risk', ''), f'{key}: mutual exclusion names the other original reward')

@@ -17,7 +17,7 @@ func _run() -> void:
     _assert(config.get("map_rooms", []).size() >= 10, "runtime map has expanded rooms")
     _assert(config.get("platforms", []).size() >= 20, "runtime map has expanded platforms")
     _assert(config.get("enemy_spawns", []).size() >= 7, "normal enemy spawn count expanded")
-    _assert(config.get("hazards", []).size() >= 6, "hazard count >= 6")
+    _assert(config.get("hazards", []).is_empty(), "level traps are absent")
     _assert(String(config.get("progression_mode", "")) == "combat_clear", "chapter uses combat-clear progression")
     _assert(_collectibles_are_ability_items(config), "collectibles are ability/reward items only (no route tokens)")
     _assert(config.get("locked_gates", []).size() >= 8, "boxgarden exposes ability gates for revisits")
@@ -39,7 +39,7 @@ func _run() -> void:
 
     var state: Dictionary = scene.get_demo_state()
     _assert(state.get("normal_enemy_total") == config.get("enemy_spawns", []).size(), "scene spawned configured normal enemies")
-    _assert(state.get("hazard_total") >= 6, "scene spawned hazards")
+    _assert(state.get("hazard_total") == 0, "scene contains no level traps")
     _assert(int(state.get("collectible_total", -1)) == _item_collectible_count(config), "scene spawned exactly the configured ability/reward items")
     var save_total := int(state.get("save_point_total", 0))
     _assert(save_total >= 2 and save_total <= 4, "scene spawned sparse save points (2-4)")
@@ -51,12 +51,12 @@ func _run() -> void:
     _assert(state.get("av_chapter_total") == 6, "scene loads CH01-CH06 audio visual beats")
 
     var trap: Area2D = scene.get_node_or_null("trap_fake_moss_01")
-    _assert(trap != null, "trap exists")
+    _assert(trap == null, "retired trap is absent")
     scene.player.global_position = Vector2(1500, 550)
     var position_before_trap: Vector2 = scene.player.global_position
     var hp_before_trap := int(scene.player.hp)
     scene._on_hazard_body_entered(scene.player, trap)
-    _assert(int(scene.player.hp) == hp_before_trap - 1, "trap costs 1 hp")
+    _assert(int(scene.player.hp) == hp_before_trap, "legacy trap contact cannot damage the player")
     _assert(scene.player.global_position.distance_to(position_before_trap) < 0.1, "trap does not teleport the player")
 
     var dash_pickup: Area2D = scene.get_node_or_null("col_thread_dash")

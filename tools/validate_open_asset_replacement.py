@@ -26,14 +26,6 @@ DEMO_REQUIRED = [
     "enemy_spore_bellmaker.png",
     "enemy_gear_sentinel.png",
     "boss_rust_crown_guardian.png",
-    "hazard_spikes.png",
-    "hazard_bell.png",
-    "trap_fake_moss_floor.png",
-    "trap_bell_gap.png",
-    "trap_spore_chest.png",
-    "trap_falling_clapper.png",
-    "trap_shortcut_revenge.png",
-    "trap_false_lamp.png",
     "pickup_bell_key.png",
     "shortcut_lever.png",
     "boss_gate.png",
@@ -70,7 +62,7 @@ def main() -> None:
         frames = animation.get("frames", [])
         assert_true(len(frames) == int(animation.get("frame_count", -1)), f"{animation.get('name')} frame count mismatch")
         for frame in frames:
-            path = ROOT / "godot" / frame.replace("res://", "").replace("/", "\\")
+            path = ROOT / "godot" / frame.removeprefix("res://")
             assert_true(path.exists(), f"missing player frame: {frame}")
             with Image.open(path) as image:
                 assert_true(image.size == (128, 128), f"{frame} should be normalized to 128x128")
