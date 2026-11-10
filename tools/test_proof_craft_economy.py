@@ -14,7 +14,9 @@ class ProofCraftEconomy(unittest.TestCase):
         self.assertGreaterEqual(report["one_time_income"], 1.5 * report["one_time_sinks"])
 
     def test_unused_proof_is_rejected(self):
-        del self.catalog["recipes"]["craft_tide_reel"]
+        recipes = self.catalog["recipes"]
+        for key in [k for k, r in recipes.items() if "evidence_canal_track" in r.get("requires_items", [])]:
+            del recipes[key]
         self.assertTrue(any("evidence_canal_track" in e and "no growth use" in e for e in audit(self.catalog)[1]))
 
     def test_sixth_region_material_cannot_be_left_without_a_sink(self):

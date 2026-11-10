@@ -493,6 +493,7 @@ func thread_skill_limits(player) -> void:
     build.state.unlocked_crests = build.catalog.crests.keys()
     build.state.unlocked_skills = build.catalog.skills.keys()
     build.state.mechanisms = ["crimson", "bell", "salt"]
+    build.state.crafted.append_array(["clasp_combat", "spindle_skill"])
     player.build_system = build
     player.global_position = Vector2(0, -2)
     player.velocity = Vector2.ZERO
