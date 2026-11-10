@@ -104,7 +104,7 @@ class CompletionContractTests(unittest.TestCase):
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
             'player_basic_attack_vfx', 'dialog_viewport_fit',
-            'player_idle_motion', 'item_art_prewarm', 'npc_dialogue_motion',
+            'player_idle_motion', 'item_art_prewarm', 'npc_dialogue_motion', 'npc_conversation_voice',
             'spatial_ambience', 'spatial_ambience_world',
             'room_ambience', 'room_ambience_world',
             'dialog_dpad_focus',

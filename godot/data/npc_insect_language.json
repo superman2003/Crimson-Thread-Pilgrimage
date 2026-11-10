@@ -1,0 +1,5011 @@
+{
+  "schema": 1,
+  "language": "绯鸣",
+  "sample_rate": 22050,
+  "design_sha256": "86382c930262a7595b1d66cb6d4a1a2f8ffceb403de8cbe770b2a33ba997cb46",
+  "actors": {
+    "npc_threadsmith_apprentice": {
+      "name": "织线学徒",
+      "voice": {
+        "pitch": 250,
+        "formant": 1.09,
+        "pace": 0.9,
+        "breath": 0.18,
+        "rasp": 0.06
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_threadsmith_apprentice/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.821315,
+          "voiced_until": 0.701315,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.169388,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.200907,
+              "end": 0.364626,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.517642,
+              "end": 0.701315,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "1f21e2f54a7a59af518002c729d8f7f9da604ccb6c5dd17d3a5551419870a42a",
+          "samples": 18110,
+          "peak": 0.362335,
+          "rms": 0.10273
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_threadsmith_apprentice/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.208571,
+          "voiced_until": 1.088571,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.200952,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.223447,
+              "end": 0.38907,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.560091,
+              "end": 0.725215,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.756735,
+              "end": 0.890476,
+              "phoneme": "ra"
+            },
+            {
+              "start": 0.926485,
+              "end": 1.088571,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "7cc92704b4cf714a89c51f8e35e8792b19a87832c2b10a8745e5f69b632c3e2f",
+          "samples": 26649,
+          "peak": 0.336273,
+          "rms": 0.103024
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_threadsmith_apprentice/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.068571,
+          "voiced_until": 0.948571,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.202766,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.238776,
+              "end": 0.409478,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.598458,
+              "end": 0.733787,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.765306,
+              "end": 0.948571,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "4be04a566fa9d71866a0643dac103cd84ebf3d5beddd2ca67b1ca600f76b511b",
+          "samples": 23562,
+          "peak": 0.375,
+          "rms": 0.102738
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_threadsmith_apprentice/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.77424,
+          "voiced_until": 0.65424,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.191066,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.222585,
+              "end": 0.359138,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.503129,
+              "end": 0.65424,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "76333ef8ec5a2b55271db38f6abf407588cba3c2a3a019c1dbf4eb1025a882fa",
+          "samples": 17072,
+          "peak": 0.371948,
+          "rms": 0.102596
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_threadsmith_apprentice/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.098639,
+          "voiced_until": 0.978639,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.197007,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.25102,
+              "end": 0.450113,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.621134,
+              "end": 0.786757,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.827256,
+              "end": 0.978639,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "4db4be870daa4a6bfce75feb57e38d0609315c1b96cf4cdb0324fa26cc3dd483",
+          "samples": 24225,
+          "peak": 0.377014,
+          "rms": 0.102461
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_threadsmith_apprentice/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.757959,
+          "voiced_until": 0.637959,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.18585,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.208345,
+              "end": 0.3722,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.480181,
+              "end": 0.637959,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "1ef83ef331d775bea3684ebe9fef9a34d5699a8577ea6c2cf0f6a67acbea5170",
+          "samples": 16713,
+          "peak": 0.423798,
+          "rms": 0.102523
+        }
+      }
+    },
+    "npc_gate_pilgrim": {
+      "name": "守门朝圣者",
+      "voice": {
+        "pitch": 136,
+        "formant": 0.9,
+        "pace": 1.15,
+        "breath": 0.12,
+        "rasp": 0.25
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gate_pilgrim/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.036054,
+          "voiced_until": 0.916054,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.257279,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.297551,
+              "end": 0.527528,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.723039,
+              "end": 0.916054,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "1510110ace3b48d1c357586c4e89a0598c6c62b2a8bcd3477ba56becd4368778",
+          "samples": 22845,
+          "peak": 0.426849,
+          "rms": 0.101578
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gate_pilgrim/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.523356,
+          "voiced_until": 1.403356,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.241043,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.269796,
+              "end": 0.489524,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.708027,
+              "end": 0.937506,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.977778,
+              "end": 1.192971,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.238957,
+              "end": 1.403356,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "7aa6e38c48f7cfcd8688a9fa0130caa7d3b4a7886f5fdf25d1f27bd7dc18ba74",
+          "samples": 33590,
+          "peak": 0.410065,
+          "rms": 0.101834
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gate_pilgrim/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.217551,
+          "voiced_until": 1.097551,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.200272,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.246259,
+              "end": 0.478503,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.72,
+              "end": 0.884444,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.924717,
+              "end": 1.097551,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "96e8c9449426ced31efa982a09918b0f7d27990aa33e5d945bdfcfc1d61f5a27",
+          "samples": 26847,
+          "peak": 0.437164,
+          "rms": 0.101294
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gate_pilgrim/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.985125,
+          "voiced_until": 0.865125,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.258231,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.298503,
+              "end": 0.468934,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.652925,
+              "end": 0.865125,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "be2b0155aa18df03c1f3bf54985f85964a8b73600af54837be1105e11ab685f4",
+          "samples": 21722,
+          "peak": 0.396393,
+          "rms": 0.101717
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gate_pilgrim/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.385125,
+          "voiced_until": 1.265125,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.238231,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.307211,
+              "end": 0.537959,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.756463,
+              "end": 0.999864,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.05161,
+              "end": 1.265125,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "45bbcfd64935f180d8dd2f79e77df732c8c62cd69415696274018d2de3184e2d",
+          "samples": 30542,
+          "peak": 0.446777,
+          "rms": 0.100952
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gate_pilgrim/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.934739,
+          "voiced_until": 0.814739,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.272834,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.301587,
+              "end": 0.465215,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.60322,
+              "end": 0.814739,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "130ca4f3a0079b063b6dafc06a5ace64652e9268a30a8442b840fa3308a96a06",
+          "samples": 20611,
+          "peak": 0.416046,
+          "rms": 0.101168
+        }
+      }
+    },
+    "npc_gear_cartographer": {
+      "name": "升台绘图师",
+      "voice": {
+        "pitch": 198,
+        "formant": 1.02,
+        "pace": 1.02,
+        "breath": 0.09,
+        "rasp": 0.1
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gear_cartographer/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.902857,
+          "voiced_until": 0.782857,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.223447,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.259138,
+              "end": 0.408118,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.581497,
+              "end": 0.782857,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "2521a4e38561494053a9c79f8ef60f28fec80d9adb7c63f0834e3b778598d4c8",
+          "samples": 19908,
+          "peak": 0.387543,
+          "rms": 0.101999
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gear_cartographer/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.304671,
+          "voiced_until": 1.184671,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.242585,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.268073,
+              "end": 0.416553,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.61034,
+              "end": 0.797506,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.833197,
+              "end": 0.991247,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.032063,
+              "end": 1.184671,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "d4f36e8e6483af94d45d6ab8c9fb9287127cd8a5baec907b927c2df99a7c63c1",
+          "samples": 28768,
+          "peak": 0.373291,
+          "rms": 0.102405
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gear_cartographer/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.13932,
+          "voiced_until": 1.01932,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.225306,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.266122,
+              "end": 0.44068,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.654875,
+              "end": 0.793061,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.828753,
+              "end": 1.01932,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "c9c9bad50a5d82d5182fda6f9420a57f8c02eda91e769e93b5205f0773eeb55b",
+          "samples": 25122,
+          "peak": 0.406921,
+          "rms": 0.10193
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gear_cartographer/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.910567,
+          "voiced_until": 0.790567,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.237959,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.273651,
+              "end": 0.427256,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.590476,
+              "end": 0.790567,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "e6634705294877fbb2beb5ed1eb52ebed7bea08d293254beb0d7a40c29ba3a20",
+          "samples": 20078,
+          "peak": 0.35199,
+          "rms": 0.102505
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gear_cartographer/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.19356,
+          "voiced_until": 1.07356,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.200454,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.261633,
+              "end": 0.451066,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.644853,
+              "end": 0.807075,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.852971,
+              "end": 1.07356,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "ad47e97d1692c3052ea8566ac8e1612be7ee83a766188c8b95c8dec3fc41e9bb",
+          "samples": 26318,
+          "peak": 0.412872,
+          "rms": 0.101811
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_gear_cartographer/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.79619,
+          "voiced_until": 0.67619,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.182494,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.207982,
+              "end": 0.402494,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.524898,
+              "end": 0.67619,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "be97b157cdedb47fbba76b31632dd073fcbceef80e76debe9b616fec1545a426",
+          "samples": 17556,
+          "peak": 0.401733,
+          "rms": 0.102241
+        }
+      }
+    },
+    "npc_backdoor_sacristan": {
+      "name": "后门司铃人",
+      "voice": {
+        "pitch": 154,
+        "formant": 0.86,
+        "pace": 1.18,
+        "breath": 0.09,
+        "rasp": 0.11
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_backdoor_sacristan/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.926712,
+          "voiced_until": 0.806712,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.224898,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.266213,
+              "end": 0.42712,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.62771,
+              "end": 0.806712,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "cfbcf2fe3c9db180dc2029f8780411514a8de4776687eb74f69428f265e936d7",
+          "samples": 20434,
+          "peak": 0.41272,
+          "rms": 0.101651
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_backdoor_sacristan/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.547347,
+          "voiced_until": 1.427347,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.207664,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.237143,
+              "end": 0.443537,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.667755,
+              "end": 0.899773,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.941088,
+              "end": 1.162585,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.209796,
+              "end": 1.427347,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "48a9893425b4ea725c28e7359c5939dc5f11eaf4ffc4e0ba21927f9954900191",
+          "samples": 34119,
+          "peak": 0.381683,
+          "rms": 0.102307
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_backdoor_sacristan/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.313968,
+          "voiced_until": 1.193968,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.272018,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.319229,
+              "end": 0.516825,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.764626,
+              "end": 0.9839,
+              "phoneme": "ri"
+            },
+            {
+              "start": 1.025215,
+              "end": 1.193968,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "b0c4779ead1d8133c508ca016354509b0b1b2491af9dd21cfb8e082ab3e2af67",
+          "samples": 28973,
+          "peak": 0.398773,
+          "rms": 0.101747
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_backdoor_sacristan/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 1.048073,
+          "voiced_until": 0.928073,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.222676,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.263991,
+              "end": 0.500045,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.688844,
+              "end": 0.928073,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "81072751671dcafb59b8ee6d70dfcf31ec28c68789c071e1a77cd99ffa562b7c",
+          "samples": 23110,
+          "peak": 0.361664,
+          "rms": 0.102195
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_backdoor_sacristan/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.379819,
+          "voiced_until": 1.259819,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.223401,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.294195,
+              "end": 0.479728,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.703946,
+              "end": 0.972653,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.02576,
+              "end": 1.259819,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "8f5cf8af3a98daa4563cce6ee1f2ea00c3b562a5cbd0355875d96db2180d95d9",
+          "samples": 30425,
+          "peak": 0.419342,
+          "rms": 0.101446
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_backdoor_sacristan/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.843855,
+          "voiced_until": 0.723855,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.201587,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.231066,
+              "end": 0.415147,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.556735,
+              "end": 0.723855,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "1d226c7cfc328cd7a1089b54eba3057dcf23f0f4707e8abfbccbbc2251a9c6d7",
+          "samples": 18607,
+          "peak": 0.402008,
+          "rms": 0.101644
+        }
+      }
+    },
+    "npc_runback_scout": {
+      "name": "回廊斥候",
+      "voice": {
+        "pitch": 213,
+        "formant": 1.03,
+        "pace": 0.84,
+        "breath": 0.15,
+        "rasp": 0.19
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_runback_scout/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.783084,
+          "voiced_until": 0.663084,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.198957,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.228345,
+              "end": 0.400136,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.542948,
+              "end": 0.663084,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "649d1710494bb5782c7ebc8ee03413bbb8dff4334c96870e8370ee50a7a459b1",
+          "samples": 17267,
+          "peak": 0.386475,
+          "rms": 0.102464
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_runback_scout/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.098639,
+          "voiced_until": 0.978639,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.167166,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.188163,
+              "end": 0.328118,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.48771,
+              "end": 0.615918,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.645306,
+              "end": 0.796916,
+              "phoneme": "ra"
+            },
+            {
+              "start": 0.830522,
+              "end": 0.978639,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "bfe04dcdc74c74d24a1890c6964296a517444cc8638da811e5938a8d7117c2b6",
+          "samples": 24225,
+          "peak": 0.392853,
+          "rms": 0.102536
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_runback_scout/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 0.993741,
+          "voiced_until": 0.873741,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.194875,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.228481,
+              "end": 0.349841,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.526259,
+              "end": 0.690839,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.720227,
+              "end": 0.873741,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "701f2ef3cd52bbe3a394f77f42173b2d29821bb5b2155f28a35be62ba43834e7",
+          "samples": 21912,
+          "peak": 0.392975,
+          "rms": 0.102115
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_runback_scout/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.787982,
+          "voiced_until": 0.667982,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.209705,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.239093,
+              "end": 0.38449,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.518912,
+              "end": 0.667982,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "e229c2c1f37790e32e3b60fd031a1ca684504c0f93a44da4269bb912f416edd4",
+          "samples": 17375,
+          "peak": 0.364105,
+          "rms": 0.10254
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_runback_scout/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.076327,
+          "voiced_until": 0.956327,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.2278,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.278186,
+              "end": 0.42458,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.584172,
+              "end": 0.776735,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.814512,
+              "end": 0.956327,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "4e3f1bdd147921304dea4bf714d771e0e303356fc44765000df43ecbf16e8ee2",
+          "samples": 23733,
+          "peak": 0.397614,
+          "rms": 0.102002
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_runback_scout/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.735011,
+          "voiced_until": 0.615011,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.164127,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.185125,
+              "end": 0.352517,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.453333,
+              "end": 0.615011,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "ceac87de4425e6d99f59d46b9745e7b922409df5b186195531d13acaaefd8f6d",
+          "samples": 16207,
+          "peak": 0.377991,
+          "rms": 0.102376
+        }
+      }
+    },
+    "npc_canal_child": {
+      "name": "管渠童子",
+      "voice": {
+        "pitch": 326,
+        "formant": 1.18,
+        "pace": 0.82,
+        "breath": 0.1,
+        "rasp": 0.03
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_canal_child/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.673243,
+          "voiced_until": 0.553243,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.151519,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.180227,
+              "end": 0.299274,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.438685,
+              "end": 0.553243,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "3f38b512fd32555756a5230666b8fff673c3b65b44cb624eb0ebdbdd0b4680b2",
+          "samples": 14845,
+          "peak": 0.39032,
+          "rms": 0.1024
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_canal_child/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.054059,
+          "voiced_until": 0.934059,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.191066,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.211565,
+              "end": 0.32254,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.478322,
+              "end": 0.616689,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.645397,
+              "end": 0.767438,
+              "phoneme": "ra"
+            },
+            {
+              "start": 0.800227,
+              "end": 0.934059,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "b3dbd67e0fb7032992c8d48774f19dd14db41f16796d0fcf36c2db3b01a39718",
+          "samples": 23242,
+          "peak": 0.370178,
+          "rms": 0.103
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_canal_child/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 0.917143,
+          "voiced_until": 0.797143,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.200771,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.23356,
+              "end": 0.370249,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.542449,
+              "end": 0.655828,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.684535,
+              "end": 0.797143,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "2b3f673f9a664a5290ebec08c5308ce3a2205bf3eb34fa78b0267144044512e6",
+          "samples": 20223,
+          "peak": 0.396759,
+          "rms": 0.102535
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_canal_child/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.755601,
+          "voiced_until": 0.635601,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.18839,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.217098,
+              "end": 0.373651,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.504853,
+              "end": 0.635601,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "06786e535dd894f2e7b65d8a3973652ef6a70fb7cb4eaef863bbe8d97dc5f05b",
+          "samples": 16661,
+          "peak": 0.36731,
+          "rms": 0.103294
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_canal_child/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.033424,
+          "voiced_until": 0.913424,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.201179,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.250385,
+              "end": 0.404172,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.559955,
+              "end": 0.731973,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.768889,
+              "end": 0.913424,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "d3056d64a9dcff76905657fc3eb719596dd5cf8119be17f18770436272731a45",
+          "samples": 22787,
+          "peak": 0.371033,
+          "rms": 0.102633
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_canal_child/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.746848,
+          "voiced_until": 0.626848,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.197143,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.217642,
+              "end": 0.361859,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.460272,
+              "end": 0.626848,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "c969a3850195deeaf28781c18c4b40f7a2f188d54a5de9c4b1052b0383c1ab88",
+          "samples": 16468,
+          "peak": 0.3396,
+          "rms": 0.102765
+        }
+      }
+    },
+    "npc_rain_smith_liu": {
+      "name": "失聪铁匠柳",
+      "voice": {
+        "pitch": 109,
+        "formant": 0.79,
+        "pace": 1.05,
+        "breath": 0.08,
+        "rasp": 0.32
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_rain_smith_liu/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.897959,
+          "voiced_until": 0.777959,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.234467,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.271202,
+              "end": 0.454014,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.632517,
+              "end": 0.777959,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "561828149aee73d9afea39d7f9b1fdb4cea84a3e9526e58a4122d27c018b48e9",
+          "samples": 19800,
+          "peak": 0.45047,
+          "rms": 0.101118
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_rain_smith_liu/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.31551,
+          "voiced_until": 1.19551,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.207075,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.233333,
+              "end": 0.406259,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.60576,
+              "end": 0.772562,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.809297,
+              "end": 0.99805,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.040045,
+              "end": 1.19551,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "28d3798f23a4b6fb376155f57da10f6e52c14e5da140b9a550487a98cfbcdf12",
+          "samples": 29007,
+          "peak": 0.434601,
+          "rms": 0.101353
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_rain_smith_liu/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.076281,
+          "voiced_until": 0.956281,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.196644,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.238639,
+              "end": 0.392154,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.612653,
+              "end": 0.760408,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.797143,
+              "end": 0.956281,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "c887450949eb7fdfd6902034f1c4e103ae32dd270dd43b8f9988759de83f3490",
+          "samples": 23732,
+          "peak": 0.452972,
+          "rms": 0.100549
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_rain_smith_liu/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.892517,
+          "voiced_until": 0.772517,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.197687,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.234422,
+              "end": 0.411474,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.579456,
+              "end": 0.772517,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "c0e7af8d599a545b5afce83e61c34b180c43cba275232fd5bf2e46ca00d5abe3",
+          "samples": 19680,
+          "peak": 0.447174,
+          "rms": 0.10126
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_rain_smith_liu/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.191474,
+          "voiced_until": 1.071474,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.227438,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.290431,
+              "end": 0.464354,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.663855,
+              "end": 0.82771,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.874966,
+              "end": 1.071474,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "403cd6bbbd85b7fb553672f9d48b7e27a58a5294285fa81b9ef891e29cfa5166",
+          "samples": 26272,
+          "peak": 0.458405,
+          "rms": 0.100444
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_rain_smith_liu/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.886939,
+          "voiced_until": 0.766939,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.210385,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.236644,
+              "end": 0.429478,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.555465,
+              "end": 0.766939,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "a9939f2edc444a9742985d1e38e0326d6c3362fb076c23fb40d6894cf1901420",
+          "samples": 19557,
+          "peak": 0.460297,
+          "rms": 0.100887
+        }
+      }
+    },
+    "npc_sluice_nun": {
+      "name": "锈泵修女",
+      "voice": {
+        "pitch": 219,
+        "formant": 1.04,
+        "pace": 1.14,
+        "breath": 0.26,
+        "rasp": 0.04
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sluice_nun/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.010975,
+          "voiced_until": 0.890975,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.268571,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.308481,
+              "end": 0.527166,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.720952,
+              "end": 0.890975,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "e1525228b4ed57effb022c91f036372825f75bc285b4b6a6d717046bb46a675e",
+          "samples": 22292,
+          "peak": 0.379883,
+          "rms": 0.102662
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sluice_nun/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.577188,
+          "voiced_until": 1.457188,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.253605,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.282086,
+              "end": 0.493333,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.709932,
+              "end": 0.94059,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.980499,
+              "end": 1.180998,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.226576,
+              "end": 1.457188,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "f523c1a8d0226b3d59c9304363f51eccc75505f5c78633215656a994756c06cb",
+          "samples": 34777,
+          "peak": 0.371918,
+          "rms": 0.102825
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sluice_nun/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.241859,
+          "voiced_until": 1.121859,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.266803,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.312381,
+              "end": 0.504127,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.743537,
+              "end": 0.907166,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.947075,
+              "end": 1.121859,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "1de856f01df1682464df8c8db55456e7c8b0dba48fb5ce38264c9e6ffd1a19bf",
+          "samples": 27383,
+          "peak": 0.383575,
+          "rms": 0.102256
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sluice_nun/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.941859,
+          "voiced_until": 0.821859,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.249796,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.289705,
+              "end": 0.466531,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.648934,
+              "end": 0.821859,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "75fb01ad2312afe3326ba80c7c40eff4d325b543fb69843aba1f0b1f14da222e",
+          "samples": 20768,
+          "peak": 0.402069,
+          "rms": 0.102594
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sluice_nun/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.274104,
+          "voiced_until": 1.154104,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.212789,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.281179,
+              "end": 0.476689,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.693288,
+              "end": 0.898186,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.949478,
+              "end": 1.154104,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "eeee273382ee71ca11039bbc0d1ca7b806c33927e039179712db5176593a0599",
+          "samples": 28094,
+          "peak": 0.41214,
+          "rms": 0.102059
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sluice_nun/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.884762,
+          "voiced_until": 0.764762,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.198776,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.227256,
+              "end": 0.44381,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.58059,
+              "end": 0.764762,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "3fee01a42335573777e7cca0cd7b649d9f1335cea3cb7be9da5b8fdceec3e1de",
+          "samples": 19509,
+          "peak": 0.359558,
+          "rms": 0.102591
+        }
+      }
+    },
+    "npc_drowned_foreman": {
+      "name": "半沉工头",
+      "voice": {
+        "pitch": 123,
+        "formant": 0.83,
+        "pace": 1.2,
+        "breath": 0.21,
+        "rasp": 0.29
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_drowned_foreman/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.96966,
+          "voiced_until": 0.84966,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.225034,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.267029,
+              "end": 0.477098,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.681088,
+              "end": 0.84966,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "974b35096aff3b59a35ba8087ea8870c484b83bd21cd95cb2d769d2f4c0cb837",
+          "samples": 21381,
+          "peak": 0.444061,
+          "rms": 0.101341
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_drowned_foreman/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.526712,
+          "voiced_until": 1.406712,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.225488,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.25551,
+              "end": 0.463129,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.691111,
+              "end": 0.933787,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.975782,
+              "end": 1.174104,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.222086,
+              "end": 1.406712,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "5c4962fc3267fda348f085c650503be7225039f8e934101080d793778b742894",
+          "samples": 33664,
+          "peak": 0.412933,
+          "rms": 0.101774
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_drowned_foreman/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.311338,
+          "voiced_until": 1.191338,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.220952,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.268934,
+              "end": 0.498776,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.750794,
+              "end": 0.964989,
+              "phoneme": "ri"
+            },
+            {
+              "start": 1.006984,
+              "end": 1.191338,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "9fa09014e558db6e75fba78f11b466e835fe6bac7d7c66d30d8090251769d1d8",
+          "samples": 28915,
+          "peak": 0.448975,
+          "rms": 0.101192
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_drowned_foreman/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.970839,
+          "voiced_until": 0.850839,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.245624,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.287619,
+              "end": 0.471791,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.66381,
+              "end": 0.850839,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "155f59e1fa23488ce30bdd5d6af9a1aa0684b1e88b72b2a8270f0259fdb1e404",
+          "samples": 21407,
+          "peak": 0.455841,
+          "rms": 0.101667
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_drowned_foreman/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.483129,
+          "voiced_until": 1.363129,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.296553,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.368571,
+              "end": 0.588209,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.81619,
+              "end": 1.044717,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.09873,
+              "end": 1.363129,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "9bc64bd8d87d38dd8757e9db22b27252f661812d93af89ad4f27c27e724a6253",
+          "samples": 32703,
+          "peak": 0.445648,
+          "rms": 0.101069
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_drowned_foreman/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 1.003175,
+          "voiced_until": 0.883175,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.262676,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.292698,
+              "end": 0.517687,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.661678,
+              "end": 0.883175,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "61372539d67ecd0d7400cc229c8e3b65274cb7ebc2812f59306472aa669d64c8",
+          "samples": 22120,
+          "peak": 0.423737,
+          "rms": 0.101319
+        }
+      }
+    },
+    "npc_salt_librarian_ye": {
+      "name": "盐页管理员叶",
+      "voice": {
+        "pitch": 207,
+        "formant": 1.02,
+        "pace": 1.13,
+        "breath": 0.22,
+        "rasp": 0.04
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_salt_librarian_ye/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.979048,
+          "voiced_until": 0.859048,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.218005,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.257551,
+              "end": 0.464082,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.65619,
+              "end": 0.859048,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "32e64044cf6264a9b0b96230e6c1e5198af0d25e8c81c815c37c4b82795ae187",
+          "samples": 21588,
+          "peak": 0.388245,
+          "rms": 0.102235
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_salt_librarian_ye/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.506304,
+          "voiced_until": 1.386304,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.232698,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.260952,
+              "end": 0.466077,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.680771,
+              "end": 0.879138,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.918685,
+              "end": 1.144399,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.189615,
+              "end": 1.386304,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "c796ffebefb665c8c54735239bc4128d2b0dbbbf6230d205e4406520913577e5",
+          "samples": 33214,
+          "peak": 0.356354,
+          "rms": 0.102662
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_salt_librarian_ye/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.293605,
+          "voiced_until": 1.173605,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.212971,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.258186,
+              "end": 0.488798,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.726077,
+              "end": 0.945941,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.985488,
+              "end": 1.173605,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "20f1e0bd116b40ee400141c103266f6c6bb7d198715ac6bbe70e7913d894fae7",
+          "samples": 28524,
+          "peak": 0.393494,
+          "rms": 0.102342
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_salt_librarian_ye/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 1.019819,
+          "voiced_until": 0.899819,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.245215,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.284762,
+              "end": 0.506259,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.687075,
+              "end": 0.899819,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "4f5ca35e183462dc6ff695a97a60298b7884c62e65436c33d9fc8fc1b9822ec1",
+          "samples": 22487,
+          "peak": 0.352997,
+          "rms": 0.102579
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_salt_librarian_ye/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.406395,
+          "voiced_until": 1.286395,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.237098,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.304898,
+              "end": 0.524762,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.739456,
+              "end": 0.980181,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.03102,
+              "end": 1.286395,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "e03636ee76102cf5e5cfec23f9ed946938f73e8c376e575470c63331ff3341a5",
+          "samples": 31011,
+          "peak": 0.423157,
+          "rms": 0.102094
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_salt_librarian_ye/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.902812,
+          "voiced_until": 0.782812,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.241769,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.270023,
+              "end": 0.427528,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.563129,
+              "end": 0.782812,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "d897997a3971cbf09675696bd89cc2f641bd39783efc6dcefb7109ce138beb7c",
+          "samples": 19907,
+          "peak": 0.368134,
+          "rms": 0.102252
+        }
+      }
+    },
+    "npc_quiet_reader": {
+      "name": "沉默读者",
+      "voice": {
+        "pitch": 178,
+        "formant": 1.07,
+        "pace": 1.19,
+        "breath": 0.48,
+        "rasp": 0.03
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_quiet_reader/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.049206,
+          "voiced_until": 0.929206,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.25737,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.299002,
+              "end": 0.527075,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.729388,
+              "end": 0.929206,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "c7aef54ea54cd879c3e0e38ded1cd21d059a7d02ba905b80fcc80c38b182f413",
+          "samples": 23135,
+          "peak": 0.447327,
+          "rms": 0.102121
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_quiet_reader/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.416508,
+          "voiced_until": 1.296508,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.206168,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.235918,
+              "end": 0.422268,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.64839,
+              "end": 0.823946,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.865578,
+              "end": 1.047982,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.095601,
+              "end": 1.296508,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "3cb7f1fe1b65ad909064592b2eb8652117e2292c4b27955dd3e131201f161aa4",
+          "samples": 31234,
+          "peak": 0.437592,
+          "rms": 0.102258
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_quiet_reader/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.320544,
+          "voiced_until": 1.200544,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.244943,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.292562,
+              "end": 0.527029,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.776916,
+              "end": 0.991156,
+              "phoneme": "ri"
+            },
+            {
+              "start": 1.032789,
+              "end": 1.200544,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "7ff1f1a80efff24baf16ee52726267fa1ff2c469c8af1198bea6d8a28b94957c",
+          "samples": 29118,
+          "peak": 0.488708,
+          "rms": 0.101915
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_quiet_reader/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.941995,
+          "voiced_until": 0.821995,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.205805,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.247438,
+              "end": 0.456327,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.646712,
+              "end": 0.821995,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "49c0d75d543fc27e99d6e4c29f902fd81e6e6b7fc8f8d2e39ab9f4f50af4f611",
+          "samples": 20771,
+          "peak": 0.432892,
+          "rms": 0.10208
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_quiet_reader/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.4122,
+          "voiced_until": 1.2922,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.275601,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.346984,
+              "end": 0.585805,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.811927,
+              "end": 1.048299,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.101859,
+              "end": 1.2922,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "4c83fa5a6d30ec62adcea15aaabfff8ad8cdae0bc45922860f8b688c61b88b17",
+          "samples": 31139,
+          "peak": 0.461456,
+          "rms": 0.101743
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_quiet_reader/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.914512,
+          "voiced_until": 0.794512,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.270612,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.300363,
+              "end": 0.473288,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.6161,
+              "end": 0.794512,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "6a498ceacd19dbafc992d187aa9fbf33237c5b632a8683d92ab1fa266b9bb8da",
+          "samples": 20165,
+          "peak": 0.469482,
+          "rms": 0.101845
+        }
+      }
+    },
+    "npc_fugitive_scribe": {
+      "name": "逃亡书记",
+      "voice": {
+        "pitch": 264,
+        "formant": 1.1,
+        "pace": 0.83,
+        "breath": 0.2,
+        "rasp": 0.16
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_fugitive_scribe/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.689932,
+          "voiced_until": 0.569932,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.152154,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.181224,
+              "end": 0.304263,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.445351,
+              "end": 0.569932,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "e9f1fb326b45d06b283d27480340cc9f1c043e847fce8cbb36b26f0c49625f68",
+          "samples": 15213,
+          "peak": 0.384399,
+          "rms": 0.102619
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_fugitive_scribe/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.056825,
+          "voiced_until": 0.936825,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.17678,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.197551,
+              "end": 0.345941,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.503628,
+              "end": 0.627528,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.656599,
+              "end": 0.786168,
+              "phoneme": "ra"
+            },
+            {
+              "start": 0.819365,
+              "end": 0.936825,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "8426b3fe3d6220532fda20e69a04e424208a5d0d71b5dafebcdbbd0db4549338",
+          "samples": 23303,
+          "peak": 0.423859,
+          "rms": 0.102933
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_fugitive_scribe/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 0.976644,
+          "voiced_until": 0.856644,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.184444,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.217642,
+              "end": 0.366576,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.540862,
+              "end": 0.672744,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.701814,
+              "end": 0.856644,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "d8ecc19d31e30880fe5c44d956952c032c1abae93ba0b73b582eb102b199fafb",
+          "samples": 21535,
+          "peak": 0.403229,
+          "rms": 0.102773
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_fugitive_scribe/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.755556,
+          "voiced_until": 0.635556,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.186213,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.215283,
+              "end": 0.355828,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.488617,
+              "end": 0.635556,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "30a468083589962c46200555a5d94b72a8598ff269906f622a7bd6a10bab121f",
+          "samples": 16660,
+          "peak": 0.396393,
+          "rms": 0.102813
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_fugitive_scribe/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.004218,
+          "voiced_until": 0.884218,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.20771,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.257506,
+              "end": 0.423492,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.581179,
+              "end": 0.718957,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.756327,
+              "end": 0.884218,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "f3698355ae812baddf4cef65e4a52ff0dd3a7e285f4f598f6cdcf7eb4ed6c389",
+          "samples": 22143,
+          "peak": 0.396423,
+          "rms": 0.102487
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_fugitive_scribe/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.730975,
+          "voiced_until": 0.610975,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.190249,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.21102,
+              "end": 0.350476,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.450068,
+              "end": 0.610975,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "d7bc2eaaf2e85b25dbc40f69d7d47251c7756b0c826e7d4595c00c4ceecaba54",
+          "samples": 16118,
+          "peak": 0.355286,
+          "rms": 0.102405
+        }
+      }
+    },
+    "npc_sealed_archivist": {
+      "name": "封蜡档案员",
+      "voice": {
+        "pitch": 162,
+        "formant": 0.92,
+        "pace": 1.04,
+        "breath": 0.08,
+        "rasp": 0.08
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sealed_archivist/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.900544,
+          "voiced_until": 0.780544,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.197234,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.233651,
+              "end": 0.413333,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.590113,
+              "end": 0.780544,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "1dc9434562af20cbbd3448e600a9fdcdaa8c06537c8ab13d21b135d1adb39c9a",
+          "samples": 19857,
+          "peak": 0.405457,
+          "rms": 0.101735
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sealed_archivist/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.349887,
+          "voiced_until": 1.229887,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.19746,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.223447,
+              "end": 0.397914,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.59551,
+              "end": 0.794195,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.830612,
+              "end": 0.985397,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.026984,
+              "end": 1.229887,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "522440932372b9b11c695bf93f9e34222b1d7ff27892645a609d154430b65dd2",
+          "samples": 29765,
+          "peak": 0.387054,
+          "rms": 0.102301
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sealed_archivist/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.075147,
+          "voiced_until": 0.955147,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.187029,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.228617,
+              "end": 0.400317,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.61873,
+              "end": 0.775873,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.81229,
+              "end": 0.955147,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "d72da813c1aae32c4061d665a54a9883fd30a3c501560d8515e7f0d2e1bc469e",
+          "samples": 23707,
+          "peak": 0.44574,
+          "rms": 0.101558
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sealed_archivist/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.84839,
+          "voiced_until": 0.72839,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.190023,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.22644,
+              "end": 0.393424,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.559819,
+              "end": 0.72839,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "1a685c0f4374fe78cc68d970eaac2ea148f9216726559ea86bdb50f80ba075a1",
+          "samples": 18707,
+          "peak": 0.398163,
+          "rms": 0.102014
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sealed_archivist/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.247846,
+          "voiced_until": 1.127846,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.246304,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.308707,
+              "end": 0.477052,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.674649,
+              "end": 0.850975,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.897778,
+              "end": 1.127846,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "1d2fcccaea2ba5c3f1b8e515c8628b1174f4eb4cd8d077f0718e7659e7810690",
+          "samples": 27515,
+          "peak": 0.435455,
+          "rms": 0.101613
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_sealed_archivist/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.787438,
+          "voiced_until": 0.667438,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.182086,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.208073,
+              "end": 0.352426,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.477234,
+              "end": 0.667438,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "9e82384f2a1921c32a357697f4e04041585bf9512b4f01cc7d6ee7481c0388ca",
+          "samples": 17363,
+          "peak": 0.397736,
+          "rms": 0.101493
+        }
+      }
+    },
+    "npc_old_gardener": {
+      "name": "老园丁弦伯",
+      "voice": {
+        "pitch": 131,
+        "formant": 0.93,
+        "pace": 1.23,
+        "breath": 0.21,
+        "rasp": 0.18
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_old_gardener/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.036281,
+          "voiced_until": 0.916281,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.27424,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.317279,
+              "end": 0.526304,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.73542,
+              "end": 0.916281,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "7a4308f9d610545fbe725003bb7d366f8051c6520192b3d96f31e697197db69e",
+          "samples": 22850,
+          "peak": 0.450562,
+          "rms": 0.101377
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_old_gardener/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.703537,
+          "voiced_until": 1.583537,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.286032,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.31678,
+              "end": 0.557596,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.791293,
+              "end": 1.042313,
+              "phoneme": "mu"
+            },
+            {
+              "start": 1.085351,
+              "end": 1.33034,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.379546,
+              "end": 1.583537,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "bac079d94fe4be79959bae7bdbd8ee72c39c2d1e2291654815b8548d37ca6288",
+          "samples": 37563,
+          "peak": 0.425171,
+          "rms": 0.101751
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_old_gardener/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.36195,
+          "voiced_until": 1.24195,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.258005,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.307211,
+              "end": 0.490476,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.748798,
+              "end": 0.948571,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.99161,
+              "end": 1.24195,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "ea836f3eb47c3126174b04c3a74a467d3737d55ce70cee5f82391f1db5e08227",
+          "samples": 30031,
+          "peak": 0.475189,
+          "rms": 0.101058
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_old_gardener/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 1.043946,
+          "voiced_until": 0.923946,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.272789,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.315828,
+              "end": 0.541769,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.738549,
+              "end": 0.923946,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "6f31a90db3ff0f1abe6321ebafc4bda7b9365787c3cabb40f5d62c2451dc0077",
+          "samples": 23019,
+          "peak": 0.419189,
+          "rms": 0.101699
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_old_gardener/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.458685,
+          "voiced_until": 1.338685,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.294376,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.368163,
+              "end": 0.590612,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.824308,
+              "end": 1.08263,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.137959,
+              "end": 1.338685,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "ac1ccdc6286ce349343ac321eb952531ced14e0e4b2c04e6ed6a289b4f26db12",
+          "samples": 32164,
+          "peak": 0.431,
+          "rms": 0.10089
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_old_gardener/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.921043,
+          "voiced_until": 0.801043,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.213243,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.243991,
+              "end": 0.4522,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.599819,
+              "end": 0.801043,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "23a584a15ca28d06273e495718b27125bd6b170686bee92ebf0d59be60db7a30",
+          "samples": 20309,
+          "peak": 0.432129,
+          "rms": 0.101157
+        }
+      }
+    },
+    "npc_beeswax_vendor": {
+      "name": "蜂蜡商人蜜岚",
+      "voice": {
+        "pitch": 228,
+        "formant": 1.0,
+        "pace": 0.98,
+        "breath": 0.12,
+        "rasp": 0.08
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_beeswax_vendor/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.830023,
+          "voiced_until": 0.710023,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.184943,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.219229,
+              "end": 0.388163,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.554785,
+              "end": 0.710023,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "f4284ae9b726329e8a6ebf76cef8b5429b076662d2b83ede7fc24a4d6557014c",
+          "samples": 18302,
+          "peak": 0.356903,
+          "rms": 0.102562
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_beeswax_vendor/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.254512,
+          "voiced_until": 1.134512,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.233968,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.258458,
+              "end": 0.396009,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.582222,
+              "end": 0.735011,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.769297,
+              "end": 0.905488,
+              "phoneme": "ra"
+            },
+            {
+              "start": 0.944671,
+              "end": 1.134512,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "8d67829516c13baa1f7471f47c964468b2a0b047180607d2ba3f0e38fd5b7fc8",
+          "samples": 27662,
+          "peak": 0.343567,
+          "rms": 0.102868
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_beeswax_vendor/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.091927,
+          "voiced_until": 0.971927,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.215692,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.254875,
+              "end": 0.40449,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.610295,
+              "end": 0.773152,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.807438,
+              "end": 0.971927,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "0069de9b6b92ca7227af40fe6976e21e500e2ead2c670b07cc649efa68058d5f",
+          "samples": 24077,
+          "peak": 0.389008,
+          "rms": 0.102513
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_beeswax_vendor/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.840363,
+          "voiced_until": 0.720363,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.24059,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.274875,
+              "end": 0.429751,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.586531,
+              "end": 0.720363,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "85d31b6a0442a800933b7a38d2da863dc7a97f0e37f47d881ed9132ae5028ba9",
+          "samples": 18530,
+          "peak": 0.419647,
+          "rms": 0.102662
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_beeswax_vendor/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.181859,
+          "voiced_until": 1.061859,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.212109,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.27093,
+              "end": 0.46898,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.655193,
+              "end": 0.829524,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.873605,
+              "end": 1.061859,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "c20c51f87e5977391a60f5e8cb40783025a52b70a6ffe0922ba54a4df23125c6",
+          "samples": 26060,
+          "peak": 0.371155,
+          "rms": 0.102378
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_beeswax_vendor/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.778458,
+          "voiced_until": 0.658458,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.186395,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.210884,
+              "end": 0.357868,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.475465,
+              "end": 0.658458,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "b39733c558bb308f99e5dbcb8783c86d8a425f9cdc974625bd7f2a80d6e6deef",
+          "samples": 17165,
+          "peak": 0.354645,
+          "rms": 0.102347
+        }
+      }
+    },
+    "npc_broken_singer": {
+      "name": "断弦歌者",
+      "voice": {
+        "pitch": 246,
+        "formant": 1.05,
+        "pace": 1.22,
+        "breath": 0.34,
+        "rasp": 0.31
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_broken_singer/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.095964,
+          "voiced_until": 0.975964,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.271701,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.314422,
+              "end": 0.530295,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.737687,
+              "end": 0.975964,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "84ce43849e44b06392d1aef7754ef6580c5aecfef1547909210fe91805a411ff",
+          "samples": 24166,
+          "peak": 0.384064,
+          "rms": 0.102872
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_broken_singer/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.527256,
+          "voiced_until": 1.407256,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.264036,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.294558,
+              "end": 0.518231,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.750023,
+              "end": 0.969116,
+              "phoneme": "mu"
+            },
+            {
+              "start": 1.011837,
+              "end": 1.187937,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.236735,
+              "end": 1.407256,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "84549b584863c45ae259e95bffdc7d16cc8be2144897d17cf65ee7f2e0f53a14",
+          "samples": 33676,
+          "peak": 0.360687,
+          "rms": 0.102989
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_broken_singer/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.270703,
+          "voiced_until": 1.150703,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.225125,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.273923,
+              "end": 0.450113,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.706304,
+              "end": 0.919229,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.96195,
+              "end": 1.150703,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "823abadfc88cdaf7d3f319b74131288e4c1c403b0a7404ee0f02375d6f8ed953",
+          "samples": 28019,
+          "peak": 0.386139,
+          "rms": 0.102674
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_broken_singer/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.98966,
+          "voiced_until": 0.86966,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.27678,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.319501,
+              "end": 0.488571,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.683764,
+              "end": 0.86966,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "19dba717e01fdecb672f7ca701054da35aed00b1ef86b1c91dcdb17ca3fea004",
+          "samples": 21822,
+          "peak": 0.356598,
+          "rms": 0.102902
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_broken_singer/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.433197,
+          "voiced_until": 1.313197,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.241179,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.314376,
+              "end": 0.53932,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.771111,
+              "end": 1.000726,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.055646,
+              "end": 1.313197,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "4d2fa27e87ba1fd601abfd21983679444517288c640be1f8c7414e739ba5d928",
+          "samples": 31602,
+          "peak": 0.401123,
+          "rms": 0.102564
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_broken_singer/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.919637,
+          "voiced_until": 0.799637,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.222449,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.252971,
+              "end": 0.488209,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.634603,
+              "end": 0.799637,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "0ea8664595dad6fd0eae364f26e082fd1838ad99df7be37fdcecd05ab5005c13",
+          "samples": 20278,
+          "peak": 0.377472,
+          "rms": 0.102617
+        }
+      }
+    },
+    "npc_root_prisoner": {
+      "name": "根笼囚徒",
+      "voice": {
+        "pitch": 171,
+        "formant": 0.96,
+        "pace": 1.16,
+        "breath": 0.3,
+        "rasp": 0.24
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_root_prisoner/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.022857,
+          "voiced_until": 0.902857,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.254785,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.295374,
+              "end": 0.500726,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.697914,
+              "end": 0.902857,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "1446a5e23bd73d79c16dfbb34a3f70c4ef68df894a1f3455bc37b1043589934e",
+          "samples": 22554,
+          "peak": 0.417389,
+          "rms": 0.102064
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_root_prisoner/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.513741,
+          "voiced_until": 1.393741,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.212426,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.241406,
+              "end": 0.466712,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.68712,
+              "end": 0.911565,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.952154,
+              "end": 1.180998,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.227392,
+              "end": 1.393741,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "fafad24582fa0479d5bc3c5f9490c0d797e81faf2af3f118f4ef4fc357f1dbbb",
+          "samples": 33378,
+          "peak": 0.427887,
+          "rms": 0.102331
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_root_prisoner/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.202494,
+          "voiced_until": 1.082494,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.216508,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.262902,
+              "end": 0.432018,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.675601,
+              "end": 0.853651,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.89424,
+              "end": 1.082494,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "12f9dbe3ea89dd00bbb424d7c0c026bac325bc6cc94c01d91d2bd487769d7571",
+          "samples": 26515,
+          "peak": 0.431274,
+          "rms": 0.10169
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_root_prisoner/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 1.000862,
+          "voiced_until": 0.880862,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.220272,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.260862,
+              "end": 0.460952,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.646531,
+              "end": 0.880862,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "bc378d0e7b5ae1cbca80ecd5dbe53c1c3ae9e2b5893ba472c2666eb8cfd988b1",
+          "samples": 22069,
+          "peak": 0.405243,
+          "rms": 0.102254
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_root_prisoner/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.386712,
+          "voiced_until": 1.266712,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.284172,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.353787,
+              "end": 0.576417,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.796825,
+              "end": 1.00644,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.058639,
+              "end": 1.266712,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "153564c477f3d72960c86e1bee456d52327e77197a2ca7fb8153c384b7db03d5",
+          "samples": 30577,
+          "peak": 0.420044,
+          "rms": 0.101706
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_root_prisoner/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.927483,
+          "voiced_until": 0.807483,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.215601,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.24458,
+              "end": 0.438549,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.577732,
+              "end": 0.807483,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "5ae6f866b16168fdca3b6fbad29f9a9a2e27033e3cd11f22ae4b75d5a9f5b257",
+          "samples": 20451,
+          "peak": 0.40271,
+          "rms": 0.101887
+        }
+      }
+    },
+    "npc_obsidian_guide": {
+      "name": "黑曜引路人",
+      "voice": {
+        "pitch": 145,
+        "formant": 0.85,
+        "pace": 0.99,
+        "breath": 0.1,
+        "rasp": 0.23
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_obsidian_guide/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.872245,
+          "voiced_until": 0.752245,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.218231,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.25288,
+              "end": 0.397007,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.565306,
+              "end": 0.752245,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "51a8f765d7786307c3ab917a12393b5ae92f53c80e65502e6747ea22251e20f6",
+          "samples": 19233,
+          "peak": 0.412109,
+          "rms": 0.101562
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_obsidian_guide/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.194921,
+          "voiced_until": 1.074921,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.179048,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.20381,
+              "end": 0.350068,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.538186,
+              "end": 0.690385,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.725034,
+              "end": 0.894512,
+              "phoneme": "ra"
+            },
+            {
+              "start": 0.934104,
+              "end": 1.074921,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "caf61d163dd0de12e61b877994af280ec31f57e5396c18dbae6af57eb9b30ba2",
+          "samples": 26348,
+          "peak": 0.408661,
+          "rms": 0.101889
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_obsidian_guide/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.101406,
+          "voiced_until": 0.981406,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.184399,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.223991,
+              "end": 0.398503,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.606395,
+              "end": 0.804218,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.838866,
+              "end": 0.981406,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "d7e7844de7da61a929cd3a12a214b401e6e408136b7599c03ded2dfce5743097",
+          "samples": 24286,
+          "peak": 0.413025,
+          "rms": 0.101557
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_obsidian_guide/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.86068,
+          "voiced_until": 0.74068,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.221633,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.256281,
+              "end": 0.444354,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.602766,
+              "end": 0.74068,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "5f5a365bee6478742536253e0a0d736953815bdad704256f2f98c2607c360570",
+          "samples": 18978,
+          "peak": 0.406219,
+          "rms": 0.102152
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_obsidian_guide/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.212426,
+          "voiced_until": 1.092426,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.190794,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.250204,
+              "end": 0.421315,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.609433,
+              "end": 0.824218,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.868753,
+              "end": 1.092426,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "2b6c8c09ee8ee9baebc27e7511970faf79d9170e51bff339be194073709d85ed",
+          "samples": 26734,
+          "peak": 0.407684,
+          "rms": 0.101297
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_obsidian_guide/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.791927,
+          "voiced_until": 0.671927,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.194603,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.219365,
+              "end": 0.376054,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.494875,
+              "end": 0.671927,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "824dcf78411c7c9adbf3fcffd3ef6e721e36ff9af9b85623d8952cce5bfd851e",
+          "samples": 17462,
+          "peak": 0.398987,
+          "rms": 0.101464
+        }
+      }
+    },
+    "npc_blind_bell_knight": {
+      "name": "盲钟骑士",
+      "voice": {
+        "pitch": 117,
+        "formant": 0.82,
+        "pace": 1.24,
+        "breath": 0.16,
+        "rasp": 0.27
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_blind_bell_knight/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.048934,
+          "voiced_until": 0.928934,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.247483,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.290884,
+              "end": 0.482358,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.693152,
+              "end": 0.928934,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "ee4b0fc6b0d81a500332d213c18fc7e0f2484cd64ab6008938ad6cc528a99b14",
+          "samples": 23129,
+          "peak": 0.441528,
+          "rms": 0.101112
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_blind_bell_knight/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.546667,
+          "voiced_until": 1.426667,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.290023,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.321043,
+              "end": 0.526349,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.76195,
+              "end": 0.938912,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.982313,
+              "end": 1.186349,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.235964,
+              "end": 1.426667,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "2feb82058d81a099fa81d2f86a9c6807988273fcfb477d17df405990dc59b8d6",
+          "samples": 34104,
+          "peak": 0.431183,
+          "rms": 0.101462
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_blind_bell_knight/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.289342,
+          "voiced_until": 1.169342,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.245714,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.295329,
+              "end": 0.484898,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.745306,
+              "end": 0.949524,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.992925,
+              "end": 1.169342,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "530949d65adcc3c8c06ca5898e2d4e0cca0a8c689965131000a4b69e1891aaed",
+          "samples": 28430,
+          "peak": 0.438263,
+          "rms": 0.100886
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_blind_bell_knight/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 1.065397,
+          "voiced_until": 0.945397,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.276145,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.319546,
+              "end": 0.54127,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.739683,
+              "end": 0.945397,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "28441d64d54a22331053d53e3c70a1d9e4ee0c8f74d7ffda2b45362e972f3b9e",
+          "samples": 23492,
+          "peak": 0.40741,
+          "rms": 0.101684
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_blind_bell_knight/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.41102,
+          "voiced_until": 1.29102,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.287029,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.361451,
+              "end": 0.550884,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.786485,
+              "end": 0.990431,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.046213,
+              "end": 1.29102,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "ce275fde1b24e447a0553ecc471b6b44638b8a4bee7e8c64d90675862c79e524",
+          "samples": 31113,
+          "peak": 0.440308,
+          "rms": 0.10085
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_blind_bell_knight/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 1.031247,
+          "voiced_until": 0.911247,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.237506,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.268526,
+              "end": 0.512608,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.661406,
+              "end": 0.911247,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "5c16c743ce9b1f6f83dfbf14b8af95f84adb1119c08be6b4e08c05e7c561ea87",
+          "samples": 22739,
+          "peak": 0.419952,
+          "rms": 0.101184
+        }
+      }
+    },
+    "npc_lantern_sister": {
+      "name": "灯影修女",
+      "voice": {
+        "pitch": 231,
+        "formant": 1.03,
+        "pace": 1.12,
+        "breath": 0.27,
+        "rasp": 0.03
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_lantern_sister/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.916961,
+          "voiced_until": 0.796961,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.22458,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.263764,
+              "end": 0.455283,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.645669,
+              "end": 0.796961,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "f0b910bcbf3e0320acb1beccd270d7722a474de19b9d8fd50d681761057f0890",
+          "samples": 20219,
+          "peak": 0.370331,
+          "rms": 0.1027
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_lantern_sister/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.363764,
+          "voiced_until": 1.243764,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.195465,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.223447,
+              "end": 0.388798,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.601587,
+              "end": 0.753152,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.792336,
+              "end": 0.977596,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.022404,
+              "end": 1.243764,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "51a429f7bb38e163239f6d58226bcb7938cf1b0dfa0bbf1d32599946b451243d",
+          "samples": 30071,
+          "peak": 0.375214,
+          "rms": 0.102907
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_lantern_sister/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.317279,
+          "voiced_until": 1.197279,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.229252,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.274059,
+              "end": 0.48059,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.715782,
+              "end": 0.939138,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.978322,
+              "end": 1.197279,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "2cd3000fc1f099c859e4d4dae1e494135cd260c4348710971c6e3afbb24322c9",
+          "samples": 29046,
+          "peak": 0.359406,
+          "rms": 0.102701
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_lantern_sister/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.961315,
+          "voiced_until": 0.841315,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.226304,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.265488,
+              "end": 0.434603,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.613787,
+              "end": 0.841315,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "cddf3298b612b6a4997711f35f226e065e332aad12ecf59e6be7f179538d2536",
+          "samples": 21197,
+          "peak": 0.369202,
+          "rms": 0.102487
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_lantern_sister/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.355193,
+          "voiced_until": 1.235193,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.282676,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.349887,
+              "end": 0.531247,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.744036,
+              "end": 0.98,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.030385,
+              "end": 1.235193,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "fa60701cee43487b1c058b1be839c2c0521a3dba8cf8e2853735ae9b939698d4",
+          "samples": 29882,
+          "peak": 0.375336,
+          "rms": 0.102499
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_lantern_sister/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.929161,
+          "voiced_until": 0.809161,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.20381,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.231791,
+              "end": 0.452653,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.587075,
+              "end": 0.809161,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "2b1edf3524efc60309b398e8b609e3913b08bbe2247fc10619d85f9bd4530e3d",
+          "samples": 20488,
+          "peak": 0.405487,
+          "rms": 0.102667
+        }
+      }
+    },
+    "npc_deserter_flagbearer": {
+      "name": "逃旗手",
+      "voice": {
+        "pitch": 156,
+        "formant": 0.89,
+        "pace": 1.13,
+        "breath": 0.21,
+        "rasp": 0.26
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_deserter_flagbearer/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.980816,
+          "voiced_until": 0.860816,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.233696,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.273243,
+              "end": 0.459683,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.651791,
+              "end": 0.860816,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "a101d72c93903e8a69e2e307debb36d827aa989ba7c99e4f5b1715c5a484d91a",
+          "samples": 21627,
+          "peak": 0.413086,
+          "rms": 0.101751
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_deserter_flagbearer/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.391111,
+          "voiced_until": 1.271111,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.202857,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.231111,
+              "end": 0.403356,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.61805,
+              "end": 0.84839,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.887937,
+              "end": 1.057914,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.103129,
+              "end": 1.271111,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "6f25685969cab09d064737b3771ece3eca5aafd872970894d4f0a535c4a57e1a",
+          "samples": 30674,
+          "peak": 0.398743,
+          "rms": 0.102195
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_deserter_flagbearer/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.185397,
+          "voiced_until": 1.065397,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.23941,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.284626,
+              "end": 0.459955,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.697234,
+              "end": 0.857914,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.89746,
+              "end": 1.065397,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "ae967b2a202d7330eb284987e05ad5f6ee3ea16177fd9dbdfd01c9d8315a950a",
+          "samples": 26138,
+          "peak": 0.421265,
+          "rms": 0.101524
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_deserter_flagbearer/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.932109,
+          "voiced_until": 0.812109,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.19941,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.238957,
+              "end": 0.408254,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.58907,
+              "end": 0.812109,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "bcfc35f8cf95a324da4819e08260e80c2d04c7517f5a0092e7d8de9c4163a10e",
+          "samples": 20553,
+          "peak": 0.379242,
+          "rms": 0.101985
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_deserter_flagbearer/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.349932,
+          "voiced_until": 1.229932,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.252608,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.320408,
+              "end": 0.499138,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.713832,
+              "end": 0.92966,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.980499,
+              "end": 1.229932,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "f7cbb21caa844aaf171e9efd5ec285a8e55f999a6fec2916dde50e8709af98cf",
+          "samples": 29766,
+          "peak": 0.406189,
+          "rms": 0.10157
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_deserter_flagbearer/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.901043,
+          "voiced_until": 0.781043,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.237007,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.265261,
+              "end": 0.456508,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.592109,
+              "end": 0.781043,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "ac203f9693ad5f93f1a940d26357e3fb10fcc99fa8628134230696b2e59384a4",
+          "samples": 19868,
+          "peak": 0.40094,
+          "rms": 0.101669
+        }
+      }
+    },
+    "npc_first_pilgrim_echo": {
+      "name": "初代巡礼者回声",
+      "voice": {
+        "pitch": 189,
+        "formant": 0.98,
+        "pace": 1.25,
+        "breath": 0.27,
+        "rasp": 0.06,
+        "echo": 0.12
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_first_pilgrim_echo/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.113515,
+          "voiced_until": 0.933515,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.288934,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.332698,
+              "end": 0.53542,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.747937,
+              "end": 0.933515,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "e8d7e12b179af7ae2afcd3d3254e5fd6317b0b5458806779cbecc8ba42d898f3",
+          "samples": 24553,
+          "peak": 0.423279,
+          "rms": 0.102185
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_first_pilgrim_echo/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.706259,
+          "voiced_until": 1.526259,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.286259,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.317506,
+              "end": 0.521723,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.759229,
+              "end": 0.994512,
+              "phoneme": "mu"
+            },
+            {
+              "start": 1.038277,
+              "end": 1.28059,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.330567,
+              "end": 1.526259,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "9c06d098ab2f8adcd8552f8ab442ab357d232a59144c7a40aee654d41003b45f",
+          "samples": 37623,
+          "peak": 0.39917,
+          "rms": 0.102395
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_first_pilgrim_echo/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.408254,
+          "voiced_until": 1.228254,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.272698,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.322676,
+              "end": 0.528254,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.790748,
+              "end": 1.004354,
+              "phoneme": "ri"
+            },
+            {
+              "start": 1.048118,
+              "end": 1.228254,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "3e1335fc6b6cbf4edf19b176560d12e2b221d1cee4b97aaaf3475659db63f3d2",
+          "samples": 31052,
+          "peak": 0.435913,
+          "rms": 0.101895
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_first_pilgrim_echo/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 1.040091,
+          "voiced_until": 0.860091,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.226304,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.270068,
+              "end": 0.466531,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.666531,
+              "end": 0.860091,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "5278dc6daefd27a4bb7bc5bd9e054c3e2e1b723429da157cb05704d0409cac82",
+          "samples": 22934,
+          "peak": 0.394928,
+          "rms": 0.102246
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_first_pilgrim_echo/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.559229,
+          "voiced_until": 1.379229,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.276236,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.351247,
+              "end": 0.584036,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.821542,
+              "end": 1.050023,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.106259,
+              "end": 1.379229,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "8cdc05ecd427b0814b8429f82e964e95795aba529880862c7213d6183804afbf",
+          "samples": 34381,
+          "peak": 0.420563,
+          "rms": 0.101878
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_first_pilgrim_echo/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.969977,
+          "voiced_until": 0.789977,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.237324,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.268571,
+              "end": 0.4522,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.602222,
+              "end": 0.789977,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "6a54993c2bfe28983f1d287a935e5fa8eacb668b4311e717713ec234266692ed",
+          "samples": 21388,
+          "peak": 0.385223,
+          "rms": 0.102052
+        }
+      }
+    },
+    "npc_crown_tongue": {
+      "name": "旧王钟舌",
+      "voice": {
+        "pitch": 101,
+        "formant": 0.78,
+        "pace": 1.2,
+        "breath": 0.06,
+        "rasp": 0.2,
+        "echo": 0.08
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_crown_tongue/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.058186,
+          "voiced_until": 0.878186,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.239546,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.281542,
+              "end": 0.486667,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.690658,
+              "end": 0.878186,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "ee4501553fb59f96fc74f75a98d90a8382cb85b7a52d4a7709a0ab41e3cfbc13",
+          "samples": 23333,
+          "peak": 0.460663,
+          "rms": 0.100644
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_crown_tongue/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.635964,
+          "voiced_until": 1.455964,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.251973,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.281995,
+              "end": 0.475646,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.703628,
+              "end": 0.921633,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.963628,
+              "end": 1.19356,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.241542,
+              "end": 1.455964,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "9d2e11e6445a6350e671db630217313de463d1f3b0845424a0d7cd0d76a75ab0",
+          "samples": 36073,
+          "peak": 0.438324,
+          "rms": 0.101175
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_crown_tongue/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.409297,
+          "voiced_until": 1.229297,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.206576,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.254558,
+              "end": 0.468934,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.720952,
+              "end": 0.957959,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.999955,
+              "end": 1.229297,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "c085e10b9fce7bfa1d981dfd70cecd2a8116bf924c242789a0a82cc32384531a",
+          "samples": 31075,
+          "peak": 0.452881,
+          "rms": 0.100725
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_crown_tongue/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 1.066259,
+          "voiced_until": 0.886259,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.275964,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.317959,
+              "end": 0.496463,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.688481,
+              "end": 0.886259,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "5d169bd4946598f18675bf82e3067ef3f3e3b84c1f6012dfb5edd65af00807e4",
+          "samples": 23511,
+          "peak": 0.434814,
+          "rms": 0.101058
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_crown_tongue/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.480272,
+          "voiced_until": 1.300272,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.288073,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.360091,
+              "end": 0.589116,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.817098,
+              "end": 1.004535,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.058549,
+              "end": 1.300272,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "6763bd1b18e5698a503f5d420b306a537158862a81d84d4c65bd3b696bc90151",
+          "samples": 32640,
+          "peak": 0.45575,
+          "rms": 0.100315
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_crown_tongue/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 1.026213,
+          "voiced_until": 0.846213,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.2278,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.257823,
+              "end": 0.480816,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.624807,
+              "end": 0.846213,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "b36641ebe7b3b355a592b5f739a90add6e7d9e5420a07e43cd1259f1090ac035",
+          "samples": 22628,
+          "peak": 0.440857,
+          "rms": 0.100579
+        }
+      }
+    },
+    "npc_six_mark_keeper": {
+      "name": "六印守望者",
+      "voice": {
+        "pitch": 181,
+        "formant": 0.95,
+        "pace": 1.16,
+        "breath": 0.13,
+        "rasp": 0.07
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_six_mark_keeper/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 1.030249,
+          "voiced_until": 0.910249,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.273152,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.313741,
+              "end": 0.503084,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.700272,
+              "end": 0.910249,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "241400df58ae78b6de58cda68e23132fa3dba36c4cdedac76ab6d87d0199e651",
+          "samples": 22717,
+          "peak": 0.389221,
+          "rms": 0.10217
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_six_mark_keeper/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.457687,
+          "voiced_until": 1.337687,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.198776,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.227755,
+              "end": 0.452381,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.672789,
+              "end": 0.835873,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.876463,
+              "end": 1.080499,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.126893,
+              "end": 1.337687,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "366056d06b58422c62689ed27151cfd3fbaf56cdcfab1e431c7fe7e788ca0591",
+          "samples": 32142,
+          "peak": 0.376465,
+          "rms": 0.102472
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_six_mark_keeper/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.23551,
+          "voiced_until": 1.11551,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.205397,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.251791,
+              "end": 0.422857,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.66644,
+              "end": 0.846395,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.886984,
+              "end": 1.11551,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "beeaea9efeaff9063759e378680fcfb66ff800358c0848edeae7859a2efe7859",
+          "samples": 27243,
+          "peak": 0.425964,
+          "rms": 0.101851
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_six_mark_keeper/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 1.020998,
+          "voiced_until": 0.900998,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.251927,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.292517,
+              "end": 0.485714,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.671293,
+              "end": 0.900998,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "cd6d1231d82c0ccc868e22003605f7022a4e5069b5c85804d7d933f35b68dacf",
+          "samples": 22513,
+          "peak": 0.346405,
+          "rms": 0.102445
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_six_mark_keeper/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.328617,
+          "voiced_until": 1.208617,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.2722,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.341814,
+              "end": 0.53161,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.752018,
+              "end": 0.969569,
+              "phoneme": "sha"
+            },
+            {
+              "start": 1.021769,
+              "end": 1.208617,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "418d681b68b410bb68c52d6cc27b70044af6ef268097f5f137fd30248c8f24a1",
+          "samples": 29296,
+          "peak": 0.414276,
+          "rms": 0.101744
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_six_mark_keeper/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.949977,
+          "voiced_until": 0.829977,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.273741,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.302721,
+              "end": 0.49737,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.636553,
+              "end": 0.829977,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "98e30df30741c23990006c8162abc3992c5216a8b678a30f2339383de7ac20e3",
+          "samples": 20947,
+          "peak": 0.386353,
+          "rms": 0.10205
+        }
+      }
+    },
+    "npc_black_tide_child": {
+      "name": "黑潮童声",
+      "voice": {
+        "pitch": 289,
+        "formant": 1.14,
+        "pace": 0.96,
+        "breath": 0.31,
+        "rasp": 0.04,
+        "echo": 0.05
+      },
+      "clips": {
+        "greet": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_black_tide_child/greet.wav",
+          "intent": "greeting",
+          "phonetic": "ki-ru · ma",
+          "duration": 0.96585,
+          "voiced_until": 0.78585,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.226939,
+              "phoneme": "ki"
+            },
+            {
+              "start": 0.260544,
+              "end": 0.435238,
+              "phoneme": "ru"
+            },
+            {
+              "start": 0.598458,
+              "end": 0.78585,
+              "phoneme": "ma"
+            }
+          ],
+          "sha256": "5f09cedd2d94556e7b7b96fc47207e4fcf89e6a07bb56ff1c4ec9ae1f300724c",
+          "samples": 21297,
+          "peak": 0.387054,
+          "rms": 0.102728
+        },
+        "explain_a": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_black_tide_child/explain_a.wav",
+          "intent": "statement",
+          "phonetic": "tra-li · mu-ra-ki",
+          "duration": 1.402177,
+          "voiced_until": 1.222177,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.23229,
+              "phoneme": "tra"
+            },
+            {
+              "start": 0.256281,
+              "end": 0.430113,
+              "phoneme": "li"
+            },
+            {
+              "start": 0.612517,
+              "end": 0.767029,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.800635,
+              "end": 0.996689,
+              "phoneme": "ra"
+            },
+            {
+              "start": 1.035102,
+              "end": 1.222177,
+              "phoneme": "ki"
+            }
+          ],
+          "sha256": "ce49aaed5fb0b16d55685e9d287a89f949c1cbb8d43c4dab113374ac8d7eff56",
+          "samples": 30918,
+          "peak": 0.374786,
+          "rms": 0.102938
+        },
+        "explain_b": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_black_tide_child/explain_b.wav",
+          "intent": "statement",
+          "phonetic": "sha-mu · ri-to",
+          "duration": 1.139773,
+          "voiced_until": 0.959773,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.223991,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.262404,
+              "end": 0.412245,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.613832,
+              "end": 0.775692,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.809297,
+              "end": 0.959773,
+              "phoneme": "to"
+            }
+          ],
+          "sha256": "18502f4ff9906a55c8358ae9fe64c845c6d4ec5c19a9c69e08437170923e2e2c",
+          "samples": 25132,
+          "peak": 0.422821,
+          "rms": 0.102562
+        },
+        "question": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_black_tide_child/question.wav",
+          "intent": "question",
+          "phonetic": "ti-ri · ka?",
+          "duration": 0.945488,
+          "voiced_until": 0.765488,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.194785,
+              "phoneme": "ti"
+            },
+            {
+              "start": 0.22839,
+              "end": 0.418549,
+              "phoneme": "ri"
+            },
+            {
+              "start": 0.572154,
+              "end": 0.765488,
+              "phoneme": "ka"
+            }
+          ],
+          "sha256": "b29e8df351380890378af688afe9d19a8ed387d5916521755dc5191b8ec7610f",
+          "samples": 20848,
+          "peak": 0.348572,
+          "rms": 0.102947
+        },
+        "reassure": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_black_tide_child/reassure.wav",
+          "intent": "reassurance",
+          "phonetic": "mu-la · sha-ru",
+          "duration": 1.294966,
+          "voiced_until": 1.114966,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.255737,
+              "phoneme": "mu"
+            },
+            {
+              "start": 0.313333,
+              "end": 0.471066,
+              "phoneme": "la"
+            },
+            {
+              "start": 0.653469,
+              "end": 0.873152,
+              "phoneme": "sha"
+            },
+            {
+              "start": 0.916372,
+              "end": 1.114966,
+              "phoneme": "ru"
+            }
+          ],
+          "sha256": "c62546841bd320cdd5a18ab5b75394b0749c5857c24519149a0172aa1b3f500b",
+          "samples": 28554,
+          "peak": 0.385742,
+          "rms": 0.102573
+        },
+        "warning": {
+          "path": "res://assets/audio/npc_insect_language_v1/npc_black_tide_child/warning.wav",
+          "intent": "warning",
+          "phonetic": "kra-tik · ra",
+          "duration": 0.840862,
+          "voiced_until": 0.660862,
+          "cues": [
+            {
+              "start": 0.04,
+              "end": 0.186077,
+              "phoneme": "kra"
+            },
+            {
+              "start": 0.210068,
+              "end": 0.376372,
+              "phoneme": "tik"
+            },
+            {
+              "start": 0.491565,
+              "end": 0.660862,
+              "phoneme": "ra"
+            }
+          ],
+          "sha256": "2a2458cacedcb8c83f5cd0cc69e930a6a285ee786cd8aeb249b0e935a8f2e586",
+          "samples": 18541,
+          "peak": 0.406891,
+          "rms": 0.102414
+        }
+      }
+    }
+  }
+}

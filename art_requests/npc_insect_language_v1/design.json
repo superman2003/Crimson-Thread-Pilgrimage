@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "language": "绯鸣",
+  "style": "偏口语的含混呢喃；保留角色年龄与性格，不按字幕逐字发出提示音",
+  "method": "Original procedural phonemes; no sampled game voices or spoken Chinese",
+  "sample_rate": 22050,
+  "vowels": {"a": [690, 1170, 2450], "i": [300, 2180, 3020], "u": [330, 820, 2220], "e": [460, 1780, 2600], "o": [470, 910, 2400]},
+  "phrases": {
+    "greet": {"intent": "greeting", "text": "ki-ru · ma", "syllables": ["ki", "ru", "ma"], "pauses": [0.035, 0.17, 0.0], "contour": [0.94, 1.07, 0.96]},
+    "explain_a": {"intent": "statement", "text": "tra-li · mu-ra-ki", "syllables": ["tra", "li", "mu", "ra", "ki"], "pauses": [0.025, 0.19, 0.035, 0.04, 0.0], "contour": [1.02, 1.06, 0.86]},
+    "explain_b": {"intent": "statement", "text": "sha-mu · ri-to", "syllables": ["sha", "mu", "ri", "to"], "pauses": [0.04, 0.21, 0.035, 0.0], "contour": [0.95, 1.09, 0.9]},
+    "question": {"intent": "question", "text": "ti-ri · ka?", "syllables": ["ti", "ri", "ka"], "pauses": [0.035, 0.16, 0.0], "contour": [0.9, 0.98, 1.23]},
+    "reassure": {"intent": "reassurance", "text": "mu-la · sha-ru", "syllables": ["mu", "la", "sha", "ru"], "pauses": [0.06, 0.19, 0.045, 0.0], "contour": [1.0, 1.03, 0.88]},
+    "warning": {"intent": "warning", "text": "kra-tik · ra", "syllables": ["kra", "tik", "ra"], "pauses": [0.025, 0.12, 0.0], "contour": [1.08, 1.16, 0.95]}
+  },
+  "voices": {
+    "npc_threadsmith_apprentice": {"pitch": 250, "formant": 1.09, "pace": 0.9, "breath": 0.18, "rasp": 0.06},
+    "npc_gate_pilgrim": {"pitch": 136, "formant": 0.9, "pace": 1.15, "breath": 0.12, "rasp": 0.25},
+    "npc_gear_cartographer": {"pitch": 198, "formant": 1.02, "pace": 1.02, "breath": 0.09, "rasp": 0.1},
+    "npc_backdoor_sacristan": {"pitch": 154, "formant": 0.86, "pace": 1.18, "breath": 0.09, "rasp": 0.11},
+    "npc_runback_scout": {"pitch": 213, "formant": 1.03, "pace": 0.84, "breath": 0.15, "rasp": 0.19},
+    "npc_canal_child": {"pitch": 326, "formant": 1.18, "pace": 0.82, "breath": 0.1, "rasp": 0.03},
+    "npc_rain_smith_liu": {"pitch": 109, "formant": 0.79, "pace": 1.05, "breath": 0.08, "rasp": 0.32},
+    "npc_sluice_nun": {"pitch": 219, "formant": 1.04, "pace": 1.14, "breath": 0.26, "rasp": 0.04},
+    "npc_drowned_foreman": {"pitch": 123, "formant": 0.83, "pace": 1.2, "breath": 0.21, "rasp": 0.29},
+    "npc_salt_librarian_ye": {"pitch": 207, "formant": 1.02, "pace": 1.13, "breath": 0.22, "rasp": 0.04},
+    "npc_quiet_reader": {"pitch": 178, "formant": 1.07, "pace": 1.19, "breath": 0.48, "rasp": 0.03},
+    "npc_fugitive_scribe": {"pitch": 264, "formant": 1.1, "pace": 0.83, "breath": 0.2, "rasp": 0.16},
+    "npc_sealed_archivist": {"pitch": 162, "formant": 0.92, "pace": 1.04, "breath": 0.08, "rasp": 0.08},
+    "npc_old_gardener": {"pitch": 131, "formant": 0.93, "pace": 1.23, "breath": 0.21, "rasp": 0.18},
+    "npc_beeswax_vendor": {"pitch": 228, "formant": 1.0, "pace": 0.98, "breath": 0.12, "rasp": 0.08},
+    "npc_broken_singer": {"pitch": 246, "formant": 1.05, "pace": 1.22, "breath": 0.34, "rasp": 0.31},
+    "npc_root_prisoner": {"pitch": 171, "formant": 0.96, "pace": 1.16, "breath": 0.3, "rasp": 0.24},
+    "npc_obsidian_guide": {"pitch": 145, "formant": 0.85, "pace": 0.99, "breath": 0.1, "rasp": 0.23},
+    "npc_blind_bell_knight": {"pitch": 117, "formant": 0.82, "pace": 1.24, "breath": 0.16, "rasp": 0.27},
+    "npc_lantern_sister": {"pitch": 231, "formant": 1.03, "pace": 1.12, "breath": 0.27, "rasp": 0.03},
+    "npc_deserter_flagbearer": {"pitch": 156, "formant": 0.89, "pace": 1.13, "breath": 0.21, "rasp": 0.26},
+    "npc_first_pilgrim_echo": {"pitch": 189, "formant": 0.98, "pace": 1.25, "breath": 0.27, "rasp": 0.06, "echo": 0.12},
+    "npc_crown_tongue": {"pitch": 101, "formant": 0.78, "pace": 1.2, "breath": 0.06, "rasp": 0.2, "echo": 0.08},
+    "npc_six_mark_keeper": {"pitch": 181, "formant": 0.95, "pace": 1.16, "breath": 0.13, "rasp": 0.07},
+    "npc_black_tide_child": {"pitch": 289, "formant": 1.14, "pace": 0.96, "breath": 0.31, "rasp": 0.04, "echo": 0.05}
+  }
+}

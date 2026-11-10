@@ -1,0 +1,65 @@
+{
+  "engine": "Godot 4.6.1",
+  "native": [
+    {
+      "suite": "npc_conversation_voice",
+      "passed": true,
+      "exit_code": 0,
+      "marker": "NPC_CONVERSATION_VOICE checks=251 failures=0 actors=25 phrases=150 audio_mix=true"
+    },
+    {
+      "suite": "npc_dialogue_motion",
+      "passed": true,
+      "exit_code": 0,
+      "marker": "NPC_DIALOGUE_MOTION checks=244 failures=0 characters=25 actual_dialogue=true"
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "exit_code": 0,
+      "marker": "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+    },
+    {
+      "suite": "audio_construction",
+      "passed": true,
+      "exit_code": 0,
+      "marker": "AUDIO_CONSTRUCTION checks=252 failures=0"
+    },
+    {
+      "suite": "dialog_viewport_fit",
+      "passed": true,
+      "exit_code": 0,
+      "marker": "DIALOG_VIEWPORT_FIT checks=174 dialogs=42 failures=0"
+    },
+    {
+      "suite": "story_guidance",
+      "passed": true,
+      "exit_code": 0,
+      "marker": "STORY_GUIDANCE_VALIDATION_PASS chapters=6 arrows=0 npc_story=true dialogue_panel=true"
+    },
+    {
+      "suite": "expanded_character_motion",
+      "passed": true,
+      "exit_code": 0,
+      "marker": "EXPANDED_CHARACTER_MOTION checks=9801 failures=0 characters=71 poses=5839"
+    }
+  ],
+  "static": {
+    "npm_test_exit_code": 0,
+    "speech_unit_tests": 5,
+    "speech_bank_clips": 150,
+    "speech_bank_actors": 25
+  },
+  "limits": [
+    "Isolated rendered/mixed validation, not a natural playthrough or performance benchmark.",
+    "Existing NPC motion suite retains an ObjectDB warning at exit; new voice suite drains audio with pending=0."
+  ],
+  "compatibility_regressions": {
+    "world_reading_session_checks": 355,
+    "audio_volume_save_checks": 99,
+    "audio_user_volume_checks": 37,
+    "room_reverb_checks": 182,
+    "reliability_r10_checks": 11,
+    "all_exit_codes": 0
+  }
+}
