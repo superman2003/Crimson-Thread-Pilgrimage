@@ -54,6 +54,8 @@ func _initialize() -> void:
     _check(build.try_cast(100).ok, "cooldown expires")
     build.sync_progress({}, "", {"quest_bring_names_complete": true, "seal_bell_repaired": true, "seal_salt_restored": true})
     _check(build.state.mechanisms.size() == 3 and build.state.unlocked_crests.size() == 3, "narrative repair grants mechanisms")
+    # E04: the second skill and third combat slots also need the artisan parts.
+    build.state.crafted.append_array(["clasp_combat", "spindle_skill"])
     for id in build.catalog.skills:
         _check(build.unlock_event("skill_" + id + "_learned").ok, "skill event " + id)
     for id in build.catalog.tools:

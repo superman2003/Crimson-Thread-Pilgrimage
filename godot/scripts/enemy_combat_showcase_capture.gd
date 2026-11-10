@@ -6,6 +6,7 @@ var actor_script: Script
 var legacy_art := false
 var all_bosses := false
 var behavior_review := false
+var baseline_v7 := false
 
 class Target extends CharacterBody2D:
     var hp := 9999
@@ -27,11 +28,13 @@ func run() -> void:
         if String(argument)=="--legacy-art":legacy_art=true
         if String(argument)=="--all-bosses":all_bosses=true
         if String(argument)=="--behavior-review":behavior_review=true
+        if String(argument)=="--baseline-v7":baseline_v7=true
     if destination.is_empty() or DisplayServer.get_name()=="headless":
         push_error("Capture requires an explicit output directory and a real renderer")
         quit(1);return
     DirAccess.make_dir_recursive_absolute(destination)
     actor_script=load(script_path)
+    seed(20261109)
     root.size=Vector2i(960,540)
     RenderingServer.set_default_clear_color(Color(.055,.085,.09))
     var title_layer:=CanvasLayer.new();root.add_child(title_layer)
@@ -61,6 +64,14 @@ func run() -> void:
             enemy.asset_path=path;enemy.visual_scale=float(data.visual_scale)
             enemy.visual_offset=Vector2(float(data.visual_offset[0]),float(data.visual_offset[1]))
             enemy.authored_combat_sequences=[]
+        elif baseline_v7:
+            var folder := "res://assets/sprites/original_creatures/"+kind+"/"
+            var path := folder+("boss_behavior_manifest.json" if FileAccess.file_exists(folder+"boss_behavior_manifest.json") else "combat_motion_v7_manifest.json")
+            var data := ART.manifest(path)
+            enemy.asset_path=path
+            enemy.visual_scale=float(data.visual_scale)
+            enemy.visual_offset=Vector2(float(data.visual_offset[0]),float(data.visual_offset[1]))
+            enemy.authored_combat_sequences=data.get("authored_combat_sequences",[])
         if kind in bosses:
             enemy.battle_phase=2;enemy.arena_min_x=180;enemy.arena_max_x=650
             var expanded: Dictionary=ART.manifest(ART.character_manifest("original_creatures",kind))
@@ -68,7 +79,7 @@ func run() -> void:
             var width:=maxf(float(expanded.canvas[0])*float(expanded.visual_scale),float(retained.canvas[0])*float(retained.visual_scale))
             camera.zoom=Vector2.ONE*minf(2.0,1200.0/(width+500.0))
         enemy.position=Vector2(340,350);stage.add_child(enemy)
-        label.text=("升级前 · " if legacy_art else "补帧后 · ")+kind+" / 固定靶 · 无声诊断"
+        label.text=("升级前 · " if legacy_art else "翻倍前 v7 · " if baseline_v7 else "补帧后 · ")+kind+" / 固定靶 · 无声诊断"
         for frame in (720 if behavior_review else 360):
             if behavior_review:
                 var mode:=int(frame/180)%4

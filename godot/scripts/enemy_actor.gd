@@ -290,11 +290,11 @@ const HIT_TIER_BY_MATERIAL := {
 const AUDIO_DIRECTOR_PATH := "res://scripts/audio_director.gd"
 static var audio_director_script: GDScript = null
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
-## 白闪曲线（规格 §3.1）：3 帧纯白 → 2 帧半白，共 ≈83ms。
-const FLASH_TOTAL_TIME := 0.083
-const FLASH_HALF_TIME := 0.033
+## 命中瞬间全身白闪：50ms 保持，随后 70ms 连续淡出。
+const FLASH_TOTAL_TIME := 0.12
+const FLASH_HALF_TIME := 0.07
 ## 击退指数衰减时间常数（规格 §3.2）。
-const KNOCKBACK_TAU := 0.06
+const KNOCKBACK_TAU := 0.09
 
 @export var spawn_id: String = ""
 @export var kind: String = "moss_larva"
@@ -336,6 +336,7 @@ var arena_max_x := INF
 var platform_min_x := -INF
 var platform_max_x := INF
 var flash_timer: float = 0.0
+var flash_started_process_frame: int = -1
 var contact_timer: float = 0.0
 var state_timer: float = 0.0
 var attack_has_hit := false
@@ -534,6 +535,7 @@ func _step_enemy(delta: float) -> void:
         if get_parent().has_method("_toast"):
             get_parent()._toast(String(ai_profile.get("phase_name","第二阶段")))
     if phase_pause>0:
+        _tick_hit_flash(delta)
         phase_pause-=delta
         return
     _tick_timers(delta)
@@ -577,32 +579,13 @@ func _update_animation_motion(delta: float, previous_position: Vector2, previous
         else:
             animated_sprite.speed_scale = clampf(rate / maxf(speed, .01), .6, 1.4)
             if not animated_sprite.is_playing(): animated_sprite.play()
-    var settings: Dictionary = {}
-    var player := get_tree().get_first_node_in_group("player")
-    if player != null:
-        settings = player.get_meta("accessibility", {})
-    var strength := 0.0 if bool(settings.get("reduced_motion", false)) else clampf(float(settings.get("camera_shake", 1.0)), 0, 1)
-    var ratio := Vector2.ONE
-    var offset := Vector2.ZERO
-    if pose_holding_charge and state == "windup":
-        var breath := .01 * sin(pose_visual_clock * TAU * 2.0) * strength
-        ratio = Vector2(1.0 + breath, 1.0 - breath)
-        offset.x = (.65 if int(pose_visual_clock * 30.0) % 2 == 0 else -.65) * strength
-    elif pose_travel_stretch and state == "active" and motion.length_squared() > .01:
-        ratio = Vector2(1.04, .98) if absf(motion.x) >= absf(motion.y) else Vector2(.98, 1.04)
-        ratio = Vector2.ONE.lerp(ratio, strength)
-    if previous_state == "active" and state == "recover" and String(active_attack.get("type", "")) in ["vault", "dive", "lunge", "aoe"]:
-        pose_feedback_time = pose_feedback_duration
-    if pose_feedback_time > 0:
-        var pulse := sin(PI * (1.0 - pose_feedback_time / pose_feedback_duration)) * .07 * strength
-        ratio *= Vector2(1.0 + pulse, 1.0 - pulse)
-        pose_feedback_time = maxf(0, pose_feedback_time - delta)
-    var changed := not ratio.is_equal_approx(Vector2.ONE) or not offset.is_zero_approx()
-    if changed or pose_feedback_was_active:
-        var pivot := Vector2.ZERO if locomotion == "flight" else Vector2(0, 40)
-        sprite.position = pivot + (sprite_base_position - pivot) * ratio + offset
-        sprite.scale = sprite_base_scale * ratio
-    pose_feedback_was_active = changed
+    # Authored poses supply the movement. Runtime squash/stretch made a hit
+    # restore a differently scaled sprite in one frame and looked like a pop.
+    sprite.position = sprite_base_position
+    sprite.scale = sprite_base_scale
+    sprite.rotation = 0.0
+    pose_feedback_time = 0.0
+    pose_feedback_was_active = false
 
 
 func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, profile: Dictionary = {}) -> void:
@@ -718,8 +701,11 @@ func take_hit(amount: int, hit_direction: int) -> void:
     var armored := hp - amount > 0 and ((not is_boss and _hit_is_armored()) or (is_boss and _is_attack_state()))
     if not armored:
         pose_loop_animation = ""
-        _set_enemy_animation("hurt")
-        _pose_sprite("hurt")
+        # A hit overlays the pose already on screen. Swapping to an unrelated
+        # hurt cel at the white-flash boundary caused a visible size jump.
+        if not original_visual:
+            _set_enemy_animation("hurt")
+            _pose_sprite("hurt")
     hp -= amount
     if is_boss and not boss_phase_shift_played and hp > 0 and hp * 2 <= max_hp:
         # Boss 半血相变音（音频规格 §4.4）：纯音频钩子，不改战术行为机；
@@ -734,6 +720,7 @@ func take_hit(amount: int, hit_direction: int) -> void:
     knockback_velocity = float(hit_direction) * base_speed * (1.4 if hp <= 0 else 1.0)
     _set_flash_amount(1.0)
     flash_timer = FLASH_TOTAL_TIME
+    flash_started_process_frame = Engine.get_process_frames()
     if _boss_tactical_enabled() and hp > 0:
         boss_tactic = "evade"
         boss_tactic_timer = float(ai_profile.get("hurt_evade_time", 0.42))
@@ -769,7 +756,7 @@ func _react_to_hit(hit_direction: int) -> void:
     pose_loop_animation = ""
     state = "recover"
     state_timer = 0.16
-    _fit_animation_duration(state_timer)
+    if not original_visual:_fit_animation_duration(state_timer)
     _clear_telegraph()
     if recent_hit_times.size() >= 3 and poise_cooldown <= 0.0:
         poise_timer = 1.8
@@ -820,7 +807,6 @@ func _begin_death_dissolve() -> void:
     tween.tween_callback(func() -> void: _set_flash_amount(0.0))
     tween.tween_property(sprite, "modulate:a", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
     tween.parallel().tween_property(sprite, "position:y", sprite.position.y + 14.0, duration)
-    tween.parallel().tween_property(sprite, "scale", sprite.scale * 0.90, duration)
     tween.finished.connect(Callable(self, "queue_free"))
 
 
@@ -927,15 +913,13 @@ func _tick_timers(delta: float) -> void:
     poise_cooldown = maxf(0.0, poise_cooldown - delta)
     backstep_cooldown = maxf(0.0, backstep_cooldown - delta)
     patrol_pause_timer = maxf(0.0, patrol_pause_timer - delta)
-    if flash_timer > 0.0:
-        flash_timer -= delta
-        if flash_timer <= 0.0:
-            _set_flash_amount(0.0)
-        else:
-            _set_flash_amount(1.0 if flash_timer > FLASH_HALF_TIME else 0.5)
+    _tick_hit_flash(delta)
     if absf(knockback_velocity) > 0.0:
-        position.x += knockback_velocity * delta
-        knockback_velocity *= exp(-delta / KNOCKBACK_TAU)
+        var decay := exp(-maxf(0.0,delta)/KNOCKBACK_TAU)
+        var start := global_position
+        var finish := start+Vector2(knockback_velocity*KNOCKBACK_TAU*(1.0-decay),0)
+        global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self,start,finish) if is_inside_tree() else finish
+        knockback_velocity = 0.0 if absf(global_position.x-finish.x)>.01 else knockback_velocity*decay
         if absf(knockback_velocity) < 8.0:
             knockback_velocity = 0.0
         _clamp_movement_bounds()
@@ -943,6 +927,18 @@ func _tick_timers(delta: float) -> void:
         cooldowns[key] = maxf(0.0, float(cooldowns[key]) - delta)
     if boss_tactic_timer > 0.0:
         boss_tactic_timer = maxf(0.0, boss_tactic_timer - delta)
+
+
+func _tick_hit_flash(delta: float) -> void:
+    if flash_timer > 0.0:
+        # Physics catch-up may run several times before the next presentation.
+        # Do not consume a new hit's entire flash before it can be drawn.
+        if Engine.get_process_frames() > flash_started_process_frame:
+            flash_timer = maxf(0.0,flash_timer-delta)
+        if flash_timer <= 0.0:
+            _set_flash_amount(0.0)
+        else:
+            _set_flash_amount(1.0 if flash_timer > FLASH_HALF_TIME else flash_timer/FLASH_HALF_TIME)
 
 
 func _set_flash_amount(amount: float) -> void:

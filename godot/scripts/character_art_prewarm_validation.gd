@@ -79,14 +79,19 @@ func resource_job_lifecycle() -> void:
         check(worker.start(PATH, "", ResourceLoader.CACHE_MODE_IGNORE) == OK, "start real resource worker")
         check(worker.start(PATH) == ERR_ALREADY_IN_USE, "unclaimed request retains exclusive ownership")
         var deadline := Time.get_ticks_msec() + 5000
-        while not worker.ready() and Time.get_ticks_msec() < deadline:
-            check(worker.take().is_empty(), "polling an unfinished request never joins")
+        var result: Dictionary = {}
+        while result.is_empty() and Time.get_ticks_msec() < deadline:
+            var owner: Thread = worker._thread
+            # Completion can race a ready() check. A nonempty take() is a
+            # legitimate completed claim, not evidence of an unfinished join.
+            result = worker.take()
+            if not result.is_empty():break
+            check(worker._thread == owner, "polling an unfinished request retains its worker")
             await process_frame
-        check(worker.ready(), "worker completes inside original frame-polling deadline")
-        if not worker.ready():
+        check(not result.is_empty(), "worker completes inside original frame-polling deadline")
+        if result.is_empty():
             worker.shutdown()
             break
-        var result: Dictionary = worker.take()
         var loaded := result.get("resource") as Resource
         check(bool(result.get("worker_is_main", true)) != RESOURCE_JOB.off_thread_loading_safe(), "resource decoding runs off main thread, or inline under the headless Dummy renderer")
         check(loaded != null and loaded.get_meta("payload") == PackedInt32Array([3, 5, 8]), "claimed resource preserves actual payload")

@@ -1,0 +1,6488 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "sunken_hammer_smith",
+  "canvas": [
+    422,
+    317
+  ],
+  "display_height": 228,
+  "visual_scale": 1.1515151515151516,
+  "visual_offset": [
+    0,
+    -103.46185997910136
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 24.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            174,
+            198
+          ],
+          "margin": [
+            130,
+            110,
+            248,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            180,
+            208
+          ],
+          "margin": [
+            120,
+            102,
+            242,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            176,
+            0,
+            196,
+            199
+          ],
+          "margin": [
+            113,
+            109,
+            226,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            186,
+            2,
+            189,
+            201
+          ],
+          "margin": [
+            116,
+            111,
+            233,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            374,
+            0,
+            176,
+            201
+          ],
+          "margin": [
+            123,
+            107,
+            246,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            379,
+            2,
+            192,
+            202
+          ],
+          "margin": [
+            112,
+            110,
+            230,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            552,
+            0,
+            202,
+            200
+          ],
+          "margin": [
+            109,
+            108,
+            220,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            575,
+            2,
+            192,
+            198
+          ],
+          "margin": [
+            114,
+            113,
+            230,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            756,
+            0,
+            189,
+            199
+          ],
+          "margin": [
+            124,
+            109,
+            233,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            771,
+            2,
+            196,
+            199
+          ],
+          "margin": [
+            110,
+            112,
+            226,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            947,
+            0,
+            204,
+            199
+          ],
+          "margin": [
+            102,
+            109,
+            218,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            971,
+            2,
+            198,
+            194
+          ],
+          "margin": [
+            104,
+            116,
+            224,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1153,
+            0,
+            183,
+            199
+          ],
+          "margin": [
+            114,
+            109,
+            239,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1173,
+            2,
+            208,
+            199
+          ],
+          "margin": [
+            98,
+            112,
+            214,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1338,
+            0,
+            214,
+            199
+          ],
+          "margin": [
+            105,
+            109,
+            208,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1385,
+            2,
+            203,
+            201
+          ],
+          "margin": [
+            104,
+            110,
+            219,
+            116
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 72.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1554,
+            0,
+            178,
+            200
+          ],
+          "margin": [
+            117,
+            108,
+            244,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1592,
+            2,
+            197,
+            201
+          ],
+          "margin": [
+            108,
+            110,
+            225,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1734,
+            0,
+            222,
+            200
+          ],
+          "margin": [
+            96,
+            108,
+            200,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1793,
+            2,
+            198,
+            199
+          ],
+          "margin": [
+            110,
+            113,
+            224,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1958,
+            0,
+            173,
+            200
+          ],
+          "margin": [
+            132,
+            108,
+            249,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            2,
+            218,
+            199,
+            196
+          ],
+          "margin": [
+            108,
+            116,
+            223,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2133,
+            0,
+            201,
+            195
+          ],
+          "margin": [
+            109,
+            113,
+            221,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            205,
+            218,
+            198,
+            191
+          ],
+          "margin": [
+            108,
+            119,
+            224,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2336,
+            0,
+            201,
+            189
+          ],
+          "margin": [
+            113,
+            119,
+            221,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            407,
+            218,
+            197,
+            190
+          ],
+          "margin": [
+            104,
+            120,
+            225,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2539,
+            0,
+            213,
+            188
+          ],
+          "margin": [
+            99,
+            120,
+            209,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            608,
+            218,
+            202,
+            192
+          ],
+          "margin": [
+            88,
+            119,
+            220,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2754,
+            0,
+            195,
+            187
+          ],
+          "margin": [
+            95,
+            121,
+            227,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            814,
+            218,
+            205,
+            190
+          ],
+          "margin": [
+            90,
+            121,
+            217,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2951,
+            0,
+            216,
+            185
+          ],
+          "margin": [
+            105,
+            123,
+            206,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1023,
+            218,
+            203,
+            188
+          ],
+          "margin": [
+            104,
+            122,
+            219,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3169,
+            0,
+            192,
+            183
+          ],
+          "margin": [
+            126,
+            125,
+            230,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1230,
+            218,
+            201,
+            184
+          ],
+          "margin": [
+            104,
+            126,
+            221,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3363,
+            0,
+            209,
+            181
+          ],
+          "margin": [
+            100,
+            127,
+            213,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1435,
+            218,
+            206,
+            187
+          ],
+          "margin": [
+            84,
+            122,
+            216,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3574,
+            0,
+            219,
+            179
+          ],
+          "margin": [
+            80,
+            129,
+            203,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1645,
+            218,
+            222,
+            194
+          ],
+          "margin": [
+            70,
+            118,
+            200,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3795,
+            0,
+            234,
+            180
+          ],
+          "margin": [
+            77,
+            128,
+            188,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            2,
+            422,
+            223,
+            187
+          ],
+          "margin": [
+            70,
+            124,
+            199,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            203,
+            195,
+            181
+          ],
+          "margin": [
+            90,
+            127,
+            227,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            229,
+            422,
+            213,
+            184
+          ],
+          "margin": [
+            75,
+            127,
+            209,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            197,
+            203,
+            226,
+            178
+          ],
+          "margin": [
+            79,
+            130,
+            196,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            446,
+            422,
+            209,
+            184
+          ],
+          "margin": [
+            77,
+            126,
+            213,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            425,
+            203,
+            189,
+            175
+          ],
+          "margin": [
+            93,
+            133,
+            233,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            659,
+            422,
+            204,
+            190
+          ],
+          "margin": [
+            82,
+            122,
+            218,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            616,
+            203,
+            216,
+            187
+          ],
+          "margin": [
+            89,
+            121,
+            206,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            867,
+            422,
+            189,
+            199
+          ],
+          "margin": [
+            102,
+            112,
+            233,
+            118
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            834,
+            203,
+            170,
+            204
+          ],
+          "margin": [
+            127,
+            104,
+            252,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1060,
+            422,
+            185,
+            214
+          ],
+          "margin": [
+            118,
+            96,
+            237,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1006,
+            203,
+            171,
+            213
+          ],
+          "margin": [
+            126,
+            95,
+            251,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1249,
+            422,
+            198,
+            229
+          ],
+          "margin": [
+            114,
+            81,
+            224,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1179,
+            203,
+            196,
+            215
+          ],
+          "margin": [
+            120,
+            93,
+            226,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1451,
+            422,
+            186,
+            208
+          ],
+          "margin": [
+            126,
+            102,
+            236,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1377,
+            203,
+            184,
+            210
+          ],
+          "margin": [
+            130,
+            98,
+            238,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1641,
+            422,
+            199,
+            204
+          ],
+          "margin": [
+            120,
+            106,
+            223,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1563,
+            203,
+            218,
+            210
+          ],
+          "margin": [
+            107,
+            98,
+            204,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            2,
+            659,
+            246,
+            211
+          ],
+          "margin": [
+            91,
+            99,
+            176,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1783,
+            203,
+            227,
+            205
+          ],
+          "margin": [
+            94,
+            103,
+            195,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            252,
+            659,
+            223,
+            181
+          ],
+          "margin": [
+            100,
+            129,
+            199,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2012,
+            203,
+            192,
+            192
+          ],
+          "margin": [
+            112,
+            116,
+            230,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            479,
+            659,
+            230,
+            184
+          ],
+          "margin": [
+            88,
+            126,
+            192,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2206,
+            203,
+            240,
+            198
+          ],
+          "margin": [
+            75,
+            110,
+            182,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            713,
+            659,
+            255,
+            198
+          ],
+          "margin": [
+            66,
+            112,
+            167,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2448,
+            203,
+            231,
+            196
+          ],
+          "margin": [
+            76,
+            112,
+            191,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            972,
+            659,
+            235,
+            184
+          ],
+          "margin": [
+            74,
+            126,
+            187,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2681,
+            203,
+            224,
+            187
+          ],
+          "margin": [
+            77,
+            121,
+            198,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1211,
+            659,
+            235,
+            177
+          ],
+          "margin": [
+            72,
+            135,
+            187,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2907,
+            203,
+            207,
+            173
+          ],
+          "margin": [
+            92,
+            135,
+            215,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1450,
+            659,
+            251,
+            181
+          ],
+          "margin": [
+            80,
+            129,
+            171,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3116,
+            203,
+            244,
+            155
+          ],
+          "margin": [
+            87,
+            153,
+            178,
+            162
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1705,
+            659,
+            221,
+            159
+          ],
+          "margin": [
+            103,
+            151,
+            201,
+            158
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3362,
+            203,
+            210,
+            130
+          ],
+          "margin": [
+            125,
+            178,
+            212,
+            187
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            2,
+            878,
+            210,
+            155
+          ],
+          "margin": [
+            120,
+            155,
+            212,
+            162
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3574,
+            203,
+            231,
+            143
+          ],
+          "margin": [
+            112,
+            165,
+            191,
+            174
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            216,
+            878,
+            228,
+            161
+          ],
+          "margin": [
+            116,
+            151,
+            194,
+            156
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3807,
+            203,
+            246,
+            150
+          ],
+          "margin": [
+            106,
+            158,
+            176,
+            167
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            448,
+            878,
+            244,
+            163
+          ],
+          "margin": [
+            112,
+            148,
+            178,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            420,
+            245,
+            150
+          ],
+          "margin": [
+            114,
+            158,
+            177,
+            167
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            696,
+            878,
+            249,
+            168
+          ],
+          "margin": [
+            100,
+            142,
+            173,
+            149
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            247,
+            420,
+            258,
+            154
+          ],
+          "margin": [
+            85,
+            154,
+            164,
+            163
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            949,
+            878,
+            262,
+            171
+          ],
+          "margin": [
+            77,
+            139,
+            160,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            507,
+            420,
+            275,
+            150
+          ],
+          "margin": [
+            72,
+            158,
+            147,
+            167
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1215,
+            878,
+            262,
+            158
+          ],
+          "margin": [
+            63,
+            153,
+            160,
+            159
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            784,
+            420,
+            257,
+            141
+          ],
+          "margin": [
+            68,
+            167,
+            165,
+            176
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1481,
+            878,
+            252,
+            153
+          ],
+          "margin": [
+            66,
+            158,
+            170,
+            164
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1043,
+            420,
+            256,
+            141
+          ],
+          "margin": [
+            70,
+            167,
+            166,
+            176
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1737,
+            878,
+            222,
+            152
+          ],
+          "margin": [
+            87,
+            158,
+            200,
+            165
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1301,
+            420,
+            171,
+            134
+          ],
+          "margin": [
+            100,
+            174,
+            251,
+            183
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            2,
+            1057,
+            163,
+            140
+          ],
+          "margin": [
+            113,
+            169,
+            259,
+            177
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1474,
+            420,
+            161,
+            120
+          ],
+          "margin": [
+            119,
+            188,
+            261,
+            197
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            169,
+            1057,
+            172,
+            154
+          ],
+          "margin": [
+            118,
+            155,
+            250,
+            163
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1637,
+            420,
+            191,
+            152
+          ],
+          "margin": [
+            112,
+            156,
+            231,
+            165
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            345,
+            1057,
+            170,
+            173
+          ],
+          "margin": [
+            130,
+            139,
+            252,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1830,
+            420,
+            179,
+            175
+          ],
+          "margin": [
+            144,
+            133,
+            243,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            519,
+            1057,
+            172,
+            185
+          ],
+          "margin": [
+            150,
+            126,
+            250,
+            132
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2011,
+            420,
+            194,
+            193
+          ],
+          "margin": [
+            154,
+            115,
+            228,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            695,
+            1057,
+            208,
+            195
+          ],
+          "margin": [
+            140,
+            116,
+            214,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2207,
+            420,
+            203,
+            198
+          ],
+          "margin": [
+            140,
+            110,
+            219,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            907,
+            1057,
+            210,
+            197
+          ],
+          "margin": [
+            134,
+            114,
+            212,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2412,
+            420,
+            196,
+            197
+          ],
+          "margin": [
+            139,
+            111,
+            226,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1121,
+            1057,
+            191,
+            191
+          ],
+          "margin": [
+            136,
+            119,
+            231,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2610,
+            420,
+            197,
+            190
+          ],
+          "margin": [
+            145,
+            118,
+            225,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1316,
+            1057,
+            199,
+            197
+          ],
+          "margin": [
+            128,
+            114,
+            223,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2809,
+            420,
+            199,
+            198
+          ],
+          "margin": [
+            128,
+            110,
+            223,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1519,
+            1057,
+            196,
+            213
+          ],
+          "margin": [
+            120,
+            97,
+            226,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3010,
+            420,
+            198,
+            202
+          ],
+          "margin": [
+            114,
+            106,
+            224,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1719,
+            1057,
+            181,
+            202
+          ],
+          "margin": [
+            114,
+            110,
+            241,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3210,
+            420,
+            199,
+            197
+          ],
+          "margin": [
+            112,
+            111,
+            223,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            2,
+            1278,
+            194,
+            206
+          ],
+          "margin": [
+            108,
+            104,
+            228,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3411,
+            420,
+            215,
+            203
+          ],
+          "margin": [
+            103,
+            105,
+            207,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            200,
+            1278,
+            202,
+            216
+          ],
+          "margin": [
+            111,
+            94,
+            220,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3628,
+            420,
+            197,
+            201
+          ],
+          "margin": [
+            117,
+            107,
+            225,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            406,
+            1278,
+            190,
+            197
+          ],
+          "margin": [
+            125,
+            115,
+            232,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3827,
+            420,
+            170,
+            192
+          ],
+          "margin": [
+            140,
+            116,
+            252,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            600,
+            1278,
+            177,
+            201
+          ],
+          "margin": [
+            128,
+            110,
+            245,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            625,
+            185,
+            200
+          ],
+          "margin": [
+            123,
+            108,
+            237,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            781,
+            1278,
+            182,
+            213
+          ],
+          "margin": [
+            119,
+            97,
+            240,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            187,
+            625,
+            173,
+            203
+          ],
+          "margin": [
+            129,
+            105,
+            249,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            967,
+            1278,
+            171,
+            200
+          ],
+          "margin": [
+            120,
+            112,
+            251,
+            117
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            362,
+            625,
+            186,
+            188
+          ],
+          "margin": [
+            104,
+            120,
+            236,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1142,
+            1278,
+            187,
+            185
+          ],
+          "margin": [
+            106,
+            124,
+            235,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            550,
+            625,
+            183,
+            192
+          ],
+          "margin": [
+            111,
+            116,
+            239,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1333,
+            1278,
+            175,
+            177
+          ],
+          "margin": [
+            116,
+            133,
+            247,
+            140
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            735,
+            625,
+            180,
+            167
+          ],
+          "margin": [
+            92,
+            141,
+            242,
+            150
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1512,
+            1278,
+            160,
+            163
+          ],
+          "margin": [
+            110,
+            146,
+            262,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            917,
+            625,
+            182,
+            125
+          ],
+          "margin": [
+            116,
+            183,
+            240,
+            192
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1676,
+            1278,
+            163,
+            128
+          ],
+          "margin": [
+            110,
+            181,
+            259,
+            189
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1101,
+            625,
+            225,
+            91
+          ],
+          "margin": [
+            70,
+            217,
+            197,
+            226
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1843,
+            1278,
+            193,
+            97
+          ],
+          "margin": [
+            94,
+            212,
+            229,
+            220
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1328,
+            625,
+            211,
+            74
+          ],
+          "margin": [
+            84,
+            234,
+            211,
+            243
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            2,
+            1502,
+            197,
+            82
+          ],
+          "margin": [
+            93,
+            227,
+            225,
+            235
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1541,
+            625,
+            203,
+            200
+          ],
+          "margin": [
+            106,
+            108,
+            219,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            203,
+            1502,
+            222,
+            212
+          ],
+          "margin": [
+            82,
+            98,
+            200,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1746,
+            625,
+            229,
+            226
+          ],
+          "margin": [
+            84,
+            82,
+            193,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            429,
+            1502,
+            219,
+            215
+          ],
+          "margin": [
+            78,
+            95,
+            203,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1977,
+            625,
+            176,
+            243
+          ],
+          "margin": [
+            87,
+            65,
+            246,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            652,
+            1502,
+            186,
+            236
+          ],
+          "margin": [
+            74,
+            74,
+            236,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2155,
+            625,
+            180,
+            254
+          ],
+          "margin": [
+            80,
+            54,
+            242,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            842,
+            1502,
+            202,
+            263
+          ],
+          "margin": [
+            69,
+            47,
+            220,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2337,
+            625,
+            191,
+            273
+          ],
+          "margin": [
+            90,
+            35,
+            231,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1048,
+            1502,
+            200,
+            278
+          ],
+          "margin": [
+            90,
+            32,
+            222,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2530,
+            625,
+            180,
+            283
+          ],
+          "margin": [
+            111,
+            25,
+            242,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1252,
+            1502,
+            200,
+            278
+          ],
+          "margin": [
+            105,
+            32,
+            222,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2712,
+            625,
+            175,
+            288
+          ],
+          "margin": [
+            134,
+            20,
+            247,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1456,
+            1502,
+            191,
+            303
+          ],
+          "margin": [
+            116,
+            7,
+            231,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2889,
+            625,
+            183,
+            298
+          ],
+          "margin": [
+            118,
+            10,
+            239,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1651,
+            1502,
+            204,
+            310
+          ],
+          "margin": [
+            103,
+            0,
+            218,
+            7
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3074,
+            625,
+            170,
+            299
+          ],
+          "margin": [
+            121,
+            9,
+            252,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_00.png",
+          "region": [
+            1859,
+            1502,
+            181,
+            295
+          ],
+          "margin": [
+            102,
+            15,
+            241,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3246,
+            625,
+            169,
+            293
+          ],
+          "margin": [
+            109,
+            15,
+            253,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            175,
+            294
+          ],
+          "margin": [
+            104,
+            16,
+            247,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3417,
+            625,
+            165,
+            284
+          ],
+          "margin": [
+            123,
+            24,
+            257,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            181,
+            2,
+            182,
+            297
+          ],
+          "margin": [
+            108,
+            13,
+            240,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3584,
+            625,
+            204,
+            267
+          ],
+          "margin": [
+            128,
+            41,
+            218,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            367,
+            2,
+            202,
+            265
+          ],
+          "margin": [
+            126,
+            45,
+            220,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3790,
+            625,
+            181,
+            243
+          ],
+          "margin": [
+            147,
+            65,
+            241,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            573,
+            2,
+            195,
+            249
+          ],
+          "margin": [
+            130,
+            61,
+            227,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            926,
+            186,
+            238
+          ],
+          "margin": [
+            131,
+            70,
+            236,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            772,
+            2,
+            223,
+            260
+          ],
+          "margin": [
+            106,
+            50,
+            199,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            188,
+            926,
+            204,
+            227
+          ],
+          "margin": [
+            95,
+            81,
+            218,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            999,
+            2,
+            195,
+            218
+          ],
+          "margin": [
+            90,
+            92,
+            227,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            394,
+            926,
+            178,
+            209
+          ],
+          "margin": [
+            95,
+            99,
+            244,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1198,
+            2,
+            190,
+            199
+          ],
+          "margin": [
+            84,
+            111,
+            232,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            574,
+            926,
+            174,
+            192
+          ],
+          "margin": [
+            94,
+            116,
+            248,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1392,
+            2,
+            196,
+            199
+          ],
+          "margin": [
+            79,
+            111,
+            226,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            750,
+            926,
+            253,
+            170
+          ],
+          "margin": [
+            62,
+            138,
+            169,
+            147
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1592,
+            2,
+            223,
+            158
+          ],
+          "margin": [
+            68,
+            151,
+            199,
+            159
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1005,
+            926,
+            215,
+            139
+          ],
+          "margin": [
+            80,
+            169,
+            207,
+            178
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            2,
+            307,
+            231,
+            171
+          ],
+          "margin": [
+            67,
+            140,
+            191,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1222,
+            926,
+            268,
+            177
+          ],
+          "margin": [
+            58,
+            131,
+            154,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            237,
+            307,
+            234,
+            160
+          ],
+          "margin": [
+            75,
+            149,
+            188,
+            157
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1492,
+            926,
+            162,
+            203
+          ],
+          "margin": [
+            106,
+            105,
+            260,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            475,
+            307,
+            173,
+            220
+          ],
+          "margin": [
+            101,
+            90,
+            249,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1656,
+            926,
+            174,
+            228
+          ],
+          "margin": [
+            110,
+            80,
+            248,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            652,
+            307,
+            188,
+            238
+          ],
+          "margin": [
+            106,
+            72,
+            234,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1832,
+            926,
+            175,
+            223
+          ],
+          "margin": [
+            118,
+            85,
+            247,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            844,
+            307,
+            191,
+            259
+          ],
+          "margin": [
+            112,
+            51,
+            231,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2009,
+            926,
+            211,
+            212
+          ],
+          "margin": [
+            128,
+            96,
+            211,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1039,
+            307,
+            184,
+            215
+          ],
+          "margin": [
+            138,
+            95,
+            238,
+            102
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2222,
+            926,
+            214,
+            206
+          ],
+          "margin": [
+            94,
+            102,
+            208,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1227,
+            307,
+            208,
+            227
+          ],
+          "margin": [
+            88,
+            83,
+            214,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2438,
+            926,
+            222,
+            214
+          ],
+          "margin": [
+            83,
+            94,
+            200,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1439,
+            307,
+            221,
+            231
+          ],
+          "margin": [
+            75,
+            79,
+            201,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2662,
+            926,
+            216,
+            214
+          ],
+          "margin": [
+            74,
+            94,
+            206,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1664,
+            307,
+            222,
+            216
+          ],
+          "margin": [
+            72,
+            94,
+            200,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2880,
+            926,
+            218,
+            208
+          ],
+          "margin": [
+            69,
+            100,
+            204,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            2,
+            574,
+            233,
+            217
+          ],
+          "margin": [
+            66,
+            93,
+            189,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3100,
+            926,
+            219,
+            214
+          ],
+          "margin": [
+            76,
+            94,
+            203,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            239,
+            574,
+            242,
+            227
+          ],
+          "margin": [
+            74,
+            83,
+            180,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3321,
+            926,
+            232,
+            213
+          ],
+          "margin": [
+            87,
+            95,
+            190,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            485,
+            574,
+            237,
+            211
+          ],
+          "margin": [
+            88,
+            99,
+            185,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3555,
+            926,
+            219,
+            205
+          ],
+          "margin": [
+            105,
+            103,
+            203,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            726,
+            574,
+            228,
+            219
+          ],
+          "margin": [
+            94,
+            91,
+            194,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3776,
+            926,
+            232,
+            210
+          ],
+          "margin": [
+            86,
+            98,
+            190,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            958,
+            574,
+            234,
+            221
+          ],
+          "margin": [
+            78,
+            89,
+            188,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            1166,
+            227,
+            209
+          ],
+          "margin": [
+            69,
+            99,
+            195,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1196,
+            574,
+            211,
+            206
+          ],
+          "margin": [
+            76,
+            104,
+            211,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            229,
+            1166,
+            208,
+            200
+          ],
+          "margin": [
+            69,
+            108,
+            214,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1411,
+            574,
+            212,
+            215
+          ],
+          "margin": [
+            70,
+            95,
+            210,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            439,
+            1166,
+            215,
+            205
+          ],
+          "margin": [
+            73,
+            103,
+            207,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1627,
+            574,
+            213,
+            217
+          ],
+          "margin": [
+            78,
+            93,
+            209,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            656,
+            1166,
+            206,
+            203
+          ],
+          "margin": [
+            101,
+            105,
+            216,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            2,
+            809,
+            205,
+            203
+          ],
+          "margin": [
+            108,
+            108,
+            217,
+            114
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            864,
+            1166,
+            195,
+            196
+          ],
+          "margin": [
+            123,
+            112,
+            227,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            211,
+            809,
+            208,
+            211
+          ],
+          "margin": [
+            111,
+            99,
+            214,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1061,
+            1166,
+            217,
+            208
+          ],
+          "margin": [
+            102,
+            100,
+            205,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            423,
+            809,
+            210,
+            221
+          ],
+          "margin": [
+            92,
+            89,
+            212,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1280,
+            1166,
+            201,
+            214
+          ],
+          "margin": [
+            98,
+            94,
+            221,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            637,
+            809,
+            196,
+            212
+          ],
+          "margin": [
+            92,
+            98,
+            226,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1483,
+            1166,
+            192,
+            214
+          ],
+          "margin": [
+            94,
+            94,
+            230,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            837,
+            809,
+            185,
+            202
+          ],
+          "margin": [
+            90,
+            108,
+            237,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1677,
+            1166,
+            193,
+            207
+          ],
+          "margin": [
+            95,
+            101,
+            229,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1026,
+            809,
+            203,
+            217
+          ],
+          "margin": [
+            90,
+            93,
+            219,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1872,
+            1166,
+            289,
+            196
+          ],
+          "margin": [
+            78,
+            112,
+            133,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1233,
+            809,
+            229,
+            226
+          ],
+          "margin": [
+            88,
+            84,
+            193,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2163,
+            1166,
+            263,
+            177
+          ],
+          "margin": [
+            98,
+            131,
+            159,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1466,
+            809,
+            212,
+            212
+          ],
+          "margin": [
+            93,
+            98,
+            210,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2428,
+            1166,
+            269,
+            186
+          ],
+          "margin": [
+            89,
+            122,
+            153,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1682,
+            809,
+            206,
+            213
+          ],
+          "margin": [
+            91,
+            97,
+            216,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2699,
+            1166,
+            180,
+            188
+          ],
+          "margin": [
+            93,
+            120,
+            242,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            2,
+            1043,
+            183,
+            207
+          ],
+          "margin": [
+            95,
+            103,
+            239,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2881,
+            1166,
+            177,
+            187
+          ],
+          "margin": [
+            96,
+            121,
+            245,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            189,
+            1043,
+            183,
+            209
+          ],
+          "margin": [
+            106,
+            101,
+            239,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3060,
+            1166,
+            183,
+            194
+          ],
+          "margin": [
+            106,
+            114,
+            239,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            376,
+            1043,
+            224,
+            197
+          ],
+          "margin": [
+            116,
+            114,
+            198,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3245,
+            1166,
+            193,
+            196
+          ],
+          "margin": [
+            134,
+            112,
+            229,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            604,
+            1043,
+            222,
+            190
+          ],
+          "margin": [
+            132,
+            120,
+            200,
+            127
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3440,
+            1166,
+            267,
+            149
+          ],
+          "margin": [
+            50,
+            159,
+            155,
+            168
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            830,
+            1043,
+            275,
+            178
+          ],
+          "margin": [
+            54,
+            132,
+            147,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3709,
+            1166,
+            301,
+            163
+          ],
+          "margin": [
+            48,
+            145,
+            121,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1109,
+            1043,
+            290,
+            199
+          ],
+          "margin": [
+            62,
+            112,
+            132,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            1382,
+            248,
+            167
+          ],
+          "margin": [
+            90,
+            141,
+            174,
+            150
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1403,
+            1043,
+            252,
+            183
+          ],
+          "margin": [
+            96,
+            127,
+            170,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            250,
+            1382,
+            253,
+            168
+          ],
+          "margin": [
+            106,
+            140,
+            169,
+            149
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1659,
+            1043,
+            271,
+            195
+          ],
+          "margin": [
+            97,
+            115,
+            151,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            505,
+            1382,
+            285,
+            196
+          ],
+          "margin": [
+            97,
+            112,
+            137,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            2,
+            1260,
+            255,
+            208
+          ],
+          "margin": [
+            110,
+            102,
+            167,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            792,
+            1382,
+            194,
+            215
+          ],
+          "margin": [
+            130,
+            93,
+            228,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            261,
+            1260,
+            207,
+            217
+          ],
+          "margin": [
+            128,
+            93,
+            215,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            988,
+            1382,
+            216,
+            228
+          ],
+          "margin": [
+            119,
+            80,
+            206,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            472,
+            1260,
+            223,
+            249
+          ],
+          "margin": [
+            106,
+            61,
+            199,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1206,
+            1382,
+            197,
+            232
+          ],
+          "margin": [
+            128,
+            76,
+            225,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            699,
+            1260,
+            232,
+            244
+          ],
+          "margin": [
+            94,
+            67,
+            190,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1405,
+            1382,
+            205,
+            231
+          ],
+          "margin": [
+            120,
+            77,
+            217,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            935,
+            1260,
+            211,
+            239
+          ],
+          "margin": [
+            108,
+            71,
+            211,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1612,
+            1382,
+            189,
+            222
+          ],
+          "margin": [
+            126,
+            86,
+            233,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1150,
+            1260,
+            210,
+            242
+          ],
+          "margin": [
+            102,
+            68,
+            212,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1803,
+            1382,
+            218,
+            234
+          ],
+          "margin": [
+            98,
+            74,
+            204,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1364,
+            1260,
+            211,
+            221
+          ],
+          "margin": [
+            98,
+            89,
+            211,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2023,
+            1382,
+            172,
+            236
+          ],
+          "margin": [
+            110,
+            72,
+            250,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1579,
+            1260,
+            187,
+            221
+          ],
+          "margin": [
+            92,
+            89,
+            235,
+            96
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2197,
+            1382,
+            168,
+            235
+          ],
+          "margin": [
+            108,
+            73,
+            254,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1770,
+            1260,
+            181,
+            211
+          ],
+          "margin": [
+            93,
+            99,
+            241,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2367,
+            1382,
+            155,
+            211
+          ],
+          "margin": [
+            114,
+            97,
+            267,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            2,
+            1517,
+            191,
+            246
+          ],
+          "margin": [
+            88,
+            64,
+            231,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2524,
+            1382,
+            228,
+            184
+          ],
+          "margin": [
+            89,
+            124,
+            194,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            197,
+            1517,
+            199,
+            203
+          ],
+          "margin": [
+            96,
+            107,
+            223,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2754,
+            1382,
+            182,
+            146
+          ],
+          "margin": [
+            104,
+            162,
+            240,
+            171
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            400,
+            1517,
+            183,
+            155
+          ],
+          "margin": [
+            105,
+            156,
+            239,
+            162
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2938,
+            1382,
+            179,
+            150
+          ],
+          "margin": [
+            110,
+            158,
+            243,
+            167
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            587,
+            1517,
+            159,
+            165
+          ],
+          "margin": [
+            123,
+            145,
+            263,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3119,
+            1382,
+            302,
+            148
+          ],
+          "margin": [
+            79,
+            160,
+            120,
+            169
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            750,
+            1517,
+            270,
+            175
+          ],
+          "margin": [
+            85,
+            135,
+            152,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3423,
+            1382,
+            280,
+            138
+          ],
+          "margin": [
+            90,
+            170,
+            142,
+            179
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1024,
+            1517,
+            275,
+            163
+          ],
+          "margin": [
+            82,
+            147,
+            147,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3705,
+            1382,
+            289,
+            141
+          ],
+          "margin": [
+            85,
+            167,
+            133,
+            176
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1303,
+            1517,
+            311,
+            176
+          ],
+          "margin": [
+            62,
+            134,
+            111,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            1620,
+            321,
+            136
+          ],
+          "margin": [
+            55,
+            172,
+            101,
+            181
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1618,
+            1517,
+            299,
+            167
+          ],
+          "margin": [
+            58,
+            143,
+            123,
+            150
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            323,
+            1620,
+            281,
+            123
+          ],
+          "margin": [
+            80,
+            185,
+            141,
+            194
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            2,
+            1771,
+            307,
+            179
+          ],
+          "margin": [
+            56,
+            131,
+            115,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            606,
+            1620,
+            376,
+            156
+          ],
+          "margin": [
+            38,
+            152,
+            46,
+            161
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            313,
+            1771,
+            317,
+            203
+          ],
+          "margin": [
+            60,
+            109,
+            105,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            984,
+            1620,
+            174,
+            175
+          ],
+          "margin": [
+            146,
+            133,
+            248,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            634,
+            1771,
+            187,
+            190
+          ],
+          "margin": [
+            134,
+            120,
+            235,
+            127
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1160,
+            1620,
+            187,
+            229
+          ],
+          "margin": [
+            112,
+            79,
+            235,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            825,
+            1771,
+            192,
+            234
+          ],
+          "margin": [
+            114,
+            76,
+            230,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1349,
+            1620,
+            203,
+            213
+          ],
+          "margin": [
+            123,
+            95,
+            219,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1021,
+            1771,
+            201,
+            218
+          ],
+          "margin": [
+            122,
+            92,
+            221,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1554,
+            1620,
+            190,
+            172
+          ],
+          "margin": [
+            150,
+            136,
+            232,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1226,
+            1771,
+            195,
+            187
+          ],
+          "margin": [
+            141,
+            124,
+            227,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1746,
+            1620,
+            193,
+            176
+          ],
+          "margin": [
+            148,
+            132,
+            229,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1425,
+            1771,
+            189,
+            190
+          ],
+          "margin": [
+            140,
+            121,
+            233,
+            127
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1941,
+            1620,
+            202,
+            191
+          ],
+          "margin": [
+            94,
+            117,
+            220,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1618,
+            1771,
+            196,
+            204
+          ],
+          "margin": [
+            103,
+            106,
+            226,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2145,
+            1620,
+            204,
+            178
+          ],
+          "margin": [
+            121,
+            130,
+            218,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_01.png",
+          "region": [
+            1818,
+            1771,
+            194,
+            196
+          ],
+          "margin": [
+            128,
+            114,
+            228,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2351,
+            1620,
+            177,
+            192
+          ],
+          "margin": [
+            154,
+            116,
+            245,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            2,
+            2,
+            183,
+            194
+          ],
+          "margin": [
+            146,
+            118,
+            239,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2530,
+            1620,
+            200,
+            181
+          ],
+          "margin": [
+            137,
+            127,
+            222,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            189,
+            2,
+            195,
+            182
+          ],
+          "margin": [
+            138,
+            127,
+            227,
+            135
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2732,
+            1620,
+            231,
+            162
+          ],
+          "margin": [
+            118,
+            146,
+            191,
+            155
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            388,
+            2,
+            217,
+            163
+          ],
+          "margin": [
+            126,
+            146,
+            205,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2965,
+            1620,
+            189,
+            172
+          ],
+          "margin": [
+            145,
+            136,
+            233,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            609,
+            2,
+            193,
+            169
+          ],
+          "margin": [
+            140,
+            140,
+            229,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3156,
+            1620,
+            180,
+            184
+          ],
+          "margin": [
+            151,
+            124,
+            242,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            806,
+            2,
+            186,
+            190
+          ],
+          "margin": [
+            144,
+            120,
+            236,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3338,
+            1620,
+            209,
+            154
+          ],
+          "margin": [
+            132,
+            154,
+            213,
+            163
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            996,
+            2,
+            196,
+            163
+          ],
+          "margin": [
+            138,
+            146,
+            226,
+            154
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3549,
+            1620,
+            194,
+            193
+          ],
+          "margin": [
+            154,
+            115,
+            228,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1196,
+            2,
+            193,
+            196
+          ],
+          "margin": [
+            136,
+            115,
+            229,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3745,
+            1620,
+            199,
+            197
+          ],
+          "margin": [
+            143,
+            111,
+            223,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1393,
+            2,
+            196,
+            215
+          ],
+          "margin": [
+            143,
+            95,
+            226,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            1851,
+            209,
+            197
+          ],
+          "margin": [
+            135,
+            111,
+            213,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1593,
+            2,
+            185,
+            187
+          ],
+          "margin": [
+            136,
+            123,
+            237,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            211,
+            1851,
+            197,
+            190
+          ],
+          "margin": [
+            145,
+            118,
+            225,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1782,
+            2,
+            182,
+            196
+          ],
+          "margin": [
+            135,
+            115,
+            240,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            410,
+            1851,
+            202,
+            198
+          ],
+          "margin": [
+            130,
+            110,
+            220,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            2,
+            225,
+            211,
+            184
+          ],
+          "margin": [
+            104,
+            128,
+            211,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            614,
+            1851,
+            200,
+            200
+          ],
+          "margin": [
+            113,
+            108,
+            222,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            217,
+            225,
+            181,
+            203
+          ],
+          "margin": [
+            124,
+            107,
+            241,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            816,
+            1851,
+            199,
+            197
+          ],
+          "margin": [
+            112,
+            111,
+            223,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            402,
+            225,
+            180,
+            203
+          ],
+          "margin": [
+            124,
+            108,
+            242,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1017,
+            1851,
+            200,
+            202
+          ],
+          "margin": [
+            115,
+            106,
+            222,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            586,
+            225,
+            192,
+            211
+          ],
+          "margin": [
+            123,
+            99,
+            230,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1219,
+            1851,
+            181,
+            200
+          ],
+          "margin": [
+            126,
+            108,
+            241,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            782,
+            225,
+            182,
+            199
+          ],
+          "margin": [
+            138,
+            111,
+            240,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1402,
+            1851,
+            170,
+            192
+          ],
+          "margin": [
+            140,
+            116,
+            252,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            968,
+            225,
+            176,
+            198
+          ],
+          "margin": [
+            140,
+            114,
+            246,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1574,
+            1851,
+            179,
+            200
+          ],
+          "margin": [
+            129,
+            108,
+            243,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1148,
+            225,
+            178,
+            206
+          ],
+          "margin": [
+            126,
+            104,
+            244,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1755,
+            1851,
+            183,
+            203
+          ],
+          "margin": [
+            127,
+            105,
+            239,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1330,
+            225,
+            172,
+            205
+          ],
+          "margin": [
+            123,
+            105,
+            250,
+            112
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1940,
+            1851,
+            194,
+            193
+          ],
+          "margin": [
+            154,
+            115,
+            228,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1506,
+            225,
+            197,
+            201
+          ],
+          "margin": [
+            139,
+            109,
+            225,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2136,
+            1851,
+            197,
+            199
+          ],
+          "margin": [
+            145,
+            109,
+            225,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1707,
+            225,
+            202,
+            209
+          ],
+          "margin": [
+            132,
+            101,
+            220,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2335,
+            1851,
+            200,
+            198
+          ],
+          "margin": [
+            142,
+            110,
+            222,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            2,
+            444,
+            191,
+            195
+          ],
+          "margin": [
+            133,
+            117,
+            231,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2537,
+            1851,
+            197,
+            190
+          ],
+          "margin": [
+            145,
+            118,
+            225,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            197,
+            444,
+            183,
+            199
+          ],
+          "margin": [
+            130,
+            111,
+            239,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2736,
+            1851,
+            200,
+            199
+          ],
+          "margin": [
+            132,
+            109,
+            222,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            384,
+            444,
+            195,
+            215
+          ],
+          "margin": [
+            118,
+            95,
+            227,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2938,
+            1851,
+            202,
+            202
+          ],
+          "margin": [
+            115,
+            106,
+            220,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            583,
+            444,
+            182,
+            204
+          ],
+          "margin": [
+            120,
+            106,
+            240,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3142,
+            1851,
+            199,
+            197
+          ],
+          "margin": [
+            112,
+            111,
+            223,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            769,
+            444,
+            202,
+            203
+          ],
+          "margin": [
+            111,
+            106,
+            220,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3343,
+            1851,
+            201,
+            202
+          ],
+          "margin": [
+            115,
+            106,
+            221,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            975,
+            444,
+            203,
+            209
+          ],
+          "margin": [
+            117,
+            103,
+            219,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3546,
+            1851,
+            184,
+            201
+          ],
+          "margin": [
+            127,
+            107,
+            238,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1182,
+            444,
+            178,
+            194
+          ],
+          "margin": [
+            133,
+            115,
+            244,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3732,
+            1851,
+            170,
+            192
+          ],
+          "margin": [
+            140,
+            116,
+            252,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1364,
+            444,
+            174,
+            196
+          ],
+          "margin": [
+            130,
+            113,
+            248,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            3904,
+            1851,
+            179,
+            201
+          ],
+          "margin": [
+            128,
+            107,
+            243,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1542,
+            444,
+            177,
+            210
+          ],
+          "margin": [
+            121,
+            100,
+            245,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            0,
+            2056,
+            182,
+            203
+          ],
+          "margin": [
+            125,
+            105,
+            240,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1723,
+            444,
+            163,
+            200
+          ],
+          "margin": [
+            119,
+            111,
+            259,
+            117
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            184,
+            2056,
+            194,
+            193
+          ],
+          "margin": [
+            154,
+            115,
+            228,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            2,
+            667,
+            190,
+            203
+          ],
+          "margin": [
+            147,
+            108,
+            232,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            380,
+            2056,
+            198,
+            199
+          ],
+          "margin": [
+            140,
+            109,
+            224,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            196,
+            667,
+            197,
+            206
+          ],
+          "margin": [
+            138,
+            104,
+            225,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            580,
+            2056,
+            200,
+            197
+          ],
+          "margin": [
+            137,
+            111,
+            222,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            397,
+            667,
+            183,
+            193
+          ],
+          "margin": [
+            146,
+            116,
+            239,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            782,
+            2056,
+            197,
+            190
+          ],
+          "margin": [
+            145,
+            118,
+            225,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            584,
+            667,
+            190,
+            196
+          ],
+          "margin": [
+            136,
+            113,
+            232,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            981,
+            2056,
+            202,
+            197
+          ],
+          "margin": [
+            124,
+            111,
+            220,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            778,
+            667,
+            207,
+            204
+          ],
+          "margin": [
+            119,
+            107,
+            215,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1185,
+            2056,
+            207,
+            200
+          ],
+          "margin": [
+            108,
+            108,
+            215,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            989,
+            667,
+            197,
+            191
+          ],
+          "margin": [
+            112,
+            118,
+            225,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1394,
+            2056,
+            199,
+            197
+          ],
+          "margin": [
+            112,
+            111,
+            223,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1190,
+            667,
+            188,
+            197
+          ],
+          "margin": [
+            117,
+            112,
+            234,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1595,
+            2056,
+            202,
+            202
+          ],
+          "margin": [
+            108,
+            106,
+            220,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1382,
+            667,
+            196,
+            203
+          ],
+          "margin": [
+            122,
+            108,
+            226,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1799,
+            2056,
+            188,
+            201
+          ],
+          "margin": [
+            122,
+            107,
+            234,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1582,
+            667,
+            189,
+            190
+          ],
+          "margin": [
+            134,
+            119,
+            233,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            1989,
+            2056,
+            170,
+            192
+          ],
+          "margin": [
+            140,
+            116,
+            252,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1775,
+            667,
+            182,
+            187
+          ],
+          "margin": [
+            134,
+            122,
+            240,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2161,
+            2056,
+            182,
+            199
+          ],
+          "margin": [
+            127,
+            109,
+            240,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            2,
+            881,
+            189,
+            198
+          ],
+          "margin": [
+            124,
+            114,
+            233,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/combat_motion_v7.png",
+          "region": [
+            2345,
+            2056,
+            176,
+            202
+          ],
+          "margin": [
+            131,
+            106,
+            246,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            195,
+            881,
+            179,
+            191
+          ],
+          "margin": [
+            120,
+            118,
+            243,
+            126
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backstep",
+      "fps": 36,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            0,
+            0,
+            169,
+            210
+          ],
+          "margin": [
+            119,
+            98,
+            253,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            378,
+            881,
+            183,
+            199
+          ],
+          "margin": [
+            110,
+            111,
+            239,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            214,
+            0,
+            172,
+            208
+          ],
+          "margin": [
+            118,
+            100,
+            250,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            565,
+            881,
+            184,
+            197
+          ],
+          "margin": [
+            109,
+            113,
+            238,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            428,
+            0,
+            175,
+            208
+          ],
+          "margin": [
+            116,
+            100,
+            247,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            753,
+            881,
+            179,
+            197
+          ],
+          "margin": [
+            110,
+            112,
+            243,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            642,
+            0,
+            183,
+            206
+          ],
+          "margin": [
+            113,
+            102,
+            239,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            936,
+            881,
+            193,
+            194
+          ],
+          "margin": [
+            103,
+            117,
+            229,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            856,
+            0,
+            196,
+            204
+          ],
+          "margin": [
+            105,
+            104,
+            226,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1133,
+            881,
+            198,
+            192
+          ],
+          "margin": [
+            98,
+            117,
+            224,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            1070,
+            0,
+            210,
+            204
+          ],
+          "margin": [
+            95,
+            104,
+            212,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1335,
+            881,
+            212,
+            191
+          ],
+          "margin": [
+            92,
+            119,
+            210,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            0,
+            214,
+            209,
+            203
+          ],
+          "margin": [
+            94,
+            105,
+            213,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1551,
+            881,
+            207,
+            206
+          ],
+          "margin": [
+            93,
+            103,
+            215,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            214,
+            214,
+            209,
+            202
+          ],
+          "margin": [
+            94,
+            106,
+            213,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1762,
+            881,
+            205,
+            199
+          ],
+          "margin": [
+            97,
+            110,
+            217,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            428,
+            214,
+            198,
+            202
+          ],
+          "margin": [
+            102,
+            106,
+            224,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            2,
+            1095,
+            198,
+            196
+          ],
+          "margin": [
+            101,
+            113,
+            224,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            642,
+            214,
+            187,
+            203
+          ],
+          "margin": [
+            109,
+            105,
+            235,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            204,
+            1095,
+            191,
+            194
+          ],
+          "margin": [
+            105,
+            115,
+            231,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            856,
+            214,
+            186,
+            203
+          ],
+          "margin": [
+            110,
+            105,
+            236,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            399,
+            1095,
+            189,
+            195
+          ],
+          "margin": [
+            106,
+            115,
+            233,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            1070,
+            214,
+            186,
+            204
+          ],
+          "margin": [
+            109,
+            104,
+            236,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            592,
+            1095,
+            190,
+            196
+          ],
+          "margin": [
+            105,
+            115,
+            232,
+            121
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ready_guard",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            0,
+            428,
+            200,
+            207
+          ],
+          "margin": [
+            107,
+            101,
+            222,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            786,
+            1095,
+            199,
+            198
+          ],
+          "margin": [
+            103,
+            113,
+            223,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            214,
+            428,
+            205,
+            207
+          ],
+          "margin": [
+            108,
+            101,
+            217,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            989,
+            1095,
+            205,
+            199
+          ],
+          "margin": [
+            100,
+            111,
+            217,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            428,
+            428,
+            204,
+            209
+          ],
+          "margin": [
+            109,
+            99,
+            218,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1198,
+            1095,
+            211,
+            204
+          ],
+          "margin": [
+            100,
+            106,
+            211,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            642,
+            428,
+            207,
+            208
+          ],
+          "margin": [
+            107,
+            100,
+            215,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1413,
+            1095,
+            221,
+            207
+          ],
+          "margin": [
+            97,
+            102,
+            201,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            856,
+            428,
+            209,
+            208
+          ],
+          "margin": [
+            106,
+            100,
+            213,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1638,
+            1095,
+            221,
+            207
+          ],
+          "margin": [
+            99,
+            102,
+            201,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            1070,
+            428,
+            204,
+            209
+          ],
+          "margin": [
+            106,
+            99,
+            218,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            2,
+            1310,
+            216,
+            206
+          ],
+          "margin": [
+            103,
+            104,
+            206,
+            111
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ready_settle",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            0,
+            642,
+            203,
+            206
+          ],
+          "margin": [
+            109,
+            102,
+            219,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            222,
+            1310,
+            212,
+            202
+          ],
+          "margin": [
+            101,
+            109,
+            210,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            214,
+            642,
+            200,
+            204
+          ],
+          "margin": [
+            111,
+            104,
+            222,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            438,
+            1310,
+            213,
+            202
+          ],
+          "margin": [
+            97,
+            109,
+            209,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            428,
+            642,
+            195,
+            205
+          ],
+          "margin": [
+            110,
+            103,
+            227,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            655,
+            1310,
+            209,
+            200
+          ],
+          "margin": [
+            99,
+            110,
+            213,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            642,
+            642,
+            192,
+            204
+          ],
+          "margin": [
+            107,
+            104,
+            230,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            868,
+            1310,
+            202,
+            206
+          ],
+          "margin": [
+            99,
+            103,
+            220,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            856,
+            642,
+            185,
+            205
+          ],
+          "margin": [
+            109,
+            103,
+            237,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1074,
+            1310,
+            196,
+            206
+          ],
+          "margin": [
+            99,
+            103,
+            226,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/boss_behavior_v1.png",
+          "region": [
+            1070,
+            642,
+            188,
+            205
+          ],
+          "margin": [
+            105,
+            103,
+            234,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/motion_v8_02.png",
+          "region": [
+            1274,
+            1310,
+            188,
+            200
+          ],
+          "margin": [
+            101,
+            111,
+            234,
+            117
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "cast",
+    "cast_recover",
+    "cast_windup",
+    "heavy",
+    "heavy_recover",
+    "heavy_windup",
+    "phase",
+    "phase_recover",
+    "phase_windup",
+    "recover",
+    "windup"
+  ],
+  "behavior_generation_record": "boss_behavior_v1.json"
+}

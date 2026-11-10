@@ -1,0 +1,2924 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "thorn_bloom_mote",
+  "canvas": [
+    418,
+    190
+  ],
+  "display_height": 76,
+  "visual_scale": 0.5846153846153846,
+  "visual_offset": [
+    0,
+    6.608844813722854
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            172,
+            130
+          ],
+          "margin": [
+            102,
+            52,
+            246,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            153,
+            116
+          ],
+          "margin": [
+            119,
+            67,
+            265,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            174,
+            0,
+            158,
+            131
+          ],
+          "margin": [
+            120,
+            51,
+            260,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            159,
+            2,
+            152,
+            116
+          ],
+          "margin": [
+            122,
+            67,
+            266,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            334,
+            0,
+            172,
+            134
+          ],
+          "margin": [
+            99,
+            48,
+            246,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            315,
+            2,
+            156,
+            122
+          ],
+          "margin": [
+            106,
+            61,
+            262,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            508,
+            0,
+            159,
+            137
+          ],
+          "margin": [
+            99,
+            45,
+            259,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            475,
+            2,
+            154,
+            124
+          ],
+          "margin": [
+            112,
+            59,
+            264,
+            66
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            669,
+            0,
+            162,
+            136
+          ],
+          "margin": [
+            121,
+            46,
+            256,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            633,
+            2,
+            147,
+            130
+          ],
+          "margin": [
+            122,
+            53,
+            271,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            833,
+            0,
+            172,
+            131
+          ],
+          "margin": [
+            94,
+            51,
+            246,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            784,
+            2,
+            157,
+            126
+          ],
+          "margin": [
+            106,
+            57,
+            261,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1007,
+            0,
+            174,
+            132
+          ],
+          "margin": [
+            95,
+            50,
+            244,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            945,
+            2,
+            164,
+            134
+          ],
+          "margin": [
+            101,
+            51,
+            254,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1183,
+            0,
+            186,
+            125
+          ],
+          "margin": [
+            87,
+            57,
+            232,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1113,
+            2,
+            169,
+            131
+          ],
+          "margin": [
+            96,
+            54,
+            249,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1371,
+            0,
+            174,
+            144
+          ],
+          "margin": [
+            102,
+            38,
+            244,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1286,
+            2,
+            161,
+            134
+          ],
+          "margin": [
+            106,
+            49,
+            257,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1547,
+            0,
+            173,
+            130
+          ],
+          "margin": [
+            99,
+            52,
+            245,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1451,
+            2,
+            168,
+            125
+          ],
+          "margin": [
+            106,
+            59,
+            250,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1722,
+            0,
+            187,
+            133
+          ],
+          "margin": [
+            101,
+            49,
+            231,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1623,
+            2,
+            164,
+            118
+          ],
+          "margin": [
+            120,
+            65,
+            254,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1911,
+            0,
+            170,
+            133
+          ],
+          "margin": [
+            116,
+            49,
+            248,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1791,
+            2,
+            154,
+            115
+          ],
+          "margin": [
+            130,
+            68,
+            264,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2083,
+            0,
+            190,
+            126
+          ],
+          "margin": [
+            90,
+            56,
+            228,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            144,
+            180,
+            133
+          ],
+          "margin": [
+            103,
+            53,
+            238,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2275,
+            0,
+            191,
+            135
+          ],
+          "margin": [
+            92,
+            47,
+            227,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            186,
+            144,
+            188,
+            156
+          ],
+          "margin": [
+            105,
+            28,
+            230,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2468,
+            0,
+            185,
+            138
+          ],
+          "margin": [
+            106,
+            44,
+            233,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            378,
+            144,
+            188,
+            145
+          ],
+          "margin": [
+            104,
+            39,
+            230,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2655,
+            0,
+            179,
+            134
+          ],
+          "margin": [
+            113,
+            48,
+            239,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            570,
+            144,
+            189,
+            134
+          ],
+          "margin": [
+            101,
+            50,
+            229,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2836,
+            0,
+            176,
+            136
+          ],
+          "margin": [
+            116,
+            46,
+            242,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            763,
+            144,
+            200,
+            148
+          ],
+          "margin": [
+            94,
+            36,
+            218,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3014,
+            0,
+            208,
+            132
+          ],
+          "margin": [
+            93,
+            50,
+            210,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            967,
+            144,
+            181,
+            149
+          ],
+          "margin": [
+            111,
+            35,
+            237,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3224,
+            0,
+            182,
+            120
+          ],
+          "margin": [
+            107,
+            62,
+            236,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1152,
+            144,
+            178,
+            133
+          ],
+          "margin": [
+            116,
+            52,
+            240,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3408,
+            0,
+            205,
+            127
+          ],
+          "margin": [
+            99,
+            55,
+            213,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1334,
+            144,
+            191,
+            131
+          ],
+          "margin": [
+            114,
+            53,
+            227,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3615,
+            0,
+            217,
+            126
+          ],
+          "margin": [
+            93,
+            56,
+            201,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1529,
+            144,
+            185,
+            121
+          ],
+          "margin": [
+            120,
+            64,
+            233,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3834,
+            0,
+            197,
+            119
+          ],
+          "margin": [
+            111,
+            63,
+            221,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1718,
+            144,
+            192,
+            132
+          ],
+          "margin": [
+            112,
+            52,
+            226,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            146,
+            229,
+            136
+          ],
+          "margin": [
+            80,
+            46,
+            189,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            308,
+            201,
+            131
+          ],
+          "margin": [
+            96,
+            54,
+            217,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            231,
+            146,
+            236,
+            143
+          ],
+          "margin": [
+            93,
+            39,
+            182,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            207,
+            308,
+            215,
+            137
+          ],
+          "margin": [
+            94,
+            48,
+            203,
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            469,
+            146,
+            274,
+            146
+          ],
+          "margin": [
+            73,
+            36,
+            144,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            426,
+            308,
+            247,
+            152
+          ],
+          "margin": [
+            79,
+            32,
+            171,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            745,
+            146,
+            259,
+            147
+          ],
+          "margin": [
+            77,
+            35,
+            159,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            677,
+            308,
+            256,
+            157
+          ],
+          "margin": [
+            78,
+            27,
+            162,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1006,
+            146,
+            328,
+            141
+          ],
+          "margin": [
+            55,
+            41,
+            90,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            937,
+            308,
+            264,
+            140
+          ],
+          "margin": [
+            74,
+            44,
+            154,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1336,
+            146,
+            290,
+            128
+          ],
+          "margin": [
+            67,
+            54,
+            128,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1205,
+            308,
+            268,
+            134
+          ],
+          "margin": [
+            69,
+            50,
+            150,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1628,
+            146,
+            304,
+            129
+          ],
+          "margin": [
+            52,
+            53,
+            114,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1477,
+            308,
+            285,
+            136
+          ],
+          "margin": [
+            54,
+            48,
+            133,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1934,
+            146,
+            305,
+            127
+          ],
+          "margin": [
+            31,
+            55,
+            113,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1766,
+            308,
+            254,
+            123
+          ],
+          "margin": [
+            48,
+            61,
+            164,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2241,
+            146,
+            285,
+            115
+          ],
+          "margin": [
+            32,
+            67,
+            133,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            473,
+            255,
+            133
+          ],
+          "margin": [
+            48,
+            51,
+            163,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2528,
+            146,
+            320,
+            132
+          ],
+          "margin": [
+            9,
+            50,
+            98,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            261,
+            473,
+            286,
+            139
+          ],
+          "margin": [
+            26,
+            45,
+            132,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2850,
+            146,
+            226,
+            139
+          ],
+          "margin": [
+            31,
+            43,
+            192,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            551,
+            473,
+            273,
+            130
+          ],
+          "margin": [
+            18,
+            54,
+            145,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3078,
+            146,
+            244,
+            141
+          ],
+          "margin": [
+            20,
+            41,
+            174,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            828,
+            473,
+            280,
+            133
+          ],
+          "margin": [
+            22,
+            51,
+            138,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3324,
+            146,
+            238,
+            146
+          ],
+          "margin": [
+            40,
+            36,
+            180,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1112,
+            473,
+            275,
+            137
+          ],
+          "margin": [
+            41,
+            47,
+            143,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3564,
+            146,
+            207,
+            144
+          ],
+          "margin": [
+            68,
+            38,
+            211,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1391,
+            473,
+            270,
+            135
+          ],
+          "margin": [
+            64,
+            49,
+            148,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3773,
+            146,
+            206,
+            135
+          ],
+          "margin": [
+            95,
+            47,
+            212,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1665,
+            473,
+            245,
+            132
+          ],
+          "margin": [
+            96,
+            52,
+            173,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            295,
+            197,
+            140
+          ],
+          "margin": [
+            106,
+            42,
+            221,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            620,
+            246,
+            143
+          ],
+          "margin": [
+            97,
+            41,
+            172,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            199,
+            295,
+            230,
+            138
+          ],
+          "margin": [
+            97,
+            44,
+            188,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            252,
+            620,
+            227,
+            137
+          ],
+          "margin": [
+            114,
+            47,
+            191,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            431,
+            295,
+            229,
+            129
+          ],
+          "margin": [
+            111,
+            53,
+            189,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            483,
+            620,
+            225,
+            135
+          ],
+          "margin": [
+            112,
+            49,
+            193,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            662,
+            295,
+            229,
+            137
+          ],
+          "margin": [
+            102,
+            45,
+            189,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            712,
+            620,
+            215,
+            141
+          ],
+          "margin": [
+            106,
+            43,
+            203,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            893,
+            295,
+            192,
+            142
+          ],
+          "margin": [
+            111,
+            40,
+            226,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            931,
+            620,
+            208,
+            136
+          ],
+          "margin": [
+            105,
+            48,
+            210,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1087,
+            295,
+            187,
+            139
+          ],
+          "margin": [
+            109,
+            43,
+            231,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1143,
+            620,
+            200,
+            139
+          ],
+          "margin": [
+            105,
+            45,
+            218,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1276,
+            295,
+            199,
+            145
+          ],
+          "margin": [
+            102,
+            37,
+            219,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1347,
+            620,
+            208,
+            141
+          ],
+          "margin": [
+            102,
+            43,
+            210,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1477,
+            295,
+            203,
+            146
+          ],
+          "margin": [
+            94,
+            36,
+            215,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1559,
+            620,
+            204,
+            129
+          ],
+          "margin": [
+            98,
+            55,
+            214,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1682,
+            295,
+            195,
+            139
+          ],
+          "margin": [
+            95,
+            43,
+            223,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1767,
+            620,
+            205,
+            131
+          ],
+          "margin": [
+            94,
+            53,
+            213,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1879,
+            295,
+            201,
+            143
+          ],
+          "margin": [
+            92,
+            39,
+            217,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            771,
+            204,
+            133
+          ],
+          "margin": [
+            90,
+            51,
+            214,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2082,
+            295,
+            182,
+            140
+          ],
+          "margin": [
+            100,
+            42,
+            236,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            210,
+            771,
+            178,
+            117
+          ],
+          "margin": [
+            108,
+            66,
+            240,
+            73
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2266,
+            295,
+            182,
+            152
+          ],
+          "margin": [
+            112,
+            30,
+            236,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            392,
+            771,
+            170,
+            148
+          ],
+          "margin": [
+            121,
+            37,
+            248,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2450,
+            295,
+            207,
+            146
+          ],
+          "margin": [
+            96,
+            36,
+            211,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            566,
+            771,
+            195,
+            143
+          ],
+          "margin": [
+            100,
+            43,
+            223,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2659,
+            295,
+            179,
+            142
+          ],
+          "margin": [
+            110,
+            40,
+            239,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            765,
+            771,
+            175,
+            136
+          ],
+          "margin": [
+            97,
+            50,
+            243,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2840,
+            295,
+            188,
+            135
+          ],
+          "margin": [
+            87,
+            47,
+            230,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            944,
+            771,
+            179,
+            125
+          ],
+          "margin": [
+            94,
+            58,
+            239,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3030,
+            295,
+            194,
+            141
+          ],
+          "margin": [
+            100,
+            41,
+            224,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1127,
+            771,
+            199,
+            119
+          ],
+          "margin": [
+            94,
+            65,
+            219,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3226,
+            295,
+            194,
+            132
+          ],
+          "margin": [
+            97,
+            50,
+            224,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1330,
+            771,
+            200,
+            128
+          ],
+          "margin": [
+            80,
+            56,
+            218,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3422,
+            295,
+            222,
+            107
+          ],
+          "margin": [
+            64,
+            75,
+            196,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1534,
+            771,
+            220,
+            107
+          ],
+          "margin": [
+            60,
+            77,
+            198,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3646,
+            295,
+            257,
+            89
+          ],
+          "margin": [
+            41,
+            93,
+            161,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1758,
+            771,
+            253,
+            89
+          ],
+          "margin": [
+            35,
+            95,
+            165,
+            101
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bloom_seeds_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3905,
+            295,
+            162,
+            108
+          ],
+          "margin": [
+            112,
+            74,
+            256,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            927,
+            178,
+            122
+          ],
+          "margin": [
+            97,
+            62,
+            240,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            449,
+            170,
+            117
+          ],
+          "margin": [
+            109,
+            65,
+            248,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            184,
+            927,
+            179,
+            126
+          ],
+          "margin": [
+            99,
+            58,
+            239,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            172,
+            449,
+            180,
+            117
+          ],
+          "margin": [
+            102,
+            65,
+            238,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            367,
+            927,
+            175,
+            115
+          ],
+          "margin": [
+            101,
+            68,
+            243,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            354,
+            449,
+            171,
+            112
+          ],
+          "margin": [
+            105,
+            70,
+            247,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            546,
+            927,
+            196,
+            110
+          ],
+          "margin": [
+            98,
+            73,
+            222,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            527,
+            449,
+            186,
+            122
+          ],
+          "margin": [
+            98,
+            60,
+            232,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            746,
+            927,
+            210,
+            106
+          ],
+          "margin": [
+            92,
+            78,
+            208,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            715,
+            449,
+            177,
+            127
+          ],
+          "margin": [
+            104,
+            55,
+            241,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            960,
+            927,
+            232,
+            105
+          ],
+          "margin": [
+            82,
+            79,
+            186,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            894,
+            449,
+            188,
+            128
+          ],
+          "margin": [
+            99,
+            54,
+            230,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1196,
+            927,
+            195,
+            132
+          ],
+          "margin": [
+            92,
+            52,
+            223,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1084,
+            449,
+            195,
+            138
+          ],
+          "margin": [
+            94,
+            44,
+            223,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1395,
+            927,
+            197,
+            132
+          ],
+          "margin": [
+            92,
+            52,
+            221,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1281,
+            449,
+            192,
+            144
+          ],
+          "margin": [
+            94,
+            38,
+            226,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1596,
+            927,
+            197,
+            131
+          ],
+          "margin": [
+            92,
+            53,
+            221,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1475,
+            449,
+            189,
+            141
+          ],
+          "margin": [
+            97,
+            41,
+            229,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1797,
+            927,
+            202,
+            141
+          ],
+          "margin": [
+            88,
+            43,
+            216,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1666,
+            449,
+            214,
+            160
+          ],
+          "margin": [
+            83,
+            22,
+            204,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1076,
+            197,
+            133
+          ],
+          "margin": [
+            92,
+            51,
+            221,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1882,
+            449,
+            138,
+            169
+          ],
+          "margin": [
+            128,
+            13,
+            280,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            203,
+            1076,
+            185,
+            135
+          ],
+          "margin": [
+            98,
+            49,
+            233,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bloom_seeds",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2022,
+            449,
+            135,
+            174
+          ],
+          "margin": [
+            133,
+            8,
+            283,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            392,
+            1076,
+            187,
+            139
+          ],
+          "margin": [
+            97,
+            45,
+            231,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2159,
+            449,
+            132,
+            167
+          ],
+          "margin": [
+            131,
+            15,
+            286,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            583,
+            1076,
+            181,
+            133
+          ],
+          "margin": [
+            102,
+            51,
+            237,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2293,
+            449,
+            203,
+            153
+          ],
+          "margin": [
+            102,
+            29,
+            215,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            768,
+            1076,
+            184,
+            140
+          ],
+          "margin": [
+            97,
+            45,
+            234,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2498,
+            449,
+            191,
+            134
+          ],
+          "margin": [
+            108,
+            48,
+            227,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            956,
+            1076,
+            187,
+            145
+          ],
+          "margin": [
+            96,
+            41,
+            231,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2691,
+            449,
+            201,
+            141
+          ],
+          "margin": [
+            102,
+            41,
+            217,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1147,
+            1076,
+            182,
+            135
+          ],
+          "margin": [
+            110,
+            49,
+            236,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2894,
+            449,
+            184,
+            141
+          ],
+          "margin": [
+            109,
+            41,
+            234,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1333,
+            1076,
+            175,
+            139
+          ],
+          "margin": [
+            110,
+            44,
+            243,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3080,
+            449,
+            176,
+            135
+          ],
+          "margin": [
+            119,
+            47,
+            242,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1512,
+            1076,
+            177,
+            147
+          ],
+          "margin": [
+            112,
+            37,
+            241,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3258,
+            449,
+            189,
+            140
+          ],
+          "margin": [
+            109,
+            42,
+            229,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1693,
+            1076,
+            183,
+            145
+          ],
+          "margin": [
+            106,
+            41,
+            235,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3449,
+            449,
+            193,
+            142
+          ],
+          "margin": [
+            98,
+            40,
+            225,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1231,
+            180,
+            144
+          ],
+          "margin": [
+            102,
+            40,
+            238,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3644,
+            449,
+            178,
+            134
+          ],
+          "margin": [
+            102,
+            48,
+            240,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            186,
+            1231,
+            175,
+            144
+          ],
+          "margin": [
+            102,
+            41,
+            243,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            3824,
+            449,
+            190,
+            138
+          ],
+          "margin": [
+            98,
+            44,
+            228,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            365,
+            1231,
+            186,
+            147
+          ],
+          "margin": [
+            108,
+            38,
+            232,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            625,
+            179,
+            134
+          ],
+          "margin": [
+            95,
+            48,
+            239,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            555,
+            1231,
+            184,
+            142
+          ],
+          "margin": [
+            108,
+            43,
+            234,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bloom_seeds_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            181,
+            625,
+            157,
+            125
+          ],
+          "margin": [
+            110,
+            57,
+            261,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            743,
+            1231,
+            178,
+            139
+          ],
+          "margin": [
+            110,
+            44,
+            240,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            340,
+            625,
+            183,
+            134
+          ],
+          "margin": [
+            94,
+            48,
+            235,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            925,
+            1231,
+            185,
+            144
+          ],
+          "margin": [
+            98,
+            42,
+            233,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            525,
+            625,
+            197,
+            137
+          ],
+          "margin": [
+            92,
+            45,
+            221,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1114,
+            1231,
+            189,
+            143
+          ],
+          "margin": [
+            96,
+            42,
+            229,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            724,
+            625,
+            185,
+            134
+          ],
+          "margin": [
+            102,
+            48,
+            233,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1307,
+            1231,
+            187,
+            140
+          ],
+          "margin": [
+            98,
+            45,
+            231,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            911,
+            625,
+            191,
+            133
+          ],
+          "margin": [
+            96,
+            49,
+            227,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1498,
+            1231,
+            192,
+            137
+          ],
+          "margin": [
+            96,
+            48,
+            226,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1104,
+            625,
+            199,
+            129
+          ],
+          "margin": [
+            84,
+            53,
+            219,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1694,
+            1231,
+            157,
+            126
+          ],
+          "margin": [
+            113,
+            57,
+            261,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1305,
+            625,
+            174,
+            117
+          ],
+          "margin": [
+            101,
+            65,
+            244,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1855,
+            1231,
+            160,
+            127
+          ],
+          "margin": [
+            109,
+            56,
+            258,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1481,
+            625,
+            186,
+            120
+          ],
+          "margin": [
+            94,
+            62,
+            232,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1386,
+            167,
+            125
+          ],
+          "margin": [
+            104,
+            58,
+            251,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1669,
+            625,
+            183,
+            118
+          ],
+          "margin": [
+            98,
+            64,
+            235,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            173,
+            1386,
+            167,
+            123
+          ],
+          "margin": [
+            108,
+            60,
+            251,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            1854,
+            625,
+            158,
+            107
+          ],
+          "margin": [
+            114,
+            75,
+            260,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            344,
+            1386,
+            181,
+            131
+          ],
+          "margin": [
+            102,
+            52,
+            237,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2014,
+            625,
+            195,
+            123
+          ],
+          "margin": [
+            91,
+            59,
+            223,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            529,
+            1386,
+            186,
+            130
+          ],
+          "margin": [
+            97,
+            54,
+            232,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2211,
+            625,
+            183,
+            128
+          ],
+          "margin": [
+            94,
+            54,
+            235,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            719,
+            1386,
+            172,
+            121
+          ],
+          "margin": [
+            105,
+            62,
+            246,
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bloom_seeds_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2396,
+            625,
+            194,
+            135
+          ],
+          "margin": [
+            98,
+            47,
+            224,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            895,
+            1386,
+            195,
+            136
+          ],
+          "margin": [
+            89,
+            48,
+            223,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/combat_motion_v7.png",
+          "region": [
+            2592,
+            625,
+            179,
+            139
+          ],
+          "margin": [
+            107,
+            43,
+            239,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_bloom_mote/motion_v8_00.png",
+          "region": [
+            1094,
+            1386,
+            194,
+            127
+          ],
+          "margin": [
+            89,
+            59,
+            224,
+            63
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "bloom_seeds",
+    "bloom_seeds_recover",
+    "bloom_seeds_windup",
+    "recover",
+    "windup"
+  ]
+}

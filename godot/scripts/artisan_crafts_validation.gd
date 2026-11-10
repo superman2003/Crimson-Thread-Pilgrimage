@@ -207,6 +207,28 @@ func run() -> void:
 	overstock.tool_counts.mine = base_capacity + 1
 	check(not BUILD.new().restore(overstock).ok, "stock above capacity is rejected without the upgrade")
 
+	# --- E04 part rules 2: the third combat slot and second skill slot need parts. ---
+	var rules := BUILD.new()
+	rules.state.mechanisms = ["crimson"]
+	check(not rules._slot_unlocked("combat_accessory", 2, "crimson") and not rules._slot_unlocked("thread_skill", 1, "crimson"), "a repaired mechanism alone no longer opens the third combat or second skill slot")
+	rules.state.crafted.append_array(["clasp_combat", "spindle_skill"])
+	check(rules._slot_unlocked("combat_accessory", 2, "crimson") and rules._slot_unlocked("thread_skill", 1, "crimson"), "the artisan parts open both slots")
+	var before_rules: Dictionary = BUILD.new().serialize()
+	before_rules.erase("part_rules")
+	before_rules.mechanisms = ["crimson"]
+	var kept := BUILD.new()
+	check(kept.restore(before_rules).ok and kept.has_part("combat_clasp") and kept.has_part("skill_spindle") and int(kept.state.part_rules) == 2, "a save from before the part rules keeps both slots it already had")
+	var no_crest: Dictionary = BUILD.new().serialize()
+	no_crest.erase("part_rules")
+	var plain := BUILD.new()
+	check(plain.restore(no_crest).ok and not plain.has_part("combat_clasp") and not plain.has_part("skill_spindle"), "an old save with no repaired crest gets no parts")
+	var current: Dictionary = BUILD.new().serialize()
+	current.mechanisms = ["crimson"]
+	var strict := BUILD.new()
+	check(strict.restore(current).ok and not strict.has_part("combat_clasp") and not strict.has_part("skill_spindle"), "a save made under the new rules is never handed the parts")
+	current.part_rules = 7
+	check(not BUILD.new().restore(current).ok, "an unknown part-rules version is rejected")
+
 	await preload("res://scripts/proof_crafts_validation.gd").new().run(self)
 	scene._close_overlays()
 	AUDIO.retire_tree(scene)

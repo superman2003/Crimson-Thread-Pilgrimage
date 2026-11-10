@@ -1,0 +1,4132 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "erasure_bailiff",
+  "canvas": [
+    360,
+    246
+  ],
+  "display_height": 114,
+  "visual_scale": 0.5615763546798029,
+  "visual_offset": [
+    0,
+    -7.333756035702095
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            217,
+            203
+          ],
+          "margin": [
+            74,
+            35,
+            143,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            210,
+            202
+          ],
+          "margin": [
+            78,
+            38,
+            150,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            219,
+            0,
+            219,
+            205
+          ],
+          "margin": [
+            87,
+            33,
+            141,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            216,
+            2,
+            204,
+            203
+          ],
+          "margin": [
+            74,
+            37,
+            156,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            440,
+            0,
+            224,
+            205
+          ],
+          "margin": [
+            64,
+            33,
+            136,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            424,
+            2,
+            202,
+            205
+          ],
+          "margin": [
+            64,
+            35,
+            158,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            666,
+            0,
+            227,
+            206
+          ],
+          "margin": [
+            57,
+            32,
+            133,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            630,
+            2,
+            206,
+            204
+          ],
+          "margin": [
+            64,
+            36,
+            154,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            895,
+            0,
+            236,
+            198
+          ],
+          "margin": [
+            78,
+            40,
+            124,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            840,
+            2,
+            212,
+            196
+          ],
+          "margin": [
+            80,
+            44,
+            148,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1133,
+            0,
+            229,
+            187
+          ],
+          "margin": [
+            82,
+            51,
+            131,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1056,
+            2,
+            221,
+            195
+          ],
+          "margin": [
+            68,
+            45,
+            139,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1364,
+            0,
+            234,
+            193
+          ],
+          "margin": [
+            68,
+            45,
+            126,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1281,
+            2,
+            215,
+            193
+          ],
+          "margin": [
+            65,
+            47,
+            145,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1600,
+            0,
+            232,
+            193
+          ],
+          "margin": [
+            67,
+            45,
+            128,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1500,
+            2,
+            218,
+            194
+          ],
+          "margin": [
+            70,
+            46,
+            142,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1834,
+            0,
+            239,
+            192
+          ],
+          "margin": [
+            74,
+            46,
+            121,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1722,
+            2,
+            220,
+            197
+          ],
+          "margin": [
+            72,
+            43,
+            140,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2075,
+            0,
+            237,
+            183
+          ],
+          "margin": [
+            74,
+            55,
+            123,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            215,
+            219,
+            192
+          ],
+          "margin": [
+            71,
+            48,
+            141,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2314,
+            0,
+            242,
+            179
+          ],
+          "margin": [
+            69,
+            59,
+            118,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            225,
+            215,
+            223,
+            190
+          ],
+          "margin": [
+            64,
+            50,
+            137,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2558,
+            0,
+            232,
+            184
+          ],
+          "margin": [
+            71,
+            54,
+            128,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            452,
+            215,
+            214,
+            194
+          ],
+          "margin": [
+            76,
+            46,
+            146,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2792,
+            0,
+            233,
+            203
+          ],
+          "margin": [
+            83,
+            35,
+            127,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            670,
+            215,
+            224,
+            207
+          ],
+          "margin": [
+            78,
+            33,
+            136,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3027,
+            0,
+            234,
+            209
+          ],
+          "margin": [
+            78,
+            29,
+            126,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            898,
+            215,
+            228,
+            209
+          ],
+          "margin": [
+            78,
+            31,
+            132,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3263,
+            0,
+            255,
+            208
+          ],
+          "margin": [
+            72,
+            30,
+            105,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1130,
+            215,
+            222,
+            206
+          ],
+          "margin": [
+            82,
+            34,
+            138,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3520,
+            0,
+            232,
+            201
+          ],
+          "margin": [
+            86,
+            37,
+            128,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1356,
+            215,
+            230,
+            212
+          ],
+          "margin": [
+            78,
+            28,
+            130,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3754,
+            0,
+            262,
+            212
+          ],
+          "margin": [
+            71,
+            26,
+            98,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1590,
+            215,
+            232,
+            216
+          ],
+          "margin": [
+            80,
+            24,
+            128,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            0,
+            214,
+            206,
+            215
+          ],
+          "margin": [
+            95,
+            23,
+            154,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1826,
+            215,
+            191,
+            220
+          ],
+          "margin": [
+            100,
+            20,
+            169,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            208,
+            214,
+            203,
+            212
+          ],
+          "margin": [
+            99,
+            26,
+            157,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            443,
+            183,
+            227
+          ],
+          "margin": [
+            98,
+            13,
+            177,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            413,
+            214,
+            201,
+            220
+          ],
+          "margin": [
+            92,
+            18,
+            159,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            189,
+            443,
+            185,
+            226
+          ],
+          "margin": [
+            96,
+            14,
+            175,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            616,
+            214,
+            185,
+            220
+          ],
+          "margin": [
+            92,
+            18,
+            175,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            378,
+            443,
+            173,
+            215
+          ],
+          "margin": [
+            93,
+            25,
+            187,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            803,
+            214,
+            184,
+            214
+          ],
+          "margin": [
+            94,
+            24,
+            176,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            555,
+            443,
+            172,
+            213
+          ],
+          "margin": [
+            92,
+            27,
+            188,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            989,
+            214,
+            183,
+            217
+          ],
+          "margin": [
+            89,
+            21,
+            177,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            731,
+            443,
+            176,
+            223
+          ],
+          "margin": [
+            90,
+            17,
+            184,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1174,
+            214,
+            203,
+            214
+          ],
+          "margin": [
+            74,
+            24,
+            157,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            911,
+            443,
+            177,
+            211
+          ],
+          "margin": [
+            91,
+            29,
+            183,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1379,
+            214,
+            197,
+            203
+          ],
+          "margin": [
+            78,
+            35,
+            163,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1092,
+            443,
+            188,
+            203
+          ],
+          "margin": [
+            82,
+            37,
+            172,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1578,
+            214,
+            199,
+            202
+          ],
+          "margin": [
+            77,
+            36,
+            161,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1284,
+            443,
+            199,
+            207
+          ],
+          "margin": [
+            78,
+            33,
+            161,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1779,
+            214,
+            253,
+            196
+          ],
+          "margin": [
+            68,
+            42,
+            107,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1487,
+            443,
+            226,
+            185
+          ],
+          "margin": [
+            78,
+            55,
+            134,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2034,
+            214,
+            231,
+            181
+          ],
+          "margin": [
+            81,
+            57,
+            129,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1717,
+            443,
+            220,
+            179
+          ],
+          "margin": [
+            79,
+            61,
+            140,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2267,
+            214,
+            238,
+            184
+          ],
+          "margin": [
+            74,
+            54,
+            122,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            678,
+            235,
+            187
+          ],
+          "margin": [
+            70,
+            53,
+            125,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2507,
+            214,
+            265,
+            181
+          ],
+          "margin": [
+            61,
+            57,
+            95,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            241,
+            678,
+            242,
+            167
+          ],
+          "margin": [
+            63,
+            73,
+            118,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2774,
+            214,
+            234,
+            169
+          ],
+          "margin": [
+            76,
+            69,
+            126,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            487,
+            678,
+            230,
+            164
+          ],
+          "margin": [
+            68,
+            76,
+            130,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3010,
+            214,
+            246,
+            167
+          ],
+          "margin": [
+            64,
+            71,
+            114,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            721,
+            678,
+            248,
+            181
+          ],
+          "margin": [
+            60,
+            59,
+            112,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3258,
+            214,
+            259,
+            161
+          ],
+          "margin": [
+            60,
+            77,
+            101,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            973,
+            678,
+            230,
+            177
+          ],
+          "margin": [
+            67,
+            63,
+            130,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3519,
+            214,
+            230,
+            145
+          ],
+          "margin": [
+            70,
+            93,
+            130,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1207,
+            678,
+            235,
+            179
+          ],
+          "margin": [
+            64,
+            61,
+            125,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3751,
+            214,
+            275,
+            169
+          ],
+          "margin": [
+            56,
+            69,
+            85,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1446,
+            678,
+            245,
+            173
+          ],
+          "margin": [
+            70,
+            67,
+            115,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            0,
+            436,
+            222,
+            183
+          ],
+          "margin": [
+            83,
+            55,
+            138,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1695,
+            678,
+            216,
+            176
+          ],
+          "margin": [
+            82,
+            64,
+            144,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            224,
+            436,
+            235,
+            192
+          ],
+          "margin": [
+            83,
+            46,
+            125,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            873,
+            225,
+            185
+          ],
+          "margin": [
+            78,
+            55,
+            135,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            461,
+            436,
+            243,
+            198
+          ],
+          "margin": [
+            77,
+            40,
+            117,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            231,
+            873,
+            247,
+            174
+          ],
+          "margin": [
+            68,
+            66,
+            113,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            706,
+            436,
+            246,
+            195
+          ],
+          "margin": [
+            79,
+            43,
+            114,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            482,
+            873,
+            237,
+            163
+          ],
+          "margin": [
+            74,
+            77,
+            123,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            954,
+            436,
+            237,
+            188
+          ],
+          "margin": [
+            86,
+            50,
+            123,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            723,
+            873,
+            236,
+            171
+          ],
+          "margin": [
+            78,
+            69,
+            124,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1193,
+            436,
+            240,
+            195
+          ],
+          "margin": [
+            77,
+            43,
+            120,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            963,
+            873,
+            231,
+            187
+          ],
+          "margin": [
+            75,
+            53,
+            129,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1435,
+            436,
+            250,
+            195
+          ],
+          "margin": [
+            74,
+            43,
+            110,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1198,
+            873,
+            228,
+            190
+          ],
+          "margin": [
+            78,
+            50,
+            132,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1687,
+            436,
+            240,
+            188
+          ],
+          "margin": [
+            82,
+            50,
+            120,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1430,
+            873,
+            224,
+            187
+          ],
+          "margin": [
+            78,
+            53,
+            136,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1929,
+            436,
+            242,
+            190
+          ],
+          "margin": [
+            71,
+            48,
+            118,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1658,
+            873,
+            237,
+            186
+          ],
+          "margin": [
+            64,
+            54,
+            123,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2173,
+            436,
+            244,
+            185
+          ],
+          "margin": [
+            67,
+            53,
+            116,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            1071,
+            228,
+            177
+          ],
+          "margin": [
+            70,
+            63,
+            132,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2419,
+            436,
+            227,
+            173
+          ],
+          "margin": [
+            75,
+            65,
+            133,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            234,
+            1071,
+            234,
+            187
+          ],
+          "margin": [
+            60,
+            53,
+            126,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2648,
+            436,
+            250,
+            190
+          ],
+          "margin": [
+            60,
+            48,
+            110,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            472,
+            1071,
+            237,
+            193
+          ],
+          "margin": [
+            62,
+            47,
+            123,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2900,
+            436,
+            216,
+            200
+          ],
+          "margin": [
+            75,
+            38,
+            144,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            713,
+            1071,
+            212,
+            194
+          ],
+          "margin": [
+            72,
+            46,
+            148,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3118,
+            436,
+            205,
+            165
+          ],
+          "margin": [
+            76,
+            73,
+            155,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            929,
+            1071,
+            184,
+            177
+          ],
+          "margin": [
+            85,
+            64,
+            176,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3325,
+            436,
+            232,
+            169
+          ],
+          "margin": [
+            80,
+            69,
+            128,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1117,
+            1071,
+            200,
+            162
+          ],
+          "margin": [
+            76,
+            77,
+            160,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3559,
+            436,
+            198,
+            151
+          ],
+          "margin": [
+            80,
+            87,
+            162,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1321,
+            1071,
+            193,
+            159
+          ],
+          "margin": [
+            80,
+            82,
+            167,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3759,
+            436,
+            271,
+            126
+          ],
+          "margin": [
+            29,
+            112,
+            89,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1518,
+            1071,
+            276,
+            133
+          ],
+          "margin": [
+            32,
+            107,
+            84,
+            113
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            0,
+            638,
+            211,
+            135
+          ],
+          "margin": [
+            99,
+            103,
+            149,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1798,
+            1071,
+            197,
+            133
+          ],
+          "margin": [
+            92,
+            107,
+            163,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            213,
+            638,
+            240,
+            94
+          ],
+          "margin": [
+            61,
+            144,
+            120,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            1273,
+            257,
+            109
+          ],
+          "margin": [
+            54,
+            131,
+            103,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            455,
+            638,
+            240,
+            117
+          ],
+          "margin": [
+            62,
+            121,
+            120,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            263,
+            1273,
+            275,
+            114
+          ],
+          "margin": [
+            47,
+            126,
+            85,
+            132
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            697,
+            638,
+            183,
+            206
+          ],
+          "margin": [
+            91,
+            32,
+            177,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            542,
+            1273,
+            221,
+            177
+          ],
+          "margin": [
+            80,
+            63,
+            139,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            882,
+            638,
+            200,
+            210
+          ],
+          "margin": [
+            81,
+            28,
+            160,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            767,
+            1273,
+            266,
+            141
+          ],
+          "margin": [
+            46,
+            99,
+            94,
+            105
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bailiff_elite_sweep_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1084,
+            638,
+            236,
+            183
+          ],
+          "margin": [
+            32,
+            55,
+            124,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1037,
+            1273,
+            231,
+            216
+          ],
+          "margin": [
+            68,
+            24,
+            129,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1322,
+            638,
+            241,
+            192
+          ],
+          "margin": [
+            27,
+            46,
+            119,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1272,
+            1273,
+            292,
+            146
+          ],
+          "margin": [
+            16,
+            94,
+            68,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1565,
+            638,
+            236,
+            195
+          ],
+          "margin": [
+            33,
+            43,
+            124,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1568,
+            1273,
+            276,
+            156
+          ],
+          "margin": [
+            23,
+            84,
+            84,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1803,
+            638,
+            217,
+            190
+          ],
+          "margin": [
+            46,
+            48,
+            143,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            1497,
+            285,
+            151
+          ],
+          "margin": [
+            16,
+            89,
+            75,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2022,
+            638,
+            243,
+            199
+          ],
+          "margin": [
+            28,
+            39,
+            117,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            291,
+            1497,
+            214,
+            228
+          ],
+          "margin": [
+            58,
+            12,
+            146,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2267,
+            638,
+            254,
+            201
+          ],
+          "margin": [
+            15,
+            37,
+            106,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            509,
+            1497,
+            208,
+            226
+          ],
+          "margin": [
+            64,
+            14,
+            152,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2523,
+            638,
+            235,
+            195
+          ],
+          "margin": [
+            29,
+            43,
+            125,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            721,
+            1497,
+            230,
+            199
+          ],
+          "margin": [
+            34,
+            41,
+            130,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2760,
+            638,
+            250,
+            203
+          ],
+          "margin": [
+            17,
+            35,
+            110,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            955,
+            1497,
+            234,
+            203
+          ],
+          "margin": [
+            34,
+            37,
+            126,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3012,
+            638,
+            213,
+            204
+          ],
+          "margin": [
+            46,
+            34,
+            147,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1193,
+            1497,
+            218,
+            190
+          ],
+          "margin": [
+            44,
+            50,
+            142,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3227,
+            638,
+            202,
+            198
+          ],
+          "margin": [
+            58,
+            40,
+            158,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1415,
+            1497,
+            221,
+            180
+          ],
+          "margin": [
+            40,
+            60,
+            139,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3431,
+            638,
+            203,
+            198
+          ],
+          "margin": [
+            56,
+            40,
+            157,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1640,
+            1497,
+            225,
+            194
+          ],
+          "margin": [
+            35,
+            46,
+            135,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3636,
+            638,
+            268,
+            191
+          ],
+          "margin": [
+            36,
+            47,
+            92,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            2,
+            1733,
+            228,
+            191
+          ],
+          "margin": [
+            34,
+            49,
+            132,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bailiff_elite_sweep",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            0,
+            850,
+            252,
+            177
+          ],
+          "margin": [
+            51,
+            61,
+            108,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            234,
+            1733,
+            225,
+            187
+          ],
+          "margin": [
+            39,
+            53,
+            135,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            254,
+            850,
+            264,
+            185
+          ],
+          "margin": [
+            42,
+            53,
+            96,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            463,
+            1733,
+            227,
+            194
+          ],
+          "margin": [
+            34,
+            46,
+            133,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            520,
+            850,
+            265,
+            185
+          ],
+          "margin": [
+            10,
+            53,
+            95,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            694,
+            1733,
+            212,
+            196
+          ],
+          "margin": [
+            44,
+            44,
+            148,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            787,
+            850,
+            259,
+            178
+          ],
+          "margin": [
+            14,
+            60,
+            101,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            910,
+            1733,
+            241,
+            189
+          ],
+          "margin": [
+            24,
+            51,
+            119,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1048,
+            850,
+            270,
+            182
+          ],
+          "margin": [
+            8,
+            56,
+            90,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1155,
+            1733,
+            242,
+            192
+          ],
+          "margin": [
+            23,
+            48,
+            118,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1320,
+            850,
+            229,
+            180
+          ],
+          "margin": [
+            52,
+            58,
+            131,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1401,
+            1733,
+            213,
+            182
+          ],
+          "margin": [
+            57,
+            58,
+            147,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1551,
+            850,
+            228,
+            170
+          ],
+          "margin": [
+            57,
+            68,
+            132,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_00.png",
+          "region": [
+            1618,
+            1733,
+            217,
+            180
+          ],
+          "margin": [
+            58,
+            60,
+            143,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1781,
+            850,
+            227,
+            177
+          ],
+          "margin": [
+            55,
+            61,
+            133,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            224,
+            182
+          ],
+          "margin": [
+            52,
+            58,
+            136,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2010,
+            850,
+            262,
+            177
+          ],
+          "margin": [
+            47,
+            61,
+            98,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            230,
+            2,
+            240,
+            177
+          ],
+          "margin": [
+            52,
+            63,
+            120,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2274,
+            850,
+            253,
+            169
+          ],
+          "margin": [
+            54,
+            69,
+            107,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            474,
+            2,
+            233,
+            184
+          ],
+          "margin": [
+            27,
+            56,
+            127,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2529,
+            850,
+            254,
+            171
+          ],
+          "margin": [
+            49,
+            67,
+            106,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            711,
+            2,
+            221,
+            191
+          ],
+          "margin": [
+            54,
+            49,
+            139,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2785,
+            850,
+            274,
+            167
+          ],
+          "margin": [
+            43,
+            71,
+            86,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            936,
+            2,
+            229,
+            191
+          ],
+          "margin": [
+            52,
+            49,
+            131,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bailiff_elite_sweep_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3061,
+            850,
+            261,
+            155
+          ],
+          "margin": [
+            52,
+            83,
+            99,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1169,
+            2,
+            231,
+            187
+          ],
+          "margin": [
+            50,
+            53,
+            129,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3324,
+            850,
+            274,
+            169
+          ],
+          "margin": [
+            43,
+            69,
+            86,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1404,
+            2,
+            247,
+            183
+          ],
+          "margin": [
+            53,
+            57,
+            113,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3600,
+            850,
+            243,
+            175
+          ],
+          "margin": [
+            55,
+            63,
+            117,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1655,
+            2,
+            238,
+            181
+          ],
+          "margin": [
+            52,
+            59,
+            122,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3845,
+            850,
+            244,
+            174
+          ],
+          "margin": [
+            57,
+            64,
+            116,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            2,
+            201,
+            253,
+            185
+          ],
+          "margin": [
+            48,
+            55,
+            107,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            0,
+            1037,
+            267,
+            198
+          ],
+          "margin": [
+            45,
+            40,
+            93,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            259,
+            201,
+            249,
+            178
+          ],
+          "margin": [
+            50,
+            62,
+            111,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            269,
+            1037,
+            200,
+            212
+          ],
+          "margin": [
+            73,
+            26,
+            160,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            512,
+            201,
+            242,
+            166
+          ],
+          "margin": [
+            52,
+            74,
+            118,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            471,
+            1037,
+            222,
+            221
+          ],
+          "margin": [
+            66,
+            17,
+            138,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            758,
+            201,
+            232,
+            169
+          ],
+          "margin": [
+            60,
+            71,
+            128,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            695,
+            1037,
+            202,
+            212
+          ],
+          "margin": [
+            73,
+            26,
+            158,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            994,
+            201,
+            235,
+            183
+          ],
+          "margin": [
+            56,
+            57,
+            125,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            899,
+            1037,
+            268,
+            197
+          ],
+          "margin": [
+            51,
+            41,
+            92,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1233,
+            201,
+            241,
+            188
+          ],
+          "margin": [
+            52,
+            52,
+            119,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1169,
+            1037,
+            236,
+            174
+          ],
+          "margin": [
+            67,
+            64,
+            124,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1478,
+            201,
+            227,
+            188
+          ],
+          "margin": [
+            58,
+            52,
+            133,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1407,
+            1037,
+            259,
+            190
+          ],
+          "margin": [
+            56,
+            48,
+            101,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1709,
+            201,
+            213,
+            208
+          ],
+          "margin": [
+            63,
+            32,
+            147,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1668,
+            1037,
+            216,
+            200
+          ],
+          "margin": [
+            70,
+            38,
+            144,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            2,
+            417,
+            204,
+            219
+          ],
+          "margin": [
+            64,
+            21,
+            156,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bailiff_elite_sweep_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1886,
+            1037,
+            238,
+            170
+          ],
+          "margin": [
+            34,
+            68,
+            122,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            210,
+            417,
+            205,
+            211
+          ],
+          "margin": [
+            66,
+            29,
+            155,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2126,
+            1037,
+            234,
+            181
+          ],
+          "margin": [
+            34,
+            57,
+            126,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            419,
+            417,
+            207,
+            203
+          ],
+          "margin": [
+            65,
+            37,
+            153,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bailiff_erase_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2362,
+            1037,
+            222,
+            179
+          ],
+          "margin": [
+            64,
+            59,
+            138,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            630,
+            417,
+            228,
+            183
+          ],
+          "margin": [
+            63,
+            57,
+            132,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2586,
+            1037,
+            232,
+            187
+          ],
+          "margin": [
+            57,
+            51,
+            128,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            862,
+            417,
+            226,
+            190
+          ],
+          "margin": [
+            55,
+            50,
+            134,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2820,
+            1037,
+            221,
+            187
+          ],
+          "margin": [
+            62,
+            51,
+            139,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1092,
+            417,
+            207,
+            188
+          ],
+          "margin": [
+            64,
+            52,
+            153,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3043,
+            1037,
+            226,
+            181
+          ],
+          "margin": [
+            61,
+            57,
+            134,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1303,
+            417,
+            212,
+            194
+          ],
+          "margin": [
+            62,
+            46,
+            148,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3271,
+            1037,
+            226,
+            200
+          ],
+          "margin": [
+            60,
+            38,
+            134,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1519,
+            417,
+            212,
+            194
+          ],
+          "margin": [
+            64,
+            46,
+            148,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3499,
+            1037,
+            201,
+            209
+          ],
+          "margin": [
+            68,
+            29,
+            159,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1735,
+            417,
+            203,
+            201
+          ],
+          "margin": [
+            66,
+            39,
+            157,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3702,
+            1037,
+            230,
+            215
+          ],
+          "margin": [
+            60,
+            23,
+            130,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            2,
+            644,
+            215,
+            211
+          ],
+          "margin": [
+            64,
+            29,
+            145,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            0,
+            1260,
+            208,
+            226
+          ],
+          "margin": [
+            64,
+            12,
+            152,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            221,
+            644,
+            213,
+            207
+          ],
+          "margin": [
+            64,
+            33,
+            147,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            210,
+            1260,
+            179,
+            230
+          ],
+          "margin": [
+            82,
+            8,
+            181,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            438,
+            644,
+            218,
+            202
+          ],
+          "margin": [
+            64,
+            38,
+            142,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            391,
+            1260,
+            193,
+            227
+          ],
+          "margin": [
+            78,
+            11,
+            167,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            660,
+            644,
+            208,
+            198
+          ],
+          "margin": [
+            65,
+            42,
+            152,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            586,
+            1260,
+            167,
+            214
+          ],
+          "margin": [
+            89,
+            24,
+            193,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            872,
+            644,
+            213,
+            215
+          ],
+          "margin": [
+            63,
+            25,
+            147,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            755,
+            1260,
+            259,
+            196
+          ],
+          "margin": [
+            54,
+            42,
+            101,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1089,
+            644,
+            225,
+            210
+          ],
+          "margin": [
+            58,
+            30,
+            135,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bailiff_erase",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1016,
+            1260,
+            247,
+            170
+          ],
+          "margin": [
+            61,
+            68,
+            113,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1318,
+            644,
+            199,
+            196
+          ],
+          "margin": [
+            65,
+            44,
+            161,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1265,
+            1260,
+            239,
+            176
+          ],
+          "margin": [
+            60,
+            62,
+            121,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1521,
+            644,
+            198,
+            201
+          ],
+          "margin": [
+            63,
+            39,
+            162,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1506,
+            1260,
+            276,
+            176
+          ],
+          "margin": [
+            44,
+            62,
+            84,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1723,
+            644,
+            189,
+            227
+          ],
+          "margin": [
+            70,
+            13,
+            171,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1784,
+            1260,
+            271,
+            168
+          ],
+          "margin": [
+            46,
+            70,
+            89,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            2,
+            879,
+            185,
+            221
+          ],
+          "margin": [
+            76,
+            19,
+            175,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2057,
+            1260,
+            275,
+            171
+          ],
+          "margin": [
+            44,
+            67,
+            85,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            191,
+            879,
+            197,
+            222
+          ],
+          "margin": [
+            65,
+            18,
+            163,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2334,
+            1260,
+            313,
+            167
+          ],
+          "margin": [
+            29,
+            71,
+            47,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            392,
+            879,
+            248,
+            195
+          ],
+          "margin": [
+            50,
+            45,
+            112,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2649,
+            1260,
+            288,
+            154
+          ],
+          "margin": [
+            43,
+            84,
+            72,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            644,
+            879,
+            253,
+            188
+          ],
+          "margin": [
+            50,
+            52,
+            107,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2939,
+            1260,
+            298,
+            162
+          ],
+          "margin": [
+            33,
+            76,
+            62,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            901,
+            879,
+            261,
+            176
+          ],
+          "margin": [
+            48,
+            64,
+            99,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3239,
+            1260,
+            261,
+            161
+          ],
+          "margin": [
+            50,
+            77,
+            99,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1166,
+            879,
+            242,
+            170
+          ],
+          "margin": [
+            52,
+            70,
+            118,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3502,
+            1260,
+            271,
+            153
+          ],
+          "margin": [
+            50,
+            85,
+            89,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1412,
+            879,
+            249,
+            176
+          ],
+          "margin": [
+            46,
+            64,
+            111,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3775,
+            1260,
+            272,
+            172
+          ],
+          "margin": [
+            44,
+            66,
+            88,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1665,
+            879,
+            239,
+            182
+          ],
+          "margin": [
+            53,
+            58,
+            121,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            0,
+            1492,
+            222,
+            183
+          ],
+          "margin": [
+            71,
+            55,
+            138,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            2,
+            1109,
+            229,
+            181
+          ],
+          "margin": [
+            58,
+            59,
+            131,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bailiff_erase_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            224,
+            1492,
+            249,
+            188
+          ],
+          "margin": [
+            62,
+            50,
+            111,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            235,
+            1109,
+            225,
+            190
+          ],
+          "margin": [
+            65,
+            50,
+            135,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            475,
+            1492,
+            241,
+            194
+          ],
+          "margin": [
+            64,
+            44,
+            119,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            464,
+            1109,
+            228,
+            199
+          ],
+          "margin": [
+            65,
+            41,
+            132,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            718,
+            1492,
+            227,
+            193
+          ],
+          "margin": [
+            64,
+            45,
+            133,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            696,
+            1109,
+            222,
+            195
+          ],
+          "margin": [
+            62,
+            45,
+            138,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            947,
+            1492,
+            231,
+            186
+          ],
+          "margin": [
+            66,
+            52,
+            129,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            922,
+            1109,
+            228,
+            184
+          ],
+          "margin": [
+            61,
+            56,
+            132,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1180,
+            1492,
+            227,
+            190
+          ],
+          "margin": [
+            65,
+            48,
+            133,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1154,
+            1109,
+            234,
+            188
+          ],
+          "margin": [
+            54,
+            52,
+            126,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1409,
+            1492,
+            238,
+            187
+          ],
+          "margin": [
+            61,
+            51,
+            122,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1392,
+            1109,
+            228,
+            179
+          ],
+          "margin": [
+            56,
+            61,
+            132,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1649,
+            1492,
+            238,
+            177
+          ],
+          "margin": [
+            61,
+            61,
+            122,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1624,
+            1109,
+            228,
+            176
+          ],
+          "margin": [
+            56,
+            64,
+            132,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            1889,
+            1492,
+            244,
+            185
+          ],
+          "margin": [
+            54,
+            53,
+            116,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            2,
+            1316,
+            235,
+            181
+          ],
+          "margin": [
+            54,
+            59,
+            125,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2135,
+            1492,
+            237,
+            188
+          ],
+          "margin": [
+            58,
+            50,
+            123,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            241,
+            1316,
+            228,
+            178
+          ],
+          "margin": [
+            58,
+            62,
+            132,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2374,
+            1492,
+            225,
+            184
+          ],
+          "margin": [
+            67,
+            54,
+            135,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            473,
+            1316,
+            228,
+            188
+          ],
+          "margin": [
+            60,
+            52,
+            132,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2601,
+            1492,
+            244,
+            197
+          ],
+          "margin": [
+            55,
+            41,
+            116,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            705,
+            1316,
+            235,
+            199
+          ],
+          "margin": [
+            56,
+            41,
+            125,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            2847,
+            1492,
+            227,
+            204
+          ],
+          "margin": [
+            67,
+            34,
+            133,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            944,
+            1316,
+            212,
+            195
+          ],
+          "margin": [
+            71,
+            45,
+            148,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bailiff_erase_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3076,
+            1492,
+            203,
+            215
+          ],
+          "margin": [
+            78,
+            23,
+            157,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1160,
+            1316,
+            218,
+            217
+          ],
+          "margin": [
+            66,
+            23,
+            142,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/combat_motion_v7.png",
+          "region": [
+            3281,
+            1492,
+            220,
+            209
+          ],
+          "margin": [
+            66,
+            29,
+            140,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/erasure_bailiff/motion_v8_01.png",
+          "region": [
+            1382,
+            1316,
+            215,
+            214
+          ],
+          "margin": [
+            69,
+            26,
+            145,
+            32
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "bailiff_elite_sweep",
+    "bailiff_elite_sweep_recover",
+    "bailiff_elite_sweep_windup",
+    "bailiff_erase",
+    "bailiff_erase_recover",
+    "bailiff_erase_windup",
+    "recover",
+    "windup"
+  ]
+}

@@ -1,0 +1,2924 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "salt_bookmite",
+  "canvas": [
+    320,
+    191
+  ],
+  "display_height": 68,
+  "visual_scale": 0.48226950354609927,
+  "visual_offset": [
+    0,
+    15.204927211646137
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 18.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            226,
+            141
+          ],
+          "margin": [
+            71,
+            42,
+            94,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            207,
+            139
+          ],
+          "margin": [
+            67,
+            46,
+            113,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            228,
+            0,
+            226,
+            142
+          ],
+          "margin": [
+            70,
+            41,
+            94,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            213,
+            2,
+            211,
+            138
+          ],
+          "margin": [
+            66,
+            48,
+            109,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            456,
+            0,
+            224,
+            145
+          ],
+          "margin": [
+            70,
+            38,
+            96,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            428,
+            2,
+            218,
+            144
+          ],
+          "margin": [
+            61,
+            41,
+            102,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            682,
+            0,
+            223,
+            145
+          ],
+          "margin": [
+            67,
+            38,
+            97,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            650,
+            2,
+            216,
+            141
+          ],
+          "margin": [
+            62,
+            44,
+            104,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            907,
+            0,
+            231,
+            144
+          ],
+          "margin": [
+            70,
+            39,
+            89,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            870,
+            2,
+            216,
+            142
+          ],
+          "margin": [
+            56,
+            43,
+            104,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1140,
+            0,
+            214,
+            146
+          ],
+          "margin": [
+            60,
+            37,
+            106,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1090,
+            2,
+            215,
+            141
+          ],
+          "margin": [
+            56,
+            44,
+            105,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1356,
+            0,
+            226,
+            142
+          ],
+          "margin": [
+            69,
+            41,
+            94,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1309,
+            2,
+            215,
+            139
+          ],
+          "margin": [
+            63,
+            48,
+            105,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1584,
+            0,
+            223,
+            138
+          ],
+          "margin": [
+            73,
+            45,
+            97,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1528,
+            2,
+            206,
+            139
+          ],
+          "margin": [
+            68,
+            47,
+            114,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1809,
+            0,
+            220,
+            134
+          ],
+          "margin": [
+            66,
+            49,
+            100,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1738,
+            2,
+            204,
+            138
+          ],
+          "margin": [
+            66,
+            48,
+            116,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2031,
+            0,
+            226,
+            137
+          ],
+          "margin": [
+            63,
+            46,
+            94,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            154,
+            201,
+            133
+          ],
+          "margin": [
+            64,
+            52,
+            119,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2259,
+            0,
+            225,
+            137
+          ],
+          "margin": [
+            69,
+            46,
+            95,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            207,
+            154,
+            196,
+            132
+          ],
+          "margin": [
+            67,
+            52,
+            124,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2486,
+            0,
+            208,
+            131
+          ],
+          "margin": [
+            68,
+            52,
+            112,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            407,
+            154,
+            209,
+            132
+          ],
+          "margin": [
+            66,
+            54,
+            111,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2696,
+            0,
+            234,
+            140
+          ],
+          "margin": [
+            63,
+            43,
+            86,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            620,
+            154,
+            214,
+            133
+          ],
+          "margin": [
+            70,
+            54,
+            106,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2932,
+            0,
+            229,
+            143
+          ],
+          "margin": [
+            76,
+            40,
+            91,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            838,
+            154,
+            211,
+            131
+          ],
+          "margin": [
+            70,
+            55,
+            109,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3163,
+            0,
+            230,
+            138
+          ],
+          "margin": [
+            71,
+            45,
+            90,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1053,
+            154,
+            214,
+            131
+          ],
+          "margin": [
+            74,
+            55,
+            106,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3395,
+            0,
+            230,
+            142
+          ],
+          "margin": [
+            66,
+            41,
+            90,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1271,
+            154,
+            217,
+            136
+          ],
+          "margin": [
+            68,
+            51,
+            103,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3627,
+            0,
+            219,
+            141
+          ],
+          "margin": [
+            72,
+            42,
+            101,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1492,
+            154,
+            213,
+            139
+          ],
+          "margin": [
+            69,
+            48,
+            107,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3848,
+            0,
+            214,
+            132
+          ],
+          "margin": [
+            76,
+            51,
+            106,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1709,
+            154,
+            220,
+            140
+          ],
+          "margin": [
+            60,
+            47,
+            100,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            0,
+            148,
+            229,
+            141
+          ],
+          "margin": [
+            68,
+            42,
+            91,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            302,
+            225,
+            142
+          ],
+          "margin": [
+            62,
+            43,
+            95,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            231,
+            148,
+            223,
+            144
+          ],
+          "margin": [
+            69,
+            39,
+            97,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            231,
+            302,
+            214,
+            136
+          ],
+          "margin": [
+            68,
+            51,
+            106,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            456,
+            148,
+            218,
+            141
+          ],
+          "margin": [
+            74,
+            42,
+            102,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            449,
+            302,
+            216,
+            140
+          ],
+          "margin": [
+            67,
+            46,
+            104,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            676,
+            148,
+            229,
+            148
+          ],
+          "margin": [
+            64,
+            35,
+            91,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            669,
+            302,
+            221,
+            136
+          ],
+          "margin": [
+            62,
+            49,
+            99,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            907,
+            148,
+            222,
+            145
+          ],
+          "margin": [
+            65,
+            38,
+            98,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            894,
+            302,
+            216,
+            131
+          ],
+          "margin": [
+            62,
+            55,
+            104,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1131,
+            148,
+            208,
+            140
+          ],
+          "margin": [
+            70,
+            43,
+            112,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1114,
+            302,
+            209,
+            129
+          ],
+          "margin": [
+            62,
+            57,
+            111,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1341,
+            148,
+            217,
+            144
+          ],
+          "margin": [
+            65,
+            39,
+            103,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1327,
+            302,
+            210,
+            143
+          ],
+          "margin": [
+            62,
+            42,
+            110,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1560,
+            148,
+            243,
+            144
+          ],
+          "margin": [
+            54,
+            39,
+            77,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1541,
+            302,
+            220,
+            138
+          ],
+          "margin": [
+            58,
+            47,
+            100,
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1805,
+            148,
+            253,
+            135
+          ],
+          "margin": [
+            53,
+            48,
+            67,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1765,
+            302,
+            228,
+            139
+          ],
+          "margin": [
+            58,
+            46,
+            92,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2060,
+            148,
+            244,
+            144
+          ],
+          "margin": [
+            58,
+            39,
+            76,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            453,
+            235,
+            145
+          ],
+          "margin": [
+            58,
+            40,
+            85,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2306,
+            148,
+            247,
+            144
+          ],
+          "margin": [
+            55,
+            39,
+            73,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            241,
+            453,
+            237,
+            142
+          ],
+          "margin": [
+            62,
+            43,
+            83,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2555,
+            148,
+            237,
+            139
+          ],
+          "margin": [
+            64,
+            44,
+            83,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            482,
+            453,
+            237,
+            141
+          ],
+          "margin": [
+            60,
+            45,
+            83,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2794,
+            148,
+            254,
+            146
+          ],
+          "margin": [
+            53,
+            37,
+            66,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            723,
+            453,
+            236,
+            141
+          ],
+          "margin": [
+            57,
+            44,
+            84,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3050,
+            148,
+            240,
+            147
+          ],
+          "margin": [
+            56,
+            36,
+            80,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            963,
+            453,
+            227,
+            141
+          ],
+          "margin": [
+            58,
+            44,
+            93,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3292,
+            148,
+            231,
+            141
+          ],
+          "margin": [
+            64,
+            42,
+            89,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1194,
+            453,
+            228,
+            142
+          ],
+          "margin": [
+            54,
+            45,
+            92,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3525,
+            148,
+            236,
+            145
+          ],
+          "margin": [
+            60,
+            38,
+            84,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1426,
+            453,
+            223,
+            142
+          ],
+          "margin": [
+            58,
+            44,
+            97,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3763,
+            148,
+            237,
+            141
+          ],
+          "margin": [
+            52,
+            42,
+            83,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1653,
+            453,
+            210,
+            134
+          ],
+          "margin": [
+            58,
+            50,
+            110,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            0,
+            298,
+            226,
+            132
+          ],
+          "margin": [
+            57,
+            51,
+            94,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            606,
+            215,
+            141
+          ],
+          "margin": [
+            58,
+            46,
+            105,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            228,
+            298,
+            237,
+            142
+          ],
+          "margin": [
+            48,
+            41,
+            83,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            221,
+            606,
+            222,
+            141
+          ],
+          "margin": [
+            58,
+            44,
+            98,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            467,
+            298,
+            227,
+            145
+          ],
+          "margin": [
+            59,
+            38,
+            93,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            447,
+            606,
+            221,
+            142
+          ],
+          "margin": [
+            60,
+            43,
+            99,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            696,
+            298,
+            230,
+            141
+          ],
+          "margin": [
+            65,
+            42,
+            90,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            672,
+            606,
+            234,
+            147
+          ],
+          "margin": [
+            59,
+            38,
+            86,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            928,
+            298,
+            237,
+            148
+          ],
+          "margin": [
+            59,
+            35,
+            83,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            910,
+            606,
+            232,
+            149
+          ],
+          "margin": [
+            58,
+            36,
+            88,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1167,
+            298,
+            250,
+            148
+          ],
+          "margin": [
+            62,
+            35,
+            70,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1146,
+            606,
+            234,
+            142
+          ],
+          "margin": [
+            58,
+            45,
+            86,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1419,
+            298,
+            237,
+            141
+          ],
+          "margin": [
+            69,
+            42,
+            83,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1384,
+            606,
+            217,
+            139
+          ],
+          "margin": [
+            68,
+            47,
+            103,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1658,
+            298,
+            241,
+            146
+          ],
+          "margin": [
+            65,
+            37,
+            79,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1605,
+            606,
+            230,
+            141
+          ],
+          "margin": [
+            64,
+            44,
+            90,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1901,
+            298,
+            240,
+            143
+          ],
+          "margin": [
+            63,
+            40,
+            80,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            763,
+            225,
+            138
+          ],
+          "margin": [
+            64,
+            47,
+            95,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2143,
+            298,
+            228,
+            137
+          ],
+          "margin": [
+            68,
+            46,
+            92,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            231,
+            763,
+            219,
+            141
+          ],
+          "margin": [
+            64,
+            46,
+            101,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2373,
+            298,
+            227,
+            142
+          ],
+          "margin": [
+            64,
+            41,
+            93,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            454,
+            763,
+            220,
+            138
+          ],
+          "margin": [
+            61,
+            47,
+            100,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2602,
+            298,
+            207,
+            143
+          ],
+          "margin": [
+            68,
+            40,
+            113,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            678,
+            763,
+            211,
+            134
+          ],
+          "margin": [
+            62,
+            52,
+            109,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2811,
+            298,
+            203,
+            135
+          ],
+          "margin": [
+            72,
+            48,
+            117,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            893,
+            763,
+            208,
+            134
+          ],
+          "margin": [
+            66,
+            50,
+            112,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3016,
+            298,
+            214,
+            144
+          ],
+          "margin": [
+            67,
+            39,
+            106,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1105,
+            763,
+            207,
+            141
+          ],
+          "margin": [
+            68,
+            44,
+            113,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3232,
+            298,
+            233,
+            145
+          ],
+          "margin": [
+            62,
+            38,
+            87,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1316,
+            763,
+            212,
+            143
+          ],
+          "margin": [
+            68,
+            42,
+            108,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3467,
+            298,
+            221,
+            155
+          ],
+          "margin": [
+            73,
+            28,
+            99,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1532,
+            763,
+            204,
+            136
+          ],
+          "margin": [
+            64,
+            50,
+            116,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3690,
+            298,
+            214,
+            165
+          ],
+          "margin": [
+            60,
+            18,
+            106,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1740,
+            763,
+            207,
+            148
+          ],
+          "margin": [
+            52,
+            37,
+            113,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            0,
+            465,
+            233,
+            144
+          ],
+          "margin": [
+            47,
+            39,
+            87,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            919,
+            208,
+            146
+          ],
+          "margin": [
+            55,
+            39,
+            112,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            235,
+            465,
+            226,
+            120
+          ],
+          "margin": [
+            37,
+            63,
+            94,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            214,
+            919,
+            194,
+            125
+          ],
+          "margin": [
+            44,
+            61,
+            126,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            463,
+            465,
+            256,
+            112
+          ],
+          "margin": [
+            32,
+            71,
+            64,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            412,
+            919,
+            201,
+            107
+          ],
+          "margin": [
+            54,
+            77,
+            119,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            721,
+            465,
+            243,
+            100
+          ],
+          "margin": [
+            36,
+            83,
+            77,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            617,
+            919,
+            195,
+            100
+          ],
+          "margin": [
+            59,
+            84,
+            125,
+            91
+          ]
+        }
+      ]
+    },
+    {
+      "name": "book_bite_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            966,
+            465,
+            218,
+            130
+          ],
+          "margin": [
+            66,
+            53,
+            102,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            816,
+            919,
+            212,
+            137
+          ],
+          "margin": [
+            58,
+            48,
+            108,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1186,
+            465,
+            227,
+            136
+          ],
+          "margin": [
+            60,
+            47,
+            93,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1032,
+            919,
+            220,
+            141
+          ],
+          "margin": [
+            62,
+            44,
+            100,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1415,
+            465,
+            222,
+            137
+          ],
+          "margin": [
+            59,
+            46,
+            98,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1256,
+            919,
+            204,
+            139
+          ],
+          "margin": [
+            65,
+            46,
+            116,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1639,
+            465,
+            218,
+            131
+          ],
+          "margin": [
+            64,
+            52,
+            102,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1464,
+            919,
+            211,
+            147
+          ],
+          "margin": [
+            63,
+            38,
+            109,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1859,
+            465,
+            238,
+            144
+          ],
+          "margin": [
+            52,
+            39,
+            82,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1679,
+            919,
+            221,
+            148
+          ],
+          "margin": [
+            56,
+            37,
+            99,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2099,
+            465,
+            214,
+            153
+          ],
+          "margin": [
+            60,
+            30,
+            106,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            1075,
+            216,
+            146
+          ],
+          "margin": [
+            59,
+            39,
+            104,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2315,
+            465,
+            218,
+            156
+          ],
+          "margin": [
+            60,
+            27,
+            102,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            222,
+            1075,
+            217,
+            151
+          ],
+          "margin": [
+            59,
+            34,
+            103,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2535,
+            465,
+            223,
+            161
+          ],
+          "margin": [
+            58,
+            22,
+            97,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            443,
+            1075,
+            218,
+            162
+          ],
+          "margin": [
+            60,
+            23,
+            102,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2760,
+            465,
+            220,
+            162
+          ],
+          "margin": [
+            66,
+            21,
+            100,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            665,
+            1075,
+            214,
+            164
+          ],
+          "margin": [
+            62,
+            21,
+            106,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2982,
+            465,
+            220,
+            157
+          ],
+          "margin": [
+            67,
+            26,
+            100,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            883,
+            1075,
+            214,
+            166
+          ],
+          "margin": [
+            62,
+            21,
+            106,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3204,
+            465,
+            224,
+            168
+          ],
+          "margin": [
+            64,
+            15,
+            96,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1101,
+            1075,
+            225,
+            176
+          ],
+          "margin": [
+            60,
+            11,
+            95,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3430,
+            465,
+            251,
+            171
+          ],
+          "margin": [
+            50,
+            12,
+            69,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1330,
+            1075,
+            223,
+            176
+          ],
+          "margin": [
+            60,
+            9,
+            97,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "name": "book_bite",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3683,
+            465,
+            261,
+            168
+          ],
+          "margin": [
+            45,
+            15,
+            59,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1557,
+            1075,
+            230,
+            176
+          ],
+          "margin": [
+            55,
+            10,
+            90,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            0,
+            638,
+            255,
+            172
+          ],
+          "margin": [
+            47,
+            11,
+            65,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1791,
+            1075,
+            239,
+            177
+          ],
+          "margin": [
+            52,
+            8,
+            81,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            257,
+            638,
+            261,
+            172
+          ],
+          "margin": [
+            47,
+            11,
+            59,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            1260,
+            236,
+            168
+          ],
+          "margin": [
+            56,
+            17,
+            84,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            520,
+            638,
+            246,
+            165
+          ],
+          "margin": [
+            55,
+            18,
+            74,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            242,
+            1260,
+            240,
+            166
+          ],
+          "margin": [
+            52,
+            19,
+            80,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            768,
+            638,
+            263,
+            174
+          ],
+          "margin": [
+            46,
+            9,
+            57,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            486,
+            1260,
+            249,
+            174
+          ],
+          "margin": [
+            49,
+            11,
+            71,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1033,
+            638,
+            256,
+            174
+          ],
+          "margin": [
+            50,
+            9,
+            64,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            739,
+            1260,
+            244,
+            174
+          ],
+          "margin": [
+            51,
+            11,
+            76,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1291,
+            638,
+            256,
+            169
+          ],
+          "margin": [
+            51,
+            14,
+            64,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            987,
+            1260,
+            247,
+            176
+          ],
+          "margin": [
+            50,
+            9,
+            73,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1549,
+            638,
+            255,
+            175
+          ],
+          "margin": [
+            51,
+            8,
+            65,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1238,
+            1260,
+            257,
+            181
+          ],
+          "margin": [
+            43,
+            4,
+            63,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1806,
+            638,
+            261,
+            173
+          ],
+          "margin": [
+            47,
+            10,
+            59,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1499,
+            1260,
+            243,
+            172
+          ],
+          "margin": [
+            49,
+            13,
+            77,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2069,
+            638,
+            243,
+            164
+          ],
+          "margin": [
+            54,
+            19,
+            77,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1746,
+            1260,
+            237,
+            171
+          ],
+          "margin": [
+            52,
+            14,
+            83,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2314,
+            638,
+            252,
+            167
+          ],
+          "margin": [
+            52,
+            16,
+            68,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            1449,
+            241,
+            174
+          ],
+          "margin": [
+            47,
+            11,
+            79,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2568,
+            638,
+            253,
+            161
+          ],
+          "margin": [
+            51,
+            22,
+            67,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            247,
+            1449,
+            235,
+            163
+          ],
+          "margin": [
+            51,
+            22,
+            85,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "book_bite_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            2823,
+            638,
+            243,
+            150
+          ],
+          "margin": [
+            56,
+            33,
+            77,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            486,
+            1449,
+            232,
+            160
+          ],
+          "margin": [
+            53,
+            25,
+            88,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3068,
+            638,
+            249,
+            155
+          ],
+          "margin": [
+            53,
+            28,
+            71,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            722,
+            1449,
+            236,
+            165
+          ],
+          "margin": [
+            50,
+            20,
+            84,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3319,
+            638,
+            251,
+            155
+          ],
+          "margin": [
+            50,
+            28,
+            69,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            962,
+            1449,
+            228,
+            159
+          ],
+          "margin": [
+            55,
+            26,
+            92,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3572,
+            638,
+            234,
+            147
+          ],
+          "margin": [
+            58,
+            36,
+            86,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1194,
+            1449,
+            222,
+            153
+          ],
+          "margin": [
+            58,
+            32,
+            98,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            3808,
+            638,
+            239,
+            152
+          ],
+          "margin": [
+            55,
+            31,
+            81,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1420,
+            1449,
+            222,
+            153
+          ],
+          "margin": [
+            57,
+            32,
+            98,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            0,
+            815,
+            240,
+            148
+          ],
+          "margin": [
+            56,
+            35,
+            80,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1646,
+            1449,
+            215,
+            145
+          ],
+          "margin": [
+            60,
+            40,
+            105,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            242,
+            815,
+            229,
+            140
+          ],
+          "margin": [
+            62,
+            43,
+            91,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            2,
+            1631,
+            215,
+            144
+          ],
+          "margin": [
+            61,
+            41,
+            105,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            473,
+            815,
+            233,
+            147
+          ],
+          "margin": [
+            58,
+            36,
+            87,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            221,
+            1631,
+            222,
+            150
+          ],
+          "margin": [
+            58,
+            35,
+            98,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            708,
+            815,
+            232,
+            147
+          ],
+          "margin": [
+            57,
+            36,
+            88,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            447,
+            1631,
+            214,
+            146
+          ],
+          "margin": [
+            60,
+            40,
+            106,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            942,
+            815,
+            223,
+            139
+          ],
+          "margin": [
+            63,
+            44,
+            97,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            665,
+            1631,
+            220,
+            148
+          ],
+          "margin": [
+            59,
+            37,
+            100,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1167,
+            815,
+            236,
+            147
+          ],
+          "margin": [
+            56,
+            36,
+            84,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            889,
+            1631,
+            220,
+            146
+          ],
+          "margin": [
+            60,
+            39,
+            100,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1405,
+            815,
+            235,
+            146
+          ],
+          "margin": [
+            64,
+            37,
+            85,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1113,
+            1631,
+            212,
+            139
+          ],
+          "margin": [
+            64,
+            46,
+            108,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1642,
+            815,
+            208,
+            114
+          ],
+          "margin": [
+            66,
+            69,
+            112,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1329,
+            1631,
+            206,
+            135
+          ],
+          "margin": [
+            63,
+            52,
+            114,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/combat_motion_v7.png",
+          "region": [
+            1852,
+            815,
+            218,
+            125
+          ],
+          "margin": [
+            59,
+            58,
+            102,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/salt_bookmite/motion_v8_00.png",
+          "region": [
+            1539,
+            1631,
+            213,
+            134
+          ],
+          "margin": [
+            62,
+            51,
+            107,
+            57
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "book_bite",
+    "book_bite_recover",
+    "book_bite_windup",
+    "recover",
+    "windup"
+  ]
+}

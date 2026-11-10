@@ -1,0 +1,2797 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "ash_banner_imp",
+  "canvas": [
+    416,
+    282
+  ],
+  "display_height": 80,
+  "visual_scale": 0.3686635944700461,
+  "visual_offset": [
+    0,
+    14.754542560994174
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            188,
+            217
+          ],
+          "margin": [
+            129,
+            40,
+            228,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            191,
+            223
+          ],
+          "margin": [
+            122,
+            36,
+            225,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            190,
+            0,
+            179,
+            218
+          ],
+          "margin": [
+            131,
+            39,
+            237,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            197,
+            2,
+            194,
+            228
+          ],
+          "margin": [
+            110,
+            31,
+            222,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            371,
+            0,
+            184,
+            216
+          ],
+          "margin": [
+            113,
+            41,
+            232,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            395,
+            2,
+            190,
+            223
+          ],
+          "margin": [
+            105,
+            36,
+            226,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            557,
+            0,
+            179,
+            216
+          ],
+          "margin": [
+            119,
+            41,
+            237,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            589,
+            2,
+            192,
+            218
+          ],
+          "margin": [
+            114,
+            41,
+            224,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            738,
+            0,
+            186,
+            218
+          ],
+          "margin": [
+            117,
+            39,
+            230,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            785,
+            2,
+            205,
+            217
+          ],
+          "margin": [
+            98,
+            42,
+            211,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            926,
+            0,
+            189,
+            217
+          ],
+          "margin": [
+            105,
+            40,
+            227,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            994,
+            2,
+            214,
+            219
+          ],
+          "margin": [
+            97,
+            40,
+            202,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1117,
+            0,
+            207,
+            215
+          ],
+          "margin": [
+            115,
+            42,
+            209,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1212,
+            2,
+            215,
+            221
+          ],
+          "margin": [
+            102,
+            38,
+            201,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1326,
+            0,
+            189,
+            211
+          ],
+          "margin": [
+            123,
+            46,
+            227,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1431,
+            2,
+            205,
+            216
+          ],
+          "margin": [
+            104,
+            43,
+            211,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1517,
+            0,
+            184,
+            211
+          ],
+          "margin": [
+            121,
+            46,
+            232,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1640,
+            2,
+            206,
+            217
+          ],
+          "margin": [
+            101,
+            42,
+            210,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1703,
+            0,
+            195,
+            213
+          ],
+          "margin": [
+            111,
+            44,
+            221,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            238,
+            212,
+            219
+          ],
+          "margin": [
+            98,
+            40,
+            204,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1900,
+            0,
+            192,
+            215
+          ],
+          "margin": [
+            123,
+            42,
+            224,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            218,
+            238,
+            219,
+            218
+          ],
+          "margin": [
+            92,
+            41,
+            197,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2094,
+            0,
+            177,
+            211
+          ],
+          "margin": [
+            123,
+            46,
+            239,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            441,
+            238,
+            210,
+            219
+          ],
+          "margin": [
+            94,
+            40,
+            206,
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2273,
+            0,
+            196,
+            207
+          ],
+          "margin": [
+            119,
+            50,
+            220,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            655,
+            238,
+            200,
+            208
+          ],
+          "margin": [
+            112,
+            51,
+            216,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2471,
+            0,
+            172,
+            185
+          ],
+          "margin": [
+            134,
+            72,
+            244,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            859,
+            238,
+            199,
+            226
+          ],
+          "margin": [
+            118,
+            33,
+            217,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2645,
+            0,
+            375,
+            162
+          ],
+          "margin": [
+            9,
+            95,
+            41,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1062,
+            238,
+            314,
+            176
+          ],
+          "margin": [
+            50,
+            83,
+            102,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3022,
+            0,
+            312,
+            124
+          ],
+          "margin": [
+            47,
+            133,
+            104,
+            158
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1380,
+            238,
+            288,
+            148
+          ],
+          "margin": [
+            66,
+            111,
+            128,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3336,
+            0,
+            310,
+            132
+          ],
+          "margin": [
+            47,
+            125,
+            106,
+            150
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1672,
+            238,
+            304,
+            157
+          ],
+          "margin": [
+            62,
+            102,
+            112,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3648,
+            0,
+            311,
+            130
+          ],
+          "margin": [
+            54,
+            127,
+            105,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            472,
+            294,
+            153
+          ],
+          "margin": [
+            80,
+            106,
+            122,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            0,
+            220,
+            298,
+            122
+          ],
+          "margin": [
+            63,
+            135,
+            118,
+            160
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            300,
+            472,
+            308,
+            145
+          ],
+          "margin": [
+            68,
+            114,
+            108,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            300,
+            220,
+            314,
+            130
+          ],
+          "margin": [
+            56,
+            127,
+            102,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            612,
+            472,
+            310,
+            146
+          ],
+          "margin": [
+            68,
+            113,
+            106,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            616,
+            220,
+            342,
+            133
+          ],
+          "margin": [
+            57,
+            124,
+            74,
+            149
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            926,
+            472,
+            313,
+            147
+          ],
+          "margin": [
+            78,
+            112,
+            103,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            960,
+            220,
+            329,
+            125
+          ],
+          "margin": [
+            63,
+            132,
+            87,
+            157
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1243,
+            472,
+            312,
+            151
+          ],
+          "margin": [
+            74,
+            108,
+            104,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1291,
+            220,
+            344,
+            132
+          ],
+          "margin": [
+            50,
+            125,
+            72,
+            150
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1559,
+            472,
+            284,
+            152
+          ],
+          "margin": [
+            81,
+            107,
+            132,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1637,
+            220,
+            282,
+            129
+          ],
+          "margin": [
+            101,
+            128,
+            134,
+            153
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            633,
+            257,
+            147
+          ],
+          "margin": [
+            94,
+            112,
+            159,
+            135
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1921,
+            220,
+            276,
+            120
+          ],
+          "margin": [
+            96,
+            137,
+            140,
+            162
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            263,
+            633,
+            282,
+            150
+          ],
+          "margin": [
+            99,
+            109,
+            134,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2199,
+            220,
+            299,
+            137
+          ],
+          "margin": [
+            99,
+            120,
+            117,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            549,
+            633,
+            281,
+            159
+          ],
+          "margin": [
+            106,
+            100,
+            135,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2500,
+            220,
+            229,
+            144
+          ],
+          "margin": [
+            116,
+            113,
+            187,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            834,
+            633,
+            242,
+            154
+          ],
+          "margin": [
+            114,
+            105,
+            174,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2731,
+            220,
+            245,
+            147
+          ],
+          "margin": [
+            119,
+            110,
+            171,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1080,
+            633,
+            260,
+            172
+          ],
+          "margin": [
+            105,
+            87,
+            156,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2978,
+            220,
+            260,
+            161
+          ],
+          "margin": [
+            102,
+            96,
+            156,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1344,
+            633,
+            251,
+            173
+          ],
+          "margin": [
+            101,
+            86,
+            165,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3240,
+            220,
+            227,
+            167
+          ],
+          "margin": [
+            114,
+            90,
+            189,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1599,
+            633,
+            225,
+            171
+          ],
+          "margin": [
+            114,
+            88,
+            191,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3469,
+            220,
+            212,
+            167
+          ],
+          "margin": [
+            125,
+            90,
+            204,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            814,
+            228,
+            178
+          ],
+          "margin": [
+            114,
+            81,
+            188,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3683,
+            220,
+            234,
+            174
+          ],
+          "margin": [
+            105,
+            83,
+            182,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            234,
+            814,
+            237,
+            189
+          ],
+          "margin": [
+            106,
+            70,
+            179,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            0,
+            396,
+            200,
+            175
+          ],
+          "margin": [
+            115,
+            82,
+            216,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            475,
+            814,
+            224,
+            178
+          ],
+          "margin": [
+            100,
+            81,
+            192,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            202,
+            396,
+            185,
+            168
+          ],
+          "margin": [
+            125,
+            89,
+            231,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            703,
+            814,
+            229,
+            184
+          ],
+          "margin": [
+            97,
+            75,
+            187,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            389,
+            396,
+            222,
+            195
+          ],
+          "margin": [
+            100,
+            62,
+            194,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            936,
+            814,
+            246,
+            210
+          ],
+          "margin": [
+            97,
+            49,
+            170,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            613,
+            396,
+            259,
+            213
+          ],
+          "margin": [
+            102,
+            44,
+            157,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1186,
+            814,
+            265,
+            223
+          ],
+          "margin": [
+            89,
+            36,
+            151,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            874,
+            396,
+            273,
+            225
+          ],
+          "margin": [
+            101,
+            32,
+            143,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1455,
+            814,
+            277,
+            236
+          ],
+          "margin": [
+            96,
+            23,
+            139,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1149,
+            396,
+            277,
+            230
+          ],
+          "margin": [
+            94,
+            27,
+            139,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1736,
+            814,
+            287,
+            257
+          ],
+          "margin": [
+            95,
+            2,
+            129,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1428,
+            396,
+            210,
+            228
+          ],
+          "margin": [
+            92,
+            29,
+            206,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            1079,
+            203,
+            234
+          ],
+          "margin": [
+            96,
+            25,
+            213,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1640,
+            396,
+            199,
+            219
+          ],
+          "margin": [
+            99,
+            38,
+            217,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            209,
+            1079,
+            211,
+            254
+          ],
+          "margin": [
+            92,
+            5,
+            205,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1841,
+            396,
+            208,
+            230
+          ],
+          "margin": [
+            94,
+            27,
+            208,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            424,
+            1079,
+            214,
+            259
+          ],
+          "margin": [
+            90,
+            0,
+            202,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2051,
+            396,
+            196,
+            232
+          ],
+          "margin": [
+            116,
+            25,
+            220,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            642,
+            1079,
+            188,
+            236
+          ],
+          "margin": [
+            112,
+            23,
+            228,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2249,
+            396,
+            193,
+            230
+          ],
+          "margin": [
+            121,
+            27,
+            223,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            834,
+            1079,
+            192,
+            241
+          ],
+          "margin": [
+            107,
+            18,
+            224,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2444,
+            396,
+            201,
+            231
+          ],
+          "margin": [
+            111,
+            26,
+            215,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1030,
+            1079,
+            197,
+            237
+          ],
+          "margin": [
+            102,
+            22,
+            219,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2647,
+            396,
+            190,
+            223
+          ],
+          "margin": [
+            105,
+            34,
+            226,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1231,
+            1079,
+            175,
+            217
+          ],
+          "margin": [
+            107,
+            42,
+            241,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2839,
+            396,
+            182,
+            212
+          ],
+          "margin": [
+            103,
+            45,
+            234,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1410,
+            1079,
+            181,
+            210
+          ],
+          "margin": [
+            102,
+            49,
+            235,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3023,
+            396,
+            184,
+            220
+          ],
+          "margin": [
+            113,
+            37,
+            232,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1595,
+            1079,
+            206,
+            217
+          ],
+          "margin": [
+            104,
+            42,
+            210,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3209,
+            396,
+            192,
+            221
+          ],
+          "margin": [
+            122,
+            36,
+            224,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1805,
+            1079,
+            211,
+            204
+          ],
+          "margin": [
+            115,
+            55,
+            205,
+            78
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3403,
+            396,
+            194,
+            227
+          ],
+          "margin": [
+            129,
+            30,
+            222,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            1346,
+            193,
+            244
+          ],
+          "margin": [
+            119,
+            15,
+            223,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3599,
+            396,
+            170,
+            219
+          ],
+          "margin": [
+            141,
+            38,
+            246,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            199,
+            1346,
+            195,
+            229
+          ],
+          "margin": [
+            116,
+            30,
+            221,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3771,
+            396,
+            176,
+            181
+          ],
+          "margin": [
+            133,
+            76,
+            240,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            398,
+            1346,
+            200,
+            198
+          ],
+          "margin": [
+            114,
+            61,
+            216,
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            0,
+            630,
+            200,
+            103
+          ],
+          "margin": [
+            103,
+            154,
+            216,
+            179
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            602,
+            1346,
+            182,
+            113
+          ],
+          "margin": [
+            100,
+            145,
+            234,
+            169
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            202,
+            630,
+            198,
+            87
+          ],
+          "margin": [
+            95,
+            170,
+            218,
+            195
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            788,
+            1346,
+            218,
+            106
+          ],
+          "margin": [
+            86,
+            153,
+            198,
+            176
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            402,
+            630,
+            231,
+            101
+          ],
+          "margin": [
+            73,
+            156,
+            185,
+            181
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1010,
+            1346,
+            239,
+            108
+          ],
+          "margin": [
+            70,
+            152,
+            177,
+            174
+          ]
+        }
+      ]
+    },
+    {
+      "name": "imp_retreat_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            635,
+            630,
+            181,
+            186
+          ],
+          "margin": [
+            119,
+            71,
+            235,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1253,
+            1346,
+            189,
+            229
+          ],
+          "margin": [
+            118,
+            30,
+            227,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            818,
+            630,
+            182,
+            193
+          ],
+          "margin": [
+            117,
+            64,
+            234,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1446,
+            1346,
+            185,
+            210
+          ],
+          "margin": [
+            116,
+            49,
+            231,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1002,
+            630,
+            181,
+            195
+          ],
+          "margin": [
+            119,
+            62,
+            235,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1635,
+            1346,
+            198,
+            231
+          ],
+          "margin": [
+            102,
+            28,
+            218,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1185,
+            630,
+            180,
+            189
+          ],
+          "margin": [
+            125,
+            68,
+            236,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            1598,
+            261,
+            158
+          ],
+          "margin": [
+            94,
+            101,
+            155,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1367,
+            630,
+            187,
+            202
+          ],
+          "margin": [
+            118,
+            55,
+            229,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            267,
+            1598,
+            256,
+            151
+          ],
+          "margin": [
+            78,
+            108,
+            160,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1556,
+            630,
+            158,
+            206
+          ],
+          "margin": [
+            137,
+            51,
+            258,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            527,
+            1598,
+            250,
+            157
+          ],
+          "margin": [
+            81,
+            102,
+            166,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1716,
+            630,
+            157,
+            205
+          ],
+          "margin": [
+            140,
+            52,
+            259,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            781,
+            1598,
+            203,
+            221
+          ],
+          "margin": [
+            99,
+            38,
+            213,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1875,
+            630,
+            163,
+            206
+          ],
+          "margin": [
+            132,
+            51,
+            253,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            988,
+            1598,
+            212,
+            235
+          ],
+          "margin": [
+            100,
+            24,
+            204,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2040,
+            630,
+            218,
+            201
+          ],
+          "margin": [
+            97,
+            56,
+            198,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1204,
+            1598,
+            205,
+            232
+          ],
+          "margin": [
+            107,
+            27,
+            211,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2260,
+            630,
+            188,
+            190
+          ],
+          "margin": [
+            119,
+            67,
+            228,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1413,
+            1598,
+            204,
+            219
+          ],
+          "margin": [
+            102,
+            40,
+            212,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2450,
+            630,
+            190,
+            183
+          ],
+          "margin": [
+            116,
+            74,
+            226,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1621,
+            1598,
+            205,
+            221
+          ],
+          "margin": [
+            100,
+            38,
+            211,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2642,
+            630,
+            261,
+            171
+          ],
+          "margin": [
+            114,
+            86,
+            155,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            2,
+            1841,
+            221,
+            199
+          ],
+          "margin": [
+            122,
+            62,
+            195,
+            83
+          ]
+        }
+      ]
+    },
+    {
+      "name": "imp_retreat",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2905,
+            630,
+            229,
+            149
+          ],
+          "margin": [
+            131,
+            108,
+            187,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            227,
+            1841,
+            219,
+            183
+          ],
+          "margin": [
+            126,
+            75,
+            197,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3136,
+            630,
+            235,
+            149
+          ],
+          "margin": [
+            121,
+            108,
+            181,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            450,
+            1841,
+            240,
+            180
+          ],
+          "margin": [
+            112,
+            79,
+            176,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3373,
+            630,
+            271,
+            143
+          ],
+          "margin": [
+            109,
+            114,
+            145,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            694,
+            1841,
+            247,
+            167
+          ],
+          "margin": [
+            110,
+            92,
+            169,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3646,
+            630,
+            248,
+            129
+          ],
+          "margin": [
+            123,
+            128,
+            168,
+            153
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            945,
+            1841,
+            249,
+            156
+          ],
+          "margin": [
+            114,
+            103,
+            167,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            0,
+            838,
+            266,
+            136
+          ],
+          "margin": [
+            112,
+            121,
+            150,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1198,
+            1841,
+            268,
+            168
+          ],
+          "margin": [
+            104,
+            91,
+            148,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            268,
+            838,
+            259,
+            136
+          ],
+          "margin": [
+            114,
+            121,
+            157,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1470,
+            1841,
+            255,
+            163
+          ],
+          "margin": [
+            116,
+            96,
+            161,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            529,
+            838,
+            244,
+            128
+          ],
+          "margin": [
+            122,
+            129,
+            172,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_00.png",
+          "region": [
+            1729,
+            1841,
+            251,
+            138
+          ],
+          "margin": [
+            118,
+            121,
+            165,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            775,
+            838,
+            242,
+            132
+          ],
+          "margin": [
+            118,
+            125,
+            174,
+            150
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            250,
+            145
+          ],
+          "margin": [
+            118,
+            114,
+            166,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1019,
+            838,
+            248,
+            128
+          ],
+          "margin": [
+            112,
+            129,
+            168,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            256,
+            2,
+            233,
+            140
+          ],
+          "margin": [
+            120,
+            119,
+            183,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1269,
+            838,
+            234,
+            119
+          ],
+          "margin": [
+            119,
+            138,
+            182,
+            163
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            493,
+            2,
+            266,
+            151
+          ],
+          "margin": [
+            100,
+            108,
+            150,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1505,
+            838,
+            299,
+            153
+          ],
+          "margin": [
+            90,
+            104,
+            117,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            763,
+            2,
+            266,
+            160
+          ],
+          "margin": [
+            104,
+            99,
+            150,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1806,
+            838,
+            182,
+            175
+          ],
+          "margin": [
+            119,
+            82,
+            234,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            1033,
+            2,
+            199,
+            195
+          ],
+          "margin": [
+            104,
+            64,
+            217,
+            87
+          ]
+        }
+      ]
+    },
+    {
+      "name": "imp_retreat_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            1990,
+            838,
+            205,
+            195
+          ],
+          "margin": [
+            112,
+            62,
+            211,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            1236,
+            2,
+            201,
+            212
+          ],
+          "margin": [
+            104,
+            47,
+            215,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2197,
+            838,
+            203,
+            207
+          ],
+          "margin": [
+            105,
+            50,
+            213,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            1441,
+            2,
+            209,
+            218
+          ],
+          "margin": [
+            95,
+            41,
+            207,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2402,
+            838,
+            190,
+            211
+          ],
+          "margin": [
+            115,
+            46,
+            226,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            1654,
+            2,
+            202,
+            214
+          ],
+          "margin": [
+            100,
+            45,
+            214,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2594,
+            838,
+            180,
+            208
+          ],
+          "margin": [
+            122,
+            49,
+            236,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            2,
+            228,
+            204,
+            220
+          ],
+          "margin": [
+            100,
+            39,
+            212,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2776,
+            838,
+            192,
+            221
+          ],
+          "margin": [
+            114,
+            36,
+            224,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            210,
+            228,
+            207,
+            234
+          ],
+          "margin": [
+            98,
+            25,
+            209,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            2970,
+            838,
+            195,
+            227
+          ],
+          "margin": [
+            109,
+            30,
+            221,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            421,
+            228,
+            207,
+            229
+          ],
+          "margin": [
+            106,
+            30,
+            209,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3167,
+            838,
+            178,
+            225
+          ],
+          "margin": [
+            124,
+            32,
+            238,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            632,
+            228,
+            207,
+            234
+          ],
+          "margin": [
+            100,
+            25,
+            209,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3347,
+            838,
+            198,
+            228
+          ],
+          "margin": [
+            107,
+            29,
+            218,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            843,
+            228,
+            213,
+            243
+          ],
+          "margin": [
+            92,
+            16,
+            203,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3547,
+            838,
+            205,
+            225
+          ],
+          "margin": [
+            108,
+            32,
+            211,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            1060,
+            228,
+            204,
+            234
+          ],
+          "margin": [
+            103,
+            25,
+            212,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            3754,
+            838,
+            186,
+            215
+          ],
+          "margin": [
+            121,
+            42,
+            230,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            1268,
+            228,
+            201,
+            228
+          ],
+          "margin": [
+            106,
+            31,
+            215,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            0,
+            1068,
+            197,
+            223
+          ],
+          "margin": [
+            116,
+            34,
+            219,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            1473,
+            228,
+            211,
+            240
+          ],
+          "margin": [
+            102,
+            19,
+            205,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+          "region": [
+            199,
+            1068,
+            199,
+            222
+          ],
+          "margin": [
+            117,
+            35,
+            217,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_v8_01.png",
+          "region": [
+            1688,
+            228,
+            198,
+            220
+          ],
+          "margin": [
+            116,
+            39,
+            218,
+            62
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "imp_retreat",
+    "imp_retreat_recover",
+    "imp_retreat_windup",
+    "recover",
+    "windup"
+  ]
+}

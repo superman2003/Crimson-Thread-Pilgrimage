@@ -1,7 +1,7 @@
 """List (and with --apply, remove) local clutter that slowly fills the disk.
 
-* extra worktrees whose branch's PR is merged or closed, with no tracked changes
-  and no unpushed commits (untracked Godot .import/.uid files do not count);
+* extra worktrees whose branch's PR is merged, with no tracked or untracked
+  changes and no unpushed commits;
 * temporary packs left by interrupted fetches (tmp_pack_*, .tmp-*-pack-*),
   older than an hour and only while no git process is running;
 * empty stale ref locks (refs/**/*.lock).
@@ -28,7 +28,7 @@ def git(*args, cwd=ROOT):
 
 
 def common_dir():
-    return Path(git("rev-parse", "--git-common-dir").stdout.strip()).resolve()
+    return (ROOT / git("rev-parse", "--git-common-dir").stdout.strip()).resolve()
 
 
 def worktrees():
@@ -59,19 +59,33 @@ def inspect(row, main_path):
     path = Path(row["path"])
     if path.resolve() == main_path:
         return None
-    tracked = [l for l in git("status", "--porcelain", "-uno", cwd=path).stdout.splitlines() if l.strip()]
+    status = git("status", "--porcelain", "--untracked-files=all", cwd=path)
+    changes = [line for line in status.stdout.splitlines() if line.strip()]
+    tracked = [line for line in changes if not line.startswith("?? ")]
+    untracked = [line for line in changes if line.startswith("?? ")]
     upstream = git("rev-list", "--count", "@{u}..HEAD", cwd=path)
     unpushed = int(upstream.stdout.strip()) if upstream.returncode == 0 else None
     merged_into_main = git("merge-base", "--is-ancestor", "HEAD", "origin/main", cwd=path).returncode == 0
     state = pr_state(row.get("branch"))
-    done = state in ("MERGED", "CLOSED") or merged_into_main
-    safe = done and not tracked and (unpushed in (0, None) or merged_into_main)
+    done = state == "MERGED" or merged_into_main
+    safe = status.returncode == 0 and done and not changes and (unpushed == 0 or merged_into_main)
     return dict(path=str(path), branch=row.get("branch"), pr=state, tracked_changes=len(tracked),
-                unpushed=unpushed, merged_into_main=merged_into_main, removable=safe)
+                untracked_changes=len(untracked), unpushed=unpushed, merged_into_main=merged_into_main, removable=safe)
 
 
 def git_running():
-    return subprocess.run(["pgrep", "-x", "git"], capture_output=True).returncode == 0
+    try:
+        return subprocess.run(["pgrep", "-x", "git"], capture_output=True).returncode == 0
+    except OSError:
+        # Without a process inventory (for example on Windows), keep stale
+        # packs and locks rather than guessing that Git is idle.
+        return True
+
+
+def remove_worktree(path):
+    # Git checks dirtiness again at deletion time. A file created after inspect
+    # must make removal fail; --force would silently discard that local work.
+    return git("worktree", "remove", str(Path(path).resolve()))
 
 
 def stale_files(git_dir):
@@ -90,7 +104,7 @@ def main():
     rows = [r for r in (inspect(row, main_path) for row in worktrees()) if r]
     for row in rows:
         flag = "REMOVE" if row["removable"] else "keep  "
-        print(f"{flag} {row['path']} [{row['branch']}] pr={row['pr']} tracked={row['tracked_changes']} unpushed={row['unpushed']}")
+        print(f"{flag} {row['path']} [{row['branch']}] pr={row['pr']} tracked={row['tracked_changes']} untracked={row['untracked_changes']} unpushed={row['unpushed']}")
     junk = stale_files(common_dir())
     for path in junk:
         print(f"STALE  {path} ({path.stat().st_size / 2**20:.0f} MiB)")
@@ -99,7 +113,7 @@ def main():
         return 0
     for row in rows:
         if row["removable"]:
-            result = git("worktree", "remove", "--force", row["path"])
+            result = remove_worktree(row["path"])
             print(("removed " if result.returncode == 0 else "FAILED ") + row["path"] + " " + result.stderr.strip())
     if junk and git_running():
         print("git is running; leaving temporary packs alone")

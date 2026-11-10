@@ -1,0 +1,2834 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "drain_leech",
+  "canvas": [
+    516,
+    233
+  ],
+  "display_height": 66,
+  "visual_scale": 0.5739130434782609,
+  "visual_offset": [
+    0,
+    -5.2057354301572545
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            267,
+            115
+          ],
+          "margin": [
+            126,
+            110,
+            249,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            259,
+            122
+          ],
+          "margin": [
+            125,
+            105,
+            257,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            269,
+            0,
+            286,
+            119
+          ],
+          "margin": [
+            114,
+            106,
+            230,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            265,
+            2,
+            275,
+            122
+          ],
+          "margin": [
+            107,
+            105,
+            241,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            557,
+            0,
+            286,
+            116
+          ],
+          "margin": [
+            102,
+            109,
+            230,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            544,
+            2,
+            274,
+            122
+          ],
+          "margin": [
+            100,
+            105,
+            242,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            845,
+            0,
+            288,
+            117
+          ],
+          "margin": [
+            92,
+            108,
+            228,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            822,
+            2,
+            273,
+            116
+          ],
+          "margin": [
+            106,
+            111,
+            243,
+            117
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1135,
+            0,
+            316,
+            102
+          ],
+          "margin": [
+            104,
+            123,
+            200,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1099,
+            2,
+            298,
+            107
+          ],
+          "margin": [
+            111,
+            120,
+            218,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1453,
+            0,
+            311,
+            103
+          ],
+          "margin": [
+            110,
+            122,
+            205,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1401,
+            2,
+            299,
+            104
+          ],
+          "margin": [
+            106,
+            123,
+            217,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1766,
+            0,
+            302,
+            101
+          ],
+          "margin": [
+            106,
+            124,
+            214,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1704,
+            2,
+            281,
+            108
+          ],
+          "margin": [
+            108,
+            119,
+            235,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2070,
+            0,
+            300,
+            100
+          ],
+          "margin": [
+            104,
+            125,
+            216,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            132,
+            292,
+            113
+          ],
+          "margin": [
+            114,
+            114,
+            224,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2372,
+            0,
+            329,
+            103
+          ],
+          "margin": [
+            119,
+            122,
+            187,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            298,
+            132,
+            298,
+            115
+          ],
+          "margin": [
+            130,
+            112,
+            218,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2703,
+            0,
+            323,
+            107
+          ],
+          "margin": [
+            121,
+            118,
+            193,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            600,
+            132,
+            284,
+            116
+          ],
+          "margin": [
+            134,
+            111,
+            232,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3028,
+            0,
+            307,
+            106
+          ],
+          "margin": [
+            127,
+            119,
+            209,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            888,
+            132,
+            300,
+            112
+          ],
+          "margin": [
+            100,
+            115,
+            216,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3337,
+            0,
+            305,
+            94
+          ],
+          "margin": [
+            94,
+            131,
+            211,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1192,
+            132,
+            303,
+            105
+          ],
+          "margin": [
+            96,
+            122,
+            213,
+            128
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3644,
+            0,
+            279,
+            126
+          ],
+          "margin": [
+            121,
+            99,
+            237,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1499,
+            132,
+            294,
+            121
+          ],
+          "margin": [
+            108,
+            106,
+            222,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            0,
+            128,
+            291,
+            139
+          ],
+          "margin": [
+            110,
+            86,
+            225,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            261,
+            299,
+            124
+          ],
+          "margin": [
+            104,
+            103,
+            217,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            293,
+            128,
+            267,
+            144
+          ],
+          "margin": [
+            127,
+            81,
+            249,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            305,
+            261,
+            280,
+            131
+          ],
+          "margin": [
+            116,
+            96,
+            236,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            562,
+            128,
+            274,
+            146
+          ],
+          "margin": [
+            129,
+            79,
+            242,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            589,
+            261,
+            276,
+            136
+          ],
+          "margin": [
+            119,
+            91,
+            240,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            838,
+            128,
+            278,
+            156
+          ],
+          "margin": [
+            116,
+            69,
+            238,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            869,
+            261,
+            265,
+            140
+          ],
+          "margin": [
+            116,
+            87,
+            251,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1118,
+            128,
+            241,
+            156
+          ],
+          "margin": [
+            133,
+            69,
+            275,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1138,
+            261,
+            241,
+            149
+          ],
+          "margin": [
+            126,
+            78,
+            275,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1361,
+            128,
+            250,
+            153
+          ],
+          "margin": [
+            125,
+            72,
+            266,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1383,
+            261,
+            235,
+            154
+          ],
+          "margin": [
+            128,
+            73,
+            281,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1613,
+            128,
+            242,
+            165
+          ],
+          "margin": [
+            120,
+            60,
+            274,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1622,
+            261,
+            231,
+            161
+          ],
+          "margin": [
+            122,
+            66,
+            285,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1857,
+            128,
+            236,
+            169
+          ],
+          "margin": [
+            118,
+            56,
+            280,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            430,
+            237,
+            172
+          ],
+          "margin": [
+            113,
+            55,
+            279,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2095,
+            128,
+            251,
+            168
+          ],
+          "margin": [
+            112,
+            57,
+            265,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            243,
+            430,
+            231,
+            163
+          ],
+          "margin": [
+            128,
+            64,
+            285,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2348,
+            128,
+            221,
+            157
+          ],
+          "margin": [
+            139,
+            68,
+            295,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            478,
+            430,
+            241,
+            167
+          ],
+          "margin": [
+            133,
+            60,
+            275,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2571,
+            128,
+            338,
+            143
+          ],
+          "margin": [
+            93,
+            82,
+            178,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            723,
+            430,
+            296,
+            145
+          ],
+          "margin": [
+            119,
+            82,
+            220,
+            88
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2911,
+            128,
+            322,
+            117
+          ],
+          "margin": [
+            119,
+            108,
+            194,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1023,
+            430,
+            292,
+            127
+          ],
+          "margin": [
+            132,
+            100,
+            224,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3235,
+            128,
+            299,
+            119
+          ],
+          "margin": [
+            127,
+            106,
+            217,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1319,
+            430,
+            289,
+            130
+          ],
+          "margin": [
+            134,
+            97,
+            227,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3536,
+            128,
+            330,
+            120
+          ],
+          "margin": [
+            116,
+            105,
+            186,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1612,
+            430,
+            302,
+            127
+          ],
+          "margin": [
+            129,
+            100,
+            214,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            0,
+            299,
+            325,
+            108
+          ],
+          "margin": [
+            128,
+            117,
+            191,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            610,
+            304,
+            122
+          ],
+          "margin": [
+            123,
+            105,
+            212,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            327,
+            299,
+            324,
+            118
+          ],
+          "margin": [
+            105,
+            107,
+            192,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            310,
+            610,
+            301,
+            123
+          ],
+          "margin": [
+            109,
+            104,
+            215,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            653,
+            299,
+            273,
+            117
+          ],
+          "margin": [
+            118,
+            108,
+            243,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            615,
+            610,
+            264,
+            122
+          ],
+          "margin": [
+            112,
+            105,
+            252,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            928,
+            299,
+            271,
+            110
+          ],
+          "margin": [
+            111,
+            115,
+            245,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            883,
+            610,
+            283,
+            130
+          ],
+          "margin": [
+            96,
+            97,
+            233,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1201,
+            299,
+            284,
+            117
+          ],
+          "margin": [
+            99,
+            108,
+            232,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1170,
+            610,
+            313,
+            130
+          ],
+          "margin": [
+            82,
+            97,
+            203,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1487,
+            299,
+            307,
+            117
+          ],
+          "margin": [
+            80,
+            108,
+            209,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1487,
+            610,
+            308,
+            124
+          ],
+          "margin": [
+            84,
+            103,
+            208,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1796,
+            299,
+            295,
+            112
+          ],
+          "margin": [
+            94,
+            113,
+            221,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            748,
+            309,
+            132
+          ],
+          "margin": [
+            85,
+            97,
+            207,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2093,
+            299,
+            317,
+            122
+          ],
+          "margin": [
+            80,
+            103,
+            199,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            315,
+            748,
+            278,
+            131
+          ],
+          "margin": [
+            106,
+            96,
+            238,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2412,
+            299,
+            268,
+            126
+          ],
+          "margin": [
+            110,
+            99,
+            248,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            597,
+            748,
+            262,
+            125
+          ],
+          "margin": [
+            122,
+            102,
+            254,
+            108
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2682,
+            299,
+            266,
+            121
+          ],
+          "margin": [
+            123,
+            104,
+            250,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            863,
+            748,
+            258,
+            122
+          ],
+          "margin": [
+            129,
+            105,
+            258,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2950,
+            299,
+            270,
+            126
+          ],
+          "margin": [
+            118,
+            99,
+            246,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1125,
+            748,
+            284,
+            126
+          ],
+          "margin": [
+            110,
+            101,
+            232,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3222,
+            299,
+            316,
+            126
+          ],
+          "margin": [
+            90,
+            99,
+            200,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1413,
+            748,
+            288,
+            126
+          ],
+          "margin": [
+            107,
+            101,
+            228,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3540,
+            299,
+            302,
+            118
+          ],
+          "margin": [
+            104,
+            107,
+            214,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1705,
+            748,
+            286,
+            127
+          ],
+          "margin": [
+            106,
+            100,
+            230,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            0,
+            427,
+            310,
+            123
+          ],
+          "margin": [
+            88,
+            102,
+            206,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            888,
+            282,
+            139
+          ],
+          "margin": [
+            103,
+            88,
+            234,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            312,
+            427,
+            293,
+            122
+          ],
+          "margin": [
+            94,
+            103,
+            223,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            288,
+            888,
+            262,
+            134
+          ],
+          "margin": [
+            110,
+            93,
+            254,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            607,
+            427,
+            262,
+            112
+          ],
+          "margin": [
+            113,
+            113,
+            254,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            554,
+            888,
+            250,
+            130
+          ],
+          "margin": [
+            115,
+            97,
+            266,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            871,
+            427,
+            277,
+            113
+          ],
+          "margin": [
+            99,
+            112,
+            239,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            808,
+            888,
+            262,
+            123
+          ],
+          "margin": [
+            108,
+            104,
+            254,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1150,
+            427,
+            268,
+            106
+          ],
+          "margin": [
+            103,
+            119,
+            248,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1074,
+            888,
+            263,
+            121
+          ],
+          "margin": [
+            110,
+            106,
+            253,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1420,
+            427,
+            300,
+            95
+          ],
+          "margin": [
+            96,
+            130,
+            216,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1341,
+            888,
+            267,
+            118
+          ],
+          "margin": [
+            114,
+            109,
+            249,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1722,
+            427,
+            274,
+            109
+          ],
+          "margin": [
+            106,
+            116,
+            242,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1612,
+            888,
+            264,
+            115
+          ],
+          "margin": [
+            119,
+            112,
+            252,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1998,
+            427,
+            248,
+            114
+          ],
+          "margin": [
+            129,
+            111,
+            268,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            1035,
+            267,
+            116
+          ],
+          "margin": [
+            120,
+            111,
+            249,
+            117
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2248,
+            427,
+            286,
+            122
+          ],
+          "margin": [
+            114,
+            103,
+            230,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            273,
+            1035,
+            264,
+            136
+          ],
+          "margin": [
+            114,
+            91,
+            252,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2536,
+            427,
+            260,
+            137
+          ],
+          "margin": [
+            115,
+            88,
+            256,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            541,
+            1035,
+            242,
+            138
+          ],
+          "margin": [
+            130,
+            89,
+            274,
+            95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2798,
+            427,
+            263,
+            123
+          ],
+          "margin": [
+            105,
+            102,
+            253,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            787,
+            1035,
+            253,
+            128
+          ],
+          "margin": [
+            112,
+            99,
+            263,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3063,
+            427,
+            351,
+            88
+          ],
+          "margin": [
+            72,
+            137,
+            165,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1044,
+            1035,
+            316,
+            89
+          ],
+          "margin": [
+            87,
+            140,
+            200,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3416,
+            427,
+            307,
+            86
+          ],
+          "margin": [
+            89,
+            139,
+            209,
+            147
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1364,
+            1035,
+            304,
+            89
+          ],
+          "margin": [
+            92,
+            138,
+            212,
+            144
+          ]
+        }
+      ]
+    },
+    {
+      "name": "leech_leap_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3725,
+            427,
+            195,
+            114
+          ],
+          "margin": [
+            162,
+            111,
+            321,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1672,
+            1035,
+            208,
+            125
+          ],
+          "margin": [
+            152,
+            102,
+            308,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            0,
+            566,
+            215,
+            131
+          ],
+          "margin": [
+            152,
+            94,
+            301,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            1181,
+            199,
+            138
+          ],
+          "margin": [
+            156,
+            89,
+            317,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            217,
+            566,
+            186,
+            142
+          ],
+          "margin": [
+            164,
+            83,
+            330,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            205,
+            1181,
+            194,
+            141
+          ],
+          "margin": [
+            161,
+            86,
+            322,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            405,
+            566,
+            196,
+            146
+          ],
+          "margin": [
+            159,
+            79,
+            320,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            403,
+            1181,
+            196,
+            163
+          ],
+          "margin": [
+            162,
+            64,
+            320,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            603,
+            566,
+            222,
+            163
+          ],
+          "margin": [
+            144,
+            62,
+            294,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            603,
+            1181,
+            199,
+            170
+          ],
+          "margin": [
+            158,
+            57,
+            317,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            827,
+            566,
+            189,
+            172
+          ],
+          "margin": [
+            162,
+            53,
+            327,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            806,
+            1181,
+            186,
+            175
+          ],
+          "margin": [
+            166,
+            52,
+            330,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1018,
+            566,
+            194,
+            174
+          ],
+          "margin": [
+            160,
+            51,
+            322,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            996,
+            1181,
+            178,
+            195
+          ],
+          "margin": [
+            168,
+            32,
+            338,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1214,
+            566,
+            204,
+            186
+          ],
+          "margin": [
+            153,
+            39,
+            312,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1178,
+            1181,
+            189,
+            189
+          ],
+          "margin": [
+            166,
+            38,
+            327,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1420,
+            566,
+            206,
+            191
+          ],
+          "margin": [
+            148,
+            34,
+            310,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1371,
+            1181,
+            190,
+            195
+          ],
+          "margin": [
+            164,
+            32,
+            326,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1628,
+            566,
+            216,
+            189
+          ],
+          "margin": [
+            143,
+            36,
+            300,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1565,
+            1181,
+            205,
+            199
+          ],
+          "margin": [
+            154,
+            28,
+            311,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1846,
+            566,
+            219,
+            202
+          ],
+          "margin": [
+            141,
+            23,
+            297,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1774,
+            1181,
+            197,
+            200
+          ],
+          "margin": [
+            160,
+            27,
+            319,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2067,
+            566,
+            242,
+            208
+          ],
+          "margin": [
+            135,
+            17,
+            274,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            1389,
+            230,
+            212
+          ],
+          "margin": [
+            143,
+            15,
+            286,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "leech_leap",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2311,
+            566,
+            252,
+            207
+          ],
+          "margin": [
+            129,
+            18,
+            264,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            236,
+            1389,
+            255,
+            225
+          ],
+          "margin": [
+            130,
+            2,
+            261,
+            8
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2565,
+            566,
+            249,
+            215
+          ],
+          "margin": [
+            132,
+            10,
+            267,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            495,
+            1389,
+            254,
+            218
+          ],
+          "margin": [
+            126,
+            9,
+            262,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2816,
+            566,
+            257,
+            217
+          ],
+          "margin": [
+            131,
+            8,
+            259,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            753,
+            1389,
+            259,
+            212
+          ],
+          "margin": [
+            126,
+            17,
+            257,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3075,
+            566,
+            264,
+            211
+          ],
+          "margin": [
+            127,
+            14,
+            252,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1016,
+            1389,
+            238,
+            183
+          ],
+          "margin": [
+            138,
+            44,
+            278,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3341,
+            566,
+            219,
+            182
+          ],
+          "margin": [
+            149,
+            43,
+            297,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1258,
+            1389,
+            298,
+            195
+          ],
+          "margin": [
+            101,
+            33,
+            218,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3562,
+            566,
+            447,
+            154
+          ],
+          "margin": [
+            8,
+            71,
+            69,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1560,
+            1389,
+            349,
+            131
+          ],
+          "margin": [
+            67,
+            97,
+            167,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            0,
+            785,
+            319,
+            107
+          ],
+          "margin": [
+            81,
+            118,
+            197,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            1622,
+            349,
+            130
+          ],
+          "margin": [
+            65,
+            98,
+            167,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            321,
+            785,
+            409,
+            140
+          ],
+          "margin": [
+            29,
+            85,
+            107,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            355,
+            1622,
+            325,
+            125
+          ],
+          "margin": [
+            77,
+            103,
+            191,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            732,
+            785,
+            214,
+            157
+          ],
+          "margin": [
+            147,
+            68,
+            302,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            684,
+            1622,
+            222,
+            158
+          ],
+          "margin": [
+            145,
+            69,
+            294,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            948,
+            785,
+            237,
+            173
+          ],
+          "margin": [
+            134,
+            52,
+            279,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            910,
+            1622,
+            212,
+            160
+          ],
+          "margin": [
+            149,
+            67,
+            304,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1187,
+            785,
+            199,
+            152
+          ],
+          "margin": [
+            158,
+            73,
+            317,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1126,
+            1622,
+            232,
+            173
+          ],
+          "margin": [
+            140,
+            54,
+            284,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1388,
+            785,
+            386,
+            129
+          ],
+          "margin": [
+            43,
+            96,
+            130,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1362,
+            1622,
+            306,
+            121
+          ],
+          "margin": [
+            90,
+            106,
+            210,
+            112
+          ]
+        }
+      ]
+    },
+    {
+      "name": "leech_leap_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1776,
+            785,
+            309,
+            91
+          ],
+          "margin": [
+            89,
+            134,
+            207,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1672,
+            1622,
+            307,
+            107
+          ],
+          "margin": [
+            88,
+            120,
+            209,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2087,
+            785,
+            342,
+            108
+          ],
+          "margin": [
+            70,
+            117,
+            174,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            2,
+            1803,
+            231,
+            169
+          ],
+          "margin": [
+            143,
+            58,
+            285,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2431,
+            785,
+            298,
+            114
+          ],
+          "margin": [
+            98,
+            111,
+            218,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            237,
+            1803,
+            209,
+            163
+          ],
+          "margin": [
+            152,
+            64,
+            307,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            2731,
+            785,
+            288,
+            114
+          ],
+          "margin": [
+            103,
+            111,
+            228,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            450,
+            1803,
+            217,
+            165
+          ],
+          "margin": [
+            147,
+            62,
+            299,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3021,
+            785,
+            313,
+            123
+          ],
+          "margin": [
+            89,
+            102,
+            203,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            671,
+            1803,
+            284,
+            116
+          ],
+          "margin": [
+            103,
+            111,
+            232,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3336,
+            785,
+            252,
+            123
+          ],
+          "margin": [
+            123,
+            102,
+            264,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            959,
+            1803,
+            280,
+            100
+          ],
+          "margin": [
+            106,
+            127,
+            236,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3590,
+            785,
+            236,
+            116
+          ],
+          "margin": [
+            131,
+            109,
+            280,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1243,
+            1803,
+            285,
+            98
+          ],
+          "margin": [
+            104,
+            129,
+            231,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            3828,
+            785,
+            251,
+            122
+          ],
+          "margin": [
+            126,
+            103,
+            265,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_00.png",
+          "region": [
+            1532,
+            1803,
+            290,
+            114
+          ],
+          "margin": [
+            101,
+            113,
+            226,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            0,
+            960,
+            297,
+            121
+          ],
+          "margin": [
+            98,
+            104,
+            219,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            285,
+            120
+          ],
+          "margin": [
+            102,
+            107,
+            231,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            299,
+            960,
+            275,
+            111
+          ],
+          "margin": [
+            109,
+            114,
+            241,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_01.png",
+          "region": [
+            291,
+            2,
+            271,
+            127
+          ],
+          "margin": [
+            114,
+            100,
+            245,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            576,
+            960,
+            297,
+            120
+          ],
+          "margin": [
+            101,
+            105,
+            219,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_01.png",
+          "region": [
+            566,
+            2,
+            259,
+            140
+          ],
+          "margin": [
+            126,
+            87,
+            257,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            875,
+            960,
+            277,
+            121
+          ],
+          "margin": [
+            114,
+            104,
+            239,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_01.png",
+          "region": [
+            829,
+            2,
+            242,
+            135
+          ],
+          "margin": [
+            138,
+            92,
+            274,
+            98
+          ]
+        }
+      ]
+    },
+    {
+      "name": "leech_leap_travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1154,
+            960,
+            306,
+            110
+          ],
+          "margin": [
+            94,
+            115,
+            210,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_01.png",
+          "region": [
+            1075,
+            2,
+            230,
+            125
+          ],
+          "margin": [
+            140,
+            102,
+            286,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/combat_motion_v7.png",
+          "region": [
+            1462,
+            960,
+            304,
+            103
+          ],
+          "margin": [
+            90,
+            122,
+            212,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/drain_leech/motion_v8_01.png",
+          "region": [
+            1309,
+            2,
+            244,
+            114
+          ],
+          "margin": [
+            130,
+            113,
+            272,
+            119
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "leech_leap",
+    "leech_leap_recover",
+    "leech_leap_windup",
+    "recover",
+    "windup"
+  ]
+}

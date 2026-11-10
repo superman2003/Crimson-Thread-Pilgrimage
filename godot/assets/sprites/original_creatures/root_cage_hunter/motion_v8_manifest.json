@@ -1,0 +1,4162 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "root_cage_hunter",
+  "canvas": [
+    390,
+    246
+  ],
+  "display_height": 104,
+  "visual_scale": 0.5502645502645502,
+  "visual_offset": [
+    0,
+    -5.9449600216373355
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            152,
+            189
+          ],
+          "margin": [
+            133,
+            49,
+            238,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            143,
+            180
+          ],
+          "margin": [
+            134,
+            61,
+            247,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            154,
+            0,
+            162,
+            191
+          ],
+          "margin": [
+            119,
+            47,
+            228,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            149,
+            2,
+            147,
+            181
+          ],
+          "margin": [
+            122,
+            60,
+            243,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            318,
+            0,
+            158,
+            193
+          ],
+          "margin": [
+            114,
+            45,
+            232,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            300,
+            2,
+            151,
+            181
+          ],
+          "margin": [
+            106,
+            60,
+            239,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            478,
+            0,
+            159,
+            194
+          ],
+          "margin": [
+            98,
+            44,
+            231,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            455,
+            2,
+            154,
+            178
+          ],
+          "margin": [
+            112,
+            63,
+            236,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            639,
+            0,
+            179,
+            187
+          ],
+          "margin": [
+            127,
+            51,
+            211,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            613,
+            2,
+            166,
+            175
+          ],
+          "margin": [
+            130,
+            65,
+            224,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            820,
+            0,
+            199,
+            182
+          ],
+          "margin": [
+            111,
+            56,
+            191,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            783,
+            2,
+            174,
+            171
+          ],
+          "margin": [
+            112,
+            70,
+            216,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1021,
+            0,
+            171,
+            191
+          ],
+          "margin": [
+            118,
+            47,
+            219,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            961,
+            2,
+            172,
+            172
+          ],
+          "margin": [
+            105,
+            69,
+            218,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1194,
+            0,
+            183,
+            189
+          ],
+          "margin": [
+            93,
+            49,
+            207,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1137,
+            2,
+            171,
+            175
+          ],
+          "margin": [
+            109,
+            66,
+            219,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1379,
+            0,
+            177,
+            197
+          ],
+          "margin": [
+            121,
+            41,
+            213,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1312,
+            2,
+            176,
+            179
+          ],
+          "margin": [
+            110,
+            62,
+            214,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1558,
+            0,
+            195,
+            188
+          ],
+          "margin": [
+            99,
+            50,
+            195,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1492,
+            2,
+            175,
+            176
+          ],
+          "margin": [
+            98,
+            66,
+            215,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1755,
+            0,
+            167,
+            197
+          ],
+          "margin": [
+            114,
+            41,
+            223,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1671,
+            2,
+            169,
+            174
+          ],
+          "margin": [
+            107,
+            68,
+            221,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1924,
+            0,
+            185,
+            196
+          ],
+          "margin": [
+            99,
+            42,
+            205,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1844,
+            2,
+            163,
+            175
+          ],
+          "margin": [
+            120,
+            67,
+            227,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2111,
+            0,
+            183,
+            165
+          ],
+          "margin": [
+            123,
+            73,
+            207,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            191,
+            178,
+            181
+          ],
+          "margin": [
+            126,
+            59,
+            212,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2296,
+            0,
+            192,
+            184
+          ],
+          "margin": [
+            110,
+            54,
+            198,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            184,
+            191,
+            164,
+            177
+          ],
+          "margin": [
+            124,
+            63,
+            226,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2490,
+            0,
+            162,
+            195
+          ],
+          "margin": [
+            137,
+            43,
+            228,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            352,
+            191,
+            158,
+            183
+          ],
+          "margin": [
+            130,
+            57,
+            232,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2654,
+            0,
+            174,
+            200
+          ],
+          "margin": [
+            127,
+            38,
+            216,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            514,
+            191,
+            169,
+            199
+          ],
+          "margin": [
+            122,
+            41,
+            221,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2830,
+            0,
+            184,
+            216
+          ],
+          "margin": [
+            117,
+            22,
+            206,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            687,
+            191,
+            169,
+            205
+          ],
+          "margin": [
+            117,
+            35,
+            221,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3016,
+            0,
+            168,
+            225
+          ],
+          "margin": [
+            105,
+            13,
+            222,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            860,
+            191,
+            156,
+            212
+          ],
+          "margin": [
+            105,
+            28,
+            234,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3186,
+            0,
+            170,
+            228
+          ],
+          "margin": [
+            101,
+            10,
+            220,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1020,
+            191,
+            167,
+            217
+          ],
+          "margin": [
+            96,
+            23,
+            223,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3358,
+            0,
+            173,
+            230
+          ],
+          "margin": [
+            97,
+            8,
+            217,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1191,
+            191,
+            182,
+            221
+          ],
+          "margin": [
+            92,
+            19,
+            208,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3533,
+            0,
+            181,
+            226
+          ],
+          "margin": [
+            98,
+            12,
+            209,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1377,
+            191,
+            174,
+            209
+          ],
+          "margin": [
+            102,
+            31,
+            216,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3716,
+            0,
+            178,
+            214
+          ],
+          "margin": [
+            96,
+            24,
+            212,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1555,
+            191,
+            174,
+            203
+          ],
+          "margin": [
+            98,
+            37,
+            216,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3896,
+            0,
+            168,
+            209
+          ],
+          "margin": [
+            106,
+            29,
+            222,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1733,
+            191,
+            182,
+            205
+          ],
+          "margin": [
+            98,
+            35,
+            208,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            0,
+            232,
+            288,
+            199
+          ],
+          "margin": [
+            93,
+            39,
+            102,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            420,
+            239,
+            181
+          ],
+          "margin": [
+            106,
+            59,
+            151,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            290,
+            232,
+            276,
+            181
+          ],
+          "margin": [
+            106,
+            57,
+            114,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            245,
+            420,
+            243,
+            179
+          ],
+          "margin": [
+            107,
+            61,
+            147,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            568,
+            232,
+            275,
+            186
+          ],
+          "margin": [
+            104,
+            52,
+            115,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            492,
+            420,
+            248,
+            186
+          ],
+          "margin": [
+            105,
+            54,
+            142,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            845,
+            232,
+            222,
+            183
+          ],
+          "margin": [
+            104,
+            55,
+            168,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            744,
+            420,
+            208,
+            176
+          ],
+          "margin": [
+            110,
+            64,
+            182,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1069,
+            232,
+            230,
+            174
+          ],
+          "margin": [
+            108,
+            64,
+            160,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            956,
+            420,
+            204,
+            178
+          ],
+          "margin": [
+            112,
+            63,
+            186,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1301,
+            232,
+            222,
+            184
+          ],
+          "margin": [
+            99,
+            54,
+            168,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1164,
+            420,
+            195,
+            180
+          ],
+          "margin": [
+            108,
+            60,
+            195,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1525,
+            232,
+            176,
+            187
+          ],
+          "margin": [
+            113,
+            51,
+            214,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1363,
+            420,
+            170,
+            175
+          ],
+          "margin": [
+            109,
+            66,
+            220,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1703,
+            232,
+            179,
+            184
+          ],
+          "margin": [
+            106,
+            54,
+            211,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1537,
+            420,
+            168,
+            172
+          ],
+          "margin": [
+            106,
+            68,
+            222,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1884,
+            232,
+            167,
+            177
+          ],
+          "margin": [
+            100,
+            61,
+            223,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1709,
+            420,
+            183,
+            183
+          ],
+          "margin": [
+            83,
+            57,
+            207,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2053,
+            232,
+            269,
+            164
+          ],
+          "margin": [
+            66,
+            74,
+            121,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            614,
+            177,
+            174
+          ],
+          "margin": [
+            78,
+            68,
+            213,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2324,
+            232,
+            232,
+            143
+          ],
+          "margin": [
+            71,
+            95,
+            158,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            183,
+            614,
+            171,
+            173
+          ],
+          "margin": [
+            82,
+            69,
+            219,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2558,
+            232,
+            270,
+            165
+          ],
+          "margin": [
+            77,
+            73,
+            120,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            358,
+            614,
+            164,
+            187
+          ],
+          "margin": [
+            104,
+            53,
+            226,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2830,
+            232,
+            173,
+            179
+          ],
+          "margin": [
+            110,
+            59,
+            217,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            526,
+            614,
+            157,
+            182
+          ],
+          "margin": [
+            128,
+            58,
+            233,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3005,
+            232,
+            185,
+            187
+          ],
+          "margin": [
+            128,
+            51,
+            205,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            687,
+            614,
+            168,
+            184
+          ],
+          "margin": [
+            128,
+            56,
+            222,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3192,
+            232,
+            185,
+            192
+          ],
+          "margin": [
+            120,
+            46,
+            205,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            859,
+            614,
+            219,
+            196
+          ],
+          "margin": [
+            112,
+            44,
+            171,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3379,
+            232,
+            199,
+            191
+          ],
+          "margin": [
+            115,
+            47,
+            191,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1082,
+            614,
+            217,
+            189
+          ],
+          "margin": [
+            118,
+            51,
+            173,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3580,
+            232,
+            191,
+            182
+          ],
+          "margin": [
+            122,
+            56,
+            199,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1303,
+            614,
+            210,
+            185
+          ],
+          "margin": [
+            122,
+            55,
+            180,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3773,
+            232,
+            197,
+            192
+          ],
+          "margin": [
+            113,
+            46,
+            193,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1517,
+            614,
+            187,
+            193
+          ],
+          "margin": [
+            112,
+            47,
+            203,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            0,
+            433,
+            175,
+            195
+          ],
+          "margin": [
+            115,
+            43,
+            215,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1708,
+            614,
+            166,
+            180
+          ],
+          "margin": [
+            126,
+            60,
+            224,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            177,
+            433,
+            175,
+            191
+          ],
+          "margin": [
+            118,
+            47,
+            215,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1878,
+            614,
+            163,
+            185
+          ],
+          "margin": [
+            120,
+            55,
+            227,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            354,
+            433,
+            180,
+            198
+          ],
+          "margin": [
+            108,
+            40,
+            210,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            818,
+            176,
+            193
+          ],
+          "margin": [
+            106,
+            47,
+            214,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            536,
+            433,
+            169,
+            198
+          ],
+          "margin": [
+            109,
+            40,
+            221,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            182,
+            818,
+            166,
+            181
+          ],
+          "margin": [
+            108,
+            59,
+            224,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            707,
+            433,
+            165,
+            191
+          ],
+          "margin": [
+            105,
+            47,
+            225,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            352,
+            818,
+            160,
+            182
+          ],
+          "margin": [
+            110,
+            59,
+            230,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            874,
+            433,
+            167,
+            197
+          ],
+          "margin": [
+            112,
+            41,
+            223,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            516,
+            818,
+            167,
+            187
+          ],
+          "margin": [
+            114,
+            53,
+            223,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1043,
+            433,
+            158,
+            197
+          ],
+          "margin": [
+            124,
+            41,
+            232,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            687,
+            818,
+            147,
+            179
+          ],
+          "margin": [
+            130,
+            63,
+            243,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1203,
+            433,
+            158,
+            203
+          ],
+          "margin": [
+            129,
+            35,
+            232,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            838,
+            818,
+            131,
+            193
+          ],
+          "margin": [
+            142,
+            47,
+            259,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1363,
+            433,
+            178,
+            169
+          ],
+          "margin": [
+            117,
+            69,
+            212,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            973,
+            818,
+            146,
+            167
+          ],
+          "margin": [
+            128,
+            72,
+            244,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1543,
+            433,
+            165,
+            168
+          ],
+          "margin": [
+            113,
+            70,
+            225,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1123,
+            818,
+            146,
+            163
+          ],
+          "margin": [
+            112,
+            76,
+            244,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1710,
+            433,
+            167,
+            176
+          ],
+          "margin": [
+            88,
+            62,
+            223,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1273,
+            818,
+            146,
+            160
+          ],
+          "margin": [
+            112,
+            79,
+            244,
+            86
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1879,
+            433,
+            177,
+            156
+          ],
+          "margin": [
+            118,
+            82,
+            213,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1423,
+            818,
+            155,
+            139
+          ],
+          "margin": [
+            121,
+            100,
+            235,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2058,
+            433,
+            186,
+            133
+          ],
+          "margin": [
+            98,
+            105,
+            204,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1582,
+            818,
+            175,
+            115
+          ],
+          "margin": [
+            96,
+            124,
+            215,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2246,
+            433,
+            217,
+            100
+          ],
+          "margin": [
+            82,
+            138,
+            173,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1761,
+            818,
+            185,
+            98
+          ],
+          "margin": [
+            81,
+            141,
+            205,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2465,
+            433,
+            210,
+            87
+          ],
+          "margin": [
+            82,
+            151,
+            180,
+            159
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            1019,
+            175,
+            98
+          ],
+          "margin": [
+            86,
+            141,
+            215,
+            148
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cage_elite_snare_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2677,
+            433,
+            173,
+            132
+          ],
+          "margin": [
+            105,
+            106,
+            217,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            181,
+            1019,
+            192,
+            140
+          ],
+          "margin": [
+            94,
+            100,
+            198,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2852,
+            433,
+            195,
+            146
+          ],
+          "margin": [
+            92,
+            92,
+            195,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            377,
+            1019,
+            183,
+            155
+          ],
+          "margin": [
+            96,
+            87,
+            207,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3049,
+            433,
+            170,
+            151
+          ],
+          "margin": [
+            105,
+            87,
+            220,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            564,
+            1019,
+            166,
+            162
+          ],
+          "margin": [
+            106,
+            78,
+            224,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3221,
+            433,
+            169,
+            151
+          ],
+          "margin": [
+            103,
+            87,
+            221,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            734,
+            1019,
+            165,
+            176
+          ],
+          "margin": [
+            107,
+            64,
+            225,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3392,
+            433,
+            183,
+            163
+          ],
+          "margin": [
+            97,
+            75,
+            207,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            903,
+            1019,
+            161,
+            171
+          ],
+          "margin": [
+            113,
+            70,
+            229,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3577,
+            433,
+            149,
+            170
+          ],
+          "margin": [
+            115,
+            68,
+            241,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1068,
+            1019,
+            148,
+            178
+          ],
+          "margin": [
+            112,
+            64,
+            242,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3728,
+            433,
+            152,
+            170
+          ],
+          "margin": [
+            116,
+            68,
+            238,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1220,
+            1019,
+            151,
+            184
+          ],
+          "margin": [
+            112,
+            56,
+            239,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3882,
+            433,
+            158,
+            181
+          ],
+          "margin": [
+            111,
+            57,
+            232,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1375,
+            1019,
+            153,
+            189
+          ],
+          "margin": [
+            108,
+            51,
+            237,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            0,
+            638,
+            162,
+            184
+          ],
+          "margin": [
+            105,
+            54,
+            228,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1532,
+            1019,
+            156,
+            193
+          ],
+          "margin": [
+            106,
+            47,
+            234,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            164,
+            638,
+            162,
+            181
+          ],
+          "margin": [
+            108,
+            57,
+            228,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1692,
+            1019,
+            158,
+            196
+          ],
+          "margin": [
+            104,
+            44,
+            232,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            328,
+            638,
+            155,
+            178
+          ],
+          "margin": [
+            110,
+            60,
+            235,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1854,
+            1019,
+            161,
+            201
+          ],
+          "margin": [
+            102,
+            40,
+            229,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            485,
+            638,
+            236,
+            168
+          ],
+          "margin": [
+            89,
+            70,
+            154,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            1228,
+            180,
+            185
+          ],
+          "margin": [
+            106,
+            56,
+            210,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cage_elite_snare",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            723,
+            638,
+            216,
+            151
+          ],
+          "margin": [
+            102,
+            87,
+            174,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            186,
+            1228,
+            192,
+            179
+          ],
+          "margin": [
+            104,
+            62,
+            198,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            941,
+            638,
+            219,
+            158
+          ],
+          "margin": [
+            98,
+            80,
+            171,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            382,
+            1228,
+            205,
+            169
+          ],
+          "margin": [
+            100,
+            72,
+            185,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1162,
+            638,
+            227,
+            157
+          ],
+          "margin": [
+            96,
+            81,
+            163,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            591,
+            1228,
+            215,
+            159
+          ],
+          "margin": [
+            96,
+            83,
+            175,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1391,
+            638,
+            214,
+            150
+          ],
+          "margin": [
+            104,
+            88,
+            176,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            810,
+            1228,
+            218,
+            151
+          ],
+          "margin": [
+            94,
+            91,
+            172,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1607,
+            638,
+            221,
+            156
+          ],
+          "margin": [
+            97,
+            82,
+            169,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1032,
+            1228,
+            200,
+            156
+          ],
+          "margin": [
+            104,
+            85,
+            190,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1830,
+            638,
+            219,
+            155
+          ],
+          "margin": [
+            91,
+            83,
+            171,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1236,
+            1228,
+            200,
+            149
+          ],
+          "margin": [
+            98,
+            93,
+            190,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2051,
+            638,
+            214,
+            147
+          ],
+          "margin": [
+            99,
+            91,
+            176,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1440,
+            1228,
+            196,
+            148
+          ],
+          "margin": [
+            100,
+            92,
+            194,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2267,
+            638,
+            203,
+            145
+          ],
+          "margin": [
+            98,
+            93,
+            187,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1640,
+            1228,
+            201,
+            148
+          ],
+          "margin": [
+            96,
+            92,
+            189,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2472,
+            638,
+            200,
+            138
+          ],
+          "margin": [
+            88,
+            100,
+            190,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1845,
+            1228,
+            181,
+            133
+          ],
+          "margin": [
+            97,
+            108,
+            209,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2674,
+            638,
+            174,
+            122
+          ],
+          "margin": [
+            100,
+            116,
+            216,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            1421,
+            186,
+            128
+          ],
+          "margin": [
+            93,
+            112,
+            204,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2850,
+            638,
+            205,
+            139
+          ],
+          "margin": [
+            84,
+            99,
+            185,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            192,
+            1421,
+            198,
+            131
+          ],
+          "margin": [
+            88,
+            109,
+            192,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3057,
+            638,
+            184,
+            147
+          ],
+          "margin": [
+            101,
+            91,
+            206,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            394,
+            1421,
+            197,
+            133
+          ],
+          "margin": [
+            94,
+            107,
+            193,
+            113
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cage_elite_snare_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3243,
+            638,
+            183,
+            149
+          ],
+          "margin": [
+            103,
+            89,
+            207,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            595,
+            1421,
+            203,
+            149
+          ],
+          "margin": [
+            94,
+            91,
+            187,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3428,
+            638,
+            188,
+            156
+          ],
+          "margin": [
+            99,
+            82,
+            202,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            802,
+            1421,
+            196,
+            157
+          ],
+          "margin": [
+            98,
+            83,
+            194,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3618,
+            638,
+            179,
+            155
+          ],
+          "margin": [
+            100,
+            83,
+            211,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1002,
+            1421,
+            194,
+            155
+          ],
+          "margin": [
+            99,
+            85,
+            196,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3799,
+            638,
+            169,
+            148
+          ],
+          "margin": [
+            104,
+            90,
+            221,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1200,
+            1421,
+            182,
+            159
+          ],
+          "margin": [
+            102,
+            82,
+            208,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            0,
+            824,
+            176,
+            153
+          ],
+          "margin": [
+            100,
+            85,
+            214,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1386,
+            1421,
+            182,
+            160
+          ],
+          "margin": [
+            104,
+            81,
+            208,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            178,
+            824,
+            177,
+            154
+          ],
+          "margin": [
+            99,
+            84,
+            213,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1572,
+            1421,
+            183,
+            161
+          ],
+          "margin": [
+            105,
+            81,
+            207,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            357,
+            824,
+            173,
+            147
+          ],
+          "margin": [
+            100,
+            91,
+            217,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1759,
+            1421,
+            182,
+            163
+          ],
+          "margin": [
+            104,
+            79,
+            208,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            532,
+            824,
+            181,
+            154
+          ],
+          "margin": [
+            97,
+            84,
+            209,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            1592,
+            185,
+            162
+          ],
+          "margin": [
+            101,
+            80,
+            205,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            715,
+            824,
+            189,
+            154
+          ],
+          "margin": [
+            90,
+            84,
+            201,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            191,
+            1592,
+            180,
+            153
+          ],
+          "margin": [
+            100,
+            89,
+            210,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            906,
+            824,
+            173,
+            146
+          ],
+          "margin": [
+            100,
+            92,
+            217,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            375,
+            1592,
+            189,
+            155
+          ],
+          "margin": [
+            96,
+            85,
+            201,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1081,
+            824,
+            198,
+            168
+          ],
+          "margin": [
+            88,
+            70,
+            192,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            568,
+            1592,
+            191,
+            154
+          ],
+          "margin": [
+            100,
+            86,
+            199,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1281,
+            824,
+            154,
+            181
+          ],
+          "margin": [
+            125,
+            57,
+            236,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            763,
+            1592,
+            165,
+            142
+          ],
+          "margin": [
+            115,
+            100,
+            225,
+            104
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cage_elite_snare_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1437,
+            824,
+            179,
+            154
+          ],
+          "margin": [
+            104,
+            84,
+            211,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            932,
+            1592,
+            186,
+            154
+          ],
+          "margin": [
+            101,
+            86,
+            204,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1618,
+            824,
+            169,
+            162
+          ],
+          "margin": [
+            110,
+            76,
+            221,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1122,
+            1592,
+            176,
+            160
+          ],
+          "margin": [
+            108,
+            82,
+            214,
+            86
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1789,
+            824,
+            182,
+            193
+          ],
+          "margin": [
+            85,
+            45,
+            208,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1302,
+            1592,
+            179,
+            185
+          ],
+          "margin": [
+            86,
+            55,
+            211,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1973,
+            824,
+            188,
+            190
+          ],
+          "margin": [
+            100,
+            48,
+            202,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1485,
+            1592,
+            193,
+            186
+          ],
+          "margin": [
+            85,
+            54,
+            197,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cage_pounce_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2163,
+            824,
+            197,
+            114
+          ],
+          "margin": [
+            83,
+            124,
+            193,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1682,
+            1592,
+            200,
+            122
+          ],
+          "margin": [
+            80,
+            118,
+            190,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2362,
+            824,
+            205,
+            126
+          ],
+          "margin": [
+            75,
+            112,
+            185,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            2,
+            1786,
+            195,
+            127
+          ],
+          "margin": [
+            82,
+            115,
+            195,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2569,
+            824,
+            188,
+            131
+          ],
+          "margin": [
+            88,
+            107,
+            202,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            201,
+            1786,
+            182,
+            134
+          ],
+          "margin": [
+            92,
+            107,
+            208,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2759,
+            824,
+            187,
+            129
+          ],
+          "margin": [
+            87,
+            109,
+            203,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            387,
+            1786,
+            188,
+            142
+          ],
+          "margin": [
+            88,
+            98,
+            202,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2948,
+            824,
+            202,
+            139
+          ],
+          "margin": [
+            83,
+            99,
+            188,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            579,
+            1786,
+            189,
+            148
+          ],
+          "margin": [
+            90,
+            92,
+            201,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3152,
+            824,
+            184,
+            142
+          ],
+          "margin": [
+            93,
+            96,
+            206,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            772,
+            1786,
+            177,
+            151
+          ],
+          "margin": [
+            98,
+            91,
+            213,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3338,
+            824,
+            186,
+            138
+          ],
+          "margin": [
+            91,
+            100,
+            204,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            953,
+            1786,
+            184,
+            160
+          ],
+          "margin": [
+            92,
+            80,
+            206,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3526,
+            824,
+            196,
+            155
+          ],
+          "margin": [
+            86,
+            83,
+            194,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1141,
+            1786,
+            188,
+            161
+          ],
+          "margin": [
+            90,
+            80,
+            202,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3724,
+            824,
+            191,
+            163
+          ],
+          "margin": [
+            91,
+            75,
+            199,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1333,
+            1786,
+            189,
+            165
+          ],
+          "margin": [
+            91,
+            76,
+            201,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            0,
+            1019,
+            202,
+            167
+          ],
+          "margin": [
+            87,
+            71,
+            188,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1526,
+            1786,
+            202,
+            172
+          ],
+          "margin": [
+            86,
+            68,
+            188,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            204,
+            1019,
+            213,
+            180
+          ],
+          "margin": [
+            80,
+            58,
+            177,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_00.png",
+          "region": [
+            1732,
+            1786,
+            210,
+            178
+          ],
+          "margin": [
+            84,
+            62,
+            180,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            419,
+            1019,
+            208,
+            186
+          ],
+          "margin": [
+            86,
+            52,
+            182,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            203,
+            176
+          ],
+          "margin": [
+            88,
+            64,
+            187,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cage_pounce",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            629,
+            1019,
+            218,
+            185
+          ],
+          "margin": [
+            82,
+            53,
+            172,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            209,
+            2,
+            204,
+            174
+          ],
+          "margin": [
+            83,
+            66,
+            186,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            849,
+            1019,
+            209,
+            192
+          ],
+          "margin": [
+            86,
+            46,
+            181,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            417,
+            2,
+            203,
+            188
+          ],
+          "margin": [
+            86,
+            52,
+            187,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1060,
+            1019,
+            198,
+            191
+          ],
+          "margin": [
+            93,
+            47,
+            192,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            624,
+            2,
+            193,
+            185
+          ],
+          "margin": [
+            98,
+            55,
+            197,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1260,
+            1019,
+            194,
+            184
+          ],
+          "margin": [
+            97,
+            54,
+            196,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            821,
+            2,
+            182,
+            177
+          ],
+          "margin": [
+            102,
+            63,
+            208,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1456,
+            1019,
+            190,
+            184
+          ],
+          "margin": [
+            98,
+            54,
+            200,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1007,
+            2,
+            178,
+            183
+          ],
+          "margin": [
+            109,
+            57,
+            212,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1648,
+            1019,
+            171,
+            177
+          ],
+          "margin": [
+            104,
+            61,
+            219,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1189,
+            2,
+            164,
+            166
+          ],
+          "margin": [
+            112,
+            75,
+            226,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1821,
+            1019,
+            169,
+            163
+          ],
+          "margin": [
+            107,
+            75,
+            221,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1357,
+            2,
+            163,
+            172
+          ],
+          "margin": [
+            113,
+            69,
+            227,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1992,
+            1019,
+            176,
+            179
+          ],
+          "margin": [
+            100,
+            59,
+            214,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1524,
+            2,
+            166,
+            169
+          ],
+          "margin": [
+            110,
+            73,
+            224,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2170,
+            1019,
+            201,
+            186
+          ],
+          "margin": [
+            86,
+            52,
+            189,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1694,
+            2,
+            186,
+            165
+          ],
+          "margin": [
+            92,
+            76,
+            204,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2373,
+            1019,
+            198,
+            188
+          ],
+          "margin": [
+            88,
+            50,
+            192,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            2,
+            198,
+            190,
+            161
+          ],
+          "margin": [
+            88,
+            80,
+            200,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2573,
+            1019,
+            186,
+            171
+          ],
+          "margin": [
+            94,
+            67,
+            204,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            196,
+            198,
+            217,
+            162
+          ],
+          "margin": [
+            72,
+            78,
+            173,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2761,
+            1019,
+            229,
+            153
+          ],
+          "margin": [
+            67,
+            85,
+            161,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            417,
+            198,
+            213,
+            139
+          ],
+          "margin": [
+            78,
+            101,
+            177,
+            107
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cage_pounce_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            2992,
+            1019,
+            191,
+            124
+          ],
+          "margin": [
+            86,
+            114,
+            199,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            634,
+            198,
+            195,
+            130
+          ],
+          "margin": [
+            86,
+            111,
+            195,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3185,
+            1019,
+            210,
+            136
+          ],
+          "margin": [
+            78,
+            102,
+            180,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            833,
+            198,
+            198,
+            137
+          ],
+          "margin": [
+            85,
+            104,
+            192,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3397,
+            1019,
+            200,
+            140
+          ],
+          "margin": [
+            87,
+            98,
+            190,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1035,
+            198,
+            187,
+            138
+          ],
+          "margin": [
+            94,
+            102,
+            203,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3599,
+            1019,
+            198,
+            138
+          ],
+          "margin": [
+            86,
+            100,
+            192,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1226,
+            198,
+            195,
+            148
+          ],
+          "margin": [
+            87,
+            92,
+            195,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            3799,
+            1019,
+            220,
+            151
+          ],
+          "margin": [
+            76,
+            87,
+            170,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1425,
+            198,
+            196,
+            153
+          ],
+          "margin": [
+            88,
+            89,
+            194,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            0,
+            1213,
+            191,
+            159
+          ],
+          "margin": [
+            102,
+            79,
+            199,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1625,
+            198,
+            186,
+            161
+          ],
+          "margin": [
+            98,
+            80,
+            204,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            193,
+            1213,
+            201,
+            160
+          ],
+          "margin": [
+            99,
+            78,
+            189,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1815,
+            198,
+            187,
+            163
+          ],
+          "margin": [
+            98,
+            78,
+            203,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            396,
+            1213,
+            205,
+            171
+          ],
+          "margin": [
+            95,
+            67,
+            185,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            2,
+            369,
+            193,
+            173
+          ],
+          "margin": [
+            96,
+            67,
+            197,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            603,
+            1213,
+            175,
+            175
+          ],
+          "margin": [
+            103,
+            63,
+            215,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            199,
+            369,
+            170,
+            174
+          ],
+          "margin": [
+            104,
+            68,
+            220,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            780,
+            1213,
+            175,
+            175
+          ],
+          "margin": [
+            107,
+            63,
+            215,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            373,
+            369,
+            174,
+            180
+          ],
+          "margin": [
+            107,
+            61,
+            216,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            957,
+            1213,
+            184,
+            187
+          ],
+          "margin": [
+            104,
+            51,
+            206,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            551,
+            369,
+            176,
+            189
+          ],
+          "margin": [
+            112,
+            51,
+            214,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1143,
+            1213,
+            158,
+            191
+          ],
+          "margin": [
+            123,
+            47,
+            232,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            731,
+            369,
+            155,
+            178
+          ],
+          "margin": [
+            131,
+            63,
+            235,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cage_pounce_travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1303,
+            1213,
+            214,
+            182
+          ],
+          "margin": [
+            86,
+            56,
+            176,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            890,
+            369,
+            166,
+            185
+          ],
+          "margin": [
+            116,
+            56,
+            224,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/combat_motion_v7.png",
+          "region": [
+            1519,
+            1213,
+            199,
+            195
+          ],
+          "margin": [
+            96,
+            43,
+            191,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/motion_v8_01.png",
+          "region": [
+            1060,
+            369,
+            177,
+            193
+          ],
+          "margin": [
+            111,
+            47,
+            213,
+            53
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "cage_elite_snare",
+    "cage_elite_snare_recover",
+    "cage_elite_snare_windup",
+    "cage_pounce",
+    "cage_pounce_recover",
+    "cage_pounce_windup",
+    "recover",
+    "windup"
+  ]
+}

@@ -31,6 +31,7 @@ func prepare(crest:String="crimson",direction:int=1,skill:String="cleave") -> vo
         if child.get_script()!=null and child.get_script().resource_path=="res://scripts/player_tool_effect.gd":RETIREMENT.retire_tree(child);child.queue_free()
     await setup(crest,direction)
     build.state.unlocked_skills=build.catalog.skills.keys();build.state.mechanisms=["crimson","bell","salt"];build.cooldowns.clear()
+    build.state.crafted.append_array(["clasp_combat","spindle_skill"])
     var rows:Array=build.catalog.crests[crest].slot_layout.thread_skill;var slot:=0
     if not rows[0].compatible.has(skill):slot=1
     check(bool(build.select_skill(skill,slot).get("ok",false)),crest+" actual legal skill slot "+skill)
