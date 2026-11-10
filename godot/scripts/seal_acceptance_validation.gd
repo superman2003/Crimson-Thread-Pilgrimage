@@ -62,6 +62,9 @@ func _run() -> void:
     scene.story_flags["tool_mine_found"] = true
     scene.story_flags["charm_reflux_found"] = true
     scene.story_flags["charm_shell_found"] = true
+    # E04: the second skill position also needs the artisan's 线技绕轴, made
+    # here as the artisan would record it (artisan_crafts covers the purchase).
+    build.state.crafted.append("spindle_skill")
     scene._sync_player_build()
     for ability in ["thread_dash", "silk_wall_grip", "double_thread_jump", "echo_hook", "bell_guard", "thorn_downstrike", "lantern_phase", "crown_resonance"]:
         scene._add_inventory_item(ability, 1, false)

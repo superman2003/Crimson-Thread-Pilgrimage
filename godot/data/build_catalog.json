@@ -95,7 +95,8 @@
               "crown_pendant",
               "watchmans_knot"
             ],
-            "requires_mechanism": "crimson"
+            "requires_mechanism": "crimson",
+            "requires_part": "combat_clasp"
           }
         ],
         "travel_accessory": [
@@ -154,7 +155,8 @@
               "shockwave",
               "crosscut"
             ],
-            "requires_mechanism": "crimson"
+            "requires_mechanism": "crimson",
+            "requires_part": "skill_spindle"
           }
         ]
       },
@@ -244,7 +246,8 @@
               "crown_pendant",
               "watchmans_knot"
             ],
-            "requires_mechanism": "bell"
+            "requires_mechanism": "bell",
+            "requires_part": "combat_clasp"
           }
         ],
         "travel_accessory": [
@@ -304,7 +307,8 @@
               "needle",
               "crosscut"
             ],
-            "requires_mechanism": "bell"
+            "requires_mechanism": "bell",
+            "requires_part": "skill_spindle"
           }
         ]
       },
@@ -394,7 +398,8 @@
               "crown_pendant",
               "watchmans_knot"
             ],
-            "requires_mechanism": "salt"
+            "requires_mechanism": "salt",
+            "requires_part": "combat_clasp"
           }
         ],
         "travel_accessory": [
@@ -452,7 +457,8 @@
               "shockwave",
               "crosscut"
             ],
-            "requires_mechanism": "salt"
+            "requires_mechanism": "salt",
+            "requires_part": "skill_spindle"
           }
         ]
       },
@@ -1320,6 +1326,42 @@
       "artisan_name": "雨铸匠",
       "source": "军墓灯影照出旗手背带的扣法；司铸契印修好之后，雨铸匠认得这是同一种承力线结。",
       "unlock_hint": "黑曜巡礼道·军墓试炼首清取得「证据·军墓灯影」（只作图样，不会被收走）"
+    },
+    "clasp_combat": {
+      "name": "战斗承力扣",
+      "description": "渠底猎物爪痕拓出的扣法，改铸后能多挂一件战斗铭饰：三枚契印的第三个战斗铭饰槽都需要它。",
+      "kind": "slot_part",
+      "part": "combat_clasp",
+      "target": "combat_accessory",
+      "currency": 0,
+      "materials": {
+        "wet_chitin": 3
+      },
+      "requires_items": [
+        "evidence_canal_track"
+      ],
+      "artisan": "npc_threadsmith_apprentice",
+      "artisan_name": "织线学徒",
+      "source": "渠影爪痕记下了猎物扑咬时的受力方向；织线学徒照着它把扣环反过来缝。",
+      "unlock_hint": "铸雨渠·渠影追踪首清取得「证据·渠影爪痕」（只作图样，不会被收走）"
+    },
+    "spindle_skill": {
+      "name": "线技绕轴",
+      "description": "用蜂蜡固定的小绕轴，能同时绕住两种线技：三枚契印的第二个线技槽都需要它。",
+      "kind": "slot_part",
+      "part": "skill_spindle",
+      "target": "thread_skill",
+      "currency": 0,
+      "materials": {
+        "pollen_wax": 3
+      },
+      "requires_items": [
+        "evidence_beeswax_echo"
+      ],
+      "artisan": "npc_beeswax_vendor",
+      "artisan_name": "蜂蜡商人",
+      "source": "蜂蜡余响里有两股交替的振动；蜂蜡商人说，绕轴要按这个节拍上蜡才不打结。",
+      "unlock_hint": "断弦温室·蜂蜡试炼首清取得「证据·蜂蜡余响」（只作图样，不会被收走）"
     },
     "craft_tide_reel": {
       "name": "逆潮线轴·制作",

@@ -34,6 +34,8 @@ func run() -> void:
     model.state.unlocked_tools=model.catalog.tools.keys()
     model.state.unlocked_passives=model.catalog.passives.keys()
     model.state.mechanisms=["bell"]
+    # The endgame inventory includes the artisan slot parts (E04).
+    model.state.crafted.append_array(["clasp_combat","spindle_skill"])
     model.state.crest="bell"
     model._normalize_active_slots()
     var ui:=UI.new()
