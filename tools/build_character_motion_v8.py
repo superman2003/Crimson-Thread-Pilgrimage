@@ -25,6 +25,7 @@ BASE = ROOT / 'godot/assets/sprites/original_creatures'
 REF = 'ff8ab652b224523afbf8789a7b5ad98a676eb389'
 SPEC = REQUEST / 'specification.json'
 REFERENCE_SPEC = REQUEST / 'reference_specification.json'
+REGISTRATION_OVERRIDES = REQUEST / 'registration_overrides.json'
 PROMPT = '''Use case: identity-preserve. Asset type: production 2D game animation IN-BETWEEN drawings for Crimson Thread Pilgrimage.
 Input image 1 is a REFERENCE BOARD with SIX columns and FOUR rows: TWENTY-FOUR numbered transition cells. Within EACH cell the EARLIER endpoint is ABOVE and the LATER endpoint is BELOW. Order is row-major 1 through 24.
 Draw ONE genuinely NEW anatomical MIDPOINT pose halfway between the two endpoints in EACH corresponding cell. Output exactly TWENTY-FOUR separate full-body sprites, SIX columns by FOUR rows, 1536x1024 or larger 3:2 landscape. Output ONLY new midpoint drawings, never the endpoint drawings. If endpoints look nearly identical, articulate the tiny intermediate cloth/limb/antenna settling movement; do not invent a different action.
@@ -131,7 +132,7 @@ def prepare():
                 x=index%6*300;y=index//6*420
                 draw.text((x+8,y+3),f'{index+1:02}: {edge["animation"]} {edge["after"]}',fill='white')
                 for side,key in enumerate(['left','right']):
-                    im=cel(edge[key],reference_spec['baseline_commit']);im.thumbnail((270,174))
+                    im=cel(edge[key],REF);im.thumbnail((270,174))
                     board.paste(im,(x+(300-im.width)//2,y+25+side*195+174-im.height),im)
             (ROOT/reference).parent.mkdir(parents=True,exist_ok=True);board.save(ROOT/reference)
             plans.append(dict(id=job_id,kind=folder.name,reference=reference,
@@ -156,6 +157,12 @@ def register_job(job):
     if len(figures)!=24:raise ValueError(job['id']+': source must contain 24 complete sprites')
     used_hashes=[sha256(f['pixels'].tobytes()).hexdigest() for f in figures[:job['used_drawings']]]
     if len(set(used_hashes))!=len(used_hashes):raise ValueError(job['id']+': duplicated source cels cannot count as new drawings')
+    adjustments=read(REGISTRATION_OVERRIDES).get(job['id'],[]) if REGISTRATION_OVERRIDES.exists() else []
+    slots={(edge['animation'],edge['after']) for edge in job['edges']}
+    if any((item['animation'],item['after']) not in slots for item in adjustments):
+        raise ValueError(job['id']+': registration override has no matching drawing')
+    if len({(item['animation'],item['after']) for item in adjustments})!=len(adjustments):
+        raise ValueError(job['id']+': duplicate registration override')
     def mean_rgb(image):
         pixels=np.asarray(image);mask=pixels[:,:,3]>128
         if not mask.any():raise ValueError(job['id']+': no solid character ink')
@@ -173,6 +180,15 @@ def register_job(job):
         if lb is None or rb is None:raise ValueError(job['id']+': empty baseline endpoint')
         lh,rh=lb[3]-lb[1],rb[3]-rb[1]
         scale=(lh+rh)*.5/drawing['height']
+        adjustment=next((item for item in adjustments if (item['animation'],item['after'])==(edge['animation'],edge['after'])),None)
+        if adjustment is not None:
+            # Wing angle changes the full silhouette height independently of
+            # body size. Keep the independently drawn pose, with a reviewed
+            # uniform calibration instead of changing collision or stretching.
+            factor=float(adjustment['uniform_scale'])
+            if not math.isfinite(factor) or not .5<=factor<=1.5:
+                raise ValueError(job['id']+': invalid registration override scale')
+            scale*=factor
         im=im.resize((round(im.width*scale),round(im.height*scale)),Image.Resampling.LANCZOS)
         if not .15<=scale<=4:raise ValueError(job['id']+': unexpected drawing scale')
         baseline=(left['margin'][1]+lb[3]+right['margin'][1]+rb[3])*.5
@@ -184,6 +200,7 @@ def register_job(job):
         visible=im.getchannel('A').getbbox()
         result.append(dict(edge=edge,image=im,margin_xy=[round(sum(anchors)*.5-center),round(baseline-visible[3])],
                            source=job['source'],source_region=drawing['region'],source_index=index,scale=scale,rgb_gain=[round(float(v),6) for v in gain]))
+        if adjustment is not None:result[-1]['registration_adjustment']=adjustment
     return result
 
 

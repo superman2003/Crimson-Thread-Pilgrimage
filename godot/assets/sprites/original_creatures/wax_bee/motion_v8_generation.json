@@ -107,8 +107,8 @@
     },
     {
       "margin_xy": [
-        59,
-        62
+        72,
+        81
       ],
       "source": "art_requests/character_motion_v8/incoming/wax_bee__01.png",
       "source_region": [
@@ -118,12 +118,18 @@
         133
       ],
       "source_index": 3,
-      "scale": 1.312,
+      "scale": 1.15456,
       "rgb_gain": [
         0.924686,
         0.910579,
         0.856401
       ],
+      "registration_adjustment": {
+        "animation": "idle",
+        "after": 3,
+        "uniform_scale": 0.88,
+        "reason": "The lowered wings of the preceding pose make height-only registration enlarge this independently drawn loop midpoint. Uniformly reduce the complete sprite around the existing alpha-mass anchor and support baseline to preserve body scale and the production hurtbox fit."
+      },
       "animation": "idle",
       "after": 3
     },
