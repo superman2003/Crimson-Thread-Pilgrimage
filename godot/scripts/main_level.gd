@@ -2745,7 +2745,7 @@ func _build_map_overlay() -> void:
     title.position = Vector2(155, 20)
     title.add_theme_font_override("font",PILGRIMAGE_UI_SCRIPT.display_font())
     title.add_theme_font_size_override("font_size", 23)
-    title.add_theme_color_override("font_color", Color("e8d7b8"))
+    title.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     map_panel.add_child(title)
 
     ui_shell._button(map_panel,"返回",Vector2(1080,18),Vector2(62,34),func():_close_overlays())
@@ -2783,7 +2783,7 @@ func _build_map_overlay() -> void:
     map_text.size = Vector2(1108, 24) if world_mode else Vector2(1108, 110)
     map_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     map_text.add_theme_font_size_override("font_size", 14)
-    map_text.add_theme_color_override("font_color", Color(0.86, 0.90, 0.84))
+    map_text.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     map_panel.add_child(map_text)
     _build_wish_board_overlay()
 
@@ -2820,15 +2820,15 @@ func _build_wish_board_overlay() -> void:
     title.text = "巡礼愿板"
     title.position = Vector2(16, 12)
     title.add_theme_font_size_override("font_size", 20)
-    title.add_theme_color_override("font_color", Color("bda176"))
+    title.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.GOLD)
     wish_panel.add_child(title)
 
     wish_text = Label.new()
     wish_text.position = Vector2(16, 48)
     wish_text.size = Vector2(284, 332)
     wish_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    wish_text.add_theme_font_size_override("font_size", 13)
-    wish_text.add_theme_color_override("font_color", Color(0.86, 0.91, 0.84))
+    wish_text.add_theme_font_size_override("font_size", 14)
+    wish_text.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     wish_panel.add_child(wish_text)
     _refresh_wish_board_overlay()
 
@@ -3331,7 +3331,7 @@ func _refresh_map_overlay() -> void:
         label.position = overlay_rect.position + (Vector2(4.0, 4.0) if uses_layout else Vector2(6.0, 48.0))
         label.size = Vector2(maxf(62.0, room_size.x - 4.0), 42.0)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.add_theme_font_size_override("font_size", 11 if uses_layout and not current else (12 if uses_layout else (13 if current else 12)))
+        label.add_theme_font_size_override("font_size", 11 if uses_layout and not current else (12 if uses_layout else (14 if current else 12)))
         label.add_theme_color_override("font_color", Color(0.88, 1.0, 0.95) if current else (Color(0.86, 0.94, 0.80) if visited else Color(0.50, 0.56, 0.52)))
         map_draw_root.add_child(label)
 
@@ -3975,7 +3975,7 @@ func _on_skill_practice_hit(skill_id: String, target: Area2D=null, serial: int=0
     var result:=_persist_world_change({"story_flags":flags})
     if not result.ok:_toast("练习已达标，记录尚未写入；下次有效施放会重试。");return
     world_state.data=result.candidate;story_flags=flags
-    _toast("已练熟「%s」：可找工匠选择校习方向。" % String(build_system.catalog.skills[skill_id].get("name",skill_id)))
+    _toast("已练熟「%s」· 找工匠选方向" % String(build_system.catalog.skills[skill_id].get("name",skill_id)))
 
 
 func _environment_block(data: Dictionary) -> void:
@@ -4075,7 +4075,7 @@ func _build_hud_labels() -> void:
     lore_banner_label.size=Vector2(620,54)
     lore_banner_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     lore_banner_label.add_theme_font_size_override("font_size",17)
-    lore_banner_label.add_theme_color_override("font_color",Color("e8ddc3"))
+    lore_banner_label.add_theme_color_override("font_color",PILGRIMAGE_UI_SCRIPT.IVORY)
     lore_banner_label.visible=false
     ui_shell.add_child(lore_banner_label)
     win_label=Label.new()
@@ -4213,7 +4213,7 @@ func _void_respawn() -> void:
             world_platforms.warm(self, active_spawn)
         player.reset_camera_after_arrival()
         _save_world()
-        _toast("坠落损失一格生命，绯线带你回到钟龛。能量保持当前值。")
+        _toast("坠落 · 生命 -1")
         _refresh_hud()
         return
     if player.has_method("restore_at_save_point"):
@@ -4222,7 +4222,7 @@ func _void_respawn() -> void:
         player.respawn_at(active_spawn)
     else:
         player.global_position = active_spawn
-    _toast("绯线牵你回到了上一处钟龛。")
+    _toast("回到钟龛")
     _update_room_visit()
     _refresh_hud()
 
@@ -5859,6 +5859,8 @@ func _start_boss_trial() -> void:
             player.set_spawn(trial_spawn)
         if player.has_method("restore_at_save_point"):
             player.restore_at_save_point()
+        if player.has_method("reset_camera_after_arrival"):
+            player.reset_camera_after_arrival()
     _spawn_boss()
     if boss_spawned and not demo_complete:
         if boss_trial_mode or not config.get("interactives", []).is_empty():
@@ -6036,7 +6038,7 @@ func _activate_hunt_track(area: Area2D) -> void:
     else:
         var ready := _challenge_tracks_ready(challenge)
         if ready and not challenge.is_empty():
-            _toast("%s · 残迹齐了，去敲响猎物的余响钟。" % String(challenge.get("name", "追踪狩猎")))
+            _toast("%s · 残迹已齐 · 去敲余响钟" % String(challenge.get("name", "追踪狩猎")))
         elif not hint.is_empty():
             _toast(hint)
         else:
@@ -6059,7 +6061,7 @@ func _activate_challenge_shrine(area: Area2D) -> void:
         _grant_optional_challenge_reward(challenge)
         return
     if String(challenge.get("kind", "")) == "tracking_hunt" and not _challenge_tracks_ready(challenge):
-        _toast("%s · 猎物尚未显形，先循着渠影残迹。" % String(challenge.get("name", "追踪狩猎")))
+        _toast("%s · 猎物未显形 · 先找残迹" % String(challenge.get("name", "追踪狩猎")))
         return
     if not active_challenge_id.is_empty():
         _toast("先了结当前的可选挑战。")
@@ -6197,7 +6199,7 @@ func _abort_challenge_if_left_room() -> void:
             enemy_node._cancel_attack_effects()
         enemy_node.queue_free()
     _clear_active_challenge(false)
-    _toast("离开试炼，余响钟复位；随时可以回来再敲。")
+    _toast("离开试炼")
 
 
 func _on_challenge_enemy_died(spawn_id: String) -> void:
@@ -6428,9 +6430,23 @@ func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
         _announce_lore_pickup(String(source.item));_play_sfx("pickup_cloth",-12.0)
     _play_sfx("pickup")
     if metsys_bridge!=null:metsys_bridge.store_object(area)
-    _toast(String(source.message));_spawn_pickup_effect(area.global_position)
+    _toast(_capacity_fragment_message(String(source.item),String(source.message)));_spawn_pickup_effect(area.global_position)
     area.queue_free();_refresh_hud();_refresh_wish_board_overlay()
     if active_overlay=="backpack":_refresh_backpack_overlay()
+
+## Workshop capacity fragments report their set progress, or the finished
+## item when a set completes; any other pickup keeps its own label.
+func _capacity_fragment_message(item_id: String, fallback: String) -> String:
+    var upgrade: Variant = build_system.catalog.get("permanent_upgrades", {}).get(item_id) if build_system != null else null
+    if not upgrade is Dictionary or int(upgrade.get("per", 1)) <= 1:
+        return fallback
+    var per := int(upgrade.per)
+    var count := int(inventory_counts.get(item_id, 0))
+    if count > 0 and count % per == 0:
+        var gain := "最大生命 +%d" if String(upgrade.stat) == "max_hp" else "绯线上限 +%d"
+        return "%s编成 · %s" % [_item_display_name(item_id.trim_suffix("_fragment")), gain % int(upgrade.amount)]
+    return "%s %d / %d" % [_item_display_name(item_id), count % per, per]
+
 
 func _on_collectible_body_entered_legacy(body: Node, area: Area2D) -> void:
     if world_loading:
@@ -6683,7 +6699,7 @@ func _activate_lever(area: Area2D) -> void:
         return
     if _combat_progression_enabled() and not _shortcut_is_lever_controlled(shortcut_id):
         if not _combat_goal_met():
-            _toast("清除附近的敌群，才能接通钟门前的道路。")
+            _toast("先清除附近敌群")
             return
         _open_shortcut(shortcut_id)
         _play_sfx("lever")
@@ -6691,7 +6707,7 @@ func _activate_lever(area: Area2D) -> void:
         return
     var required_keys := int(area.get_meta("requires_keys", max_bells))
     if bell_count < required_keys:
-        _toast("Shortcut needs %d route marks. You have %d." % [required_keys, bell_count])
+        _toast("捷径需要 %d 枚路标 · 现有 %d" % [required_keys, bell_count])
         return
     _open_shortcut(shortcut_id)
     _play_sfx("lever")
@@ -6718,7 +6734,7 @@ func _open_shortcut(shortcut_id: String = "") -> void:
     # 捷径门接通（音频规格 §4.5 ui_door_open）："绕回来了"的木门吱呀。
     _play_sfx("door_open", -9.0)
     var progress := "%d/%d" % [_opened_shortcut_total(), max(1, _shortcut_total())]
-    _toast("捷径已通（%s）。钟门前可以先在钟龛休息。" % progress)
+    _toast("捷径已通 · %s" % progress)
     _refresh_hud()
     _save_world()
 
@@ -6769,7 +6785,7 @@ func _activate_chapter_exit(area: Area2D) -> void:
     if not _can_interact_with_world() or area == null or not is_instance_valid(area):
         return
     if not _chapter_exit_can_open(area):
-        _toast("击败本章守门者后，前路才会开启。")
+        _toast("需先击败守门者")
         return
     var kind := String(area.get_meta("kind", "chapter_exit"))
     if kind == "ending_exit":
@@ -6914,7 +6930,7 @@ func _spawn_ending_gates(announce: bool = false) -> void:
         area.body_entered.connect(_on_interactable_entered.bind(area))
         area.body_exited.connect(_on_interactable_exited.bind(area))
         add_child(area)
-    _toast("守门者陨落。结局之门显现，按 F 抉择。")
+    _toast("守门者陨落 · 结局之门显现")
 
 
 func _ending_gate_missing_requirements(requires_value: Variant) -> Array[String]:
@@ -7021,13 +7037,13 @@ func _activate_boss_gate() -> void:
     if not _can_interact_with_world():
         return
     if demo_complete:
-        _toast("守门者已经倒下，前路已开启。")
+        _toast("前路已开启")
         return
     if not boss_unlocked:
         if _combat_progression_enabled():
-            _toast("钟门未应。先探索洞道并接通捷径拉杆。" if bool(config.get("boss_route_via_exploration",false)) else "钟门未应。先清除本区敌群。")
+            _toast("钟门未应 · 先接通捷径拉杆" if bool(config.get("boss_route_via_exploration",false)) else "钟门未应 · 先清除本区敌群")
         else:
-            _toast("钟门未应。先接通附近的捷径。")
+            _toast("钟门未应 · 先接通捷径")
         return
     _spawn_boss()
     if boss_spawned and not demo_complete:
@@ -7407,7 +7423,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             _open_combat_clear_route()
             _play_sfx("door_open", -9.0)
             # One toast label: keep the elite reward visible alongside the clear.
-            _toast("本区敌群已清，钟门前的道路开启。" + ("" if elite_message.is_empty() else " " + elite_message))
+            _toast("本区敌群已清 · 钟门道路开启" + ("" if elite_message.is_empty() else " " + elite_message))
     _refresh_hud()
     _save_world()
 
@@ -7481,6 +7497,8 @@ func _reset_encounters_after_player_death() -> void:
             player.global_position = active_spawn
             if player.has_method("restore_at_save_point"):
                 player.restore_at_save_point()
+            if player.has_method("reset_camera_after_arrival"):
+                player.reset_camera_after_arrival()
         _defer_region_call("_respawn_boss_trial_boss")
         _toast("试炼重置 · 守门者已经归位。")
     else:
@@ -7490,7 +7508,7 @@ func _reset_encounters_after_player_death() -> void:
             audio_director.stop_boss_music()
         else:
             _switch_bgm("bgm_ch01")
-        _toast("归途重新开始，敌群与守门者已经归位。")
+        _toast("重新开始 · 敌群已归位")
     _refresh_hud()
 
 
@@ -7637,7 +7655,9 @@ func _announce_lore_pickup(item_id: String) -> void:
     var lore_lines: Array = lore_entry.get("lore", [])
     if lore_lines.is_empty():
         return
-    var text := "拾获「%s」——%s" % [_item_display_name(item_id), String(lore_lines[0])]
+    # The inscription itself is the item's backpack description; the banner
+    # only names the find (U01 less text).
+    var text := "拾获「%s」" % _item_display_name(item_id)
     _show_lore_banner(text)
     print("LORE_PICKUP " + text)
 
@@ -8494,7 +8514,7 @@ func _record_death_cache() -> void:
     currency_count=int(result.candidate.currency)
     death_recorded=true
     _spawn_death_cache()
-    _toast("碎钱的一半留在归途结；再次倒下会替换旧结，能力与装备保留。" if result.ok else "这次失落已暂记在旅途中，存档尚未写入；请稍后保存。")
+    _toast("一半碎钱留在归途结" if result.ok else "这次失落已暂记在旅途中，存档尚未写入；请稍后保存。")
 
 
 func _spawn_death_cache() -> void:
@@ -8543,7 +8563,7 @@ func _recover_death_cache(area: Area2D) -> void:
     world_state.data=result.candidate
     currency_count=int(result.candidate.currency)
     area.queue_free();death_cache_area=null
-    _toast("归途结已收回，遗留碎钱回到行囊。")
+    _toast("归途结已收回")
     _refresh_hud()
 
 

@@ -355,7 +355,7 @@ func verify_world_hud() -> void:
         if crest!="salt": check(world.ui_shell.mechanism_status.text.contains("疾行" if crest=="crimson" else "抗击退"),crest+": completed-heal effect window is visible")
         world.player.heal_cooldown=0.0
         world.ui_shell._refresh_combat_status(world.player)
-        check(label.text.contains("生命已满"),crest+": full-health HUD matches unavailable heal")
+        check(not label.visible,crest+": full-health HUD hides the heal line (nothing to do)")
         world.player.build_profile.mechanism_unlocked=false
         world.ui_shell._refresh_combat_status(world.player)
         check(world.ui_shell.mechanism_status.text.contains("尚未修复"),crest+": unrepaired mechanism has explicit HUD state")

@@ -1,0 +1,127 @@
+{
+  "engine": "Godot 4.6.1 / native NVIDIA OpenGL compatibility",
+  "gameplay_verification": "native GL; no physical controller-feel claim",
+  "source_hashes": {
+    "godot/scripts/player_controller.gd": "d7b31051ccb23e6bcca2123040f62767855b84a3f55389556f3ca406ad5179f0",
+    "godot/scripts/thread_doll_run_cycle.gd": "97413ac3facc84d69aa2b6aec50208e4804713827e470afe3e82e59c7bebb595",
+    "godot/scripts/thread_doll_run_presentation.gd": "d77094906ee577d8552bb3bef84ce51f96c69f6f88cba841594359303a0df8cc",
+    "godot/assets/sprites/player/thread_doll_v1/manifest.json": "0a359d28c4b64518635f1b0d8bc48a471f87a132095d6d85d9269760e386dcad",
+    "tools/build_thread_doll.py": "0ef63f3c14128c356de7b1e789b71e67bd0d10955642cedae04e7674d55583d5",
+    "godot/scripts/audio_director.gd": "b47b2b5090aa6c156a24fab0a4690d70bb409f8ec3f379c48ff661bc07781a65"
+  },
+  "results": [
+    {
+      "suite": "hero_animation",
+      "passed": true,
+      "marker": "HERO_ANIMATION_VALIDATION checks=620 failures=0"
+    },
+    {
+      "suite": "grounded_run",
+      "passed": true,
+      "marker": "GROUNDED_RUN checks=10442 failures=0 max_live_sole_slip=0.000252"
+    },
+    {
+      "suite": "player_motion_continuity",
+      "passed": true,
+      "marker": "PLAYER_MOTION_CONTINUITY checks=1328 failures=0"
+    },
+    {
+      "suite": "player_idle_motion",
+      "passed": true,
+      "marker": "PLAYER_IDLE_MOTION checks=233 failures=0 pixels_complete=true"
+    },
+    {
+      "suite": "player_melee_feedback",
+      "passed": true,
+      "marker": "PLAYER_MELEE_FEEDBACK_PASS checks=85 hardware=simulated physical_feel=unverified"
+    },
+    {
+      "suite": "player_basic_attack_vfx",
+      "passed": true,
+      "marker": "PLAYER_BASIC_ATTACK_VFX checks=2055 failures=0"
+    },
+    {
+      "suite": "player_hook_art",
+      "passed": true,
+      "marker": "PLAYER_HOOK_ART checks=88 failures=0"
+    },
+    {
+      "suite": "player_guard_art",
+      "passed": true,
+      "marker": "PLAYER_GUARD_ART checks=113 failures=0"
+    },
+    {
+      "suite": "player_heal_art",
+      "passed": true,
+      "marker": "PLAYER_HEAL_ART checks=95 failures=0"
+    },
+    {
+      "suite": "player_dash_art",
+      "passed": true,
+      "marker": "PLAYER_DASH_ART checks=77 failures=0"
+    },
+    {
+      "suite": "player_hurt_art",
+      "passed": true,
+      "marker": "PLAYER_HURT_ART checks=99 failures=0"
+    },
+    {
+      "suite": "player_movement_art",
+      "passed": true,
+      "marker": "PLAYER_MOVEMENT_ART checks=91 failures=0"
+    },
+    {
+      "suite": "player_ability_art",
+      "passed": true,
+      "marker": "PLAYER_ABILITY_ART checks=141 failures=0"
+    },
+    {
+      "suite": "seal_combat",
+      "passed": true,
+      "marker": "SEAL_COMBAT_VALIDATION PASS checks=195 failures=0"
+    },
+    {
+      "suite": "ability_movement",
+      "passed": true,
+      "marker": "ABILITY_MOVEMENT_VALIDATION failures=0"
+    },
+    {
+      "suite": "camera_focus",
+      "passed": true,
+      "marker": "CAMERA_FOCUS checks=86 failures=0"
+    },
+    {
+      "suite": "room_camera_stability",
+      "passed": true,
+      "marker": "ROOM_CAMERA_STABILITY checks=86 failures=0 player_integration=true metrics={\"air_stop_actual_frames\":9,\"air_stop_entry_peak_speed\":3699.99682617188,\"air_stop_min_feet_margin\":197.11669921875,\"air_stop_min_head_margin\":278.7392578125,\"double_jump_camera_rise\":46.266845703125,\"double_jump_min_head_margin\":45.5430908203125,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"horizontal_dash_max_center_error\":13.0,\"horizontal_room_max_center_error\":4.75006103515625,\"horizontal_room_max_frame_step\":4.75006103515625,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":193.76025390625,\"shaft_fall_min_head_margin\":215.1826171875,\"shaft_fall_peak_speed\":3669.16357421875,\"wall_slide_actual_frames\":53,\"wall_slide_entry_peak_speed\":3915.82958984375,\"wall_slide_min_feet_margin\":190.3818359375,\"wall_slide_min_head_margin\":209.05029296875}"
+    },
+    {
+      "suite": "combat_visual_budget",
+      "passed": true,
+      "marker": "COMBAT_VISUAL_BUDGET checks=44 failures=0 real_gl=true"
+    },
+    {
+      "suite": "character_art_prewarm",
+      "passed": true,
+      "marker": "CHARACTER_ART_PREWARM checks=862 failures=0 sync_loads=0"
+    },
+    {
+      "suite": "audio_construction",
+      "passed": true,
+      "marker": "AUDIO_CONSTRUCTION checks=252 failures=0"
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "marker": "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+    },
+    {
+      "suite": "ai_music_pack",
+      "passed": true,
+      "marker": "AI_MUSIC_PACK checks=200 failures=0"
+    }
+  ],
+  "pack_probe": "THREAD_DOLL_PACK actions=32 retired_human_assets=0 failures=0",
+  "pack_world_probe": "THREAD_DOLL_PACK_WORLD ready=true actions=32 audio=true failures=0",
+  "capture": "480 gameplay frames at fixed 60Hz; 516 manual gallery frames, encoded at24fps for inspection; not a frame-time benchmark"
+}

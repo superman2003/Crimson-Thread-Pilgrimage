@@ -12,6 +12,7 @@ import re
 import shutil
 import ssl
 import tempfile
+import subprocess
 import time
 import urllib.error
 import urllib.request
@@ -54,6 +55,28 @@ def parse_checksums(text):
     return hashes
 
 
+RELEASE_URL = re.compile(r'https://github\.com/([\w.-]+/[\w.-]+)/releases/download/([^/]+)/([^/]+)')
+
+
+def fetch_with_gh(url, pending):
+    """Authenticated GitHub API download when CI provides GH_TOKEN; anonymous
+    release downloads time out during GitHub surges. Returns False to fall back."""
+    match = RELEASE_URL.fullmatch(url)
+    if match is None or not os.environ.get('GH_TOKEN') or shutil.which('gh') is None:
+        return False
+    repo, tag, asset = match.groups()
+    try:
+        result = subprocess.run(['gh', 'release', 'download', tag, '-R', repo, '-p', asset, '-O', str(pending), '--clobber'],
+                                capture_output=True, text=True, timeout=600)
+    except (subprocess.TimeoutExpired, OSError) as error:
+        print(f'gh release download failed, falling back: {error}', flush=True)
+        return False
+    if result.returncode != 0:
+        print(f'gh release download failed, falling back: {result.stderr.strip()[:200]}', flush=True)
+        return False
+    return True
+
+
 def download(url, target, expected=None, *, attempts=5, timeout=45, sleep=time.sleep):
     """A partial or unverified response never replaces the destination."""
     if type(attempts) is not int or attempts < 1 or timeout <= 0:
@@ -67,6 +90,11 @@ def download(url, target, expected=None, *, attempts=5, timeout=45, sleep=time.s
         with tempfile.NamedTemporaryFile(prefix=target.name+'.', suffix='.part', dir=target.parent, delete=False) as handle:
             pending = Path(handle.name)
         try:
+            if attempt == 1 and fetch_with_gh(url, pending):
+                if expected is not None and sha512(pending) != expected:
+                    raise DownloadIntegrityError('Official SHA512 mismatch: '+target.name)
+                pending.replace(target)
+                return target
             with urllib.request.urlopen(url, timeout=timeout) as response, pending.open('wb') as output:
                 length = response.headers.get('Content-Length')
                 count = 0

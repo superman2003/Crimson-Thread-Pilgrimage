@@ -33,6 +33,7 @@ func focus(prop: Area2D) -> void:
     scene._close_overlays()
     scene.player.global_position=prop.global_position
     scene.player.velocity=Vector2.ZERO
+    scene.player.reset_camera_after_arrival()
     scene.set_process(true)
     await frames(6)
     scene.set_process(false)
@@ -59,6 +60,7 @@ func photograph(prop: Area2D) -> void:
     camera.position_smoothing_enabled=false
     camera.position=Vector2.ZERO
     camera.offset=Vector2.ZERO
+    camera.reset_physics_interpolation()
     camera.force_update_scroll()
     scene.ui_shell.visible=false
     scene.player.visible=false
@@ -66,7 +68,9 @@ func photograph(prop: Area2D) -> void:
     var image := root.get_texture().get_image()
     var center := prop.get_global_transform_with_canvas().origin
     var rect := Rect2i(int(center.x)-130,int(center.y)-108,260,180).intersection(Rect2i(Vector2i.ZERO,image.get_size()))
-    image.get_region(rect).save_png(capture_dir+"/"+String(prop.entry.id)+".png")
+    check(rect.size==Vector2i(260,180),"manual camera cut keeps the entire observed artifact inside its photograph")
+    if rect.has_area():
+        image.get_region(rect).save_png(capture_dir+"/"+String(prop.entry.id)+".png")
     scene.ui_shell.visible=true
     scene.player.visible=true
 

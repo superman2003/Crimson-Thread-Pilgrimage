@@ -119,7 +119,6 @@ func run() -> void:
             check(not scene.cave_world.intersects_rect(Rect2(outside-Vector2(0.001,0.001),Vector2(0.002,0.002))),id+" rim faces air rather than another solid")
             check(scene.cave_world.intersects_rect(Rect2(inside-Vector2(0.001,0.001),Vector2(0.002,0.002))),id+" rim has authoritative rock support")
         check(ceiling_count>0 and ceiling_count<mass.rim_descriptors.size(),id+" independent top and bottom art present")
-        var camera: Camera2D = scene.player.get_node("Camera2D")
         var covered_rooms := 0
         var peak := 0
         var terrain_rims := 0
@@ -127,8 +126,9 @@ func run() -> void:
             var r: Array = room.get("layout_rect",[])
             if r.size()!=4: continue
             scene.player.position = Vector2(r[0]+r[2]*0.5,r[1]+r[3]*0.5)
-            camera.reset_smoothing()
-            camera.force_update_scroll()
+            # The fixture teleports with processing disabled. Use the arrival
+            # path so room bounds and interpolation describe this room's view.
+            scene.player.reset_camera_after_arrival()
             await process_frame
             await process_frame
             mass._refresh_view()

@@ -37,7 +37,7 @@ func _ready() -> void:
     column.add_child(device_status)
     response_preview=preload("res://scripts/stick_response_meter.gd").new()
     response_preview.custom_minimum_size=Vector2(660,120);column.add_child(response_preview)
-    var legend:=Label.new();legend.text="灰区：暂存死区 · 白点：原始轴 · 金点：逐轴预估\n预估仅展示普通摇杆轴；实际动作还取决于改键，扳机与菜单保留原规则。";legend.add_theme_font_size_override("font_size",13);column.add_child(legend)
+    var legend:=Label.new();legend.text="灰区：暂存死区 · 白点：原始轴 · 金点：逐轴预估\n预估仅展示普通摇杆轴；实际动作还取决于改键，扳机与菜单保留原规则。";legend.add_theme_font_size_override("font_size",12);column.add_child(legend)
     var label := Label.new();label.text = "摇杆死区 10%—60%（偏大可抑制漂移，偏小更灵敏）";column.add_child(label)
     var measurement := HBoxContainer.new();column.add_child(measurement)
     measure_button=Button.new();measure_button.text="测量中立漂移（3秒）";measurement.add_child(measure_button)
@@ -52,7 +52,7 @@ func _ready() -> void:
     var modes := HBoxContainer.new();column.add_child(modes)
     for row in [["comfort","低闪光与轻震动"],["reading","大字慢字幕"],["controller_default","手柄默认"],["visual_default","阅读画面默认"]]:
         var id: String = row[0]
-        var button := Button.new();button.text = row[1];button.add_theme_font_size_override("font_size",13);modes.add_child(button)
+        var button := Button.new();button.text = row[1];button.add_theme_font_size_override("font_size",14);modes.add_child(button)
         button.pressed.connect(func():choose_preset(id))
     var changes_scroll:=ScrollContainer.new();changes_scroll.custom_minimum_size=Vector2(660,135);changes_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;column.add_child(changes_scroll)
     changes = Label.new();changes.custom_minimum_size = Vector2(630,0);changes.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;changes_scroll.add_child(changes)

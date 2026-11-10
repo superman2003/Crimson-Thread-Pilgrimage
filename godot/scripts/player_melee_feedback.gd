@@ -1,6 +1,6 @@
 extends RefCounted
 ## Presentation only. Anchors are measured from this project's packaged hero
-## frames (384 x 384) by tools/build_hero_supplement_motion.py; no borrowed
+## thread-doll frames (384 x 384) by tools/build_thread_doll.py; no borrowed
 ## effect assets or combat geometry live here.
 ## Authored contact pixels and measured weapon anchors; no emitted blade trail.
 
@@ -9,7 +9,7 @@ const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 const SOURCE_SIZE := Vector2(384.0, 384.0)
 const CONTACT_SECONDS := 0.065
-const ANCHOR_FILE := "res://assets/sprites/player/generated_hero_motion_v4/runtime_supplement/blade_anchors.json"
+const ANCHOR_FILE := "res://assets/sprites/player/thread_doll_v1/blade_anchors.json"
 ## animation -> per-frame [root, tip]; an empty frame has no visible blade.
 static var BLADE_ANCHORS: Dictionary = _load_blade_anchors()
 

@@ -1,7 +1,7 @@
 extends SceneTree
 ## U01: on the four main pages (and the backpack journal view) every visible
-## text uses the shared type scale
-## and fits the control it is drawn in. Production World pages at 1280x720.
+## text uses the shared type scale and fits the control it is drawn in; the
+## World HUD uses the same scale plus its room name. Production World at 1280x720.
 const READY := preload("res://scripts/world_ready_validation_helper.gd")
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 const UI := preload("res://scripts/pilgrimage_interface.gd")
@@ -66,14 +66,14 @@ func overflows(control: Control) -> bool:
 			padding += (arrow.get_width() if arrow != null else 0.0) + control.get_theme_constant("arrow_margin")
 	return width + padding > control.size.x + 1.0
 
-func audit(name: String, page_root: Node) -> void:
+func audit(name: String, page_root: Node, scale: Array = TYPE.SCALE) -> void:
 	var off_scale: Array = []
 	var clipped: Array = []
 	var seen := {}
 	for control in texts(page_root, []):
 		var size := size_of(control)
 		seen[size] = int(seen.get(size, 0)) + 1
-		if not TYPE.SCALE.has(size):
+		if not scale.has(size):
 			off_scale.append(describe(control))
 		if overflows(control):
 			clipped.append(describe(control))
@@ -123,6 +123,36 @@ func equipment_page() -> void:
 	if FileAccess.file_exists("user://page_type_scale_fixture.cfg"):
 		DirAccess.remove_absolute("user://page_type_scale_fixture.cfg")
 
+## The HUD with every line it can show filled with its longest usual text.
+func hud() -> void:
+	world._close_overlays()
+	var ui: Control = world.ui_shell
+	# Hold the HUD still so its own timers do not clear the sample lines.
+	ui.set_process(false)
+	world.player.hp = world.player.max_hp - 1
+	world.player.energy = 0
+	ui._refresh_combat_status(world.player)
+	ui.toast.text = "取得：回声钩索"
+	ui.toast.visible = true
+	ui.prompt.text = "F · 通行：盐风归庭索道"
+	ui.prompt.visible = true
+	ui.boss_name.text = "盐白契约判官"
+	ui.boss_name.visible = true
+	ui.pinned.text = "追踪：前往黑曜巡礼道，寻找无声王冠的钥匙"
+	ui.pinned.visible = true
+	ui.tutorial_hint.text = "%s 跳跃   /   %s 普攻   /   %s 治疗" % ["Space", "LMB/J", "RMB"]
+	ui.tutorial_hint.visible = true
+	await frames(2)
+	check(ui.healing_status.visible, "the heal line shows while a heal is wanted")
+	audit("hud", ui, TYPE.HUD_SCALE)
+	world.player.hp = world.player.max_hp
+	world.player.energy = world.player.max_energy
+	ui._refresh_combat_status(world.player)
+	check(not ui.healing_status.visible, "the heal line hides at full health")
+	for control in [ui.toast, ui.prompt, ui.boss_name, ui.pinned, ui.tutorial_hint]:
+		control.visible = false
+	ui.set_process(true)
+
 func open_page(page: String) -> void:
 	world._close_overlays()
 	await frames(2)
@@ -147,6 +177,7 @@ func run() -> void:
 	root.add_child(world)
 	await READY.wait_for(world)
 	await frames(6)
+	await hud()
 	for page in PAGES:
 		await open_page(page)
 		var off_scale: Array = []

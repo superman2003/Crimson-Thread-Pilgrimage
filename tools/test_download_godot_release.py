@@ -84,6 +84,40 @@ class ReleaseDownload(unittest.TestCase):
         self.assertEqual(self.delays, [5,10])
         self.assertEqual(list(self.root.glob('*.part')), [])
 
+    def test_authenticated_gh_download_is_used_and_verified(self):
+        def fake_gh(url, pending):
+            Path(pending).write_bytes(b'actual')
+            return True
+        with patch('download_godot_release.fetch_with_gh', side_effect=fake_gh):
+            self.assertEqual(self.fetch(digest(b'actual')).read_bytes(), b'actual')
+        self.assertNotIn('/payload', self.calls)
+
+    def test_wrong_gh_bytes_fall_back_to_verified_http(self):
+        def fake_gh(url, pending):
+            Path(pending).write_bytes(b'tampered')
+            return True
+        self.actions['/payload'] = [(200,b'actual',{})]
+        with patch('download_godot_release.fetch_with_gh', side_effect=fake_gh):
+            self.assertEqual(self.fetch(digest(b'actual')).read_bytes(), b'actual')
+        self.assertEqual(self.calls['/payload'], 1)
+        self.assertEqual(list(self.root.glob('*.part')), [])
+
+    def test_gh_path_needs_a_release_url_token_and_cli(self):
+        url = 'https://github.com/godotengine/godot/releases/download/4.6.1-stable/SHA512-SUMS.txt'
+        pending = self.root/'pending'
+        with patch.dict('os.environ', {}, clear=True), patch('download_godot_release.subprocess.run') as run:
+            self.assertFalse(release.fetch_with_gh(url, pending))
+            run.assert_not_called()
+        with patch.dict('os.environ', {'GH_TOKEN': 'token'}), patch('download_godot_release.shutil.which', return_value='/usr/bin/gh'), \
+                patch('download_godot_release.subprocess.run') as run:
+            self.assertFalse(release.fetch_with_gh(self.base+'payload', pending))
+            run.assert_not_called()
+            run.return_value.returncode = 1
+            run.return_value.stderr = 'HTTP 504'
+            self.assertFalse(release.fetch_with_gh(url, pending))
+            self.assertEqual(run.call_args.args[0][:5], ['gh', 'release', 'download', '4.6.1-stable', '-R'])
+            self.assertIn('godotengine/godot', run.call_args.args[0])
+
     def test_permanent_error_is_not_retried(self):
         with self.assertRaises(urllib.error.HTTPError):
             self.fetch(digest(b'actual'))

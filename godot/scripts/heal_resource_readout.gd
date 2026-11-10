@@ -1,6 +1,8 @@
 extends RefCounted
 ## Read-only description of the actual paid channel, separate from the next
 ## heal's affordability. No timers, refunds, HP or inventory are changed here.
+const TYPE := preload("res://scripts/ui_type_scale.gd")
+
 static func whole(value: Variant, fallback: int = 0) -> int:
     if not (value is int or value is float):
         return fallback
@@ -62,7 +64,7 @@ static func create_label(parent: Control, font: Font, tint: Color) -> Label:
     label.clip_text = true
     label.mouse_filter = Control.MOUSE_FILTER_PASS
     label.add_theme_font_override("font", font)
-    label.add_theme_font_size_override("font_size", 13)
+    label.add_theme_font_size_override("font_size", TYPE.CONTROL)
     label.add_theme_color_override("font_color", tint)
     label.visible = false
     parent.add_child(label)

@@ -67,6 +67,9 @@ static func attach_contact(host: Node, item: Node2D) -> bool:
         return false
     item.z_as_relative = false
     item.z_index = CONTACT_Z
+    # These are render-clock contact decorations, not simulated bodies. Their
+    # impact position is assigned after attachment and must appear immediately.
+    item.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
     host.add_child(item)
     item.add_to_group(CONTACT_GROUP)
     return true

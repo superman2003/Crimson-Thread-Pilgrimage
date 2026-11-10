@@ -56,6 +56,20 @@ TARGETS = {
     'lantern_phase': [(2, 'tide_listening_cell', 'tide_floor', 1760, '潮影检修室'), (4, 'beeswax_nook', 'bw_floor', 5070, '蜂蜡影闩室')],
     'crown_resonance': [(1, 'crown_treasury', 'ct_floor', 6600, '无名钟契库'), (3, 'secret_nook', 'nook_floor', 1310, '删名契约暗柜')],
 }
+# Workshop growth: abilities with three workshops give heart-knot fragments,
+# those with two give spindle fragments (four fragments make one item).
+CAPACITY_FRAGMENTS = {
+    'thorn_downstrike': 'heart_knot_fragment', 'bell_guard': 'heart_knot_fragment',
+    'lantern_phase': 'heart_knot_fragment', 'crown_resonance': 'heart_knot_fragment',
+    'thread_dash': 'energy_spindle_fragment', 'silk_wall_grip': 'energy_spindle_fragment',
+    'echo_hook': 'energy_spindle_fragment', 'double_thread_jump': 'energy_spindle_fragment',
+}
+FRAGMENT_NAMES = {'heart_knot_fragment': '心结碎片', 'energy_spindle_fragment': '纺锤碎片'}
+FRAGMENT_DESCRIPTIONS = {
+    'heart_knot_fragment': '一截打过死结的绯线。集齐四截，编成一个心结：最大生命 +1。',
+    'energy_spindle_fragment': '纺锤上崩下的一段轴。集齐四段，合成一个能量纺锤：绯线上限 +20。',
+}
+
 EVIDENCE = {
     'thread_dash': ['计时闸检修签', '淤泥排压账'],
     'silk_wall_grip': ['纺线工回收令', '上泵房调度单'],
@@ -82,7 +96,7 @@ def build():
             overlay[key] = [v for v in overlay.get(key, []) if not v.get('id', '').startswith(PREFIX)
                             and v.get('generated_by') != 'world_upgrade'
                             and '可见旧检修入口：「' not in v.get('guide', '')]
-        overlay['inventory_catalog'] = {k: v for k, v in overlay.get('inventory_catalog', {}).items() if not k.startswith(PREFIX)}
+        overlay['inventory_catalog'] = {k: v for k, v in overlay.get('inventory_catalog', {}).items() if not k.startswith(PREFIX) and k not in FRAGMENT_NAMES}
         overlay.pop('world_overrides', None)
 
     def portal(r, id_, room, point, target_r, peer, target_point, label, **options):
@@ -241,13 +255,22 @@ def build():
             reward_platform = room_layout.get('reward_platform', room_id + '_foundation')
             evidence_id = room_id + '_evidence'
             evidence_item = room_id + '_record'
+            # The record and resin keep their authored spots; the permanent
+            # capacity fragment sits between them on the same landing.
+            left, right = x + 494, x + 564
+            fragment = CAPACITY_FRAGMENTS[ability]
             overlay['collectibles'].extend([
-                dict(id=evidence_id, kind='item', item_id=evidence_item, position=[x + 494, reward_y],
+                dict(id=evidence_id, kind='item', item_id=evidence_item, position=[left, reward_y],
                      room_id=room_id, platform_id=reward_platform, label='旧检修操作手册' if practice else EVIDENCE[ability][target_index],
                      note='能力回访反证；可选，不代替六区主线证词。'),
+                dict(id=room_id + '_capacity', kind='item', item_id=fragment, position=[(left + right) / 2, reward_y],
+                     room_id=room_id, platform_id=reward_platform, label=FRAGMENT_NAMES[fragment],
+                     note='工房成长奖励：四片合成一件永久容量。'),
                 dict(id=room_id + '_resin', kind='currency', item_id='currency', amount=45 + index * 5,
-                     position=[x + 564, reward_y], room_id=room_id, platform_id=reward_platform, label='检修物资 · 松脂碎片'),
+                     position=[right, reward_y], room_id=room_id, platform_id=reward_platform, label='检修物资 · 松脂碎片'),
             ])
+            overlay['inventory_catalog'][fragment] = dict(name=FRAGMENT_NAMES[fragment], category='Upgrades',
+                description=FRAGMENT_DESCRIPTIONS[fragment])
             overlay['inventory_catalog'][evidence_item] = dict(name=name + '检修手册' if practice else EVIDENCE[ability][target_index], category='Relics',
                 description=title + '保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。')
             if ability == 'echo_hook':
@@ -268,7 +291,7 @@ def build():
                 next(p for p in overlay['portals'] if p['id'] == bottom).update(unlock_shortcut_id=lift, label='拉开深井返程升梯')
             backtracks.append(dict(ability_id=ability, region_id=r, source_room_id=source_room,
                 room_id=room_id, entry_portal_id=entrance, gate_id=gate_id,
-                reward_ids=[evidence_id, room_id + '_resin'], source_position=source,
+                reward_ids=[evidence_id, room_id + '_capacity', room_id + '_resin'], source_position=source,
                 reward_landing=[x + reward_offset[0], reward_y],
                 approach_position=([x + 258, approach_y - 40] if floor_break else action_point), action_position=action_point,
                 clue=hint, required_action=ability,

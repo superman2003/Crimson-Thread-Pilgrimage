@@ -42,6 +42,11 @@ var _rumble_deadline_usec := 0
 var _last_rumble_frame := -1
 
 
+func _enter_tree() -> void:
+    # Interpolation is opt-in on the production Player and its camera. Keep
+    # static/UI/effect fixtures on their original render clock by default.
+    get_tree().root.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+
 func _ready() -> void:
     process_mode = Node.PROCESS_MODE_ALWAYS
     _noise_x.seed = 1937

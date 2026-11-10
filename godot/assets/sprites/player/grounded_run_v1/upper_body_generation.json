@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "generator": "built-in image_gen",
+  "date": "2026-11-08",
+  "source": "source/run_upper_16.png",
+  "grid": [
+    4,
+    4
+  ],
+  "frames": 16,
+  "shared_scale": 0.46,
+  "clasp_target": [
+    217.32,
+    202.08
+  ],
+  "registration": "One common scale; each gold neck clasp anchors the same ribcage-to-pelvis vector. Full drawn arms, torso and cloth; legs remain on the planted fixed-bone rig.",
+  "prompt": "Use case: identity-preserve, production 2D game running animation keyframes.\nReference image: the existing protagonist's original run artwork. Preserve EXACTLY the same character, black ponytail, face, proportions, red scarf, torn teal cape, charcoal/brown costume, short steel sword with gold hilt, fine dark contour and restrained painted shading.\nCreate ONE NEW transparent square sprite atlas with EXACTLY 16 distinct sequential UPPER-BODY running drawings in EXACTLY 4 columns and 4 rows, left-to-right then top-to-bottom, ONE complete two-step running cycle. These will be combined with a separately rigged pair of legs, so draw ONLY head, neck, scarf, cape, torso, arms, hands, sword, waist belt, pelvis and short tunic hem. NO THIGHS, SHINS, BOOTS OR FEET. The opaque tunic/pelvis ends naturally over the hip joints. Full cape/scarf/sword inside each cell with generous transparent gutters.\nThis is proper athletic RUNNING, with weight and momentum, not a static body pasted over swinging legs. Over the first eight drawings show: first foot impact sensed through the body, settling/compression, low passing posture, pushing out of the support, rising through toe-off, a light airborne high point, then descending toward the next foot impact. Over drawings 9-16 the opposite arm rhythm completes the other half stride. Show small coherent shoulder rotation against the hips, a naturally pumping free arm, a protected sword arm with a modest wrist/elbow arc, and secondary ponytail/scarf/cape follow-through. The torso lean changes slightly with load and rebound. Different cel-specific cloth folds and hand positions must progress continuously. Avoid 16 near-duplicates.\nBody mass is constant: lock the head size, skull and face proportions, neck length, rib cage length, belt size, shoulder width and hand size in ALL 16 drawings. No growth, shrinking, rubber limbs, huge breathing, attack swings, face changes or changing costume details. The body's visible bounce will be supplied by the game rig; keep the PELVIS ANCHOR on the same cell-local point and use the upper-body posture to express compression and flight, with only subtle chest/shoulder response. Do NOT move the whole torso up and down inside the cell. Keep the imagined top of the thighs just below the belt, but do not draw the thighs themselves. This is a dense set of separately drawn animation keyframes, not morphed ghost copies.\nOrthographic right-facing side/three-quarter view matching the reference, same viewpoint throughout. At least 75% of each cell is reserved for the component plus roomy clear alpha gutters. Ideally 2048x2048, 4x4 equal cells. All parts fully contained, nothing touches another cell.\nGenuinely transparent alpha background. No paper, floor, cast shadow, scenery, baked checkerboard, labels, frame numbers, text, logo, watermark, skeleton, guide marks or motion-blur ghosts."
+}

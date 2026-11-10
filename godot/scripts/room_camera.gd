@@ -1,5 +1,5 @@
 extends RefCounted
-## Authored exploration framing, below event locks. No scene or player references.
+## Authored vertical exploration framing; horizontal motion follows the player.
 const LOCK_ID := "exploration_room"
 const EDGE_MARGIN := 24.0
 var zones: Array[Dictionary] = []
@@ -80,4 +80,4 @@ func update(focus: RefCounted, point: Vector2, delta: float = 0.0) -> void:
         var weight := 1.0 - exp(-delta * 8.0)
         display_bounds = Rect2(display_bounds.position.lerp(target.position, weight), display_bounds.size.lerp(target.size, weight))
     if changed or not focus.locks.has(LOCK_ID) or not display_bounds.is_equal_approx(focus.locks[LOCK_ID].bounds):
-        focus.push_lock(LOCK_ID, display_bounds, 10)
+        focus.push_lock(LOCK_ID, display_bounds, 10, false, false, true)

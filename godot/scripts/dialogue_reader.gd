@@ -26,7 +26,7 @@ func configure(text: Label, viewport: ScrollContainer, reveal: Callable) -> void
 
 func _button(title: String, action: Callable) -> Button:
     var button:=Button.new();button.text=title;button.custom_minimum_size=Vector2(72,27)
-    button.add_theme_font_size_override("font_size",13);button.pressed.connect(action);add_child(button)
+    button.add_theme_font_size_override("font_size",14);button.pressed.connect(action);add_child(button)
     return button
 
 func _process(_delta: float) -> void:

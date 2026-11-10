@@ -89,6 +89,7 @@ func _verify_pixels(tree: SceneTree, enemy) -> void:
     view.render_target_update_mode = SubViewport.UPDATE_ALWAYS
     tree.root.add_child(view)
     var stage := Node2D.new()
+    stage.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
     view.add_child(stage)
     var background := Polygon2D.new()
     background.polygon = PackedVector2Array([Vector2.ZERO,Vector2(640,0),Vector2(640,320),Vector2(0,320)])

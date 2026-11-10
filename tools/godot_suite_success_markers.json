@@ -139,7 +139,7 @@
   "player_motion_continuity": "^PLAYER_MOTION_CONTINUITY checks=\\d+ failures=0$",
   "player_melee_feedback": "^PLAYER_MELEE_FEEDBACK_PASS checks=\\d+ hardware=simulated physical_feel=unverified$",
   "world_gameplay_plan": "^WORLD_GAMEPLAY_PLAN checks=\\d+ failures=0$",
-  "room_camera_stability": "^ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics=\\{.*\\}$",
+  "room_camera_stability": "^ROOM_CAMERA_STABILITY checks=86 failures=0 player_integration=true metrics=\\{.*\\}$",
   "combat_resource_cycle": "^COMBAT_RESOURCE_CYCLE checks=[0-9]+ failures=0 crests=3 actual_input=true$",
   "player_layered_idle": "^PLAYER_LAYERED_IDLE_VALIDATION checks=214 failures=0 real_gl=true pixels_complete=true$",
   "world_ability_acquisition": "^WORLD_ABILITY_ACQUISITION checks=[0-9]+ failures=0 actual_pickups=8 local_approach_fixture=true$",
@@ -225,9 +225,11 @@
   "region_beat_layers": "^REGION_BEAT_LAYERS_PASS checks=\\d+$",
   "boss_heal_windows": "^BOSS_HEAL_WINDOWS_PASS bosses=3 checks=\\d+$",
   "boss_heal_windows_late": "^BOSS_HEAL_WINDOWS_LATE_PASS bosses=3 checks=\\d+$",
+  "grounded_run": "^GROUNDED_RUN checks=\\d+ failures=0 max_live_sole_slip=[0-9.]+$",
   "ai_music_pack": "^AI_MUSIC_PACK checks=\\d+ failures=0$",
   "enemy_combat_continuity": "^ENEMY_COMBAT_CONTINUITY checks=[1-9][0-9]* failures=0$",
   "boss_combat_identity": "^BOSS_COMBAT_IDENTITY checks=[1-9][0-9]* failures=0 bosses=6 patterns=24$",
   "combat_motion_v7": "^COMBAT_MOTION_V7 checks=[1-9][0-9]* failures=0 characters=46 clips=[1-9][0-9]* new_drawings=[1-9][0-9]*$",
-  "boss_behavior": "^BOSS_BEHAVIOR checks=[1-9][0-9]* failures=0$"
+  "boss_behavior": "^BOSS_BEHAVIOR checks=[1-9][0-9]* failures=0$",
+  "interpolation_arrival": "^INTERPOLATION_ARRIVAL checks=[1-9][0-9]* failures=0$"
 }

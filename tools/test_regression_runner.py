@@ -134,6 +134,8 @@ class CompletionContractTests(unittest.TestCase):
             'settings_construction',
             'world_save_backup',
             'map_group_framing',
+            'grounded_run',
+            'interpolation_arrival',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
@@ -144,6 +146,8 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("boss_combat_identity", DEFAULT_SUITES)
         self.assertIn("combat_motion_v7", DEFAULT_SUITES)
         self.assertIn("shrine_return_world", DEFAULT_SUITES)
+        self.assertIn("grounded_run", DEFAULT_SUITES)
+
         self.assertIn("legacy_travel_rewards", DEFAULT_SUITES)
         self.assertIn("application_close", DEFAULT_SUITES)
         self.assertIn("quiet_sole_traps", DEFAULT_SUITES)
@@ -209,6 +213,12 @@ class CompletionContractTests(unittest.TestCase):
             self.assertTrue(marker.startswith('^') and marker.endswith('$'))
             re.compile(marker)
 
+
+    def test_room_camera_marker_requires_updated_complete_scope(self):
+        marker = runner.SUCCESS_MARKERS['room_camera_stability']
+        self.assertRegex('ROOM_CAMERA_STABILITY checks=86 failures=0 player_integration=true metrics={}', marker)
+        self.assertNotRegex('ROOM_CAMERA_STABILITY checks=85 failures=0 player_integration=true metrics={}', marker)
+        self.assertNotRegex('ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={}', marker)
 
 @unittest.skipIf(os.name == 'nt', 'executable shebang fixtures run on Linux/macOS CI')
 class RunnerTests(unittest.TestCase):
@@ -398,9 +408,9 @@ class RunnerTests(unittest.TestCase):
     def test_room_camera_requires_complete_real_player_integration(self):
         for marker in [
             'ROOM_CAMERA_STABILITY checks=63 failures=0 player_integration=false metrics={}',
-            'ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=false metrics={}',
-            'ROOM_CAMERA_STABILITY checks=77 failures=0 player_integration=true metrics={}',
-            'ROOM_CAMERA_STABILITY checks=78 failures=1 player_integration=true metrics={}',
+            'ROOM_CAMERA_STABILITY checks=86 failures=0 player_integration=false metrics={}',
+            'ROOM_CAMERA_STABILITY checks=85 failures=0 player_integration=true metrics={}',
+            'ROOM_CAMERA_STABILITY checks=86 failures=1 player_integration=true metrics={}',
         ]:
             with self.subTest(marker=marker):
                 result = self.run_engine(f'print({marker!r})\n', suite='room_camera_stability')
@@ -414,7 +424,7 @@ class RunnerTests(unittest.TestCase):
             captured = root / 'args'
             engine.write_text(
                 '#!' + sys.executable + '\nimport sys\n'
-                + 'print("ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={}")\n'
+                + 'print("ROOM_CAMERA_STABILITY checks=86 failures=0 player_integration=true metrics={}")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
             )
             engine.chmod(0o755)

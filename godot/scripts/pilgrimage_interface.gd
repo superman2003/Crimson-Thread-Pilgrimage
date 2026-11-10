@@ -338,7 +338,7 @@ func _button(parent: Node, text: String, position_value: Vector2, size_value: Ve
     var button:=INSCRIBED_BUTTON.new()
     button.position=position_value
     button.size=size_value
-    button.add_theme_font_size_override("font_size",17)
+    button.add_theme_font_size_override("font_size",TYPE.ACTION)
     button.add_theme_color_override("font_color",IVORY)
     button.add_theme_stylebox_override("normal",_style(Color(.01,.025,.028,.35),Color("61553f")))
     button.add_theme_stylebox_override("hover",_style(Color(.18,.06,.055,.25),RED))
@@ -500,11 +500,11 @@ func _build_hud() -> void:
     health_glyphs.position=Vector2(77,7)
     health_glyphs.size=Vector2(205,46)
     hud_card.add_child(health_glyphs)
-    hearts=_label(hud_card,"",Vector2(266,17),Vector2(55,27),17,IVORY)
+    hearts=_label(hud_card,"",Vector2(266,17),Vector2(55,27),TYPE.ACTION,IVORY)
     hearts.add_theme_font_override("font",display_font())
     hearts.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-    _label(hud_card,"绯线",Vector2(79,58),Vector2(65,22),13,GOLD).add_theme_font_override("font",display_font())
-    energy_status=_label(hud_card,"",Vector2(205,58),Vector2(112,22),13,IVORY)
+    _label(hud_card,"绯线",Vector2(79,58),Vector2(65,22),TYPE.CONTROL,GOLD).add_theme_font_override("font",display_font())
+    energy_status=_label(hud_card,"",Vector2(205,58),Vector2(112,22),TYPE.CONTROL,IVORY)
     energy_status.add_theme_font_override("font",display_font())
     energy_status.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
     thread_bar=ProgressBar.new()
@@ -527,26 +527,26 @@ func _build_hud() -> void:
     thread_thresholds.size=Vector2(224,13)
     hud_card.add_child(thread_thresholds)
     currency_emblem=_icon(self,ART.item("currency"),Vector2(1130,31),Vector2(28,28))
-    currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),21,GOLD)
+    currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),TYPE.READING,GOLD)
     location_rule=CHROME.new()
     location_rule.kind="location"
     location_rule.position=Vector2(443,24)
     location_rule.size=Vector2(394,51)
     add_child(location_rule)
-    location=_label(self,"",Vector2(478,27),Vector2(324,38),25,IVORY)
+    location=_label(self,"",Vector2(478,27),Vector2(324,38),TYPE.HUD_PLACE,IVORY)
     location.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    toast=_label(self,"",Vector2(395,102),Vector2(490,60),16,IVORY)
+    toast=_label(self,"",Vector2(395,102),Vector2(490,60),TYPE.BODY,IVORY)
     toast.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),Color("514e3e")))
     toast.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     toast.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    prompt=_label(self,"",Vector2(370,549),Vector2(540,42),18,IVORY)
+    prompt=_label(self,"",Vector2(370,549),Vector2(540,42),TYPE.TITLE,IVORY)
     prompt.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     prompt.clip_text=true
     prompt.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),GOLD))
-    combat_status=_label(self,"",Vector2(28,144),Vector2(360,76),13,IVORY)
+    combat_status=_label(self,"",Vector2(28,144),Vector2(360,76),TYPE.CONTROL,IVORY)
     combat_status.visible=false
-    mechanism_status=_label(self,"",Vector2(30,141),Vector2(360,26),13,GOLD)
-    healing_status=_label(self,"",Vector2(30,169),Vector2(360,24),13,MUTED)
+    mechanism_status=_label(self,"",Vector2(30,141),Vector2(360,26),TYPE.CONTROL,GOLD)
+    healing_status=_label(self,"",Vector2(30,169),Vector2(360,24),TYPE.CONTROL,MUTED)
     healing_status.mouse_filter=Control.MOUSE_FILTER_PASS
     healing_status.add_theme_stylebox_override("normal",_meter_style(Color(0.04,0.07,0.08,0.9)))
     healing_bar=ProgressBar.new()
@@ -564,7 +564,7 @@ func _build_hud() -> void:
     add_child(healing_bar)
     healing_bar.update_minimum_size()
     healing_bar.size=Vector2(300,6)
-    pinned=_label(self,"",Vector2(30,212),Vector2(300,45),13,MUTED)
+    pinned=_label(self,"",Vector2(30,212),Vector2(300,45),TYPE.CONTROL,MUTED)
     pinned.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     for index in 4:
         var card:=Panel.new()
@@ -579,13 +579,13 @@ func _build_hud() -> void:
         card_frame.size=card.size
         card.add_child(card_frame)
         tactical_icons.append(_icon(card,null,Vector2(6,6),Vector2(46,46)))
-        tactical_values.append(_label(card,"",Vector2(53,13),Vector2(39,30),13,GOLD))
-        tactical_names.append(_label(card,"",Vector2(8,54),Vector2(83,20),11,IVORY))
+        tactical_values.append(_label(card,"",Vector2(53,13),Vector2(39,30),TYPE.CAPTION,GOLD))
+        tactical_names.append(_label(card,"",Vector2(8,54),Vector2(83,20),TYPE.CAPTION,IVORY))
         tactical_names[-1].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    tutorial_hint=_label(self,"",Vector2(28,687),Vector2(620,23),11,MUTED)
+    tutorial_hint=_label(self,"",Vector2(28,687),Vector2(620,23),TYPE.CAPTION,MUTED)
     for entry in [["B  构筑",_request_build_toggle],["Tab  行囊",func():level._toggle_backpack()],["M  地图",func():level._toggle_map()],["V  设置",func():level._toggle_audio_settings()]]:
         quick_actions.append(_button(self,entry[0],Vector2(827+quick_actions.size()*108,673),Vector2(100,33),entry[1]))
-    boss_name=_label(self,"",Vector2(395,593),Vector2(490,27),17,GOLD)
+    boss_name=_label(self,"",Vector2(395,593),Vector2(490,27),TYPE.ACTION,GOLD)
     boss_name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     boss_bar=ProgressBar.new()
     boss_bar.position=Vector2(468,628)
@@ -708,7 +708,7 @@ func _build_bag() -> void:
     journal_batch_button=_button(bag,"筛选结果标已读",Vector2(562,571),Vector2(166,27),_open_journal_batch)
     journal_batch_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_batch_button.tooltip_text="确认后，将当前筛选中最多256条已知记录标为已读；不推进任务。"
-    _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),TYPE.CAPTION,MUTED)
+    _label(bag,"W/S 查看  ·  Esc 返回",Vector2(34,552),Vector2(520,30),TYPE.CAPTION,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     preload("res://scripts/resource_purpose_dialog.gd").setup(self)
     preload("res://scripts/journal_mark_desk.gd").install(self)
@@ -825,7 +825,7 @@ func _build_dialogue() -> void:
     dialogue.get_child(0).kind="dialogue"
     _well(dialogue,Vector2(18,16),Vector2(188,220))
     dialogue_portrait=_icon(dialogue,null,Vector2(23,21),Vector2(173,191))
-    dialogue_name=_label(dialogue,"",Vector2(221,19),Vector2(740,37),26,GOLD)
+    dialogue_name=_label(dialogue,"",Vector2(221,19),Vector2(740,37),TYPE.DISPLAY,GOLD)
     dialogue_identity=_label(dialogue,"",Vector2(221,57),Vector2(770,28),14,MUTED)
     dialogue_scroll=ScrollContainer.new()
     dialogue_scroll.position=Vector2(221,93)
@@ -838,7 +838,7 @@ func _build_dialogue() -> void:
     dialogue_body.size_flags_horizontal=Control.SIZE_EXPAND_FILL
     dialogue_body.custom_minimum_size=Vector2(825,0)
     dialogue_body.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    dialogue_hint=_label(dialogue,_dialogue_binding_hint(),Vector2(24,242),Vector2(180,50),13,MUTED)
+    dialogue_hint=_label(dialogue,_dialogue_binding_hint(),Vector2(24,242),Vector2(180,50),TYPE.CAPTION,MUTED)
     dialogue_hint.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
     dialogue_hint.mouse_filter=Control.MOUSE_FILTER_PASS
     dialogue_continue_button=_button(dialogue,"继续交谈",Vector2(221,250),Vector2(147,34),func():
@@ -1060,7 +1060,9 @@ func _build_settings_accessibility() -> void:
     _accessibility_toggle("navigation_assist","导航辅助",Vector2(725,339))
 
 func _build_settings_controls() -> void:
-    _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,384),Vector2(740,28),17,GOLD)
+    var remap_title:=_label(settings,"按键重映射",Vector2(34,384),Vector2(740,28),17,GOLD)
+    remap_title.tooltip_text="选择动作后按键、鼠标按钮或推动扳机；方向键 / 手柄十字键选择。"
+    remap_title.mouse_filter=Control.MOUSE_FILTER_PASS
     reset_bindings_button=_button(settings,"恢复默认按键",Vector2(800,381),Vector2(172,28),_reset_bindings)
     reset_bindings_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     remap_scroll=ScrollContainer.new()
@@ -1083,7 +1085,7 @@ func _build_settings_controls() -> void:
         button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
         button.add_theme_font_size_override("font_size",12)
         remap_buttons[action_id]=button
-    remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
+    remap_status=_label(settings,"确认键改键  ·  Esc 取消",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 
@@ -1169,7 +1171,7 @@ func _load_accessibility() -> void:
     _apply_controller_deadzone()
     binding_recovery_notice="部分输入设置无效或冲突，已保留对应设备的可用绑定。" if result.rejected>0 else ""
     if remap_status!=null:
-        remap_status.text=binding_recovery_notice if not binding_recovery_notice.is_empty() else "Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。"
+        remap_status.text=binding_recovery_notice if not binding_recovery_notice.is_empty() else "确认键改键  ·  Esc 取消"
 
 func _finite_setting(config: ConfigFile, key: String, minimum: float, maximum: float) -> float:
     var value: Variant=config.get_value("accessibility",key,accessibility[key])
@@ -1550,7 +1552,7 @@ func _build_build_panel() -> void:
     resupply_planner_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     craft_cart_button=_button(build_panel,"多件制作清单",Vector2(640,535),Vector2(430,30),_open_craft_cart)
     craft_cart_button.add_theme_font_size_override("font_size",14)
-    _label(build_panel,"点击 / 确认键执行  ·  方向键 / 手柄十字键选择  ·  Esc 返回",Vector2(34,572),Vector2(590,18),11,MUTED)
+    _label(build_panel,"确认键执行  ·  Esc 返回",Vector2(34,572),Vector2(590,18),11,MUTED)
 
 func _request_build_toggle() -> void:
     if level!=null and level.active_overlay!="new_journey" and level.has_method("_toggle_build"):level.call("_toggle_build")
@@ -1884,7 +1886,7 @@ func _preview_tool_resupply() -> void:
 func _resupply_quote_text(quote: Dictionary) -> String:
     if not bool(quote.get("ok",false)):
         return "补给不可购买 · "+String(quote.get("reason","当前无可补给内容"))
-    var lines: Array[String]=["补给预览 · 确认前不会扣除任何货币"]
+    var lines: Array[String]=["补给预览 · 确认前不扣费"]
     var charges: Variant=quote.get("charges",quote.get("refill",{}))
     if charges is Dictionary:
         for id in charges:
@@ -1959,8 +1961,8 @@ func refresh_build() -> void:
         resupply_preview_button.hide()
         resupply_confirm_button.hide()
         resupply_planner_button.hide()
-        build_summary.text="巡行配置 · 碎钱 %d · 钟龛可调整四类装备并查看补给报价" % int(level.currency_count)
-        build_detail.text="离开钟龛时，行装只允许切换已配置的技能与战具。请前往钟龛调整装备；技能校习请找织线学徒、雨铸匠或蜂蜡商人。"
+        build_summary.text="巡行配置 · 碎钱 %d" % int(level.currency_count)
+        build_detail.text="在钟龛调整装备；校习找织线学徒、雨铸匠或蜂蜡商人。"
         var current_skill:=String(snapshot.get("skill","未配置"))
         var current_tool:=String(snapshot.get("tool","未配置"))
         var cycle_skill:=_button(build_grid,"切换技能 · 当前 %s" % current_skill,Vector2.ZERO,Vector2(563,58),func():_perform_build_action("cycle_skill",""))
@@ -1977,7 +1979,7 @@ func refresh_build() -> void:
         build_selection=""
     for tab in build_tabs:tab.visible=not at_artisan or String(tab.get_meta("build_category",""))=="强化"
     if at_artisan:
-        build_summary.text="工匠 · 碎钱 %d · 此处校习技能、改制战具；装备调整请回钟龛" % int(level.currency_count)
+        build_summary.text="工匠 · 碎钱 %d · 校习技能 · 改制战具" % int(level.currency_count)
     else:
         build_summary.text="碎钱 %d · 饰品容量 %d / %d · %s" % [int(level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0)),_all_family_count_summary(snapshot)]
     var family_id:=_build_family_for_page()
@@ -2363,7 +2365,7 @@ func _show_build_detail(entry: Dictionary) -> void:
     for field in [["source","来源"],["attack_description","攻击"],["mechanism","专属机制"],["heal_effect","治疗完成"],["risk","动作风险与代价"],["synergy","契印协同"],["practice","练习"],["encounter","适合遭遇"]]:
         if entry.has(field[0]):lines.append("\n%s：%s" % [field[1],str(entry[field[0]])])
     if not family_id.is_empty():lines.append("\n确认后装备到所选位置 %d；上方按钮选择位置。" % (build_assign_slot+1))
-    if build_category=="战具":lines.append("钟龛补给需碎钱与材料，可先查看报价；换装与恢复构筑不会补充次数。")
+    if build_category=="战具":lines.append("补给需碎钱与材料；换装不会补充次数。")
     if entry.has("cost"):
         var used:=int(snapshot.get("slots_used",0))
         var total:=int(snapshot.get("slots_total",0))
@@ -2692,7 +2694,8 @@ func _refresh_combat_status(player: Node) -> void:
     var paid:=HEAL_READOUT.apply(healing_payment,heal,int(player.energy),int(player.max_energy),level.active_overlay!="")
     if is_instance_valid(healing_payment_track):healing_payment_track.update_snapshot(paid,level.active_overlay!="")
     if is_instance_valid(pinned):pinned.position.y=248.0 if bool(paid.active) else 212.0
-    healing_status.visible=not heal.is_empty() and level.active_overlay==""
+    # Full health leaves nothing to do: keep the corner quiet (U01 less text).
+    healing_status.visible=not heal.is_empty() and level.active_overlay=="" and String(heal.get("reason",""))!="full_health"
     if not heal.is_empty():
         var reason := String(heal.get("reason","busy"))
         var status: String = {"ready":"可用 +%d" % int(heal.get("amount",1)),"channeling":"治疗中 %.1fs" % float(heal.get("remaining",0.0)),
@@ -2714,7 +2717,7 @@ func _refresh_journal() -> void:
     bag_name.text="六区旅途记录"
     bag_category_label.text="旅途记录"
     bag_icon.texture=ART.item("moss_lens")
-    if journal_reading_key.is_empty():bag_description.text="按分类查看主线、委托、证词、已击败敌人与结局；只显示旅途中已知的内容。"
+    if journal_reading_key.is_empty():bag_description.text="选择分类查看已知记录。"
     for filter_id in journal_filter_buttons:journal_filter_buttons[filter_id].add_theme_stylebox_override("normal",_tab_style(filter_id==journal_filter))
     for tab in bag_tabs:tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
     if not bool(level.get("world_mode")):
@@ -2789,7 +2792,8 @@ func _refresh_journal() -> void:
     var unread_count:=0
     for doc in documents:
         if not journal_catalog.is_read(doc):unread_count+=1
-    journal_count.text="已知记录 %d / %d · 本分类未读 %d · 阅读标记不推进任务" % [visible.size(),documents.size(),unread_count]
+    journal_count.text="已知 %d / %d · 未读 %d" % [visible.size(),documents.size(),unread_count]
+    journal_count.tooltip_text="已知记录 / 全部记录 · 本分类未读。阅读标记不推进任务。"
     records=[]
     for doc in visible:records.append(doc.entry)
     var remembered:=String(journal_memory.get(journal_filter,""))

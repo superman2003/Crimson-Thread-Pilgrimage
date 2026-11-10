@@ -85,6 +85,27 @@ func run() -> void:
     enemy._sync_walk_cadence(.1,enemy.global_position-Vector2(enemy.speed*.1,0))
     check(absf(enemy.animated_sprite.speed_scale-1)<.01,"full-speed movement restores authored walk cadence")
 
+    enemy.state="patrol"
+    enemy._set_enemy_animation("walk",true)
+    var slow_origin:=enemy.global_position-Vector2(enemy.speed*.015,0)
+    enemy._sync_walk_cadence(.1,slow_origin)
+    enemy._update_animation_motion(.1,slow_origin,"patrol")
+    check(enemy.animated_sprite.speed_scale<.4,"pose feedback preserves slow grounded footwork cadence")
+
+    check(not enemy.authored_combat_sequences.is_empty(),"merged actor retains authored combat sequences")
+    if not enemy.authored_combat_sequences.is_empty():
+        enemy._set_enemy_animation(String(enemy.authored_combat_sequences[0]),true)
+        var authored_animation:=enemy.animated_sprite.animation
+        var authored_frames:=enemy.animated_sprite.sprite_frames
+        var authored_weights: Array[float]=[]
+        for index in authored_frames.get_frame_count(authored_animation):
+            authored_weights.append(authored_frames.get_frame_duration(authored_animation,index))
+        enemy._fit_animation_duration(3.0,"windup")
+        var preserved:=true
+        for index in authored_weights.size():
+            preserved=preserved and is_equal_approx(enemy.animated_sprite.sprite_frames.get_frame_duration(authored_animation,index),authored_weights[index])
+        check(preserved,"legacy phase holds preserve authored combat frame weights")
+
     check(AUDIO.release_family("sunken_hammer_smith","ground",command)=="heavy","visual heavy strike gets weight even at damage one")
     check(AUDIO.release_family("bronze_moth","flight",{"type":"dive"})=="wing","dive uses wing and air material")
     check(AUDIO.release_family("moss_larva","ground",{"type":"melee"})=="claw","larva bite uses chitin articulation")

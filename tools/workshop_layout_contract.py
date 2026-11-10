@@ -126,7 +126,7 @@ def contracts(routes, group=GROUP):
             check(supported,label+': route goal has a real landing surface')
             check(_standing_clear(point,collision_platforms),label+': route goal has unobstructed standing clearance')
         rewards=[p for p in chapter['collectibles'] if p['id'] in target.get('reward_ids',[])]
-        check(len(rewards)==2 and all(p.get('platform_id')==layout.get('reward_platform') for p in rewards),label+': both original rewards use the authored upper landing')
+        check(len(rewards)==3 and all(p.get('platform_id')==layout.get('reward_platform') for p in rewards),label+': all three rewards use the authored upper landing')
         gallery=platform_by_id.get(layout.get('reward_platform'), {}).get('rect')
         check(_finite_vector(gallery,4),label+': authored reward platform exists in production')
         if gallery is None:
