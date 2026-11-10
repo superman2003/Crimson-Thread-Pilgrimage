@@ -153,13 +153,10 @@ func run() -> void:
     await prepare();await pulse("jump",3);await frames(3)
     var level:Node2D=load("res://scripts/main_level.gd").new();level.player=player;level.world_loading=false
     level._hazard({"id":"contact_pogo_probe","kind":"spikes","rect":[440,326,80,20],"damage":1,"message":"component"})
-    var spikes:Area2D=level.get_child(0);level.remove_child(spikes);stage.add_child(spikes);await frames(2)
-    Input.action_press("aim_down");await pulse("attack");Input.action_release("aim_down")
-    for i in 20:
-        if player.pogo_chain>0:break
-        await frames()
-    check(player.pogo_chain>0 and marks().filter(func(n):return int(n.get_meta("receiver_id",0))==0).size()==1,"actual spike pogo keeps receiverless Player contact material")
-    print("CONTACT_TRACE pogo chain=",player.pogo_chain," hp=",player.hp," energy=",player.energy," velocity=",player.velocity);await capture("actual_spike_pogo_contact");spikes.queue_free();level.free()
+    check(level.get_child_count()==0,"retired level spikes cannot recreate contact receivers")
+    Input.action_press("aim_down");await pulse("attack");Input.action_release("aim_down");await frames(20)
+    check(player.pogo_chain==0 and marks().is_empty(),"an empty former spike location creates no phantom pogo or contact effect")
+    level.free()
     await prepare();var fillers:Array[Node2D]=[]
     for i in 12:
         var node:=Node2D.new()

@@ -83,7 +83,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "depth": 2,
         "objective": "穿过下层紫区绕行线。",
         "guide": "宽平台给地面战斗留出空间。",
-        "danger": "别被下层敌人逼进陷阱。",
+        "danger": "留意下层敌人的攻击和平台落点。",
         "next": "旧钟绳井",
     },
     "old_bell_rope": {
@@ -767,16 +767,7 @@ def update_first_chapter() -> None:
     data["map_rooms"] = rooms
     data["environment_blocks"] = build_environment_blocks()
     data["platforms"] = platforms
-    data["hazards"] = [
-        hazard("trap_fake_moss_01", "fake_moss_floor", 700, 814),
-        hazard("ch01_hazard_outer_gap", "bell_gap", 1600, 846),
-        hazard("ch01_hazard_upper_leaf", "spore_chest", 3590, 72),
-        hazard("ch01_hazard_runback_lamp", "false_lamp", 7620, 1074),
-        hazard("ch01_hazard_rope_clapper", "falling_clapper", 8950, 1450),
-        hazard("ch01_hazard_lower_bite", "fake_moss_floor", 9720, 2710),
-        hazard("ch01_hazard_crossway", "spore_chest", 12580, 1840),
-        hazard("ch01_hazard_boss_ante", "falling_clapper", boss_gate[0] - 80, boss_gate[1] + 16),
-    ]
+    data["hazards"] = []
     data["collectibles"] = []
     data["enemy_spawns"] = build_enemies(data.get("enemy_spawns", []), platforms)
     data["npcs"] = build_npcs(data.get("npcs", []), platforms)

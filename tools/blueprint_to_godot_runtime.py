@@ -267,7 +267,7 @@ def make_map_rooms(layout_rooms: list[LayoutRoom]) -> list[dict[str, Any]]:
                 "kind": room.kind,
                 "objective": f"{room.name}：按自动生成灰盒推进，识别主线、支线、捷径和回访门。",
                 "guide": "红线主线转成连续地面；上下层支线以平台桥和竖井回接；奖励死胡同必须有道具或 NPC。",
-                "danger": "支线房有更多陷阱和敌人，Boss 前 2-3 房保留短跑与存档。",
+                "danger": "支线房有更多敌人，Boss 前 2-3 房保留短跑与存档。",
                 "next": next_room.name if next_room else "章节出口",
                 "cluster": room.cluster,
                 "lane": room.lane,
@@ -634,23 +634,8 @@ def make_collectibles(
 
 
 def make_hazards(layout_rooms: list[LayoutRoom]) -> list[dict[str, Any]]:
-    result = []
-    for room in layout_rooms:
-        if room.kind in {"gate", "safe"}:
-            continue
-        width = room.x1 - room.x0
-        if room.index % 3 == 0 or room.kind == "boss":
-            result.append(
-                {
-                    "id": f"hazard_{room.id}_spikes",
-                    "kind": "spikes",
-                    "rect": [room.x0 + int(width * 0.34), room.floor_y - 18, int(width * 0.18), 24],
-                    "position": [room.x0 + int(width * 0.43), room.floor_y - 8],
-                    "damage": 1,
-                    "message": "自动生成灰盒危险区：跳过或从上层绕行。",
-                }
-            )
-    return result
+    # Level traps were retired; keep the schema readable by old consumers.
+    return []
 
 
 def enemy_template(source: dict[str, Any]) -> dict[str, dict[str, Any]]:

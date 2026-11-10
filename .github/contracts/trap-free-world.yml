@@ -1,0 +1,71 @@
+name: Trap-free world and runtime asset dependencies
+on:
+  pull_request:
+    paths:
+      - '.github/contracts/trap-free-world.yml'
+      - 'godot/data/**'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/trap_free*.gd'
+      - 'godot/scripts/quiet_sole_traps_validation.gd'
+      - 'godot/scripts/spike_pogo_validation.gd'
+      - 'godot/scripts/legacy_travel_rewards_validation.gd'
+      - 'godot/scripts/death_cache_placement_validation.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/build_profile_comparison.gd'
+      - 'godot/assets/**'
+      - 'tools/*trap*.py'
+      - 'tools/*runtime_asset*.py'
+      - 'tools/validate_gothicvania_assets.py'
+      - 'tools/validate_open_asset_replacement.py'
+      - 'tools/validate_enemy_runtime_manifest_coverage.py'
+      - 'tools/*godot_runtime*.py'
+      - 'tools/expand_multilayer_maps.py'
+      - 'tools/handcraft_ch0*_boxgarden.mjs'
+      - 'tools/generate_ch01*.py'
+      - 'tools/build_item_lore.mjs'
+      - 'tools/build_*asset*.py'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: trap-free-world-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install validation engine and resource dependencies
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
+          python3 tools/hydrate_runtime_assets.py --include='godot/assets/**,godot/addons/**'
+      - name: Check regenerated maps and concrete resource dependencies
+        run: |
+          python3 tools/test_trap_free_world.py
+          python3 tools/test_runtime_asset_dependencies.py
+          python3 tools/validate_runtime_asset_dependencies.py --output "$RUNNER_TEMP/dependencies.json"
+          python3 tools/validate_enemy_runtime_manifest_coverage.py
+      - name: Import production resources
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/import"
+      - name: Verify absent traps and preserved rewards in real game code
+        run: |
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl \
+            --suite trap_free_world --suite quiet_sole_traps --suite spike_pogo --suite hazard_readability \
+            --suite legacy_travel_rewards --suite build_slots_ui --suite player_contact_art \
+            --suite demo --suite ch02_demo --suite death_cache_placement --timeout 240 --log-dir "$RUNNER_TEMP/native"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trap-free-world
+          path: |
+            ${{ runner.temp }}/dependencies.json
+            ${{ runner.temp }}/native
+            ${{ runner.temp }}/import

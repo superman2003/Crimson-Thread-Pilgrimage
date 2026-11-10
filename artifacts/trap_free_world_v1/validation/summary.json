@@ -1,0 +1,189 @@
+{
+  "parent_commit": "1e59943c8752b85dbf71d70ffca7671e2be05819",
+  "engine": "Godot 4.6.1 GLCompatibility; AudioDummy",
+  "native_suites": [
+    {
+      "suite": "quiet_sole_traps",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "QUIET_SOLE_TRAPS checks=41 failures=0"
+    },
+    {
+      "suite": "spike_pogo",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "SPIKE_POGO checks=29 failures=0"
+    },
+    {
+      "suite": "legacy_travel_rewards",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "LEGACY_TRAVEL_REWARDS checks=57 failures=0"
+    },
+    {
+      "suite": "hazard_readability",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "HAZARD_READABILITY_PASS hazards=0 checks=12"
+    },
+    {
+      "suite": "player_contact_art",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "PLAYER_CONTACT_ART checks=190 failures=0"
+    },
+    {
+      "suite": "demo",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "DEMO_VALIDATION_PASS enemies=14 hazards=0 keys=0 boss=1 combat_clear=true complete=true"
+    },
+    {
+      "suite": "ch02_demo",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "CH02_DEMO_VALIDATION_PASS enemies=15 npcs=4 keys=0 boss=C2_B01 combat_clear=true complete=true"
+    },
+    {
+      "suite": "build_slots_ui",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=63 failures=0 capture=user://build_slots_ui_validation_fixture.png"
+    },
+    {
+      "suite": "loadout_restore_review",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "LOADOUT_RESTORE_REVIEW checks=130 failures=0"
+    },
+    {
+      "suite": "death_cache_placement",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "DEATH_CACHE_PLACEMENT checks=9 failures=0"
+    },
+    {
+      "suite": "trap_free_world",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "TRAP_FREE_WORLD checks=243 failures=0 chapters=6"
+    }
+  ],
+  "negative_control": {
+    "exit": 1,
+    "timeout": false,
+    "seconds": 8.531,
+    "checks": 41,
+    "failures": 9,
+    "errors": 0,
+    "warnings": 0,
+    "source_unchanged": true,
+    "baseline": false,
+    "legacy_hazard": true,
+    "skip_capture": false
+  },
+  "static": {
+    "npm_test_exit": 0,
+    "campaign_exit": 0,
+    "trap_regression_tests": 7,
+    "dependency_regression_tests": 4,
+    "contracts_lint": {
+      "contracts": 166,
+      "workflows": 13,
+      "errors": 0
+    },
+    "local_contract_tests": {
+      "Parsing_Selection_Repository": 10,
+      "Running": "Windows lacks directory symlink privilege (WinError 1314); Linux CI executes full 16 cases."
+    },
+    "generated_maps": "Structure and ch01 route passed; generated geometry has 54 pre-existing errors, identical to parent. Not a pass.",
+    "lore_verify_entries": 32,
+    "regression_runner": {
+      "tests": 38,
+      "skipped": 32,
+      "failures": 0,
+      "platform": "Windows; shell-mock cases are covered by Linux CI"
+    }
+  },
+  "scope": "Level environment traps; player tools, enemy attacks and void recovery unchanged.",
+  "source_snapshot_after_run": {
+    ".gitattributes": "4b60c2e698264d53d4e9178944d6c174b121c06c4ef52000898ccadc46b2669f",
+    ".github/contracts/trap-free-world.yml": "97d6808cf4fca82a9f1a859afdf67833d65891244949f6129dc8935170e82cd8",
+    "docs/TRAP_FREE_WORLD.md": "455a63d02f400c3ef2242ab5a1bc35b990a455757dfa5728ef79b576dddb2a4c",
+    "docs/ledger/entries/2026-11-10-1950-v01-retire-level-traps.md": "4b0982f9f5a3624059f7072dd6b4506fd94e72c7d25b779b0636e84246a3f110",
+    "docs/ledger/status/C01.md": "f3345dc011fa0726988dd57e0af127b550418c1f84cd43b7b4d83438b224ca6b",
+    "docs/ledger/status/V01.md": "4c504843b47daa8bc611bd31f3a9d1a1c47153e30d6f744a8176ec0c5c703261",
+    "docs/spec/20260615161637828_soulbox_level_graph.json": "3d901d1e34e22a4127fc910fca526ed740431e57ce087522465447c9d1204d59",
+    "godot/assets/sprites/gothicvania/asset_manifest.json": "79fda3f186e31d9d92f5ac50d872b154d337ccb031b4954cd1256e3f3683fe4c",
+    "godot/assets/sprites/open_asset_manifest.json": "662f2c5cac392ce473bcab43ec6c01f2ecf19640d67ab646780d957d49d36763",
+    "godot/data/build_catalog.json": "3b65a04112bd535777ab0f0ca12cf266de5d7f08b11e69b694a8fc06ed27b53d",
+    "godot/data/chapters/ch02_rain_foundry_canal.json": "50a5182d46a247899f59cc11447429421a8e22d8f862dff0eb31b4f251bca1bb",
+    "godot/data/chapters/ch05_obsidian_pilgrim_road.json": "ab3fd0443377c1b3ddb7269fe1efe5d1cd9e522564f9b43e68b9421e80d8dca9",
+    "godot/data/demo_ch01_moss_bell_court.json": "20662dff91ebfdd2f74ce893fa140758b3cac06df7072f51ae96f2d145e050cb",
+    "godot/data/demo_ch02_rain_foundry_canal.json": "ba32bf57403a1b1174d7217ab77ab5b80deb1c016b8320f5f1f0d3c4334f3f70",
+    "godot/data/demo_ch03_saltwhite_archive.json": "10fc8a1a7334aefad486c9e656f2118e8ba0733e7dd7ca156db0a19aba0ecdec",
+    "godot/data/demo_ch04_broken_string_greenhouse.json": "cd88ee077d26ff4a54df1d66a687c585eb94091db3d7573b716bcfb8161bcaeb",
+    "godot/data/demo_ch05_obsidian_pilgrim_road.json": "6c8f45cd010eee71a625216ab2dd7d04dcfc3a33e742d8bc403e538a8fd821bf",
+    "godot/data/demo_ch06_silent_crown_core.json": "512188aa878eff91e88262b7ebd338be6eecf500e5477a62bf19c79087076725",
+    "godot/data/generated/demo_ch01_moss_bell_court.generated.json": "85b317ea60c3563eb5943fbc33673dc995ae5a1a0f7d2e3dfb19faf229b8ace7",
+    "godot/data/generated/demo_ch02_rain_foundry_canal.generated.json": "1c0fe141294d2bac938899a03f8d13278848aaaaa6064ccdb12200bc3d92764d",
+    "godot/data/generated/demo_ch03_saltwhite_archive.generated.json": "86eb4650fac3c9b3f07ba11f477579be89dfaa6f51edca8b54caebfc42d0e404",
+    "godot/data/generated/demo_ch04_broken_string_greenhouse.generated.json": "2e17d071d7245254a2679e77e5887930aadbae63e6650c17e90f51911d9bad32",
+    "godot/data/generated/demo_ch05_obsidian_pilgrim_road.generated.json": "a4c190dede6582a6fac6365edaa21bdecd731e695b850c250c126ab444b53026",
+    "godot/data/generated/demo_ch06_silent_crown_core.generated.json": "b314288f4d1d1fb4fc4556a7b157c34262fa96ba67689ce94d365c19502cedea",
+    "godot/data/item_lore.json": "ebbe76876ce4f299f55a2046fe813d66291035a8c9020eb637ee6930e3192666",
+    "godot/data/progression_plan.json": "1ad594e524b85de396130c2253e5ae8e63d65980cc7dc52abb6c37e445892144",
+    "godot/data/soulbox_level_graph.json": "3d901d1e34e22a4127fc910fca526ed740431e57ce087522465447c9d1204d59",
+    "godot/scripts/build_profile_comparison.gd": "566a58087ee686d31f26abe627133170cd98843cf5a686cf339bef223c0e307b",
+    "godot/scripts/build_slots_ui_validation.gd": "3c38f108be9a2821ca5b5ed465dbe209694fb17fcdd876a35e694ea2bf01491a",
+    "godot/scripts/ch02_demo_validation.gd": "96a6bd67b32db616face8ae76f4ebb6641fdf0a307e434a9d7e7ffb922b6272a",
+    "godot/scripts/demo_validation.gd": "343452a2700f7249f9b83a92e8d61beece4cff69c78117d561cc744e4ab1def3",
+    "godot/scripts/hazard_readability_validation.gd": "f257f1d60c3769b97c6de7752b08eb55326878b2e72ad01a99d374bef59c576a",
+    "godot/scripts/legacy_travel_rewards_validation.gd": "fb2edd5f8f7464e9a0ae0fd56310ea2c7ac1d3eeeee1a6756ec5759e6cc42c8c",
+    "godot/scripts/loadout_restore_review_validation.gd": "3fd94413126f1bd3e876e180ac6a4d206ee97bd0a1ce1b341b3a42897307396a",
+    "godot/scripts/main_level.gd": "bdcc3ff10832ff526668268655b787bea8b972829569903a73a17478b3833cc7",
+    "godot/scripts/pilgrimage_interface.gd": "3b2194ed5f8b7e8e3288e571897bdfc6a07a172e2a3971faaf4c26f8ebb170b0",
+    "godot/scripts/player_contact_art_validation.gd": "ac8da805b2a041e9efdfc74d2c967edf72829491a9a4b7e4ce1745b2b8d3e6da",
+    "godot/scripts/quiet_sole_traps_validation.gd": "8810d5428911fed2f68c80bc0a9bf4a33677dfde84eda288a161d9363bc94f5b",
+    "godot/scripts/spike_pogo_validation.gd": "9fe0594c31d020005e3c24f04c093a9f1078b1321df075b8ba42923cc206f347",
+    "godot/scripts/trap_free_validation_helper.gd": "96901a1e4181b0309295eccea70c684671afa48c57691a69c956c5b9a82f6a7f",
+    "godot/scripts/trap_free_world_validation.gd": "21d04c73a5beaf3f781a7b3590f03a57e6cd5bff72ce5093f3d2edf82064e476",
+    "package.json": "2e615151d1b82ff44cec9301be82ec799fdf5b15431054d67834a5a86d40c122",
+    "tools/blueprint_to_godot_runtime.py": "a5773f02d7e79f112ca2ab6a0ec79b07a9f853d2238f3189bdf01a142428c2e3",
+    "tools/build_godot_demo_assets.py": "2b8cb1f39bf405fa11d09a833fa0510e1407a14e1d9152751a3cbcc2e20c0c03",
+    "tools/build_gothicvania_asset_replacements.py": "18a37932fb2d3e1ffd332a2deaa30acfb9262f0a357c53ebd33db5b9f4ada526",
+    "tools/build_open_asset_replacements.py": "902b812d5b2688136a7dc0919a96c296f290973dc6b3f2667b2973d40e60dbda",
+    "tools/build_silksong_scale_room_detail_sheets.py": "e8e90eb99271a95ba95e291908ad5e2ff554364b2f5e5327cfe672010453a354",
+    "tools/check_trap_free_world_native.py": "7e007e92ada96a0a9767e7a7fe26d42ebfb0f3a4e226d69d5ec2b541a43754e0",
+    "tools/expand_multilayer_maps.py": "5cfea3cc8b28453c7198b3598b063c34ead2a74816e316cb72a496c0836f433b",
+    "tools/generate_asset_pack.py": "1fceb395a67dce40f6bbf0db58bfe6ab638aa81b13c9bfaedb53eea1f27d048b",
+    "tools/generate_ch01_from_maniamap.py": "f112916b3b89b94d8846c6ffd3aaf7c474b029263289aaeedfacc6665c08162b",
+    "tools/generate_ch01_moss_bell_map.py": "c05f9c5feb0c1e8b8e01f40f49fc163980ffd17768e749313b92f20eb3c168c7",
+    "tools/godot_suite_success_markers.json": "4132422adf8fe39b415416229351e6774695fded09e68afd39088f32f58f30ec",
+    "tools/handcraft_ch01_boxgarden.mjs": "3d262b0c9dc80103a0e4f602bf024d3919350022f7939c7e87233b7d78a58ca3",
+    "tools/handcraft_ch02_boxgarden.mjs": "ee7f480cf730bf8cd7ac07671bc229dab8c2856b4abee273be0f9f96dc364685",
+    "tools/run_godot_regressions.py": "083337c7366e2165ec8911655668dc6e2f70f0f36f9a00de26a11510f83fa503",
+    "tools/run_quiet_sole_audio.py": "4ec4678096baaa40bf942e3d3820f70e7cb8791833ef9de2e755d38170df2bef",
+    "tools/test_regression_runner.py": "87d66750beefed17e289b793390d56a483f207944a8407dd070f28d48371b303",
+    "tools/test_runtime_asset_dependencies.py": "0a13898189bacd5005d227a161b7a71ba78f11ade9e70937f43b7b51aa108751",
+    "tools/test_trap_free_world.py": "dd926135f33a31cf1123b28405ce2e1aecaa40de05ca98255c901764b005a99e",
+    "tools/validate_enemy_runtime_manifest_coverage.py": "5e66c5362fd55f5f52acca5b16213827171b23a291f740a3ada1e7724bc73b45",
+    "tools/validate_gothicvania_assets.py": "b7b879439f0067856730f4bee080f06a5899fb18d4bcc323c63c29dbb93b360e",
+    "tools/validate_open_asset_replacement.py": "8f0a834a6e11416a4f592b7cfdd92864c3bfa501037def9480845ed101a2b9e5",
+    "tools/validate_runtime_asset_dependencies.py": "5896f45230e42b8a833ce77a6f450ed705ef0eedd5c374c381b24c043fa4e264",
+    "tools/validate_seal_catalog.py": "3f12d39ee3912b033b43b5e7cc78fba29c7ae03fb7a9ad965109acf1607aba4b",
+    "tools/build_item_lore.mjs": "6b31ed40bb54c5038e779fa0ab6203f57df06394301e9bac27a1736427486407",
+    "godot/scripts/death_cache_placement_validation.gd": "67678fafe55aa4a438b1f59a3dcaa0f4cb8fc35e0cff63195cf5aee2e4f990d4"
+  }
+}

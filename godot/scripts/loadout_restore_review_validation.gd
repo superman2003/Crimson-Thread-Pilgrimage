@@ -216,13 +216,13 @@ func complete_profile_checks() -> void:
             for key in build.catalog.passives[id].modifiers:
                 check(labels.has(key),"every real accessory modifier is covered by restore review: "+id+"/"+key)
     var before:={"skill_damage_mult":1.0,"tool_capacity_bonus":0,"damage_taken_mult":1.0,"attack_reach_mult":1.0,"heal_airborne":false}
-    var after:={"skill_damage_mult":0.9,"tool_capacity_bonus":1,"damage_taken_mult":1.2,"attack_reach_mult":1.25,"hazard_trigger_mult":0.8,"heal_airborne":true}
+    var after:={"skill_damage_mult":0.9,"tool_capacity_bonus":1,"damage_taken_mult":1.2,"attack_reach_mult":1.25,"move_mult":1.05,"heal_airborne":true}
     var original:=before.duplicate(true)
     var lines: Array=compare.lines(before,after)
     var text:="\n".join(lines)
     check(lines.size()==6 and before==original,"profile union reports all six changed effects without mutating input")
     check(text.contains("线技伤害倍率：1 → 0.9") and text.contains("战具容量加成：0 → 1"),"reflux and needlecase consequences cannot be omitted from confirmation")
-    check(text.contains("环境陷阱触发范围倍率：1 → 0.8"),"missing trap multiplier uses the actual Player default rather than inventing zero")
+    check(text.contains("移动倍率：1 → 1.05"),"missing movement multiplier uses the actual Player default rather than inventing zero")
     check(text.contains("受到伤害倍率") and text.contains("针击触及倍率") and text.contains("空中疗伤：关闭 → 开启"),"crest-specific reach, damage and boolean healing traits are readable")
     check(compare.rows(after,after).is_empty(),"unchanged effects are not duplicated as differences")
     check(compare.rows({"move_mult":1.0,"speed_multiplier":1.0},{"move_mult":1.1,"speed_multiplier":1.1}).size()==1,"documented exact aliases do not duplicate the canonical effect")
@@ -231,5 +231,5 @@ func complete_profile_checks() -> void:
     # Production formatter must include the complete profile comparison too.
     var ui:=UI.new()
     var output: Array=ui._loadout_difference_text({"changes":[],"current_profile":before,"profile":after},build)
-    check("\n".join(output).contains("环境陷阱触发范围倍率"),"actual shell formatter used by the dialog includes effects beyond the old fixed list")
+    check("\n".join(output).contains("移动倍率"),"actual shell formatter used by the dialog includes effects beyond the old fixed list")
     ui.free()

@@ -31,9 +31,11 @@ def main():
         if args.baseline:
             FIXTURE.write_bytes(gzip.decompress((BASE / 'original_quiet_sole_traps_validation.gd.gz').read_bytes()))
         if args.legacy_hazard:
-            needle = b'return clampf(float(profile.get("hazard_trigger_mult", 1.0)), 0.5, 1.0)'
-            assert MAIN.read_bytes().count(needle) == 1
-            MAIN.write_bytes(MAIN.read_bytes().replace(needle, b'return 1.0'))
+            needle = b'func _hazard(_data: Dictionary) -> void:\n    # Legacy level data cannot recreate graphics, colliders or damage triggers.\n    pass'
+            active_main = MAIN.read_bytes().replace(b'\r\n', b'\n')
+            assert active_main.count(needle) == 1
+            fault = b'func _hazard(_data: Dictionary) -> void:\n    var area := Area2D.new()\n    add_child(area)'
+            MAIN.write_bytes(active_main.replace(needle, fault))
         before = hashes()
         (output / 'before.json').write_text(json.dumps(before,indent=2)+'\n',encoding='utf8')
         for source in [FIXTURE, MAIN]:

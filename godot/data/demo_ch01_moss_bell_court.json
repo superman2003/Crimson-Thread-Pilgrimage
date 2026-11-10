@@ -86,7 +86,7 @@
       "quiet_sole": {
         "name": "静靴",
         "category": "Charms",
-        "description": "陷阱触发判定略微缩小。织线者留下的软底靴。"
+        "description": "地面移动速度提高5%；不增加跳高。织线者留下的软底靴。"
       },
       "energy_spindle": {
         "name": "能量纺锤",
@@ -1250,7 +1250,7 @@
       "danger": "穴内没有灯火，只有身边近处可见；离开假苔穴后恢复正常视野。",
       "next": "暗河走道",
       "setpiece": "苔板塌出的石穴",
-      "traversal_focus": "陷阱即通路",
+      "traversal_focus": "平台间转移",
       "pacing_role": "reward",
       "visit_rects": [
         [
@@ -6436,125 +6436,7 @@
       "map_marker": "ability_gate"
     }
   ],
-  "hazards": [
-    {
-      "id": "trap_fake_moss_01",
-      "kind": "fake_moss_floor",
-      "rect": [
-        3575,
-        4824,
-        130,
-        22
-      ],
-      "damage": 1,
-      "message": "假苔地板轰然塌陷——下面还有路。",
-      "platform_id": "cr_upper"
-    },
-    {
-      "id": "ch01_hazard_underway_moss",
-      "kind": "fake_moss_floor",
-      "rect": [
-        2830,
-        5494,
-        120,
-        22
-      ],
-      "damage": 1,
-      "message": "暗河苔板一踩就塌。",
-      "platform_id": "uw_a"
-    },
-    {
-      "id": "ch01_hazard_clapper",
-      "kind": "falling_clapper",
-      "rect": [
-        3840,
-        1506,
-        110,
-        30
-      ],
-      "damage": 1,
-      "message": "钟锤毫无预兆地砸落。",
-      "platform_id": "ba05"
-    },
-    {
-      "id": "ch01_hazard_crown_spikes",
-      "kind": "spikes",
-      "rect": [
-        2310,
-        682,
-        120,
-        20
-      ],
-      "damage": 1,
-      "message": "钟冠残齿锈刺外露。",
-      "platform_id": "cw_b"
-    },
-    {
-      "id": "ch01_hazard_tangle_spikes",
-      "kind": "spikes",
-      "rect": [
-        1540,
-        4312,
-        120,
-        20
-      ],
-      "damage": 1,
-      "message": "缠根间藏着旧钟齿。",
-      "platform_id": "tm_b"
-    },
-    {
-      "id": "ch01_hazard_approach_spikes",
-      "kind": "spikes",
-      "rect": [
-        4570,
-        3932,
-        120,
-        20
-      ],
-      "damage": 1,
-      "message": "前庭布满钟齿尖刺。",
-      "platform_id": "ra_b"
-    },
-    {
-      "id": "ch01_hazard_cistern_spikes",
-      "kind": "spikes",
-      "rect": [
-        3030,
-        5112,
-        120,
-        20
-      ],
-      "damage": 1,
-      "message": "水窖底部暗藏锈钉。",
-      "platform_id": "cr_lower"
-    },
-    {
-      "id": "ch01_hazard_bell_gap",
-      "kind": "bell_gap",
-      "rect": [
-        6515,
-        2732,
-        110,
-        20
-      ],
-      "damage": 1,
-      "message": "钟隙深不见底。",
-      "platform_id": "bgc_w"
-    },
-    {
-      "id": "ch01_hazard_vault_chest",
-      "kind": "spore_chest",
-      "rect": [
-        3075,
-        5830,
-        90,
-        34
-      ],
-      "damage": 1,
-      "message": "孢箱炸开一团苔云。",
-      "platform_id": "rv_floor"
-    }
-  ],
+  "hazards": [],
   "collectibles": [
     {
       "id": "col_thread_dash",

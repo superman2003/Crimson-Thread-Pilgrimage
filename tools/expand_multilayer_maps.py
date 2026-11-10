@@ -183,7 +183,7 @@ def build_rooms(chapter: int) -> list[dict]:
                 "kind": kind,
                 "objective": f"{name}：沿横向主线推进，并观察上层/下层回路。",
                 "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-                "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+                "danger": "下层更宽但敌人多，上层跳跃窗口更窄。",
                 "next": room_specs[index + 1][1] if index + 1 < len(room_specs) else "章节出口",
             }
         )
@@ -514,31 +514,7 @@ def update_enemy_spawns(chapter: int, data: dict, platforms: list[dict]) -> None
 
 
 def update_hazards(chapter: int, data: dict, platforms: list[dict]) -> None:
-    existing = data.get("hazards", [])
-    kind_cycle = [item.get("kind", "bell_gap") for item in existing] or ["bell_gap"]
-    platform_ids = [
-        item["id"]
-        for item in platforms
-        if item["rect"][2] >= 240 and not any(marker in item["id"] for marker in ("boss_back_wall", "wall", "gate"))
-    ]
-    selected = platform_ids[1::4][:12]
-    hazards = []
-    for index, platform_id in enumerate(selected):
-        top = platform_top_by_id(platforms, platform_id)
-        x = platform_center_x(platforms, platform_id, 0) - 55
-        hazard_id = f"ch{chapter:02d}_hazard_{index + 1:02d}"
-        if chapter == 1 and index == 0:
-            hazard_id = "trap_fake_moss_01"
-        hazards.append(
-            {
-                "id": hazard_id,
-                "kind": kind_cycle[index % len(kind_cycle)],
-                "rect": [x, top - 24, 110, 24],
-                "damage": 1,
-                "message": "多层扩建路线上出现预警陷阱。",
-            }
-        )
-    data["hazards"] = hazards
+    data["hazards"] = []
 
 
 def update_save_points(chapter: int, data: dict, platforms: list[dict]) -> None:

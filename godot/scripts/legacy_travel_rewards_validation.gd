@@ -7,7 +7,6 @@ const PLAYER = preload("res://scenes/Player.tscn")
 const WORLD_STATE = preload("res://scripts/world_state.gd")
 const RETIREMENT = preload("res://scripts/audio_retirement.gd")
 const AUDIO = preload("res://scripts/audio_director.gd")
-const POGO = preload("res://scripts/hazard_pogo.gd")
 var checks := 0
 var failures := 0
 var level: Node2D
@@ -59,7 +58,7 @@ func run() -> void:
     if is_instance_valid(wish_modal):wish_modal.confirmed.emit()
     check(int(world.inventory_counts.get("damp_knot",0)) == 1 and int(world.inventory_counts.get("worker_badge",0)) == 1,"production UI authored wish grants original damp item without consuming badge")
     check(world.build_system.state.unlocked_passives.has("damp_knot"),"real damp item unlocks its own accessory identity")
-    check(is_equal_approx(float(world.player.build_profile.get("hazard_trigger_mult",1)),1),"reward ownership alone does not shrink traps")
+    check(is_equal_approx(float(world.player.build_profile.get("move_mult",1)),1),"reward ownership alone does not change movement speed")
     var disk := WORLD_STATE.new()
     check(disk.read(path) and int(disk.data.inventory_counts.get("damp_knot",0)) == 1,"reward exists in a production-valid persisted inventory")
     # Migration fixture represents the pre-mapping Build schema: actual obtained
@@ -91,7 +90,7 @@ func run() -> void:
     check(restarted.restore(saved).ok,"full inventory-derived equipment and plans restore")
     restarted.sync_progress(counts)
     check(restarted.restore_loadout("旧静靴方案").ok and restarted.state.passives.has("quiet_sole") and not restarted.state.passives.has("damp_knot"),"old quiet plan restores original identity")
-    check(restarted.restore_loadout("防潮结方案").ok and restarted.state.passives.has("damp_knot") and is_equal_approx(float(restarted.profile().get("hazard_trigger_mult",1)),0.8),"damp plan restores its own 80 percent profile")
+    check(restarted.restore_loadout("防潮结方案").ok and restarted.state.passives.has("damp_knot") and is_equal_approx(float(restarted.profile().get("move_mult",1)),1.05),"damp plan restores its own five percent movement profile")
     check(restarted.state.passives.has("damp_knot") and not restarted.state.passives.has("quiet_sole"),"physical fixture carries damp itself, with quiet sole inactive")
     quiet_plan.unlocked_passives.erase("damp_knot")
     var old_model := BUILD.new()
@@ -105,7 +104,7 @@ func run() -> void:
     damp_entry["id"] = "damp_knot"
     world.ui_shell.build_category = "铭饰";world.ui_shell.build_family = "travel_accessory"
     world.ui_shell._show_build_detail(damp_entry)
-    check(world.ui_shell.build_heading.text == "防潮线结" and world.ui_shell.build_detail.text.contains("与静靴互斥") and world.ui_shell.build_detail.text.contains("20%"),"production UI displays original damp name percentage and mutual exclusion")
+    check(world.ui_shell.build_heading.text == "防潮线结" and world.ui_shell.build_detail.text.contains("与静靴互斥") and world.ui_shell.build_detail.text.contains("5%"),"production UI displays original damp name percentage and mutual exclusion")
     world.ui_shell._show_build_detail(build.catalog.passives.quiet_sole.merged({"id":"quiet_sole"}))
     check(world.ui_shell.build_heading.text == "静靴" and world.ui_shell.build_detail.text.contains("与防潮线结互斥"),"production quiet detail explains the same group conflict")
     if not output.is_empty() and DisplayServer.get_name() != "headless":
@@ -125,42 +124,12 @@ func run() -> void:
     var floor_body := StaticBody2D.new();floor_body.position = Vector2(400,312);floor_body.collision_layer = 17
     var floor_shape := CollisionShape2D.new();floor_shape.shape = RectangleShape2D.new();floor_shape.shape.size = Vector2(1200,24)
     floor_body.add_child(floor_shape);root.add_child(floor_body)
-    var trap := hazard("damp_trap",[200,100,200,200])
-    var other := hazard("other_trap",[700,100,100,100])
-    check(size_of(trap) == Vector2(160,160) and size_of(other) == Vector2(80,80),"equipped damp shrinks independent authored trap sizes")
-    check(trap.get_node("TriggerShape").shape != other.get_node("TriggerShape").shape,"trap shapes cannot cross-mutate")
-    check(player.get_node("CollisionShape2D").shape.size == Vector2(34,84) and POGO.surface_rect(trap) == Rect2(200,100,200,200),"Player body and spike pogo surface preserve original geometry")
-    await reset_player(Vector2(170,300))
-    var hp: int = player.hp
-    Input.action_press("move_right")
-    for i in 30:
-        if player.position.x >= 190 or player.hp != hp:break
-        await frames(1)
-    Input.action_release("move_right");player.velocity.x = 0
-    await frames(3)
-    check(player.position.x >= 190 and player.position.x < 201 and player.hp == hp and not trap.overlaps_body(player),"real move input reaches original outer edge safely with damp equipped")
-    Input.action_press("move_right")
-    for i in 20:
-        await frames(1)
-        if player.hp < hp:break
-    Input.action_release("move_right")
-    check(player.hp == hp-1 and trap.overlaps_body(player),"continuing real input enters damp inner shape and takes unchanged damage")
-    await reset_player(Vector2(190,300))
-    restarted.equip_family_slot("","travel_accessory",0);level._sync_player_build();await frames(4)
-    check(size_of(trap) == Vector2(200,200) and player.hp == player.max_hp-1,"stationary removal expands Area and triggers real collision damage")
-    restarted.equip_family_slot("damp_knot","travel_accessory",0);level._sync_player_build();await frames(4)
-    check(not trap.overlaps_body(player),"stationary reequipment removes original outer overlap")
-    restarted.equip_family_slot("","travel_accessory",0)
-    restarted.equip_family_slot("damp_knot","travel_accessory",1)
-    restarted.state.unlocked_crests.append("bell") # Explicit known/unrepaired crest fixture.
-    restarted.switch_crest("bell");level._sync_player_build();await frames(3)
-    check(size_of(trap) == Vector2(200,200) and not restarted.state.passives.has("damp_knot"),"dormant expansion leaves no damp trap modifier")
-    trap.free();trap = hazard("rebuilt_trap",[200,100,200,200])
-    check(size_of(trap) == Vector2(200,200),"region-style rebuild uses current dormant profile")
-    restarted.switch_crest("crimson");level._sync_player_build();await frames(3)
-    check(size_of(trap) == Vector2(160,160),"returning active crest resynchronizes rebuilt trap")
-    var projected: Dictionary = restarted.preview_loadout("旧静靴方案")
-    check(projected.ok and is_equal_approx(float(projected.profile.get("hazard_trigger_mult",1)),0.8) and not projected.equipped_families.travel_accessory.has("damp_knot"),"quiet plan preview remains separate and never stacks with damp")
+    var body_size: Vector2=player.get_node("CollisionShape2D").shape.size
+    for result in preload("res://scripts/trap_free_validation_helper.gd").probe(level,player):check(bool(result[0]),String(result[1]))
+    check(is_equal_approx(float(player.build_profile.get("move_mult",1)),1.05),"restored damp knot applies five percent ground speed")
+    check(player.get_node("CollisionShape2D").shape.size==body_size,"restored reward never resizes the Player")
+    var projected: Dictionary=restarted.preview_loadout("旧静靴方案")
+    check(projected.ok and is_equal_approx(float(projected.profile.get("move_mult",1)),1.05) and not projected.equipped_families.travel_accessory.has("damp_knot"),"quiet plan remains separate from damp and previews its new useful effect")
     Input.action_release("move_right")
     RETIREMENT.retire_tree(level);RETIREMENT.retire_tree(player)
     level.queue_free();player.queue_free();floor_body.queue_free();await frames(5)
@@ -168,11 +137,3 @@ func run() -> void:
     check(await RETIREMENT.drain(self),"fixture audio ownership retires")
     print("LEGACY_TRAVEL_REWARDS checks=%d failures=%d" % [checks,failures])
     quit(1 if failures else 0)
-func hazard(id: String,rect: Array) -> Area2D:
-    level._hazard({"id":id,"kind":"spikes","rect":rect,"damage":1})
-    return level.get_node(id)
-func size_of(area: Area2D) -> Vector2:return area.get_node("TriggerShape").shape.size
-func reset_player(at: Vector2) -> void:
-    player.position = at;player.velocity = Vector2.ZERO;player.hp = player.max_hp
-    player.arrival_guard_timer = 0;player.hurt_timer = 0
-    await frames(4)

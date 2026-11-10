@@ -11,6 +11,8 @@
     "test:font": "node tools/run_python_tool.mjs tools/test_apply_global_font.py && node tools/run_python_tool.mjs tools/test_font_coverage.py && npm run font:check && npm run font:coverage",
     "check": "node --check tools/build_item_lore.mjs && node --check tools/handcraft_ch01_boxgarden.mjs && node --check tools/handcraft_ch02_boxgarden.mjs && node --check tools/run_python_tool.mjs",
     "test:enemy-runtime": "node tools/run_python_tool.mjs tools/validate_enemy_runtime_manifest_coverage.py --min-unique-enemies 40",
+    "test:runtime-assets": "node tools/run_python_tool.mjs tools/test_runtime_asset_dependencies.py && node tools/run_python_tool.mjs tools/validate_runtime_asset_dependencies.py",
+    "test:trap-free": "node tools/run_python_tool.mjs tools/test_trap_free_world.py",
     "build:boss-registry": "node tools/run_python_tool.mjs tools/build_boss_asset_registry.py",
     "test:boss-assets": "node tools/run_python_tool.mjs tools/validate_boss01_directional_assets.py && node tools/run_python_tool.mjs tools/validate_boss_directional_assets.py && node tools/run_python_tool.mjs tools/validate_boss_keyframes.py && node tools/run_python_tool.mjs tools/validate_boss_special_attacks.py && node tools/run_python_tool.mjs tools/validate_boss_asset_registry.py",
     "test:boss-keyframes": "node tools/run_python_tool.mjs tools/validate_boss_keyframes.py",

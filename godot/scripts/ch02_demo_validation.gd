@@ -77,7 +77,7 @@ func _run() -> void:
     _assert(int(state.get("metsys_map_cells", 0)) >= config.get("map_rooms", []).size(), "CH02 MetSys includes expanded room cells")
     _assert(int(state.get("metsys_route_edges", 0)) >= config.get("connections", []).size(), "CH02 MetSys uses explicit room connections")
     _assert(int(state.get("metsys_connector_cells", 0)) >= 1, "CH02 MetSys adds vertical connector cells")
-    _assert(state.get("hazard_total") >= 6, "scene spawned CH02 hazards")
+    _assert(state.get("hazard_total") == 0, "CH02 contains no level traps")
     _assert(int(state.get("collectible_total", -1)) == _item_collectible_count(config), "scene spawned exactly the configured ability/reward items")
     _assert(state.get("npc_total") == 4, "scene spawned 4 CH02 NPCs")
 

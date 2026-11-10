@@ -84,7 +84,13 @@ NO_ADDED_WALK_LIMB_PLANS = {
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--min-unique-enemies", type=int, default=40)
+    parser.add_argument("--legacy", action="store_true", help="Inspect the retired single-attack runtime_keyframes layout")
     args = parser.parse_args()
+    if not args.legacy:
+        from validate_runtime_asset_dependencies import run
+        report = run(args.min_unique_enemies)
+        print(f"ENEMY_RUNTIME_MANIFEST_COVERAGE_PASS unique_enemies={report['summary']['minor_species']} production_assets=true")
+        return
 
     enemy_kinds: dict[str, dict[str, Any]] = {}
     chapter_counts: dict[str, int] = {}

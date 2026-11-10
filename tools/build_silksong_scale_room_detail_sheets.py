@@ -135,17 +135,6 @@ def make_micro_layout(room: dict[str, Any], placements: list[dict[str, Any]], al
         ]
 
     hazards = []
-    if idx % 3 == 0 or intensity >= 3:
-        hazards.append({"kind": "spikes", "x": 0.28, "y": 0.86, "w": 0.18, "label": "刺/酸池"})
-    if idx % 4 == 0:
-        hazards.append({"kind": "saw", "x": 0.70, "y": 0.70, "w": 0.12, "label": "移动机关"})
-    if role == "boss":
-        hazards.extend(
-            [
-                {"kind": "danger_zone", "x": 0.20, "y": 0.72, "w": 0.20, "label": "阶段1危险区"},
-                {"kind": "danger_zone", "x": 0.62, "y": 0.72, "w": 0.20, "label": "阶段2危险区"},
-            ]
-        )
 
     enemies = []
     enemy_count = 0 if role in {"start"} else min(4, max(1, intensity + (idx % 2)))

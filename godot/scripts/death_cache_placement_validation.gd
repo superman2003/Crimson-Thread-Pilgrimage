@@ -79,7 +79,7 @@ func _run() -> void:
     _check(player.is_on_floor() and level.last_safe_ground == floor_point, "a lantern-phase gate is not a safe return point")
 
     await _stand(Vector2(1540, 190))
-    _check(player.is_on_floor() and level.last_safe_ground == floor_point, "ground beside spikes still keeps the earlier safe point")
+    _check(player.is_on_floor() and absf(level.last_safe_ground.x - 1540.0) < 4.0, "permanent ground at retired spikes now records the current safe point")
 
     await _stand(Vector2(600, 190))
     _check(absf(level.last_safe_ground.x - 600.0) < 4.0, "returning to permanent terrain records again")
