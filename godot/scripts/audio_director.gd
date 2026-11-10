@@ -143,6 +143,7 @@ const BELLWAY_TRANSIT_LOOP := MUSIC_ROOT + "bellway_transit_loop.ogg"
 const HIDDEN_DRONE := MUSIC_ROOT + "hidden_black_tide_drone.ogg"
 
 static var _npc_voice_cache: Dictionary = {}
+const NPC_LANGUAGE := preload("res://scripts/npc_insect_language.gd")
 ## Session-only phrase positions. Values are seconds/instance IDs, never streams.
 static var _explore_resume: Dictionary = {}
 static var _explore_owners: Dictionary = {}
@@ -151,6 +152,9 @@ const MAX_EXPLORE_BOOKMARKS := 8
 var _explore_path := ""
 var _explore_session := 0
 var _npc_voice_player: AudioStreamPlayer
+var _npc_speaker: WeakRef
+var _npc_voice_ticket := 0
+var _npc_voice_line := ""
 
 var autoplay_enabled := true
 var chapter_short_id := "ch01"
@@ -217,6 +221,7 @@ func _ready() -> void:
 ## Called while the host still owns its children, including its external BGM.
 ## Idempotent for partial preparation, rollback and the later tree-exit callback.
 func release_region_audio() -> void:
+    stop_npc_voice()
     if region_audio_released:
         return
     _remember_explore_position()
@@ -480,6 +485,11 @@ func engage_shrine(anchor: Vector2) -> void:
 
 
 func _process(delta: float) -> void:
+    if _npc_speaker != null:
+        var speaker: Node = _npc_speaker.get_ref()
+        if not is_instance_valid(speaker) or not speaker.is_inside_tree() or speaker.is_queued_for_deletion() \
+                or (speaker.has_method("accepts_utterance") and not bool(speaker.call("accepts_utterance"))):
+            stop_npc_voice()
     _tick_shrine_lullaby()
     ambient_soundscape.tick(self, runtime_player as Node2D)
     ai_poll_accum += delta
@@ -1129,11 +1139,11 @@ func _clear_duck_layers(render: bool = true) -> void:
 
 func on_dialogue(open: bool) -> void:
     if open == dialogue_open:
+        if not open: stop_npc_voice()
         return
     dialogue_open = open
     if open:ambient_soundscape.stop()
-    if not open and _npc_voice_player != null and is_instance_valid(_npc_voice_player):
-        _npc_voice_player.stop()
+    if not open: stop_npc_voice()
     # Dialogue changes the baseline; independent transient ducks keep their leases.
     if open:_stop_npc_landmarks()
     _tween_bus_db("BGM", _music_rest_db(), 0.25)
@@ -1489,27 +1499,70 @@ func _bus_reverb(bus_name: String) -> AudioEffectReverb:
 
 
 
-## Short original nonverbal greeting. The Chinese subtitle carries all meaning;
-## this is deliberately not synthetic Chinese speech or a borrowed game voice.
-## One dedicated player replaces the previous greeting; no syllable-per-letter spam.
-func play_npc_voice(npc_id: String, line: String, profile: String = "warm") -> bool:
+## Original insect phrases have character-specific timbre and natural pauses.
+## One channel replaces the previous phrase; subtitles retain their own reading clock.
+func play_npc_voice(npc_id: String, line: String, profile: String = "warm", speaker: Node = null, allow_voice: bool = true) -> bool:
     _stop_npc_landmarks()
     if line.strip_edges().is_empty() or not is_inside_tree():
         return false
+    var fingerprint := npc_id + "\n" + line
+    if fingerprint == _npc_voice_line: return false
+    stop_npc_voice(false)
+    _npc_voice_line = fingerprint
+    # Restoring a read line stays quiet, while still retiring a different line.
+    if not allow_voice: return false
     var key := "npc_greeting_" + npc_id
     var voice_ticket := reserve_voice(key, 2, 450, 1)
     if voice_ticket == 0:
         return false
-    var stream := npc_voice_stream(profile)
+    var phrase := NPC_LANGUAGE.utterance(npc_id, line, profile)
+    if phrase.is_empty():
+        release_ticket(voice_ticket)
+        return false
+    var stream := load_cached(String(phrase.path))
+    if stream == null:
+        release_ticket(voice_ticket)
+        return false
     if _npc_voice_player == null or not is_instance_valid(_npc_voice_player):
         _npc_voice_player = AudioStreamPlayer.new()
         _npc_voice_player.name = "NPCNonverbalVoice"
         _npc_voice_player.bus = _bus_or("SFXWorld", "SFX")
-        _npc_voice_player.volume_db = -13.0
+        _npc_voice_player.finished.connect(_npc_voice_finished)
         add_child(_npc_voice_player)
     _npc_voice_player.stream = stream
-    _npc_voice_player.pitch_scale = 0.96 + float(abs(npc_id.hash()) % 9) * 0.01
-    return start_reserved_voice(voice_ticket,_npc_voice_player,true)
+    _npc_voice_player.pitch_scale = float(phrase.pitch_scale)
+    _npc_voice_player.volume_db = float(phrase.volume_db)
+    if not start_reserved_voice(voice_ticket,_npc_voice_player,true): return false
+    _npc_voice_ticket = voice_ticket
+    if is_instance_valid(speaker) and speaker.has_method("begin_utterance"):
+        _npc_speaker = weakref(speaker)
+        speaker.call("begin_utterance", _npc_voice_player, float(phrase.voiced_until))
+    return true
+
+
+func _end_npc_speaker() -> void:
+    var speaker: Node = _npc_speaker.get_ref() if _npc_speaker != null else null
+    _npc_speaker = null
+    if is_instance_valid(speaker) and not speaker.is_queued_for_deletion() and speaker.has_method("end_utterance"):
+        speaker.call("end_utterance")
+
+
+func _npc_voice_finished() -> void:
+    if is_instance_valid(_npc_voice_player) and _npc_voice_player.playing: return
+    _end_npc_speaker()
+    _npc_voice_ticket = 0
+
+
+func stop_npc_voice(clear_line: bool = true) -> void:
+    _end_npc_speaker()
+    if is_instance_valid(_npc_voice_player):
+        preload("res://scripts/audio_retirement.gd").watch_player(_npc_voice_player)
+        _npc_voice_player.stop()
+        _npc_voice_player.stream = null
+    if _npc_voice_ticket != 0:
+        _forget_voice(_npc_voice_ticket)
+        _npc_voice_ticket = 0
+    if clear_line: _npc_voice_line = ""
 
 
 static func npc_voice_stream(profile: String) -> AudioStreamWAV:

@@ -27,6 +27,15 @@ on:
       - 'godot/scripts/npc_dialogue_motion*.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
       - 'tools/check_npc_motion_v10_native.py'
+      - 'godot/scripts/npc_conversation_voice_validation.gd'
+      - 'godot/scripts/npc_dialogue_portrait.gd'
+      - 'godot/scripts/npc_insect_language.gd'
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/data/npc_insect_language.json'
+      - 'godot/assets/audio/npc_insect_language_v1/**'
+      - 'art_requests/npc_insect_language_v1/**'
+      - 'tools/build_npc_insect_speech.py'
+      - 'tools/test_npc_insect_speech.py'
       - 'godot/scripts/hand_drawn_assets.gd'
       - 'godot/scripts/character_art_*.gd'
       - 'godot/scripts/world_gameplay_prefetch.gd'
@@ -73,6 +82,8 @@ jobs:
           npm run test:character-motion
           python3 tools/validate_hero_v3.py
           npm test
+      - name: Validate original NPC speech and provenance
+        run: python3 tools/test_npc_insect_speech.py
       - name: Import all resources
         run: |
           python3 tools/run_godot_import.py \
@@ -84,6 +95,7 @@ jobs:
             --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl \
             --suite character_art_prewarm --suite expanded_character_motion --suite enemy_atlas_integrity \
             --suite hero_animation --suite player_motion_continuity --suite player_idle_motion --suite npc_dialogue_motion \
+            --suite npc_conversation_voice \
             --suite player_guard_art --suite player_heal_art --suite player_hook_art --suite player_ability_art \
             --suite seal_combat --suite seal_identity \
             --suite player_basic_attack_vfx --suite player_melee_feedback --suite seal_presentation \

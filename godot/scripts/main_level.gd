@@ -7329,6 +7329,7 @@ func _trigger_whispers(trigger: String, key: String) -> void:
 
 
 func _show_dialogue(area: Area2D, line: String) -> void:
+    var voice_requested := false
     if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
         ui_shell.build_panel.visible = false
     # 对话混音态（规格 §5.3）：Music -4dB / Ambience -6dB，关闭时归还。
@@ -7354,15 +7355,21 @@ func _show_dialogue(area: Area2D, line: String) -> void:
             var reading: Dictionary = ui_shell.dialogue_reading_state(area, line) if ui_shell != null and ui_shell.has_method("dialogue_reading_state") else {}
             subtitle_elapsed = subtitle_seconds * float(reading.get("progress", 0.0))
             dialogue_text_label.visible_characters = int(reading.get("characters", 0))
-            if audio_director != null and reading.is_empty() and String(area.get_meta("kind",""))!="history":
-                var profile := String(area.get_meta("world_dialogue_result", {}).get("voice_profile", "warm"))
-                audio_director.play_npc_voice(String(area.get_meta("npc_id", area.name)), line, profile)
+            voice_requested = reading.is_empty()
         else:
             dialogue_text_label.visible_characters = -1
+            voice_requested = true
     if dialogue_hint_label != null:
         dialogue_hint_label.text = String(area.get_meta("help", ""))
     if ui_shell!=null:
         ui_shell.show_speaker(area)
+    if audio_director != null:
+        if String(area.get_meta("kind", "")) == "npc":
+            var profile := String(area.get_meta("world_dialogue_result", {}).get("voice_profile", "warm"))
+            audio_director.play_npc_voice(String(area.get_meta("npc_id", area.name)), line, profile,
+                area.get_node_or_null("FriendlyFamilySprite"), voice_requested)
+        else:
+            audio_director.stop_npc_voice()
     _sync_ui_input_lock()
 
 

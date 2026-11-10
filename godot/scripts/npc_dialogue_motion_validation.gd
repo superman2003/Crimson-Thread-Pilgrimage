@@ -21,6 +21,14 @@ func phase(sprite: AnimatedSprite2D) -> Vector2:
 
 func run() -> void:
     var stage := Node2D.new(); root.add_child(stage)
+    # This clock fixture tests the existing greeting/talk animation contract;
+    # the separate conversation voice suite captures actual audible speech.
+    var voice_clock := AudioStreamPlayer.new()
+    var silence := AudioStreamWAV.new()
+    silence.format=AudioStreamWAV.FORMAT_16_BITS; silence.mix_rate=22050
+    var pcm := PackedByteArray(); pcm.resize(44100); silence.data=pcm
+    silence.loop_mode=AudioStreamWAV.LOOP_FORWARD; silence.loop_end=22050
+    voice_clock.stream=silence; stage.add_child(voice_clock); voice_clock.play()
     var factory := LEVEL.new()
     var designs: Dictionary = ART.manifest("res://data/original_world_art_designs.json")
     var actors: Array[AnimatedSprite2D] = []
@@ -34,6 +42,7 @@ func run() -> void:
         check(sprite.get_script()==MOTION,"normal factory installs conversation motion: "+id)
         check(sprite.sprite_frames==ART.frames(ART.character_manifest("original_npcs",id)),"existing production drawings stay bound: "+id)
         sprite.call("begin_conversation")
+        sprite.call("begin_utterance",voice_clock,10.0)
         check(sprite.animation==&"greet" and sprite.frame==0,"conversation begins at authored greeting: "+id)
         check(bool(sprite.get("conversation_active")),"greeting belongs to an active conversation: "+id)
     check(character_count>=25,"cover every named production NPC design")
@@ -56,7 +65,9 @@ func run() -> void:
         check(sprite.animation==&"idle" and not bool(sprite.get("conversation_active")),"closing prevents late completion from reviving talk")
         evidence.append({"id":String(designs.npcs[index].id),"greeting_cels_seen":seen[index].size(),"talk_cels":sprite.sprite_frames.get_frame_count(&"talk")})
     var saved_frames := actors[0].sprite_frames
+    preload("res://scripts/audio_retirement.gd").retire_tree(stage)
     stage.free(); factory.free()
+    silence=null;voice_clock=null
     await clock_and_fallback(saved_frames)
     await actual_dialogue()
     var output := ProjectSettings.globalize_path("res://../artifacts/npc_dialogue_motion_v10")
@@ -99,7 +110,7 @@ func clock_and_fallback(source: SpriteFrames) -> void:
         elif mode=="looping": sprite.sprite_frames.set_animation_loop(&"greet",true)
         else: sprite.sprite_frames.set_animation_speed(&"greet",0)
         sprite.begin_conversation()
-        check(sprite.animation==&"talk","unusable greeting falls back to talk: "+mode)
+        check(sprite.animation==&"idle" and sprite.presentation_state==&"listen","unusable greeting listens until a voice starts: "+mode)
         sprite.end_conversation()
     sprite.free(); await process_frame
 
@@ -154,8 +165,11 @@ func actual_dialogue() -> void:
     check(sprite.animation==&"greet" and phase(sprite)==before,"route topic during greeting keeps the current pose clock")
     await capture("greeting",sprite)
     await frames(24)
-    check(sprite.animation==&"talk","normal interface reaches talk after greeting")
-    await capture("talking",sprite)
+    # A phrase's final reverb may outlast its articulated syllables. The new
+    # native voice suite independently checks the actual audio/acting lifetime.
+    var voiced: bool = bool(sprite.get("speech_active"))
+    check(sprite.animation==(&"talk" if voiced else &"idle"),"normal interface follows actual speech instead of looping talk in silence")
+    await capture("talking" if voiced else "listening",sprite)
     var shrine := level.get_node_or_null("save_first_bell") as Area2D
     var bindings := LIVE.arrival_bindings(level,npc,shrine)
     callback_contract.exact=bindings.gameplay and bindings.components

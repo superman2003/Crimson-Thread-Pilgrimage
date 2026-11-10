@@ -824,7 +824,13 @@ func _build_dialogue() -> void:
     dialogue.name="DialogueOverlay"
     dialogue.get_child(0).kind="dialogue"
     _well(dialogue,Vector2(18,16),Vector2(188,220))
-    dialogue_portrait=_icon(dialogue,null,Vector2(23,21),Vector2(173,191))
+    dialogue_portrait=preload("res://scripts/npc_dialogue_portrait.gd").new()
+    dialogue_portrait.position=Vector2(23,21)
+    dialogue_portrait.size=Vector2(173,191)
+    dialogue_portrait.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+    dialogue_portrait.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    dialogue_portrait.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    dialogue.add_child(dialogue_portrait)
     dialogue_name=_label(dialogue,"",Vector2(221,19),Vector2(740,37),TYPE.DISPLAY,GOLD)
     dialogue_identity=_label(dialogue,"",Vector2(221,57),Vector2(770,28),14,MUTED)
     dialogue_scroll=ScrollContainer.new()
@@ -866,7 +872,6 @@ func show_speaker(area: Area2D) -> void:
     var reading:=dialogue_reading.restore(dialogue_reading_key)
     if not reading.is_empty():_restore_dialogue_scroll(dialogue_reading_key,int(reading.scroll))
     var history := String(area.get_meta("kind",""))=="history"
-    dialogue_portrait.texture=ART.item("moss_lens") if history else ART.portrait(String(area.get_meta("npc_id","")))
     dialogue_continue_button.text="记入旅记" if history else "继续交谈"
     dialogue_route_button.visible=not history
     dialogue_quest_button.visible=not history
@@ -883,6 +888,7 @@ func show_speaker(area: Area2D) -> void:
         elif bool(level.story_flags.get(String(quest.get("complete_flag","")),false)):
             dialogue_quest_button.text="回访心愿"
     _speaker_motion(area,true)
+    dialogue_portrait.call("bind_speaker", area, ART.item("moss_lens") if history else ART.portrait(String(area.get_meta("npc_id",""))))
 
 func _speaker_motion(area, talking: bool) -> void:
     if not is_instance_valid(area): return
@@ -891,6 +897,8 @@ func _speaker_motion(area, talking: bool) -> void:
     var method := &"begin_conversation" if talking else &"end_conversation"
     if sprite.has_method(method): sprite.call(method)
     else: sprite.play(&"talk" if talking else &"idle")
+    if talking and sprite.has_method("face_listener") and is_instance_valid(level.player):
+        sprite.call("face_listener", level.player.global_position.x)
 
 func _open_narrative_inquiries() -> void:
     if not preload("res://scripts/narrative_inquiries.gd").can_talk(self,dialogue_area):return
@@ -993,6 +1001,8 @@ func _remember_dialogue_reading() -> void:
 func close_dialogue() -> void:
     _remember_dialogue_reading()
     _speaker_motion(dialogue_area,false)
+    if is_instance_valid(dialogue_portrait): dialogue_portrait.call("release_speaker")
+    if level != null and is_instance_valid(level.audio_director): level.audio_director.stop_npc_voice()
     dialogue_area=null
     dialogue_reading_key=""
 
