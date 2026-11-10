@@ -1,6 +1,6 @@
 # 撤除关卡陷阱：验证记录
 
-`native/ch01-clear.jpg` 至 `ch06-clear.jpg` 及 `world-clear.jpg` 为 Godot 4.6.1 实际 GLCompatibility 场景截图。使用 Dummy 音频输出、独立用户目录。入口截图不代表自然通关。
+`native/ch01-clear.jpg` 至 `ch06-clear.jpg` 及 `world-clear.jpg` 为 Godot 4.6.1 实际 GLCompatibility 场景截图。使用 Dummy 音频输出、独立用户目录；截图前等待 30 个物理帧并检查主角已进入镜头。入口截图不代表自然通关。
 
 `validation/summary.json` 汇总最终原生套件、源文件指纹及静态检查。`validation/runtime-asset-dependencies.json` 记录实际选择的角色 manifest、攻击阶段、资源闭包和单列的动态模板。
 
