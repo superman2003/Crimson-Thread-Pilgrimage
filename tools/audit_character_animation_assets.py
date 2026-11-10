@@ -19,7 +19,7 @@ CHAPTERS = [
     "moss_bell_court", "rain_foundry_canal", "saltwhite_archive",
     "broken_string_greenhouse", "obsidian_pilgrim_road", "silent_crown_core",
 ]
-LAYERS = ["boss_behavior_manifest.json", "combat_motion_v7_manifest.json",
+LAYERS = ["motion_onion_manifest.json", "boss_behavior_manifest.json", "combat_motion_v7_manifest.json",
           "motion_manifest.json", "manifest.json"]
 CORE = ["idle", "walk", "windup", "attack", "recover", "hurt", "death"]
 OPTIONAL = ["turn", "brake", "jump", "land", "intro", "stagger"]
