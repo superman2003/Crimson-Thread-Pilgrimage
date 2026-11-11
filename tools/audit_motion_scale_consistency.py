@@ -31,7 +31,7 @@ ACTIVE_LAYERS = ["motion_redraw_manifest.json", "motion_transition_manifest.json
                  "combat_motion_v7_manifest.json", "motion_manifest.json", "manifest.json"]
 # Only drawings produced by generated in-between layers are gated; earlier
 # layers were authored as whole clips and stay report-only.
-GATED_ATLAS_MARKERS = ("motion_onion_", "motion_v8_", "motion_transition_")
+GATED_ATLAS_MARKERS = ("motion_onion_", "motion_v8_", "motion_transition_", "motion_redraw_")
 THRESHOLD = 1.5
 SOLID_ALPHA = 128
 
