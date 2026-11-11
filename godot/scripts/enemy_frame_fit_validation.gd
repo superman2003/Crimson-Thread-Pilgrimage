@@ -145,8 +145,14 @@ func check_transition_start(stage: Node) -> void:
     actor.set_physics_process(false)
     actor.state = "patrol"
     var sprite: AnimatedSprite2D = actor.animated_sprite
-    var rows: Array = actor.frame_fit.get("walk", [])
-    check(not rows.is_empty(), "transition fixture has walking measurements")
+    # A successful redraw may need no walking correction at all. Use a local
+    # non-identity probe so this regression stays meaningful as art improves.
+    actor.frame_fit = actor.frame_fit.duplicate(true)
+    var rows: Array = []
+    for i in sprite.sprite_frames.get_frame_count("walk"): rows.append([1.0,0,0])
+    if rows.size() > 1: rows[1] = [0.93,7.0,37.0]
+    actor.frame_fit["walk"] = rows
+    check(rows.size() > 1, "transition fixture has a multi-frame walking clip")
     if not rows.is_empty():
         var index := 0
         for i in rows.size():

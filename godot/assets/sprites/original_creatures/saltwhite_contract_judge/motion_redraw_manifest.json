@@ -1,0 +1,6566 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "saltwhite_contract_judge",
+  "canvas": [
+    530,
+    238
+  ],
+  "display_height": 226,
+  "visual_scale": 1.2417582417582418,
+  "visual_offset": [
+    0,
+    -63.12803475594173
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 24.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            211,
+            182
+          ],
+          "margin": [
+            174,
+            43,
+            319,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            206,
+            202
+          ],
+          "margin": [
+            178,
+            25,
+            324,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            213,
+            0,
+            221,
+            183
+          ],
+          "margin": [
+            167,
+            42,
+            309,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            212,
+            2,
+            203,
+            189
+          ],
+          "margin": [
+            178,
+            38,
+            327,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            436,
+            0,
+            195,
+            184
+          ],
+          "margin": [
+            182,
+            41,
+            335,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            419,
+            2,
+            208,
+            202
+          ],
+          "margin": [
+            176,
+            25,
+            322,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            633,
+            0,
+            225,
+            184
+          ],
+          "margin": [
+            182,
+            41,
+            305,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            631,
+            2,
+            207,
+            190
+          ],
+          "margin": [
+            189,
+            38,
+            323,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            860,
+            0,
+            208,
+            184
+          ],
+          "margin": [
+            177,
+            41,
+            322,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            842,
+            2,
+            223,
+            207
+          ],
+          "margin": [
+            170,
+            20,
+            307,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1070,
+            0,
+            252,
+            185
+          ],
+          "margin": [
+            158,
+            40,
+            278,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1069,
+            2,
+            228,
+            189
+          ],
+          "margin": [
+            173,
+            39,
+            302,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1324,
+            0,
+            198,
+            185
+          ],
+          "margin": [
+            183,
+            40,
+            332,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1301,
+            2,
+            213,
+            193
+          ],
+          "margin": [
+            176,
+            35,
+            317,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1524,
+            0,
+            239,
+            184
+          ],
+          "margin": [
+            163,
+            41,
+            291,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1518,
+            2,
+            223,
+            201
+          ],
+          "margin": [
+            172,
+            26,
+            307,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 72.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            215,
+            180
+          ],
+          "margin": [
+            174,
+            45,
+            315,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            221,
+            2,
+            217,
+            181
+          ],
+          "margin": [
+            174,
+            44,
+            313,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            442,
+            2,
+            217,
+            183
+          ],
+          "margin": [
+            175,
+            42,
+            313,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            663,
+            2,
+            215,
+            181
+          ],
+          "margin": [
+            177,
+            44,
+            315,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            882,
+            2,
+            217,
+            181
+          ],
+          "margin": [
+            176,
+            44,
+            313,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1103,
+            2,
+            215,
+            180
+          ],
+          "margin": [
+            178,
+            45,
+            315,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1322,
+            2,
+            215,
+            179
+          ],
+          "margin": [
+            180,
+            46,
+            315,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1541,
+            2,
+            213,
+            179
+          ],
+          "margin": [
+            181,
+            46,
+            317,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1758,
+            2,
+            214,
+            180
+          ],
+          "margin": [
+            176,
+            45,
+            316,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            2,
+            193,
+            215,
+            179
+          ],
+          "margin": [
+            175,
+            46,
+            315,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            221,
+            193,
+            215,
+            183
+          ],
+          "margin": [
+            177,
+            42,
+            315,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            440,
+            193,
+            215,
+            181
+          ],
+          "margin": [
+            177,
+            44,
+            315,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            659,
+            193,
+            217,
+            183
+          ],
+          "margin": [
+            176,
+            42,
+            313,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            880,
+            193,
+            217,
+            183
+          ],
+          "margin": [
+            177,
+            42,
+            313,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1101,
+            193,
+            217,
+            184
+          ],
+          "margin": [
+            177,
+            41,
+            313,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1322,
+            193,
+            214,
+            180
+          ],
+          "margin": [
+            178,
+            45,
+            316,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1540,
+            193,
+            214,
+            180
+          ],
+          "margin": [
+            176,
+            45,
+            316,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1758,
+            193,
+            215,
+            184
+          ],
+          "margin": [
+            175,
+            41,
+            315,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            2,
+            385,
+            217,
+            184
+          ],
+          "margin": [
+            175,
+            41,
+            313,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            223,
+            385,
+            218,
+            181
+          ],
+          "margin": [
+            175,
+            44,
+            312,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            445,
+            385,
+            218,
+            180
+          ],
+          "margin": [
+            175,
+            45,
+            312,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            667,
+            385,
+            217,
+            183
+          ],
+          "margin": [
+            177,
+            42,
+            313,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            888,
+            385,
+            218,
+            185
+          ],
+          "margin": [
+            176,
+            40,
+            312,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1110,
+            385,
+            215,
+            184
+          ],
+          "margin": [
+            177,
+            41,
+            315,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1329,
+            385,
+            214,
+            180
+          ],
+          "margin": [
+            176,
+            45,
+            316,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1547,
+            385,
+            215,
+            181
+          ],
+          "margin": [
+            176,
+            44,
+            315,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            1766,
+            385,
+            214,
+            183
+          ],
+          "margin": [
+            178,
+            42,
+            316,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            2,
+            578,
+            214,
+            183
+          ],
+          "margin": [
+            178,
+            42,
+            316,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            220,
+            578,
+            215,
+            184
+          ],
+          "margin": [
+            177,
+            41,
+            315,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            439,
+            578,
+            215,
+            183
+          ],
+          "margin": [
+            178,
+            42,
+            315,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            658,
+            578,
+            215,
+            184
+          ],
+          "margin": [
+            178,
+            41,
+            315,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_00.png",
+          "region": [
+            877,
+            578,
+            217,
+            184
+          ],
+          "margin": [
+            177,
+            41,
+            313,
+            54
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1376,
+            187,
+            225,
+            175
+          ],
+          "margin": [
+            197,
+            50,
+            305,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1385,
+            420,
+            225,
+            187
+          ],
+          "margin": [
+            193,
+            40,
+            305,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1603,
+            187,
+            233,
+            183
+          ],
+          "margin": [
+            189,
+            42,
+            297,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1614,
+            420,
+            241,
+            186
+          ],
+          "margin": [
+            180,
+            41,
+            289,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1838,
+            187,
+            251,
+            183
+          ],
+          "margin": [
+            187,
+            42,
+            279,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            2,
+            615,
+            219,
+            169
+          ],
+          "margin": [
+            188,
+            58,
+            311,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2091,
+            187,
+            229,
+            176
+          ],
+          "margin": [
+            190,
+            49,
+            301,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            225,
+            615,
+            235,
+            178
+          ],
+          "margin": [
+            182,
+            49,
+            295,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2322,
+            187,
+            247,
+            182
+          ],
+          "margin": [
+            184,
+            43,
+            283,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            464,
+            615,
+            241,
+            183
+          ],
+          "margin": [
+            182,
+            44,
+            289,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2571,
+            187,
+            237,
+            182
+          ],
+          "margin": [
+            193,
+            43,
+            293,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            709,
+            615,
+            224,
+            169
+          ],
+          "margin": [
+            194,
+            59,
+            306,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2810,
+            187,
+            222,
+            175
+          ],
+          "margin": [
+            198,
+            50,
+            308,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            937,
+            615,
+            205,
+            175
+          ],
+          "margin": [
+            190,
+            53,
+            325,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3034,
+            187,
+            236,
+            183
+          ],
+          "margin": [
+            192,
+            42,
+            294,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1146,
+            615,
+            240,
+            191
+          ],
+          "margin": [
+            172,
+            36,
+            290,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3272,
+            187,
+            235,
+            184
+          ],
+          "margin": [
+            173,
+            41,
+            295,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1390,
+            615,
+            218,
+            175
+          ],
+          "margin": [
+            182,
+            52,
+            312,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3509,
+            187,
+            207,
+            178
+          ],
+          "margin": [
+            194,
+            47,
+            323,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1612,
+            615,
+            199,
+            170
+          ],
+          "margin": [
+            186,
+            59,
+            331,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3718,
+            187,
+            198,
+            166
+          ],
+          "margin": [
+            186,
+            59,
+            332,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1815,
+            615,
+            214,
+            167
+          ],
+          "margin": [
+            172,
+            61,
+            316,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            373,
+            260,
+            149
+          ],
+          "margin": [
+            144,
+            76,
+            270,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            2,
+            814,
+            204,
+            158
+          ],
+          "margin": [
+            170,
+            68,
+            326,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            262,
+            373,
+            220,
+            123
+          ],
+          "margin": [
+            160,
+            102,
+            310,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            210,
+            814,
+            187,
+            145
+          ],
+          "margin": [
+            169,
+            81,
+            343,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            484,
+            373,
+            221,
+            131
+          ],
+          "margin": [
+            147,
+            94,
+            309,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            401,
+            814,
+            194,
+            150
+          ],
+          "margin": [
+            150,
+            76,
+            336,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            707,
+            373,
+            274,
+            133
+          ],
+          "margin": [
+            139,
+            92,
+            256,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            599,
+            814,
+            195,
+            154
+          ],
+          "margin": [
+            152,
+            73,
+            335,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            983,
+            373,
+            268,
+            128
+          ],
+          "margin": [
+            137,
+            97,
+            262,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            798,
+            814,
+            225,
+            146
+          ],
+          "margin": [
+            154,
+            80,
+            305,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1253,
+            373,
+            282,
+            135
+          ],
+          "margin": [
+            134,
+            90,
+            248,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1027,
+            814,
+            236,
+            149
+          ],
+          "margin": [
+            144,
+            79,
+            294,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1537,
+            373,
+            374,
+            137
+          ],
+          "margin": [
+            106,
+            88,
+            156,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1267,
+            814,
+            253,
+            144
+          ],
+          "margin": [
+            145,
+            83,
+            277,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1913,
+            373,
+            338,
+            127
+          ],
+          "margin": [
+            137,
+            98,
+            192,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1524,
+            814,
+            313,
+            143
+          ],
+          "margin": [
+            140,
+            84,
+            217,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2253,
+            373,
+            382,
+            140
+          ],
+          "margin": [
+            104,
+            85,
+            148,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            2,
+            980,
+            311,
+            145
+          ],
+          "margin": [
+            125,
+            82,
+            219,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2637,
+            373,
+            223,
+            141
+          ],
+          "margin": [
+            130,
+            84,
+            307,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            317,
+            980,
+            206,
+            135
+          ],
+          "margin": [
+            134,
+            91,
+            324,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2862,
+            373,
+            206,
+            138
+          ],
+          "margin": [
+            125,
+            87,
+            324,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            527,
+            980,
+            201,
+            155
+          ],
+          "margin": [
+            138,
+            72,
+            329,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3070,
+            373,
+            239,
+            153
+          ],
+          "margin": [
+            125,
+            72,
+            291,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            732,
+            980,
+            212,
+            157
+          ],
+          "margin": [
+            156,
+            70,
+            318,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3311,
+            373,
+            215,
+            159
+          ],
+          "margin": [
+            181,
+            66,
+            315,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            948,
+            980,
+            192,
+            154
+          ],
+          "margin": [
+            202,
+            73,
+            338,
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3528,
+            373,
+            224,
+            160
+          ],
+          "margin": [
+            197,
+            65,
+            306,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1144,
+            980,
+            215,
+            174
+          ],
+          "margin": [
+            201,
+            53,
+            315,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3754,
+            373,
+            221,
+            166
+          ],
+          "margin": [
+            200,
+            59,
+            309,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1363,
+            980,
+            218,
+            177
+          ],
+          "margin": [
+            198,
+            52,
+            312,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            541,
+            198,
+            165
+          ],
+          "margin": [
+            210,
+            60,
+            332,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1585,
+            980,
+            182,
+            163
+          ],
+          "margin": [
+            220,
+            63,
+            348,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            200,
+            541,
+            195,
+            157
+          ],
+          "margin": [
+            213,
+            68,
+            335,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1771,
+            980,
+            197,
+            169
+          ],
+          "margin": [
+            202,
+            58,
+            333,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            397,
+            541,
+            201,
+            167
+          ],
+          "margin": [
+            200,
+            58,
+            329,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            2,
+            1165,
+            198,
+            179
+          ],
+          "margin": [
+            195,
+            50,
+            332,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            600,
+            541,
+            220,
+            171
+          ],
+          "margin": [
+            168,
+            54,
+            310,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            204,
+            1165,
+            196,
+            165
+          ],
+          "margin": [
+            176,
+            61,
+            334,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            822,
+            541,
+            211,
+            167
+          ],
+          "margin": [
+            158,
+            58,
+            319,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            404,
+            1165,
+            195,
+            168
+          ],
+          "margin": [
+            184,
+            59,
+            335,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1035,
+            541,
+            212,
+            172
+          ],
+          "margin": [
+            175,
+            53,
+            318,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            603,
+            1165,
+            202,
+            185
+          ],
+          "margin": [
+            200,
+            42,
+            328,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1249,
+            541,
+            224,
+            170
+          ],
+          "margin": [
+            184,
+            55,
+            306,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            809,
+            1165,
+            204,
+            178
+          ],
+          "margin": [
+            208,
+            49,
+            326,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1475,
+            541,
+            218,
+            161
+          ],
+          "margin": [
+            201,
+            64,
+            312,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1017,
+            1165,
+            203,
+            174
+          ],
+          "margin": [
+            214,
+            52,
+            327,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1695,
+            541,
+            232,
+            175
+          ],
+          "margin": [
+            189,
+            50,
+            298,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1224,
+            1165,
+            220,
+            182
+          ],
+          "margin": [
+            194,
+            45,
+            310,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1929,
+            541,
+            219,
+            182
+          ],
+          "margin": [
+            174,
+            43,
+            311,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1448,
+            1165,
+            217,
+            180
+          ],
+          "margin": [
+            182,
+            47,
+            313,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2150,
+            541,
+            226,
+            166
+          ],
+          "margin": [
+            47,
+            59,
+            304,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1669,
+            1165,
+            211,
+            165
+          ],
+          "margin": [
+            110,
+            61,
+            319,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2378,
+            541,
+            235,
+            165
+          ],
+          "margin": [
+            144,
+            60,
+            295,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            2,
+            1358,
+            205,
+            159
+          ],
+          "margin": [
+            175,
+            67,
+            325,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2615,
+            541,
+            226,
+            135
+          ],
+          "margin": [
+            179,
+            90,
+            304,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            211,
+            1358,
+            203,
+            137
+          ],
+          "margin": [
+            188,
+            89,
+            327,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2843,
+            541,
+            197,
+            135
+          ],
+          "margin": [
+            187,
+            90,
+            333,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            418,
+            1358,
+            205,
+            153
+          ],
+          "margin": [
+            184,
+            74,
+            325,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3042,
+            541,
+            208,
+            138
+          ],
+          "margin": [
+            167,
+            87,
+            322,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            627,
+            1358,
+            192,
+            148
+          ],
+          "margin": [
+            178,
+            79,
+            338,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3252,
+            541,
+            246,
+            114
+          ],
+          "margin": [
+            146,
+            111,
+            284,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            823,
+            1358,
+            205,
+            122
+          ],
+          "margin": [
+            158,
+            104,
+            325,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3500,
+            541,
+            248,
+            77
+          ],
+          "margin": [
+            138,
+            148,
+            282,
+            161
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1032,
+            1358,
+            204,
+            84
+          ],
+          "margin": [
+            160,
+            142,
+            326,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3750,
+            541,
+            243,
+            62
+          ],
+          "margin": [
+            147,
+            163,
+            287,
+            176
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1240,
+            1358,
+            219,
+            76
+          ],
+          "margin": [
+            156,
+            150,
+            311,
+            162
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            725,
+            189,
+            193
+          ],
+          "margin": [
+            203,
+            32,
+            341,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1463,
+            1358,
+            201,
+            204
+          ],
+          "margin": [
+            188,
+            23,
+            329,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            191,
+            725,
+            193,
+            201
+          ],
+          "margin": [
+            198,
+            24,
+            337,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1668,
+            1358,
+            210,
+            208
+          ],
+          "margin": [
+            182,
+            19,
+            320,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            386,
+            725,
+            195,
+            200
+          ],
+          "margin": [
+            195,
+            25,
+            335,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            2,
+            1574,
+            191,
+            200
+          ],
+          "margin": [
+            188,
+            27,
+            339,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            583,
+            725,
+            186,
+            194
+          ],
+          "margin": [
+            191,
+            31,
+            344,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            197,
+            1574,
+            195,
+            205
+          ],
+          "margin": [
+            182,
+            22,
+            335,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            771,
+            725,
+            198,
+            206
+          ],
+          "margin": [
+            184,
+            19,
+            332,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            396,
+            1574,
+            201,
+            213
+          ],
+          "margin": [
+            175,
+            14,
+            329,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            971,
+            725,
+            177,
+            210
+          ],
+          "margin": [
+            202,
+            15,
+            353,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            601,
+            1574,
+            171,
+            202
+          ],
+          "margin": [
+            196,
+            26,
+            359,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1150,
+            725,
+            177,
+            207
+          ],
+          "margin": [
+            197,
+            18,
+            353,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            776,
+            1574,
+            180,
+            208
+          ],
+          "margin": [
+            192,
+            19,
+            350,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1329,
+            725,
+            182,
+            212
+          ],
+          "margin": [
+            201,
+            13,
+            348,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            960,
+            1574,
+            186,
+            216
+          ],
+          "margin": [
+            194,
+            11,
+            344,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1513,
+            725,
+            203,
+            210
+          ],
+          "margin": [
+            182,
+            15,
+            327,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1150,
+            1574,
+            196,
+            211
+          ],
+          "margin": [
+            182,
+            16,
+            334,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1718,
+            725,
+            197,
+            201
+          ],
+          "margin": [
+            189,
+            24,
+            333,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1350,
+            1574,
+            203,
+            218
+          ],
+          "margin": [
+            182,
+            9,
+            327,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1917,
+            725,
+            202,
+            207
+          ],
+          "margin": [
+            190,
+            18,
+            328,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1557,
+            1574,
+            206,
+            227
+          ],
+          "margin": [
+            184,
+            0,
+            324,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2121,
+            725,
+            218,
+            204
+          ],
+          "margin": [
+            189,
+            21,
+            312,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1767,
+            1574,
+            192,
+            215
+          ],
+          "margin": [
+            206,
+            12,
+            338,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2341,
+            725,
+            214,
+            196
+          ],
+          "margin": [
+            193,
+            29,
+            316,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            2,
+            1809,
+            191,
+            210
+          ],
+          "margin": [
+            204,
+            17,
+            339,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2557,
+            725,
+            219,
+            205
+          ],
+          "margin": [
+            193,
+            20,
+            311,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            197,
+            1809,
+            206,
+            221
+          ],
+          "margin": [
+            191,
+            6,
+            324,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2778,
+            725,
+            242,
+            206
+          ],
+          "margin": [
+            188,
+            19,
+            288,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            407,
+            1809,
+            217,
+            216
+          ],
+          "margin": [
+            190,
+            11,
+            313,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3022,
+            725,
+            239,
+            200
+          ],
+          "margin": [
+            190,
+            25,
+            291,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            628,
+            1809,
+            229,
+            207
+          ],
+          "margin": [
+            178,
+            20,
+            301,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3263,
+            725,
+            226,
+            184
+          ],
+          "margin": [
+            177,
+            41,
+            304,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            861,
+            1809,
+            247,
+            219
+          ],
+          "margin": [
+            152,
+            8,
+            283,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3491,
+            725,
+            318,
+            162
+          ],
+          "margin": [
+            110,
+            63,
+            212,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1112,
+            1809,
+            249,
+            171
+          ],
+          "margin": [
+            132,
+            56,
+            281,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3811,
+            725,
+            260,
+            133
+          ],
+          "margin": [
+            115,
+            92,
+            270,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1365,
+            1809,
+            266,
+            172
+          ],
+          "margin": [
+            123,
+            55,
+            264,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            939,
+            313,
+            161
+          ],
+          "margin": [
+            112,
+            64,
+            217,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_00.png",
+          "region": [
+            1635,
+            1809,
+            257,
+            174
+          ],
+          "margin": [
+            148,
+            53,
+            273,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            315,
+            939,
+            202,
+            177
+          ],
+          "margin": [
+            182,
+            48,
+            328,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            201,
+            182
+          ],
+          "margin": [
+            196,
+            47,
+            329,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            519,
+            939,
+            212,
+            191
+          ],
+          "margin": [
+            197,
+            34,
+            318,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            207,
+            2,
+            210,
+            196
+          ],
+          "margin": [
+            194,
+            31,
+            320,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            733,
+            939,
+            207,
+            187
+          ],
+          "margin": [
+            201,
+            38,
+            323,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            421,
+            2,
+            219,
+            209
+          ],
+          "margin": [
+            197,
+            18,
+            311,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            942,
+            939,
+            258,
+            178
+          ],
+          "margin": [
+            171,
+            47,
+            272,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            644,
+            2,
+            218,
+            168
+          ],
+          "margin": [
+            192,
+            58,
+            312,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1202,
+            939,
+            174,
+            182
+          ],
+          "margin": [
+            199,
+            43,
+            356,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            866,
+            2,
+            172,
+            195
+          ],
+          "margin": [
+            194,
+            33,
+            358,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1378,
+            939,
+            183,
+            188
+          ],
+          "margin": [
+            186,
+            37,
+            347,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1042,
+            2,
+            190,
+            208
+          ],
+          "margin": [
+            175,
+            19,
+            340,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1563,
+            939,
+            202,
+            188
+          ],
+          "margin": [
+            179,
+            37,
+            328,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1236,
+            2,
+            192,
+            185
+          ],
+          "margin": [
+            177,
+            43,
+            338,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1767,
+            939,
+            187,
+            180
+          ],
+          "margin": [
+            181,
+            45,
+            343,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1432,
+            2,
+            196,
+            188
+          ],
+          "margin": [
+            175,
+            39,
+            334,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1956,
+            939,
+            202,
+            187
+          ],
+          "margin": [
+            177,
+            38,
+            328,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1632,
+            2,
+            195,
+            193
+          ],
+          "margin": [
+            180,
+            36,
+            335,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2160,
+            939,
+            276,
+            188
+          ],
+          "margin": [
+            171,
+            37,
+            254,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            219,
+            241,
+            190
+          ],
+          "margin": [
+            179,
+            37,
+            289,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2438,
+            939,
+            265,
+            181
+          ],
+          "margin": [
+            184,
+            44,
+            265,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            247,
+            219,
+            257,
+            194
+          ],
+          "margin": [
+            178,
+            33,
+            273,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2705,
+            939,
+            280,
+            189
+          ],
+          "margin": [
+            168,
+            36,
+            250,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            508,
+            219,
+            263,
+            205
+          ],
+          "margin": [
+            167,
+            22,
+            267,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2987,
+            939,
+            199,
+            188
+          ],
+          "margin": [
+            167,
+            37,
+            331,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            775,
+            219,
+            188,
+            189
+          ],
+          "margin": [
+            168,
+            38,
+            342,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3188,
+            939,
+            183,
+            182
+          ],
+          "margin": [
+            170,
+            43,
+            347,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            967,
+            219,
+            192,
+            198
+          ],
+          "margin": [
+            167,
+            30,
+            338,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3373,
+            939,
+            198,
+            186
+          ],
+          "margin": [
+            175,
+            39,
+            332,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1163,
+            219,
+            260,
+            215
+          ],
+          "margin": [
+            182,
+            12,
+            270,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3573,
+            939,
+            200,
+            188
+          ],
+          "margin": [
+            186,
+            37,
+            330,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1427,
+            219,
+            254,
+            201
+          ],
+          "margin": [
+            196,
+            26,
+            276,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3775,
+            939,
+            195,
+            180
+          ],
+          "margin": [
+            200,
+            45,
+            335,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1685,
+            219,
+            242,
+            201
+          ],
+          "margin": [
+            202,
+            26,
+            288,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            1132,
+            205,
+            186
+          ],
+          "margin": [
+            196,
+            39,
+            325,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            442,
+            190,
+            193
+          ],
+          "margin": [
+            204,
+            36,
+            340,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            207,
+            1132,
+            245,
+            187
+          ],
+          "margin": [
+            175,
+            38,
+            285,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            196,
+            442,
+            196,
+            197
+          ],
+          "margin": [
+            201,
+            30,
+            334,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            454,
+            1132,
+            230,
+            180
+          ],
+          "margin": [
+            191,
+            45,
+            300,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            396,
+            442,
+            198,
+            188
+          ],
+          "margin": [
+            206,
+            39,
+            332,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            686,
+            1132,
+            233,
+            184
+          ],
+          "margin": [
+            187,
+            41,
+            297,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            598,
+            442,
+            219,
+            207
+          ],
+          "margin": [
+            198,
+            20,
+            311,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            921,
+            1132,
+            329,
+            180
+          ],
+          "margin": [
+            193,
+            45,
+            201,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            821,
+            442,
+            269,
+            198
+          ],
+          "margin": [
+            198,
+            29,
+            261,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1252,
+            1132,
+            313,
+            171
+          ],
+          "margin": [
+            200,
+            54,
+            217,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1094,
+            442,
+            288,
+            202
+          ],
+          "margin": [
+            190,
+            25,
+            242,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1567,
+            1132,
+            328,
+            182
+          ],
+          "margin": [
+            190,
+            43,
+            202,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1386,
+            442,
+            282,
+            209
+          ],
+          "margin": [
+            180,
+            18,
+            248,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1897,
+            1132,
+            227,
+            182
+          ],
+          "margin": [
+            192,
+            43,
+            303,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1672,
+            442,
+            207,
+            184
+          ],
+          "margin": [
+            198,
+            43,
+            323,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2126,
+            1132,
+            203,
+            178
+          ],
+          "margin": [
+            200,
+            47,
+            327,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            659,
+            198,
+            189
+          ],
+          "margin": [
+            202,
+            38,
+            332,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2331,
+            1132,
+            206,
+            178
+          ],
+          "margin": [
+            201,
+            47,
+            324,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            204,
+            659,
+            216,
+            195
+          ],
+          "margin": [
+            193,
+            32,
+            314,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2539,
+            1132,
+            236,
+            171
+          ],
+          "margin": [
+            187,
+            54,
+            294,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            424,
+            659,
+            218,
+            158
+          ],
+          "margin": [
+            193,
+            68,
+            312,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2777,
+            1132,
+            190,
+            118
+          ],
+          "margin": [
+            130,
+            107,
+            340,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            646,
+            659,
+            221,
+            135
+          ],
+          "margin": [
+            128,
+            92,
+            309,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2969,
+            1132,
+            229,
+            141
+          ],
+          "margin": [
+            140,
+            84,
+            301,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            871,
+            659,
+            230,
+            136
+          ],
+          "margin": [
+            154,
+            90,
+            300,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3200,
+            1132,
+            182,
+            155
+          ],
+          "margin": [
+            182,
+            70,
+            348,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1105,
+            659,
+            198,
+            167
+          ],
+          "margin": [
+            186,
+            60,
+            332,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3384,
+            1132,
+            193,
+            164
+          ],
+          "margin": [
+            202,
+            61,
+            337,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1307,
+            659,
+            218,
+            176
+          ],
+          "margin": [
+            180,
+            53,
+            312,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3579,
+            1132,
+            206,
+            173
+          ],
+          "margin": [
+            195,
+            52,
+            324,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1529,
+            659,
+            205,
+            182
+          ],
+          "margin": [
+            190,
+            45,
+            325,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3787,
+            1132,
+            188,
+            176
+          ],
+          "margin": [
+            208,
+            49,
+            342,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1738,
+            659,
+            188,
+            175
+          ],
+          "margin": [
+            200,
+            54,
+            342,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            1321,
+            189,
+            171
+          ],
+          "margin": [
+            203,
+            54,
+            341,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            862,
+            206,
+            187
+          ],
+          "margin": [
+            184,
+            40,
+            324,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            191,
+            1321,
+            198,
+            183
+          ],
+          "margin": [
+            188,
+            42,
+            332,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            212,
+            862,
+            208,
+            190
+          ],
+          "margin": [
+            175,
+            37,
+            322,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            391,
+            1321,
+            190,
+            188
+          ],
+          "margin": [
+            180,
+            37,
+            340,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            424,
+            862,
+            200,
+            188
+          ],
+          "margin": [
+            168,
+            39,
+            330,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            583,
+            1321,
+            189,
+            187
+          ],
+          "margin": [
+            169,
+            38,
+            341,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            628,
+            862,
+            201,
+            192
+          ],
+          "margin": [
+            160,
+            35,
+            329,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            774,
+            1321,
+            186,
+            186
+          ],
+          "margin": [
+            167,
+            39,
+            344,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            833,
+            862,
+            199,
+            189
+          ],
+          "margin": [
+            159,
+            38,
+            331,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            962,
+            1321,
+            243,
+            180
+          ],
+          "margin": [
+            127,
+            45,
+            287,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1036,
+            862,
+            195,
+            171
+          ],
+          "margin": [
+            156,
+            57,
+            335,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1207,
+            1321,
+            230,
+            165
+          ],
+          "margin": [
+            129,
+            60,
+            300,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1235,
+            862,
+            181,
+            160
+          ],
+          "margin": [
+            167,
+            66,
+            349,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1439,
+            1321,
+            231,
+            163
+          ],
+          "margin": [
+            133,
+            62,
+            299,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1420,
+            862,
+            191,
+            174
+          ],
+          "margin": [
+            160,
+            55,
+            339,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1672,
+            1321,
+            243,
+            155
+          ],
+          "margin": [
+            163,
+            70,
+            287,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1615,
+            862,
+            187,
+            175
+          ],
+          "margin": [
+            164,
+            54,
+            343,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1917,
+            1321,
+            230,
+            140
+          ],
+          "margin": [
+            165,
+            85,
+            300,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1806,
+            862,
+            176,
+            158
+          ],
+          "margin": [
+            168,
+            68,
+            354,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2149,
+            1321,
+            214,
+            135
+          ],
+          "margin": [
+            173,
+            90,
+            316,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            1062,
+            203,
+            175
+          ],
+          "margin": [
+            150,
+            52,
+            327,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2365,
+            1321,
+            348,
+            127
+          ],
+          "margin": [
+            126,
+            98,
+            182,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            209,
+            1062,
+            236,
+            189
+          ],
+          "margin": [
+            130,
+            38,
+            294,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2715,
+            1321,
+            305,
+            107
+          ],
+          "margin": [
+            143,
+            118,
+            225,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            449,
+            1062,
+            239,
+            182
+          ],
+          "margin": [
+            124,
+            45,
+            291,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3022,
+            1321,
+            323,
+            116
+          ],
+          "margin": [
+            137,
+            109,
+            207,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            692,
+            1062,
+            230,
+            165
+          ],
+          "margin": [
+            157,
+            62,
+            300,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3347,
+            1321,
+            237,
+            115
+          ],
+          "margin": [
+            149,
+            110,
+            293,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            926,
+            1062,
+            213,
+            148
+          ],
+          "margin": [
+            164,
+            80,
+            317,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3586,
+            1321,
+            233,
+            108
+          ],
+          "margin": [
+            151,
+            117,
+            297,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1143,
+            1062,
+            227,
+            156
+          ],
+          "margin": [
+            168,
+            71,
+            303,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3821,
+            1321,
+            262,
+            133
+          ],
+          "margin": [
+            154,
+            92,
+            268,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1374,
+            1062,
+            247,
+            160
+          ],
+          "margin": [
+            172,
+            67,
+            283,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            1511,
+            197,
+            149
+          ],
+          "margin": [
+            189,
+            76,
+            333,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1625,
+            1062,
+            260,
+            129
+          ],
+          "margin": [
+            188,
+            98,
+            270,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            199,
+            1511,
+            241,
+            176
+          ],
+          "margin": [
+            179,
+            49,
+            289,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            1259,
+            254,
+            167
+          ],
+          "margin": [
+            180,
+            60,
+            276,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            442,
+            1511,
+            221,
+            169
+          ],
+          "margin": [
+            188,
+            56,
+            309,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            260,
+            1259,
+            228,
+            151
+          ],
+          "margin": [
+            188,
+            76,
+            302,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            665,
+            1511,
+            206,
+            151
+          ],
+          "margin": [
+            184,
+            74,
+            324,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            492,
+            1259,
+            223,
+            151
+          ],
+          "margin": [
+            190,
+            76,
+            307,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            873,
+            1511,
+            209,
+            155
+          ],
+          "margin": [
+            191,
+            70,
+            321,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            719,
+            1259,
+            220,
+            145
+          ],
+          "margin": [
+            198,
+            83,
+            310,
+            93
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1084,
+            1511,
+            237,
+            175
+          ],
+          "margin": [
+            179,
+            50,
+            293,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            943,
+            1259,
+            232,
+            175
+          ],
+          "margin": [
+            184,
+            52,
+            298,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1323,
+            1511,
+            217,
+            158
+          ],
+          "margin": [
+            186,
+            67,
+            313,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1179,
+            1259,
+            215,
+            165
+          ],
+          "margin": [
+            187,
+            62,
+            315,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1542,
+            1511,
+            196,
+            153
+          ],
+          "margin": [
+            198,
+            72,
+            334,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1398,
+            1259,
+            204,
+            162
+          ],
+          "margin": [
+            190,
+            65,
+            326,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1740,
+            1511,
+            197,
+            150
+          ],
+          "margin": [
+            196,
+            75,
+            333,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1606,
+            1259,
+            199,
+            151
+          ],
+          "margin": [
+            194,
+            75,
+            331,
+            87
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1939,
+            1511,
+            261,
+            130
+          ],
+          "margin": [
+            184,
+            95,
+            269,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            1442,
+            246,
+            143
+          ],
+          "margin": [
+            184,
+            83,
+            284,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2202,
+            1511,
+            211,
+            141
+          ],
+          "margin": [
+            190,
+            84,
+            319,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            252,
+            1442,
+            215,
+            148
+          ],
+          "margin": [
+            184,
+            78,
+            315,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2415,
+            1511,
+            209,
+            152
+          ],
+          "margin": [
+            192,
+            73,
+            321,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            471,
+            1442,
+            209,
+            158
+          ],
+          "margin": [
+            188,
+            68,
+            321,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2626,
+            1511,
+            219,
+            131
+          ],
+          "margin": [
+            194,
+            94,
+            311,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            684,
+            1442,
+            206,
+            157
+          ],
+          "margin": [
+            193,
+            70,
+            324,
+            81
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2847,
+            1511,
+            224,
+            160
+          ],
+          "margin": [
+            197,
+            65,
+            306,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            894,
+            1442,
+            210,
+            169
+          ],
+          "margin": [
+            189,
+            60,
+            320,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3073,
+            1511,
+            230,
+            164
+          ],
+          "margin": [
+            188,
+            61,
+            300,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1108,
+            1442,
+            243,
+            200
+          ],
+          "margin": [
+            180,
+            27,
+            287,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3305,
+            1511,
+            216,
+            165
+          ],
+          "margin": [
+            196,
+            60,
+            314,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1355,
+            1442,
+            225,
+            164
+          ],
+          "margin": [
+            176,
+            64,
+            305,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3523,
+            1511,
+            195,
+            157
+          ],
+          "margin": [
+            213,
+            68,
+            335,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1584,
+            1442,
+            213,
+            170
+          ],
+          "margin": [
+            181,
+            57,
+            317,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3720,
+            1511,
+            215,
+            165
+          ],
+          "margin": [
+            187,
+            60,
+            315,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1801,
+            1442,
+            234,
+            185
+          ],
+          "margin": [
+            162,
+            42,
+            296,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            1689,
+            215,
+            170
+          ],
+          "margin": [
+            168,
+            55,
+            315,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            1650,
+            221,
+            162
+          ],
+          "margin": [
+            168,
+            66,
+            309,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            217,
+            1689,
+            211,
+            167
+          ],
+          "margin": [
+            158,
+            58,
+            319,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            227,
+            1650,
+            216,
+            180
+          ],
+          "margin": [
+            161,
+            49,
+            314,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            430,
+            1689,
+            221,
+            171
+          ],
+          "margin": [
+            168,
+            54,
+            309,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            447,
+            1650,
+            211,
+            186
+          ],
+          "margin": [
+            186,
+            42,
+            319,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            653,
+            1689,
+            233,
+            170
+          ],
+          "margin": [
+            182,
+            55,
+            297,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            662,
+            1650,
+            204,
+            170
+          ],
+          "margin": [
+            206,
+            57,
+            326,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            888,
+            1689,
+            218,
+            161
+          ],
+          "margin": [
+            201,
+            64,
+            312,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            870,
+            1650,
+            209,
+            175
+          ],
+          "margin": [
+            204,
+            53,
+            321,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1108,
+            1689,
+            228,
+            175
+          ],
+          "margin": [
+            191,
+            50,
+            302,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1083,
+            1650,
+            208,
+            177
+          ],
+          "margin": [
+            200,
+            50,
+            322,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1338,
+            1689,
+            212,
+            182
+          ],
+          "margin": [
+            180,
+            43,
+            318,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1295,
+            1650,
+            213,
+            173
+          ],
+          "margin": [
+            184,
+            53,
+            317,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1552,
+            1689,
+            224,
+            160
+          ],
+          "margin": [
+            197,
+            65,
+            306,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1512,
+            1650,
+            217,
+            171
+          ],
+          "margin": [
+            191,
+            55,
+            313,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1778,
+            1689,
+            246,
+            166
+          ],
+          "margin": [
+            180,
+            59,
+            284,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1733,
+            1650,
+            232,
+            189
+          ],
+          "margin": [
+            186,
+            38,
+            298,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2026,
+            1689,
+            228,
+            165
+          ],
+          "margin": [
+            194,
+            60,
+            302,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            2,
+            1847,
+            228,
+            172
+          ],
+          "margin": [
+            184,
+            56,
+            302,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2256,
+            1689,
+            195,
+            157
+          ],
+          "margin": [
+            213,
+            68,
+            335,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            234,
+            1847,
+            207,
+            165
+          ],
+          "margin": [
+            192,
+            61,
+            323,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2453,
+            1689,
+            220,
+            168
+          ],
+          "margin": [
+            188,
+            57,
+            310,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            445,
+            1847,
+            213,
+            169
+          ],
+          "margin": [
+            184,
+            57,
+            317,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2675,
+            1689,
+            217,
+            171
+          ],
+          "margin": [
+            166,
+            54,
+            313,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            662,
+            1847,
+            197,
+            160
+          ],
+          "margin": [
+            170,
+            66,
+            333,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2894,
+            1689,
+            211,
+            167
+          ],
+          "margin": [
+            158,
+            58,
+            319,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            863,
+            1847,
+            218,
+            176
+          ],
+          "margin": [
+            154,
+            51,
+            312,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3107,
+            1689,
+            211,
+            172
+          ],
+          "margin": [
+            175,
+            53,
+            319,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1085,
+            1847,
+            216,
+            175
+          ],
+          "margin": [
+            178,
+            51,
+            314,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3320,
+            1689,
+            226,
+            170
+          ],
+          "margin": [
+            183,
+            55,
+            304,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1305,
+            1847,
+            202,
+            165
+          ],
+          "margin": [
+            198,
+            61,
+            328,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3548,
+            1689,
+            218,
+            161
+          ],
+          "margin": [
+            201,
+            64,
+            312,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1511,
+            1847,
+            219,
+            181
+          ],
+          "margin": [
+            192,
+            47,
+            311,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            3768,
+            1689,
+            232,
+            175
+          ],
+          "margin": [
+            188,
+            50,
+            298,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_01.png",
+          "region": [
+            1734,
+            1847,
+            214,
+            173
+          ],
+          "margin": [
+            191,
+            53,
+            316,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            0,
+            1873,
+            210,
+            182
+          ],
+          "margin": [
+            179,
+            43,
+            320,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            2,
+            2,
+            209,
+            168
+          ],
+          "margin": [
+            178,
+            58,
+            321,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            212,
+            1873,
+            224,
+            160
+          ],
+          "margin": [
+            197,
+            65,
+            306,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            215,
+            2,
+            210,
+            177
+          ],
+          "margin": [
+            198,
+            52,
+            320,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            438,
+            1873,
+            217,
+            166
+          ],
+          "margin": [
+            192,
+            59,
+            313,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            429,
+            2,
+            206,
+            173
+          ],
+          "margin": [
+            200,
+            53,
+            324,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            657,
+            1873,
+            195,
+            165
+          ],
+          "margin": [
+            213,
+            60,
+            335,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            639,
+            2,
+            184,
+            159
+          ],
+          "margin": [
+            216,
+            67,
+            346,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            854,
+            1873,
+            195,
+            157
+          ],
+          "margin": [
+            213,
+            68,
+            335,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            827,
+            2,
+            198,
+            171
+          ],
+          "margin": [
+            202,
+            57,
+            332,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1051,
+            1873,
+            195,
+            167
+          ],
+          "margin": [
+            203,
+            58,
+            335,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1029,
+            2,
+            205,
+            170
+          ],
+          "margin": [
+            181,
+            56,
+            325,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1248,
+            1873,
+            207,
+            171
+          ],
+          "margin": [
+            171,
+            54,
+            323,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1238,
+            2,
+            200,
+            176
+          ],
+          "margin": [
+            164,
+            51,
+            330,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1457,
+            1873,
+            211,
+            167
+          ],
+          "margin": [
+            158,
+            58,
+            319,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1442,
+            2,
+            193,
+            161
+          ],
+          "margin": [
+            178,
+            65,
+            337,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1670,
+            1873,
+            217,
+            172
+          ],
+          "margin": [
+            170,
+            53,
+            313,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1639,
+            2,
+            189,
+            169
+          ],
+          "margin": [
+            201,
+            57,
+            341,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            1889,
+            1873,
+            224,
+            170
+          ],
+          "margin": [
+            184,
+            55,
+            306,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1832,
+            2,
+            193,
+            175
+          ],
+          "margin": [
+            209,
+            53,
+            337,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2115,
+            1873,
+            218,
+            161
+          ],
+          "margin": [
+            201,
+            64,
+            312,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            2,
+            187,
+            187,
+            168
+          ],
+          "margin": [
+            222,
+            59,
+            343,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2335,
+            1873,
+            222,
+            175
+          ],
+          "margin": [
+            195,
+            50,
+            308,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            193,
+            187,
+            200,
+            174
+          ],
+          "margin": [
+            204,
+            52,
+            330,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/combat_motion_v7.png",
+          "region": [
+            2559,
+            1873,
+            206,
+            182
+          ],
+          "margin": [
+            179,
+            43,
+            324,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            397,
+            187,
+            195,
+            167
+          ],
+          "margin": [
+            192,
+            59,
+            335,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backstep",
+      "fps": 36,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            0,
+            0,
+            181,
+            197
+          ],
+          "margin": [
+            207,
+            28,
+            349,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            596,
+            187,
+            192,
+            185
+          ],
+          "margin": [
+            193,
+            42,
+            338,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            222,
+            0,
+            184,
+            189
+          ],
+          "margin": [
+            206,
+            36,
+            346,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            792,
+            187,
+            185,
+            183
+          ],
+          "margin": [
+            200,
+            42,
+            345,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            444,
+            0,
+            193,
+            184
+          ],
+          "margin": [
+            200,
+            41,
+            337,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            981,
+            187,
+            194,
+            179
+          ],
+          "margin": [
+            193,
+            47,
+            336,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            666,
+            0,
+            202,
+            177
+          ],
+          "margin": [
+            190,
+            48,
+            328,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1179,
+            187,
+            195,
+            176
+          ],
+          "margin": [
+            192,
+            49,
+            335,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            888,
+            0,
+            208,
+            172
+          ],
+          "margin": [
+            186,
+            53,
+            322,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1378,
+            187,
+            204,
+            178
+          ],
+          "margin": [
+            190,
+            47,
+            326,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            1110,
+            0,
+            212,
+            169
+          ],
+          "margin": [
+            181,
+            56,
+            318,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1586,
+            187,
+            203,
+            175
+          ],
+          "margin": [
+            189,
+            51,
+            327,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            0,
+            205,
+            215,
+            169
+          ],
+          "margin": [
+            183,
+            56,
+            315,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1793,
+            187,
+            204,
+            174
+          ],
+          "margin": [
+            188,
+            51,
+            326,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            222,
+            205,
+            214,
+            166
+          ],
+          "margin": [
+            185,
+            59,
+            316,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            2,
+            380,
+            204,
+            172
+          ],
+          "margin": [
+            190,
+            53,
+            326,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            444,
+            205,
+            210,
+            172
+          ],
+          "margin": [
+            186,
+            53,
+            320,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            210,
+            380,
+            204,
+            178
+          ],
+          "margin": [
+            188,
+            49,
+            326,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            666,
+            205,
+            199,
+            182
+          ],
+          "margin": [
+            193,
+            43,
+            331,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            418,
+            380,
+            202,
+            186
+          ],
+          "margin": [
+            188,
+            41,
+            328,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            888,
+            205,
+            191,
+            191
+          ],
+          "margin": [
+            197,
+            34,
+            339,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            624,
+            380,
+            196,
+            194
+          ],
+          "margin": [
+            193,
+            33,
+            334,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            1110,
+            205,
+            189,
+            194
+          ],
+          "margin": [
+            199,
+            31,
+            341,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            824,
+            380,
+            192,
+            197
+          ],
+          "margin": [
+            197,
+            30,
+            338,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ready_guard",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            0,
+            410,
+            204,
+            191
+          ],
+          "margin": [
+            194,
+            34,
+            326,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1020,
+            380,
+            196,
+            203
+          ],
+          "margin": [
+            198,
+            24,
+            334,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            222,
+            410,
+            214,
+            199
+          ],
+          "margin": [
+            194,
+            26,
+            316,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1220,
+            380,
+            205,
+            210
+          ],
+          "margin": [
+            193,
+            16,
+            325,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            444,
+            410,
+            218,
+            200
+          ],
+          "margin": [
+            191,
+            25,
+            312,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1429,
+            380,
+            208,
+            219
+          ],
+          "margin": [
+            194,
+            7,
+            322,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            666,
+            410,
+            218,
+            201
+          ],
+          "margin": [
+            192,
+            24,
+            312,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1641,
+            380,
+            211,
+            219
+          ],
+          "margin": [
+            192,
+            7,
+            319,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            888,
+            410,
+            216,
+            200
+          ],
+          "margin": [
+            192,
+            25,
+            314,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            2,
+            607,
+            205,
+            216
+          ],
+          "margin": [
+            195,
+            11,
+            325,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            1110,
+            410,
+            211,
+            196
+          ],
+          "margin": [
+            194,
+            29,
+            319,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            211,
+            607,
+            205,
+            210
+          ],
+          "margin": [
+            194,
+            16,
+            325,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ready_settle",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            0,
+            615,
+            208,
+            193
+          ],
+          "margin": [
+            195,
+            32,
+            322,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            420,
+            607,
+            203,
+            208
+          ],
+          "margin": [
+            197,
+            18,
+            327,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            222,
+            615,
+            206,
+            191
+          ],
+          "margin": [
+            195,
+            34,
+            324,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            627,
+            607,
+            201,
+            204
+          ],
+          "margin": [
+            198,
+            23,
+            329,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            444,
+            615,
+            204,
+            186
+          ],
+          "margin": [
+            195,
+            39,
+            326,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            832,
+            607,
+            198,
+            201
+          ],
+          "margin": [
+            199,
+            26,
+            332,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            666,
+            615,
+            200,
+            184
+          ],
+          "margin": [
+            195,
+            41,
+            330,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1034,
+            607,
+            193,
+            198
+          ],
+          "margin": [
+            199,
+            29,
+            337,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            888,
+            615,
+            197,
+            187
+          ],
+          "margin": [
+            195,
+            38,
+            333,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1231,
+            607,
+            195,
+            195
+          ],
+          "margin": [
+            196,
+            31,
+            335,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/boss_behavior_v1.png",
+          "region": [
+            1110,
+            615,
+            192,
+            189
+          ],
+          "margin": [
+            196,
+            36,
+            338,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/motion_v8_02.png",
+          "region": [
+            1430,
+            607,
+            191,
+            184
+          ],
+          "margin": [
+            196,
+            41,
+            339,
+            54
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "cast",
+    "cast_recover",
+    "cast_windup",
+    "heavy",
+    "heavy_recover",
+    "heavy_windup",
+    "phase",
+    "phase_recover",
+    "phase_windup",
+    "recover",
+    "windup"
+  ],
+  "behavior_generation_record": "boss_behavior_v1.json",
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "3ad6a70e2a3590443c66d755b9617494a1cd99f9aa695c952e9e3c6245d31aed",
+    "spec": "art_requests/creature_redraw_v1/jobs/saltwhite_contract_judge.json",
+    "clips": {
+      "walk": {
+        "mean_change": 0.0905,
+        "max_change": 0.1963,
+        "loop_seam": 0.1457,
+        "boil_ratio": 1.161,
+        "unique": 32,
+        "area_ratio": 1.059,
+        "registration_scale": 1.217391304,
+        "frames": 32
+      }
+    }
+  }
+}
