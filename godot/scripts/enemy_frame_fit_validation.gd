@@ -129,6 +129,7 @@ func run() -> void:
         kinds += 1
     check(kinds == 46 and corrected_kinds >= 40 and corrected_frames > 1000, "roster is covered (%d kinds, %d corrected, %d frames)" % [kinds, corrected_kinds, corrected_frames])
     check(not real_pixels or drawn == 8, "eight grounded creatures were measured on screen")
+    await check_transition_start(stage)
     RETIRE.retire_tree(root)
     preload("res://scripts/audio_director.gd")._stream_cache.clear()
     RETIRE.retire_tree(stage); stage.queue_free()
@@ -136,3 +137,35 @@ func run() -> void:
     check(await RETIRE.drain(self), "audio is released before exit")
     print("ENEMY_FRAME_FIT checks=%d failures=%d characters=%d corrected_frames=%d drawn=%d" % [checks, failures, kinds, corrected_frames, drawn])
     call_deferred("quit", 1 if failures else 0)
+
+func check_transition_start(stage: Node) -> void:
+    var actor := ENEMY.new()
+    actor.configure({"id":"fit_transition", "kind":"moss_larva", "hp":100}, "", false)
+    stage.add_child(actor)
+    actor.set_physics_process(false)
+    actor.state = "patrol"
+    var sprite: AnimatedSprite2D = actor.animated_sprite
+    var rows: Array = actor.frame_fit.get("walk", [])
+    check(not rows.is_empty(), "transition fixture has walking measurements")
+    if not rows.is_empty():
+        var index := 0
+        for i in rows.size():
+            if float(rows[i][0]) != 1.0: index = i; break
+        sprite.play("walk"); sprite.pause(); sprite.frame = index
+        var expected_scale: float = actor.frame_fit_scale
+        var expected_pivot: Vector2 = actor.frame_fit_pivot
+        var texture := sprite.sprite_frames.get_frame_texture("walk",index)
+        actor.motion_transitions._begin(actor,&"turn",not sprite.flip_h,texture)
+        actor._apply_frame_fit()
+        check(is_equal_approx(actor.frame_fit_scale,expected_scale) and actor.frame_fit_pivot==expected_pivot,
+            "turn retains the previous visible cel's fit instead of canonical frame zero")
+        actor._set_enemy_animation("walk",true); sprite.pause(); sprite.frame = index
+        actor.motion_transitions.tick(actor,Vector2(2,0),"patrol")
+        expected_scale = actor.frame_fit_scale; expected_pivot = actor.frame_fit_pivot
+        actor._set_enemy_animation("idle")
+        actor.motion_transitions.tick(actor,Vector2.ZERO,"patrol")
+        actor._apply_frame_fit()
+        check(actor.motion_transitions.active==&"brake" and is_equal_approx(actor.frame_fit_scale,expected_scale)
+            and actor.frame_fit_pivot==expected_pivot,"brake retains walking fit after idle has already been selected")
+    RETIRE.retire_tree(actor); actor.queue_free()
+    await process_frame; await process_frame

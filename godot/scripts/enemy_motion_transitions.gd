@@ -8,6 +8,11 @@ var target_flip := false
 var initialized := false
 var was_moving := false
 var previous_texture: Texture2D
+var previous_fit_scale := 1.0
+var previous_fit_pivot := Vector2.ZERO
+var start_fit_scale := 1.0
+var start_fit_pivot := Vector2.ZERO
+var has_start_texture := false
 
 func _available(actor, action: StringName) -> bool:
     return actor.original_visual and is_instance_valid(actor.animated_sprite) \
@@ -42,8 +47,13 @@ func request_flip(actor, wanted: bool, allow_start: bool) -> bool:
         return true
     return false
 
-func _begin(actor, action: StringName, wanted: bool, start_texture: Texture2D) -> void:
+func _begin(actor, action: StringName, wanted: bool, start_texture: Texture2D, source_fit: Array = []) -> void:
     var sprite: AnimatedSprite2D = actor.animated_sprite
+    # The instance's first cel is the previously displayed pose. Its measured
+    # fit belongs to that pose, rather than the canonical turn/brake frame 0.
+    start_fit_scale = actor.frame_fit_scale if source_fit.is_empty() else float(source_fit[0])
+    start_fit_pivot = actor.frame_fit_pivot if source_fit.is_empty() else Vector2(source_fit[1])
+    has_start_texture = start_texture != null
     # Reuse the exact previously visible cel as this instance's starting pose.
     # Cached artwork and another creature's SpriteFrames remain immutable.
     if sprite.sprite_frames != actor.pose_owned_frames:
@@ -71,9 +81,11 @@ func tick(actor, motion: Vector2, previous_state: String) -> void:
         if actor.state != "patrol" and not hit_recovery:cancel(actor)
     elif initialized and _eligible(actor) and previous_state=="patrol" \
             and was_moving and not moving and pending_loop==&"idle" and _available(actor,&"brake"):
-        _begin(actor,&"brake",bool(actor.sprite.get("flip_h")),previous_texture)
+        _begin(actor,&"brake",bool(actor.sprite.get("flip_h")),previous_texture,[previous_fit_scale,previous_fit_pivot])
     was_moving = moving if actor.state=="patrol" else false
     previous_texture = _texture(actor)
+    previous_fit_scale = actor.frame_fit_scale
+    previous_fit_pivot = actor.frame_fit_pivot
     initialized = true
 
 func _restore_start(actor) -> void:
@@ -92,6 +104,8 @@ func completed(actor) -> void:
     sprite.speed_scale = 1.0
     sprite.play(loop_name)
     previous_texture = _texture(actor)
+    previous_fit_scale = actor.frame_fit_scale
+    previous_fit_pivot = actor.frame_fit_pivot
 
 func cancel(actor) -> void:
     if active.is_empty():return
