@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "echo_moss_larva",
+  "baseline": "godot/assets/sprites/original_creatures/echo_moss_larva/motion_v8_manifest.json",
+  "baseline_sha256": "40d2e16b5a74f7a6a78a4baaf88431e8e2db6643de94189983509fd25a3c3ca3",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/echo_moss_larva/walk.png",
+      "sha256": "dc69307bc6bf5704c643bc757fdae13ac89fc3adee8391761a508d4d2c5648c8",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "d8e5784dce3b37586ec21a47c994c022d0d355e6a423f2efbf112e6842303b96",
+      "reference": {
+        "sha256": "ba8117dd853974800d0f32fa5825f61d52f021aac186df02b0ef0a1de08105b9",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 159,
+      "center_x": 216.5,
+      "ground_y": 249
+    },
+    {
+      "clip": "idle",
+      "count": 8,
+      "grid": [
+        4,
+        2
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/echo_moss_larva/idle.png",
+      "sha256": "c2204c34b5c01c7e37cc36a1a1fe77725dae29f7e429e513b99f3cffe00316fb",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "d0fa83a3e8638f5f9c52ee0bee7b5bc3c768a92eafff7e77366d406a298ab5cf",
+      "reference": {
+        "sha256": "69821b513276d9f24c64b0a714ac074d93354eb3e2db18f4bc64e73de134c82d",
+        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 163,
+      "center_x": 212.5,
+      "ground_y": 249
+    }
+  ]
+}
