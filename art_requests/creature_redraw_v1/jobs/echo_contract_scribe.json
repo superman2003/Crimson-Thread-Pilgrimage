@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "kind": "echo_contract_scribe",
+  "baseline": "godot/assets/sprites/original_creatures/echo_contract_scribe/motion_v8_manifest.json",
+  "baseline_sha256": "c2e82f86aeff728fd08295218548b20314058dcdac9591b7b919c4f170f08d27",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/echo_contract_scribe/walk.png",
+      "sha256": "f9b57336802a953994c5d32ca3a9ac3fda1caeba9fae66a3ef66e85f37e5172d",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "7f7fd69ea2a81df7378507bfdc7cc29019887c83e84210e4969a1b1991259dd9",
+      "reference": {
+        "sha256": "25556bffeabdb404d0365ea8d47cd877561bff5a3486ec1b7df623616ec15ccb",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred horizontally and vertically in 256px cells"
+      },
+      "reference_height": 199,
+      "center_x": 239.5,
+      "ground_y": 242,
+      "registration": "cell_center",
+      "center_y": 142.5
+    }
+  ]
+}
