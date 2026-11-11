@@ -26,6 +26,7 @@ on:
       - 'godot/shaders/hit_flash.gdshader'
       - '.github/contracts/creature-redraw.yml'
       - 'tools/creature_redraw_art.py'
+      - 'tools/test_creature_redraw_art.py'
       - 'art_requests/creature_redraw_v1/**'
       - 'godot/scripts/combat_motion_v7_validation.gd'
       - 'godot/scripts/boss_behavior_validation.gd'
@@ -54,6 +55,7 @@ jobs:
           python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
       - name: Verify measurement inputs and base anchoring
         run: |
+          python3 tools/test_creature_redraw_art.py
           python3 tools/creature_redraw_art.py --all --check
           python3 tools/build_creature_frame_fit.py --self-test
           python3 tools/test_creature_frame_fit.py

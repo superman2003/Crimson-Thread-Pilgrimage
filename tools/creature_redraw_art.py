@@ -96,6 +96,8 @@ def build(kind, check=False):
     drawings, summary = {}, {}
     for job in spec['jobs']:
         name = job['clip']; clip = clips[name]
+        if name in summary:
+            raise ValueError('Duplicate registered clip: '+name)
         prompt = (ROOT/job['source']).with_suffix('.prompt.txt').read_text(encoding='utf-8').rstrip('\n')
         if sha256(prompt.encode()).hexdigest() != job['prompt_sha256']:
             raise ValueError('Recorded generation prompt changed')
@@ -107,6 +109,8 @@ def build(kind, check=False):
             raise ValueError(f'Duplicated drawings or silhouette jump: {name} {measured}')
         if name in ('idle', 'walk') and (measured['boil_ratio'] >= 3 or measured['area_ratio'] > 1.15):
             raise ValueError(f'Outline boil or body mass drift: {name} {measured}')
+        if name in ('idle', 'walk') and clip['loop'] and measured['loop_seam'] > .25:
+            raise ValueError(f'Loop seam needs another drawing pass: {name} {measured}')
         summary[name] = dict(measured, registration_scale=round(scale, 9), frames=job['count'])
         drawings.update({(name, i): drawing for i, drawing in enumerate(cels)})
     pages, packed = onion.pack(kind, drawings, base['canvas'])
@@ -134,13 +138,20 @@ def build(kind, check=False):
     return manifest
 
 
-if __name__ == '__main__':
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     selection = parser.add_mutually_exclusive_group(required=True)
     selection.add_argument('--kind')
     selection.add_argument('--all', action='store_true', help='Validate or rebuild every registered delivery')
     parser.add_argument('--check', action='store_true')
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     kinds = [p.stem for p in sorted((REQUEST/'jobs').glob('*.json'))] if args.all else [args.kind]
+    if not kinds:
+        parser.error('No registered deliveries found; hydrate the redraw request directory')
     for kind in kinds:
         build(kind, args.check)
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

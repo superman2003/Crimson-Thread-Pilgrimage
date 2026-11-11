@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "kind": "obsidian_spearman",
+  "baseline": "godot/assets/sprites/original_creatures/obsidian_spearman/motion_v8_manifest.json",
+  "baseline_sha256": "aeb069f70b5db6b093538ecc3724759f03e30669d914161693db28bd06772c05",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/obsidian_spearman/walk.png",
+      "sha256": "cdb12602772344420a142fbb590eceee841c6c32e167b8191ce9df29c69a6e67",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "82430ae64e88224111d0d5c72b84c554e0361dd002d0dbb2444d91cb531dd3c6",
+      "reference": {
+        "sha256": "847458292da3b3a829d69c11034a3e986b7f0bca102bf4a4a4b3258f97809356",
+        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 224,
+      "center_x": 259.0,
+      "ground_y": 298,
+      "supporting_references": [
+        {
+          "sha256": "31482edd77618df1435313e49a824454d49238ade690ec8f4ba7909556ebff98",
+          "role": "second rejected full walk sheet as loop closure edit target"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "kind": "drain_leech",
+  "baseline": "godot/assets/sprites/original_creatures/drain_leech/motion_v8_manifest.json",
+  "baseline_sha256": "bc528213b7dcc5e4d20ec6b98a36257eb553000c35e762e7e677422263ecf19c",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/drain_leech/walk.png",
+      "sha256": "040e35bfeb97a865948628d95510495b0a8facd1b085dac1b0a0c48b7c411658",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "98591157a62f1fe0aef7d1589e6ff5b15b37868eda150b05a7a15ac2fd5fb521",
+      "reference": {
+        "sha256": "42ecb0b93a559e5eccdc992ca3db17a5b64c7bd73f3d1571fad585c420db6c0c",
+        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 115,
+      "center_x": 259.5,
+      "ground_y": 225
+    }
+  ]
+}
