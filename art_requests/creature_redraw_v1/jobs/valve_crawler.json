@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "kind": "valve_crawler",
+  "baseline": "godot/assets/sprites/original_creatures/valve_crawler/motion_v8_manifest.json",
+  "baseline_sha256": "a628053edcef8157a3f4777d81fd5024b2cf6635ce598bd9fdbe8d3f91b70385",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/valve_crawler/walk.png",
+      "sha256": "776ba93f00023592ba4cb59b01c11fe76a4c3d20de7fa3a07d19252b3e4fd73a",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "7d427445abee92b07fecc671d2f3624458538e3a1903b6b70ff5888ab0bd7a41",
+      "reference": {
+        "sha256": "1df870a3bdcce8ea82e65234a76ad9183aa43a1958b365264c9abadb684d72af",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 135,
+      "center_x": 193.5,
+      "ground_y": 158
+    }
+  ]
+}
