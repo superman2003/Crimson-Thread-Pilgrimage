@@ -31,7 +31,9 @@ func run() -> void:
         var path := ART.character_manifest("original_creatures",kind)
         var production := ART.manifest(path)
         var extension: Dictionary = production.get("transition_record",{})
+        var redraw: Dictionary = production.get("redraw_record",{}).get("clips",{})
         var uses_v8 := path.ends_with("motion_v8_manifest.json") or (path.ends_with("motion_transition_manifest.json") and String(extension.get("baseline",""))=="motion_v8_manifest.json")
+        uses_v8 = uses_v8 or (path.ends_with("motion_redraw_manifest.json") and String(production.get("generation_record",""))=="motion_v8_generation.json")
         check(uses_v8,kind+" production/prewarm retains the complete v8 core")
         if not uses_v8:continue
         # New gestures are supplemental. Keep every frozen v8 assertion and
@@ -58,7 +60,11 @@ func run() -> void:
         var frames: SpriteFrames = actor.animated_sprite.sprite_frames
         for animation: Dictionary in manifest.animations:
             var name := String(animation.name)
-            check(production_clips.get(name,{})==animation,kind+" extension never replaces a frozen core pose or clock")
+            var shown: Dictionary = production_clips.get(name,{})
+            if redraw.has(name):
+                check(shown.get("fps")==animation.fps and shown.get("loop")==animation.loop and shown.get("frames",[]).size()==animation.frames.size(),kind+" reviewed redraw preserves the core clock and frame count")
+            else:
+                check(shown==animation,kind+" extension never replaces an unreviewed core pose or clock")
             var previous: Dictionary=originals[name]
             check(animation.frames.size()==previous.frames.size()*2,kind+"/"+name+" exactly doubles cels")
             check(is_equal_approx(float(animation.fps),float(previous.fps)*2),kind+"/"+name+" preserves cycle time")

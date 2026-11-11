@@ -14,6 +14,7 @@ static var threaded_texture_loads := 0
 
 static func character_manifest(family: String, id: String) -> String:
     var root := "res://assets/sprites/" + family + "/" + id + "/"
+    if family=="original_creatures" and FileAccess.file_exists(root+"motion_redraw_manifest.json"):return root+"motion_redraw_manifest.json"
     if family=="original_creatures" and FileAccess.file_exists(root+"motion_transition_manifest.json"):return root+"motion_transition_manifest.json"
     # Onion-skin drawings supersede earlier generated and authored layers.
     if family=="original_creatures" and FileAccess.file_exists(root+"motion_onion_manifest.json"):return root+"motion_onion_manifest.json"

@@ -40,7 +40,11 @@ func run() -> void:
         if manifest.has("transition_record"):
             var inherited: Dictionary=ART.manifest(path.get_base_dir()+"/"+String(manifest.transition_record.baseline))
             for animation in inherited.animations:
-                check(animation_data.get(String(animation.name),{})==animation,kind+" movement layer preserves inherited "+String(animation.name)+" exactly")
+                var replacement: Dictionary=animation_data.get(String(animation.name),{})
+                if manifest.get("redraw_record",{}).get("clips",{}).has(String(animation.name)):
+                    check(replacement.get("fps")==animation.fps and replacement.get("loop")==animation.loop and replacement.get("frames",[]).size()==animation.frames.size(),kind+" reviewed redraw preserves inherited clocks")
+                else:
+                    check(replacement==animation,kind+" movement layer preserves inherited "+String(animation.name)+" exactly")
         for name: String in manifest.authored_combat_sequences:
             clips+=1
             check(frames.get_frame_count(name)==12*expansion,kind+"/"+name+" presents the authored source poses")
