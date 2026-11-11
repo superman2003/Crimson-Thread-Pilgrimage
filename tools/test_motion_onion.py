@@ -12,6 +12,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 from PIL import Image, ImageDraw
@@ -216,14 +217,34 @@ class OnionPipeline(unittest.TestCase):
             onion.build(KIND, over="motion_v8_manifest.json")
 
 
+class AffineRegistration(unittest.TestCase):
+    def test_recorded_affine_precision_controls_pixel_sampling(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "aligned.png"
+            image = Image.new("RGBA", onion.SHEET, (0, 0, 0, 0))
+            onion.draw_markers(image)
+            ImageDraw.Draw(image).rectangle((120, 130, 180, 190), fill=(117, 83, 55, 141))
+            image.save(path)
+            exact = np.array([[1., 0., 0.], [0., 1., 0.]])
+            epsilon = np.array([[2e-15, 3e-17, 2e-14], [-2e-16, -2e-15, 5e-15]])
+            with patch.object(onion, "fit_affine", return_value=(exact, 0.)):
+                expected, fit = onion.to_sheet(path, stable_affine=True)
+            with patch.object(onion, "fit_affine", return_value=(exact + epsilon, 1e-12)):
+                actual, perturbed_fit = onion.to_sheet(path, stable_affine=True)
+            self.assertEqual(actual.tobytes(), expected.tobytes())
+            self.assertEqual(perturbed_fit, fit)
+            self.assertEqual(fit["registration"], "affine6_inverse12_v1")
+
+
 class ScaleGate(unittest.TestCase):
     def test_gate_self_test(self):
         self.assertEqual(gate.self_test(), 0)
 
     def test_gated_layers_cover_onion_and_v8(self):
         self.assertIn("motion_onion_", gate.GATED_ATLAS_MARKERS)
-        self.assertEqual(gate.ACTIVE_LAYERS[0], onion.LAYER)
-        self.assertEqual(gate.ACTIVE_LAYERS[2:], onion.BASELINE_LAYERS)
+        self.assertEqual(gate.ACTIVE_LAYERS[:2], ["motion_transition_manifest.json", onion.LAYER])
+        self.assertIn("motion_transition_", gate.GATED_ATLAS_MARKERS)
+        self.assertEqual(gate.ACTIVE_LAYERS[3:], onion.BASELINE_LAYERS)
 
 
 if __name__ == "__main__":

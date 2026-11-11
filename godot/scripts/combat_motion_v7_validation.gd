@@ -25,7 +25,9 @@ func run() -> void:
         check(not ART.manifest(path).get("authored_combat_sequences",[]).is_empty(),kind+" uses the reviewed v7 production layer")
         if ART.manifest(path).get("authored_combat_sequences",[]).is_empty():continue
         var manifest: Dictionary=ART.manifest(path)
-        var expansion := 2 if path.ends_with("motion_v8_manifest.json") else 1
+        # Composite movement layers inherit the v8 combat poses and provenance.
+        # The selected filename no longer identifies the authored combat layer.
+        var expansion := 2 if String(manifest.generation_record) == "motion_v8_generation.json" else 1
         var record: Dictionary=ART.manifest(path.get_base_dir()+"/combat_motion_v7.json")
         var actor:=ENEMY.new();actor.configure({"kind":kind,"id":"v7_"+kind,"hp":99},"",bool(design.boss))
         stage.add_child(actor);actor.set_physics_process(false)
@@ -35,6 +37,10 @@ func run() -> void:
         var canvas:=Vector2(float(manifest.canvas[0]),float(manifest.canvas[1]))
         var animation_data:={}
         for animation in manifest.animations:animation_data[String(animation.name)]=animation
+        if manifest.has("transition_record"):
+            var inherited: Dictionary=ART.manifest(path.get_base_dir()+"/"+String(manifest.transition_record.baseline))
+            for animation in inherited.animations:
+                check(animation_data.get(String(animation.name),{})==animation,kind+" movement layer preserves inherited "+String(animation.name)+" exactly")
         for name: String in manifest.authored_combat_sequences:
             clips+=1
             check(frames.get_frame_count(name)==12*expansion,kind+"/"+name+" presents the authored source poses")

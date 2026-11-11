@@ -312,3 +312,9 @@ artifacts/character_motion_v8/**/*.mp4 -filter -diff -merge -text
 
 # Small native captures for the trap-removal review.
 artifacts/trap_free_world_v1/**/*.jpg -filter -diff -merge -text
+
+# Authored movement gestures and their selected production sources.
+art_requests/enemy_transitions_v1/**/*.png -filter -diff -merge -text
+art_requests/enemy_transitions_v1/**/*.jpg -filter -diff -merge -text
+godot/assets/sprites/original_creatures/*/motion_transition_*.png -filter -diff -merge -text
+artifacts/enemy_transitions_v1/**/*.jpg -filter -diff -merge -text

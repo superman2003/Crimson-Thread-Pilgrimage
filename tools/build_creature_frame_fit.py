@@ -64,6 +64,19 @@ def animations_of(manifest: dict) -> list[dict]:
     return rows if isinstance(rows, list) else [dict(row, name=name) for name, row in rows.items()]
 
 
+def atlas_digests(manifest: dict) -> dict[str, str]:
+    """Fingerprint the pixels actually measured, including in-place redraws."""
+    resources = sorted({frame["atlas"] for clip in animations_of(manifest)
+                        for frame in clip["frames"] if isinstance(frame, dict)})
+    return {resource: hashlib.sha256((ROOT / "godot" / resource.removeprefix("res://")).read_bytes()).hexdigest()
+            for resource in resources}
+
+
+def is_grounded(manifest: dict) -> bool:
+    # Stationary creatures stand on a fixed base just like walking creatures.
+    return manifest.get("motion", "ground") in ("ground", "stationary")
+
+
 class Atlases:
     def __init__(self):
         self.pages = {}
@@ -190,7 +203,7 @@ def measure(kind: str) -> dict | None:
         return None
     manifest = json.loads(path.read_text(encoding="utf-8"))
     atlases = Atlases()
-    grounded = manifest.get("motion", "ground") == "ground"
+    grounded = is_grounded(manifest)
     result = {}
     for clip in animations_of(manifest):
         frames = clip["frames"]
@@ -203,12 +216,13 @@ def measure(kind: str) -> dict | None:
             result[clip["name"]] = [[round(scale, 3)] + (pivot_of(image, frame, canvas, grounded) if scale != 1.0 else [0, 0])
                                     for scale, image, frame in zip(scales, images, frames)]
     return dict(kind=kind, manifest=path.name, manifest_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
-                frames=result)
+                atlas_sha256=atlas_digests(manifest), frames=result)
 
 
 def encode(data: dict) -> str:
     lines = ["{", f' "kind": {json.dumps(data["kind"])},', f' "manifest": {json.dumps(data["manifest"])},',
-             f' "manifest_sha256": {json.dumps(data["manifest_sha256"])},', ' "frames": {']
+             f' "manifest_sha256": {json.dumps(data["manifest_sha256"])},',
+             f' "atlas_sha256": {json.dumps(data["atlas_sha256"], sort_keys=True)},', ' "frames": {']
     clips = list(data["frames"].items())
     for position, (name, rows) in enumerate(clips):
         comma = "," if position < len(clips) - 1 else ""
@@ -304,7 +318,10 @@ def main() -> int:
             if data["manifest"] != manifest.name or data["manifest_sha256"] != hashlib.sha256(manifest.read_bytes()).hexdigest():
                 stale.append(f"{kind}: drawings changed since {OUTPUT} was measured; run: python tools/build_creature_frame_fit.py --only {kind}")
                 continue
-            clips = {clip["name"]: len(clip["frames"]) for clip in animations_of(json.loads(manifest.read_text(encoding="utf-8")))}
+            contents = json.loads(manifest.read_text(encoding="utf-8"))
+            if data.get("atlas_sha256") != atlas_digests(contents):
+                stale.append(f"{kind}: atlas pixels changed; run: python tools/build_creature_frame_fit.py --only {kind}")
+            clips = {clip["name"]: len(clip["frames"]) for clip in animations_of(contents)}
             for name, rows in data["frames"].items():
                 if clips.get(name) != len(rows):
                     stale.append(f"{kind}/{name}: frame count differs")
