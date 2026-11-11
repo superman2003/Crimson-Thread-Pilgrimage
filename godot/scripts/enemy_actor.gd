@@ -2441,6 +2441,9 @@ func _apply_frame_fit() -> void:
         var row: Array = rows[index]
         fit = float(row[0])
         pivot = Vector2(-float(row[1]) if animated_sprite.flip_h else float(row[1]), float(row[2]))
+    if not motion_transitions.active.is_empty() and motion_transitions.has_start_texture and index == 0:
+        fit = motion_transitions.start_fit_scale
+        pivot = motion_transitions.start_fit_pivot
     if fit == frame_fit_scale and pivot == frame_fit_pivot:
         return
     frame_fit_scale = fit
