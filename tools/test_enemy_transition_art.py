@@ -71,4 +71,18 @@ class TransitionBuild(unittest.TestCase):
         image.putpixel((0,0),(255,0,0,255));image.save(path)
         with self.assertRaisesRegex(ValueError,'Stale atlas'):art.build(KIND,check=True)
 
+class TransitionSourceAudit(unittest.TestCase):
+    def test_changed_registered_pixel_still_fails_exact_source_audit(self):
+        register=art.onion.register
+        def damaged(*args,**kwargs):
+            rows,fit=register(*args,**kwargs)
+            image=rows[0]['image'].copy()
+            pixel=image.getpixel((0,0))
+            image.putpixel((0,0),((pixel[0]+1)%256,*pixel[1:]))
+            rows[0]['image']=image
+            return rows,fit
+        with patch.object(art.onion,'register',side_effect=damaged):
+            with self.assertRaisesRegex(ValueError,'Registered drawing was modified'):
+                art.audit_sources(KIND)
+
 if __name__=='__main__':unittest.main()

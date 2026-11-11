@@ -105,7 +105,7 @@ def deliver(kind, job_id, image, prompt_file=None, references=None):
     record={"source":rel(source),"sha256":sha256(raw).hexdigest(),"generator":"built-in image_gen","prompt":prompt,
             "prompt_sha256":sha256(prompt.encode("utf-8")).hexdigest(),
             "references":[{"path":rel(p),"sha256":sha256(Path(p).read_bytes()).hexdigest()} for p in refs]}
-    try:results,fit=onion.register(job,source)
+    try:results,fit=onion.register(job,source,stable_affine=True)
     except ValueError as error:
         record["error"]=str(error);job.setdefault("attempts",[]).append(record);write(spec_path(kind),spec)
         print("DELIVERY_REJECTED",job_id,str(error));return 1
@@ -187,7 +187,9 @@ def audit_sources(kind):
                 if (job["id"],number) not in selected:continue
                 source=ROOT/attempt["source"]
                 if sha256(source.read_bytes()).hexdigest()!=attempt["sha256"]:raise ValueError("Selected generation changed")
-                rows,fit=onion.register(job_copy,source)
+                rows,fit=onion.register(job_copy,source,stable_affine=True)
+                if fit["registration"]!=attempt.get("registration"):
+                    raise ValueError("Source registration algorithm changed")
                 if fit["affine"]!=attempt["affine"]:raise ValueError("Source registration changed")
                 for row in rows:
                     key=f"{row['animation']}#{row['after']}"
