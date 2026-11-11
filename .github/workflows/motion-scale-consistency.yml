@@ -9,6 +9,7 @@ name: Motion scale consistency
       - tools/motion_onion.py
       - tools/test_motion_onion.py
       - tools/audit_motion_scale_consistency.py
+      - tools/build_creature_frame_fit.py
   workflow_dispatch:
 
 concurrency:
@@ -36,6 +37,10 @@ jobs:
           python3 tools/test_motion_onion.py
           python3 tools/motion_onion.py check
           python3 tools/audit_motion_scale_consistency.py --report "$RUNNER_TEMP/motion-scale.json"
+      - name: Per-frame body size corrections match the committed drawings
+        run: |
+          python3 tools/build_creature_frame_fit.py --self-test
+          python3 tools/build_creature_frame_fit.py --check
       - name: Keep the outlier report
         if: always()
         uses: actions/upload-artifact@v4

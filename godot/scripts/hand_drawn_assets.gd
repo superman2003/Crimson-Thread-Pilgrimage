@@ -174,6 +174,16 @@ static func frames(path: String) -> SpriteFrames:
     frame_cache[path] = result
     return result
 
+## Per-frame body size corrections measured by tools/build_creature_frame_fit.py:
+## {animation: [[scale, pivot_x, pivot_y], ...]}. Empty when the file was measured
+## for another drawing layer than the one being loaded.
+static func frame_fit(manifest_path: String) -> Dictionary:
+    var path := manifest_path.get_base_dir() + "/frame_fit.json"
+    if not FileAccess.file_exists(path): return {}
+    var data := manifest(path)
+    if String(data.get("manifest", "")) != manifest_path.get_file(): return {}
+    return data.get("frames", {})
+
 static func item_spec(item_id: String) -> Dictionary:
     var data := manifest("res://assets/sprites/original_items/manifest.json")
     return data.get(item_id, data.get("thread_burst" if item_id.contains("_ability_") else "map_fragment", {}))

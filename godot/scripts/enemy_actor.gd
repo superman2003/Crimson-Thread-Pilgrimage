@@ -413,6 +413,9 @@ var boss_press_timer := 0.0
 var boss_reposition_target_x := 0.0
 var sprite: Node2D
 var animated_sprite: AnimatedSprite2D
+var frame_fit: Dictionary = {}
+var frame_fit_scale := 1.0
+var frame_fit_pivot := Vector2.ZERO
 var telegraph: Polygon2D
 var telegraph_tween: Tween
 var windup_vfx: Line2D
@@ -2389,6 +2392,10 @@ func _build_sprite() -> void:
         animated_sprite = AnimatedSprite2D.new()
         animated_sprite.name = "EnemyAnimatedSprite"
         animated_sprite.sprite_frames = _load_enemy_sprite_frames(asset_path)
+        frame_fit = ORIGINAL_ART.frame_fit(asset_path) if asset_path.contains("original_creatures") else {}
+        if not frame_fit.is_empty():
+            animated_sprite.frame_changed.connect(_apply_frame_fit)
+            animated_sprite.animation_changed.connect(_apply_frame_fit)
         animated_sprite.play("idle")
         sprite = animated_sprite
     else:
@@ -2408,6 +2415,33 @@ func _build_sprite() -> void:
     _apply_sprite_region("idle")
     add_child(sprite)
     _attach_flash_materials()
+    _apply_frame_fit()
+
+
+## Frames were drawn one at a time and the same body differs in size between
+## neighbours. The measured correction is applied where the frame is drawn, so
+## sprite.scale and sprite.position keep their gameplay meaning.
+func _apply_frame_fit() -> void:
+    if frame_fit.is_empty() or animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    var material := animated_sprite.material as ShaderMaterial
+    if material == null:
+        return
+    var fit := 1.0
+    var pivot := Vector2.ZERO
+    var animation := animated_sprite.animation
+    var rows: Array = frame_fit.get(String(animation), [])
+    var index := animated_sprite.frame
+    if index < rows.size() and rows.size() == animated_sprite.sprite_frames.get_frame_count(animation):
+        var row: Array = rows[index]
+        fit = float(row[0])
+        pivot = Vector2(-float(row[1]) if animated_sprite.flip_h else float(row[1]), float(row[2]))
+    if fit == frame_fit_scale and pivot == frame_fit_pivot:
+        return
+    frame_fit_scale = fit
+    frame_fit_pivot = pivot
+    material.set_shader_parameter("body_fit", fit)
+    material.set_shader_parameter("body_fit_pivot", pivot)
 
 
 ## 受击白闪 Shader（规格 §3.1）：每个可见 sprite 挂一份独立 ShaderMaterial，
@@ -2633,6 +2667,7 @@ func _apply_sprite_flip() -> void:
         sprite.set("flip_h", false)
         return
     sprite.set("flip_h", not requested_sprite_flip if sprite_faces_left else requested_sprite_flip)
+    _apply_frame_fit()
 
 
 func _apply_sprite_region(animation_name: String) -> void:
