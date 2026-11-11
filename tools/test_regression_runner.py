@@ -210,7 +210,10 @@ class CompletionContractTests(unittest.TestCase):
         for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
-        self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
+        # Dedicated contracts run these suites only when their inputs change.
+        contract_suites = {'enemy_frame_fit'}
+        self.assertTrue(contract_suites.isdisjoint(all_suites))
+        self.assertEqual(set(all_suites) | contract_suites, set(SUCCESS_MARKERS))
         for marker in SUCCESS_MARKERS.values():
             self.assertTrue(marker.startswith('^') and marker.endswith('$'))
             re.compile(marker)
