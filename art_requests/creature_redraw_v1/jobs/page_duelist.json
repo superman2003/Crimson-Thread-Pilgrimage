@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "kind": "page_duelist",
+  "baseline": "godot/assets/sprites/original_creatures/page_duelist/motion_v8_manifest.json",
+  "baseline_sha256": "d9e4c55439e2e8cbe4d3f2e25f307fcd9a7c837373308e4c3aef7b0017621571",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/page_duelist/walk.png",
+      "sha256": "c5cbbba10046d345d3ea3018136a19ead1c5fb25377262a3b626892b8b6e4444",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "501f4465a2f2ad3b3b799fcd9eef07c2d8f805155e463a9a958e0744f6352fe2",
+      "reference": {
+        "sha256": "5cdc2904699bf15e0fd5645fa5ea964f553d380f60fa96e17fc341c56316e033",
+        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 224,
+      "center_x": 225.0,
+      "ground_y": 237,
+      "supporting_reference": {
+        "sha256": "a822837fe8c6d932f6b67e51317ddf8b90ee4f4bdde2524e1254edcae36234f4",
+        "role": "rejected walk sheet as a gait guide; layout/identity reference unchanged"
+      }
+    }
+  ]
+}

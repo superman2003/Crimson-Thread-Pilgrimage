@@ -1,0 +1,4083 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "page_duelist",
+  "canvas": [
+    416,
+    245
+  ],
+  "display_height": 98,
+  "visual_scale": 0.4375,
+  "visual_offset": [
+    0,
+    7.3031730769230805
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            196,
+            224
+          ],
+          "margin": [
+            127,
+            13,
+            220,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            169,
+            217
+          ],
+          "margin": [
+            138,
+            22,
+            247,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            198,
+            0,
+            199,
+            227
+          ],
+          "margin": [
+            126,
+            10,
+            217,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            175,
+            2,
+            174,
+            217
+          ],
+          "margin": [
+            138,
+            22,
+            242,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            399,
+            0,
+            190,
+            223
+          ],
+          "margin": [
+            133,
+            14,
+            226,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            353,
+            2,
+            176,
+            209
+          ],
+          "margin": [
+            136,
+            30,
+            240,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            591,
+            0,
+            194,
+            222
+          ],
+          "margin": [
+            131,
+            15,
+            222,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            533,
+            2,
+            186,
+            214
+          ],
+          "margin": [
+            126,
+            25,
+            230,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            206,
+            225
+          ],
+          "margin": [
+            115,
+            12,
+            210,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            212,
+            2,
+            205,
+            224
+          ],
+          "margin": [
+            116,
+            13,
+            211,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            421,
+            2,
+            206,
+            224
+          ],
+          "margin": [
+            116,
+            13,
+            210,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            631,
+            2,
+            205,
+            223
+          ],
+          "margin": [
+            117,
+            14,
+            211,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            840,
+            2,
+            206,
+            225
+          ],
+          "margin": [
+            115,
+            12,
+            210,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            1050,
+            2,
+            205,
+            224
+          ],
+          "margin": [
+            117,
+            13,
+            211,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            1259,
+            2,
+            208,
+            225
+          ],
+          "margin": [
+            115,
+            12,
+            208,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            1471,
+            2,
+            203,
+            225
+          ],
+          "margin": [
+            119,
+            12,
+            213,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            1678,
+            2,
+            206,
+            224
+          ],
+          "margin": [
+            114,
+            13,
+            210,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            2,
+            235,
+            207,
+            224
+          ],
+          "margin": [
+            115,
+            13,
+            209,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            213,
+            235,
+            206,
+            221
+          ],
+          "margin": [
+            115,
+            16,
+            210,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            423,
+            235,
+            207,
+            223
+          ],
+          "margin": [
+            114,
+            14,
+            209,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            634,
+            235,
+            208,
+            225
+          ],
+          "margin": [
+            114,
+            12,
+            208,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            846,
+            235,
+            206,
+            225
+          ],
+          "margin": [
+            114,
+            12,
+            210,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            1056,
+            235,
+            207,
+            222
+          ],
+          "margin": [
+            115,
+            15,
+            209,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+          "region": [
+            1267,
+            235,
+            207,
+            226
+          ],
+          "margin": [
+            114,
+            11,
+            209,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2620,
+            0,
+            227,
+            209
+          ],
+          "margin": [
+            99,
+            28,
+            189,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            658,
+            227,
+            231,
+            204
+          ],
+          "margin": [
+            87,
+            35,
+            185,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2849,
+            0,
+            235,
+            217
+          ],
+          "margin": [
+            97,
+            20,
+            181,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            893,
+            227,
+            237,
+            211
+          ],
+          "margin": [
+            86,
+            28,
+            179,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3086,
+            0,
+            190,
+            217
+          ],
+          "margin": [
+            110,
+            20,
+            226,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1134,
+            227,
+            218,
+            201
+          ],
+          "margin": [
+            96,
+            38,
+            198,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3278,
+            0,
+            195,
+            211
+          ],
+          "margin": [
+            115,
+            26,
+            221,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1356,
+            227,
+            203,
+            195
+          ],
+          "margin": [
+            100,
+            44,
+            213,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3475,
+            0,
+            200,
+            218
+          ],
+          "margin": [
+            106,
+            19,
+            216,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1563,
+            227,
+            191,
+            201
+          ],
+          "margin": [
+            100,
+            38,
+            225,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3677,
+            0,
+            195,
+            218
+          ],
+          "margin": [
+            105,
+            19,
+            221,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1758,
+            227,
+            187,
+            198
+          ],
+          "margin": [
+            100,
+            41,
+            229,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3874,
+            0,
+            195,
+            211
+          ],
+          "margin": [
+            108,
+            26,
+            221,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            2,
+            446,
+            183,
+            198
+          ],
+          "margin": [
+            99,
+            41,
+            233,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            0,
+            229,
+            195,
+            219
+          ],
+          "margin": [
+            100,
+            18,
+            221,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            189,
+            446,
+            193,
+            212
+          ],
+          "margin": [
+            94,
+            27,
+            223,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            197,
+            229,
+            223,
+            220
+          ],
+          "margin": [
+            90,
+            17,
+            193,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            386,
+            446,
+            208,
+            215
+          ],
+          "margin": [
+            96,
+            24,
+            208,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            422,
+            229,
+            221,
+            214
+          ],
+          "margin": [
+            97,
+            23,
+            195,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            598,
+            446,
+            207,
+            214
+          ],
+          "margin": [
+            92,
+            25,
+            209,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            645,
+            229,
+            216,
+            217
+          ],
+          "margin": [
+            75,
+            20,
+            200,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            809,
+            446,
+            206,
+            213
+          ],
+          "margin": [
+            79,
+            26,
+            210,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            863,
+            229,
+            229,
+            212
+          ],
+          "margin": [
+            82,
+            25,
+            187,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1019,
+            446,
+            206,
+            205
+          ],
+          "margin": [
+            76,
+            34,
+            210,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1094,
+            229,
+            218,
+            202
+          ],
+          "margin": [
+            76,
+            35,
+            198,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1229,
+            446,
+            194,
+            194
+          ],
+          "margin": [
+            79,
+            45,
+            222,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1314,
+            229,
+            215,
+            195
+          ],
+          "margin": [
+            80,
+            42,
+            201,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1427,
+            446,
+            202,
+            204
+          ],
+          "margin": [
+            80,
+            35,
+            214,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1531,
+            229,
+            343,
+            185
+          ],
+          "margin": [
+            56,
+            52,
+            73,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1633,
+            446,
+            272,
+            177
+          ],
+          "margin": [
+            71,
+            62,
+            144,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1876,
+            229,
+            330,
+            163
+          ],
+          "margin": [
+            78,
+            74,
+            86,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            2,
+            669,
+            296,
+            172
+          ],
+          "margin": [
+            72,
+            67,
+            120,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2208,
+            229,
+            331,
+            174
+          ],
+          "margin": [
+            66,
+            63,
+            85,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            302,
+            669,
+            261,
+            156
+          ],
+          "margin": [
+            78,
+            83,
+            155,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2541,
+            229,
+            277,
+            175
+          ],
+          "margin": [
+            75,
+            62,
+            139,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            567,
+            669,
+            232,
+            166
+          ],
+          "margin": [
+            80,
+            74,
+            184,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2820,
+            229,
+            268,
+            172
+          ],
+          "margin": [
+            79,
+            65,
+            148,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            803,
+            669,
+            203,
+            196
+          ],
+          "margin": [
+            80,
+            43,
+            213,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3090,
+            229,
+            299,
+            195
+          ],
+          "margin": [
+            62,
+            42,
+            117,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1010,
+            669,
+            264,
+            177
+          ],
+          "margin": [
+            68,
+            62,
+            152,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3391,
+            229,
+            215,
+            210
+          ],
+          "margin": [
+            86,
+            27,
+            201,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1278,
+            669,
+            272,
+            181
+          ],
+          "margin": [
+            62,
+            58,
+            144,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3608,
+            229,
+            228,
+            219
+          ],
+          "margin": [
+            89,
+            18,
+            188,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1554,
+            669,
+            263,
+            184
+          ],
+          "margin": [
+            64,
+            55,
+            153,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3838,
+            229,
+            230,
+            227
+          ],
+          "margin": [
+            86,
+            10,
+            186,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            2,
+            873,
+            247,
+            203
+          ],
+          "margin": [
+            80,
+            36,
+            169,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            0,
+            458,
+            196,
+            228
+          ],
+          "margin": [
+            110,
+            9,
+            220,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            253,
+            873,
+            192,
+            213
+          ],
+          "margin": [
+            106,
+            26,
+            224,
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            198,
+            458,
+            184,
+            222
+          ],
+          "margin": [
+            130,
+            15,
+            232,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            449,
+            873,
+            167,
+            214
+          ],
+          "margin": [
+            127,
+            25,
+            249,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            384,
+            458,
+            193,
+            226
+          ],
+          "margin": [
+            117,
+            11,
+            223,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            620,
+            873,
+            193,
+            228
+          ],
+          "margin": [
+            113,
+            11,
+            223,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            579,
+            458,
+            229,
+            226
+          ],
+          "margin": [
+            95,
+            11,
+            187,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            817,
+            873,
+            207,
+            233
+          ],
+          "margin": [
+            108,
+            6,
+            209,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            810,
+            458,
+            232,
+            217
+          ],
+          "margin": [
+            105,
+            20,
+            184,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1028,
+            873,
+            217,
+            219
+          ],
+          "margin": [
+            106,
+            20,
+            199,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1044,
+            458,
+            228,
+            225
+          ],
+          "margin": [
+            103,
+            12,
+            188,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1249,
+            873,
+            204,
+            223
+          ],
+          "margin": [
+            106,
+            16,
+            212,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1274,
+            458,
+            188,
+            229
+          ],
+          "margin": [
+            117,
+            8,
+            228,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1457,
+            873,
+            196,
+            213
+          ],
+          "margin": [
+            114,
+            26,
+            220,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1464,
+            458,
+            194,
+            224
+          ],
+          "margin": [
+            128,
+            13,
+            222,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1657,
+            873,
+            187,
+            212
+          ],
+          "margin": [
+            120,
+            27,
+            229,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1660,
+            458,
+            198,
+            228
+          ],
+          "margin": [
+            115,
+            9,
+            218,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1848,
+            873,
+            191,
+            222
+          ],
+          "margin": [
+            118,
+            17,
+            225,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1860,
+            458,
+            190,
+            227
+          ],
+          "margin": [
+            127,
+            10,
+            226,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            2,
+            1114,
+            173,
+            205
+          ],
+          "margin": [
+            128,
+            34,
+            243,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2052,
+            458,
+            172,
+            218
+          ],
+          "margin": [
+            141,
+            19,
+            244,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            179,
+            1114,
+            173,
+            222
+          ],
+          "margin": [
+            128,
+            17,
+            243,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2226,
+            458,
+            190,
+            227
+          ],
+          "margin": [
+            120,
+            10,
+            226,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            356,
+            1114,
+            174,
+            225
+          ],
+          "margin": [
+            125,
+            14,
+            242,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2418,
+            458,
+            199,
+            229
+          ],
+          "margin": [
+            117,
+            8,
+            217,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            534,
+            1114,
+            171,
+            220
+          ],
+          "margin": [
+            129,
+            19,
+            245,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2619,
+            458,
+            200,
+            219
+          ],
+          "margin": [
+            128,
+            18,
+            216,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            709,
+            1114,
+            172,
+            204
+          ],
+          "margin": [
+            124,
+            35,
+            244,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2821,
+            458,
+            198,
+            200
+          ],
+          "margin": [
+            132,
+            37,
+            218,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            885,
+            1114,
+            169,
+            189
+          ],
+          "margin": [
+            137,
+            50,
+            247,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3021,
+            458,
+            186,
+            207
+          ],
+          "margin": [
+            129,
+            30,
+            230,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1058,
+            1114,
+            157,
+            189
+          ],
+          "margin": [
+            128,
+            50,
+            259,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3209,
+            458,
+            209,
+            150
+          ],
+          "margin": [
+            117,
+            87,
+            207,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1219,
+            1114,
+            193,
+            154
+          ],
+          "margin": [
+            113,
+            84,
+            223,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3420,
+            458,
+            215,
+            145
+          ],
+          "margin": [
+            85,
+            92,
+            201,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1416,
+            1114,
+            186,
+            140
+          ],
+          "margin": [
+            80,
+            98,
+            230,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3637,
+            458,
+            166,
+            117
+          ],
+          "margin": [
+            93,
+            120,
+            250,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1606,
+            1114,
+            166,
+            110
+          ],
+          "margin": [
+            88,
+            129,
+            250,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3805,
+            458,
+            252,
+            94
+          ],
+          "margin": [
+            48,
+            143,
+            164,
+            151
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1776,
+            1114,
+            218,
+            88
+          ],
+          "margin": [
+            59,
+            152,
+            198,
+            157
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            0,
+            689,
+            297,
+            194
+          ],
+          "margin": [
+            100,
+            43,
+            119,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            2,
+            1347,
+            203,
+            192
+          ],
+          "margin": [
+            102,
+            47,
+            213,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            299,
+            689,
+            298,
+            194
+          ],
+          "margin": [
+            100,
+            43,
+            118,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            209,
+            1347,
+            252,
+            218
+          ],
+          "margin": [
+            87,
+            21,
+            164,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_elite_flurry_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            599,
+            689,
+            199,
+            182
+          ],
+          "margin": [
+            114,
+            55,
+            217,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            465,
+            1347,
+            221,
+            178
+          ],
+          "margin": [
+            88,
+            61,
+            195,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            800,
+            689,
+            203,
+            192
+          ],
+          "margin": [
+            112,
+            45,
+            213,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            690,
+            1347,
+            224,
+            189
+          ],
+          "margin": [
+            94,
+            50,
+            192,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1005,
+            689,
+            199,
+            195
+          ],
+          "margin": [
+            118,
+            42,
+            217,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            918,
+            1347,
+            211,
+            181
+          ],
+          "margin": [
+            102,
+            58,
+            205,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1206,
+            689,
+            201,
+            191
+          ],
+          "margin": [
+            117,
+            46,
+            215,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1133,
+            1347,
+            203,
+            198
+          ],
+          "margin": [
+            106,
+            41,
+            213,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1409,
+            689,
+            199,
+            196
+          ],
+          "margin": [
+            117,
+            41,
+            217,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1340,
+            1347,
+            200,
+            205
+          ],
+          "margin": [
+            114,
+            34,
+            216,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1610,
+            689,
+            200,
+            194
+          ],
+          "margin": [
+            121,
+            43,
+            216,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1544,
+            1347,
+            200,
+            191
+          ],
+          "margin": [
+            113,
+            48,
+            216,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1812,
+            689,
+            200,
+            185
+          ],
+          "margin": [
+            121,
+            52,
+            216,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1748,
+            1347,
+            193,
+            193
+          ],
+          "margin": [
+            115,
+            46,
+            223,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2014,
+            689,
+            202,
+            195
+          ],
+          "margin": [
+            118,
+            42,
+            214,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            2,
+            1573,
+            188,
+            203
+          ],
+          "margin": [
+            116,
+            36,
+            228,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2218,
+            689,
+            183,
+            197
+          ],
+          "margin": [
+            118,
+            40,
+            233,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            194,
+            1573,
+            169,
+            193
+          ],
+          "margin": [
+            120,
+            46,
+            247,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2403,
+            689,
+            185,
+            193
+          ],
+          "margin": [
+            116,
+            44,
+            231,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            367,
+            1573,
+            175,
+            199
+          ],
+          "margin": [
+            114,
+            40,
+            241,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2590,
+            689,
+            193,
+            200
+          ],
+          "margin": [
+            111,
+            37,
+            223,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            546,
+            1573,
+            206,
+            210
+          ],
+          "margin": [
+            106,
+            29,
+            210,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2785,
+            689,
+            255,
+            199
+          ],
+          "margin": [
+            99,
+            38,
+            161,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            756,
+            1573,
+            245,
+            201
+          ],
+          "margin": [
+            96,
+            38,
+            171,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_elite_flurry",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3042,
+            689,
+            260,
+            192
+          ],
+          "margin": [
+            99,
+            45,
+            156,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1005,
+            1573,
+            257,
+            197
+          ],
+          "margin": [
+            90,
+            42,
+            159,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3304,
+            689,
+            259,
+            198
+          ],
+          "margin": [
+            99,
+            39,
+            157,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1266,
+            1573,
+            256,
+            199
+          ],
+          "margin": [
+            90,
+            40,
+            160,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3565,
+            689,
+            261,
+            198
+          ],
+          "margin": [
+            97,
+            39,
+            155,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1526,
+            1573,
+            250,
+            194
+          ],
+          "margin": [
+            88,
+            45,
+            166,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3828,
+            689,
+            252,
+            190
+          ],
+          "margin": [
+            101,
+            47,
+            164,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1780,
+            1573,
+            229,
+            191
+          ],
+          "margin": [
+            106,
+            48,
+            187,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            0,
+            891,
+            247,
+            186
+          ],
+          "margin": [
+            102,
+            51,
+            169,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            2,
+            1791,
+            239,
+            199
+          ],
+          "margin": [
+            99,
+            40,
+            177,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            249,
+            891,
+            268,
+            178
+          ],
+          "margin": [
+            83,
+            59,
+            148,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            245,
+            1791,
+            237,
+            176
+          ],
+          "margin": [
+            93,
+            63,
+            179,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            519,
+            891,
+            247,
+            161
+          ],
+          "margin": [
+            94,
+            76,
+            169,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            486,
+            1791,
+            229,
+            164
+          ],
+          "margin": [
+            98,
+            75,
+            187,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            768,
+            891,
+            238,
+            161
+          ],
+          "margin": [
+            96,
+            76,
+            178,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            719,
+            1791,
+            251,
+            165
+          ],
+          "margin": [
+            88,
+            74,
+            165,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1008,
+            891,
+            302,
+            155
+          ],
+          "margin": [
+            78,
+            82,
+            114,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            974,
+            1791,
+            264,
+            153
+          ],
+          "margin": [
+            84,
+            86,
+            152,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1312,
+            891,
+            291,
+            140
+          ],
+          "margin": [
+            86,
+            97,
+            125,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1242,
+            1791,
+            254,
+            157
+          ],
+          "margin": [
+            88,
+            82,
+            162,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1605,
+            891,
+            313,
+            162
+          ],
+          "margin": [
+            72,
+            75,
+            103,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1500,
+            1791,
+            252,
+            159
+          ],
+          "margin": [
+            90,
+            80,
+            164,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1920,
+            891,
+            202,
+            174
+          ],
+          "margin": [
+            117,
+            63,
+            214,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_00.png",
+          "region": [
+            1756,
+            1791,
+            230,
+            158
+          ],
+          "margin": [
+            100,
+            81,
+            186,
+            87
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_elite_flurry_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2124,
+            891,
+            222,
+            181
+          ],
+          "margin": [
+            108,
+            56,
+            194,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            234,
+            165
+          ],
+          "margin": [
+            98,
+            74,
+            182,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2348,
+            891,
+            221,
+            189
+          ],
+          "margin": [
+            108,
+            48,
+            195,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            240,
+            2,
+            233,
+            180
+          ],
+          "margin": [
+            96,
+            59,
+            183,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2571,
+            891,
+            199,
+            191
+          ],
+          "margin": [
+            109,
+            46,
+            217,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            477,
+            2,
+            208,
+            181
+          ],
+          "margin": [
+            108,
+            58,
+            208,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2772,
+            891,
+            201,
+            185
+          ],
+          "margin": [
+            109,
+            52,
+            215,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            689,
+            2,
+            210,
+            183
+          ],
+          "margin": [
+            106,
+            56,
+            206,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2975,
+            891,
+            206,
+            192
+          ],
+          "margin": [
+            106,
+            45,
+            210,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            903,
+            2,
+            213,
+            195
+          ],
+          "margin": [
+            106,
+            44,
+            203,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3183,
+            891,
+            216,
+            192
+          ],
+          "margin": [
+            108,
+            45,
+            200,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1120,
+            2,
+            203,
+            194
+          ],
+          "margin": [
+            110,
+            45,
+            213,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3401,
+            891,
+            217,
+            185
+          ],
+          "margin": [
+            108,
+            52,
+            199,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1327,
+            2,
+            200,
+            195
+          ],
+          "margin": [
+            111,
+            44,
+            216,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3620,
+            891,
+            212,
+            189
+          ],
+          "margin": [
+            111,
+            48,
+            204,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1531,
+            2,
+            199,
+            198
+          ],
+          "margin": [
+            112,
+            41,
+            217,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3834,
+            891,
+            218,
+            188
+          ],
+          "margin": [
+            114,
+            49,
+            198,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1734,
+            2,
+            191,
+            191
+          ],
+          "margin": [
+            119,
+            48,
+            225,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            0,
+            1085,
+            216,
+            179
+          ],
+          "margin": [
+            114,
+            58,
+            200,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            2,
+            208,
+            191,
+            197
+          ],
+          "margin": [
+            116,
+            42,
+            225,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            218,
+            1085,
+            228,
+            202
+          ],
+          "margin": [
+            107,
+            35,
+            188,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            197,
+            208,
+            190,
+            199
+          ],
+          "margin": [
+            116,
+            40,
+            226,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            448,
+            1085,
+            192,
+            216
+          ],
+          "margin": [
+            128,
+            21,
+            224,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            391,
+            208,
+            178,
+            187
+          ],
+          "margin": [
+            124,
+            52,
+            238,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_elite_flurry_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            642,
+            1085,
+            218,
+            185
+          ],
+          "margin": [
+            112,
+            52,
+            198,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            573,
+            208,
+            181,
+            188
+          ],
+          "margin": [
+            124,
+            51,
+            235,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            862,
+            1085,
+            198,
+            187
+          ],
+          "margin": [
+            117,
+            50,
+            218,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            758,
+            208,
+            182,
+            185
+          ],
+          "margin": [
+            124,
+            54,
+            234,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_feint_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1062,
+            1085,
+            210,
+            197
+          ],
+          "margin": [
+            119,
+            40,
+            206,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            944,
+            208,
+            196,
+            178
+          ],
+          "margin": [
+            115,
+            61,
+            220,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1274,
+            1085,
+            208,
+            203
+          ],
+          "margin": [
+            117,
+            34,
+            208,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1144,
+            208,
+            197,
+            196
+          ],
+          "margin": [
+            111,
+            43,
+            219,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1484,
+            1085,
+            205,
+            203
+          ],
+          "margin": [
+            117,
+            34,
+            211,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1345,
+            208,
+            183,
+            194
+          ],
+          "margin": [
+            117,
+            45,
+            233,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1691,
+            1085,
+            200,
+            195
+          ],
+          "margin": [
+            125,
+            42,
+            216,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1532,
+            208,
+            182,
+            192
+          ],
+          "margin": [
+            120,
+            48,
+            234,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1893,
+            1085,
+            202,
+            202
+          ],
+          "margin": [
+            120,
+            35,
+            214,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1718,
+            208,
+            180,
+            195
+          ],
+          "margin": [
+            116,
+            44,
+            236,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2097,
+            1085,
+            202,
+            202
+          ],
+          "margin": [
+            118,
+            35,
+            214,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            2,
+            415,
+            187,
+            194
+          ],
+          "margin": [
+            120,
+            45,
+            229,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2301,
+            1085,
+            206,
+            195
+          ],
+          "margin": [
+            120,
+            42,
+            210,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            193,
+            415,
+            183,
+            193
+          ],
+          "margin": [
+            121,
+            47,
+            233,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2509,
+            1085,
+            203,
+            202
+          ],
+          "margin": [
+            115,
+            35,
+            213,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            380,
+            415,
+            176,
+            193
+          ],
+          "margin": [
+            120,
+            46,
+            240,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2714,
+            1085,
+            202,
+            201
+          ],
+          "margin": [
+            115,
+            36,
+            214,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            560,
+            415,
+            175,
+            192
+          ],
+          "margin": [
+            121,
+            47,
+            241,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2918,
+            1085,
+            205,
+            194
+          ],
+          "margin": [
+            117,
+            43,
+            211,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            739,
+            415,
+            169,
+            189
+          ],
+          "margin": [
+            123,
+            50,
+            247,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3125,
+            1085,
+            197,
+            196
+          ],
+          "margin": [
+            117,
+            41,
+            219,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            912,
+            415,
+            185,
+            199
+          ],
+          "margin": [
+            118,
+            40,
+            231,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3324,
+            1085,
+            269,
+            191
+          ],
+          "margin": [
+            98,
+            46,
+            147,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1101,
+            415,
+            194,
+            195
+          ],
+          "margin": [
+            116,
+            44,
+            222,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_feint",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3595,
+            1085,
+            267,
+            179
+          ],
+          "margin": [
+            105,
+            58,
+            149,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1299,
+            415,
+            212,
+            188
+          ],
+          "margin": [
+            112,
+            52,
+            204,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            0,
+            1303,
+            267,
+            186
+          ],
+          "margin": [
+            100,
+            51,
+            149,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1515,
+            415,
+            213,
+            189
+          ],
+          "margin": [
+            110,
+            52,
+            203,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            269,
+            1303,
+            204,
+            187
+          ],
+          "margin": [
+            113,
+            50,
+            212,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1732,
+            415,
+            181,
+            185
+          ],
+          "margin": [
+            116,
+            56,
+            235,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            475,
+            1303,
+            201,
+            180
+          ],
+          "margin": [
+            122,
+            57,
+            215,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            2,
+            622,
+            171,
+            189
+          ],
+          "margin": [
+            122,
+            52,
+            245,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            678,
+            1303,
+            200,
+            185
+          ],
+          "margin": [
+            116,
+            52,
+            216,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            177,
+            622,
+            202,
+            184
+          ],
+          "margin": [
+            116,
+            56,
+            214,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            880,
+            1303,
+            233,
+            186
+          ],
+          "margin": [
+            113,
+            51,
+            183,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            383,
+            622,
+            201,
+            185
+          ],
+          "margin": [
+            118,
+            54,
+            215,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1115,
+            1303,
+            234,
+            178
+          ],
+          "margin": [
+            118,
+            59,
+            182,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            588,
+            622,
+            199,
+            177
+          ],
+          "margin": [
+            117,
+            61,
+            217,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1351,
+            1303,
+            211,
+            175
+          ],
+          "margin": [
+            122,
+            62,
+            205,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            791,
+            622,
+            197,
+            178
+          ],
+          "margin": [
+            117,
+            60,
+            219,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1564,
+            1303,
+            236,
+            166
+          ],
+          "margin": [
+            101,
+            71,
+            180,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            992,
+            622,
+            195,
+            167
+          ],
+          "margin": [
+            116,
+            71,
+            221,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            1802,
+            1303,
+            239,
+            150
+          ],
+          "margin": [
+            106,
+            87,
+            177,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1191,
+            622,
+            213,
+            170
+          ],
+          "margin": [
+            110,
+            69,
+            203,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2043,
+            1303,
+            253,
+            169
+          ],
+          "margin": [
+            93,
+            68,
+            163,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1408,
+            622,
+            216,
+            171
+          ],
+          "margin": [
+            107,
+            67,
+            200,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2298,
+            1303,
+            211,
+            182
+          ],
+          "margin": [
+            112,
+            55,
+            205,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1628,
+            622,
+            184,
+            187
+          ],
+          "margin": [
+            119,
+            53,
+            232,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_feint_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2511,
+            1303,
+            232,
+            188
+          ],
+          "margin": [
+            113,
+            49,
+            184,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1816,
+            622,
+            194,
+            193
+          ],
+          "margin": [
+            113,
+            46,
+            222,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2745,
+            1303,
+            232,
+            194
+          ],
+          "margin": [
+            108,
+            43,
+            184,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            2,
+            823,
+            210,
+            185
+          ],
+          "margin": [
+            111,
+            54,
+            206,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            2979,
+            1303,
+            219,
+            191
+          ],
+          "margin": [
+            115,
+            46,
+            197,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            216,
+            823,
+            204,
+            181
+          ],
+          "margin": [
+            114,
+            59,
+            212,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3200,
+            1303,
+            224,
+            186
+          ],
+          "margin": [
+            120,
+            51,
+            192,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            424,
+            823,
+            204,
+            183
+          ],
+          "margin": [
+            115,
+            56,
+            212,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3426,
+            1303,
+            219,
+            193
+          ],
+          "margin": [
+            117,
+            44,
+            197,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            632,
+            823,
+            207,
+            188
+          ],
+          "margin": [
+            116,
+            51,
+            209,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3647,
+            1303,
+            211,
+            191
+          ],
+          "margin": [
+            120,
+            46,
+            205,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            843,
+            823,
+            199,
+            185
+          ],
+          "margin": [
+            121,
+            54,
+            217,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            3860,
+            1303,
+            222,
+            185
+          ],
+          "margin": [
+            122,
+            52,
+            194,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1046,
+            823,
+            195,
+            184
+          ],
+          "margin": [
+            122,
+            55,
+            221,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            0,
+            1499,
+            212,
+            191
+          ],
+          "margin": [
+            119,
+            46,
+            204,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1245,
+            823,
+            190,
+            186
+          ],
+          "margin": [
+            127,
+            53,
+            226,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            214,
+            1499,
+            202,
+            191
+          ],
+          "margin": [
+            122,
+            46,
+            214,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1439,
+            823,
+            181,
+            187
+          ],
+          "margin": [
+            128,
+            54,
+            235,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            418,
+            1499,
+            208,
+            186
+          ],
+          "margin": [
+            121,
+            51,
+            208,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1624,
+            823,
+            183,
+            195
+          ],
+          "margin": [
+            128,
+            44,
+            233,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            628,
+            1499,
+            215,
+            205
+          ],
+          "margin": [
+            115,
+            32,
+            201,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            1811,
+            823,
+            177,
+            198
+          ],
+          "margin": [
+            132,
+            41,
+            239,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+          "region": [
+            845,
+            1499,
+            181,
+            218
+          ],
+          "margin": [
+            131,
+            19,
+            235,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_v8_01.png",
+          "region": [
+            2,
+            1029,
+            155,
+            194
+          ],
+          "margin": [
+            144,
+            45,
+            261,
+            51
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "page_elite_flurry",
+    "page_elite_flurry_recover",
+    "page_elite_flurry_windup",
+    "page_feint",
+    "page_feint_recover",
+    "page_feint_windup",
+    "recover",
+    "windup"
+  ],
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "d9e4c55439e2e8cbe4d3f2e25f307fcd9a7c837373308e4c3aef7b0017621571",
+    "spec": "art_requests/creature_redraw_v1/jobs/page_duelist.json",
+    "clips": {
+      "walk": {
+        "mean_change": 0.1319,
+        "max_change": 0.2175,
+        "loop_seam": 0.1126,
+        "boil_ratio": 1.611,
+        "unique": 16,
+        "area_ratio": 1.105,
+        "registration_scale": 0.878431373,
+        "frames": 16
+      }
+    }
+  }
+}

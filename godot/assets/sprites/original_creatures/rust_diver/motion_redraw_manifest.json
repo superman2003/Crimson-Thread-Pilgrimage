@@ -1,0 +1,2919 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "rust_diver",
+  "canvas": [
+    474,
+    238
+  ],
+  "display_height": 102,
+  "visual_scale": 0.5862068965517241,
+  "visual_offset": [
+    0,
+    -7.8054276111042
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            234,
+            174
+          ],
+          "margin": [
+            132,
+            56,
+            240,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            222,
+            175
+          ],
+          "margin": [
+            130,
+            57,
+            252,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            236,
+            0,
+            238,
+            179
+          ],
+          "margin": [
+            128,
+            51,
+            236,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            228,
+            2,
+            221,
+            178
+          ],
+          "margin": [
+            124,
+            54,
+            253,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            476,
+            0,
+            225,
+            175
+          ],
+          "margin": [
+            131,
+            55,
+            249,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            453,
+            2,
+            217,
+            177
+          ],
+          "margin": [
+            124,
+            55,
+            257,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            703,
+            0,
+            218,
+            174
+          ],
+          "margin": [
+            136,
+            56,
+            256,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            674,
+            2,
+            217,
+            179
+          ],
+          "margin": [
+            125,
+            53,
+            257,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            228,
+            175
+          ],
+          "margin": [
+            134,
+            55,
+            246,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            234,
+            2,
+            227,
+            175
+          ],
+          "margin": [
+            134,
+            55,
+            247,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            465,
+            2,
+            226,
+            174
+          ],
+          "margin": [
+            135,
+            56,
+            248,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            695,
+            2,
+            227,
+            174
+          ],
+          "margin": [
+            135,
+            56,
+            247,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            926,
+            2,
+            227,
+            176
+          ],
+          "margin": [
+            135,
+            54,
+            247,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            1157,
+            2,
+            227,
+            178
+          ],
+          "margin": [
+            134,
+            52,
+            247,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            1388,
+            2,
+            227,
+            177
+          ],
+          "margin": [
+            134,
+            53,
+            247,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            1619,
+            2,
+            226,
+            178
+          ],
+          "margin": [
+            136,
+            52,
+            248,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            2,
+            188,
+            227,
+            174
+          ],
+          "margin": [
+            135,
+            56,
+            247,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            233,
+            188,
+            226,
+            174
+          ],
+          "margin": [
+            135,
+            56,
+            248,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            463,
+            188,
+            227,
+            171
+          ],
+          "margin": [
+            134,
+            59,
+            247,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            694,
+            188,
+            227,
+            171
+          ],
+          "margin": [
+            135,
+            59,
+            247,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            925,
+            188,
+            226,
+            173
+          ],
+          "margin": [
+            135,
+            57,
+            248,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            1155,
+            188,
+            227,
+            174
+          ],
+          "margin": [
+            134,
+            56,
+            247,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            1386,
+            188,
+            227,
+            174
+          ],
+          "margin": [
+            134,
+            56,
+            247,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_redraw_00.png",
+          "region": [
+            1617,
+            188,
+            227,
+            173
+          ],
+          "margin": [
+            135,
+            57,
+            247,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2789,
+            0,
+            250,
+            174
+          ],
+          "margin": [
+            129,
+            56,
+            224,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            678,
+            196,
+            225,
+            184
+          ],
+          "margin": [
+            122,
+            48,
+            249,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3041,
+            0,
+            250,
+            180
+          ],
+          "margin": [
+            120,
+            50,
+            224,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            907,
+            196,
+            229,
+            191
+          ],
+          "margin": [
+            118,
+            41,
+            245,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3293,
+            0,
+            249,
+            180
+          ],
+          "margin": [
+            111,
+            50,
+            225,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1140,
+            196,
+            222,
+            187
+          ],
+          "margin": [
+            118,
+            45,
+            252,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3544,
+            0,
+            228,
+            172
+          ],
+          "margin": [
+            123,
+            58,
+            246,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1366,
+            196,
+            221,
+            189
+          ],
+          "margin": [
+            114,
+            43,
+            253,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3774,
+            0,
+            263,
+            187
+          ],
+          "margin": [
+            104,
+            43,
+            211,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1591,
+            196,
+            219,
+            190
+          ],
+          "margin": [
+            114,
+            42,
+            255,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            0,
+            189,
+            209,
+            193
+          ],
+          "margin": [
+            121,
+            37,
+            265,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1814,
+            196,
+            187,
+            194
+          ],
+          "margin": [
+            128,
+            38,
+            287,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            211,
+            189,
+            220,
+            194
+          ],
+          "margin": [
+            112,
+            36,
+            254,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            398,
+            189,
+            196
+          ],
+          "margin": [
+            132,
+            36,
+            285,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            433,
+            189,
+            211,
+            205
+          ],
+          "margin": [
+            121,
+            25,
+            263,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            195,
+            398,
+            202,
+            208
+          ],
+          "margin": [
+            128,
+            24,
+            272,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            646,
+            189,
+            221,
+            211
+          ],
+          "margin": [
+            114,
+            19,
+            253,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            401,
+            398,
+            202,
+            195
+          ],
+          "margin": [
+            134,
+            37,
+            272,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            869,
+            189,
+            176,
+            208
+          ],
+          "margin": [
+            145,
+            22,
+            298,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            607,
+            398,
+            195,
+            183
+          ],
+          "margin": [
+            134,
+            49,
+            279,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1047,
+            189,
+            204,
+            205
+          ],
+          "margin": [
+            138,
+            25,
+            270,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            806,
+            398,
+            272,
+            197
+          ],
+          "margin": [
+            114,
+            35,
+            202,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1253,
+            189,
+            325,
+            196
+          ],
+          "margin": [
+            115,
+            34,
+            149,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1082,
+            398,
+            274,
+            188
+          ],
+          "margin": [
+            125,
+            44,
+            200,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1580,
+            189,
+            301,
+            177
+          ],
+          "margin": [
+            136,
+            53,
+            173,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1360,
+            398,
+            279,
+            177
+          ],
+          "margin": [
+            140,
+            55,
+            195,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1883,
+            189,
+            302,
+            180
+          ],
+          "margin": [
+            133,
+            50,
+            172,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1643,
+            398,
+            266,
+            177
+          ],
+          "margin": [
+            144,
+            55,
+            208,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2187,
+            189,
+            272,
+            175
+          ],
+          "margin": [
+            143,
+            55,
+            202,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            614,
+            235,
+            169
+          ],
+          "margin": [
+            154,
+            63,
+            239,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2461,
+            189,
+            252,
+            164
+          ],
+          "margin": [
+            160,
+            66,
+            222,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            241,
+            614,
+            226,
+            166
+          ],
+          "margin": [
+            158,
+            66,
+            248,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2715,
+            189,
+            263,
+            174
+          ],
+          "margin": [
+            148,
+            56,
+            211,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            471,
+            614,
+            234,
+            171
+          ],
+          "margin": [
+            153,
+            61,
+            240,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2980,
+            189,
+            256,
+            176
+          ],
+          "margin": [
+            153,
+            54,
+            218,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            709,
+            614,
+            225,
+            168
+          ],
+          "margin": [
+            154,
+            64,
+            249,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3238,
+            189,
+            249,
+            172
+          ],
+          "margin": [
+            160,
+            58,
+            225,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            938,
+            614,
+            232,
+            178
+          ],
+          "margin": [
+            148,
+            54,
+            242,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3489,
+            189,
+            253,
+            177
+          ],
+          "margin": [
+            147,
+            53,
+            221,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1174,
+            614,
+            238,
+            186
+          ],
+          "margin": [
+            142,
+            46,
+            236,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3744,
+            189,
+            211,
+            176
+          ],
+          "margin": [
+            152,
+            54,
+            263,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1416,
+            614,
+            219,
+            178
+          ],
+          "margin": [
+            150,
+            54,
+            255,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            0,
+            402,
+            203,
+            167
+          ],
+          "margin": [
+            155,
+            63,
+            271,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1639,
+            614,
+            225,
+            181
+          ],
+          "margin": [
+            146,
+            51,
+            249,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            205,
+            402,
+            211,
+            178
+          ],
+          "margin": [
+            142,
+            52,
+            263,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            808,
+            227,
+            192
+          ],
+          "margin": [
+            144,
+            40,
+            247,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            418,
+            402,
+            227,
+            183
+          ],
+          "margin": [
+            137,
+            47,
+            247,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            233,
+            808,
+            218,
+            189
+          ],
+          "margin": [
+            148,
+            43,
+            256,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            647,
+            402,
+            217,
+            180
+          ],
+          "margin": [
+            139,
+            50,
+            257,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            455,
+            808,
+            216,
+            190
+          ],
+          "margin": [
+            146,
+            42,
+            258,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            866,
+            402,
+            229,
+            189
+          ],
+          "margin": [
+            134,
+            41,
+            245,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            675,
+            808,
+            218,
+            198
+          ],
+          "margin": [
+            140,
+            34,
+            256,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1097,
+            402,
+            250,
+            192
+          ],
+          "margin": [
+            136,
+            38,
+            224,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            897,
+            808,
+            212,
+            196
+          ],
+          "margin": [
+            142,
+            36,
+            262,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1349,
+            402,
+            237,
+            187
+          ],
+          "margin": [
+            145,
+            43,
+            237,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1113,
+            808,
+            214,
+            196
+          ],
+          "margin": [
+            138,
+            36,
+            260,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1588,
+            402,
+            246,
+            190
+          ],
+          "margin": [
+            133,
+            40,
+            228,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1331,
+            808,
+            222,
+            198
+          ],
+          "margin": [
+            130,
+            34,
+            252,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1836,
+            402,
+            238,
+            187
+          ],
+          "margin": [
+            118,
+            43,
+            236,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1557,
+            808,
+            219,
+            190
+          ],
+          "margin": [
+            128,
+            42,
+            255,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2076,
+            402,
+            225,
+            176
+          ],
+          "margin": [
+            127,
+            54,
+            249,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1780,
+            808,
+            217,
+            183
+          ],
+          "margin": [
+            130,
+            49,
+            257,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2303,
+            402,
+            232,
+            184
+          ],
+          "margin": [
+            123,
+            46,
+            242,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            1014,
+            221,
+            189
+          ],
+          "margin": [
+            124,
+            43,
+            253,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2537,
+            402,
+            231,
+            184
+          ],
+          "margin": [
+            121,
+            46,
+            243,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            227,
+            1014,
+            217,
+            185
+          ],
+          "margin": [
+            130,
+            47,
+            257,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2770,
+            402,
+            212,
+            178
+          ],
+          "margin": [
+            136,
+            52,
+            262,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            448,
+            1014,
+            220,
+            184
+          ],
+          "margin": [
+            130,
+            48,
+            254,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2984,
+            402,
+            229,
+            184
+          ],
+          "margin": [
+            124,
+            46,
+            245,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            672,
+            1014,
+            236,
+            191
+          ],
+          "margin": [
+            124,
+            41,
+            238,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3215,
+            402,
+            257,
+            183
+          ],
+          "margin": [
+            117,
+            47,
+            217,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            912,
+            1014,
+            222,
+            185
+          ],
+          "margin": [
+            128,
+            47,
+            252,
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3474,
+            402,
+            235,
+            199
+          ],
+          "margin": [
+            131,
+            31,
+            239,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1138,
+            1014,
+            226,
+            180
+          ],
+          "margin": [
+            128,
+            52,
+            248,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3711,
+            402,
+            235,
+            171
+          ],
+          "margin": [
+            134,
+            59,
+            239,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1368,
+            1014,
+            215,
+            163
+          ],
+          "margin": [
+            134,
+            69,
+            259,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            0,
+            603,
+            242,
+            121
+          ],
+          "margin": [
+            127,
+            109,
+            232,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1587,
+            1014,
+            231,
+            126
+          ],
+          "margin": [
+            128,
+            106,
+            243,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            244,
+            603,
+            230,
+            124
+          ],
+          "margin": [
+            122,
+            106,
+            244,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1822,
+            1014,
+            208,
+            113
+          ],
+          "margin": [
+            134,
+            119,
+            266,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            476,
+            603,
+            226,
+            92
+          ],
+          "margin": [
+            124,
+            138,
+            248,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            1213,
+            226,
+            93
+          ],
+          "margin": [
+            126,
+            139,
+            248,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "name": "diver_splash_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            704,
+            603,
+            206,
+            148
+          ],
+          "margin": [
+            118,
+            82,
+            268,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            232,
+            1213,
+            213,
+            150
+          ],
+          "margin": [
+            114,
+            82,
+            261,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            912,
+            603,
+            228,
+            166
+          ],
+          "margin": [
+            104,
+            64,
+            246,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            449,
+            1213,
+            228,
+            176
+          ],
+          "margin": [
+            115,
+            56,
+            246,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1142,
+            603,
+            190,
+            175
+          ],
+          "margin": [
+            125,
+            55,
+            284,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            681,
+            1213,
+            224,
+            181
+          ],
+          "margin": [
+            120,
+            51,
+            250,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1334,
+            603,
+            193,
+            179
+          ],
+          "margin": [
+            124,
+            51,
+            281,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            909,
+            1213,
+            240,
+            175
+          ],
+          "margin": [
+            111,
+            57,
+            234,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1529,
+            603,
+            221,
+            196
+          ],
+          "margin": [
+            106,
+            34,
+            253,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1153,
+            1213,
+            263,
+            164
+          ],
+          "margin": [
+            92,
+            68,
+            211,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1752,
+            603,
+            185,
+            204
+          ],
+          "margin": [
+            124,
+            26,
+            289,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1420,
+            1213,
+            235,
+            175
+          ],
+          "margin": [
+            104,
+            57,
+            239,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1939,
+            603,
+            182,
+            207
+          ],
+          "margin": [
+            124,
+            23,
+            292,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1659,
+            1213,
+            210,
+            202
+          ],
+          "margin": [
+            115,
+            30,
+            264,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2123,
+            603,
+            203,
+            219
+          ],
+          "margin": [
+            117,
+            11,
+            271,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            1423,
+            209,
+            206
+          ],
+          "margin": [
+            116,
+            26,
+            265,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2328,
+            603,
+            182,
+            222
+          ],
+          "margin": [
+            129,
+            8,
+            292,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            215,
+            1423,
+            201,
+            211
+          ],
+          "margin": [
+            114,
+            21,
+            273,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2512,
+            603,
+            163,
+            220
+          ],
+          "margin": [
+            137,
+            10,
+            311,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            420,
+            1423,
+            177,
+            205
+          ],
+          "margin": [
+            131,
+            27,
+            297,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2677,
+            603,
+            159,
+            210
+          ],
+          "margin": [
+            139,
+            20,
+            315,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            601,
+            1423,
+            175,
+            217
+          ],
+          "margin": [
+            130,
+            15,
+            299,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2838,
+            603,
+            218,
+            195
+          ],
+          "margin": [
+            114,
+            35,
+            256,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            780,
+            1423,
+            182,
+            216
+          ],
+          "margin": [
+            126,
+            16,
+            292,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "name": "diver_splash",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3058,
+            603,
+            207,
+            172
+          ],
+          "margin": [
+            120,
+            58,
+            267,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            966,
+            1423,
+            198,
+            190
+          ],
+          "margin": [
+            120,
+            42,
+            276,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3267,
+            603,
+            218,
+            177
+          ],
+          "margin": [
+            113,
+            53,
+            256,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1168,
+            1423,
+            215,
+            187
+          ],
+          "margin": [
+            111,
+            45,
+            259,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3487,
+            603,
+            246,
+            176
+          ],
+          "margin": [
+            98,
+            54,
+            228,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1387,
+            1423,
+            219,
+            171
+          ],
+          "margin": [
+            111,
+            61,
+            255,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3735,
+            603,
+            213,
+            167
+          ],
+          "margin": [
+            116,
+            63,
+            261,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1610,
+            1423,
+            216,
+            164
+          ],
+          "margin": [
+            112,
+            68,
+            258,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            0,
+            827,
+            220,
+            161
+          ],
+          "margin": [
+            114,
+            69,
+            254,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            1648,
+            230,
+            164
+          ],
+          "margin": [
+            108,
+            68,
+            244,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            222,
+            827,
+            263,
+            149
+          ],
+          "margin": [
+            89,
+            81,
+            211,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            236,
+            1648,
+            230,
+            144
+          ],
+          "margin": [
+            106,
+            88,
+            244,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            487,
+            827,
+            224,
+            129
+          ],
+          "margin": [
+            110,
+            101,
+            250,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            470,
+            1648,
+            223,
+            143
+          ],
+          "margin": [
+            107,
+            89,
+            251,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            713,
+            827,
+            243,
+            141
+          ],
+          "margin": [
+            100,
+            89,
+            231,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            697,
+            1648,
+            223,
+            136
+          ],
+          "margin": [
+            116,
+            96,
+            251,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            958,
+            827,
+            223,
+            145
+          ],
+          "margin": [
+            111,
+            85,
+            251,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            924,
+            1648,
+            212,
+            141
+          ],
+          "margin": [
+            119,
+            92,
+            262,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1183,
+            827,
+            215,
+            143
+          ],
+          "margin": [
+            116,
+            87,
+            259,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1140,
+            1648,
+            221,
+            159
+          ],
+          "margin": [
+            115,
+            73,
+            253,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1400,
+            827,
+            246,
+            160
+          ],
+          "margin": [
+            99,
+            70,
+            228,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1365,
+            1648,
+            227,
+            164
+          ],
+          "margin": [
+            107,
+            68,
+            247,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1648,
+            827,
+            206,
+            168
+          ],
+          "margin": [
+            113,
+            62,
+            268,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1596,
+            1648,
+            203,
+            168
+          ],
+          "margin": [
+            114,
+            64,
+            271,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "diver_splash_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1856,
+            827,
+            203,
+            171
+          ],
+          "margin": [
+            115,
+            59,
+            271,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1803,
+            1648,
+            207,
+            175
+          ],
+          "margin": [
+            116,
+            57,
+            267,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2061,
+            827,
+            218,
+            185
+          ],
+          "margin": [
+            109,
+            45,
+            256,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            2,
+            1831,
+            223,
+            176
+          ],
+          "margin": [
+            112,
+            56,
+            251,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2281,
+            827,
+            196,
+            192
+          ],
+          "margin": [
+            114,
+            38,
+            278,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            229,
+            1831,
+            214,
+            182
+          ],
+          "margin": [
+            114,
+            50,
+            260,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2479,
+            827,
+            197,
+            192
+          ],
+          "margin": [
+            114,
+            38,
+            277,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            447,
+            1831,
+            208,
+            182
+          ],
+          "margin": [
+            117,
+            50,
+            266,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2678,
+            827,
+            187,
+            189
+          ],
+          "margin": [
+            118,
+            41,
+            287,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            659,
+            1831,
+            197,
+            186
+          ],
+          "margin": [
+            121,
+            46,
+            277,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            2867,
+            827,
+            213,
+            181
+          ],
+          "margin": [
+            107,
+            49,
+            261,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            860,
+            1831,
+            197,
+            179
+          ],
+          "margin": [
+            120,
+            53,
+            277,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3082,
+            827,
+            191,
+            165
+          ],
+          "margin": [
+            120,
+            65,
+            283,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1061,
+            1831,
+            186,
+            177
+          ],
+          "margin": [
+            127,
+            56,
+            288,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3275,
+            827,
+            206,
+            172
+          ],
+          "margin": [
+            111,
+            58,
+            268,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1251,
+            1831,
+            185,
+            185
+          ],
+          "margin": [
+            124,
+            47,
+            289,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3483,
+            827,
+            211,
+            173
+          ],
+          "margin": [
+            106,
+            57,
+            263,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1440,
+            1831,
+            181,
+            182
+          ],
+          "margin": [
+            126,
+            50,
+            293,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            3696,
+            827,
+            189,
+            166
+          ],
+          "margin": [
+            120,
+            64,
+            285,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1625,
+            1831,
+            185,
+            182
+          ],
+          "margin": [
+            125,
+            50,
+            289,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            0,
+            1021,
+            212,
+            176
+          ],
+          "margin": [
+            107,
+            54,
+            262,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_00.png",
+          "region": [
+            1814,
+            1831,
+            200,
+            178
+          ],
+          "margin": [
+            119,
+            54,
+            274,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            214,
+            1021,
+            249,
+            178
+          ],
+          "margin": [
+            121,
+            52,
+            225,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            206,
+            167
+          ],
+          "margin": [
+            127,
+            65,
+            268,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "name": "diver_splash_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            465,
+            1021,
+            211,
+            163
+          ],
+          "margin": [
+            115,
+            67,
+            263,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "region": [
+            212,
+            2,
+            199,
+            172
+          ],
+          "margin": [
+            122,
+            61,
+            275,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            678,
+            1021,
+            199,
+            183
+          ],
+          "margin": [
+            121,
+            47,
+            275,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "region": [
+            415,
+            2,
+            198,
+            177
+          ],
+          "margin": [
+            122,
+            57,
+            276,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            879,
+            1021,
+            331,
+            159
+          ],
+          "margin": [
+            135,
+            71,
+            143,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "region": [
+            617,
+            2,
+            279,
+            170
+          ],
+          "margin": [
+            144,
+            62,
+            195,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/combat_motion_v7.png",
+          "region": [
+            1212,
+            1021,
+            322,
+            165
+          ],
+          "margin": [
+            134,
+            65,
+            152,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_v8_01.png",
+          "region": [
+            900,
+            2,
+            284,
+            170
+          ],
+          "margin": [
+            143,
+            62,
+            190,
+            68
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "diver_splash",
+    "diver_splash_recover",
+    "diver_splash_windup",
+    "recover",
+    "windup"
+  ],
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "08cd3095b39349d48f37999d045b390289093a8aae9ddca347fbe139881053f0",
+    "spec": "art_requests/creature_redraw_v1/jobs/rust_diver.json",
+    "clips": {
+      "walk": {
+        "mean_change": 0.0849,
+        "max_change": 0.1974,
+        "loop_seam": 0.0596,
+        "boil_ratio": 1.491,
+        "unique": 16,
+        "area_ratio": 1.062,
+        "registration_scale": 0.928,
+        "frames": 16
+      }
+    }
+  }
+}

@@ -1,8 +1,9 @@
 # 怪物动作清单重绘 v1
 
 按 `docs/research/20261111_creature_redraw_list.json` 的排序分批交付。
-本批完成 `rust_crown_guardian` 的 `walk`（32 张）和 `idle`（16 张），
-对应清单第 1、3 项。其余 282 段仍待逐项处理，不计入本批完成数。
+首批完成 `rust_crown_guardian` 的 `walk`（32 张）和 `idle`（16 张），对应清单第 1、3 项。
+第二批完成盐白裁判、静冠核心、孢铃匠、根笼猎手、苔铃幼虫、蜡枪兵、纸页决斗者、锈潜者的走路，共 160 张。
+累计 10/284 段、208 张原画；其余 274 段仍待逐项处理。
 
 全部新姿势来自内置 image_gen；`sources/` 保留选中的原始透明 PNG 和
 实际提示词，`jobs/` 记录原图、提示词及输入参考的 SHA256。
@@ -18,7 +19,7 @@
 
 ```sh
 python tools/creature_redraw_art.py --kind rust_crown_guardian
-python tools/creature_redraw_art.py --kind rust_crown_guardian --check
+python tools/creature_redraw_art.py --all --check
 python tools/build_creature_frame_fit.py --only rust_crown_guardian
 python tools/build_creature_frame_fit.py --check
 python tools/audit_motion_scale_consistency.py
