@@ -13,7 +13,9 @@ range of scales, free to slide, and the scale with the best overlap says how
 much bigger one body is than the other. Those pairwise ratios (next frame, the
 one after) are solved together per clip. Only a frame's jump against the
 clip's slow trend is corrected: a body that rears up or curls over several
-frames keeps doing so, and clips are not resized against each other.
+frames keeps doing so, and clips are not resized against each other. A frame
+that barely overlays its neighbours (a very different pose) is believed less,
+down to no correction at all.
 
     python tools/build_creature_frame_fit.py            # rewrite frame_fit.json files
     python tools/build_creature_frame_fit.py --check    # fail if any is stale or missing
@@ -36,13 +38,18 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 CREATURES = ROOT / "godot/assets/sprites/original_creatures"
 # Same order as hand_drawn_assets.character_manifest: the first present is loaded.
-ACTIVE_LAYERS = ["motion_onion_manifest.json", "motion_v8_manifest.json", "boss_behavior_manifest.json",
+ACTIVE_LAYERS = ["motion_transition_manifest.json", "motion_onion_manifest.json", "motion_v8_manifest.json", "boss_behavior_manifest.json",
                  "combat_motion_v7_manifest.json", "motion_manifest.json", "manifest.json"]
 OUTPUT = "frame_fit.json"
 GRID = 192                      # overlay resolution
 SCALES = [math.exp(v) for v in np.linspace(math.log(0.76), math.log(1 / 0.76), 21)]
 DEADBAND = 0.025                # smaller differences are left alone
 LIMIT = (0.87, 1.15)            # never correct by more than this
+# How well a frame overlays its direct neighbours decides how far its measured
+# size is believed. Between two very different poses (a spear swung from upright
+# to level) the best overlay says little about body size: no correction at or
+# below TRUST[0], the full LIMIT only from TRUST[1] up.
+TRUST = (0.5, 0.7)
 SOLID_ALPHA = 128
 # A body that is falling apart has no size to keep.
 SKIP_CLIPS = ("death",)
@@ -150,6 +157,7 @@ def measure_clip(images: list[Image.Image], loop: bool) -> list[float]:
     count = len(images)
     visible = [image.getbbox() is not None for image in images]
     links = []
+    seen = [[] for _ in range(count)]
     for number in range(count):
         for step in (1, 2):
             other = number + step
@@ -161,12 +169,17 @@ def measure_clip(images: list[Image.Image], loop: bool) -> list[float]:
                 continue
             scale, overlap = overlay_scale(images[number], images[other])
             links.append((number, other, math.log(scale), max(0.03, overlap - 0.4)))
+            if step == 1:
+                seen[number].append(overlap)
+                seen[other].append(overlap)
     levels = solve_levels(count, links, [])
     jump = levels - trend(levels, loop)
     result = []
     for number in range(count):
-        scale = math.exp(-jump[number])
-        result.append(1.0 if abs(jump[number]) < DEADBAND or not visible[number] else min(LIMIT[1], max(LIMIT[0], scale)))
+        trust = (sum(seen[number]) / len(seen[number]) - TRUST[0]) / (TRUST[1] - TRUST[0]) if seen[number] else 0.0
+        reach = math.log(LIMIT[1]) * min(1.0, max(0.0, trust))
+        change = min(reach, max(-reach, -jump[number]))
+        result.append(1.0 if abs(change) < DEADBAND or not visible[number] else round(math.exp(change), 3))
     return result
 
 
@@ -259,6 +272,10 @@ def self_test():
     # A steady growth over the clip is a pose change, not a jump: left alone.
     grow = measure_clip([blob(1.0 + 0.02 * i) for i in range(8)], False)
     assert all(abs(f - 1.0) <= 0.03 for f in grow[1:-1]), grow
+    # A pose with little in common with its neighbours is not resized on a guess.
+    bar = Image.new("L", (220, 40), 255)
+    swung = measure_clip([blob(1.0), blob(1.0), bar, blob(1.0), blob(1.0), blob(1.0)], False)
+    assert swung[2] == 1.0, swung
     assert solve_levels(3, [], []).tolist() == [0, 0, 0]
     print("build_creature_frame_fit self-test passed", found)
 
@@ -285,13 +302,13 @@ def main() -> int:
                 continue
             data = json.loads(path.read_text(encoding="utf-8"))
             if data["manifest"] != manifest.name or data["manifest_sha256"] != hashlib.sha256(manifest.read_bytes()).hexdigest():
-                stale.append(kind + ": drawings changed since " + OUTPUT + " was measured")
+                stale.append(f"{kind}: drawings changed since {OUTPUT} was measured; run: python tools/build_creature_frame_fit.py --only {kind}")
                 continue
             clips = {clip["name"]: len(clip["frames"]) for clip in animations_of(json.loads(manifest.read_text(encoding="utf-8")))}
             for name, rows in data["frames"].items():
                 if clips.get(name) != len(rows):
                     stale.append(f"{kind}/{name}: frame count differs")
-                if any(not (LIMIT[0] <= row[0] <= LIMIT[1]) or len(row) != 3 for row in rows):
+                if any(not (LIMIT[0] - 0.001 <= row[0] <= LIMIT[1] + 0.001) or len(row) != 3 for row in rows):
                     stale.append(f"{kind}/{name}: correction outside limits")
         for line in stale:
             print("STALE", line)
