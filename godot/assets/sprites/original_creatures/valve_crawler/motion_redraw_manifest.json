@@ -1,0 +1,3009 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "valve_crawler",
+  "canvas": [
+    368,
+    166
+  ],
+  "display_height": 74,
+  "visual_scale": 0.578125,
+  "visual_offset": [
+    0,
+    13.949036214953267
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            201,
+            128
+          ],
+          "margin": [
+            85,
+            30,
+            167,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            181,
+            128
+          ],
+          "margin": [
+            94,
+            31,
+            187,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            203,
+            0,
+            204,
+            128
+          ],
+          "margin": [
+            84,
+            30,
+            164,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            187,
+            2,
+            182,
+            129
+          ],
+          "margin": [
+            92,
+            30,
+            186,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            409,
+            0,
+            203,
+            127
+          ],
+          "margin": [
+            82,
+            31,
+            165,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            373,
+            2,
+            193,
+            128
+          ],
+          "margin": [
+            87,
+            32,
+            175,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            614,
+            0,
+            201,
+            128
+          ],
+          "margin": [
+            82,
+            30,
+            167,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            570,
+            2,
+            192,
+            129
+          ],
+          "margin": [
+            88,
+            30,
+            176,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            214,
+            135
+          ],
+          "margin": [
+            89,
+            23,
+            154,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            220,
+            2,
+            217,
+            135
+          ],
+          "margin": [
+            87,
+            23,
+            151,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            441,
+            2,
+            211,
+            135
+          ],
+          "margin": [
+            89,
+            23,
+            157,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            656,
+            2,
+            204,
+            135
+          ],
+          "margin": [
+            91,
+            23,
+            164,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            864,
+            2,
+            201,
+            135
+          ],
+          "margin": [
+            90,
+            23,
+            167,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            1069,
+            2,
+            200,
+            135
+          ],
+          "margin": [
+            86,
+            23,
+            168,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            1273,
+            2,
+            200,
+            136
+          ],
+          "margin": [
+            94,
+            22,
+            168,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            1477,
+            2,
+            200,
+            136
+          ],
+          "margin": [
+            92,
+            22,
+            168,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            1681,
+            2,
+            207,
+            134
+          ],
+          "margin": [
+            88,
+            24,
+            161,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            2,
+            146,
+            210,
+            135
+          ],
+          "margin": [
+            87,
+            23,
+            158,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            216,
+            146,
+            212,
+            133
+          ],
+          "margin": [
+            85,
+            25,
+            156,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            432,
+            146,
+            218,
+            133
+          ],
+          "margin": [
+            80,
+            25,
+            150,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            654,
+            146,
+            218,
+            132
+          ],
+          "margin": [
+            85,
+            26,
+            150,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            876,
+            146,
+            213,
+            136
+          ],
+          "margin": [
+            86,
+            22,
+            155,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            1093,
+            146,
+            210,
+            135
+          ],
+          "margin": [
+            91,
+            23,
+            158,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_redraw_00.png",
+          "region": [
+            1307,
+            146,
+            214,
+            136
+          ],
+          "margin": [
+            90,
+            22,
+            154,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2513,
+            0,
+            208,
+            130
+          ],
+          "margin": [
+            88,
+            28,
+            160,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            393,
+            145,
+            193,
+            136
+          ],
+          "margin": [
+            96,
+            25,
+            175,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2723,
+            0,
+            211,
+            137
+          ],
+          "margin": [
+            87,
+            21,
+            157,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            590,
+            145,
+            206,
+            144
+          ],
+          "margin": [
+            90,
+            16,
+            162,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2936,
+            0,
+            229,
+            136
+          ],
+          "margin": [
+            83,
+            22,
+            139,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            800,
+            145,
+            207,
+            138
+          ],
+          "margin": [
+            96,
+            24,
+            161,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3167,
+            0,
+            228,
+            132
+          ],
+          "margin": [
+            86,
+            26,
+            140,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1011,
+            145,
+            205,
+            139
+          ],
+          "margin": [
+            97,
+            21,
+            163,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3397,
+            0,
+            239,
+            135
+          ],
+          "margin": [
+            76,
+            23,
+            129,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1220,
+            145,
+            210,
+            144
+          ],
+          "margin": [
+            89,
+            16,
+            158,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3638,
+            0,
+            255,
+            134
+          ],
+          "margin": [
+            78,
+            24,
+            113,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1434,
+            145,
+            214,
+            139
+          ],
+          "margin": [
+            86,
+            23,
+            154,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            0,
+            139,
+            235,
+            124
+          ],
+          "margin": [
+            83,
+            34,
+            133,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1652,
+            145,
+            220,
+            136
+          ],
+          "margin": [
+            82,
+            25,
+            148,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            237,
+            139,
+            258,
+            134
+          ],
+          "margin": [
+            70,
+            24,
+            110,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            297,
+            232,
+            136
+          ],
+          "margin": [
+            72,
+            24,
+            136,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            497,
+            139,
+            223,
+            134
+          ],
+          "margin": [
+            71,
+            24,
+            145,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            238,
+            297,
+            205,
+            135
+          ],
+          "margin": [
+            74,
+            27,
+            163,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            722,
+            139,
+            221,
+            131
+          ],
+          "margin": [
+            73,
+            27,
+            147,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            447,
+            297,
+            193,
+            136
+          ],
+          "margin": [
+            81,
+            25,
+            175,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            945,
+            139,
+            217,
+            136
+          ],
+          "margin": [
+            78,
+            22,
+            151,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            644,
+            297,
+            214,
+            140
+          ],
+          "margin": [
+            82,
+            22,
+            154,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1164,
+            139,
+            256,
+            136
+          ],
+          "margin": [
+            84,
+            22,
+            112,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            862,
+            297,
+            212,
+            136
+          ],
+          "margin": [
+            96,
+            25,
+            156,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1422,
+            139,
+            263,
+            129
+          ],
+          "margin": [
+            93,
+            29,
+            105,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1078,
+            297,
+            248,
+            132
+          ],
+          "margin": [
+            96,
+            28,
+            120,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1687,
+            139,
+            263,
+            133
+          ],
+          "margin": [
+            96,
+            25,
+            105,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1330,
+            297,
+            249,
+            133
+          ],
+          "margin": [
+            98,
+            27,
+            119,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1952,
+            139,
+            238,
+            131
+          ],
+          "margin": [
+            80,
+            27,
+            130,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1583,
+            297,
+            210,
+            127
+          ],
+          "margin": [
+            107,
+            33,
+            158,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2192,
+            139,
+            226,
+            123
+          ],
+          "margin": [
+            94,
+            35,
+            142,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1797,
+            297,
+            209,
+            127
+          ],
+          "margin": [
+            104,
+            33,
+            159,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2420,
+            139,
+            231,
+            129
+          ],
+          "margin": [
+            78,
+            29,
+            137,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            445,
+            211,
+            136
+          ],
+          "margin": [
+            90,
+            24,
+            157,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2653,
+            139,
+            215,
+            133
+          ],
+          "margin": [
+            83,
+            25,
+            153,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            217,
+            445,
+            196,
+            130
+          ],
+          "margin": [
+            88,
+            30,
+            172,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2870,
+            139,
+            210,
+            127
+          ],
+          "margin": [
+            82,
+            31,
+            158,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            417,
+            445,
+            198,
+            127
+          ],
+          "margin": [
+            83,
+            34,
+            170,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3082,
+            139,
+            209,
+            130
+          ],
+          "margin": [
+            79,
+            28,
+            159,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            619,
+            445,
+            209,
+            138
+          ],
+          "margin": [
+            76,
+            22,
+            159,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3293,
+            139,
+            245,
+            128
+          ],
+          "margin": [
+            59,
+            30,
+            123,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            832,
+            445,
+            216,
+            131
+          ],
+          "margin": [
+            72,
+            29,
+            152,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3540,
+            139,
+            216,
+            117
+          ],
+          "margin": [
+            75,
+            41,
+            152,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1052,
+            445,
+            221,
+            130
+          ],
+          "margin": [
+            76,
+            30,
+            147,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3758,
+            139,
+            251,
+            128
+          ],
+          "margin": [
+            65,
+            30,
+            117,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1277,
+            445,
+            209,
+            133
+          ],
+          "margin": [
+            87,
+            27,
+            159,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            0,
+            277,
+            218,
+            136
+          ],
+          "margin": [
+            88,
+            22,
+            150,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1490,
+            445,
+            191,
+            127
+          ],
+          "margin": [
+            106,
+            34,
+            177,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            220,
+            277,
+            220,
+            135
+          ],
+          "margin": [
+            96,
+            23,
+            148,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1685,
+            445,
+            195,
+            131
+          ],
+          "margin": [
+            109,
+            29,
+            173,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            442,
+            277,
+            216,
+            136
+          ],
+          "margin": [
+            98,
+            22,
+            152,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            591,
+            216,
+            130
+          ],
+          "margin": [
+            101,
+            30,
+            152,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            660,
+            277,
+            228,
+            133
+          ],
+          "margin": [
+            91,
+            25,
+            140,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            222,
+            591,
+            225,
+            122
+          ],
+          "margin": [
+            99,
+            38,
+            143,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            890,
+            277,
+            218,
+            122
+          ],
+          "margin": [
+            94,
+            36,
+            150,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            451,
+            591,
+            221,
+            122
+          ],
+          "margin": [
+            98,
+            38,
+            147,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1110,
+            277,
+            229,
+            131
+          ],
+          "margin": [
+            84,
+            27,
+            139,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            676,
+            591,
+            225,
+            142
+          ],
+          "margin": [
+            87,
+            18,
+            143,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1341,
+            277,
+            227,
+            136
+          ],
+          "margin": [
+            89,
+            22,
+            141,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            905,
+            591,
+            216,
+            133
+          ],
+          "margin": [
+            86,
+            27,
+            152,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1570,
+            277,
+            218,
+            132
+          ],
+          "margin": [
+            89,
+            26,
+            150,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1125,
+            591,
+            213,
+            135
+          ],
+          "margin": [
+            88,
+            25,
+            155,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1790,
+            277,
+            230,
+            137
+          ],
+          "margin": [
+            81,
+            21,
+            138,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1342,
+            591,
+            219,
+            138
+          ],
+          "margin": [
+            83,
+            22,
+            149,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2022,
+            277,
+            210,
+            139
+          ],
+          "margin": [
+            82,
+            19,
+            158,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1565,
+            591,
+            207,
+            134
+          ],
+          "margin": [
+            84,
+            26,
+            161,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2234,
+            277,
+            197,
+            134
+          ],
+          "margin": [
+            86,
+            24,
+            171,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1776,
+            591,
+            205,
+            132
+          ],
+          "margin": [
+            88,
+            28,
+            163,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2433,
+            277,
+            207,
+            138
+          ],
+          "margin": [
+            83,
+            20,
+            161,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            741,
+            221,
+            138
+          ],
+          "margin": [
+            80,
+            22,
+            147,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2642,
+            277,
+            216,
+            135
+          ],
+          "margin": [
+            78,
+            23,
+            152,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            227,
+            741,
+            215,
+            138
+          ],
+          "margin": [
+            88,
+            22,
+            153,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2860,
+            277,
+            215,
+            133
+          ],
+          "margin": [
+            100,
+            25,
+            153,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            446,
+            741,
+            193,
+            140
+          ],
+          "margin": [
+            106,
+            21,
+            175,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3077,
+            277,
+            206,
+            150
+          ],
+          "margin": [
+            99,
+            8,
+            162,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            643,
+            741,
+            195,
+            146
+          ],
+          "margin": [
+            107,
+            16,
+            173,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3285,
+            277,
+            220,
+            126
+          ],
+          "margin": [
+            94,
+            32,
+            148,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            842,
+            741,
+            194,
+            126
+          ],
+          "margin": [
+            95,
+            36,
+            174,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3507,
+            277,
+            218,
+            110
+          ],
+          "margin": [
+            79,
+            48,
+            150,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1040,
+            741,
+            215,
+            113
+          ],
+          "margin": [
+            80,
+            47,
+            153,
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3727,
+            277,
+            216,
+            136
+          ],
+          "margin": [
+            97,
+            22,
+            152,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1259,
+            741,
+            208,
+            139
+          ],
+          "margin": [
+            90,
+            21,
+            160,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            0,
+            429,
+            214,
+            127
+          ],
+          "margin": [
+            87,
+            31,
+            154,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1471,
+            741,
+            212,
+            119
+          ],
+          "margin": [
+            80,
+            41,
+            156,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            216,
+            429,
+            234,
+            102
+          ],
+          "margin": [
+            65,
+            56,
+            134,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1687,
+            741,
+            231,
+            104
+          ],
+          "margin": [
+            59,
+            56,
+            137,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            452,
+            429,
+            236,
+            97
+          ],
+          "margin": [
+            63,
+            61,
+            132,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            895,
+            246,
+            97
+          ],
+          "margin": [
+            51,
+            63,
+            122,
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            690,
+            429,
+            238,
+            124
+          ],
+          "margin": [
+            57,
+            34,
+            130,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            252,
+            895,
+            221,
+            117
+          ],
+          "margin": [
+            65,
+            43,
+            147,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            930,
+            429,
+            238,
+            124
+          ],
+          "margin": [
+            52,
+            34,
+            130,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            477,
+            895,
+            195,
+            132
+          ],
+          "margin": [
+            71,
+            28,
+            173,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "name": "valve_vent_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1170,
+            429,
+            228,
+            123
+          ],
+          "margin": [
+            72,
+            35,
+            140,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            676,
+            895,
+            213,
+            131
+          ],
+          "margin": [
+            76,
+            29,
+            155,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1400,
+            429,
+            244,
+            133
+          ],
+          "margin": [
+            63,
+            25,
+            124,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            893,
+            895,
+            240,
+            129
+          ],
+          "margin": [
+            70,
+            31,
+            128,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1646,
+            429,
+            231,
+            134
+          ],
+          "margin": [
+            65,
+            24,
+            137,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1137,
+            895,
+            237,
+            116
+          ],
+          "margin": [
+            68,
+            44,
+            131,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1879,
+            429,
+            221,
+            131
+          ],
+          "margin": [
+            70,
+            27,
+            147,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1378,
+            895,
+            245,
+            113
+          ],
+          "margin": [
+            67,
+            47,
+            123,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2102,
+            429,
+            233,
+            139
+          ],
+          "margin": [
+            64,
+            19,
+            135,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1627,
+            895,
+            230,
+            141
+          ],
+          "margin": [
+            70,
+            19,
+            138,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2337,
+            429,
+            243,
+            140
+          ],
+          "margin": [
+            63,
+            18,
+            125,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            1044,
+            223,
+            141
+          ],
+          "margin": [
+            76,
+            19,
+            145,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2582,
+            429,
+            236,
+            134
+          ],
+          "margin": [
+            67,
+            24,
+            132,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            229,
+            1044,
+            227,
+            137
+          ],
+          "margin": [
+            72,
+            23,
+            141,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2820,
+            429,
+            243,
+            141
+          ],
+          "margin": [
+            63,
+            17,
+            125,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            460,
+            1044,
+            222,
+            142
+          ],
+          "margin": [
+            73,
+            18,
+            146,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3065,
+            429,
+            244,
+            140
+          ],
+          "margin": [
+            63,
+            18,
+            124,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            686,
+            1044,
+            216,
+            138
+          ],
+          "margin": [
+            78,
+            22,
+            152,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3311,
+            429,
+            228,
+            134
+          ],
+          "margin": [
+            73,
+            24,
+            140,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            906,
+            1044,
+            205,
+            142
+          ],
+          "margin": [
+            82,
+            18,
+            163,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3541,
+            429,
+            243,
+            142
+          ],
+          "margin": [
+            67,
+            16,
+            125,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1115,
+            1044,
+            219,
+            142
+          ],
+          "margin": [
+            76,
+            18,
+            149,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3786,
+            429,
+            248,
+            145
+          ],
+          "margin": [
+            74,
+            13,
+            120,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1338,
+            1044,
+            219,
+            136
+          ],
+          "margin": [
+            74,
+            24,
+            149,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "valve_vent",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            0,
+            576,
+            239,
+            140
+          ],
+          "margin": [
+            78,
+            18,
+            129,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1561,
+            1044,
+            232,
+            139
+          ],
+          "margin": [
+            72,
+            21,
+            136,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            241,
+            576,
+            254,
+            146
+          ],
+          "margin": [
+            70,
+            12,
+            114,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            1194,
+            250,
+            142
+          ],
+          "margin": [
+            65,
+            18,
+            118,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            497,
+            576,
+            275,
+            145
+          ],
+          "margin": [
+            53,
+            13,
+            93,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            256,
+            1194,
+            255,
+            144
+          ],
+          "margin": [
+            61,
+            16,
+            113,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            774,
+            576,
+            259,
+            137
+          ],
+          "margin": [
+            61,
+            21,
+            109,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            515,
+            1194,
+            243,
+            141
+          ],
+          "margin": [
+            68,
+            19,
+            125,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1035,
+            576,
+            263,
+            138
+          ],
+          "margin": [
+            58,
+            20,
+            105,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            762,
+            1194,
+            256,
+            142
+          ],
+          "margin": [
+            62,
+            18,
+            112,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1300,
+            576,
+            296,
+            133
+          ],
+          "margin": [
+            50,
+            25,
+            72,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1022,
+            1194,
+            265,
+            133
+          ],
+          "margin": [
+            60,
+            27,
+            103,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1598,
+            576,
+            273,
+            119
+          ],
+          "margin": [
+            57,
+            39,
+            95,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1291,
+            1194,
+            272,
+            130
+          ],
+          "margin": [
+            56,
+            30,
+            96,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1873,
+            576,
+            299,
+            131
+          ],
+          "margin": [
+            45,
+            27,
+            69,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1567,
+            1194,
+            282,
+            136
+          ],
+          "margin": [
+            54,
+            24,
+            86,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2174,
+            576,
+            211,
+            137
+          ],
+          "margin": [
+            69,
+            21,
+            157,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            1346,
+            246,
+            138
+          ],
+          "margin": [
+            70,
+            22,
+            122,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2387,
+            576,
+            199,
+            135
+          ],
+          "margin": [
+            77,
+            23,
+            169,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            252,
+            1346,
+            249,
+            139
+          ],
+          "margin": [
+            66,
+            21,
+            119,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2588,
+            576,
+            215,
+            143
+          ],
+          "margin": [
+            68,
+            15,
+            153,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            505,
+            1346,
+            271,
+            138
+          ],
+          "margin": [
+            58,
+            22,
+            97,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2805,
+            576,
+            268,
+            143
+          ],
+          "margin": [
+            56,
+            15,
+            100,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            780,
+            1346,
+            264,
+            134
+          ],
+          "margin": [
+            61,
+            26,
+            104,
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "name": "valve_vent_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3075,
+            576,
+            251,
+            136
+          ],
+          "margin": [
+            68,
+            22,
+            117,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1048,
+            1346,
+            258,
+            135
+          ],
+          "margin": [
+            64,
+            25,
+            110,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3328,
+            576,
+            266,
+            142
+          ],
+          "margin": [
+            57,
+            16,
+            102,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1310,
+            1346,
+            209,
+            145
+          ],
+          "margin": [
+            68,
+            15,
+            159,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3596,
+            576,
+            255,
+            139
+          ],
+          "margin": [
+            57,
+            19,
+            113,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1523,
+            1346,
+            205,
+            145
+          ],
+          "margin": [
+            70,
+            15,
+            163,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            3853,
+            576,
+            235,
+            131
+          ],
+          "margin": [
+            70,
+            27,
+            133,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1732,
+            1346,
+            200,
+            141
+          ],
+          "margin": [
+            74,
+            19,
+            168,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            0,
+            724,
+            242,
+            134
+          ],
+          "margin": [
+            64,
+            24,
+            126,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            1499,
+            219,
+            146
+          ],
+          "margin": [
+            64,
+            14,
+            149,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            244,
+            724,
+            264,
+            131
+          ],
+          "margin": [
+            52,
+            27,
+            104,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            225,
+            1499,
+            259,
+            143
+          ],
+          "margin": [
+            60,
+            17,
+            109,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            510,
+            724,
+            243,
+            122
+          ],
+          "margin": [
+            65,
+            36,
+            125,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            488,
+            1499,
+            260,
+            139
+          ],
+          "margin": [
+            61,
+            21,
+            108,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            755,
+            724,
+            261,
+            130
+          ],
+          "margin": [
+            54,
+            28,
+            107,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            752,
+            1499,
+            258,
+            139
+          ],
+          "margin": [
+            60,
+            21,
+            110,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1018,
+            724,
+            237,
+            130
+          ],
+          "margin": [
+            66,
+            28,
+            131,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1014,
+            1499,
+            234,
+            130
+          ],
+          "margin": [
+            71,
+            30,
+            134,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1257,
+            724,
+            228,
+            125
+          ],
+          "margin": [
+            72,
+            33,
+            140,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1252,
+            1499,
+            231,
+            135
+          ],
+          "margin": [
+            72,
+            25,
+            137,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1487,
+            724,
+            245,
+            133
+          ],
+          "margin": [
+            63,
+            25,
+            123,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1487,
+            1499,
+            243,
+            136
+          ],
+          "margin": [
+            64,
+            24,
+            125,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1734,
+            724,
+            222,
+            134
+          ],
+          "margin": [
+            75,
+            24,
+            146,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            1734,
+            1499,
+            232,
+            128
+          ],
+          "margin": [
+            76,
+            32,
+            136,
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "name": "valve_vent_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            1958,
+            724,
+            241,
+            126
+          ],
+          "margin": [
+            68,
+            32,
+            127,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            2,
+            1653,
+            232,
+            124
+          ],
+          "margin": [
+            73,
+            36,
+            136,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/combat_motion_v7.png",
+          "region": [
+            2201,
+            724,
+            237,
+            132
+          ],
+          "margin": [
+            68,
+            26,
+            131,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/motion_v8_00.png",
+          "region": [
+            238,
+            1653,
+            233,
+            123
+          ],
+          "margin": [
+            72,
+            37,
+            135,
+            43
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "recover",
+    "valve_vent",
+    "valve_vent_recover",
+    "valve_vent_windup",
+    "windup"
+  ],
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "a628053edcef8157a3f4777d81fd5024b2cf6635ce598bd9fdbe8d3f91b70385",
+    "spec": "art_requests/creature_redraw_v1/jobs/valve_crawler.json",
+    "clips": {
+      "walk": {
+        "mean_change": 0.1123,
+        "max_change": 0.1586,
+        "loop_seam": 0.1014,
+        "boil_ratio": 1.747,
+        "unique": 16,
+        "area_ratio": 1.045,
+        "registration_scale": 0.838509317,
+        "frames": 16
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "kind": "echo_thorn_sentinel",
+  "baseline": "godot/assets/sprites/original_creatures/echo_thorn_sentinel/motion_v8_manifest.json",
+  "baseline_sha256": "bdc16b72556eac6ebcd8192feac58f0e9fa987144e1e0188960457c105eca7e9",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/echo_thorn_sentinel/walk.png",
+      "sha256": "98d2a64e4f98daced4c3d889d4285ee8367396e3a4959612392f51aee331dc22",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "a9fbcd061f611e47fb3c49b9f4a17d8b88952d4f1d8e1358286b3d90acd514c9",
+      "reference": {
+        "sha256": "4c819026a123144b78e00f61a54f933c9e7a819ea9e7a465f4f3e991e23a44af",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 192,
+      "center_x": 216,
+      "ground_y": 223
+    }
+  ]
+}

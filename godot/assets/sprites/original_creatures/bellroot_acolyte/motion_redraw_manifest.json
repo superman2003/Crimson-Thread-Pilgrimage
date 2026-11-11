@@ -1,0 +1,2942 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "bellroot_acolyte",
+  "canvas": [
+    568,
+    310
+  ],
+  "display_height": 96,
+  "visual_scale": 0.3870967741935484,
+  "visual_offset": [
+    0,
+    5.15297842865624
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            151,
+            248
+          ],
+          "margin": [
+            228,
+            42,
+            417,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            139,
+            224
+          ],
+          "margin": [
+            228,
+            68,
+            429,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            153,
+            0,
+            137,
+            247
+          ],
+          "margin": [
+            221,
+            43,
+            431,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            145,
+            2,
+            146,
+            226
+          ],
+          "margin": [
+            209,
+            66,
+            422,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            292,
+            0,
+            145,
+            246
+          ],
+          "margin": [
+            212,
+            44,
+            423,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            295,
+            2,
+            147,
+            223
+          ],
+          "margin": [
+            202,
+            69,
+            421,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            439,
+            0,
+            153,
+            245
+          ],
+          "margin": [
+            204,
+            45,
+            415,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            446,
+            2,
+            149,
+            222
+          ],
+          "margin": [
+            216,
+            70,
+            419,
+            88
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            173,
+            225
+          ],
+          "margin": [
+            218,
+            65,
+            395,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            179,
+            2,
+            169,
+            225
+          ],
+          "margin": [
+            220,
+            65,
+            399,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            352,
+            2,
+            165,
+            225
+          ],
+          "margin": [
+            226,
+            65,
+            403,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            521,
+            2,
+            163,
+            226
+          ],
+          "margin": [
+            228,
+            64,
+            405,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            688,
+            2,
+            158,
+            227
+          ],
+          "margin": [
+            232,
+            63,
+            410,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            850,
+            2,
+            158,
+            226
+          ],
+          "margin": [
+            233,
+            64,
+            410,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            1012,
+            2,
+            157,
+            227
+          ],
+          "margin": [
+            233,
+            63,
+            411,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            1173,
+            2,
+            159,
+            226
+          ],
+          "margin": [
+            233,
+            64,
+            409,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            1336,
+            2,
+            159,
+            226
+          ],
+          "margin": [
+            232,
+            64,
+            409,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            1499,
+            2,
+            164,
+            226
+          ],
+          "margin": [
+            226,
+            64,
+            404,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            1667,
+            2,
+            170,
+            226
+          ],
+          "margin": [
+            221,
+            64,
+            398,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            1841,
+            2,
+            166,
+            226
+          ],
+          "margin": [
+            225,
+            64,
+            402,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            2,
+            237,
+            161,
+            227
+          ],
+          "margin": [
+            229,
+            63,
+            407,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            167,
+            237,
+            158,
+            227
+          ],
+          "margin": [
+            233,
+            63,
+            410,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            329,
+            237,
+            157,
+            226
+          ],
+          "margin": [
+            233,
+            64,
+            411,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_00.png",
+          "region": [
+            490,
+            237,
+            164,
+            226
+          ],
+          "margin": [
+            226,
+            64,
+            404,
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2094,
+            0,
+            207,
+            205
+          ],
+          "margin": [
+            195,
+            85,
+            361,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            2,
+            236,
+            174,
+            228
+          ],
+          "margin": [
+            202,
+            64,
+            394,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2303,
+            0,
+            205,
+            212
+          ],
+          "margin": [
+            189,
+            78,
+            363,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            180,
+            236,
+            194,
+            224
+          ],
+          "margin": [
+            186,
+            68,
+            374,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2510,
+            0,
+            196,
+            212
+          ],
+          "margin": [
+            203,
+            78,
+            372,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            378,
+            236,
+            181,
+            204
+          ],
+          "margin": [
+            196,
+            88,
+            387,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2708,
+            0,
+            185,
+            206
+          ],
+          "margin": [
+            205,
+            84,
+            383,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            563,
+            236,
+            183,
+            200
+          ],
+          "margin": [
+            199,
+            92,
+            385,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2895,
+            0,
+            191,
+            213
+          ],
+          "margin": [
+            202,
+            77,
+            377,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            750,
+            236,
+            199,
+            219
+          ],
+          "margin": [
+            188,
+            73,
+            369,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3088,
+            0,
+            198,
+            215
+          ],
+          "margin": [
+            198,
+            75,
+            370,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            953,
+            236,
+            191,
+            199
+          ],
+          "margin": [
+            196,
+            93,
+            377,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3288,
+            0,
+            195,
+            210
+          ],
+          "margin": [
+            196,
+            80,
+            373,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1148,
+            236,
+            195,
+            207
+          ],
+          "margin": [
+            190,
+            85,
+            373,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3485,
+            0,
+            203,
+            220
+          ],
+          "margin": [
+            192,
+            70,
+            365,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1347,
+            236,
+            194,
+            211
+          ],
+          "margin": [
+            190,
+            81,
+            374,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3690,
+            0,
+            181,
+            222
+          ],
+          "margin": [
+            193,
+            68,
+            387,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1545,
+            236,
+            167,
+            211
+          ],
+          "margin": [
+            201,
+            81,
+            401,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3873,
+            0,
+            179,
+            219
+          ],
+          "margin": [
+            191,
+            71,
+            389,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1716,
+            236,
+            172,
+            218
+          ],
+          "margin": [
+            195,
+            74,
+            396,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            0,
+            250,
+            189,
+            228
+          ],
+          "margin": [
+            184,
+            62,
+            379,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            2,
+            472,
+            193,
+            250
+          ],
+          "margin": [
+            180,
+            42,
+            375,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            191,
+            250,
+            262,
+            232
+          ],
+          "margin": [
+            148,
+            58,
+            306,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            199,
+            472,
+            214,
+            259
+          ],
+          "margin": [
+            164,
+            33,
+            354,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            455,
+            250,
+            195,
+            225
+          ],
+          "margin": [
+            221,
+            65,
+            373,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            417,
+            472,
+            213,
+            238
+          ],
+          "margin": [
+            204,
+            54,
+            355,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            652,
+            250,
+            201,
+            233
+          ],
+          "margin": [
+            218,
+            57,
+            367,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            634,
+            472,
+            214,
+            249
+          ],
+          "margin": [
+            198,
+            43,
+            354,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            855,
+            250,
+            190,
+            234
+          ],
+          "margin": [
+            214,
+            56,
+            378,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            852,
+            472,
+            188,
+            233
+          ],
+          "margin": [
+            208,
+            59,
+            380,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1047,
+            250,
+            178,
+            228
+          ],
+          "margin": [
+            220,
+            62,
+            390,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1044,
+            472,
+            181,
+            234
+          ],
+          "margin": [
+            206,
+            58,
+            387,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1227,
+            250,
+            192,
+            234
+          ],
+          "margin": [
+            210,
+            56,
+            376,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1229,
+            472,
+            195,
+            253
+          ],
+          "margin": [
+            196,
+            39,
+            373,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1421,
+            250,
+            182,
+            234
+          ],
+          "margin": [
+            210,
+            56,
+            386,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1428,
+            472,
+            183,
+            238
+          ],
+          "margin": [
+            199,
+            54,
+            385,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1605,
+            250,
+            177,
+            227
+          ],
+          "margin": [
+            203,
+            63,
+            391,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1615,
+            472,
+            183,
+            236
+          ],
+          "margin": [
+            192,
+            56,
+            385,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1784,
+            250,
+            189,
+            232
+          ],
+          "margin": [
+            197,
+            58,
+            379,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1802,
+            472,
+            197,
+            257
+          ],
+          "margin": [
+            182,
+            35,
+            371,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1975,
+            250,
+            194,
+            232
+          ],
+          "margin": [
+            183,
+            58,
+            374,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            2,
+            739,
+            182,
+            239
+          ],
+          "margin": [
+            188,
+            53,
+            386,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2171,
+            250,
+            176,
+            223
+          ],
+          "margin": [
+            188,
+            67,
+            392,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            188,
+            739,
+            188,
+            239
+          ],
+          "margin": [
+            189,
+            53,
+            380,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2349,
+            250,
+            193,
+            239
+          ],
+          "margin": [
+            190,
+            51,
+            375,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            380,
+            739,
+            192,
+            251
+          ],
+          "margin": [
+            198,
+            41,
+            376,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2544,
+            250,
+            166,
+            247
+          ],
+          "margin": [
+            212,
+            43,
+            402,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            576,
+            739,
+            171,
+            242
+          ],
+          "margin": [
+            220,
+            50,
+            397,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2712,
+            250,
+            203,
+            177
+          ],
+          "margin": [
+            188,
+            113,
+            365,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            751,
+            739,
+            183,
+            207
+          ],
+          "margin": [
+            204,
+            86,
+            385,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2917,
+            250,
+            165,
+            188
+          ],
+          "margin": [
+            206,
+            102,
+            403,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            938,
+            739,
+            178,
+            196
+          ],
+          "margin": [
+            200,
+            97,
+            390,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3084,
+            250,
+            187,
+            167
+          ],
+          "margin": [
+            199,
+            123,
+            381,
+            143
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1120,
+            739,
+            174,
+            188
+          ],
+          "margin": [
+            202,
+            104,
+            394,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3273,
+            250,
+            189,
+            150
+          ],
+          "margin": [
+            190,
+            140,
+            379,
+            160
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1298,
+            739,
+            195,
+            179
+          ],
+          "margin": [
+            196,
+            113,
+            373,
+            131
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3464,
+            250,
+            200,
+            159
+          ],
+          "margin": [
+            194,
+            131,
+            368,
+            151
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1497,
+            739,
+            189,
+            159
+          ],
+          "margin": [
+            198,
+            132,
+            379,
+            151
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3666,
+            250,
+            215,
+            154
+          ],
+          "margin": [
+            174,
+            136,
+            353,
+            156
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1690,
+            739,
+            199,
+            153
+          ],
+          "margin": [
+            177,
+            138,
+            369,
+            157
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3883,
+            250,
+            207,
+            116
+          ],
+          "margin": [
+            168,
+            174,
+            361,
+            194
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            2,
+            998,
+            182,
+            135
+          ],
+          "margin": [
+            177,
+            156,
+            386,
+            175
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            0,
+            499,
+            229,
+            103
+          ],
+          "margin": [
+            156,
+            187,
+            339,
+            207
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            188,
+            998,
+            202,
+            114
+          ],
+          "margin": [
+            168,
+            177,
+            366,
+            196
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            231,
+            499,
+            253,
+            228
+          ],
+          "margin": [
+            150,
+            62,
+            315,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            394,
+            998,
+            255,
+            241
+          ],
+          "margin": [
+            153,
+            51,
+            313,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            486,
+            499,
+            262,
+            235
+          ],
+          "margin": [
+            144,
+            55,
+            306,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            653,
+            998,
+            269,
+            249
+          ],
+          "margin": [
+            150,
+            45,
+            299,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            750,
+            499,
+            401,
+            238
+          ],
+          "margin": [
+            140,
+            52,
+            167,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            926,
+            998,
+            357,
+            236
+          ],
+          "margin": [
+            148,
+            56,
+            211,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1153,
+            499,
+            386,
+            227
+          ],
+          "margin": [
+            147,
+            63,
+            182,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1287,
+            998,
+            375,
+            256
+          ],
+          "margin": [
+            148,
+            36,
+            193,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1541,
+            499,
+            422,
+            248
+          ],
+          "margin": [
+            138,
+            42,
+            146,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1666,
+            998,
+            356,
+            271
+          ],
+          "margin": [
+            139,
+            21,
+            212,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1965,
+            499,
+            248,
+            253
+          ],
+          "margin": [
+            181,
+            37,
+            320,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            2,
+            1277,
+            249,
+            281
+          ],
+          "margin": [
+            180,
+            13,
+            319,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2215,
+            499,
+            255,
+            256
+          ],
+          "margin": [
+            185,
+            34,
+            313,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            255,
+            1277,
+            252,
+            287
+          ],
+          "margin": [
+            182,
+            6,
+            316,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2472,
+            499,
+            258,
+            266
+          ],
+          "margin": [
+            179,
+            24,
+            310,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            511,
+            1277,
+            254,
+            293
+          ],
+          "margin": [
+            178,
+            0,
+            314,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2732,
+            499,
+            243,
+            270
+          ],
+          "margin": [
+            177,
+            20,
+            325,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            769,
+            1277,
+            237,
+            287
+          ],
+          "margin": [
+            174,
+            6,
+            331,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2977,
+            499,
+            237,
+            265
+          ],
+          "margin": [
+            178,
+            25,
+            331,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1010,
+            1277,
+            240,
+            284
+          ],
+          "margin": [
+            173,
+            9,
+            328,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3216,
+            499,
+            235,
+            259
+          ],
+          "margin": [
+            187,
+            31,
+            333,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1254,
+            1277,
+            229,
+            281
+          ],
+          "margin": [
+            192,
+            13,
+            339,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3453,
+            499,
+            217,
+            246
+          ],
+          "margin": [
+            200,
+            44,
+            351,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1487,
+            1277,
+            217,
+            264
+          ],
+          "margin": [
+            208,
+            28,
+            351,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "name": "root_bell_wave_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3672,
+            499,
+            197,
+            184
+          ],
+          "margin": [
+            204,
+            106,
+            371,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1708,
+            1277,
+            205,
+            229
+          ],
+          "margin": [
+            203,
+            63,
+            363,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3871,
+            499,
+            209,
+            202
+          ],
+          "margin": [
+            200,
+            88,
+            359,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            2,
+            1578,
+            201,
+            238
+          ],
+          "margin": [
+            199,
+            54,
+            367,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            0,
+            771,
+            172,
+            212
+          ],
+          "margin": [
+            214,
+            78,
+            396,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            207,
+            1578,
+            190,
+            232
+          ],
+          "margin": [
+            204,
+            60,
+            378,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            174,
+            771,
+            172,
+            216
+          ],
+          "margin": [
+            216,
+            74,
+            396,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            401,
+            1578,
+            195,
+            228
+          ],
+          "margin": [
+            202,
+            64,
+            373,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            348,
+            771,
+            184,
+            233
+          ],
+          "margin": [
+            207,
+            57,
+            384,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            600,
+            1578,
+            201,
+            244
+          ],
+          "margin": [
+            195,
+            48,
+            367,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            534,
+            771,
+            163,
+            242
+          ],
+          "margin": [
+            214,
+            48,
+            405,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            805,
+            1578,
+            202,
+            252
+          ],
+          "margin": [
+            198,
+            40,
+            366,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            699,
+            771,
+            158,
+            244
+          ],
+          "margin": [
+            217,
+            46,
+            410,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1011,
+            1578,
+            204,
+            253
+          ],
+          "margin": [
+            198,
+            39,
+            364,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            859,
+            771,
+            165,
+            255
+          ],
+          "margin": [
+            210,
+            35,
+            403,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1219,
+            1578,
+            191,
+            268
+          ],
+          "margin": [
+            196,
+            24,
+            377,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1026,
+            771,
+            163,
+            257
+          ],
+          "margin": [
+            204,
+            33,
+            405,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1414,
+            1578,
+            178,
+            257
+          ],
+          "margin": [
+            199,
+            35,
+            390,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1191,
+            771,
+            154,
+            254
+          ],
+          "margin": [
+            210,
+            36,
+            414,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1596,
+            1578,
+            159,
+            263
+          ],
+          "margin": [
+            208,
+            29,
+            409,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1347,
+            771,
+            155,
+            249
+          ],
+          "margin": [
+            204,
+            41,
+            413,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+          "region": [
+            1759,
+            1578,
+            168,
+            288
+          ],
+          "margin": [
+            198,
+            6,
+            400,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1504,
+            771,
+            225,
+            236
+          ],
+          "margin": [
+            185,
+            54,
+            343,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            203,
+            280
+          ],
+          "margin": [
+            195,
+            12,
+            365,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "root_bell_wave",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1731,
+            771,
+            215,
+            218
+          ],
+          "margin": [
+            191,
+            72,
+            353,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            209,
+            2,
+            226,
+            243
+          ],
+          "margin": [
+            186,
+            49,
+            342,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1948,
+            771,
+            211,
+            216
+          ],
+          "margin": [
+            191,
+            74,
+            357,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            439,
+            2,
+            232,
+            233
+          ],
+          "margin": [
+            178,
+            59,
+            336,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2161,
+            771,
+            216,
+            208
+          ],
+          "margin": [
+            168,
+            82,
+            352,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            675,
+            2,
+            212,
+            209
+          ],
+          "margin": [
+            173,
+            83,
+            356,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2379,
+            771,
+            205,
+            193
+          ],
+          "margin": [
+            175,
+            97,
+            363,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            891,
+            2,
+            246,
+            202
+          ],
+          "margin": [
+            150,
+            90,
+            322,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2586,
+            771,
+            208,
+            194
+          ],
+          "margin": [
+            172,
+            96,
+            360,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1141,
+            2,
+            198,
+            186
+          ],
+          "margin": [
+            175,
+            106,
+            370,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2796,
+            771,
+            209,
+            188
+          ],
+          "margin": [
+            166,
+            102,
+            359,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1343,
+            2,
+            187,
+            172
+          ],
+          "margin": [
+            178,
+            120,
+            381,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3007,
+            771,
+            194,
+            175
+          ],
+          "margin": [
+            180,
+            115,
+            374,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1534,
+            2,
+            187,
+            175
+          ],
+          "margin": [
+            179,
+            119,
+            381,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3203,
+            771,
+            197,
+            182
+          ],
+          "margin": [
+            175,
+            108,
+            371,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1725,
+            2,
+            190,
+            181
+          ],
+          "margin": [
+            178,
+            112,
+            378,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3402,
+            771,
+            203,
+            182
+          ],
+          "margin": [
+            169,
+            108,
+            365,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            2,
+            290,
+            176,
+            174
+          ],
+          "margin": [
+            184,
+            117,
+            392,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3607,
+            771,
+            198,
+            175
+          ],
+          "margin": [
+            171,
+            115,
+            370,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            182,
+            290,
+            191,
+            187
+          ],
+          "margin": [
+            170,
+            105,
+            377,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            3807,
+            771,
+            212,
+            191
+          ],
+          "margin": [
+            162,
+            99,
+            356,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            377,
+            290,
+            194,
+            206
+          ],
+          "margin": [
+            171,
+            86,
+            374,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            0,
+            1030,
+            187,
+            198
+          ],
+          "margin": [
+            182,
+            92,
+            381,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            575,
+            290,
+            177,
+            202
+          ],
+          "margin": [
+            186,
+            90,
+            391,
+            108
+          ]
+        }
+      ]
+    },
+    {
+      "name": "root_bell_wave_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            189,
+            1030,
+            184,
+            200
+          ],
+          "margin": [
+            186,
+            90,
+            384,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            756,
+            290,
+            177,
+            203
+          ],
+          "margin": [
+            190,
+            89,
+            391,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            375,
+            1030,
+            198,
+            212
+          ],
+          "margin": [
+            176,
+            78,
+            370,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            937,
+            290,
+            193,
+            217
+          ],
+          "margin": [
+            181,
+            75,
+            375,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            575,
+            1030,
+            206,
+            216
+          ],
+          "margin": [
+            183,
+            74,
+            362,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1134,
+            290,
+            192,
+            216
+          ],
+          "margin": [
+            184,
+            76,
+            376,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            783,
+            1030,
+            196,
+            214
+          ],
+          "margin": [
+            191,
+            76,
+            372,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1330,
+            290,
+            192,
+            217
+          ],
+          "margin": [
+            185,
+            75,
+            376,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            981,
+            1030,
+            210,
+            226
+          ],
+          "margin": [
+            180,
+            64,
+            358,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1526,
+            290,
+            190,
+            213
+          ],
+          "margin": [
+            191,
+            79,
+            378,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1193,
+            1030,
+            195,
+            231
+          ],
+          "margin": [
+            196,
+            59,
+            373,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1720,
+            290,
+            185,
+            211
+          ],
+          "margin": [
+            198,
+            81,
+            383,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1390,
+            1030,
+            187,
+            229
+          ],
+          "margin": [
+            203,
+            61,
+            381,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            2,
+            515,
+            182,
+            215
+          ],
+          "margin": [
+            203,
+            77,
+            386,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1579,
+            1030,
+            185,
+            225
+          ],
+          "margin": [
+            201,
+            65,
+            383,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            188,
+            515,
+            177,
+            212
+          ],
+          "margin": [
+            207,
+            80,
+            391,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1766,
+            1030,
+            187,
+            215
+          ],
+          "margin": [
+            201,
+            75,
+            381,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            369,
+            515,
+            164,
+            204
+          ],
+          "margin": [
+            214,
+            88,
+            404,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            1955,
+            1030,
+            170,
+            198
+          ],
+          "margin": [
+            210,
+            92,
+            398,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            537,
+            515,
+            162,
+            217
+          ],
+          "margin": [
+            216,
+            75,
+            406,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2127,
+            1030,
+            196,
+            222
+          ],
+          "margin": [
+            204,
+            68,
+            372,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            703,
+            515,
+            161,
+            224
+          ],
+          "margin": [
+            226,
+            68,
+            407,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2325,
+            1030,
+            154,
+            237
+          ],
+          "margin": [
+            221,
+            53,
+            414,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            868,
+            515,
+            141,
+            210
+          ],
+          "margin": [
+            236,
+            82,
+            427,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "name": "root_bell_wave_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2481,
+            1030,
+            151,
+            232
+          ],
+          "margin": [
+            214,
+            58,
+            417,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1013,
+            515,
+            138,
+            219
+          ],
+          "margin": [
+            219,
+            73,
+            430,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+          "region": [
+            2634,
+            1030,
+            154,
+            234
+          ],
+          "margin": [
+            212,
+            56,
+            414,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_01.png",
+          "region": [
+            1155,
+            515,
+            147,
+            221
+          ],
+          "margin": [
+            214,
+            71,
+            421,
+            89
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "recover",
+    "root_bell_wave",
+    "root_bell_wave_recover",
+    "root_bell_wave_windup",
+    "windup"
+  ],
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "c15885f540c01b8b5d58b1b032550880d886590c2e2966b39802dafd1de915c5",
+    "spec": "art_requests/creature_redraw_v1/jobs/bellroot_acolyte.json",
+    "clips": {
+      "walk": {
+        "mean_change": 0.1162,
+        "max_change": 0.1607,
+        "loop_seam": 0.1233,
+        "boil_ratio": 1.115,
+        "unique": 16,
+        "area_ratio": 1.104,
+        "registration_scale": 0.88627451,
+        "frames": 16
+      }
+    }
+  }
+}
