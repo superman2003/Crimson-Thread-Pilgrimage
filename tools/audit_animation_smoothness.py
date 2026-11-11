@@ -85,7 +85,7 @@ def _phase_animation(anims, command, phase):
 
 def creature_manifest(kind):
     # Same preference order as hand_drawn_assets.character_manifest.
-    for name in ('motion_transition_manifest.json', 'motion_onion_manifest.json', 'motion_v8_manifest.json', 'boss_behavior_manifest.json', 'combat_motion_v7_manifest.json', 'motion_manifest.json', 'manifest.json'):
+    for name in ('motion_redraw_manifest.json', 'motion_transition_manifest.json', 'motion_onion_manifest.json', 'motion_v8_manifest.json', 'boss_behavior_manifest.json', 'combat_motion_v7_manifest.json', 'motion_manifest.json', 'manifest.json'):
         path = CREATURES / kind / name
         if path.exists():
             return json.loads(path.read_text(encoding='utf-8'))

@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "rust_crown_guardian",
+  "baseline": "godot/assets/sprites/original_creatures/rust_crown_guardian/motion_v8_manifest.json",
+  "baseline_sha256": "60990b2af6e8784afa1358f21fffd5437fa04c37bfa53575f8428894baf33b92",
+  "jobs": [
+    {
+      "clip": "idle",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/rust_crown_guardian/idle.png",
+      "sha256": "331a655f7b49b333c698dd5dcda576cc97c59423baa96779f2d657416e384100",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "07fd2d291f5d09c6ec2b24b68def2a925a4af1054c10917ead85cc43586cf6e8",
+      "reference": {
+        "sha256": "fbbc5f3dad2fa4d09d4e02ee8e9e3b4f1579ab4519399dcde8491684a7bf1a8e",
+        "reconstruction": "baseline idle frame 0, native 210x214, placed at (23,24) in every 256x256 grid cell"
+      },
+      "reference_height": 214,
+      "center_x": 327,
+      "ground_y": 280
+    },
+    {
+      "clip": "walk",
+      "count": 32,
+      "grid": [
+        8,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/rust_crown_guardian/walk.png",
+      "sha256": "8322b4dc1d578d4159148fc0bd39af1eb0e4817ec4c06e44606d683ba89babf2",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "079891645eea8b5c46d6d0c41fdac52ef2a1b03f4090898ef8a2773f1db1958a",
+      "reference": {
+        "sha256": "cfb8486a2ac677c3422ee78ec9afbf39d3b73ed2e3267f0ca8a3aeb8066b7272",
+        "reconstruction": "baseline idle frame 0, native 210x214, placed at (23,24) in every 256x256 grid cell"
+      },
+      "reference_height": 214,
+      "center_x": 327,
+      "ground_y": 280
+    }
+  ]
+}

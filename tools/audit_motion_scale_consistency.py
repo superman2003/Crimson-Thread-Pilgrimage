@@ -27,7 +27,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 CREATURES = ROOT / "godot/assets/sprites/original_creatures"
 # Newest layer first; the first one present is what the game loads.
-ACTIVE_LAYERS = ["motion_transition_manifest.json", "motion_onion_manifest.json", "motion_v8_manifest.json", "boss_behavior_manifest.json",
+ACTIVE_LAYERS = ["motion_redraw_manifest.json", "motion_transition_manifest.json", "motion_onion_manifest.json", "motion_v8_manifest.json", "boss_behavior_manifest.json",
                  "combat_motion_v7_manifest.json", "motion_manifest.json", "manifest.json"]
 # Only drawings produced by generated in-between layers are gated; earlier
 # layers were authored as whole clips and stay report-only.

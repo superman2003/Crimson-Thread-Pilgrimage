@@ -1,0 +1,73 @@
+name: Reviewed creature redraws
+
+on:
+  pull_request:
+    paths:
+      - 'godot/assets/sprites/original_creatures/**'
+      - 'art_requests/enemy_transitions_v1/**'
+      - 'godot/scripts/enemy_actor.gd'
+      - 'godot/scripts/enemy_motion_transitions*.gd'
+      - 'godot/scripts/hand_drawn_assets.gd'
+      - 'godot/scripts/character_motion_v8_validation.gd'
+      - 'tools/enemy_transition_art.py'
+      - 'tools/test_enemy_transition_art.py'
+      - 'tools/check_enemy_transitions_native.py'
+      - 'tools/motion_onion.py'
+      - 'tools/test_motion_onion.py'
+      - 'tools/audit_motion_scale_consistency.py'
+      - 'tools/audit_character_animation_assets.py'
+      - 'tools/audit_animation_smoothness.py'
+      - 'tools/validate_runtime_asset_dependencies.py'
+      - 'tools/run_godot_regressions.py'
+      - 'tools/godot_suite_success_markers.json'
+      - 'tools/build_creature_frame_fit.py'
+      - 'tools/test_creature_frame_fit.py'
+      - 'godot/scripts/enemy_frame_fit_validation.gd'
+      - 'godot/shaders/hit_flash.gdshader'
+      - '.github/contracts/creature-redraw.yml'
+      - 'tools/creature_redraw_art.py'
+      - 'art_requests/creature_redraw_v1/**'
+      - 'godot/scripts/combat_motion_v7_validation.gd'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: creature-redraw-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  transitions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hydrate production assets
+        run: git lfs pull --include='godot/assets/**,art_requests/creature_redraw_v1/**'
+      - name: Install Godot and validation dependencies
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
+      - name: Verify measurement inputs and base anchoring
+        run: |
+          python3 tools/creature_redraw_art.py --kind rust_crown_guardian --check
+          python3 tools/build_creature_frame_fit.py --self-test
+          python3 tools/test_creature_frame_fit.py
+          python3 tools/build_creature_frame_fit.py --check
+      - name: Import production resources
+        run: |
+          python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/transition-logs/import"
+      - name: Verify real playback, interruptions and frozen combat clocks
+        run: |
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite character_motion_v8 --suite combat_motion_v7 --suite expanded_character_motion --suite enemy_frame_fit --suite enemy_motion_transitions --suite enemy_hit_feedback --log-dir "$RUNNER_TEMP/transition-logs/runtime"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: creature-redraw-logs
+          path: |
+            ${{ runner.temp }}/transition-logs
+            ${{ runner.temp }}/transition-scale.json
+            ${{ runner.temp }}/transition-dependencies.json
