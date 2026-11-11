@@ -1,0 +1,1082 @@
+{
+  "schema": 1,
+  "kind": "moss_larva",
+  "baseline": "godot/assets/sprites/original_creatures/moss_larva/motion_v8_manifest.json",
+  "baseline_sha256": "f9112343119c9543c94d07e8ce5ac3a66b37b54f81d02514c4df39041fe2f05d",
+  "canvas": [
+    332,
+    241
+  ],
+  "scale": 1.2771,
+  "jobs": [
+    {
+      "id": "moss_larva__turn__01",
+      "kind": "moss_larva",
+      "action": "turn",
+      "baseline": "godot/assets/sprites/original_creatures/moss_larva/motion_v8_manifest.json",
+      "canvas": [
+        332,
+        241
+      ],
+      "scale": 1.2771,
+      "onion": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__turn__01.onion.png",
+      "identity": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__turn__01.identity.png",
+      "prompt": "Use case: identity-preserve. Asset type: six newly HAND-PAINTED 2D game animation poses.\nImage 1 is the production onion guide, 1536x1024, exactly THREE columns and TWO rows of 512px cells. Image 2 shows the existing full-colour identity at exactly the same scale. The BLUE ghost is the start; the ORANGE ghost is the end. Their position, body size and grey ground line are fixed.\nCharacter: moss_larva. An in-place TURN from the blue original-facing idle toward the orange opposite-facing idle.\nCell 1, row-major: anticipatory head/antenna turn, about 25 degrees from the original facing.\nCell 2, row-major: pivot the short feet, head and shell about 50 degrees toward the viewer.\nCell 3, row-major: near frontal three-quarter pivot at about 75 degrees; preserve body volume.\nCell 4, row-major: continue through the front to about 105 degrees, turning toward the opposite side.\nCell 5, row-major: opposite three-quarter view at about 130 degrees; feet finish their pivot.\nCell 6, row-major: almost opposite-facing side view at about 155 degrees, settling toward orange idle.\nOutput one genuinely transparent 1536x1024 PNG. Keep the FOUR solid GREEN corner squares exactly where they are, unchanged. Draw exactly ONE new full-colour pose per used cell directly over its ghosts, at the SAME production size and location. Match the fine textured painted style, anatomical proportions, body mass, shell, ornament, face and palette exactly. The feet stay at the ground guide and the body stays centred. No body swelling/shrinking, no stretched limbs, no rigid whole-character rotation. Each pose must be a genuinely new drawing of the requested action; no copied, mirrored, cross-faded or blended endpoint figures. Remove ghosts, grey ground lines and cell outlines. No text, numbers, shadows, effects, particles, weapons or scenery added. Keep unused cells empty. Nothing crosses a cell border. This completes an existing character; do not redesign it.",
+      "edges": [
+        {
+          "animation": "turn",
+          "after": 0,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          },
+          "right": {
+            "atlas": "res://../art_requests/enemy_transitions_v1/references/moss_larva/opposite_idle_guide.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              67,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "turn",
+          "after": 1,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          },
+          "right": {
+            "atlas": "res://../art_requests/enemy_transitions_v1/references/moss_larva/opposite_idle_guide.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              67,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "turn",
+          "after": 2,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          },
+          "right": {
+            "atlas": "res://../art_requests/enemy_transitions_v1/references/moss_larva/opposite_idle_guide.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              67,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "turn",
+          "after": 3,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          },
+          "right": {
+            "atlas": "res://../art_requests/enemy_transitions_v1/references/moss_larva/opposite_idle_guide.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              67,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "turn",
+          "after": 4,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          },
+          "right": {
+            "atlas": "res://../art_requests/enemy_transitions_v1/references/moss_larva/opposite_idle_guide.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              67,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "turn",
+          "after": 5,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          },
+          "right": {
+            "atlas": "res://../art_requests/enemy_transitions_v1/references/moss_larva/opposite_idle_guide.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              67,
+              56,
+              133,
+              64
+            ]
+          }
+        }
+      ],
+      "attempts": [
+        {
+          "source": "art_requests/enemy_transitions_v1/sources/moss_larva/moss_larva__turn__01__try01.png",
+          "sha256": "220e8653debf7b66586a5278d6cb95b4bf65a65ce579651283cbc78b3afeedb0",
+          "generator": "built-in image_gen",
+          "prompt": "Use case: identity-preserve. Asset type: six newly HAND-PAINTED 2D game animation poses. Image 1 is the production onion guide, 1536x1024, exactly THREE columns and TWO rows of 512px cells. Image 2 shows the existing full-colour identity at exactly the same scale. The BLUE ghost is the start; the ORANGE ghost is the end. Their position, body size and grey ground line are fixed. Character: moss_larva, a small teal moss-covered larva carrying an antique bronze bell shell, pale flowers, short feet, two leaf-like antennae and a large cream-ringed eye. An in-place TURN from the blue original-facing idle toward the orange opposite-facing idle. Cell 1, row-major: anticipatory head/antenna turn, about 25 degrees from the original facing. Cell 2: pivot the short feet, head and shell about 50 degrees toward the viewer. Cell 3: near frontal three-quarter pivot at about 75 degrees, preserve body volume. Cell 4: continue through the front to about 105 degrees, turning toward the opposite side. Cell 5: opposite three-quarter view at about 130 degrees, feet finish their pivot. Cell 6: almost opposite-facing side view at about 155 degrees, settling toward orange idle. Output one genuinely transparent 1536x1024 PNG. Keep the FOUR solid GREEN corner squares exactly where they are, unchanged. Draw exactly ONE new full-colour pose per used cell directly over its ghosts, at the SAME production size and location. Match the fine textured painted style, anatomical proportions, body mass, bell shell, moss and flowers, face and palette exactly. The feet stay at the ground guide and the body stays centred. No body swelling or shrinking, no stretched limbs, no rigid whole-character rotation. Each pose must be a genuinely new drawing of the requested action; no copied, mirrored, cross-faded or blended endpoint figures. Remove ghosts, grey ground lines and cell outlines. No text, numbers, shadows, effects, particles, extra weapons or scenery. Nothing crosses a cell border. This completes an existing character; do not redesign it.",
+          "affine": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              -0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "marker_residual": 0.0,
+          "cells": [
+            {
+              "animation": "turn",
+              "after": 0,
+              "slot": 0,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  18988,
+                  20636,
+                  18988
+                ],
+                "area_ratio": 1.087,
+                "ground": 230,
+                "centre_x": 153.8,
+                "colour_drift": 8.0
+              },
+              "margin_xy": [
+                67,
+                56
+              ]
+            },
+            {
+              "animation": "turn",
+              "after": 1,
+              "slot": 1,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  18988,
+                  19964,
+                  18988
+                ],
+                "area_ratio": 1.051,
+                "ground": 231,
+                "centre_x": 153.9,
+                "colour_drift": 8.5
+              },
+              "margin_xy": [
+                75,
+                52
+              ]
+            },
+            {
+              "animation": "turn",
+              "after": 2,
+              "slot": 2,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  18988,
+                  18914,
+                  18988
+                ],
+                "area_ratio": 0.996,
+                "ground": 231,
+                "centre_x": 151.1,
+                "colour_drift": 6.8
+              },
+              "margin_xy": [
+                73,
+                52
+              ]
+            },
+            {
+              "animation": "turn",
+              "after": 3,
+              "slot": 3,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  18988,
+                  18772,
+                  18988
+                ],
+                "area_ratio": 0.989,
+                "ground": 230,
+                "centre_x": 170.5,
+                "colour_drift": 5.2
+              },
+              "margin_xy": [
+                86,
+                50
+              ]
+            },
+            {
+              "animation": "turn",
+              "after": 4,
+              "slot": 4,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  18988,
+                  20963,
+                  18988
+                ],
+                "area_ratio": 1.104,
+                "ground": 231,
+                "centre_x": 164.7,
+                "colour_drift": 6.5
+              },
+              "margin_xy": [
+                54,
+                51
+              ]
+            },
+            {
+              "animation": "turn",
+              "after": 5,
+              "slot": 5,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  18988,
+                  22307,
+                  18988
+                ],
+                "area_ratio": 1.175,
+                "ground": 230,
+                "centre_x": 166.5,
+                "colour_drift": 6.8
+              },
+              "margin_xy": [
+                46,
+                52
+              ]
+            }
+          ],
+          "prompt_sha256": "8fcd63416995dad8d89aff37530f6904dfa1d846fd9846afa06827b8839b9e9f",
+          "tool_asset_id": "exec-29b2e4f1-9c03-4d1c-b628-54133c1d3f71",
+          "references": [
+            {
+              "path": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__turn__01.onion.png",
+              "sha256": "f109d875251f2de6562807955cd52e2df1163001ac14ba171ccbdd00c4ef1339"
+            },
+            {
+              "path": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__turn__01.identity.png",
+              "sha256": "8f2701607f0189c8b20551b933f32fd7a9245439a55a60c7706896daf7343ae0"
+            }
+          ],
+          "registration": "affine6_inverse12_v1"
+        }
+      ]
+    },
+    {
+      "id": "moss_larva__brake__01",
+      "kind": "moss_larva",
+      "action": "brake",
+      "baseline": "godot/assets/sprites/original_creatures/moss_larva/motion_v8_manifest.json",
+      "canvas": [
+        332,
+        241
+      ],
+      "scale": 1.2771,
+      "onion": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__brake__01.onion.png",
+      "identity": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__brake__01.identity.png",
+      "prompt": "Use case: identity-preserve. Asset type: six newly HAND-PAINTED 2D game animation poses.\nImage 1 is the production onion guide, 1536x1024, exactly THREE columns and TWO rows of 512px cells. Image 2 shows the existing full-colour identity at exactly the same scale. The BLUE ghost is the start; the ORANGE ghost is the end. Their position, body size and grey ground line are fixed.\nCharacter: moss_larva. A grounded STOP from the blue walking pose toward the orange stationary idle. Keep the original facing.\nCell 1, row-major: leading feet reach to plant while the other feet finish a walking push.\nCell 2, row-major: the planted feet take the weight; the body resists forward momentum without scaling.\nCell 3, row-major: remaining feet gather under the shell, a restrained natural settling pose.\nCell 4, row-major: weight comes back to the resting stance; antenna and head follow the stop.\nCell 5, row-major: almost settled, slight remaining antenna/body motion toward idle.\nCell 6, row-major: finish settling, very close to the orange idle stance but a distinctly drawn pose.\nOutput one genuinely transparent 1536x1024 PNG. Keep the FOUR solid GREEN corner squares exactly where they are, unchanged. Draw exactly ONE new full-colour pose per used cell directly over its ghosts, at the SAME production size and location. Match the fine textured painted style, anatomical proportions, body mass, shell, ornament, face and palette exactly. The feet stay at the ground guide and the body stays centred. No body swelling/shrinking, no stretched limbs, no rigid whole-character rotation. Each pose must be a genuinely new drawing of the requested action; no copied, mirrored, cross-faded or blended endpoint figures. Remove ghosts, grey ground lines and cell outlines. No text, numbers, shadows, effects, particles, weapons or scenery added. Keep unused cells empty. Nothing crosses a cell border. This completes an existing character; do not redesign it. All four green squares must have crisp hard edges, with no glow.",
+      "edges": [
+        {
+          "animation": "brake",
+          "after": 0,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              810,
+              0,
+              215,
+              176
+            ],
+            "margin": [
+              68,
+              57,
+              117,
+              65
+            ]
+          },
+          "right": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "brake",
+          "after": 1,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              810,
+              0,
+              215,
+              176
+            ],
+            "margin": [
+              68,
+              57,
+              117,
+              65
+            ]
+          },
+          "right": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "brake",
+          "after": 2,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              810,
+              0,
+              215,
+              176
+            ],
+            "margin": [
+              68,
+              57,
+              117,
+              65
+            ]
+          },
+          "right": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "brake",
+          "after": 3,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              810,
+              0,
+              215,
+              176
+            ],
+            "margin": [
+              68,
+              57,
+              117,
+              65
+            ]
+          },
+          "right": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "brake",
+          "after": 4,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              810,
+              0,
+              215,
+              176
+            ],
+            "margin": [
+              68,
+              57,
+              117,
+              65
+            ]
+          },
+          "right": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          }
+        },
+        {
+          "animation": "brake",
+          "after": 5,
+          "left": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              810,
+              0,
+              215,
+              176
+            ],
+            "margin": [
+              68,
+              57,
+              117,
+              65
+            ]
+          },
+          "right": {
+            "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+            "region": [
+              0,
+              0,
+              199,
+              177
+            ],
+            "margin": [
+              66,
+              56,
+              133,
+              64
+            ]
+          }
+        }
+      ],
+      "attempts": [
+        {
+          "source": "art_requests/enemy_transitions_v1/sources/moss_larva/moss_larva__brake__01__try01.png",
+          "sha256": "aa54a36093fa80ffe7b3c431ee51870e2e9ed8ffcd4f5b9d7e3d475861f4d38d",
+          "generator": "built-in image_gen",
+          "prompt": "Use case: identity-preserve. Asset type: six newly HAND-PAINTED 2D game animation poses.\nImage 1 is the production onion guide, 1536x1024, exactly THREE columns and TWO rows of 512px cells. Image 2 shows the existing full-colour identity at exactly the same scale. The BLUE ghost is the start; the ORANGE ghost is the end. Their position, body size and grey ground line are fixed.\nCharacter: moss_larva. A grounded STOP from the blue walking pose toward the orange stationary idle. Keep the original facing.\nCell 1, row-major: leading feet reach to plant while the other feet finish a walking push.\nCell 2, row-major: the planted feet take the weight; the body resists forward momentum without scaling.\nCell 3, row-major: remaining feet gather under the shell, a restrained natural settling pose.\nCell 4, row-major: weight comes back to the resting stance; antenna and head follow the stop.\nCell 5, row-major: almost settled, slight remaining antenna/body motion toward idle.\nCell 6, row-major: finish settling, very close to the orange idle stance but a distinctly drawn pose.\nOutput one genuinely transparent 1536x1024 PNG. Keep the FOUR solid GREEN corner squares exactly where they are, unchanged. Draw exactly ONE new full-colour pose per used cell directly over its ghosts, at the SAME production size and location. Match the fine textured painted style, anatomical proportions, body mass, shell, ornament, face and palette exactly. The feet stay at the ground guide and the body stays centred. No body swelling/shrinking, no stretched limbs, no rigid whole-character rotation. Each pose must be a genuinely new drawing of the requested action; no copied, mirrored, cross-faded or blended endpoint figures. Remove ghosts, grey ground lines and cell outlines. No text, numbers, shadows, effects, particles, weapons or scenery added. Keep unused cells empty. Nothing crosses a cell border. This completes an existing character; do not redesign it. All four green squares must have crisp hard edges, with no glow.",
+          "error": "a corner marker is missing",
+          "references": [
+            {
+              "path": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__brake__01.onion.png",
+              "sha256": "def35bd76cda93587028600e21953acd24e650f43ec103cd68a7f0858b2196c6"
+            },
+            {
+              "path": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__brake__01.identity.png",
+              "sha256": "c00ece5371b26d50d209f4754c71104e38d6732753e66ab213b058ef9c101da0"
+            }
+          ],
+          "prompt_sha256": "bb2b917fb434e2c883651ad436eb35c6ea40f035ec76b1be8bf1d64adf12ed25"
+        },
+        {
+          "source": "art_requests/enemy_transitions_v1/sources/moss_larva/moss_larva__brake__01__try02.png",
+          "sha256": "7e7c21071a75dce3ea68532fc815ac62aab26ab15bc81eb4b274c0ac03b2437b",
+          "generator": "built-in image_gen",
+          "prompt": "Use case: precise-object-edit. Input image 1 is the EDIT TARGET: the completed six-pose sprite sheet. Input image 2 is the exact onion-sheet geometry reference. Input image 3 is the identity reference. Correct ONLY the four registration squares at the extreme corners of image 1. Preserve every character drawing, its exact size, shape, paint, position and transparency. Output a 1536x1024 PNG with a genuinely transparent background. Replace the four glowing star-like corner marks with four completely filled, flat, opaque solid GREEN squares, RGB (0,230,64), exactly 28 by 28 pixels: top-left x=10..37 y=10..37; top-right x=1498..1525 y=10..37; bottom-left x=10..37 y=986..1013; bottom-right x=1498..1525 y=986..1013. Each square must be fully solid, not a border, not a star, not a rhombus, no cutout and no glow. The green squares must remain visible and opaque in the transparent PNG. Remove the old corner glow. Keep all other background truly transparent. Do not add a background, shadow, text, grid or any new artwork. This is a technical fiducial repair only; do not redraw, move or resize the six creatures.",
+          "prompt_sha256": "91808b5fa5df6388a4293da233f81b04f046ead4714804ac64f4fac6236ec98b",
+          "references": [
+            {
+              "path": "art_requests/enemy_transitions_v1/sources/moss_larva/moss_larva__brake__01__try01.png",
+              "sha256": "aa54a36093fa80ffe7b3c431ee51870e2e9ed8ffcd4f5b9d7e3d475861f4d38d"
+            },
+            {
+              "path": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__brake__01.onion.png",
+              "sha256": "def35bd76cda93587028600e21953acd24e650f43ec103cd68a7f0858b2196c6"
+            },
+            {
+              "path": "art_requests/enemy_transitions_v1/references/moss_larva/moss_larva__brake__01.identity.png",
+              "sha256": "c00ece5371b26d50d209f4754c71104e38d6732753e66ab213b058ef9c101da0"
+            }
+          ],
+          "error": "a corner marker is missing"
+        },
+        {
+          "source": "art_requests/enemy_transitions_v1/sources/moss_larva/moss_larva__brake__01__try03.png",
+          "sha256": "8d24bc35e04a8a368cd3ebdd86a62b20a5ccb031cf7eade7a3f8086a89a84cb1",
+          "generator": "built-in image_gen",
+          "prompt": "Technical image compositing edit. Image 1 is the edit target with SIX RIGHT-FACING STOPPING creatures. Image 2 is ONLY a reference for the FOUR GREEN SQUARES at the outer corners; ignore all creatures in image 2. Keep the six creature drawings of IMAGE 1 pixel-for-pixel as close as possible, at their exact existing size and positions. Copy the appearance and positions of the FOUR FLAT GREEN SQUARE CORNER MARKERS from IMAGE 2 into IMAGE 1. The result must have square, fully filled flat rectangular green corner swatches like image 2: NOT CIRCLES, NOT STARS, NOT DOTS, NOT GLOWING JEWELS. Each corner swatch has FOUR STRAIGHT EDGES and FOUR RIGHT ANGLES, a solid filled centre and no border or glow. The output sheet is 1536x1024 with a truly transparent background; only the six unchanged creatures and the four opaque green square markers are visible. Do not copy any creature pose from image 2. Do not add any background, light, shadow, effects, text, grid, or other mark. This is only a technical corner-swatch repair.",
+          "prompt_sha256": "aa46363c45309cf69202f84df4f524b5ed3db0b00df80236f5ff037651f6169e",
+          "references": [
+            {
+              "path": "art_requests/enemy_transitions_v1/sources/moss_larva/moss_larva__brake__01__try02.png",
+              "sha256": "7e7c21071a75dce3ea68532fc815ac62aab26ab15bc81eb4b274c0ac03b2437b"
+            },
+            {
+              "path": "art_requests/enemy_transitions_v1/sources/moss_larva/moss_larva__turn__01__try01.png",
+              "sha256": "220e8653debf7b66586a5278d6cb95b4bf65a65ce579651283cbc78b3afeedb0"
+            }
+          ],
+          "affine": [
+            [
+              1.004896,
+              -0.000259,
+              -3.753238
+            ],
+            [
+              -0.0,
+              1.006704,
+              -3.181021
+            ]
+          ],
+          "marker_residual": 0.13,
+          "cells": [
+            {
+              "animation": "brake",
+              "after": 0,
+              "slot": 0,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  19412,
+                  20826,
+                  18988
+                ],
+                "area_ratio": 1.085,
+                "ground": 225,
+                "centre_x": 160.2,
+                "colour_drift": 6.0
+              },
+              "margin_xy": [
+                67,
+                55
+              ]
+            },
+            {
+              "animation": "brake",
+              "after": 1,
+              "slot": 1,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  19412,
+                  20891,
+                  18988
+                ],
+                "area_ratio": 1.088,
+                "ground": 225,
+                "centre_x": 158.6,
+                "colour_drift": 5.9
+              },
+              "margin_xy": [
+                66,
+                55
+              ]
+            },
+            {
+              "animation": "brake",
+              "after": 2,
+              "slot": 2,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  19412,
+                  20833,
+                  18988
+                ],
+                "area_ratio": 1.085,
+                "ground": 226,
+                "centre_x": 164.1,
+                "colour_drift": 5.9
+              },
+              "margin_xy": [
+                71,
+                55
+              ]
+            },
+            {
+              "animation": "brake",
+              "after": 3,
+              "slot": 3,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  19412,
+                  20742,
+                  18988
+                ],
+                "area_ratio": 1.08,
+                "ground": 228,
+                "centre_x": 160.0,
+                "colour_drift": 5.7
+              },
+              "margin_xy": [
+                67,
+                58
+              ]
+            },
+            {
+              "animation": "brake",
+              "after": 4,
+              "slot": 4,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  19412,
+                  20818,
+                  18988
+                ],
+                "area_ratio": 1.084,
+                "ground": 228,
+                "centre_x": 162.0,
+                "colour_drift": 5.3
+              },
+              "margin_xy": [
+                69,
+                58
+              ]
+            },
+            {
+              "animation": "brake",
+              "after": 5,
+              "slot": 5,
+              "accepted": true,
+              "reasons": [],
+              "metrics": {
+                "solid_area": [
+                  19412,
+                  20814,
+                  18988
+                ],
+                "area_ratio": 1.084,
+                "ground": 228,
+                "centre_x": 164.0,
+                "colour_drift": 6.0
+              },
+              "margin_xy": [
+                71,
+                58
+              ]
+            }
+          ],
+          "registration": "affine6_inverse12_v1"
+        }
+      ]
+    }
+  ],
+  "accepted": {
+    "turn#0": {
+      "job": "moss_larva__turn__01",
+      "attempt": 1,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/turn__00.png",
+      "sha256": "78a52b8aeb1ce1c9cda3c76cd2f1522a2fc0ceeb024e44b11c53338a2d6e1f2e",
+      "margin_xy": [
+        67,
+        56
+      ],
+      "metrics": {
+        "solid_area": [
+          18988,
+          20636,
+          18988
+        ],
+        "area_ratio": 1.087,
+        "ground": 230,
+        "centre_x": 153.8,
+        "colour_drift": 8.0
+      }
+    },
+    "turn#1": {
+      "job": "moss_larva__turn__01",
+      "attempt": 1,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/turn__01.png",
+      "sha256": "49839f3ea55f0b7f058ad26a6ec5d5d45e8490cbd52272482fe7390d74f6feca",
+      "margin_xy": [
+        75,
+        52
+      ],
+      "metrics": {
+        "solid_area": [
+          18988,
+          19964,
+          18988
+        ],
+        "area_ratio": 1.051,
+        "ground": 231,
+        "centre_x": 153.9,
+        "colour_drift": 8.5
+      }
+    },
+    "turn#2": {
+      "job": "moss_larva__turn__01",
+      "attempt": 1,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/turn__02.png",
+      "sha256": "d75db913f0537d4156aefe2ee5383889248f3a599afe8ae5e666ed9ee7ff2d11",
+      "margin_xy": [
+        73,
+        52
+      ],
+      "metrics": {
+        "solid_area": [
+          18988,
+          18914,
+          18988
+        ],
+        "area_ratio": 0.996,
+        "ground": 231,
+        "centre_x": 151.1,
+        "colour_drift": 6.8
+      }
+    },
+    "turn#3": {
+      "job": "moss_larva__turn__01",
+      "attempt": 1,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/turn__03.png",
+      "sha256": "d8dc0f8ebc03a70b59437f6ae570e50199ae2711b50a8cd21586840c49a8012d",
+      "margin_xy": [
+        86,
+        50
+      ],
+      "metrics": {
+        "solid_area": [
+          18988,
+          18772,
+          18988
+        ],
+        "area_ratio": 0.989,
+        "ground": 230,
+        "centre_x": 170.5,
+        "colour_drift": 5.2
+      }
+    },
+    "turn#4": {
+      "job": "moss_larva__turn__01",
+      "attempt": 1,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/turn__04.png",
+      "sha256": "954b9a301f55557c4b75b9b1689744b4938a3f06d4059c748d957fda3e5047e6",
+      "margin_xy": [
+        54,
+        51
+      ],
+      "metrics": {
+        "solid_area": [
+          18988,
+          20963,
+          18988
+        ],
+        "area_ratio": 1.104,
+        "ground": 231,
+        "centre_x": 164.7,
+        "colour_drift": 6.5
+      }
+    },
+    "turn#5": {
+      "job": "moss_larva__turn__01",
+      "attempt": 1,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/turn__05.png",
+      "sha256": "e369938df51f40d8dc11d52eb1c76c04a6c214ef60c070a6276213b2a5687b0f",
+      "margin_xy": [
+        46,
+        52
+      ],
+      "metrics": {
+        "solid_area": [
+          18988,
+          22307,
+          18988
+        ],
+        "area_ratio": 1.175,
+        "ground": 230,
+        "centre_x": 166.5,
+        "colour_drift": 6.8
+      }
+    },
+    "brake#0": {
+      "job": "moss_larva__brake__01",
+      "attempt": 3,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/brake__00.png",
+      "sha256": "90ef628325f0aec114f36c4ea099b2e64c871d69c523d28a11c806394993c55c",
+      "margin_xy": [
+        67,
+        55
+      ],
+      "metrics": {
+        "solid_area": [
+          19412,
+          20826,
+          18988
+        ],
+        "area_ratio": 1.085,
+        "ground": 225,
+        "centre_x": 160.2,
+        "colour_drift": 6.0
+      }
+    },
+    "brake#1": {
+      "job": "moss_larva__brake__01",
+      "attempt": 3,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/brake__01.png",
+      "sha256": "90d32944ccec623dd5c09067bd737c54ed9fc5a98235b438f9940cea94f196ad",
+      "margin_xy": [
+        66,
+        55
+      ],
+      "metrics": {
+        "solid_area": [
+          19412,
+          20891,
+          18988
+        ],
+        "area_ratio": 1.088,
+        "ground": 225,
+        "centre_x": 158.6,
+        "colour_drift": 5.9
+      }
+    },
+    "brake#2": {
+      "job": "moss_larva__brake__01",
+      "attempt": 3,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/brake__02.png",
+      "sha256": "11b50125de297e82f796693a10a4ef9160a727cf73a1d1d38d738c94141ac58d",
+      "margin_xy": [
+        71,
+        55
+      ],
+      "metrics": {
+        "solid_area": [
+          19412,
+          20833,
+          18988
+        ],
+        "area_ratio": 1.085,
+        "ground": 226,
+        "centre_x": 164.1,
+        "colour_drift": 5.9
+      }
+    },
+    "brake#3": {
+      "job": "moss_larva__brake__01",
+      "attempt": 3,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/brake__03.png",
+      "sha256": "affcbdeb5e156012ea2ea21e9537279b108477b3ce15bf28a108ffc98e4b913a",
+      "margin_xy": [
+        67,
+        58
+      ],
+      "metrics": {
+        "solid_area": [
+          19412,
+          20742,
+          18988
+        ],
+        "area_ratio": 1.08,
+        "ground": 228,
+        "centre_x": 160.0,
+        "colour_drift": 5.7
+      }
+    },
+    "brake#4": {
+      "job": "moss_larva__brake__01",
+      "attempt": 3,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/brake__04.png",
+      "sha256": "01e450d5ca67d2cdead60dd9026d123edc175a611dd71033ff93ce405bf2c45b",
+      "margin_xy": [
+        69,
+        58
+      ],
+      "metrics": {
+        "solid_area": [
+          19412,
+          20818,
+          18988
+        ],
+        "area_ratio": 1.084,
+        "ground": 228,
+        "centre_x": 162.0,
+        "colour_drift": 5.3
+      }
+    },
+    "brake#5": {
+      "job": "moss_larva__brake__01",
+      "attempt": 3,
+      "drawing": "art_requests/enemy_transitions_v1/accepted/moss_larva/brake__05.png",
+      "sha256": "95b365b052feee5305845d0c9577b45effee24817fbcc58354679c2e82882bf9",
+      "margin_xy": [
+        71,
+        58
+      ],
+      "metrics": {
+        "solid_area": [
+          19412,
+          20814,
+          18988
+        ],
+        "area_ratio": 1.084,
+        "ground": 228,
+        "centre_x": 164.0,
+        "colour_drift": 6.0
+      }
+    }
+  }
+}

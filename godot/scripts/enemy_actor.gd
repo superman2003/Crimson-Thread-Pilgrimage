@@ -5,6 +5,8 @@ const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
+const MOTION_TRANSITIONS := preload("res://scripts/enemy_motion_transitions.gd")
+var motion_transitions := MOTION_TRANSITIONS.new()
 const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
 const COMBAT_AUDIO := preload("res://scripts/enemy_combat_audio.gd")
 const STREAM_SOURCE := preload("res://scripts/audio_stream_source.gd")
@@ -502,8 +504,10 @@ func _physics_process(delta: float) -> void:
     var previous_state := state
     _step_enemy(delta)
     if dying or is_queued_for_deletion() or combat_visuals_paused or not world_residency_active():
+        if not world_residency_active():motion_transitions.suspend(self)
         return
     _update_animation_motion(delta, previous_position, previous_state)
+    motion_transitions.tick(self,global_position-previous_position,previous_state)
 
 func _step_enemy(delta: float) -> void:
     # An interrupted or retired charge never leaves its footfalls running.
@@ -2396,6 +2400,7 @@ func _build_sprite() -> void:
         if not frame_fit.is_empty():
             animated_sprite.frame_changed.connect(_apply_frame_fit)
             animated_sprite.animation_changed.connect(_apply_frame_fit)
+        animated_sprite.animation_finished.connect(_on_motion_animation_finished)
         animated_sprite.play("idle")
         sprite = animated_sprite
     else:
@@ -2545,12 +2550,14 @@ func _set_sprite_flip(flip_value: bool) -> void:
 
 
 func _set_enemy_animation(animation_name: String, restart: bool = false) -> void:
+    if motion_transitions.request_loop(self,animation_name,restart):return
     var next_animation := _resolve_directional_animation(animation_name)
     if animated_sprite != null and animated_sprite.sprite_frames != null and not animated_sprite.sprite_frames.has_animation(next_animation):
         next_animation = "idle"
     current_animation_has_explicit_direction = _is_directional_animation_name(next_animation) and _has_enemy_animation(next_animation)
     _apply_sprite_region(next_animation)
-    _apply_sprite_flip()
+    _apply_sprite_flip(animation_name in ["idle","walk"] and not restart)
+    if motion_transitions.request_loop(self,animation_name,restart):return
     if animated_sprite == null or animated_sprite.sprite_frames == null:
         return
     if animation_name in ["idle", "walk", "phase"]:
@@ -2660,13 +2667,20 @@ func _is_directional_animation_name(animation_name: String) -> bool:
     return animation_name.ends_with("_left") or animation_name.ends_with("_right")
 
 
-func _apply_sprite_flip() -> void:
+func _apply_sprite_flip(allow_motion: bool = true) -> void:
     if sprite == null:
         return
     if current_animation_has_explicit_direction:
         sprite.set("flip_h", false)
+        _apply_frame_fit()
         return
-    sprite.set("flip_h", not requested_sprite_flip if sprite_faces_left else requested_sprite_flip)
+    var wanted := not requested_sprite_flip if sprite_faces_left else requested_sprite_flip
+    if not motion_transitions.request_flip(self,wanted,allow_motion):
+        sprite.set("flip_h",wanted)
+    _apply_frame_fit()
+
+func _on_motion_animation_finished() -> void:
+    motion_transitions.completed(self)
     _apply_frame_fit()
 
 

@@ -99,7 +99,7 @@ class CompletionContractTests(unittest.TestCase):
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
         combat_additions = {
-            'character_motion_v8', 'enemy_hit_feedback', 'enemy_frame_fit',
+            'character_motion_v8', 'enemy_hit_feedback', 'enemy_motion_transitions',
             'player_projectile_contact', 'player_effect_lifecycle', 'enemy_wave_sweep',
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
@@ -210,7 +210,10 @@ class CompletionContractTests(unittest.TestCase):
         for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
-        self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
+        # Dedicated contracts run these suites only when their inputs change.
+        contract_suites = {'enemy_frame_fit'}
+        self.assertTrue(contract_suites.isdisjoint(all_suites))
+        self.assertEqual(set(all_suites) | contract_suites, set(SUCCESS_MARKERS))
         for marker in SUCCESS_MARKERS.values():
             self.assertTrue(marker.startswith('^') and marker.endswith('$'))
             re.compile(marker)

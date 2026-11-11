@@ -98,7 +98,7 @@ func run() -> void:
             var mirrored: Vector2 = material.get_shader_parameter("body_fit_pivot")
             check(sprite.flip_h == was_flipped or is_equal_approx(mirrored.x, -pivot.x), kind + " mirrors the body point with the facing")
             actor._set_sprite_flip(not actor.requested_sprite_flip)
-            if real_pixels and drawn < 8 and String(ART.manifest(path).get("motion", "ground")) == "ground":
+            if real_pixels and drawn < 8 and String(ART.manifest(path).get("motion", "ground")) in ["ground", "stationary"]:
                 await draw_frame(); await draw_frame()
                 var fitted := body_extent(root.get_texture().get_image())
                 material.set_shader_parameter("body_fit", 1.0)

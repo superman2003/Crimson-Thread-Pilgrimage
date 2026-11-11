@@ -334,8 +334,12 @@ def fit_affine(source, target):
     return coef.T, residual
 
 
-def to_sheet(path):
-    """The generated image resampled onto the reference sheet, markers removed."""
+def to_sheet(path, *, stable_affine=False):
+    """Resample the marked sheet; stable_affine versions reproducible sampling.
+
+    Existing onion deliveries retain their original registration by default.
+    New movement gestures opt into the recorded fixed-precision transform.
+    """
     with Image.open(path) as image:
         rgba = np.asarray(image.convert("RGBA"))
     found, mask = find_markers(rgba)
@@ -347,10 +351,21 @@ def to_sheet(path):
         raise ValueError(f"sheet was distorted, not just moved or resized ({stretch.round(3).tolist()})")
     cleaned = rgba.copy()
     cleaned[ndimage.binary_dilation(mask, iterations=2)] = 0
+    if stable_affine:
+        # Use the recorded precision for sampling as well as provenance. Tiny
+        # LAPACK differences around integer coordinates otherwise change which
+        # side of a pixel Pillow samples, even for an identity registration.
+        forward = np.round(forward, 6)
     full = np.vstack([forward, [0, 0, 1]])
-    inverse = np.linalg.inv(full)[:2].ravel().tolist()
+    inverse = np.linalg.inv(full)[:2]
+    if stable_affine:
+        inverse = np.round(inverse, 12)
+    inverse = inverse.ravel().tolist()
     sheet = Image.fromarray(cleaned).transform(SHEET, Image.Transform.AFFINE, inverse, resample=Image.Resampling.BICUBIC)
-    return sheet, dict(affine=[[round(v, 6) for v in row] for row in forward.tolist()], marker_residual=round(residual, 2))
+    fit = dict(affine=[[round(v, 6) for v in row] for row in forward.tolist()], marker_residual=round(residual, 2))
+    if stable_affine:
+        fit["registration"] = "affine6_inverse12_v1"
+    return sheet, fit
 
 
 def figure_in(sheet, slot):
@@ -445,8 +460,8 @@ def inspect(drawing, x, y, edge, canvas, threshold=THRESHOLD):
     return reasons, metrics
 
 
-def register(job, image_path):
-    sheet, fit = to_sheet(image_path)
+def register(job, image_path, *, stable_affine=False):
+    sheet, fit = to_sheet(image_path, stable_affine=stable_affine)
     k, canvas = job["scale"], job["canvas"]
     results = []
     for slot, edge in enumerate(job["edges"]):
