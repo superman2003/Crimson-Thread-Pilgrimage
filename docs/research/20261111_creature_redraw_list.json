@@ -1,4 +1,6 @@
 {
+ "measurement_space": "raw_art_before_frame_fit",
+ "creatures": 46,
  "thresholds": {
   "size": 0.08,
   "jump": 0.5,
@@ -59,19 +61,6 @@
    "score": 324.9
   },
   {
-   "kind": "silent_crown_core",
-   "clip": "walk",
-   "role": "walk",
-   "frames": 32,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.352,
-   "slide_2px": 0.098,
-   "size": [],
-   "jumps": [],
-   "boil": true,
-   "score": 288.0
-  },
-  {
    "kind": "spore_bellmaker",
    "clip": "walk",
    "role": "walk",
@@ -105,13 +94,30 @@
      "scale": 1.098
     },
     {
+     "frame": 12,
+     "scale": 0.92
+    },
+    {
      "frame": 14,
      "scale": 0.917
     }
    ],
    "jumps": [],
    "boil": true,
-   "score": 283.7
+   "score": 301.7
+  },
+  {
+   "kind": "silent_crown_core",
+   "clip": "walk",
+   "role": "walk",
+   "frames": 32,
+   "layer": "motion_v8_manifest.json",
+   "mean_change": 0.352,
+   "slide_2px": 0.098,
+   "size": [],
+   "jumps": [],
+   "boil": true,
+   "score": 288.0
   },
   {
    "kind": "root_cage_hunter",
@@ -1534,6 +1540,36 @@
    "score": 97.2
   },
   {
+   "kind": "sunken_hammer_smith",
+   "clip": "windup",
+   "role": "attack",
+   "frames": 24,
+   "layer": "motion_v8_manifest.json",
+   "mean_change": 0.338,
+   "slide_2px": 0.099,
+   "size": [
+    {
+     "frame": 6,
+     "scale": 1.09
+    },
+    {
+     "frame": 9,
+     "scale": 0.9
+    },
+    {
+     "frame": 14,
+     "scale": 0.914
+    },
+    {
+     "frame": 15,
+     "scale": 0.92
+    }
+   ],
+   "jumps": [],
+   "boil": false,
+   "score": 96.1
+  },
+  {
    "kind": "corridor_heavy",
    "clip": "walk",
    "role": "walk",
@@ -1739,6 +1775,32 @@
    "score": 80.4
   },
   {
+   "kind": "sunken_hammer_smith",
+   "clip": "phase_windup",
+   "role": "attack",
+   "frames": 24,
+   "layer": "motion_v8_manifest.json",
+   "mean_change": 0.347,
+   "slide_2px": 0.095,
+   "size": [
+    {
+     "frame": 8,
+     "scale": 0.914
+    },
+    {
+     "frame": 20,
+     "scale": 0.92
+    },
+    {
+     "frame": 23,
+     "scale": 1.128
+    }
+   ],
+   "jumps": [],
+   "boil": false,
+   "score": 79.4
+  },
+  {
    "kind": "root_cage_hunter",
    "clip": "idle",
    "role": "idle",
@@ -1834,32 +1896,6 @@
    "jumps": [],
    "boil": false,
    "score": 75.4
-  },
-  {
-   "kind": "sunken_hammer_smith",
-   "clip": "windup",
-   "role": "attack",
-   "frames": 24,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.338,
-   "slide_2px": 0.099,
-   "size": [
-    {
-     "frame": 6,
-     "scale": 1.09
-    },
-    {
-     "frame": 9,
-     "scale": 0.9
-    },
-    {
-     "frame": 14,
-     "scale": 0.914
-    }
-   ],
-   "jumps": [],
-   "boil": false,
-   "score": 74.5
   },
   {
    "kind": "corridor_heavy",
@@ -2119,28 +2155,6 @@
    "jumps": [],
    "boil": false,
    "score": 59.8
-  },
-  {
-   "kind": "sunken_hammer_smith",
-   "clip": "phase_windup",
-   "role": "attack",
-   "frames": 24,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.347,
-   "slide_2px": 0.095,
-   "size": [
-    {
-     "frame": 8,
-     "scale": 0.914
-    },
-    {
-     "frame": 23,
-     "scale": 1.128
-    }
-   ],
-   "jumps": [],
-   "boil": false,
-   "score": 57.8
   },
   {
    "kind": "kneeling_crossbowman",
@@ -3390,35 +3404,6 @@
    "score": 36.3
   },
   {
-   "kind": "saltwhite_contract_judge",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.496,
-   "slide_2px": 0.13,
-   "size": [],
-   "jumps": [
-    {
-     "after": 0,
-     "before": 1,
-     "change": 0.68
-    },
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.63
-    },
-    {
-     "after": 3,
-     "before": 4,
-     "change": 0.58
-    }
-   ],
-   "boil": false,
-   "score": 36.3
-  },
-  {
    "kind": "bell_mote",
    "clip": "mote_seek_windup",
    "role": "attack",
@@ -4061,40 +4046,6 @@
    "jumps": [],
    "boil": true,
    "score": 28.8
-  },
-  {
-   "kind": "silent_crown_core",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 6,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.536,
-   "slide_2px": 0.078,
-   "size": [],
-   "jumps": [
-    {
-     "after": 0,
-     "before": 1,
-     "change": 0.63
-    },
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.61
-    },
-    {
-     "after": 2,
-     "before": 3,
-     "change": 0.56
-    },
-    {
-     "after": 3,
-     "before": 4,
-     "change": 0.59
-    }
-   ],
-   "boil": false,
-   "score": 28.7
   },
   {
    "kind": "wax_lancer",
@@ -4986,30 +4937,6 @@
    "score": 17.5
   },
   {
-   "kind": "corridor_heavy",
-   "clip": "heavy_elite_quake_charge",
-   "role": "attack",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.503,
-   "slide_2px": 0.071,
-   "size": [],
-   "jumps": [
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.55
-    },
-    {
-     "after": 2,
-     "before": 3,
-     "change": 0.52
-    }
-   ],
-   "boil": false,
-   "score": 17.1
-  },
-  {
    "kind": "root_cage_hunter",
    "clip": "cage_elite_snare_recover",
    "role": "attack",
@@ -5032,6 +4959,28 @@
    ],
    "boil": false,
    "score": 17.0
+  },
+  {
+   "kind": "vine_crawler",
+   "clip": "attack",
+   "role": "attack",
+   "frames": 24,
+   "layer": "motion_v8_manifest.json",
+   "mean_change": 0.295,
+   "slide_2px": 0.065,
+   "size": [
+    {
+     "frame": 5,
+     "scale": 1.081
+    },
+    {
+     "frame": 8,
+     "scale": 0.92
+    }
+   ],
+   "jumps": [],
+   "boil": false,
+   "score": 16.9
   },
   {
    "kind": "thorn_bloom_mote",
@@ -5643,30 +5592,6 @@
    "score": 11.0
   },
   {
-   "kind": "index_scribe",
-   "clip": "charge",
-   "role": "other",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.49,
-   "slide_2px": 0.128,
-   "size": [],
-   "jumps": [
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.52
-    },
-    {
-     "after": 3,
-     "before": 0,
-     "change": 0.6
-    }
-   ],
-   "boil": false,
-   "score": 10.8
-  },
-  {
    "kind": "obsidian_bellwheel",
    "clip": "bellwheel_waves",
    "role": "attack",
@@ -5762,30 +5687,6 @@
    ],
    "boil": false,
    "score": 9.7
-  },
-  {
-   "kind": "wax_bee",
-   "clip": "charge",
-   "role": "other",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.455,
-   "slide_2px": 0.078,
-   "size": [],
-   "jumps": [
-    {
-     "after": 0,
-     "before": 1,
-     "change": 0.52
-    },
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.56
-    }
-   ],
-   "boil": false,
-   "score": 9.1
   },
   {
    "kind": "bellroot_acolyte",
@@ -5908,30 +5809,6 @@
    "score": 8.8
   },
   {
-   "kind": "bronze_moth",
-   "clip": "travel",
-   "role": "other",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.497,
-   "slide_2px": 0.107,
-   "size": [],
-   "jumps": [
-    {
-     "after": 2,
-     "before": 3,
-     "change": 0.57
-    },
-    {
-     "after": 3,
-     "before": 0,
-     "change": 0.52
-    }
-   ],
-   "boil": false,
-   "score": 8.7
-  },
-  {
    "kind": "delayed_shadow",
    "clip": "recover",
    "role": "attack",
@@ -5984,25 +5861,6 @@
    "score": 8.6
   },
   {
-   "kind": "root_cage_hunter",
-   "clip": "cage_pounce_travel",
-   "role": "attack",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.47,
-   "slide_2px": 0.114,
-   "size": [],
-   "jumps": [
-    {
-     "after": 0,
-     "before": 1,
-     "change": 0.51
-    }
-   ],
-   "boil": false,
-   "score": 8.6
-  },
-  {
    "kind": "vine_crawler",
    "clip": "vine_roots_recover",
    "role": "attack",
@@ -6041,48 +5899,6 @@
    "jumps": [],
    "boil": false,
    "score": 8.5
-  },
-  {
-   "kind": "vine_crawler",
-   "clip": "attack",
-   "role": "attack",
-   "frames": 24,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.295,
-   "slide_2px": 0.065,
-   "size": [
-    {
-     "frame": 5,
-     "scale": 1.081
-    }
-   ],
-   "jumps": [],
-   "boil": false,
-   "score": 8.5
-  },
-  {
-   "kind": "bell_mote",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.43,
-   "slide_2px": 0.071,
-   "size": [],
-   "jumps": [
-    {
-     "after": 0,
-     "before": 1,
-     "change": 0.62
-    },
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.54
-    }
-   ],
-   "boil": false,
-   "score": 8.4
   },
   {
    "kind": "broken_string_gardener",
@@ -6233,25 +6049,6 @@
      "after": 6,
      "before": 7,
      "change": 0.52
-    }
-   ],
-   "boil": false,
-   "score": 8.0
-  },
-  {
-   "kind": "corridor_heavy",
-   "clip": "heavy_stamp_charge",
-   "role": "attack",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.492,
-   "slide_2px": 0.057,
-   "size": [],
-   "jumps": [
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.5
     }
    ],
    "boil": false,
@@ -6518,30 +6315,6 @@
    "score": 6.7
   },
   {
-   "kind": "erasure_bailiff",
-   "clip": "charge",
-   "role": "other",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.474,
-   "slide_2px": 0.059,
-   "size": [],
-   "jumps": [
-    {
-     "after": 2,
-     "before": 3,
-     "change": 0.52
-    },
-    {
-     "after": 3,
-     "before": 0,
-     "change": 0.52
-    }
-   ],
-   "boil": false,
-   "score": 6.7
-  },
-  {
    "kind": "echo_moss_larva",
    "clip": "attack",
    "role": "attack",
@@ -6790,6 +6563,24 @@
    "score": 4.8
   },
   {
+   "kind": "silent_bugbler",
+   "clip": "attack",
+   "role": "attack",
+   "frames": 24,
+   "layer": "motion_v8_manifest.json",
+   "mean_change": 0.334,
+   "slide_2px": 0.075,
+   "size": [
+    {
+     "frame": 20,
+     "scale": 0.92
+    }
+   ],
+   "jumps": [],
+   "boil": false,
+   "score": 4.8
+  },
+  {
    "kind": "echo_pilgrim_commander_minor",
    "clip": "minor_banner_recover",
    "role": "attack",
@@ -6836,40 +6627,6 @@
    "score": 4.6
   },
   {
-   "kind": "falling_clapper",
-   "clip": "travel",
-   "role": "other",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.572,
-   "slide_2px": 0.071,
-   "size": [],
-   "jumps": [
-    {
-     "after": 0,
-     "before": 1,
-     "change": 0.61
-    },
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.57
-    },
-    {
-     "after": 2,
-     "before": 3,
-     "change": 0.53
-    },
-    {
-     "after": 3,
-     "before": 0,
-     "change": 0.58
-    }
-   ],
-   "boil": false,
-   "score": 4.6
-  },
-  {
    "kind": "isotope_lumen",
    "clip": "recover",
    "role": "attack",
@@ -6885,24 +6642,6 @@
     {
      "frame": 17,
      "scale": 1.082
-    }
-   ],
-   "jumps": [],
-   "boil": false,
-   "score": 4.5
-  },
-  {
-   "kind": "wax_bee",
-   "clip": "travel",
-   "role": "other",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.448,
-   "slide_2px": 0.07,
-   "size": [
-    {
-     "frame": 1,
-     "scale": 1.086
     }
    ],
    "jumps": [],
@@ -6926,35 +6665,6 @@
    "jumps": [],
    "boil": false,
    "score": 4.4
-  },
-  {
-   "kind": "ash_banner_imp",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 6,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.52,
-   "slide_2px": 0.145,
-   "size": [],
-   "jumps": [
-    {
-     "after": 0,
-     "before": 1,
-     "change": 0.53
-    },
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.58
-    },
-    {
-     "after": 3,
-     "before": 4,
-     "change": 0.64
-    }
-   ],
-   "boil": false,
-   "score": 4.2
   },
   {
    "kind": "bellroot_acolyte",
@@ -6992,30 +6702,6 @@
    "jumps": [],
    "boil": false,
    "score": 4.2
-  },
-  {
-   "kind": "bellroot_acolyte",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.464,
-   "slide_2px": 0.115,
-   "size": [],
-   "jumps": [
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.53
-    },
-    {
-     "after": 5,
-     "before": 6,
-     "change": 0.5
-    }
-   ],
-   "boil": false,
-   "score": 4.1
   },
   {
    "kind": "delayed_shadow",
@@ -7060,25 +6746,6 @@
     }
    ],
    "jumps": [],
-   "boil": false,
-   "score": 4.1
-  },
-  {
-   "kind": "obsidian_spearman",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.408,
-   "slide_2px": 0.108,
-   "size": [],
-   "jumps": [
-    {
-     "after": 3,
-     "before": 4,
-     "change": 0.57
-    }
-   ],
    "boil": false,
    "score": 4.1
   },
@@ -7156,91 +6823,6 @@
    ],
    "boil": false,
    "score": 3.7
-  },
-  {
-   "kind": "delayed_shadow",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.46,
-   "slide_2px": 0.098,
-   "size": [
-    {
-     "frame": 7,
-     "scale": 1.097
-    }
-   ],
-   "jumps": [
-    {
-     "after": 0,
-     "before": 1,
-     "change": 0.52
-    },
-    {
-     "after": 2,
-     "before": 3,
-     "change": 0.53
-    }
-   ],
-   "boil": false,
-   "score": 3.3
-  },
-  {
-   "kind": "wax_lancer",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 6,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.416,
-   "slide_2px": 0.12,
-   "size": [],
-   "jumps": [
-    {
-     "after": 3,
-     "before": 4,
-     "change": 0.51
-    }
-   ],
-   "boil": false,
-   "score": 3.3
-  },
-  {
-   "kind": "echo_thorn_sentinel",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.44,
-   "slide_2px": 0.092,
-   "size": [
-    {
-     "frame": 0,
-     "scale": 0.87
-    }
-   ],
-   "jumps": [],
-   "boil": false,
-   "score": 3.2
-  },
-  {
-   "kind": "pollen_lutist",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.452,
-   "slide_2px": 0.116,
-   "size": [],
-   "jumps": [
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.53
-    }
-   ],
-   "boil": false,
-   "score": 3.0
   },
   {
    "kind": "echo_pilgrim_commander_minor",
@@ -7334,30 +6916,6 @@
   },
   {
    "kind": "echo_pilgrim_commander_minor",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.423,
-   "slide_2px": 0.103,
-   "size": [
-    {
-     "frame": 4,
-     "scale": 0.903
-    }
-   ],
-   "jumps": [
-    {
-     "after": 1,
-     "before": 2,
-     "change": 0.51
-    }
-   ],
-   "boil": false,
-   "score": 2.2
-  },
-  {
-   "kind": "echo_pilgrim_commander_minor",
    "clip": "minor_elite_rally_windup",
    "role": "attack",
    "frames": 24,
@@ -7427,85 +6985,6 @@
    "jumps": [],
    "boil": false,
    "score": 2.1
-  },
-  {
-   "kind": "isotope_lumen",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.453,
-   "slide_2px": 0.128,
-   "size": [],
-   "jumps": [
-    {
-     "after": 3,
-     "before": 4,
-     "change": 0.5
-    },
-    {
-     "after": 4,
-     "before": 5,
-     "change": 0.5
-    }
-   ],
-   "boil": false,
-   "score": 2.0
-  },
-  {
-   "kind": "rain_censer_mote",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 8,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.325,
-   "slide_2px": 0.083,
-   "size": [
-    {
-     "frame": 7,
-     "scale": 1.09
-    }
-   ],
-   "jumps": [],
-   "boil": false,
-   "score": 2.0
-  },
-  {
-   "kind": "summoned_page",
-   "clip": "hurt",
-   "role": "hurt",
-   "frames": 6,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.375,
-   "slide_2px": 0.091,
-   "size": [
-    {
-     "frame": 2,
-     "scale": 0.9
-    }
-   ],
-   "jumps": [],
-   "boil": false,
-   "score": 2.0
-  },
-  {
-   "kind": "falling_clapper",
-   "clip": "charge",
-   "role": "other",
-   "frames": 4,
-   "layer": "motion_v8_manifest.json",
-   "mean_change": 0.49,
-   "slide_2px": 0.073,
-   "size": [],
-   "jumps": [
-    {
-     "after": 3,
-     "before": 0,
-     "change": 0.52
-    }
-   ],
-   "boil": false,
-   "score": 1.0
   }
  ]
 }
