@@ -136,7 +136,11 @@ def build(kind, check=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--kind', required=True)
+    selection = parser.add_mutually_exclusive_group(required=True)
+    selection.add_argument('--kind')
+    selection.add_argument('--all', action='store_true', help='Validate or rebuild every registered delivery')
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
-    build(args.kind, args.check)
+    kinds = [p.stem for p in sorted((REQUEST/'jobs').glob('*.json'))] if args.all else [args.kind]
+    for kind in kinds:
+        build(kind, args.check)

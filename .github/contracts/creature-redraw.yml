@@ -28,6 +28,7 @@ on:
       - 'tools/creature_redraw_art.py'
       - 'art_requests/creature_redraw_v1/**'
       - 'godot/scripts/combat_motion_v7_validation.gd'
+      - 'godot/scripts/boss_behavior_validation.gd'
 
 permissions:
   contents: read
@@ -53,7 +54,7 @@ jobs:
           python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
       - name: Verify measurement inputs and base anchoring
         run: |
-          python3 tools/creature_redraw_art.py --kind rust_crown_guardian --check
+          python3 tools/creature_redraw_art.py --all --check
           python3 tools/build_creature_frame_fit.py --self-test
           python3 tools/test_creature_frame_fit.py
           python3 tools/build_creature_frame_fit.py --check
@@ -62,7 +63,7 @@ jobs:
           python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/transition-logs/import"
       - name: Verify real playback, interruptions and frozen combat clocks
         run: |
-          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite character_motion_v8 --suite combat_motion_v7 --suite expanded_character_motion --suite enemy_frame_fit --suite enemy_motion_transitions --suite enemy_hit_feedback --log-dir "$RUNNER_TEMP/transition-logs/runtime"
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite boss_behavior --suite character_motion_v8 --suite combat_motion_v7 --suite expanded_character_motion --suite enemy_frame_fit --suite enemy_motion_transitions --suite enemy_hit_feedback --log-dir "$RUNNER_TEMP/transition-logs/runtime"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
