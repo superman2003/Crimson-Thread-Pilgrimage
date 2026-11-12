@@ -1,0 +1,2942 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "isotope_lumen",
+  "canvas": [
+    362,
+    263
+  ],
+  "display_height": 78,
+  "visual_scale": 0.4105263157894737,
+  "visual_offset": [
+    0,
+    6.778260869565216
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            191,
+            190
+          ],
+          "margin": [
+            94,
+            64,
+            171,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_redraw_00.png",
+          "region": [
+            197,
+            2,
+            190,
+            191
+          ],
+          "margin": [
+            96,
+            63,
+            172,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_redraw_00.png",
+          "region": [
+            391,
+            2,
+            188,
+            191
+          ],
+          "margin": [
+            98,
+            62,
+            174,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_redraw_00.png",
+          "region": [
+            583,
+            2,
+            190,
+            190
+          ],
+          "margin": [
+            95,
+            64,
+            172,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_redraw_00.png",
+          "region": [
+            777,
+            2,
+            190,
+            187
+          ],
+          "margin": [
+            95,
+            66,
+            172,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_redraw_00.png",
+          "region": [
+            971,
+            2,
+            191,
+            189
+          ],
+          "margin": [
+            94,
+            67,
+            171,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_redraw_00.png",
+          "region": [
+            1166,
+            2,
+            191,
+            189
+          ],
+          "margin": [
+            95,
+            65,
+            171,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_redraw_00.png",
+          "region": [
+            1361,
+            2,
+            190,
+            190
+          ],
+          "margin": [
+            95,
+            65,
+            172,
+            73
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            763,
+            0,
+            190,
+            170
+          ],
+          "margin": [
+            96,
+            85,
+            172,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            704,
+            2,
+            160,
+            157
+          ],
+          "margin": [
+            112,
+            99,
+            202,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            955,
+            0,
+            191,
+            168
+          ],
+          "margin": [
+            91,
+            87,
+            171,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            868,
+            2,
+            165,
+            158
+          ],
+          "margin": [
+            106,
+            98,
+            197,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1148,
+            0,
+            194,
+            171
+          ],
+          "margin": [
+            86,
+            84,
+            168,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1037,
+            2,
+            161,
+            163
+          ],
+          "margin": [
+            104,
+            94,
+            201,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1344,
+            0,
+            187,
+            182
+          ],
+          "margin": [
+            83,
+            73,
+            175,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1202,
+            2,
+            163,
+            164
+          ],
+          "margin": [
+            110,
+            92,
+            199,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1533,
+            0,
+            193,
+            184
+          ],
+          "margin": [
+            97,
+            71,
+            169,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1369,
+            2,
+            166,
+            161
+          ],
+          "margin": [
+            114,
+            95,
+            196,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1728,
+            0,
+            195,
+            176
+          ],
+          "margin": [
+            92,
+            79,
+            167,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1539,
+            2,
+            167,
+            154
+          ],
+          "margin": [
+            108,
+            102,
+            195,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1925,
+            0,
+            188,
+            183
+          ],
+          "margin": [
+            92,
+            72,
+            174,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1710,
+            2,
+            171,
+            160
+          ],
+          "margin": [
+            97,
+            96,
+            191,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2115,
+            0,
+            179,
+            187
+          ],
+          "margin": [
+            91,
+            68,
+            183,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            189,
+            165,
+            161
+          ],
+          "margin": [
+            106,
+            95,
+            197,
+            102
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2296,
+            0,
+            209,
+            162
+          ],
+          "margin": [
+            80,
+            93,
+            153,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            171,
+            189,
+            193,
+            179
+          ],
+          "margin": [
+            85,
+            78,
+            169,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2507,
+            0,
+            227,
+            180
+          ],
+          "margin": [
+            75,
+            75,
+            135,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            368,
+            189,
+            207,
+            189
+          ],
+          "margin": [
+            77,
+            68,
+            155,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2736,
+            0,
+            199,
+            190
+          ],
+          "margin": [
+            88,
+            65,
+            163,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            579,
+            189,
+            190,
+            171
+          ],
+          "margin": [
+            89,
+            86,
+            172,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2937,
+            0,
+            199,
+            195
+          ],
+          "margin": [
+            92,
+            60,
+            163,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            773,
+            189,
+            197,
+            182
+          ],
+          "margin": [
+            84,
+            75,
+            165,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3138,
+            0,
+            209,
+            203
+          ],
+          "margin": [
+            85,
+            52,
+            153,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            974,
+            189,
+            203,
+            201
+          ],
+          "margin": [
+            88,
+            56,
+            159,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3349,
+            0,
+            220,
+            204
+          ],
+          "margin": [
+            83,
+            51,
+            142,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1181,
+            189,
+            196,
+            179
+          ],
+          "margin": [
+            85,
+            78,
+            166,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3571,
+            0,
+            211,
+            200
+          ],
+          "margin": [
+            85,
+            55,
+            151,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1381,
+            189,
+            194,
+            187
+          ],
+          "margin": [
+            90,
+            70,
+            168,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3784,
+            0,
+            221,
+            209
+          ],
+          "margin": [
+            79,
+            46,
+            141,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1579,
+            189,
+            208,
+            200
+          ],
+          "margin": [
+            76,
+            57,
+            154,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            0,
+            211,
+            194,
+            210
+          ],
+          "margin": [
+            84,
+            45,
+            168,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1791,
+            189,
+            176,
+            181
+          ],
+          "margin": [
+            94,
+            76,
+            186,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            196,
+            211,
+            198,
+            205
+          ],
+          "margin": [
+            78,
+            50,
+            164,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            398,
+            177,
+            178
+          ],
+          "margin": [
+            86,
+            80,
+            185,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            396,
+            211,
+            194,
+            203
+          ],
+          "margin": [
+            80,
+            52,
+            168,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            183,
+            398,
+            209,
+            183
+          ],
+          "margin": [
+            76,
+            74,
+            153,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            592,
+            211,
+            277,
+            194
+          ],
+          "margin": [
+            76,
+            61,
+            85,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            396,
+            398,
+            218,
+            178
+          ],
+          "margin": [
+            88,
+            80,
+            144,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            871,
+            211,
+            254,
+            179
+          ],
+          "margin": [
+            83,
+            76,
+            108,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            618,
+            398,
+            228,
+            172
+          ],
+          "margin": [
+            88,
+            85,
+            134,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1127,
+            211,
+            265,
+            187
+          ],
+          "margin": [
+            87,
+            68,
+            97,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            850,
+            398,
+            247,
+            194
+          ],
+          "margin": [
+            88,
+            63,
+            115,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1394,
+            211,
+            237,
+            188
+          ],
+          "margin": [
+            87,
+            67,
+            125,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1101,
+            398,
+            195,
+            169
+          ],
+          "margin": [
+            109,
+            88,
+            167,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1633,
+            211,
+            222,
+            181
+          ],
+          "margin": [
+            102,
+            74,
+            140,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1300,
+            398,
+            197,
+            179
+          ],
+          "margin": [
+            113,
+            78,
+            165,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1857,
+            211,
+            232,
+            190
+          ],
+          "margin": [
+            99,
+            65,
+            130,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1501,
+            398,
+            206,
+            195
+          ],
+          "margin": [
+            108,
+            62,
+            156,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2091,
+            211,
+            193,
+            191
+          ],
+          "margin": [
+            101,
+            64,
+            169,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1711,
+            398,
+            164,
+            178
+          ],
+          "margin": [
+            120,
+            80,
+            198,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2286,
+            211,
+            186,
+            185
+          ],
+          "margin": [
+            109,
+            70,
+            176,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            601,
+            169,
+            181
+          ],
+          "margin": [
+            117,
+            76,
+            193,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2474,
+            211,
+            197,
+            193
+          ],
+          "margin": [
+            91,
+            62,
+            165,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            175,
+            601,
+            206,
+            189
+          ],
+          "margin": [
+            102,
+            68,
+            156,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2673,
+            211,
+            208,
+            193
+          ],
+          "margin": [
+            92,
+            62,
+            154,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            385,
+            601,
+            195,
+            170
+          ],
+          "margin": [
+            98,
+            88,
+            167,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2883,
+            211,
+            191,
+            187
+          ],
+          "margin": [
+            90,
+            68,
+            171,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            584,
+            601,
+            191,
+            163
+          ],
+          "margin": [
+            96,
+            94,
+            171,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3076,
+            211,
+            203,
+            191
+          ],
+          "margin": [
+            89,
+            64,
+            159,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            779,
+            601,
+            174,
+            171
+          ],
+          "margin": [
+            98,
+            86,
+            188,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3281,
+            211,
+            196,
+            186
+          ],
+          "margin": [
+            85,
+            69,
+            166,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            957,
+            601,
+            171,
+            164
+          ],
+          "margin": [
+            102,
+            95,
+            191,
+            99
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3479,
+            211,
+            180,
+            177
+          ],
+          "margin": [
+            96,
+            78,
+            182,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1132,
+            601,
+            175,
+            164
+          ],
+          "margin": [
+            104,
+            94,
+            187,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3661,
+            211,
+            197,
+            185
+          ],
+          "margin": [
+            89,
+            70,
+            165,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1311,
+            601,
+            187,
+            179
+          ],
+          "margin": [
+            104,
+            78,
+            175,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3860,
+            211,
+            201,
+            190
+          ],
+          "margin": [
+            84,
+            65,
+            161,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1502,
+            601,
+            177,
+            168
+          ],
+          "margin": [
+            110,
+            89,
+            185,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            0,
+            423,
+            189,
+            186
+          ],
+          "margin": [
+            88,
+            69,
+            173,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1683,
+            601,
+            180,
+            169
+          ],
+          "margin": [
+            107,
+            88,
+            182,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            191,
+            423,
+            197,
+            187
+          ],
+          "margin": [
+            88,
+            68,
+            165,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            798,
+            193,
+            178
+          ],
+          "margin": [
+            94,
+            79,
+            169,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            390,
+            423,
+            214,
+            182
+          ],
+          "margin": [
+            79,
+            73,
+            148,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            199,
+            798,
+            181,
+            160
+          ],
+          "margin": [
+            102,
+            99,
+            181,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            606,
+            423,
+            188,
+            169
+          ],
+          "margin": [
+            91,
+            86,
+            174,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            384,
+            798,
+            183,
+            160
+          ],
+          "margin": [
+            100,
+            98,
+            179,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            796,
+            423,
+            210,
+            180
+          ],
+          "margin": [
+            81,
+            75,
+            152,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            571,
+            798,
+            197,
+            170
+          ],
+          "margin": [
+            88,
+            87,
+            165,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1008,
+            423,
+            195,
+            182
+          ],
+          "margin": [
+            87,
+            73,
+            167,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            772,
+            798,
+            184,
+            155
+          ],
+          "margin": [
+            90,
+            104,
+            178,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1205,
+            423,
+            183,
+            180
+          ],
+          "margin": [
+            87,
+            75,
+            179,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            960,
+            798,
+            186,
+            155
+          ],
+          "margin": [
+            90,
+            104,
+            176,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1390,
+            423,
+            201,
+            191
+          ],
+          "margin": [
+            84,
+            64,
+            161,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1150,
+            798,
+            205,
+            168
+          ],
+          "margin": [
+            86,
+            89,
+            157,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1593,
+            423,
+            202,
+            194
+          ],
+          "margin": [
+            88,
+            61,
+            160,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1359,
+            798,
+            195,
+            156
+          ],
+          "margin": [
+            93,
+            103,
+            167,
+            107
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1797,
+            423,
+            182,
+            190
+          ],
+          "margin": [
+            94,
+            65,
+            180,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1558,
+            798,
+            158,
+            176
+          ],
+          "margin": [
+            98,
+            83,
+            204,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1981,
+            423,
+            228,
+            197
+          ],
+          "margin": [
+            87,
+            58,
+            134,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1720,
+            798,
+            186,
+            172
+          ],
+          "margin": [
+            101,
+            85,
+            176,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2211,
+            423,
+            191,
+            187
+          ],
+          "margin": [
+            93,
+            68,
+            171,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            984,
+            169,
+            160
+          ],
+          "margin": [
+            106,
+            99,
+            193,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2404,
+            423,
+            198,
+            137
+          ],
+          "margin": [
+            85,
+            118,
+            164,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            175,
+            984,
+            180,
+            142
+          ],
+          "margin": [
+            102,
+            116,
+            182,
+            121
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2604,
+            423,
+            204,
+            172
+          ],
+          "margin": [
+            91,
+            83,
+            158,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            359,
+            984,
+            194,
+            137
+          ],
+          "margin": [
+            91,
+            120,
+            168,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2810,
+            423,
+            219,
+            148
+          ],
+          "margin": [
+            85,
+            107,
+            143,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            557,
+            984,
+            203,
+            109
+          ],
+          "margin": [
+            86,
+            148,
+            159,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3031,
+            423,
+            219,
+            95
+          ],
+          "margin": [
+            74,
+            160,
+            143,
+            168
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            764,
+            984,
+            205,
+            86
+          ],
+          "margin": [
+            76,
+            171,
+            157,
+            177
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3252,
+            423,
+            210,
+            89
+          ],
+          "margin": [
+            68,
+            166,
+            152,
+            174
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            973,
+            984,
+            200,
+            88
+          ],
+          "margin": [
+            67,
+            169,
+            162,
+            175
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lumen_focus_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3464,
+            423,
+            174,
+            169
+          ],
+          "margin": [
+            106,
+            86,
+            188,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1177,
+            984,
+            192,
+            143
+          ],
+          "margin": [
+            93,
+            114,
+            170,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3640,
+            423,
+            187,
+            175
+          ],
+          "margin": [
+            100,
+            80,
+            175,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1373,
+            984,
+            194,
+            175
+          ],
+          "margin": [
+            89,
+            82,
+            168,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3829,
+            423,
+            196,
+            175
+          ],
+          "margin": [
+            91,
+            80,
+            166,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1571,
+            984,
+            198,
+            158
+          ],
+          "margin": [
+            83,
+            100,
+            164,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            0,
+            622,
+            190,
+            167
+          ],
+          "margin": [
+            92,
+            88,
+            172,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1773,
+            984,
+            207,
+            167
+          ],
+          "margin": [
+            88,
+            90,
+            155,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            192,
+            622,
+            195,
+            174
+          ],
+          "margin": [
+            92,
+            81,
+            167,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            1167,
+            214,
+            148
+          ],
+          "margin": [
+            80,
+            109,
+            148,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            389,
+            622,
+            179,
+            174
+          ],
+          "margin": [
+            101,
+            81,
+            183,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            220,
+            1167,
+            197,
+            149
+          ],
+          "margin": [
+            84,
+            110,
+            165,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            570,
+            622,
+            171,
+            167
+          ],
+          "margin": [
+            104,
+            88,
+            191,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            421,
+            1167,
+            176,
+            167
+          ],
+          "margin": [
+            99,
+            91,
+            186,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            743,
+            622,
+            180,
+            171
+          ],
+          "margin": [
+            99,
+            84,
+            182,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            601,
+            1167,
+            181,
+            167
+          ],
+          "margin": [
+            97,
+            91,
+            181,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            925,
+            622,
+            175,
+            168
+          ],
+          "margin": [
+            108,
+            87,
+            187,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            786,
+            1167,
+            182,
+            161
+          ],
+          "margin": [
+            97,
+            97,
+            180,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1102,
+            622,
+            165,
+            158
+          ],
+          "margin": [
+            113,
+            97,
+            197,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            972,
+            1167,
+            194,
+            165
+          ],
+          "margin": [
+            91,
+            92,
+            168,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1269,
+            622,
+            195,
+            181
+          ],
+          "margin": [
+            99,
+            74,
+            167,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1170,
+            1167,
+            197,
+            168
+          ],
+          "margin": [
+            89,
+            89,
+            165,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1466,
+            622,
+            169,
+            195
+          ],
+          "margin": [
+            107,
+            60,
+            193,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1371,
+            1167,
+            184,
+            157
+          ],
+          "margin": [
+            98,
+            101,
+            178,
+            106
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lumen_focus",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1637,
+            622,
+            178,
+            204
+          ],
+          "margin": [
+            102,
+            51,
+            184,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1559,
+            1167,
+            192,
+            196
+          ],
+          "margin": [
+            90,
+            61,
+            170,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1817,
+            622,
+            187,
+            220
+          ],
+          "margin": [
+            99,
+            35,
+            175,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1755,
+            1167,
+            202,
+            200
+          ],
+          "margin": [
+            84,
+            57,
+            160,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2006,
+            622,
+            175,
+            228
+          ],
+          "margin": [
+            102,
+            27,
+            187,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            1375,
+            186,
+            207
+          ],
+          "margin": [
+            91,
+            50,
+            176,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2183,
+            622,
+            174,
+            230
+          ],
+          "margin": [
+            106,
+            25,
+            188,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            192,
+            1375,
+            187,
+            202
+          ],
+          "margin": [
+            94,
+            55,
+            175,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2359,
+            622,
+            183,
+            238
+          ],
+          "margin": [
+            102,
+            17,
+            179,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            383,
+            1375,
+            174,
+            209
+          ],
+          "margin": [
+            102,
+            48,
+            188,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2544,
+            622,
+            170,
+            238
+          ],
+          "margin": [
+            110,
+            17,
+            192,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            561,
+            1375,
+            173,
+            208
+          ],
+          "margin": [
+            101,
+            49,
+            189,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2716,
+            622,
+            171,
+            232
+          ],
+          "margin": [
+            105,
+            23,
+            191,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            738,
+            1375,
+            175,
+            227
+          ],
+          "margin": [
+            98,
+            30,
+            187,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2889,
+            622,
+            181,
+            243
+          ],
+          "margin": [
+            102,
+            12,
+            181,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            917,
+            1375,
+            180,
+            221
+          ],
+          "margin": [
+            101,
+            36,
+            182,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3072,
+            622,
+            187,
+            247
+          ],
+          "margin": [
+            96,
+            8,
+            175,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1101,
+            1375,
+            169,
+            219
+          ],
+          "margin": [
+            109,
+            38,
+            193,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3261,
+            622,
+            174,
+            244
+          ],
+          "margin": [
+            101,
+            11,
+            188,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1274,
+            1375,
+            169,
+            227
+          ],
+          "margin": [
+            110,
+            30,
+            193,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3437,
+            622,
+            172,
+            234
+          ],
+          "margin": [
+            104,
+            21,
+            190,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1447,
+            1375,
+            169,
+            226
+          ],
+          "margin": [
+            110,
+            31,
+            193,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3611,
+            622,
+            203,
+            218
+          ],
+          "margin": [
+            89,
+            37,
+            159,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1620,
+            1375,
+            172,
+            219
+          ],
+          "margin": [
+            106,
+            38,
+            190,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lumen_focus_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            3816,
+            622,
+            168,
+            193
+          ],
+          "margin": [
+            106,
+            62,
+            194,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1796,
+            1375,
+            159,
+            201
+          ],
+          "margin": [
+            115,
+            56,
+            203,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            0,
+            871,
+            181,
+            195
+          ],
+          "margin": [
+            101,
+            60,
+            181,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            1610,
+            178,
+            215
+          ],
+          "margin": [
+            102,
+            42,
+            184,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            183,
+            871,
+            206,
+            190
+          ],
+          "margin": [
+            86,
+            65,
+            156,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            184,
+            1610,
+            176,
+            198
+          ],
+          "margin": [
+            104,
+            59,
+            186,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            391,
+            871,
+            185,
+            178
+          ],
+          "margin": [
+            96,
+            77,
+            177,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            364,
+            1610,
+            175,
+            194
+          ],
+          "margin": [
+            101,
+            63,
+            187,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            578,
+            871,
+            196,
+            182
+          ],
+          "margin": [
+            91,
+            73,
+            166,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            543,
+            1610,
+            173,
+            193
+          ],
+          "margin": [
+            105,
+            64,
+            189,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            776,
+            871,
+            196,
+            180
+          ],
+          "margin": [
+            90,
+            75,
+            166,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            720,
+            1610,
+            173,
+            185
+          ],
+          "margin": [
+            104,
+            72,
+            189,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            974,
+            871,
+            182,
+            170
+          ],
+          "margin": [
+            98,
+            85,
+            180,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            897,
+            1610,
+            168,
+            182
+          ],
+          "margin": [
+            106,
+            75,
+            194,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1158,
+            871,
+            196,
+            176
+          ],
+          "margin": [
+            90,
+            79,
+            166,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1069,
+            1610,
+            189,
+            180
+          ],
+          "margin": [
+            92,
+            77,
+            173,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1356,
+            871,
+            206,
+            175
+          ],
+          "margin": [
+            86,
+            80,
+            156,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1262,
+            1610,
+            185,
+            168
+          ],
+          "margin": [
+            92,
+            90,
+            177,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1564,
+            871,
+            185,
+            167
+          ],
+          "margin": [
+            98,
+            88,
+            177,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1451,
+            1610,
+            192,
+            182
+          ],
+          "margin": [
+            93,
+            75,
+            170,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1751,
+            871,
+            217,
+            182
+          ],
+          "margin": [
+            84,
+            73,
+            145,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1647,
+            1610,
+            201,
+            172
+          ],
+          "margin": [
+            94,
+            85,
+            161,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            1970,
+            871,
+            198,
+            189
+          ],
+          "margin": [
+            91,
+            66,
+            164,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            1852,
+            1610,
+            188,
+            167
+          ],
+          "margin": [
+            103,
+            92,
+            174,
+            96
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2170,
+            871,
+            216,
+            179
+          ],
+          "margin": [
+            65,
+            76,
+            146,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            2,
+            1833,
+            203,
+            192
+          ],
+          "margin": [
+            72,
+            65,
+            159,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+          "region": [
+            2388,
+            871,
+            216,
+            180
+          ],
+          "margin": [
+            72,
+            75,
+            146,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/isotope_lumen/motion_v8_00.png",
+          "region": [
+            209,
+            1833,
+            202,
+            194
+          ],
+          "margin": [
+            72,
+            63,
+            160,
+            69
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "lumen_focus",
+    "lumen_focus_recover",
+    "lumen_focus_windup",
+    "recover",
+    "windup"
+  ],
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "e7ed612993dedb0b5df45516e150f51b298a0e92fbbac94a9363df246b418bee",
+    "spec": "art_requests/creature_redraw_v1/jobs/isotope_lumen.json",
+    "clips": {
+      "idle": {
+        "mean_change": 0.0872,
+        "max_change": 0.1407,
+        "loop_seam": 0.0587,
+        "boil_ratio": 0.869,
+        "unique": 8,
+        "area_ratio": 1.03,
+        "registration_scale": 0.590979782,
+        "frames": 8
+      }
+    }
+  }
+}
