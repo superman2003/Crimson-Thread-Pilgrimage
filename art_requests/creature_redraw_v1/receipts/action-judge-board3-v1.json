@@ -1,0 +1,21 @@
+{
+  "kind": "saltwhite_contract_judge",
+  "clip": "actions_03",
+  "status": "partially_rejected",
+  "reason": "Cast recovery max neighbour0.5444, heavy recovery body ratio1.051 and windup max0.5632 fail; phase-windup passes0.4308. Replace failed portions with complete24-frame drawings.",
+  "source_sha256": "e0ca79f62e130049aa815c0ee0d7fc4dd789305acd9a08e916892fc81c821857",
+  "prompt_sha256": "cff9fdb91fca1636247ad688a3765066d8890d395fe598c6da2751bb092bf7c1",
+  "reference_sha256": "31ef54acda784cee21a4fb1ed7497378280b52eaed7e2bd3defbcd3cf429ba6f",
+  "actual_prompt": "Paint22 new production game animation cels. Image1 is the EXACT pose/layout and cell mapping guide; image2 is an already accepted transparent sheet for character identity, compact body proportions and ink/paint style ONLY, do not use its grid. Output transparent sheet EXACT8equal columns by3rows, first22cells occupied row-major, last2cells fully empty. Same crowned dark mask, silver hooked scissorlike forelimbs, charcoal/ivory feather mantle and crimson back streamers. Original rig is short and wide: compact hunched anatomy and wide cloak, silhouettes near70percent cell width and35to40percent cell height, centered on both cell axes with ample transparent headroom/footroom. Follow image1's individual pose families and positions closely. First10cels=cast recovery frames1..4,8..10,19..21; next6=heavy recovery frames5..7,10..12; next4=ordinary windup frames20..23; final2=phase windup frames0..1. Keep torso/head size, cloak mass, blade length and physical center stable. In the four ordinary-windup cels, smoothly curl the blade arms from the raised position into a crossed guard through genuine intermediate angles, do not abruptly switch shapes. The other recovery cels use small connected wrist/feather changes while preserving the exact reference posture family, no puffy coat or size pulsing. Every cel independently painted with sharp clean fine detail. Entire sprites fully contained with40px alpha-zero top/bottom gutters and24px side gutters. TRUE transparent RGBA cutouts and empty final2cells: no white/gray matte, haze, glow, shadow, background, text, grid, labels, numbers, blur or detached effects.",
+  "reference_recipe": "Render the frozen actions-03 guide with tools/creature_redraw_guides.py; additionally use the accepted sources/saltwhite_contract_judge/actions_cast_full.png (source SHA in the registered cast job) as identity/style reference only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/saltwhite_contract_judge-actions-03.json",
+  "guide_sha256": "616179c5d84cbe401f5e9bd7ba893faf8d53bfae6a9489731ad10c2838c08c3f",
+  "accepted_clips": [
+    "phase_windup"
+  ],
+  "rejected_clips": [
+    "cast_recover",
+    "heavy_recover",
+    "windup"
+  ]
+}

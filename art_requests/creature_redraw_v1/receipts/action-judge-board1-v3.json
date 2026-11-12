@@ -1,0 +1,13 @@
+{
+  "kind": "saltwhite_contract_judge",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Partial heavy body ratio1.091 and max neighbour0.6676; attack max0.6014. Replace both with complete24-frame drawings, retaining the same guard thresholds.",
+  "source_sha256": "7e3950487d9d6e332c56de51c8d6b207a09c57431698052b6400c89f7b41e6ed",
+  "prompt_sha256": "f154472a6fac4c63bc9c0c670353754bba5b0e07ffca97ce1f85b6129c392d95",
+  "reference_sha256": "8aa9af4a16633b575690d6717bd84a8ac7a6ed52492fbfbb890e8a7543c49554",
+  "actual_prompt": "Alignment correction only on this transparent25-cel8column4row creature sprite sheet. Preserve the current compact hunched proportions, all25same poses and order, physical size, blade length, cloak mass and fine detail. The sprites sit too LOW inside their equal cells. Move EVERY complete sprite upward about12pixels within its own222px-tall cell, keeping the original cell grid fixed and7empty cells unchanged. Apply a consistent whole-rig upward alignment, not limb shortening or scaling. In particular the last row's single sprite and all ordinary-attack cels in the lower rows need more empty space BELOW their feet and trailing cloak. Aim for a lowest-foot/cloak baseline around y=185to190 within each cell rather than the current200to210. There is plenty of headroom above these compact silhouettes. Keep each complete creature and all curved silver blades inside its own cell, generous alpha-zero transparent gutters. Same charcoal/ivory layered mantle, crimson streamers and masked crowned face, crisp dark ink and painted texture. No pose jitter, size changes, shadows, haze, glow, backgrounds, labels, text, grid, numbering or blur. Genuinely transparent backdrop; no clipping.",
+  "reference_recipe": "Edit rejected action-judge-board1-v2 (receipt source_sha256), whose input chain starts from the frozen actions-01 guide.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/saltwhite_contract_judge-actions-01.json",
+  "guide_sha256": "38cdf3cc67b00c8c8ca25d3e6e601a022b066a2bb343e9d51942afd775959aa7"
+}

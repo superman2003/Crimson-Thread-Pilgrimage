@@ -1,0 +1,13 @@
+{
+  "kind": "saltwhite_contract_judge",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Compact profile improved, but source sprites are placed too low in cells and leave frozen rig canvas; regenerate the authored sheet alignment.",
+  "source_sha256": "8aa9af4a16633b575690d6717bd84a8ac7a6ed52492fbfbb890e8a7543c49554",
+  "prompt_sha256": "a0e0b4e32db6768e14cedbdc7be90d4665351f7bb40c56ae8eb6d061fa4139a4",
+  "reference_sha256": "56da83f29ded06821b3070d50073666f6e3897b580c6dadfc0a6f1d988f672ff",
+  "actual_prompt": "Repaint this25-cel sprite sheet to restore the reference's COMPACT HUNCHED wide creature proportions and fit the original short, wide game rig. Image1 is target, image2 original pose/identity guide. Preserve exact8columns4rows,25occupied cels in same order and7empty cells. Image1 made the upright poses too vertically stretched. Draw the entire creature slightly crouched with bent knees and head tucked closer to shoulders, wider layered mantle draping laterally rather than tall narrow torso. Reduce vertical silhouette span about12percent while preserving physical body mass through natural cloak width/overlap; do not simply shrink the whole creature. Keep same masked crowned head, silver curved blade forelimbs, charcoal/ivory feathers and deep crimson back streamers, sharp fine inked painted style. The first13heavy cels keep the same coherent strike arc, but the raised blades curl inward closer to the head rather than protruding high upward. Remaining12attack cels keep their pose family and identity with the same compact body proportions. Place all feet consistently a few pixels higher in each cell so there is generous clear footroom, and keep ample headroom too. Every cel must be newly anatomically painted, no stretched or squashed bitmap look, no size pulsing between frames, preserve blade length by bending the articulated arm/neck rather than extending vertically. Entire sprites fully contained with at least24px genuinely transparent margins, true alpha-zero backdrop and gutters. No haze, shadows, glows, text, grid, numbering, blur, backgrounds or detached effects.",
+  "reference_recipe": "Edit rejected action-judge-board1-v1 (receipt source_sha256), with its frozen actions-01 guide as additional rig-proportion reference.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/saltwhite_contract_judge-actions-01.json",
+  "guide_sha256": "38cdf3cc67b00c8c8ca25d3e6e601a022b066a2bb343e9d51942afd775959aa7"
+}
