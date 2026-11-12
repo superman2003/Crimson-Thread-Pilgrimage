@@ -27,6 +27,7 @@ on:
       - '.github/contracts/creature-redraw.yml'
       - 'tools/creature_redraw_art.py'
       - 'tools/test_creature_redraw_art.py'
+      - 'tools/creature_redraw_guides.py'
       - 'art_requests/creature_redraw_v1/**'
       - 'godot/scripts/combat_motion_v7_validation.gd'
       - 'godot/scripts/boss_behavior_validation.gd'
@@ -60,6 +61,7 @@ jobs:
           python3 tools/build_creature_frame_fit.py --self-test
           python3 tools/test_creature_frame_fit.py
           python3 tools/build_creature_frame_fit.py --check
+          python3 tools/creature_redraw_art.py --verify-repairs
       - name: Import production resources
         run: |
           python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/transition-logs/import"
