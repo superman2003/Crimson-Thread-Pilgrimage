@@ -1,0 +1,19 @@
+{
+  "kind": "silent_pilgrim_commander",
+  "clip": "actions_windup-attack",
+  "status": "partially_rejected",
+  "reason": "Attack body size repaired1.003 but mixed-source complete clip max_change0.6346 fails continuity. Windup candidate evaluated independently; attack replaced by complete24cel redraw.",
+  "source_sha256": "1457bc924b032b45f6f5ecfb943d6df10d40390dd7b14bf9e8a0b14eab119570",
+  "prompt_sha256": "bc92b7ddf8e90d35f1979cf7b04d894a8466c1976aacfebf4e965f54fca515c1",
+  "reference_sha256": "7d8006be95abb05cd6998bde0be10e540ff066d2879c1d85360f523d2308fb7c",
+  "actual_prompt": "Use case: stylized-concept animation repair. Repaint EXACTLY these6frozen insect commander poses on4equal columns by2rows. First6cells occupied rowmajor, last2cells fully transparent empty. Image1 is authoritative for occupied silhouette/body area, anchor, cloak spread, blade angle and all6individual gestures. Cells0-2 ordinary windup frames15,16,17 with narrow saber held almost horizontally overhead above ivory mask; cells3-5 forward attack frames9,10,11 with right arm and long single thin blade horizontally thrust forward, cape trailing left. Preserve subtle distinct intermediate limb/blade/head angles, exact crouch/lean, anatomy and cloak size of EACH mapped pose. Image2 magnifies original identity only. Graceful slim insect knight with ivory oval beaked mask black eye, swept-back ridged gray crest, layered dusty lavender-gray wing cloak, ivory feather-shaped inset armor panels and muted gold trim, slender charcoal limbs/pointed boots, exactly one saber held in hand. Crisp richly refined hand-painted folds/seams and opaque pale panels, no extra weapons or new gestures. Keep original apparent torso/cape mass, don't shrink/broaden individual bodies. Complete bodies and blade tips within each cell with30pxclear margins; feet near71%cellheight, centers match guide. TRUE transparent RGBA cutouts only, gutters and blankcells alpha-zero, no white background/matte, shadow, halo, glow, spellFX/particles, detached speckles, colored fringe, checkerboard, grid or text.",
+  "reference_recipe": "Frozen six-cel combined windup-attack guide from original actions02 mapped source_frame/reference_fit entries, exact original poses; supporting first-cell original identity crop enlarged768x768 with Pillow default only for detail.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/silent_pilgrim_commander-actions-windup-attack.json",
+  "guide_sha256": "6fbe0040c9f85e96a75efc1fa570f51291a00b80ff34f07041ab3cf28b4c5a7d",
+  "accepted_clips": [
+    "windup"
+  ],
+  "rejected_clips": [
+    "attack"
+  ]
+}

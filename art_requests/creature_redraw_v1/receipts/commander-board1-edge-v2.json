@@ -1,0 +1,13 @@
+{
+  "kind": "silent_pilgrim_commander",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Transparent extraction succeeded, but source cell13 touches its boundary; reauthor all28complete sprites at a common smaller source-cell size with clear margins, keeping pose proportions consistent.",
+  "source_sha256": "8d422c89bbb55e9a9e7594b1b73019858cac0c9179725ff6d9f6400639c0a4eb",
+  "prompt_sha256": "b688763adc4de6e718f8b4d6b9fd14b26115db467b9a1206525a4478b479e06f",
+  "reference_sha256": "686fcbf3df90985791aa19d7601255420291d5f10be63af76dbaf0b8bbb8a33b",
+  "actual_prompt": "BACKGROUND EXTRACTION ONLY for this28-sprite insect commander sheet. Preserve EXACT8equal columns x4rows, all first28unique sprites with exact poses, sizes, cell locations and palette; last4cells(row4columns5-8) completely empty alpha-zero. Remove ALL white background, gray floor shadows, haze, matte and detached speckles so every cell gutter and unused space is alpha-zero. Preserve the actual pale ivory mask/inset panels, dusty lavender/gray cloak, muted gold edging, dark limbs and slender saber as fully opaque character material inside their painted contours; do NOT erase pale clothing or leave holes in the armor. All28characters remain intact and detailed, no pose/scale changes, clipping, duplicates, new props or other edits. TRUE transparent RGBA cutouts ONLY, no painted white/checkerboard backdrop, shadows, glow, text, labels or grid.",
+  "reference_recipe": "Frozen28-cel actions01 guide; supporting identity zoom is first equal cell(0,0,width//8,height//4) of that frozen guide, resized768x768 with Pillow default; anatomy/detail only. image_gen background extraction of candidate exec-c1bdbe88-749c-421a-95b7-4c14b66a2b3c.png preserving pale commander material/28poses; input SHA in commander-board1-bg-v1 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/silent_pilgrim_commander-actions-01.json",
+  "guide_sha256": "86912cdfc5db6affa1f3648186fe8a91666937450b2ab2eb5588ffef51abcac7"
+}
