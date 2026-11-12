@@ -347,6 +347,10 @@ const GATES = [
   { id: "gate_wall_mossgrip",  rect: [1990, 4360, 42, 320], ability: "silk_wall_grip",    name: "丝壁攀附", rooms: ["vine_well", "mossgrip_shaft"] },
   { id: "gate_jump_salt",      rect: [5080,  430, 42, 300], ability: "double_thread_jump", name: "双线跃",   rooms: ["salt_corridor", "salt_corridor"] },
   { id: "gate_break_marrow",   rect: [4020,  952, 140, 26], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["belfry_mid", "bell_marrow_cell"] },
+  // The cell is also open to the shaft step (west) and the lift shaft (east);
+  // both sides carry the same condition as the floor.
+  { id: "gate_marrow_side",    rect: [3960, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_ascent", "bell_marrow_cell"] },
+  { id: "gate_marrow_lift",    rect: [4178, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_marrow_cell", "bell_marrow_cell"] },
   { id: "gate_shadow_veins",   rect: [ 440, 5270, 42, 300], ability: "lantern_phase",     name: "灯影相位", rooms: ["moss_veins", "moss_veins"] },
   { id: "gate_crown_well",     rect: [3990, 5800, 42, 240], ability: "crown_resonance",   name: "王冠共鸣", rooms: ["well_throat", "well_throat"] },
 ];
@@ -686,6 +690,7 @@ function build() {
     edge("court_hub", "bell_ascent", "passage", "climb"),
     edge("bell_ascent", "belfry_mid", "passage", "walk_jump"),
     edge("belfry_mid", "bell_marrow_cell", "ability_gate", "downstrike", "", false, "thorn_downstrike"),
+    edge("bell_ascent", "bell_marrow_cell", "ability_gate", "downstrike", "", true, "thorn_downstrike"),
     edge("belfry_mid", "hidden_attic", "passage", "walk_jump"),
     edge("hidden_attic", "salt_corridor", "passage", "walk_jump"),
     edge("belfry_mid", "belfry_top", "passage", "walk_jump"),

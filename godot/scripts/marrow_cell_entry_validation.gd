@@ -5,6 +5,8 @@ extends SceneTree
 ## cell; with it both gates are gone and the cell can be entered and left on
 ## foot.
 const READY := preload("res://scripts/world_ready_validation_helper.gd")
+const KNOWLEDGE := preload("res://scripts/survey_map_knowledge.gd")
+const PORTAL := "upgrade_bell_guard_1_access_a"
 const SIDE := "gate_marrow_side"
 const LIFT_SIDE := "gate_marrow_lift"
 const FLOOR := "gate_break_marrow"
@@ -98,9 +100,38 @@ func _run() -> void:
     var low: Dictionary = await _push(1, 240, 40)
     _check(not low.entered and low.extreme < CELL.position.x + 2.0, "jumping at the opening from the shaft step meets the wall (x=%.0f)" % low.extreme)
 
+    # The workshop portal inside the cell is within reach of the shaft step as
+    # the crow flies; the wall must keep it out of reach, even mid-jump.
+    var portal := scene.get_node_or_null(PORTAL) as Area2D
+    _check(portal != null and String(portal.get_meta("kind", "")) == "world_portal", "the cell holds the bell-guard workshop portal")
+    await _place(SHAFT_LOW_STEP)
+    var grabbed := false
+    var in_range := false
+    Input.action_press("move_right")
+    for frame in 120:
+        if frame % 40 == 0:
+            Input.action_press("jump")
+        elif frame % 40 == 12:
+            Input.action_release("jump")
+        await _physics(1)
+        if portal != null and player.global_position.distance_to(portal.global_position) <= scene.INTERACTION_REACH:
+            in_range = true
+        if scene._nearest_interactable(scene.INTERACTION_REACH) == portal:
+            grabbed = true
+    _release()
+    await _physics(10)
+    _check(in_range, "the portal is within plain interaction distance of the shaft step")
+    _check(not grabbed, "the portal cannot be picked through the closed wall")
+    for id in [SIDE, LIFT_SIDE, FLOOR]:
+        for gate in scene.config.get("locked_gates", []):
+            if String(gate.get("id", "")) == id:
+                var rect: Array = gate.rect
+                _check(not KNOWLEDGE.owner_room(scene.config, Rect2(rect[0], rect[1], rect[2], rect[3])).is_empty(), "%s lies inside a map room, so the map can mark it" % id)
+
     # Closed room holds on the far side too: nothing leaves it to the right.
     await _place(CELL_STAND)
     _check(player.is_on_floor() and _inside_cell(), "fixture can stand on the cell floor (%.0f, %.0f)" % [player.global_position.x, player.global_position.y])
+    _check(scene._nearest_interactable(scene.INTERACTION_REACH) == portal, "from inside the cell the portal is the interaction target")
     var right: Dictionary = await _push(1, 200, 40)
     _check(_inside_cell(), "walking and jumping right stays in the cell (%.0f, %.0f)" % [player.global_position.x, player.global_position.y])
     await _place(CELL_STAND)

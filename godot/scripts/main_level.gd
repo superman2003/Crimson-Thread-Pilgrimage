@@ -6599,6 +6599,8 @@ func _nearest_interactable(radius: float) -> Area2D:
             continue
         if kind=="history" and not area.accessible_from(player):
             continue
+        if kind=="world_portal" and _behind_locked_gate(area):
+            continue
         if kind in ["chapter_exit", "ending_exit"] and _chapter_exit_can_open(area) and _better_interaction_target(area, distance, preferred_best, preferred_distance):
             preferred_best = area
             preferred_distance = distance
@@ -6606,6 +6608,27 @@ func _nearest_interactable(radius: float) -> Area2D:
             best = area
             best_distance = distance
     return preferred_best if preferred_best != null else best
+
+
+## A portal inside a room still closed by an ability gate must not be used from
+## outside it: its return would put the player inside the closed room. While
+## any gate into the portal's room stands, the portal needs a clear line to the
+## player (the room's own walls and floor count, not only the gate).
+func _behind_locked_gate(portal: Area2D) -> bool:
+    if locked_gate_bodies.is_empty() or not player.is_inside_tree():
+        return false
+    var room_id := String((portal.get_meta("world_portal_data", {}) as Dictionary).get("room_id", ""))
+    if room_id.is_empty():
+        return false
+    var closed := false
+    for gate in config.get("locked_gates", []):
+        if locked_gate_bodies.has(String(gate.get("id", ""))) and (String(gate.get("from", "")) == room_id or String(gate.get("to", "")) == room_id):
+            closed = true
+            break
+    if not closed:
+        return false
+    var query := PhysicsRayQueryParameters2D.create(player.global_position - Vector2(0, 42), portal.global_position, 1, [player.get_rid()])
+    return not player.get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 
 
 func _better_interaction_target(area: Area2D, distance: float, current: Area2D, current_distance: float) -> bool:
