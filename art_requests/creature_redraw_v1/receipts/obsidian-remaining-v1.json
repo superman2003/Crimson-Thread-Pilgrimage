@@ -1,0 +1,20 @@
+{
+  "kind": "obsidian_spearman",
+  "clip": "actions_remaining",
+  "status": "partially_rejected",
+  "reason": "Only attack rejected: complete-clip body area ratio1.055 and max silhouette jump0.536 exceed unchanged guards. Raise-recovery and ordinary recovery accepted from same board; replace attack with full24-frame source.",
+  "source_sha256": "9436622adcef490a20ab4c65c8ab168961d54b4838c00ca984fb93689ab7d6af",
+  "prompt_sha256": "fa4b2f536f4c423d0f6e83bc5d14da88ccf78dcf457c552ea338ad1eeb75b115",
+  "reference_sha256": "417c9892b052f181707262ce6ae7ec9839a4e9f3d3dee136cd8bb4eae5bc853b",
+  "actual_prompt": "Repaint this exact mapped14-cel obsidian-spearman repair sheet. FIRST IMAGE is authoritative frozen pose, contour, scale, body anchor and cell order for joins to unchanged frames. SECOND IMAGE is accepted detailed black armor/red cloth/red spear paint style ONLY, not its poses. Output EXACT4equal columns x4rows; first14cells occupied row-major, final2cells fully transparent empty. Cells0-7 are spear-raise recovery frames3,4,5,19,20,21,22,23; cells8-9 ordinary recovery frames22,23; cells10-13 ordinary attack frames14,15,16,17. Preserve each mapped pose and spear direction exactly: first3 high-to-forward diagonal, next3 low forward, next4 near upright with folded cape, next2 front-diagonal thrust, final2 downward spear follow-through with cape fanning as shown. Same charcoal insect knight, swept-back horned helmet with tiny red eye, slender jointed obsidian armor and legs, deep crimson cape attached at shoulders, exactly ONE long dark spear with red diamond leaf blade visibly held by both hands. Preserve frozen reference's cape silhouette/area, head size, mass, joint positions, shaft angle and local foot baseline in EVERY cel to connect smoothly with untouched neighbors. Repaint details crisply without inflating cape or changing anatomy/poses. Every occupied cel distinct. Center complete sprites in equal cells with24px alpha-zero margins on all edges; no clipped spear tips. TRUE transparent RGBA cutouts ONLY, empty last2cells and all gutters completely clear, no background, haze, shadow, glow, particles, extra weapons, labels, text or grid.",
+  "reference_recipe": "Frozen combined remaining14-cel guide (entries from original guides03/04) plus accepted sources/obsidian_spearman/actions_obsidian_elite_impale_recover_full.png (SHA in job) as paint detail only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/obsidian_spearman-actions-remaining.json",
+  "guide_sha256": "3542723257934be5e431cca680442f5e2fda7bcba5839adda6be1fbb4409251a",
+  "accepted_clips": [
+    "obsidian_raise_recover",
+    "recover"
+  ],
+  "rejected_clips": [
+    "attack"
+  ]
+}
