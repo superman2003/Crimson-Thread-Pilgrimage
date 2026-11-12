@@ -1,0 +1,13 @@
+{
+  "kind": "sunken_hammer_smith",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Heavy body area ratio 0.940 below 0.96, max neighbour 0.5344; phase passes with max 0.4901.",
+  "source_sha256": "b89c846c676f5943a23b01ee00822001595d80677202a8254bcfc1d86fa5b61f",
+  "prompt_sha256": "615ce6ecaf906c188377646d2cd0513dee092ade098a76adf39ed14c624e4491",
+  "reference_sha256": "aeaf8f4a460c39ec808b84ca342208404e8c969b809205ea7a65eefddca3d8d0",
+  "actual_prompt": "Edit this transparent game sprite sheet to fix animation discontinuities while preserving the exact 8-column by 4-row layout and the same crimson feathered bronze scissor-beaked creature, crisp dark ink and textured details. Keep all 32 cells, consistent opaque body mass and same identity. IMPORTANT: redraw articulated intermediate poses, do not preserve the current hard pose flips. Read cells row-major numbered 1..32 for these instructions only; print no numbers. Cels 1-6 smoothly fold upright creature into a curl: 1 upright, 2 lean 12 degrees, 3 lean 24 degrees, 4 half folded, 5 almost curled, 6 curled. Cel7 unfurls slightly diagonally. Cel8 diagonally extends the beak into a lunge. Cels9-18 are one stable rightward horizontal lunge pose with small sequential beak angle, feather and foot movement, all at exactly consistent body center and volume. Remove body-center jitter, alternating beak length, abrupt height and large plumage changes in these ten cels. Cels19-22 lift gradually from the lunge back to upright: 19=20degree beak lift,20=35degree,21=50degree,22=65degree. Each must genuinely be an intermediate pose, not alternating upright and horizontal. Cels23-32 keep existing heavy-strike pose family and position with cleaner connected motion. Sprite centers must follow the same centered rig within each equal cell; avoid sudden x/y translation. Render sharp native game art, no defocus, motion blur, glow or shadows. All cell-edge gutters remain completely alpha-zero, each complete sprite inside its own cell with 12px margins. Preserve true transparency. No text, border, effects, or background. Create independently painted detailed cels with smooth silhouettes and stable body mass.",
+  "reference_recipe": "Edit rejected action-smith-v1 (receipt source_sha256), which was generated from the frozen actions-01 guide.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/sunken_hammer_smith-actions-01.json",
+  "guide_sha256": "47bc6dd5b92d48a9e2881499d6d45e89270f80861b6f0bef7836d58e44dc0557"
+}
