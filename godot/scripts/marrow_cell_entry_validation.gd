@@ -6,11 +6,12 @@ extends SceneTree
 ## foot.
 const READY := preload("res://scripts/world_ready_validation_helper.gd")
 const SIDE := "gate_marrow_side"
+const LIFT_SIDE := "gate_marrow_lift"
 const FLOOR := "gate_break_marrow"
 const CELL := Rect2(3960, 1026, 260, 184)
-const SHAFT_STEP := Vector2(3930, 1090)
-const SHAFT_LOW_STEP := Vector2(3930, 1278)
-const CELL_STAND := Vector2(4090, 1208)
+const SHAFT_LOW_STEP := Vector2(3930, 1276)
+const CELL_STAND := Vector2(4090, 1206)
+const LIFT_SHAFT := Vector2(4300, 1150)
 var checks := 0
 var failures: Array[String] = []
 var scene: Node
@@ -47,7 +48,7 @@ func _place(point: Vector2) -> void:
 func _inside_cell() -> bool:
     # Feet position: strictly inside the room, away from the gate's own width.
     var point: Vector2 = scene.player.global_position
-    return point.x > CELL.position.x + 42.0 and point.x < CELL.end.x and point.y > CELL.position.y and point.y <= CELL.end.y + 4.0
+    return point.x > CELL.position.x + 42.0 and point.x < CELL.end.x - 42.0 and point.y > CELL.position.y and point.y <= CELL.end.y + 4.0
 
 ## Hold a direction, jumping every `jump_every` frames (0 = never). Returns
 ## whether the player was ever inside the cell, and the furthest x reached.
@@ -85,18 +86,17 @@ func _run() -> void:
     _check(String(scene.config.get("id", "")) == "demo_ch01_moss_bell_court", "the moss bell court is the starting region")
     _check(not player.thorn_downstrike_unlocked, "fixture starts without the thorn downstrike")
 
-    # Closed: the side wall and the floor both stand.
-    await _place(SHAFT_STEP)
-    _check(scene.locked_gate_bodies.has(SIDE) and scene.locked_gate_bodies.has(FLOOR), "side wall and breakable floor both stand without the ability")
-    _check(player.is_on_floor() and absf(player.global_position.y - 1092.0) < 6.0, "player stands on the shaft step beside the cell (y=%.0f)" % player.global_position.y)
+    # Closed: the walls and the floor all stand. The shaft step level with the
+    # cell floor is the only place the opening can be reached from (the step
+    # above it sits under a ceiling too low to stand on).
+    await _place(SHAFT_LOW_STEP)
+    _check(scene.locked_gate_bodies.has(SIDE) and scene.locked_gate_bodies.has(LIFT_SIDE) and scene.locked_gate_bodies.has(FLOOR), "both side walls and the breakable floor stand without the ability")
+    _check(player.is_on_floor() and absf(player.global_position.y - 1280.0) < 6.0, "player stands on the shaft step below the opening (y=%.0f)" % player.global_position.y)
     var walk: Dictionary = await _push(1, 120, 0)
-    _check(not walk.entered and walk.extreme < CELL.position.x + 2.0, "walking right from the shaft step stops at the wall (x=%.0f)" % walk.extreme)
-    await _place(SHAFT_STEP)
-    var hop: Dictionary = await _push(1, 180, 40)
-    _check(not hop.entered, "jumping at the wall from the shaft step does not get in (x=%.0f)" % hop.extreme)
+    _check(not walk.entered and walk.extreme < CELL.position.x + 2.0, "walking right from the shaft step stops short of the cell (x=%.0f)" % walk.extreme)
     await _place(SHAFT_LOW_STEP)
     var low: Dictionary = await _push(1, 240, 40)
-    _check(not low.entered, "jumping from the lower shaft step does not get in (x=%.0f)" % low.extreme)
+    _check(not low.entered and low.extreme < CELL.position.x + 2.0, "jumping at the opening from the shaft step meets the wall (x=%.0f)" % low.extreme)
 
     # Closed room holds on the far side too: nothing leaves it to the right.
     await _place(CELL_STAND)
@@ -107,17 +107,24 @@ func _run() -> void:
     var left: Dictionary = await _push(-1, 200, 40)
     _check(_inside_cell(), "walking and jumping left stays in the cell while the wall stands (%.0f, %.0f)" % [player.global_position.x, player.global_position.y])
 
-    # Owning the thorn downstrike opens both gates for good.
+    # The lift shaft passes the cell's other side: a body level with the room,
+    # falling past it and pushing left, never gets in.
+    await _place(LIFT_SHAFT)
+    var lift: Dictionary = await _push(-1, 90, 0)
+    _check(not lift.entered, "pushing left from the lift shaft does not get in (x=%.0f)" % lift.extreme)
+
+    # Owning the thorn downstrike opens every gate for good.
     scene.inventory_counts["thorn_downstrike"] = 1
     scene._refresh_ability_gates()
     await _physics(6)
-    _check(not scene.locked_gate_bodies.has(SIDE) and not scene.locked_gate_bodies.has(FLOOR), "both gates are gone once the thorn downstrike is owned")
-    await _place(SHAFT_STEP)
-    var enter: Dictionary = await _push(1, 120, 0)
-    _check(enter.entered and _inside_cell(), "walking right from the shaft step now enters the cell (%.0f, %.0f)" % [player.global_position.x, player.global_position.y])
+    _check(not scene.locked_gate_bodies.has(SIDE) and not scene.locked_gate_bodies.has(LIFT_SIDE) and not scene.locked_gate_bodies.has(FLOOR), "all three gates are gone once the thorn downstrike is owned")
+    await _place(SHAFT_LOW_STEP)
+    var enter: Dictionary = await _push(1, 240, 40)
+    _check(enter.entered, "jumping right from the shaft step now enters the cell (furthest x=%.0f)" % enter.extreme)
+    await _place(CELL_STAND)
     var leave: Dictionary = await _push(-1, 200, 40)
     _check(not _inside_cell() and player.global_position.x < CELL.position.x, "walking and jumping left leaves the cell again (%.0f, %.0f)" % [player.global_position.x, player.global_position.y])
-    print("MARROW_CELL_ENTRY_TRACE walk=%.0f hop=%.0f low=%.0f right=%.0f left=%.0f enter=%.0f leave=%.0f" % [walk.extreme, hop.extreme, low.extreme, right.extreme, left.extreme, enter.extreme, leave.extreme])
+    print("MARROW_CELL_ENTRY_TRACE walk=%.0f low=%.0f right=%.0f left=%.0f lift=%.0f enter=%.0f leave=%.0f" % [walk.extreme, low.extreme, right.extreme, left.extreme, lift.extreme, enter.extreme, leave.extreme])
 
     _release()
     preload("res://scripts/audio_retirement.gd").retire_tree(scene)
