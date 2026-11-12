@@ -1,0 +1,13 @@
+{
+  "kind": "corridor_heavy",
+  "clip": "actions_heavy_elite_quake_windup_full",
+  "status": "rejected",
+  "reason": "Visual rejection: row2col7 still duplicates bell heads; later cels leave raised bell disconnected from hands. Regenerate with single front-held hammer and continuous arm chain.",
+  "source_sha256": "1c03b403ba0436b2b240ea274dd6f6a204ade794f411d2768ac5ed1939de9e82",
+  "prompt_sha256": "37fa0ab5908ba83e7e599b1c08f75a80bcf4b9f237ebeee00534c3889a917a89",
+  "reference_sha256": "7fa764b1c0f721d729499223a80fc6d1b6386db363dba6c5e0daf48f8cac3955",
+  "actual_prompt": "Fix the provided24-frame corridor knight WINDUP sprite sheet. Keep EXACT8equal columns by3rows and24 distinct complete sprites, same mossy gray armor, ivory oval mask, black eyeholes, curved antennae, purple ragged cloth and boots. Crucial anatomy correction: EVERY cel must have exactly ONE bell-headed hammer with exactly ONE bell head attached to ONE handle gripped by its two hands. Current later cels wrongly duplicate a bell in front AND one above shoulder. Remove the extra front bell and extra front handle entirely from any cel where the bell is already raised above shoulder, and redraw arms to hold only the single raised hammer. Rebuild frames8-15(row2) into a smooth lift of that ONE bell from chest height to above shoulder; frames16-23(row3) hold and tense that one shoulder-high bell with small unique elbow/knee adjustments. First8frames low-to-chest gradual lift. There is never a second bell or second weapon, no afterimages, shield or detached parts. Keep same body mass, feet on identical ground line and compact well-centered silhouettes with40px headroom and wide transparent margins. All24 unique articulated poses with smooth row-boundary continuity. TRUE transparent RGBA cutouts, no background, haze, matte, shadow, glow, particles, text, grid or labels.",
+  "reference_recipe": "Frozen full elite-quake-windup guide; image_gen revised candidate exec-cdb19180-33ae-485e-92b5-aab76d590374.png to remove duplicate weapon and articulate one-hammer lift. Input SHA in corridor-quake-windup-v1 rejection receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/corridor_heavy-actions-heavy_elite_quake_windup-full.json",
+  "guide_sha256": "d9fdea3504a587d61e314ec23ecd050d2fa4e61ea17f4ce27a1fedb374cbe5c9"
+}
