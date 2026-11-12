@@ -1,0 +1,13 @@
+{
+  "kind": "corridor_heavy",
+  "clip": "actions_heavy_elite_quake_full",
+  "status": "rejected",
+  "reason": "First two bell rims have only4px right gutter, below unchanged5px cell boundary guard. Require image_gen new source with wider transparent margins.",
+  "source_sha256": "6ef57396e89c0ae4b1997f3482351b5fac304609cdf4685025873f4a2bfad36e",
+  "prompt_sha256": "ca7e3f35b590d6fe585a951d4f739801993f3ff33fcda8d3d9eff8937bfbec2c",
+  "reference_sha256": "dcf7eeae34c6594b1b09ed8b87b0537286f2eb2cccebd4b35d3e53653edcb1db",
+  "actual_prompt": "Create24 new ELITE QUAKE SLAM action cels for this exact moss-armored insect knight. Image1 is original single front-held bell weapon identity; image2 is accepted windup anatomy, body size, moss/ivory/bronze/purple paint style and24cell layout only. EXACT8equal columns x3rows,24 unique complete right-facing sprites chronological row-major. Same ivory oval mask with black eyeholes and curved antennae, bulky rounded gray/ivory armor with moss over back/shoulders, purple ragged skirt, stout dark boots. Exactly ONE ornate bronze hollow bell head on ONE wooden handle visibly held by both hands in EVERY cel. Start with that single hammer held in front at chest height. Frames0-5 brace knees and lean torso back slightly;6-11 smoothly swing that one front-held bell downward/right, hands stay attached to its handle;12-15 the same bell meets ground in front while knees bend and body dips;16-23 lift the same bell from ground toward waist and gradually rise. Keep hammer always in front of chest or knees, never behind head, no duplicates, afterimages, floating parts or extra weapons. Consistent body, armor and hammer size/mass throughout, feet fixed on same ground line, genuine joint articulation, smooth row boundaries, no whole-image shifts/rotations or resizing. Compact silhouettes centered in equal cells,55percent width50percent height with wide alpha-zero margins. Crisp painted moss, engraved bronze bell, armor seams and torn purple cloth. TRUE transparent RGBA cutouts only, no background, haze, shadow, glow, ground cracks, dust, impact effects, text, grid or labels.",
+  "reference_recipe": "Use original single front identity by rendering frozen elite-quake-windup full guide, cropping first cell(0,0,width//8,height//3), resizing768x768 Pillow default; accepted sources/corridor_heavy/actions_heavy_elite_quake_windup_full.png (SHA in job) as anatomy/style/layout only. Current full quake guide freezes original mapping/registration.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/corridor_heavy-actions-heavy_elite_quake-full.json",
+  "guide_sha256": "16e1dd1c86d0353845a3f794ca584e40b40db3ad3ff938c251e124505f5f2ba9"
+}
