@@ -6517,8 +6517,8 @@
   "stride_followup": {
     "request_pr": 601,
     "required_total": 6,
-    "required_delivered": 3,
-    "replacement_cels": 48,
+    "required_delivered": 6,
+    "replacement_cels": 128,
     "measurement": "common lower 35% of complete registered silhouette, cyclic adjacent 1-IoU; minimum 0.15",
     "required": [
       {
@@ -6570,14 +6570,52 @@
       {
         "kind": "rust_crown_guardian",
         "clip": "walk",
-        "status": "needs_redraw",
-        "metrics": null
+        "status": "delivered",
+        "metrics": {
+          "frames": 32,
+          "clocks_equal": true,
+          "unchanged_other_cels": 388,
+          "other_cels_pixel_equal": true,
+          "old_redraw_leg_change": 0.0555,
+          "new_leg_change": 0.229,
+          "metrics": {
+            "mean_change": 0.1263,
+            "max_change": 0.2121,
+            "loop_seam": 0.1602,
+            "boil_ratio": 1.681,
+            "unique": 32,
+            "area_ratio": 1.097,
+            "body_area_ratio": 1.0,
+            "leg_change": 0.229,
+            "registration_scale": 1.080611729,
+            "frames": 32
+          }
+        }
       },
       {
         "kind": "pilgrim_chariot",
         "clip": "walk",
-        "status": "needs_redraw",
-        "metrics": null
+        "status": "delivered",
+        "metrics": {
+          "frames": 16,
+          "clocks_equal": true,
+          "unchanged_other_cels": 260,
+          "other_cels_pixel_equal": true,
+          "old_redraw_leg_change": 0.072,
+          "new_leg_change": 0.1551,
+          "metrics": {
+            "mean_change": 0.1145,
+            "max_change": 0.1811,
+            "loop_seam": 0.0848,
+            "boil_ratio": 2.135,
+            "unique": 16,
+            "area_ratio": 1.058,
+            "body_area_ratio": 1.002,
+            "leg_change": 0.1551,
+            "registration_scale": 0.869274406,
+            "frames": 16
+          }
+        }
       },
       {
         "kind": "echo_moss_larva",
@@ -6605,8 +6643,27 @@
       {
         "kind": "silent_crown_core",
         "clip": "walk",
-        "status": "needs_redraw",
-        "metrics": null
+        "status": "delivered",
+        "metrics": {
+          "frames": 32,
+          "clocks_equal": true,
+          "unchanged_other_cels": 390,
+          "other_cels_pixel_equal": true,
+          "old_redraw_leg_change": 0.0797,
+          "new_leg_change": 0.1744,
+          "metrics": {
+            "mean_change": 0.1044,
+            "max_change": 0.215,
+            "loop_seam": 0.1004,
+            "boil_ratio": 1.652,
+            "unique": 32,
+            "area_ratio": 1.089,
+            "body_area_ratio": 1.0,
+            "leg_change": 0.1744,
+            "registration_scale": 1.170534133,
+            "frames": 32
+          }
+        }
       }
     ],
     "recommended": [
@@ -6636,6 +6693,7 @@
         "status": "needs_visual_review"
       }
     ],
-    "note": "Replacement cels do not add completed clips to the original 261-clip checklist"
+    "note": "Replacement cels do not add completed clips to the original 261-clip checklist",
+    "recommended_delivered": 0
   }
 }
