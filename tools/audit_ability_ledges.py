@@ -30,6 +30,8 @@ MARGIN = 1.15                                      # generous to the player
 WALL_GRIP_REACH = 160
 HOOK_REACH = 460
 HEADROOM = 110
+# Player.tscn body reaches 84px above the feet; production pickups have radius18.
+PLAYER_HEIGHT, PICKUP_RADIUS, PICKUP_MARGIN = 84.0, 18.0, 8.0
 
 
 def _air_time(rise):
@@ -133,6 +135,11 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
         anchors = config.get('grapple_anchors', []) + overlay.get('grapple_anchors', [])
         for problem in check_ledge(config, platform['id'], platform['rect'], entry['base_platform_id'], anchors):
             errors.append(f"{entry['id']}: {problem}")
+        base = next((p for p in config['platforms'] if p['id'] == entry['base_platform_id']), None)
+        if base is not None:
+            pickup_reach = SINGLE * 1.07 + PLAYER_HEIGHT + PICKUP_RADIUS + PICKUP_MARGIN
+            if base['rect'][1] - reward['position'][1] <= pickup_reach:
+                errors.append(f"{entry['id']}: a single jump can collect the reward with the player body before reaching the ledge")
         px, py, pw, _ = platform['rect']
         rx, ry = reward['position']
         if not (px + 18 <= rx <= px + pw - 18 and 25 <= py - ry <= 70):
