@@ -1,0 +1,12 @@
+{
+  "kind": "saltwhite_contract_judge",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Image-model body layout leaves the frozen rig canvas under shared area registration; redraw within original rig bounds.",
+  "source_sha256": "56da83f29ded06821b3070d50073666f6e3897b580c6dadfc0a6f1d988f672ff",
+  "prompt_sha256": "681a72887de7e7d340ebb66fe926d5b3caacf00b508a0fcc8e9d0260b81615fd",
+  "reference_sha256": "9aaed63f6e102336eb4963b52793eb57cfba37fef71f3479bda8ac8155592ea3",
+  "actual_prompt": "Newly paint production 2D fantasy game animation sprites for the exact masked blade creature in this reference. Transparent sprite sheet EXACT8equal columns by4rows, first25cells filled in chronological row-major mapping, final7cells completely empty. Preserve reference identity: hunched dark masked head with bronze crown details, long curved silver scissorlike blade/forelimb shapes, ragged charcoal and ivory layered feather mantle, flowing deep crimson back streamers, narrow dark legs. Sharp fine ink contours and crisp textured hand-painted materials. First13cels are heavy attack frames5..17. The reference contains sudden upright-to-flat flips: draw a deliberate continuous strike arc instead. First5heavy cels progressively lower the raised blades/body from upright through75,55,35,15degree angles; next4heavy cels sustain the low forward-right strike; last4heavy cels progressively lift through25,45,65,85degrees back toward upright. These angles describe articulated weapon/neck motion, not whole-image rotation. Keep torso mass, head size, feather volume, blade length and body center stable, no shrinking, swelling or sudden unrelated silhouettes. Remaining12cels are ordinary attack frames4..8 and17..23; closely follow their illustrated pose family and cell placement, smooth the forelimb/blade movements while maintaining the same character size. Paint every cel independently with unique fine texture and meaningful small changes. All complete sprites safely inside their own equal cells with24px clear transparent margins, no clipped blades or crossing cells. True alpha-zero background and empty cells; no haze, shadows, glow, scene, text, labels, numbers, grid, motion blur or detached effects.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/saltwhite_contract_judge-actions-01.json",
+  "guide_sha256": "38cdf3cc67b00c8c8ca25d3e6e601a022b066a2bb343e9d51942afd775959aa7"
+}
