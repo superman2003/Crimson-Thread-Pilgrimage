@@ -4,8 +4,9 @@
 Scans the runtime scripts for text colours written as a literal and fails on
 any that is not listed in EXEMPT with the reason it stays:
 
-- add_theme_color_override("font_color" | "default_color", <expr>)
-  (Label / Button text and RichTextLabel body text);
+- add_theme_color_override(<text key>, <expr>) and Theme.set_color(<text key>,
+  <type>, <expr>), where a text key is font_color and its per-state forms
+  (font_hover_color, font_disabled_color, ...), default_color or title_color;
 - the interface's _label(..., <colour>) helper.
 
 Calls are read whole, so one formatted over several lines is still checked.
@@ -19,11 +20,17 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / 'godot' / 'scripts'
 # Not shipped UI: validations, captures, fixtures and previews.
 SKIP = re.compile(r'(validation|capture|fixture|probe|preview|_test|showcase)')
-TEXT_KEYS = ('font_color', 'default_color')
+# Every theme colour that paints text: base, per-state (font_hover_color,
+# font_disabled_color, ...), RichTextLabel body and window titles. Shadows and
+# outlines sit behind the text and are left alone.
+TEXT_KEY = re.compile(r'^(?:font(?:_[a-z]+)*_color|default_color|title_color)$')
+NOT_TEXT = ('font_shadow_color', 'font_outline_color')
 OVERRIDE = re.compile(r'add_theme_color_override\(')
+# Theme.set_color(name, theme_type, colour)
+SET_COLOR = re.compile(r'\.set_color\(')
 LABEL = re.compile(r'(?<![A-Za-z0-9_])_label\(')
 # Color("abc"), Color("#abc"), Color(0.5, ...), Color(.5, ...), Color8(...), Color.html(...)
-LITERAL = re.compile(r'Color8?\(\s*(?:"#?[0-9a-fA-F]+"|[0-9.])|Color\.html\(')
+LITERAL = re.compile(r'Color8?\(\s*(?:"#?[0-9a-fA-F]+"|[0-9.])|Color\.(?:html|hex|hex64|from_[a-z0-9_]+)\(')
 # (file, text the expression must contain): one specific call, never a whole file.
 EXEMPT = {
     ('main_level.gd', 'if current else (Color(0.86, 0.94, 0.80) if visited else'):
@@ -64,12 +71,21 @@ def call_arguments(text, start):
     return args
 
 
+def text_key(argument):
+    name = argument.lstrip('&').strip('"\'')
+    return bool(TEXT_KEY.match(name)) and name not in NOT_TEXT
+
+
 def text_colours(source):
     """Yield (line number, colour expression) for every text colour set in source."""
     for match in OVERRIDE.finditer(source):
         args = call_arguments(source, match.end())
-        if len(args) >= 2 and args[0].lstrip('&').strip('"\'') in TEXT_KEYS:
+        if len(args) >= 2 and text_key(args[0]):
             yield source.count('\n', 0, match.start()) + 1, args[1]
+    for match in SET_COLOR.finditer(source):
+        args = call_arguments(source, match.end())
+        if len(args) == 3 and text_key(args[0]):
+            yield source.count('\n', 0, match.start()) + 1, args[2]
     for match in LABEL.finditer(source):
         line_start = source.rfind('\n', 0, match.start()) + 1
         if source[line_start:match.start()].lstrip().startswith('func '):
@@ -120,6 +136,14 @@ def self_test():
     assert literals('x.add_theme_color_override(&"font_color", Color("ffffff"))')
     assert not literals('x.add_theme_color_override(&"font_shadow_color", Color("000000"))')
     assert not literals('ui._label(panel,"x",Vector2.ZERO,Vector2.ONE,12,ui.GOLD)')
+    assert literals('x.add_theme_color_override("font_hover_color", Color("ffffff"))')
+    assert literals('x.add_theme_color_override("font_disabled_color", Color.hex(0xffffffff))')
+    assert literals('x.add_theme_color_override("font_color", Color.from_hsv(0.5, 1.0, 1.0))')
+    assert literals('target.set_color("font_color","Button",Color("ffffff"))')
+    assert literals('target.set_color("title_color","Window",Color.from_rgba8(1, 2, 3))')
+    assert not literals('target.set_color("font_hover_color","Button",GOLD)')
+    assert not literals('target.set_color("font_outline_color","Label",Color("000000"))')
+    assert not literals('image.set_color("font_color", Color("ffffff"))')
     assert literals('_label(panel, "a, (b",\n    Vector2.ZERO, Vector2.ONE, 12,\n    Color8(1, 2, 3))')
     assert not literals('x.add_theme_color_override("font_color", SURFACE.GOLD)')
     assert not literals('x.add_theme_color_override("font_color", IVORY if a else GOLD)')
