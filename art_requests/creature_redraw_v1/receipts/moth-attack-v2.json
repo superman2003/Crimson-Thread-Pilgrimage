@@ -1,0 +1,13 @@
+{
+  "kind": "bronze_moth",
+  "clip": "actions_attack_full",
+  "status": "rejected",
+  "reason": "Frame7/8 continuity edit still exceeds unchanged0.5 silhouette guard; full source rejected.",
+  "source_sha256": "75afdfa0bf7ed7fc489c3a3f4559c022ccbbb68a2f61ad9e348a733f6d62749b",
+  "prompt_sha256": "3841eef051c67092f54f08532561b5a1a3ff064e7aa7198b6bd32be2b8f9068c",
+  "reference_sha256": "a263dad8fc124db2ee92dd9f33adc5c52290876257d0a445cebde068f476ccd9",
+  "actual_prompt": "Correct the provided transparent24-frame moth ATTACK sprite sheet, preserving8equal columns by3rows, all24cels, same identity, size, teal/bronze painted detail and transparency. Main correction: transition between frame7(row1column8) and frame8(row2column1) must be smooth. Redraw row1column8 and row2column1 as two closely related interpolating attack poses between row1column7 and row2column2. Keep head, thorax, wing-root and wing-tip positions almost identical between these two corrected cels in local cell coordinates, with a tiny articulated change in mouthpart and legs. Match body center, wing contour and occupied area of adjacent row2column2, no sudden positional or wing-angle change at row boundary. Preserve the attack progression of all other cells and same body proportions. All24cells must remain unique. Fine fur, amber eye, thin antennae, bronze filigree rims and teal membranes. Maintain generous alpha-zero margins, no detached speckles, haze, glow, shadow, background, grid, text or added objects. Transparent RGBA game-ready cutouts.",
+  "reference_recipe": "Render frozen full attack guide; additionally use accepted sources/bronze_moth/actions_moth_dust_windup_full.png (SHA in registered job) as anatomy/wing-root/style reference only. Revised by image_gen using rejected candidate exec-49fe0942-8c2c-4500-b030-009d9e064fa9.png to correct frame7/8 row-boundary continuity; original SHA retained in moth-attack-v1 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/bronze_moth-actions-attack-full.json",
+  "guide_sha256": "edd3d81b57993df96334af0cb986cfecf76d2b8bb38cbc6aca33f228f96c2e52"
+}

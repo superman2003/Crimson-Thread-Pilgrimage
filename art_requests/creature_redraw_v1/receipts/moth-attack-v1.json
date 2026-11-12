@@ -1,0 +1,13 @@
+{
+  "kind": "bronze_moth",
+  "clip": "actions_attack_full",
+  "status": "rejected",
+  "reason": "Full attack frame7 to8 silhouette jump0.5249 exceeds unchanged0.5 guard; revise row2cell1 continuity.",
+  "source_sha256": "fa5be849667c7e960d13129f534291e1779a35750e7577519b987b1045834a4d",
+  "prompt_sha256": "cfbe3dd321781f5ddab12794351243997c19097de4b496b9dd8aedde6c6479f7",
+  "reference_sha256": "a263dad8fc124db2ee92dd9f33adc5c52290876257d0a445cebde068f476ccd9",
+  "actual_prompt": "Redraw the complete24-frame ATTACK of the exact bronze-and-teal moth creature. Image1 is the frozen original action/identity and EXACT24cell chronological mapping. Image2 is accepted painted anatomy/style and fixed thorax wing-root reference ONLY; do not copy its action. Produce transparent sprite sheet EXACT8 equal columns x3 rows,24 unique complete right-facing cels in row-major order. Dark furry thorax, amber eye without halo, deep teal wing membranes with ornate bronze filigree rims/veins, thin bronze antennae, fine dangling legs and a pointed mouthpart. Attack: first6frames head lowers and forelegs tuck, next6 progressively thrust forelegs/mouthpart toward right with a small head pitch, next6 release/hold, last6 gradually ease toward neutral. Keep thorax and wing roots anchored at same cell center, body mass and head dimensions consistent, restrained progressive wing-angle changes suitable for game's wing-root flap shader. Avoid unrelated alternating up/down wing silhouettes of old guide. Genuine articulated pose changes every frame, no duplicated cels, whole-body scaling, shifting or jitter. Crisp refined painted fur/bronze detail, stable teal coverage and wing dimensions. Entire sprite centered within equal cell, 24px fully transparent margins all sides. TRUE transparent RGBA cutouts ONLY, no background, matte, haze, halo, shadow, glow, particles, text, grid or labels.",
+  "reference_recipe": "Render frozen full attack guide; additionally use accepted sources/bronze_moth/actions_moth_dust_windup_full.png (SHA in registered job) as anatomy/wing-root/style reference only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/bronze_moth-actions-attack-full.json",
+  "guide_sha256": "edd3d81b57993df96334af0cb986cfecf76d2b8bb38cbc6aca33f228f96c2e52"
+}
