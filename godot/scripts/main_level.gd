@@ -4106,6 +4106,7 @@ func _background_jobs() -> Array:
         jobs.append({"method": "_background_landform", "args": [landform]})
     jobs.append({"method": "_background_terrain_warm", "args": []})
     jobs.append({"method": "_background_cave", "args": []})
+    jobs.append({"method": "_background_cave_surface", "args": []})
     jobs.append({"method": "_background_shade", "args": []})
     return jobs
 
@@ -4148,7 +4149,14 @@ func _background_cave() -> void:
         add_child(cave_world)
         cave_world.prefetch = world_prefetch if world_mode else null
         cave_world.region_id = String(config.get("id", ""))
-        cave_world.configure(config, _art_theme_id(), self, world_mode, entry_spawn_override if entry_spawn_override_enabled else active_spawn)
+        cave_world.configure(config, _art_theme_id(), self, world_mode, entry_spawn_override if entry_spawn_override_enabled else active_spawn, true)
+
+
+## Second half of the painted rock: body trim and rim chunks, in a build job of
+## its own so the cave does not take one long frame on a first visit.
+func _background_cave_surface() -> void:
+    if cave_world != null and is_instance_valid(cave_world):
+        cave_world.finish_surface()
 
 
 func _background_shade() -> void:

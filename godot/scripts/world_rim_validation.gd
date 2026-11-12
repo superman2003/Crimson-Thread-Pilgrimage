@@ -64,6 +64,24 @@ func same_geometry(rects: Array[Rect2], label: String) -> void:
     mass.configure(rects, null)
     check(str(mass.rim_descriptors) == str(expected_edges), label + " indexed rims equal the full scan (%d edges)" % expected_edges.size())
     check(str(mass.body_rects) == str(reference_body(rects, expected_edges)), label + " indexed body trim equals the full scan (%d pieces)" % mass.body_rects.size())
+    # W00: the geometry is split over two build jobs and kept for revisits.
+    var again := VISIBLE_ROCK.new()
+    root.add_child(again)
+    again.prepare(rects, null)
+    check(not again.geometry_ready(), label + " prepare alone leaves the second build job pending")
+    var reused: bool = is_same(again.rim_descriptors, mass.rim_descriptors) and is_same(again.body_rects, mass.body_rects) and is_same(again.rim_chunks, mass.rim_chunks)
+    check(reused or rects.is_empty(), label + " a second build of the same rects reuses the stored geometry")
+    again.finish()
+    check(again.geometry_ready() and str(again.rim_descriptors) == str(expected_edges) and str(again.body_rects) == str(mass.body_rects) and again.rim_chunks.size() == mass.rim_chunks.size(), label + " reused geometry equals the first build")
+    var moved: Array[Rect2] = []
+    for rect in rects: moved.append(Rect2(rect.position + Vector2(64, 0), rect.size))
+    var other := VISIBLE_ROCK.new()
+    root.add_child(other)
+    other.configure(moved, null)
+    check(rects.is_empty() or not is_same(other.body_rects, mass.body_rects), label + " different rects never share stored geometry")
+    check(str(other.rim_descriptors) == str(reference_exposed(moved)), label + " shifted rects still equal the full scan")
+    other.free()
+    again.free()
     mass.free()
 
 func run() -> void:
@@ -108,6 +126,11 @@ func run() -> void:
         scene.player.set_physics_process(false)
         for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)
         var mass: Node = scene.cave_world.get_node("PaintedRockMass")
+        var job_names: Array = []
+        for job in scene._region_build_jobs(): job_names.append(String(job.method))
+        var cave_job := job_names.find("_background_cave")
+        check(cave_job >= 0 and cave_job + 1 < job_names.size() and job_names[cave_job + 1] == "_background_cave_surface", id+" the painted rock's second half is the build job right after the cave")
+        check(mass.geometry_ready(), id+" arrives with the painted rock finished")
         var count: int = scene.cave_world.get_node("SolidCaveMass").get_child_count()
         check(not mass.rim_chunks.is_empty(),id+" exposed floor/ceiling descriptors installed")
         var ceiling_count := 0
