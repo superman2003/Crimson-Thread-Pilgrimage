@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "ash_banner_imp",
+  "baseline": "godot/assets/sprites/original_creatures/ash_banner_imp/motion_v8_manifest.json",
+  "baseline_sha256": "4677f55b85c50dda3d37a414f775f19a407305528f011c20e9746f33fe3b80c4",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/ash_banner_imp/walk.png",
+      "sha256": "7f75e7ea383043350a255ef44ffdee0ea89b97e2c0edccc0265cfe2d7769054d",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "286f437f9486f5a49649c17dfde719306f4fee397cb33cd660d953e266c80be3",
+      "reference": {
+        "sha256": "eda7f062e78c5cd1ba9ff3551ba199981c3993b156d296d09ce44b9b6d265650",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 218,
+      "center_x": 210,
+      "ground_y": 257
+    },
+    {
+      "clip": "idle",
+      "count": 8,
+      "grid": [
+        4,
+        2
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/ash_banner_imp/idle.png",
+      "sha256": "e18669138f65ecc4375416fe47df3e0b5b71f2aeb38b4222d1565e3468bf892d",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "3772210204af9f62385124fc6abc50272f908bcb6d8bdccbe05b042eaeb91ae2",
+      "reference": {
+        "sha256": "57b4ffa7696e7e427ebcbc0c7918334e56d8512488884c4646aa89e1b2c2d9aa",
+        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 217,
+      "center_x": 223,
+      "ground_y": 257
+    }
+  ]
+}
