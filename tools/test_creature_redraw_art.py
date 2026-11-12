@@ -105,5 +105,62 @@ class DeliveryContracts(unittest.TestCase):
                 self.assertLessEqual(abs(measured['body_area_ratio']-1),art.BODY_AREA_TOLERANCE,(path.stem,clip))
 
 
+    def test_leg_change_separates_a_sliding_still_from_a_stride(self):
+        import numpy as np
+        def frame(feet):
+            mask = np.zeros((100,100), bool)
+            mask[20:70,30:70] = True
+            for x in feet: mask[70:100,x:x+8] = True
+            return mask
+        still = [frame((34,58)) for _ in range(8)]
+        stride = [frame((34+s,58-s)) for s in (0,6,12,6,0,-6,-12,-6)]
+        self.assertEqual(art.leg_change(still,True),0)
+        self.assertGreater(art.leg_change(stride,True),art.LEG_CHANGE_FLOOR)
+
+    def test_walk_delivery_with_still_legs_is_rejected_unless_it_awaits_a_redraw(self):
+        self.assertIn(('moss_larva','walk'),art.stride_pending())
+        with patch.object(art,'stride_pending',lambda: set()):
+            with self.assertRaisesRegex(ValueError,'legs barely move'):
+                art.build('moss_larva',check=True)
+
+    def test_pending_stride_list_only_holds_walks_that_are_still_below_the_floor(self):
+        import contextlib
+        pending = art.read(art.REQUEST/'stride_pending.json')
+        self.assertEqual(pending['floor'],art.LEG_CHANGE_FLOOR)
+        for row in pending['clips']:
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                art.build(row['kind'],check=True)
+            measured = json.loads(out.getvalue())['leg_change'][row['clip']]
+            self.assertLess(measured,art.LEG_CHANGE_FLOOR,f"{row['kind']} now strides; remove it from stride_pending.json")
+
+
+    def test_a_new_sheet_cannot_inherit_a_legacy_walk_exception(self):
+        key=('moss_larva','walk')
+        old=dict(clip='walk',sha256=art.LEGACY_STRIDE_SOURCES[key])
+        self.assertTrue(art.stride_waived('moss_larva',old))
+        self.assertFalse(art.stride_waived('moss_larva',dict(old,sha256='new static sheet')))
+
+    def test_stride_exception_list_cannot_grow_or_replace_a_pinned_source(self):
+        original=art.read(art.REQUEST/'stride_pending.json')
+        for mutate in ('new_kind','new_source','duplicate'):
+            pending=json.loads(json.dumps(original))
+            if mutate=='new_kind': pending['clips'][0]['kind']='new_creature'
+            if mutate=='new_source': pending['clips'][0]['source_sha256']='new sheet'
+            if mutate=='duplicate': pending['clips'].append(pending['clips'][0])
+            with tempfile.TemporaryDirectory() as folder:
+                request=Path(folder);art.write(request/'stride_pending.json',pending)
+                with patch.object(art,'REQUEST',request), self.assertRaisesRegex(ValueError,'historical stride|historical sources'):
+                    art.stride_pending()
+
+    def test_stride_exception_removal_is_allowed(self):
+        pending=art.read(art.REQUEST/'stride_pending.json')
+        pending['clips']=pending['clips'][1:]
+        with tempfile.TemporaryDirectory() as folder:
+            request=Path(folder);art.write(request/'stride_pending.json',pending)
+            with patch.object(art,'REQUEST',request):
+                self.assertEqual(len(art.stride_pending()),10)
+
+
 if __name__ == '__main__':
     unittest.main()
