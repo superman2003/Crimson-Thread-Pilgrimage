@@ -57,6 +57,14 @@ func _run() -> void:
     await process_frame
     _assert(not _visible_han_labels(scene).is_empty(), "visible map labels include Chinese")
 
+    # Fallback names and messages reach the screen when data carries none
+    # (seven optional pickups have no label): none of them may be English.
+    var source := FileAccess.get_file_as_string("res://scripts/main_level.gd")
+    var english := RegEx.new()
+    english.compile("_toast\\(\\s*\"[A-Za-z]|get\\(\"(label|name|message|ending_message)\",\\s*\"[A-Za-z]|get_meta\\(\"message\",\\s*\"[A-Za-z]")
+    var hit := english.search(source)
+    _assert(hit == null, "world toasts have no English fallback" + ("" if hit == null else ": " + hit.get_string()))
+
     if failures > 0:
         quit(1)
         return

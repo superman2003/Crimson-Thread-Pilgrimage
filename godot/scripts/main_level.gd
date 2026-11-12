@@ -2194,9 +2194,9 @@ func _room_map_copy(room_id: String, field: String, fallback: String) -> String:
 
 func _npc_display_name(data: Dictionary) -> String:
     if data.has("name"):
-        return String(data.get("name", "Wanderer"))
+        return String(data.get("name", "旅人"))
     var role := String(data.get("role", ""))
-    return String(NPC_DISPLAY_NAMES.get(role, "Wanderer"))
+    return String(NPC_DISPLAY_NAMES.get(role, "旅人"))
 
 
 func _npc_dialogue(data: Dictionary) -> Array:
@@ -2255,9 +2255,9 @@ func _show_chapter_entry_message() -> void:
 
 func _boss_display_name(boss_data: Dictionary) -> String:
     if boss_data.has("name"):
-        return String(boss_data.get("name", "Boss"))
+        return String(boss_data.get("name", "守门者"))
     var chapter_boss: Dictionary = current_campaign_chapter.get("boss", {})
-    return String(chapter_boss.get("name", "Boss"))
+    return String(chapter_boss.get("name", "守门者"))
 
 
 func _load_chapter_file_configs() -> Array:
@@ -3351,7 +3351,7 @@ func _refresh_map_overlay() -> void:
         guide = _world_exploration_hint()
         next_step = "金色出口待解锁；蓝色出口已接通 · %s 世界图" % ui_shell._short_binding("inventory")
     map_text.text = "%s  ·  %s  ·  探索 %d/%d  ·  捷径 %d/%d\n目标  %s\n路线  %s  →  %s\n危险  %s\n%s / %s 返回  ·  %s 与附近人物或机关互动" % [
-        String(current_campaign_chapter.get("name", "Moss Bell Court")),
+        String(current_campaign_chapter.get("name", "苔钟庭")),
         _room_name(current_room_id),
         visited_rooms.size(),
         rooms.size(),
@@ -4976,7 +4976,7 @@ func _collectible(data: Dictionary) -> void:
     area.position = _vec2(data.get("position", [0, 0]))
     var collectible_kind := String(data.get("kind", "bell_key"))
     var item_id := String(data.get("item_id", collectible_kind))
-    area.set_meta("message", String(data.get("label", "Bell key acquired.")))
+    area.set_meta("message", String(data.get("label", "取得钟钥。")))
     area.set_meta("kind", collectible_kind)
     area.set_meta("item_id", item_id)
     var amount_value: Variant=data.get("amount",1)
@@ -5006,7 +5006,7 @@ func _collectible(data: Dictionary) -> void:
         var instance_id:=area.get_instance_id()
         world_pickup_leases[instance_id]={"node":weakref(area),"id":String(area.name),"region":String(config.get("id","")),
             "kind":collectible_kind,"item":item_id,"amount":data.get("amount",1),"point":area.position,
-            "ability_name":String(data.get("ability_name",data.get("label",""))),"message":String(data.get("label","Collected."))}
+            "ability_name":String(data.get("ability_name",data.get("label",""))),"message":String(data.get("label","已拾取。"))}
         area.tree_exiting.connect(_forget_world_pickup.bind(instance_id))
     if metsys_bridge != null:
         var room := _room_for_position(area.global_position)
@@ -5018,7 +5018,7 @@ func _make_lever(data: Dictionary) -> Area2D:
     area.name = String(data.get("id", "shortcut_lever"))
     area.position = _vec2(data.get("position", [0, 0]))
     area.set_meta("kind", "lever")
-    area.set_meta("label", String(data.get("label", "Boss Route Control" if _combat_progression_enabled() else "Shortcut Lever")))
+    area.set_meta("label", String(data.get("label", "守门者通路机关" if _combat_progression_enabled() else "捷径拉杆")))
     area.set_meta("object_id", "interactable/" + area.name)
     area.set_meta("requires_keys", int(data.get("requires_keys", max_bells)))
     area.set_meta("shortcut_id", String(data.get("shortcut_id", "")))
@@ -5045,7 +5045,7 @@ func _lever(data: Dictionary) -> void:
     var area := _take_gameplay_prefab("lever", data)
     if area == null: area = _make_lever(data)
     area.set_meta("requires_keys", int(data.get("requires_keys", max_bells)))
-    area.set_meta("label", String(data.get("label", "Boss Route Control" if _combat_progression_enabled() else "Shortcut Lever")))
+    area.set_meta("label", String(data.get("label", "守门者通路机关" if _combat_progression_enabled() else "捷径拉杆")))
     var lever_sprite := area.get_node_or_null("LeverSprite") as Sprite2D
     if lever_sprite != null and _is_shortcut_open(String(data.get("shortcut_id", ""))):
         _apply_original_prop(lever_sprite, "lever_open", 52)
@@ -5100,7 +5100,7 @@ func _chapter_exit(data: Dictionary) -> void:
     area.position = _vec2(data.get("position", [0, 0]))
     var kind := String(data.get("kind", "chapter_exit"))
     area.set_meta("kind", kind)
-    area.set_meta("label", String(data.get("label", "Chapter Exit")))
+    area.set_meta("label", String(data.get("label", "区域出口")))
     area.set_meta("object_id", "interactable/" + area.name)
     area.set_meta("next_runtime_config_id", String(data.get("next_runtime_config_id", "")))
     area.set_meta("next_config_path", String(data.get("next_config_path", "")))
@@ -5153,7 +5153,7 @@ func _make_save_point(data: Dictionary) -> Area2D:
     area.name = String(data.get("id", "save_point"))
     area.position = _vec2(data.get("position", active_spawn))
     area.set_meta("kind", "save_point")
-    area.set_meta("label", String(data.get("label", "Save Point")))
+    area.set_meta("label", String(data.get("label", "钟龛")))
     area.set_meta("hidden", bool(data.get("hidden", false)))
     area.set_meta("object_id", "save_point/" + area.name)
     area.set_meta("activated", false)
@@ -6403,7 +6403,7 @@ func _on_collectible_body_entered_legacy(body: Node, area: Area2D) -> void:
     _play_sfx("pickup")
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
-    _toast(String(area.get_meta("message", "Collected.")))
+    _toast(String(area.get_meta("message", "已拾取。")))
     _spawn_pickup_effect(area.global_position)
     if world_mode:
         world_collected_ids[String(area.name)] = true
@@ -6713,7 +6713,7 @@ func _activate_chapter_exit(area: Area2D) -> void:
         return
     var kind := String(area.get_meta("kind", "chapter_exit"))
     if kind == "ending_exit":
-        win_label.text = String(config.get("ending_message", "ENDING ROUTE OPEN: the silent crown answers."))
+        win_label.text = String(config.get("ending_message", "结局之路已开：无声王冠有了回应。"))
         win_label.visible = true
         _toast("最后的巡礼之路已经开启。")
         return
@@ -6727,7 +6727,7 @@ func _activate_chapter_exit(area: Area2D) -> void:
         audio_director.begin_chapter_transition()
     # 章节切换线音（音频规格 §4.5 env_chapter_transition）：挂 root 不被换场截断。
     _play_sfx_persistent("chapter_transition", -7.0)
-    _toast("Entering " + String(area.get_meta("next_runtime_config_id", "next chapter")) + ".")
+    _toast("前往下一区域。")
     _defer_region_call("_transition_to_next_chapter", [next_config_path])
 
 
@@ -6754,7 +6754,7 @@ func _transition_to_next_chapter(next_config_path: String) -> void:
     var next_config := _load_json(next_config_path)
     var entry_data: Dictionary = next_config.get("entry_from_previous", {})
     var entry_position := _vec2(entry_data.get("position", next_config.get("player_start", [120, 500])))
-    var entry_message := String(entry_data.get("message", "Entering " + String(next_config.get("name", "next chapter")) + "."))
+    var entry_message := String(entry_data.get("message", "进入" + String(next_config.get("name", "下一区域")) + "。"))
     var next_scene: Node = load("res://scenes/Main.tscn").instantiate()
     next_scene.set("config_path", next_config_path)
     next_scene.set("entry_spawn_override_enabled", true)
@@ -6810,7 +6810,7 @@ func _spawn_ending_gates(announce: bool = false) -> void:
         var fallback := anchor + Vector2(-230.0 + 230.0 * float(index), 0.0)
         area.position = _vec2(data.get("position", [fallback.x, fallback.y]))
         area.set_meta("kind", "ending_gate")
-        area.set_meta("label", String(data.get("label", "Ending Gate")))
+        area.set_meta("label", String(data.get("label", "结局之门")))
         area.set_meta("ending", ending)
         area.set_meta("requires", data.get("requires", {}))
         area.set_meta("message", String(data.get("message", "")))
@@ -6951,7 +6951,7 @@ func _activate_ending_gate(area: Area2D) -> void:
     if audio_director != null:
         audio_director.play_stinger(ending)
     if win_label != null:
-        win_label.text = String(area.get_meta("message", "ENDING: " + ending))
+        win_label.text = String(area.get_meta("message", "结局：" + ending))
         win_label.visible = true
     _toast("结局达成：" + String(area.get_meta("label", ending)))
     _refresh_hud()

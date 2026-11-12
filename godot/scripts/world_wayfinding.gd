@@ -2,6 +2,8 @@ extends Node2D
 ## In-world bronze signs and proximity pictograms. No route prose is drawn.
 const COORD := preload("res://scripts/world_coordinates.gd")
 const INK := Color(0.74, 0.77, 0.60)
+## Same layer the proximity pictograms of shrines and people use.
+const CAPTION_Z := 20
 var host: Node
 var area: Area2D
 var symbol := "rest"
@@ -126,15 +128,36 @@ func _draw() -> void:
         draw_polyline(PackedVector2Array([tip-direction*6+normal*5,tip,tip-direction*6-normal*5]),INK,2.5,true)
         if gate_state != "open":
             _icon("lock" if gate_state == "far_side" else "ability",c+Vector2(0,39),0.65)
-    if nearby and not key_hint.is_empty():
-        var font := FONT
-        # Small scene signs keep their interaction key at a readable size.
-        var text_scale := 1.0 / maxf(0.1, minf(scale.x, scale.y))
-        var font_size := ceili(14 * text_scale)
-        var width := font.get_string_size(interaction_caption,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
-        var anchor := c+Vector2(-width/2,-44)
-        draw_style_box(_key_box(),Rect2(anchor-Vector2(6,16)*text_scale,Vector2(width+12*text_scale,23*text_scale)))
-        draw_string(font,anchor,interaction_caption,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,INK)
+    _caption_layer().queue_redraw()
+
+## The sign itself may hang behind the actors (a portal plate is scenery), but
+## the key and caption must stay readable when somebody stands in front of it.
+class Caption extends Node2D:
+    func _draw() -> void:
+        (get_parent() as Node2D).call("_draw_caption", self)
+
+func _caption_layer() -> Node2D:
+    var layer := get_node_or_null("Caption") as Node2D
+    if layer == null:
+        layer = Caption.new()
+        layer.name = "Caption"
+        layer.z_as_relative = false
+        layer.z_index = CAPTION_Z
+        add_child(layer)
+    return layer
+
+func _draw_caption(canvas: Node2D) -> void:
+    if not nearby or key_hint.is_empty():
+        return
+    var c := _sign_center()
+    var font := FONT
+    # Small scene signs keep their interaction key at a readable size.
+    var text_scale := 1.0 / maxf(0.1, minf(scale.x, scale.y))
+    var font_size := ceili(14 * text_scale)
+    var width := font.get_string_size(interaction_caption,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+    var anchor := c+Vector2(-width/2,-44)
+    canvas.draw_style_box(_key_box(),Rect2(anchor-Vector2(6,16)*text_scale,Vector2(width+12*text_scale,23*text_scale)))
+    canvas.draw_string(font,anchor,interaction_caption,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,INK)
 
 func _key_box() -> StyleBoxFlat:
     if _prompt_box!=null:return _prompt_box

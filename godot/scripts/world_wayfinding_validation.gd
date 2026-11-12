@@ -60,6 +60,11 @@ func run() -> void:
     InputMap.action_add_event("interact", event)
     sign._process(0)
     check(sign.key_hint == "E", "proximity key follows remapping")
+    # The plate hangs behind the actors; its key and caption must not.
+    await process_frame
+    var caption: Node2D = sign.get_node_or_null("Caption")
+    check(sign.z_index < 0 and caption != null and not caption.z_as_relative and caption.z_index >= 20 and caption.z_index > scene.player.z_index, "portal caption is drawn in front of whoever stands at the plate")
+    check(caption != null and caption.is_visible_in_tree() and sign.interaction_caption.begins_with("E · "), "portal caption is shown with the key")
     InputMap.action_erase_events("interact")
     for binding in bindings:
         InputMap.action_add_event("interact", binding)
