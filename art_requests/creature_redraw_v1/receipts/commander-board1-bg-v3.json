@@ -1,0 +1,13 @@
+{
+  "kind": "silent_pilgrim_commander",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Common source-cell relayout fixed overlong blade spacing, but regenerated opaque white background; perform background extraction only before geometry/clip validation.",
+  "source_sha256": "0ee726959c0379750ba464bfb92e5b252337af7717d879a72376b1efbce003c6",
+  "prompt_sha256": "69ec7fc7b566a350c6c436d9ebbc2758478d8a6807f4af39188a9199cbdd0745",
+  "reference_sha256": "686fcbf3df90985791aa19d7601255420291d5f10be63af76dbaf0b8bbb8a33b",
+  "actual_prompt": "Re-layout this28-sprite transparent commander repair sheet to give clean cell spacing. EXACT8equal columns x4rows, first28cells occupied, last4empty. Repaint EVERY complete character, cloak AND its one full blade about25percent SMALLER within its SAME cell, using the SAME size reduction for all28sprites so relative anatomical proportions/masses remain consistent. Center each full silhouette in its cell with at least26px COMPLETELY transparent margin on every edge, including long forward blade tips. Cell13(row2col6) blade currently overlaps into next cell; cell14(row2col7) must not contain cropped fragments from the neighboring blade. Reconstruct each whole blade on its own character fully inside its own cell, do not simply preserve clipped fragments. Preserve each original mapped pose, arm/boot/crest/cloth gesture, pale ivory mask/black eyehole, ridged gray crest, dusty lavender wing-like cloak/ivory panels/muted gold trim, dark slender limbs and ONE dark thin saber. No new weapons, poses or objects; every occupied cel unique, clean opaque pale costume inside contours. Last4cells(row4cols5-8) and all gutters fully alpha-zero, no overlap, clipping, shadows or speckles. TRUE transparent RGBA cutouts only, no background, haze, matte, glow, text, grid or labels.",
+  "reference_recipe": "Frozen28-cel actions01 guide; supporting identity zoom is first equal cell(0,0,width//8,height//4) of that frozen guide, resized768x768 with Pillow default; anatomy/detail only. image_gen background extraction of candidate exec-c1bdbe88-749c-421a-95b7-4c14b66a2b3c.png preserving pale commander material/28poses; input SHA in commander-board1-bg-v1 receipt. image_gen relayout of candidate exec-568c6c9d-4b86-402c-9526-53bdf75f09ab.png to keep complete blades within source cells and common scale; input SHA in commander-board1-edge-v2 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/silent_pilgrim_commander-actions-01.json",
+  "guide_sha256": "86912cdfc5db6affa1f3648186fe8a91666937450b2ab2eb5588ffef51abcac7"
+}

@@ -1,0 +1,6739 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "silent_pilgrim_commander",
+  "canvas": [
+    476,
+    272
+  ],
+  "display_height": 226,
+  "visual_scale": 1.1894736842105262,
+  "visual_offset": [
+    0,
+    -78.87278562259306
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 24.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            242,
+            190
+          ],
+          "margin": [
+            136,
+            70,
+            234,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            224,
+            206
+          ],
+          "margin": [
+            134,
+            57,
+            252,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            244,
+            0,
+            246,
+            189
+          ],
+          "margin": [
+            129,
+            71,
+            230,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            230,
+            2,
+            221,
+            205
+          ],
+          "margin": [
+            141,
+            57,
+            255,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            492,
+            0,
+            241,
+            189
+          ],
+          "margin": [
+            141,
+            71,
+            235,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            455,
+            2,
+            221,
+            207
+          ],
+          "margin": [
+            140,
+            55,
+            255,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            735,
+            0,
+            238,
+            191
+          ],
+          "margin": [
+            145,
+            69,
+            238,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            680,
+            2,
+            223,
+            206
+          ],
+          "margin": [
+            138,
+            56,
+            253,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            975,
+            0,
+            242,
+            192
+          ],
+          "margin": [
+            140,
+            68,
+            234,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            907,
+            2,
+            222,
+            206
+          ],
+          "margin": [
+            138,
+            56,
+            254,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1219,
+            0,
+            229,
+            191
+          ],
+          "margin": [
+            147,
+            69,
+            247,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1133,
+            2,
+            224,
+            207
+          ],
+          "margin": [
+            142,
+            55,
+            252,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1450,
+            0,
+            248,
+            190
+          ],
+          "margin": [
+            149,
+            70,
+            228,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1361,
+            2,
+            225,
+            203
+          ],
+          "margin": [
+            140,
+            60,
+            251,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1700,
+            0,
+            235,
+            190
+          ],
+          "margin": [
+            134,
+            70,
+            241,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1590,
+            2,
+            226,
+            204
+          ],
+          "margin": [
+            134,
+            58,
+            250,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 72.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1937,
+            0,
+            248,
+            190
+          ],
+          "margin": [
+            149,
+            70,
+            228,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1820,
+            2,
+            225,
+            205
+          ],
+          "margin": [
+            142,
+            57,
+            251,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2187,
+            0,
+            242,
+            191
+          ],
+          "margin": [
+            146,
+            69,
+            234,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            2,
+            217,
+            228,
+            207
+          ],
+          "margin": [
+            140,
+            55,
+            248,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2431,
+            0,
+            244,
+            192
+          ],
+          "margin": [
+            134,
+            68,
+            232,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            234,
+            217,
+            222,
+            203
+          ],
+          "margin": [
+            138,
+            59,
+            254,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2677,
+            0,
+            223,
+            187
+          ],
+          "margin": [
+            137,
+            73,
+            253,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            460,
+            217,
+            224,
+            201
+          ],
+          "margin": [
+            132,
+            61,
+            252,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2902,
+            0,
+            250,
+            182
+          ],
+          "margin": [
+            127,
+            78,
+            226,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            688,
+            217,
+            233,
+            203
+          ],
+          "margin": [
+            126,
+            59,
+            243,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3154,
+            0,
+            246,
+            184
+          ],
+          "margin": [
+            126,
+            76,
+            230,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            925,
+            217,
+            227,
+            204
+          ],
+          "margin": [
+            134,
+            58,
+            249,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3402,
+            0,
+            247,
+            186
+          ],
+          "margin": [
+            135,
+            74,
+            229,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1156,
+            217,
+            226,
+            202
+          ],
+          "margin": [
+            132,
+            60,
+            250,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3651,
+            0,
+            228,
+            186
+          ],
+          "margin": [
+            131,
+            74,
+            248,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1386,
+            217,
+            225,
+            201
+          ],
+          "margin": [
+            128,
+            61,
+            251,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            194,
+            243,
+            186
+          ],
+          "margin": [
+            127,
+            74,
+            233,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1615,
+            217,
+            218,
+            200
+          ],
+          "margin": [
+            132,
+            62,
+            258,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            245,
+            194,
+            218,
+            185
+          ],
+          "margin": [
+            132,
+            75,
+            258,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            2,
+            432,
+            218,
+            199
+          ],
+          "margin": [
+            133,
+            63,
+            258,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            465,
+            194,
+            250,
+            185
+          ],
+          "margin": [
+            129,
+            75,
+            226,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            224,
+            432,
+            228,
+            204
+          ],
+          "margin": [
+            126,
+            58,
+            248,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            717,
+            194,
+            236,
+            186
+          ],
+          "margin": [
+            122,
+            74,
+            240,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            456,
+            432,
+            219,
+            194
+          ],
+          "margin": [
+            122,
+            69,
+            257,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            955,
+            194,
+            197,
+            188
+          ],
+          "margin": [
+            131,
+            72,
+            279,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            679,
+            432,
+            203,
+            194
+          ],
+          "margin": [
+            131,
+            69,
+            273,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1154,
+            194,
+            217,
+            189
+          ],
+          "margin": [
+            128,
+            71,
+            259,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            886,
+            432,
+            201,
+            192
+          ],
+          "margin": [
+            130,
+            71,
+            275,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1373,
+            194,
+            168,
+            190
+          ],
+          "margin": [
+            150,
+            70,
+            308,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1091,
+            432,
+            197,
+            192
+          ],
+          "margin": [
+            141,
+            71,
+            279,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1543,
+            194,
+            207,
+            190
+          ],
+          "margin": [
+            143,
+            70,
+            269,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1292,
+            432,
+            209,
+            201
+          ],
+          "margin": [
+            146,
+            61,
+            267,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1752,
+            194,
+            256,
+            185
+          ],
+          "margin": [
+            134,
+            75,
+            220,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1505,
+            432,
+            254,
+            195
+          ],
+          "margin": [
+            130,
+            67,
+            222,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2010,
+            194,
+            269,
+            192
+          ],
+          "margin": [
+            124,
+            68,
+            207,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1763,
+            432,
+            254,
+            199
+          ],
+          "margin": [
+            126,
+            63,
+            222,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2281,
+            194,
+            208,
+            195
+          ],
+          "margin": [
+            136,
+            65,
+            268,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            2,
+            644,
+            202,
+            189
+          ],
+          "margin": [
+            137,
+            73,
+            274,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2491,
+            194,
+            198,
+            189
+          ],
+          "margin": [
+            143,
+            71,
+            278,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            208,
+            644,
+            213,
+            196
+          ],
+          "margin": [
+            132,
+            66,
+            263,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2691,
+            194,
+            205,
+            195
+          ],
+          "margin": [
+            136,
+            65,
+            271,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            425,
+            644,
+            225,
+            206
+          ],
+          "margin": [
+            128,
+            56,
+            251,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2898,
+            194,
+            217,
+            195
+          ],
+          "margin": [
+            136,
+            65,
+            259,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            654,
+            644,
+            202,
+            194
+          ],
+          "margin": [
+            136,
+            68,
+            274,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3117,
+            194,
+            206,
+            188
+          ],
+          "margin": [
+            143,
+            72,
+            270,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            860,
+            644,
+            202,
+            192
+          ],
+          "margin": [
+            138,
+            70,
+            274,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3325,
+            194,
+            216,
+            190
+          ],
+          "margin": [
+            137,
+            70,
+            260,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            1652,
+            2,
+            214,
+            194
+          ],
+          "margin": [
+            131,
+            48,
+            262,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            2,
+            204,
+            234,
+            175
+          ],
+          "margin": [
+            120,
+            67,
+            242,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            240,
+            204,
+            233,
+            198
+          ],
+          "margin": [
+            117,
+            44,
+            243,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3804,
+            194,
+            235,
+            178
+          ],
+          "margin": [
+            127,
+            82,
+            241,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1544,
+            644,
+            225,
+            200
+          ],
+          "margin": [
+            128,
+            62,
+            251,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            391,
+            242,
+            178
+          ],
+          "margin": [
+            120,
+            82,
+            234,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1773,
+            644,
+            247,
+            211
+          ],
+          "margin": [
+            117,
+            51,
+            229,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            244,
+            391,
+            349,
+            174
+          ],
+          "margin": [
+            109,
+            86,
+            127,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            2,
+            863,
+            281,
+            204
+          ],
+          "margin": [
+            112,
+            58,
+            195,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            288,
+            175
+          ],
+          "margin": [
+            110,
+            78,
+            188,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            294,
+            2,
+            295,
+            173
+          ],
+          "margin": [
+            110,
+            79,
+            181,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            593,
+            2,
+            301,
+            166
+          ],
+          "margin": [
+            102,
+            86,
+            175,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            898,
+            2,
+            318,
+            161
+          ],
+          "margin": [
+            93,
+            91,
+            158,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1220,
+            2,
+            333,
+            161
+          ],
+          "margin": [
+            82,
+            94,
+            143,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1557,
+            2,
+            349,
+            155
+          ],
+          "margin": [
+            72,
+            98,
+            127,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            185,
+            351,
+            140
+          ],
+          "margin": [
+            70,
+            114,
+            125,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            357,
+            185,
+            359,
+            140
+          ],
+          "margin": [
+            65,
+            114,
+            117,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            720,
+            185,
+            363,
+            140
+          ],
+          "margin": [
+            70,
+            113,
+            113,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1087,
+            185,
+            354,
+            141
+          ],
+          "margin": [
+            77,
+            111,
+            122,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1445,
+            185,
+            346,
+            153
+          ],
+          "margin": [
+            77,
+            99,
+            130,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            346,
+            338,
+            160
+          ],
+          "margin": [
+            80,
+            93,
+            138,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            344,
+            346,
+            326,
+            165
+          ],
+          "margin": [
+            82,
+            88,
+            150,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            674,
+            346,
+            324,
+            175
+          ],
+          "margin": [
+            82,
+            78,
+            152,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1002,
+            346,
+            309,
+            188
+          ],
+          "margin": [
+            83,
+            64,
+            167,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1315,
+            346,
+            305,
+            200
+          ],
+          "margin": [
+            87,
+            53,
+            171,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1624,
+            346,
+            295,
+            198
+          ],
+          "margin": [
+            95,
+            54,
+            181,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            554,
+            286,
+            200
+          ],
+          "margin": [
+            97,
+            54,
+            190,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            292,
+            554,
+            288,
+            203
+          ],
+          "margin": [
+            97,
+            51,
+            188,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            584,
+            554,
+            285,
+            203
+          ],
+          "margin": [
+            97,
+            51,
+            191,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            873,
+            554,
+            286,
+            193
+          ],
+          "margin": [
+            90,
+            61,
+            190,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1163,
+            554,
+            286,
+            191
+          ],
+          "margin": [
+            90,
+            61,
+            190,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1453,
+            554,
+            283,
+            188
+          ],
+          "margin": [
+            90,
+            66,
+            193,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1740,
+            554,
+            275,
+            188
+          ],
+          "margin": [
+            93,
+            66,
+            201,
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            272,
+            571,
+            258,
+            164
+          ],
+          "margin": [
+            136,
+            96,
+            218,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            2,
+            1268,
+            248,
+            185
+          ],
+          "margin": [
+            130,
+            77,
+            228,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            532,
+            571,
+            266,
+            172
+          ],
+          "margin": [
+            128,
+            88,
+            210,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            254,
+            1268,
+            237,
+            178
+          ],
+          "margin": [
+            134,
+            85,
+            239,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            800,
+            571,
+            232,
+            175
+          ],
+          "margin": [
+            144,
+            85,
+            244,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            495,
+            1268,
+            210,
+            177
+          ],
+          "margin": [
+            148,
+            86,
+            266,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1034,
+            571,
+            219,
+            170
+          ],
+          "margin": [
+            153,
+            90,
+            257,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            709,
+            1268,
+            205,
+            183
+          ],
+          "margin": [
+            152,
+            80,
+            271,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1255,
+            571,
+            224,
+            172
+          ],
+          "margin": [
+            148,
+            88,
+            252,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            918,
+            1268,
+            212,
+            183
+          ],
+          "margin": [
+            146,
+            81,
+            264,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1481,
+            571,
+            251,
+            171
+          ],
+          "margin": [
+            131,
+            89,
+            225,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1134,
+            1268,
+            209,
+            174
+          ],
+          "margin": [
+            140,
+            88,
+            267,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1734,
+            571,
+            239,
+            162
+          ],
+          "margin": [
+            141,
+            98,
+            237,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1347,
+            1268,
+            209,
+            162
+          ],
+          "margin": [
+            150,
+            99,
+            267,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1975,
+            571,
+            247,
+            169
+          ],
+          "margin": [
+            134,
+            91,
+            229,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1560,
+            1268,
+            214,
+            180
+          ],
+          "margin": [
+            148,
+            84,
+            262,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2224,
+            571,
+            227,
+            170
+          ],
+          "margin": [
+            151,
+            90,
+            249,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            1080,
+            2,
+            182,
+            164
+          ],
+          "margin": [
+            159,
+            92,
+            294,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            1266,
+            2,
+            200,
+            164
+          ],
+          "margin": [
+            151,
+            88,
+            276,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            1470,
+            2,
+            178,
+            162
+          ],
+          "margin": [
+            161,
+            92,
+            298,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2668,
+            571,
+            242,
+            180
+          ],
+          "margin": [
+            141,
+            80,
+            234,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            214,
+            1461,
+            226,
+            187
+          ],
+          "margin": [
+            139,
+            75,
+            250,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2912,
+            571,
+            242,
+            188
+          ],
+          "margin": [
+            137,
+            72,
+            234,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            444,
+            1461,
+            233,
+            189
+          ],
+          "margin": [
+            130,
+            73,
+            243,
+            83
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3156,
+            571,
+            238,
+            124
+          ],
+          "margin": [
+            142,
+            136,
+            238,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            681,
+            1461,
+            198,
+            128
+          ],
+          "margin": [
+            159,
+            133,
+            278,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3396,
+            571,
+            238,
+            120
+          ],
+          "margin": [
+            153,
+            140,
+            238,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            883,
+            1461,
+            234,
+            138
+          ],
+          "margin": [
+            138,
+            124,
+            242,
+            134
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3636,
+            571,
+            194,
+            188
+          ],
+          "margin": [
+            192,
+            72,
+            282,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1121,
+            1461,
+            176,
+            173
+          ],
+          "margin": [
+            190,
+            88,
+            300,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3832,
+            571,
+            233,
+            145
+          ],
+          "margin": [
+            151,
+            115,
+            243,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1301,
+            1461,
+            193,
+            143
+          ],
+          "margin": [
+            175,
+            118,
+            283,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            761,
+            228,
+            90
+          ],
+          "margin": [
+            186,
+            170,
+            248,
+            182
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1498,
+            1461,
+            189,
+            89
+          ],
+          "margin": [
+            179,
+            172,
+            287,
+            183
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            230,
+            761,
+            216,
+            61
+          ],
+          "margin": [
+            143,
+            199,
+            260,
+            211
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1691,
+            1461,
+            205,
+            73
+          ],
+          "margin": [
+            147,
+            188,
+            271,
+            199
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            448,
+            761,
+            228,
+            218
+          ],
+          "margin": [
+            139,
+            42,
+            248,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            2,
+            1658,
+            217,
+            228
+          ],
+          "margin": [
+            132,
+            34,
+            259,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            678,
+            761,
+            228,
+            225
+          ],
+          "margin": [
+            135,
+            35,
+            248,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            223,
+            1658,
+            213,
+            230
+          ],
+          "margin": [
+            135,
+            32,
+            263,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            908,
+            761,
+            217,
+            225
+          ],
+          "margin": [
+            139,
+            35,
+            259,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            440,
+            1658,
+            197,
+            211
+          ],
+          "margin": [
+            141,
+            51,
+            279,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1127,
+            761,
+            184,
+            217
+          ],
+          "margin": [
+            153,
+            43,
+            292,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            641,
+            1658,
+            187,
+            225
+          ],
+          "margin": [
+            150,
+            37,
+            289,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1313,
+            761,
+            189,
+            209
+          ],
+          "margin": [
+            150,
+            51,
+            287,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1710,
+            1590,
+            172,
+            203
+          ],
+          "margin": [
+            161,
+            54,
+            304,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            1801,
+            192,
+            159
+          ],
+          "margin": [
+            159,
+            97,
+            284,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            198,
+            1801,
+            218,
+            157
+          ],
+          "margin": [
+            150,
+            100,
+            258,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1779,
+            761,
+            239,
+            172
+          ],
+          "margin": [
+            149,
+            88,
+            237,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1255,
+            1658,
+            234,
+            185
+          ],
+          "margin": [
+            146,
+            77,
+            242,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2020,
+            761,
+            249,
+            174
+          ],
+          "margin": [
+            141,
+            86,
+            227,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1493,
+            1658,
+            255,
+            194
+          ],
+          "margin": [
+            135,
+            68,
+            221,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2271,
+            761,
+            275,
+            170
+          ],
+          "margin": [
+            112,
+            90,
+            201,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+          "region": [
+            1752,
+            1658,
+            256,
+            186
+          ],
+          "margin": [
+            124,
+            76,
+            220,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2548,
+            761,
+            236,
+            157
+          ],
+          "margin": [
+            139,
+            103,
+            240,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            420,
+            1801,
+            218,
+            144
+          ],
+          "margin": [
+            146,
+            111,
+            258,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            642,
+            1801,
+            225,
+            128
+          ],
+          "margin": [
+            140,
+            128,
+            251,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            871,
+            1801,
+            215,
+            120
+          ],
+          "margin": [
+            147,
+            138,
+            261,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1090,
+            1801,
+            171,
+            175
+          ],
+          "margin": [
+            151,
+            82,
+            305,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1265,
+            1801,
+            175,
+            162
+          ],
+          "margin": [
+            145,
+            95,
+            301,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            819,
+            1167,
+            142,
+            190
+          ],
+          "margin": [
+            173,
+            76,
+            334,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            965,
+            1167,
+            142,
+            189
+          ],
+          "margin": [
+            166,
+            76,
+            334,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1111,
+            1167,
+            138,
+            198
+          ],
+          "margin": [
+            168,
+            66,
+            338,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1253,
+            1167,
+            145,
+            195
+          ],
+          "margin": [
+            162,
+            64,
+            331,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1402,
+            1167,
+            197,
+            146
+          ],
+          "margin": [
+            160,
+            113,
+            279,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1603,
+            1167,
+            194,
+            150
+          ],
+          "margin": [
+            152,
+            110,
+            282,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1801,
+            1167,
+            216,
+            142
+          ],
+          "margin": [
+            155,
+            118,
+            260,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            1392,
+            216,
+            143
+          ],
+          "margin": [
+            157,
+            116,
+            260,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            222,
+            1392,
+            218,
+            140
+          ],
+          "margin": [
+            153,
+            118,
+            258,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            444,
+            1392,
+            177,
+            190
+          ],
+          "margin": [
+            152,
+            68,
+            299,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            625,
+            1392,
+            255,
+            138
+          ],
+          "margin": [
+            134,
+            120,
+            221,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            884,
+            1392,
+            249,
+            169
+          ],
+          "margin": [
+            134,
+            89,
+            227,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1137,
+            1392,
+            259,
+            135
+          ],
+          "margin": [
+            139,
+            123,
+            217,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1400,
+            1392,
+            241,
+            143
+          ],
+          "margin": [
+            144,
+            115,
+            235,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1645,
+            1392,
+            234,
+            133
+          ],
+          "margin": [
+            149,
+            125,
+            242,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            1590,
+            218,
+            142
+          ],
+          "margin": [
+            157,
+            116,
+            258,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            224,
+            1590,
+            171,
+            169
+          ],
+          "margin": [
+            163,
+            92,
+            305,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            399,
+            1590,
+            168,
+            172
+          ],
+          "margin": [
+            165,
+            87,
+            308,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            571,
+            1590,
+            176,
+            164
+          ],
+          "margin": [
+            157,
+            95,
+            300,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            751,
+            1590,
+            168,
+            169
+          ],
+          "margin": [
+            162,
+            89,
+            308,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            923,
+            1590,
+            168,
+            176
+          ],
+          "margin": [
+            157,
+            84,
+            308,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1095,
+            1590,
+            181,
+            179
+          ],
+          "margin": [
+            153,
+            81,
+            295,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1280,
+            1590,
+            211,
+            140
+          ],
+          "margin": [
+            140,
+            118,
+            265,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1495,
+            1590,
+            211,
+            143
+          ],
+          "margin": [
+            142,
+            116,
+            265,
+            129
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1824,
+            988,
+            206,
+            240
+          ],
+          "margin": [
+            156,
+            20,
+            270,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1333,
+            233,
+            231,
+            197
+          ],
+          "margin": [
+            136,
+            65,
+            245,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2032,
+            988,
+            217,
+            247
+          ],
+          "margin": [
+            150,
+            13,
+            259,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1568,
+            233,
+            223,
+            241
+          ],
+          "margin": [
+            141,
+            21,
+            253,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2251,
+            988,
+            188,
+            248
+          ],
+          "margin": [
+            155,
+            12,
+            288,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1795,
+            233,
+            192,
+            249
+          ],
+          "margin": [
+            150,
+            13,
+            284,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2441,
+            988,
+            181,
+            241
+          ],
+          "margin": [
+            161,
+            19,
+            295,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            2,
+            490,
+            190,
+            249
+          ],
+          "margin": [
+            150,
+            13,
+            286,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2624,
+            988,
+            186,
+            244
+          ],
+          "margin": [
+            155,
+            16,
+            290,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            196,
+            490,
+            205,
+            262
+          ],
+          "margin": [
+            142,
+            0,
+            271,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2812,
+            988,
+            236,
+            239
+          ],
+          "margin": [
+            140,
+            21,
+            240,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            405,
+            490,
+            229,
+            252
+          ],
+          "margin": [
+            136,
+            10,
+            247,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3050,
+            988,
+            235,
+            228
+          ],
+          "margin": [
+            146,
+            32,
+            241,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            638,
+            490,
+            225,
+            231
+          ],
+          "margin": [
+            142,
+            31,
+            251,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3287,
+            988,
+            224,
+            223
+          ],
+          "margin": [
+            142,
+            37,
+            252,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            867,
+            490,
+            236,
+            231
+          ],
+          "margin": [
+            136,
+            31,
+            240,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3513,
+            988,
+            248,
+            211
+          ],
+          "margin": [
+            115,
+            49,
+            228,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1582,
+            973,
+            198,
+            184
+          ],
+          "margin": [
+            133,
+            64,
+            278,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1784,
+            973,
+            213,
+            186
+          ],
+          "margin": [
+            130,
+            63,
+            263,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            1167,
+            217,
+            186
+          ],
+          "margin": [
+            121,
+            63,
+            259,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            1238,
+            257,
+            217
+          ],
+          "margin": [
+            113,
+            43,
+            219,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            223,
+            1167,
+            202,
+            176
+          ],
+          "margin": [
+            130,
+            70,
+            274,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            429,
+            1167,
+            195,
+            217
+          ],
+          "margin": [
+            144,
+            33,
+            281,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            628,
+            1167,
+            187,
+            204
+          ],
+          "margin": [
+            145,
+            42,
+            289,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            470,
+            1238,
+            212,
+            245
+          ],
+          "margin": [
+            154,
+            15,
+            264,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            2,
+            760,
+            202,
+            213
+          ],
+          "margin": [
+            151,
+            49,
+            274,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            684,
+            1238,
+            196,
+            229
+          ],
+          "margin": [
+            157,
+            31,
+            280,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            765,
+            186,
+            184
+          ],
+          "margin": [
+            146,
+            70,
+            290,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            192,
+            765,
+            189,
+            186
+          ],
+          "margin": [
+            144,
+            66,
+            287,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            385,
+            765,
+            198,
+            189
+          ],
+          "margin": [
+            140,
+            66,
+            278,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            587,
+            765,
+            206,
+            186
+          ],
+          "margin": [
+            150,
+            68,
+            270,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            797,
+            765,
+            186,
+            184
+          ],
+          "margin": [
+            150,
+            70,
+            290,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1317,
+            1238,
+            206,
+            183
+          ],
+          "margin": [
+            158,
+            77,
+            270,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            870,
+            760,
+            229,
+            235
+          ],
+          "margin": [
+            140,
+            27,
+            247,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1525,
+            1238,
+            292,
+            181
+          ],
+          "margin": [
+            126,
+            79,
+            184,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            987,
+            765,
+            195,
+            200
+          ],
+          "margin": [
+            147,
+            55,
+            281,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1186,
+            765,
+            255,
+            164
+          ],
+          "margin": [
+            135,
+            92,
+            221,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1445,
+            765,
+            193,
+            197
+          ],
+          "margin": [
+            153,
+            59,
+            283,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2094,
+            1238,
+            309,
+            195
+          ],
+          "margin": [
+            115,
+            65,
+            167,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1573,
+            760,
+            224,
+            207
+          ],
+          "margin": [
+            141,
+            55,
+            252,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2405,
+            1238,
+            192,
+            208
+          ],
+          "margin": [
+            156,
+            52,
+            284,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1801,
+            760,
+            219,
+            192
+          ],
+          "margin": [
+            144,
+            70,
+            257,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2599,
+            1238,
+            198,
+            216
+          ],
+          "margin": [
+            160,
+            44,
+            278,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            2,
+            1013,
+            215,
+            191
+          ],
+          "margin": [
+            147,
+            72,
+            261,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2799,
+            1238,
+            184,
+            205
+          ],
+          "margin": [
+            158,
+            55,
+            292,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            221,
+            1013,
+            275,
+            203
+          ],
+          "margin": [
+            118,
+            59,
+            201,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2985,
+            1238,
+            289,
+            189
+          ],
+          "margin": [
+            116,
+            71,
+            187,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            500,
+            1013,
+            255,
+            208
+          ],
+          "margin": [
+            119,
+            54,
+            221,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3276,
+            1238,
+            196,
+            144
+          ],
+          "margin": [
+            176,
+            116,
+            280,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            759,
+            1013,
+            201,
+            156
+          ],
+          "margin": [
+            158,
+            105,
+            275,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3474,
+            1238,
+            204,
+            147
+          ],
+          "margin": [
+            165,
+            113,
+            272,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            964,
+            1013,
+            218,
+            177
+          ],
+          "margin": [
+            150,
+            87,
+            258,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3680,
+            1238,
+            232,
+            144
+          ],
+          "margin": [
+            149,
+            116,
+            244,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1186,
+            1013,
+            222,
+            158
+          ],
+          "margin": [
+            146,
+            104,
+            254,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            1485,
+            219,
+            133
+          ],
+          "margin": [
+            156,
+            127,
+            257,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1412,
+            1013,
+            230,
+            152
+          ],
+          "margin": [
+            135,
+            111,
+            246,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            221,
+            1485,
+            240,
+            141
+          ],
+          "margin": [
+            133,
+            119,
+            236,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1646,
+            1013,
+            242,
+            161
+          ],
+          "margin": [
+            120,
+            101,
+            234,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            463,
+            1485,
+            234,
+            141
+          ],
+          "margin": [
+            125,
+            119,
+            242,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            2,
+            1229,
+            221,
+            143
+          ],
+          "margin": [
+            116,
+            121,
+            255,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            699,
+            1485,
+            217,
+            136
+          ],
+          "margin": [
+            122,
+            124,
+            259,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            227,
+            1229,
+            245,
+            137
+          ],
+          "margin": [
+            118,
+            125,
+            231,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            918,
+            1485,
+            237,
+            142
+          ],
+          "margin": [
+            131,
+            118,
+            239,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            476,
+            1229,
+            246,
+            152
+          ],
+          "margin": [
+            139,
+            110,
+            230,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1157,
+            1485,
+            288,
+            139
+          ],
+          "margin": [
+            142,
+            121,
+            188,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            726,
+            1229,
+            275,
+            136
+          ],
+          "margin": [
+            150,
+            126,
+            201,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1447,
+            1485,
+            260,
+            133
+          ],
+          "margin": [
+            176,
+            127,
+            216,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1005,
+            1229,
+            270,
+            136
+          ],
+          "margin": [
+            160,
+            126,
+            206,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1709,
+            1485,
+            274,
+            138
+          ],
+          "margin": [
+            166,
+            122,
+            202,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1279,
+            1229,
+            263,
+            143
+          ],
+          "margin": [
+            156,
+            119,
+            213,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1985,
+            1485,
+            173,
+            138
+          ],
+          "margin": [
+            166,
+            122,
+            303,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1546,
+            1229,
+            174,
+            136
+          ],
+          "margin": [
+            165,
+            126,
+            302,
+            136
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1444,
+            1801,
+            162,
+            132
+          ],
+          "margin": [
+            159,
+            116,
+            314,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1610,
+            1801,
+            173,
+            125
+          ],
+          "margin": [
+            157,
+            123,
+            303,
+            147
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2314,
+            1485,
+            175,
+            142
+          ],
+          "margin": [
+            158,
+            118,
+            301,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            2,
+            1389,
+            187,
+            141
+          ],
+          "margin": [
+            154,
+            121,
+            289,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2491,
+            1485,
+            230,
+            145
+          ],
+          "margin": [
+            159,
+            115,
+            246,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            193,
+            1389,
+            253,
+            136
+          ],
+          "margin": [
+            148,
+            126,
+            223,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2723,
+            1485,
+            221,
+            143
+          ],
+          "margin": [
+            161,
+            117,
+            255,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            450,
+            1389,
+            247,
+            143
+          ],
+          "margin": [
+            146,
+            119,
+            229,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2946,
+            1485,
+            226,
+            145
+          ],
+          "margin": [
+            152,
+            115,
+            250,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            701,
+            1389,
+            193,
+            159
+          ],
+          "margin": [
+            132,
+            103,
+            283,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3174,
+            1485,
+            288,
+            141
+          ],
+          "margin": [
+            121,
+            119,
+            188,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1787,
+            1801,
+            195,
+            132
+          ],
+          "margin": [
+            137,
+            119,
+            281,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            2,
+            2,
+            255,
+            129
+          ],
+          "margin": [
+            124,
+            119,
+            221,
+            143
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            261,
+            2,
+            189,
+            132
+          ],
+          "margin": [
+            134,
+            119,
+            287,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3718,
+            1485,
+            288,
+            142
+          ],
+          "margin": [
+            124,
+            118,
+            188,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1315,
+            1389,
+            246,
+            153
+          ],
+          "margin": [
+            141,
+            109,
+            230,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            1632,
+            205,
+            150
+          ],
+          "margin": [
+            158,
+            110,
+            271,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1565,
+            1389,
+            229,
+            144
+          ],
+          "margin": [
+            162,
+            118,
+            247,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            207,
+            1632,
+            201,
+            151
+          ],
+          "margin": [
+            175,
+            109,
+            275,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1798,
+            1389,
+            231,
+            148
+          ],
+          "margin": [
+            162,
+            114,
+            245,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            410,
+            1632,
+            221,
+            163
+          ],
+          "margin": [
+            156,
+            97,
+            255,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            2,
+            1556,
+            264,
+            171
+          ],
+          "margin": [
+            148,
+            91,
+            212,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            633,
+            1632,
+            259,
+            167
+          ],
+          "margin": [
+            135,
+            93,
+            217,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            270,
+            1556,
+            270,
+            164
+          ],
+          "margin": [
+            138,
+            98,
+            206,
+            108
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            894,
+            1632,
+            271,
+            201
+          ],
+          "margin": [
+            141,
+            59,
+            205,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            544,
+            1556,
+            292,
+            198
+          ],
+          "margin": [
+            132,
+            64,
+            184,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1167,
+            1632,
+            265,
+            192
+          ],
+          "margin": [
+            144,
+            68,
+            211,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            840,
+            1556,
+            276,
+            199
+          ],
+          "margin": [
+            131,
+            63,
+            200,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1434,
+            1632,
+            263,
+            164
+          ],
+          "margin": [
+            143,
+            96,
+            213,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1120,
+            1556,
+            260,
+            187
+          ],
+          "margin": [
+            139,
+            75,
+            216,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1699,
+            1632,
+            276,
+            177
+          ],
+          "margin": [
+            137,
+            83,
+            200,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1384,
+            1556,
+            257,
+            189
+          ],
+          "margin": [
+            135,
+            73,
+            219,
+            83
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1977,
+            1632,
+            290,
+            215
+          ],
+          "margin": [
+            118,
+            45,
+            186,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1645,
+            1556,
+            305,
+            221
+          ],
+          "margin": [
+            106,
+            41,
+            171,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2269,
+            1632,
+            269,
+            178
+          ],
+          "margin": [
+            133,
+            82,
+            207,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            2,
+            1785,
+            260,
+            181
+          ],
+          "margin": [
+            124,
+            81,
+            216,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2540,
+            1632,
+            258,
+            158
+          ],
+          "margin": [
+            133,
+            102,
+            218,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            266,
+            1785,
+            243,
+            177
+          ],
+          "margin": [
+            134,
+            87,
+            233,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2800,
+            1632,
+            264,
+            175
+          ],
+          "margin": [
+            132,
+            85,
+            212,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            513,
+            1785,
+            236,
+            177
+          ],
+          "margin": [
+            140,
+            86,
+            240,
+            95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_bridge",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3066,
+            1632,
+            251,
+            180
+          ],
+          "margin": [
+            151,
+            80,
+            225,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            753,
+            1785,
+            252,
+            188
+          ],
+          "margin": [
+            146,
+            74,
+            224,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3319,
+            1632,
+            269,
+            167
+          ],
+          "margin": [
+            144,
+            93,
+            207,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1009,
+            1785,
+            244,
+            180
+          ],
+          "margin": [
+            142,
+            83,
+            232,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3590,
+            1632,
+            257,
+            177
+          ],
+          "margin": [
+            138,
+            83,
+            219,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1257,
+            1785,
+            247,
+            179
+          ],
+          "margin": [
+            133,
+            83,
+            229,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3849,
+            1632,
+            247,
+            160
+          ],
+          "margin": [
+            131,
+            100,
+            229,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1508,
+            1785,
+            239,
+            172
+          ],
+          "margin": [
+            134,
+            90,
+            237,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            1849,
+            258,
+            164
+          ],
+          "margin": [
+            136,
+            96,
+            218,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png",
+          "region": [
+            1751,
+            1785,
+            251,
+            181
+          ],
+          "margin": [
+            135,
+            81,
+            225,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            260,
+            1849,
+            273,
+            173
+          ],
+          "margin": [
+            126,
+            87,
+            203,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            2,
+            2,
+            249,
+            185
+          ],
+          "margin": [
+            138,
+            77,
+            227,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            535,
+            1849,
+            229,
+            173
+          ],
+          "margin": [
+            145,
+            87,
+            247,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1642,
+            765,
+            203,
+            131
+          ],
+          "margin": [
+            152,
+            128,
+            273,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            2,
+            973,
+            212,
+            157
+          ],
+          "margin": [
+            152,
+            102,
+            264,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            218,
+            973,
+            198,
+            157
+          ],
+          "margin": [
+            153,
+            102,
+            278,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            987,
+            1849,
+            231,
+            174
+          ],
+          "margin": [
+            146,
+            86,
+            245,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            711,
+            2,
+            242,
+            178
+          ],
+          "margin": [
+            138,
+            84,
+            234,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1220,
+            1849,
+            263,
+            172
+          ],
+          "margin": [
+            126,
+            88,
+            213,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            420,
+            973,
+            189,
+            158
+          ],
+          "margin": [
+            148,
+            101,
+            287,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            613,
+            973,
+            193,
+            160
+          ],
+          "margin": [
+            150,
+            99,
+            283,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            810,
+            973,
+            189,
+            155
+          ],
+          "margin": [
+            157,
+            77,
+            287,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1726,
+            1849,
+            257,
+            170
+          ],
+          "margin": [
+            129,
+            90,
+            219,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1419,
+            2,
+            235,
+            178
+          ],
+          "margin": [
+            140,
+            86,
+            241,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1985,
+            1849,
+            226,
+            171
+          ],
+          "margin": [
+            148,
+            89,
+            250,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1003,
+            973,
+            188,
+            153
+          ],
+          "margin": [
+            161,
+            77,
+            288,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1195,
+            973,
+            191,
+            155
+          ],
+          "margin": [
+            160,
+            76,
+            285,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_00.png",
+          "region": [
+            1390,
+            973,
+            188,
+            157
+          ],
+          "margin": [
+            166,
+            74,
+            288,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2428,
+            1849,
+            238,
+            181
+          ],
+          "margin": [
+            139,
+            79,
+            238,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            229,
+            195,
+            244,
+            194
+          ],
+          "margin": [
+            132,
+            68,
+            232,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2668,
+            1849,
+            237,
+            188
+          ],
+          "margin": [
+            136,
+            72,
+            239,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            477,
+            195,
+            242,
+            192
+          ],
+          "margin": [
+            128,
+            70,
+            234,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2907,
+            1849,
+            258,
+            164
+          ],
+          "margin": [
+            136,
+            96,
+            218,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            723,
+            195,
+            249,
+            197
+          ],
+          "margin": [
+            128,
+            65,
+            227,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3167,
+            1849,
+            270,
+            173
+          ],
+          "margin": [
+            129,
+            87,
+            206,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            976,
+            195,
+            250,
+            202
+          ],
+          "margin": [
+            132,
+            60,
+            226,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3439,
+            1849,
+            244,
+            175
+          ],
+          "margin": [
+            143,
+            85,
+            232,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1230,
+            195,
+            223,
+            184
+          ],
+          "margin": [
+            144,
+            79,
+            253,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3685,
+            1849,
+            219,
+            170
+          ],
+          "margin": [
+            153,
+            90,
+            257,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1457,
+            195,
+            217,
+            183
+          ],
+          "margin": [
+            148,
+            80,
+            259,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            0,
+            2039,
+            239,
+            174
+          ],
+          "margin": [
+            138,
+            86,
+            237,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1678,
+            195,
+            233,
+            195
+          ],
+          "margin": [
+            136,
+            67,
+            243,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            241,
+            2039,
+            233,
+            172
+          ],
+          "margin": [
+            137,
+            88,
+            243,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            2,
+            405,
+            223,
+            180
+          ],
+          "margin": [
+            140,
+            84,
+            253,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            476,
+            2039,
+            239,
+            162
+          ],
+          "margin": [
+            141,
+            98,
+            237,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            229,
+            405,
+            222,
+            179
+          ],
+          "margin": [
+            142,
+            84,
+            254,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            717,
+            2039,
+            237,
+            170
+          ],
+          "margin": [
+            137,
+            90,
+            239,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            455,
+            405,
+            223,
+            181
+          ],
+          "margin": [
+            142,
+            81,
+            253,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            956,
+            2039,
+            204,
+            171
+          ],
+          "margin": [
+            155,
+            89,
+            272,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            682,
+            405,
+            195,
+            178
+          ],
+          "margin": [
+            162,
+            85,
+            281,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1162,
+            2039,
+            213,
+            165
+          ],
+          "margin": [
+            159,
+            95,
+            263,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            881,
+            405,
+            208,
+            183
+          ],
+          "margin": [
+            152,
+            79,
+            268,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1377,
+            2039,
+            224,
+            181
+          ],
+          "margin": [
+            143,
+            79,
+            252,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1093,
+            405,
+            225,
+            198
+          ],
+          "margin": [
+            140,
+            64,
+            251,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1603,
+            2039,
+            230,
+            188
+          ],
+          "margin": [
+            136,
+            72,
+            246,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1322,
+            405,
+            221,
+            199
+          ],
+          "margin": [
+            138,
+            63,
+            255,
+            73
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            1835,
+            2039,
+            258,
+            164
+          ],
+          "margin": [
+            136,
+            96,
+            218,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1547,
+            405,
+            247,
+            194
+          ],
+          "margin": [
+            128,
+            68,
+            229,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2095,
+            2039,
+            268,
+            173
+          ],
+          "margin": [
+            130,
+            87,
+            208,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1798,
+            405,
+            248,
+            200
+          ],
+          "margin": [
+            131,
+            62,
+            228,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2365,
+            2039,
+            226,
+            175
+          ],
+          "margin": [
+            144,
+            85,
+            250,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            2,
+            613,
+            214,
+            186
+          ],
+          "margin": [
+            152,
+            76,
+            262,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2593,
+            2039,
+            219,
+            170
+          ],
+          "margin": [
+            153,
+            90,
+            257,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            220,
+            613,
+            217,
+            185
+          ],
+          "margin": [
+            148,
+            77,
+            259,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            2814,
+            2039,
+            230,
+            173
+          ],
+          "margin": [
+            144,
+            87,
+            246,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            441,
+            613,
+            225,
+            196
+          ],
+          "margin": [
+            143,
+            66,
+            251,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3046,
+            2039,
+            246,
+            172
+          ],
+          "margin": [
+            129,
+            88,
+            230,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            670,
+            613,
+            221,
+            183
+          ],
+          "margin": [
+            140,
+            79,
+            255,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3294,
+            2039,
+            239,
+            162
+          ],
+          "margin": [
+            141,
+            98,
+            237,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            895,
+            613,
+            229,
+            173
+          ],
+          "margin": [
+            138,
+            91,
+            247,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3535,
+            2039,
+            248,
+            169
+          ],
+          "margin": [
+            131,
+            91,
+            228,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1128,
+            613,
+            232,
+            185
+          ],
+          "margin": [
+            136,
+            77,
+            244,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            3785,
+            2039,
+            227,
+            170
+          ],
+          "margin": [
+            147,
+            90,
+            249,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            454,
+            2,
+            208,
+            156
+          ],
+          "margin": [
+            146,
+            93,
+            268,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            666,
+            2,
+            213,
+            165
+          ],
+          "margin": [
+            146,
+            84,
+            263,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_01.png",
+          "region": [
+            883,
+            2,
+            193,
+            162
+          ],
+          "margin": [
+            151,
+            91,
+            283,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            215,
+            2229,
+            237,
+            181
+          ],
+          "margin": [
+            140,
+            79,
+            239,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1795,
+            613,
+            236,
+            198
+          ],
+          "margin": [
+            132,
+            64,
+            240,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+          "region": [
+            454,
+            2229,
+            251,
+            189
+          ],
+          "margin": [
+            129,
+            71,
+            225,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            2,
+            819,
+            244,
+            197
+          ],
+          "margin": [
+            122,
+            65,
+            232,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "name": "backstep",
+      "fps": 36,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            0,
+            0,
+            222,
+            192
+          ],
+          "margin": [
+            142,
+            68,
+            254,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            250,
+            819,
+            220,
+            204
+          ],
+          "margin": [
+            141,
+            55,
+            256,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            253,
+            0,
+            226,
+            197
+          ],
+          "margin": [
+            143,
+            63,
+            250,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            474,
+            819,
+            222,
+            211
+          ],
+          "margin": [
+            141,
+            48,
+            254,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            506,
+            0,
+            231,
+            199
+          ],
+          "margin": [
+            139,
+            61,
+            245,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            700,
+            819,
+            228,
+            211
+          ],
+          "margin": [
+            136,
+            48,
+            248,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            759,
+            0,
+            241,
+            197
+          ],
+          "margin": [
+            130,
+            63,
+            235,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            932,
+            819,
+            237,
+            207
+          ],
+          "margin": [
+            127,
+            52,
+            239,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            1012,
+            0,
+            248,
+            193
+          ],
+          "margin": [
+            124,
+            67,
+            228,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1173,
+            819,
+            249,
+            210
+          ],
+          "margin": [
+            117,
+            50,
+            227,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            1265,
+            0,
+            249,
+            195
+          ],
+          "margin": [
+            122,
+            65,
+            227,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1426,
+            819,
+            247,
+            208
+          ],
+          "margin": [
+            120,
+            52,
+            229,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            0,
+            218,
+            247,
+            195
+          ],
+          "margin": [
+            118,
+            65,
+            229,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1677,
+            819,
+            245,
+            198
+          ],
+          "margin": [
+            118,
+            62,
+            231,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            253,
+            218,
+            243,
+            197
+          ],
+          "margin": [
+            119,
+            63,
+            233,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            2,
+            1038,
+            242,
+            200
+          ],
+          "margin": [
+            119,
+            60,
+            234,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            506,
+            218,
+            232,
+            196
+          ],
+          "margin": [
+            128,
+            64,
+            244,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            248,
+            1038,
+            235,
+            200
+          ],
+          "margin": [
+            123,
+            60,
+            241,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            759,
+            218,
+            223,
+            198
+          ],
+          "margin": [
+            135,
+            62,
+            253,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            487,
+            1038,
+            228,
+            201
+          ],
+          "margin": [
+            130,
+            59,
+            248,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            1012,
+            218,
+            220,
+            197
+          ],
+          "margin": [
+            137,
+            63,
+            256,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            719,
+            1038,
+            223,
+            204
+          ],
+          "margin": [
+            136,
+            56,
+            253,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            1265,
+            218,
+            218,
+            199
+          ],
+          "margin": [
+            142,
+            61,
+            258,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            946,
+            1038,
+            226,
+            208
+          ],
+          "margin": [
+            139,
+            51,
+            250,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ready_guard",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            0,
+            436,
+            224,
+            211
+          ],
+          "margin": [
+            144,
+            49,
+            252,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1176,
+            1038,
+            231,
+            205
+          ],
+          "margin": [
+            131,
+            54,
+            245,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            253,
+            436,
+            228,
+            211
+          ],
+          "margin": [
+            141,
+            49,
+            248,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1411,
+            1038,
+            228,
+            213
+          ],
+          "margin": [
+            137,
+            46,
+            248,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            506,
+            436,
+            231,
+            214
+          ],
+          "margin": [
+            142,
+            46,
+            245,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1643,
+            1038,
+            230,
+            216
+          ],
+          "margin": [
+            137,
+            44,
+            246,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            759,
+            436,
+            230,
+            213
+          ],
+          "margin": [
+            140,
+            47,
+            246,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            2,
+            1262,
+            225,
+            216
+          ],
+          "margin": [
+            137,
+            44,
+            251,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            1012,
+            436,
+            227,
+            211
+          ],
+          "margin": [
+            141,
+            49,
+            249,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            231,
+            1262,
+            220,
+            212
+          ],
+          "margin": [
+            141,
+            47,
+            256,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            1265,
+            436,
+            222,
+            209
+          ],
+          "margin": [
+            144,
+            51,
+            254,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            455,
+            1262,
+            221,
+            212
+          ],
+          "margin": [
+            142,
+            47,
+            255,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ready_settle",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            0,
+            654,
+            225,
+            205
+          ],
+          "margin": [
+            142,
+            55,
+            251,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            680,
+            1262,
+            222,
+            213
+          ],
+          "margin": [
+            140,
+            46,
+            254,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            253,
+            654,
+            223,
+            202
+          ],
+          "margin": [
+            142,
+            58,
+            253,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            906,
+            1262,
+            219,
+            212
+          ],
+          "margin": [
+            141,
+            47,
+            257,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            506,
+            654,
+            225,
+            199
+          ],
+          "margin": [
+            139,
+            61,
+            251,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1129,
+            1262,
+            218,
+            209
+          ],
+          "margin": [
+            141,
+            50,
+            258,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            759,
+            654,
+            225,
+            198
+          ],
+          "margin": [
+            139,
+            62,
+            251,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1351,
+            1262,
+            215,
+            207
+          ],
+          "margin": [
+            142,
+            52,
+            261,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            1012,
+            654,
+            224,
+            198
+          ],
+          "margin": [
+            140,
+            62,
+            252,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1570,
+            1262,
+            216,
+            208
+          ],
+          "margin": [
+            142,
+            52,
+            260,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/boss_behavior_v1.png",
+          "region": [
+            1265,
+            654,
+            218,
+            198
+          ],
+          "margin": [
+            143,
+            62,
+            258,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png",
+          "region": [
+            1790,
+            1262,
+            212,
+            204
+          ],
+          "margin": [
+            145,
+            57,
+            264,
+            68
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "cast",
+    "cast_recover",
+    "cast_windup",
+    "heavy",
+    "heavy_recover",
+    "heavy_windup",
+    "phase",
+    "phase_recover",
+    "phase_windup",
+    "recover",
+    "windup"
+  ],
+  "behavior_generation_record": "boss_behavior_v1.json",
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "7fa6991cc8cf1ededa017e98b580467c737170a26226df64e1e087993050bdfb",
+    "spec": "art_requests/creature_redraw_v1/jobs/silent_pilgrim_commander.json",
+    "clips": {
+      "heavy_windup": {
+        "mean_change": 0.2542,
+        "max_change": 0.3922,
+        "loop_seam": null,
+        "boil_ratio": 3.535,
+        "unique": 8,
+        "area_ratio": 1.428,
+        "body_area_ratio": 0.98,
+        "registration_scale": 1.640123696,
+        "frames": 8,
+        "target_frames": [
+          9,
+          10,
+          11,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "cast_recover": {
+        "mean_change": 0.2634,
+        "max_change": 0.4711,
+        "loop_seam": null,
+        "boil_ratio": 4.342,
+        "unique": 9,
+        "area_ratio": 1.451,
+        "body_area_ratio": 1.0,
+        "registration_scale": 1.721432812,
+        "frames": 9,
+        "target_frames": [
+          5,
+          6,
+          7,
+          11,
+          12,
+          13,
+          17,
+          18,
+          19
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "cast": {
+        "mean_change": 0.2823,
+        "max_change": 0.3574,
+        "loop_seam": null,
+        "boil_ratio": 4.318,
+        "unique": 8,
+        "area_ratio": 1.475,
+        "body_area_ratio": 1.018,
+        "registration_scale": 1.83744577,
+        "frames": 8,
+        "target_frames": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          11,
+          12,
+          13
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "cast_windup": {
+        "mean_change": 0.3134,
+        "max_change": 0.4491,
+        "loop_seam": null,
+        "boil_ratio": 4.315,
+        "unique": 6,
+        "area_ratio": 1.487,
+        "body_area_ratio": 0.993,
+        "registration_scale": 1.83744577,
+        "frames": 6,
+        "target_frames": [
+          17,
+          18,
+          19,
+          21,
+          22,
+          23
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "phase": {
+        "mean_change": 0.2673,
+        "max_change": 0.3397,
+        "loop_seam": null,
+        "boil_ratio": 4.14,
+        "unique": 5,
+        "area_ratio": 1.611,
+        "body_area_ratio": 1.018,
+        "registration_scale": 1.83744577,
+        "frames": 5,
+        "target_frames": [
+          0,
+          1,
+          11,
+          12,
+          13
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "phase_recover": {
+        "mean_change": 0.1934,
+        "max_change": 0.2462,
+        "loop_seam": null,
+        "boil_ratio": 2.837,
+        "unique": 3,
+        "area_ratio": 1.579,
+        "body_area_ratio": 1.0,
+        "registration_scale": 1.83744577,
+        "frames": 3,
+        "target_frames": [
+          17,
+          18,
+          19
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "recover": {
+        "mean_change": 0.1924,
+        "max_change": 0.2652,
+        "loop_seam": null,
+        "boil_ratio": 2.951,
+        "unique": 3,
+        "area_ratio": 1.612,
+        "body_area_ratio": 1.0,
+        "registration_scale": 1.83744577,
+        "frames": 3,
+        "target_frames": [
+          17,
+          18,
+          19
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "windup": {
+        "mean_change": 0.2777,
+        "max_change": 0.492,
+        "loop_seam": null,
+        "boil_ratio": 4.065,
+        "unique": 3,
+        "area_ratio": 1.452,
+        "body_area_ratio": 1.0,
+        "registration_scale": 0.999305314,
+        "frames": 3,
+        "target_frames": [
+          15,
+          16,
+          17
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "attack": {
+        "mean_change": 0.1719,
+        "max_change": 0.274,
+        "loop_seam": null,
+        "boil_ratio": 2.939,
+        "unique": 24,
+        "area_ratio": 1.222,
+        "body_area_ratio": 1.002,
+        "registration_scale": 1.663939355,
+        "frames": 24,
+        "target_frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      },
+      "heavy": {
+        "mean_change": 0.2519,
+        "max_change": 0.3765,
+        "loop_seam": null,
+        "boil_ratio": 3.397,
+        "unique": 24,
+        "area_ratio": 1.412,
+        "body_area_ratio": 1.001,
+        "registration_scale": 1.626469658,
+        "frames": 24,
+        "target_frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "original_frames": 24,
+        "measurement": "complete_clip_with_unchanged_neighbours"
+      }
+    }
+  }
+}
