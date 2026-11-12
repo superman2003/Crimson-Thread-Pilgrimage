@@ -1,0 +1,13 @@
+{
+  "kind": "obsidian_spearman",
+  "clip": "actions_attack_full",
+  "status": "rejected",
+  "reason": "Visual follow-through corrected but some spear-tip pixels leave frozen rig after unchanged shared-area registration; source needs more uniform headroom.",
+  "source_sha256": "d89ca9e71deabdf75b03d8bb0e15f669f5a72d2453de8ac5d9bb08985af8286b",
+  "prompt_sha256": "1f6e1c61e34e1124caf0956a72dde71a23c82c3091c1d1449f37b62d37520a92",
+  "reference_sha256": "dd6058760f377f7c3eddeaf93fc5f71d87eef9cef6326d5443cf2a17b420c03f",
+  "actual_prompt": "Fix the action in this transparent24-cel black armored insect knight/crimson cape/single red-tipped spear ATTACK sheet. Maintain EXACT8columns3rows. Preserve first16cels' identity, size, feet, cape and natural detail. Repaint the LAST ROW(8cels) into a clear downward spear follow-through, using second image's last-row downward-pointing attack gesture as reference: row3col1 transition from raised spear to forward45degree diagonal; col2 forward-horizontal shaft; col3 tip angles25degrees DOWN toward right; cols4and5 spear tip angles45degrees DOWN toward right, RED BLADE BELOW THE HANDS near knee height and to right of body, rear blunt end points up-left behind hands; col6 ease spear tip back to down-right25degrees; col7 horizontal recovery; col8 forward-up30degree ready. One continuous spear held in both hands, red blade remains at its SAME outward end, do not reverse which end is sharp or add a second blade. Slight corresponding shoulder/elbow/front-knee articulation, stable head/armor/cape mass and feet on identical local ground line. All24poses unique and transitions gradual. Same obsidian armor, swept-back horned helmet/red eye, crimson cape and charcoal limbs. At least35px transparent headroom and24px clear margins all other sides, complete sprites not clipped. TRUE transparent RGBA cutouts only, no background, haze, matte, shadows, glow, detached parts, particles, grid, text or labels.",
+  "reference_recipe": "Frozen full ordinary attack guide plus accepted sources/obsidian_spearman/actions_obsidian_elite_impale_recover_full.png (SHA in job) as anatomy/style and safe framing only. image_gen revised candidate exec-ff79e10c-9193-4a3f-991c-476c6cb15cc0.png final row to restore downward follow-through; input SHA in obsidian-attack-full-v1 receipt, with frozen full attack guide as second input.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/obsidian_spearman-actions-attack-full.json",
+  "guide_sha256": "671442370402658aef6178c3602c2741f5ce722deeaab9298e9bc51cd6ade1f9"
+}
