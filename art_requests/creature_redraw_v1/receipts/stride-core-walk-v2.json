@@ -1,0 +1,11 @@
+{
+  "kind": "silent_crown_core",
+  "clip": "walk",
+  "status": "rejected",
+  "reason": "Body mass stabilized but leg change 0.1493 below 0.15; redraw more articulated leg sweep",
+  "source_sha256": "7d6c8a21b122a4142df7f588edd371c3ab2ee7d6de716770d0d215991f30d21a",
+  "prompt_sha256": "cea0d4f06b98abf5b4221c5ca166a49bbef5b22bfa3d17b489577abf89c4775b",
+  "reference_sha256": "b38cf78aebbe502042da443bc29997241b9ffc24837b724c32275c9fbee8927e",
+  "actual_prompt": "Edit this exact8-column4-row,32-cel transparent walking animation of the ivory-horned beetle sovereign. Preserve exact image dimensions, all32 cells, the chronological gait, head/crown/armor/key design and painterly texture. The legs now walk well; KEEP their strong alternating reach, plant, push, high-knee lift and open space between legs. Fix only the varying CLOAK MASS: when the leg passes forward, the crimson cloak rises and loses too much visible fabric area. It must retain consistent fullness in every cel.\n\nRow-major cells7-11 and23-27, especially9 and25, need about8-10% more solid cloak/body coverage, achieved by painting a fuller folded red cloak spreading backwards and slightly down, with coherent fabric folds and the same gold embroidered border. Keep the raised leg and knee visible outside the front edge of the cloak. Do NOT scale up the character or rigid armor/key. The other cells need only tiny fold adjustments. Aim for solid visible silhouette area in EVERY cell within4% of the whole sheet's median; max/min <=1.10. Keep cape flowing with the same phase; never paste identical cape silhouettes over all cels.\n\nAll32 silhouettes at fixed scale, no outline jitter; preserve smooth32->1 seam. One supporting foot on a common ground line and the opposite jointed foot visibly raised during passing. Retain generous transparent cell margins around cape, key and crown, minimum6% each cell edge. Background and gutters true alpha0, no added glow, mist, particles, floor, shadows, labels, text or grid.",
+  "reference_recipe": "edit of stride-core-walk-v1, actual prompt and reference/source hashes in its receipt"
+}
