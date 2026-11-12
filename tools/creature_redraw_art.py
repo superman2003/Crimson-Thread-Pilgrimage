@@ -40,6 +40,12 @@ def baseline(kind):
     return path, read(path)
 
 
+# A walk cycle whose legs do not move is a still picture sliding along the floor.
+# Leg change = mean neighbour-frame outline change in the lowest 35% of the
+# clip's height. Deliveries listed in stride_pending.json were accepted before
+# this floor existed and wait for a redraw (docs/research/20261112_redraw_walk_stride_request.md).
+LEG_CHANGE_FLOOR = 0.15
+LEG_BAND = 0.35
 BODY_AREA_TOLERANCE = 0.04      # redrawn median body area vs the replaced clip
 
 
@@ -99,6 +105,19 @@ def extract(job, canvas, target_area=None):
     return drawings, scale
 
 
+def stride_pending():
+    path = REQUEST/'stride_pending.json'
+    return {(r['kind'], r['clip']) for r in read(path)['clips']} if path.exists() else set()
+
+
+def leg_change(masks, loop):
+    rows = np.nonzero(np.any(masks, axis=0).any(axis=1))[0]
+    cut = int(rows.min()+(rows.max()-rows.min())*(1-LEG_BAND))
+    legs = [m[cut:] for m in masks]
+    pairs = zip(legs, legs[1:]+(legs[:1] if loop else []))
+    return round(float(np.mean([audit.change(a, b) for a, b in pairs])), 3)
+
+
 def metrics(drawings, canvas, loop):
     masks = []
     for art, (x, y) in drawings:
@@ -114,7 +133,8 @@ def metrics(drawings, canvas, loop):
                 boil_ratio=round(float(np.mean(changes))/max(.02, slide), 3),
                 unique=len({sha256(a.tobytes()).hexdigest() for a, _ in drawings}),
                 area_ratio=round(max(int(m.sum()) for m in masks)/min(int(m.sum()) for m in masks), 3),
-                body_area=float(statistics.median(int(m.sum()) for m in masks)))
+                body_area=float(statistics.median(int(m.sum()) for m in masks)),
+                leg_change=leg_change(masks, loop))
 
 
 def build(kind, check=False):
@@ -124,7 +144,7 @@ def build(kind, check=False):
     if sha256(path.read_bytes()).hexdigest() != spec['baseline_sha256']:
         raise ValueError('Baseline changed; review drawings against the new layer')
     clips = {c['name']: c for c in fit.animations_of(base)}
-    drawings, summary = {}, {}
+    drawings, summary, strides = {}, {}, {}
     for job in spec['jobs']:
         name = job['clip']; clip = clips[name]
         if name in summary:
@@ -146,6 +166,12 @@ def build(kind, check=False):
             raise ValueError(f'Outline boil or body mass drift: {name} {measured}')
         if name in ('idle', 'walk') and clip['loop'] and measured['loop_seam'] > .25:
             raise ValueError(f'Loop seam needs another drawing pass: {name} {measured}')
+        # Measured for the gate and the build log only; the stored record keeps its shape.
+        legs = measured.pop('leg_change')
+        strides[name] = legs
+        if (name == 'walk' and fit.is_grounded(base) and job.get('registration', 'ground') == 'ground'
+                and legs < LEG_CHANGE_FLOOR and (kind, name) not in stride_pending()):
+            raise ValueError(f'Walk cycle legs barely move ({legs} < {LEG_CHANGE_FLOOR}); redraw with real stride poses: {kind}')
         summary[name] = dict(measured, registration_scale=round(scale, 9), frames=job['count'])
         drawings.update({(name, i): drawing for i, drawing in enumerate(cels)})
     pages, packed = onion.pack(kind, drawings, base['canvas'])
@@ -169,7 +195,7 @@ def build(kind, check=False):
                     if current.convert('RGBA').tobytes() != value.tobytes(): raise ValueError('Stale atlas')
         elif isinstance(value, dict): write(target, value)
         else: value.save(target)
-    print(json.dumps(dict(kind=kind, check=check, clips=summary)))
+    print(json.dumps(dict(kind=kind, check=check, clips=summary, leg_change=strides)))
     return manifest
 
 
