@@ -1975,8 +1975,8 @@ func refresh_build() -> void:
         resupply_planner_button.hide()
         build_summary.text="巡行配置 · 碎钱 %d" % int(level.currency_count)
         build_detail.text="在钟龛调整装备；校习找织线学徒、雨铸匠或蜂蜡商人。"
-        var current_skill:=String(snapshot.get("skill","未配置"))
-        var current_tool:=String(snapshot.get("tool","未配置"))
+        var current_skill:=_build_entry_name(system,"skills",String(snapshot.get("skill","")))
+        var current_tool:=_build_entry_name(system,"tools",String(snapshot.get("tool","")))
         var cycle_skill:=_button(build_grid,"切换技能 · 当前 %s" % current_skill,Vector2.ZERO,Vector2(563,58),func():_perform_build_action("cycle_skill",""))
         cycle_skill.custom_minimum_size=Vector2(563,64)
         cycle_skill.focus_mode=Control.FOCUS_ALL
@@ -2251,6 +2251,13 @@ func _confirm_loadout_change() -> void:
     pending_loadout_name=""
     if not build_panel.is_visible_in_tree() or build_category!="构筑" or not _is_at_build_workstation(_build_snapshot()):return
     if action in ["save_loadout","delete_loadout"]:_perform_build_action(action,name)
+
+## The snapshot stores catalog ids; players only ever see the authored name.
+func _build_entry_name(system: Variant, family: String, id: String) -> String:
+    if id.is_empty():return "未配置"
+    var entries: Dictionary=system.catalog.get(family,{}) if system!=null else {}
+    var named:=String(entries.get(id,{}).get("name",""))
+    return named if not named.is_empty() else "未配置"
 
 func _entry_equipped_slots(snapshot: Dictionary, id: String) -> String:
     var family_id:=_build_family_for_page()

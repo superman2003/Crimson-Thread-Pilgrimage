@@ -344,6 +344,21 @@ func _run() -> void:
     var name_calls:=runtime.action_calls.size()
     ui.build_panel.hide()
     _check(not ui.loadout_manager.visible and runtime.action_calls.size()==name_calls,"Leaving build overlay cancels pending name changes")
+    # Away from a shrine the page only offers cycling: it must name the
+    # equipped skill and tool, never show their catalog ids.
+    ui.loadout_manager.hide()
+    runtime.build_system.snapshot.at_workstation=false
+    ui.build_panel.show()
+    ui.refresh_build()
+    var cycle_texts:=""
+    for child in ui.build_grid.get_children():
+        if child is Button:cycle_texts+=String(child.text)+"\n"
+    var catalog: Dictionary=runtime.build_system.catalog
+    var skill_name:=String(catalog.skills[String(runtime.build_system.snapshot.skill)].name)
+    var tool_name:=String(catalog.tools[String(runtime.build_system.snapshot.tool)].name)
+    _check(cycle_texts.contains("切换技能 · 当前 "+skill_name) and cycle_texts.contains("切换战具 · 当前 "+tool_name),"Travelling build page names the equipped skill and tool")
+    _check(not cycle_texts.contains(String(runtime.build_system.snapshot.skill)) and not cycle_texts.contains(String(runtime.build_system.snapshot.tool)),"Travelling build page shows no catalog ids")
+    runtime.build_system.snapshot.at_workstation=true
     runtime.free()
     DirAccess.remove_absolute(ProjectSettings.globalize_path(SETTINGS_PATH))
     await process_frame
