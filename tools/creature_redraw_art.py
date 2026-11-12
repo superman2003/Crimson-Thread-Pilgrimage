@@ -1,7 +1,7 @@
 """Pack image_gen redraw sheets without synthesizing poses or changing clocks.
 
-One uniform registration scale is used for an entire sheet. Only transparent
-cropping and fixed ground registration are performed on individual drawings.
+One uniform registration scale is used for an entire sheet. Transparent cropping
+uses either planted feet or the authored cell coordinates for hovering actors.
 """
 from copy import deepcopy
 from hashlib import sha256
@@ -36,6 +36,9 @@ def baseline(kind):
 
 
 def extract(job, canvas):
+    registration = job.get('registration', 'ground')
+    if registration not in ('ground', 'cell_center'):
+        raise ValueError('Unknown drawing registration: '+registration)
     source = ROOT/job['source']
     if sha256(source.read_bytes()).hexdigest() != job['sha256']:
         raise ValueError('Raw image_gen output changed: '+str(source))
@@ -47,7 +50,12 @@ def extract(job, canvas):
         x, y = i % columns, i // columns
         cell = sheet.crop((round(x*sheet.width/columns), round(y*sheet.height/rows),
                            round((x+1)*sheet.width/columns), round((y+1)*sheet.height/rows)))
-        solid = np.asarray(cell.getchannel('A')) > 128
+        alpha = np.asarray(cell.getchannel('A'))
+        gutter = np.concatenate((alpha[:5].ravel(), alpha[-5:].ravel(),
+                                 alpha[:, :5].ravel(), alpha[:, -5:].ravel()))
+        if float(np.mean(gutter > 8)) > .01:
+            raise ValueError(f'Nontransparent cell gutter in drawing {i}; redraw the background')
+        solid = alpha > 128
         ys, xs = np.nonzero(solid)
         if len(xs) < 500:
             raise ValueError('Empty drawing')
@@ -62,7 +70,12 @@ def extract(job, canvas):
         art = cell.crop(box)
         art = art.resize((round(art.width*scale), round(art.height*scale)), Image.Resampling.LANCZOS)
         x = round(job['center_x']+(box[0]-cell.width/2)*scale)
-        y = job['ground_y']-art.height
+        if registration == 'cell_center':
+            # Keep the vertical motion that was actually drawn, including wing
+            # height changes; do not move a hovering body to align its lowest pixel.
+            y = round(job['center_y']+(box[1]-cell.height/2)*scale)
+        else:
+            y = job['ground_y']-art.height
         if x < 0 or y < 0 or x+art.width > canvas[0] or y+art.height > canvas[1]:
             raise ValueError('Drawing leaves the frozen rig canvas')
         drawings.append((art, (x, y)))

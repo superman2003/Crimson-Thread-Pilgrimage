@@ -1,0 +1,3009 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "phase_censor",
+  "canvas": [
+    346,
+    245
+  ],
+  "display_height": 98,
+  "visual_scale": 0.45161290322580644,
+  "visual_offset": [
+    0,
+    5.677822580645156
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            196,
+            217
+          ],
+          "margin": [
+            90,
+            20,
+            150,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            182,
+            200
+          ],
+          "margin": [
+            94,
+            39,
+            164,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            198,
+            0,
+            188,
+            217
+          ],
+          "margin": [
+            89,
+            20,
+            158,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            188,
+            2,
+            183,
+            198
+          ],
+          "margin": [
+            84,
+            41,
+            163,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            388,
+            0,
+            187,
+            213
+          ],
+          "margin": [
+            82,
+            24,
+            159,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            375,
+            2,
+            185,
+            199
+          ],
+          "margin": [
+            78,
+            40,
+            161,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            577,
+            0,
+            192,
+            211
+          ],
+          "margin": [
+            76,
+            26,
+            154,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            564,
+            2,
+            186,
+            198
+          ],
+          "margin": [
+            86,
+            42,
+            160,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            214,
+            210
+          ],
+          "margin": [
+            73,
+            25,
+            132,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            220,
+            2,
+            219,
+            210
+          ],
+          "margin": [
+            70,
+            25,
+            127,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            443,
+            2,
+            219,
+            212
+          ],
+          "margin": [
+            70,
+            24,
+            127,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            666,
+            2,
+            220,
+            216
+          ],
+          "margin": [
+            68,
+            19,
+            126,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            890,
+            2,
+            219,
+            217
+          ],
+          "margin": [
+            69,
+            19,
+            127,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            1113,
+            2,
+            219,
+            217
+          ],
+          "margin": [
+            69,
+            19,
+            127,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            1336,
+            2,
+            220,
+            215
+          ],
+          "margin": [
+            68,
+            21,
+            126,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            1560,
+            2,
+            220,
+            213
+          ],
+          "margin": [
+            67,
+            22,
+            126,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            1784,
+            2,
+            217,
+            211
+          ],
+          "margin": [
+            71,
+            26,
+            129,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            2,
+            227,
+            220,
+            210
+          ],
+          "margin": [
+            68,
+            27,
+            126,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            226,
+            227,
+            219,
+            209
+          ],
+          "margin": [
+            69,
+            27,
+            127,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            449,
+            227,
+            219,
+            208
+          ],
+          "margin": [
+            70,
+            28,
+            127,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            672,
+            227,
+            218,
+            207
+          ],
+          "margin": [
+            71,
+            30,
+            128,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            894,
+            227,
+            217,
+            208
+          ],
+          "margin": [
+            70,
+            29,
+            129,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            1115,
+            227,
+            219,
+            209
+          ],
+          "margin": [
+            69,
+            28,
+            127,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_redraw_00.png",
+          "region": [
+            1338,
+            227,
+            220,
+            209
+          ],
+          "margin": [
+            68,
+            27,
+            126,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2487,
+            0,
+            223,
+            176
+          ],
+          "margin": [
+            73,
+            61,
+            123,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            423,
+            210,
+            220,
+            197
+          ],
+          "margin": [
+            73,
+            42,
+            126,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2712,
+            0,
+            257,
+            195
+          ],
+          "margin": [
+            54,
+            42,
+            89,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            647,
+            210,
+            225,
+            203
+          ],
+          "margin": [
+            66,
+            36,
+            121,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2971,
+            0,
+            186,
+            209
+          ],
+          "margin": [
+            86,
+            28,
+            160,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            876,
+            210,
+            198,
+            187
+          ],
+          "margin": [
+            74,
+            52,
+            148,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3159,
+            0,
+            191,
+            217
+          ],
+          "margin": [
+            80,
+            20,
+            155,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1078,
+            210,
+            197,
+            208
+          ],
+          "margin": [
+            70,
+            31,
+            149,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3352,
+            0,
+            206,
+            227
+          ],
+          "margin": [
+            67,
+            10,
+            140,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1279,
+            210,
+            203,
+            223
+          ],
+          "margin": [
+            66,
+            16,
+            143,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3560,
+            0,
+            211,
+            229
+          ],
+          "margin": [
+            73,
+            8,
+            135,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1486,
+            210,
+            196,
+            217
+          ],
+          "margin": [
+            71,
+            22,
+            150,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3773,
+            0,
+            201,
+            225
+          ],
+          "margin": [
+            75,
+            12,
+            145,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1686,
+            210,
+            186,
+            216
+          ],
+          "margin": [
+            76,
+            23,
+            160,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            0,
+            231,
+            198,
+            215
+          ],
+          "margin": [
+            71,
+            22,
+            148,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            2,
+            441,
+            207,
+            231
+          ],
+          "margin": [
+            58,
+            8,
+            139,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            200,
+            231,
+            265,
+            200
+          ],
+          "margin": [
+            36,
+            37,
+            81,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            213,
+            441,
+            229,
+            191
+          ],
+          "margin": [
+            47,
+            48,
+            117,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            467,
+            231,
+            216,
+            175
+          ],
+          "margin": [
+            57,
+            62,
+            130,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            446,
+            441,
+            221,
+            184
+          ],
+          "margin": [
+            60,
+            55,
+            125,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            685,
+            231,
+            240,
+            184
+          ],
+          "margin": [
+            56,
+            53,
+            106,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            671,
+            441,
+            236,
+            187
+          ],
+          "margin": [
+            68,
+            52,
+            110,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            927,
+            231,
+            265,
+            188
+          ],
+          "margin": [
+            50,
+            49,
+            81,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            911,
+            441,
+            239,
+            183
+          ],
+          "margin": [
+            72,
+            56,
+            107,
+            62
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1194,
+            231,
+            253,
+            185
+          ],
+          "margin": [
+            71,
+            52,
+            93,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1154,
+            441,
+            243,
+            205
+          ],
+          "margin": [
+            71,
+            34,
+            103,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1449,
+            231,
+            281,
+            196
+          ],
+          "margin": [
+            56,
+            41,
+            65,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1401,
+            441,
+            239,
+            202
+          ],
+          "margin": [
+            73,
+            37,
+            107,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1732,
+            231,
+            233,
+            200
+          ],
+          "margin": [
+            81,
+            37,
+            113,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1644,
+            441,
+            209,
+            196
+          ],
+          "margin": [
+            87,
+            43,
+            137,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1967,
+            231,
+            230,
+            199
+          ],
+          "margin": [
+            83,
+            38,
+            116,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            2,
+            680,
+            210,
+            199
+          ],
+          "margin": [
+            86,
+            40,
+            136,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2199,
+            231,
+            228,
+            198
+          ],
+          "margin": [
+            82,
+            39,
+            118,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            216,
+            680,
+            222,
+            211
+          ],
+          "margin": [
+            80,
+            28,
+            124,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2429,
+            231,
+            240,
+            189
+          ],
+          "margin": [
+            58,
+            48,
+            106,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            442,
+            680,
+            208,
+            199
+          ],
+          "margin": [
+            76,
+            40,
+            138,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2671,
+            231,
+            217,
+            174
+          ],
+          "margin": [
+            71,
+            63,
+            129,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            654,
+            680,
+            214,
+            196
+          ],
+          "margin": [
+            74,
+            43,
+            132,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2890,
+            231,
+            234,
+            185
+          ],
+          "margin": [
+            54,
+            52,
+            112,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            872,
+            680,
+            214,
+            198
+          ],
+          "margin": [
+            70,
+            41,
+            132,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3126,
+            231,
+            210,
+            190
+          ],
+          "margin": [
+            76,
+            47,
+            136,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1090,
+            680,
+            194,
+            192
+          ],
+          "margin": [
+            78,
+            47,
+            152,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3338,
+            231,
+            213,
+            189
+          ],
+          "margin": [
+            66,
+            48,
+            133,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1288,
+            680,
+            210,
+            201
+          ],
+          "margin": [
+            64,
+            38,
+            136,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3553,
+            231,
+            220,
+            203
+          ],
+          "margin": [
+            67,
+            34,
+            126,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1502,
+            680,
+            203,
+            205
+          ],
+          "margin": [
+            70,
+            34,
+            143,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3775,
+            231,
+            219,
+            211
+          ],
+          "margin": [
+            71,
+            26,
+            127,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1709,
+            680,
+            202,
+            195
+          ],
+          "margin": [
+            72,
+            44,
+            144,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            0,
+            448,
+            211,
+            212
+          ],
+          "margin": [
+            79,
+            25,
+            135,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            2,
+            899,
+            208,
+            200
+          ],
+          "margin": [
+            74,
+            39,
+            138,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            213,
+            448,
+            214,
+            215
+          ],
+          "margin": [
+            74,
+            22,
+            132,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            214,
+            899,
+            215,
+            212
+          ],
+          "margin": [
+            68,
+            27,
+            131,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            429,
+            448,
+            220,
+            212
+          ],
+          "margin": [
+            67,
+            25,
+            126,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            433,
+            899,
+            208,
+            201
+          ],
+          "margin": [
+            73,
+            38,
+            138,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            651,
+            448,
+            207,
+            201
+          ],
+          "margin": [
+            78,
+            36,
+            139,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            645,
+            899,
+            210,
+            208
+          ],
+          "margin": [
+            69,
+            31,
+            136,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            860,
+            448,
+            229,
+            212
+          ],
+          "margin": [
+            60,
+            25,
+            117,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            859,
+            899,
+            212,
+            211
+          ],
+          "margin": [
+            68,
+            28,
+            134,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1091,
+            448,
+            202,
+            216
+          ],
+          "margin": [
+            83,
+            21,
+            144,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1075,
+            899,
+            203,
+            200
+          ],
+          "margin": [
+            79,
+            39,
+            143,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1295,
+            448,
+            194,
+            216
+          ],
+          "margin": [
+            85,
+            21,
+            152,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1282,
+            899,
+            196,
+            207
+          ],
+          "margin": [
+            78,
+            32,
+            150,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1491,
+            448,
+            198,
+            216
+          ],
+          "margin": [
+            82,
+            21,
+            148,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1482,
+            899,
+            202,
+            217
+          ],
+          "margin": [
+            76,
+            22,
+            144,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1691,
+            448,
+            212,
+            211
+          ],
+          "margin": [
+            69,
+            26,
+            134,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1688,
+            899,
+            203,
+            207
+          ],
+          "margin": [
+            74,
+            32,
+            143,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1905,
+            448,
+            194,
+            197
+          ],
+          "margin": [
+            79,
+            40,
+            152,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            2,
+            1124,
+            202,
+            207
+          ],
+          "margin": [
+            74,
+            32,
+            144,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2101,
+            448,
+            212,
+            211
+          ],
+          "margin": [
+            72,
+            26,
+            134,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            208,
+            1124,
+            206,
+            216
+          ],
+          "margin": [
+            72,
+            23,
+            140,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2315,
+            448,
+            208,
+            217
+          ],
+          "margin": [
+            81,
+            20,
+            138,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            418,
+            1124,
+            195,
+            212
+          ],
+          "margin": [
+            79,
+            27,
+            151,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2525,
+            448,
+            214,
+            207
+          ],
+          "margin": [
+            73,
+            30,
+            132,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            617,
+            1124,
+            209,
+            201
+          ],
+          "margin": [
+            64,
+            38,
+            137,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2741,
+            448,
+            208,
+            201
+          ],
+          "margin": [
+            72,
+            36,
+            138,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            830,
+            1124,
+            205,
+            187
+          ],
+          "margin": [
+            64,
+            52,
+            141,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2951,
+            448,
+            203,
+            174
+          ],
+          "margin": [
+            67,
+            63,
+            143,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1039,
+            1124,
+            202,
+            170
+          ],
+          "margin": [
+            63,
+            69,
+            144,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3156,
+            448,
+            211,
+            160
+          ],
+          "margin": [
+            59,
+            77,
+            135,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1245,
+            1124,
+            205,
+            153
+          ],
+          "margin": [
+            68,
+            86,
+            141,
+            92
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3369,
+            448,
+            217,
+            168
+          ],
+          "margin": [
+            81,
+            69,
+            129,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1454,
+            1124,
+            202,
+            148
+          ],
+          "margin": [
+            76,
+            92,
+            144,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3588,
+            448,
+            202,
+            148
+          ],
+          "margin": [
+            75,
+            89,
+            144,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1660,
+            1124,
+            196,
+            127
+          ],
+          "margin": [
+            68,
+            112,
+            150,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3792,
+            448,
+            224,
+            110
+          ],
+          "margin": [
+            56,
+            127,
+            122,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1860,
+            1124,
+            178,
+            135
+          ],
+          "margin": [
+            80,
+            103,
+            168,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            0,
+            667,
+            231,
+            88
+          ],
+          "margin": [
+            51,
+            149,
+            115,
+            157
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            2,
+            1348,
+            168,
+            130
+          ],
+          "margin": [
+            75,
+            108,
+            178,
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "name": "censor_blink_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            233,
+            667,
+            188,
+            204
+          ],
+          "margin": [
+            89,
+            33,
+            158,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            174,
+            1348,
+            199,
+            181
+          ],
+          "margin": [
+            76,
+            58,
+            147,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            423,
+            667,
+            193,
+            202
+          ],
+          "margin": [
+            84,
+            35,
+            153,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            377,
+            1348,
+            204,
+            216
+          ],
+          "margin": [
+            78,
+            23,
+            142,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            618,
+            667,
+            217,
+            196
+          ],
+          "margin": [
+            70,
+            41,
+            129,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            585,
+            1348,
+            204,
+            174
+          ],
+          "margin": [
+            74,
+            65,
+            142,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            837,
+            667,
+            197,
+            182
+          ],
+          "margin": [
+            78,
+            55,
+            149,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            793,
+            1348,
+            220,
+            178
+          ],
+          "margin": [
+            62,
+            61,
+            126,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1036,
+            667,
+            211,
+            195
+          ],
+          "margin": [
+            68,
+            42,
+            135,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1017,
+            1348,
+            223,
+            196
+          ],
+          "margin": [
+            62,
+            43,
+            123,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1249,
+            667,
+            203,
+            200
+          ],
+          "margin": [
+            85,
+            37,
+            143,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1244,
+            1348,
+            191,
+            194
+          ],
+          "margin": [
+            78,
+            45,
+            155,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1454,
+            667,
+            197,
+            200
+          ],
+          "margin": [
+            92,
+            37,
+            149,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1439,
+            1348,
+            182,
+            214
+          ],
+          "margin": [
+            84,
+            25,
+            164,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1653,
+            667,
+            204,
+            207
+          ],
+          "margin": [
+            88,
+            30,
+            142,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1625,
+            1348,
+            180,
+            204
+          ],
+          "margin": [
+            89,
+            35,
+            166,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1859,
+            667,
+            192,
+            207
+          ],
+          "margin": [
+            73,
+            30,
+            154,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1809,
+            1348,
+            184,
+            199
+          ],
+          "margin": [
+            83,
+            40,
+            162,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2053,
+            667,
+            172,
+            201
+          ],
+          "margin": [
+            84,
+            36,
+            174,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            2,
+            1572,
+            184,
+            193
+          ],
+          "margin": [
+            84,
+            46,
+            162,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2227,
+            667,
+            181,
+            198
+          ],
+          "margin": [
+            80,
+            39,
+            165,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            190,
+            1572,
+            200,
+            203
+          ],
+          "margin": [
+            74,
+            36,
+            146,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2410,
+            667,
+            218,
+            190
+          ],
+          "margin": [
+            70,
+            47,
+            128,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            394,
+            1572,
+            206,
+            189
+          ],
+          "margin": [
+            76,
+            50,
+            140,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "name": "censor_blink",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2630,
+            667,
+            200,
+            174
+          ],
+          "margin": [
+            79,
+            63,
+            146,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            604,
+            1572,
+            206,
+            185
+          ],
+          "margin": [
+            78,
+            54,
+            140,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2832,
+            667,
+            210,
+            181
+          ],
+          "margin": [
+            70,
+            56,
+            136,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            814,
+            1572,
+            214,
+            191
+          ],
+          "margin": [
+            72,
+            48,
+            132,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3044,
+            667,
+            250,
+            180
+          ],
+          "margin": [
+            61,
+            57,
+            96,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1032,
+            1572,
+            235,
+            183
+          ],
+          "margin": [
+            67,
+            56,
+            111,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3296,
+            667,
+            248,
+            174
+          ],
+          "margin": [
+            66,
+            63,
+            98,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1271,
+            1572,
+            232,
+            187
+          ],
+          "margin": [
+            65,
+            52,
+            114,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3546,
+            667,
+            245,
+            179
+          ],
+          "margin": [
+            64,
+            58,
+            101,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1507,
+            1572,
+            236,
+            182
+          ],
+          "margin": [
+            71,
+            57,
+            110,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3793,
+            667,
+            238,
+            175
+          ],
+          "margin": [
+            68,
+            62,
+            108,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1747,
+            1572,
+            224,
+            172
+          ],
+          "margin": [
+            72,
+            67,
+            122,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            0,
+            876,
+            235,
+            167
+          ],
+          "margin": [
+            76,
+            70,
+            111,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            2,
+            1783,
+            222,
+            171
+          ],
+          "margin": [
+            75,
+            68,
+            124,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            237,
+            876,
+            231,
+            170
+          ],
+          "margin": [
+            73,
+            67,
+            115,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            228,
+            1783,
+            228,
+            177
+          ],
+          "margin": [
+            69,
+            62,
+            118,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            470,
+            876,
+            219,
+            168
+          ],
+          "margin": [
+            70,
+            69,
+            127,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            460,
+            1783,
+            205,
+            171
+          ],
+          "margin": [
+            79,
+            68,
+            141,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            691,
+            876,
+            200,
+            158
+          ],
+          "margin": [
+            79,
+            79,
+            146,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            669,
+            1783,
+            208,
+            179
+          ],
+          "margin": [
+            75,
+            60,
+            138,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            893,
+            876,
+            225,
+            175
+          ],
+          "margin": [
+            65,
+            62,
+            121,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            881,
+            1783,
+            212,
+            182
+          ],
+          "margin": [
+            68,
+            57,
+            134,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1120,
+            876,
+            190,
+            185
+          ],
+          "margin": [
+            80,
+            52,
+            156,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1097,
+            1783,
+            201,
+            181
+          ],
+          "margin": [
+            72,
+            58,
+            145,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "censor_blink_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1312,
+            876,
+            199,
+            188
+          ],
+          "margin": [
+            77,
+            49,
+            147,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1302,
+            1783,
+            204,
+            191
+          ],
+          "margin": [
+            69,
+            48,
+            142,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1513,
+            876,
+            202,
+            197
+          ],
+          "margin": [
+            73,
+            40,
+            144,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1510,
+            1783,
+            196,
+            189
+          ],
+          "margin": [
+            73,
+            50,
+            150,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1717,
+            876,
+            187,
+            200
+          ],
+          "margin": [
+            88,
+            37,
+            159,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_00.png",
+          "region": [
+            1710,
+            1783,
+            182,
+            182
+          ],
+          "margin": [
+            82,
+            57,
+            164,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            1906,
+            876,
+            180,
+            195
+          ],
+          "margin": [
+            92,
+            42,
+            166,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            183,
+            186
+          ],
+          "margin": [
+            86,
+            53,
+            163,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2088,
+            876,
+            191,
+            202
+          ],
+          "margin": [
+            84,
+            35,
+            155,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            189,
+            2,
+            183,
+            193
+          ],
+          "margin": [
+            85,
+            46,
+            163,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2281,
+            876,
+            199,
+            202
+          ],
+          "margin": [
+            78,
+            35,
+            147,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            376,
+            2,
+            182,
+            196
+          ],
+          "margin": [
+            84,
+            43,
+            164,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2482,
+            876,
+            188,
+            196
+          ],
+          "margin": [
+            85,
+            41,
+            158,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            562,
+            2,
+            182,
+            204
+          ],
+          "margin": [
+            84,
+            35,
+            164,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2672,
+            876,
+            199,
+            202
+          ],
+          "margin": [
+            78,
+            35,
+            147,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            748,
+            2,
+            184,
+            208
+          ],
+          "margin": [
+            83,
+            31,
+            162,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            2873,
+            876,
+            190,
+            204
+          ],
+          "margin": [
+            88,
+            33,
+            156,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            936,
+            2,
+            177,
+            202
+          ],
+          "margin": [
+            86,
+            37,
+            169,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3065,
+            876,
+            174,
+            197
+          ],
+          "margin": [
+            96,
+            40,
+            172,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            1117,
+            2,
+            182,
+            209
+          ],
+          "margin": [
+            88,
+            30,
+            164,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3241,
+            876,
+            195,
+            211
+          ],
+          "margin": [
+            88,
+            26,
+            151,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            1303,
+            2,
+            189,
+            215
+          ],
+          "margin": [
+            88,
+            24,
+            157,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3438,
+            876,
+            198,
+            217
+          ],
+          "margin": [
+            84,
+            20,
+            148,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            1496,
+            2,
+            181,
+            202
+          ],
+          "margin": [
+            98,
+            37,
+            165,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "name": "censor_blink_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3638,
+            876,
+            204,
+            169
+          ],
+          "margin": [
+            77,
+            68,
+            142,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            1681,
+            2,
+            180,
+            186
+          ],
+          "margin": [
+            88,
+            54,
+            166,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            3844,
+            876,
+            198,
+            169
+          ],
+          "margin": [
+            84,
+            68,
+            148,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            2,
+            225,
+            184,
+            184
+          ],
+          "margin": [
+            88,
+            57,
+            162,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            0,
+            1095,
+            228,
+            183
+          ],
+          "margin": [
+            42,
+            54,
+            118,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            190,
+            225,
+            210,
+            194
+          ],
+          "margin": [
+            50,
+            45,
+            136,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/combat_motion_v7.png",
+          "region": [
+            230,
+            1095,
+            227,
+            182
+          ],
+          "margin": [
+            48,
+            55,
+            119,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/phase_censor/motion_v8_01.png",
+          "region": [
+            404,
+            225,
+            219,
+            191
+          ],
+          "margin": [
+            45,
+            48,
+            127,
+            54
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "censor_blink",
+    "censor_blink_recover",
+    "censor_blink_windup",
+    "recover",
+    "windup"
+  ],
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "a995903caec62d55400fb632ce0eaa355d0ab5d2338e04ff7e45c60ceb41d5b7",
+    "spec": "art_requests/creature_redraw_v1/jobs/phase_censor.json",
+    "clips": {
+      "walk": {
+        "mean_change": 0.1508,
+        "max_change": 0.2546,
+        "loop_seam": 0.1903,
+        "boil_ratio": 1.327,
+        "unique": 16,
+        "area_ratio": 1.072,
+        "registration_scale": 0.853658537,
+        "frames": 16
+      }
+    }
+  }
+}

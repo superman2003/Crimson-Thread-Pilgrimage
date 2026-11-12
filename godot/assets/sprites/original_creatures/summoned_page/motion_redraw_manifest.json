@@ -1,0 +1,2979 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "summoned_page",
+  "canvas": [
+    392,
+    170
+  ],
+  "display_height": 74,
+  "visual_scale": 0.5138888888888888,
+  "visual_offset": [
+    0,
+    17.933911260253545
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            160,
+            144
+          ],
+          "margin": [
+            108,
+            18,
+            232,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            149,
+            127
+          ],
+          "margin": [
+            122,
+            38,
+            243,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            162,
+            0,
+            164,
+            142
+          ],
+          "margin": [
+            114,
+            20,
+            228,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            155,
+            2,
+            152,
+            127
+          ],
+          "margin": [
+            126,
+            38,
+            240,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            328,
+            0,
+            152,
+            136
+          ],
+          "margin": [
+            133,
+            26,
+            240,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            311,
+            2,
+            152,
+            126
+          ],
+          "margin": [
+            134,
+            40,
+            240,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            482,
+            0,
+            172,
+            141
+          ],
+          "margin": [
+            122,
+            21,
+            220,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            467,
+            2,
+            156,
+            123
+          ],
+          "margin": [
+            121,
+            41,
+            236,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            157,
+            153
+          ],
+          "margin": [
+            98,
+            8,
+            235,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            163,
+            2,
+            156,
+            156
+          ],
+          "margin": [
+            100,
+            6,
+            236,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            323,
+            2,
+            155,
+            157
+          ],
+          "margin": [
+            101,
+            5,
+            237,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            482,
+            2,
+            156,
+            158
+          ],
+          "margin": [
+            100,
+            3,
+            236,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            642,
+            2,
+            155,
+            158
+          ],
+          "margin": [
+            100,
+            3,
+            237,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            801,
+            2,
+            156,
+            157
+          ],
+          "margin": [
+            100,
+            5,
+            236,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            961,
+            2,
+            155,
+            152
+          ],
+          "margin": [
+            101,
+            9,
+            237,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            1120,
+            2,
+            156,
+            152
+          ],
+          "margin": [
+            100,
+            9,
+            236,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            1280,
+            2,
+            158,
+            150
+          ],
+          "margin": [
+            98,
+            12,
+            234,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            1442,
+            2,
+            158,
+            149
+          ],
+          "margin": [
+            98,
+            14,
+            234,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            1604,
+            2,
+            158,
+            151
+          ],
+          "margin": [
+            98,
+            13,
+            234,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            1766,
+            2,
+            159,
+            152
+          ],
+          "margin": [
+            97,
+            14,
+            233,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            2,
+            168,
+            160,
+            151
+          ],
+          "margin": [
+            96,
+            15,
+            232,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            166,
+            168,
+            158,
+            149
+          ],
+          "margin": [
+            98,
+            14,
+            234,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            328,
+            168,
+            158,
+            150
+          ],
+          "margin": [
+            99,
+            14,
+            234,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+          "region": [
+            490,
+            168,
+            157,
+            149
+          ],
+          "margin": [
+            99,
+            14,
+            235,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1960,
+            0,
+            183,
+            108
+          ],
+          "margin": [
+            91,
+            54,
+            209,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            142,
+            173,
+            138
+          ],
+          "margin": [
+            95,
+            26,
+            219,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2145,
+            0,
+            212,
+            124
+          ],
+          "margin": [
+            77,
+            38,
+            180,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            179,
+            142,
+            175,
+            145
+          ],
+          "margin": [
+            99,
+            19,
+            217,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2359,
+            0,
+            170,
+            131
+          ],
+          "margin": [
+            104,
+            31,
+            222,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            358,
+            142,
+            170,
+            132
+          ],
+          "margin": [
+            100,
+            32,
+            222,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2531,
+            0,
+            173,
+            133
+          ],
+          "margin": [
+            102,
+            29,
+            219,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            532,
+            142,
+            173,
+            130
+          ],
+          "margin": [
+            100,
+            34,
+            219,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2706,
+            0,
+            170,
+            130
+          ],
+          "margin": [
+            106,
+            32,
+            222,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            709,
+            142,
+            179,
+            139
+          ],
+          "margin": [
+            100,
+            25,
+            213,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2878,
+            0,
+            212,
+            124
+          ],
+          "margin": [
+            73,
+            38,
+            180,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            892,
+            142,
+            166,
+            132
+          ],
+          "margin": [
+            109,
+            32,
+            226,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3092,
+            0,
+            187,
+            108
+          ],
+          "margin": [
+            86,
+            54,
+            205,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1062,
+            142,
+            179,
+            124
+          ],
+          "margin": [
+            102,
+            40,
+            213,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3281,
+            0,
+            228,
+            126
+          ],
+          "margin": [
+            60,
+            36,
+            164,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1245,
+            142,
+            195,
+            137
+          ],
+          "margin": [
+            88,
+            27,
+            197,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3511,
+            0,
+            171,
+            136
+          ],
+          "margin": [
+            96,
+            26,
+            221,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1444,
+            142,
+            178,
+            122
+          ],
+          "margin": [
+            94,
+            42,
+            214,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3684,
+            0,
+            171,
+            141
+          ],
+          "margin": [
+            91,
+            21,
+            221,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1626,
+            142,
+            184,
+            126
+          ],
+          "margin": [
+            88,
+            38,
+            208,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3857,
+            0,
+            180,
+            146
+          ],
+          "margin": [
+            91,
+            16,
+            212,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1814,
+            142,
+            211,
+            129
+          ],
+          "margin": [
+            67,
+            35,
+            181,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            0,
+            154,
+            182,
+            146
+          ],
+          "margin": [
+            88,
+            16,
+            210,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            295,
+            207,
+            130
+          ],
+          "margin": [
+            64,
+            34,
+            185,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            184,
+            154,
+            176,
+            138
+          ],
+          "margin": [
+            88,
+            24,
+            216,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            213,
+            295,
+            169,
+            136
+          ],
+          "margin": [
+            90,
+            27,
+            223,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            362,
+            154,
+            171,
+            141
+          ],
+          "margin": [
+            90,
+            21,
+            221,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            386,
+            295,
+            183,
+            152
+          ],
+          "margin": [
+            82,
+            13,
+            209,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            535,
+            154,
+            352,
+            138
+          ],
+          "margin": [
+            23,
+            24,
+            40,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            573,
+            295,
+            281,
+            137
+          ],
+          "margin": [
+            47,
+            27,
+            111,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            889,
+            154,
+            332,
+            126
+          ],
+          "margin": [
+            31,
+            36,
+            60,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            858,
+            295,
+            321,
+            132
+          ],
+          "margin": [
+            32,
+            32,
+            71,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1223,
+            154,
+            359,
+            140
+          ],
+          "margin": [
+            24,
+            22,
+            33,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1183,
+            295,
+            304,
+            126
+          ],
+          "margin": [
+            44,
+            38,
+            88,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1584,
+            154,
+            196,
+            141
+          ],
+          "margin": [
+            90,
+            21,
+            196,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1491,
+            295,
+            178,
+            136
+          ],
+          "margin": [
+            100,
+            28,
+            214,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1782,
+            154,
+            179,
+            140
+          ],
+          "margin": [
+            102,
+            22,
+            213,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1673,
+            295,
+            165,
+            125
+          ],
+          "margin": [
+            108,
+            38,
+            227,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1963,
+            154,
+            200,
+            145
+          ],
+          "margin": [
+            96,
+            17,
+            192,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            455,
+            279,
+            130
+          ],
+          "margin": [
+            66,
+            34,
+            113,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2165,
+            154,
+            217,
+            144
+          ],
+          "margin": [
+            76,
+            18,
+            175,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            285,
+            455,
+            283,
+            124
+          ],
+          "margin": [
+            65,
+            40,
+            109,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2384,
+            154,
+            200,
+            139
+          ],
+          "margin": [
+            83,
+            23,
+            192,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            572,
+            455,
+            270,
+            119
+          ],
+          "margin": [
+            72,
+            45,
+            122,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2586,
+            154,
+            221,
+            144
+          ],
+          "margin": [
+            73,
+            18,
+            171,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            846,
+            455,
+            207,
+            145
+          ],
+          "margin": [
+            87,
+            19,
+            185,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2809,
+            154,
+            203,
+            140
+          ],
+          "margin": [
+            85,
+            22,
+            189,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1057,
+            455,
+            176,
+            142
+          ],
+          "margin": [
+            106,
+            22,
+            216,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3014,
+            154,
+            187,
+            131
+          ],
+          "margin": [
+            90,
+            31,
+            205,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1237,
+            455,
+            174,
+            133
+          ],
+          "margin": [
+            108,
+            31,
+            218,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3203,
+            154,
+            194,
+            131
+          ],
+          "margin": [
+            91,
+            31,
+            198,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1415,
+            455,
+            192,
+            142
+          ],
+          "margin": [
+            102,
+            24,
+            200,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3399,
+            154,
+            230,
+            127
+          ],
+          "margin": [
+            77,
+            35,
+            162,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1611,
+            455,
+            187,
+            130
+          ],
+          "margin": [
+            102,
+            33,
+            205,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3631,
+            154,
+            198,
+            113
+          ],
+          "margin": [
+            97,
+            49,
+            194,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1802,
+            455,
+            193,
+            128
+          ],
+          "margin": [
+            99,
+            38,
+            199,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3831,
+            154,
+            221,
+            130
+          ],
+          "margin": [
+            88,
+            32,
+            171,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            608,
+            207,
+            132
+          ],
+          "margin": [
+            94,
+            32,
+            185,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            0,
+            302,
+            178,
+            138
+          ],
+          "margin": [
+            115,
+            24,
+            214,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            213,
+            608,
+            181,
+            128
+          ],
+          "margin": [
+            110,
+            36,
+            211,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            180,
+            302,
+            174,
+            142
+          ],
+          "margin": [
+            118,
+            20,
+            218,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            398,
+            608,
+            191,
+            130
+          ],
+          "margin": [
+            104,
+            35,
+            201,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            356,
+            302,
+            194,
+            150
+          ],
+          "margin": [
+            106,
+            12,
+            198,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            593,
+            608,
+            199,
+            135
+          ],
+          "margin": [
+            102,
+            29,
+            193,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            552,
+            302,
+            200,
+            151
+          ],
+          "margin": [
+            95,
+            11,
+            192,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            796,
+            608,
+            187,
+            110
+          ],
+          "margin": [
+            108,
+            53,
+            205,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            754,
+            302,
+            173,
+            147
+          ],
+          "margin": [
+            107,
+            15,
+            219,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            987,
+            608,
+            190,
+            114
+          ],
+          "margin": [
+            102,
+            49,
+            202,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            929,
+            302,
+            198,
+            152
+          ],
+          "margin": [
+            92,
+            10,
+            194,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1181,
+            608,
+            198,
+            125
+          ],
+          "margin": [
+            96,
+            41,
+            194,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1129,
+            302,
+            186,
+            153
+          ],
+          "margin": [
+            99,
+            9,
+            206,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1383,
+            608,
+            167,
+            118
+          ],
+          "margin": [
+            111,
+            45,
+            225,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1317,
+            302,
+            250,
+            132
+          ],
+          "margin": [
+            64,
+            30,
+            142,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1554,
+            608,
+            215,
+            135
+          ],
+          "margin": [
+            76,
+            30,
+            177,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1569,
+            302,
+            192,
+            133
+          ],
+          "margin": [
+            65,
+            29,
+            200,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1773,
+            608,
+            166,
+            120
+          ],
+          "margin": [
+            97,
+            45,
+            226,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1763,
+            302,
+            179,
+            116
+          ],
+          "margin": [
+            101,
+            46,
+            213,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            751,
+            157,
+            112
+          ],
+          "margin": [
+            113,
+            52,
+            235,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1944,
+            302,
+            225,
+            135
+          ],
+          "margin": [
+            73,
+            27,
+            167,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            163,
+            751,
+            194,
+            113
+          ],
+          "margin": [
+            78,
+            50,
+            198,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2171,
+            302,
+            233,
+            97
+          ],
+          "margin": [
+            48,
+            65,
+            159,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            361,
+            751,
+            207,
+            95
+          ],
+          "margin": [
+            62,
+            70,
+            185,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2406,
+            302,
+            268,
+            88
+          ],
+          "margin": [
+            31,
+            74,
+            124,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            572,
+            751,
+            230,
+            81
+          ],
+          "margin": [
+            58,
+            83,
+            162,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2676,
+            302,
+            269,
+            66
+          ],
+          "margin": [
+            45,
+            96,
+            123,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            806,
+            751,
+            247,
+            68
+          ],
+          "margin": [
+            53,
+            96,
+            145,
+            102
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_orbit_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2947,
+            302,
+            145,
+            134
+          ],
+          "margin": [
+            131,
+            28,
+            247,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1057,
+            751,
+            156,
+            110
+          ],
+          "margin": [
+            122,
+            55,
+            236,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3094,
+            302,
+            151,
+            135
+          ],
+          "margin": [
+            129,
+            27,
+            241,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1217,
+            751,
+            154,
+            139
+          ],
+          "margin": [
+            125,
+            25,
+            238,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3247,
+            302,
+            162,
+            131
+          ],
+          "margin": [
+            124,
+            31,
+            230,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1375,
+            751,
+            190,
+            89
+          ],
+          "margin": [
+            112,
+            74,
+            202,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3411,
+            302,
+            140,
+            121
+          ],
+          "margin": [
+            135,
+            41,
+            252,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1569,
+            751,
+            208,
+            78
+          ],
+          "margin": [
+            104,
+            85,
+            184,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3553,
+            302,
+            153,
+            125
+          ],
+          "margin": [
+            130,
+            37,
+            239,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1781,
+            751,
+            235,
+            73
+          ],
+          "margin": [
+            96,
+            93,
+            157,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3708,
+            302,
+            136,
+            125
+          ],
+          "margin": [
+            137,
+            37,
+            256,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            898,
+            208,
+            65
+          ],
+          "margin": [
+            106,
+            98,
+            184,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3846,
+            302,
+            115,
+            116
+          ],
+          "margin": [
+            146,
+            46,
+            277,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            214,
+            898,
+            124,
+            111
+          ],
+          "margin": [
+            144,
+            52,
+            268,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3963,
+            302,
+            126,
+            124
+          ],
+          "margin": [
+            142,
+            38,
+            266,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            342,
+            898,
+            138,
+            109
+          ],
+          "margin": [
+            135,
+            54,
+            254,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            0,
+            457,
+            119,
+            124
+          ],
+          "margin": [
+            148,
+            38,
+            273,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            484,
+            898,
+            136,
+            105
+          ],
+          "margin": [
+            136,
+            59,
+            256,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            121,
+            457,
+            112,
+            119
+          ],
+          "margin": [
+            151,
+            43,
+            280,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            624,
+            898,
+            147,
+            114
+          ],
+          "margin": [
+            130,
+            50,
+            245,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            235,
+            457,
+            126,
+            130
+          ],
+          "margin": [
+            145,
+            32,
+            266,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            775,
+            898,
+            148,
+            122
+          ],
+          "margin": [
+            130,
+            42,
+            244,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            363,
+            457,
+            156,
+            136
+          ],
+          "margin": [
+            127,
+            26,
+            236,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            927,
+            898,
+            152,
+            134
+          ],
+          "margin": [
+            126,
+            30,
+            240,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_orbit",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            521,
+            457,
+            147,
+            134
+          ],
+          "margin": [
+            130,
+            28,
+            245,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1083,
+            898,
+            160,
+            147
+          ],
+          "margin": [
+            120,
+            17,
+            232,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            670,
+            457,
+            168,
+            142
+          ],
+          "margin": [
+            123,
+            20,
+            224,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1247,
+            898,
+            177,
+            139
+          ],
+          "margin": [
+            113,
+            25,
+            215,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            840,
+            457,
+            194,
+            146
+          ],
+          "margin": [
+            106,
+            16,
+            198,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1428,
+            898,
+            174,
+            138
+          ],
+          "margin": [
+            112,
+            26,
+            218,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1036,
+            457,
+            174,
+            141
+          ],
+          "margin": [
+            118,
+            21,
+            218,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1606,
+            898,
+            170,
+            137
+          ],
+          "margin": [
+            116,
+            27,
+            222,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1212,
+            457,
+            204,
+            151
+          ],
+          "margin": [
+            100,
+            11,
+            188,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1780,
+            898,
+            200,
+            139
+          ],
+          "margin": [
+            96,
+            25,
+            192,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1418,
+            457,
+            216,
+            154
+          ],
+          "margin": [
+            89,
+            8,
+            176,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            1053,
+            204,
+            141
+          ],
+          "margin": [
+            94,
+            24,
+            188,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1636,
+            457,
+            199,
+            149
+          ],
+          "margin": [
+            98,
+            13,
+            193,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            210,
+            1053,
+            212,
+            137
+          ],
+          "margin": [
+            88,
+            27,
+            180,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1837,
+            457,
+            215,
+            147
+          ],
+          "margin": [
+            90,
+            15,
+            177,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            426,
+            1053,
+            213,
+            144
+          ],
+          "margin": [
+            90,
+            20,
+            179,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2054,
+            457,
+            235,
+            138
+          ],
+          "margin": [
+            77,
+            24,
+            157,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            643,
+            1053,
+            196,
+            129
+          ],
+          "margin": [
+            100,
+            36,
+            196,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2291,
+            457,
+            193,
+            121
+          ],
+          "margin": [
+            96,
+            41,
+            199,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            843,
+            1053,
+            203,
+            132
+          ],
+          "margin": [
+            94,
+            32,
+            189,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2486,
+            457,
+            227,
+            133
+          ],
+          "margin": [
+            81,
+            29,
+            165,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1050,
+            1053,
+            218,
+            128
+          ],
+          "margin": [
+            86,
+            36,
+            174,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2715,
+            457,
+            203,
+            136
+          ],
+          "margin": [
+            99,
+            26,
+            189,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1272,
+            1053,
+            197,
+            140
+          ],
+          "margin": [
+            102,
+            24,
+            195,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_orbit_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            2920,
+            457,
+            175,
+            133
+          ],
+          "margin": [
+            114,
+            29,
+            217,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1473,
+            1053,
+            198,
+            143
+          ],
+          "margin": [
+            98,
+            21,
+            194,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3097,
+            457,
+            190,
+            138
+          ],
+          "margin": [
+            109,
+            24,
+            202,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1675,
+            1053,
+            201,
+            125
+          ],
+          "margin": [
+            98,
+            40,
+            191,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3289,
+            457,
+            179,
+            134
+          ],
+          "margin": [
+            116,
+            28,
+            213,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            1205,
+            196,
+            122
+          ],
+          "margin": [
+            96,
+            42,
+            196,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3470,
+            457,
+            160,
+            126
+          ],
+          "margin": [
+            123,
+            36,
+            232,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            202,
+            1205,
+            192,
+            117
+          ],
+          "margin": [
+            102,
+            48,
+            200,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3632,
+            457,
+            184,
+            132
+          ],
+          "margin": [
+            114,
+            30,
+            208,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            398,
+            1205,
+            180,
+            124
+          ],
+          "margin": [
+            112,
+            41,
+            212,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            3818,
+            457,
+            165,
+            131
+          ],
+          "margin": [
+            123,
+            31,
+            227,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            582,
+            1205,
+            171,
+            116
+          ],
+          "margin": [
+            116,
+            48,
+            221,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            0,
+            613,
+            144,
+            126
+          ],
+          "margin": [
+            133,
+            36,
+            248,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            757,
+            1205,
+            172,
+            117
+          ],
+          "margin": [
+            117,
+            48,
+            220,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            146,
+            613,
+            169,
+            133
+          ],
+          "margin": [
+            121,
+            29,
+            223,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            933,
+            1205,
+            181,
+            124
+          ],
+          "margin": [
+            114,
+            42,
+            211,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            317,
+            613,
+            182,
+            133
+          ],
+          "margin": [
+            114,
+            29,
+            210,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1118,
+            1205,
+            182,
+            120
+          ],
+          "margin": [
+            110,
+            44,
+            210,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            501,
+            613,
+            158,
+            128
+          ],
+          "margin": [
+            126,
+            34,
+            234,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1304,
+            1205,
+            180,
+            122
+          ],
+          "margin": [
+            112,
+            43,
+            212,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            661,
+            613,
+            193,
+            141
+          ],
+          "margin": [
+            103,
+            21,
+            199,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1488,
+            1205,
+            188,
+            124
+          ],
+          "margin": [
+            104,
+            41,
+            204,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            856,
+            613,
+            170,
+            145
+          ],
+          "margin": [
+            107,
+            17,
+            222,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1680,
+            1205,
+            168,
+            118
+          ],
+          "margin": [
+            108,
+            47,
+            224,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_orbit_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1028,
+            613,
+            115,
+            121
+          ],
+          "margin": [
+            149,
+            41,
+            277,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            1852,
+            1205,
+            141,
+            103
+          ],
+          "margin": [
+            134,
+            60,
+            251,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1145,
+            613,
+            124,
+            124
+          ],
+          "margin": [
+            143,
+            38,
+            268,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            2,
+            1337,
+            147,
+            101
+          ],
+          "margin": [
+            130,
+            62,
+            245,
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1271,
+            613,
+            199,
+            115
+          ],
+          "margin": [
+            61,
+            47,
+            193,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            153,
+            1337,
+            212,
+            116
+          ],
+          "margin": [
+            52,
+            48,
+            180,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/combat_motion_v7.png",
+          "region": [
+            1472,
+            613,
+            209,
+            112
+          ],
+          "margin": [
+            47,
+            50,
+            183,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_v8_00.png",
+          "region": [
+            369,
+            1337,
+            213,
+            116
+          ],
+          "margin": [
+            49,
+            48,
+            179,
+            54
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "page_orbit",
+    "page_orbit_recover",
+    "page_orbit_windup",
+    "recover",
+    "windup"
+  ],
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "18e93699c0ebb97e301123048e146ef59eba724b15bde779e50db3ded539e3cb",
+    "spec": "art_requests/creature_redraw_v1/jobs/summoned_page.json",
+    "clips": {
+      "walk": {
+        "mean_change": 0.0666,
+        "max_change": 0.1433,
+        "loop_seam": 0.1433,
+        "boil_ratio": 0.77,
+        "unique": 16,
+        "area_ratio": 1.054,
+        "registration_scale": 0.856338028,
+        "frames": 16
+      }
+    }
+  }
+}

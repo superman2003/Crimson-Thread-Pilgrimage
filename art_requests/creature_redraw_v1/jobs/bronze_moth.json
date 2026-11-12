@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "kind": "bronze_moth",
+  "baseline": "godot/assets/sprites/original_creatures/bronze_moth/motion_v8_manifest.json",
+  "baseline_sha256": "ae4e5ad3f3683fb044b9db40e26c8595ae20360ad31a7282d50acee535df98a5",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/bronze_moth/walk.png",
+      "sha256": "ec597bef72b0765d105d2574f1c7f0afe0863ca1cc603442f1ddfab7895efc1e",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "8abcee84590c6413034dfc62d260e86abb363f7288ce446cf6717eaf043c1d2f",
+      "reference": {
+        "sha256": "3e1fd39c2eca3cdb0ceb3a72bb7195fc4376d5228aaefaa637d5684a0eabf76a",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred horizontally and vertically in 256px cells"
+      },
+      "reference_height": 185,
+      "center_x": 205,
+      "ground_y": 274,
+      "registration": "cell_center",
+      "center_y": 181.5
+    }
+  ]
+}

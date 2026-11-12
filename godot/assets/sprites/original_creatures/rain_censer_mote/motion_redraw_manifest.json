@@ -1,0 +1,2942 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "rain_censer_mote",
+  "canvas": [
+    408,
+    219
+  ],
+  "display_height": 74,
+  "visual_scale": 0.4327485380116959,
+  "visual_offset": [
+    0,
+    13.59705899051837
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            158,
+            171
+          ],
+          "margin": [
+            128,
+            40,
+            250,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            155,
+            163
+          ],
+          "margin": [
+            125,
+            49,
+            253,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            160,
+            0,
+            160,
+            173
+          ],
+          "margin": [
+            123,
+            38,
+            248,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            161,
+            2,
+            155,
+            166
+          ],
+          "margin": [
+            118,
+            46,
+            253,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            322,
+            0,
+            162,
+            176
+          ],
+          "margin": [
+            117,
+            35,
+            246,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            320,
+            2,
+            159,
+            159
+          ],
+          "margin": [
+            114,
+            54,
+            249,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            486,
+            0,
+            166,
+            163
+          ],
+          "margin": [
+            112,
+            48,
+            242,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            483,
+            2,
+            162,
+            158
+          ],
+          "margin": [
+            118,
+            56,
+            246,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            2,
+            2,
+            189,
+            182
+          ],
+          "margin": [
+            114,
+            32,
+            219,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            195,
+            2,
+            188,
+            184
+          ],
+          "margin": [
+            115,
+            31,
+            220,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            387,
+            2,
+            189,
+            189
+          ],
+          "margin": [
+            114,
+            27,
+            219,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            580,
+            2,
+            189,
+            191
+          ],
+          "margin": [
+            115,
+            25,
+            219,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            773,
+            2,
+            189,
+            189
+          ],
+          "margin": [
+            114,
+            25,
+            219,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            966,
+            2,
+            188,
+            186
+          ],
+          "margin": [
+            114,
+            30,
+            220,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            1158,
+            2,
+            189,
+            182
+          ],
+          "margin": [
+            113,
+            33,
+            219,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            1351,
+            2,
+            189,
+            179
+          ],
+          "margin": [
+            114,
+            35,
+            219,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            1544,
+            2,
+            189,
+            177
+          ],
+          "margin": [
+            113,
+            38,
+            219,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            1737,
+            2,
+            190,
+            176
+          ],
+          "margin": [
+            112,
+            39,
+            218,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            2,
+            201,
+            189,
+            175
+          ],
+          "margin": [
+            113,
+            39,
+            219,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            195,
+            201,
+            190,
+            176
+          ],
+          "margin": [
+            113,
+            39,
+            218,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            389,
+            201,
+            189,
+            174
+          ],
+          "margin": [
+            114,
+            41,
+            219,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            582,
+            201,
+            189,
+            173
+          ],
+          "margin": [
+            113,
+            41,
+            219,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            775,
+            201,
+            189,
+            175
+          ],
+          "margin": [
+            114,
+            40,
+            219,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_redraw_00.png",
+          "region": [
+            968,
+            201,
+            189,
+            177
+          ],
+          "margin": [
+            115,
+            40,
+            219,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2046,
+            0,
+            184,
+            182
+          ],
+          "margin": [
+            120,
+            29,
+            224,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            195,
+            181,
+            175
+          ],
+          "margin": [
+            118,
+            38,
+            227,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2232,
+            0,
+            186,
+            189
+          ],
+          "margin": [
+            122,
+            22,
+            222,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            187,
+            195,
+            174,
+            190
+          ],
+          "margin": [
+            121,
+            23,
+            234,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2420,
+            0,
+            194,
+            189
+          ],
+          "margin": [
+            120,
+            22,
+            214,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            365,
+            195,
+            180,
+            175
+          ],
+          "margin": [
+            120,
+            38,
+            228,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2616,
+            0,
+            188,
+            182
+          ],
+          "margin": [
+            127,
+            29,
+            220,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            549,
+            195,
+            170,
+            178
+          ],
+          "margin": [
+            129,
+            35,
+            238,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2806,
+            0,
+            187,
+            186
+          ],
+          "margin": [
+            121,
+            25,
+            221,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            723,
+            195,
+            183,
+            187
+          ],
+          "margin": [
+            119,
+            26,
+            225,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2995,
+            0,
+            191,
+            183
+          ],
+          "margin": [
+            116,
+            28,
+            217,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            910,
+            195,
+            174,
+            172
+          ],
+          "margin": [
+            122,
+            41,
+            234,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3188,
+            0,
+            176,
+            172
+          ],
+          "margin": [
+            123,
+            39,
+            232,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1088,
+            195,
+            179,
+            175
+          ],
+          "margin": [
+            118,
+            38,
+            229,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3366,
+            0,
+            199,
+            184
+          ],
+          "margin": [
+            110,
+            27,
+            209,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1271,
+            195,
+            202,
+            175
+          ],
+          "margin": [
+            104,
+            38,
+            206,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3567,
+            0,
+            193,
+            188
+          ],
+          "margin": [
+            111,
+            23,
+            215,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1477,
+            195,
+            190,
+            180
+          ],
+          "margin": [
+            107,
+            33,
+            218,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3762,
+            0,
+            184,
+            186
+          ],
+          "margin": [
+            114,
+            25,
+            224,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1671,
+            195,
+            188,
+            184
+          ],
+          "margin": [
+            112,
+            29,
+            220,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            197,
+            197,
+            189
+          ],
+          "margin": [
+            109,
+            22,
+            211,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            393,
+            252,
+            180
+          ],
+          "margin": [
+            110,
+            33,
+            156,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            199,
+            197,
+            284,
+            185
+          ],
+          "margin": [
+            111,
+            26,
+            124,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            258,
+            393,
+            246,
+            172
+          ],
+          "margin": [
+            118,
+            41,
+            162,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            485,
+            197,
+            280,
+            173
+          ],
+          "margin": [
+            117,
+            38,
+            128,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            508,
+            393,
+            256,
+            164
+          ],
+          "margin": [
+            120,
+            49,
+            152,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            767,
+            197,
+            276,
+            176
+          ],
+          "margin": [
+            121,
+            35,
+            132,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            768,
+            393,
+            265,
+            171
+          ],
+          "margin": [
+            118,
+            42,
+            143,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1045,
+            197,
+            281,
+            174
+          ],
+          "margin": [
+            116,
+            37,
+            127,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1037,
+            393,
+            248,
+            162
+          ],
+          "margin": [
+            128,
+            51,
+            160,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1328,
+            197,
+            273,
+            163
+          ],
+          "margin": [
+            127,
+            48,
+            135,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1289,
+            393,
+            249,
+            161
+          ],
+          "margin": [
+            124,
+            52,
+            159,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1603,
+            197,
+            274,
+            173
+          ],
+          "margin": [
+            116,
+            38,
+            134,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1542,
+            393,
+            251,
+            172
+          ],
+          "margin": [
+            113,
+            41,
+            157,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1879,
+            197,
+            249,
+            179
+          ],
+          "margin": [
+            116,
+            32,
+            159,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1797,
+            393,
+            219,
+            167
+          ],
+          "margin": [
+            114,
+            46,
+            189,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2130,
+            197,
+            242,
+            176
+          ],
+          "margin": [
+            117,
+            35,
+            166,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            581,
+            217,
+            172
+          ],
+          "margin": [
+            112,
+            41,
+            191,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2374,
+            197,
+            249,
+            183
+          ],
+          "margin": [
+            108,
+            28,
+            159,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            223,
+            581,
+            221,
+            180
+          ],
+          "margin": [
+            108,
+            33,
+            187,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2625,
+            197,
+            175,
+            185
+          ],
+          "margin": [
+            121,
+            26,
+            233,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            448,
+            581,
+            198,
+            169
+          ],
+          "margin": [
+            114,
+            44,
+            210,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2802,
+            197,
+            170,
+            179
+          ],
+          "margin": [
+            120,
+            32,
+            238,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            650,
+            581,
+            185,
+            170
+          ],
+          "margin": [
+            118,
+            43,
+            223,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2974,
+            197,
+            181,
+            190
+          ],
+          "margin": [
+            120,
+            21,
+            227,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            839,
+            581,
+            182,
+            183
+          ],
+          "margin": [
+            118,
+            30,
+            226,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3157,
+            197,
+            195,
+            193
+          ],
+          "margin": [
+            109,
+            18,
+            213,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1025,
+            581,
+            174,
+            178
+          ],
+          "margin": [
+            125,
+            35,
+            234,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3354,
+            197,
+            172,
+            191
+          ],
+          "margin": [
+            124,
+            20,
+            236,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1203,
+            581,
+            178,
+            181
+          ],
+          "margin": [
+            122,
+            32,
+            230,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3528,
+            197,
+            194,
+            197
+          ],
+          "margin": [
+            109,
+            14,
+            214,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1385,
+            581,
+            196,
+            187
+          ],
+          "margin": [
+            111,
+            26,
+            212,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3724,
+            197,
+            194,
+            195
+          ],
+          "margin": [
+            110,
+            16,
+            214,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1585,
+            581,
+            186,
+            174
+          ],
+          "margin": [
+            114,
+            39,
+            222,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            396,
+            177,
+            187
+          ],
+          "margin": [
+            119,
+            24,
+            231,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1775,
+            581,
+            186,
+            171
+          ],
+          "margin": [
+            112,
+            42,
+            222,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            179,
+            396,
+            189,
+            190
+          ],
+          "margin": [
+            112,
+            21,
+            219,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            776,
+            199,
+            179
+          ],
+          "margin": [
+            105,
+            34,
+            209,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            370,
+            396,
+            190,
+            186
+          ],
+          "margin": [
+            116,
+            25,
+            218,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            205,
+            776,
+            191,
+            172
+          ],
+          "margin": [
+            110,
+            41,
+            217,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            562,
+            396,
+            169,
+            175
+          ],
+          "margin": [
+            126,
+            36,
+            239,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            400,
+            776,
+            185,
+            166
+          ],
+          "margin": [
+            112,
+            47,
+            223,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            733,
+            396,
+            184,
+            178
+          ],
+          "margin": [
+            118,
+            33,
+            224,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            589,
+            776,
+            189,
+            173
+          ],
+          "margin": [
+            111,
+            40,
+            219,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            919,
+            396,
+            190,
+            175
+          ],
+          "margin": [
+            108,
+            36,
+            218,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            782,
+            776,
+            176,
+            148
+          ],
+          "margin": [
+            118,
+            64,
+            232,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1111,
+            396,
+            165,
+            164
+          ],
+          "margin": [
+            120,
+            47,
+            243,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            962,
+            776,
+            174,
+            150
+          ],
+          "margin": [
+            118,
+            63,
+            234,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1278,
+            396,
+            193,
+            174
+          ],
+          "margin": [
+            107,
+            37,
+            215,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1140,
+            776,
+            184,
+            156
+          ],
+          "margin": [
+            113,
+            59,
+            224,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1473,
+            396,
+            177,
+            176
+          ],
+          "margin": [
+            115,
+            35,
+            231,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1328,
+            776,
+            168,
+            145
+          ],
+          "margin": [
+            120,
+            67,
+            240,
+            74
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1652,
+            396,
+            181,
+            186
+          ],
+          "margin": [
+            118,
+            25,
+            227,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1500,
+            776,
+            172,
+            181
+          ],
+          "margin": [
+            120,
+            32,
+            236,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1835,
+            396,
+            181,
+            180
+          ],
+          "margin": [
+            115,
+            31,
+            227,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1676,
+            776,
+            173,
+            169
+          ],
+          "margin": [
+            116,
+            45,
+            235,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2018,
+            396,
+            181,
+            191
+          ],
+          "margin": [
+            114,
+            20,
+            227,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1853,
+            776,
+            182,
+            175
+          ],
+          "margin": [
+            107,
+            38,
+            226,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2201,
+            396,
+            175,
+            180
+          ],
+          "margin": [
+            108,
+            31,
+            233,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            965,
+            157,
+            161
+          ],
+          "margin": [
+            126,
+            51,
+            251,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2378,
+            396,
+            172,
+            159
+          ],
+          "margin": [
+            129,
+            52,
+            236,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            163,
+            965,
+            166,
+            139
+          ],
+          "margin": [
+            138,
+            75,
+            242,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2552,
+            396,
+            190,
+            155
+          ],
+          "margin": [
+            125,
+            56,
+            218,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            333,
+            965,
+            196,
+            126
+          ],
+          "margin": [
+            114,
+            87,
+            212,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2744,
+            396,
+            174,
+            162
+          ],
+          "margin": [
+            118,
+            49,
+            234,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            533,
+            965,
+            169,
+            128
+          ],
+          "margin": [
+            114,
+            86,
+            239,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2920,
+            396,
+            201,
+            132
+          ],
+          "margin": [
+            94,
+            79,
+            207,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            706,
+            965,
+            200,
+            110
+          ],
+          "margin": [
+            91,
+            104,
+            208,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "name": "censer_cloud_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3123,
+            396,
+            190,
+            169
+          ],
+          "margin": [
+            109,
+            42,
+            218,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            910,
+            965,
+            182,
+            160
+          ],
+          "margin": [
+            119,
+            54,
+            226,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3315,
+            396,
+            216,
+            182
+          ],
+          "margin": [
+            94,
+            29,
+            192,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1096,
+            965,
+            196,
+            178
+          ],
+          "margin": [
+            109,
+            35,
+            212,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3533,
+            396,
+            201,
+            187
+          ],
+          "margin": [
+            101,
+            24,
+            207,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1296,
+            965,
+            192,
+            169
+          ],
+          "margin": [
+            108,
+            44,
+            216,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3736,
+            396,
+            204,
+            185
+          ],
+          "margin": [
+            103,
+            26,
+            204,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1492,
+            965,
+            178,
+            171
+          ],
+          "margin": [
+            122,
+            42,
+            230,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            589,
+            204,
+            196
+          ],
+          "margin": [
+            100,
+            15,
+            204,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1674,
+            965,
+            213,
+            158
+          ],
+          "margin": [
+            107,
+            55,
+            195,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            206,
+            589,
+            182,
+            199
+          ],
+          "margin": [
+            115,
+            12,
+            226,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1151,
+            202,
+            163
+          ],
+          "margin": [
+            114,
+            50,
+            206,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            390,
+            589,
+            187,
+            195
+          ],
+          "margin": [
+            113,
+            16,
+            221,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            208,
+            1151,
+            200,
+            185
+          ],
+          "margin": [
+            103,
+            28,
+            208,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            579,
+            589,
+            181,
+            202
+          ],
+          "margin": [
+            118,
+            9,
+            227,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            412,
+            1151,
+            198,
+            187
+          ],
+          "margin": [
+            103,
+            26,
+            210,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            762,
+            589,
+            135,
+            202
+          ],
+          "margin": [
+            136,
+            9,
+            273,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            614,
+            1151,
+            194,
+            183
+          ],
+          "margin": [
+            104,
+            30,
+            214,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            899,
+            589,
+            126,
+            195
+          ],
+          "margin": [
+            141,
+            16,
+            282,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            812,
+            1151,
+            188,
+            181
+          ],
+          "margin": [
+            107,
+            32,
+            220,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1027,
+            589,
+            134,
+            199
+          ],
+          "margin": [
+            136,
+            12,
+            274,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1004,
+            1151,
+            193,
+            197
+          ],
+          "margin": [
+            105,
+            16,
+            215,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1163,
+            589,
+            196,
+            197
+          ],
+          "margin": [
+            100,
+            14,
+            212,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1201,
+            1151,
+            195,
+            194
+          ],
+          "margin": [
+            105,
+            19,
+            213,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "name": "censer_cloud",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1361,
+            589,
+            182,
+            187
+          ],
+          "margin": [
+            108,
+            24,
+            226,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1400,
+            1151,
+            193,
+            189
+          ],
+          "margin": [
+            100,
+            24,
+            215,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1545,
+            589,
+            197,
+            198
+          ],
+          "margin": [
+            99,
+            13,
+            211,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1597,
+            1151,
+            182,
+            194
+          ],
+          "margin": [
+            113,
+            19,
+            226,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1744,
+            589,
+            184,
+            201
+          ],
+          "margin": [
+            104,
+            10,
+            224,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1783,
+            1151,
+            172,
+            190
+          ],
+          "margin": [
+            116,
+            23,
+            236,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1930,
+            589,
+            181,
+            198
+          ],
+          "margin": [
+            105,
+            13,
+            227,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1356,
+            189,
+            190
+          ],
+          "margin": [
+            100,
+            23,
+            219,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2113,
+            589,
+            186,
+            203
+          ],
+          "margin": [
+            104,
+            8,
+            222,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            195,
+            1356,
+            171,
+            196
+          ],
+          "margin": [
+            113,
+            17,
+            237,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2301,
+            589,
+            175,
+            202
+          ],
+          "margin": [
+            111,
+            9,
+            233,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            370,
+            1356,
+            158,
+            189
+          ],
+          "margin": [
+            120,
+            24,
+            250,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2478,
+            589,
+            168,
+            193
+          ],
+          "margin": [
+            116,
+            18,
+            240,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            532,
+            1356,
+            170,
+            186
+          ],
+          "margin": [
+            112,
+            27,
+            238,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2648,
+            589,
+            176,
+            195
+          ],
+          "margin": [
+            107,
+            16,
+            232,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            706,
+            1356,
+            180,
+            196
+          ],
+          "margin": [
+            109,
+            17,
+            228,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2826,
+            589,
+            207,
+            192
+          ],
+          "margin": [
+            98,
+            19,
+            201,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            890,
+            1356,
+            186,
+            178
+          ],
+          "margin": [
+            106,
+            37,
+            222,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3035,
+            589,
+            182,
+            180
+          ],
+          "margin": [
+            114,
+            31,
+            226,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1080,
+            1356,
+            193,
+            172
+          ],
+          "margin": [
+            101,
+            41,
+            215,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3219,
+            589,
+            200,
+            187
+          ],
+          "margin": [
+            104,
+            24,
+            208,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1277,
+            1356,
+            187,
+            192
+          ],
+          "margin": [
+            108,
+            21,
+            221,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3421,
+            589,
+            194,
+            187
+          ],
+          "margin": [
+            109,
+            24,
+            214,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1468,
+            1356,
+            174,
+            173
+          ],
+          "margin": [
+            115,
+            40,
+            234,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "name": "censer_cloud_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3617,
+            589,
+            178,
+            180
+          ],
+          "margin": [
+            121,
+            31,
+            230,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1646,
+            1356,
+            174,
+            177
+          ],
+          "margin": [
+            114,
+            36,
+            234,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            3797,
+            589,
+            187,
+            185
+          ],
+          "margin": [
+            113,
+            26,
+            221,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1824,
+            1356,
+            191,
+            179
+          ],
+          "margin": [
+            103,
+            34,
+            217,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            794,
+            225,
+            182
+          ],
+          "margin": [
+            93,
+            29,
+            183,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1560,
+            206,
+            169
+          ],
+          "margin": [
+            102,
+            44,
+            202,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            227,
+            794,
+            215,
+            172
+          ],
+          "margin": [
+            103,
+            39,
+            193,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            212,
+            1560,
+            208,
+            174
+          ],
+          "margin": [
+            97,
+            39,
+            200,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            444,
+            794,
+            233,
+            180
+          ],
+          "margin": [
+            92,
+            31,
+            175,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            424,
+            1560,
+            220,
+            175
+          ],
+          "margin": [
+            96,
+            38,
+            188,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            679,
+            794,
+            237,
+            179
+          ],
+          "margin": [
+            93,
+            32,
+            171,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            648,
+            1560,
+            210,
+            162
+          ],
+          "margin": [
+            102,
+            52,
+            198,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            918,
+            794,
+            214,
+            173
+          ],
+          "margin": [
+            107,
+            38,
+            194,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            862,
+            1560,
+            207,
+            169
+          ],
+          "margin": [
+            103,
+            44,
+            201,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1134,
+            794,
+            230,
+            178
+          ],
+          "margin": [
+            97,
+            33,
+            178,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1073,
+            1560,
+            227,
+            173
+          ],
+          "margin": [
+            95,
+            40,
+            181,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1366,
+            794,
+            207,
+            179
+          ],
+          "margin": [
+            97,
+            32,
+            201,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1304,
+            1560,
+            204,
+            167
+          ],
+          "margin": [
+            102,
+            46,
+            204,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1575,
+            794,
+            194,
+            171
+          ],
+          "margin": [
+            109,
+            40,
+            214,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1512,
+            1560,
+            210,
+            173
+          ],
+          "margin": [
+            98,
+            40,
+            198,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1771,
+            794,
+            209,
+            178
+          ],
+          "margin": [
+            98,
+            33,
+            199,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            1726,
+            1560,
+            199,
+            176
+          ],
+          "margin": [
+            109,
+            37,
+            209,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            1982,
+            794,
+            187,
+            178
+          ],
+          "margin": [
+            106,
+            33,
+            221,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1744,
+            170,
+            160
+          ],
+          "margin": [
+            122,
+            54,
+            238,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2171,
+            794,
+            256,
+            198
+          ],
+          "margin": [
+            113,
+            13,
+            152,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            176,
+            1744,
+            246,
+            198
+          ],
+          "margin": [
+            101,
+            15,
+            162,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/combat_motion_v7.png",
+          "region": [
+            2429,
+            794,
+            273,
+            183
+          ],
+          "margin": [
+            105,
+            28,
+            135,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rain_censer_mote/motion_v8_00.png",
+          "region": [
+            426,
+            1744,
+            256,
+            197
+          ],
+          "margin": [
+            104,
+            16,
+            152,
+            22
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "censer_cloud",
+    "censer_cloud_recover",
+    "censer_cloud_windup",
+    "recover",
+    "windup"
+  ],
+  "redraw_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "849b64aa9a1e426d3100e5841dc46b1f541e2ad9927868541c2a56d8ff5efa60",
+    "spec": "art_requests/creature_redraw_v1/jobs/rain_censer_mote.json",
+    "clips": {
+      "walk": {
+        "mean_change": 0.0657,
+        "max_change": 0.1239,
+        "loop_seam": 0.1239,
+        "boil_ratio": 0.901,
+        "unique": 16,
+        "area_ratio": 1.064,
+        "registration_scale": 0.915167095,
+        "frames": 16
+      }
+    }
+  }
+}
