@@ -150,9 +150,16 @@ func run() -> void:
 	await tick(2)
 	Input.action_release("inventory")
 	check(scene.active_overlay == "map" and scene.world_map_view, "inventory action inside map changes to world view without opening bag")
+	check(String(scene.map_text.text).contains("U 区域地图") and String(scene.map_text.text).contains("O / ") and not String(scene.map_text.text).contains("Tab 区域地图"), "world overview legend names the remapped keys (%s)" % String(scene.map_text.text).right(40))
 	scene._close_overlays()
 	ui._refresh_quick_action_bindings()
 	check(ui.quick_actions[1].text.contains("U") and ui.quick_actions[2].text.contains("O") and ui.quick_actions[3].text.contains("Y"), "HUD shortcuts follow live remaps")
+	check(String(ui.bag_footer_hint.text).begins_with("W"), "bag footer starts from the default up key (%s)" % ui.bag_footer_hint.text)
+	scene._toggle_audio_settings()
+	await tick(2)
+	message = await remap_action("aim_up", key(KEY_N))
+	scene._close_overlays()
+	check(keys("aim_up") == [KEY_N] and String(ui.bag_footer_hint.text).begins_with("N") and not String(ui.bag_footer_hint.text).begins_with("W/S"), "bag footer names the remapped list keys (%s; %s)" % [ui.bag_footer_hint.text, message])
 
 	# --- Remaps survive a restart (a new World and a new player). ---
 	await retire()

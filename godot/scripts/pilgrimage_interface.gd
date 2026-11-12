@@ -58,6 +58,7 @@ var bag_category_label: Label
 var bag_description: RichTextLabel
 var bag_pin: Button
 var bag_currency: Label
+var bag_footer_hint: Label
 var legacy_bag_text: Label
 var legacy_bag_detail: Label
 var dialogue: ColorRect
@@ -708,7 +709,8 @@ func _build_bag() -> void:
     journal_batch_button=_button(bag,"筛选结果标已读",Vector2(562,571),Vector2(166,27),_open_journal_batch)
     journal_batch_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_batch_button.tooltip_text="确认后，将当前筛选中最多256条已知记录标为已读；不推进任务。"
-    _label(bag,"W/S 查看  ·  Esc 返回",Vector2(34,552),Vector2(520,30),TYPE.CAPTION,MUTED)
+    bag_footer_hint=_label(bag,"",Vector2(34,552),Vector2(520,30),TYPE.CAPTION,MUTED)
+    _refresh_bag_footer_hint()
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     preload("res://scripts/resource_purpose_dialog.gd").setup(self)
     preload("res://scripts/journal_mark_desk.gd").install(self)
@@ -2646,7 +2648,14 @@ func _binding_name(event: InputEvent) -> String:
 func _short_binding(action: String) -> String:
     return PROMPT_BINDINGS.action_label(action)
 
+## The list is walked with the remappable up/down actions, so the footer names
+## whatever they are bound to now instead of the default keys.
+func _refresh_bag_footer_hint() -> void:
+    if bag_footer_hint==null:return
+    bag_footer_hint.text="%s/%s 查看  ·  %s 返回" % [_short_binding("aim_up"),_short_binding("aim_down"),_short_binding("close_overlay")]
+
 func _refresh_quick_action_bindings() -> void:
+    _refresh_bag_footer_hint()
     var actions := ["build_menu", "inventory", "map", "audio_settings"]
     var titles := ["构筑", "行囊", "地图", "设置"]
     for index in mini(quick_actions.size(), actions.size()):
