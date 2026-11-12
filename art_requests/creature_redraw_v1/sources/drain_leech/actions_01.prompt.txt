@@ -1,0 +1,7 @@
+Precise small edit to ONLY the SECOND and THIRD leeches in the TOP ROW of this8-column4-row transparent sheet. Keep all other28 occupied sprites and the two blank cells unchanged, with the same dimensions/grid, body thickness, anatomy, texture and clear alpha padding.
+
+The top row's third leech is still too upright/high before it suddenly drops to the fourth leech. Redraw the THIRD leech halfway towards the FOURTH leech's pose: gentler upward body angle about26degrees instead of32degrees, and a slightly LOWER body center, at local x51%,y52.5% of its cell. Keep same length and solid body area. Articulate the armor plates naturally rather than distorting them.
+
+Redraw the SECOND leech as the smooth midpoint between the FIRST and this new THIRD: body angle about36degrees, center local x50.5%,y50%. The intended first-four progression is46degrees->36degrees->26degrees->19degrees, with body centers gradually descending. No abrupt jump at the third-to-fourth boundary. Make actual fresh painted intermediate poses, not identical copies or blurred transforms.
+
+All remaining leap, recovery and windup poses stay exactly as input. In particular preserve the good hooked/straightening sequence in row2, all horizontal recovery sprites, and row4 windup. Maintain stable body mass, no resizing any other sprite. True transparent alpha0 background, no new effects, haze, shadows, floor, text or grid. Cells31-32 remain blank.

@@ -1,0 +1,49 @@
+{
+  "kind": "drain_leech",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "One remaining8-9 jump 0.5019: third pose is still too upright and high; repaint second/third intermediate poses",
+  "source_sha256": "bda7be7433fabe3e0ff58c3603c7ea6cbcd6f3205c28a5015bd8b4a7f8fb2ea6",
+  "prompt_sha256": "18d55930c8bbd4a459773753f580127c3537865a3a5a9623a67fcc8537a15de9",
+  "reference_sha256": "176993f8f587805650834827dfd96b1f66ee15e361dd82193a5d105372b84655",
+  "actual_prompt": "Precise continuity repair of this exact30-pose armored-leech sheet,8 columns x4 rows. Keep dimensions, grid, identity, body size/thickness, painted style, and all existing poses EXCEPT the few specified cells below. Cells31-32 remain completely blank. Preserve the smooth mostly-horizontal recovery section and the three-step windup that are already good. No rigid cutout transforms: actually draw the articulated plate joints into intermediate poses.\n\nRepair row1 columns4 and5 (cells4,5, corresponding leap frames9,10): cell3 is rising diagonally, cell6 is horizontal. Draw cell4 at a gentle15degree upward body angle and cell5 at a gentle7degree angle, so cell3->4->5->6 progressively straightens. Cell5 MUST NOT already be completely flat. Place their body centroids progressively between the centres of cell3 and6, not a sudden vertical jump; same length and thickness throughout, tail/head positions move gradually. These two must overlap neighbouring silhouettes substantially.\n\nRepair row2 column8 (cell16, leap frame22): cell15 is still partially hooked and cell17 is horizontal. Draw cell16 as a TRUE HALFWAY curved pose between them, a shallow continuous bend with rear two-thirds almost horizontal and front/head curved only15-20degrees. Do not copy the completely flat cell17 into cell16. Retain body centre between15 and17 and stable plate sizes. This must ease the curled pose out across two frames, with no sharp hook-to-flat jump.\n\nMinor seam refinement at row3 column2 (cell18, recovery frame1): keep low horizontal body but show its red mandibles more OPEN, like the end of a biting attack, then allow the following cells19-26 to close jaws gradually. Preserve all other recovery body poses and positions; never put hooks back into recovery.\n\nAll other cells remain as input, individually distinct. Keep solid body mass constant, no whole-body scaling, new limbs or effects. Clear transparent margins at every cell edge; alpha0 background, no colored haze, particles, shadows, floor, glow, text, labels or grid. Last TWO cells completely empty.",
+  "targets": {
+    "leech_leap": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "leech_leap_recover": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "windup": [
+      20,
+      21,
+      22,
+      23
+    ]
+  },
+  "reference_recipe": "image_gen intermediate-pose repair of rejected action-leech-v2; exact prompts and input/output hashes retained in receipts/action-leech-v2.json and its predecessor; frozen original guide retains target-frame mapping"
+}
