@@ -211,7 +211,7 @@ class CompletionContractTests(unittest.TestCase):
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
         # Dedicated contracts run these suites only when their inputs change.
-        contract_suites = {'enemy_frame_fit'}
+        contract_suites = {'enemy_frame_fit', 'enemy_wing_flap'}
         self.assertTrue(contract_suites.isdisjoint(all_suites))
         self.assertEqual(set(all_suites) | contract_suites, set(SUCCESS_MARKERS))
         for marker in SUCCESS_MARKERS.values():

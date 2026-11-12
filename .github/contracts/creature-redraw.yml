@@ -23,6 +23,8 @@ on:
       - 'tools/build_creature_frame_fit.py'
       - 'tools/test_creature_frame_fit.py'
       - 'godot/scripts/enemy_frame_fit_validation.gd'
+      - 'godot/scripts/enemy_wing_flap_validation.gd'
+      - 'godot/data/creature_wing_flap.json'
       - 'godot/shaders/hit_flash.gdshader'
       - '.github/contracts/creature-redraw.yml'
       - 'tools/creature_redraw_art.py'
@@ -65,7 +67,7 @@ jobs:
           python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/transition-logs/import"
       - name: Verify real playback, interruptions and frozen combat clocks
         run: |
-          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite boss_behavior --suite character_motion_v8 --suite combat_motion_v7 --suite expanded_character_motion --suite enemy_frame_fit --suite enemy_motion_transitions --suite enemy_hit_feedback --log-dir "$RUNNER_TEMP/transition-logs/runtime"
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite boss_behavior --suite character_motion_v8 --suite combat_motion_v7 --suite expanded_character_motion --suite enemy_frame_fit --suite enemy_wing_flap --suite enemy_motion_transitions --suite enemy_hit_feedback --log-dir "$RUNNER_TEMP/transition-logs/runtime"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

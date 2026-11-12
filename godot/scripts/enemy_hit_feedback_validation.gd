@@ -47,6 +47,9 @@ func run() -> void:
         actor.knockback_velocity=0
         actor._tick_timers(.25)
         check(actor.flash_timer==actor.FLASH_TOTAL_TIME,String(design.kind)+" flash survives physics catch-up before first draw")
+        # The sampling below expects every pixel where it was drawn; a beating wing
+        # is elsewhere by design (its own flash is covered by enemy_wing_flap).
+        if actor.wing_flap_active:actor.flash_materials[0].set_shader_parameter("wing_swing",0.0)
         await draw_frame()
         await draw_frame()
         var sprite: AnimatedSprite2D=actor.animated_sprite
