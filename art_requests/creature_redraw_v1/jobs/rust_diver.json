@@ -5,25 +5,6 @@
   "baseline_sha256": "08cd3095b39349d48f37999d045b390289093a8aae9ddca347fbe139881053f0",
   "jobs": [
     {
-      "clip": "walk",
-      "count": 16,
-      "grid": [
-        4,
-        4
-      ],
-      "source": "art_requests/creature_redraw_v1/sources/rust_diver/walk.png",
-      "sha256": "b9189c17149746d221e31278607bb14da579c439b1fb7d95a366ef11d1b320f5",
-      "generator": "built-in image_gen",
-      "prompt_sha256": "88a5594f32f005c74052aaa3d44301b22a884f7677cd484e5781d74eea267e81",
-      "reference": {
-        "sha256": "3191afd30240643e4c3839eb1ea52f178f2f2bee5058d9753f2307e9c74fda4e",
-        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
-      },
-      "reference_height": 174,
-      "center_x": 249.0,
-      "ground_y": 230
-    },
-    {
       "clip": "idle",
       "count": 8,
       "grid": [
@@ -41,6 +22,26 @@
       "reference_height": 174,
       "center_x": 249,
       "ground_y": 230
+    },
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/rust_diver/walk.png",
+      "sha256": "9b663ea40213cba1778879180c8d725c56addcb3e7ac42486f545770bfffa387",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "43c012daa2c466b2aff1d39cb35cafc94acb690fffab5fe33dd3ff2272a0ec1a",
+      "reference": {
+        "sha256": "527f71baeeb83fe5d5801f8c9258feea86ed570c6d033c66b1feef6a30be0e2a",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 176,
+      "center_x": 246.5,
+      "ground_y": 230,
+      "stride_reviewed": true
     }
   ]
 }

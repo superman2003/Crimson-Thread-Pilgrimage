@@ -5,25 +5,6 @@
   "baseline_sha256": "f02108faee6de5c854eea0fe372002c4d87d6ada33a6d9e716c3dc14e30913b9",
   "jobs": [
     {
-      "clip": "walk",
-      "count": 16,
-      "grid": [
-        4,
-        4
-      ],
-      "source": "art_requests/creature_redraw_v1/sources/erasure_bailiff/walk.png",
-      "sha256": "194e8c8a1c6979c62ba46a8eac754a7f94557b4cfd4bd73d425b77f880afbeeb",
-      "generator": "built-in image_gen",
-      "prompt_sha256": "ab69c8a80700563e44bfb416ab9b28fb17f7be7cdea0a040ff8a2e1ea5d20d01",
-      "reference": {
-        "sha256": "f03fa59769d0ccc379342893ae7a342cbc632444783f096915a8bff2422f865a",
-        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
-      },
-      "reference_height": 203,
-      "center_x": 182.5,
-      "ground_y": 238
-    },
-    {
       "clip": "idle",
       "count": 8,
       "grid": [
@@ -41,6 +22,26 @@
       "reference_height": 203,
       "center_x": 182.5,
       "ground_y": 238
+    },
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/erasure_bailiff/walk.png",
+      "sha256": "f15ed9bdce04ff6fe112e28ca3af47f0fb6d7da03a5b0271f9e1d80be0d0aeff",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "f5a93481b740f7adef8d349b712a5df8dab2b0e08a2aac46a8b5d3a514ac4fec",
+      "reference": {
+        "sha256": "90689d9d861d5e681a7c9a764fa5a7bb112955572a1ad6eb29f3bce4a89b7911",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 198,
+      "center_x": 196,
+      "ground_y": 238,
+      "stride_reviewed": true
     }
   ]
 }

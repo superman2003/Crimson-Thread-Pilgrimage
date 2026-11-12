@@ -5,25 +5,6 @@
   "baseline_sha256": "3ad6a70e2a3590443c66d755b9617494a1cd99f9aa695c952e9e3c6245d31aed",
   "jobs": [
     {
-      "clip": "walk",
-      "count": 32,
-      "grid": [
-        8,
-        4
-      ],
-      "source": "art_requests/creature_redraw_v1/sources/saltwhite_contract_judge/walk.png",
-      "sha256": "978f1df0f1081d58f11c0b532e485257f6cccf38dd0eb8b60c0cd6a8be7e558c",
-      "generator": "built-in image_gen",
-      "prompt_sha256": "c4b7cfb1600a9f299af966ddc4181c17db1085c9fe24f28551751fd02569d868",
-      "reference": {
-        "sha256": "e96bcd39f025a17fc6d1e74a5932713484fcf5148de0d81be4bd1f6dfc994aea",
-        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
-      },
-      "reference_height": 182,
-      "center_x": 279.5,
-      "ground_y": 225
-    },
-    {
       "clip": "idle",
       "count": 16,
       "grid": [
@@ -41,6 +22,26 @@
       "reference_height": 182,
       "center_x": 279.5,
       "ground_y": 225
+    },
+    {
+      "clip": "walk",
+      "count": 32,
+      "grid": [
+        8,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/saltwhite_contract_judge/walk.png",
+      "sha256": "a7dd35e2ddb9ccec9f7f5c083d384fc4c72a5a2c4a41c0d8064a8dbec8da9f26",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "93b2b60d561be8c84fc7b92a0903ef4cc434fb4f7cdd79ed985bf2b51a8bca5e",
+      "reference": {
+        "sha256": "fc5a26ecdb7a358c1f4ca291bb6fe2837058f54f12bac4a9014185d5cfcc8c16",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 181,
+      "center_x": 297,
+      "ground_y": 225,
+      "stride_reviewed": true
     }
   ]
 }
