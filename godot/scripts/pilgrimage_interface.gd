@@ -271,7 +271,10 @@ func finish_bind() -> void:
     # its button row and content joined for d-pad navigation.
     if not get_tree().node_added.is_connected(_bridge_dialog_focus):
         get_tree().node_added.connect(_bridge_dialog_focus)
-    for dialog in (level.find_children("*","AcceptDialog",true,false) if level is Node else find_children("*","AcceptDialog",true,false)):_bridge_dialog_focus(dialog)
+    var scope: Node=level if level is Node else self
+    for dialog in scope.find_children("*","AcceptDialog",true,false):_bridge_dialog_focus(dialog)
+    # Dropdown popups are internal children that find_children does not list.
+    for menu in scope.find_children("*","OptionButton",true,false)+scope.find_children("*","MenuButton",true,false):_bridge_dialog_focus(menu.get_popup())
     _fit_viewport()
     construction_complete=true
     set_process(true)
@@ -1468,7 +1471,7 @@ func _bind_ui_navigation() -> void:
         build_shortcut=preload("res://scripts/build_shortcut_input.gd").new()
         build_shortcut.name="BuildShortcutInput"
         add_child(build_shortcut)
-    for pair in [["ui_up",JOY_BUTTON_DPAD_UP],["ui_down",JOY_BUTTON_DPAD_DOWN],["ui_left",JOY_BUTTON_DPAD_LEFT],["ui_right",JOY_BUTTON_DPAD_RIGHT],["ui_accept",JOY_BUTTON_A],["close_overlay",JOY_BUTTON_B],["inventory",JOY_BUTTON_START],["map",JOY_BUTTON_RIGHT_STICK],["interact",JOY_BUTTON_BACK]]:
+    for pair in [["ui_up",JOY_BUTTON_DPAD_UP],["ui_down",JOY_BUTTON_DPAD_DOWN],["ui_left",JOY_BUTTON_DPAD_LEFT],["ui_right",JOY_BUTTON_DPAD_RIGHT],["ui_accept",JOY_BUTTON_A],["ui_cancel",JOY_BUTTON_B],["close_overlay",JOY_BUTTON_B],["inventory",JOY_BUTTON_START],["map",JOY_BUTTON_RIGHT_STICK],["interact",JOY_BUTTON_BACK]]:
         var action:=String(pair[0])
         if not InputMap.has_action(action):InputMap.add_action(action)
         var event:=InputEventJoypadButton.new()
@@ -3247,6 +3250,9 @@ func _bridge_dialog_focus(node: Node) -> void:
         DIALOG_FOCUS.install(node)
         # Every dialog is modal for polled page shortcuts, including the frame
         # it closes in, so joypad B (back) cancels only the dialog.
+        register_text_entry_window(node)
+    elif node is PopupMenu and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):
+        # B/Escape closing a dropdown must not also close the page behind it.
         register_text_entry_window(node)
 
 func _exit_tree() -> void:

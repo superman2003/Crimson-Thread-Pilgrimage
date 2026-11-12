@@ -1,4 +1,4 @@
-# U02／E05：手柄 B 键能退出对话框，构筑方案可全程用手柄恢复
+# U02／E05：手柄 B 键能退出对话框和下拉菜单，构筑方案可全程用手柄恢复
 
 接续 U02“手柄完整导航”与 E05“手柄恢复方案、代价预览”，建立在 #489（对话框十字键焦点桥）之上。所有 46 个任务包的最终验收仍开放。
 
@@ -13,14 +13,15 @@
 ## 现在
 
 - 对话框焦点桥（#489，已挂到界面层和关卡下的每个对话框）监听窗口输入：手柄 B 按下时执行该对话框自己的取消（确认框按“取消”按钮的原路径，普通提示框隐藏并发出 `canceled`），与 Esc 的效果一致；`dialog_close_on_escape` 为假的对话框不受影响。
-- 焦点桥接上的对话框同时登记为模态窗口。界面原本只对一部分对话框做了登记：已登记的对话框可见时、以及关闭的那一帧，主循环不处理翻页、关页等快捷键。现在所有对话框都适用，所以 B 只关闭对话框，背后的页面保持打开（未登记的“资源用途核对”在改动前会被 B 连同行囊页一起关掉）。
+- 下拉菜单（OptionButton 弹出的 PopupMenu）原生按 `ui_cancel` 关闭，不限键盘，但 `ui_cancel` 没有手柄键，所以 B 也关不掉（最小场景实测）。手柄 B 现在同时绑定到 `ui_cancel`，A 打开、十字键选择、B 关闭。
+- 焦点桥接上的对话框和界面里的下拉菜单同时登记为模态窗口。界面原本只对一部分对话框做了登记：已登记的对话框可见时、以及关闭的那一帧，主循环不处理翻页、关页等快捷键。现在所有对话框都适用，所以 B 只关闭对话框或下拉菜单，背后的页面保持打开（未登记的“资源用途核对”在改动前会被 B 连同行囊页一起关掉；下拉菜单不登记时，B 关菜单也会连页面一起关，键盘 Esc 原先同样如此）。
 
 ## 验证
 
 - 新默认套件 `loadout_gamepad_restore`（正式 World，28 项、13 次真实手柄按键）：左摇杆按下打开构筑页；十字键路线按视口使用的同一套焦点邻居规划，每一步检查焦点确实到达；A 保存方案；改装备后 A 打开恢复核对，不改变构筑；窗口打开在“保留当前构筑”上；核对文字包含战具差异、生命／绯线变化和碎钱花费；B 退出核对、构筑不变、仍在构筑页；再次打开后十字键走到“确认恢复装备”，A 确认，装备恢复并写入存档。改动前 3 项失败（B 无法退出，随后焦点仍困在窗口内）。
-- `dialog_dpad_focus` 122→144 项：四个页面按钮打开的 21 个对话框，每个都检查手柄 B 能关闭它且页面仍打开（不少于 15 个）。未登记的对话框先暴露出“资源用途核对”会连页面一起关，改为全部登记后通过。
+- `dialog_dpad_focus` 122→147 项：旅记排序下拉菜单 A 打开、B 关闭且行囊页仍开（去掉 `ui_cancel` 绑定或下拉菜单登记任一项都会失败）；四个页面按钮打开的 21 个对话框，每个都检查手柄 B 能关闭它且页面仍打开（不少于 15 个）。未登记的对话框先暴露出“资源用途核对”会连页面一起关，改为全部登记后通过。
 - `pickup_ledger` 174 项：测试在关闭资源用途核对窗口的同一帧里立刻按交互，现在这一帧被模态规则拦下，测试改为等一帧再按（真实游戏里关闭后下一帧即可交互）。
-- 打开或依赖对话框的二十余套既有回归通过：`dialog_viewport_fit`、`ui_world_integration`、`ui_redesign`、`ui_text_order`、`journal_find_world`、`settings_dialog_layout_world`、`map_directory`、`cartography`、`controller_comfort`、`save_desk`、`input_prompt`、`loadout_restore_review`、`loadout_workbench`、`settings_profiles`、`craft_cart`、`journal_desk`、`expedition_desk`、`goal_desk` 等。
+- 打开或依赖对话框的二十余套既有回归通过（`settings_profiles`、`save_desk`、`expedition_desk` 在本机共享的用户数据目录里有之前中断运行残留的夹具文件，改用干净的临时数据目录运行后通过）：`dialog_viewport_fit`、`ui_world_integration`、`ui_redesign`、`ui_text_order`、`journal_find_world`、`settings_dialog_layout_world`、`map_directory`、`cartography`、`controller_comfort`、`save_desk`、`input_prompt`、`loadout_restore_review`、`loadout_workbench`、`settings_profiles`、`craft_cart`、`journal_desk`、`expedition_desk`、`goal_desk` 等。
 
 ## 边界
 

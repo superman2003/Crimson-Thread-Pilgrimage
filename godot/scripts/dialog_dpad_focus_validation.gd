@@ -87,8 +87,11 @@ func pad(window: Window, button: JoyButton, count: int) -> void:
 		await frames(2)
 
 func joy_back() -> void:
+	await joy(JOY_BUTTON_B)
+
+func joy(button: JoyButton) -> void:
 	var press := InputEventJoypadButton.new()
-	press.button_index = JOY_BUTTON_B
+	press.button_index = button
 	press.pressed = true
 	Input.parse_input_event(press)
 	await frames(2)
@@ -196,6 +199,21 @@ func run() -> void:
 	editor.hide()
 	editor.queue_free()
 	await frames(2)
+	# A dropdown on a page opens with A, moves with the d-pad, and B closes it
+	# without closing the page (B is also the page's back button).
+	await open_page("backpack")
+	ui.bag_category = "旅记"
+	ui.refresh_inventory()
+	await frames(3)
+	var dropdown: OptionButton = ui.journal_sort
+	check(dropdown != null and dropdown.is_visible_in_tree(), "journal page shows its sort dropdown")
+	if dropdown != null:
+		dropdown.grab_focus()
+		await frames(2)
+		await joy(JOY_BUTTON_A)
+		check(dropdown.get_popup().visible, "joypad A opens the dropdown")
+		await joy(JOY_BUTTON_B)
+		check(not dropdown.get_popup().visible and world.active_overlay == "backpack", "joypad B closes the dropdown and keeps the backpack page open")
 	# Real joypad input: the danger-caption dialog opens on its safe Cancel
 	# button and d-pad up now enters the options instead of staying put.
 	await open_page("settings")
