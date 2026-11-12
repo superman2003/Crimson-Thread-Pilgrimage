@@ -15,7 +15,7 @@ func _ready() -> void:
     size = min_size
     dialog_hide_on_ok = false
     var layout := VBoxContainer.new()
-    layout.add_theme_constant_override("separation", 14)
+    layout.add_theme_constant_override("separation", 12)
     add_child(layout)
     scroll = ScrollContainer.new()
     scroll.custom_minimum_size = Vector2(650, 340)

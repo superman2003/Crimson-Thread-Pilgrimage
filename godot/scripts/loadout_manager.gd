@@ -22,7 +22,7 @@ func _ready() -> void:
     var parsed: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://data/build_catalog.json"))
     if parsed is Dictionary:catalogue=parsed
     var column := VBoxContainer.new()
-    column.add_theme_constant_override("separation", 14)
+    column.add_theme_constant_override("separation", 12)
     add_child(column)
     explanation = Label.new()
     explanation.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

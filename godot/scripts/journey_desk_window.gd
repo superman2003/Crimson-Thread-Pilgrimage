@@ -23,7 +23,7 @@ func _ready() -> void:
     add_child(body)
     column = VBoxContainer.new()
     column.custom_minimum_size.x = 920
-    column.add_theme_constant_override("separation", 9)
+    column.add_theme_constant_override("separation", 10)
     body.add_child(column)
     column.child_entered_tree.connect(_content_added)
     get_ok_button().text = "返回"
