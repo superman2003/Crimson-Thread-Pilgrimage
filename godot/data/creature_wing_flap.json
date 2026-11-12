@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "layer": "motion_redraw_manifest.json",
+  "note": "Wing beat for redrawn hover loops. Canvas pixels of the layer above; angles in degrees, 90 up, 180 behind the actor. Preview: WING_FLAP_SHEET=out.png with the enemy_wing_flap suite under real GL",
+  "creatures": {
+    "wax_bee": {
+      "hz": 9.0,
+      "idle": {"hinge": [207, 137], "sector": [76, 176], "radius": [8, 34, 112], "swing": 34, "center": 0.0, "shorten": 0.86, "flex": 0.9},
+      "walk": {"hinge": [205, 133], "sector": [96, 182], "radius": [8, 34, 126], "swing": 30, "center": 0.0, "shorten": 0.86, "flex": 0.9}
+    },
+    "bell_mote": {
+      "hz": 7.0,
+      "idle": {"hinge": [222, 72], "sector": [150, 238], "radius": [6, 22, 84], "swing": 26, "center": 0.5, "shorten": 0.9, "flex": 0.8},
+      "walk": {"hinge": [188, 72], "sector": [130, 195], "radius": [6, 22, 98], "swing": 26, "center": 0.6, "shorten": 0.9, "flex": 0.8}
+    },
+    "rain_censer_mote": {
+      "hz": 6.0,
+      "idle": {"hinge": [222, 100], "sector": [108, 200], "radius": [8, 30, 96], "swing": 24, "center": 0.5, "shorten": 0.9, "flex": 0.8},
+      "walk": {"hinge": [235, 105], "sector": [110, 184], "radius": [8, 30, 108], "swing": 24, "center": 0.5, "shorten": 0.9, "flex": 0.8}
+    },
+    "bronze_moth": {
+      "hz": 3.2,
+      "idle": {"hinge": [240, 170], "sector": [98, 232], "radius": [10, 40, 152], "swing": 18, "center": 0.5, "shorten": 0.9, "flex": 1.1},
+      "walk": {"hinge": [243, 172], "sector": [98, 232], "radius": [10, 40, 166], "swing": 20, "center": 0.5, "shorten": 0.9, "flex": 1.1}
+    },
+    "summoned_page": {
+      "hz": 4.0,
+      "idle": {"hinge": [215, 88], "sector": [100, 235], "radius": [8, 32, 116], "swing": 20, "center": 0.5, "shorten": 0.9, "flex": 1.0},
+      "walk": {"hinge": [215, 90], "sector": [112, 238], "radius": [8, 32, 126], "swing": 20, "center": 0.5, "shorten": 0.9, "flex": 1.0}
+    },
+    "thorn_bloom_mote": {
+      "hz": 6.0,
+      "idle": {"hinge": [195, 105], "sector": [140, 206], "radius": [12, 36, 106], "swing": 22, "center": 0.5, "shorten": 0.9, "flex": 0.9}
+    },
+    "isotope_lumen": {
+      "hz": 4.0,
+      "idle": {"hinge": [235, 150], "sector": [116, 200], "radius": [10, 38, 140], "swing": 20, "center": 0.5, "shorten": 0.9, "flex": 1.0}
+    }
+  }
+}
