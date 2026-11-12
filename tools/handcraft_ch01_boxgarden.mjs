@@ -90,7 +90,7 @@ const ROOMS = {
     objective: "清理半钟平台的伏击。", guide: "东角地面空洞——将来能劈开。",
     danger: "孢钟匠自高处泼洒孢云。", next: "顶阁", setpiece: "半悬的破钟",
     traversal_focus: "立体战斗", pacing_role: "pressure" },
-  bell_marrow_cell: { name: "钟髓密室", kind: "gate", depth: 1,
+  bell_marrow_cell: { name: "钟髓密室", kind: "gate", depth: 1, layout_top: 1026,
     objective: "劈开脆钟地板，取回钟髓中的证词线索。", guide: "需要棘线下劈（断弦温室）。",
     danger: "密室封存的东西不愿被读。", next: "半钟平台", setpiece: "钟髓结晶",
     traversal_focus: "回访门", pacing_role: "reward" },
@@ -658,7 +658,10 @@ function build() {
 
   const map_rooms = ROOM_ORDER.map((id) => {
     const meta = ROOMS[id], b = rb[id], c = cells[id];
-    const layout_rect = [round(b.minx - 40), round(b.miny - 150), round(b.maxx - b.minx + 80), round(b.maxy - b.miny + 210)];
+    // layout_top lifts a room's upper bound where features it owns (ability
+    // gates) reach above the default margin; the lower bound stays put.
+    const layoutTop = meta.layout_top ?? round(b.miny - 150);
+    const layout_rect = [round(b.minx - 40), layoutTop, round(b.maxx - b.minx + 80), round(b.maxy + 60) - layoutTop];
     return {
       id, name: meta.name, range: [round(b.minx - 40), round(b.maxx + 40)], depth: meta.depth, kind: meta.kind,
       archetype: meta.kind, layout_rect, map_rect: [c.col * 280, c.row * 210, 236, 168],
