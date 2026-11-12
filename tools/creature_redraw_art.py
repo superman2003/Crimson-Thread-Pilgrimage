@@ -1,12 +1,7 @@
 """Pack image_gen redraw sheets without synthesizing poses or changing clocks.
 
-One uniform registration scale is used for an entire sheet. Transparent cropping
+One uniform registration scale matches the replaced median solid body area for an entire sheet. Transparent cropping
 uses either planted feet or the authored cell coordinates for hovering actors.
-
-The sheet scale makes the median drawn body cover the same area as the clip it
-replaces. Height is not used: a redrawn pose with wider wings, cloak or weapon at
-the same height would otherwise come out bigger than every clip left untouched,
-and the actor would visibly grow and shrink when it changes action.
 """
 from copy import deepcopy
 from hashlib import sha256
@@ -40,11 +35,7 @@ def baseline(kind):
     return path, read(path)
 
 
-# A walk cycle whose legs do not move is a still picture sliding along the floor.
-# Leg change = mean neighbour-frame outline change in the lowest 35% of the
-# clip's height. Deliveries listed in stride_pending.json were accepted before
-# this floor existed and wait for a redraw (docs/research/20261112_redraw_walk_stride_request.md).
-# Immutable pre-guard source identities: only these historical sheets may wait.
+BODY_AREA_TOLERANCE = 0.04      # redrawn median body area vs the replaced clip
 LEGACY_STRIDE_SOURCES = {
     ('corridor_heavy', 'walk'): 'd93dbb520a5dcc9612859455e98f8508ad2aef91ea0d5e512673c6594012fbc6',
     ('drain_leech', 'walk'): '040e35bfeb97a865948628d95510495b0a8facd1b085dac1b0a0c48b7c411658',
@@ -60,13 +51,57 @@ LEGACY_STRIDE_SOURCES = {
 }
 LEG_CHANGE_FLOOR = 0.15
 LEG_BAND = 0.35
-BODY_AREA_TOLERANCE = 0.04      # redrawn median body area vs the replaced clip
+
+WALK_STRIDE_MIN = LEG_CHANGE_FLOOR
 
 
 def body_area(clip, canvas):
     """Median solid area of the clip being replaced, on the rig canvas."""
     pages = fit.Atlases()
     return float(statistics.median(int(audit.placed(pages.alpha(f), f, canvas).sum()) for f in clip['frames']))
+
+
+def index_list(values, limit, label):
+    if not values or any(type(i) is not int or i < 0 or i >= limit for i in values):
+        raise ValueError('Invalid '+label)
+    if len(set(values)) != len(values):
+        raise ValueError('Duplicate '+label)
+    return list(values)
+
+
+def reviewed_checklist():
+    source = REQUEST/'checklist.json'
+    if sha256(source.read_bytes()).hexdigest() != '53b857ca603458a6d47dedab2b8a0b72b6183290c10d951f54b76f3af3dcc778':
+        raise ValueError('The reviewed pinned checklist changed')
+    return read(source)['clips']
+
+
+def required_frames(kind, clip):
+    rows = [r for r in reviewed_checklist() if r['kind'] == kind and r['clip'] == clip]
+    if len(rows) != 1:
+        raise ValueError('Missing or ambiguous checklist entry')
+    row = rows[0]
+    if row['boil']:
+        raise ValueError('Outline boil requires a complete clip redraw')
+    return ({r['frame'] for r in row['size']} |
+            {r[key] for r in row['jumps'] for key in ('after', 'before')})
+
+
+def target_indices(kind, job, clip):
+    count = len(clip['frames'])
+    if 'target_frames' not in job:
+        if job['count'] != count:
+            raise ValueError('Redrawing may not change the frozen frame count')
+        return list(range(count))
+    if job.get('original_frame_count') != count:
+        raise ValueError('Partial redraw changed the frozen frame count')
+    targets = index_list(job['target_frames'], count, 'target frame indices')
+    if len(targets) != job['count']:
+        raise ValueError('Partial redraw count does not match its target frames')
+    missing = required_frames(kind, job['clip']) - set(targets)
+    if missing:
+        raise ValueError('Partial redraw misses listed frames: '+str(sorted(missing)))
+    return targets
 
 
 def extract(job, canvas, target_area=None):
@@ -79,8 +114,14 @@ def extract(job, canvas, target_area=None):
     with Image.open(source) as image:
         sheet = image.convert('RGBA')
     columns, rows = job['grid']
-    cells, boxes, heights, areas = [], [], [], []
-    for i in range(job['count']):
+    selected = index_list(job.get('cells', list(range(job['count']))), columns*rows, 'source cells')
+    if len(selected) != job['count']:
+        raise ValueError('Source cell count does not match the drawings')
+    scale_cells = index_list(job.get('scale_cells', selected), columns*rows, 'scale cells')
+    if not set(selected).issubset(scale_cells):
+        raise ValueError('Every selected cell must participate in the shared sheet scale')
+    cells, boxes, areas = {}, {}, {}
+    for i in scale_cells:
         x, y = i % columns, i // columns
         cell = sheet.crop((round(x*sheet.width/columns), round(y*sheet.height/rows),
                            round((x+1)*sheet.width/columns), round((y+1)*sheet.height/rows)))
@@ -96,14 +137,13 @@ def extract(job, canvas, target_area=None):
         box = (int(xs.min()), int(ys.min()), int(xs.max())+1, int(ys.max())+1)
         if min(box[0], box[1], cell.width-box[2], cell.height-box[3]) < 5:
             raise ValueError(f'Drawing {i} touches its cell boundary')
-        cells.append(cell); boxes.append(box); heights.append(box[3]-box[1]); areas.append(len(xs))
-    if target_area:
-        scale = (target_area/statistics.median(areas))**.5
-    else:
-        scale = job['reference_height']/statistics.median(heights)
+        cells[i] = cell; boxes[i] = box; areas[i] = len(xs)
+    scale = ((target_area/statistics.median(areas[i] for i in scale_cells))**.5 if target_area
+             else job['reference_height']/statistics.median(boxes[i][3]-boxes[i][1] for i in scale_cells))
     # This single affine scale is never adjusted to make individual frames fit.
     drawings = []
-    for cell, box in zip(cells, boxes):
+    for i in selected:
+        cell, box = cells[i], boxes[i]
         art = cell.crop(box)
         art = art.resize((round(art.width*scale), round(art.height*scale)), Image.Resampling.LANCZOS)
         x = round(job['center_x']+(box[0]-cell.width/2)*scale)
@@ -117,6 +157,52 @@ def extract(job, canvas, target_area=None):
             raise ValueError('Drawing leaves the frozen rig canvas')
         drawings.append((art, (x, y)))
     return drawings, scale
+
+
+def source_drawing(frame, cache):
+    atlas = frame['atlas']
+    if atlas not in cache:
+        with Image.open(ROOT/'godot'/atlas.removeprefix('res://')) as image:
+            cache[atlas] = image.convert('RGBA')
+    x, y, w, h = frame['region']
+    return cache[atlas].crop((x,y,x+w,y+h)), tuple(frame['margin'][:2])
+
+
+def replace_frames(base, packed):
+    manifest = deepcopy(base)
+    for clip in manifest['animations']:
+        clip['frames'] = [packed.get((clip['name'], i), old)
+                          for i, old in enumerate(clip['frames'])]
+    return manifest
+
+
+def unrepaired_sizes(row, fit_rows):
+    return [(item['frame'], fit_rows[item['frame']][0]) for item in row['size']
+            if abs(fit_rows[item['frame']][0]-1) > .080001]
+
+
+def verify_repairs():
+    """Confirm listed size defects disappeared after measuring the actual delivery."""
+    rows = {(r['kind'],r['clip']):r for r in reviewed_checklist()}
+    checked_clips = checked_frames = 0
+    for spec_path in sorted((REQUEST/'jobs').glob('*.json')):
+        spec = read(spec_path); kind = spec['kind']
+        partial = [j for j in spec['jobs'] if 'target_frames' in j]
+        if not partial: continue
+        folder = fit.CREATURES/kind
+        path = fit.active_manifest(folder); manifest = read(path)
+        table = read(folder/'frame_fit.json')
+        if (table['manifest_sha256'] != sha256(path.read_bytes()).hexdigest() or
+                table['atlas_sha256'] != fit.atlas_digests(manifest)):
+            raise ValueError('Stale repair measurements: '+kind)
+        for job in partial:
+            row = rows[(kind,job['clip'])]
+            fits = table['frames'].get(job['clip'], [[1,0,0]]*row['frames'])
+            remaining = unrepaired_sizes(row, fits)
+            if remaining:
+                raise ValueError(f'Listed size defect remains: {kind}/{job["clip"]} {remaining}')
+            checked_clips += 1; checked_frames += len(row['size'])
+    print(f'REPAIR_VERIFY clips={checked_clips} size_frames={checked_frames} remaining=0')
 
 
 def stride_pending():
@@ -136,18 +222,16 @@ def stride_pending():
         raise ValueError('Duplicate historical stride exception')
     return set(keys)
 
-
 def stride_waived(kind, job):
     key = (kind, job['clip'])
     return key in stride_pending() and job['sha256'] == LEGACY_STRIDE_SOURCES[key]
 
-
-def leg_change(masks, loop):
+def mask_leg_change(masks, loop):
     rows = np.nonzero(np.any(masks, axis=0).any(axis=1))[0]
     cut = int(rows.min()+(rows.max()-rows.min())*(1-LEG_BAND))
     legs = [m[cut:] for m in masks]
     pairs = zip(legs, legs[1:]+(legs[:1] if loop else []))
-    return round(float(np.mean([audit.change(a, b) for a, b in pairs])), 3)
+    return float(np.mean([audit.change(a, b) for a, b in pairs]))
 
 
 def metrics(drawings, canvas, loop):
@@ -166,7 +250,25 @@ def metrics(drawings, canvas, loop):
                 unique=len({sha256(a.tobytes()).hexdigest() for a, _ in drawings}),
                 area_ratio=round(max(int(m.sum()) for m in masks)/min(int(m.sum()) for m in masks), 3),
                 body_area=float(statistics.median(int(m.sum()) for m in masks)),
-                leg_change=leg_change(masks, loop))
+                leg_change_raw=mask_leg_change(masks, loop))
+
+
+def leg_change(drawings, canvas):
+    """Mean cyclic IoU change in the common lower 35% of the rig silhouette.
+
+    Keep one crop for the complete clip so moving the crop cannot masquerade
+    as leg motion. This measures a gait already registered on its rig canvas.
+    """
+    masks = []
+    for art, (x, y) in drawings:
+        mask = np.zeros((canvas[1], canvas[0]), bool)
+        mask[y:y+art.height, x:x+art.width] = np.asarray(art.getchannel('A')) > 128
+        masks.append(mask)
+    low = min(int(np.nonzero(mask)[0].min()) for mask in masks)
+    high = max(int(np.nonzero(mask)[0].max()) for mask in masks)+1
+    start = round(high-(high-low)*.35)
+    legs = [mask[start:] for mask in masks]
+    return round(float(statistics.mean(audit.change(a, b) for a, b in zip(legs, legs[1:]+legs[:1]))), 4)
 
 
 def build(kind, check=False):
@@ -176,7 +278,7 @@ def build(kind, check=False):
     if sha256(path.read_bytes()).hexdigest() != spec['baseline_sha256']:
         raise ValueError('Baseline changed; review drawings against the new layer')
     clips = {c['name']: c for c in fit.animations_of(base)}
-    drawings, summary, strides = {}, {}, {}
+    drawings, summary, atlas_cache, strides = {}, {}, {}, {}
     for job in spec['jobs']:
         name = job['clip']; clip = clips[name]
         if name in summary:
@@ -184,36 +286,63 @@ def build(kind, check=False):
         prompt = (ROOT/job['source']).with_suffix('.prompt.txt').read_text(encoding='utf-8').rstrip('\n')
         if sha256(prompt.encode()).hexdigest() != job['prompt_sha256']:
             raise ValueError('Recorded generation prompt changed')
-        if job['count'] != len(clip['frames']):
-            raise ValueError('Redrawing may not change the frozen frame count')
+        if 'guide' in job and sha256((ROOT/job['guide']).read_bytes()).hexdigest() != job['guide_sha256']:
+            raise ValueError('Recorded pose reference recipe changed')
+        targets = target_indices(kind, job, clip)
         replaced = body_area(clip, base['canvas'])
-        cels, scale = extract(job, base['canvas'], replaced)
-        measured = metrics(cels, base['canvas'], bool(clip['loop']))
+        target_area = replaced
+        if 'target_frames' in job:
+            if 'guide' not in job:
+                raise ValueError('Partial redraw requires its frozen pose guide')
+            guide = read(ROOT/job['guide'])
+            entries = guide['entries']
+            if guide['kind'] != kind or guide['canvas'] != base['canvas'] or guide['baseline_sha256'] != spec['baseline_sha256']:
+                raise ValueError('Partial redraw guide belongs to a different baseline')
+            if job.get('grid') != guide['grid'] or job.get('scale_cells') != list(range(len(entries))):
+                raise ValueError('Shared sheet scale must cover every frozen guide cell')
+            for cell, target in zip(job['cells'], targets):
+                entry = entries[cell]
+                if (entry['clip'], entry['frame'], entry['source_frame']) != (name, target, clip['frames'][target]):
+                    raise ValueError('Source cell does not match the frozen target pose')
+            target_area = body_area({'frames':[entry['source_frame'] for entry in entries]}, base['canvas'])
+        cels, scale = extract(job, base['canvas'], target_area)
+        replacements = dict(zip(targets, cels))
+        complete = ([replacements[i] if i in replacements else source_drawing(frame, atlas_cache)
+                     for i, frame in enumerate(clip['frames'])]
+                    if 'target_frames' in job else cels)
+        measured = metrics(complete, base['canvas'], bool(clip['loop']))
         measured['body_area_ratio'] = round(measured.pop('body_area')/replaced, 3)
         if abs(measured['body_area_ratio']-1) > BODY_AREA_TOLERANCE:
             raise ValueError(f'Redrawn body size differs from the replaced clip: {name} {measured}')
+        unique = len({sha256(a.tobytes()).hexdigest() for a, _ in cels})
+        measured['unique'] = unique
         if measured['unique'] != job['count'] or measured['max_change'] > .5:
             raise ValueError(f'Duplicated drawings or silhouette jump: {name} {measured}')
         if name in ('idle', 'walk') and (measured['boil_ratio'] >= 3 or measured['area_ratio'] > 1.15):
             raise ValueError(f'Outline boil or body mass drift: {name} {measured}')
         if name in ('idle', 'walk') and clip['loop'] and measured['loop_seam'] > .25:
             raise ValueError(f'Loop seam needs another drawing pass: {name} {measured}')
-        # Measured for the gate and the build log only; the stored record keeps its shape.
-        legs = measured.pop('leg_change')
-        strides[name] = legs
+        # Apply the shared ground-walk floor before rounding diagnostic values.
+        legs = measured.pop('leg_change_raw')
+        strides[name] = round(legs, 3)
         if (name == 'walk' and fit.is_grounded(base) and job.get('registration', 'ground') == 'ground'
                 and legs < LEG_CHANGE_FLOOR and not stride_waived(kind, job)):
             raise ValueError(f'Walk cycle legs barely move ({legs} < {LEG_CHANGE_FLOOR}); redraw with real stride poses: {kind}')
+        if job.get('stride_reviewed') is not None:
+            if job['stride_reviewed'] is not True or name != 'walk' or 'target_frames' in job:
+                raise ValueError('Stride review requires a complete walking cycle')
+            measured['leg_change'] = leg_change(complete, base['canvas'])
+            if measured['leg_change'] < WALK_STRIDE_MIN:
+                raise ValueError(f'Walking feet need another drawing pass: {name} {measured}')
         summary[name] = dict(measured, registration_scale=round(scale, 9), frames=job['count'])
-        drawings.update({(name, i): drawing for i, drawing in enumerate(cels)})
+        if 'target_frames' in job:
+            summary[name].update(target_frames=targets, original_frames=len(clip['frames']),
+                                 measurement='complete_clip_with_unchanged_neighbours')
+        drawings.update({(name, i): drawing for i, drawing in replacements.items()})
     pages, packed = onion.pack(kind, drawings, base['canvas'])
     for frame in packed.values():
         frame['atlas'] = frame['atlas'].replace('motion_onion_', 'motion_redraw_')
-    manifest = deepcopy(base)
-    for clip in manifest['animations']:
-        name = clip['name']
-        if name in summary:
-            clip['frames'] = [packed[(name, i)] for i in range(len(clip['frames']))]
+    manifest = replace_frames(base, packed)
     manifest['redraw_record'] = dict(schema=1, baseline=path.name, baseline_sha256=spec['baseline_sha256'],
                                     spec=spec_path.relative_to(ROOT).as_posix(), clips=summary)
     outputs = [(fit.CREATURES/kind/LAYER, manifest)]
@@ -236,8 +365,12 @@ def main(argv=None):
     selection = parser.add_mutually_exclusive_group(required=True)
     selection.add_argument('--kind')
     selection.add_argument('--all', action='store_true', help='Validate or rebuild every registered delivery')
+    selection.add_argument('--verify-repairs', action='store_true', help='Check listed size defects against fresh runtime measurements')
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args(argv)
+    if args.verify_repairs:
+        verify_repairs()
+        return 0
     kinds = [p.stem for p in sorted((REQUEST/'jobs').glob('*.json'))] if args.all else [args.kind]
     if not kinds:
         parser.error('No registered deliveries found; hydrate the redraw request directory')
