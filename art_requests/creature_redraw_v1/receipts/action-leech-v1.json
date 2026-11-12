@@ -1,0 +1,48 @@
+{
+  "kind": "drain_leech",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Copied original hard pose jumps: leap 0.661, recovery 0.6845; redraw smoothly articulated intermediates",
+  "source_sha256": "2aa4b2501ed4e4028fe08936f9e957e834b845025d6daa4c53feb8c4e4314b38",
+  "prompt_sha256": "60b09a61e2d997af497f346863d77fd1d97470a7ebc2de6e733f5598024b5482",
+  "reference_sha256": "ee02506ccedb3587a9fbd2fd5fb450121684c1fac3002ad8b519947d841cd76d",
+  "actual_prompt": "Repaint the EXACT30 occupied reference poses into final2D game animation sprites. EXACT8 columns x4 rows, wide2:1 transparent RGBA. Cells1-30 contain individually drawn sprites; cells31-32 stay COMPLETELY EMPTY alpha0. Input is a precise pose, identity AND placement guide for every cell. Match each cel's body angle, curvature, facing, red jaw shape, limb/plate positions, relative silhouette area and x/y footprint. Keep the sprites SMALL with the same wide transparent surroundings as the guide; no enlarging to fill cells, no individual recentering or grounding.\n\nCharacter: low armored drain leech, overlapping wet charcoal-blue metal/chitin plates, tapered tail, rust-red mandibles and underside appendages, fine brass sensory whiskers, painterly ink dark-fantasy rendering matching reference. Stable number of plates and limbs, same anatomy and material details across all cels, each freshly and distinctly painted.\nCells1-17 are selected leaping attack frames: preserve the diagonally rising first four poses, the stretched horizontal bodies after them, and the hooked/curled descending poses in row2. Cells18-26 are recovery poses, alternating the reference's bent and grounded bodies exactly. Cells27-30 are windup, including the raised curved body and low extended body as shown. This is NOT a walking cycle. Do not replace the hooked poses with a straight neutral leech or change the pose order.\n\nThe new cels replace specific faulty frames between retained original neighbours, so silhouette thickness, pose scale and placement must stay coherent with EACH guide cel. No size flicker, extra stretches, trails, blood, attack effects or scenery. True alpha0 background and gutters, minimum10% clear cell-edge margins. No glow, colored haze, fog, floor, shadows, labels, text, numbers, borders or grid. Last TWO cells entirely blank.",
+  "targets": {
+    "leech_leap": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "leech_leap_recover": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "windup": [
+      20,
+      21,
+      22,
+      23
+    ]
+  }
+}
