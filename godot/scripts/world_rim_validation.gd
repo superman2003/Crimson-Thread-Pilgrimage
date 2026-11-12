@@ -68,7 +68,7 @@ func same_geometry(rects: Array[Rect2], label: String) -> void:
     var again := VISIBLE_ROCK.new()
     root.add_child(again)
     again.prepare(rects, null)
-    check(not again.geometry_ready(), label + " prepare alone leaves the second build job pending")
+    check(again.geometry_ready() == rects.is_empty(), label + " prepare leaves a second build job only for nonempty rocks")
     var reused: bool = is_same(again.rim_descriptors, mass.rim_descriptors) and is_same(again.body_rects, mass.body_rects) and is_same(again.rim_chunks, mass.rim_chunks)
     check(reused or rects.is_empty(), label + " a second build of the same rects reuses the stored geometry")
     again.finish()
@@ -85,6 +85,22 @@ func same_geometry(rects: Array[Rect2], label: String) -> void:
     mass.free()
 
 func run() -> void:
+    # These different rock lists collide under the pinned Godot 4.6 hash, and
+    # have the same length and first rect: neither check proves cache identity.
+    var collision_a: Array[Rect2] = [Rect2(0, 0, 80, 80), Rect2(15328, 12636, 32, 32)]
+    var collision_b: Array[Rect2] = [Rect2(0, 0, 80, 80), Rect2(7445, 17780, 32, 32)]
+    check(hash(collision_a) == hash(collision_b), "fixture exercises a complete-list hash collision")
+    same_geometry(collision_a, "hash collision first")
+    same_geometry(collision_b, "hash collision second")
+    same_geometry(collision_a, "hash collision return")
+    same_geometry([], "empty rock list")
+    var cave_timing := {}
+    var loader = preload("res://scripts/world_region_loader.gd")
+    loader._record_background_job(cave_timing, "_background_cave", 110)
+    loader._record_background_job(cave_timing, "_background_cave_surface", 170)
+    check(cave_timing.background_cave_usec == 280 and cave_timing.background_cave_edges_usec == 110 and cave_timing.background_cave_surface_usec == 170, "cave timing preserves the combined cost and both split jobs")
+    loader._record_background_job(cave_timing, "_background_art", 50)
+    check(cave_timing.background_cave_usec == 280 and cave_timing.background_art_usec == 50, "other background work does not change the cave total")
     # T03: rim/body geometry is indexed; it must match the original algorithm on
     # every authored region and on overlapping/touching/duplicate/oversized rects.
     for id in COORD.manifest().regions:

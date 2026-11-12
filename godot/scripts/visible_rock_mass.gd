@@ -35,7 +35,7 @@ func prepare(rects: Array[Rect2], rock_material: ShaderMaterial, theme: String =
     rim_theme = theme
     _pending_rects = rects
     var cached: Dictionary = _geometry_cache.get(hash(rects), {})
-    if int(cached.get("count", -1)) == rects.size() and cached.get("first", Rect2()) == (rects[0] if not rects.is_empty() else Rect2()):
+    if cached.has("rects") and cached.rects == rects:
         rim_descriptors = cached.rim_descriptors
         body_rects = cached.body_rects
         rim_chunks = cached.rim_chunks
@@ -56,7 +56,7 @@ func finish() -> void:
         _build_bodies_and_chunks(rects)
         if _geometry_cache.size() >= GEOMETRY_CACHE_LIMIT:
             _geometry_cache.erase(_geometry_cache.keys()[0])
-        _geometry_cache[hash(rects)] = {"count": rects.size(), "first": rects[0] if not rects.is_empty() else Rect2(),
+        _geometry_cache[hash(rects)] = {"rects": rects.duplicate(),
             "rim_descriptors": rim_descriptors, "body_rects": body_rects, "rim_chunks": rim_chunks}
     # A frame may have passed since prepare(); the view must be clipped again
     # now that the bodies exist.
