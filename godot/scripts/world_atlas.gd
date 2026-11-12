@@ -142,7 +142,7 @@ static func render(level: Node) -> void:
             marker.text = String(record.text)
             marker.tooltip_text = String(record.tooltip)
             marker.add_theme_font_size_override("font_size", 11)
-            marker.add_theme_color_override("font_color", Color("b44e43") if record.kind == "hazard" else SURFACE.GOLD)
+            marker.add_theme_color_override("font_color", SURFACE.HAZARD if record.kind == "hazard" else SURFACE.GOLD)
             host.add_child(marker)
         # Shortcut state lives with each region; the current region's is live.
         var opened: Dictionary = level.opened_shortcuts if id == String(level.config.get("id", "")) else level.world_state.get_region(id).get("opened_shortcuts", {})
@@ -154,7 +154,7 @@ static func render(level: Node) -> void:
             marker.text = String(record.text)
             marker.tooltip_text = String(record.tooltip)
             marker.add_theme_font_size_override("font_size", 11)
-            marker.add_theme_color_override("font_color", SURFACE.GOLD if record.open else Color("8d6a5a"))
+            marker.add_theme_color_override("font_color", SURFACE.GOLD if record.open else SURFACE.CLOSED)
             host.add_child(marker)
     var drawn: Dictionary = {}
     for id_value in COORD.manifest().regions:

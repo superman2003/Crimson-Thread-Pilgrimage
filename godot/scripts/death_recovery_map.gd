@@ -146,7 +146,7 @@ static func render(level: Node) -> void:
     marker.position=point-Vector2(10,14)
     marker.mouse_filter=Control.MOUSE_FILTER_IGNORE
     marker.add_theme_font_size_override("font_size",14)
-    marker.add_theme_color_override("font_color",Color("e9c276"))
+    marker.add_theme_color_override("font_color",preload("res://scripts/survey_map_surface.gd").REMNANT)
     marker.add_theme_color_override("font_outline_color",Color("18252c"))
     marker.add_theme_constant_override("outline_size",4)
     root.add_child(marker)

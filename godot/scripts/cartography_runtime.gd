@@ -220,10 +220,10 @@ static func paper(level: Node, enabled: bool) -> void:
     var art: TextureRect=level.map_panel.get_node("MapBackgroundArt")
     art.texture=load("res://assets/ui/cartography/survey_paper.svg") if enabled else level._load_texture_resource(level._theme_map_background_texture())
     art.modulate=Color.WHITE if enabled else Color(1,1,1,0.07)
-    level.map_text.add_theme_color_override("font_color",SURFACE.INK if enabled else Color("dae6d5"))
+    level.map_text.add_theme_color_override("font_color",SURFACE.INK if enabled else SURFACE.LEGACY_INK)
     for child in level.map_panel.get_children():
         if child is Label:
-            child.add_theme_color_override("font_color",SURFACE.INK if enabled else Color("b5a17c"))
+            child.add_theme_color_override("font_color",SURFACE.INK if enabled else SURFACE.GOLD)
 static func render(level: Node) -> void:
     paper(level,true)
     # An unpurchased region must not retain the previous map's explanations.
@@ -316,7 +316,7 @@ static func render(level: Node) -> void:
         marker.tooltip_text = String(record.tooltip) # Legend and conditions stay in hover text.
         marker.text = String(record.text)
         marker.position = map_position(level, room, record.rect.get_center(), bounds, draw_size) - Vector2(7, 10)
-        marker.add_theme_color_override("font_color", Color("b44e43") if record.kind == "hazard" else SURFACE.GOLD)
+        marker.add_theme_color_override("font_color", SURFACE.HAZARD if record.kind == "hazard" else SURFACE.GOLD)
         host.add_child(marker)
     for record in KNOWLEDGE.shortcut_records(level.config, level.story_flags, id, level.opened_shortcuts):
         var room: Dictionary = KNOWLEDGE.owner_room(level.config, record.rect)
@@ -326,7 +326,7 @@ static func render(level: Node) -> void:
         marker.tooltip_text = String(record.tooltip)
         marker.text = String(record.text)
         marker.position = map_position(level, room, record.rect.get_center(), bounds, draw_size) - Vector2(7, 10)
-        marker.add_theme_color_override("font_color", SURFACE.GOLD if record.open else Color("8d6a5a"))
+        marker.add_theme_color_override("font_color", SURFACE.GOLD if record.open else SURFACE.CLOSED)
         host.add_child(marker)
     # Position is a navigation aid, not a newly inked room outline.
     var current: Dictionary=level._room_for_position(level.player.global_position)
