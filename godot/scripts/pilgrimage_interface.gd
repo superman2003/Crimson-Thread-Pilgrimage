@@ -632,7 +632,7 @@ func _build_bag() -> void:
     journal_filters.visible=false
     bag.add_child(journal_filters)
     var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["ability","能力"],["people","人物"],["voice","自述"]]
-    var filter_width:=floorf((645.0-(filters.size()-1)*9.0)/filters.size())
+    var filter_width:=floorf((645.0-(filters.size()-1)*float(SPACING.ROW))/filters.size())
     for pair in filters:
         var filter_id:=String(pair[0])
         var filter_button:=_button(journal_filters,String(pair[1]),Vector2.ZERO,Vector2(filter_width,28),func():
