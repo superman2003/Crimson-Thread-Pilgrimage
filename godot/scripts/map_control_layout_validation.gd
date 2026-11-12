@@ -112,6 +112,10 @@ func check_bounds(world: Node) -> void:
     var status:=world.map_panel.get_node("PlayerPinStatus") as Label
     check(world.map_panel.get_global_rect().encloses(status.get_global_rect()),"pin status stays within the map panel")
     check(world.map_panel.get_global_rect().encloses(world.map_text.get_global_rect()),"multiline explanation preview stays within the map panel; full content is available in legend reader")
+    # The frame's corner ornament covers the first ~110 px of the bottom
+    # edge and its border line runs 12 px above it: text must clear both.
+    for line: Label in [status,world.map_text]:
+        check(line.position.x>=150 and line.position.y+line.size.y<=world.map_panel.size.y-12,"footer line clears the frame ornament and border: "+String(line.name))
     for node in values:
         check(not status.get_global_rect().intersects(node.get_global_rect()),"pin status does not print behind buttons")
         check(not world.map_text.get_global_rect().intersects(node.get_global_rect()),"map explanation preview does not print behind buttons")

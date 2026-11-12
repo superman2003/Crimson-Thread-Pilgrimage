@@ -1564,7 +1564,7 @@ func _build_build_panel() -> void:
     resupply_planner_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     craft_cart_button=_button(build_panel,"多件制作清单",Vector2(640,535),Vector2(430,30),_open_craft_cart)
     craft_cart_button.add_theme_font_size_override("font_size",14)
-    _label(build_panel,"确认键执行  ·  Esc 返回",Vector2(34,572),Vector2(590,18),11,MUTED)
+    _label(build_panel,"确认键执行  ·  Esc 返回",Vector2(150,561),Vector2(470,13),11,MUTED)
 
 func _request_build_toggle() -> void:
     if level!=null and level.active_overlay!="new_journey" and level.has_method("_toggle_build"):level.call("_toggle_build")
