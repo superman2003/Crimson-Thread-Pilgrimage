@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "kind": "silent_pilgrim_commander",
+  "baseline": "godot/assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_manifest.json",
+  "baseline_sha256": "7fa6991cc8cf1ededa017e98b580467c737170a26226df64e1e087993050bdfb",
+  "canvas": [
+    476,
+    272
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "frame_fit_reference_sha256": "950699118c848c8df452ef18aa3f5ed6dc2df05530db80dcb22f607a12810332",
+  "explanation": "Reference only: frozen production scale about canvas-centred pivot; final poses are authored with image_gen",
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_01.png": "d1f83c019bf01b3d142f9fe5ba4d42d1fe953840396a42cc63b078080d66dbfe",
+    "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png": "aa16b9a703054cc39358c5343f036873ce29fd60cc7ac03ea6104a09442e2483",
+    "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_02.png": "1945f0bdcbb8f3a908773def80aa7c36edaf170bc748edb4d965c17aaa2f34b1",
+    "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png": "8098f5a86717e434582ebf979d57220aff6cd568c360f09ab28f1711020cd054"
+  },
+  "entries": [
+    {
+      "clip": "windup",
+      "frame": 15,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+        "region": [
+          1066,
+          644,
+          233,
+          207
+        ],
+        "margin": [
+          126,
+          55,
+          243,
+          65
+        ]
+      },
+      "reference_fit": [
+        0.933,
+        -1.7,
+        121.0
+      ]
+    },
+    {
+      "clip": "windup",
+      "frame": 16,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+        "region": [
+          3543,
+          194,
+          259,
+          189
+        ],
+        "margin": [
+          111,
+          71,
+          217,
+          83
+        ]
+      },
+      "reference_fit": [
+        0.91,
+        -3.0,
+        120.0
+      ]
+    },
+    {
+      "clip": "windup",
+      "frame": 17,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+        "region": [
+          1303,
+          644,
+          237,
+          205
+        ],
+        "margin": [
+          126,
+          57,
+          239,
+          67
+        ]
+      },
+      "reference_fit": [
+        1.0,
+        0,
+        0
+      ]
+    },
+    {
+      "clip": "attack",
+      "frame": 9,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+        "region": [
+          1485,
+          863,
+          307,
+          184
+        ],
+        "margin": [
+          105,
+          78,
+          169,
+          88
+        ]
+      },
+      "reference_fit": [
+        0.975,
+        -1.9,
+        120.0
+      ]
+    },
+    {
+      "clip": "attack",
+      "frame": 10,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/combat_motion_v7.png",
+        "region": [
+          2148,
+          391,
+          355,
+          173
+        ],
+        "margin": [
+          106,
+          87,
+          121,
+          99
+        ]
+      },
+      "reference_fit": [
+        0.916,
+        6.5,
+        118.0
+      ]
+    },
+    {
+      "clip": "attack",
+      "frame": 11,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/motion_v8_00.png",
+        "region": [
+          2,
+          1075,
+          303,
+          176
+        ],
+        "margin": [
+          122,
+          86,
+          173,
+          96
+        ]
+      },
+      "reference_fit": [
+        1.0,
+        0,
+        0
+      ]
+    }
+  ],
+  "targets": {
+    "windup": [
+      15,
+      16,
+      17
+    ],
+    "attack": [
+      9,
+      10,
+      11
+    ]
+  },
+  "original_frame_counts": {
+    "windup": 24,
+    "attack": 24
+  },
+  "reference_height": 165.5,
+  "reference_sha256": "7d8006be95abb05cd6998bde0be10e540ff066d2879c1d85360f523d2308fb7c"
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "broken_string_gardener",
+  "clip": "actions_02",
+  "status": "rejected",
+  "reason": "Nontransparent gutter in cell5; empty cells9-11 also contain opaque corner/background artifacts(alpha max252/226/220). Need image_gen background extraction only, preserve9sprites and clearallgutters/emptycells.",
+  "source_sha256": "7cc1caa32c92be929e32a262aea8f05e58a5589ede7ae1063c2cdad708c6c6c8",
+  "prompt_sha256": "3ea584aa69c6c5dfddbdc5b75cf30eb012473bd753c4ac914abb10786d365226",
+  "reference_sha256": "ee5d77528a0980a2fc9e4527e51365d70843a0e7de2f4566b49e594ca9062ea9",
+  "actual_prompt": "Repaint the supplied frozen9-cel broken-string gardener repair sheet into refined game sprites. FIRST IMAGE is authoritative original pose/cell order, contour, occupied area, body anchor and foot baseline for joins to unchanged neighbors; SECOND IMAGE is accepted bark/leaf/cream-cloth/staff paint detail ONLY. Output EXACT4equal columns x3rows, first9cells occupied row-major, final3cells completely transparent empty. Cells0-4 ordinary recovery frames0,1,11,12,13: preserve each slightly different hood lean, leaf drape and front-held spiral staff position. Cells5-8 phase action frames2,3,4,5: preserve old high staff across upper shoulder in first2, then gradually bent-forward/down-right staff follow-through in last2. Same hunched woody insect gardener with pointed warm-brown bark hood/teal eye, moss/dark-green layered leaf cloak, long cream lace petal stoles, ragged bark skirt, root feet and exactly ONE knotted branch staff with spiral head and amber pod. Keep both hands connected to one staff and preserve each frozen pose's cloth/leaf silhouette, mass, head size, weapon angle and body center, to connect to untouched frames without jumps. Repaint detailed wood grain, green leaf veins, fine cream lace and curled carvings consistently; every occupied cel distinct. Complete sprites centered within equal cells with at least24px clear alpha-zero margins, no clipped staff tips or detached roots. TRUE transparent RGBA cutouts ONLY, empty last3cells and all gutters clear; no backgrounds, haze, matte, shadows, glow, particles, spell effects, added props, grid, text or labels.",
+  "reference_recipe": "Frozen original9-cel actions02 guide plus accepted sources/broken_string_gardener/actions_heavy_windup_full.png (SHA in job) as anatomy/paint detail only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/broken_string_gardener-actions-02.json",
+  "guide_sha256": "54d4e46ca59096e9a9099dcf20af4ed546cf445e8cf2c59ee3bc6e8ad59d3274"
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "silent_pilgrim_commander",
+  "clip": "actions_02",
+  "status": "partially_rejected",
+  "reason": "Accept cast,cast_windup,phase,phase_recover,recover; reject windup body0.941 and attack body0.935 beyond4percent. Redraw only those six mapped cels on focused guide.",
+  "source_sha256": "97a398894dc907ea2129f0c41b23f7be2489aee7051075f2297bcf247090cb1a",
+  "prompt_sha256": "86bd238bd36a19e00927afc163b07616d1a23aedcb80cf26ac1af0f29f72bd82",
+  "reference_sha256": "c89ff0a6f4dbe7a17655d547b75ed429f5b9397e8acd0bf8aa43b1f98ef848cc",
+  "actual_prompt": "Use case: stylized-concept 2D game sprite repairs. Repaint these31mapped silent pilgrim commander poses as crisp detailed transparent sprites, EXACT8equal columns by4equal rows, first31cells occupied row-major, finalcell(row4col8)alpha-zero empty. Image1 is AUTHORITATIVE for each distinct pose, complete silhouette, center/height, head and cloak outline, limbs and saber direction; image2 magnifies original identity only. Cel0-7=cast frames3,4,5,6,7,11,12,13; cel8-13=cast_windup17,18,19,21,22,23; cel14-18=phase0,1,11,12,13; cel19-21=phase_recover17,18,19; cel22-24=windup15,16,17; cel25-27=attack9,10,11; cel28-30=recover17,18,19. Preserve EXACT mapped free-hand casting gestures, crouch/torso lean, foot positions, cloak spread and single thin saber angle for smooth joins to untouched frames. Graceful insect knight: ivory beaked oval mask black eye, swept-back ridged gray crest, dusty lavender-gray layered wing-like cape with ivory feather inset panels/muted gold trim, dark thin limbs and pointed boots, exactly one long slender dark saber attached to sword hand. Refine seams, folds and silhouette without broadening cape or changing slender anatomy. Each of31sprites unique with articulated pose/motion; don't replace special gestures by same neutral pose. Keep bodies compact, complete pointed blades and clear30px margins within eachcell, feet about72%ofcellheight and body anchor nearcellcenter, no overlap/clipping. TRUE transparent RGBA background and gutters, NO white matte, haze, glow, floor/shadows, particles/spellFX, colored fringe, checkerboard, grid, labels or text. Keep pale ivory panels opaque within contours.",
+  "reference_recipe": "Render frozen31-cel actions02 source_frame/reference_fit entries. Supporting identity image is first equal cell of original frozen actions01 guide enlarged768x768 with Pillow default, for anatomy/material only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/silent_pilgrim_commander-actions-02.json",
+  "guide_sha256": "2e098d3dc71bff45645bd918b15bbd2d2dbfa5bc38075c20f509b3e8493af26e",
+  "accepted_clips": [
+    "cast",
+    "cast_windup",
+    "phase",
+    "phase_recover",
+    "recover"
+  ],
+  "rejected_clips": [
+    "windup",
+    "attack"
+  ]
+}

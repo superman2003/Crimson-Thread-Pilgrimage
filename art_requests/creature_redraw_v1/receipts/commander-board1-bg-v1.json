@@ -1,0 +1,13 @@
+{
+  "kind": "silent_pilgrim_commander",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "White background/shadows are opaque in first cell gutter; require image_gen background extraction preserving opaque pale ivory/lavender character material and28poses.",
+  "source_sha256": "ec5bf7f7651ada749bff65a393d27cd61a1cb62e93618bd02c31e59d2ee4383f",
+  "prompt_sha256": "0052a58839b04e077a0d1a1549548c8ff2893b7d515bfa7106e715b197b2d289",
+  "reference_sha256": "686fcbf3df90985791aa19d7601255420291d5f10be63af76dbaf0b8bbb8a33b",
+  "actual_prompt": "Repaint this frozen28-cel SILENT PILGRIM COMMANDER action repair sheet into crisp detailed game sprites. Image1 is authoritative mapped poses, silhouettes, occupied areas, body anchors, blade directions and exact cel order for joining untouched frames; image2 magnifies original identity/detail ONLY, do not copy its one pose. Output EXACT8equal columns x4rows; first28cells occupied chronological row-major, last4cells fully transparent empty. Cells0-7 heavy windup frames9,10,11,19,20,21,22,23; cells8-18 heavy strike frames1,2,3,4,5,13,14,15,21,22,23; cells19-27 cast recovery frames5,6,7,11,12,13,17,18,19. Preserve each frozen pose's torso lean, cloak spread, head/arm/boot placement and single slender blade angle, with distinct articulated intermediate motion and smooth joins. Exact identity: graceful armored insect commander, pale ivory oval/beaked mask with black eyehole, swept-back ridged gray crest, layered dusty lavender/gray wing-like cloak with ivory inset panels and subtle muted gold edging, slender charcoal limbs/pointed boots, exactly ONE long thin dark saber/rapier held by its hand. Preserve original anatomy, cape/body mass and weapon dimensions in each mapped cel; no extra blades, human face, inflated cloak, added horns or unrelated gestures. Refine armor seams, pale panels, lavender cloth folds and gold trim faithfully, every occupied cel unique. Entire sprite centered within equal cells with24px fully alpha-zero margins and room for raised blade, no clipping. TRUE transparent RGBA cutouts ONLY, all gutters/last4cells clear; no background, haze, matte, shadows, glow, particles, spell effects, grid, labels or text.",
+  "reference_recipe": "Frozen28-cel actions01 guide; supporting identity zoom is first equal cell(0,0,width//8,height//4) of that frozen guide, resized768x768 with Pillow default; anatomy/detail only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/silent_pilgrim_commander-actions-01.json",
+  "guide_sha256": "86912cdfc5db6affa1f3648186fe8a91666937450b2ab2eb5588ffef51abcac7"
+}

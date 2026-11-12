@@ -11,6 +11,7 @@ var checks := 0
 var failures := 0
 var world: Node
 var dialogs := 0
+var backed := 0
 
 func _initialize() -> void:
 	call_deferred("run")
@@ -85,6 +86,20 @@ func pad(window: Window, button: JoyButton, count: int) -> void:
 		window.push_input(lift)
 		await frames(2)
 
+func joy_back() -> void:
+	await joy(JOY_BUTTON_B)
+
+func joy(button: JoyButton) -> void:
+	var press := InputEventJoypadButton.new()
+	press.button_index = button
+	press.pressed = true
+	Input.parse_input_event(press)
+	await frames(2)
+	var lift: InputEventJoypadButton = press.duplicate()
+	lift.pressed = false
+	Input.parse_input_event(lift)
+	await frames(2)
+
 func dialog_reach(dialog: AcceptDialog, label: String) -> void:
 	var start: Control = dialog.gui_get_focus_owner()
 	var content: Array = collect(dialog, [], false)
@@ -149,11 +164,17 @@ func run() -> void:
 					dialogs += 1
 					check(window.has_meta("dialog_focus_bridge"), "%s dialog '%s' is bridged" % [page, String(launcher.text)])
 					dialog_reach(window, "%s dialog '%s'" % [page, String(launcher.text)])
+					if window.dialog_close_on_escape:
+						# Joypad B backs out of the dialog like Escape; the page stays.
+						await joy_back()
+						check(not window.visible and world.active_overlay != "", "%s dialog '%s' closes on joypad B and keeps its page open (visible=%s overlay=%s)" % [page, String(launcher.text), window.visible, world.active_overlay])
+						backed += 1
 			for window in windows(ui):
 				if window.visible:
 					window.hide()
 			await frames(2)
 	check(dialogs >= 15, "launcher sweep opened at least fifteen dialogs (%d)" % dialogs)
+	check(backed >= 15, "joypad B backed out of at least fifteen dialogs (%d)" % backed)
 	# Dialogs owned by the level rather than the shell are bridged as well,
 	# including ones created after startup (the map pin editor pattern).
 	for name in ["MapPurchaseDialog"]:
@@ -178,6 +199,37 @@ func run() -> void:
 	editor.hide()
 	editor.queue_free()
 	await frames(2)
+	# A dropdown on a page opens with A, moves with the d-pad, and B closes it
+	# without closing the page (B is also the page's back button).
+	await open_page("backpack")
+	ui.bag_category = "旅记"
+	ui.refresh_inventory()
+	await frames(3)
+	var dropdown: OptionButton = ui.journal_sort
+	check(dropdown != null and dropdown.is_visible_in_tree(), "journal page shows its sort dropdown")
+	if dropdown != null:
+		dropdown.grab_focus()
+		await frames(2)
+		await joy(JOY_BUTTON_A)
+		check(dropdown.get_popup().visible, "joypad A opens the dropdown")
+		await joy(JOY_BUTTON_B)
+		check(not dropdown.get_popup().visible and world.active_overlay == "backpack", "joypad B closes the dropdown and keeps the backpack page open")
+	# Remapping capture: B is reserved for back, so it cancels the capture
+	# (as Escape does) instead of being refused, and the settings page stays.
+	await open_page("settings")
+	var remap_action := ""
+	for key in ui.remap_buttons:
+		if ui.remap_buttons[key].is_visible_in_tree():
+			remap_action = String(key)
+			break
+	var bindings_before := var_to_str(InputMap.action_get_events(remap_action))
+	ui.remap_buttons[remap_action].grab_focus()
+	await frames(2)
+	await joy(JOY_BUTTON_A)
+	check(ui.remap_target == remap_action, "joypad A on a remap row starts capture (%s)" % remap_action)
+	await joy(JOY_BUTTON_B)
+	check(ui.remap_target == "" and world.active_overlay == "settings", "joypad B cancels remap capture and keeps the settings page open")
+	check(var_to_str(InputMap.action_get_events(remap_action)) == bindings_before, "cancelled capture leaves the binding unchanged")
 	# Real joypad input: the danger-caption dialog opens on its safe Cancel
 	# button and d-pad up now enters the options instead of staying put.
 	await open_page("settings")
