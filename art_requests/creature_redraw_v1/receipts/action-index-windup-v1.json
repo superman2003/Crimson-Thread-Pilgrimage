@@ -1,0 +1,12 @@
+{
+  "kind": "index_scribe",
+  "clip": "actions_windup_full",
+  "status": "rejected",
+  "reason": "Raised lance cels leave frozen rig canvas after shared body-area registration; redraw the complete rig within its allowed bounds.",
+  "source_sha256": "db312e9ba3eccb89735afdf2a582a290c406594509c7a0f5b876ae2d70ed404a",
+  "prompt_sha256": "f6fa8d3d4a5ac94e55f6b3eed96c0b51dd638ffe61e3c3d235b5679007201131",
+  "reference_sha256": "66f9e011331051ab3997099bad7efb721ab163e894b6ec6631395fb1c78e15c8",
+  "actual_prompt": "Create a NEW smooth complete24-frame windup sprite animation for the exact ivory-feathered quill-lance character shown in the reference. Use reference primarily for identity and art style: pale parchment/ivory masked head with black eye, two thin curved crest/antenna strands, layered ivory and ash-gray feather cloak, dark narrow torso and legs, long gold-handled silver quill lance. Transparent sprite sheet EXACT8equal columns by3rows,24 complete unique cels chronological row-major. The reference contains defective alternating raised/lowered lance poses. DO NOT COPY THAT ALTERNATION. Draw one continuous deliberate preparation: first6cels gradually raise the lance from low forward-right to upright; next6cels hold the lance raised with gentle cloak/arm anticipation; next6cels gradually tilt the raised lance back over the shoulder; final6cels gradually bring the lance forward toward the reference's final ready-to-thrust position. Adjacent cels should share nearly the same torso center, hood/head height, lance length and cloak mass, changing angles only in small articulated steps. All body and lance motion comes from new drawing, no simple whole-image shifts, duplicates, swelling or shrinking. Match exact character identity, sharp fine ink and layered hand-painted fantasy texture. Keep all complete sprites inside equal cells with16px clear alpha-zero gutters and no overlap or clipped lance tips. TRUE transparent background, no haze, shadows, glows, blur, text, numbers, labels, grid or detached effects. Stable physical mass and clean readable silhouettes at game scale.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/index_scribe-actions-windup-full.json",
+  "guide_sha256": "5f180a2febb80c12e7e895fc0adab1171ea6cf047803e2c8e74705c43248e747"
+}
