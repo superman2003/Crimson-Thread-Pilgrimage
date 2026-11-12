@@ -7,6 +7,8 @@ extends SceneTree
 const READY := preload("res://scripts/world_ready_validation_helper.gd")
 const KNOWLEDGE := preload("res://scripts/survey_map_knowledge.gd")
 const PORTAL := "upgrade_bell_guard_1_access_a"
+const RETURN_PORTAL := "upgrade_bell_guard_1_access_b"
+const WORKSHOP_ENTRY := Vector2(8010, 2688)
 const SIDE := "gate_marrow_side"
 const LIFT_SIDE := "gate_marrow_lift"
 const FLOOR := "gate_break_marrow"
@@ -128,6 +130,14 @@ func _run() -> void:
                 var rect: Array = gate.rect
                 _check(not KNOWLEDGE.owner_room(scene.config, Rect2(rect[0], rect[1], rect[2], rect[3])).is_empty(), "%s lies inside a map room, so the map can mark it" % id)
 
+    # The workshop can also be reached from its neighbours' open edges; its
+    # return portal leads into the closed cell and must stay shut as well.
+    await _place(WORKSHOP_ENTRY)
+    var back := scene.get_node_or_null(RETURN_PORTAL) as Area2D
+    _check(back != null and player.global_position.distance_to(back.global_position) <= scene.INTERACTION_REACH, "fixture stands at the workshop's return portal")
+    _check(scene._room_sealed_by_gates("bell_marrow_cell") and not scene._room_sealed_by_gates("belfry_mid") and not scene._room_sealed_by_gates("salt_corridor"), "only the cell counts as sealed by its gates")
+    _check(scene._nearest_interactable(scene.INTERACTION_REACH) != back, "the return portal into the closed cell cannot be used")
+
     # Closed room holds on the far side too: nothing leaves it to the right.
     await _place(CELL_STAND)
     _check(player.is_on_floor() and _inside_cell(), "fixture can stand on the cell floor (%.0f, %.0f)" % [player.global_position.x, player.global_position.y])
@@ -149,6 +159,8 @@ func _run() -> void:
     scene._refresh_ability_gates()
     await _physics(6)
     _check(not scene.locked_gate_bodies.has(SIDE) and not scene.locked_gate_bodies.has(LIFT_SIDE) and not scene.locked_gate_bodies.has(FLOOR), "all three gates are gone once the thorn downstrike is owned")
+    await _place(WORKSHOP_ENTRY)
+    _check(not scene._room_sealed_by_gates("bell_marrow_cell") and scene._nearest_interactable(scene.INTERACTION_REACH) == back, "with the gates open the return portal works again")
     await _place(SHAFT_LOW_STEP)
     var enter: Dictionary = await _push(1, 240, 40)
     _check(enter.entered, "jumping right from the shaft step now enters the cell (furthest x=%.0f)" % enter.extreme)

@@ -349,7 +349,7 @@ const GATES = [
   { id: "gate_break_marrow",   rect: [4020,  952, 140, 26], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["belfry_mid", "bell_marrow_cell"] },
   // The cell is also open to the shaft step (west) and the lift shaft (east);
   // both sides carry the same condition as the floor.
-  { id: "gate_marrow_side",    rect: [3960, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_ascent", "bell_marrow_cell"] },
+  { id: "gate_marrow_side",    rect: [3972, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_ascent", "bell_marrow_cell"] },
   { id: "gate_marrow_lift",    rect: [4178, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_marrow_cell", "bell_marrow_cell"] },
   { id: "gate_shadow_veins",   rect: [ 440, 5270, 42, 300], ability: "lantern_phase",     name: "灯影相位", rooms: ["moss_veins", "moss_veins"] },
   { id: "gate_crown_well",     rect: [3990, 5800, 42, 240], ability: "crown_resonance",   name: "王冠共鸣", rooms: ["well_throat", "well_throat"] },

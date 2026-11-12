@@ -6613,22 +6613,49 @@ func _nearest_interactable(radius: float) -> Area2D:
 ## A portal inside a room still closed by an ability gate must not be used from
 ## outside it: its return would put the player inside the closed room. While
 ## any gate into the portal's room stands, the portal needs a clear line to the
-## player (the room's own walls and floor count, not only the gate).
+## player (the room's own walls and floor count, not only the gate). A portal
+## that leads into a room every way into which is a standing ability gate is
+## closed outright, whichever side it is reached from.
 func _behind_locked_gate(portal: Area2D) -> bool:
     if locked_gate_bodies.is_empty() or not player.is_inside_tree():
         return false
-    var room_id := String((portal.get_meta("world_portal_data", {}) as Dictionary).get("room_id", ""))
-    if room_id.is_empty():
-        return false
-    var closed := false
-    for gate in config.get("locked_gates", []):
-        if locked_gate_bodies.has(String(gate.get("id", ""))) and (String(gate.get("from", "")) == room_id or String(gate.get("to", "")) == room_id):
-            closed = true
-            break
-    if not closed:
+    var data: Dictionary = portal.get_meta("world_portal_data", {})
+    if String(data.get("target_config_id", "")) == String(config.get("id", "")):
+        var spawn: Variant = data.get("target_spawn", [])
+        if spawn is Array and spawn.size() == 2:
+            var destination := String(_room_for_position(Vector2(float(spawn[0]), float(spawn[1]))).get("id", ""))
+            if _room_sealed_by_gates(destination):
+                return true
+    var room_id := String(data.get("room_id", ""))
+    if room_id.is_empty() or not _room_has_standing_gate(room_id):
         return false
     var query := PhysicsRayQueryParameters2D.create(player.global_position - Vector2(0, 42), portal.global_position, 1, [player.get_rid()])
     return not player.get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
+
+func _room_has_standing_gate(room_id: String) -> bool:
+    for gate in config.get("locked_gates", []):
+        if locked_gate_bodies.has(String(gate.get("id", ""))) and (String(gate.get("from", "")) == room_id or String(gate.get("to", "")) == room_id):
+            return true
+    return false
+
+
+## True while a room can only be entered through ability gates and one of the
+## gates leading into it from another room still stands.
+func _room_sealed_by_gates(room_id: String) -> bool:
+    if room_id.is_empty():
+        return false
+    for connection in config.get("connections", []):
+        if String(connection.get("from", "")) != room_id and String(connection.get("to", "")) != room_id:
+            continue
+        if String(connection.get("type", "")) != "ability_gate":
+            return false
+    for gate in config.get("locked_gates", []):
+        var from := String(gate.get("from", ""))
+        var to := String(gate.get("to", ""))
+        if from != to and (from == room_id or to == room_id) and locked_gate_bodies.has(String(gate.get("id", ""))):
+            return true
+    return false
 
 
 func _better_interaction_target(area: Area2D, distance: float, current: Area2D, current_distance: float) -> bool:
