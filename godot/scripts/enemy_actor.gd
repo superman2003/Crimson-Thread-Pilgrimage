@@ -508,11 +508,11 @@ func _boss_behavior_enabled() -> bool:
 func _physics_process(delta: float) -> void:
     var previous_position := global_position
     var previous_state := state
-    _advance_wing_flap(delta)
     _step_enemy(delta)
     if dying or is_queued_for_deletion() or combat_visuals_paused or not world_residency_active():
         if not world_residency_active():motion_transitions.suspend(self)
         return
+    _advance_wing_flap(delta)
     _update_animation_motion(delta, previous_position, previous_state)
     motion_transitions.tick(self,global_position-previous_position,previous_state)
 
@@ -2497,7 +2497,7 @@ func _apply_wing_flap() -> void:
 
 
 func _advance_wing_flap(delta: float) -> void:
-    if not wing_flap_active:
+    if not wing_flap_active or combat_visuals_paused or not world_residency_active() or dying or is_queued_for_deletion():
         return
     wing_flap_phase = fposmod(wing_flap_phase + delta * TAU * float(wing_flap.get("hz", 6.0)), TAU)
     (animated_sprite.material as ShaderMaterial).set_shader_parameter("wing_phase", wing_flap_phase)

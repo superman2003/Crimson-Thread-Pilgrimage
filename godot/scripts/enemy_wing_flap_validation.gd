@@ -14,6 +14,9 @@ var failures := 0
 class Stage extends Node2D:
     var chapter_terrain: Node = null
 
+class PausePlayer extends Node2D:
+    var ui_input_locked := false
+
 func _initialize() -> void: call_deferred("run")
 
 func check(ok: bool, label: String) -> void:
@@ -75,6 +78,9 @@ func run() -> void:
     RenderingServer.set_default_clear_color(BACKDROP)
     var stage := Stage.new()
     root.add_child(stage)
+    var pause_player := PausePlayer.new()
+    stage.add_child(pause_player)
+    pause_player.add_to_group("player")
     var data := ART.manifest(ENEMY.WING_FLAP_PATH)
     var creatures: Dictionary = data.get("creatures", {})
     check(creatures.size() >= 7, "winged hover creatures are listed")
@@ -112,6 +118,21 @@ func run() -> void:
             check(is_equal_approx(float(material.get_shader_parameter("wing_phase")), PI * .5), "%s %s beat follows game time" % [kind, animation])
             actor._advance_wing_flap(1.0)
             check(actor.wing_flap_phase >= 0.0 and actor.wing_flap_phase < TAU, "%s %s beat wraps" % [kind, animation])
+            # Exercise the actual UI-lock and dormant-world physics paths.
+            pause_player.ui_input_locked = true
+            var frozen_phase: float = actor.wing_flap_phase
+            actor._physics_process(.1)
+            check(actor.combat_visuals_paused and is_equal_approx(actor.wing_flap_phase, frozen_phase), "%s %s UI lock freezes wing on its first physics tick" % [kind, animation])
+            actor._physics_process(.1)
+            check(is_equal_approx(actor.wing_flap_phase, frozen_phase), "%s %s UI lock keeps wing frozen" % [kind, animation])
+            pause_player.ui_input_locked = false
+            actor._set_combat_visuals_paused(false)
+            actor.set_meta("world_residency_active", false)
+            actor._physics_process(.1)
+            check(is_equal_approx(actor.wing_flap_phase, frozen_phase), "%s %s dormant world freezes wing" % [kind, animation])
+            actor.set_meta("world_residency_active", true)
+            actor._advance_wing_flap(.1 / float(entry.hz))
+            check(not is_equal_approx(actor.wing_flap_phase, frozen_phase), "%s %s resumes wing after pause" % [kind, animation])
             if real_pixels:
                 material.set_shader_parameter("wing_swing", 0.0)
                 var plain := await capture()
