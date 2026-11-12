@@ -40,6 +40,8 @@ func run() -> void:
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     scene.set_process(false);scene.player.set_physics_process(false);scene.player.debug_invulnerable=true;scene._close_overlays()
     await preload("res://scripts/resource_purpose_validation.gd").new().run(self,scene,check)
+    # A dialog closing keeps page shortcuts (and interact) modal for that frame.
+    await process_frame
     scene.player.global_position+=Vector2(450,0);scene.player.hp=3;scene.player.energy=43;scene.currency_count=37
     scene._update_room_visit() # Settle this explicitly positioned room before measuring pickup writes.
     state=CountingState.new();state.host=scene;state.data=scene.world_state.data.duplicate(true);scene.world_state=state

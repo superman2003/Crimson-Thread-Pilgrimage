@@ -3243,7 +3243,11 @@ func _sync_reading_session() -> void:
 
 func _bridge_dialog_focus(node: Node) -> void:
     # Map, recall and new-journey dialogs live under the level, not this shell.
-    if node is AcceptDialog and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):DIALOG_FOCUS.install(node)
+    if node is AcceptDialog and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):
+        DIALOG_FOCUS.install(node)
+        # Every dialog is modal for polled page shortcuts, including the frame
+        # it closes in, so joypad B (back) cancels only the dialog.
+        register_text_entry_window(node)
 
 func _exit_tree() -> void:
     if get_tree().node_added.is_connected(_bridge_dialog_focus):get_tree().node_added.disconnect(_bridge_dialog_focus)

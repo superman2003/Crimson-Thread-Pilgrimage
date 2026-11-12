@@ -11,6 +11,7 @@ var checks := 0
 var failures := 0
 var world: Node
 var dialogs := 0
+var backed := 0
 
 func _initialize() -> void:
 	call_deferred("run")
@@ -85,6 +86,17 @@ func pad(window: Window, button: JoyButton, count: int) -> void:
 		window.push_input(lift)
 		await frames(2)
 
+func joy_back() -> void:
+	var press := InputEventJoypadButton.new()
+	press.button_index = JOY_BUTTON_B
+	press.pressed = true
+	Input.parse_input_event(press)
+	await frames(2)
+	var lift: InputEventJoypadButton = press.duplicate()
+	lift.pressed = false
+	Input.parse_input_event(lift)
+	await frames(2)
+
 func dialog_reach(dialog: AcceptDialog, label: String) -> void:
 	var start: Control = dialog.gui_get_focus_owner()
 	var content: Array = collect(dialog, [], false)
@@ -149,11 +161,17 @@ func run() -> void:
 					dialogs += 1
 					check(window.has_meta("dialog_focus_bridge"), "%s dialog '%s' is bridged" % [page, String(launcher.text)])
 					dialog_reach(window, "%s dialog '%s'" % [page, String(launcher.text)])
+					if window.dialog_close_on_escape:
+						# Joypad B backs out of the dialog like Escape; the page stays.
+						await joy_back()
+						check(not window.visible and world.active_overlay != "", "%s dialog '%s' closes on joypad B and keeps its page open (visible=%s overlay=%s)" % [page, String(launcher.text), window.visible, world.active_overlay])
+						backed += 1
 			for window in windows(ui):
 				if window.visible:
 					window.hide()
 			await frames(2)
 	check(dialogs >= 15, "launcher sweep opened at least fifteen dialogs (%d)" % dialogs)
+	check(backed >= 15, "joypad B backed out of at least fifteen dialogs (%d)" % backed)
 	# Dialogs owned by the level rather than the shell are bridged as well,
 	# including ones created after startup (the map pin editor pattern).
 	for name in ["MapPurchaseDialog"]:
