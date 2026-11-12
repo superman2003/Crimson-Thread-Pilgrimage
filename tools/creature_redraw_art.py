@@ -36,6 +36,23 @@ def baseline(kind):
 
 
 BODY_AREA_TOLERANCE = 0.04      # redrawn median body area vs the replaced clip
+LEGACY_STRIDE_SOURCES = {
+    ('corridor_heavy', 'walk'): 'd93dbb520a5dcc9612859455e98f8508ad2aef91ea0d5e512673c6594012fbc6',
+    ('drain_leech', 'walk'): '040e35bfeb97a865948628d95510495b0a8facd1b085dac1b0a0c48b7c411658',
+    ('echo_moss_larva', 'walk'): 'dc69307bc6bf5704c643bc757fdae13ac89fc3adee8391761a508d4d2c5648c8',
+    ('erasure_bailiff', 'walk'): '194e8c8a1c6979c62ba46a8eac754a7f94557b4cfd4bd73d425b77f880afbeeb',
+    ('moss_larva', 'walk'): 'f8f2807e361d9cc3a44da24a478fb0f033694003e4a684e181dc39ec41098b40',
+    ('pilgrim_chariot', 'walk'): 'd7038e1d0a8e4bc0637400ee0502998acba7d2369b34c35d54bb05fec4e83c32',
+    ('rust_crown_guardian', 'walk'): '8322b4dc1d578d4159148fc0bd39af1eb0e4817ec4c06e44606d683ba89babf2',
+    ('rust_diver', 'walk'): 'b9189c17149746d221e31278607bb14da579c439b1fb7d95a366ef11d1b320f5',
+    ('saltwhite_contract_judge', 'walk'): '978f1df0f1081d58f11c0b532e485257f6cccf38dd0eb8b60c0cd6a8be7e558c',
+    ('silent_crown_core', 'walk'): '18d7c7c81fc58dccc37a096874191603692a14d71dbdd37c595e6a0071e3f569',
+    ('vine_crawler', 'walk'): 'dc302920c71e42dce4663fbcf0ef270eee9dc8704d67117e30e46d5f35f05740',
+}
+LEG_CHANGE_FLOOR = 0.15
+LEG_BAND = 0.35
+
+WALK_STRIDE_MIN = LEG_CHANGE_FLOOR
 
 
 def body_area(clip, canvas):
@@ -188,6 +205,35 @@ def verify_repairs():
     print(f'REPAIR_VERIFY clips={checked_clips} size_frames={checked_frames} remaining=0')
 
 
+def stride_pending():
+    path = REQUEST/'stride_pending.json'
+    if not path.exists():
+        return set()
+    pending = read(path)
+    if pending.get('schema') != 1 or pending.get('floor') != LEG_CHANGE_FLOOR:
+        raise ValueError('Invalid historical stride exception policy')
+    keys = []
+    for row in pending['clips']:
+        key = (row['kind'], row['clip'])
+        if key not in LEGACY_STRIDE_SOURCES or row.get('source_sha256') != LEGACY_STRIDE_SOURCES[key]:
+            raise ValueError('Stride exceptions may only retain pinned historical sources')
+        keys.append(key)
+    if len(keys) != len(set(keys)):
+        raise ValueError('Duplicate historical stride exception')
+    return set(keys)
+
+def stride_waived(kind, job):
+    key = (kind, job['clip'])
+    return key in stride_pending() and job['sha256'] == LEGACY_STRIDE_SOURCES[key]
+
+def mask_leg_change(masks, loop):
+    rows = np.nonzero(np.any(masks, axis=0).any(axis=1))[0]
+    cut = int(rows.min()+(rows.max()-rows.min())*(1-LEG_BAND))
+    legs = [m[cut:] for m in masks]
+    pairs = zip(legs, legs[1:]+(legs[:1] if loop else []))
+    return float(np.mean([audit.change(a, b) for a, b in pairs]))
+
+
 def metrics(drawings, canvas, loop):
     masks = []
     for art, (x, y) in drawings:
@@ -203,7 +249,26 @@ def metrics(drawings, canvas, loop):
                 boil_ratio=round(float(np.mean(changes))/max(.02, slide), 3),
                 unique=len({sha256(a.tobytes()).hexdigest() for a, _ in drawings}),
                 area_ratio=round(max(int(m.sum()) for m in masks)/min(int(m.sum()) for m in masks), 3),
-                body_area=float(statistics.median(int(m.sum()) for m in masks)))
+                body_area=float(statistics.median(int(m.sum()) for m in masks)),
+                leg_change_raw=mask_leg_change(masks, loop))
+
+
+def leg_change(drawings, canvas):
+    """Mean cyclic IoU change in the common lower 35% of the rig silhouette.
+
+    Keep one crop for the complete clip so moving the crop cannot masquerade
+    as leg motion. This measures a gait already registered on its rig canvas.
+    """
+    masks = []
+    for art, (x, y) in drawings:
+        mask = np.zeros((canvas[1], canvas[0]), bool)
+        mask[y:y+art.height, x:x+art.width] = np.asarray(art.getchannel('A')) > 128
+        masks.append(mask)
+    low = min(int(np.nonzero(mask)[0].min()) for mask in masks)
+    high = max(int(np.nonzero(mask)[0].max()) for mask in masks)+1
+    start = round(high-(high-low)*.35)
+    legs = [mask[start:] for mask in masks]
+    return round(float(statistics.mean(audit.change(a, b) for a, b in zip(legs, legs[1:]+legs[:1]))), 4)
 
 
 def build(kind, check=False):
@@ -213,7 +278,7 @@ def build(kind, check=False):
     if sha256(path.read_bytes()).hexdigest() != spec['baseline_sha256']:
         raise ValueError('Baseline changed; review drawings against the new layer')
     clips = {c['name']: c for c in fit.animations_of(base)}
-    drawings, summary, atlas_cache = {}, {}, {}
+    drawings, summary, atlas_cache, strides = {}, {}, {}, {}
     for job in spec['jobs']:
         name = job['clip']; clip = clips[name]
         if name in summary:
@@ -257,6 +322,18 @@ def build(kind, check=False):
             raise ValueError(f'Outline boil or body mass drift: {name} {measured}')
         if name in ('idle', 'walk') and clip['loop'] and measured['loop_seam'] > .25:
             raise ValueError(f'Loop seam needs another drawing pass: {name} {measured}')
+        # Apply the shared ground-walk floor before rounding diagnostic values.
+        legs = measured.pop('leg_change_raw')
+        strides[name] = round(legs, 3)
+        if (name == 'walk' and fit.is_grounded(base) and job.get('registration', 'ground') == 'ground'
+                and legs < LEG_CHANGE_FLOOR and not stride_waived(kind, job)):
+            raise ValueError(f'Walk cycle legs barely move ({legs} < {LEG_CHANGE_FLOOR}); redraw with real stride poses: {kind}')
+        if job.get('stride_reviewed') is not None:
+            if job['stride_reviewed'] is not True or name != 'walk' or 'target_frames' in job:
+                raise ValueError('Stride review requires a complete walking cycle')
+            measured['leg_change'] = leg_change(complete, base['canvas'])
+            if measured['leg_change'] < WALK_STRIDE_MIN:
+                raise ValueError(f'Walking feet need another drawing pass: {name} {measured}')
         summary[name] = dict(measured, registration_scale=round(scale, 9), frames=job['count'])
         if 'target_frames' in job:
             summary[name].update(target_frames=targets, original_frames=len(clip['frames']),
@@ -279,7 +356,7 @@ def build(kind, check=False):
                     if current.convert('RGBA').tobytes() != value.tobytes(): raise ValueError('Stale atlas')
         elif isinstance(value, dict): write(target, value)
         else: value.save(target)
-    print(json.dumps(dict(kind=kind, check=check, clips=summary)))
+    print(json.dumps(dict(kind=kind, check=check, clips=summary, leg_change=strides)))
     return manifest
 
 

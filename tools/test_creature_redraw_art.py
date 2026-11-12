@@ -123,6 +123,26 @@ class DeliveryContracts(unittest.TestCase):
         fits[1][0]=1.04
         self.assertEqual(art.unrepaired_sizes(row,fits),[])
 
+    def test_static_feet_are_rejected_after_stride_review(self):
+        spec = art.read(art.REQUEST/'jobs/moss_larva.json')
+        spec['jobs'] = [next(j for j in spec['jobs'] if j['clip']=='walk')]
+        spec['jobs'][0]['stride_reviewed'] = True
+        with tempfile.TemporaryDirectory() as folder:
+            request = Path(folder); (request/'jobs').mkdir()
+            art.write(request/'jobs/moss_larva.json', spec)
+            with patch.object(art, 'REQUEST', request), patch.object(art,'leg_change',return_value=.04), patch.object(art,'mask_leg_change',return_value=.2):
+                with self.assertRaisesRegex(ValueError,'Walking feet need another drawing pass'):
+                    art.build('moss_larva', check=True)
+
+    def test_fixed_lower_body_region_sees_alternating_feet(self):
+        first=Image.new('RGBA',(100,100)); second=Image.new('RGBA',(100,100))
+        for image in (first,second):
+            ImageDraw.Draw(image).rectangle((25,20,74,60),fill='white')
+        ImageDraw.Draw(first).rectangle((25,61,35,85),fill='white')
+        ImageDraw.Draw(second).rectangle((64,61,74,85),fill='white')
+        self.assertEqual(art.leg_change([(first,(0,0)),(first,(0,0))],(100,100)),0)
+        self.assertGreater(art.leg_change([(first,(0,0)),(second,(0,0))],(100,100)),.5)
+
     def test_sheet_scale_matches_the_replaced_body_area_not_its_height(self):
         # Same height as the reference but twice as wide: height registration
         # would keep it at twice the body mass of every untouched clip.
@@ -153,6 +173,69 @@ class DeliveryContracts(unittest.TestCase):
             for clip, measured in record.items():
                 self.assertLessEqual(abs(measured['body_area_ratio']-1),art.BODY_AREA_TOLERANCE,(path.stem,clip))
 
+
+    def test_leg_change_separates_a_sliding_still_from_a_stride(self):
+        import numpy as np
+        def frame(feet):
+            mask = np.zeros((100,100), bool)
+            mask[20:70,30:70] = True
+            for x in feet: mask[70:100,x:x+8] = True
+            return mask
+        still = [frame((34,58)) for _ in range(8)]
+        stride = [frame((34+s,58-s)) for s in (0,6,12,6,0,-6,-12,-6)]
+        self.assertEqual(art.mask_leg_change(still,True),0)
+        self.assertGreater(art.mask_leg_change(stride,True),art.LEG_CHANGE_FLOOR)
+
+    def test_walk_delivery_with_still_legs_is_rejected_unless_it_awaits_a_redraw(self):
+        with patch.object(art,'stride_pending',lambda: set()), patch.object(art,'mask_leg_change',return_value=.04):
+            with self.assertRaisesRegex(ValueError,'legs barely move'):
+                art.build('moss_larva',check=True)
+
+    def test_pending_stride_list_only_holds_walks_that_are_still_below_the_floor(self):
+        import contextlib
+        pending = art.read(art.REQUEST/'stride_pending.json')
+        self.assertEqual(pending['floor'],art.LEG_CHANGE_FLOOR)
+        for row in pending['clips']:
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                art.build(row['kind'],check=True)
+            measured = json.loads(out.getvalue())['leg_change'][row['clip']]
+            self.assertLess(measured,art.LEG_CHANGE_FLOOR,f"{row['kind']} now strides; remove it from stride_pending.json")
+
+    def test_a_new_sheet_cannot_inherit_a_legacy_walk_exception(self):
+        key=('moss_larva','walk');digest=art.LEGACY_STRIDE_SOURCES[key]
+        pending=dict(schema=1,floor=art.LEG_CHANGE_FLOOR,clips=[dict(kind=key[0],clip=key[1],source_sha256=digest)])
+        with tempfile.TemporaryDirectory() as folder:
+            request=Path(folder);art.write(request/'stride_pending.json',pending)
+            with patch.object(art,'REQUEST',request):
+                self.assertTrue(art.stride_waived(key[0],dict(clip=key[1],sha256=digest)))
+                self.assertFalse(art.stride_waived(key[0],dict(clip=key[1],sha256='new static sheet')))
+
+    def test_stride_exception_list_cannot_grow_or_replace_a_pinned_source(self):
+        key,digest=next(iter(art.LEGACY_STRIDE_SOURCES.items()))
+        original=dict(schema=1,floor=art.LEG_CHANGE_FLOOR,clips=[dict(kind=key[0],clip=key[1],source_sha256=digest)])
+        for mutate in ('new_kind','new_source','duplicate'):
+            pending=json.loads(json.dumps(original))
+            if mutate=='new_kind': pending['clips'][0]['kind']='new_creature'
+            if mutate=='new_source': pending['clips'][0]['source_sha256']='new sheet'
+            if mutate=='duplicate': pending['clips'].append(pending['clips'][0])
+            with tempfile.TemporaryDirectory() as folder:
+                request=Path(folder);art.write(request/'stride_pending.json',pending)
+                with patch.object(art,'REQUEST',request), self.assertRaisesRegex(ValueError,'historical stride|historical sources'):
+                    art.stride_pending()
+
+    def test_stride_exception_removal_is_allowed(self):
+        pending=dict(schema=1,floor=art.LEG_CHANGE_FLOOR,clips=[dict(kind=k[0],clip=k[1],source_sha256=v) for k,v in art.LEGACY_STRIDE_SOURCES.items()])
+        pending['clips']=pending['clips'][1:]
+        with tempfile.TemporaryDirectory() as folder:
+            request=Path(folder);art.write(request/'stride_pending.json',pending)
+            with patch.object(art,'REQUEST',request):
+                self.assertEqual(len(art.stride_pending()),10)
+
+    def test_rounding_cannot_admit_a_walk_below_the_stride_floor(self):
+        with patch.object(art,'stride_pending',lambda: set()), patch.object(art,'mask_leg_change',return_value=.1499):
+            with self.assertRaisesRegex(ValueError,'legs barely move'):
+                art.build('moss_larva',check=True)
 
 if __name__ == '__main__':
     unittest.main()
