@@ -1,0 +1,19 @@
+{
+  "kind": "sunken_hammer_smith",
+  "clip": "actions_01",
+  "status": "partially_rejected",
+  "reason": "Heavy portion rejected (body ratio0.940, neighbour0.529); phase portion accepted and retained.",
+  "source_sha256": "ca17cf96b657a7b9f2a26b4c1d9b054b75ad3cbf7037174a55dfefe339ad1143",
+  "prompt_sha256": "a0eb206723ac15a11e1309dcaad3797ee47c2c4b9193fb9d97fce5281e0c0597",
+  "reference_sha256": "b89c846c676f5943a23b01ee00822001595d80677202a8254bcfc1d86fa5b61f",
+  "actual_prompt": "Precise sprite-sheet correction. Image1 is the edit target, image2 is the original pose and body-proportion guide. Keep image1's exact transparent 8-column 4-row grid and all32 creatures. Keep first22 cels as close as possible to image1, since this section already animates smoothly. Correct ONLY the last10 creature drawings (row3 columns7-8 and entire row4), which currently have a squat undersized feather mantle and short legs relative to the guide. Redraw these ten with roughly 10 percent more solid plumage/body area, longer visible legs and a taller narrower upright stance as in image2. Preserve physical anatomical mass, do not enlarge brass beak or crest independently. Their body centers and feather silhouette should match the guide for smooth transition to adjacent original cels. In row4 column2 and row4 columns7-8 especially, restore the guide's taller torso and longer downward feather drape rather than the current rounded compressed blob. Keep the intermediate beak angles coherent so adjacent silhouettes overlap well. This is body proportion restoration, not a change of identity. Preserve crimson layered feathers, antique brass scissor beak and circular fittings, fine sharp ink and painted texture. Each sprite is fully contained in its existing cell with transparent 12px gutters; no text, grid, haze, shadows, backdrop, extra effects or glow. Genuine alpha-zero transparency and crisp clean detail. First22cels must remain stable in occupied area, shape and position.",
+  "reference_recipe": "Edit rejected action-smith-v2 (receipt source_sha256), with the original frozen actions-01 guide as additional body-proportion reference.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/sunken_hammer_smith-actions-01.json",
+  "guide_sha256": "47bc6dd5b92d48a9e2881499d6d45e89270f80861b6f0bef7836d58e44dc0557",
+  "accepted_clips": [
+    "phase"
+  ],
+  "rejected_clips": [
+    "heavy"
+  ]
+}
