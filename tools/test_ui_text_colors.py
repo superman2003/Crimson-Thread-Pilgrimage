@@ -21,7 +21,7 @@ SCRIPTS = ROOT / 'godot' / 'scripts'
 SKIP = re.compile(r'(validation|capture|fixture|probe|preview|_test|showcase)')
 TEXT_KEYS = ('font_color', 'default_color')
 OVERRIDE = re.compile(r'add_theme_color_override\(')
-LABEL = re.compile(r'(?<![A-Za-z0-9_.])_label\(')
+LABEL = re.compile(r'(?<![A-Za-z0-9_])_label\(')
 # Color("abc"), Color("#abc"), Color(0.5, ...), Color(.5, ...), Color8(...), Color.html(...)
 LITERAL = re.compile(r'Color8?\(\s*(?:"#?[0-9a-fA-F]+"|[0-9.])|Color\.html\(')
 # (file, text the expression must contain): one specific call, never a whole file.
@@ -68,7 +68,7 @@ def text_colours(source):
     """Yield (line number, colour expression) for every text colour set in source."""
     for match in OVERRIDE.finditer(source):
         args = call_arguments(source, match.end())
-        if len(args) >= 2 and args[0].strip('"\'') in TEXT_KEYS:
+        if len(args) >= 2 and args[0].lstrip('&').strip('"\'') in TEXT_KEYS:
             yield source.count('\n', 0, match.start()) + 1, args[1]
     for match in LABEL.finditer(source):
         line_start = source.rfind('\n', 0, match.start()) + 1
@@ -116,6 +116,10 @@ def self_test():
     assert literals('x.add_theme_color_override(\n    "font_color",\n    Color("ffffff"),\n)')
     assert literals('x.add_theme_color_override("font_color", SURFACE.GOLD if open else Color("8d6a5a"))')
     assert literals('_label(panel,"x",Vector2.ZERO,Vector2.ONE,12,Color("ffffff"))')
+    assert literals('ui._label(panel,"x",Vector2.ZERO,Vector2.ONE,12,Color("ffffff"))')
+    assert literals('x.add_theme_color_override(&"font_color", Color("ffffff"))')
+    assert not literals('x.add_theme_color_override(&"font_shadow_color", Color("000000"))')
+    assert not literals('ui._label(panel,"x",Vector2.ZERO,Vector2.ONE,12,ui.GOLD)')
     assert literals('_label(panel, "a, (b",\n    Vector2.ZERO, Vector2.ONE, 12,\n    Color8(1, 2, 3))')
     assert not literals('x.add_theme_color_override("font_color", SURFACE.GOLD)')
     assert not literals('x.add_theme_color_override("font_color", IVORY if a else GOLD)')
