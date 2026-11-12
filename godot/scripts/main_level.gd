@@ -390,6 +390,9 @@ const AUDIO := {
     # ch4 beat `string_bridge_break`（manifest ch04_beat_03）：断弦温室里下劈击碎地面时
     # 在碎裂声上叠断弦拨片与石屑落地。
     "ch04_beat_string_break": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_03_audio.ogg",
+    # ch6 beat `echo_room_open`（manifest ch06_beat_01）：第一次走进无声王冠的五间回声室时
+    # 各响一次低频钟声短句；重访不再响。
+    "ch06_beat_echo_room": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_01_audio.ogg",
     # Kenney CC0 三包（Interface Sounds / RPG Audio；音频规格 §4.5 UI 与系统）。
     "ui_inventory_open": "res://assets/audio/sfx/kenney/interface/open_001.ogg",
     "ui_inventory_close": "res://assets/audio/sfx/kenney/interface/close_001.ogg",
@@ -3168,7 +3171,10 @@ func _update_room_visit() -> void:
     var previous_room_id := current_room_id
     current_room_id = String(room.get("id", ""))
     if not current_room_id.is_empty():
+        var first_visit := not bool(visited_rooms.get(current_room_id, false))
         visited_rooms[current_room_id] = true
+        if first_visit:
+            _play_echo_room_beat(room)
         if world_mode:
             CARTOGRAPHY.visit_at(story_flags, String(config.id), room, player.global_position)
         if metsys_bridge != null:
@@ -3185,6 +3191,17 @@ func _update_room_visit() -> void:
                 audio_director.on_room_changed(String(room.get("kind", "")))
                 if audio_director.has_method("set_hidden_zone"):
                     audio_director.set_hidden_zone(_is_hidden_room(current_room_id))
+
+
+## The five echo rooms of the silent crown each answer the first visit with the
+## chapter's low bell phrase. `visited_rooms` is saved, so a revisit stays quiet.
+func _play_echo_room_beat(room: Dictionary) -> bool:
+    if String(config.get("id", "")) != "demo_ch06_silent_crown_core":
+        return false
+    if not String(room.get("id", "")).begins_with("echo_"):
+        return false
+    _play_sfx("ch06_beat_echo_room", -9.0)
+    return true
 
 
 func _room_for_x(world_x: float, legacy_only: bool = false) -> Dictionary:

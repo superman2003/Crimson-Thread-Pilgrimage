@@ -10,6 +10,7 @@ class ProbeLevel extends "res://scripts/main_level.gd":
 
 const CROWN := "res://data/demo_ch06_silent_crown_core.json"
 const KEY := "ch06_beat_ending_doors"
+const ECHO_KEY := "ch06_beat_echo_room"
 var checks := 0
 var failures: Array[String] = []
 
@@ -33,6 +34,47 @@ func _level() -> Node:
     await process_frame
     return level
 
+## Echo-room beat (manifest ch06_beat_01): the first visit to each of the five
+## echo rooms answers with the low bell phrase; other rooms and revisits do not.
+func _echo_rooms(level: Node) -> void:
+    _check(level.AUDIO.has(ECHO_KEY) and ResourceLoader.exists(String(level.AUDIO[ECHO_KEY])), "the echo-room beat is the generated ch06 bell phrase")
+    level.set_process(false)
+    level.set_physics_process(false)
+    level.player.set_physics_process(false)
+    level.visited_rooms.clear()
+    level.current_room_id = ""
+    var echo_rooms := 0
+    var other_rooms := 0
+    for room in level.config.get("map_rooms", []):
+        var rect: Array = room.get("layout_rect", [])
+        if rect.size() != 4:
+            continue
+        var id := String(room.get("id", ""))
+        var before: int = level.played.count(ECHO_KEY)
+        level.player.global_position = Vector2(float(rect[0]) + float(rect[2]) * 0.5, float(rect[1]) + float(rect[3]) * 0.5)
+        level._update_room_visit()
+        if String(level.current_room_id) != id:
+            continue
+        var rang: bool = level.played.count(ECHO_KEY) == before + 1
+        if id.begins_with("echo_"):
+            echo_rooms += 1
+            _check(rang, "first visit to %s rings the bell phrase once" % id)
+        else:
+            other_rooms += 1
+            _check(level.played.count(ECHO_KEY) == before, "%s is not an echo room and stays quiet" % id)
+    _check(echo_rooms == 5 and other_rooms >= 5, "all five echo rooms and the other rooms were walked (%d, %d)" % [echo_rooms, other_rooms])
+    var total: int = level.played.count(ECHO_KEY)
+    for room in level.config.get("map_rooms", []):
+        var rect: Array = room.get("layout_rect", [])
+        if rect.size() != 4 or not String(room.get("id", "")).begins_with("echo_"):
+            continue
+        level.player.global_position = Vector2(float(rect[0]) + float(rect[2]) * 0.5, float(rect[1]) + float(rect[3]) * 0.5)
+        level._update_room_visit()
+    _check(level.played.count(ECHO_KEY) == total, "revisiting the echo rooms does not ring again")
+    level.config["id"] = "demo_ch01_moss_bell_court"
+    _check(not level._play_echo_room_beat({"id": "echo_moss"}), "a room named echo_* in another region stays quiet")
+    level.config["id"] = "demo_ch06_silent_crown_core"
+
 func _run() -> void:
     var level := await _level()
     _check(level.AUDIO.has(KEY) and ResourceLoader.exists(String(level.AUDIO[KEY])), "the beat is the generated ch06 ending-doors chord")
@@ -54,6 +96,7 @@ func _run() -> void:
     revisit.demo_complete = true
     revisit._spawn_ending_gates()
     _check(_gates(revisit).size() == 3 and not revisit.played.has(KEY), "restored doors on a revisit stay silent")
+    await _echo_rooms(revisit)
     preload("res://scripts/audio_retirement.gd").retire_tree(revisit)
     revisit.queue_free()
     await process_frame
