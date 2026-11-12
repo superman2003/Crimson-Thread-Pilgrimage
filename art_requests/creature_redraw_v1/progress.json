@@ -6513,5 +6513,129 @@
       ],
       "jumps": []
     }
-  ]
+  ],
+  "stride_followup": {
+    "request_pr": 601,
+    "required_total": 6,
+    "required_delivered": 3,
+    "replacement_cels": 48,
+    "measurement": "common lower 35% of complete registered silhouette, cyclic adjacent 1-IoU; minimum 0.15",
+    "required": [
+      {
+        "kind": "drain_leech",
+        "clip": "walk",
+        "status": "delivered",
+        "metrics": {
+          "frames": 16,
+          "clocks_equal": true,
+          "old_redraw_leg_change": 0.0433,
+          "new_leg_change": 0.197,
+          "metrics": {
+            "mean_change": 0.1424,
+            "max_change": 0.2255,
+            "loop_seam": 0.1246,
+            "boil_ratio": 2.636,
+            "unique": 16,
+            "area_ratio": 1.107,
+            "body_area_ratio": 0.997,
+            "leg_change": 0.197,
+            "registration_scale": 1.188988511,
+            "frames": 16
+          }
+        }
+      },
+      {
+        "kind": "moss_larva",
+        "clip": "walk",
+        "status": "delivered",
+        "metrics": {
+          "frames": 16,
+          "clocks_equal": true,
+          "old_redraw_leg_change": 0.0462,
+          "new_leg_change": 0.2156,
+          "metrics": {
+            "mean_change": 0.1122,
+            "max_change": 0.2107,
+            "loop_seam": 0.0853,
+            "boil_ratio": 1.855,
+            "unique": 16,
+            "area_ratio": 1.084,
+            "body_area_ratio": 0.996,
+            "leg_change": 0.2156,
+            "registration_scale": 0.802119179,
+            "frames": 16
+          }
+        }
+      },
+      {
+        "kind": "rust_crown_guardian",
+        "clip": "walk",
+        "status": "needs_redraw",
+        "metrics": null
+      },
+      {
+        "kind": "pilgrim_chariot",
+        "clip": "walk",
+        "status": "needs_redraw",
+        "metrics": null
+      },
+      {
+        "kind": "echo_moss_larva",
+        "clip": "walk",
+        "status": "delivered",
+        "metrics": {
+          "frames": 16,
+          "clocks_equal": true,
+          "old_redraw_leg_change": 0.0754,
+          "new_leg_change": 0.1956,
+          "metrics": {
+            "mean_change": 0.1187,
+            "max_change": 0.203,
+            "loop_seam": 0.203,
+            "boil_ratio": 2.023,
+            "unique": 16,
+            "area_ratio": 1.047,
+            "body_area_ratio": 0.998,
+            "leg_change": 0.1956,
+            "registration_scale": 0.886392946,
+            "frames": 16
+          }
+        }
+      },
+      {
+        "kind": "silent_crown_core",
+        "clip": "walk",
+        "status": "needs_redraw",
+        "metrics": null
+      }
+    ],
+    "recommended": [
+      {
+        "kind": "vine_crawler",
+        "clip": "walk",
+        "status": "needs_visual_review"
+      },
+      {
+        "kind": "saltwhite_contract_judge",
+        "clip": "walk",
+        "status": "needs_visual_review"
+      },
+      {
+        "kind": "erasure_bailiff",
+        "clip": "walk",
+        "status": "needs_visual_review"
+      },
+      {
+        "kind": "corridor_heavy",
+        "clip": "walk",
+        "status": "needs_visual_review"
+      },
+      {
+        "kind": "rust_diver",
+        "clip": "walk",
+        "status": "needs_visual_review"
+      }
+    ],
+    "note": "Replacement cels do not add completed clips to the original 261-clip checklist"
+  }
 }

@@ -1,1 +1,23 @@
-Use case: identity-preserve. Asset type: hand-painted 2D game animation replacement. EDIT TARGET: supplied 1024x1024 transparent FOUR-column by FOUR-row repeated character layout. Keep the same fixed scale, cell placement and ground baseline. Preserve exact identity, proportions, palette, fine ink-painted details and original view FACING RIGHT: a squat moss-covered caterpillar, dark teal segmented belly, four tiny hooked feet, weathered bronze bell shell, ivory mask and leaf antennae. Replace the repeated stance with SIXTEEN truly drawn consecutive poses of ONE seamless walk cycle. CRAWL with the four tiny hooked feet in a clear rear-to-front wave. Gentle abdominal articulation, the rigid bell shell never deforms. No human-like upright gait, no added limbs. Reading row-major, frame0 first foot contact,2 down,4 passing,6 up,8 opposite contact,10 down,12 passing,14 up,15 just before0. Smooth even motion; every adjacent pose differs only slightly and frame15 flows back to0. Keep torso, head, armour and prop dimensions fixed. Body bob at most2px, feet always meet the reference ground baseline. Identical costume and ornament count throughout, no outline boiling or body swelling. One full isolated figure per equal 256px cell, at least18px transparent gutter on every side; do NOT enlarge to fill cells. Real alpha transparency. No copied stamps, mirrored figures, double images, cross-fades, numbers, text, grid, markers, scenery, shadows, effects, extra characters or props. Output one transparent PNG sprite sheet.
+Production 2D GAME WALK CYCLE redraw. Transparent RGBA sprite sheet EXACT 4 columns x 4 rows, 16 equal cells; target 1024x1024. The attached sheet repeats a reference identity; DO NOT repeat its poses. Draw sixteen new sequential poses of this SAME moss-bell larva walking in place facing RIGHT. Match its bronze moss-covered bell shell, pale eye and dark blue segmented abdomen in detailed painterly ink style. Fixed camera, consistent proportions and silhouette body area.
+
+The previous attempt had inadequate movement: legs looked almost static. This pass needs a clearly readable HIGH-STEPPING SCUTTLE, with all tiny hooked feet articulating at their joints. Exaggerate the gait while preserving the shell design. Feet are NOT just tucked below the belly. In contact poses extend the front leg 25px ahead of its shoulder and rear leg 25px behind its hip. In passing poses bend and lift the swinging front foot fully 24px above ground with toe reaching inward below the eye; the opposite rear foot sweeps under the middle belly. Alternate the two diagonal leg groups. The near feet and far feet must visibly exchange positions. Four principal feet, anatomically consistent in all 16 cells. No extra limbs. Let the dark belly compress slightly over supporting legs but keep the shell stable. The rigid bell barely bobs 3px; the large changes must be FEET AND LEG JOINTS. Each next cel must show different leg angles, not an x/y shift of one pose.
+
+Read cells as one continuous complete cycle:
+1 extreme contact, near front foot forward/toe planted and near hind foot back;
+2 support legs begin pushing back, far front toe lifts;
+3 far front knee raises toward belly, near front supporting leg sweeps back;
+4 passing, far front foot lifted 24px, near rear foot lifting;
+5 far front foot reaches forward in air, near front foot now behind shoulder;
+6 far front extends toward ground, rear legs exchange;
+7 far contact, near front foot starts lifting;
+8 far contact weight settles;
+9 opposite extreme contact, far front forward and near front rearward;
+10 far support sweeps back, near front toe lifts;
+11 near front knee raises toward belly;
+12 near passing foot lifted 24px;
+13 near front reaches forward in air;
+14 near front extends downward, rear legs exchange;
+15 near front about to plant, opposite support lifts;
+16 near contact almost returns to cell 1. Cell16->cell1 seamless.
+
+Every cell character centered at local x128, maximum 204px wide, feet on same local ground y=232. Use local x20..236 y30..234; all outside cells genuinely clear alpha. Empty 12px cell borders on all sides. No text, lines, background, dust, fog, glow or ground shadows. Foot lift is drawn anatomy, never a floating whole body.
