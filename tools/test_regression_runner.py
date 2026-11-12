@@ -129,6 +129,7 @@ class CompletionContractTests(unittest.TestCase):
             'rest_point_safety',
             'player_action_sfx_sync',
             'fragile_gate_crack',
+            'marrow_cell_entry',
             'hidden_drone',
             'hazard_readability', 'trap_free_world',
             'audio_construction',
