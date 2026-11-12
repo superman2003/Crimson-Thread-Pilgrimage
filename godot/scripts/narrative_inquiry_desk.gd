@@ -1,4 +1,5 @@
 extends AcceptDialog
+const SPACING := preload("res://scripts/ui_spacing_scale.gd")
 ## Explicitly advance every line. Closing midway commits nothing.
 const INQUIRIES := preload("res://scripts/narrative_inquiries.gd")
 var ui_ref: WeakRef
@@ -15,7 +16,7 @@ func _ready() -> void:
     size = min_size
     dialog_hide_on_ok = false
     var layout := VBoxContainer.new()
-    layout.add_theme_constant_override("separation", 12)
+    layout.add_theme_constant_override("separation", SPACING.BLOCK)
     add_child(layout)
     scroll = ScrollContainer.new()
     scroll.custom_minimum_size = Vector2(650, 340)

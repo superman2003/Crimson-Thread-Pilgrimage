@@ -1,4 +1,5 @@
 extends Control
+const SPACING := preload("res://scripts/ui_spacing_scale.gd")
 
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
@@ -627,7 +628,7 @@ func _build_bag() -> void:
     bag_scroll=scroll
     journal_filters=HBoxContainer.new()
     journal_filters.position=Vector2(34,189)
-    journal_filters.add_theme_constant_override("separation",10)
+    journal_filters.add_theme_constant_override("separation",SPACING.ROW)
     journal_filters.visible=false
     bag.add_child(journal_filters)
     var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["ability","能力"],["people","人物"],["voice","自述"]]
@@ -679,7 +680,7 @@ func _build_bag() -> void:
     journal_count=_label(bag,"",Vector2(34,255),Vector2(645,20),12,MUTED)
     bag_grid=GridContainer.new()
     bag_grid.columns=6
-    bag_grid.add_theme_constant_override("h_separation",10)
+    bag_grid.add_theme_constant_override("h_separation",SPACING.ROW)
     bag_grid.add_theme_constant_override("v_separation",10)
     scroll.add_child(bag_grid)
     var divider:=ColorRect.new()
