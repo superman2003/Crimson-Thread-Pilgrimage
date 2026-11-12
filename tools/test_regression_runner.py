@@ -109,6 +109,7 @@ class CompletionContractTests(unittest.TestCase):
             'room_ambience', 'room_ambience_world',
             'dialog_dpad_focus',
             'reading_scroll',
+            'loadout_gamepad_restore',
             'boss_move_matrix',
             'boss_move_matrix_late',
             'enemy_move_matrix',
