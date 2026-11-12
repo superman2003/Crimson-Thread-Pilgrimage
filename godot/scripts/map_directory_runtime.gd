@@ -19,8 +19,7 @@ static func setup(level: Node) -> void:
     button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     button.tooltip_text="搜索已购且已补绘的房间、能力门、危险、捷径和自定义图钉；只改变视野。"
     var status: Label=level.map_panel.get_node_or_null("PlayerPinStatus")
-    if status!=null:status.size.x=965;status.clip_text=true
-    level.map_text.size.x=965
+    if status!=null:status.clip_text=true
 
 static func _owns(level: Variant, panel: Variant) -> bool:
     return is_instance_valid(level) and level.is_inside_tree() and not level.is_queued_for_deletion() and is_instance_valid(panel) and panel==level.map_panel and panel.is_inside_tree() and not panel.is_queued_for_deletion()
