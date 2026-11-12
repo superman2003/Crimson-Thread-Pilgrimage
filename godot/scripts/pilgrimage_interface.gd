@@ -1102,7 +1102,7 @@ func _build_settings_controls() -> void:
         button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
         button.add_theme_font_size_override("font_size",12)
         remap_buttons[action_id]=button
-    remap_status=_label(settings,"确认键改键  ·  Esc 取消",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
+    remap_status=_label(settings,"确认键改键  ·  Esc／手柄 B 取消",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 
@@ -1188,7 +1188,7 @@ func _load_accessibility() -> void:
     _apply_controller_deadzone()
     binding_recovery_notice="部分输入设置无效或冲突，已保留对应设备的可用绑定。" if result.rejected>0 else ""
     if remap_status!=null:
-        remap_status.text=binding_recovery_notice if not binding_recovery_notice.is_empty() else "确认键改键  ·  Esc 取消"
+        remap_status.text=binding_recovery_notice if not binding_recovery_notice.is_empty() else "确认键改键  ·  Esc／手柄 B 取消"
 
 func _finite_setting(config: ConfigFile, key: String, minimum: float, maximum: float) -> float:
     var value: Variant=config.get_value("accessibility",key,accessibility[key])
@@ -1364,8 +1364,8 @@ func _reset_bindings() -> void:
 func _begin_remap(action: String) -> void:
     if not REMAPPABLE_ACTIONS.has(action) or settings==null or not settings.is_visible_in_tree():return
     remap_target=action
-    remap_status.text="请为「%s」按键、鼠标按钮或手柄输入；Esc 取消。" % REMAPPABLE_ACTIONS[action]
-    if action=="build_menu":remap_status.text="构筑使用键盘、鼠标按钮或非导航手柄按键；确认、返回、方向键和滚轮保留给界面。Esc 取消。"
+    remap_status.text="请为「%s」按键、鼠标按钮或手柄输入；Esc／手柄 B 取消。" % REMAPPABLE_ACTIONS[action]
+    if action=="build_menu":remap_status.text="构筑使用键盘、鼠标按钮或非导航手柄按键；确认、返回、方向键和滚轮保留给界面。Esc／手柄 B 取消。"
 
 func _cancel_remap(reason: String) -> void:
     if remap_target.is_empty():return
@@ -1398,7 +1398,8 @@ func _input(event: InputEvent) -> void:
     if not settings.visible:remap_target=""
     if not remap_target.is_empty():
         remap_capture_frame=Engine.get_process_frames()
-        if event is InputEventKey and event.pressed and (event.keycode==KEY_ESCAPE or event.physical_keycode==KEY_ESCAPE):
+        # Joypad B is the reserved back button; it cancels capture like Escape.
+        if (event is InputEventKey and event.pressed and (event.keycode==KEY_ESCAPE or event.physical_keycode==KEY_ESCAPE)) or (event is InputEventJoypadButton and event.pressed and event.button_index==JOY_BUTTON_B):
             remap_target=""
             remap_status.text="已取消重映射。"
             get_viewport().set_input_as_handled()
@@ -1408,7 +1409,7 @@ func _input(event: InputEvent) -> void:
                 get_viewport().set_input_as_handled()
                 return
             if BINDING_POLICY.is_reserved(accepted):
-                remap_status.text="此输入保留给界面快捷键，请换一个输入或 Esc 取消。"
+                remap_status.text="此输入保留给界面快捷键，请换一个输入，或按 Esc／手柄 B 取消。"
                 get_viewport().set_input_as_handled()
                 return
             var action:=remap_target
@@ -1420,7 +1421,7 @@ func _input(event: InputEvent) -> void:
             for other in BINDING_POLICY.conflicts(accepted,action,BINDING_POLICY.snapshot()):
                 conflicts.append(String(REMAPPABLE_ACTIONS.get(other,"其他动作")))
             if not conflicts.is_empty():
-                remap_status.text="此输入已用于「%s」，请换一个输入或 Esc 取消。" % "、".join(conflicts)
+                remap_status.text="此输入已用于「%s」，请换一个输入，或按 Esc／手柄 B 取消。" % "、".join(conflicts)
                 get_viewport().set_input_as_handled()
                 return
             if not InputMap.has_action(action):InputMap.add_action(action)

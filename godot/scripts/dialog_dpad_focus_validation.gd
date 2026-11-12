@@ -214,6 +214,22 @@ func run() -> void:
 		check(dropdown.get_popup().visible, "joypad A opens the dropdown")
 		await joy(JOY_BUTTON_B)
 		check(not dropdown.get_popup().visible and world.active_overlay == "backpack", "joypad B closes the dropdown and keeps the backpack page open")
+	# Remapping capture: B is reserved for back, so it cancels the capture
+	# (as Escape does) instead of being refused, and the settings page stays.
+	await open_page("settings")
+	var remap_action := ""
+	for key in ui.remap_buttons:
+		if ui.remap_buttons[key].is_visible_in_tree():
+			remap_action = String(key)
+			break
+	var bindings_before := var_to_str(InputMap.action_get_events(remap_action))
+	ui.remap_buttons[remap_action].grab_focus()
+	await frames(2)
+	await joy(JOY_BUTTON_A)
+	check(ui.remap_target == remap_action, "joypad A on a remap row starts capture (%s)" % remap_action)
+	await joy(JOY_BUTTON_B)
+	check(ui.remap_target == "" and world.active_overlay == "settings", "joypad B cancels remap capture and keeps the settings page open")
+	check(var_to_str(InputMap.action_get_events(remap_action)) == bindings_before, "cancelled capture leaves the binding unchanged")
 	# Real joypad input: the danger-caption dialog opens on its safe Cancel
 	# button and d-pad up now enters the options instead of staying put.
 	await open_page("settings")
