@@ -2,6 +2,11 @@
 
 One uniform registration scale is used for an entire sheet. Transparent cropping
 uses either planted feet or the authored cell coordinates for hovering actors.
+
+The sheet scale makes the median drawn body cover the same area as the clip it
+replaces. Height is not used: a redrawn pose with wider wings, cloak or weapon at
+the same height would otherwise come out bigger than every clip left untouched,
+and the actor would visibly grow and shrink when it changes action.
 """
 from copy import deepcopy
 from hashlib import sha256
@@ -35,7 +40,16 @@ def baseline(kind):
     return path, read(path)
 
 
-def extract(job, canvas):
+BODY_AREA_TOLERANCE = 0.04      # redrawn median body area vs the replaced clip
+
+
+def body_area(clip, canvas):
+    """Median solid area of the clip being replaced, on the rig canvas."""
+    pages = fit.Atlases()
+    return float(statistics.median(int(audit.placed(pages.alpha(f), f, canvas).sum()) for f in clip['frames']))
+
+
+def extract(job, canvas, target_area=None):
     registration = job.get('registration', 'ground')
     if registration not in ('ground', 'cell_center'):
         raise ValueError('Unknown drawing registration: '+registration)
@@ -45,7 +59,7 @@ def extract(job, canvas):
     with Image.open(source) as image:
         sheet = image.convert('RGBA')
     columns, rows = job['grid']
-    cells, boxes, heights = [], [], []
+    cells, boxes, heights, areas = [], [], [], []
     for i in range(job['count']):
         x, y = i % columns, i // columns
         cell = sheet.crop((round(x*sheet.width/columns), round(y*sheet.height/rows),
@@ -62,8 +76,11 @@ def extract(job, canvas):
         box = (int(xs.min()), int(ys.min()), int(xs.max())+1, int(ys.max())+1)
         if min(box[0], box[1], cell.width-box[2], cell.height-box[3]) < 5:
             raise ValueError(f'Drawing {i} touches its cell boundary')
-        cells.append(cell); boxes.append(box); heights.append(box[3]-box[1])
-    scale = job['reference_height']/statistics.median(heights)
+        cells.append(cell); boxes.append(box); heights.append(box[3]-box[1]); areas.append(len(xs))
+    if target_area:
+        scale = (target_area/statistics.median(areas))**.5
+    else:
+        scale = job['reference_height']/statistics.median(heights)
     # This single affine scale is never adjusted to make individual frames fit.
     drawings = []
     for cell, box in zip(cells, boxes):
@@ -96,7 +113,8 @@ def metrics(drawings, canvas, loop):
                 loop_seam=round(audit.change(masks[-1], masks[0]), 4) if loop else None,
                 boil_ratio=round(float(np.mean(changes))/max(.02, slide), 3),
                 unique=len({sha256(a.tobytes()).hexdigest() for a, _ in drawings}),
-                area_ratio=round(max(int(m.sum()) for m in masks)/min(int(m.sum()) for m in masks), 3))
+                area_ratio=round(max(int(m.sum()) for m in masks)/min(int(m.sum()) for m in masks), 3),
+                body_area=float(statistics.median(int(m.sum()) for m in masks)))
 
 
 def build(kind, check=False):
@@ -116,8 +134,12 @@ def build(kind, check=False):
             raise ValueError('Recorded generation prompt changed')
         if job['count'] != len(clip['frames']):
             raise ValueError('Redrawing may not change the frozen frame count')
-        cels, scale = extract(job, base['canvas'])
+        replaced = body_area(clip, base['canvas'])
+        cels, scale = extract(job, base['canvas'], replaced)
         measured = metrics(cels, base['canvas'], bool(clip['loop']))
+        measured['body_area_ratio'] = round(measured.pop('body_area')/replaced, 3)
+        if abs(measured['body_area_ratio']-1) > BODY_AREA_TOLERANCE:
+            raise ValueError(f'Redrawn body size differs from the replaced clip: {name} {measured}')
         if measured['unique'] != job['count'] or measured['max_change'] > .5:
             raise ValueError(f'Duplicated drawings or silhouette jump: {name} {measured}')
         if name in ('idle', 'walk') and (measured['boil_ratio'] >= 3 or measured['area_ratio'] > 1.15):
