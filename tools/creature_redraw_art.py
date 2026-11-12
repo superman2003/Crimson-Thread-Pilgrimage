@@ -1,6 +1,6 @@
 """Pack image_gen redraw sheets without synthesizing poses or changing clocks.
 
-One uniform registration scale is used for an entire sheet. Transparent cropping
+One uniform registration scale matches the replaced median solid body area for an entire sheet. Transparent cropping
 uses either planted feet or the authored cell coordinates for hovering actors.
 """
 from copy import deepcopy
@@ -33,6 +33,15 @@ def baseline(kind):
     folder = fit.CREATURES/kind
     path = next(folder/name for name in fit.ACTIVE_LAYERS if name != LAYER and (folder/name).exists())
     return path, read(path)
+
+
+BODY_AREA_TOLERANCE = 0.04      # redrawn median body area vs the replaced clip
+
+
+def body_area(clip, canvas):
+    """Median solid area of the clip being replaced, on the rig canvas."""
+    pages = fit.Atlases()
+    return float(statistics.median(int(audit.placed(pages.alpha(f), f, canvas).sum()) for f in clip['frames']))
 
 
 def index_list(values, limit, label):
@@ -78,7 +87,7 @@ def target_indices(kind, job, clip):
     return targets
 
 
-def extract(job, canvas):
+def extract(job, canvas, target_area=None):
     registration = job.get('registration', 'ground')
     if registration not in ('ground', 'cell_center'):
         raise ValueError('Unknown drawing registration: '+registration)
@@ -94,7 +103,7 @@ def extract(job, canvas):
     scale_cells = index_list(job.get('scale_cells', selected), columns*rows, 'scale cells')
     if not set(selected).issubset(scale_cells):
         raise ValueError('Every selected cell must participate in the shared sheet scale')
-    cells, boxes = {}, {}
+    cells, boxes, areas = {}, {}, {}
     for i in scale_cells:
         x, y = i % columns, i // columns
         cell = sheet.crop((round(x*sheet.width/columns), round(y*sheet.height/rows),
@@ -111,8 +120,9 @@ def extract(job, canvas):
         box = (int(xs.min()), int(ys.min()), int(xs.max())+1, int(ys.max())+1)
         if min(box[0], box[1], cell.width-box[2], cell.height-box[3]) < 5:
             raise ValueError(f'Drawing {i} touches its cell boundary')
-        cells[i] = cell; boxes[i] = box
-    scale = job['reference_height']/statistics.median(boxes[i][3]-boxes[i][1] for i in scale_cells)
+        cells[i] = cell; boxes[i] = box; areas[i] = len(xs)
+    scale = ((target_area/statistics.median(areas[i] for i in scale_cells))**.5 if target_area
+             else job['reference_height']/statistics.median(boxes[i][3]-boxes[i][1] for i in scale_cells))
     # This single affine scale is never adjusted to make individual frames fit.
     drawings = []
     for i in selected:
@@ -192,7 +202,8 @@ def metrics(drawings, canvas, loop):
                 loop_seam=round(audit.change(masks[-1], masks[0]), 4) if loop else None,
                 boil_ratio=round(float(np.mean(changes))/max(.02, slide), 3),
                 unique=len({sha256(a.tobytes()).hexdigest() for a, _ in drawings}),
-                area_ratio=round(max(int(m.sum()) for m in masks)/min(int(m.sum()) for m in masks), 3))
+                area_ratio=round(max(int(m.sum()) for m in masks)/min(int(m.sum()) for m in masks), 3),
+                body_area=float(statistics.median(int(m.sum()) for m in masks)))
 
 
 def build(kind, check=False):
@@ -213,12 +224,31 @@ def build(kind, check=False):
         if 'guide' in job and sha256((ROOT/job['guide']).read_bytes()).hexdigest() != job['guide_sha256']:
             raise ValueError('Recorded pose reference recipe changed')
         targets = target_indices(kind, job, clip)
-        cels, scale = extract(job, base['canvas'])
+        replaced = body_area(clip, base['canvas'])
+        target_area = replaced
+        if 'target_frames' in job:
+            if 'guide' not in job:
+                raise ValueError('Partial redraw requires its frozen pose guide')
+            guide = read(ROOT/job['guide'])
+            entries = guide['entries']
+            if guide['kind'] != kind or guide['canvas'] != base['canvas'] or guide['baseline_sha256'] != spec['baseline_sha256']:
+                raise ValueError('Partial redraw guide belongs to a different baseline')
+            if job.get('grid') != guide['grid'] or job.get('scale_cells') != list(range(len(entries))):
+                raise ValueError('Shared sheet scale must cover every frozen guide cell')
+            for cell, target in zip(job['cells'], targets):
+                entry = entries[cell]
+                if (entry['clip'], entry['frame'], entry['source_frame']) != (name, target, clip['frames'][target]):
+                    raise ValueError('Source cell does not match the frozen target pose')
+            target_area = body_area({'frames':[entry['source_frame'] for entry in entries]}, base['canvas'])
+        cels, scale = extract(job, base['canvas'], target_area)
         replacements = dict(zip(targets, cels))
         complete = ([replacements[i] if i in replacements else source_drawing(frame, atlas_cache)
                      for i, frame in enumerate(clip['frames'])]
                     if 'target_frames' in job else cels)
         measured = metrics(complete, base['canvas'], bool(clip['loop']))
+        measured['body_area_ratio'] = round(measured.pop('body_area')/replaced, 3)
+        if abs(measured['body_area_ratio']-1) > BODY_AREA_TOLERANCE:
+            raise ValueError(f'Redrawn body size differs from the replaced clip: {name} {measured}')
         unique = len({sha256(a.tobytes()).hexdigest() for a, _ in cels})
         measured['unique'] = unique
         if measured['unique'] != job['count'] or measured['max_change'] > .5:

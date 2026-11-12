@@ -1,0 +1,27 @@
+name: Creature redraw report safety
+on:
+  pull_request:
+    paths:
+      - tools/build_creature_redraw_list.py
+      - tools/test_creature_redraw_list.py
+      - tools/build_creature_frame_fit.py
+      - godot/scripts/enemy_actor.gd
+      - godot/scripts/boss_combat_style.gd
+      - godot/data/original_creature_combat.json
+      - godot/data/boss_combat_styles.json
+      - .github/contracts/creature-redraw-report.yml
+permissions:
+  contents: read
+concurrency:
+  group: creature-redraw-report-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  report:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install report image dependencies
+        run: python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
+      - name: Verify safe cleanup, freshness and production routing
+        run: python3 tools/test_creature_redraw_list.py
