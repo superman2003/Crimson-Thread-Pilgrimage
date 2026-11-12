@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "index_scribe",
+  "baseline": "godot/assets/sprites/original_creatures/index_scribe/motion_v8_manifest.json",
+  "baseline_sha256": "59db456fe0da34e8edfd30b53a9836def75c9f9b40194d01238d9f2f2025115c",
+  "jobs": [
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/index_scribe/walk.png",
+      "sha256": "ca5f1c9dd5fa9c68f4e26b444f44a6af706542aaa0c37289888e0020570d570b",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "8b786dbbc627135ca8dfedac51b0a85ee587f678127d64d3fe0c381bf4be9c2d",
+      "reference": {
+        "sha256": "b37012dfa5b5538ec556709ff9679d6b17c7e8527e7c2f0c5c45cab13b1ca8d3",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 200,
+      "center_x": 197.5,
+      "ground_y": 269
+    },
+    {
+      "clip": "idle",
+      "count": 8,
+      "grid": [
+        4,
+        2
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/index_scribe/idle.png",
+      "sha256": "121154af94f1bd851aca3e7d11c819a635fa7e240cfeb28bbb77bff5e022de5e",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "aae7f49ab3ebd127655db21c86ba161eb9eb22887b680485dbc8c683aecc5d96",
+      "reference": {
+        "sha256": "eb61ad1166aec0348e2994aeabfb35c502500ea7df52fc600e87a220e0038dbf",
+        "reconstruction": "baseline idle frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 210,
+      "center_x": 208,
+      "ground_y": 269
+    }
+  ]
+}
