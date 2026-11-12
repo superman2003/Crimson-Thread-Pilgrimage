@@ -36,6 +36,7 @@ def baseline(kind):
 
 
 BODY_AREA_TOLERANCE = 0.04      # redrawn median body area vs the replaced clip
+WALK_STRIDE_MIN = 0.15
 
 
 def body_area(clip, canvas):
@@ -206,6 +207,24 @@ def metrics(drawings, canvas, loop):
                 body_area=float(statistics.median(int(m.sum()) for m in masks)))
 
 
+def leg_change(drawings, canvas):
+    """Mean cyclic IoU change in the common lower 35% of the rig silhouette.
+
+    Keep one crop for the complete clip so moving the crop cannot masquerade
+    as leg motion. This measures a gait already registered on its rig canvas.
+    """
+    masks = []
+    for art, (x, y) in drawings:
+        mask = np.zeros((canvas[1], canvas[0]), bool)
+        mask[y:y+art.height, x:x+art.width] = np.asarray(art.getchannel('A')) > 128
+        masks.append(mask)
+    low = min(int(np.nonzero(mask)[0].min()) for mask in masks)
+    high = max(int(np.nonzero(mask)[0].max()) for mask in masks)+1
+    start = round(high-(high-low)*.35)
+    legs = [mask[start:] for mask in masks]
+    return round(float(statistics.mean(audit.change(a, b) for a, b in zip(legs, legs[1:]+legs[:1]))), 4)
+
+
 def build(kind, check=False):
     spec_path = REQUEST/'jobs'/(kind+'.json')
     spec = read(spec_path)
@@ -257,6 +276,12 @@ def build(kind, check=False):
             raise ValueError(f'Outline boil or body mass drift: {name} {measured}')
         if name in ('idle', 'walk') and clip['loop'] and measured['loop_seam'] > .25:
             raise ValueError(f'Loop seam needs another drawing pass: {name} {measured}')
+        if job.get('stride_reviewed') is not None:
+            if job['stride_reviewed'] is not True or name != 'walk' or 'target_frames' in job:
+                raise ValueError('Stride review requires a complete walking cycle')
+            measured['leg_change'] = leg_change(complete, base['canvas'])
+            if measured['leg_change'] < WALK_STRIDE_MIN:
+                raise ValueError(f'Walking feet need another drawing pass: {name} {measured}')
         summary[name] = dict(measured, registration_scale=round(scale, 9), frames=job['count'])
         if 'target_frames' in job:
             summary[name].update(target_frames=targets, original_frames=len(clip['frames']),

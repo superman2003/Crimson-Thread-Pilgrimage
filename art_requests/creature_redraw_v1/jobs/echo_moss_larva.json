@@ -5,25 +5,6 @@
   "baseline_sha256": "40d2e16b5a74f7a6a78a4baaf88431e8e2db6643de94189983509fd25a3c3ca3",
   "jobs": [
     {
-      "clip": "walk",
-      "count": 16,
-      "grid": [
-        4,
-        4
-      ],
-      "source": "art_requests/creature_redraw_v1/sources/echo_moss_larva/walk.png",
-      "sha256": "dc69307bc6bf5704c643bc757fdae13ac89fc3adee8391761a508d4d2c5648c8",
-      "generator": "built-in image_gen",
-      "prompt_sha256": "d8e5784dce3b37586ec21a47c994c022d0d355e6a423f2efbf112e6842303b96",
-      "reference": {
-        "sha256": "ba8117dd853974800d0f32fa5825f61d52f021aac186df02b0ef0a1de08105b9",
-        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
-      },
-      "reference_height": 159,
-      "center_x": 216.5,
-      "ground_y": 249
-    },
-    {
       "clip": "idle",
       "count": 8,
       "grid": [
@@ -41,6 +22,26 @@
       "reference_height": 163,
       "center_x": 212.5,
       "ground_y": 249
+    },
+    {
+      "clip": "walk",
+      "count": 16,
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/echo_moss_larva/walk.png",
+      "sha256": "118739d37ecea860dc9471883ccf72d96080fc5d12aaecc38d7be28e89505074",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "f57263c2f1d08d1aa1af509c5e5d376a54465daa03d4136529c7317fd641ba56",
+      "reference": {
+        "sha256": "ba8117dd853974800d0f32fa5825f61d52f021aac186df02b0ef0a1de08105b9",
+        "reconstruction": "baseline walk frame 0 uniformly fit inside 210x214, centred in 256px cells on baseline 238"
+      },
+      "reference_height": 159,
+      "center_x": 216.5,
+      "ground_y": 249,
+      "stride_reviewed": true
     }
   ]
 }

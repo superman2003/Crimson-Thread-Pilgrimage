@@ -123,6 +123,26 @@ class DeliveryContracts(unittest.TestCase):
         fits[1][0]=1.04
         self.assertEqual(art.unrepaired_sizes(row,fits),[])
 
+    def test_static_feet_are_rejected_after_stride_review(self):
+        spec = art.read(art.REQUEST/'jobs/moss_larva.json')
+        spec['jobs'] = [next(j for j in spec['jobs'] if j['clip']=='walk')]
+        spec['jobs'][0]['stride_reviewed'] = True
+        with tempfile.TemporaryDirectory() as folder:
+            request = Path(folder); (request/'jobs').mkdir()
+            art.write(request/'jobs/moss_larva.json', spec)
+            with patch.object(art, 'REQUEST', request), patch.object(art,'leg_change',return_value=.04):
+                with self.assertRaisesRegex(ValueError,'Walking feet need another drawing pass'):
+                    art.build('moss_larva', check=True)
+
+    def test_fixed_lower_body_region_sees_alternating_feet(self):
+        first=Image.new('RGBA',(100,100)); second=Image.new('RGBA',(100,100))
+        for image in (first,second):
+            ImageDraw.Draw(image).rectangle((25,20,74,60),fill='white')
+        ImageDraw.Draw(first).rectangle((25,61,35,85),fill='white')
+        ImageDraw.Draw(second).rectangle((64,61,74,85),fill='white')
+        self.assertEqual(art.leg_change([(first,(0,0)),(first,(0,0))],(100,100)),0)
+        self.assertGreater(art.leg_change([(first,(0,0)),(second,(0,0))],(100,100)),.5)
+
     def test_sheet_scale_matches_the_replaced_body_area_not_its_height(self):
         # Same height as the reference but twice as wide: height registration
         # would keep it at twice the body mass of every untouched clip.
