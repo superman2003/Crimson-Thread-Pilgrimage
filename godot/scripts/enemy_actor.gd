@@ -418,6 +418,12 @@ var animated_sprite: AnimatedSprite2D
 var frame_fit: Dictionary = {}
 var frame_fit_scale := 1.0
 var frame_fit_pivot := Vector2.ZERO
+## Wing beat of redrawn hover loops (data/creature_wing_flap.json), drawn by the
+## sprite shader. Keyed by animation; empty for every other creature.
+const WING_FLAP_PATH := "res://data/creature_wing_flap.json"
+var wing_flap: Dictionary = {}
+var wing_flap_active := false
+var wing_flap_phase := 0.0
 var telegraph: Polygon2D
 var telegraph_tween: Tween
 var windup_vfx: Line2D
@@ -506,6 +512,7 @@ func _physics_process(delta: float) -> void:
     if dying or is_queued_for_deletion() or combat_visuals_paused or not world_residency_active():
         if not world_residency_active():motion_transitions.suspend(self)
         return
+    _advance_wing_flap(delta)
     _update_animation_motion(delta, previous_position, previous_state)
     motion_transitions.tick(self,global_position-previous_position,previous_state)
 
@@ -2400,6 +2407,11 @@ func _build_sprite() -> void:
         if not frame_fit.is_empty():
             animated_sprite.frame_changed.connect(_apply_frame_fit)
             animated_sprite.animation_changed.connect(_apply_frame_fit)
+        var wing_data := ORIGINAL_ART.manifest(WING_FLAP_PATH)
+        wing_flap = wing_data.get("creatures", {}).get(kind, {}) if asset_path.get_file() == String(wing_data.get("layer", "")) and asset_path.get_base_dir().get_file() == kind else {}
+        if not wing_flap.is_empty():
+            animated_sprite.frame_changed.connect(_apply_wing_flap)
+            animated_sprite.animation_changed.connect(_apply_wing_flap)
         animated_sprite.animation_finished.connect(_on_motion_animation_finished)
         animated_sprite.play("idle")
         sprite = animated_sprite
@@ -2421,6 +2433,7 @@ func _build_sprite() -> void:
     add_child(sprite)
     _attach_flash_materials()
     _apply_frame_fit()
+    _apply_wing_flap()
 
 
 ## Frames were drawn one at a time and the same body differs in size between
@@ -2450,6 +2463,44 @@ func _apply_frame_fit() -> void:
     frame_fit_pivot = pivot
     material.set_shader_parameter("body_fit", fit)
     material.set_shader_parameter("body_fit_pivot", pivot)
+
+
+## The shader needs to know which wing the current frame shows and where that
+## frame sits in its atlas. Clips without an entry keep their drawn wings.
+func _apply_wing_flap() -> void:
+    if wing_flap.is_empty() or animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    var material := animated_sprite.material as ShaderMaterial
+    if material == null:
+        return
+    var animation := animated_sprite.animation
+    var wing: Dictionary = wing_flap.get(String(animation), {})
+    var atlas: AtlasTexture = null
+    if not wing.is_empty() and animated_sprite.frame < animated_sprite.sprite_frames.get_frame_count(animation):
+        atlas = animated_sprite.sprite_frames.get_frame_texture(animation, animated_sprite.frame) as AtlasTexture
+    if atlas == null or (not motion_transitions.active.is_empty() and motion_transitions.has_start_texture):
+        if wing_flap_active:
+            wing_flap_active = false
+            material.set_shader_parameter("wing_swing", 0.0)
+        return
+    if not wing_flap_active or material.get_shader_parameter("wing_hinge") != _vec2(wing.hinge):
+        material.set_shader_parameter("wing_swing", float(wing.swing))
+        material.set_shader_parameter("wing_center", float(wing.get("center", 0.5)))
+        material.set_shader_parameter("wing_shorten", float(wing.get("shorten", 1.0)))
+        material.set_shader_parameter("wing_flex", float(wing.get("flex", 0.0)))
+        material.set_shader_parameter("wing_hinge", _vec2(wing.hinge))
+        material.set_shader_parameter("wing_sector", _vec2(wing.sector))
+        material.set_shader_parameter("wing_radius", Vector3(float(wing.radius[0]), float(wing.radius[1]), float(wing.radius[2])))
+        wing_flap_active = true
+    material.set_shader_parameter("frame_origin", atlas.region.position - atlas.margin.position)
+    material.set_shader_parameter("frame_region", Vector4(atlas.region.position.x, atlas.region.position.y, atlas.region.size.x, atlas.region.size.y))
+
+
+func _advance_wing_flap(delta: float) -> void:
+    if not wing_flap_active or combat_visuals_paused or not world_residency_active() or dying or is_queued_for_deletion():
+        return
+    wing_flap_phase = fposmod(wing_flap_phase + delta * TAU * float(wing_flap.get("hz", 6.0)), TAU)
+    (animated_sprite.material as ShaderMaterial).set_shader_parameter("wing_phase", wing_flap_phase)
 
 
 ## 受击白闪 Shader（规格 §3.1）：每个可见 sprite 挂一份独立 ShaderMaterial，
