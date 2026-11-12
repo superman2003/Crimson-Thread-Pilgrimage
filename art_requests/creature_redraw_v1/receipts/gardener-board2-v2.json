@@ -1,0 +1,13 @@
+{
+  "kind": "broken_string_gardener",
+  "clip": "actions_02",
+  "status": "rejected",
+  "reason": "Background cleanup passed, but complete recovery max jump0.5742 across three unchanged joins and phase0.6233 across joins fail unchanged0.5 guard. Reject both partial clips and replace with full24 sources.",
+  "source_sha256": "7a14d625f603b4c0964a5888c885a6edf2e35397446ffc24a1a96c6dbadf637a",
+  "prompt_sha256": "7677aa0e54b529902b450e42a26e317f4ddce3e84433a5280b4d78dc1bca3949",
+  "reference_sha256": "ee5d77528a0980a2fc9e4527e51365d70843a0e7de2f4566b49e594ca9062ea9",
+  "actual_prompt": "BACKGROUND EXTRACTION ONLY for this9-sprite gardener repair sheet. Preserve EXACT4equal columns by3rows and exact first9sprites, all their poses, colors, scale, branch staffs, leaf/cream cloth/body outlines and cell locations. Remove ALL non-character pixels, including gray/white corner panel, white rounded border, noisy colored/white halos, background haze, shadows and detached speckles. Entire LAST ROW columns2,3,4(cells9,10,11) must be completely EMPTY alpha-zero, no panel, border, gradients or ghost images. Every occupied cell's outer24px gutter must be fully alpha-zero; isolate ONLY the actual woody gardener plus its one connected spiral staff and amber pod. Preserve all9unique detailed characters faithfully, no new objects, movement, cropping, pose changes, duplicate sprites, text or labels. Deliver clean TRUE transparent RGBA game-sprite cutouts, no painted backdrop or checkerboard, no shadows, glow or matte.",
+  "reference_recipe": "Frozen original9-cel actions02 guide plus accepted sources/broken_string_gardener/actions_heavy_windup_full.png (SHA in job) as anatomy/paint detail only. image_gen background extraction of candidate exec-842705b9-19e2-40e7-88e7-76816fe67571.png to clear opaque corner artifact, gutters and unused cells; input SHA in gardener-board2-bg-v1 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/broken_string_gardener-actions-02.json",
+  "guide_sha256": "54d4e46ca59096e9a9099dcf20af4ed546cf445e8cf2c59ee3bc6e8ad59d3274"
+}
