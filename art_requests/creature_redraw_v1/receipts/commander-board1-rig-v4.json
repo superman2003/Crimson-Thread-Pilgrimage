@@ -1,0 +1,20 @@
+{
+  "kind": "silent_pilgrim_commander",
+  "clip": "actions_01",
+  "status": "partially_rejected",
+  "reason": "Actual alpha cleared; shared scale1.7214 places cells0-15 bottoms up to286 outside frozen272px canvas. Reject delivery; preserve candidate and retry whole-sheet vertical layout only.",
+  "source_sha256": "7a41e76ce4e25a4dcec13528d54df72774dc5ac3388170800c7f3f9ae858312d",
+  "prompt_sha256": "b03b4ebbf76ad253533de7c69399e91be3a0885000b023015ef0fd4d28d5282b",
+  "reference_sha256": "686fcbf3df90985791aa19d7601255420291d5f10be63af76dbaf0b8bbb8a33b",
+  "actual_prompt": "BACKGROUND EXTRACTION ONLY. Keep this EXACT8column x4row sheet with28compact commander sprites in first28cells and last4cells empty. Preserve every sprite's current small size, correct within-cell spacing, complete one blade, unique pose, anatomical proportions, cell placement, cloak folds, pale ivory mask/panels, lavender-gray cloth, muted gold trim and dark limbs. Remove ALL white backdrop and gray shadows/matte/haze, no other edits. Every gutter, blank area and last4cells(row4cols5-8) must be actual alpha-zero. Isolate only character plus its attached single blade; preserve all pale ivory/lavender costume INSIDE painted contours as opaque, do not erase white armor panels or create translucent holes. No shrinking/enlarging, movement, relayout, clipped blade tips, overlap, added objects, duplicate cels, text or labels. Deliver clean TRUE transparent RGBA game sprites, no painted background/checkerboard, glow or detached speckles.",
+  "reference_recipe": "Frozen28-cel actions01 guide; supporting identity zoom is first equal cell(0,0,width//8,height//4) of that frozen guide, resized768x768 with Pillow default; anatomy/detail only. image_gen background extraction of candidate exec-c1bdbe88-749c-421a-95b7-4c14b66a2b3c.png preserving pale commander material/28poses; input SHA in commander-board1-bg-v1 receipt. image_gen relayout of candidate exec-568c6c9d-4b86-402c-9526-53bdf75f09ab.png to keep complete blades within source cells and common scale; input SHA in commander-board1-edge-v2 receipt. image_gen background extraction of relayout candidate exec-9d19a199-5ce1-4ad8-9cf8-5d2bc6a78d51.png preserving compact28poses; input SHA in commander-board1-bg-v3 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/silent_pilgrim_commander-actions-01.json",
+  "guide_sha256": "86912cdfc5db6affa1f3648186fe8a91666937450b2ab2eb5588ffef51abcac7",
+  "accepted_clips": [
+    "cast_recover"
+  ],
+  "rejected_clips": [
+    "heavy_windup",
+    "heavy"
+  ]
+}

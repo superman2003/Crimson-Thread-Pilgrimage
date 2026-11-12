@@ -1,0 +1,20 @@
+{
+  "kind": "broken_string_gardener",
+  "clip": "actions_01",
+  "status": "partially_rejected",
+  "reason": "Heavy windup max silhouette jump0.5265 and heavy0.6548 fail unchanged0.5 guard. Ordinary windup0.4637 and phase windup0.4549 pass from same board. Replace failed2clips with full24 sources.",
+  "source_sha256": "dd3a4457f0deae6384eb44b0a4bbf28c2ad3b7fc5a64d9308ff4004317da128a",
+  "prompt_sha256": "9065cb4dbb84fe3d79769b1aa713c5a59addca4d7c6fddb10398bf28510b3767",
+  "reference_sha256": "19073f360355389b885b7c3aab7a062a8a104e03c33781c14ad36060b564ee19",
+  "actual_prompt": "Repaint the supplied frozen31-cel BROKEN STRING GARDENER repair sheet into refined detailed fantasy game sprites. EXACT8equal columns x4rows; first31cells occupied row-major, lastcell fully transparent empty. The reference fixes exact pose/cel order, silhouette, occupied area and body anchor for joins to unchanged frames: cells0-10 heavy windup frames1,2,3,4,5,8,9,10,11,12,13; cells11-16 ordinary windup frames5-10; cells17-23 heavy strike frames6,7,8,9,15,16,17; cells24-30 phase windup frames7-13. Preserve every corresponding staff angle, height, neck bend, hood position and cloth silhouette closely while making smooth articulated neighboring poses; avoid abrupt upright/crouched switches. Identity: hunched woody insect gardener with pointed warm-brown bark hood, small teal eye, layered moss/dark-green leaf cloak, long cream lace-like petal stoles, ragged brown bark skirt and small root feet, exactly ONE knotted bronze/brown branch staff with curled spiral head and small hanging amber pod. Preserve organic bark/leaf anatomy, not human robes or added weapons. Consistent head/staff dimensions, cloth/leaf area and body mass matching each frozen pose, same local foot ground line. Detailed painted wood grain, green leaf veins, fine cream lace and engraved curls; each occupied cel genuinely distinct. Entire complete sprite centered in equal cells with24px alpha-zero margins and room around raised staff, no clipped curls, detached roots or duplicate props. TRUE transparent RGBA cutouts ONLY, including all gutters and empty lastcell; no background, haze, matte, shadow, glow, particles, spell effects, grid, text or labels.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/broken_string_gardener-actions-01.json",
+  "guide_sha256": "77a8492d2b8e24d6f173718bc124bb26b62e9e062a96ce5222a44a55da51e401",
+  "accepted_clips": [
+    "windup",
+    "phase_windup"
+  ],
+  "rejected_clips": [
+    "heavy_windup",
+    "heavy"
+  ]
+}

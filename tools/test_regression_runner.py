@@ -109,6 +109,7 @@ class CompletionContractTests(unittest.TestCase):
             'room_ambience', 'room_ambience_world',
             'dialog_dpad_focus',
             'reading_scroll',
+            'loadout_gamepad_restore',
             'boss_move_matrix',
             'boss_move_matrix_late',
             'enemy_move_matrix',
@@ -211,7 +212,10 @@ class CompletionContractTests(unittest.TestCase):
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
         # Dedicated contracts run these suites only when their inputs change.
-        contract_suites = {'enemy_frame_fit', 'enemy_wing_flap'}
+        contract_suites = {'enemy_frame_fit', 'enemy_wing_flap', 'ability_ledges'}
+        ledge_contract = (ROOT / '.github/contracts/ability-ledges.yml').read_text(encoding='utf-8')
+        self.assertIn('--suite ability_ledges', ledge_contract)
+        self.assertIn('godot/scripts/ability_ledges_validation.gd', ledge_contract)
         self.assertTrue(contract_suites.isdisjoint(all_suites))
         self.assertEqual(set(all_suites) | contract_suites, set(SUCCESS_MARKERS))
         for marker in SUCCESS_MARKERS.values():

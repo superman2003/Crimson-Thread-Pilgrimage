@@ -1,0 +1,13 @@
+{
+  "kind": "broken_string_gardener",
+  "clip": "actions_phase_full",
+  "status": "rejected",
+  "reason": "Rig containment fixed, but full phase max adjacent silhouette jump0.5349 exceeds unchanged0.5 guard; correct measured worst pair via image_gen.",
+  "source_sha256": "cf66d16748f28bc8ff2793236513d7a17a3286d2327a21e97bc9eafdc19017ca",
+  "prompt_sha256": "e3d531a7fd3a9dfb7321148ed227a3f9f889d859785f945c0e4b0593d5698e43",
+  "reference_sha256": "1a921edc67c38095d5a9d11bcc29c253342899a5ea0e53e2c24a10636020e612",
+  "actual_prompt": "Make ONE anatomical correction in this transparent24-cel gardener PHASE sprite sheet. Maintain EXACT8columns3rows and24unique complete sprites; preserve first23cels and all24body/foot/staff placements, masses, leaf/cream cloth detail and colors. ONLY LAST CELL(row3column8,frame23): redraw its pointed bark hood/head and neck in a slightly more FORWARD-BOWED settling pose, so the highest hood pixel is at least42pixels BELOW the TOP of its256px cell, not at current23px top. Bend the neck naturally and lower only the head tip with corresponding organic shoulder adjustment; preserve overall body/staff size, root-feet baseline and one spiral staff/amber pod. Smoothly ease from row3column7 to this final settled pose, no sudden positional jump. No extra staffs, duplicate cels, detached parts, body resizing, clipping or new effects. All complete sprites stay fully within their cells with transparent margins. TRUE transparent RGBA cutouts only, remove background/haze/matte/shadow/glow, no particles, text, grid or labels.",
+  "reference_recipe": "Frozen full phase guide plus accepted sources/broken_string_gardener/actions_heavy_windup_full.png (SHA in job) as anatomy/style and safe compact framing only. image_gen revised candidate exec-01fc2b01-6ff2-46a9-832a-1cc9b143fef9.png uniform source-cell placement for footroom while preserving top margin; input SHA in gardener-phase-v1 receipt. image_gen revised candidate exec-00db52ca-4caf-4c44-9c8a-256f938a9998.png finalcel23 head/neck pose for42px source top margin, fixing1px runtime overflow; input SHA in gardener-phase-v2 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/broken_string_gardener-actions-phase-full.json",
+  "guide_sha256": "ac02645fc21c0b75f0009c40bc2a7093d31aea4893f4ee22a6a88419890c8cd8"
+}

@@ -7,3 +7,5 @@
 新增 Godot 套件 `ability_ledges`：按数据坐标重建底板和孤架，用真实跳跃输入验证未取得双线跃时落回底板、取得后落到架上，并补单跳不得拾取、双线跃落架且拾取的断言，六项由合同 CI 核验。`audit_stranding`、`audit_shortcut_bypass`、`audit_economy`（收入 2840）、`validate_world_routes`、`validate_world_upgrade` 及 `ability_movement`、`salt_archive_experience`、`pickup_ledger`、`world_route_access` 通过。
 
 审查复现：原坐标下单跳虽落不上架子，84px 身体与半径18的拾取圈仍重叠，盐晶可被提前拿走。孤架上移12px到1594，奖励上移到1524（架上70px），静态审计加入身体与拾取半径的余量；Godot4.6 最小物理复现原版单跳拾取得到、修正版单跳拾取不到、二段跳可拾取并落架。新增 .github/contracts/ability-ledges.yml 将新套件及能力移动、拾取回归接入 Linux CI，保持既有检查。
+
+CI 复核：新增专项同时登记到运行器的合同套件分类，并验证合同确实执行该套件、由验证脚本变更触发。原先缺登记使 38 项运行器自测失败，后续依赖安装未执行又触发 numpy 缺失；补齐后本地自测通过（6 项执行、32 项因平台跳过），Linux 全套待 CI。合并最新主线时保留手柄取消套件与 A01 已实施用途，完整原生与集成 CI 仍以本次提交为准。
