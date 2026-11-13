@@ -40,9 +40,10 @@ func setup(world: Node, has_journey: bool) -> void:
     var heading:=Label.new();heading.name="Heading";heading.text="绯线巡礼";heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     heading.add_theme_font_size_override("font_size",TYPE.BANNER);column.add_child(heading)
     var gap:=Control.new();gap.custom_minimum_size=Vector2(0,16);column.add_child(gap)
-    for entry in [["continue","继续旅途" if has_journey else "开始旅途"],["new","新旅途"],["quit","退出"]]:
+    for entry in [["continue","继续旅途" if has_journey else "开始旅途"],["new","新旅途"],["rush","首领连战"],["quit","退出"]]:
         # A first launch has nothing to replace.
         if entry[0]=="new" and not has_journey:continue
+        if entry[0]=="rush" and not preload("res://scripts/boss_rush.gd").available():continue
         var action:=String(entry[0])
         var button:=Button.new();button.text=entry[1];button.custom_minimum_size=Vector2(280,44)
         button.add_theme_font_size_override("font_size",TYPE.TITLE)
@@ -68,6 +69,10 @@ func choose(action: String) -> void:
     if action=="quit":
         chosen.emit(action);get_tree().quit();return
     release()
+    if action=="rush":
+        chosen.emit(action);queue_free()
+        preload("res://scripts/boss_rush.gd").new().begin(level)
+        return
     if action=="new":
         # Same confirmation and backup as F9; cancelling returns to the journey.
         var dialog: Variant=level.get("new_journey_dialog")
