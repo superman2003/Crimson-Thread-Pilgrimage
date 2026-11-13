@@ -4,8 +4,8 @@
   "source_ref": "cc0f7994858d291e4f106476ce68e1c8969100e8",
   "source_sha256": "53b857ca603458a6d47dedab2b8a0b72b6183290c10d951f54b76f3af3dcc778",
   "total": 261,
-  "completed": 179,
-  "new_drawings": 2797,
+  "completed": 182,
+  "new_drawings": 2822,
   "items": [
     {
       "kind": "rust_crown_guardian",
@@ -4876,7 +4876,7 @@
       "clip": "attack",
       "priority": 117,
       "frames": 24,
-      "status": "pending",
+      "status": "redrawn",
       "original_layer": "motion_v8_manifest.json",
       "boil": false,
       "size": [
@@ -4897,7 +4897,22 @@
           "scale": 0.87
         }
       ],
-      "jumps": []
+      "jumps": [],
+      "redrawn_frames": [
+        3,
+        4,
+        5,
+        9,
+        10,
+        11,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "new_drawings": 11,
+      "coverage": "listed_frames_and_neighbours"
     },
     {
       "kind": "silent_crown_core",
@@ -5520,7 +5535,7 @@
       "clip": "bailiff_erase",
       "priority": 132,
       "frames": 24,
-      "status": "pending",
+      "status": "redrawn",
       "original_layer": "motion_v8_manifest.json",
       "boil": false,
       "size": [
@@ -5545,7 +5560,22 @@
           "before": 10,
           "change": 0.53
         }
-      ]
+      ],
+      "redrawn_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "new_drawings": 11,
+      "coverage": "listed_frames_and_neighbours"
     },
     {
       "kind": "corridor_heavy",
@@ -7740,7 +7770,7 @@
       "clip": "bailiff_elite_sweep_recover",
       "priority": 211,
       "frames": 24,
-      "status": "pending",
+      "status": "redrawn",
       "original_layer": "motion_v8_manifest.json",
       "boil": false,
       "size": [
@@ -7749,7 +7779,14 @@
           "scale": 0.896
         }
       ],
-      "jumps": []
+      "jumps": [],
+      "redrawn_frames": [
+        7,
+        8,
+        9
+      ],
+      "new_drawings": 3,
+      "coverage": "listed_frames_and_neighbours"
     },
     {
       "kind": "obsidian_spearman",
