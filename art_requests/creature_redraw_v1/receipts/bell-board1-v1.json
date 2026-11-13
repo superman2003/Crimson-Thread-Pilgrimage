@@ -1,0 +1,13 @@
+{
+  "kind": "bell_mote",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Partial seek-windup neighbor max_change0.5324 and recover0.5107 exceed0.5; redraw both full clips.",
+  "source_sha256": "f4782b0aa67ed31ab738c34397c0f76ce055f32be6eb3d82ac062c156d1d6bc6",
+  "prompt_sha256": "2e444f49c0c2550b886457d8457f2f8b6c21b966154b067ad5d7932550043d21",
+  "reference_sha256": "73a50f9f44e651c47bd97e2e53a888c9c4f015db3ff627e7b54c2a83b0c766b2",
+  "actual_prompt": "Redraw ELEVEN selected animation cels of this exact BELL MOTE, EXACT4equal columns x3equal rows, chronological rowmajor matching frozen image1 pose-by-pose. First7cels are mote_seek_windup frames7-13 (row1all4+row2first3); last4 are recoverframes5-8 (row2last1+row3first3). Finalcell row3col4 COMPLETELY EMPTY transparent. Image1 gives exact bellbody size/anchor/tilt and wing poses for joining untouched neighbors; image2 accepted idle gives identity/materials only. Small floating bronze bell insect, verdigris gold engraved bell shell with loop on top, dark interior with two orange almond eyes, small pendant/clapper ornaments, delicate translucent lightblue veined wings extending behindleft. Preserve exact bellshape/weight and ornate gold detailing. Use small articulated continuous wing/flange/clapper tilts; do not enlarge or reshape wings/persistent body between adjacent poses. Frozen dip pose's eyes can hide inside rim as shown, no detached eyes. All11unique newly hand-painted clean cel drawings, body area matches corresponding guide, no body scale drift. Wings translucent locally, outside contours truealpha0, no outer glow or bloom/particles. Complete wings/toploop/pendants/bell within own equalcell with40px genuine transparent margin allaround, fixedfloating anchor, nooverlap/cropping. TRUE transparent RGBA alpha0 background,gutters,emptycell; no matte,haze,floor,shadow,dots,checkerboard,grid,text.",
+  "reference_recipe": "Frozen selected seek-windup/recover guide controls exact poses and anchors; accepted bell_mote/idle.png identity source from pinned local batch27 commit 1c8a70a05e43d6f5ba20e518b9ea79c6a2c1f1fb. All poses freshly painted by built-in image_gen.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/bell_mote-actions-01.json",
+  "guide_sha256": "39cab966d15d17c27a54dfa11e016f972e513e91899cfd138b566dac2e73bd5a"
+}
