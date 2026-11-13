@@ -1,0 +1,38 @@
+name: Journey difficulty tiers
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/difficulty_*.gd'
+      - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'tools/godot_suite_success_markers.json'
+      - '.github/contracts/difficulty-tiers.yml'
+permissions:
+  contents: read
+concurrency:
+  group: difficulty-tiers-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  tiers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hydrate runtime assets
+        run: git lfs pull --include='godot/assets/**'
+      - name: Install pinned Godot and rendering dependencies
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Import resources
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/difficulty-logs/import"
+      - name: Real hits on the production player under each tier
+        run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite difficulty_tiers --timeout 360 --log-dir "$RUNNER_TEMP/difficulty-logs/runtime"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: difficulty-tier-logs
+          path: ${{ runner.temp }}/difficulty-logs
