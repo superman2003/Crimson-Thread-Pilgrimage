@@ -7,6 +7,7 @@ var mode:=DisplayServer.WINDOW_MODE_WINDOWED
 var mode_calls: Array[int]=[]
 var vsync_calls: Array[bool]=[]
 var cap_calls: Array[int]=[]
+var assist_calls: Array[String]=[]
 var written: Array[Dictionary]=[]
 var refuse_write:=false
 var observed_vsync:=true
@@ -30,6 +31,7 @@ func fixture(saved: Dictionary={}):
     model.set_window_mode=func(value: int):mode_calls.append(value);mode=value
     model.set_vsync=func(on: bool):vsync_calls.append(on)
     model.set_fps_cap=func(value: int):cap_calls.append(value)
+    model.set_colour_assist=func(value: String):assist_calls.append(value)
     if not saved.is_empty():
         var seed:=preload("res://scripts/journey_desk_store.gd").new()
         seed.configure("display","installation");seed.write(saved)
@@ -43,13 +45,18 @@ func clear() -> void:
     store.configure("display","installation")
     if FileAccess.file_exists(store.path):DirAccess.remove_absolute(ProjectSettings.globalize_path(store.path))
     observed_vsync=true;observed_cap=0
-    mode=DisplayServer.WINDOW_MODE_WINDOWED;mode_calls.clear();vsync_calls.clear();cap_calls.clear();written.clear()
+    mode=DisplayServer.WINDOW_MODE_WINDOWED;mode_calls.clear();vsync_calls.clear();cap_calls.clear();assist_calls.clear();written.clear()
 func run() -> void:
     for bad in [null,4,{},{"fullscreen":true,"vsync":true},{"fullscreen":1,"vsync":true,"fps_cap":60},
             {"fullscreen":true,"vsync":true,"fps_cap":45},{"fullscreen":true,"vsync":true,"fps_cap":60.5},
             {"fullscreen":true,"vsync":true,"fps_cap":"60"},{"fullscreen":true,"vsync":true,"fps_cap":60,"extra":1}]:
         check(not MODEL.valid(bad),"malformed display record rejected")
     check(MODEL.valid({"fullscreen":true,"vsync":false,"fps_cap":60.0}),"JSON numbers accepted for the cap")
+    check(MODEL.clean({"fullscreen":true,"vsync":false,"fps_cap":60}).colour_assist=="off","a record from before the colour assist reads as off")
+    for bad in [{"fullscreen":true,"vsync":true,"fps_cap":60,"colour_assist":"sepia"},{"fullscreen":true,"vsync":true,"fps_cap":60,"colour_assist":2}]:
+        check(not MODEL.valid(bad),"unknown colour assist rejected")
+    for good in MODEL.ASSISTS:
+        check(MODEL.valid({"fullscreen":false,"vsync":true,"fps_cap":0,"colour_assist":good}),"colour assist accepted: "+good)
     clear()
     var model=fixture()
     check(mode_calls.is_empty() and vsync_calls.is_empty() and cap_calls.is_empty(),"first launch leaves the window untouched")
@@ -59,6 +66,8 @@ func run() -> void:
     check(written.size()==1 and written[0].payload.fullscreen==true,"change is saved")
     model.change("fps_cap",60)
     check(cap_calls.back()==60 and mode_calls.size()==1,"cap applies without touching an unchanged window mode")
+    check(model.change("colour_assist","deutan").ok and assist_calls.back()=="deutan" and written.back().payload.colour_assist=="deutan","colour assist applies and is saved")
+    check(not model.change("colour_assist","sepia").ok and assist_calls.back()=="deutan","unknown colour assist refused")
     model.change("vsync",false)
     check(vsync_calls.back()==false,"vsync applies")
     check(not model.change("fps_cap",45).ok and model.values.fps_cap==60 and cap_calls.back()==60,"unsupported cap refused")
@@ -96,7 +105,7 @@ func run() -> void:
     clear()
     clear();mode=DisplayServer.WINDOW_MODE_FULLSCREEN;observed_vsync=false;observed_cap=120
     model=fixture()
-    check(model.values=={"fullscreen":true,"vsync":false,"fps_cap":120},"first launch reflects supported current engine options")
+    check(model.values=={"fullscreen":true,"vsync":false,"fps_cap":120,"colour_assist":"off"},"first launch reflects supported current engine options")
     check(mode_calls.is_empty() and vsync_calls.is_empty() and cap_calls.is_empty(),"reading current display options never applies settings")
     model.change("fps_cap",60)
     check(mode_calls.is_empty() and vsync_calls.is_empty() and cap_calls==[60],"cap edit leaves unrelated fullscreen and sync options alone")
@@ -112,6 +121,9 @@ func run() -> void:
     launcher.pressed.emit();await process_frame
     check(is_instance_valid(desk.window) and desk.window.visible,"launcher opens the window")
     check(desk.cap.item_count==MODEL.CAPS.size() and desk.cap.get_item_text(0)=="不限","cap choices listed")
+    check(desk.assist.item_count==MODEL.ASSISTS.size() and desk.assist.selected==0,"colour assist choices listed, off by default")
+    desk.assist.select(1);desk.assist.item_selected.emit(1);await process_frame
+    check(model.values.colour_assist=="protan" and assist_calls.back()=="protan","assist choice drives the model")
     desk.fullscreen.button_pressed=true;await process_frame
     check(model.values.fullscreen and mode==DisplayServer.WINDOW_MODE_FULLSCREEN,"toggle drives the model")
     desk.cap.select(2);desk.cap.item_selected.emit(2);await process_frame
