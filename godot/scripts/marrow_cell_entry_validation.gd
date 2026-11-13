@@ -101,6 +101,7 @@ func _run() -> void:
     await _place(SHAFT_LOW_STEP)
     var low: Dictionary = await _push(1, 240, 40)
     _check(not low.entered and low.extreme < CELL.position.x + 2.0, "jumping at the opening from the shaft step meets the wall (x=%.0f)" % low.extreme)
+    _check(String(scene.current_room_id) != "bell_marrow_cell" and not bool(scene.visited_rooms.get("bell_marrow_cell", false)), "testing the wall from outside neither enters nor charts the cell (%s)" % scene.current_room_id)
 
     # The workshop portal inside the cell is within reach of the shaft step as
     # the crow flies; the wall must keep it out of reach, even mid-jump.
@@ -151,7 +152,10 @@ func _run() -> void:
     # The lift shaft passes the cell's other side: a body level with the room,
     # falling past it and pushing left, never gets in.
     await _place(LIFT_SHAFT)
+    # The fixture stood inside a moment ago; forget that before testing this side.
+    scene.visited_rooms.erase("bell_marrow_cell")
     var lift: Dictionary = await _push(-1, 90, 0)
+    _check(not bool(scene.visited_rooms.get("bell_marrow_cell", false)), "falling past the lift side does not chart the cell")
     _check(not lift.entered, "pushing left from the lift shaft does not get in (x=%.0f)" % lift.extreme)
 
     # Owning the thorn downstrike opens every gate for good.
