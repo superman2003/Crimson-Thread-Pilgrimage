@@ -1,4 +1,9 @@
 extends Control
+
+const HELP_TEXT := Color("a9b9af")
+const EMPTY_TEXT := Color("c9d2c2")
+const AXIS_TEXT := Color("d8d3ba")
+
 var device := -1
 var history: Array = []
 var elapsed := 0.0
@@ -36,7 +41,7 @@ func _draw() -> void:
     draw_rect(Rect2(Vector2.ZERO, size), Color("0e2026"))
     var font := get_theme_default_font()
     if history.is_empty():
-        draw_string(font, Vector2(20, 40), "没有当前设备的轴样本。", HORIZONTAL_ALIGNMENT_LEFT, -1, 17, Color("c9d2c2"))
+        draw_string(font, Vector2(20, 40), "没有当前设备的轴样本。", HORIZONTAL_ALIGNMENT_LEFT, -1, 17, EMPTY_TEXT)
         return
     var latest: Array = history[-1]
     for stick in 2:
@@ -47,7 +52,7 @@ func _draw() -> void:
         draw_line(center - Vector2(0, 55), center + Vector2(0, 55), Color("3a5459"), 1)
         var point := Vector2(float(latest[stick * 2]), float(latest[stick * 2 + 1]))
         draw_circle(center + point * 55, 4, Color("dfbc82"))
-        draw_string(font, center + Vector2(-48, 80), "%+.2f / %+.2f" % [point.x, point.y], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("d8d3ba"))
+        draw_string(font, center + Vector2(-48, 80), "%+.2f / %+.2f" % [point.x, point.y], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, AXIS_TEXT)
     for index in 2:
         var x := 365.0 + index * 60.0
         draw_rect(Rect2(x, 30, 20, 110), Color("294249"))
@@ -58,7 +63,7 @@ func _draw() -> void:
         points.append(Vector2(20 + float(index) / 59 * maxf(1, size.x - 40), 205 - absf(float(history[index][0])) * 35))
     if points.size() > 1:
         draw_polyline(points, Color("d6b078"), 1.5, true)
-    draw_string(font, Vector2(20, 224), "左摇杆X绝对值 · 最近约6秒 · 死区仅展示当前动作阈值", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("a9b9af"))
+    draw_string(font, Vector2(20, 224), "左摇杆X绝对值 · 最近约6秒 · 死区仅展示当前动作阈值", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, HELP_TEXT)
 
 static func trigger_value(value: float, negative_rest: bool) -> float:
     return clampf((value + 1.0) * 0.5 if negative_rest else value, 0, 1)

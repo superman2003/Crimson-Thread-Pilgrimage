@@ -1,4 +1,7 @@
 extends Control
+
+const SUMMARY_TEXT := Color("c8c3ae")
+
 var data: Dictionary = {}
 var zoom := 1.0
 var pan := Vector2.ZERO
@@ -197,7 +200,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("c8c3ae")
+        SUMMARY_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

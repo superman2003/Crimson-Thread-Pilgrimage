@@ -1,4 +1,11 @@
 extends Control
+
+const AXIS_TEXT := Color("9aaca0")
+const MUTED_TEXT := Color("a3b3aa")
+const SELECTED_TEXT := Color("d6bf90")
+const SECTION_TEXT := Color("d7c291")
+const PRIMARY_TEXT := Color("eadcc6")
+
 var payload: Dictionary = {}
 var heading := 0.0
 var radius := 1.0
@@ -163,7 +170,7 @@ func _rings(center: Vector2, length: float, font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             60,
             11,
-            Color("9aaca0")
+            AXIS_TEXT
         )
     var names := ["东", "北", "西", "南"]
     for i in 4:
@@ -176,7 +183,7 @@ func _rings(center: Vector2, length: float, font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             30,
             14,
-            Color("d7c291")
+            SECTION_TEXT
         )
 
 
@@ -209,9 +216,9 @@ func _draw() -> void:
                 HORIZONTAL_ALIGNMENT_LEFT,
                 200,
                 14,
-                Color("eadcc6")
+                PRIMARY_TEXT
             )
-    draw_circle(center, 4, Color("eadcc6"))
+    draw_circle(center, 4, PRIMARY_TEXT)
     draw_string(
         font,
         Vector2(10, 19),
@@ -219,7 +226,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         13,
-        Color("d6bf90")
+        SELECTED_TEXT
     )
     draw_string(
         font,
@@ -228,7 +235,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

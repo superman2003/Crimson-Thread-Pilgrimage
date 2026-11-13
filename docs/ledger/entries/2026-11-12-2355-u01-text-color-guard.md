@@ -6,3 +6,5 @@
 - 审查后守卫范围扩到旅途工作台（`godot/journey`），那里的轨迹叠层文字色也改为命名常量；注释里的代码不再误报；对显式文字类型、文字控件构造器和 `_label` 返回的接收者，`modulate`／`self_modulate` 也进入守卫；Sprite2D 的染色独立处理。
 
 补充验证：真实 HUD `hearts` 声明为 Label，注入字面色后守卫准确失败；原命名色恢复后通过。多行染色、文字控件构造器、函数参数与 Sprite2D 对照均覆盖。新增检查还发现锁定槽按钮的整体染色，改为同值命名常量，保持原透明度与颜色。
+
+二轮审查：守卫补入 draw_string／draw_multiline_string／draw_char、自绘文字，扩展 LineEdit／TextEdit／ItemList／Tree 等文本控件；按所有导出预设的共同排除项筛选运行时脚本，覆盖 playback／helper／checks 和明确排除文件。追踪当前函数及成员变量的直接赋值与容器初始化，命名常量作为调色板边界，避免 colors[key] 隐藏字面色值。将本次发现的 68 处用法迁为命名常量，保留原色值；里程碑类别字典改为明确的 CATEGORY_COLORS 常量。自绘、输入控件、别名／容器、跨函数隔离、排除范围正反例通过，完整原生结果待本次 CI。

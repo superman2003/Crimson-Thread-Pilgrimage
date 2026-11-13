@@ -10,11 +10,14 @@ any that is not listed in EXEMPT with the reason it stays:
 - the interface's _label(..., <colour>) helper;
 - modulate / self_modulate on receivers declared as text controls or created
   by a text-control constructor / _label helper. Sprite tints stay separate.
+- CanvasItem/Font draw_string, draw_multiline_string and draw_char text tint;
+- local/member variables and containers directly initialized with literals.
 
 Calls are read whole, so one formatted over several lines is still checked.
 Shadows and outlines are not text colour and are not checked.
 """
 import re
+from fnmatch import fnmatchcase
 import sys
 from pathlib import Path
 
@@ -23,8 +26,6 @@ SCRIPTS = ROOT / 'godot' / 'scripts'
 # Every shipped runtime-script tree: the main scripts and the journey workbench
 # autoload. Addons and tests are not game UI.
 ROOTS = (SCRIPTS, ROOT / 'godot' / 'journey')
-# Not shipped UI: validations, captures, fixtures and previews.
-SKIP = re.compile(r'(validation|capture|fixture|probe|preview|_test|showcase)')
 # Every theme colour that paints text: base, per-state (font_hover_color,
 # font_disabled_color, ...), RichTextLabel body and window titles. Shadows and
 # outlines sit behind the text and are left alone.
@@ -34,7 +35,10 @@ OVERRIDE = re.compile(r'add_theme_color_override\(')
 # Theme.set_color(name, theme_type, colour)
 SET_COLOR = re.compile(r'\.set_color\(')
 LABEL = re.compile(r'(?<![A-Za-z0-9_])_label\(')
-TEXT_TYPES = r'(?:Label|RichTextLabel|Button|CheckButton|CheckBox|MenuButton|OptionButton|LinkButton)'
+TEXT_TYPES = r'(?:Label|RichTextLabel|Button|CheckButton|CheckBox|MenuButton|OptionButton|LinkButton|LineEdit|TextEdit|CodeEdit|ItemList|Tree|TabBar|TabContainer|SpinBox|MenuBar|PopupMenu|Window|AcceptDialog|ConfirmationDialog|FileDialog)'
+DRAW_TEXT = re.compile(r'(?<![A-Za-z0-9_])(?P<method>draw_string|draw_multiline_string|draw_char)\(')
+DRAW_COLOR_ARGUMENT = {'draw_string': 6, 'draw_multiline_string': 7, 'draw_char': 4}
+ASSIGNMENT = re.compile(r'^[ \t]*(?:(?P<declaration>var|const)\s+)?(?P<name>[A-Za-z_]\w*)\s*(?::\s*[^=\n]+)?\s*(?::=|=(?!=))', re.M)
 TEXT_TYPED = re.compile(r'\b([A-Za-z_]\w*)\s*:\s*' + TEXT_TYPES + r'\b')
 TEXT_CREATED = re.compile(r'\b([A-Za-z_]\w*)\s*(?::\s*\w+\s*)?:?=\s*(?:' + TEXT_TYPES + r'\.new\(|(?:\w+\.)?_label\()')
 # var title := find_child(...) as Label
@@ -52,11 +56,25 @@ EXEMPT = {
 }
 
 
+def export_exclusions():
+    presets = (ROOT / 'godot/export_presets.cfg').read_text(encoding='utf-8')
+    filters = re.findall(r'^exclude_filter="([^"]*)"', presets, re.M)
+    if not filters:
+        raise ValueError('No export exclusion filters found')
+    # A file is unshipped only when every configured export excludes it.
+    return set.intersection(*(set(value.split(',')) for value in filters))
+
+
+def shipped_script(path, excluded):
+    relative = path.relative_to(ROOT / 'godot').as_posix()
+    return not any(fnmatchcase(relative, pattern) for pattern in excluded)
+
+
 def runtime_scripts():
+    excluded = export_exclusions()
     for root in ROOTS:
         for path in sorted(root.rglob('*.gd')):
-            # journey/tests is excluded from exports; fixtures are not game UI.
-            if not SKIP.search(path.name) and 'tests' not in path.relative_to(root).parts:
+            if shipped_script(path, excluded):
                 yield path
 
 
@@ -187,6 +205,38 @@ def assignment_expression(source, start):
     return source[start:index]
 
 
+def colour_expression(source, position, expression):
+    """Follow local/member variable initializers; explicit constants are palettes.
+
+    Only the active function and members are visible, and only assignments
+    before this use count. Resolve whole container initializers when an index
+    is dynamic, so a literal palette dictionary cannot hide behind colors[key].
+    """
+    masked = mask_strings(source)
+    bounds = [m.start() for m in FUNC.finditer(masked)] + [len(source)]
+    scopes = [(0, min(position, bounds[0]))]
+    for left, right in zip(bounds, bounds[1:]):
+        if left <= position < right:
+            scopes.append((left, position))
+    initializers = {}
+    for left, right in scopes:
+        for match in ASSIGNMENT.finditer(masked, left, right):
+            name = match['name']
+            if match['declaration'] == 'const':
+                initializers.pop(name, None)
+            else:
+                initializers[name] = assignment_expression(source, match.end())
+    seen = set()
+    def expand(value):
+        extras = []
+        for name in re.findall(r'\b[A-Za-z_]\w*\b', mask_strings(value)):
+            if name in initializers and name not in seen:
+                seen.add(name)
+                extras.append(expand(initializers[name]))
+        return value + ('\n' + '\n'.join(extras) if extras else '')
+    return expand(expression)
+
+
 def text_colours(source):
     """Yield (line number, colour expression) for every text colour set in source."""
     source = strip_comments(source)
@@ -197,22 +247,27 @@ def text_colours(source):
     for match in MODULATION.finditer(masked):
         receiver = match['receiver'] or 'self'
         if (receiver == 'self' and extends_text) or receiver in text_receivers(masked, match.start(), match.end()):
-            yield source.count('\n', 0, match.start()) + 1, assignment_expression(source, match.end())
+            yield source.count('\n', 0, match.start()) + 1, colour_expression(source, match.start(), assignment_expression(source, match.end()))
     for match in OVERRIDE.finditer(masked):
         args = call_arguments(source, match.end())
         if len(args) >= 2 and text_key(args[0]):
-            yield source.count('\n', 0, match.start()) + 1, args[1]
+            yield source.count('\n', 0, match.start()) + 1, colour_expression(source, match.start(), args[1])
     for match in SET_COLOR.finditer(masked):
         args = call_arguments(source, match.end())
         if len(args) == 3 and text_key(args[0]):
-            yield source.count('\n', 0, match.start()) + 1, args[2]
+            yield source.count('\n', 0, match.start()) + 1, colour_expression(source, match.start(), args[2])
     for match in LABEL.finditer(masked):
         line_start = masked.rfind('\n', 0, match.start()) + 1
         if masked[line_start:match.start()].lstrip().startswith('func '):
             continue
         args = call_arguments(source, match.end())
         if args:
-            yield source.count('\n', 0, match.start()) + 1, args[-1]
+            yield source.count('\n', 0, match.start()) + 1, colour_expression(source, match.start(), args[-1])
+    for match in DRAW_TEXT.finditer(masked):
+        args = call_arguments(source, match.end())
+        index = DRAW_COLOR_ARGUMENT[match['method']]
+        if len(args) > index:
+            yield source.count('\n', 0, match.start()) + 1, colour_expression(source, match.start(), args[index])
 
 
 def exempt(name, expression):
@@ -270,6 +325,23 @@ def self_test():
     assert literals('func tint(label: RichTextLabel):\n label.modulate = Color("red")')
     assert literals('extends Label\nfunc tint():\n self_modulate = Color("red")')
     assert not literals('var icon := Sprite2D.new()\nicon.modulate = Color("red")')
+    for control in ('LineEdit', 'TextEdit', 'CodeEdit', 'ItemList', 'Tree', 'TabBar', 'PopupMenu'):
+        assert literals('var query: '+control+'\nquery.modulate = Color("red")')
+    assert literals('draw_string(font, pos, "text", 0, -1, 16, Color("red"))')
+    assert literals('font.draw_string(canvas, pos, "text", 0, -1, 16, Color("red"))')
+    assert literals('draw_multiline_string(font, pos, "text", 0, -1, 16, -1, Color("red"))')
+    assert literals('draw_char(font, pos, "x", 16, Color("red"))')
+    assert not literals('draw_string(font, pos, "text")')
+    assert literals('var tint := Color("red")\nfunc draw():\n draw_string(font,pos,"x",0,-1,16,tint)')
+    assert literals('var colors := {"x": Color("red")}\nfunc draw():\n x.add_theme_color_override("font_color", colors[key])')
+    assert literals('func draw():\n var tint := Color("red")\n var alias := tint\n x.add_theme_color_override("font_color", alias)')
+    assert not literals('const COLORS := {"x": Color("red")}\nfunc draw():\n x.add_theme_color_override("font_color", COLORS[key])')
+    assert not literals('func a():\n var tint := Color("red")\nfunc b(tint):\n x.add_theme_color_override("font_color", tint)')
+    exclusions = export_exclusions()
+    for relative in ('scripts/example_playback.gd', 'scripts/example_helper.gd', 'scripts/example_checks.gd', 'scripts/inscription_specimen.gd', 'journey/tests/case.gd'):
+        assert not shipped_script(ROOT/'godot'/relative, exclusions)
+    assert shipped_script(ROOT/'godot/scripts/field_contract_desk.gd', exclusions)
+    assert shipped_script(ROOT/'godot/journey/trajectory/plot.gd', exclusions)
     assert not literals('var hearts: Label\nhearts.modulate = RED if hp < 2 else IVORY')
     assert not literals('var hearts: Label\n# hearts.modulate = Color("red")')
     assert literals('var title := find_child("T") as Label\ntitle.modulate = Color("red")')
