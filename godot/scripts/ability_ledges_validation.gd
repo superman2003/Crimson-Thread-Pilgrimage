@@ -3,6 +3,7 @@ extends SceneTree
 ## coordinates, is reached with real jump input only when the double jump is owned.
 const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
+const ENEMY_ACTOR := preload("res://scripts/enemy_actor.gd")
 var failures := 0
 var checks := 0
 
@@ -52,6 +53,15 @@ func _run() -> void:
             var dashed: Dictionary = await _attempt(adjacent_start, false, pickup_position, true)
             _check(bool(dashed.dashed), "adjacent-surface fixture really performs an airborne dash")
             _check(not bool(dashed.collected), "single jump plus air dash from the adjacent gallery cannot collect the reward")
+            var scribe := _platform(base_config.get("enemy_spawns", []), "E06")
+            _check(not scribe.is_empty(), "authored gallery enemy exists for the pogo bypass regression")
+            if not scribe.is_empty():
+                var profiles: Dictionary = base_config.get("ai_profiles", {})
+                var profile: Dictionary = profiles.get(String(scribe.kind), {})
+                var pogo: Dictionary = await _pogo_attempt(scribe, profile, adjacent_rect, pickup_position)
+                _check(bool(pogo.hit), "real downward attack damages the authored enemy and creates the strongest-crest bounce")
+                _check(bool(pogo.dashed), "enemy pogo fixture performs a real airborne dash")
+                _check(not bool(pogo.collected), "pogo and dash from the enemy's maximum movement bound cannot collect the reward")
             support.queue_free()
         for body in bodies:
             body.queue_free()
@@ -94,6 +104,57 @@ func _attempt(start: Vector2, unlocked: bool, pickup_position: Vector2, adjacent
     var result := {"rest": rest, "collected": bool(collected.value), "dashed": dash_observed}
     pickup.queue_free()
     player.queue_free()
+    await _frames(2)
+    return result
+
+func _pogo_attempt(data: Dictionary, profile: Dictionary, floor_rect: Rect2, pickup_position: Vector2) -> Dictionary:
+    var stage := Node2D.new()
+    root.add_child(stage)
+    var enemy = ENEMY_ACTOR.new()
+    enemy.configure(data, String(data.get("sprite", "")), false, profile)
+    # Exercise the farthest reachable horizontal recoil position, not only spawn.
+    var maximum_x := minf(float(data.position[0]) + float(data.leash_radius), floor_rect.end.x-float(data.spawn_half_width))
+    enemy.position = Vector2(maximum_x, float(data.position[1]))
+    stage.add_child(enemy)
+    enemy.set_process(false)
+    enemy.set_physics_process(false)
+    var player = PLAYER_SCENE.instantiate()
+    stage.add_child(player)
+    player.feel = null
+    player.double_jump_unlocked = false
+    player.dash_unlocked = true
+    var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/build_catalog.json"))
+    var maximum_bounce := 1.0
+    for crest in catalog.crests.values():
+        maximum_bounce = maxf(maximum_bounce, float(crest.get("pogo_bounce_mult", 1.0)))
+    player.build_profile["downstrike_bounce_mult"] = maximum_bounce
+    player.respawn_at(enemy.position-Vector2(0, float(data.get("spawn_visual_height", 56))))
+    var pickup := Area2D.new()
+    pickup.position = pickup_position
+    var shape := CollisionShape2D.new()
+    var circle := CircleShape2D.new()
+    circle.radius = 18
+    shape.shape = circle
+    pickup.add_child(shape)
+    var collected := {"value": false}
+    pickup.body_entered.connect(func(body: Node):
+        if body == player: collected.value = true)
+    stage.add_child(pickup)
+    await _frames(2)
+    var previous_hp: int = enemy.hp
+    player._start_attack(&"attack_1", true, Vector2.DOWN)
+    player._apply_attack_hits()
+    var hit: bool = enemy.hp < previous_hp and player.pogo_chain > 0 and player.velocity.y < -600.0*maximum_bounce
+    Input.action_press("move_right")
+    var dashed := false
+    for frame in 90:
+        if frame == 10: Input.action_press("dash")
+        if frame == 12: Input.action_release("dash")
+        await _frames(1)
+        dashed = dashed or player.dash_timer > 0.0
+    for action in ["move_right", "dash"]: Input.action_release(action)
+    var result := {"hit": hit, "dashed": dashed, "collected": bool(collected.value)}
+    stage.queue_free()
     await _frames(2)
     return result
 

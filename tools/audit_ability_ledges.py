@@ -11,7 +11,8 @@ with generous margins, the audit proves for every ledge that
     in range;
   * the column between the base floor and the ledge, and the headroom above
     the ledge, are free of solids, and the reward rests on the ledge.
-Static geometry only; real input on a ledge is covered by a Godot suite."""
+Enemy bounce envelopes include movement bounds and the strongest authored
+crest pogo multiplier; real player/enemy contact is covered by a Godot suite."""
 import json
 import math
 import sys
@@ -35,13 +36,13 @@ PLAYER_HEIGHT, PLAYER_HALF_WIDTH = 84.0, 17.0
 PICKUP_RADIUS, PICKUP_MARGIN = 18.0, 8.0
 
 
-def _air_time(rise):
+def _air_time(rise, velocity=JUMP):
     """Seconds airborne until a single jump comes down `rise` px above its
     start (negative = lower). None if that height is never reached."""
-    disc = JUMP ** 2 - 2 * GRAVITY * rise
+    disc = velocity ** 2 - 2 * GRAVITY * rise
     if disc < 0:
         return None
-    return (JUMP + math.sqrt(disc)) / GRAVITY
+    return (velocity + math.sqrt(disc)) / GRAVITY
 
 
 def single_jump_reaches(rise, gap):
@@ -57,6 +58,40 @@ def single_jump_collects(x0, x1, surface_y, pickup_x, pickup_y):
     rise = surface_y - pickup_y - (PLAYER_HEIGHT + PICKUP_RADIUS + PICKUP_MARGIN)
     gap = max(x0 - pickup_x, pickup_x - x1, 0) - (PLAYER_HALF_WIDTH + PICKUP_RADIUS + PICKUP_MARGIN)
     return single_jump_reaches(rise, max(gap, 0))
+
+
+def enemy_pogo_collects(enemy, config, pickup, multiplier):
+    """Allow a bounce anywhere in the enemy's full horizontal movement bounds.
+
+    Use the complete authored visual/hurtbox height above its node as a
+    conservative contact origin, rather than assuming a launch from the floor.
+    This includes recoil on stationary enemies, whose leash still clamps it.
+    """
+    profile = config.get('ai_profiles', {}).get(enemy.get('kind'), {})
+    x, y = enemy['position']
+    leash = float(enemy.get('leash_radius', profile.get('leash_radius', 240)))
+    support = next((p for p in config['platforms'] if p['id'] == enemy.get('platform_id')), None)
+    half = float(enemy.get('spawn_half_width', 36))
+    x0, x1 = (x-leash, x+leash) if leash > 0 else (-math.inf, math.inf)
+    flight = profile.get('locomotion', enemy.get('locomotion')) == 'flight'
+    if support:
+        sx, _, sw, _ = support['rect']
+        x0, x1 = max(x0, sx+half-(100 if flight else 0)), min(x1, sx+sw-half+(100 if flight else 0))
+    x0 = max(x0, float(enemy.get('arena_min_x', -math.inf)))
+    x1 = min(x1, float(enemy.get('arena_max_x', math.inf)))
+    if x0 > x1:
+        raise ValueError('Invalid enemy movement envelope: '+enemy['id'])
+    contact_y = y - max(float(enemy.get('spawn_visual_height', 56)), float(enemy.get('hurtbox_size', [58,56])[1]))
+    if flight:
+        contact_y -= float(profile.get('hover_height', 95)) + 24
+    velocity = 620.0 * multiplier
+    peak = velocity**2 / (2*GRAVITY)
+    rise = contact_y-pickup[1]-(PLAYER_HEIGHT+PICKUP_RADIUS+PICKUP_MARGIN)
+    gap = max(x0-pickup[0], pickup[0]-x1, 0)-(half+PLAYER_HALF_WIDTH+PICKUP_RADIUS+PICKUP_MARGIN)
+    if rise > peak*1.07:
+        return False
+    time = _air_time(min(rise, peak), velocity)
+    return time is not None and max(gap,0) <= (SPEED*time+DASH)*MARGIN
 
 
 def standable(config):
@@ -128,6 +163,8 @@ def check_ledge(config, ledge_id, ledge, base_id, anchors):
 
 def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
     routes = json.loads(Path(routes_path).read_text(encoding='utf-8'))
+    catalog = json.loads((Path(data_root)/'build_catalog.json').read_text(encoding='utf-8'))
+    pogo_multiplier = max(1.0, *(float(c.get('pogo_bounce_mult',1)) for c in catalog['crests'].values()))
     errors, checked = [], 0
     for entry in routes.get('ability_ledges', []):
         region = entry['region_id']
@@ -148,6 +185,9 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
                 continue
             if single_jump_collects(x0, x1, surface_y, *reward['position']):
                 errors.append(f"{entry['id']}: surface {sid} can collect the reward with a single jump and dash before reaching the ledge")
+        for enemy in config.get('enemy_spawns', []):
+            if enemy_pogo_collects(enemy, config, reward['position'], pogo_multiplier):
+                errors.append(f"{entry['id']}: enemy {enemy['id']} permits a pogo and dash to collect the reward without double jump")
         px, py, pw, _ = platform['rect']
         rx, ry = reward['position']
         if not (px + 18 <= rx <= px + pw - 18 and 25 <= py - ry <= 70):
@@ -172,6 +212,12 @@ def self_test():
     assert single_jump_collects(1960, 2340, 1752, 2505, 1524)
     assert not single_jump_collects(1960, 2340, 1752, 2505, 1490)
     assert not single_jump_collects(0, 20, 1752, 2505, 1490)
+    config = dict(platforms=[dict(id='gallery', rect=[1960,1752,380,36])])
+    enemy = dict(id='E06', kind='index_scribe', position=[2285,1712],
+                 platform_id='gallery', leash_radius=90, spawn_half_width=24, spawn_visual_height=56)
+    assert enemy_pogo_collects(enemy, config, [2505,1490], 1.2)
+    enemy.update(position=[2000,1712], leash_radius=24)
+    assert not enemy_pogo_collects(enemy, config, [2505,1490], 1.2)
 
 
 def main():
