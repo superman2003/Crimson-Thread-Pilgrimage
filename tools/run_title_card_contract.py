@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/ui_type_scale.gd', 'scripts/title_card.gd', 'scripts/title_card_validation.gd']
+DEPS = ['scripts/ui_type_scale.gd', 'scripts/title_card.gd', 'scripts/achievements.gd', 'scripts/journey_progress.gd', 'scripts/permanent_ability_roles.gd', 'scripts/journey_desk_store.gd', 'scripts/title_card_validation.gd']
 MARKER = '^TITLE_CARD checks=[1-9][0-9]* failures=0$'
 
 def main():
