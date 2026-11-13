@@ -644,6 +644,7 @@ var subtitle_elapsed := 0.0
 var subtitle_seconds := 0.0
 var new_journey_dialog: ConfirmationDialog
 var world_new_key_held := false
+var world_resumed_journey := false
 var world_map_view := false
 var applied_build_profile: Dictionary = {}
 var world_start_region_id := ""
@@ -958,6 +959,7 @@ func _publish_region() -> void:
             _toast(world_initial_error)
         _save_world()
         world_loader.register_region(self)
+        preload("res://scripts/title_card.gd").present(self, world_resumed_journey)
     if boss_trial_mode:
         _defer_region_call("_start_boss_trial")
 
@@ -1178,6 +1180,7 @@ func _prepare_world_start() -> void:
                 world_resume = true
                 world_initial_error = "旧旅途无法安全备份，未开始新旅途，原记录已保留。"
         if world_resume and world_state.read(world_save_path):
+            world_resumed_journey = true
             world_start_region_id = String(world_state.data.current_region)
             entry_spawn_override_enabled = true
             entry_spawn_override = world_state.resume_local_position()
