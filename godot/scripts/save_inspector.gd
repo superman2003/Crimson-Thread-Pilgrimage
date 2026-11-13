@@ -1,6 +1,7 @@
 extends RefCounted
 const STATE=preload("res://scripts/world_state.gd")
 const ABILITIES=preload("res://scripts/permanent_ability_roles.gd")
+const PROGRESS=preload("res://scripts/journey_progress.gd")
 const REGION_NAMES={"demo_ch01_moss_bell_court":"苔钟庭","demo_ch02_rain_foundry_canal":"铸雨渠","demo_ch03_saltwhite_archive":"盐白书库","demo_ch04_broken_string_greenhouse":"断弦温室","demo_ch05_obsidian_pilgrim_road":"黑曜巡礼道","demo_ch06_silent_crown_core":"静默冠心"}
 static func inspect(path: String) -> Dictionary:
     var exists:=FileAccess.file_exists(path)
@@ -15,7 +16,8 @@ static func inspect(path: String) -> Dictionary:
         "sha":digest,"modified":FileAccess.get_modified_time(path) if still_exists else 0,
         "region_id":String(world.data.current_region) if valid else "","regions":world.data.regions.size() if valid else 0,
         "currency":int(world.data.currency) if valid else 0,"hp":int(world.data.hp) if valid else 0,"energy":int(world.data.energy) if valid else 0,
-        "progress":progress(world.data) if valid else {}}
+        "progress":progress(world.data) if valid else {},
+        "completion":PROGRESS.completion(world.data) if valid else 0,"play_seconds":PROGRESS.recorded(path) if valid else 0}
 
 static func progress(data: Dictionary) -> Dictionary:
     var items:=0;var abilities:=0;var visited:=0;var bosses:=0

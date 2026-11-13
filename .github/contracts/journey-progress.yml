@@ -1,0 +1,48 @@
+name: Save-slot completion and play time
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/journey_progress*.gd'
+      - 'godot/scripts/permanent_ability_roles.gd'
+      - 'godot/data/completion_totals.json'
+      - 'godot/data/world_routes.json'
+      - 'godot/data/demo_ch*.json'
+      - 'tools/build_completion_totals.py'
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'tools/run_journey_progress_contract.py'
+      - '.github/contracts/journey-progress.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: journey-progress-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-progress:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          sparse-checkout: |
+            /godot/scripts/journey_progress.gd
+            /godot/scripts/permanent_ability_roles.gd
+            /godot/data
+            /tools/build_completion_totals.py
+            /godot/scripts/journey_desk_store.gd
+            /godot/scripts/journey_progress_validation.gd
+            /tools/run_journey_progress_contract.py
+          sparse-checkout-cone-mode: false
+      - name: Install Godot 4.6.1
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Totals are current; completion and play time contracts
+        run: python3 tools/build_completion_totals.py --check && python3 tools/run_journey_progress_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/progress-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: journey-progress-logs
+          path: ${{ runner.temp }}/progress-logs
