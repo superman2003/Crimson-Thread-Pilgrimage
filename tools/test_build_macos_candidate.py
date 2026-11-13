@@ -35,6 +35,24 @@ class Bundle(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'exactly one executable'):
                 mac.executable_in(app)
 
+    def test_universal_texture_import_is_enabled_only_in_a_staged_copy(self):
+        with tempfile.TemporaryDirectory() as folder:
+            staged = Path(folder) / 'project.godot'
+            staged.write_text('[application]\nconfig/name="x"\n\n[rendering]\n\nrenderer/rendering_method="gl_compatibility"\n', encoding='utf-8')
+            mac.enable_universal_textures(staged)
+            mac.enable_universal_textures(staged)
+            text = staged.read_text(encoding='utf-8')
+            self.assertEqual(text.count('import_etc2_astc=true'), 1)
+            self.assertEqual(text.count('[rendering]'), 1)
+            self.assertLess(text.index('[rendering]'), text.index('import_etc2_astc'))
+            bare = Path(folder) / 'bare.godot'
+            bare.write_text('[application]\n', encoding='utf-8')
+            mac.enable_universal_textures(bare)
+            self.assertIn('[rendering]\n\ntextures/vram_compression/import_etc2_astc=true', bare.read_text(encoding='utf-8'))
+        with self.assertRaisesRegex(ValueError, 'source checkout'):
+            mac.enable_universal_textures(ROOT / 'godot/project.godot')
+        self.assertNotIn('import_etc2_astc', (ROOT / 'godot/project.godot').read_text(encoding='utf-8'))
+
     def test_only_macos_may_build_it(self):
         with patch.object(mac.sys, 'platform', 'linux'), patch.object(mac.sys, 'argv', ['x', '--engine-root', 'unused']):
             self.assertEqual(mac.main(), 1)
@@ -56,9 +74,10 @@ class Preset(unittest.TestCase):
 
     def test_architecture_matches_the_shipped_texture_format(self):
         options = self.config[self.section + '.options']
-        self.assertEqual(options['binary_format/architecture'], '"x86_64"')
+        # The official template ships a universal binary only; it needs both formats.
+        self.assertEqual(options['binary_format/architecture'], '"universal"')
         self.assertEqual(options['texture_format/s3tc_bptc'], 'true')
-        self.assertEqual(options['texture_format/etc2_astc'], 'false')
+        self.assertEqual(options['texture_format/etc2_astc'], 'true')
         self.assertTrue(options['application/bundle_identifier'].strip('"').count('.') >= 2)
 
 

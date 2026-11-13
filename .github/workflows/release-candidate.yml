@@ -133,8 +133,6 @@ jobs:
         run: python tools/test_build_macos_candidate.py
       - name: Hydrate project assets, including addon themes
         run: git lfs pull --include='godot/**'
-      - name: Allow the x86_64 app to run on Apple silicon
-        run: softwareupdate --install-rosetta --agree-to-license || true
       - name: Export the app and boot it from its archive
         env:
           GH_TOKEN: ${{ github.token }}

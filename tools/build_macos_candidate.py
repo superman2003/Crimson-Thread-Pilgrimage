@@ -3,9 +3,11 @@
 
 Kept apart from tools/build_release.py so the Windows/Linux release gates stay
 exactly as they are while the macOS path is proven on a real macOS runner.
-The app is x86_64 (the project ships S3TC textures; a universal build would
-need ETC2/ASTC imports for every texture), unsigned beyond the built-in ad-hoc
-signature and not notarised: Gatekeeper will warn on a downloaded copy.
+The official macOS template is a universal binary only, and a universal export
+requires ETC2/ASTC texture import to be enabled. That project setting is
+switched on in the staged copy alone, so Windows/Linux imports are unchanged.
+The app is unsigned beyond the built-in ad-hoc signature and not notarised:
+Gatekeeper will warn on a downloaded copy.
 """
 from __future__ import annotations
 
@@ -42,6 +44,20 @@ def bundle_problems(names: list[str]) -> list[str]:
     if stray:
         found.append('files outside the app bundle: ' + ', '.join(stray[:3]))
     return found
+
+
+def enable_universal_textures(project_file: Path) -> None:
+    """Turn on ETC2/ASTC import in a staged project.godot (never the checkout's)."""
+    if ROOT in project_file.resolve().parents:
+        raise ValueError('Refusing to change the import settings of the source checkout')
+    setting = 'textures/vram_compression/import_etc2_astc=true'
+    lines = project_file.read_text(encoding='utf-8').splitlines()
+    lines = [line for line in lines if not line.startswith('textures/vram_compression/import_etc2_astc=')]
+    if '[rendering]' in lines:
+        lines.insert(lines.index('[rendering]') + 1, setting)
+    else:
+        lines += ['', '[rendering]', '', setting]
+    project_file.write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
 def executable_in(app: Path) -> Path:
@@ -93,6 +109,7 @@ def main() -> int:
             work = Path(temporary)
             project = work / 'project'
             release.stage_project(ROOT, project, files)
+            enable_universal_textures(project / 'project.godot')
             release.run_checked([engine, '--headless', '--path', str(project), '--editor', '--import', '--quit'],
                                 logs / 'import.log', timeout=args.timeout, cwd=work)
             archive = work / f'{name}.zip'
