@@ -21,6 +21,13 @@ func hit(player: Node, amount: int) -> int:
 func run() -> void:
     check(MODEL.ORDER.size()==3 and MODEL.TIERS.size()==3 and MODEL.TIERS.has(MODEL.DEFAULT),"three tiers, standard by default")
     check(MODEL.TIERS.standard.damage_bonus==0 and MODEL.TIERS.standard.mercy==0.0,"standard changes nothing")
+    var invalid:=MODEL.new();invalid.attach("user://difficulty_empty_record.json")
+    invalid.store.write({})
+    var invalid_bytes:=FileAccess.get_file_as_bytes(invalid.store.path)
+    invalid.attach("user://difficulty_empty_record.json")
+    check(not invalid.store.writable and invalid.tier=="standard","existing empty difficulty payload is invalid and preserved")
+    check(not invalid.choose("gentle").ok and FileAccess.get_file_as_bytes(invalid.store.path)==invalid_bytes,"a choice cannot overwrite the existing invalid record")
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(invalid.store.path))
     var path:="user://difficulty_tiers_world.json"
     var probe:=MODEL.new();probe.attach(path)
     if FileAccess.file_exists(probe.store.path):DirAccess.remove_absolute(ProjectSettings.globalize_path(probe.store.path))

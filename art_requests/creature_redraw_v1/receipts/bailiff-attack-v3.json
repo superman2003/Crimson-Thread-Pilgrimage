@@ -1,0 +1,13 @@
+{
+  "kind": "erasure_bailiff",
+  "clip": "actions_attack_corrected",
+  "status": "rejected",
+  "reason": "attack frame10 still requires scale correction0.903",
+  "source_sha256": "7e072cbceb25ebdb807830821526e6f527d3213916e3cd8266bfb88081616d25",
+  "prompt_sha256": "c304be5e7c562ae7ff0b83882a0c5a2acd836f3db3537560ff0a34441b85e159",
+  "reference_sha256": "e8cb9bf306bd5b8d11cace89b45204ce7b5cb0ead7763d6763202352d2c348c1",
+  "actual_prompt": "Edit ONLY cel1, the SECOND CELL in the FIRST ROW, of this exact25-cel 8-column x4-row Erasure Bailiff sprite sheet. The second drawing is too large next to its kept production neighbors. Repaint that one figure exactly8percent smaller in linear size, keeping both planted soles at the SAME local baseline and its horizontal torso/hip anchor in the SAME place. Keep its same lowered-cleaver pose, ivory mask and shoulder shell, bronze antennae, one redwaxseal and paper tag, dark underbody, burgundy ragged cloak, boots, brass fittings and ONE steel rectangular cleaver attached to its hand. Body, mask, shell, limbs and weapon must all reduce coherently; do not just shrink the cleaver. Every other24 occupied cells remains visually unchanged; exact8equalcolumns x4equalrows, first25 occupied, final7 completely empty. Preserve current compact overhead poses and common boot baseline, avoid clipping or intercell overlap. Crisp handpainted dark-fantasy ivory/paper/metal same style; fresh single-cel repaint. TRUE transparent RGBA alpha0 background and gutters, no matte, haze, fog, shadow, floor, particles, glow, text, labels or checkerboard.",
+  "reference_recipe": "Built-in image_gen edit of candidate2 exec-a2be72c0-73a3-449a-a472-48f47ee2fda5.png correcting only attack frame4/source cel1 after frame-fit residual0.871. Other two clips keep candidate2; this source registers only the11 selected attack drawings with the same frozen25-cell shared-scale recipe and source-wide vertical offset-9. Final registration for the whole source uses one common planted-sole anchor238 derived from its median drawn sole line; no per-cel translations or resizing.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/erasure_bailiff-actions-01.json",
+  "guide_sha256": "cc8ac260524892a57942474c43bb7b7b575676521a4d4cdcceb017136ac9b39d"
+}

@@ -18,6 +18,8 @@ func attach(save_path: String) -> void:
     tier=DEFAULT;notice=""
     var saved:=store.read()
     if saved.is_empty():
+        if store.error.is_empty() and FileAccess.file_exists(store.path):
+            store.writable=false;store.error="难度记录无效，保留原文件，按标准进行。"
         notice=store.error;return
     if saved.size()!=1 or not saved.get("tier") is String or not TIERS.has(saved.tier):
         store.writable=false;store.error="难度记录无效，保留原文件，按标准进行。";notice=store.error
