@@ -50,6 +50,56 @@
         "target": "imp_retreat_windup",
         "target_frame": 0
       }
+    ],
+    "silent_crown_core": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "phase_windup",
+        "source_frame": -1,
+        "target": "phase",
+        "target_frame": 0
+      },
+      {
+        "source": "phase",
+        "source_frame": -1,
+        "target": "phase_recover",
+        "target_frame": 0
+      },
+      {
+        "source": "heavy",
+        "source_frame": -1,
+        "target": "heavy_recover",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "phase_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "phase_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      }
     ]
   }
 }
