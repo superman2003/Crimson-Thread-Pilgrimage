@@ -1,5 +1,5 @@
 """Reject missing deliveries and corrupted registration metadata before packing."""
-from contextlib import redirect_stderr
+from contextlib import redirect_stderr, redirect_stdout
 import io
 import json
 from pathlib import Path
@@ -50,6 +50,21 @@ class PaintingStyle(unittest.TestCase):
         for (kind, clip), digest in art.LEGACY_ACCENT_SOURCES.items():
             jobs = art.read(art.REQUEST/'jobs'/(kind+'.json'))['jobs']
             self.assertEqual([j['sha256'] for j in jobs if j['clip'] == clip], [digest], (kind, clip))
+
+
+    def test_the_one_pending_redraw_is_pinned_and_still_reported(self):
+        self.assertEqual(list(art.PENDING_STYLE_REDRAW), [('summoned_page', 'windup')])
+        jobs = art.read(art.REQUEST/'jobs/summoned_page.json')['jobs']
+        self.assertEqual([j['sha256'] for j in jobs if j['clip'] == 'windup'],
+                         [art.PENDING_STYLE_REDRAW[('summoned_page', 'windup')]])
+        shown = io.StringIO()
+        with redirect_stdout(shown):
+            art.build('summoned_page', check=True)
+        self.assertIn('STYLE_REDRAW_PENDING summoned_page/windup: blurred outline', shown.getvalue())
+        # A different sheet for the same clip is not excused.
+        with patch.dict(art.PENDING_STYLE_REDRAW, {('summoned_page', 'windup'): '0'*64}):
+            with redirect_stdout(io.StringIO()), self.assertRaisesRegex(ValueError, 'drifts from the established painting'):
+                art.build('summoned_page', check=True)
 
 
 class DeliveryContracts(unittest.TestCase):
