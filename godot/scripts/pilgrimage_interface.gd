@@ -2496,9 +2496,9 @@ func _refresh_save_slots() -> void:
         var button: Button=save_slot_buttons[slot]
         var status:="新旅途"
         if bool(entry.get("exists",false)):
-            status="%d 区 · %d 钱" % [int(entry.get("regions",0)),int(entry.get("currency",0))] if bool(entry.get("valid",false)) else "记录损坏"
+            status="%d%% · %s" % [int(entry.get("completion",0)),preload("res://scripts/journey_progress.gd").clock_text(int(entry.get("play_seconds",0)))] if bool(entry.get("valid",false)) else "记录损坏"
         button.text="槽 %d · %s" % [slot,status]
-        button.tooltip_text="读取失败：%s。原文件会保留，请恢复备份。" % String(entry.get("error","未知错误")) if bool(entry.get("exists",false)) and not bool(entry.get("valid",false)) else "切换前会保存当前进度。\n"+status
+        button.tooltip_text="读取失败：%s。原文件会保留，请恢复备份。" % String(entry.get("error","未知错误")) if bool(entry.get("exists",false)) and not bool(entry.get("valid",false)) else "切换前会保存当前进度。" if not bool(entry.get("exists",false)) else "完成度 %d%% · 游玩 %s\n%d 区 · %d 钱" % [int(entry.get("completion",0)),preload("res://scripts/journey_progress.gd").clock_text(int(entry.get("play_seconds",0))),int(entry.get("regions",0)),int(entry.get("currency",0))]
 
 func _process(delta: float) -> void:
     if level==null or not construction_complete:return

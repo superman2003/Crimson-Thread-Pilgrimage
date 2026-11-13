@@ -645,6 +645,7 @@ var subtitle_seconds := 0.0
 var new_journey_dialog: ConfirmationDialog
 var world_new_key_held := false
 var world_resumed_journey := false
+var journey_clock: RefCounted
 var world_map_view := false
 var applied_build_profile: Dictionary = {}
 var world_start_region_id := ""
@@ -1021,6 +1022,8 @@ func _physics_process(_delta: float) -> void:
 func _process(_delta: float) -> void:
     if world_mode and not initial_region_ready:
         return
+    if journey_clock != null:
+        journey_clock.tick(_delta)
     if is_instance_valid(world_passage) and world_passage.active:
         return
     if world_mode and not world_loading and world_prefetch != null:
@@ -1186,6 +1189,9 @@ func _prepare_world_start() -> void:
             entry_spawn_override = world_state.resume_local_position()
         elif world_resume and world_state.last_error != "missing":
             world_initial_error = _damaged_save_message()
+        # A journey that could not be read keeps its recorded time untouched.
+        journey_clock = preload("res://scripts/journey_progress.gd").new()
+        journey_clock.attach(world_save_path, world_resume)
 
 ## T02: the damaged file stays untouched; tell the player whether its backup can
 ## bring the journey back, and where.
@@ -1383,6 +1389,8 @@ func _save_world() -> bool:
             _toast("归途记录暂未写入，当前旅途进度仍保留。")
         return false
     world_state.data = candidate # transfer the fully persisted, privately owned tree.
+    if journey_clock != null:
+        journey_clock.flush()
     return true
 
 
