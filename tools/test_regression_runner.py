@@ -213,7 +213,7 @@ class CompletionContractTests(unittest.TestCase):
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
         # Dedicated contracts run these suites only when their inputs change.
-        contract_suites = {'enemy_frame_fit', 'enemy_wing_flap', 'ability_ledges'}
+        contract_suites = {'enemy_frame_fit', 'enemy_wing_flap', 'ability_ledges', 'ability_routes', 'ability_routes_world'}
         ledge_contract = (ROOT / '.github/contracts/ability-ledges.yml').read_text(encoding='utf-8')
         self.assertIn('--suite ability_ledges', ledge_contract)
         self.assertIn('godot/scripts/ability_ledges_validation.gd', ledge_contract)

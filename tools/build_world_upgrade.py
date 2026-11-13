@@ -313,6 +313,10 @@ def build():
         ability_backtracks=backtracks,
         acquisition_plan={k: dict(region_id=REGIONS[v[0] - 1], room_id=v[1], collectible_id=PREFIX + 'obtain_' + k) for k, v in obtains.items()})
     PATH.write_text(json.dumps(routes, ensure_ascii=False, indent=2) + '\n')
+    # Reapply the ordinary-world shelves and action-operated return lines too;
+    # their hints may share an override with a regenerated workshop entrance.
+    from build_ability_places import build as build_ability_places
+    build_ability_places(routes_path=PATH, data_root=DATA)
     print(f'World upgrade authored: 3 late cross-region pairs, {len(backtracks)} action workshops (16 backtracks + 4 practices), {len(obtains)} ability acquisitions.')
 
 

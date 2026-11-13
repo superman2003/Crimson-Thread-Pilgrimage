@@ -8364,10 +8364,17 @@ func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2)
         var unlock_id := String(gate.get("permanent_action_unlock_id", id))
         changed = true
         story_flags["action_gate_" + unlock_id] = true
+        var shortcut := String(gate.get("unlock_shortcut_id", ""))
+        if not shortcut.is_empty():
+            story_flags["world_shortcut_" + shortcut] = true
+        var record := String(gate.get("unlock_item_id", ""))
+        if not record.is_empty():
+            _add_inventory_item(record, 1, false)
         _spawn_route_open_effect(rect.get_center())
         _unlock_ability_gate(id, String(GATE_UNLOCK_SFX.get(ability_id, "gate_dash")))
         _toast(String(gate.get("open_message", "动作唤醒旧机关，回访通路永久接通。")))
     if changed:
+        _refresh_world_portals()
         _save_world()
 
 func get_save_slots() -> Array:

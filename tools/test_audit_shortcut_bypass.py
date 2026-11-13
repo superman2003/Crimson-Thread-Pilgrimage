@@ -30,6 +30,14 @@ def main():
     check(real['levers'].get('ch01_vault_hub_shortcut', (None, None))[1] in {'sluice_hall', 'bell_stair_well'},
           'ch01 lever lies at one end of its shortcut')
     check(all(row['opened'] for row in result['savings']) and len(result['savings']) >= 12, 'every shortcut can be opened')
+    # The far-side action node must retain its ability requirement independently
+    # of both portal directions and their permanent latch.
+    action_edges = [e for e in real['edges'] if e[1][1].endswith('#action')]
+    check(len(action_edges) == 5, 'all five A01 action-operated returns enter the world audit')
+    for a, b, ability, _, _ in action_edges:
+        latch = next(key for key, node in real['levers'].items() if node == b)
+        _, opened = A.reach(real, set(real['abilities']) - {ability}, True)
+        check(latch not in opened, latch + ' cannot open when its action ability is missing')
 
     # Lever below a one-way drop opens a door into a dash-only vault.
     leak = world([(n('start'), n('hall'), '', '', ''), (n('hall'), n('vault'), 'thread_dash', '', ''),
