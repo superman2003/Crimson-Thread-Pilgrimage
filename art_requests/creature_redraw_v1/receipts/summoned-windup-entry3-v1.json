@@ -1,0 +1,13 @@
+{
+  "kind": "summoned_page",
+  "clip": "actions_windup_full",
+  "status": "rejected",
+  "reason": "steep upper wing leaves frozen rig canvas",
+  "source_sha256": "99802107bc4259df7ec9cde654d22a663a62ae69895622b86abbb10464520885",
+  "prompt_sha256": "97deabdfd09f199b2654d92ca43e74ea9e5ef048a79317daf0e3c7456f40f41d",
+  "reference_sha256": "e9fc4a592022d0a19e01bbfb5a47192d868f816004bb3983888716d0e3c390b3",
+  "actual_prompt": "Edit this exact 8-column x 3-row 24-cel summoned parchment moth WINDUP sprite sheet. Input 1 is the edit target; Input 2 top row is the authoritative accepted flight pose reference only, never copy its layout or labels. Change cels 0 THROUGH 7 (the entire FIRST ROW) to create a clear gradual wing-fold from upright flight into the flatter original windup: cel0 must have the large upper cream triangular paper wing pointing steeply UP-LEFT, about 45 degrees above horizontal, matching the accepted walk poses in input2; cel1 40deg, cel2 35deg, cel3 30deg, cel4 25deg, cel5 20deg, cel6 15deg, cel7 10deg. Keep the wing root attached at the SAME head/shoulder, and keep head, rubyeye, waxseal and paper body-center absolutely anchored. This must be a substantial wing-root articulation at the START, not the tiny angle correction seen in the current target. Let the trailing paper tail fan DOWN-LEFT like accepted flight at cel0, smoothly folding back by cel7. The upperwing remains one contiguous paper wing with same length, ink flourish, cream material and ink-dark margins; no new anatomy or extra feathers. Other16 cels remain visually unchanged, continue exact original head/thrust/folding motion and identical anatomy. Maintain same scale and body mass, ONE ruby eye, ivory beaked mask, swept brown antennae, layered cream/charcoal/crimson parchment and ONE redwaxseal. Complete each drawing inside its own equal 256px cell with ample truly transparent margins; no clipping or intercell overlap. TRUE transparent RGBA alpha0 background and gutters, preserve alpha. No color matte, translucent haze, white fog, floor, shadows, glow, particles, text, grid, labels or checkerboard.",
+  "reference_recipe": "Built-in image_gen edit of entry2 candidate; first8 cels articulate upper wing from accepted upright flight to original folded pose, preserving body root. Supporting fixed-canvas board output/redraw-handoffs/summoned_page-entry-reference-dark.jpg; frozen guide and all source digests retained.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/summoned_page-actions-windup-full.json",
+  "guide_sha256": "b9bd0febcca8116303d883cf64aaf8eb818b291b1e6f879f13254898afd3ea55"
+}

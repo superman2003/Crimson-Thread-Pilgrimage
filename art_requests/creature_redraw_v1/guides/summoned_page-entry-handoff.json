@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "kind": "summoned_page",
+  "source_commit": "5da57ad441ab43b265a116bd42ebeaa4c56e3a9f",
+  "canvas": [
+    392,
+    170
+  ],
+  "entries": [
+    {
+      "clip": "idle",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+        "region": [
+          2,
+          2,
+          143,
+          126
+        ],
+        "margin": [
+          115,
+          27,
+          249,
+          44
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+        "region": [
+          1180,
+          2,
+          127,
+          124
+        ],
+        "margin": [
+          113,
+          23,
+          265,
+          46
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 4,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+        "region": [
+          1703,
+          2,
+          126,
+          129
+        ],
+        "margin": [
+          115,
+          18,
+          266,
+          41
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 6,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png",
+        "region": [
+          2,
+          139,
+          126,
+          124
+        ],
+        "margin": [
+          115,
+          24,
+          266,
+          46
+        ]
+      }
+    }
+  ],
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/summoned_page/motion_redraw_00.png": "22b36de1bb6b8cbeb500423557e4324302bf5245531442017a0de8d66c53627b"
+  },
+  "supporting_board_sha256": "bafcc84fec7b422774b39f3a60463556f7f35f6bd3a46ebf128a55c814b2e7f6",
+  "supporting_board_thumbnail": "art_requests/creature_redraw_v1/receipts/summoned_page-entry-reference.png",
+  "explanation": "Accepted idle/walk fixed-canvas poses from published batch28. Thumbnail records the actual supporting board; lower row is rejected-candidate context only. Final drawings from built-in image_gen. Entire windup sheet uses one common body-root registration, never per-frame transforms."
+}
