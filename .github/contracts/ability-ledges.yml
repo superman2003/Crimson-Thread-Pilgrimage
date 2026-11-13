@@ -1,15 +1,22 @@
-name: A01 ability ledges and pickup clearance
+name: A01 ability exploration and permanent return routes
 on:
   pull_request:
     paths:
       - 'godot/data/world_routes.json'
-      - 'godot/data/demo_ch03_saltwhite_archive.json'
+      - 'godot/data/demo_ch*.json'
       - 'godot/scripts/ability_ledges_validation.gd'
+      - 'godot/scripts/ability_routes_validation.gd'
+      - 'godot/scripts/ability_routes_world_validation.gd'
+      - 'godot/tests/ability_action_stage.gd'
       - 'godot/scripts/player_controller.gd'
       - 'godot/scenes/Player.tscn'
       - 'godot/scripts/main_level.gd'
       - 'godot/scripts/world_platform_body.gd'
       - 'tools/audit_ability_ledges.py'
+      - 'tools/audit_shortcut_bypass.py'
+      - 'tools/build_ability_places.py'
+      - 'tools/build_ability_routes.py'
+      - 'tools/build_world_upgrade.py'
       - 'tools/run_godot_regressions.py'
       - 'tools/godot_suite_success_markers.json'
       - '.github/contracts/ability-ledges.yml'
@@ -35,10 +42,13 @@ jobs:
       - name: Audit pickup clearance and import resources
         run: |
           python3 tools/audit_ability_ledges.py
+          python3 tools/build_ability_places.py --check
+          python3 tools/test_audit_shortcut_bypass.py
+          python3 tools/audit_stranding.py --self-test
           python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/ledge-logs/import"
       - name: Verify actual jumps, pickup reach and existing pickup behavior
         run: |
-          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite ability_ledges --suite ability_movement --suite pickup_ledger --log-dir "$RUNNER_TEMP/ledge-logs/runtime"
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite ability_ledges --suite ability_routes --suite ability_routes_world --suite ability_movement --suite pickup_ledger --suite grapple_path --suite world_route_access --timeout 360 --log-dir "$RUNNER_TEMP/ledge-logs/runtime"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

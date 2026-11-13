@@ -60,6 +60,18 @@ def load_world(routes_path=DATA / 'world_routes.json', data_root=DATA):
             if e.get('bidirectional'):
                 edges.append((b, a, ability, latch, ''))
     for region, extra in routes['chapters'].items():
+        # Action-operated return lines open at the far side only after the
+        # permanent ability has been acquired. Virtual action nodes model both
+        # conditions without pretending that merely owning the ability opens it.
+        for gate in extra.get('locked_gates', []):
+            latch = gate.get('unlock_shortcut_id', '')
+            if not latch:
+                continue
+            room = (region, gate['from_room'])
+            action = (region, gate['id'] + '#action')
+            nodes.add(action)
+            edges.extend([(room, action, gate['requires_action'], '', ''), (action, room, '', '', '')])
+            levers[latch] = action
         for p in extra['portals']:
             target = routes['chapters'][p['target_config_id']]
             q = next(x for x in target['portals'] if x['id'] == p['target_portal_id'])

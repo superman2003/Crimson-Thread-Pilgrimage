@@ -4,8 +4,12 @@ extends SceneTree
 ## is reached with real input only when its ability is used.
 const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
+const ACTION_STAGE := preload("res://tests/ability_action_stage.gd")
 var failures := 0
 var checks := 0
+var active_player: Node = null
+var collected := false
+var last_collected := false
 
 func _initialize() -> void:
     call_deferred("_run")
@@ -29,6 +33,7 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
     var overlay: Dictionary = routes.chapters[region]
     var base := _find(base_config.platforms, String(entry.base_platform_id))
     var shelf := _find(overlay.platforms, String(entry.platform_id))
+    var reward := _find(overlay.collectibles, String(entry.reward_id))
     _check(not base.is_empty() and not shelf.is_empty(), id + " base and shelf exist")
     if base.is_empty() or shelf.is_empty():
         return
@@ -43,11 +48,17 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
         if not piece.is_empty():
             bodies.append(PLATFORM_BODY.create(part, _rect(piece.rect), String(piece.collision_role)))
     var gate_body: StaticBody2D = null
+    var action_stage = null
     if entry.has("gate_id"):
         var gate := _find(overlay.locked_gates, String(entry.gate_id))
         _check(String(gate.get("requires_action", "")) == "crown_resonance", id + " bell plate opens only by the resonance action")
         gate_body = PLATFORM_BODY.create("bell", _rect(gate.rect), "")
         bodies.append(gate_body)
+        action_stage = ACTION_STAGE.new()
+        action_stage.world_mode = true
+        action_stage.config = {"locked_gates": [gate]}
+        action_stage.locked_gate_bodies[String(gate.id)] = gate_body
+        root.add_child(action_stage)
     var anchor: Node2D = null
     var ring := {}
     if entry.has("ring_id"):
@@ -58,6 +69,16 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
         bodies.append(anchor)
     for body in bodies:
         root.add_child(body)
+    var pickup := Area2D.new()
+    pickup.position = _vec(reward.position)
+    var pickup_shape := CollisionShape2D.new()
+    var circle := CircleShape2D.new()
+    circle.radius = 18
+    pickup_shape.shape = circle
+    pickup.add_child(pickup_shape)
+    pickup.body_entered.connect(func(body: Node):
+        if body == active_player: collected = true)
+    root.add_child(pickup)
     await _frames(2)
     var floor_y := base_rect.position.y
     var shelf_y := shelf_rect.position.y
@@ -65,17 +86,45 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
     match String(entry.required_ability):
         "double_thread_jump":
             _near(await _jump(start, false), floor_y, id + " a single jump falls back to the floor")
+            _check(not last_collected, id + " a single-jump head overlap cannot collect the reward")
             _near(await _jump(start, true), shelf_y, id + " jump then air jump lands on the shelf")
+            _check(last_collected, id + " double jump collects the reward")
         "echo_hook":
             _near(await _jump(start, true), floor_y, id + " even the double jump falls back to the floor")
+            _check(not last_collected, id + " double jump cannot collect the hook reward")
             var hook_start := Vector2(float(ring.test_from[0]), floor_y)
             _near(await _hook(hook_start, false), floor_y, id + " without the hook the ring does nothing")
             _near(await _hook(hook_start, true), shelf_y, id + " aiming up at the ring pulls the body onto the shelf")
+            _check(last_collected, id + " the hook route collects its reward")
         "crown_resonance":
             _near(await _jump(start, true), floor_y, id + " the sealed bell plate stops every jump")
-            gate_body.queue_free()
+            _check(not last_collected, id + " the sealed bell plate also stops early collection")
+            var player = _spawn(start)
+            player.crown_resonance_unlocked = true
+            player.energy = player.max_energy
+            action_stage.player = player
+            player.ability_action.connect(action_stage._on_ability_action)
+            await _frames(6)
+            Input.action_press("crown_resonance")
+            await _frames(2)
+            Input.action_release("crown_resonance")
+            _check(action_stage.locked_gate_bodies.has(String(entry.gate_id)), id + " ownership without the permanent item cannot open the plate")
+            await _frames(40)
+            action_stage.inventory_counts["crown_resonance"] = 1
+            player.resonance_cooldown = 0
+            player.energy = player.max_energy
+            Input.action_press("crown_resonance")
+            await _frames(2)
+            Input.action_release("crown_resonance")
+            _check(not action_stage.locked_gate_bodies.has(String(entry.gate_id)), id + " real resonance input opens the production action gate")
+            _check(action_stage.story_flags.get("action_gate_" + String(entry.gate_id), false), id + " the plate remains permanently open")
+            player.queue_free()
             await _frames(2)
             _near(await _jump(start, false), shelf_y, id + " once the plate opens a single jump lands on the shelf")
+            _check(last_collected, id + " the open bell niche grants its reward")
+    pickup.queue_free()
+    if action_stage != null:
+        action_stage.queue_free()
     for body in bodies:
         if is_instance_valid(body):
             body.queue_free()
@@ -86,6 +135,8 @@ func _spawn(start: Vector2):
     root.add_child(player)
     player.feel = null
     player.respawn_at(start)
+    active_player = player
+    collected = false
     return player
 
 ## Jump; with `air` also press jump again near the apex. Returns resting feet y.
@@ -93,14 +144,23 @@ func _jump(start: Vector2, air: bool) -> float:
     var player = _spawn(start)
     player.double_jump_unlocked = air
     await _frames(6)
-    Input.action_press("jump")
-    await _frames(14)
-    Input.action_release("jump")
-    await _frames(2)
-    Input.action_press("jump")
-    await _frames(20)
-    Input.action_release("jump")
+    await _jump_to_apex(player)
+    if air:
+        await _frames(1)
+        await _jump_to_apex(player)
     return await _settle(player)
+
+func _jump_to_apex(player) -> void:
+    # Physics can advance several ticks between process frames on a cold/loaded
+    # runner. Observe the real jump instead of assuming 14 yields is its apex.
+    Input.action_press("jump")
+    var airborne := false
+    for tick in range(90):
+        await _frames(1)
+        airborne = airborne or not player.is_on_floor()
+        if airborne and player.velocity.y >= -35.0:
+            break
+    Input.action_release("jump")
 
 func _hook(start: Vector2, unlocked: bool) -> float:
     var player = _spawn(start)
@@ -109,12 +169,11 @@ func _hook(start: Vector2, unlocked: bool) -> float:
     Input.action_press("aim_up")
     Input.action_press("hook")
     await _frames(2)
-    print("HOOK_PROBE latched=%s position=%s ring=%s" % [player.grapple_timer > 0, player.global_position, player.grapple_anchor])
     Input.action_release("hook")
-    for frame in range(36):
+    for frame in range(60):
+        if player.grapple_timer <= 0.0:
+            break
         await _frames(1)
-        if frame % 6 == 0:
-            print("HOOK_PROBE frame=%d position=%s velocity=%s pulling=%s" % [frame, player.global_position, player.velocity, player.grapple_timer > 0])
     Input.action_release("aim_up")
     # The ring hangs in the open shaft beside the shelf; step onto the shelf.
     Input.action_press("move_right")
@@ -128,6 +187,7 @@ func _settle(player) -> float:
         if index > 20 and player.is_on_floor() and absf(player.velocity.y) < 1.0:
             break
     var rest: float = player.global_position.y if player.is_on_floor() else INF
+    last_collected = collected
     player.queue_free()
     await _frames(2)
     return rest

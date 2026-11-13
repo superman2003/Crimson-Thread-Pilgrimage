@@ -39,6 +39,7 @@ HOOK_REACH = 460                                   # other rings stay further aw
 HOOK_RANGE = 430.0 * 0.95                          # player grapple_range, with margin
 ACTION_RANGE = 150.0                               # main_level action gate default
 HEADROOM = 110
+PLAYER_HEIGHT, PICKUP_RADIUS, PICKUP_MARGIN = 84.0, 18.0, 8.0
 HOOK_GAP = 76                                      # open shaft beside an echo hook shelf
 ROUTE_CLEARANCE = 160                              # keep away from other platforms
 ABILITIES = ('double_thread_jump', 'echo_hook', 'crown_resonance')
@@ -313,6 +314,12 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
             errors.append(f"{entry['id']}: {problem}")
         px, py, pw, _ = platform['rect']
         rx, ry = reward['position']
+        base = next(p for p in config['platforms'] if p['id'] == entry['base_platform_id'])
+        if ability != 'crown_resonance':
+            jump_height = DOUBLE if ability == 'echo_hook' else SINGLE
+            pickup_reach = jump_height * 1.07 + PLAYER_HEIGHT + PICKUP_RADIUS + PICKUP_MARGIN
+            if base['rect'][1] - ry <= pickup_reach:
+                errors.append(f"{entry['id']}: player head can collect the reward without the intended ability")
         if not (px + 18 <= rx <= px + pw - 18 and 25 <= py - ry <= 70):
             errors.append(f"{entry['id']}: reward does not rest on the shelf")
         if reward.get('room_id') != entry['room_id'] or reward.get('reward_role') != 'optional_exploration':
@@ -328,6 +335,51 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
                 errors.append(f"{entry['id']}: the place must lie inside {entry['room_id']}")
         checked += 1
         counts[ability] += 1
+    for entry in routes.get('ability_routes', []):
+        overlay = routes['chapters'][entry['region_id']]
+        gate = next((g for g in overlay.get('locked_gates', []) if g['id'] == entry['gate_id']), {})
+        pair = [next((p for p in overlay['portals'] if p['id'] == entry[key]), {})
+                for key in ('entry_portal_id', 'return_portal_id')]
+        ability = entry['required_ability']
+        if ability not in ('echo_hook', 'crown_resonance'):
+            errors.append(f"{entry['id']}: unsupported action route")
+            continue
+        if (gate.get('requires_action') != ability or gate.get('required_ability') != ability
+                or gate.get('permanent_action_unlock_id') != gate.get('id')
+                or gate.get('unlock_shortcut_id') != entry['id']):
+            errors.append(f"{entry['id']}: latch must open only through its permanent ability action")
+        if any(p.get('requires_shortcut') != entry['id'] or p.get('required_ability') != ability for p in pair):
+            errors.append(f"{entry['id']}: both portal directions must retain the latch and ability conditions")
+        if any(p.get('unlock_shortcut_id') for p in pair):
+            errors.append(f"{entry['id']}: entering a portal cannot substitute for performing the action")
+        if (pair[0].get('room_id') != entry['room_id'] or pair[1].get('room_id') != entry['return_room_id']
+                or gate.get('from_room') != entry['room_id']
+                or any(p.get('target_config_id') != entry['region_id'] for p in pair)):
+            errors.append(f"{entry['id']}: gate and portal graph endpoints disagree with their region/rooms")
+        if pair[0] and ability == 'echo_hook':
+            ring = next((r for r in overlay.get('grapple_anchors', []) if r['id'] == entry['id'] + '_ring'), None)
+            if ring is None or ring.get('test_from') != pair[0]['position']:
+                errors.append(f"{entry['id']}: hook line needs a ring at its opening-side approach")
+            elif gate:
+                source = (ring['test_from'][0], ring['test_from'][1] - 2)
+                if segment_hits(source, ring['position'], gate['rect']):
+                    errors.append(f"{entry['id']}: its seal blocks the grapple ray")
+        if pair[0] and gate:
+            px, py = pair[0]['position']
+            gx, gy, gw, gh = gate['rect']
+            if gy + gh > py - 50:
+                errors.append(f"{entry['id']}: the overhead seal blocks walking headroom")
+            if math.dist((px, py - 2), (min(max(px, gx), gx + gw), min(max(py - 2, gy), gy + gh))) > gate.get('action_range', 150) * .9:
+                errors.append(f"{entry['id']}: action seal is too far from the supported approach")
+        if ability == 'crown_resonance':
+            record = entry.get('record_id', '')
+            catalog = overlay.get('inventory_catalog', {}).get(record, {})
+            if not record or gate.get('unlock_item_id') != record or catalog.get('category') != 'Relics':
+                errors.append(f"{entry['id']}: sleeping bell must grant its optional journal record")
+        checked += 1
+        counts[ability] += 1
+    if any(count < 3 for count in counts.values()):
+        errors.append('each of the three abilities needs at least three ordinary-world uses')
     return checked, errors, counts
 
 

@@ -7,16 +7,19 @@ only objects with the `a01_` prefix (and the hints this script appended), so
 it is safe after tools/build_world_upgrade.py. Geometry is proven by
 tools/audit_ability_ledges.py; real input by the Godot suite ability_ledges.
 """
+import argparse
 import json
 from pathlib import Path
 
 import audit_ability_ledges as A
+import build_ability_routes
 
 ROOT = Path(__file__).resolve().parents[1]
 PATH = ROOT / 'godot/data/world_routes.json'
 PREFIX = 'a01_'
 NAMES = {'double_thread_jump': '双线跃', 'echo_hook': '回声钩索', 'crown_resonance': '王冠共鸣'}
 CH01, CH02, CH03 = 'demo_ch01_moss_bell_court', 'demo_ch02_rain_foundry_canal', 'demo_ch03_saltwhite_archive'
+CH05 = 'demo_ch05_obsidian_pilgrim_road'
 
 # (id, kind, ability, region, room, base floor, shelf rect, material, amount, label, room hint)
 PLACES = [
@@ -24,8 +27,11 @@ PLACES = [
      [2455, 1594, 100, 22], 'salt_crystal_shard', 5, '高架盐晶',
      '西侧二层上方还有一层孤架，单跳够不着。'),
     ('a01_court_jump_niche', 'niche', 'double_thread_jump', CH01, 'court_hub', 'hub_floor_e',
-     [3310, 3707, 120, 22], 'moss_chitin', 5, '钟庭壁龛苔壳',
+     [3310, 3692, 120, 22], 'moss_chitin', 5, '钟庭壁龛苔壳',
      '东岸地面上方嵌着一口壁龛，一跳差半身。'),
+    ('a01_banner_jump_niche', 'niche', 'double_thread_jump', CH05, 'banner_bridge', 'banner_drop_ledge',
+     [924, 822, 120, 22], 'obsidian_splinter', 5, '旗桥壁龛黑曜片',
+     '落旗台上方的旧龛还存着军械碎片，要再跃一次才能够到。'),
     ('a01_pump_hook_niche', 'niche', 'echo_hook', CH02, 'pump_atrium', 'hub_floor_e',
      [3420, 2990, 120, 22], 'wet_chitin', 6, '泵房吊龛湿壳',
      '东岸高处的吊龛里垂着一枚铜环，跳不上去。'),
@@ -39,12 +45,13 @@ PLACES = [
 COLORS = {'double_thread_jump': '4c4b3e', 'echo_hook': '4c4b3e', 'crown_resonance': '385357'}
 
 
-def build():
-    routes = json.loads(PATH.read_text(encoding='utf-8'))
+def build(check=False):
+    before = PATH.read_text(encoding='utf-8')
+    routes = json.loads(before)
     chapters = routes['chapters']
     hints = {p[10] for p in PLACES}
     for overlay in chapters.values():
-        for key in ('platforms', 'collectibles', 'locked_gates', 'grapple_anchors'):
+        for key in ('platforms', 'collectibles', 'locked_gates', 'grapple_anchors', 'portals'):
             overlay[key] = [v for v in overlay.get(key, []) if not v.get('id', '').startswith(PREFIX)]
         kept = []
         for override in overlay.get('map_room_overrides', []):
@@ -99,10 +106,30 @@ def build():
             override['guide'] = override.get('guide', '') + ' ' + hint
         entries.append(entry)
     routes['ability_ledges'] = entries
-    PATH.write_text(json.dumps(routes, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+    bases = {region: json.loads((A.DATA / f'{region}.json').read_text(encoding='utf-8')) for region in chapters}
+    build_ability_routes.apply(routes, bases)
+    # Match build_world_upgrade's order: surviving objects before its generated
+    # objects. Running either authoring step must not churn unrelated arrays.
+    for overlay in chapters.values():
+        for key in ('platforms', 'collectibles', 'locked_gates', 'grapple_anchors', 'portals'):
+            overlay[key].sort(key=lambda item: item.get('id', '').startswith('upgrade_'))
+        overlay['map_room_overrides'].sort(key=lambda item: item.get('generated_by') == 'world_upgrade')
+        catalog = overlay.get('inventory_catalog', {})
+        overlay['inventory_catalog'] = dict(sorted(catalog.items(), key=lambda pair:
+            2 if pair[0].startswith('upgrade_') else 1 if pair[0] in ('energy_spindle_fragment', 'heart_knot_fragment') else 0))
+    content = json.dumps(routes, ensure_ascii=False, indent=2) + '\n'
+    if check and content != before:
+        print('ABILITY_PLACES FAIL: generated data is stale; run tools/build_ability_places.py')
+        return 1
+    if not check:
+        PATH.write_text(content, encoding='utf-8', newline='\n')
     counts = {a: sum(e['required_ability'] == a for e in entries) for a in NAMES}
-    print('ABILITY_PLACES authored', len(entries), counts)
+    print('ABILITY_PLACES', 'checked' if check else 'authored', len(entries), counts,
+          'action_routes=' + str(len(routes['ability_routes'])))
+    return 0
 
 
 if __name__ == '__main__':
-    build()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true')
+    raise SystemExit(build(parser.parse_args().check))
