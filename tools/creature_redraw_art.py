@@ -288,6 +288,9 @@ def build(kind, check=False):
             raise ValueError('Recorded generation prompt changed')
         if 'guide' in job and sha256((ROOT/job['guide']).read_bytes()).hexdigest() != job['guide_sha256']:
             raise ValueError('Recorded pose reference recipe changed')
+        for guide in job.get('reference', {}).get('supporting_guides', []):
+            if sha256((ROOT/guide['path']).read_bytes()).hexdigest() != guide['sha256']:
+                raise ValueError('Recorded handoff reference recipe changed')
         targets = target_indices(kind, job, clip)
         replaced = body_area(clip, base['canvas'])
         target_area = replaced
@@ -340,6 +343,16 @@ def build(kind, check=False):
                                  measurement='complete_clip_with_unchanged_neighbours')
         drawings.update({(name, i): drawing for i, drawing in replacements.items()})
     pages, packed = onion.pack(kind, drawings, base['canvas'])
+    for key, frame in packed.items():
+        page = pages[int(frame['atlas'].rsplit('_', 1)[1].removesuffix('.png'))]
+        x, y, w, h = frame['region']
+        if x < 0 or y < 0 or x+w > page.width or y+h > page.height:
+            raise ValueError('Packed drawing leaves its atlas: '+str(key))
+        actual = np.asarray(page.crop((x,y,x+w,y+h)))
+        expected = np.asarray(drawings[key][0])
+        if (not np.array_equal(actual[:,:,3], expected[:,:,3]) or
+                not np.array_equal(actual[expected[:,:,3]>0], expected[expected[:,:,3]>0])):
+            raise ValueError('Packed drawing differs from its source: '+str(key))
     for frame in packed.values():
         frame['atlas'] = frame['atlas'].replace('motion_onion_', 'motion_redraw_')
     manifest = replace_frames(base, packed)

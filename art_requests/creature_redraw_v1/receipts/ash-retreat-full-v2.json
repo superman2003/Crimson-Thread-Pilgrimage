@@ -1,0 +1,13 @@
+{
+  "kind": "ash_banner_imp",
+  "clip": "actions_imp_retreat_full",
+  "status": "rejected",
+  "reason": "Continuity edit retained the same abrupt low crouches and flag mass switch: max_change0.7263, other badpairs4->5/10->11/20->21. Reject and draw fresh coherent24cel sequence anchored to accepted windup horizontal cel22.",
+  "source_sha256": "526764a409f67b91d7bfe253f35f177e80d2bb62c6028dc18a9b63a02ecf1c5b",
+  "prompt_sha256": "f161a17bae2c72a239c46aa9cce66a669aecfd510d9a2d69f298db92f3f56db3",
+  "reference_sha256": "eeb5d32ef6c35c43fee8e30cb1f82c595e106c29ccb053d814900db2ed9ed0ab",
+  "actual_prompt": "Use case: precise-object-edit game animation continuity. Keep this exact8column x3row24cel horned gray/ivory/redblack banner imp retreat sheet, same identity/grid/order/size. Correct these motion transitions by DRAWING new intermediate poses: cel4(row1col5) and cel10(row2col3) should be gentle half-crouches matching their adjacent cels' body/head anchors and planted feet, instead of suddenly dropping torso. Then redraw LAST8cels16-23(row3allcolumns) as one smooth cloth-and-pole recovery arc:16horizontal folded pennant,17slight diagonal and begins unfolding,18diagonal and somewhat wider cloth,19more diagonal with wider unfold,20steeper angle with substantial full redblack cloth,21nearly upright with almost full pennant mass,22upright full pennant,23settles. Make no abrupt narrow-ribbon-to-big-flag switch between21and22. Keep ONE full-length connected spear/banner pole, same torn flag cloth mass/material throughout, shoulders/feet/body size stable, ivory horns/mask and ashgray layered armor exact. Othercels unchanged. Smooth genuinely articulated limbs/cloth, not duplicated or rescaled sprite. Complete pole/flag/horns contained with35pxtransparent margins, no clipping/overlap. TRUE transparent RGBA alpha0background/gutters, no matte/haze/shadows/glow/dots/grid/checkerboard/text.",
+  "reference_recipe": "Frozen full24cel imp_retreat source_frame/reference_fit guide rendered with tools/creature_redraw_guides.py. Original8cel recover actions04 supports identity/detail only. image_gen continuity repaint of crouch cels4/10 and last8flag-unfolding cels of exec-139845af-9cde-4e93-abf2-3926596e1f95.png; predecessor SHA/prompt in ash-retreat-full-v1 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/ash_banner_imp-actions-imp_retreat-full.json",
+  "guide_sha256": "b43aff68c5106c39ee2c2c01d88d7892a7d99a2f3886a2da430d04289a4521a6"
+}
