@@ -1080,7 +1080,7 @@ func _build_settings_accessibility() -> void:
     _accessibility_toggle("navigation_assist","导航辅助",Vector2(725,339))
 
 func _build_settings_controls() -> void:
-    var remap_title:=_label(settings,"按键重映射",Vector2(34,384),Vector2(740,28),17,GOLD)
+    var remap_title:=_label(settings,"按键重映射",Vector2(34,384),Vector2(640,28),17,GOLD)
     remap_title.tooltip_text="选择动作后按键、鼠标按钮或推动扳机；方向键 / 手柄十字键选择。"
     remap_title.mouse_filter=Control.MOUSE_FILTER_PASS
     reset_bindings_button=_button(settings,"恢复默认按键",Vector2(800,381),Vector2(172,28),_reset_bindings)
@@ -1119,6 +1119,7 @@ func _finish_settings() -> void:
     journey_history_button=_button(settings,"浏览旧旅途",Vector2(838,573),Vector2(134,30),_show_journey_history)
     journey_history_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     preload("res://scripts/audio_output_dialog.gd").install(self)
+    preload("res://scripts/display_dialog.gd").install(self)
     legacy_settings=_label(settings,"",Vector2.ZERO,Vector2.ZERO)
     legacy_settings.visible=false
     refresh_settings_selection()
