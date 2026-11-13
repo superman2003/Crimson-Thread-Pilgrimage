@@ -291,6 +291,21 @@
           "room_id": "upgrade_crown_resonance_1",
           "platform_id": "upgrade_crown_resonance_1_gallery",
           "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "a01_court_jump_niche_reward",
+          "kind": "item",
+          "item_id": "moss_chitin",
+          "amount": 5,
+          "position": [
+            3370.0,
+            3637
+          ],
+          "room_id": "court_hub",
+          "platform_id": "a01_court_jump_niche",
+          "reward_role": "optional_exploration",
+          "label": "钟庭壁龛苔壳",
+          "note": "双线跃才能取到的可选探索奖励。"
         }
       ],
       "locked_gates": [
@@ -1507,6 +1522,58 @@
           "color": "385357",
           "material": "bronze_bridge",
           "route_role": "branch"
+        },
+        {
+          "id": "a01_court_jump_niche",
+          "rect": [
+            3310,
+            3707,
+            120,
+            22
+          ],
+          "collision_role": "one_way",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_court_jump_niche_roof",
+          "rect": [
+            3286,
+            3553,
+            168,
+            24
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_court_jump_niche_wall_l",
+          "rect": [
+            3286,
+            3553,
+            24,
+            176
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_court_jump_niche_wall_r",
+          "rect": [
+            3430,
+            3553,
+            24,
+            176
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
         }
       ],
       "grapple_anchors": [
@@ -2331,6 +2398,11 @@
           "guide": "头顶的裂口通向钟隙渡口。 可见旧检修入口：「无名钟契库」。靠近旧钟门按 R，消耗能量重接契约锁。",
           "objective": "清点守母守了一生的东西。 可选：无名钟契库。",
           "generated_by": "world_upgrade"
+        },
+        {
+          "id": "court_hub",
+          "guide": "记住这里；所有环路都会绕回钟庭。 东岸地面上方嵌着一口壁龛，一跳差半身。",
+          "generated_by": "ability_places"
         }
       ],
       "world_overrides": {
@@ -2546,6 +2618,36 @@
           "room_id": "upgrade_lantern_phase_1",
           "platform_id": "upgrade_lantern_phase_1_gallery",
           "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "a01_pump_hook_niche_reward",
+          "kind": "item",
+          "item_id": "wet_chitin",
+          "amount": 6,
+          "position": [
+            3480.0,
+            2920
+          ],
+          "room_id": "pump_atrium",
+          "platform_id": "a01_pump_hook_niche",
+          "reward_role": "optional_exploration",
+          "label": "泵房吊龛湿壳",
+          "note": "回声钩索才能取到的可选探索奖励。"
+        },
+        {
+          "id": "a01_undercanal_bell_niche_reward",
+          "kind": "item",
+          "item_id": "wet_chitin",
+          "amount": 6,
+          "position": [
+            1820.0,
+            4576
+          ],
+          "room_id": "undercanal",
+          "platform_id": "a01_undercanal_bell_niche",
+          "reward_role": "optional_exploration",
+          "label": "暗渠钟板后的湿壳",
+          "note": "王冠共鸣才能取到的可选探索奖励。"
         }
       ],
       "locked_gates": [
@@ -2653,6 +2755,28 @@
           "map_marker": "ability_gate",
           "gate_kind": "phase_gate",
           "action_hint": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。"
+        },
+        {
+          "id": "a01_undercanal_bell_niche_bell",
+          "rect": [
+            1760,
+            4662,
+            120,
+            8
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "crown_resonance",
+          "required_ability_name": "王冠共鸣",
+          "requires_action": "crown_resonance",
+          "permanent_action_unlock_id": "a01_undercanal_bell_niche_bell",
+          "action_range": 150,
+          "from_room": "undercanal",
+          "to_room": "undercanal",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "站在钟板正下方按 R，共鸣震开封板。",
+          "open_message": "旧钟板应和共鸣松开了，上面的壁龛永久敞开。"
         }
       ],
       "portals": [
@@ -2952,6 +3076,20 @@
             1800
           ],
           "note": "取得既有回声钩索后可拉向检修铜环；环下是钟摆车间实地。"
+        },
+        {
+          "id": "a01_pump_hook_niche_ring",
+          "position": [
+            3382.0,
+            2890
+          ],
+          "room_id": "pump_atrium",
+          "label": "吊龛铜环",
+          "required_ability": "echo_hook",
+          "test_from": [
+            3382.0,
+            3280
+          ]
         }
       ],
       "platforms": [
@@ -3277,6 +3415,110 @@
           ],
           "collision_role": "floor",
           "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_pump_hook_niche",
+          "rect": [
+            3420,
+            2990,
+            120,
+            22
+          ],
+          "collision_role": "one_way",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_pump_hook_niche_roof",
+          "rect": [
+            3320,
+            2776,
+            244,
+            24
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_pump_hook_niche_wall_l",
+          "rect": [
+            3320,
+            2776,
+            24,
+            236
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_pump_hook_niche_wall_r",
+          "rect": [
+            3540,
+            2776,
+            24,
+            236
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_undercanal_bell_niche",
+          "rect": [
+            1760,
+            4646,
+            120,
+            16
+          ],
+          "collision_role": "one_way",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_undercanal_bell_niche_roof",
+          "rect": [
+            1736,
+            4492,
+            168,
+            24
+          ],
+          "collision_role": "ceiling",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_undercanal_bell_niche_wall_l",
+          "rect": [
+            1736,
+            4492,
+            24,
+            178
+          ],
+          "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_undercanal_bell_niche_wall_r",
+          "rect": [
+            1880,
+            4492,
+            24,
+            178
+          ],
+          "collision_role": "wall",
+          "color": "385357",
           "material": "bronze_bridge",
           "route_role": "branch"
         }
@@ -3833,7 +4075,7 @@
         },
         {
           "id": "pump_atrium",
-          "guide": "记住这里；所有水最终都绕回泵房。 可见旧检修入口：「泵房上检修舱」。贴住门壁按跳跃，墙跳拨开检修闩。",
+          "guide": "记住这里；所有水最终都绕回泵房。 可见旧检修入口：「泵房上检修舱」。贴住门壁按跳跃，墙跳拨开检修闩。 东岸高处的吊龛里垂着一枚铜环，跳不上去。",
           "objective": "以泵房中庭为枢纽：上读水表、西攀立管、下探沉渠、东讨锤炉。 可选：泵房上检修舱。",
           "generated_by": "world_upgrade"
         },
@@ -3854,6 +4096,11 @@
           "guide": "黑潮在这里学人敲击；隐藏钟龛也在这里。 可见旧检修入口：「潮影检修室」。靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
           "objective": "从塌落的湿苔板坠入听潮暗室。 可选：潮影检修室。",
           "generated_by": "world_upgrade"
+        },
+        {
+          "id": "undercanal",
+          "guide": "井底有人敲三下，不要回答第四下。 走道尽头头顶封着一块旧钟板，敲不响，像在等某种回声。",
+          "generated_by": "ability_places"
         }
       ],
       "inventory_catalog": {
@@ -3919,21 +4166,6 @@
           "label": "双线跃",
           "ability_name": "双线跃",
           "note": "烛台夹层的旧签署者线轴。单跳阶梯可达，取得后回访苔钟庭盐风门。"
-        },
-        {
-          "id": "a01_col_atrium_high_shelf",
-          "kind": "item",
-          "item_id": "salt_crystal_shard",
-          "amount": 5,
-          "position": [
-            2505,
-            1524
-          ],
-          "room_id": "atrium_shaft",
-          "platform_id": "a01_atrium_high_shelf",
-          "reward_role": "optional_exploration",
-          "label": "高架盐晶",
-          "note": "书塔西侧孤架，单跳够不着，需双线跃。"
         },
         {
           "id": "upgrade_obtain_bell_guard",
@@ -4104,6 +4336,36 @@
           "room_id": "upgrade_crown_resonance_2",
           "platform_id": "upgrade_crown_resonance_2_gallery",
           "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "a01_col_atrium_high_shelf",
+          "kind": "item",
+          "item_id": "salt_crystal_shard",
+          "amount": 5,
+          "position": [
+            2505.0,
+            1524
+          ],
+          "room_id": "atrium_shaft",
+          "platform_id": "a01_atrium_high_shelf",
+          "reward_role": "optional_exploration",
+          "label": "高架盐晶",
+          "note": "双线跃才能取到的可选探索奖励。"
+        },
+        {
+          "id": "a01_atrium_bell_niche_reward",
+          "kind": "item",
+          "item_id": "salt_crystal_shard",
+          "amount": 6,
+          "position": [
+            2580.0,
+            2416
+          ],
+          "room_id": "atrium_shaft",
+          "platform_id": "a01_atrium_bell_niche",
+          "reward_role": "optional_exploration",
+          "label": "书塔钟板后的盐晶",
+          "note": "王冠共鸣才能取到的可选探索奖励。"
         }
       ],
       "locked_gates": [
@@ -4190,6 +4452,28 @@
           "map_marker": "ability_gate",
           "gate_kind": "action_gate",
           "action_hint": "靠近旧钟门按 R，消耗能量重接契约锁。"
+        },
+        {
+          "id": "a01_atrium_bell_niche_bell",
+          "rect": [
+            2520,
+            2502,
+            120,
+            8
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "crown_resonance",
+          "required_ability_name": "王冠共鸣",
+          "requires_action": "crown_resonance",
+          "permanent_action_unlock_id": "a01_atrium_bell_niche_bell",
+          "action_range": 150,
+          "from_room": "atrium_shaft",
+          "to_room": "atrium_shaft",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "站在钟板正下方按 R，共鸣震开封板。",
+          "open_message": "旧钟板应和共鸣松开了，上面的壁龛永久敞开。"
         }
       ],
       "portals": [
@@ -4671,19 +4955,6 @@
       ],
       "platforms": [
         {
-          "id": "a01_atrium_high_shelf",
-          "rect": [
-            2455,
-            1594,
-            100,
-            22
-          ],
-          "collision_role": "one_way",
-          "material": "vellum_bridge",
-          "color": "6b6144",
-          "route_role": "branch"
-        },
-        {
           "id": "upgrade_echo_hook_2_roof",
           "rect": [
             7820,
@@ -4965,6 +5236,71 @@
             24
           ],
           "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_atrium_high_shelf",
+          "rect": [
+            2455,
+            1594,
+            100,
+            22
+          ],
+          "collision_role": "one_way",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_atrium_bell_niche",
+          "rect": [
+            2520,
+            2486,
+            120,
+            16
+          ],
+          "collision_role": "one_way",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_atrium_bell_niche_roof",
+          "rect": [
+            2496,
+            2332,
+            168,
+            24
+          ],
+          "collision_role": "ceiling",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_atrium_bell_niche_wall_l",
+          "rect": [
+            2496,
+            2332,
+            24,
+            178
+          ],
+          "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "a01_atrium_bell_niche_wall_r",
+          "rect": [
+            2640,
+            2332,
+            24,
+            178
+          ],
+          "collision_role": "wall",
           "color": "385357",
           "material": "bronze_bridge",
           "route_role": "branch"
@@ -5399,11 +5735,6 @@
       "save_points": [],
       "map_room_overrides": [
         {
-          "id": "atrium_shaft",
-          "guide": "书架托板是单向的，可以从下方穿过。西侧二层上方还有一层孤架，单跳够不着。",
-          "objective": "以书塔为枢纽：西二层是阅览廊，东三层是反页廊，塔底盐门通向东侧地面。可选：西侧孤架上的盐晶（双线跃）。"
-        },
-        {
           "id": "mezz_reading_ledges",
           "guide": "走一步，停半拍，再跳。 可见旧检修入口：「运书吊篮仓」。在门前按 K 钩住铜环，牵引检修闩。",
           "objective": "清理阅览廊，尽头有人影在暗阁上方晃动。 可选：运书吊篮仓。",
@@ -5426,6 +5757,11 @@
           "guide": "隐藏存档点藏在暗格书堆后。 可见旧检修入口：「删名契约暗柜」。靠近旧钟门按 R，消耗能量重接契约锁。",
           "objective": "攀上秘阁暗格，找到逃亡书记与隐藏盐灯。 可选：删名契约暗柜。",
           "generated_by": "world_upgrade"
+        },
+        {
+          "id": "atrium_shaft",
+          "guide": "书架托板是单向的，可以从下方穿过。 西侧二层上方还有一层孤架，单跳够不着。 塔底头顶封着一块旧钟板，敲不响，像在等某种回声。",
+          "generated_by": "ability_places"
         }
       ],
       "world_overrides": {
@@ -9245,12 +9581,56 @@
   "ability_ledges": [
     {
       "id": "a01_atrium_high_shelf",
+      "kind": "ledge",
       "region_id": "demo_ch03_saltwhite_archive",
       "room_id": "atrium_shaft",
       "required_ability": "double_thread_jump",
       "base_platform_id": "f2_gap_ledge",
       "platform_id": "a01_atrium_high_shelf",
       "reward_id": "a01_col_atrium_high_shelf"
+    },
+    {
+      "id": "a01_court_jump_niche",
+      "kind": "niche",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "court_hub",
+      "required_ability": "double_thread_jump",
+      "base_platform_id": "hub_floor_e",
+      "platform_id": "a01_court_jump_niche",
+      "reward_id": "a01_court_jump_niche_reward"
+    },
+    {
+      "id": "a01_pump_hook_niche",
+      "kind": "niche",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "pump_atrium",
+      "required_ability": "echo_hook",
+      "base_platform_id": "hub_floor_e",
+      "platform_id": "a01_pump_hook_niche",
+      "reward_id": "a01_pump_hook_niche_reward",
+      "ring_id": "a01_pump_hook_niche_ring"
+    },
+    {
+      "id": "a01_undercanal_bell_niche",
+      "kind": "niche",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "undercanal",
+      "required_ability": "crown_resonance",
+      "base_platform_id": "uc_end",
+      "platform_id": "a01_undercanal_bell_niche",
+      "reward_id": "a01_undercanal_bell_niche_reward",
+      "gate_id": "a01_undercanal_bell_niche_bell"
+    },
+    {
+      "id": "a01_atrium_bell_niche",
+      "kind": "niche",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "atrium_shaft",
+      "required_ability": "crown_resonance",
+      "base_platform_id": "atrium_base_floor",
+      "platform_id": "a01_atrium_bell_niche",
+      "reward_id": "a01_atrium_bell_niche_reward",
+      "gate_id": "a01_atrium_bell_niche_bell"
     }
   ]
 }
