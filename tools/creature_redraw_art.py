@@ -54,6 +54,50 @@ LEG_BAND = 0.35
 
 WALK_STRIDE_MIN = LEG_CHANGE_FLOOR
 
+# Painting style of the new drawings against the clip they replace. The
+# silhouette checks above cannot see a smeared outline or lost markings.
+SOFT_EDGE_LIMIT = 2.5           # semi-transparent pixels per solid pixel, new / replaced
+ACCENT_FLOOR = 0.55             # share of saturated solid pixels, new / replaced
+ACCENT_MIN_SHARE = 0.05         # creatures with fewer accent pixels are not judged on them
+# Deliveries merged before this check that already lost accent colour. Each is
+# pinned to its source sheet: a new drawing pass for the clip is judged again.
+LEGACY_ACCENT_SOURCES = {
+    ('bronze_moth', 'moth_dust'): 'b056b313d65d7461c97effad9aef231a00daa80f3cd0a71fed226a89387d3499',
+    ('bronze_moth', 'moth_dust_recover'): '686aa4ce38da02cf2fa82b5c2cb2cd0a7df85287cf831b2e53a34b8c0638325e',
+    ('bronze_moth', 'moth_dust_windup'): 'c888232b2eb93cdb09a8d62eddfebdbeca048c1d492515d79258a16c7e235e9d',
+    ('bronze_moth', 'windup'): 'ef60efaa989a03632119a73ff4f8f26c94e9b6ae3b927320624b36e0173c15fa',
+    ('corridor_heavy', 'heavy_stamp'): 'e41032cefbc54756428d8475effdef666b58a1db90e9cef6b3934069cf9a35e3',
+    ('index_scribe', 'attack'): '797afc62e4ed7d043c3eaf6136754585edb594db8028d955eada18dae65d6516',
+    ('saltwhite_contract_judge', 'windup'): '5efa67075624690cffedc7a2a6000764838488a163e9e997cbb0b28764a214a3',
+}
+
+
+def surface_style(drawings):
+    """(soft-edge share, accent share) over the solid pixels of the drawings."""
+    soft = solid = accent = 0
+    for art, _ in drawings:
+        pixels = np.asarray(art.convert('RGBA')).astype(np.int16)
+        alpha = pixels[:, :, 3]
+        mask = alpha > 128
+        colour = pixels[mask][:, :3]
+        high, low = colour.max(axis=1), colour.min(axis=1)
+        soft += int(((alpha > 8) & ~mask).sum())
+        solid += int(mask.sum())
+        accent += int(((high > 90) & ((high-low)*2 > high)).sum())
+    return soft/solid, accent/solid
+
+
+def style_defects(replaced, redrawn, accent_waived=False):
+    """Reasons the new drawings no longer look like the clip they replace."""
+    old_soft, old_accent = surface_style(replaced)
+    new_soft, new_accent = surface_style(redrawn)
+    found = []
+    if new_soft > old_soft*SOFT_EDGE_LIMIT:
+        found.append(f'blurred outline: soft edge {new_soft:.3f} vs {old_soft:.3f} in the replaced clip')
+    if old_accent >= ACCENT_MIN_SHARE and new_accent < old_accent*ACCENT_FLOOR and not accent_waived:
+        found.append(f'lost markings: accent colour {new_accent:.3f} vs {old_accent:.3f} in the replaced clip')
+    return found
+
 
 def body_area(clip, canvas):
     """Median solid area of the clip being replaced, on the rig canvas."""
@@ -317,6 +361,10 @@ def build(kind, check=False):
         measured['body_area_ratio'] = round(measured.pop('body_area')/replaced, 3)
         if abs(measured['body_area_ratio']-1) > BODY_AREA_TOLERANCE:
             raise ValueError(f'Redrawn body size differs from the replaced clip: {name} {measured}')
+        defects = style_defects([source_drawing(frame, atlas_cache) for frame in clip['frames']], cels,
+                                LEGACY_ACCENT_SOURCES.get((kind, name)) == job['sha256'])
+        if defects:
+            raise ValueError(f'Redraw drifts from the established painting: {kind}/{name}: '+'; '.join(defects))
         unique = len({sha256(a.tobytes()).hexdigest() for a, _ in cels})
         measured['unique'] = unique
         if measured['unique'] != job['count'] or measured['max_change'] > .5:

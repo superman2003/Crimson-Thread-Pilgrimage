@@ -140,6 +140,44 @@
         "target": "idle",
         "target_frame": 0
       }
+    ],
+    "summoned_page": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "page_orbit_windup",
+        "source_frame": -1,
+        "target": "page_orbit",
+        "target_frame": 0
+      },
+      {
+        "source": "page_orbit",
+        "source_frame": -1,
+        "target": "page_orbit_recover",
+        "target_frame": 0
+      },
+      {
+        "source": "page_orbit_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      }
     ]
   }
 }
