@@ -23,6 +23,7 @@ func _run() -> void:
     _check(kinds.has("double_thread_jump") and kinds.has("echo_hook") and kinds.has("crown_resonance"), "places cover double jump, echo hook and crown resonance")
     for entry in places:
         await _place(routes, entry)
+    await _wall_surface_policy()
     print("ABILITY_LEDGES checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
 
@@ -31,6 +32,8 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
     var region := String(entry.region_id)
     var base_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/%s.json" % region))
     var overlay: Dictionary = routes.chapters[region]
+    for override in overlay.get("platform_overrides", []):
+        _find(base_config.platforms, String(override.id)).merge(override, true)
     var base := _find(base_config.platforms, String(entry.base_platform_id))
     var shelf := _find(overlay.platforms, String(entry.platform_id))
     var reward := _find(overlay.collectibles, String(entry.reward_id))
@@ -89,6 +92,16 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
             _check(not last_collected, id + " a single-jump head overlap cannot collect the reward")
             _near(await _jump(start, true), shelf_y, id + " jump then air jump lands on the shelf")
             _check(last_collected, id + " double jump collects the reward")
+            if String(entry.get("kind", "ledge")) == "ledge":
+                var adjacent := _find(base_config.platforms, "mezz_gallery_floor")
+                _check(not adjacent.is_empty(), "adjacent gallery exists for the pickup bypass regression")
+                var adjacent_rect := _rect(adjacent.rect)
+                var support := PLATFORM_BODY.create("adjacent", adjacent_rect, String(adjacent.get("collision_role", "floor")))
+                root.add_child(support)
+                var adjacent_start := Vector2(adjacent_rect.end.x - 17, adjacent_rect.position.y)
+                await _adjacent_dash(adjacent_start)
+                _check(not last_collected, id + " adjacent single jump plus airborne dash cannot collect the reward")
+                support.queue_free()
         "echo_hook":
             _near(await _jump(start, true), floor_y, id + " even the double jump falls back to the floor")
             _check(not last_collected, id + " double jump cannot collect the hook reward")
@@ -180,6 +193,41 @@ func _hook(start: Vector2, unlocked: bool) -> float:
     await _frames(24)
     Input.action_release("move_right")
     return await _settle(player)
+
+func _adjacent_dash(start: Vector2) -> void:
+    var player = _spawn(start)
+    player.dash_unlocked = true
+    var observed := {"value": false}
+    player.ability_action.connect(func(key: String, _origin: Vector2, _direction: Vector2):
+        if key == "thread_dash": observed.value = true)
+    await _frames(6)
+    Input.action_press("move_right")
+    await _jump_to_apex(player)
+    Input.action_press("dash")
+    await _frames(2)
+    Input.action_release("dash")
+    await _frames(24)
+    Input.action_release("move_right")
+    _check(observed.value, "adjacent-surface fixture really performs an airborne dash")
+    await _settle(player)
+
+func _wall_surface_policy() -> void:
+    for smooth in [false, true]:
+        var wall := PLATFORM_BODY.create("wall_policy", Rect2(0, 0, 24, 400), "ungrippable_wall" if smooth else "wall")
+        root.add_child(wall)
+        var player = _spawn(Vector2(-18, 200))
+        player.wall_grip_unlocked = true
+        Input.action_press("move_right")
+        await _frames(8)
+        _check(player.is_on_wall(), "wall policy fixture touches its real collider")
+        Input.action_press("jump")
+        await _frames(2)
+        Input.action_release("jump")
+        Input.action_release("move_right")
+        _check((player.velocity.y < 0) == not smooth, "ordinary walls retain wall jumps; sealed niche walls cannot supply one")
+        player.queue_free()
+        wall.queue_free()
+        await _frames(2)
 
 func _settle(player) -> float:
     for index in range(90):

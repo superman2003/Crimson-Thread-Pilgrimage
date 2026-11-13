@@ -24,7 +24,7 @@ CH05 = 'demo_ch05_obsidian_pilgrim_road'
 # (id, kind, ability, region, room, base floor, shelf rect, material, amount, label, room hint)
 PLACES = [
     ('a01_atrium_high_shelf', 'ledge', 'double_thread_jump', CH03, 'atrium_shaft', 'f2_gap_ledge',
-     [2455, 1594, 100, 22], 'salt_crystal_shard', 5, '高架盐晶',
+     [2455, 1560, 100, 22], 'salt_crystal_shard', 5, '高架盐晶',
      '西侧二层上方还有一层孤架，单跳够不着。'),
     ('a01_court_jump_niche', 'niche', 'double_thread_jump', CH01, 'court_hub', 'hub_floor_e',
      [3310, 3692, 120, 22], 'moss_chitin', 5, '钟庭壁龛苔壳',
@@ -61,10 +61,19 @@ def build(check=False):
                 override['guide'] = override.get('guide', '').replace(' ' + hint, '')
             kept.append(override)
         overlay['map_room_overrides'] = kept
+    # Preserve #629's adjacent-gallery pickup fix as part of the generated data.
+    archive = chapters[CH03].setdefault('platform_overrides', [])
+    source_override = next((p for p in archive if p['id'] == 'f2_gap_ledge'), None)
+    if source_override is None:
+        archive.insert(0, dict(id='f2_gap_ledge', rect=[2445, 1772, 170, 26]))
+    else:
+        source_override['rect'] = [2445, 1772, 170, 26]
     entries = []
     for pid, kind, ability, region, room, base, rect, material, amount, label, hint in PLACES:
         overlay = chapters[region]
         base_config = json.loads((A.DATA / f'{region}.json').read_text(encoding='utf-8'))
+        for override in overlay.get('platform_overrides', []):
+            next(p for p in base_config['platforms'] if p['id'] == override['id']).update(override)
         base_rect = next(p['rect'] for p in base_config['platforms'] if p['id'] == base)
         role = 'one_way'
         overlay['platforms'].append(dict(id=pid, rect=rect, collision_role=role, color=COLORS[ability],
@@ -76,7 +85,7 @@ def build(check=False):
             shell, gate = A.niche_shell(rect, ability)
             for part, part_rect in shell.items():
                 overlay['platforms'].append(dict(id=f'{pid}_{part}', rect=part_rect,
-                    collision_role='ceiling' if part == 'roof' else 'wall', color=COLORS[ability],
+                    collision_role='ceiling' if part == 'roof' else 'ungrippable_wall', color=COLORS[ability],
                     material='bronze_bridge', route_role='branch'))
             if gate:
                 gate_id = pid + '_bell'

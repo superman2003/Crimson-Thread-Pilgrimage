@@ -558,7 +558,7 @@ func _physics_process(delta: float) -> void:
 
     # silk_wall_grip (ch2 能力)：解锁后贴墙减速下滑；未解锁时行为与旧版完全一致。
     wall_sliding = false
-    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and velocity.y > 0.0:
+    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and _can_grip_current_wall() and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and velocity.y > 0.0:
         var slide_wall_dir := signi(-get_wall_normal().x)
         if input_axis != 0.0 and signi(input_axis) == slide_wall_dir:
             wall_sliding = true
@@ -579,7 +579,7 @@ func _physics_process(delta: float) -> void:
         jump_buffer_timer = 0.0
         _play(&"jump_start")
         _play_sfx("jump", -6.0)
-    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
+    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and _can_grip_current_wall() and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
         # 蹬墙跳：离墙水平 420 / 垂直 -640，播 wall_slide 帧。
         _cancel_attack_recovery()
         var jump_wall_dir := signi(-get_wall_normal().x)
@@ -668,6 +668,16 @@ func _physics_process(delta: float) -> void:
 
 ## Anchors are explicit world fixtures, never arbitrary scenery or enemies.
 ## K/X still performs the original combat hook when no reachable anchor is in aim.
+func _can_grip_current_wall() -> bool:
+    for index in range(get_slide_collision_count()):
+        var contact := get_slide_collision(index)
+        if absf(contact.get_normal().x) < 0.5:
+            continue
+        var collider = contact.get_collider()
+        if is_instance_valid(collider) and not bool(collider.get_meta("wall_grip_disabled", false)):
+            return true
+    return false
+
 func _try_start_grapple() -> bool:
     if not thread_grapple_unlocked or grapple_timer > 0.0:
         return false

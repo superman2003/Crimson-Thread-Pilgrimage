@@ -8,4 +8,4 @@
 
 验证范围：`audit_ability_ledges` 覆盖 11 处，`audit_shortcut_bypass` 覆盖 256 种能力组合，`audit_stranding` 覆盖可收集能力集合；路线/经济/剧情/工房检查纳入 `test:campaign`。`ability_ledges` 与 `ability_routes` 使用真实玩家输入和物理夹具，覆盖奖励、门闩、记录去重与磁盘往返；`ability_routes_world` 使用生产 World 加载器、动作、双向通行及重新读档，起点按已声明的局部坐标设置并移除敌人。三者均不能代替陌生玩家的自然探索、实战或完整通关验收。专项写在 `.github/contracts/ability-ledges.yml`，未新增 workflow，未提交素材或导入缓存。
 
-本地 Godot 4.6.1：三个专项分别 40 / 78 / 74 项通过；既有 `ability_movement`、`pickup_ledger`（174 项）、`grapple_path`（13 项）、`world_route_access`（633 项）通过。高架测试改为观察真实速度、在顶点附近进行第二次起跳，避免冷启动时多个物理步跨越固定等待帧数。`test:campaign`、台账校验、合同 lint 与两生成器字节级重跑通过；合同工具单测在 Windows 为 11 项通过、5 项因缺少创建符号链接权限失败，Linux 全套由既有 CI 执行。
+本地 Godot 4.6.1：三个专项分别 47 / 78 / 74 项通过；既有 `ability_movement`、`pickup_ledger`（174 项）、`grapple_path`（13 项）、`world_route_access`（633 项）通过。合入 #629 的邻台单跳冲刺提前拾取修复，保留 y=1772 的起跳面覆写、y=1560 的孤架及 y=1490 的盐晶，并用真实空中冲刺断言不能提前领取。壁龛侧板标为不可贴墙，原有石墙仍可贴墙、滑降和蹬跳；真实碰撞对照及 `world_platform_streaming`（18828 项）通过。高架测试观察真实速度、在顶点附近进行第二次起跳，避免冷启动时多个物理步跨越固定等待帧数。`test:campaign`、台账校验、合同 lint 与两生成器字节级重跑通过；合同工具单测在 Windows 为 11 项通过、5 项因缺少创建符号链接权限失败，Linux 全套由既有 CI 执行。

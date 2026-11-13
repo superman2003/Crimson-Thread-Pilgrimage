@@ -39,7 +39,8 @@ HOOK_REACH = 460                                   # other rings stay further aw
 HOOK_RANGE = 430.0 * 0.95                          # player grapple_range, with margin
 ACTION_RANGE = 150.0                               # main_level action gate default
 HEADROOM = 110
-PLAYER_HEIGHT, PICKUP_RADIUS, PICKUP_MARGIN = 84.0, 18.0, 8.0
+PLAYER_HEIGHT, PLAYER_HALF_WIDTH = 84.0, 17.0
+PICKUP_RADIUS, PICKUP_MARGIN = 18.0, 8.0
 HOOK_GAP = 76                                      # open shaft beside an echo hook shelf
 ROUTE_CLEARANCE = 160                              # keep away from other platforms
 ABILITIES = ('double_thread_jump', 'echo_hook', 'crown_resonance')
@@ -58,6 +59,14 @@ def single_jump_reaches(rise, gap):
         return False
     t = _air_time(min(rise, SINGLE))
     return t is not None and gap <= (SPEED * t + DASH) * MARGIN
+
+
+def single_jump_collects(x0, x1, surface_y, pickup_x, pickup_y, double=False):
+    """Conservative body/pickup contact envelope, including an airborne dash."""
+    rise = surface_y - pickup_y - (PLAYER_HEIGHT + PICKUP_RADIUS + PICKUP_MARGIN)
+    gap = max(x0 - pickup_x, pickup_x - x1, 0) - (PLAYER_HALF_WIDTH + PICKUP_RADIUS + PICKUP_MARGIN)
+    reaches = double_jump_reaches if double else single_jump_reaches
+    return reaches(rise, max(gap, 0))
 
 
 def double_jump_reaches(rise, gap):
@@ -94,7 +103,7 @@ def segment_hits(a, b, rect):
 def standable(config):
     out = []
     for p in config['platforms']:
-        if p.get('collision_role') in ('ceiling', 'wall', 'decorative', 'no_collision'):
+        if p.get('collision_role') in ('ceiling', 'wall', 'ungrippable_wall', 'decorative', 'no_collision'):
             continue
         x, y, w, _ = p['rect']
         out.append((p['id'], x, x + w, y))
@@ -292,6 +301,9 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
                     errors.append(f"{entry['id']}: shell part {part} missing")
                     break
                 shell[part] = piece['rect']
+                expected_role = 'ceiling' if part == 'roof' else 'ungrippable_wall'
+                if piece.get('collision_role') != expected_role:
+                    errors.append(f"{entry['id']}: niche sides must not offer a wall-jump bypass")
             else:
                 expected, _ = niche_shell(platform['rect'], ability)
                 if shell != expected:
@@ -320,6 +332,11 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
             pickup_reach = jump_height * 1.07 + PLAYER_HEIGHT + PICKUP_RADIUS + PICKUP_MARGIN
             if base['rect'][1] - ry <= pickup_reach:
                 errors.append(f"{entry['id']}: player head can collect the reward without the intended ability")
+            for sid, x0, x1, sy in standable(config):
+                if sid == platform['id'] or (shell and sy < py):
+                    continue  # the closed roof/sides exclude drop-ins from above
+                if single_jump_collects(x0, x1, sy, rx, ry, double=ability == 'echo_hook'):
+                    errors.append(f"{entry['id']}: surface {sid} can collect its reward before landing")
         if not (px + 18 <= rx <= px + pw - 18 and 25 <= py - ry <= 70):
             errors.append(f"{entry['id']}: reward does not rest on the shelf")
         if reward.get('room_id') != entry['room_id'] or reward.get('reward_role') != 'optional_exploration':
@@ -387,6 +404,9 @@ def self_test():
     assert 130 < SINGLE < 140 and 240 < DOUBLE < 260
     assert single_jump_reaches(100, 50) and not single_jump_reaches(180, 0)
     assert single_jump_reaches(-150, 300) and not single_jump_reaches(-150, 900)
+    assert single_jump_collects(1960, 2340, 1752, 2505, 1524)
+    assert not single_jump_collects(1960, 2340, 1752, 2505, 1490)
+    assert not single_jump_collects(0, 20, 1752, 2505, 1490)
     assert double_jump_reaches(240, 0) and not double_jump_reaches(300, 0)
     assert double_jump_reaches(0, 400) and not double_jump_reaches(0, 900)
     assert segment_hits((0, 0), (10, 10), [4, 4, 2, 2]) and not segment_hits((0, 0), (10, 0), [4, 4, 2, 2])
