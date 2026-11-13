@@ -1,4 +1,10 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const COLUMN_HEADER_TEXT := Color("bca575")
+const SUMMARY_TEXT := Color("d0b582")
+const PRIMARY_TEXT := Color("eadcc6")
+
 var points: Array = []
 var selected := -1
 var hovered := -1
@@ -193,7 +199,7 @@ func _grid(font: Font) -> void:
                 HORIZONTAL_ALIGNMENT_LEFT,
                 70,
                 11,
-                Color("a3b3aa")
+                MUTED_TEXT
             )
             draw_string(
                 font,
@@ -202,7 +208,7 @@ func _grid(font: Font) -> void:
                 HORIZONTAL_ALIGNMENT_LEFT,
                 50,
                 11,
-                Color("a3b3aa")
+                MUTED_TEXT
             )
     draw_rect(area, Color("6a7866"), false, 1)
     var budget_x := (
@@ -222,7 +228,7 @@ func _grid(font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             100,
             11,
-            Color("bca575")
+            COLUMN_HEADER_TEXT
         )
 
 
@@ -250,7 +256,7 @@ func _draw() -> void:
                 HORIZONTAL_ALIGNMENT_LEFT,
                 240,
                 12,
-                Color("eadcc6")
+                PRIMARY_TEXT
             )
     draw_string(
         font,
@@ -259,7 +265,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
-        Color("d0b582")
+        SUMMARY_TEXT
     )
     draw_string(
         font,
@@ -268,7 +274,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

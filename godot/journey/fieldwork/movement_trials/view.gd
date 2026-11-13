@@ -1,4 +1,9 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const TITLE_TEXT := Color("c6b991")
+const SUMMARY_TEXT := Color("d0b581")
+
 var samples: Array = []
 var origin := Vector2.ZERO
 var radius := 1.0
@@ -176,7 +181,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             300,
             15,
-            Color("c6b991")
+            TITLE_TEXT
         )
     draw_string(
         font,
@@ -185,7 +190,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("d0b581")
+        SUMMARY_TEXT
     )
     draw_string(
         font,
@@ -194,7 +199,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

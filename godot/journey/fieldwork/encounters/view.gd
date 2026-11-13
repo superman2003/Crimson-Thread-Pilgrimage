@@ -1,4 +1,8 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const PRIMARY_TEXT := Color("eadcc6")
+
 var attacks: Array = []
 var reaction := 0.0
 var maximum := 1.0
@@ -110,7 +114,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             70,
             11,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     for i in attacks.size():
         var row: Dictionary = attacks[i]
@@ -124,7 +128,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             LEFT - 12,
             12,
-            Color("eadcc6")
+            PRIMARY_TEXT
         )
         var first := float(row.windup)
         var second := first + float(row.active)
@@ -141,7 +145,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
