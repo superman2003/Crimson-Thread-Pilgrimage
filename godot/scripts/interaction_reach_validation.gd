@@ -33,6 +33,7 @@ func _run() -> void:
     world._close_overlays()
     var total := 0
     var narrowest := INF
+    var sealed := 0
     for region: String in REGIONS:
         if not await _enter(world, region):
             continue
@@ -50,12 +51,19 @@ func _run() -> void:
                 await physics_frame
             if not is_instance_valid(area):
                 continue
+            # W04: this fixture owns no abilities. A portal leading into a room
+            # that only ability gates open is shut until one of them falls.
+            if String(area.get_meta("kind", "")) == "world_portal" and _leads_into_sealed_room(world, area):
+                sealed += 1
+                _check(world._nearest_interactable(world.INTERACTION_REACH) != area, "%s %s stays shut while its destination is gated" % [region, area.name])
+                continue
             var stretch := _longest_stretch(world, player, area)
             total += 1
             narrowest = minf(narrowest, stretch)
             _check(stretch >= MIN_STRETCH, "%s %s (%s at %s) wins F from %.0fpx of floor" % [region, area.name, area.get_meta("kind", ""), str(area.global_position), stretch])
         player.global_position = spot
         await _frames(2)
+    _check(sealed >= 1 and sealed <= 4, "only the few portals into gated-only rooms are shut (%d)" % sealed)
     var migrated := await _migrations(world)
     if failures > 0:
         print("INTERACTION_REACH_FAIL failures=%d checks=%d" % [failures, checks])
@@ -63,6 +71,14 @@ func _run() -> void:
         return
     print("INTERACTION_REACH_PASS interactables=%d migrations=%d narrowest=%.0f checks=%d" % [total, migrated, narrowest, checks])
     quit(0)
+
+
+func _leads_into_sealed_room(world: Node, area: Area2D) -> bool:
+    var data: Dictionary = area.get_meta("world_portal_data", {})
+    var spawn: Variant = data.get("target_spawn", [])
+    if String(data.get("target_config_id", "")) != String(world.config.get("id", "")) or not (spawn is Array) or spawn.size() != 2:
+        return false
+    return world._room_sealed_by_gates(String(world._room_for_position(Vector2(float(spawn[0]), float(spawn[1]))).get("id", "")))
 
 
 func _enter(world: Node, region: String) -> bool:
