@@ -9,6 +9,10 @@ any that is not listed in EXEMPT with the reason it stays:
   (font_hover_color, font_disabled_color, ...), default_color or title_color;
 - the interface's _label(..., <colour>) helper.
 
+Not covered: Control.modulate / self_modulate. They tint whatever node they sit
+on (sprites, panels, fades), and the receiver's type cannot be told from the
+text of a script, so a rule there would mostly flag non-text nodes.
+
 Calls are read whole, so one formatted over several lines is still checked.
 Shadows and outlines are not text colour and are not checked.
 """
@@ -18,6 +22,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / 'godot' / 'scripts'
+# Every shipped runtime-script tree: the main scripts and the journey workbench
+# autoload. Addons and tests are not game UI.
+ROOTS = (SCRIPTS, ROOT / 'godot' / 'journey')
 # Not shipped UI: validations, captures, fixtures and previews.
 SKIP = re.compile(r'(validation|capture|fixture|probe|preview|_test|showcase)')
 # Every theme colour that paints text: base, per-state (font_hover_color,
@@ -30,12 +37,44 @@ OVERRIDE = re.compile(r'add_theme_color_override\(')
 SET_COLOR = re.compile(r'\.set_color\(')
 LABEL = re.compile(r'(?<![A-Za-z0-9_])_label\(')
 # Color("abc"), Color("#abc"), Color(0.5, ...), Color(.5, ...), Color8(...), Color.html(...)
-LITERAL = re.compile(r'Color8?\(\s*(?:"#?[0-9a-fA-F]+"|[0-9.])|Color\.(?:html|hex|hex64|from_[a-z0-9_]+)\(')
+LITERAL = re.compile(r'Color8?\(\s*(?:"[^"]*"|\'[^\']*\'|[0-9.])|Color\.(?:html|hex|hex64|from_[a-z0-9_]+)\(')
 # (file, text the expression must contain): one specific call, never a whole file.
 EXEMPT = {
     ('main_level.gd', 'if current else (Color(0.86, 0.94, 0.80) if visited else'):
         'legacy chapter map: current / visited / unvisited room names are told apart by colour',
 }
+
+
+def runtime_scripts():
+    for root in ROOTS:
+        for path in sorted(root.rglob('*.gd')):
+            if not SKIP.search(path.name):
+                yield path
+
+
+def strip_comments(source):
+    """Blank out # comments, keeping line breaks and any # inside a string."""
+    out, quote, index = [], '', 0
+    while index < len(source):
+        char = source[index]
+        if quote:
+            out.append(char)
+            if char == '\\' and index + 1 < len(source):
+                out.append(source[index + 1])
+                index += 1
+            elif char == quote:
+                quote = ''
+        elif char in '"\'':
+            quote = char
+            out.append(char)
+        elif char == '#':
+            while index < len(source) and source[index] != '\n':
+                index += 1
+            continue
+        else:
+            out.append(char)
+        index += 1
+    return ''.join(out)
 
 
 def call_arguments(text, start):
@@ -78,6 +117,7 @@ def text_key(argument):
 
 def text_colours(source):
     """Yield (line number, colour expression) for every text colour set in source."""
+    source = strip_comments(source)
     for match in OVERRIDE.finditer(source):
         args = call_arguments(source, match.end())
         if len(args) >= 2 and text_key(args[0]):
@@ -102,9 +142,7 @@ def exempt(name, expression):
 
 def violations():
     found = []
-    for path in sorted(SCRIPTS.glob('*.gd')):
-        if SKIP.search(path.name):
-            continue
+    for path in runtime_scripts():
         for number, expression in text_colours(path.read_text(encoding='utf-8')):
             if LITERAL.search(expression) and not exempt(path.name, expression):
                 found.append('%s:%d %s' % (path.relative_to(ROOT), number, ' '.join(expression.split())[:80]))
@@ -113,7 +151,7 @@ def violations():
 
 def unused_exemptions():
     used = set()
-    for path in sorted(SCRIPTS.glob('*.gd')):
+    for path in runtime_scripts():
         for _number, expression in text_colours(path.read_text(encoding='utf-8')):
             flat = ' '.join(expression.split())
             for file, needle in EXEMPT:
@@ -144,6 +182,12 @@ def self_test():
     assert not literals('target.set_color("font_hover_color","Button",GOLD)')
     assert not literals('target.set_color("font_outline_color","Label",Color("000000"))')
     assert not literals('image.set_color("font_color", Color("ffffff"))')
+    assert literals('x.add_theme_color_override("font_color", Color("red"))')
+    assert literals("x.add_theme_color_override('font_color', Color('red'))")
+    assert not literals('# x.add_theme_color_override("font_color", Color("ffffff"))')
+    assert not literals('y = 1  # was: x.add_theme_color_override("font_color", Color("ffffff"))')
+    assert literals('x.text = "a # b"; x.add_theme_color_override("font_color", Color("ffffff"))')
+    assert [line for line, _e in text_colours('# c\n\nx.add_theme_color_override("font_color", Color("fff"))')] == [3]
     assert literals('_label(panel, "a, (b",\n    Vector2.ZERO, Vector2.ONE, 12,\n    Color8(1, 2, 3))')
     assert not literals('x.add_theme_color_override("font_color", SURFACE.GOLD)')
     assert not literals('x.add_theme_color_override("font_color", IVORY if a else GOLD)')
