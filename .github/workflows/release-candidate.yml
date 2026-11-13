@@ -8,6 +8,8 @@ on:
     paths:
       - '.github/workflows/release-candidate.yml'
       - 'tools/build_release.py'
+      - 'tools/build_macos_candidate.py'
+      - 'tools/test_build_macos_candidate.py'
       - 'tools/test_release_builder.py'
       - 'tools/download_godot_release.py'
       - 'tools/test_download_godot_release.py'
@@ -25,6 +27,8 @@ on:
     paths:
       - '.github/workflows/release-candidate.yml'
       - 'tools/build_release.py'
+      - 'tools/build_macos_candidate.py'
+      - 'tools/test_build_macos_candidate.py'
       - 'tools/test_release_builder.py'
       - 'tools/download_godot_release.py'
       - 'tools/test_download_godot_release.py'
@@ -110,5 +114,45 @@ jobs:
           path: |
             dist/releases/*-logs/
             ${{ runner.temp }}/release-engine/install-receipt.json
+          if-no-files-found: ignore
+          retention-days: 14
+  # Experimental: proves the macOS export on a real Mac without gating the
+  # Windows/Linux candidates above. A failure here does not fail the workflow.
+  macos:
+    runs-on: macos-15
+    continue-on-error: true
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check the macOS builder and preset
+        run: python tools/test_build_macos_candidate.py
+      - name: Hydrate project assets, including addon themes
+        run: git lfs pull --include='godot/**'
+      - name: Allow the x86_64 app to run on Apple silicon
+        run: softwareupdate --install-rosetta --agree-to-license || true
+      - name: Export the app and boot it from its archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/build_macos_candidate.py --engine-root "$RUNNER_TEMP/release-engine" --output dist/releases
+      - name: Upload macOS candidate (unsigned, not notarised)
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-candidate-macos-${{ github.sha }}
+          path: |
+            dist/releases/*.zip
+            dist/releases/*.sha256
+          if-no-files-found: error
+          retention-days: 14
+      - name: Preserve export and player logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-candidate-logs-macos-${{ github.sha }}
+          path: dist/releases/*-logs/
           if-no-files-found: ignore
           retention-days: 14

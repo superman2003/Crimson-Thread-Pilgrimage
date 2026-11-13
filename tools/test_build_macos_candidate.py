@@ -1,0 +1,66 @@
+"""Pure checks of the experimental macOS candidate builder (runs on any OS)."""
+import configparser
+from pathlib import Path
+import tempfile
+import unittest
+from unittest.mock import patch
+
+import build_macos_candidate as mac
+
+ROOT = Path(__file__).resolve().parents[1]
+GOOD = ['CrimsonThreadPilgrimage.app/', 'CrimsonThreadPilgrimage.app/Contents/Info.plist',
+        'CrimsonThreadPilgrimage.app/Contents/MacOS/CrimsonThreadPilgrimage',
+        'CrimsonThreadPilgrimage.app/Contents/Resources/CrimsonThreadPilgrimage.pck']
+
+
+class Bundle(unittest.TestCase):
+    def test_complete_bundle_has_no_problems(self):
+        self.assertEqual(mac.bundle_problems(GOOD), [])
+
+    def test_each_missing_part_is_named(self):
+        self.assertIn('no executable under Contents/MacOS', mac.bundle_problems([n for n in GOOD if '/MacOS/' not in n]))
+        self.assertIn('no Info.plist', mac.bundle_problems([n for n in GOOD if not n.endswith('Info.plist')]))
+        self.assertIn('no game data (.pck) under Contents/Resources', mac.bundle_problems([n for n in GOOD if not n.endswith('.pck')]))
+        self.assertTrue(any('outside the app bundle' in p for p in mac.bundle_problems(GOOD + ['readme.txt'])))
+
+    def test_exactly_one_executable_is_required(self):
+        with tempfile.TemporaryDirectory() as folder:
+            app = Path(folder) / mac.APP
+            (app / 'Contents/MacOS').mkdir(parents=True)
+            with self.assertRaisesRegex(ValueError, 'exactly one executable'):
+                mac.executable_in(app)
+            (app / 'Contents/MacOS/Game').write_bytes(b'x')
+            self.assertEqual(mac.executable_in(app).name, 'Game')
+            (app / 'Contents/MacOS/Other').write_bytes(b'x')
+            with self.assertRaisesRegex(ValueError, 'exactly one executable'):
+                mac.executable_in(app)
+
+    def test_only_macos_may_build_it(self):
+        with patch.object(mac.sys, 'platform', 'linux'), patch.object(mac.sys, 'argv', ['x', '--engine-root', 'unused']):
+            self.assertEqual(mac.main(), 1)
+
+
+class Preset(unittest.TestCase):
+    def setUp(self):
+        config = configparser.ConfigParser(interpolation=None, strict=False)
+        config.optionxform = str
+        config.read_string((ROOT / 'godot/export_presets.cfg').read_text(encoding='utf-8'))
+        self.config = config
+        self.section = next(s for s in config.sections() if not s.endswith('.options')
+                            and config[s].get('name') == f'"{mac.PRESET}"')
+
+    def test_macos_preset_ships_the_same_files_as_linux(self):
+        linux = next(s for s in self.config.sections() if self.config[s].get('name') == '"Linux x86_64"')
+        for key in ['export_filter', 'include_filter', 'exclude_filter', 'script_export_mode']:
+            self.assertEqual(self.config[self.section][key], self.config[linux][key], key)
+
+    def test_architecture_matches_the_shipped_texture_format(self):
+        options = self.config[self.section + '.options']
+        self.assertEqual(options['binary_format/architecture'], '"x86_64"')
+        self.assertEqual(options['texture_format/s3tc_bptc'], 'true')
+        self.assertEqual(options['texture_format/etc2_astc'], 'false')
+        self.assertTrue(options['application/bundle_identifier'].strip('"').count('.') >= 2)
+
+
+if __name__ == '__main__':
+    unittest.main()
