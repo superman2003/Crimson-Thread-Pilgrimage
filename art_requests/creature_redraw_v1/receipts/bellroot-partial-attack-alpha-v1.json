@@ -1,0 +1,13 @@
+{
+  "kind": "bellroot_acolyte",
+  "clip": "actions_02",
+  "status": "rejected",
+  "reason": "complete attack with retained neighbors jumps0.5438",
+  "source_sha256": "0bff4f554cada03e891387c843737c9c9c219c847baab5de771ee7eff18820a5",
+  "prompt_sha256": "e8e32c303cdbef47c5abaf3edb0f871a125e35a7c1eced20191fc1261596b788",
+  "reference_sha256": "28efd8ad3939d1d6fb64807055d292804a47659c6f3d8b33c6659ba378834fb1",
+  "actual_prompt": "BACKGROUND EXTRACTION ONLY for this exact FOUR-CEL Bellroot Acolyte sprite strip. Preserve all4 drawings: same mask, antlers, bell, root-fiber leaf robe, hooked forearms, legs/toes, pose, scale, pixel placement and exact4equalcolumns x1row layout. Remove ALL pale white/cream background and haze, soft surrounding shadows and colorwash around/between figures. Replace EVERY background and gutter pixel by completely transparent alpha=0. Preserve crisp detailed natural antialiased sprite edges and all original painted sprite colors, no erasing leaf tips or antennae. Do not repaint the figures, rearrange, resize, or change the poses. Output the same4 complete sprites on genuinely transparent RGBA, no white/gray/colored matte, no checkerboard, no fog/glow/shadows, no particles, text, labels or grid.",
+  "reference_recipe": "Built-in image_gen background extraction of attack4 source exec-af3efe2b-c3db-4812-9227-6cfab38515ed.png after nontransparent cell gutters were rejected; preserve all pose content. Frozen4-cell pose guide retained. Whole-source ground registration uses accepted torso anchor303 and planted sole290; one shared scale/translation for every cel.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/bellroot_acolyte-actions-02.json",
+  "guide_sha256": "57434501ded614fe519790fabb0191fa5eaf5056834be5029f2b06a581a301e0"
+}

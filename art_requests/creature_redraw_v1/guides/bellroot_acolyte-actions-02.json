@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "kind": "bellroot_acolyte",
+  "baseline": "godot/assets/sprites/original_creatures/bellroot_acolyte/motion_v8_manifest.json",
+  "baseline_sha256": "c15885f540c01b8b5d58b1b032550880d886590c2e2966b39802dafd1de915c5",
+  "canvas": [
+    568,
+    310
+  ],
+  "grid": [
+    4,
+    1
+  ],
+  "frame_fit_reference_sha256": "e65c586a5ff95b2e06697d1d87a738931d7b374d14fc0fc5eca86dfd05f1338f",
+  "explanation": "Reference only: frozen production scale about canvas-centred pivot; final poses are authored with image_gen",
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png": "49ce12da55a20349c8e77e997ccc7527ada6935cf3514f3c8e7efe6f8807beeb",
+    "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png": "36eeb27b9e22bd93959f77e705ce48b0ee891f74623e5320cb82be3011d15c58"
+  },
+  "entries": [
+    {
+      "clip": "attack",
+      "frame": 8,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+        "region": [
+          1541,
+          499,
+          422,
+          248
+        ],
+        "margin": [
+          138,
+          42,
+          146,
+          62
+        ]
+      },
+      "reference_fit": [
+        0.934,
+        12.3,
+        129.0
+      ]
+    },
+    {
+      "clip": "attack",
+      "frame": 9,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+        "region": [
+          1666,
+          998,
+          356,
+          271
+        ],
+        "margin": [
+          139,
+          21,
+          212,
+          39
+        ]
+      },
+      "reference_fit": [
+        1.0,
+        0,
+        0
+      ]
+    },
+    {
+      "clip": "attack",
+      "frame": 10,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+        "region": [
+          1965,
+          499,
+          248,
+          253
+        ],
+        "margin": [
+          181,
+          37,
+          320,
+          57
+        ]
+      },
+      "reference_fit": [
+        1.042,
+        8.0,
+        130.0
+      ]
+    },
+    {
+      "clip": "attack",
+      "frame": 11,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/motion_v8_00.png",
+        "region": [
+          2,
+          1277,
+          249,
+          281
+        ],
+        "margin": [
+          180,
+          13,
+          319,
+          29
+        ]
+      },
+      "reference_fit": [
+        1.0,
+        0,
+        0
+      ]
+    }
+  ],
+  "targets": {
+    "attack": [
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "original_frame_counts": {
+    "attack": 24
+  },
+  "reference_height": 255.5,
+  "reference_sha256": "28efd8ad3939d1d6fb64807055d292804a47659c6f3d8b33c6659ba378834fb1"
+}
