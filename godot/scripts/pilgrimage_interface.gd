@@ -1,4 +1,5 @@
 extends Control
+const SPACING := preload("res://scripts/ui_spacing_scale.gd")
 
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
@@ -19,6 +20,8 @@ const IVORY := Color("e8d7b8")
 const GOLD := Color("bca07a")
 const MUTED := Color("a2b3aa")
 const RED := Color("c85450")
+const LOCKED_CONTROL_TINT := Color(1,1,1,0.72)
+const NORMAL_CONTROL_TINT := Color.WHITE
 var level: Node
 var hud_card: Control
 var location_rule: Control
@@ -271,7 +274,10 @@ func finish_bind() -> void:
     # its button row and content joined for d-pad navigation.
     if not get_tree().node_added.is_connected(_bridge_dialog_focus):
         get_tree().node_added.connect(_bridge_dialog_focus)
-    for dialog in (level.find_children("*","AcceptDialog",true,false) if level is Node else find_children("*","AcceptDialog",true,false)):_bridge_dialog_focus(dialog)
+    var scope: Node=level if level is Node else self
+    for dialog in scope.find_children("*","AcceptDialog",true,false):_bridge_dialog_focus(dialog)
+    # Dropdown popups are internal children that find_children does not list.
+    for menu in scope.find_children("*","OptionButton",true,false)+scope.find_children("*","MenuButton",true,false):_bridge_dialog_focus(menu.get_popup())
     _fit_viewport()
     construction_complete=true
     set_process(true)
@@ -627,11 +633,11 @@ func _build_bag() -> void:
     bag_scroll=scroll
     journal_filters=HBoxContainer.new()
     journal_filters.position=Vector2(34,189)
-    journal_filters.add_theme_constant_override("separation",9)
+    journal_filters.add_theme_constant_override("separation",SPACING.ROW)
     journal_filters.visible=false
     bag.add_child(journal_filters)
     var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["ability","能力"],["people","人物"],["voice","自述"]]
-    var filter_width:=floorf((645.0-(filters.size()-1)*9.0)/filters.size())
+    var filter_width:=floorf((645.0-(filters.size()-1)*float(SPACING.ROW))/filters.size())
     for pair in filters:
         var filter_id:=String(pair[0])
         var filter_button:=_button(journal_filters,String(pair[1]),Vector2.ZERO,Vector2(filter_width,28),func():
@@ -679,7 +685,7 @@ func _build_bag() -> void:
     journal_count=_label(bag,"",Vector2(34,255),Vector2(645,20),12,MUTED)
     bag_grid=GridContainer.new()
     bag_grid.columns=6
-    bag_grid.add_theme_constant_override("h_separation",9)
+    bag_grid.add_theme_constant_override("h_separation",SPACING.ROW)
     bag_grid.add_theme_constant_override("v_separation",10)
     scroll.add_child(bag_grid)
     var divider:=ColorRect.new()
@@ -1099,7 +1105,7 @@ func _build_settings_controls() -> void:
         button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
         button.add_theme_font_size_override("font_size",12)
         remap_buttons[action_id]=button
-    remap_status=_label(settings,"确认键改键  ·  Esc 取消",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
+    remap_status=_label(settings,"确认键改键  ·  Esc／手柄 B 取消",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 
@@ -1185,7 +1191,7 @@ func _load_accessibility() -> void:
     _apply_controller_deadzone()
     binding_recovery_notice="部分输入设置无效或冲突，已保留对应设备的可用绑定。" if result.rejected>0 else ""
     if remap_status!=null:
-        remap_status.text=binding_recovery_notice if not binding_recovery_notice.is_empty() else "确认键改键  ·  Esc 取消"
+        remap_status.text=binding_recovery_notice if not binding_recovery_notice.is_empty() else "确认键改键  ·  Esc／手柄 B 取消"
 
 func _finite_setting(config: ConfigFile, key: String, minimum: float, maximum: float) -> float:
     var value: Variant=config.get_value("accessibility",key,accessibility[key])
@@ -1361,8 +1367,8 @@ func _reset_bindings() -> void:
 func _begin_remap(action: String) -> void:
     if not REMAPPABLE_ACTIONS.has(action) or settings==null or not settings.is_visible_in_tree():return
     remap_target=action
-    remap_status.text="请为「%s」按键、鼠标按钮或手柄输入；Esc 取消。" % REMAPPABLE_ACTIONS[action]
-    if action=="build_menu":remap_status.text="构筑使用键盘、鼠标按钮或非导航手柄按键；确认、返回、方向键和滚轮保留给界面。Esc 取消。"
+    remap_status.text="请为「%s」按键、鼠标按钮或手柄输入；Esc／手柄 B 取消。" % REMAPPABLE_ACTIONS[action]
+    if action=="build_menu":remap_status.text="构筑使用键盘、鼠标按钮或非导航手柄按键；确认、返回、方向键和滚轮保留给界面。Esc／手柄 B 取消。"
 
 func _cancel_remap(reason: String) -> void:
     if remap_target.is_empty():return
@@ -1395,7 +1401,8 @@ func _input(event: InputEvent) -> void:
     if not settings.visible:remap_target=""
     if not remap_target.is_empty():
         remap_capture_frame=Engine.get_process_frames()
-        if event is InputEventKey and event.pressed and (event.keycode==KEY_ESCAPE or event.physical_keycode==KEY_ESCAPE):
+        # Joypad B is the reserved back button; it cancels capture like Escape.
+        if (event is InputEventKey and event.pressed and (event.keycode==KEY_ESCAPE or event.physical_keycode==KEY_ESCAPE)) or (event is InputEventJoypadButton and event.pressed and event.button_index==JOY_BUTTON_B):
             remap_target=""
             remap_status.text="已取消重映射。"
             get_viewport().set_input_as_handled()
@@ -1405,7 +1412,7 @@ func _input(event: InputEvent) -> void:
                 get_viewport().set_input_as_handled()
                 return
             if BINDING_POLICY.is_reserved(accepted):
-                remap_status.text="此输入保留给界面快捷键，请换一个输入或 Esc 取消。"
+                remap_status.text="此输入保留给界面快捷键，请换一个输入，或按 Esc／手柄 B 取消。"
                 get_viewport().set_input_as_handled()
                 return
             var action:=remap_target
@@ -1417,7 +1424,7 @@ func _input(event: InputEvent) -> void:
             for other in BINDING_POLICY.conflicts(accepted,action,BINDING_POLICY.snapshot()):
                 conflicts.append(String(REMAPPABLE_ACTIONS.get(other,"其他动作")))
             if not conflicts.is_empty():
-                remap_status.text="此输入已用于「%s」，请换一个输入或 Esc 取消。" % "、".join(conflicts)
+                remap_status.text="此输入已用于「%s」，请换一个输入，或按 Esc／手柄 B 取消。" % "、".join(conflicts)
                 get_viewport().set_input_as_handled()
                 return
             if not InputMap.has_action(action):InputMap.add_action(action)
@@ -1468,7 +1475,7 @@ func _bind_ui_navigation() -> void:
         build_shortcut=preload("res://scripts/build_shortcut_input.gd").new()
         build_shortcut.name="BuildShortcutInput"
         add_child(build_shortcut)
-    for pair in [["ui_up",JOY_BUTTON_DPAD_UP],["ui_down",JOY_BUTTON_DPAD_DOWN],["ui_left",JOY_BUTTON_DPAD_LEFT],["ui_right",JOY_BUTTON_DPAD_RIGHT],["ui_accept",JOY_BUTTON_A],["close_overlay",JOY_BUTTON_B],["inventory",JOY_BUTTON_START],["map",JOY_BUTTON_RIGHT_STICK],["interact",JOY_BUTTON_BACK]]:
+    for pair in [["ui_up",JOY_BUTTON_DPAD_UP],["ui_down",JOY_BUTTON_DPAD_DOWN],["ui_left",JOY_BUTTON_DPAD_LEFT],["ui_right",JOY_BUTTON_DPAD_RIGHT],["ui_accept",JOY_BUTTON_A],["ui_cancel",JOY_BUTTON_B],["close_overlay",JOY_BUTTON_B],["inventory",JOY_BUTTON_START],["map",JOY_BUTTON_RIGHT_STICK],["interact",JOY_BUTTON_BACK]]:
         var action:=String(pair[0])
         if not InputMap.has_action(action):InputMap.add_action(action)
         var event:=InputEventJoypadButton.new()
@@ -1808,7 +1815,7 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
         # disabled while it is the target, so nothing can be equipped into it.
         var locked:=not bool(slot.get("unlocked",true))
         button.disabled=false
-        button.modulate=Color(1,1,1,0.72) if locked else Color.WHITE
+        button.modulate=LOCKED_CONTROL_TINT if locked else NORMAL_CONTROL_TINT
         var compatible_ids: Array=slot.get("compatible",[])
         var compatible_names:=_family_option_names(snapshot,family_id,compatible_ids)
         var tooltip:=label+"\n"
@@ -3243,7 +3250,14 @@ func _sync_reading_session() -> void:
 
 func _bridge_dialog_focus(node: Node) -> void:
     # Map, recall and new-journey dialogs live under the level, not this shell.
-    if node is AcceptDialog and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):DIALOG_FOCUS.install(node)
+    if node is AcceptDialog and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):
+        DIALOG_FOCUS.install(node)
+        # Every dialog is modal for polled page shortcuts, including the frame
+        # it closes in, so joypad B (back) cancels only the dialog.
+        register_text_entry_window(node)
+    elif node is PopupMenu and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):
+        # B/Escape closing a dropdown must not also close the page behind it.
+        register_text_entry_window(node)
 
 func _exit_tree() -> void:
     if get_tree().node_added.is_connected(_bridge_dialog_focus):get_tree().node_added.disconnect(_bridge_dialog_focus)

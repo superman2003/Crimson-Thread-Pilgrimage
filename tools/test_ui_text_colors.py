@@ -7,11 +7,9 @@ any that is not listed in EXEMPT with the reason it stays:
 - add_theme_color_override(<text key>, <expr>) and Theme.set_color(<text key>,
   <type>, <expr>), where a text key is font_color and its per-state forms
   (font_hover_color, font_disabled_color, ...), default_color or title_color;
-- the interface's _label(..., <colour>) helper.
-
-Not covered: Control.modulate / self_modulate. They tint whatever node they sit
-on (sprites, panels, fades), and the receiver's type cannot be told from the
-text of a script, so a rule there would mostly flag non-text nodes.
+- the interface's _label(..., <colour>) helper;
+- modulate / self_modulate on receivers declared as text controls or created
+  by a text-control constructor / _label helper. Sprite tints stay separate.
 
 Calls are read whole, so one formatted over several lines is still checked.
 Shadows and outlines are not text colour and are not checked.
@@ -36,6 +34,10 @@ OVERRIDE = re.compile(r'add_theme_color_override\(')
 # Theme.set_color(name, theme_type, colour)
 SET_COLOR = re.compile(r'\.set_color\(')
 LABEL = re.compile(r'(?<![A-Za-z0-9_])_label\(')
+TEXT_TYPES = r'(?:Label|RichTextLabel|Button|CheckButton|CheckBox|MenuButton|OptionButton|LinkButton)'
+TEXT_TYPED = re.compile(r'\b([A-Za-z_]\w*)\s*:\s*' + TEXT_TYPES + r'\b')
+TEXT_CREATED = re.compile(r'\b([A-Za-z_]\w*)\s*(?::\s*\w+\s*)?:?=\s*(?:' + TEXT_TYPES + r'\.new\(|(?:\w+\.)?_label\()')
+MODULATION = re.compile(r'(?<![A-Za-z0-9_.])(?:(?:self\.)?(?P<receiver>[A-Za-z_]\w*)\.)?(?:self_)?modulate\s*=(?!=)')
 # Color("abc"), Color("#abc"), Color(0.5, ...), Color(.5, ...), Color8(...), Color.html(...)
 LITERAL = re.compile(r'Color8?\(\s*(?:"[^"]*"|\'[^\']*\'|[0-9.])|Color\.(?:html|hex|hex64|from_[a-z0-9_]+)\(')
 # (file, text the expression must contain): one specific call, never a whole file.
@@ -115,9 +117,38 @@ def text_key(argument):
     return bool(TEXT_KEY.match(name)) and name not in NOT_TEXT
 
 
+def assignment_expression(source, start):
+    """Read the assignment through balanced constructors, preserving newlines."""
+    depth, quote, index = 0, '', start
+    while index < len(source):
+        char = source[index]
+        if quote:
+            if char == '\\':
+                index += 1
+            elif char == quote:
+                quote = ''
+        elif char in '\"\'':
+            quote = char
+        elif char in '([{':
+            depth += 1
+        elif char in ')]}':
+            depth -= 1
+        elif char in '\n;' and depth == 0:
+            break
+        index += 1
+    return source[start:index]
+
+
 def text_colours(source):
     """Yield (line number, colour expression) for every text colour set in source."""
     source = strip_comments(source)
+    text_receivers = set(TEXT_TYPED.findall(source)) | set(TEXT_CREATED.findall(source))
+    if re.search(r'^\s*extends\s+' + TEXT_TYPES + r'\b', source, re.M):
+        text_receivers.add('self')
+    for match in MODULATION.finditer(source):
+        receiver = match['receiver'] or 'self'
+        if receiver in text_receivers:
+            yield source.count('\n', 0, match.start()) + 1, assignment_expression(source, match.end())
     for match in OVERRIDE.finditer(source):
         args = call_arguments(source, match.end())
         if len(args) >= 2 and text_key(args[0]):
@@ -184,6 +215,14 @@ def self_test():
     assert not literals('image.set_color("font_color", Color("ffffff"))')
     assert literals('x.add_theme_color_override("font_color", Color("red"))')
     assert literals("x.add_theme_color_override('font_color', Color('red'))")
+    assert literals('var hearts: Label\nhearts.modulate = Color("red")')
+    assert literals('var caption := Label.new()\ncaption.self_modulate = Color(\n 1, 0, 0\n)')
+    assert literals('var title = ui._label(panel,"x",Vector2.ZERO,Vector2.ONE,12,GOLD)\ntitle.modulate = Color("red")')
+    assert literals('func tint(label: RichTextLabel):\n label.modulate = Color("red")')
+    assert literals('extends Label\nfunc tint():\n self_modulate = Color("red")')
+    assert not literals('var icon := Sprite2D.new()\nicon.modulate = Color("red")')
+    assert not literals('var hearts: Label\nhearts.modulate = RED if hp < 2 else IVORY')
+    assert not literals('var hearts: Label\n# hearts.modulate = Color("red")')
     assert not literals('# x.add_theme_color_override("font_color", Color("ffffff"))')
     assert not literals('y = 1  # was: x.add_theme_color_override("font_color", Color("ffffff"))')
     assert literals('x.text = "a # b"; x.add_theme_color_override("font_color", Color("ffffff"))')

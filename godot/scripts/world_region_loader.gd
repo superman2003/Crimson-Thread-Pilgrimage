@@ -1341,8 +1341,7 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             if job_usec > int(last_transition.get("max_build_job_usec", 0)):
                 last_transition["max_build_job_usec"] = job_usec
                 last_transition["max_build_job"] = String(job.method)
-            if String(job.method) in ["_background_art", "_background_cave"]:
-                last_transition[String(job.method).trim_prefix("_") + "_usec"] = job_usec
+            _record_background_job(last_transition, String(job.method), job_usec)
             cursor += 1
             operations += 1
         _measure_batch(operations, started, "max_build_operations")
@@ -1358,6 +1357,15 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     if not await _await_player_art(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
         return false
     return not (cancellable and cancel_requested)
+
+
+static func _record_background_job(stats: Dictionary, method: String, job_usec: int) -> void:
+    if method == "_background_art":
+        stats["background_art_usec"] = job_usec
+    elif method in ["_background_cave", "_background_cave_surface"]:
+        var key := "background_cave_edges_usec" if method == "_background_cave" else "background_cave_surface_usec"
+        stats[key] = job_usec
+        stats["background_cave_usec"] = int(stats.get("background_cave_edges_usec", 0)) + int(stats.get("background_cave_surface_usec", 0))
 
 
 static func region_texture_paths(theme: String) -> Array[String]:

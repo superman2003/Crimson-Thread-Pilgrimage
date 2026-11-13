@@ -146,7 +146,10 @@ static func run(tree: SceneTree, main: Node, desk: Node) -> void:
     for input in navigation:
         ui._begin_remap(INPUT.ACTION)
         ui._input(input)
-        tree.check(ui.remap_target==INPUT.ACTION and CODEC.capture(ui.REMAPPABLE_ACTIONS)==before_navigation,"navigation input is rejected without changing any action")
+        # Joypad B is the back button: like Escape it ends the capture; every
+        # other navigation input is refused while capture continues.
+        var backs: bool=input is InputEventJoypadButton and input.button_index==JOY_BUTTON_B
+        tree.check((ui.remap_target=="" if backs else ui.remap_target==INPUT.ACTION) and CODEC.capture(ui.REMAPPABLE_ACTIONS)==before_navigation,"navigation input is rejected without changing any action")
         ui._input(key(KEY_ESCAPE))
     ui._begin_remap("heal")
     ui._input(key(KEY_B))

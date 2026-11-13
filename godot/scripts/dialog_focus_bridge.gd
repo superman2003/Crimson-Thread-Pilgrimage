@@ -32,6 +32,26 @@ static func install(dialog: AcceptDialog) -> void:
     dialog.gui_focus_changed.connect(relink)
     # Layout adapters resize a dialog after it opens; positions change then.
     dialog.size_changed.connect(relink)
+    dialog.window_input.connect(func(event: InputEvent):
+        var owner := reference.get_ref() as AcceptDialog
+        if is_instance_valid(owner):back(owner, event))
+
+## Godot closes a dialog on ui_cancel only for keyboard events, so the joypad's
+## back button (B, which also closes pages) left every dialog open. B now does
+## what Escape does: the dialog's own cancel. The shell registers bridged
+## dialogs as modal, so the same press does not also close the page behind.
+static func back(dialog: AcceptDialog, event: InputEvent) -> bool:
+    if not (event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_B):
+        return false
+    if not dialog.visible or not dialog.dialog_close_on_escape:
+        return false
+    dialog.set_input_as_handled()
+    if dialog is ConfirmationDialog:
+        dialog.get_cancel_button().pressed.emit()
+    else:
+        dialog.hide()
+        dialog.canceled.emit()
+    return true
 
 static func row_buttons(dialog: AcceptDialog) -> Array:
     var result: Array = []
