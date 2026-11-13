@@ -41,7 +41,9 @@ var collision_shutdown := false
 var collision_pins: Dictionary = {}
 var critical_sync_until := 0
 
-func configure(chapter: Dictionary, theme: String, owner_scene: Node2D, stream_collisions: bool = false, initial_focus: Vector2 = Vector2.ZERO) -> void:
+## With defer_surface the painted rock's body trim and rim chunks are left for
+## finish_surface(), which the region loader runs as the next build job.
+func configure(chapter: Dictionary, theme: String, owner_scene: Node2D, stream_collisions: bool = false, initial_focus: Vector2 = Vector2.ZERO, defer_surface: bool = false) -> void:
     name = "CaveWorld"
     scene = owner_scene
     rock_ink = Color(INKS.get(theme,"172d26"))
@@ -76,12 +78,19 @@ func configure(chapter: Dictionary, theme: String, owner_scene: Node2D, stream_c
     surface.name = "PaintedRockMass"
     surface.show_behind_parent = true
     add_child(surface)
-    surface.configure(solid_rects, ROCK.for_theme(theme),theme)
+    surface.prepare(solid_rects, ROCK.for_theme(theme),theme)
+    if not defer_surface:
+        surface.finish()
     z_index = 12 # Opaque painted rock covers distant backdrops and wall ornaments.
     queue_redraw()
     for point in chapter.get("save_points",[]):
         lights.append(Vector2(float(point.position[0]),float(point.position[1])-65))
     _create_vision()
+
+func finish_surface() -> void:
+    var surface := get_node_or_null("PaintedRockMass")
+    if surface != null:
+        surface.finish()
 
 func _draw() -> void:
     for value in outlines:

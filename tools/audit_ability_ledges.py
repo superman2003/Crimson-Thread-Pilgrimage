@@ -31,7 +31,8 @@ WALL_GRIP_REACH = 160
 HOOK_REACH = 460
 HEADROOM = 110
 # Player.tscn body reaches 84px above the feet; production pickups have radius18.
-PLAYER_HEIGHT, PICKUP_RADIUS, PICKUP_MARGIN = 84.0, 18.0, 8.0
+PLAYER_HEIGHT, PLAYER_HALF_WIDTH = 84.0, 17.0
+PICKUP_RADIUS, PICKUP_MARGIN = 18.0, 8.0
 
 
 def _air_time(rise):
@@ -49,6 +50,13 @@ def single_jump_reaches(rise, gap):
         return False
     t = _air_time(min(rise, SINGLE))
     return t is not None and gap <= (SPEED * t + DASH) * MARGIN
+
+
+def single_jump_collects(x0, x1, surface_y, pickup_x, pickup_y):
+    """Conservative body/pickup contact envelope from a standable surface."""
+    rise = surface_y - pickup_y - (PLAYER_HEIGHT + PICKUP_RADIUS + PICKUP_MARGIN)
+    gap = max(x0 - pickup_x, pickup_x - x1, 0) - (PLAYER_HALF_WIDTH + PICKUP_RADIUS + PICKUP_MARGIN)
+    return single_jump_reaches(rise, max(gap, 0))
 
 
 def standable(config):
@@ -135,11 +143,11 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
         anchors = config.get('grapple_anchors', []) + overlay.get('grapple_anchors', [])
         for problem in check_ledge(config, platform['id'], platform['rect'], entry['base_platform_id'], anchors):
             errors.append(f"{entry['id']}: {problem}")
-        base = next((p for p in config['platforms'] if p['id'] == entry['base_platform_id']), None)
-        if base is not None:
-            pickup_reach = SINGLE * 1.07 + PLAYER_HEIGHT + PICKUP_RADIUS + PICKUP_MARGIN
-            if base['rect'][1] - reward['position'][1] <= pickup_reach:
-                errors.append(f"{entry['id']}: a single jump can collect the reward with the player body before reaching the ledge")
+        for sid, x0, x1, surface_y in standable(config):
+            if sid == platform['id']:
+                continue
+            if single_jump_collects(x0, x1, surface_y, *reward['position']):
+                errors.append(f"{entry['id']}: surface {sid} can collect the reward with a single jump and dash before reaching the ledge")
         px, py, pw, _ = platform['rect']
         rx, ry = reward['position']
         if not (px + 18 <= rx <= px + pw - 18 and 25 <= py - ry <= 70):
@@ -161,6 +169,9 @@ def self_test():
     assert 130 < SINGLE < 140 and 240 < DOUBLE < 260
     assert single_jump_reaches(100, 50) and not single_jump_reaches(180, 0)
     assert single_jump_reaches(-150, 300) and not single_jump_reaches(-150, 900)
+    assert single_jump_collects(1960, 2340, 1752, 2505, 1524)
+    assert not single_jump_collects(1960, 2340, 1752, 2505, 1490)
+    assert not single_jump_collects(0, 20, 1752, 2505, 1490)
 
 
 def main():

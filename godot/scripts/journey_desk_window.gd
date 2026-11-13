@@ -1,4 +1,5 @@
 extends AcceptDialog
+const SPACING := preload("res://scripts/ui_spacing_scale.gd")
 ## Shared accessible shell; each desk supplies its own model and actions.
 var column: VBoxContainer
 var status: Label
@@ -23,7 +24,7 @@ func _ready() -> void:
     add_child(body)
     column = VBoxContainer.new()
     column.custom_minimum_size.x = 920
-    column.add_theme_constant_override("separation", 9)
+    column.add_theme_constant_override("separation", SPACING.ROW)
     body.add_child(column)
     column.child_entered_tree.connect(_content_added)
     get_ok_button().text = "返回"

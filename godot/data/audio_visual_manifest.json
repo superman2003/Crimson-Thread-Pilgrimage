@@ -169,10 +169,7 @@
         "footstep_wet_000..004"
       ],
       "asset_ready_events": [
-        "chNN_<slug>_beat_01..03_audio (15 chapter beats, ch02-ch06; see chapter_audio_visual)",
-        "ui_ability_unlock",
-        "ui_pickup_key_item",
-        "ui_testimony_complete"
+        "ch04_broken_string_greenhouse_beat_02_audio (pollen wind; the wind mechanic does not exist yet)"
       ]
     },
     "player_attack_swing": {
@@ -3285,12 +3282,13 @@
           "audio": [
             {
               "key": "ch06_silent_crown_core_beat_01_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "低频钟声与章节主题音色短句。",
               "path": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_01_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "once on the first visit to each of the five echo rooms of the silent crown; revisits stay quiet (visited rooms are saved)",
+              "implemented_in": "res://scripts/main_level.gd::_play_echo_room_beat"
             }
           ]
         },
