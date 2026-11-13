@@ -277,6 +277,7 @@ var use_layered_idle := false
 const RUN_GAIT := preload("res://scripts/thread_doll_run_cycle.gd")
 const RUN_CYCLE_DISTANCE := RUN_GAIT.CYCLE_DISTANCE
 const GROUNDED_RUN := preload("res://scripts/thread_doll_run_presentation.gd")
+const RUN_RIG_MAX_SLOPE := 0.3
 var grounded_run: Node2D
 var use_grounded_run := false
 const GROUND_TURN_DURATION := .12
@@ -1776,7 +1777,9 @@ func _sync_sprite_pose_anchor() -> void:
         layered_idle.sync_pose()
     if is_instance_valid(grounded_run):
         var floor_normal := get_floor_normal() if is_on_floor() else Vector2.UP
-        var slope := -floor_normal.x / minf(floor_normal.y, -0.01)
+        # Pressed into a wall at a ledge corner the floor normal can lean 45°;
+        # the leg rig only reaches on the gentle slopes it was authored for.
+        var slope := clampf(-floor_normal.x / minf(floor_normal.y, -0.01), -RUN_RIG_MAX_SLOPE, RUN_RIG_MAX_SLOPE)
         grounded_run.sync(run_cycle_phase, slope * (-1.0 if sprite.flip_h else 1.0))
 
 

@@ -3,6 +3,7 @@ name: Reviewed creature redraws
 on:
   pull_request:
     paths:
+      - '.gitattributes'
       - 'godot/assets/sprites/original_creatures/**'
       - 'art_requests/enemy_transitions_v1/**'
       - 'godot/scripts/enemy_actor.gd'
@@ -29,6 +30,10 @@ on:
       - '.github/contracts/creature-redraw.yml'
       - 'tools/creature_redraw_art.py'
       - 'tools/test_creature_redraw_art.py'
+      - 'tools/audit_creature_redraw_handoffs.py'
+      - 'tools/test_creature_redraw_handoffs.py'
+      - 'tools/check_redraw_preview_blobs.py'
+      - 'artifacts/creature_redraw_batch*/**'
       - 'tools/creature_redraw_guides.py'
       - 'art_requests/creature_redraw_v1/**'
       - 'godot/scripts/combat_motion_v7_validation.gd'
@@ -59,6 +64,9 @@ jobs:
       - name: Verify measurement inputs and base anchoring
         run: |
           python3 tools/test_creature_redraw_art.py
+          python3 tools/test_creature_redraw_handoffs.py
+          python3 tools/audit_creature_redraw_handoffs.py
+          python3 tools/check_redraw_preview_blobs.py
           python3 tools/creature_redraw_art.py --all --check
           python3 tools/build_creature_frame_fit.py --self-test
           python3 tools/test_creature_frame_fit.py

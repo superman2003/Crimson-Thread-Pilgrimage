@@ -20,6 +20,8 @@ const IVORY := Color("e8d7b8")
 const GOLD := Color("bca07a")
 const MUTED := Color("a2b3aa")
 const RED := Color("c85450")
+const LOCKED_CONTROL_TINT := Color(1,1,1,0.72)
+const NORMAL_CONTROL_TINT := Color.WHITE
 var level: Node
 var hud_card: Control
 var location_rule: Control
@@ -1813,7 +1815,7 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
         # disabled while it is the target, so nothing can be equipped into it.
         var locked:=not bool(slot.get("unlocked",true))
         button.disabled=false
-        button.modulate=Color(1,1,1,0.72) if locked else Color.WHITE
+        button.modulate=LOCKED_CONTROL_TINT if locked else NORMAL_CONTROL_TINT
         var compatible_ids: Array=slot.get("compatible",[])
         var compatible_names:=_family_option_names(snapshot,family_id,compatible_ids)
         var tooltip:=label+"\n"
