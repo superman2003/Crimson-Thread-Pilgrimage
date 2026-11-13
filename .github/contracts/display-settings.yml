@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/display_*.gd'
+      - 'godot/scripts/ui_language.gd'
+      - 'godot/data/ui_translations.json'
+      - 'tools/audit_ui_translations.py'
       - 'godot/scripts/colour_assist*.gd'
       - 'godot/shaders/colour_assist.gdshader'
       - 'godot/scripts/journey_desk_store.gd'
@@ -28,6 +31,9 @@ jobs:
             /godot/scripts/ui_type_scale.gd
             /godot/scripts/display_preferences.gd
             /godot/scripts/display_dialog.gd
+            /godot/scripts/ui_language.gd
+            /godot/data/ui_translations.json
+            /tools/audit_ui_translations.py
             /godot/scripts/colour_assist.gd
             /godot/scripts/colour_assist_validation.gd
             /godot/shaders/colour_assist.gdshader
@@ -44,7 +50,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y xvfb libgl1-mesa-dri
       - name: Native apply, persistence and dialog contracts
-        run: xvfb-run -a python3 tools/run_display_settings_contract.py --gl --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/display-logs"
+        run: python3 tools/audit_ui_translations.py --self-test && xvfb-run -a python3 tools/run_display_settings_contract.py --gl --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/display-logs"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

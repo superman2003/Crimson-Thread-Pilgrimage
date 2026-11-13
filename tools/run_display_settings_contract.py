@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/ui_type_scale.gd', 'scripts/display_preferences.gd', 'scripts/display_dialog.gd', 'scripts/colour_assist.gd', 'shaders/colour_assist.gdshader', 'scripts/colour_assist_validation.gd', 'scripts/settings_dialog_layout.gd', 'scripts/journey_window_layout.gd', 'scripts/journey_desk_store.gd', 'scripts/display_settings_validation.gd']
+DEPS = ['scripts/ui_type_scale.gd', 'scripts/display_preferences.gd', 'scripts/display_dialog.gd', 'scripts/ui_language.gd', 'data/ui_translations.json', 'scripts/colour_assist.gd', 'shaders/colour_assist.gdshader', 'scripts/colour_assist_validation.gd', 'scripts/settings_dialog_layout.gd', 'scripts/journey_window_layout.gd', 'scripts/journey_desk_store.gd', 'scripts/display_settings_validation.gd']
 MARKER = '^DISPLAY_SETTINGS checks=[1-9][0-9]* failures=0$'
 
 def main():
