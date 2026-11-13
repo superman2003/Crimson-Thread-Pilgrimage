@@ -212,11 +212,11 @@ def self_test():
     assert single_jump_collects(1960, 2340, 1752, 2505, 1524)
     assert not single_jump_collects(1960, 2340, 1752, 2505, 1490)
     assert not single_jump_collects(0, 20, 1752, 2505, 1490)
-    config = dict(platforms=[dict(id='gallery', rect=[1960,1752,380,36])])
+    config = dict(platforms=[dict(id='gallery', rect=[1960,1752,380,36]),dict(id='east_shelf',rect=[3035,1712,205,22])])
     enemy = dict(id='E06', kind='index_scribe', position=[2285,1712],
                  platform_id='gallery', leash_radius=90, spawn_half_width=24, spawn_visual_height=56)
     assert enemy_pogo_collects(enemy, config, [2505,1490], 1.2)
-    enemy.update(position=[2000,1712], leash_radius=24)
+    enemy.update(position=[3140,1672], platform_id='east_shelf')
     assert not enemy_pogo_collects(enemy, config, [2505,1490], 1.2)
 
 
