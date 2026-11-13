@@ -1,0 +1,21 @@
+{
+  "kind": "root_cage_hunter",
+  "clip": "actions_02",
+  "status": "partially_rejected",
+  "reason": "Accept cage_elite_snare_recover and cage_elite_snare; reject windup max_change0.5563 and cage_elite_snare_windup0.5481. Body sizes and rig passed, replace failed windups with complete24-cel redraws.",
+  "source_sha256": "e2ba7f9d132f07308f3ee5f042f4f53099d60bd2005e0e12940f833aef54a4bb",
+  "prompt_sha256": "fe6dbb499823b33eadb31331d61d56ddf8e666b3126274ff9fe7eec79c0bdc25",
+  "reference_sha256": "aa95d08a9f930fe57180f8345582f7aa5c6ed5e64293579351b00ecf46c4b41f",
+  "actual_prompt": "Use case: stylized-concept2Dgame mapped animation repairs. Repaint these22specific ROOT CAGE HUNTER poses onto EXACT8equal columns x3equal rows, first22occupied chronological row-major, last2cells row3cols7-8 fully alpha-zero empty. Image1is authoritative mapped pose, occupied body area, anchor/foot positions, head/antenna/claw angles and celorder for joining untouched original frames. Cells0-11 windup frames4,5,6,7,8,9,10,11,20,21,22,23;12-14 elite snare recovery21,22,23;15-18 elite snare windup20,21,22,23;19-21 elite snare17,18,19. Preserve every distinct upright guard, lifted hooked forearm, coiled crouch and forward reach, articulate intermediate gestures smoothly rather than repeating neutral pose; match original compact leaf mantle/cage mass and foot height precisely. Creature design: small hunched plant-insect with brown root legs/arms, woven wicker lattice torso cage, layered moss/olive green leaf mantle/skirt, pale cream oval seed mask/eye, long curved swept-back twig antennae, exactly TWO connected hooked greenbrown scythe forearms. Preserve identity, no extra limbs/objects/weapons/human face. Crisp refined painted bark/wicker strands/leaf veins, warm muted browns and olivegreens, opaque clean contours. All complete antennae/claws/feet contained in their equal cells, compact body at guidecenter with at least30pxclear margins, no overlap/clipping. TRUE transparent RGBA cutouts, all gutters/blankcells alpha0; NO brown/white/gray matte, haze, backdrop, floor shadows, glow/particles, detached dots, colored fringe, checkerboard/grid or labels/text.",
+  "reference_recipe": "Frozen22cel actions02 source_frame/reference_fit guide rendered by tools/creature_redraw_guides.py; exact mapped original poses/anchors.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/root_cage_hunter-actions-02.json",
+  "guide_sha256": "cb34b956cefc43125617a33c0729e64561e25d9b746ea3774b3f261b0f03ffd0",
+  "accepted_clips": [
+    "cage_elite_snare_recover",
+    "cage_elite_snare"
+  ],
+  "rejected_clips": [
+    "windup",
+    "cage_elite_snare_windup"
+  ]
+}
