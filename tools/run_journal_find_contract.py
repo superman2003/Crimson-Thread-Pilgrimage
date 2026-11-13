@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/'+name for name in ['ui_type_scale.gd','journal_literal_find.gd','journal_find_dialog.gd','journal_find_validation.gd']]
+DEPS = ['scripts/'+name for name in ['ui_spacing_scale.gd','ui_type_scale.gd','journal_literal_find.gd','journal_find_dialog.gd','journal_find_validation.gd']]
 MARKER = '^JOURNAL_FIND checks=[1-9][0-9]* failures=0$'
 
 def invoke(command, env, log, marker):

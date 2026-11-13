@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["material_conversion_plan.gd", "material_conversion_plan_source.gd", "material_conversion_plan_dialog.gd", "world_routes.gd", "exchange_stock_plan.gd", "build_system.gd", "field_contracts.gd", "field_transaction.gd", "field_receipt_owner.gd", "transaction_receipt_ledger.gd", "journey_desk_window.gd", "journey_window_layout.gd", "material_exchange.gd", "material_exchange_desk.gd", "transaction_receipt_dialog.gd", "material_exchange_maximum_validation.gd", "resupply_budget.gd", "world_coordinates.gd", "world_state.gd"]
+SCRIPTS = ["ui_spacing_scale.gd", "material_conversion_plan.gd", "material_conversion_plan_source.gd", "material_conversion_plan_dialog.gd", "world_routes.gd", "exchange_stock_plan.gd", "build_system.gd", "field_contracts.gd", "field_transaction.gd", "field_receipt_owner.gd", "transaction_receipt_ledger.gd", "journey_desk_window.gd", "journey_window_layout.gd", "material_exchange.gd", "material_exchange_desk.gd", "transaction_receipt_dialog.gd", "material_exchange_maximum_validation.gd", "resupply_budget.gd", "world_coordinates.gd", "world_state.gd"]
 MARKER = re.compile("^MATERIAL_EXCHANGE_MAXIMUM checks=[1-9][0-9]* failures=0$", re.M)
 
 
