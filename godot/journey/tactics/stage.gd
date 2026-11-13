@@ -1,4 +1,9 @@
 extends Control
+
+const DETAIL_TEXT := Color("a1b4ab")
+const LEGEND_TEXT := Color("b0c1b8")
+const COMMAND_TEXT := Color("e4d4b4")
+
 const MODEL := preload("res://journey/tactics/model.gd")
 var attack: Dictionary = {}
 var comparison: Dictionary = {}
@@ -31,7 +36,7 @@ func _draw() -> void:
         return
     var font := get_theme_default_font()
     var phase := MODEL.phase(attack, cursor)
-    draw_string(font, Vector2(16, 28), "字段演示：%s · %.2f秒" % [phase.name, cursor], HORIZONTAL_ALIGNMENT_LEFT, -1, 17, Color("e4d4b4"))
+    draw_string(font, Vector2(16, 28), "字段演示：%s · %.2f秒" % [phase.name, cursor], HORIZONTAL_ALIGNMENT_LEFT, -1, 17, COMMAND_TEXT)
     _timeline(attack, Rect2(18, 45, size.x - 36, 24), Color("d2b784"))
     if not comparison.is_empty():
         _timeline(comparison, Rect2(18, 78, size.x - 36, 18), Color("83a6bc"))
@@ -49,8 +54,8 @@ func _draw() -> void:
         _geometry(origin, scale_value, float(phase.progress), tint)
     elif phase.id == "windup":
         draw_arc(origin - Vector2(0, 22), 25, PI, PI + float(phase.progress) * PI, 24, tint, 2, true)
-    draw_string(font, Vector2(16, 278), "灰：示意来源 · 蓝框：参考站位；不是实际命中判定", HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("b0c1b8"))
-    draw_string(font, Vector2(16, 302), "下方几何使用目录尺寸，省略真实AI、重力校正、墙体与角色状态。", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("a1b4ab"))
+    draw_string(font, Vector2(16, 278), "灰：示意来源 · 蓝框：参考站位；不是实际命中判定", HORIZONTAL_ALIGNMENT_LEFT, -1, 14, LEGEND_TEXT)
+    draw_string(font, Vector2(16, 302), "下方几何使用目录尺寸，省略真实AI、重力校正、墙体与角色状态。", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, DETAIL_TEXT)
 
 func _timeline(value: Dictionary, area: Rect2, accent: Color) -> void:
     var duration := maxf(0.01, timeline_duration())

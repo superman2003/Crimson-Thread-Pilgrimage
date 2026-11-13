@@ -1,0 +1,13 @@
+{
+  "kind": "page_duelist",
+  "clip": "actions_attack_full",
+  "status": "rejected",
+  "reason": "Shared-scale drawing union spans248px on245px rig: cel2 rapier and inconsistent foot baseline leave no valid single source translation. Repaint a common foot baseline and flatter overhead guards.",
+  "source_sha256": "7e5a4dd7be8453c3573ea01f9a284bb28fd20770a5b67133b28773720887cf8b",
+  "prompt_sha256": "37f1484518f4517ae66cf1c8923dfc2c97ee4f43596ec37945ac5edd0a748df0",
+  "reference_sha256": "dc05e612d29775059b7280725312ae811fc5b0672ce6063eb45b4ddd9567d763",
+  "actual_prompt": "Edit ONLY cel4 of the FIRST ROW (zero-basedcel3) in this EXACT8columns x3rows24cel Page Duelist attack sheet. That pose's sword is raised too high. Repaint its swordarm bent at elbow closer to the forehead/shoulder, with the ONE rapier nearly HORIZONTAL above the red crest, pointing right, like the classic overhead fencing guard. Its blade/head/hand top must be no higher than neighboring firstrowcel3. Preserve that cel's existing body, boots, cloak, scale and footposition. Keep allother23cels, their exact positions/poses/proportions and details unchanged. Same singlethinbrassrapier, ivory beakmask blackeye, redcrest, parchmentwhite/redcloak anddarklegs; no duplicate sword or extra limbs. Full sword remains inside its same equalcell, transparent margin35px. Keep EXACT8equalcolumns x3equalrows, no moved/added/deleted/repeated cels. TRUE transparent RGBA alpha0 background/gutters, no matte,haze,floor,shadow,glow,effects,particles,dots,checkerboard,grid,text.",
+  "reference_recipe": "Built-in image_gen edit of rejected full attack v2 exec-44bed207-f7b3-4003-864f-50c31a214efc.png lowers cel3's overhead rapier to fit original rig. Other cels preserved by image_gen; any source-center registration is one identical translation for all24, no code pixel edits.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/page_duelist-actions-attack-full.json",
+  "guide_sha256": "544c0da1c06127872c928b8350c0422ff6717da90f6108e1e54149dcee6a2fdb"
+}

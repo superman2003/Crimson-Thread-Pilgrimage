@@ -6,6 +6,15 @@ const INK := Color("dfcfb0")
 const MUTED := Color("8b9c90")
 const ACCENT := Color("e7ad7f")
 const GOLD := Color("bda176")
+## Marker text that carries meaning by colour: danger pins and the remnant knot.
+const HAZARD := Color("b44e43")
+const REMNANT := Color("e9c276")
+## A shortcut or lift not yet opened.
+const CLOSED := Color("8d6a5a")
+## Player pins by kind, in map_player_pins.KINDS order.
+const PIN_KINDS := [Color("b35a38"), Color("9a342f"), Color("486f82")]
+## Body text over the old chapter map art when the survey sheet is off.
+const LEGACY_INK := Color("dae6d5")
 var base_rooms: Array[Rect2] = []
 var charted_rooms: Array[Rect2] = []
 var terrain: Array[PackedVector2Array] = []

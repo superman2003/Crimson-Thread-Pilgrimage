@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "kinds": {
+    "ash_banner_imp": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "imp_retreat_windup",
+        "source_frame": -1,
+        "target": "imp_retreat",
+        "target_frame": 0
+      },
+      {
+        "source": "imp_retreat",
+        "source_frame": -1,
+        "target": "imp_retreat_recover",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "imp_retreat_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "imp_retreat_windup",
+        "target_frame": 0
+      }
+    ],
+    "silent_crown_core": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "phase_windup",
+        "source_frame": -1,
+        "target": "phase",
+        "target_frame": 0
+      },
+      {
+        "source": "phase",
+        "source_frame": -1,
+        "target": "phase_recover",
+        "target_frame": 0
+      },
+      {
+        "source": "heavy",
+        "source_frame": -1,
+        "target": "heavy_recover",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "phase_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "phase_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      }
+    ],
+    "page_duelist": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "page_elite_flurry",
+        "source_frame": -1,
+        "target": "page_elite_flurry_recover",
+        "target_frame": 0
+      }
+    ],
+    "bell_mote": [
+      {
+        "source": "mote_seek_windup",
+        "source_frame": -1,
+        "target": "mote_seek",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      }
+    ]
+  }
+}

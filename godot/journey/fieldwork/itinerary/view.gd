@@ -1,4 +1,9 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const MISSED_TEXT := Color("d89575")
+const PRIMARY_TEXT := Color("eadcc6")
+
 var rows: Array = []
 var budget := 1.0
 var selected := 0
@@ -125,13 +130,13 @@ func _draw_grid(font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             70,
             12,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     var boundary := _x(budget)
     if boundary <= size.x - 10:
         var y := 28.0
         while y < size.y - 45:
-            draw_line(Vector2(boundary, y), Vector2(boundary, y + 5), Color("d89575"), 2)
+            draw_line(Vector2(boundary, y), Vector2(boundary, y + 5), MISSED_TEXT, 2)
             y += 10
         draw_string(
             font,
@@ -140,7 +145,7 @@ func _draw_grid(font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             70,
             12,
-            Color("d89575")
+            MISSED_TEXT
         )
 
 
@@ -161,7 +166,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             LEFT - 14,
             13,
-            Color("eadcc6")
+            PRIMARY_TEXT
         )
         var arrival := float(row.get("到达秒", previous))
         var departure := float(row.get("离开秒", arrival))
@@ -179,7 +184,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         150,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     draw_rect(Rect2(180, legend_y - 9, 12, 12), Color("c6a86e"))
     draw_string(
@@ -189,7 +194,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         150,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     draw_string(
         font,
@@ -198,7 +203,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

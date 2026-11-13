@@ -90,7 +90,7 @@ const ROOMS = {
     objective: "清理半钟平台的伏击。", guide: "东角地面空洞——将来能劈开。",
     danger: "孢钟匠自高处泼洒孢云。", next: "顶阁", setpiece: "半悬的破钟",
     traversal_focus: "立体战斗", pacing_role: "pressure" },
-  bell_marrow_cell: { name: "钟髓密室", kind: "gate", depth: 1,
+  bell_marrow_cell: { name: "钟髓密室", kind: "gate", depth: 1, layout_rect: [3972, 1026, 248, 280],
     objective: "劈开脆钟地板，取回钟髓中的证词线索。", guide: "需要棘线下劈（断弦温室）。",
     danger: "密室封存的东西不愿被读。", next: "半钟平台", setpiece: "钟髓结晶",
     traversal_focus: "回访门", pacing_role: "reward" },
@@ -347,6 +347,10 @@ const GATES = [
   { id: "gate_wall_mossgrip",  rect: [1990, 4360, 42, 320], ability: "silk_wall_grip",    name: "丝壁攀附", rooms: ["vine_well", "mossgrip_shaft"] },
   { id: "gate_jump_salt",      rect: [5080,  430, 42, 300], ability: "double_thread_jump", name: "双线跃",   rooms: ["salt_corridor", "salt_corridor"] },
   { id: "gate_break_marrow",   rect: [4020,  952, 140, 26], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["belfry_mid", "bell_marrow_cell"] },
+  // The cell is also open to the shaft step (west) and the lift shaft (east);
+  // both sides carry the same condition as the floor.
+  { id: "gate_marrow_side",    rect: [3972, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_ascent", "bell_marrow_cell"] },
+  { id: "gate_marrow_lift",    rect: [4178, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_marrow_cell", "bell_marrow_cell"] },
   { id: "gate_shadow_veins",   rect: [ 440, 5270, 42, 300], ability: "lantern_phase",     name: "灯影相位", rooms: ["moss_veins", "moss_veins"] },
   { id: "gate_crown_well",     rect: [3990, 5800, 42, 240], ability: "crown_resonance",   name: "王冠共鸣", rooms: ["well_throat", "well_throat"] },
 ];
@@ -654,7 +658,10 @@ function build() {
 
   const map_rooms = ROOM_ORDER.map((id) => {
     const meta = ROOMS[id], b = rb[id], c = cells[id];
-    const layout_rect = [round(b.minx - 40), round(b.miny - 150), round(b.maxx - b.minx + 80), round(b.maxy - b.miny + 210)];
+    // layout_rect pins a room's bounds where the default platform margin is
+    // wrong: a closed room must own its ability gates (map markers) without
+    // reaching the footholds outside them (room visits).
+    const layout_rect = meta.layout_rect ?? [round(b.minx - 40), round(b.miny - 150), round(b.maxx - b.minx + 80), round(b.maxy - b.miny + 210)];
     return {
       id, name: meta.name, range: [round(b.minx - 40), round(b.maxx + 40)], depth: meta.depth, kind: meta.kind,
       archetype: meta.kind, layout_rect, map_rect: [c.col * 280, c.row * 210, 236, 168],
@@ -686,6 +693,7 @@ function build() {
     edge("court_hub", "bell_ascent", "passage", "climb"),
     edge("bell_ascent", "belfry_mid", "passage", "walk_jump"),
     edge("belfry_mid", "bell_marrow_cell", "ability_gate", "downstrike", "", false, "thorn_downstrike"),
+    edge("bell_ascent", "bell_marrow_cell", "ability_gate", "downstrike", "", true, "thorn_downstrike"),
     edge("belfry_mid", "hidden_attic", "passage", "walk_jump"),
     edge("hidden_attic", "salt_corridor", "passage", "walk_jump"),
     edge("belfry_mid", "belfry_top", "passage", "walk_jump"),

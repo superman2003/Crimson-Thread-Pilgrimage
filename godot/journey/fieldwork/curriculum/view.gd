@@ -1,4 +1,11 @@
 extends Control
+
+const DARK_TEXT := Color("102522")
+const MUTED_TEXT := Color("a3b3aa")
+const STEP_DETAIL_TEXT := Color("b8b9a4")
+const SELECTED_TEXT := Color("d5bd8d")
+const STEP_TITLE_TEXT := Color("e3d7bf")
+
 var rows: Array = []
 var offset := 0
 var selected := 0
@@ -173,7 +180,7 @@ func _time_grid(font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             80,
             11,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     var boundary := _x(budget)
     if boundary >= LEFT and boundary <= size.x - 15:
@@ -189,7 +196,7 @@ func _step(index: int, font: Font) -> void:
         draw_rect(Rect2(2, y - 1, size.x - 4, ROW - 1), Color("3c4c3c"))
     var caption := "%d.%d %s" % [row["轮次"], row["步骤"], row["动作"]]
     draw_string(
-        font, Vector2(7, y + 16), caption, HORIZONTAL_ALIGNMENT_LEFT, LEFT - 13, 12, Color("e3d7bf")
+        font, Vector2(7, y + 16), caption, HORIZONTAL_ALIGNMENT_LEFT, LEFT - 13, 12, STEP_TITLE_TEXT
     )
     var a := clampf(_x(float(row["开始秒"])), LEFT, size.x - 15)
     var b := clampf(_x(float(row["结束秒"])), LEFT, size.x - 15)
@@ -209,7 +216,7 @@ func _step(index: int, font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             b - a - 8,
             11,
-            Color("102522")
+            DARK_TEXT
         )
     if index == selected:
         draw_rect(Rect2(a, y + 2, maxf(2, b - a), ROW - 6), Color("e1c28c"), false, 2)
@@ -231,7 +238,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 16,
         11,
-        Color("b8b9a4")
+        STEP_DETAIL_TEXT
     )
     draw_string(
         font,
@@ -240,7 +247,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 16,
         11,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if rows.is_empty():
         draw_string(
@@ -250,7 +257,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             size.x - 40,
             16,
-            Color("d5bd8d")
+            SELECTED_TEXT
         )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
