@@ -8,9 +8,9 @@ from unittest.mock import patch
 import build_macos_candidate as mac
 
 ROOT = Path(__file__).resolve().parents[1]
-GOOD = ['CrimsonThreadPilgrimage.app/', 'CrimsonThreadPilgrimage.app/Contents/Info.plist',
-        'CrimsonThreadPilgrimage.app/Contents/MacOS/CrimsonThreadPilgrimage',
-        'CrimsonThreadPilgrimage.app/Contents/Resources/CrimsonThreadPilgrimage.pck']
+APP = '绯线巡礼 - 互联世界.app'
+GOOD = [APP + '/', APP + '/Contents/Info.plist', APP + '/Contents/MacOS/绯线巡礼 - 互联世界',
+        APP + '/Contents/Resources/绯线巡礼 - 互联世界.pck']
 
 
 class Bundle(unittest.TestCase):
@@ -21,11 +21,16 @@ class Bundle(unittest.TestCase):
         self.assertIn('no executable under Contents/MacOS', mac.bundle_problems([n for n in GOOD if '/MacOS/' not in n]))
         self.assertIn('no Info.plist', mac.bundle_problems([n for n in GOOD if not n.endswith('Info.plist')]))
         self.assertIn('no game data (.pck) under Contents/Resources', mac.bundle_problems([n for n in GOOD if not n.endswith('.pck')]))
-        self.assertTrue(any('outside the app bundle' in p for p in mac.bundle_problems(GOOD + ['readme.txt'])))
+
+    def test_the_bundle_takes_the_project_name_and_must_stand_alone(self):
+        self.assertEqual(mac.bundle_name(GOOD), APP)
+        for bad in [GOOD + ['readme.txt'], GOOD + ['Other.app/Contents/Info.plist'], ['game/data.pck'], []]:
+            with self.assertRaisesRegex(ValueError, 'exactly one app bundle'):
+                mac.bundle_name(bad)
 
     def test_exactly_one_executable_is_required(self):
         with tempfile.TemporaryDirectory() as folder:
-            app = Path(folder) / mac.APP
+            app = Path(folder) / APP
             (app / 'Contents/MacOS').mkdir(parents=True)
             with self.assertRaisesRegex(ValueError, 'exactly one executable'):
                 mac.executable_in(app)

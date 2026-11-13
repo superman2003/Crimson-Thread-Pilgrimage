@@ -25,24 +25,30 @@ import download_godot_release as engine_release
 
 ROOT = Path(__file__).resolve().parents[1]
 PRESET = 'macOS'
-APP = 'CrimsonThreadPilgrimage.app'
 EDITOR_ARCHIVE = f'Godot_v{engine_release.VERSION}-stable_macos.universal.zip'
 TEMPLATE = 'macos.zip'
 
 
+def bundle_name(names: list[str]) -> str:
+    """The one top-level .app in a ZIP's member list (named after the project)."""
+    tops = sorted({name.split('/', 1)[0] for name in names if name})
+    apps = [top for top in tops if top.endswith('.app')]
+    if len(apps) != 1 or len(tops) != 1:
+        raise ValueError('Expected exactly one app bundle and nothing else at the top of the archive: ' + ', '.join(tops[:4]))
+    return apps[0]
+
+
 def bundle_problems(names: list[str]) -> list[str]:
     """What a ZIP's member list is missing to be the exported app bundle."""
+    app = bundle_name(names)
     found = []
     files = {name for name in names if not name.endswith('/')}
-    if not any(name.startswith(APP + '/Contents/MacOS/') for name in files):
+    if not any(name.startswith(app + '/Contents/MacOS/') for name in files):
         found.append('no executable under Contents/MacOS')
-    if APP + '/Contents/Info.plist' not in files:
+    if app + '/Contents/Info.plist' not in files:
         found.append('no Info.plist')
-    if not any(name.startswith(APP + '/Contents/Resources/') and name.endswith('.pck') for name in files):
+    if not any(name.startswith(app + '/Contents/Resources/') and name.endswith('.pck') for name in files):
         found.append('no game data (.pck) under Contents/Resources')
-    stray = sorted(name for name in files if not name.startswith(APP + '/'))
-    if stray:
-        found.append('files outside the app bundle: ' + ', '.join(stray[:3]))
     return found
 
 
@@ -118,6 +124,7 @@ def main() -> int:
             if not archive.is_file():
                 raise ValueError('Exporter did not produce the app archive')
             with zipfile.ZipFile(archive) as bundle:
+                app = bundle_name(bundle.namelist())
                 problems = bundle_problems(bundle.namelist())
             if problems:
                 raise ValueError('Exported archive is not a complete app: ' + '; '.join(problems))
@@ -125,7 +132,7 @@ def main() -> int:
             shutil.rmtree(project)
             unpacked = work / 'unpacked'
             subprocess.run(['ditto', '-x', '-k', str(archive), str(unpacked)], check=True)
-            binary = executable_in(unpacked / APP)
+            binary = executable_in(unpacked / app)
             home = work / 'home'
             home.mkdir()
             env = dict(os.environ, HOME=str(home))
