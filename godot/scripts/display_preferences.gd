@@ -3,13 +3,15 @@ extends RefCounted
 ## from journey saves and settings profiles: a profile shared to another
 ## computer must not change that computer's window.
 const CAPS: Array[int] = [0, 30, 60, 120, 144]
-const DEFAULTS := {"fullscreen": false, "vsync": true, "fps_cap": 0}
+const ASSISTS: Array[String] = ["off", "protan", "deutan"]
+const DEFAULTS := {"fullscreen": false, "vsync": true, "fps_cap": 0, "colour_assist": "off"}
 var store := preload("res://scripts/journey_desk_store.gd").new()
 ## Injected by the validation; production talks to the engine.
 var window_mode: Callable
 var set_window_mode: Callable
 var set_vsync: Callable
 var set_fps_cap: Callable
+var set_colour_assist: Callable
 var values := DEFAULTS.duplicate()
 var notice := ""
 var ready := false
@@ -29,6 +31,8 @@ func initialize() -> void:
             if not headless:DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if enabled else DisplayServer.VSYNC_DISABLED)
     if not set_fps_cap.is_valid():
         set_fps_cap=func(cap: int):Engine.max_fps=cap
+    if not set_colour_assist.is_valid():
+        set_colour_assist=func(_mode: String):pass
     store.configure("display","installation")
     var saved:=store.read()
     if saved.is_empty():
@@ -42,13 +46,17 @@ func initialize() -> void:
     _apply()
 
 static func valid(candidate: Variant) -> bool:
-    if not candidate is Dictionary or candidate.size()!=DEFAULTS.size():return false
+    # Records written before the colour assist existed have three fields.
+    if not candidate is Dictionary:return false
+    var assist: Variant=candidate.get("colour_assist","off")
+    if candidate.size()!=(4 if candidate.has("colour_assist") else 3) or not assist is String or not ASSISTS.has(assist):return false
     if not candidate.get("fullscreen") is bool or not candidate.get("vsync") is bool:return false
     var cap: Variant=candidate.get("fps_cap")
     return typeof(cap) in [TYPE_INT,TYPE_FLOAT] and float(cap)==floorf(float(cap)) and CAPS.has(int(cap))
 
 static func clean(candidate: Dictionary) -> Dictionary:
-    return {"fullscreen":bool(candidate.fullscreen),"vsync":bool(candidate.vsync),"fps_cap":int(candidate.fps_cap)}
+    return {"fullscreen":bool(candidate.fullscreen),"vsync":bool(candidate.vsync),"fps_cap":int(candidate.fps_cap),
+        "colour_assist":String(candidate.get("colour_assist","off"))}
 
 func _apply() -> void:
     # Leave a maximised or minimised window alone unless the mode really changes.
@@ -57,6 +65,7 @@ func _apply() -> void:
         set_window_mode.call(DisplayServer.WINDOW_MODE_FULLSCREEN if values.fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
     set_vsync.call(bool(values.vsync))
     set_fps_cap.call(int(values.fps_cap))
+    set_colour_assist.call(String(values.colour_assist))
 
 func change(key: String, value: Variant) -> Dictionary:
     var candidate:=values.duplicate()

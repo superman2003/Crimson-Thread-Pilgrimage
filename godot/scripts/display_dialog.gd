@@ -11,11 +11,16 @@ var window: AcceptDialog
 var fullscreen: CheckButton
 var vsync: CheckButton
 var cap: OptionButton
+var assist: OptionButton
 var status: Label
 
 static func install(shell: Control) -> void:
     if shell.has_node("DisplayDesk"):return
-    if shared==null:shared=MODEL.new();shared.initialize()
+    if shared==null:
+        shared=MODEL.new()
+        var root: Window=shell.get_tree().root
+        shared.set_colour_assist=func(mode: String):preload("res://scripts/colour_assist.gd").apply(root,mode)
+        shared.initialize()
     var desk:=new();desk.name="DisplayDesk";shell.add_child(desk);desk.setup(shell,shared)
 
 func setup(shell: Control, preferences: RefCounted) -> void:
@@ -28,7 +33,7 @@ func setup(shell: Control, preferences: RefCounted) -> void:
 
 func ensure_window() -> void:
     if is_instance_valid(window):return
-    window=AcceptDialog.new();window.title="显示";window.min_size=Vector2i(420,260)
+    window=AcceptDialog.new();window.title="显示";window.min_size=Vector2i(420,308)
     ui.settings.add_child(window);ui.register_text_entry_window(window)
     var column:=VBoxContainer.new();column.add_theme_constant_override("separation",12);window.add_child(column)
     fullscreen=CheckButton.new();fullscreen.text="全屏";fullscreen.custom_minimum_size=Vector2(380,36)
@@ -41,8 +46,14 @@ func ensure_window() -> void:
     for value in MODEL.CAPS:
         cap.add_item("不限" if value==0 else str(value));cap.set_item_metadata(cap.item_count-1,value)
     cap.item_selected.connect(func(index: int):_change("fps_cap",int(cap.get_item_metadata(index))))
+    var assist_row:=HBoxContainer.new();column.add_child(assist_row)
+    var assist_caption:=Label.new();assist_caption.text="色觉辅助";assist_caption.custom_minimum_size=Vector2(190,36);assist_row.add_child(assist_caption)
+    assist=OptionButton.new();assist.custom_minimum_size=Vector2(190,36);assist_row.add_child(assist)
+    for entry in [["off","关闭"],["protan","红色弱"],["deutan","绿色弱"]]:
+        assist.add_item(entry[1]);assist.set_item_metadata(assist.item_count-1,entry[0])
+    assist.item_selected.connect(func(index: int):_change("colour_assist",String(assist.get_item_metadata(index))))
     status=Label.new();status.custom_minimum_size=Vector2(380,28);column.add_child(status)
-    preload("res://scripts/settings_dialog_layout.gd").install(window,column,Vector2i(420,300))
+    preload("res://scripts/settings_dialog_layout.gd").install(window,column,Vector2i(420,348))
 
 func open() -> void:
     if not ui.settings.is_visible_in_tree():return
@@ -53,6 +64,7 @@ func refresh() -> void:
     fullscreen.set_pressed_no_signal(bool(model.values.fullscreen))
     vsync.set_pressed_no_signal(bool(model.values.vsync))
     cap.select(maxi(MODEL.CAPS.find(int(model.values.fps_cap)),0))
+    assist.select(maxi(MODEL.ASSISTS.find(String(model.values.colour_assist)),0))
     status.text=String(model.notice)
 
 func _change(key: String, value: Variant) -> void:
