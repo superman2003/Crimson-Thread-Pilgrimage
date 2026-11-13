@@ -129,6 +129,12 @@ def overlaps(a, b):
     return a[0] < b[0] + b[2] and a[0] + a[2] > b[0] and a[1] < b[1] + b[3] and a[1] + a[3] > b[1]
 
 
+def blocks_observation(rectangles, point):
+    cx, cy = point
+    approach = [cx - PLAYER_HALF_WIDTH, cy - PLAYER_HEIGHT, PLAYER_HALF_WIDTH * 2, PLAYER_HEIGHT]
+    return any(overlaps(approach, rect) or segment_hits((cx, cy - 42), (cx, cy), rect) for rect in rectangles)
+
+
 def niche_shell(ledge, ability, wall=24):
     """Roof, side walls and (resonance) bell plate around ledge [x, y, w, h]."""
     lx, ly, lw, lh = ledge
@@ -324,6 +330,14 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
                 continue
         for problem in check_place(config, entry, platform['rect'], entry['base_platform_id'], anchors, shell, gate, ring):
             errors.append(f"{entry['id']}: {problem}")
+        # Existing entrance observations must remain visible even when the
+        # player approaches at the clue's authored height (e.g. during a jump).
+        new_rects = [platform['rect']] + (list(shell.values()) if shell else []) + ([gate] if gate else [])
+        for hidden in routes.get('hidden_route_plan', []):
+            if hidden['region_id'] != region:
+                continue
+            if blocks_observation(new_rects, hidden['clue']['position']):
+                errors.append(f"{entry['id']}: new geometry blocks the observation of {hidden['id']}")
         px, py, pw, _ = platform['rect']
         rx, ry = reward['position']
         base = next(p for p in config['platforms'] if p['id'] == entry['base_platform_id'])
@@ -384,6 +398,9 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
         if pair[0] and gate:
             px, py = pair[0]['position']
             gx, gy, gw, gh = gate['rect']
+            for hidden in routes.get('hidden_route_plan', []):
+                if hidden['region_id'] == entry['region_id'] and blocks_observation([gate['rect']], hidden['clue']['position']):
+                    errors.append(f"{entry['id']}: action seal blocks the observation of {hidden['id']}")
             if gy + gh > py - 50:
                 errors.append(f"{entry['id']}: the overhead seal blocks walking headroom")
             if math.dist((px, py - 2), (min(max(px, gx), gx + gw), min(max(py - 2, gy), gy + gh))) > gate.get('action_range', 150) * .9:
@@ -412,6 +429,12 @@ def self_test():
     assert segment_hits((0, 0), (10, 10), [4, 4, 2, 2]) and not segment_hits((0, 0), (10, 0), [4, 4, 2, 2])
     shell, gate = niche_shell([100, 100, 120, 22], 'crown_resonance')
     assert gate == [100, 122, 120, 8] and shell['wall_l'][1] + shell['wall_l'][3] == 130
+    old = [1760, 4646, 120, 16]
+    shell, gate = niche_shell(old, 'crown_resonance')
+    assert blocks_observation([old, gate, *shell.values()], (1830, 4690)), 'old bell plate hid the tide-cell clue'
+    moved = [2606, 2562, 72, 16]
+    shell, gate = niche_shell(moved, 'crown_resonance')
+    assert not blocks_observation([moved, gate, *shell.values()], (1830, 4690))
 
 
 def main():

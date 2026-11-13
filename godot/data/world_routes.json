@@ -2519,18 +2519,18 @@
           "note": "回声钩索才能取到的可选探索奖励。"
         },
         {
-          "id": "a01_undercanal_bell_niche_reward",
+          "id": "a01_pump_bell_niche_reward",
           "kind": "item",
           "item_id": "wet_chitin",
           "amount": 6,
           "position": [
-            1820.0,
-            4576
+            2642.0,
+            2492
           ],
-          "room_id": "undercanal",
-          "platform_id": "a01_undercanal_bell_niche",
+          "room_id": "pump_atrium",
+          "platform_id": "a01_pump_bell_niche",
           "reward_role": "optional_exploration",
-          "label": "暗渠钟板后的湿壳",
+          "label": "泵房钟板后的湿壳",
           "note": "王冠共鸣才能取到的可选探索奖励。"
         },
         {
@@ -2731,11 +2731,11 @@
       ],
       "locked_gates": [
         {
-          "id": "a01_undercanal_bell_niche_bell",
+          "id": "a01_pump_bell_niche_bell",
           "rect": [
-            1760,
-            4662,
-            120,
+            2606,
+            2578,
+            72,
             8
           ],
           "color": "b58a48",
@@ -2743,10 +2743,10 @@
           "required_ability": "crown_resonance",
           "required_ability_name": "王冠共鸣",
           "requires_action": "crown_resonance",
-          "permanent_action_unlock_id": "a01_undercanal_bell_niche_bell",
+          "permanent_action_unlock_id": "a01_pump_bell_niche_bell",
           "action_range": 150,
-          "from_room": "undercanal",
-          "to_room": "undercanal",
+          "from_room": "pump_atrium",
+          "to_room": "pump_atrium",
           "map_marker": "ability_gate",
           "gate_kind": "action_gate",
           "action_hint": "站在钟板正下方按 R，共鸣震开封板。",
@@ -3225,11 +3225,11 @@
           "route_role": "branch"
         },
         {
-          "id": "a01_undercanal_bell_niche",
+          "id": "a01_pump_bell_niche",
           "rect": [
-            1760,
-            4646,
-            120,
+            2606,
+            2562,
+            72,
             16
           ],
           "collision_role": "one_way",
@@ -3238,11 +3238,11 @@
           "route_role": "branch"
         },
         {
-          "id": "a01_undercanal_bell_niche_roof",
+          "id": "a01_pump_bell_niche_roof",
           "rect": [
-            1736,
-            4492,
-            168,
+            2582,
+            2408,
+            120,
             24
           ],
           "collision_role": "ceiling",
@@ -3251,10 +3251,10 @@
           "route_role": "branch"
         },
         {
-          "id": "a01_undercanal_bell_niche_wall_l",
+          "id": "a01_pump_bell_niche_wall_l",
           "rect": [
-            1736,
-            4492,
+            2582,
+            2408,
             24,
             178
           ],
@@ -3264,10 +3264,10 @@
           "route_role": "branch"
         },
         {
-          "id": "a01_undercanal_bell_niche_wall_r",
+          "id": "a01_pump_bell_niche_wall_r",
           "rect": [
-            1880,
-            4492,
+            2678,
+            2408,
             24,
             178
           ],
@@ -4147,11 +4147,6 @@
       "save_points": [],
       "map_room_overrides": [
         {
-          "id": "undercanal",
-          "guide": "井底有人敲三下，不要回答第四下。 走道尽头头顶封着一块旧钟板，敲不响，像在等某种回声。",
-          "generated_by": "ability_places"
-        },
-        {
           "id": "silt_vault",
           "guide": "半沉工头想找回三枚工牌。 可见旧检修入口：「淤泥排压室」。Shift 冲刺拨开计时栅闩。",
           "objective": "搜刮沉在淤泥里的库房。 可选：淤泥排压室。",
@@ -4159,7 +4154,7 @@
         },
         {
           "id": "pump_atrium",
-          "guide": "记住这里；所有水最终都绕回泵房。 可见旧检修入口：「泵房上检修舱」。贴住门壁按跳跃，墙跳拨开检修闩。 东岸高处的吊龛里垂着一枚铜环，跳不上去。",
+          "guide": "记住这里；所有水最终都绕回泵房。 可见旧检修入口：「泵房上检修舱」。贴住门壁按跳跃，墙跳拨开检修闩。 东岸高处的吊龛里垂着一枚铜环，跳不上去。 西侧检修踏板上方封着一块旧钟板，敲不响，像在等某种回声。",
           "objective": "以泵房中庭为枢纽：上读水表、西攀立管、下探沉渠、东讨锤炉。 可选：泵房上检修舱。",
           "generated_by": "world_upgrade"
         },
@@ -10134,15 +10129,15 @@
       "ring_id": "a01_pump_hook_niche_ring"
     },
     {
-      "id": "a01_undercanal_bell_niche",
+      "id": "a01_pump_bell_niche",
       "kind": "niche",
       "region_id": "demo_ch02_rain_foundry_canal",
-      "room_id": "undercanal",
+      "room_id": "pump_atrium",
       "required_ability": "crown_resonance",
-      "base_platform_id": "uc_end",
-      "platform_id": "a01_undercanal_bell_niche",
-      "reward_id": "a01_undercanal_bell_niche_reward",
-      "gate_id": "a01_undercanal_bell_niche_bell"
+      "base_platform_id": "pw07",
+      "platform_id": "a01_pump_bell_niche",
+      "reward_id": "a01_pump_bell_niche_reward",
+      "gate_id": "a01_pump_bell_niche_bell"
     },
     {
       "id": "a01_atrium_bell_niche",
