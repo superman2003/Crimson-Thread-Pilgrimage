@@ -90,6 +90,12 @@ func run() -> void:
     check(not again.get_node("Result").dialog_text.contains("新纪录") and again.get_node("Result").dialog_text.contains("最佳 "+RUSH.clock_text(total)),"a slower clear shows the standing best")
     again.get_node("Result").confirmed.emit();await frames()
     check(is_equal_approx(best(),total),"…and does not replace it")
+    made.clear();var unsaved:=rush(current_scene,1);await frames()
+    unsaved.store.writer=func(_data: Dictionary):return ERR_FILE_CANT_WRITE
+    unsaved.elapsed=maxf(0.001,total*0.5);unsaved._finish(true);await frames()
+    check(not unsaved.get_node("Result").dialog_text.contains("新纪录"),"a failed record write must not announce a stored new record")
+    check(unsaved.get_node("Result").dialog_text.contains("未能保存") and is_equal_approx(best(),total),"a failed record write reports the failure and retains the previous best")
+    unsaved.get_node("Result").confirmed.emit();await frames()
     made.clear();var quitter:=rush(current_scene,2);await frames()
     quitter.quit_held=RUSH.QUIT_HOLD;quitter._finish(false);await frames()
     check(quitter.get_node("Result").dialog_text=="已退出连战。" and is_equal_approx(best(),total) and current_scene is World,"quitting returns to the journey and records nothing")

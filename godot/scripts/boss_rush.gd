@@ -106,14 +106,15 @@ func _refresh() -> void:
 func _finish(cleared: bool) -> void:
     done=true;fighting=false
     var previous:=best()
-    var record:=cleared and (previous<=0.0 or elapsed<previous)
-    if record and store.writable:store.write({"best_seconds":elapsed})
+    var improved:=cleared and (previous<=0.0 or elapsed<previous)
+    var record:=improved and store.writable and store.write({"best_seconds":elapsed})
+    var unsaved:=improved and not record
     var result:={"cleared":cleared,"seconds":elapsed,"splits":splits.duplicate(),"best":elapsed if record else previous,"record":record}
     _swap(scene,make_world.call())
     label.visible=false
     var window:=AcceptDialog.new();window.name="Result";window.title="首领连战"
     window.process_mode=Node.PROCESS_MODE_ALWAYS
-    window.dialog_text=("用时 %s%s" % [clock_text(elapsed),"　新纪录" if record else ("　最佳 "+clock_text(previous) if previous>0.0 else "")]) if cleared else "已退出连战。"
+    window.dialog_text=("用时 %s%s" % [clock_text(elapsed),"　新纪录" if record else ("　未能保存纪录。"+store.error if unsaved else ("　最佳 "+clock_text(previous) if previous>0.0 else ""))]) if cleared else "已退出连战。"
     add_child(window)
     var close:=func():
         finished.emit(result);queue_free()
