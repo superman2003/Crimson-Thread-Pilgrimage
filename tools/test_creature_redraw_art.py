@@ -1,5 +1,5 @@
 """Reject missing deliveries and corrupted registration metadata before packing."""
-from contextlib import redirect_stderr, redirect_stdout
+from contextlib import redirect_stderr
 import io
 import json
 from pathlib import Path
@@ -52,19 +52,16 @@ class PaintingStyle(unittest.TestCase):
             self.assertEqual([j['sha256'] for j in jobs if j['clip'] == clip], [digest], (kind, clip))
 
 
-    def test_the_one_pending_redraw_is_pinned_and_still_reported(self):
-        self.assertEqual(list(art.PENDING_STYLE_REDRAW), [('summoned_page', 'windup')])
+    def test_repainted_summoned_windup_meets_the_original_painting_guard(self):
         jobs = art.read(art.REQUEST/'jobs/summoned_page.json')['jobs']
-        self.assertEqual([j['sha256'] for j in jobs if j['clip'] == 'windup'],
-                         [art.PENDING_STYLE_REDRAW[('summoned_page', 'windup')]])
-        shown = io.StringIO()
-        with redirect_stdout(shown):
-            art.build('summoned_page', check=True)
-        self.assertIn('STYLE_REDRAW_PENDING summoned_page/windup: blurred outline', shown.getvalue())
-        # A different sheet for the same clip is not excused.
-        with patch.dict(art.PENDING_STYLE_REDRAW, {('summoned_page', 'windup'): '0'*64}):
-            with redirect_stdout(io.StringIO()), self.assertRaisesRegex(ValueError, 'drifts from the established painting'):
-                art.build('summoned_page', check=True)
+        job = next(j for j in jobs if j['clip'] == 'windup')
+        self.assertNotEqual(job['sha256'], '7cabfa1e7070d40b9b87888dd98cdb8c6c1645177263d414560cb739d30df3d7')
+        _, baseline = art.baseline('summoned_page')
+        clip = next(c for c in baseline['animations'] if c['name'] == 'windup')
+        drawings, _ = art.extract(job, baseline['canvas'], art.body_area(clip, baseline['canvas']))
+        before = [art.source_drawing(frame, {}) for frame in clip['frames']]
+        self.assertEqual(art.style_defects(before, drawings), [])
+        art.build('summoned_page', check=True)
 
 
 class DeliveryContracts(unittest.TestCase):

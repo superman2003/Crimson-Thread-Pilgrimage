@@ -646,6 +646,7 @@ var new_journey_dialog: ConfirmationDialog
 var world_new_key_held := false
 var world_resumed_journey := false
 var journey_clock: RefCounted
+var achievements: RefCounted
 var world_map_view := false
 var applied_build_profile: Dictionary = {}
 var world_start_region_id := ""
@@ -1391,6 +1392,9 @@ func _save_world() -> bool:
     world_state.data = candidate # transfer the fully persisted, privately owned tree.
     if journey_clock != null:
         journey_clock.flush()
+    if achievements == null:
+        achievements = preload("res://scripts/achievements.gd").new()
+    preload("res://scripts/achievement_notice.gd").show_on(self, achievements.sync(candidate, int(Time.get_unix_time_from_system())))
     return true
 
 

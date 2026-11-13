@@ -178,6 +178,38 @@
         "target": "idle",
         "target_frame": 0
       }
+    ],
+    "bellroot_acolyte": [
+      {
+        "source": "root_bell_wave_windup",
+        "source_frame": -1,
+        "target": "root_bell_wave",
+        "target_frame": 0
+      },
+      {
+        "source": "root_bell_wave",
+        "source_frame": -1,
+        "target": "root_bell_wave_recover",
+        "target_frame": 0
+      },
+      {
+        "source": "root_bell_wave_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      }
     ]
   }
 }
