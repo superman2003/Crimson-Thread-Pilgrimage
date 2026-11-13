@@ -36,6 +36,13 @@ class DeliveryContracts(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Duplicate registered clip'):
             self.corrupted(duplicate)
 
+    def test_changed_supporting_handoff_reference_is_rejected(self):
+        def change(spec):
+            spec['jobs'][0].setdefault('reference', {})['supporting_guides'] = [dict(
+                path='art_requests/creature_redraw_v1/checklist.json', sha256='0'*64)]
+        with self.assertRaisesRegex(ValueError, 'Recorded handoff reference recipe changed'):
+            self.corrupted(change)
+
     def test_changed_frame_count_is_rejected_before_writing_an_atlas(self):
         def change(spec): spec['jobs'][0]['count'] += 1
         with self.assertRaisesRegex(ValueError, 'frozen frame count'):

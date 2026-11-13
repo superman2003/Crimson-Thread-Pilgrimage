@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "kind": "ash_banner_imp",
+  "source_commit": "1c8a70a05e43d6f5ba20e518b9ea79c6a2c1f1fb",
+  "canvas": [
+    416,
+    282
+  ],
+  "explanation": "Reference only. Reconstruct fixed-canvas production drawings at source_frame.margin with original atlas pixels, no recentering or scale fitting. Final artwork is repainted by built-in image_gen.",
+  "entries": [
+    {
+      "clip": "imp_retreat_windup",
+      "frame": 23,
+      "role": "fixed entry",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_redraw_00.png",
+        "region": [
+          269,
+          1608,
+          242,
+          152
+        ],
+        "margin": [
+          99,
+          104,
+          174,
+          130
+        ]
+      }
+    },
+    {
+      "clip": "imp_retreat",
+      "frame": 0,
+      "role": "previous opening",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_redraw_00.png",
+        "region": [
+          1243,
+          557,
+          236,
+          107
+        ],
+        "margin": [
+          92,
+          126,
+          180,
+          175
+        ]
+      }
+    },
+    {
+      "clip": "imp_retreat",
+      "frame": 23,
+      "role": "rejected previous endpoint",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/motion_redraw_00.png",
+        "region": [
+          1700,
+          937,
+          169,
+          219
+        ],
+        "margin": [
+          97,
+          13,
+          247,
+          63
+        ]
+      }
+    },
+    {
+      "clip": "imp_retreat_recover",
+      "frame": 0,
+      "role": "fixed exit",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png",
+        "region": [
+          1990,
+          838,
+          205,
+          195
+        ],
+        "margin": [
+          112,
+          62,
+          211,
+          87
+        ]
+      }
+    }
+  ],
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/ash_banner_imp/motion_redraw_00.png": "b69274dccbf47ca93ce45ed452d4bbf330b58e77453e4c1cfaa6e1ef9352f67f",
+    "res://assets/sprites/original_creatures/ash_banner_imp/combat_motion_v7.png": "0e39d0e8568fac48fabf67c29ca74013f7db243e18ad1de8487d07121f2ac929"
+  }
+}

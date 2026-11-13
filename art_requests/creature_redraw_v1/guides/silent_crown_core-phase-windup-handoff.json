@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "kind": "silent_crown_core",
+  "source_commit": "1c8a70a05e43d6f5ba20e518b9ea79c6a2c1f1fb",
+  "canvas": [
+    522,
+    278
+  ],
+  "explanation": "Reference only. Reconstruct fixed-canvas production drawings at source_frame.margin with original atlas pixels, no recentering or scale fitting. Final artwork is repainted by built-in image_gen.",
+  "entries": [
+    {
+      "clip": "walk",
+      "frame": 0,
+      "role": "fixed entry",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_00.png",
+        "region": [
+          1563,
+          1569,
+          195,
+          153
+        ],
+        "margin": [
+          197,
+          96,
+          327,
+          125
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 8,
+      "role": "fixed entry",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_00.png",
+        "region": [
+          1216,
+          1755,
+          199,
+          158
+        ],
+        "margin": [
+          194,
+          91,
+          323,
+          120
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 16,
+      "role": "fixed entry",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_01.png",
+        "region": [
+          822,
+          2,
+          200,
+          155
+        ],
+        "margin": [
+          194,
+          94,
+          322,
+          123
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 24,
+      "role": "fixed entry",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_01.png",
+        "region": [
+          616,
+          168,
+          199,
+          157
+        ],
+        "margin": [
+          195,
+          92,
+          323,
+          121
+        ]
+      }
+    },
+    {
+      "clip": "phase_windup",
+      "frame": 0,
+      "role": "rejected previous opening",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_00.png",
+        "region": [
+          1424,
+          960,
+          216,
+          216
+        ],
+        "margin": [
+          172,
+          43,
+          306,
+          62
+        ]
+      }
+    },
+    {
+      "clip": "phase_windup",
+      "frame": 23,
+      "role": "previous endpoint",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_00.png",
+        "region": [
+          1368,
+          1569,
+          191,
+          178
+        ],
+        "margin": [
+          167,
+          88,
+          331,
+          100
+        ]
+      }
+    },
+    {
+      "clip": "phase",
+      "frame": 0,
+      "role": "adjacent phase opening",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_00.png",
+        "region": [
+          1496,
+          384,
+          201,
+          193
+        ],
+        "margin": [
+          182,
+          63,
+          321,
+          85
+        ]
+      }
+    },
+    {
+      "clip": "phase_bridge",
+      "frame": 0,
+      "role": "fixed phase exit",
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/silent_crown_core/combat_motion_v7.png",
+        "region": [
+          625,
+          1536,
+          233,
+          160
+        ],
+        "margin": [
+          192,
+          89,
+          289,
+          118
+        ]
+      }
+    }
+  ],
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_00.png": "54a32dd5de6e7efaef1a8afd85a7994963fa97008b94794ee52b14209cbaff35",
+    "res://assets/sprites/original_creatures/silent_crown_core/motion_redraw_01.png": "61f2965c7dbc5551383efd8e303b2821966dbeaae49ce4a8231cb22c0a0dff34",
+    "res://assets/sprites/original_creatures/silent_crown_core/combat_motion_v7.png": "64c609129690566aeaa41d5a37e91bf409b62c9033b700e9f84bb8e7688db9fa"
+  }
+}
