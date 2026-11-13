@@ -42,8 +42,6 @@
   "world_route_walk": "^WORLD_ROUTE_WALK_VALIDATION steps=\\d+ physics_frames=\\d+ failures=0 damage_suppression=true$",
   "ability_movement": "^ABILITY_MOVEMENT_VALIDATION failures=0$",
   "ability_ledges": "^ABILITY_LEDGES checks=[1-9][0-9]* failures=0$",
-  "ability_routes": "^ABILITY_ROUTES checks=[1-9][0-9]* failures=0$",
-  "ability_routes_world": "^ABILITY_ROUTES_WORLD checks=[1-9][0-9]* failures=0$",
   "enemy_lifecycle_regression": "^ENEMY_LIFECYCLE_REGRESSION checks=\\d+ failures=0$",
   "enemy_effect_lifetime": "^ENEMY_EFFECT_LIFETIME_VALIDATION checks=\\d+ failures=0$",
   "enemy_visibility": "^ENEMY_VISIBILITY_VALIDATION checks=\\d+ failures=0$",
@@ -243,5 +241,7 @@
   "enemy_hit_feedback": "^ENEMY_HIT_FEEDBACK checks=[1-9][0-9]* failures=0 characters=46$",
   "enemy_frame_fit": "^ENEMY_FRAME_FIT checks=[1-9][0-9]* failures=0 characters=46 corrected_frames=[1-9][0-9]* drawn=[08]$",
   "enemy_wing_flap": "^ENEMY_WING_FLAP checks=[1-9][0-9]* failures=0 creatures=[7-9] clips=[1-9][0-9]* drawn=(0|[1-9][0-9]*)$",
-  "trap_free_world": "^TRAP_FREE_WORLD checks=[1-9][0-9]* failures=0 chapters=6$"
+  "trap_free_world": "^TRAP_FREE_WORLD checks=[1-9][0-9]* failures=0 chapters=6$",
+  "ability_routes": "^ABILITY_ROUTES checks=[1-9][0-9]* failures=0$",
+  "ability_routes_world": "^ABILITY_ROUTES_WORLD checks=[1-9][0-9]* failures=0$"
 }

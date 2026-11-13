@@ -4,6 +4,7 @@ extends SceneTree
 ## is reached with real input only when its ability is used.
 const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
+const ENEMY_ACTOR := preload("res://scripts/enemy_actor.gd")
 const ACTION_STAGE := preload("res://tests/ability_action_stage.gd")
 var failures := 0
 var checks := 0
@@ -52,9 +53,10 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
             bodies.append(PLATFORM_BODY.create(part, _rect(piece.rect), String(piece.collision_role)))
     var gate_body: StaticBody2D = null
     var action_stage = null
-    if entry.has("gate_id"):
-        var gate := _find(overlay.locked_gates, String(entry.gate_id))
-        _check(String(gate.get("requires_action", "")) == "crown_resonance", id + " bell plate opens only by the resonance action")
+    var controlled_gate := String(entry.get("gate_id", entry.get("reward_gate_id", "")))
+    if not controlled_gate.is_empty():
+        var gate := _find(overlay.locked_gates, controlled_gate)
+        _check(String(gate.get("requires_action", "")) == String(entry.required_ability), id + " seal opens only by its actual ability action")
         gate_body = PLATFORM_BODY.create("bell", _rect(gate.rect), "")
         bodies.append(gate_body)
         action_stage = ACTION_STAGE.new()
@@ -101,13 +103,39 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
                 var adjacent_start := Vector2(adjacent_rect.end.x - 17, adjacent_rect.position.y)
                 await _adjacent_dash(adjacent_start)
                 _check(not last_collected, id + " adjacent single jump plus airborne dash cannot collect the reward")
+                var scribe := _find(base_config.get("enemy_spawns", []), "E06")
+                _check(not scribe.is_empty(), "authored enemy exists for the pogo bypass regression")
+                if not scribe.is_empty():
+                    var profile: Dictionary = base_config.get("ai_profiles", {}).get(String(scribe.kind), {})
+                    var enemy_floor := _find(base_config.platforms, String(scribe.platform_id))
+                    _check(not enemy_floor.is_empty(), "pogo fixture retains the authored enemy support")
+                    if not enemy_floor.is_empty():
+                        var enemy_rect := _rect(enemy_floor.rect)
+                        var enemy_support := PLATFORM_BODY.create("enemy_support", enemy_rect, String(enemy_floor.get("collision_role", "floor")))
+                        root.add_child(enemy_support)
+                        var pogo: Dictionary = await _pogo_attempt(scribe, profile, enemy_rect, _vec(reward.position))
+                        _check(bool(pogo.hit), "real downward attack produces the strongest-crest enemy bounce")
+                        _check(bool(pogo.dashed), "enemy pogo fixture performs a real airborne dash")
+                        _check(not bool(pogo.collected), "enemy pogo and dash cannot collect the high-shelf reward")
+                        enemy_support.queue_free()
                 support.queue_free()
         "echo_hook":
             _near(await _jump(start, true), floor_y, id + " even the double jump falls back to the floor")
             _check(not last_collected, id + " double jump cannot collect the hook reward")
             var hook_start := Vector2(float(ring.test_from[0]), floor_y)
-            _near(await _hook(hook_start, false), floor_y, id + " without the hook the ring does nothing")
-            _near(await _hook(hook_start, true), shelf_y, id + " aiming up at the ring pulls the body onto the shelf")
+            _near(await _hook(hook_start, false, action_stage), floor_y, id + " without the hook the ring does nothing")
+            _check(action_stage.locked_gate_bodies.has(controlled_gate), "owning no hook cannot open the reward box")
+            var mote := _find(base_config.get("enemy_spawns", []), "E12")
+            _check(not mote.is_empty(), "authored flying enemy exists for the hook-reward pogo regression")
+            if not mote.is_empty():
+                var profile: Dictionary = base_config.get("ai_profiles", {}).get(String(mote.kind), {})
+                var enemy_floor := _find(base_config.platforms, String(mote.platform_id))
+                var pogo: Dictionary = await _pogo_attempt(mote, profile, _rect(enemy_floor.rect), _vec(reward.position))
+                _check(bool(pogo.hit), "real downward attack creates the flying-enemy crest bounce")
+                _check(bool(pogo.dashed), "hook reward bypass fixture really dashes")
+                _check(not bool(pogo.collected), "enemy pogo plus dash cannot collect the sealed hook reward")
+            _near(await _hook(hook_start, true, action_stage), shelf_y, id + " aiming up at the ring pulls the body onto the shelf")
+            _check(not action_stage.locked_gate_bodies.has(controlled_gate), "real hook action permanently opens the reward box")
             _check(last_collected, id + " the hook route collects its reward")
         "crown_resonance":
             _near(await _jump(start, true), floor_y, id + " the sealed bell plate stops every jump")
@@ -143,6 +171,68 @@ func _place(routes: Dictionary, entry: Dictionary) -> void:
             body.queue_free()
     await _frames(2)
 
+func _pogo_attempt(data: Dictionary, profile: Dictionary, floor_rect: Rect2, pickup_position: Vector2) -> Dictionary:
+    var stage := Node2D.new()
+    root.add_child(stage)
+    var enemy = ENEMY_ACTOR.new()
+    enemy.configure(data, String(data.get("sprite", "")), false, profile)
+    # Exercise the allowed recoil position closest to the reward on either side.
+    var minimum_x := maxf(float(data.position[0])-float(data.leash_radius), floor_rect.position.x+float(data.spawn_half_width))
+    var maximum_x := minf(float(data.position[0])+float(data.leash_radius), floor_rect.end.x-float(data.spawn_half_width))
+    enemy.position = Vector2(clampf(pickup_position.x, minimum_x, maximum_x), float(data.position[1]))
+    stage.add_child(enemy)
+    enemy.set_process(false)
+    enemy.set_physics_process(false)
+    var player = PLAYER_SCENE.instantiate()
+    stage.add_child(player)
+    player.feel = null
+    player.double_jump_unlocked = false
+    player.dash_unlocked = true
+    var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/build_catalog.json"))
+    var maximum_bounce := 1.0
+    for crest in catalog.crests.values():
+        maximum_bounce = maxf(maximum_bounce, float(crest.get("pogo_bounce_mult", 1.0)))
+    player.build_profile["downstrike_bounce_mult"] = maximum_bounce
+    player.respawn_at(enemy.position-Vector2(0, float(data.get("spawn_visual_height", 56))))
+    var direction := -1 if pickup_position.x < enemy.position.x else 1
+    player.facing = direction
+    var pickup := Area2D.new()
+    pickup.position = pickup_position
+    var shape := CollisionShape2D.new()
+    var circle := CircleShape2D.new()
+    circle.radius = 18
+    shape.shape = circle
+    pickup.add_child(shape)
+    var collected := {"value": false}
+    pickup.body_entered.connect(func(body: Node):
+        if body == player: collected.value = true)
+    stage.add_child(pickup)
+    await _frames(2)
+    var previous_hp: int = enemy.hp
+    player._start_attack(&"attack_1", true, Vector2.DOWN)
+    player._apply_attack_hits()
+    var hit: bool = enemy.hp < previous_hp and player.pogo_chain > 0 and player.velocity.y < -600.0*maximum_bounce
+    var movement := "move_left" if direction < 0 else "move_right"
+    Input.action_press(movement)
+    var dashed := false
+    var attempts: Array = []
+    for frame in 90:
+        # Fresh presses span the real swing recovery; an early buffered press
+        # can expire during hit pause before the action gate opens.
+        if frame in [16, 24, 32]:
+            attempts.append({"frame": frame, "ready": player._can_start_action(false, true), "attack": player.attack_timer, "hurt": player.hurt_timer, "cooldown": player.dash_cooldown, "airborne": not player.is_on_floor()})
+            Input.action_press("dash")
+        if frame in [18, 26, 34]: Input.action_release("dash")
+        await _frames(1)
+        dashed = dashed or player.dash_timer > 0.0
+    for action in ["move_left", "move_right", "dash"]: Input.action_release(action)
+    var result := {"hit": hit, "dashed": dashed, "collected": bool(collected.value)}
+    print("ABILITY_POGO ", JSON.stringify({"enemy": data.id, "position": [enemy.position.x, enemy.position.y], "result": result, "attempts": attempts}))
+    stage.queue_free()
+    await _frames(2)
+    return result
+
+
 func _spawn(start: Vector2):
     var player = PLAYER_SCENE.instantiate()
     root.add_child(player)
@@ -175,9 +265,13 @@ func _jump_to_apex(player) -> void:
             break
     Input.action_release("jump")
 
-func _hook(start: Vector2, unlocked: bool) -> float:
+func _hook(start: Vector2, unlocked: bool, action_stage = null) -> float:
     var player = _spawn(start)
     player.thread_grapple_unlocked = unlocked
+    if action_stage != null:
+        action_stage.player = player
+        action_stage.inventory_counts["echo_hook"] = 1 if unlocked else 0
+        player.ability_action.connect(action_stage._on_ability_action)
     await _frames(6)
     Input.action_press("aim_up")
     Input.action_press("hook")

@@ -2731,6 +2731,28 @@
       ],
       "locked_gates": [
         {
+          "id": "a01_pump_hook_niche_reward_seal",
+          "rect": [
+            3430.0,
+            2874,
+            100,
+            92
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "echo_hook",
+          "required_ability_name": "回声钩索",
+          "requires_action": "echo_hook",
+          "permanent_action_unlock_id": "a01_pump_hook_niche_reward_seal",
+          "action_range": 430,
+          "from_room": "pump_atrium",
+          "to_room": "pump_atrium",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "牵住吊龛铜环，松开上方封匣。",
+          "open_message": "铜环牵开了封匣，吊龛里的湿壳可以取走了。"
+        },
+        {
           "id": "a01_pump_bell_niche_bell",
           "rect": [
             2606,
@@ -4154,7 +4176,7 @@
         },
         {
           "id": "pump_atrium",
-          "guide": "记住这里；所有水最终都绕回泵房。 可见旧检修入口：「泵房上检修舱」。贴住门壁按跳跃，墙跳拨开检修闩。 东岸高处的吊龛里垂着一枚铜环，跳不上去。 西侧检修踏板上方封着一块旧钟板，敲不响，像在等某种回声。",
+          "guide": "记住这里；所有水最终都绕回泵房。 可见旧检修入口：「泵房上检修舱」。贴住门壁按跳跃，墙跳拨开检修闩。 东岸高处的吊龛里垂着一枚铜环，跳不上去；牵住铜环才能松开封匣。 西侧检修踏板上方封着一块旧钟板，敲不响，像在等某种回声。",
           "objective": "以泵房中庭为枢纽：上读水表、西攀立管、下探沉渠、东讨锤炉。 可选：泵房上检修舱。",
           "generated_by": "world_upgrade"
         },
@@ -10126,7 +10148,8 @@
       "base_platform_id": "hub_floor_e",
       "platform_id": "a01_pump_hook_niche",
       "reward_id": "a01_pump_hook_niche_reward",
-      "ring_id": "a01_pump_hook_niche_ring"
+      "ring_id": "a01_pump_hook_niche_ring",
+      "reward_gate_id": "a01_pump_hook_niche_reward_seal"
     },
     {
       "id": "a01_pump_bell_niche",

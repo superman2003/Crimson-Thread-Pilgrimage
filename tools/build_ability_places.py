@@ -34,7 +34,7 @@ PLACES = [
      '落旗台上方的旧龛还存着军械碎片，要再跃一次才能够到。'),
     ('a01_pump_hook_niche', 'niche', 'echo_hook', CH02, 'pump_atrium', 'hub_floor_e',
      [3420, 2990, 120, 22], 'wet_chitin', 6, '泵房吊龛湿壳',
-     '东岸高处的吊龛里垂着一枚铜环，跳不上去。'),
+     '东岸高处的吊龛里垂着一枚铜环，跳不上去；牵住铜环才能松开封匣。'),
     ('a01_pump_bell_niche', 'niche', 'crown_resonance', CH02, 'pump_atrium', 'pw07',
      [2606, 2562, 72, 16], 'wet_chitin', 6, '泵房钟板后的湿壳',
      '西侧检修踏板上方封着一块旧钟板，敲不响，像在等某种回声。'),
@@ -54,6 +54,7 @@ def build(check=False, *, routes_path=None, data_root=None):
     routes = json.loads(before)
     chapters = routes['chapters']
     hints = {p[10] for p in PLACES}
+    hints.add('\u4e1c\u5cb8\u9ad8\u5904\u7684\u540a\u9f9b\u91cc\u5782\u7740\u4e00\u679a\u94dc\u73af\uff0c\u8df3\u4e0d\u4e0a\u53bb\u3002')
     for overlay in chapters.values():
         for key in ('platforms', 'collectibles', 'locked_gates', 'grapple_anchors', 'portals'):
             overlay[key] = [v for v in overlay.get(key, []) if not v.get('id', '').startswith(PREFIX)]
@@ -61,7 +62,7 @@ def build(check=False, *, routes_path=None, data_root=None):
         for override in overlay.get('map_room_overrides', []):
             if override.get('generated_by') == 'ability_places':
                 continue
-            for hint in hints:
+            for hint in sorted(hints, key=len, reverse=True):
                 override['guide'] = override.get('guide', '').replace(' ' + hint, '')
             kept.append(override)
         overlay['map_room_overrides'] = kept
@@ -106,6 +107,19 @@ def build(check=False, *, routes_path=None, data_root=None):
                     label='吊龛铜环', required_ability='echo_hook',
                     test_from=[position[0], base_rect[1] - 40]))
                 entry['ring_id'] = pid + '_ring'
+                # The nearby flying enemy can supply height through a real
+                # pogo. Keep the traversal ring clear and latch the reward box
+                # to the actual hook action, rather than ability ownership.
+                reward_gate = pid + '_reward_seal'
+                overlay['locked_gates'].append(dict(id=reward_gate,
+                    rect=[rect[0] + rect[2] / 2 - 50, rect[1] - 116, 100, 92],
+                    color='b58a48', material='bronze_bridge', required_ability=ability,
+                    required_ability_name=NAMES[ability], requires_action=ability,
+                    permanent_action_unlock_id=reward_gate, action_range=430,
+                    from_room=room, to_room=room, map_marker='ability_gate', gate_kind='action_gate',
+                    action_hint='牵住吊龛铜环，松开上方封匣。',
+                    open_message='铜环牵开了封匣，吊龛里的湿壳可以取走了。'))
+                entry['reward_gate_id'] = reward_gate
         overlay['collectibles'].append(dict(id=reward_id, kind='item', item_id=material, amount=amount,
             position=[rect[0] + rect[2] / 2, rect[1] - 70], room_id=room, platform_id=pid,
             reward_role='optional_exploration', label=label,

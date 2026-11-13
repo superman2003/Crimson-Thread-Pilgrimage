@@ -100,6 +100,46 @@
         "target": "windup",
         "target_frame": 0
       }
+    ],
+    "page_duelist": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "page_elite_flurry",
+        "source_frame": -1,
+        "target": "page_elite_flurry_recover",
+        "target_frame": 0
+      }
+    ],
+    "bell_mote": [
+      {
+        "source": "mote_seek_windup",
+        "source_frame": -1,
+        "target": "mote_seek",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      }
     ]
   }
 }

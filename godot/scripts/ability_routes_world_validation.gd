@@ -65,6 +65,7 @@ func _run() -> void:
         if not String(entry.record_id).is_empty():
             _assert(int(scene.inventory_counts.get(String(entry.record_id), 0)) == 1, id + ": old bell record survives transitions and restart exactly once")
         print("ABILITY_ROUTE_WORLD ", id, " passed=", failures == failures_before, " local_approach_fixture=true")
+    await _verify_hook_reward_seal(data)
     _release()
     if is_instance_valid(scene):
         scene.queue_free()
@@ -73,6 +74,45 @@ func _run() -> void:
     _assert(await preload("res://scripts/audio_retirement.gd").drain(self), "World route audio retires")
     print("ABILITY_ROUTES_WORLD checks=%d failures=%d" % [checks, failures])
     quit(1 if failures else 0)
+
+func _verify_hook_reward_seal(data: Dictionary) -> void:
+    var entry: Dictionary = {}
+    for candidate in data.get("ability_ledges", []):
+        if candidate.has("reward_gate_id"):
+            entry = candidate
+            break
+    _assert(not entry.is_empty(), "hook niche declares its action-operated reward box")
+    if entry.is_empty(): return
+    var region := String(entry.region_id)
+    var overlay: Dictionary = data.chapters[region]
+    var ring: Dictionary = {}
+    var gate: Dictionary = {}
+    for candidate in overlay.grapple_anchors:
+        if String(candidate.id) == String(entry.ring_id): ring = candidate
+    for candidate in overlay.locked_gates:
+        if String(candidate.id) == String(entry.reward_gate_id): gate = candidate
+    _assert(not ring.is_empty() and not gate.is_empty(), "hook niche ring and reward seal exist")
+    if ring.is_empty() or gate.is_empty(): return
+    await _spawn(region, Vector2(float(ring.test_from[0]), float(ring.test_from[1])))
+    scene._add_inventory_item("echo_hook", 1, false)
+    scene._refresh_ability_gates()
+    _assert(scene.locked_gate_bodies.has(String(gate.id)), "owning the hook leaves its reward box sealed in the actual World")
+    await _do_action("echo_hook", gate)
+    _assert(not scene.locked_gate_bodies.has(String(gate.id)), "actual World hook input opens the reward box")
+    _assert(bool(scene.story_flags.get("action_gate_" + String(gate.id), false)), "actual hook records the permanent reward latch")
+    _assert(scene._save_world(), "hook reward latch saves through the production World checkpoint")
+    _release()
+    scene.queue_free()
+    await process_frame
+    scene = load("res://scenes/World.tscn").instantiate()
+    scene.world_resume = true
+    scene.world_save_path = SAVE
+    root.add_child(scene)
+    await _await_ready()
+    current_scene = scene
+    await _tick(5)
+    _assert(String(scene.config.id) == region, "hook reward checkpoint resumes the pump region")
+    _assert(not scene.locked_gate_bodies.has(String(gate.id)), "hook reward box stays open after a disk restart")
 
 func _spawn(region: String, point: Vector2) -> void:
     _release()

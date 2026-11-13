@@ -46,11 +46,13 @@ ROUTE_CLEARANCE = 160                              # keep away from other platfo
 ABILITIES = ('double_thread_jump', 'echo_hook', 'crown_resonance')
 
 
-def _air_time(rise):
-    disc = JUMP ** 2 - 2 * GRAVITY * rise
+def _air_time(rise, velocity=JUMP):
+    """Seconds airborne until a single jump comes down `rise` px above its
+    start (negative = lower). None if that height is never reached."""
+    disc = velocity ** 2 - 2 * GRAVITY * rise
     if disc < 0:
         return None
-    return (JUMP + math.sqrt(disc)) / GRAVITY
+    return (velocity + math.sqrt(disc)) / GRAVITY
 
 
 def single_jump_reaches(rise, gap):
@@ -98,6 +100,78 @@ def segment_hits(a, b, rect):
         if lo > hi:
             return False
     return True
+
+
+def enemy_pogo_collects(enemy, config, pickup, multiplier):
+    """Allow a bounce anywhere in the enemy's full horizontal movement bounds.
+
+    Use the complete authored visual/hurtbox height above its node as a
+    conservative contact origin, rather than assuming a launch from the floor.
+    This includes recoil on stationary enemies, whose leash still clamps it.
+    """
+    profile = config.get('ai_profiles', {}).get(enemy.get('kind'), {})
+    x, y = enemy['position']
+    leash = float(enemy.get('leash_radius', profile.get('leash_radius', 240)))
+    support = next((p for p in config['platforms'] if p['id'] == enemy.get('platform_id')), None)
+    half = float(enemy.get('spawn_half_width', 36))
+    x0, x1 = (x-leash, x+leash) if leash > 0 else (-math.inf, math.inf)
+    flight = profile.get('locomotion', enemy.get('locomotion')) == 'flight'
+    if support:
+        sx, _, sw, _ = support['rect']
+        x0, x1 = max(x0, sx+half-(100 if flight else 0)), min(x1, sx+sw-half+(100 if flight else 0))
+    x0 = max(x0, float(enemy.get('arena_min_x', -math.inf)))
+    x1 = min(x1, float(enemy.get('arena_max_x', math.inf)))
+    if x0 > x1:
+        raise ValueError('Invalid enemy movement envelope: '+enemy['id'])
+    contact_y = y - max(float(enemy.get('spawn_visual_height', 56)), float(enemy.get('hurtbox_size', [58,56])[1]))
+    if flight:
+        contact_y -= float(profile.get('hover_height', 95)) + 24
+    velocity = 620.0 * multiplier
+    peak = velocity**2 / (2*GRAVITY)
+    rise = contact_y-pickup[1]-(PLAYER_HEIGHT+PICKUP_RADIUS+PICKUP_MARGIN)
+    gap = max(x0-pickup[0], pickup[0]-x1, 0)-(half+PLAYER_HALF_WIDTH+PICKUP_RADIUS+PICKUP_MARGIN)
+    if rise > peak*1.07:
+        return False
+    time = _air_time(min(rise, peak), velocity)
+    return time is not None and max(gap,0) <= (SPEED*time+DASH)*MARGIN
+
+
+def pogo_enters_niche(enemy, config, shell, multiplier):
+    """Conservative time to enter below closed sides before a bounce rises.
+
+    Roofs block descending drop-ins; without the double jump there is no
+    second upward impulse after descending under the side walls. Include an
+    immediate full dash and generous downstrike horizontal contact reach.
+    """
+    profile = config.get('ai_profiles', {}).get(enemy.get('kind'), {})
+    x, y = enemy['position']
+    leash = float(enemy.get('leash_radius', profile.get('leash_radius', 240)))
+    support = next((p for p in config['platforms'] if p['id'] == enemy.get('platform_id')), None)
+    half = float(enemy.get('spawn_half_width', 36))
+    flight = profile.get('locomotion', enemy.get('locomotion')) == 'flight'
+    x0, x1 = (x-leash, x+leash) if leash > 0 else (-math.inf, math.inf)
+    if support:
+        sx, sy, sw, _ = support['rect']
+        x0, x1 = max(x0, sx+half-(100 if flight else 0)), min(x1, sx+sw-half+(100 if flight else 0))
+    x0 = max(x0, float(enemy.get('arena_min_x', -math.inf)))
+    x1 = min(x1, float(enemy.get('arena_max_x', math.inf)))
+    # Use the lowest plausible hit instead of assuming contact at the top of
+    # the hurtbox; this overestimates time available below the walls.
+    feet = y + max(float(enemy.get('spawn_visual_height', 56)), float(enemy.get('hurtbox_size', [58,56])[1]))
+    if flight:
+        feet -= float(profile.get('hover_height', 95)) - 24
+    elif support:
+        feet = min(feet, support['rect'][1])
+    roof = shell['roof'];left = shell['wall_l'];right = shell['wall_r']
+    if feet < roof[1] + roof[3]:
+        return False
+    opening = (left[0]+left[2]+PLAYER_HALF_WIDTH, right[0]-PLAYER_HALF_WIDTH)
+    gap = max(opening[0]-(x1+96), (x0-96)-opening[1], 0)
+    rise = max(0, feet - max(left[1]+left[3], right[1]+right[3]) - PLAYER_HEIGHT)
+    velocity = 620.0 * multiplier
+    disc = velocity**2 - 2*GRAVITY*rise
+    time = velocity/GRAVITY if disc < 0 else (velocity-math.sqrt(disc))/GRAVITY
+    return gap <= (DASH + SPEED*time)*MARGIN
 
 
 def standable(config):
@@ -169,7 +243,7 @@ def check_place(config, entry, ledge, base_id, anchors, shell=None, gate=None, r
         return [f'base floor {base_id} missing']
     bx, by, bw, _ = base['rect']
     rise = by - ly
-    own = {base_id, entry.get('platform_id', 'probe'), entry.get('gate_id', 'probe_gate')}
+    own = {base_id, entry.get('platform_id', 'probe'), entry.get('gate_id', 'probe_gate'), entry.get('reward_gate_id', 'probe_reward_gate')}
     own |= {f"{entry.get('id', 'probe')}_{k}" for k in ('roof', 'wall_l', 'wall_r')}
     left_edge = lx - (HOOK_GAP if ability == 'echo_hook' and kind == 'niche' else 0)
     if not (left_edge >= bx and lx + lw <= bx + bw):
@@ -281,6 +355,8 @@ def check_place(config, entry, ledge, base_id, anchors, shell=None, gate=None, r
 
 def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
     routes = json.loads(Path(routes_path).read_text(encoding='utf-8'))
+    catalog = json.loads((Path(data_root) / 'build_catalog.json').read_text(encoding='utf-8'))
+    pogo_multiplier = max(1.0, *(float(c.get('pogo_bounce_mult', 1)) for c in catalog['crests'].values()))
     errors, checked = [], 0
     counts = {a: 0 for a in ABILITIES}
     for entry in routes.get('ability_ledges', []):
@@ -323,16 +399,33 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
                 errors.append(f"{entry['id']}: bell plate must be a permanent crown resonance action gate")
                 continue
             gate = g['rect']
+        reward_gate = None
         if ability == 'echo_hook':
             ring = next((a for a in overlay.get('grapple_anchors', []) if a['id'] == entry.get('ring_id')), None)
             if ring is None or ring.get('required_ability') != 'echo_hook' or ring.get('room_id') != entry['room_id']:
                 errors.append(f"{entry['id']}: echo hook ring missing or outside the room")
                 continue
+        if ability == 'echo_hook':
+            reward_gate = next((g for g in overlay.get('locked_gates', []) if g['id'] == entry.get('reward_gate_id')), None)
+            valid = reward_gate and reward_gate.get('requires_action') == ability and reward_gate.get('required_ability') == ability and reward_gate.get('permanent_action_unlock_id') == reward_gate['id']
+            if not valid:
+                errors.append(f"{entry['id']}: hook reward needs its actual-action permanent seal")
+            else:
+                gx,gy,gw,gh = reward_gate['rect'];rx,ry = reward['position']
+                pad = PICKUP_RADIUS + PICKUP_MARGIN
+                if not (gx+pad <= rx <= gx+gw-pad and gy+pad <= ry <= gy+gh-pad):
+                    errors.append(f"{entry['id']}: sealed box must enclose the entire pickup circle")
+                origin = (ring['test_from'][0], ring['test_from'][1]-2)
+                nearest = (min(max(origin[0],gx),gx+gw),min(max(origin[1],gy),gy+gh))
+                if math.dist(origin,nearest) > reward_gate.get('action_range',150)*.95:
+                    errors.append(f"{entry['id']}: real hook action cannot reach its reward seal")
+                if segment_hits((ring['test_from'][0],ring['test_from'][1]-2),ring['position'],reward_gate['rect']):
+                    errors.append(f"{entry['id']}: reward seal blocks the hook ray")
         for problem in check_place(config, entry, platform['rect'], entry['base_platform_id'], anchors, shell, gate, ring):
             errors.append(f"{entry['id']}: {problem}")
         # Existing entrance observations must remain visible even when the
         # player approaches at the clue's authored height (e.g. during a jump).
-        new_rects = [platform['rect']] + (list(shell.values()) if shell else []) + ([gate] if gate else [])
+        new_rects = [platform['rect']] + (list(shell.values()) if shell else []) + ([gate] if gate else []) + ([reward_gate['rect']] if reward_gate else [])
         for hidden in routes.get('hidden_route_plan', []):
             if hidden['region_id'] != region:
                 continue
@@ -351,6 +444,10 @@ def audit(routes_path=DATA / 'world_routes.json', data_root=DATA):
                     continue  # the closed roof/sides exclude drop-ins from above
                 if single_jump_collects(x0, x1, sy, rx, ry, double=ability == 'echo_hook'):
                     errors.append(f"{entry['id']}: surface {sid} can collect its reward before landing")
+        if ability == 'double_thread_jump':
+            for enemy in config.get('enemy_spawns', []):
+                if enemy_pogo_collects(enemy, config, reward['position'], pogo_multiplier) and (not shell or pogo_enters_niche(enemy, config, shell, pogo_multiplier)):
+                    errors.append(f"{entry['id']}: enemy {enemy['id']} permits a pogo and dash to collect the reward without {ability}")
         if not (px + 18 <= rx <= px + pw - 18 and 25 <= py - ry <= 70):
             errors.append(f"{entry['id']}: reward does not rest on the shelf")
         if reward.get('room_id') != entry['room_id'] or reward.get('reward_role') != 'optional_exploration':
@@ -424,6 +521,19 @@ def self_test():
     assert single_jump_collects(1960, 2340, 1752, 2505, 1524)
     assert not single_jump_collects(1960, 2340, 1752, 2505, 1490)
     assert not single_jump_collects(0, 20, 1752, 2505, 1490)
+    config = dict(platforms=[dict(id='gallery', rect=[1960,1752,380,36]),dict(id='east_shelf',rect=[3035,1712,205,22])])
+    enemy = dict(id='E06', kind='index_scribe', position=[2285,1712],
+                 platform_id='gallery', leash_radius=90, spawn_half_width=24, spawn_visual_height=56)
+    assert enemy_pogo_collects(enemy, config, [2505,1490], 1.2)
+    enemy.update(position=[3140,1672], platform_id='east_shelf')
+    assert not enemy_pogo_collects(enemy, config, [2505,1490], 1.2)
+
+    court_shell, _ = niche_shell([3310,3692,120,22], 'double_thread_jump')
+    court = dict(platforms=[dict(id='west',rect=[2460,3892,560,50]),dict(id='east',rect=[3170,3892,560,50])])
+    larva = dict(id='E02',kind='moss_larva',position=[2840,3852],platform_id='west',leash_radius=150,spawn_half_width=24,spawn_visual_height=30)
+    assert not pogo_enters_niche(larva,court,court_shell,1.2), 'closed side blocks the distant ground-enemy bounce'
+    larva.update(position=[3370,3852],platform_id='east')
+    assert pogo_enters_niche(larva,court,court_shell,1.2), 'an enemy directly below the opening must remain detectable'
     assert double_jump_reaches(240, 0) and not double_jump_reaches(300, 0)
     assert double_jump_reaches(0, 400) and not double_jump_reaches(0, 900)
     assert segment_hits((0, 0), (10, 10), [4, 4, 2, 2]) and not segment_hits((0, 0), (10, 0), [4, 4, 2, 2])
