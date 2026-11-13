@@ -28,7 +28,7 @@ func run() -> void:
     # Returning journey: three choices, world held, music node kept alive.
     var card: Node=CARD.open(level,true);await process_frame
     check(paused and level.audio_director.process_mode==Node.PROCESS_MODE_ALWAYS,"world held, music keeps processing")
-    check(card.process_mode==Node.PROCESS_MODE_ALWAYS and card.buttons.keys()==["continue","new","quit"],"card stays responsive with three choices")
+    check(card.process_mode==Node.PROCESS_MODE_ALWAYS and card.buttons.keys()==["continue","new","achievements","quit"],"card stays responsive with its choices")
     check(card.buttons["continue"].text=="继续旅途" and card.buttons["continue"].has_focus(),"continue is focused for keyboard and gamepad")
     check(not CARD.wanted(level,"x11",none),"the title is shown once per run")
     var picked: Array[String]=[]
@@ -47,7 +47,7 @@ func run() -> void:
     # First launch: nothing to replace.
     level.active_overlay=""
     card=CARD.open(level,false);await process_frame
-    check(card.buttons.keys()==["continue","quit"] and card.buttons["continue"].text=="开始旅途","first launch offers start and quit only")
+    check(card.buttons.keys()==["continue","achievements","quit"] and card.buttons["continue"].text=="开始旅途","first launch has no journey to replace")
     card.buttons["continue"].pressed.emit();await process_frame
     check(not paused,"start releases the world")
     CARD.shown=false
