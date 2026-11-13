@@ -10,6 +10,8 @@ var cap_calls: Array[int]=[]
 var assist_calls: Array[String]=[]
 var written: Array[Dictionary]=[]
 var refuse_write:=false
+var observed_vsync:=true
+var observed_cap:=0
 class Shell extends Control:
     var settings:=Control.new()
     func _ready() -> void:add_child(settings)
@@ -24,6 +26,8 @@ func check(ok: bool,label: String) -> void:
 func fixture(saved: Dictionary={}):
     var model:=MODEL.new()
     model.window_mode=func():return mode
+    model.get_vsync=func():return observed_vsync
+    model.get_fps_cap=func():return observed_cap
     model.set_window_mode=func(value: int):mode_calls.append(value);mode=value
     model.set_vsync=func(on: bool):vsync_calls.append(on)
     model.set_fps_cap=func(value: int):cap_calls.append(value)
@@ -40,6 +44,7 @@ func clear() -> void:
     var store:=preload("res://scripts/journey_desk_store.gd").new()
     store.configure("display","installation")
     if FileAccess.file_exists(store.path):DirAccess.remove_absolute(ProjectSettings.globalize_path(store.path))
+    observed_vsync=true;observed_cap=0
     mode=DisplayServer.WINDOW_MODE_WINDOWED;mode_calls.clear();vsync_calls.clear();cap_calls.clear();assist_calls.clear();written.clear()
 func run() -> void:
     for bad in [null,4,{},{"fullscreen":true,"vsync":true},{"fullscreen":1,"vsync":true,"fps_cap":60},
@@ -85,6 +90,27 @@ func run() -> void:
     model=fixture({"fullscreen":true,"vsync":false,"fps_cap":999})
     check(mode_calls.is_empty() and model.values==MODEL.DEFAULTS and not model.store.writable,"invalid file ignored and preserved")
     check(not model.change("fullscreen",true).ok,"invalid file is never overwritten")
+    clear()
+    clear();mode=DisplayServer.WINDOW_MODE_FULLSCREEN
+    model=fixture()
+    check(model.values.fullscreen,"first launch reflects an already-fullscreen window")
+    model.change("fps_cap",60)
+    check(mode==DisplayServer.WINDOW_MODE_FULLSCREEN and mode_calls.is_empty(),"changing cap cannot exit a first-launch fullscreen window")
+    clear()
+    var empty_seed:=preload("res://scripts/journey_desk_store.gd").new()
+    empty_seed.configure("display","installation");empty_seed.write({})
+    model=fixture()
+    check(not model.store.writable,"existing empty display payload is invalid, not a fresh installation")
+    check(not model.change("vsync",false).ok and written.is_empty(),"empty invalid payload remains protected from writes")
+    clear()
+    clear();mode=DisplayServer.WINDOW_MODE_FULLSCREEN;observed_vsync=false;observed_cap=120
+    model=fixture()
+    check(model.values=={"fullscreen":true,"vsync":false,"fps_cap":120,"colour_assist":"off"},"first launch reflects supported current engine options")
+    check(mode_calls.is_empty() and vsync_calls.is_empty() and cap_calls.is_empty(),"reading current display options never applies settings")
+    model.change("fps_cap",60)
+    check(mode_calls.is_empty() and vsync_calls.is_empty() and cap_calls==[60],"cap edit leaves unrelated fullscreen and sync options alone")
+    check(not MODEL.valid({"fullscreen":false,"vsync":true,"fps_cap":INF}),"infinite cap rejected")
+    check(not MODEL.valid({"fullscreen":false,"vsync":true,"fps_cap":NAN}),"NaN cap rejected")
     clear()
     # Dialog: built on first open, mirrors the model, closes with the page.
     model=fixture()
