@@ -1,0 +1,13 @@
+{
+  "kind": "summoned_page",
+  "clip": "actions_windup_full",
+  "status": "rejected",
+  "reason": "firstclean-color correction hasmarkedsizefit1.086; needsfirstcelrefinement",
+  "source_sha256": "143e091589910e49450aab833eb24726eba477e6426c8247dcf5170d84533dae",
+  "prompt_sha256": "5d511e092f011a46d662e9e0ccfe2b30f11437448365188de3167ca67d6b2f97",
+  "reference_sha256": "7cabfa1e7070d40b9b87888dd98cdb8c6c1645177263d414560cb739d30df3d7",
+  "actual_prompt": "Clean-edge and color restoration ONLY on the exact24-cel8x3 summoned parchment moth WINDUP sheet input1. Preserve every sprite silhouette, pose, scale, position, wing/antenna/eye/waxseal geometry and exactcell placement. Remove the exterior translucent smoke-like wash and faint soft halo around sprites; use crisp clean thin natural antialiasing, completely transparent alpha0 everywhere outside the painted figure. Sharpen the existing paper-edge ink contours without expanding/eroding the solid shapes, no gaussian blur. Input2 gives original color accents only: restore rich darkCRIMSON existing paper-tail tips, warm chestnut/umber antennae/inked wing markings and the rubyeye/redwaxseal to the established saturation, while preserving cream/ivory paper. The current greyer beige version lost crimson accent area: make existing redtips and ochre/brown ink marks clearly colored like original, no new shapes/marks or enlarging the seal. Keep the same exact24unique chronological poses,8equalcolumns x3equalrows, same common bodyroot and in-cell geometry; no resizing/recentering or modified wings. TRUE transparent RGBA alpha0 background and gutters, no matte,haze,fog,glow,shadows,floor,particles,text,labels,grid or checkerboard. Supporting colorboard is reference only and its layout must not appear.",
+  "reference_recipe": "Built-in image_gen size-continuity correction of entry7 after first-cel frame-fit residual1.14 despite passing all54 handoffs. First5 drawings repainted with smaller incremental body-mass steps. Whole-source shared idle anchor188,90; no procedural per-cel edits. Source-wide registration center(166,85) aligns the first redwaxseal/body root (249,105 before adjustment) with the accepted idle/walk roots(234/220,101); one shared(-22,-5) correction from the prior idle-centered trial for all24 cels, no per-frame translation or scaling. Built-in image_gen clean-edge/crimson restoration after new main painting guard detected soft-edge0.268 vs0.088 and accent0.079 vs0.158. Actual input previous selected windup plus original baseline windup0/12/23 colorboard, all posegeometry preserved.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/summoned_page-actions-windup-full.json",
+  "guide_sha256": "b9bd0febcca8116303d883cf64aaf8eb818b291b1e6f879f13254898afd3ea55"
+}

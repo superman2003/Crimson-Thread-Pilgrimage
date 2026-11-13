@@ -638,16 +638,20 @@
         3
       ],
       "source": "art_requests/creature_redraw_v1/sources/summoned_page/actions_windup_full.png",
-      "sha256": "7cabfa1e7070d40b9b87888dd98cdb8c6c1645177263d414560cb739d30df3d7",
+      "sha256": "39bf8391e9495a7414313f6c6e4e2374080c4222229a34c65e2be39c84cdd5b0",
       "generator": "built-in image_gen",
-      "prompt_sha256": "2219fbc9789016dd8e8988a384f4154f7d21d1cd7db56a4762abbbc1997416bc",
+      "prompt_sha256": "d631e834cc6df1190673a5eca5891a4a1c7a8378e47ac683a71e084af98671ef",
       "reference": {
-        "sha256": "e9fc4a592022d0a19e01bbfb5a47192d868f816004bb3983888716d0e3c390b3",
-        "reconstruction": "Built-in image_gen size-continuity correction of entry7 after first-cel frame-fit residual1.14 despite passing all54 handoffs. First5 drawings repainted with smaller incremental body-mass steps. Whole-source shared idle anchor188,90; no procedural per-cel edits. Source-wide registration center(166,85) aligns the first redwaxseal/body root (249,105 before adjustment) with the accepted idle/walk roots(234/220,101); one shared(-22,-5) correction from the prior idle-centered trial for all24 cels, no per-frame translation or scaling.",
+        "sha256": "143e091589910e49450aab833eb24726eba477e6426c8247dcf5170d84533dae",
+        "reconstruction": "Built-in image_gen size-continuity correction of entry7 after first-cel frame-fit residual1.14 despite passing all54 handoffs. First5 drawings repainted with smaller incremental body-mass steps. Whole-source shared idle anchor188,90; no procedural per-cel edits. Source-wide registration center(166,85) aligns the first redwaxseal/body root (249,105 before adjustment) with the accepted idle/walk roots(234/220,101); one shared(-22,-5) correction from the prior idle-centered trial for all24 cels, no per-frame translation or scaling. Built-in image_gen clean-edge/crimson restoration after new main painting guard detected soft-edge0.268 vs0.088 and accent0.079 vs0.158. Actual input previous selected windup plus original baseline windup0/12/23 colorboard, all posegeometry preserved. Corrected first sourcecel0 with builtin image_gen after frame-fit residual1.086; allother23 unchanged, no scripted pixel modifications. Whole-source entrybody anchor moves 12.198px to accepted idle/walk centroid; allcels identical shared translation, no per-frame shifts.",
         "supporting_guides": [
           {
             "path": "art_requests/creature_redraw_v1/guides/summoned_page-entry-handoff.json",
             "sha256": "e00d179b5c2026cf2c6b7072da9aa4fa7b22c2c97b8b40bce0e4c89b6367c06c"
+          },
+          {
+            "path": "art_requests/creature_redraw_v1/guides/summoned_page-painting-reference.json",
+            "sha256": "95e99f8b7a54f4ecd7ecdcbddaedd15090db1373b3e359c7e9cc5de8c5bbe987"
           }
         ]
       },
@@ -655,7 +659,7 @@
       "guide_sha256": "b9bd0febcca8116303d883cf64aaf8eb818b291b1e6f879f13254898afd3ea55",
       "reference_height": 121.5,
       "registration": "cell_center",
-      "center_x": 166.0,
+      "center_x": 178.198,
       "center_y": 85.0
     }
   ]
