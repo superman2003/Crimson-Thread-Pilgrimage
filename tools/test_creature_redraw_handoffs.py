@@ -2,11 +2,38 @@
 import io
 import unittest
 from PIL import Image
-from audit_creature_redraw_handoffs import measure
+from audit_creature_redraw_handoffs import measure, production_edges
 from check_redraw_preview_blobs import validate_image
+from motion_onion import pack
 
 
 class HandoffContracts(unittest.TestCase):
+    def test_move_specific_recovery_precedes_the_unused_bridge(self):
+        data = self.manifest(dict(phase=[(5,5)], phase_recover=[(5,5)], phase_bridge=[(5,5)]))
+        with self.assertRaisesRegex(ValueError, 'selects phase_recover'):
+            production_edges(data, [dict(source='phase', source_frame=-1, target='phase_bridge', target_frame=0)])
+
+    def test_windup_audit_cannot_omit_idle_or_walk_interruptions(self):
+        data = self.manifest(dict(idle=[(5,5)], walk=[(5,5)], windup=[(5,5)], attack=[(5,5)]))
+        edges = production_edges(data, [dict(source='windup', source_frame=-1, target='attack', target_frame=0)])
+        self.assertEqual(len(edges), 3)
+        self.assertEqual({e['source'] for e in edges if e['target']=='windup'}, {'idle','walk'})
+
+    def test_taller_cel_on_partial_row_does_not_crop_already_packed_cels(self):
+        drawings = {(0, i): (Image.new('RGBA', size, (20+i, 40, 60, 255)), (0, 0))
+                    for i, size in enumerate([(1000, 1700), (1000, 1700), (1000, 250), (1000, 400)])}
+        pages, frames = pack('fixture', drawings, [1100, 1800])
+        self.assertEqual(len(pages), 2)
+        for key, frame in frames.items():
+            page = pages[int(frame['atlas'].rsplit('_', 1)[1][:-4])]
+            x, y, w, h = frame['region']
+            self.assertLessEqual(y+h, page.height)
+            self.assertEqual(page.crop((x,y,x+w,y+h)).tobytes(), drawings[key][0].tobytes())
+
+    def test_oversized_cel_cannot_be_silently_clipped(self):
+        with self.assertRaisesRegex(ValueError, 'exceeds the atlas'):
+            pack('fixture', {(0, 0): (Image.new('RGBA', (2048, 20)), (0, 0))}, [2100, 100])
+
     def manifest(self, margins):
         return dict(canvas=[100, 80], animations=[
             dict(name=name, frames=[dict(margin=[x, y, 0, 0]) for x, y in positions])

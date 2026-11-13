@@ -24,6 +24,24 @@ def indices(selection, count):
     return [selection % count]
 
 
+def production_edges(manifest, edges):
+    """Include arbitrary loop interruption and honor move-specific recoveries."""
+    names = {c['name'] for c in fit.animations_of(manifest)}
+    result = list(edges)
+    for edge in edges:
+        source = edge['source']
+        own_recovery = source + '_recover'
+        if own_recovery in names and edge['target'] != own_recovery:
+            raise ValueError('Production selects '+own_recovery+' before shared recovery bridges')
+        if source == 'windup' or source.endswith('_windup'):
+            for loop in ('idle', 'walk'):
+                if loop in names:
+                    entry = dict(source=loop, source_frame='all', target=source, target_frame=0)
+                    if entry not in result:
+                        result.append(entry)
+    return result
+
+
 def measure(manifest, edges, alpha):
     clips = {c['name']: c for c in fit.animations_of(manifest)}
     canvas = manifest['canvas']
@@ -62,7 +80,8 @@ def main():
     pages = fit.Atlases()
     for kind, edges in spec['kinds'].items():
         path = fit.active_manifest(fit.CREATURES / kind)
-        rows = measure(json.loads(path.read_text(encoding='utf-8')), edges, pages.alpha)
+        manifest = json.loads(path.read_text(encoding='utf-8'))
+        rows = measure(manifest, production_edges(manifest, edges), pages.alpha)
         bad = [r for r in rows if r['change'] > MAX_CHANGE]
         failures.extend(dict(kind=kind, **r) for r in bad)
         checks += len(rows)

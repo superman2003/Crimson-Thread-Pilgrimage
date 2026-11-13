@@ -3,6 +3,7 @@ name: Reviewed creature redraws
 on:
   pull_request:
     paths:
+      - '.gitattributes'
       - 'godot/assets/sprites/original_creatures/**'
       - 'art_requests/enemy_transitions_v1/**'
       - 'godot/scripts/enemy_actor.gd'
