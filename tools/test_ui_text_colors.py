@@ -37,9 +37,14 @@ LABEL = re.compile(r'(?<![A-Za-z0-9_])_label\(')
 TEXT_TYPES = r'(?:Label|RichTextLabel|Button|CheckButton|CheckBox|MenuButton|OptionButton|LinkButton)'
 TEXT_TYPED = re.compile(r'\b([A-Za-z_]\w*)\s*:\s*' + TEXT_TYPES + r'\b')
 TEXT_CREATED = re.compile(r'\b([A-Za-z_]\w*)\s*(?::\s*\w+\s*)?:?=\s*(?:' + TEXT_TYPES + r'\.new\(|(?:\w+\.)?_label\()')
+# var title := find_child(...) as Label
+TEXT_CAST = re.compile(r'\b([A-Za-z_]\w*)\s*(?::\s*\w+\s*)?:?=[^\n=][^\n]*\bas\s+' + TEXT_TYPES + r'\b')
+FUNC = re.compile(r'^(?:static\s+)?func\b', re.M)
 MODULATION = re.compile(r'(?<![A-Za-z0-9_.])(?:(?:self\.)?(?P<receiver>[A-Za-z_]\w*)\.)?(?:self_)?modulate\s*=(?!=)')
 # Color("abc"), Color("#abc"), Color(0.5, ...), Color(.5, ...), Color8(...), Color.html(...)
-LITERAL = re.compile(r'Color8?\(\s*(?:"[^"]*"|\'[^\']*\'|[0-9.])|Color\.(?:html|hex|hex64|from_[a-z0-9_]+)\(')
+# A constructor or factory only counts when its first argument is itself a
+# literal: Color.from_hsv(hue, s, v) built from variables is not hard-coded.
+LITERAL = re.compile(r'(?:Color8?|Color\.(?:html|hex|hex64|from_[a-z0-9_]+))\(\s*(?:"[^"]*"|\'[^\']*\'|[0-9.])')
 # (file, text the expression must contain): one specific call, never a whole file.
 EXEMPT = {
     ('main_level.gd', 'if current else (Color(0.86, 0.94, 0.80) if visited else'):
@@ -50,7 +55,8 @@ EXEMPT = {
 def runtime_scripts():
     for root in ROOTS:
         for path in sorted(root.rglob('*.gd')):
-            if not SKIP.search(path.name):
+            # journey/tests is excluded from exports; fixtures are not game UI.
+            if not SKIP.search(path.name) and 'tests' not in path.relative_to(root).parts:
                 yield path
 
 
@@ -117,6 +123,46 @@ def text_key(argument):
     return bool(TEXT_KEY.match(name)) and name not in NOT_TEXT
 
 
+def mask_strings(source):
+    """Same length as source, with every string body blanked: code quoted in a
+    help or diagnostic string is not a call."""
+    out, quote, index = [], '', 0
+    while index < len(source):
+        char = source[index]
+        if quote:
+            if char == '\\' and index + 1 < len(source):
+                out.append('  ')
+                index += 2
+                continue
+            if char == quote:
+                quote = ''
+                out.append(char)
+            else:
+                out.append(char if char == '\n' else ' ')
+        else:
+            if char in '"\'':
+                quote = char
+            out.append(char)
+        index += 1
+    return ''.join(out)
+
+
+def text_receivers(masked, start, end):
+    """Names declared as text controls at member level or inside the function
+    that spans [start, end): a Label called marker in one function says nothing
+    about a Sprite2D called marker in another."""
+    bounds = [match.start() for match in FUNC.finditer(masked)] + [len(masked)]
+    scopes = [masked[:bounds[0]]]
+    for index in range(len(bounds) - 1):
+        if bounds[index] <= start < bounds[index + 1]:
+            scopes.append(masked[bounds[index]:bounds[index + 1]])
+    names = set()
+    for scope in scopes:
+        for pattern in (TEXT_TYPED, TEXT_CREATED, TEXT_CAST):
+            names.update(pattern.findall(scope))
+    return names
+
+
 def assignment_expression(source, start):
     """Read the assignment through balanced constructors, preserving newlines."""
     depth, quote, index = 0, '', start
@@ -133,6 +179,8 @@ def assignment_expression(source, start):
             depth += 1
         elif char in ')]}':
             depth -= 1
+        elif char == '\\' and source[index + 1:index + 2] == '\n':
+            index += 1  # explicit line continuation
         elif char in '\n;' and depth == 0:
             break
         index += 1
@@ -142,24 +190,25 @@ def assignment_expression(source, start):
 def text_colours(source):
     """Yield (line number, colour expression) for every text colour set in source."""
     source = strip_comments(source)
-    text_receivers = set(TEXT_TYPED.findall(source)) | set(TEXT_CREATED.findall(source))
-    if re.search(r'^\s*extends\s+' + TEXT_TYPES + r'\b', source, re.M):
-        text_receivers.add('self')
-    for match in MODULATION.finditer(source):
+    # Calls are located in a copy with string bodies blanked; their arguments
+    # are then read from the real text at the same offsets.
+    masked = mask_strings(source)
+    extends_text = bool(re.search(r'^\s*extends\s+' + TEXT_TYPES + r'\b', masked, re.M))
+    for match in MODULATION.finditer(masked):
         receiver = match['receiver'] or 'self'
-        if receiver in text_receivers:
+        if (receiver == 'self' and extends_text) or receiver in text_receivers(masked, match.start(), match.end()):
             yield source.count('\n', 0, match.start()) + 1, assignment_expression(source, match.end())
-    for match in OVERRIDE.finditer(source):
+    for match in OVERRIDE.finditer(masked):
         args = call_arguments(source, match.end())
         if len(args) >= 2 and text_key(args[0]):
             yield source.count('\n', 0, match.start()) + 1, args[1]
-    for match in SET_COLOR.finditer(source):
+    for match in SET_COLOR.finditer(masked):
         args = call_arguments(source, match.end())
         if len(args) == 3 and text_key(args[0]):
             yield source.count('\n', 0, match.start()) + 1, args[2]
-    for match in LABEL.finditer(source):
-        line_start = source.rfind('\n', 0, match.start()) + 1
-        if source[line_start:match.start()].lstrip().startswith('func '):
+    for match in LABEL.finditer(masked):
+        line_start = masked.rfind('\n', 0, match.start()) + 1
+        if masked[line_start:match.start()].lstrip().startswith('func '):
             continue
         args = call_arguments(source, match.end())
         if args:
@@ -223,6 +272,17 @@ def self_test():
     assert not literals('var icon := Sprite2D.new()\nicon.modulate = Color("red")')
     assert not literals('var hearts: Label\nhearts.modulate = RED if hp < 2 else IVORY')
     assert not literals('var hearts: Label\n# hearts.modulate = Color("red")')
+    assert literals('var title := find_child("T") as Label\ntitle.modulate = Color("red")')
+    assert not literals('var icon := find_child("I") as TextureRect\nicon.modulate = Color("red")')
+    assert literals('var hearts: Label\nhearts.modulate = \\\n    Color("red")')
+    assert not literals('var help := "x.add_theme_color_override(\\"font_color\\", Color(\\"red\\"))"')
+    assert literals('x.add_theme_color_override("font_color", Color("a,b") if "(" in t else GOLD)')
+    assert not literals('x.add_theme_color_override("font_color", Color.from_hsv(hue, saturation, value))')
+    assert not literals('x.add_theme_color_override("font_color", Color.html(configured_code))')
+    assert literals('x.add_theme_color_override("font_color", Color.html("#fff"))')
+    assert not literals('func a():\n var marker: Label\n marker.text = ""\nfunc b():\n var marker := Sprite2D.new()\n marker.modulate = Color("red")')
+    assert literals('func a():\n var marker := Sprite2D.new()\nfunc b():\n var marker: Label\n marker.modulate = Color("red")')
+    assert literals('var marker: Label\nfunc b():\n marker.modulate = Color("red")')
     assert not literals('# x.add_theme_color_override("font_color", Color("ffffff"))')
     assert not literals('y = 1  # was: x.add_theme_color_override("font_color", Color("ffffff"))')
     assert literals('x.text = "a # b"; x.add_theme_color_override("font_color", Color("ffffff"))')
