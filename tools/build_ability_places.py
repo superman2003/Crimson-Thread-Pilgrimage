@@ -45,8 +45,12 @@ PLACES = [
 COLORS = {'double_thread_jump': '4c4b3e', 'echo_hook': '4c4b3e', 'crown_resonance': '385357'}
 
 
-def build(check=False):
-    before = PATH.read_text(encoding='utf-8')
+def build(check=False, *, routes_path=None, data_root=None):
+    # Callers that rebuild a private world must keep every authoring pass in
+    # that same directory; default paths are only for the standalone command.
+    routes_path = Path(routes_path) if routes_path is not None else PATH
+    data_root = Path(data_root) if data_root is not None else A.DATA
+    before = routes_path.read_text(encoding='utf-8')
     routes = json.loads(before)
     chapters = routes['chapters']
     hints = {p[10] for p in PLACES}
@@ -71,7 +75,7 @@ def build(check=False):
     entries = []
     for pid, kind, ability, region, room, base, rect, material, amount, label, hint in PLACES:
         overlay = chapters[region]
-        base_config = json.loads((A.DATA / f'{region}.json').read_text(encoding='utf-8'))
+        base_config = json.loads((data_root / f'{region}.json').read_text(encoding='utf-8'))
         for override in overlay.get('platform_overrides', []):
             next(p for p in base_config['platforms'] if p['id'] == override['id']).update(override)
         base_rect = next(p['rect'] for p in base_config['platforms'] if p['id'] == base)
@@ -115,7 +119,7 @@ def build(check=False):
             override['guide'] = override.get('guide', '') + ' ' + hint
         entries.append(entry)
     routes['ability_ledges'] = entries
-    bases = {region: json.loads((A.DATA / f'{region}.json').read_text(encoding='utf-8')) for region in chapters}
+    bases = {region: json.loads((data_root / f'{region}.json').read_text(encoding='utf-8')) for region in chapters}
     build_ability_routes.apply(routes, bases)
     # Match build_world_upgrade's order: surviving objects before its generated
     # objects. Running either authoring step must not churn unrelated arrays.
@@ -131,7 +135,7 @@ def build(check=False):
         print('ABILITY_PLACES FAIL: generated data is stale; run tools/build_ability_places.py')
         return 1
     if not check:
-        PATH.write_text(content, encoding='utf-8', newline='\n')
+        routes_path.write_text(content, encoding='utf-8', newline='\n')
     counts = {a: sum(e['required_ability'] == a for e in entries) for a in NAMES}
     print('ABILITY_PLACES', 'checked' if check else 'authored', len(entries), counts,
           'action_routes=' + str(len(routes['ability_routes'])))

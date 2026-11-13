@@ -6,6 +6,7 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 import build_world_upgrade
+import build_ability_places
 from workshop_layout_contract import contracts
 ROOT=Path(__file__).resolve().parents[1]
 class LayoutContracts(unittest.TestCase):
@@ -183,8 +184,15 @@ class LayoutContracts(unittest.TestCase):
             route_path.write_bytes(original)
             for region in build_world_upgrade.REGIONS:
                 (data/f'{region}.json').write_bytes((ROOT/f'godot/data/{region}.json').read_bytes())
-            with patch.object(build_world_upgrade,'DATA',data), patch.object(build_world_upgrade,'PATH',route_path), redirect_stdout(io.StringIO()):
+            # Reject accidental fallback to the standalone ability builder's
+            # production paths. The composed rebuild must use the private copy.
+            with patch.object(build_world_upgrade,'DATA',data), \
+                 patch.object(build_world_upgrade,'PATH',route_path), \
+                 patch.object(build_ability_places,'PATH',data/'must-not-touch.json'), \
+                 patch.object(build_ability_places.A,'DATA',data/'must-not-read'), \
+                 redirect_stdout(io.StringIO()):
                 for _ in range(2):
                     build_world_upgrade.build()
                     self.assertEqual(route_path.read_bytes(),original)
+            self.assertFalse((data/'must-not-touch.json').exists())
 if __name__=='__main__':unittest.main()
