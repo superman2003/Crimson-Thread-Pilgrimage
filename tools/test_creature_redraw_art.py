@@ -13,6 +13,45 @@ import creature_redraw_art as art
 art._real_extract = art.extract
 
 
+class PaintingStyle(unittest.TestCase):
+    """The silhouette checks cannot see a smeared outline or lost markings."""
+    @staticmethod
+    def moth(red=True, blur=0):
+        image = Image.new('RGBA', (160, 120))
+        draw = ImageDraw.Draw(image)
+        draw.ellipse((30, 30, 130, 90), fill=(150, 112, 94, 255))
+        if red:
+            draw.ellipse((40, 60, 80, 85), fill=(190, 40, 45, 255))
+        if blur:
+            from PIL import ImageFilter
+            image = image.filter(ImageFilter.GaussianBlur(blur))
+        return [(image, (0, 0))]
+
+    def test_matching_redraw_passes(self):
+        self.assertEqual(art.style_defects(self.moth(), self.moth()), [])
+
+    def test_smeared_outline_is_rejected(self):
+        found = art.style_defects(self.moth(), self.moth(blur=6))
+        self.assertTrue(any('blurred outline' in reason for reason in found), found)
+
+    def test_lost_markings_are_rejected_unless_the_pinned_sheet_is_waived(self):
+        found = art.style_defects(self.moth(), self.moth(red=False))
+        self.assertTrue(any('lost markings' in reason for reason in found), found)
+        self.assertEqual(art.style_defects(self.moth(), self.moth(red=False), accent_waived=True), [])
+
+    def test_creatures_without_accent_colour_are_not_judged_on_it(self):
+        self.assertEqual(art.style_defects(self.moth(red=False), self.moth(red=False)), [])
+
+    def test_waiver_never_excuses_a_smeared_outline(self):
+        self.assertTrue(art.style_defects(self.moth(), self.moth(blur=6), accent_waived=True))
+
+    def test_historical_exceptions_stay_pinned_to_their_registered_sheets(self):
+        self.assertEqual(len(art.LEGACY_ACCENT_SOURCES), 7)
+        for (kind, clip), digest in art.LEGACY_ACCENT_SOURCES.items():
+            jobs = art.read(art.REQUEST/'jobs'/(kind+'.json'))['jobs']
+            self.assertEqual([j['sha256'] for j in jobs if j['clip'] == clip], [digest], (kind, clip))
+
+
 class DeliveryContracts(unittest.TestCase):
     def test_all_does_not_succeed_for_an_unhydrated_request_directory(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(art, 'REQUEST', Path(folder)):
