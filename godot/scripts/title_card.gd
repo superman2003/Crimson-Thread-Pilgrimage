@@ -40,7 +40,7 @@ func setup(world: Node, has_journey: bool) -> void:
     var heading:=Label.new();heading.name="Heading";heading.text="绯线巡礼";heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     heading.add_theme_font_size_override("font_size",TYPE.BANNER);column.add_child(heading)
     var gap:=Control.new();gap.custom_minimum_size=Vector2(0,16);column.add_child(gap)
-    for entry in [["continue","继续旅途" if has_journey else "开始旅途"],["new","新旅途"],["rush","首领连战"],["quit","退出"]]:
+    for entry in [["continue","继续旅途" if has_journey else "开始旅途"],["new","新旅途"],["rush","首领连战"],["achievements","成就"],["quit","退出"]]:
         # A first launch has nothing to replace.
         if entry[0]=="new" and not has_journey:continue
         if entry[0]=="rush" and not preload("res://scripts/boss_rush.gd").available():continue
@@ -68,6 +68,8 @@ func choose(action: String) -> void:
     if is_queued_for_deletion():return
     if action=="quit":
         chosen.emit(action);get_tree().quit();return
+    if action=="achievements":
+        show_achievements();return
     release()
     if action=="rush":
         chosen.emit(action);queue_free()
@@ -80,3 +82,20 @@ func choose(action: String) -> void:
             dialog.popup_centered();level.set("active_overlay","new_journey")
             if level.has_method("_sync_ui_input_lock"):level.call("_sync_ui_input_lock")
     chosen.emit(action);queue_free()
+
+## Earned and unearned alike; the world stays held behind the card.
+func show_achievements() -> void:
+    var window:=get_node_or_null("Achievements") as AcceptDialog
+    if window==null:
+        window=AcceptDialog.new();window.name="Achievements";window.title="成就";window.min_size=Vector2i(460,420)
+        window.process_mode=Node.PROCESS_MODE_ALWAYS;add_child(window)
+        var list:=ItemList.new();list.name="List";list.custom_minimum_size=Vector2(420,340);window.add_child(list)
+        window.visibility_changed.connect(func():
+            if not window.visible and buttons.has("achievements"):buttons["achievements"].grab_focus())
+    var list:=window.get_node("List") as ItemList
+    list.clear()
+    var record:=preload("res://scripts/achievements.gd").new()
+    for row in record.rows():
+        list.add_item(("● " if row.earned else "○ ")+String(row.name)+"　"+String(row.goal))
+        list.set_item_disabled(list.item_count-1,not row.earned)
+    window.popup_centered();list.grab_focus()

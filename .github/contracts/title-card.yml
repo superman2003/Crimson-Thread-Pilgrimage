@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/title_card*.gd'
+      - 'godot/scripts/achievements.gd'
       - 'godot/scripts/main_level.gd'
       - 'tools/run_title_card_contract.py'
       - '.github/contracts/title-card.yml'
@@ -24,6 +25,10 @@ jobs:
           sparse-checkout: |
             /godot/scripts/ui_type_scale.gd
             /godot/scripts/title_card.gd
+            /godot/scripts/achievements.gd
+            /godot/scripts/journey_progress.gd
+            /godot/scripts/permanent_ability_roles.gd
+            /godot/scripts/journey_desk_store.gd
             /godot/scripts/title_card_validation.gd
             /tools/run_title_card_contract.py
           sparse-checkout-cone-mode: false
