@@ -195,24 +195,22 @@
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
+      "status": "retired",
       "path": "res://assets/audio/sfx/generated/player_attack_hit_light.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
-      "runtime_key": "hit_light",
-      "wiring_note": "superseded 2026-07-26: non-kill hit confirms now route through enemy hit material tiers (enemy_hit_soft/shell/armor via enemy_actor.gd::_hit_tier_key); WAV remains loaded in the enemy_actor SFX table but has no trigger path"
+      "retired_reason": "2026-07-26 起，非击杀命中改用按敌人材质分级的命中音（enemy_hit_soft／shell／armor）；这条不再接线，运行时也不再加载。"
     },
     "player_attack_hit_heavy": {
       "key": "player_attack_hit_heavy",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
+      "status": "retired",
       "path": "res://assets/audio/sfx/generated/player_attack_hit_heavy.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
-      "runtime_key": "hit_heavy",
-      "wiring_note": "superseded 2026-07-26: non-kill hit confirms now route through enemy hit material tiers (enemy_hit_soft/shell/armor via enemy_actor.gd::_hit_tier_key); WAV remains loaded in the enemy_actor SFX table but has no trigger path"
+      "retired_reason": "2026-07-26 起，非击杀命中改用按敌人材质分级的命中音（enemy_hit_soft／shell／armor）；这条不再接线，运行时也不再加载。"
     },
     "player_attack_kill": {
       "key": "player_attack_kill",
