@@ -288,6 +288,9 @@ def build(kind, check=False):
             raise ValueError('Recorded generation prompt changed')
         if 'guide' in job and sha256((ROOT/job['guide']).read_bytes()).hexdigest() != job['guide_sha256']:
             raise ValueError('Recorded pose reference recipe changed')
+        for guide in job.get('reference', {}).get('supporting_guides', []):
+            if sha256((ROOT/guide['path']).read_bytes()).hexdigest() != guide['sha256']:
+                raise ValueError('Recorded handoff reference recipe changed')
         targets = target_indices(kind, job, clip)
         replaced = body_area(clip, base['canvas'])
         target_area = replaced
