@@ -1,0 +1,49 @@
+name: A01 ability ledges and pickup clearance
+on:
+  pull_request:
+    paths:
+      - 'godot/data/world_routes.json'
+      - 'godot/data/demo_ch03_saltwhite_archive.json'
+      - 'godot/data/build_catalog.json'
+      - 'godot/data/original_creature_combat.json'
+      - 'godot/scripts/enemy_actor.gd'
+      - 'godot/scripts/ability_ledges_validation.gd'
+      - 'godot/scripts/player_controller.gd'
+      - 'godot/scenes/Player.tscn'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/world_platform_body.gd'
+      - 'tools/audit_ability_ledges.py'
+      - 'tools/run_godot_regressions.py'
+      - 'tools/godot_suite_success_markers.json'
+      - '.github/contracts/ability-ledges.yml'
+permissions:
+  contents: read
+concurrency:
+  group: ability-ledges-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  ledges:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hydrate runtime assets
+        run: git lfs pull --include='godot/assets/**'
+      - name: Install pinned Godot and rendering dependencies
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Audit pickup clearance and import resources
+        run: |
+          python3 tools/audit_ability_ledges.py
+          python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/ledge-logs/import"
+      - name: Verify actual jumps, pickup reach and existing pickup behavior
+        run: |
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite ability_ledges --suite ability_movement --suite pickup_ledger --suite salt_archive_experience --suite rest_point_safety --log-dir "$RUNNER_TEMP/ledge-logs/runtime"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ability-ledge-logs
+          path: ${{ runner.temp }}/ledge-logs

@@ -3921,6 +3921,21 @@
           "note": "烛台夹层的旧签署者线轴。单跳阶梯可达，取得后回访苔钟庭盐风门。"
         },
         {
+          "id": "a01_col_atrium_high_shelf",
+          "kind": "item",
+          "item_id": "salt_crystal_shard",
+          "amount": 5,
+          "position": [
+            2505,
+            1490
+          ],
+          "room_id": "atrium_shaft",
+          "platform_id": "a01_atrium_high_shelf",
+          "reward_role": "optional_exploration",
+          "label": "高架盐晶",
+          "note": "书塔西侧孤架，单跳够不着，需双线跃。"
+        },
+        {
           "id": "upgrade_obtain_bell_guard",
           "kind": "item",
           "item_id": "bell_guard",
@@ -4534,6 +4549,15 @@
       },
       "platform_overrides": [
         {
+          "id": "f2_gap_ledge",
+          "rect": [
+            2445,
+            1772,
+            170,
+            26
+          ]
+        },
+        {
           "id": "candle_rise_a",
           "rect": [
             1810,
@@ -4655,6 +4679,19 @@
         }
       ],
       "platforms": [
+        {
+          "id": "a01_atrium_high_shelf",
+          "rect": [
+            2455,
+            1560,
+            100,
+            22
+          ],
+          "collision_role": "one_way",
+          "material": "vellum_bridge",
+          "color": "6b6144",
+          "route_role": "branch"
+        },
         {
           "id": "upgrade_echo_hook_2_roof",
           "rect": [
@@ -5370,6 +5407,11 @@
       ],
       "save_points": [],
       "map_room_overrides": [
+        {
+          "id": "atrium_shaft",
+          "guide": "书架托板是单向的，可以从下方穿过。西侧二层上方还有一层孤架，单跳够不着。",
+          "objective": "以书塔为枢纽：西二层是阅览廊，东三层是反页廊，塔底盐门通向东侧地面。可选：西侧孤架上的盐晶（双线跃）。"
+        },
         {
           "id": "mezz_reading_ledges",
           "guide": "走一步，停半拍，再跳。 可见旧检修入口：「运书吊篮仓」。在门前按 K 钩住铜环，牵引检修闩。",
@@ -9207,6 +9249,17 @@
         "line": "井底托板裂开一道缝，下面传来钟舌的嗡鸣。",
         "title": "竖井深处的旧钟舌"
       }
+    }
+  ],
+  "ability_ledges": [
+    {
+      "id": "a01_atrium_high_shelf",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "atrium_shaft",
+      "required_ability": "double_thread_jump",
+      "base_platform_id": "f2_gap_ledge",
+      "platform_id": "a01_atrium_high_shelf",
+      "reward_id": "a01_col_atrium_high_shelf"
     }
   ]
 }
