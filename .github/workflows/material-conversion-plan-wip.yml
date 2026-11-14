@@ -23,12 +23,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          lfs: true
-          sparse-checkout: |
-            godot
-            tools
-            .github
-          sparse-checkout-cone-mode: true
+          lfs: false
+      - name: Restore and hydrate only project assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/**
       - name: Strict runner negative and workflow tests
         run: python3 tools/test_material_conversion_plan_runner.py
       - name: Install pinned Godot 4.6.1
@@ -58,7 +57,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: false
       - name: Full existing static and campaign gates
         run: |
           npm test

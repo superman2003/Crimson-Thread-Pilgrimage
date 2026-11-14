@@ -98,25 +98,11 @@ jobs:
           cat "$RUNNER_TEMP/needs.json"
           include=$(python3 -c "import json,sys; print(','.join(json.load(open(sys.argv[1]))['lfs']))" "$RUNNER_TEMP/needs.json")
           echo "lfs=$include" >> "$GITHUB_OUTPUT"
-          if [ -n "$include" ]; then
-            echo "lfs_key=lfs-v1-$(git lfs ls-files -l -I "$include" | sha256sum | cut -c1-32)" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Restore LFS objects
+      - name: Restore and hydrate LFS assets once for the shard
         if: steps.needs.outputs.lfs != ''
-        uses: actions/cache/restore@v4
+        uses: ./.github/actions/hydrate-lfs
         with:
-          path: .git/lfs/objects
-          key: ${{ steps.needs.outputs.lfs_key }}
-          restore-keys: lfs-v1-
-      - name: Hydrate LFS assets once for the shard
-        if: steps.needs.outputs.lfs != ''
-        run: python3 tools/hydrate_runtime_assets.py --include='${{ steps.needs.outputs.lfs }}'
-      - name: Save LFS objects (main only)
-        if: steps.needs.outputs.lfs != '' && github.event_name == 'push'
-        uses: actions/cache/save@v4
-        with:
-          path: .git/lfs/objects
-          key: ${{ steps.needs.outputs.lfs_key }}
+          include: ${{ steps.needs.outputs.lfs }}
       - name: Cache Godot
         id: godot-cache
         uses: actions/cache@v4
