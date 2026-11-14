@@ -51,7 +51,7 @@ MODULATION = re.compile(r'(?<![A-Za-z0-9_.])(?:(?:self\.)?(?P<receiver>[A-Za-z_]
 LITERAL = re.compile(r'(?:Color8?|Color\.(?:html|hex|hex64|from_[a-z0-9_]+))\(\s*(?:"[^"]*"|\'[^\']*\'|[0-9.])')
 # (file, text the expression must contain): one specific call, never a whole file.
 EXEMPT = {
-    ('main_level.gd', 'if current else (Color(0.86, 0.94, 0.80) if visited else'):
+    ('map_overlay.gd', 'if current else (Color(0.86, 0.94, 0.80) if visited else'):
         'legacy chapter map: current / visited / unvisited room names are told apart by colour',
 }
 
@@ -366,8 +366,8 @@ def self_test():
     assert not literals('x.add_theme_color_override("font_outline_color", Color("18252c"))')
     assert not literals('func _label(parent: Control, text: String, color: Color = Color("ffffff")) -> Label:')
     assert not literals('_label(panel,"x",Vector2.ZERO,Vector2.ONE,12,GOLD)')
-    assert exempt('main_level.gd', 'Color(0.88, 1.0, 0.95) if current else (Color(0.86, 0.94, 0.80) if visited else Color(0.50, 0.56, 0.52))')
-    assert not exempt('main_level.gd', 'Color("ffffff")')
+    assert exempt('map_overlay.gd', 'Color(0.88, 1.0, 0.95) if current else (Color(0.86, 0.94, 0.80) if visited else Color(0.50, 0.56, 0.52))')
+    assert not exempt('map_overlay.gd', 'Color("ffffff")')
     assert not exempt('other.gd', 'Color(0.88, 1.0, 0.95) if current else (Color(0.86, 0.94, 0.80) if visited else Color(0.50, 0.56, 0.52))')
 
 
