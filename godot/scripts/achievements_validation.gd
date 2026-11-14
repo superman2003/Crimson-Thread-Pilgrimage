@@ -12,6 +12,13 @@ class World extends Node:
     var active_overlay:=""
     func _ready() -> void:add_child(audio_director);add_child(new_journey_dialog)
     func _sync_ui_input_lock() -> void:pass
+class Shell extends Control:
+    var settings:=Control.new()
+    func _ready() -> void:add_child(settings)
+    func _button(parent: Node,text: String,point: Vector2,dimensions: Vector2,callback: Callable) -> Button:
+        var button:=Button.new();button.text=text;button.position=point;button.size=dimensions
+        parent.add_child(button);button.pressed.connect(callback);return button
+    func register_text_entry_window(_window: Window) -> void:pass
 func _initialize() -> void:call_deferred("run")
 func check(ok: bool,label: String) -> void:
     checks+=1
@@ -79,6 +86,21 @@ func run() -> void:
     notice.left=0.01;await create_timer(0.2).timeout;await process_frame
     check(not is_instance_valid(notice) or notice.is_queued_for_deletion(),"the banner removes itself")
     host.queue_free()
+    # Settings page: the same list, opened from the launcher row.
+    var shell:=Shell.new();root.add_child(shell);await process_frame
+    var difficulty:=Button.new();difficulty.name="DifficultyButton";shell.settings.add_child(difficulty)
+    var desk:=preload("res://scripts/achievements_dialog.gd").new();desk.name="AchievementsDesk";shell.add_child(desk);desk.setup(shell)
+    var launcher:=shell.settings.get_node_or_null("AchievementsButton") as Button
+    check(launcher!=null and launcher.text=="成就" and not is_instance_valid(desk.window),"settings launcher present; window built on first open")
+    check(launcher.get_node(launcher.focus_neighbor_right)==difficulty and difficulty.get_node(difficulty.focus_neighbor_left)==launcher,"launcher joins the d-pad chain before difficulty")
+    var record3:=fresh_record();record3.sync(journey(1,1,0.0,0.0),900)
+    launcher.pressed.emit();await process_frame
+    check(desk.window.visible and desk.list.item_count==MODEL.LIST.size(),"the settings window lists every achievement")
+    check(desk.list.get_item_text(0).begins_with("● ") and desk.list.get_item_text(2).begins_with("● ") and desk.list.is_item_disabled(1),"settings list shows what is earned")
+    shell.settings.visible=false;await process_frame
+    check(not desk.window.visible,"the window closes with the settings page")
+    shell.queue_free();await process_frame
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(record3.store.path))
     # Title card lists them without releasing the held world.
     var record2:=fresh_record();record2.sync(journey(1,0,0.0,0.0),800)
     var level:=World.new();root.add_child(level);await process_frame
