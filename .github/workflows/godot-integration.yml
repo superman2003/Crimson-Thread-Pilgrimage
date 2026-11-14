@@ -28,7 +28,7 @@ jobs:
     # lossless textures) slowed software-GL decoding on the runner.
     timeout-minutes: 60
     steps:
-      - name: Check out the exact commit and hydrate runtime assets
+      - name: Check out the exact commit without LFS downloads
         env:
           VALIDATION_SHA: ${{ github.sha }}
         run: |
@@ -36,8 +36,10 @@ jobs:
           git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
-          git lfs install --skip-smudge
-          python3 tools/hydrate_runtime_assets.py --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**,art_requests/hero_motion_v9/**'
+      - name: Restore and hydrate runtime assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**,art_requests/hero_motion_v9/**
       - name: Install Godot 4.6.1
         run: |
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
@@ -105,7 +107,7 @@ jobs:
     # full-suite tail. Every original command and strict marker is retained.
     timeout-minutes: 45
     steps:
-      - name: Check out the exact commit and hydrate runtime assets
+      - name: Check out the exact commit without LFS downloads
         env:
           VALIDATION_SHA: ${{ github.sha }}
         run: |
@@ -113,8 +115,10 @@ jobs:
           git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
-          git lfs install --skip-smudge
-          python3 tools/hydrate_runtime_assets.py --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**,art_requests/hero_motion_v9/**'
+      - name: Restore and hydrate runtime assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**,art_requests/hero_motion_v9/**
       - name: Install Godot 4.6.1
         run: |
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
