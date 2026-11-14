@@ -2,6 +2,8 @@ extends RefCounted
 ## Sprite, part and hurtbox construction, animation selection and the procedural pose applied to an enemy each frame.
 ## Moved out of enemy_actor.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
+const POSE_TIMING := preload("res://scripts/enemy_animation_timing.gd")
 
 static func build_shape(actor: Node) -> void:
     var shape := CollisionShape2D.new()
@@ -20,15 +22,15 @@ static func build_sprite(actor: Node) -> void:
         # Presentation can select another manifest after configure (original
         # source poses, skins or prefab overrides). Do not carry choreography
         # capabilities from a different drawing set into the loaded actor.
-        actor.authored_combat_sequences = actor.ORIGINAL_ART.manifest(actor.asset_path).get("authored_combat_sequences", []).duplicate()
+        actor.authored_combat_sequences = ORIGINAL_ART.manifest(actor.asset_path).get("authored_combat_sequences", []).duplicate()
         actor.animated_sprite = AnimatedSprite2D.new()
         actor.animated_sprite.name = "EnemyAnimatedSprite"
         actor.animated_sprite.sprite_frames = actor._load_enemy_sprite_frames(actor.asset_path)
-        actor.frame_fit = actor.ORIGINAL_ART.frame_fit(actor.asset_path) if actor.asset_path.contains("original_creatures") else {}
+        actor.frame_fit = ORIGINAL_ART.frame_fit(actor.asset_path) if actor.asset_path.contains("original_creatures") else {}
         if not actor.frame_fit.is_empty():
             actor.animated_sprite.frame_changed.connect(actor._apply_frame_fit)
             actor.animated_sprite.animation_changed.connect(actor._apply_frame_fit)
-        var wing_data = actor.ORIGINAL_ART.manifest(actor.WING_FLAP_PATH)
+        var wing_data = ORIGINAL_ART.manifest(actor.WING_FLAP_PATH)
         actor.wing_flap = wing_data.get("creatures", {}).get(actor.kind, {}) if actor.asset_path.get_file() == String(wing_data.get("layer", "")) and actor.asset_path.get_base_dir().get_file() == actor.kind else {}
         if not actor.wing_flap.is_empty():
             actor.animated_sprite.frame_changed.connect(actor._apply_wing_flap)
@@ -163,7 +165,7 @@ static func build_part_sprite(actor: Node) -> Node2D:
 
 static func load_enemy_sprite_frames(actor: Node, manifest_path: String) -> SpriteFrames:
     if manifest_path.contains("original_creatures"):
-        return actor.ORIGINAL_ART.frames(manifest_path)
+        return ORIGINAL_ART.frames(manifest_path)
     var file := FileAccess.open(manifest_path, FileAccess.READ)
     if file == null:
         return null
@@ -259,7 +261,7 @@ static func fit_animation_duration(actor: Node, duration: float, phase: String =
             actor.animated_sprite.sprite_frames = actor.pose_owned_frames
             actor.animated_sprite.play(animation_name)
         frames = actor.pose_owned_frames
-        var weights = actor.POSE_TIMING.weights(frames.get_frame_count(animation_name), duration, phase, frames.get_animation_speed(animation_name))
+        var weights = POSE_TIMING.weights(frames.get_frame_count(animation_name), duration, phase, frames.get_animation_speed(animation_name))
         for index in weights.size():
             frames.set_frame(animation_name, index, actor.pose_source_frames.get_frame_texture(animation_name, index), weights[index])
     elif frames == actor.pose_owned_frames and actor.pose_source_frames != null:
@@ -318,7 +320,7 @@ static func advance_pose_loop(actor: Node) -> void:
             # Seek past time already spent beyond the bridge boundary. The
             # shared recovery must still finish at the gameplay deadline.
             var frames = actor.animated_sprite.sprite_frames
-            var cursor = actor.POSE_TIMING.cursor(frames, actor.animated_sprite.animation, actor.animated_sprite.speed_scale, maxf(0.0, actor.pose_loop_at - actor.state_timer))
+            var cursor = POSE_TIMING.cursor(frames, actor.animated_sprite.animation, actor.animated_sprite.speed_scale, maxf(0.0, actor.pose_loop_at - actor.state_timer))
             actor.animated_sprite.set_frame_and_progress(int(cursor.x), cursor.y)
         elif actor.pose_loop_role == "active":
             actor.pose_travel_stretch = actor.animated_sprite.sprite_frames.get_frame_count(actor.animated_sprite.animation) <= 2

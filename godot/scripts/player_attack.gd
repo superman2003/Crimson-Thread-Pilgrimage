@@ -2,6 +2,8 @@ extends RefCounted
 ## Melee attacks: starting a swing, hit resolution, gate strikes and hazard pogo, hit feedback, and the hitbox geometry.
 ## Moved out of player_controller.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
+const HOOK_ART := preload("res://scripts/player_hook_art.gd")
 
 static func start_attack(player: Node, animation: StringName, allow_traversal_action: bool = true, queued_direction: Vector2 = Vector2.ZERO) -> void:
     player._clear_action_buffer()
@@ -150,7 +152,7 @@ static func apply_attack_hits(player: Node) -> void:
                 # 钩索"挂住"=钩击命中确认（与 hitstop 同拍）；每次挥钩仅播一次。
                 player.hook_latch_played = true
                 player._play_sfx("hook_latch", -6.0)
-                player.HOOK_ART.latch(player, hurtbox.get_center())
+                HOOK_ART.latch(player, hurtbox.get_center())
                 # ch2 beat `echo_hook`（manifest ch02_beat_02）：雨铸运河钩击命中后
                 # 叠一拍水声回响（金属声后接水面回声，采样内已含节拍延迟）。
                 if player.footstep_material == "copper":
@@ -199,10 +201,10 @@ static func try_gate_strike(player: Node, attack_rect: Rect2) -> void:
 static func try_hazard_pogo(player: Node, attack_rect: Rect2) -> void:
     if player.attack_pogo_paid or player.current_attack == &"hook_throw" or player.current_attack_direction.y <= 0.5:
         return
-    for node in player.get_tree().get_nodes_in_group(player.HAZARD_POGO.GROUP):
+    for node in player.get_tree().get_nodes_in_group(HAZARD_POGO.GROUP):
         if not is_instance_valid(node) or not node is Node2D or not node.is_inside_tree():
             continue
-        var surface: Rect2 = player.HAZARD_POGO.surface_rect(node)
+        var surface: Rect2 = HAZARD_POGO.surface_rect(node)
         if surface.size == Vector2.ZERO or not attack_rect.intersects(surface):
             continue
         var contact := Vector2(clampf(player.global_position.x, surface.position.x, surface.end.x), surface.position.y + 1.0)
@@ -210,7 +212,7 @@ static func try_hazard_pogo(player: Node, attack_rect: Rect2) -> void:
             continue
         player._apply_downslash_bounce(contact)
         player.attack_pogo_paid = true
-        player.hazard_pogo_guard_timer = player.HAZARD_POGO.CONTACT_GRACE
+        player.hazard_pogo_guard_timer = HAZARD_POGO.CONTACT_GRACE
         player._spawn_hit_confirm_vfx(contact, player.current_attack)
         return
 

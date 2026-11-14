@@ -123,6 +123,13 @@ for n in typed:
     m=re.search(r'^const '+n+r'\s*:?=\s*preload\([^)]*\)\s*$',text,re.M)
     if not m: raise SystemExit('type constant is not a preload: '+n)
     consts.append(m.group(0)); body=re.sub(r'((?:->|:)\s*|\bas |\bis )'+PARAM+r'\.'+n+r'\b',r'\1'+n,body)
+# Calls through a preload constant (`level.POLICY.f([a, b])`) lose static
+# typing, so typed-array arguments arrive untyped: read those constants directly.
+for n in sorted(set(re.findall(r'\b'+PARAM+r'\.([A-Z][A-Z0-9_]*)\.',body))):
+    m=re.search(r'^const '+n+r'\s*:?=\s*preload\("[^"]*"\)\s*$',text,re.M)
+    if m:
+        if m.group(0) not in consts: consts.append(m.group(0))
+        body=re.sub(r'\b'+PARAM+r'\.'+n+r'\.',n+'.',body)
 helper=body.split('\n'); helper[4:4]=consts
 GD={'true','false','null','and','or','not','if','elif','else','for','while','in','is','as','var','const','func','return','pass','break','continue','match','await','preload','load','print','push_error','push_warning','range','len','str','int','float','bool','min','max','abs','clamp','lerp','sign','round','floor','ceil','sqrt','pow','absf','absi','minf','maxf','mini','maxi','clampf','clampi','lerpf','roundf','roundi','floorf','floori','ceilf','ceili','signf','signi','snappedf','snapped','is_instance_valid','is_equal_approx','is_zero_approx','typeof','weakref','randf','randi','randf_range','randi_range','deg_to_rad','rad_to_deg','sin','cos','tan','atan2','fmod','fposmod','posmod','wrapf','wrapi','move_toward','remap','inverse_lerp','smoothstep','is_finite','is_nan','var_to_str','str_to_var','hash','void','static',PARAM,'super','PI','TAU','INF','NAN','instance_from_id','type_string','error_string','printerr','print_rich','when'}
 left={k:v for k,v in unknown.items() if k not in GD}

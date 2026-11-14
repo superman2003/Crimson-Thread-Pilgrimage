@@ -2,6 +2,7 @@ extends RefCounted
 ## Player visual effects: dash ghosts, heal rings, attack, skill, landing, double-jump and thread-snap effects.
 ## Moved out of player_controller.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
 
 static func spawn_double_jump_vfx(player: Node) -> void:
@@ -12,7 +13,7 @@ static func spawn_double_jump_vfx(player: Node) -> void:
         thread.width = 3.0
         thread.default_color = player.THREAD_T2_CORE if index == 0 else player.THREAD_T1_CORE
         thread.z_index = 58
-        if not player.VISUAL_POLICY.attach_secondary(player, thread, &"motion", player): continue
+        if not VISUAL_POLICY.attach_secondary(player, thread, &"motion", player): continue
         var tween := thread.create_tween()
         tween.tween_property(thread, "scale", Vector2(1.5, 1.0), 0.22)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.22)
@@ -36,7 +37,7 @@ static func spawn_dash_ghost(player: Node) -> void:
     var ghost_material := CanvasItemMaterial.new()
     ghost_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
     ghost.material = ghost_material
-    if not player.VISUAL_POLICY.attach_secondary(parent_node, ghost, &"motion", player): return
+    if not VISUAL_POLICY.attach_secondary(parent_node, ghost, &"motion", player): return
     ghost.global_transform = player.sprite.global_transform
     var tween := ghost.create_tween()
     tween.tween_property(ghost, "self_modulate:a", 0.0, 0.24).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -55,7 +56,7 @@ static func spawn_heal_effect(player: Node) -> void:
         thread.width = 2.0
         thread.default_color = Color(player.THREAD_T3_CORE.r, player.THREAD_T3_CORE.g, player.THREAD_T3_CORE.b, 0.82)
         thread.z_index = 44
-        if not player.VISUAL_POLICY.attach_secondary(player, thread, &"state", player): continue
+        if not VISUAL_POLICY.attach_secondary(player, thread, &"state", player): continue
         var tween := thread.create_tween()
         tween.tween_property(thread, "position:y", -18.0, 0.42).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.42)
@@ -74,7 +75,7 @@ static func add_heal_ring(player: Node, radius: float, delay: float) -> void:
     ring.width = 3.0
     ring.default_color = player.THREAD_T3_CORE
     ring.z_index = 45
-    if not player.VISUAL_POLICY.attach_secondary(player, ring, &"state", player): return
+    if not VISUAL_POLICY.attach_secondary(player, ring, &"state", player): return
     ring.scale = Vector2(0.38, 0.38)
     var tween := ring.create_tween()
     tween.tween_interval(delay)
@@ -91,7 +92,7 @@ static func spawn_attack_vfx(player: Node, animation: StringName) -> void:
 
 
 static func spawn_skill_slash_vfx(player: Node) -> void:
-    if player.CONTACT_ART.supported_slash(player):
+    if CONTACT_ART.supported_slash(player):
         CONTACT_ART.skill_slash(player)
 
 
@@ -107,7 +108,7 @@ static func spawn_land_vfx(player: Node) -> void:
     dust.width = 3.0
     dust.default_color = Color(0.64, 0.92, 0.56, 0.72)
     dust.z_index = 34
-    if not player.VISUAL_POLICY.attach_secondary(player, dust, &"motion", player): return
+    if not VISUAL_POLICY.attach_secondary(player, dust, &"motion", player): return
     var tween := dust.create_tween()
     tween.tween_property(dust, "scale", Vector2(1.7, 1.0), 0.18)
     tween.parallel().tween_property(dust, "modulate:a", 0.0, 0.18)
@@ -133,7 +134,7 @@ static func spawn_thread_snap_vfx(player: Node, source_position: Vector2) -> voi
         thread.default_color = player.THREAD_T2_CORE
         thread.z_index = 80
         thread.position = origin
-        if not player.VISUAL_POLICY.attach_secondary(parent_node, thread, &"state", player): continue
+        if not VISUAL_POLICY.attach_secondary(parent_node, thread, &"state", player): continue
         var tween := thread.create_tween()
         tween.tween_property(thread, "position", origin + tip * 0.8, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.25)

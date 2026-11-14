@@ -2,6 +2,8 @@ extends RefCounted
 ## The dialogue panel: speaker, topics and wish topics, and reading position memory.
 ## Moved out of pilgrimage_interface.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ART := preload("res://scripts/hand_drawn_assets.gd")
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 
 static func build_dialogue(ui: Node) -> void:
     ui.dialogue=ui._panel(ui,"",Vector2(72,374),Vector2(1136,300))
@@ -15,7 +17,7 @@ static func build_dialogue(ui: Node) -> void:
     ui.dialogue_portrait.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     ui.dialogue_portrait.mouse_filter=Control.MOUSE_FILTER_IGNORE
     ui.dialogue.add_child(ui.dialogue_portrait)
-    ui.dialogue_name=ui._label(ui.dialogue,"",Vector2(221,19),Vector2(740,37),ui.TYPE.DISPLAY,ui.GOLD)
+    ui.dialogue_name=ui._label(ui.dialogue,"",Vector2(221,19),Vector2(740,37),TYPE.DISPLAY,ui.GOLD)
     ui.dialogue_identity=ui._label(ui.dialogue,"",Vector2(221,57),Vector2(770,28),14,ui.MUTED)
     ui.dialogue_scroll=ScrollContainer.new()
     ui.dialogue_scroll.position=Vector2(221,93)
@@ -28,7 +30,7 @@ static func build_dialogue(ui: Node) -> void:
     ui.dialogue_body.size_flags_horizontal=Control.SIZE_EXPAND_FILL
     ui.dialogue_body.custom_minimum_size=Vector2(825,0)
     ui.dialogue_body.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    ui.dialogue_hint=ui._label(ui.dialogue,ui._dialogue_binding_hint(),Vector2(24,242),Vector2(180,50),ui.TYPE.CAPTION,ui.MUTED)
+    ui.dialogue_hint=ui._label(ui.dialogue,ui._dialogue_binding_hint(),Vector2(24,242),Vector2(180,50),TYPE.CAPTION,ui.MUTED)
     ui.dialogue_hint.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
     ui.dialogue_hint.mouse_filter=Control.MOUSE_FILTER_PASS
     ui.dialogue_continue_button=ui._button(ui.dialogue,"继续交谈",Vector2(221,250),Vector2(147,34),func():
@@ -73,7 +75,7 @@ static func show_speaker(ui: Node, area: Area2D) -> void:
         elif bool(ui.level.story_flags.get(String(quest.get("complete_flag","")),false)):
             ui.dialogue_quest_button.text="回访心愿"
     ui._speaker_motion(area,true)
-    ui.dialogue_portrait.call("bind_speaker", area, ui.ART.item("moss_lens") if history else ui.ART.portrait(String(area.get_meta("npc_id",""))))
+    ui.dialogue_portrait.call("bind_speaker", area, ART.item("moss_lens") if history else ART.portrait(String(area.get_meta("npc_id",""))))
 
 
 static func speaker_motion(ui: Node, area, talking: bool) -> void:

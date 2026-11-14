@@ -2,13 +2,15 @@ extends RefCounted
 ## The build page frame: equipment filters, family slots and their dormancy hints, craft lines and tool resupply.
 ## Moved out of pilgrimage_interface.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 
 static func build_build_panel(ui: Node) -> void:
     ui.build_panel=ui._panel(ui,"契印与构筑",Vector2(85,54),Vector2(1110,600))
     ui.build_panel.name="BuildOverlay"
     ui._well(ui.build_panel,Vector2(627,174),Vector2(457,368))
     ui._well(ui.build_panel,Vector2(26,174),Vector2(588,368))
-    ui.build_art=ui.CHROME.new()
+    ui.build_art=CHROME.new()
     ui.build_art.kind="seal_art"
     ui.build_art.position=Vector2(288,192)
     ui.build_art.size=Vector2(309,309)
@@ -44,7 +46,7 @@ static func build_build_panel(ui: Node) -> void:
     ui.equipment_search.position=Vector2(34,180)
     ui.equipment_search.size=Vector2(340,28)
     ui.equipment_search.max_length=ui.equipment_filter.QUERY_LIMIT
-    ui.equipment_search.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    ui.equipment_search.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.equipment_search.placeholder_text="搜索此类已知装备"
     ui.equipment_search.clear_button_enabled=true
     ui.equipment_search.tooltip_text="按装备名称搜索。搜索与筛选不会执行装备操作或消耗资源。"
@@ -52,7 +54,7 @@ static func build_build_panel(ui: Node) -> void:
     ui.equipment_compatible=CheckBox.new()
     ui.equipment_compatible.position=Vector2(384,180)
     ui.equipment_compatible.size=Vector2(225,28)
-    ui.equipment_compatible.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    ui.equipment_compatible.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.equipment_compatible.text="仅可装入此槽"
     ui.equipment_compatible.tooltip_text="只显示已解锁且兼容当前所选槽位的装备。"
     ui.build_panel.add_child(ui.equipment_compatible)
@@ -76,7 +78,7 @@ static func build_build_panel(ui: Node) -> void:
         var family_id: String = ui._build_family_for_page()
         if family_id.is_empty():return
         ui._perform_build_action("equip_family_slot","",{"family":family_id,"slot":ui.build_assign_slot}))
-    ui.clear_family_slot_button.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    ui.clear_family_slot_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.build_emblem=ui._icon(ui.build_panel,null,Vector2(645,290),Vector2(48,48))
     ui.build_heading=ui._label(ui.build_panel,"",Vector2(710,290),Vector2(350,45),23,ui.GOLD)
     ui.build_detail.position=Vector2(646,340)
@@ -87,11 +89,11 @@ static func build_build_panel(ui: Node) -> void:
     ui.build_panel.add_child(ui.build_detail)
     ui.resupply_preview_button=ui._button(ui.build_panel,"查看补给报价",Vector2(640,535),Vector2(200,30),ui._preview_tool_resupply)
     ui.resupply_confirm_button=ui._button(ui.build_panel,"确认购买补给",Vector2(850,535),Vector2(220,30),ui._confirm_tool_resupply)
-    ui.resupply_preview_button.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
-    ui.resupply_confirm_button.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    ui.resupply_preview_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
+    ui.resupply_confirm_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.resupply_confirm_button.disabled=true
     ui.resupply_planner_button=ui._button(ui.build_panel,"按需与优先补给",Vector2(640,570),Vector2(430,26),ui._open_resupply_planner)
-    ui.resupply_planner_button.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    ui.resupply_planner_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.craft_cart_button=ui._button(ui.build_panel,"多件制作清单",Vector2(640,535),Vector2(430,30),ui._open_craft_cart)
     ui.craft_cart_button.add_theme_font_size_override("font_size",14)
     ui._label(ui.build_panel,"确认键执行  ·  Esc 返回",Vector2(150,561),Vector2(470,13),11,ui.MUTED)

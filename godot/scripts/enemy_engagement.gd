@@ -2,6 +2,10 @@ extends RefCounted
 ## Targeting, line of sight, patrol and aggro, alarms, ally support and spacing while in combat.
 ## Moved out of enemy_actor.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
+const MINOR_SKILL_ART := preload("res://scripts/minor_enemy_skill_art.gd")
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+
 
 static func target_player(actor: Node) -> CharacterBody2D:
     if actor.lure_timer > 0.0:
@@ -59,7 +63,7 @@ static func update_patrol_or_aggro(actor: Node, delta: float, target: CharacterB
         var step = signf(dx) * minf(absf(dx), actor._movement_speed() * delta)
         var lure_ray = PhysicsRayQueryParameters2D.create(actor.global_position + Vector2(0,-24), actor.global_position + Vector2(step + signf(dx) * 24,-24), 1)
         lure_ray.collide_with_areas = false
-        lure_ray.exclude = actor.ATTACK_EFFECT.player_bodies(actor.get_tree())
+        lure_ray.exclude = ATTACK_EFFECT.player_bodies(actor.get_tree())
         if actor.get_world_2d().direct_space_state.intersect_ray(lure_ray).is_empty():
             actor.global_position.x += step
         return
@@ -210,12 +214,12 @@ static func try_start_support(actor: Node) -> bool:
     actor._pose_sprite("windup")
     actor._fit_animation_duration(actor.SUPPORT_WINDUP)
     actor._role_cue("support_mend")
-    if actor.MINOR_SKILL_ART.start_support(actor): return true
+    if MINOR_SKILL_ART.start_support(actor): return true
     var link := Line2D.new()
     link.name = "EnemySupportLink"
     link.width = 2.0
     link.default_color = Color(0.48, 0.88, 0.75, 0.9)
-    actor.VISUAL_POLICY.place_danger(link, true)
+    VISUAL_POLICY.place_danger(link, true)
     actor.add_child(link)
     actor.windup_vfx = link
     actor._update_support_link(chosen)
@@ -238,7 +242,7 @@ static func update_support(actor: Node, delta: float, target: CharacterBody2D) -
     actor.state_timer -= delta
     if actor.state_timer <= 0.0:
         ally.hp = mini(ally.max_hp, ally.hp + 1)
-        actor.MINOR_SKILL_ART.release_support(actor,ally)
+        MINOR_SKILL_ART.release_support(actor,ally)
         actor._finish_support()
 
 

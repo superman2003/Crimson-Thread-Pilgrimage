@@ -2,6 +2,9 @@ extends RefCounted
 ## Running an attack: start, wind-up, aim, active frames, authored combos, recovery and contact damage.
 ## Moved out of enemy_actor.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const BOSS_STYLE := preload("res://scripts/boss_combat_style.gd")
+const COMBAT_AUDIO := preload("res://scripts/enemy_combat_audio.gd")
+const MINOR_SKILL_ART := preload("res://scripts/minor_enemy_skill_art.gd")
 const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
 
 static func try_start_attack(actor: Node, target: CharacterBody2D) -> bool:
@@ -41,7 +44,7 @@ static func try_start_attack(actor: Node, target: CharacterBody2D) -> bool:
 static func begin_attack(actor: Node, command: Dictionary) -> void:
     if actor.dying or actor.is_queued_for_deletion() or not actor.world_residency_active():
         return
-    if not actor.is_boss and String(command.get("type",""))=="combo" and not command.has("combo_beats") and actor._attack_animation_base(command) in actor.authored_combat_sequences and actor.MINOR_SKILL_ART.ready_for(actor,command):
+    if not actor.is_boss and String(command.get("type",""))=="combo" and not command.has("combo_beats") and actor._attack_animation_base(command) in actor.authored_combat_sequences and MINOR_SKILL_ART.ready_for(actor,command):
         command=command.duplicate(true)
         var beats:=clampi(ceili(float(command.get("active",.6))/.2),2,4)
         var starts: Array=[]
@@ -64,7 +67,7 @@ static func begin_attack(actor: Node, command: Dictionary) -> void:
     actor.combo_origin_direction=actor.attack_direction
     actor.combo_visual_stage=""
     actor.boss_attack_history=actor.boss_target_history.duplicate()
-    if String(command.get("boss_pattern",""))=="mirror_committed_shift":actor.boss_blink_destination=actor.BOSS_STYLE.blink_destination(actor,command)
+    if String(command.get("boss_pattern",""))=="mirror_committed_shift":actor.boss_blink_destination=BOSS_STYLE.blink_destination(actor,command)
     actor.last_attack_id = String(command.get("id", "attack"))
     actor.last_ai_decision = "attack:" + actor.last_attack_id
     if actor._boss_tactical_enabled():
@@ -154,7 +157,7 @@ static func update_active(actor: Node, delta: float) -> void:
         elif contact_live:actor.position.x+=actor.attack_direction*float(actor.active_attack.get("lunge_speed",125))*delta
         if not actor.active_attack.has("combo_beats") and int(actor.attack_elapsed/.20)!=int((actor.attack_elapsed-delta)/.20):
             actor.attack_has_hit=false
-            actor._play_combat_material(actor.COMBAT_AUDIO.release_family(actor.kind,actor.locomotion,actor.active_attack),-12.0 if actor.is_boss else -15.0)
+            actor._play_combat_material(COMBAT_AUDIO.release_family(actor.kind,actor.locomotion,actor.active_attack),-12.0 if actor.is_boss else -15.0)
     elif attack_type == "lunge":
         actor.position.x += actor.attack_direction * float(actor.active_attack.get("lunge_speed", 220.0)) * delta
     elif attack_type == "retreat":
@@ -192,11 +195,11 @@ static func update_active(actor: Node, delta: float) -> void:
 
 
 static func update_authored_combo(actor: Node, progress: float) -> bool:
-    var beat = actor.BOSS_STYLE.combo_stage(actor.active_attack,progress)
+    var beat = BOSS_STYLE.combo_stage(actor.active_attack,progress)
     if String(beat.key)!=actor.combo_visual_stage:
         actor.combo_visual_stage=String(beat.key)
-        actor.BOSS_SKILL_ART.clear(actor)
-        actor.MINOR_SKILL_ART.clear(actor)
+        BOSS_SKILL_ART.clear(actor)
+        MINOR_SKILL_ART.clear(actor)
         if String(beat.phase)!="recover":
             var clip = actor.active_attack.duplicate(true)
             clip[String(beat.phase)]=maxf(.04,(float(beat.end)-float(beat.start))*float(actor.active_attack.active))

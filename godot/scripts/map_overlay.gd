@@ -2,6 +2,10 @@ extends RefCounted
 ## The map page: building it, redrawing rooms, routes and pins, and opening it.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
+const MAP_PLAYER_PINS := preload("res://scripts/map_player_pins_runtime.gd")
+
+const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
 
 static func build_map_overlay(level: Node) -> void:
     level.map_panel = ColorRect.new()
@@ -33,9 +37,9 @@ static func build_map_overlay(level: Node) -> void:
     title.text = level._theme_map_title()
     title.name = "SurveyMapTitle"
     title.position = Vector2(155, 20)
-    title.add_theme_font_override("font",level.PILGRIMAGE_UI_SCRIPT.display_font())
+    title.add_theme_font_override("font",PILGRIMAGE_UI_SCRIPT.display_font())
     title.add_theme_font_size_override("font_size", 23)
-    title.add_theme_color_override("font_color", level.PILGRIMAGE_UI_SCRIPT.IVORY)
+    title.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     level.map_panel.add_child(title)
 
     level.ui_shell._button(level.map_panel,"返回",Vector2(1080,18),Vector2(62,34),func():level._close_overlays())
@@ -49,7 +53,7 @@ static func build_map_overlay(level: Node) -> void:
         # pin controls reuse the ordinary HUD font instead of rasterizing a
         # second CJK glyph atlas during every cold map setup.
         level.map_draw_root.theme = level.ui_shell.theme.duplicate()
-        level.map_draw_root.theme.default_font = level.PILGRIMAGE_UI_SCRIPT.survey_font()
+        level.map_draw_root.theme.default_font = PILGRIMAGE_UI_SCRIPT.survey_font()
         level.survey_map_view = preload("res://scripts/survey_map_view.gd").new()
         level.survey_map_view.name = "SurveyMapViewport"
         level.survey_map_view.position = level.map_draw_root.position
@@ -73,7 +77,7 @@ static func build_map_overlay(level: Node) -> void:
     level.map_text.size = Vector2(1108, 24) if level.world_mode else Vector2(1108, 110)
     level.map_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     level.map_text.add_theme_font_size_override("font_size", 14)
-    level.map_text.add_theme_color_override("font_color", level.PILGRIMAGE_UI_SCRIPT.IVORY)
+    level.map_text.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     level.map_panel.add_child(level.map_text)
     level._build_wish_board_overlay()
 
@@ -137,14 +141,14 @@ static func refresh_map_overlay(level: Node) -> void:
     if level.wish_panel != null:
         level.wish_panel.visible = not (level.world_mode and level.world_map_view)
     if level.world_mode and level.world_map_view:
-        level.CARTOGRAPHY_UI.paper(level, true)
+        CARTOGRAPHY_UI.paper(level, true)
         level._draw_world_atlas()
-        level.MAP_PLAYER_PINS.refresh(level)
+        MAP_PLAYER_PINS.refresh(level)
         preload("res://scripts/death_recovery_map.gd").render(level)
         return
     if level.world_mode:
-        level.CARTOGRAPHY_UI.render(level)
-        level.MAP_PLAYER_PINS.refresh(level)
+        CARTOGRAPHY_UI.render(level)
+        MAP_PLAYER_PINS.refresh(level)
         preload("res://scripts/death_recovery_map.gd").render(level)
         return
     add_map_route_line(level, rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)

@@ -2,6 +2,9 @@ extends RefCounted
 ## The settings page: audio, accessibility and controls sections, remapping, focus navigation and saving preferences.
 ## Moved out of pilgrimage_interface.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const BINDING_POLICY = preload("res://scripts/input_binding_policy.gd")
+const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 
 static func build_settings(ui: Node) -> void:
     # Direct callers and budgeted arrivals use the same ordered groups.
@@ -45,13 +48,13 @@ static func build_settings_audio(ui: Node) -> void:
         ui.settings_sliders[key]=slider
     ui._accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
     var comfort_button: Button = ui._button(ui.settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),ui._open_controller_comfort)
-    comfort_button.name="ControllerComfortButton";comfort_button.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    comfort_button.name="ControllerComfortButton";comfort_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     # Row 332 to the right of the comfort button belongs to the danger-caption
     # desk; the retry sits beside the NPC toggle, its notice by the section title.
     ui.settings_save_retry=ui._button(ui.settings,"重试保存当前设置",Vector2(245,298),Vector2(200,32),ui._retry_accessibility_save)
-    ui.settings_save_retry.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    ui.settings_save_retry.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.settings_save_retry.tooltip_text="保存本次已生效的设置与按键；不重置输入、音量或旅途资源。"
-    ui.settings_save_notice=ui._label(ui.settings,"",Vector2(250,102),Vector2(220,24),ui.TYPE.CAPTION,ui.GOLD)
+    ui.settings_save_notice=ui._label(ui.settings,"",Vector2(250,102),Vector2(220,24),TYPE.CAPTION,ui.GOLD)
     ui.settings_save_notice.clip_text=true
     ui._refresh_settings_save_notice()
 
@@ -74,11 +77,11 @@ static func finish_settings(ui: Node) -> void:
     for slot_index in 3:
         var slot:=slot_index+1
         ui.save_slot_buttons[slot]=ui._button(ui.settings,"存档槽 %d" % slot,Vector2(34+slot_index*219,573),Vector2(206,30),func():ui._select_save_slot(slot))
-        ui.save_slot_buttons[slot].add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+        ui.save_slot_buttons[slot].add_theme_font_size_override("font_size",TYPE.CONTROL)
         ui.save_slot_buttons[slot].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    ui._button(ui.settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),ui._restore_save_backup).add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    ui._button(ui.settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),ui._restore_save_backup).add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.journey_history_button=ui._button(ui.settings,"浏览旧旅途",Vector2(838,573),Vector2(134,30),ui._show_journey_history)
-    ui.journey_history_button.add_theme_font_size_override("font_size",ui.TYPE.CONTROL)
+    ui.journey_history_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     preload("res://scripts/audio_output_dialog.gd").install(ui)
     preload("res://scripts/display_dialog.gd").install(ui)
     preload("res://scripts/difficulty_dialog.gd").install(ui)
@@ -151,7 +154,7 @@ static func load_accessibility(ui: Node) -> void:
     var saved := {}
     for action in ui.REMAPPABLE_ACTIONS:
         if config.has_section_key("bindings",action):saved[action]=config.get_value("bindings",action)
-    var result: Dictionary=ui.BINDING_POLICY.restore(ui.BINDING_POLICY.snapshot(),saved,ui.REMAPPABLE_ACTIONS)
+    var result: Dictionary=BINDING_POLICY.restore(BINDING_POLICY.snapshot(),saved,ui.REMAPPABLE_ACTIONS)
     for action in ui.REMAPPABLE_ACTIONS:
         if not result.bindings.has(action):continue
         InputMap.action_erase_events(action)
@@ -314,7 +317,7 @@ static func apply_accessibility(ui: Node) -> void:
     if ui.build_detail!=null:ui.build_detail.add_theme_font_size_override("normal_font_size",int(ui.accessibility["subtitle_size"]))
     # U05: the journal/item reading body follows the reading size too; its
     # authored 17 stays the size at the default reading baseline.
-    if ui.bag_description!=null:ui.bag_description.add_theme_font_size_override("normal_font_size",preload("res://scripts/journey_window_layout.gd").scaled_font(ui.TYPE.ACTION,ui.accessibility["subtitle_size"]))
+    if ui.bag_description!=null:ui.bag_description.add_theme_font_size_override("normal_font_size",preload("res://scripts/journey_window_layout.gd").scaled_font(TYPE.ACTION,ui.accessibility["subtitle_size"]))
     if is_instance_valid(ui.dialog_reading):ui.dialog_reading.refresh()
     if ui.level!=null and is_instance_valid(ui.level.player):
         ui.level.player.set_meta("accessibility",ui.accessibility.duplicate())
@@ -374,7 +377,7 @@ static func refresh_remap_labels(ui: Node) -> void:
 static func input(ui: Node, event: InputEvent) -> void:
     if ui.level==null or not ui.construction_complete:return
     var build_pressed: bool=is_instance_valid(ui.build_shortcut) and ui.build_shortcut.consume(event)
-    ui.PROMPT_BINDINGS.observe(event)
+    PROMPT_BINDINGS.observe(event)
     if not ui.settings.visible:ui.remap_target=""
     if not ui.remap_target.is_empty():
         ui.remap_capture_frame=Engine.get_process_frames()
@@ -388,17 +391,17 @@ static func input(ui: Node, event: InputEvent) -> void:
             if accepted==null:
                 ui.get_viewport().set_input_as_handled()
                 return
-            if ui.BINDING_POLICY.is_reserved(accepted):
+            if BINDING_POLICY.is_reserved(accepted):
                 ui.remap_status.text="此输入保留给界面快捷键，请换一个输入，或按 Esc／手柄 B 取消。"
                 ui.get_viewport().set_input_as_handled()
                 return
             var action = ui.remap_target
-            if not ui.BINDING_POLICY.allowed_for(action,accepted):
+            if not BINDING_POLICY.allowed_for(action,accepted):
                 ui.remap_status.text="此输入需要留给界面导航；构筑请改用字母/功能键、鼠标按钮或非导航手柄按键。"
                 ui.get_viewport().set_input_as_handled()
                 return
             var conflicts: Array[String]=[]
-            for other in ui.BINDING_POLICY.conflicts(accepted,action,ui.BINDING_POLICY.snapshot()):
+            for other in BINDING_POLICY.conflicts(accepted,action,BINDING_POLICY.snapshot()):
                 conflicts.append(String(ui.REMAPPABLE_ACTIONS.get(other,"其他动作")))
             if not conflicts.is_empty():
                 ui.remap_status.text="此输入已用于「%s」，请换一个输入，或按 Esc／手柄 B 取消。" % "、".join(conflicts)
@@ -406,7 +409,7 @@ static func input(ui: Node, event: InputEvent) -> void:
                 return
             if not InputMap.has_action(action):InputMap.add_action(action)
             for old in InputMap.action_get_events(action):
-                if ui.BINDING_POLICY.family(old)==ui.BINDING_POLICY.family(accepted):InputMap.action_erase_event(action,old)
+                if BINDING_POLICY.family(old)==BINDING_POLICY.family(accepted):InputMap.action_erase_event(action,old)
             InputMap.action_add_event(action,accepted)
             if action=="build_menu" and is_instance_valid(ui.build_shortcut):ui.build_shortcut.suppress_capture(event)
             ui.remap_target=""
