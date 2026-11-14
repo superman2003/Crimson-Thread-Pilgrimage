@@ -5,6 +5,7 @@ const MODEL := preload("res://scripts/display_preferences.gd")
 ## The page is rebuilt on every region arrival; the model lives for the whole
 ## run so the saved window mode is applied once, at launch.
 static var shared: RefCounted
+static var language: RefCounted
 var ui: Control
 var model: RefCounted
 var window: AcceptDialog
@@ -12,6 +13,7 @@ var fullscreen: CheckButton
 var vsync: CheckButton
 var cap: OptionButton
 var assist: OptionButton
+var tongue: OptionButton
 var status: Label
 
 static func install(shell: Control) -> void:
@@ -25,6 +27,7 @@ static func install(shell: Control) -> void:
 
 func setup(shell: Control, preferences: RefCounted) -> void:
     ui=shell;model=preferences
+    if language==null:language=preload("res://scripts/ui_language.gd").new();language.initialize()
     # The header and rows 298/332 are full; sit beside the remap reset button.
     var launcher: Button=ui._button(ui.settings,"显示",Vector2(688,381),Vector2(104,28),open)
     launcher.name="DisplaySettingsButton";launcher.add_theme_font_size_override("font_size",TYPE.CONTROL)
@@ -33,7 +36,7 @@ func setup(shell: Control, preferences: RefCounted) -> void:
 
 func ensure_window() -> void:
     if is_instance_valid(window):return
-    window=AcceptDialog.new();window.title="显示";window.min_size=Vector2i(420,308)
+    window=AcceptDialog.new();window.title="显示";window.min_size=Vector2i(420,356)
     ui.settings.add_child(window);ui.register_text_entry_window(window)
     var column:=VBoxContainer.new();column.add_theme_constant_override("separation",12);window.add_child(column)
     fullscreen=CheckButton.new();fullscreen.text="全屏";fullscreen.custom_minimum_size=Vector2(380,36)
@@ -52,8 +55,14 @@ func ensure_window() -> void:
     for entry in [["off","关闭"],["protan","红色弱"],["deutan","绿色弱"]]:
         assist.add_item(entry[1]);assist.set_item_metadata(assist.item_count-1,entry[0])
     assist.item_selected.connect(func(index: int):_change("colour_assist",String(assist.get_item_metadata(index))))
+    var tongue_row:=HBoxContainer.new();column.add_child(tongue_row)
+    var tongue_caption:=Label.new();tongue_caption.text="语言";tongue_caption.custom_minimum_size=Vector2(190,36);tongue_row.add_child(tongue_caption)
+    tongue=OptionButton.new();tongue.custom_minimum_size=Vector2(190,36);tongue.auto_translate_mode=Node.AUTO_TRANSLATE_MODE_DISABLED;tongue_row.add_child(tongue)
+    for id in language.NAMES:
+        tongue.add_item(String(language.NAMES[id]));tongue.set_item_metadata(tongue.item_count-1,id)
+    tongue.item_selected.connect(func(index: int):_choose_language(String(tongue.get_item_metadata(index))))
     status=Label.new();status.custom_minimum_size=Vector2(380,28);column.add_child(status)
-    preload("res://scripts/settings_dialog_layout.gd").install(window,column,Vector2i(420,348))
+    preload("res://scripts/settings_dialog_layout.gd").install(window,column,Vector2i(420,396))
 
 func open() -> void:
     if not ui.settings.is_visible_in_tree():return
@@ -65,9 +74,15 @@ func refresh() -> void:
     vsync.set_pressed_no_signal(bool(model.values.vsync))
     cap.select(maxi(MODEL.CAPS.find(int(model.values.fps_cap)),0))
     assist.select(maxi(MODEL.ASSISTS.find(String(model.values.colour_assist)),0))
+    tongue.select(maxi(language.NAMES.keys().find(String(language.locale)),0))
     status.text=String(model.notice)
 
 func _change(key: String, value: Variant) -> void:
     if not is_instance_valid(window) or not window.visible or not ui.settings.is_visible_in_tree():return
     var result: Dictionary=model.change(key,value)
+    refresh();status.text=String(result.reason)
+
+func _choose_language(id: String) -> void:
+    if not is_instance_valid(window) or not window.visible or not ui.settings.is_visible_in_tree():return
+    var result: Dictionary=language.choose(id)
     refresh();status.text=String(result.reason)
