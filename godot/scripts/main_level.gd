@@ -589,6 +589,28 @@ const MAP_OVERLAY := preload("res://scripts/map_overlay.gd")
 const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
 const DEATH_RECALL := preload("res://scripts/death_recall.gd")
 const MAP_PLAYER_PINS := preload("res://scripts/map_player_pins_runtime.gd")
+const LEVEL_WORLD_START := preload("res://scripts/level_world_start.gd")
+const LEVEL_WORLD_TRAVEL := preload("res://scripts/level_world_travel.gd")
+const LEVEL_CATALOGUE := preload("res://scripts/level_catalogue.gd")
+const LEVEL_ROOMS := preload("res://scripts/level_rooms.gd")
+const LEVEL_HUD_BUILD := preload("res://scripts/level_hud_build.gd")
+const LEVEL_BOSS := preload("res://scripts/level_boss.gd")
+const LEVEL_PICKUPS := preload("res://scripts/level_pickups.gd")
+const LEVEL_INTERACTION := preload("res://scripts/level_interaction.gd")
+const LEVEL_ACTIVATION := preload("res://scripts/level_activation.gd")
+const LEVEL_REGION_BUILD := preload("res://scripts/level_region_build.gd")
+const LEVEL_DIALOGUE := preload("res://scripts/level_dialogue.gd")
+const LEVEL_ENCOUNTERS := preload("res://scripts/level_encounters.gd")
+const LEVEL_HUD := preload("res://scripts/level_hud.gd")
+const LEVEL_BUILD := preload("res://scripts/level_build.gd")
+const LEVEL_SAVE_SLOTS := preload("res://scripts/level_save_slots.gd")
+const LEVEL_GROUND := preload("res://scripts/level_ground.gd")
+const LEVEL_REGION_PIPELINE := preload("res://scripts/level_region_pipeline.gd")
+const LEVEL_JOURNEY_DATA := preload("res://scripts/level_journey_data.gd")
+const LEVEL_PLAYER_FRAME := preload("res://scripts/level_player_frame.gd")
+const LEVEL_RESIDENTS := preload("res://scripts/level_residents.gd")
+const LEVEL_DEMO_STATE := preload("res://scripts/level_demo_state.gd")
+const LEVEL_ROUTE_STATE := preload("res://scripts/level_route_state.gd")
 
 func _ready() -> void:
     preload("res://scripts/application_close.gd").install(get_tree())
@@ -609,324 +631,137 @@ func _ready() -> void:
 
 
 func _initialize_region(prepared_config: Dictionary = {}) -> void:
-    _prepare_region(prepared_config)
-    _build_world_from_config()
-    _finish_region()
+    LEVEL_REGION_PIPELINE.initialize_region(self, prepared_config)
 
 
 func _prepare_region(prepared_config: Dictionary = {}) -> void:
-    var jobs := _region_prepare_jobs(prepared_config)
-    var cursor := 0
-    while cursor < jobs.size():
-        var job: Dictionary = jobs[cursor]
-        var result: Variant = callv(job.method, job.args)
-        if result is Array and not result.is_empty() and result[0] is Dictionary and result[0].has("method"):
-            for offset in range(result.size()):
-                jobs.insert(cursor + 1 + offset, result[offset])
-        var completed_method := String(job.get("method", ""))
-        if config.is_empty() and ((completed_method == "_prepare_narrative_config" and (not world_mode or not world_catalog.is_empty())) or completed_method == "_commit_world_catalog_prepare"):
-            break
-        cursor += 1
+    LEVEL_REGION_PIPELINE.prepare_region(self, prepared_config)
 
 
 ## Ordered preparation contract shared by synchronous startup and async World travel.
 ## Planning enumerates chapter filenames only; content reads, parsing and deep copies stay in jobs.
 func _region_prepare_jobs(prepared_config: Dictionary = {}) -> Array:
-    var jobs: Array = [
-        {"method": "_prepare_config_and_route", "args": [prepared_config]},
-        {"method": "_prepare_narrative_config", "args": []}
-    ]
-    if world_mode and world_catalog.is_empty():
-        jobs.append({"method": "_begin_world_catalog_prepare", "args": []})
-        # The index job reads route order once and expands into one job per region.
-        jobs.append({"method": "_prepare_world_catalog_jobs", "args": []})
-        jobs.append({"method": "_commit_world_catalog_prepare", "args": []})
-    jobs.append_array([
-        {"method": "_prepare_campaign_metadata", "args": []},
-        {"method": "_begin_chapter_metadata", "args": []}
-    ])
-    for path in _chapter_metadata_paths():
-        jobs.append({"method": "_prepare_chapter_metadata", "args": [path]})
-    jobs.append_array([
-        {"method": "_prepare_av_metadata", "args": []},
-        {"method": "_prepare_item_lore_metadata", "args": []},
-        {"method": "_resolve_chapter_world_and_spawn", "args": []},
-        {"method": "_prepare_inventory_state", "args": []}
-    ])
-    if world_mode:
-        jobs.append({"method": "_restore_inventory_and_region", "args": []})
-    jobs.append_array([
-        {"method": "_restore_build_state", "args": []},
-        {"method": "_sync_build_progress", "args": []},
-        {"method": "_prepare_build_inputs", "args": []},
-        {"method": "_prepare_audio_settings_key", "args": []},
-        {"method": "_prepare_metsys_bridge", "args": []},
-        {"method": "_begin_audio", "args": []},
-        {"method": "_start_audio_explore", "args": []},
-        {"method": "_start_audio_ambience", "args": []}
-    ])
-    if world_mode:
-        jobs.append({"method": "_prepare_platform_and_gameplay_residency", "args": []})
-    return jobs
+    return LEVEL_REGION_PIPELINE.region_prepare_jobs(self, prepared_config)
 
 
 func _chapter_metadata_paths() -> Array:
-    var paths: Array = []
-    var dir := DirAccess.open(CHAPTER_DATA_DIR)
-    if dir == null:
-        return paths
-    dir.list_dir_begin()
-    var file_name := dir.get_next()
-    while file_name != "":
-        if not dir.current_is_dir() and file_name.ends_with(".json"):
-            paths.append(CHAPTER_DATA_DIR + "/" + file_name)
-        file_name = dir.get_next()
-    dir.list_dir_end()
-    paths.sort()
-    return paths
+    return LEVEL_REGION_PIPELINE.chapter_metadata_paths(self)
 
 
 func _prepare_config_and_route(prepared_config: Dictionary) -> void:
-    config = prepared_config.duplicate(true) if not prepared_config.is_empty() else _load_json(config_path)
-    if world_mode and prepared_config.is_empty():
-        if not WORLD_ROUTES_SCRIPT.cache_is_current():
-            config = {}
-            world_initial_error = "巡礼路线在区域准备期间已过期。"
-            return
-        config = WORLD_ROUTES_SCRIPT.apply_to_owned_cached(config)
-    if config.is_empty():
-        push_error("Missing demo config: " + config_path)
+    LEVEL_REGION_PIPELINE.prepare_config_and_route(self, prepared_config)
 
 
 func _prepare_narrative_config() -> void:
-    if world_mode and world_narrative == null:
-        world_narrative = WORLD_NARRATIVE_SCRIPT.new()
+    LEVEL_REGION_PIPELINE.prepare_narrative_config(self)
 
 
 func _begin_world_catalog_prepare() -> void:
-    world_catalog_prepare_staging.clear()
+    LEVEL_REGION_PIPELINE.begin_world_catalog_prepare(self)
 
 
 func _prepare_world_catalog_jobs() -> Array:
-    var routes := {"chapters": WORLD_ROUTES_SCRIPT.cached_chapters()}
-    var jobs: Array = []
-    for region_id in routes.get("chapters", {}):
-        var route: Dictionary = routes.chapters[region_id]
-        var catalog: Dictionary = route.get("inventory_catalog", {}).duplicate(true)
-        jobs.append({"method": "_prepare_world_catalog_region", "args": [String(region_id), catalog]})
-    return jobs
+    return LEVEL_REGION_PIPELINE.prepare_world_catalog_jobs(self)
 
 
 func _prepare_world_catalog_region(region_id: String, route_catalog: Dictionary) -> void:
-    var region_config := _load_json("res://data/%s.json" % region_id)
-    var catalog: Dictionary = region_config.get("inventory", {}).get("catalog", {}).duplicate(true)
-    catalog.merge(route_catalog, true)
-    world_catalog_prepare_staging.merge(catalog, false)
+    LEVEL_REGION_PIPELINE.prepare_world_catalog_region(self, region_id, route_catalog)
 
 
 func _commit_world_catalog_prepare() -> void:
-    world_catalog = world_catalog_prepare_staging
-    world_catalog_prepare_staging = {}
+    LEVEL_REGION_PIPELINE.commit_world_catalog_prepare(self)
 
 
 func _prepare_campaign_metadata() -> void:
-    if config.is_empty():
-        return
-    campaign = _load_world_shared_json(CAMPAIGN_PATH)
+    LEVEL_REGION_PIPELINE.prepare_campaign_metadata(self)
 
 
 func _begin_chapter_metadata() -> void:
-    if config.is_empty():
-        return
-    chapter_file_configs.clear()
+    LEVEL_REGION_PIPELINE.begin_chapter_metadata(self)
 
 
 func _prepare_chapter_metadata(path: String) -> void:
-    if config.is_empty():
-        return
-    var chapter := _load_world_shared_json(path)
-    if not chapter.is_empty():
-        chapter_file_configs.append(chapter)
+    LEVEL_REGION_PIPELINE.prepare_chapter_metadata(self, path)
 
 
 func _prepare_av_metadata() -> void:
-    if config.is_empty():
-        return
-    audio_visual_manifest = _load_world_shared_json(AV_MANIFEST_PATH)
+    LEVEL_REGION_PIPELINE.prepare_av_metadata(self)
 
 
 func _prepare_item_lore_metadata() -> void:
-    if config.is_empty():
-        return
-    item_lore = _load_world_shared_json(ITEM_LORE_PATH).get("items", {})
+    LEVEL_REGION_PIPELINE.prepare_item_lore_metadata(self)
 
 
 func _resolve_chapter_world_and_spawn() -> void:
-    if config.is_empty():
-        return
-    current_campaign_chapter = _campaign_chapter_for_id(String(config.get("id", "")))
-    var world: Dictionary = config.get("world", {})
-    world_width = float(world.get("width", 4096.0))
-    world_height = float(world.get("height", 720.0))
-    fall_y = float(world.get("fall_y", 790.0))
-    active_spawn = _vec2(config.get("player_start", [120, 500]))
-    if entry_spawn_override_enabled:
-        active_spawn = entry_spawn_override
-    max_bells = 0 if _combat_progression_enabled() else int(config.get("required_keys", 3))
+    LEVEL_REGION_PIPELINE.resolve_chapter_world_and_spawn(self)
 
 
 func _prepare_inventory_state() -> void:
-    if config.is_empty():
-        return
-    _init_inventory_state()
+    LEVEL_REGION_PIPELINE.prepare_inventory_state(self)
 
 
 func _restore_inventory_and_region() -> void:
-    if config.is_empty():
-        return
-    _restore_world_inventory_and_region()
+    LEVEL_REGION_PIPELINE.restore_inventory_and_region(self)
 
 
 func _restore_build_state() -> void:
-    if config.is_empty():
-        return
-    if build_system == null:
-        build_system = BUILD_SYSTEM_SCRIPT.new()
-        _restore_saved_build()
+    LEVEL_REGION_PIPELINE.restore_build_state(self)
 
 
 func _sync_build_progress() -> void:
-    if config.is_empty():
-        return
-    build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
+    LEVEL_REGION_PIPELINE.sync_build_progress(self)
 
 
 func _prepare_build_inputs() -> void:
-    if not config.is_empty():
-        _bind_build_inputs()
+    LEVEL_REGION_PIPELINE.prepare_build_inputs(self)
 
 
 func _prepare_audio_settings_key() -> void:
-    if not config.is_empty():
-        _bind_audio_settings_key()
+    LEVEL_REGION_PIPELINE.prepare_audio_settings_key(self)
 
 
 func _prepare_metsys_bridge() -> void:
-    if not config.is_empty():
-        _build_metsys_bridge()
+    LEVEL_REGION_PIPELINE.prepare_metsys_bridge(self)
 
 
 func _prepare_audio() -> void:
-    if not config.is_empty():
-        _build_audio()
+    LEVEL_REGION_PIPELINE.prepare_audio(self)
 
 
 func _prepare_platform_and_gameplay_residency() -> void:
-    if config.is_empty():
-        return
-    world_platforms = WORLD_PLATFORMS.new()
-    world_gameplay_residency = WORLD_GAMEPLAY_RESIDENCY.new()
-    npc_residency_memory.clear()
-    save_point_residency_memory.clear()
-    var arrival_focus := entry_spawn_override if entry_spawn_override_enabled else active_spawn
-    world_gameplay_residency.configure(self, config, world_loader.generation + 1, arrival_focus)
+    LEVEL_REGION_PIPELINE.prepare_platform_and_gameplay_residency(self)
 
 
 func _finish_region() -> void:
-    # Initial/synchronous loads use exactly the same plan as async arrivals.
-    for job in _region_finish_jobs():
-        callv(job.method, job.args)
-    _publish_region()
+    LEVEL_REGION_PIPELINE.finish_region(self)
 
 
 func _region_finish_jobs() -> Array:
-    var jobs: Array = [{"method": "_finish_region_spawn", "args": []}]
-    if world_mode:
-        jobs.append({"method": "_spawn_death_cache", "args": []})
-        jobs.append_array(_world_runtime_jobs())
-    jobs.append({"method": "_bind_region_audio", "args": []})
-    jobs.append_array(_hud_build_jobs())
-    if world_mode:
-        jobs.append({"method": "_setup_cartography", "args": []})
-        jobs.append({"method": "_build_new_journey_dialog", "args": []})
-    return jobs
+    return LEVEL_REGION_PIPELINE.region_finish_jobs(self)
 
 
 func _finish_region_spawn() -> void:
-    _spawn_player()
-    last_safe_ground = active_spawn
+    LEVEL_REGION_PIPELINE.finish_region_spawn(self)
 
 
 func _bind_region_audio() -> void:
-    audio_director.configure_ambience(config, self)
-    audio_director.bind_runtime(player, func() -> Array: return get_tree().get_nodes_in_group("enemy"))
+    LEVEL_REGION_PIPELINE.bind_region_audio(self)
 
 
 func _setup_cartography() -> void:
-    CARTOGRAPHY_UI.setup(self)
-    DEATH_RECALL.setup(self)
-    MAP_PLAYER_PINS.setup(self)
-    preload("res://scripts/map_directory_runtime.gd").setup(self)
-    preload("res://scripts/map_control_layout.gd").apply(self)
-    preload("res://scripts/shrine_return_dialog.gd").setup(self)
-    preload("res://scripts/death_recovery_map.gd").setup(self)
+    LEVEL_REGION_PIPELINE.setup_cartography(self)
 
 
 func _publish_region() -> void:
-    # No yields here: rewards, discovery, saved location and loader generation
-    # become visible together only after every arrival/UI job has completed.
-    if world_mode and world_gameplay_residency != null and is_instance_valid(player):
-        world_gameplay_residency.warm_enemy_arrival(self, player.global_position)
-    _check_wish_board_rewards()
-    _refresh_hud()
-    if demo_complete:
-        _spawn_ending_gates()
-    if world_save_blocked and world_initial_error.is_empty():
-        world_initial_error = "原构筑记录已保留，自动保存仍暂停；请恢复备份或开始新旅途。"
-    _show_chapter_entry_message()
-    world_loading = false
-    initial_region_ready = true
-    if world_mode:
-        if not world_initial_error.is_empty():
-            _toast(world_initial_error)
-        _save_world()
-        world_loader.register_region(self)
-        preload("res://scripts/title_card.gd").present(self, world_resumed_journey)
-    if boss_trial_mode:
-        _defer_region_call("_start_boss_trial")
+    LEVEL_REGION_PIPELINE.publish_region(self)
 
 
 func _restore_saved_build() -> void:
-    if not world_mode or world_state == null or world_state.data.get("build_state", {}).is_empty():
-        return
-    var restored: Dictionary = build_system.restore(world_state.data.build_state)
-    if restored.get("ok", false):
-        return
-    # T02: keep the original file, then rebuild the build from story progress so
-    # autosave can continue instead of pausing for the rest of the journey.
-    var repairable: bool = build_system.salvageable(world_state.data.build_state) and FileAccess.file_exists(world_save_path)
-    var preserved: String = WORLD_STATE_SCRIPT.preserve_copy(world_save_path, "before_build_repair") if repairable else ""
-    var salvaged: Dictionary = build_system.salvage(world_state.data.build_state, inventory_counts, story_flags) if not preserved.is_empty() else {}
-    if salvaged.get("ok", false):
-        var dropped: Array = salvaged.get("dropped", [])
-        world_initial_error = "构筑记录有本版本无法识别的内容，已按剧情进度重建构筑%s；原存档已另存。" % ("（未能保留：%s）" % "、".join(dropped.slice(0, 4)) if not dropped.is_empty() else "")
-    else:
-        world_save_blocked = true
-        world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑，自动保存已暂停。请恢复备份或开始新旅途。"
+    LEVEL_REGION_PIPELINE.restore_saved_build(self)
 
 
 func _apply_cmdline_config_override() -> void:
-    var args := OS.get_cmdline_args()
-    args.append_array(OS.get_cmdline_user_args())
-    for arg in args:
-        var text := String(arg)
-        if text.begins_with("--demo-config="):
-            config_path = text.get_slice("=", 1)
-            world_mode = false
-        elif text == "--boss-trial" or text == "--ch01-boss-trial":
-            boss_trial_mode = true
-            world_mode = false
-            config_path = BOSS_TRIAL_CONFIG_PATH
+    LEVEL_REGION_PIPELINE.apply_cmdline_config_override(self)
 
 
 func _physics_process(_delta: float) -> void:
@@ -1065,512 +900,130 @@ func _exit_tree() -> void:
 
 
 func _release_region_audio() -> void:
-    # Preserve phrase position while the actual player still owns playback.
-    # The Director exits after this host has already detached every stream.
-    if is_instance_valid(audio_director):audio_director.release_region_audio()
-    # Snapshot weak playback/stream handles before stopping and detaching any
-    # owned players. AudioServer can retain a completed Ogg voice until its next
-    # mix tick, so the shutdown probe drains these exact objects afterward.
-    AUDIO_RETIREMENT_SCRIPT.retire_tree(self)
-    if bgm_player != null:
-        bgm_player.stop()
-        bgm_player.stream = null
-    # Region field reset must not orphan the voices awaiting attachment.
-    _cancel_pending_sfx()
-    var active_director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
-    if active_director != null and active_director != audio_director:
-        if bgm_duck_tween != null and bgm_duck_tween.is_valid():
-            bgm_duck_tween.kill()
-        return
-    # 总线是全局状态：场景销毁时摘掉濒死低通并复位 duck 音量，避免跨章节残留。
-    _set_low_hp_audio(false)
-    if bgm_duck_tween != null and bgm_duck_tween.is_valid():
-        bgm_duck_tween.kill()
-    # 章节转场竞态修复：新场景的 AudioDirector 已接管总线（并按用户音量归位）时，
-    # 老场景退树不得再把 BGM 总线打回默认 0dB。
-    var live_director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
-    if live_director != null and live_director != audio_director:
-        return
-    _set_bgm_bus_volume_db(float(AUDIO_BUS_DEFAULT_VOLUME_DB.get("BGM", 0.0)))
-    # Stream caching is useful across regions while this director owns the mix,
-    # but must not pin decoded Ogg streams past the final owning scene.
-    if live_director == null or live_director == audio_director:
-        AUDIO_DIRECTOR_SCRIPT._stream_cache.clear()
-        AUDIO_DIRECTOR_SCRIPT._npc_voice_cache.clear()
+    LEVEL_PLAYER_FRAME.release_region_audio(self)
 
 
 func _prepare_world_start() -> void:
-    if not world_mode:
-        return
-    var startup_args := OS.get_cmdline_args()
-    startup_args.append_array(OS.get_cmdline_user_args())
-    var new_game_requested := _consume_world_startup_options(startup_args)
-    if world_state == null:
-        world_state = WORLD_STATE_SCRIPT.new()
-        if new_game_requested:
-            if _preserve_previous_journey():
-                world_resume = false
-            else:
-                world_resume = true
-                world_initial_error = "旧旅途无法安全备份，未开始新旅途，原记录已保留。"
-        if world_resume and world_state.read(world_save_path):
-            world_resumed_journey = true
-            world_start_region_id = String(world_state.data.current_region)
-            entry_spawn_override_enabled = true
-            entry_spawn_override = world_state.resume_local_position()
-        elif world_resume and world_state.last_error != "missing":
-            world_initial_error = _damaged_save_message()
-        # A journey that could not be read keeps its recorded time untouched.
-        journey_clock = preload("res://scripts/journey_progress.gd").new()
-        journey_clock.attach(world_save_path, world_resume)
+    LEVEL_WORLD_START.prepare_world_start(self)
 
 ## T02: the damaged file stays untouched; tell the player whether its backup can
 ## bring the journey back, and where.
 func _damaged_save_message() -> String:
-    var backup = WORLD_STATE_SCRIPT.new()
-    if backup.read(world_save_path + ".bak"):
-        return "归途记录损坏，原文件已保留，本次进度不会写入。找到可用备份（%d 区 · %d 碎钱）：在设置里选“恢复当前槽备份”即可接着走。" % [backup.data.regions.size(), int(backup.data.currency)]
-    return "归途记录损坏，备份也无法读取；原文件已保留，本次进度不会写入。"
+    return LEVEL_WORLD_START.damaged_save_message(self)
 
 func _resolve_world_start_route() -> bool:
-    if world_start_region_id.is_empty():
-        return true
-    var saved_path := WORLD_ROUTES_SCRIPT.cached_config_path(world_start_region_id)
-    if saved_path.is_empty():
-        # T02: a save naming a region this version no longer routes keeps all
-        # of its progress and resumes at the route start instead of failing.
-        world_start_region_id = ""
-        entry_spawn_override_enabled = false
-        world_initial_error = "存档所在的区域不在当前巡礼路线中；进度全部保留，从巡礼起点继续。"
-        return true
-    config_path = saved_path
-    return true
+    return LEVEL_WORLD_START.resolve_world_start_route(self)
 
 
 func _consume_world_startup_options(arguments: PackedStringArray) -> bool:
-    if not world_startup_options_enabled:
-        return false
-    world_startup_options_enabled = false
-    for argument in arguments:
-        if argument.begins_with("--save-slot="):
-            world_slot = clampi(int(argument.trim_prefix("--save-slot=")), 1, 3)
-            world_save_path = WORLD_STATE_SCRIPT.slot_path(world_slot)
-    return arguments.has("--new-game")
+    return LEVEL_WORLD_START.consume_world_startup_options(self, arguments)
 
 
 func _restore_world_inventory_and_region() -> void:
-    var snapshot: Dictionary = world_state.data
-    story_flags = snapshot.story_flags.duplicate(true)
-    for item_id in snapshot.inventory_counts:
-        var missing := int(snapshot.inventory_counts[item_id]) - int(inventory_counts.get(item_id, 0))
-        if missing > 0:
-            _add_inventory_item(String(item_id), missing, false)
-    currency_count = int(snapshot.currency)
-    story_flags = snapshot.story_flags.duplicate(true)
-    if world_narrative != null:
-        story_flags = world_narrative.restored_ending_flags(story_flags)
-    CARTOGRAPHY.migrate(story_flags, snapshot.regions)
-    CARTOGRAPHY.legacy_quill(story_flags)
-    var cache: Dictionary = snapshot.get("death_cache", {})
-    if not cache.is_empty() and WORLD_ROUTES_SCRIPT.cached_config_path(String(cache.get("region_id", ""))).is_empty():
-        # T02: an 归途结 left in a region this version no longer has could never be reached.
-        currency_count += int(cache.get("currency", 0))
-        world_state.capture_global({"death_cache": {}, "currency": currency_count})
-    var region := world_state.get_region(String(config.get("id", "")))
-    world_collected_ids = region.collected_ids.duplicate(true)
-    opened_shortcuts = region.opened_shortcuts.duplicate(true)
-    visited_rooms = region.visited_rooms.duplicate(true)
-    bell_count = int(region.bell_count)
-    shortcut_open = bool(region.shortcut_open)
-    boss_unlocked = bool(region.boss_unlocked)
-    demo_complete = bool(region.boss_defeated)
-    if not String(region.checkpoint_id).is_empty():
-        active_spawn = _vec2(region.checkpoint)
-        active_save_point_id = String(region.checkpoint_id)
+    LEVEL_WORLD_START.restore_world_inventory_and_region(self)
 
 
 func _world_runtime_jobs() -> Array:
-    return [{"method": "_restore_world_player", "args": []},
-        {"method": "_warm_arrival_cave", "args": []},
-        {"method": "_warm_arrival_terrain", "args": []},
-        {"method": "_warm_arrival_platforms", "args": []},
-        {"method": "_restore_world_routes", "args": []},
-        {"method": "_restore_world_discovery", "args": []}]
+    return LEVEL_WORLD_START.world_runtime_jobs(self)
 
 
 func _restore_world_player() -> void:
-    if entry_spawn_override_enabled:
-        player.global_position = entry_spawn_override
-        player.arrival_guard_timer = 1.2
-    player.set_spawn(active_spawn)
-    player.hp = clampi(int(world_state.data.hp), 1, player.max_hp)
-    player.energy = clampi(int(world_state.data.energy), 0, player.max_energy)
-    if world_gameplay_residency != null:
-        world_gameplay_residency.warm_arrival(self, player.global_position)
+    LEVEL_WORLD_START.restore_world_player(self)
 
 
 func _warm_arrival_cave() -> void:
-    if is_instance_valid(cave_world):
-        cave_world.warm_collision_focus(player.global_position)
+    LEVEL_WORLD_START.warm_arrival_cave(self)
 
 
 func _warm_arrival_terrain() -> void:
-    if is_instance_valid(chapter_terrain):
-        chapter_terrain.warm_collision_focus(player.global_position)
+    LEVEL_WORLD_START.warm_arrival_terrain(self)
 
 
 func _warm_arrival_platforms() -> void:
-    if world_platforms != null:
-        world_platforms.warm(self, player.global_position)
+    LEVEL_WORLD_START.warm_arrival_platforms(self)
 
 
 func _restore_world_routes() -> void:
-    if shortcut_open or boss_unlocked:
-        _unlock_boss_route()
-    if demo_complete:
-        _open_post_boss_route()
+    LEVEL_WORLD_START.restore_world_routes(self)
 
 
 func _restore_world_discovery() -> void:
-    _sync_hidden_route_clues_with_visits()
-    # Reconstruct discovered cells after MetSys builds this region's map.
-    if metsys_bridge != null:
-        for room_id in visited_rooms:
-            if bool(visited_rooms[room_id]):
-                metsys_bridge.discover_room(String(room_id))
+    LEVEL_WORLD_START.restore_world_discovery(self)
 
 
 ## Shared coordinate frame for the future streaming host and world navigation.
 ## The existing chapter scene still simulates in its own local physics frame.
 func player_world_position() -> Vector2:
-    if player == null or not world_mode:
-        return Vector2.INF
-    if is_instance_valid(world_passage) and world_passage.active:
-        return world_passage.terminal_world_point if world_passage.settling else WORLD_COORDINATES.to_world(world_passage.source_id, player.global_position)
-    return WORLD_COORDINATES.to_world(String(config.get("id", "")), player.global_position)
+    return LEVEL_WORLD_START.player_world_position(self)
 
 
 func _prepare_world_checkpoint(global_snapshot: Dictionary, region_patch: Dictionary={}) -> Dictionary:
-    var region_id:=String(config.get("id",""))
-    var region_snapshot: Dictionary={"collected_ids":world_collected_ids,"opened_shortcuts":opened_shortcuts,
-        "visited_rooms":visited_rooms,"boss_defeated":demo_complete,"boss_unlocked":boss_unlocked,
-        "shortcut_open":shortcut_open,"bell_count":bell_count,"checkpoint":active_spawn,"checkpoint_id":active_save_point_id}
-    region_snapshot.merge(region_patch,true)
-    return world_state.prepare_checkpoint(region_id,region_snapshot,global_snapshot)
+    return LEVEL_WORLD_START.prepare_world_checkpoint(self, global_snapshot, region_patch)
 
 
 ## Build and persist a detached gameplay patch. Callers publish live owners only
 ## after success; the returned candidate also lets death retain its explicit
 ## unsaved field snapshot, matching the existing respawn contract.
 func _persist_world_change(patch: Dictionary, region_patch: Dictionary={}) -> Dictionary:
-    var failure := {"ok":false,"reason":"归途记录尚未写入，请重试。"}
-    if not world_mode or world_loading or world_state==null or player==null:return failure
-    var snapshot: Dictionary={"inventory_counts":inventory_counts,"currency":currency_count,"story_flags":story_flags,
-        "current_region":String(config.get("id","")),"entry":active_spawn,"hp":player.hp,
-        "energy":maxi(0,player.energy-player.practice_energy),"build_state":build_system.serialize() if build_system!=null else {}}
-    snapshot.merge(patch,true)
-    var prepared:=_prepare_world_checkpoint(snapshot,region_patch)
-    if not prepared.ok:return failure
-    failure["candidate"]=prepared.candidate
-    if world_save_blocked or world_save_failure_injected_for_validation or not world_state.write_candidate(prepared.candidate,world_save_path):return failure
-    return {"ok":true,"candidate":prepared.candidate}
+    return LEVEL_WORLD_START.persist_world_change(self, patch, region_patch)
 
 func _save_world() -> bool:
-    world_save_capture_ok = false
-    if not world_mode:
-        return true
-    if world_loading or world_state == null or player == null:
-        return false
-    var prepared := _prepare_world_checkpoint({
-        "inventory_counts": inventory_counts, "currency": currency_count,
-        "story_flags": story_flags, "current_region": String(config.get("id", "")),
-        "entry": active_spawn, "hp": player.hp, "energy": maxi(0, player.energy - int(player.get("practice_energy") if player.get("practice_energy") != null else 0)),
-        "build_state": build_system.serialize() if build_system != null else {}})
-    if not prepared.ok:
-        if not world_write_error_shown:
-            world_write_error_shown = true
-            _toast("归途记录暂未写入，当前旅途进度仍保留。")
-        return false
-    world_save_capture_ok = true
-    var candidate: Dictionary = prepared.candidate
-    # A blocked incompatible save still carries the live region/global snapshot
-    # in memory for world travel, while withholding all disk writes.
-    if world_save_blocked:
-        world_state.data = candidate
-        if not world_write_error_shown:
-            world_write_error_shown = true
-            _toast("归途记录暂未写入，当前旅途进度仍保留。")
-        return false
-    if world_save_failure_injected_for_validation or not world_state.write_candidate(candidate, world_save_path):
-        if not world_write_error_shown:
-            world_write_error_shown = true
-            _toast("归途记录暂未写入，当前旅途进度仍保留。")
-        return false
-    world_state.data = candidate # transfer the fully persisted, privately owned tree.
-    if journey_clock != null:
-        journey_clock.flush()
-    if achievements == null:
-        achievements = preload("res://scripts/achievements.gd").new()
-    preload("res://scripts/achievement_notice.gd").show_on(self, achievements.sync(candidate, int(Time.get_unix_time_from_system())))
-    return true
+    return LEVEL_WORLD_START.save_world(self)
 
 
 const WAYFINDING := preload("res://scripts/world_wayfinding.gd")
 
 func _first_interaction_type(area: Area2D) -> String:
-    var kind := String(area.get_meta("kind", ""))
-    if kind == "npc":
-        return "map_shop" if area.has_meta("map_seller_region") else "talk"
-    if kind == "world_portal":
-        return "walk_passage" if not WORLD_PASSAGE.endpoint(String(config.id), String(area.name)).is_empty() else "portal"
-    return kind
+    return LEVEL_WORLD_START.first_interaction_type(self, area)
 
 func _show_first_interaction_hint(area: Area2D) -> void:
-    var kind := _first_interaction_type(area)
-    var flag := "tutorial_interaction_seen_" + kind
-    if bool(story_flags.get(flag, false)):
-        return
-    var key: String = ui_shell._short_binding("interact") if is_instance_valid(ui_shell) else "F"
-    var hints := {
-        "save_point": "按 %s 休息，恢复状态并记录归途。" % key,
-        "talk": "按 %s 与人物交谈。" % key,
-        "map_shop": "按 %s 交谈，购买本区地图。" % key,
-        "lever": "按 %s 操作机关。" % key,
-        "portal": "按 %s 通过旧通路。" % key,
-        "walk_passage": "沿路牌箭头步行进入通道，可沿来路折返。",
-        "boss_gate": "按 %s 开启钟门。" % key,
-        "ending_gate": "按 %s 查看归途的选择。" % key,
-        "death_cache": "按 %s 取回遗落物资。" % key}
-    if not hints.has(kind):
-        return
-    story_flags[flag] = true
-    _toast(String(hints[kind]))
-    _save_world()
+    LEVEL_WORLD_START.show_first_interaction_hint(self, area)
 
 
 func _update_first_journey_hint() -> void:
-    if not bool(config.get("first_journey_teaching", false)) or world_loading or not active_overlay.is_empty() or not is_instance_valid(ui_shell):
-        return
-    if not player.is_on_floor() or not player._can_start_action() or player.land_timer > 0.0 or ui_shell.toast_age < 5.5:
-        return
-    var lesson := ""
-    var text := ""
-    if current_room_id == "entry_bell" and player.global_position.x < 340 and not bool(story_flags.get("tutorial_action_seen_move", false)):
-        lesson = "move"
-        text = "用 %s / %s 移动，沿苔灯走向断阶。" % [ui_shell._short_binding("move_left"), ui_shell._short_binding("move_right")]
-    elif current_room_id == "entry_bell" and player.global_position.x >= 340 and not bool(story_flags.get("tutorial_action_seen_jump", false)):
-        lesson = "jump"
-        text = "按 %s 跳跃；提前松开可跳得更低。" % ui_shell._short_binding("jump")
-    elif current_room_id == "moss_descent" and not bool(story_flags.get("tutorial_action_seen_attack", false)):
-        lesson = "attack"
-        text = "按 %s 挥刃，命中敌人可回充绯线。" % ui_shell._short_binding("attack")
-    elif player.hp < player.max_hp and player.energy >= player.heal_energy_cost and absf(player._move_axis()) < 0.1 and not bool(story_flags.get("tutorial_action_seen_heal", false)):
-        if not _first_journey_heal_safe():
-            return
-        lesson = "heal"
-        text = "站稳后按 %s 缝补；移动或受击会打断。" % ui_shell._short_binding("heal")
-    elif current_room_id == "court_hub" and player.hp == player.max_hp and not bool(story_flags.get("tutorial_action_seen_thread", false)):
-        if not _first_journey_heal_safe():
-            return
-        lesson = "thread"
-        text = "挥刃命中会回充绯线；留一些给缝补和战技。"
-    elif player.dash_unlocked and current_room_id in ["threadmakers_cache", "bell_gap_crossing"] and not bool(story_flags.get("tutorial_action_seen_dash", false)):
-        lesson = "dash"
-        text = "按 %s 冲刺越过缺口；空中也能使用。" % ui_shell._short_binding("dash")
-    elif current_room_id in ["first_bell_shrine", "maze_respite", "pre_boss_shrine"] and player.hp == player.max_hp and build_system != null and not bool(story_flags.get("tutorial_action_seen_tool", false)):
-        var tool_id := String(build_system.state.get("tool", ""))
-        if tool_id.is_empty() or int(build_system.state.get("tool_counts", {}).get(tool_id, 0)) <= 0 or not _first_journey_heal_safe():
-            return
-        lesson = "tool"
-        text = "按 %s 使用战具；在钟龛休息可补满次数。" % ui_shell._short_binding("tool_cast")
-    if lesson.is_empty():
-        return
-    story_flags["tutorial_action_seen_" + lesson] = true
-    _toast(text)
-    _save_world()
+    LEVEL_WORLD_START.update_first_journey_hint(self)
 
 
 func _first_journey_heal_safe() -> bool:
-    if is_instance_valid(boss_arena_lock_body):
-        return false
-    for enemy in get_tree().get_nodes_in_group("enemy"):
-        if not is_instance_valid(enemy) or enemy.get_parent() != self or enemy.dying or not enemy.world_residency_active():
-            continue
-        var distance: Vector2 = enemy.global_position - player.global_position
-        if absf(distance.y) < 150 and absf(distance.x) < 320:
-            return false
-    return true
+    return LEVEL_WORLD_START.first_journey_heal_safe(self)
 
 func _add_wayfinding(area: Area2D) -> void:
-    if area.has_node("Wayfinding"):
-        return
-    var marker := WAYFINDING.new()
-    marker.name = "Wayfinding"
-    marker.host = self
-    marker.area = area
-    var kind := String(area.get_meta("kind", ""))
-    marker.symbol = "rest" if kind == "save_point" else "lever" if kind == "lever" else "talk" if kind == "npc" else "book" if kind == "history" else "passage"
-    if kind == "world_portal":
-        marker.configure_portal(area.get_meta("world_portal_data", {}), String(config.id))
-        marker.position.y = 20
-        marker.scale = Vector2(0.65, 0.65)
-        marker.z_index = -1
-    else:
-        marker.visible = false
-        marker.mount = "lantern" if kind == "save_point" else "wall" if kind == "npc" else "stone"
-        marker.z_index = 20
-    area.add_child(marker)
+    LEVEL_WORLD_TRAVEL.add_wayfinding(self, area)
 
 func _make_world_portal(data: Dictionary) -> Area2D:
-    var area := Area2D.new()
-    area.name = String(data.get("id", "world_portal"))
-    area.position = _vec2(data.get("position", [0, 0]))
-    area.set_meta("kind", "world_portal")
-    area.set_meta("label", String(data.get("label", "旧通路")))
-    area.set_meta("interaction_label", String(data.get("label", "旧通路")))
-    area.set_meta("world_portal_data", data.duplicate(true))
-    area.add_to_group("interactable")
-    var shape := CollisionShape2D.new()
-    var rectangle := RectangleShape2D.new()
-    rectangle.size = _vec2(data.get("interaction_size", [100, 100]))
-    shape.shape = rectangle
-    area.add_child(shape)
-    var arch := Line2D.new()
-    arch.name = "WorldPortalArch"
-    # Route status belongs on the physical sign; the old luminous outline
-    # duplicates it and makes each old connection look like a magic portal.
-    arch.visible = false
-    arch.width = 5.0
-    arch.default_color = Color(0.40, 0.80, 0.88) if _world_portal_missing(data).is_empty() else Color(0.93, 0.67, 0.30)
-    for index in range(17):
-        var angle := PI + PI * index / 16.0
-        arch.add_point(Vector2(cos(angle) * 29.0, sin(angle) * 46.0))
-    arch.add_point(Vector2(29, 17))
-    area.add_child(arch)
-    return area
+    return LEVEL_WORLD_TRAVEL.make_world_portal(self, data)
 
 
 func _world_portal(data: Dictionary) -> void:
-    var area := _take_gameplay_prefab("world_portal", data)
-    if area == null: area = _make_world_portal(data)
-    var arch: Line2D = area.get_node("WorldPortalArch")
-    arch.default_color = Color(0.40, 0.80, 0.88) if _world_portal_missing(data).is_empty() else Color(0.93, 0.67, 0.30)
-    _add_wayfinding(area)
-    area.body_entered.connect(_on_interactable_entered.bind(area))
-    area.body_exited.connect(_on_interactable_exited.bind(area))
-    add_child(area)
+    LEVEL_WORLD_TRAVEL.world_portal(self, data)
 
 
 func _apply_world_npc_state(area: Area2D) -> void:
-    if not world_mode or world_narrative == null or not is_instance_valid(area):
-        return
-    var state: Dictionary = world_narrative.npc_world_state(String(area.get_meta("npc_id", "")), story_flags)
-    if state.is_empty():
-        return
-    area.set_meta("world_location_state", String(state.get("id", "")))
-    if state.has("position") and "demo_" + String(state.get("region", "")) == String(config.get("id", "")):
-        area.position = _vec2(state.position)
-    if world_gameplay_residency != null:
-        world_gameplay_residency.refresh_actor_position("npc", String(area.get_meta("npc_id", area.name)), area.position)
+    LEVEL_WORLD_TRAVEL.apply_world_npc_state(self, area)
 
 
 func _world_grapple_anchor(data: Dictionary) -> void:
-    var anchor := Node2D.new()
-    anchor.name = String(data.get("id", "grapple_anchor"))
-    anchor.position = _vec2(data.get("position", [0, 0]))
-    anchor.set_meta("required_ability", String(data.get("required_ability", "echo_hook")))
-    anchor.set_meta("grapple_enabled", false)
-    anchor.add_to_group("grapple_anchor")
-    var ring := Line2D.new()
-    ring.name = "CopperGrappleRing"
-    ring.width = 3.0
-    ring.default_color = Color(0.80, 0.62, 0.30)
-    for index in range(25):
-        ring.add_point(Vector2.from_angle(TAU * index / 24.0) * 13.0)
-    anchor.add_child(ring)
-    var chain := Line2D.new()
-    chain.width = 2.0
-    chain.default_color = Color(0.48, 0.43, 0.28)
-    chain.add_point(Vector2(0, -45))
-    chain.add_point(Vector2(0, -13))
-    anchor.add_child(chain)
-    add_child(anchor)
+    LEVEL_WORLD_TRAVEL.world_grapple_anchor(self, data)
 
 
 func _world_portal_missing(data: Dictionary) -> String:
-    return String(WORLD_ROUTES_SCRIPT.access(data, inventory_counts, story_flags).hint)
+    return LEVEL_WORLD_TRAVEL.world_portal_missing(self, data)
 
 
 func _refresh_world_portals() -> void:
-    if not world_mode:
-        return
-    for data in config.get("interactives", []):
-        if String(data.get("kind", "")) != "world_portal":
-            continue
-        var area := get_node_or_null(NodePath(String(data.get("id", ""))))
-        if area == null:
-            continue
-        var status: Dictionary = WORLD_ROUTES_SCRIPT.access(data, inventory_counts, story_flags)
-        area.set_meta("route_status", status.duplicate(true))
-        var arch := area.get_node_or_null("WorldPortalArch") as Line2D
-        if arch != null:
-            arch.default_color = Color(0.40, 0.80, 0.88) if status.open else Color(0.93, 0.67, 0.30)
-        var marker := area.get_node_or_null("Wayfinding")
-        if marker != null:
-            marker.gate_state = String(status.kind)
-            marker.queue_redraw()
-        var walk_glyph: String = WORLD_PASSAGE.glyph(String(config.id), String(data.get("id", "")))
-        var prompt := " · 向右步行进入" if walk_glyph == "→" else " · 向左步行进入" if walk_glyph == "←" else " · F 通行"
-        area.set_meta("interaction_label", String(data.get("label", "旧通路")) + (prompt if status.open else " · " + String(status.label)))
+    LEVEL_WORLD_TRAVEL.refresh_world_portals(self)
 
 
 func _activate_world_portal(area: Area2D) -> void:
-    if not world_mode or not _can_interact_with_world() or world_portal_request_pending or area == null or not is_instance_valid(area):
-        return
-    var data: Dictionary = area.get_meta("world_portal_data", {})
-    if not WORLD_PASSAGE.endpoint(String(config.id), String(data.get("id", ""))).is_empty():
-        world_passage.begin(String(data.id))
-        return
-    var missing := _world_portal_missing(data)
-    if not missing.is_empty():
-        _toast(missing)
-        return
-    var next_path := WORLD_ROUTES_SCRIPT.cached_config_path(String(data.get("target_config_id", "")))
-    if next_path.is_empty() and world_loader != null:
-        world_loader.request_manifest_refresh(self)
-    var entry := _vec2(data.get("target_spawn", [120, 500]))
-    if next_path.is_empty() or not entry.is_finite() or not FileAccess.file_exists(next_path):
-        _toast("这条旧路尚未接通。")
-        return
-    if world_loader == null or world_loader.phase != "idle":
-        _toast("旧路暂未接通，仍留在当前区域。")
-        return
-    var shortcut := String(data.get("unlock_shortcut_id", ""))
-    world_portal_request_pending = true
-    _defer_region_call("_request_world_travel", [next_path, entry, shortcut])
+    LEVEL_WORLD_TRAVEL.activate_world_portal(self, area)
 
 
 func _travel_world(next_path: String, entry: Vector2) -> void:
-    if world_loader != null and world_loader.phase != "idle":
-        return
-    _save_world()
-    if world_loader == null or not world_loader.replace_region(self, next_path, entry):
-        chapter_transitioning = false
-        if is_instance_valid(audio_director):
-            audio_director.cancel_chapter_transition()
-        _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
+    LEVEL_WORLD_TRAVEL.travel_world(self, next_path, entry)
 
 
 func _request_world_travel(next_path: String, entry: Vector2, shortcut: String = "") -> void:
-    if world_loader == null or world_loader.phase != "idle":
-        world_portal_request_pending = false
-        return
-    var publish_flags: Dictionary = {}
-    if not shortcut.is_empty():
-        publish_flags["world_shortcut_" + shortcut] = true
-    var token: RefCounted = world_loader.request_region_transition(self, next_path, entry, publish_flags)
-    if token == null:
-        world_portal_request_pending = false
+    LEVEL_WORLD_TRAVEL.request_world_travel(self, next_path, entry, shortcut)
 
 
 func _travel_world_async(next_path: String, entry: Vector2, shortcut: String = "") -> void:
@@ -1589,149 +1042,35 @@ func _travel_world_async(next_path: String, entry: Vector2, shortcut: String = "
 
 
 func _region_tween() -> Tween:
-    for index in range(region_tweens.size() - 1, -1, -1):
-        if not region_tweens[index].is_valid():
-            region_tweens.remove_at(index)
-    var tween := create_tween()
-    region_tweens.append(tween)
-    return tween
+    return LEVEL_WORLD_TRAVEL.region_tween(self)
 
 
 func _stop_region_tweens() -> void:
-    for tween in region_tweens:
-        if tween.is_valid():
-            tween.kill()
-    region_tweens.clear()
+    LEVEL_WORLD_TRAVEL.stop_region_tweens(self)
 
 
 func _defer_region_call(method: StringName, arguments: Array = []) -> void:
-    var generation := world_loader.generation if world_loader != null else 0
-    call_deferred("_run_region_deferred", generation, method, arguments)
+    LEVEL_WORLD_TRAVEL.defer_region_call(self, method, arguments)
 
 
 func _run_region_deferred(generation: int, method: StringName, arguments: Array) -> void:
-    var portal_request := method in ["_request_world_travel", "_travel_world_async"]
-    if _walking_world_passage():
-        if portal_request:
-            world_portal_request_pending = false
-        return
-    if world_loader != null and world_loader.generation != generation:
-        if portal_request:
-            world_portal_request_pending = false
-        return
-    for argument in arguments:
-        if typeof(argument) == TYPE_OBJECT and not is_instance_valid(argument):
-            return
-    callv(method, arguments)
+    LEVEL_WORLD_TRAVEL.run_region_deferred(self, generation, method, arguments)
 
 
 func _commit_world_dialogue() -> void:
-    if not world_mode or active_overlay != "dialogue" or ui_shell == null or dialogue_text_label == null:
-        return
-    if dialogue_text_label.visible_characters >= 0 and dialogue_text_label.visible_characters < dialogue_text_label.text.length():
-        return
-    var area: Area2D = ui_shell.dialogue_area
-    if not is_instance_valid(area):
-        return
-    if bool(area.get_meta("world_line_committed", false)):
-        return
-    if String(area.get_meta("kind",""))=="history":
-        _commit_history_prop(area)
-        return
-    var flags_before := story_flags.duplicate(true)
-    var currency_before := currency_count
-    var world_before := world_state.data.duplicate(true)
-    var build_before: Dictionary = build_system.serialize() if build_system != null else {}
-    var state := String(area.get_meta("dialogue_state", "repeat"))
-    var indices: Dictionary = area.get_meta("dialogue_state_indices", {}).duplicate(true)
-    var indices_before := indices.duplicate(true)
-    var displayed_index := int(area.get_meta("world_displayed_index", -1))
-    indices[state] = displayed_index + 1
-    area.set_meta("dialogue_state_indices", indices)
-    if state == "first_meet" and displayed_index + 1 >= int(area.get_meta("world_displayed_total", 0)):
-        story_flags["npc_met_%s" % String(area.get_meta("npc_id", area.name))] = true
-    var result: Dictionary = area.get_meta("world_dialogue_result", {})
-    if bool(story_flags.get("quest_bring_names_rewarded", false)):
-        story_flags["reward_returned_names_claimed"] = true
-    var recollection := preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",result),displayed_index,String(config.get("id","")))
-    if not recollection.is_empty():story_flags[recollection]=true
-    var response_memory := preload("res://scripts/protagonist_response_memory.gd").quote(String(area.get_meta("npc_id",area.name)),result,displayed_index,flags_before,String(config.get("id","")))
-    var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, story_flags)
-    var rewards: Dictionary = completion.get("rewards", {})
-    var fresh_flags: Array = completion.get("flags", [])
-    currency_count += int(rewards.get("currency", 0))
-    for flag in fresh_flags:
-        story_flags[String(flag)] = true
-    if not response_memory.is_empty():story_flags[String(response_memory.marker)]=true
-    if bool(story_flags.get("reward_returned_names_claimed", false)):
-        story_flags["quest_bring_names_rewarded"] = true
-    _check_wish_board_rewards(false)
-    if build_system != null:
-        build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
-    if not _save_world():
-        _rollback_narrative_transaction(flags_before, currency_before, world_before, build_before)
-        area.set_meta("dialogue_state_indices", indices_before)
-        _toast("归途记录未能写入；本次交谈尚未确认，请重试。")
-        return
-    area.set_meta("world_line_committed", true)
-    if ui_shell != null and ui_shell.has_method("forget_dialogue_reading"):
-        ui_shell.forget_dialogue_reading()
-    if not fresh_flags.is_empty():
-        # Only a saved, fully read, fresh conversation earns a short response.
-        # A toast never takes control or starts another dialogue/voice sequence.
-        var response := WORLD_NARRATIVE_SCRIPT.completion_response(result,displayed_index,flags_before)
-        if not response.is_empty():
-            _toast(response)
-        elif not rewards.is_empty():
-            _toast("心愿达成 · 收到 %d 枚碎钱" % int(rewards.get("currency", 0)))
-        _apply_world_npc_state(area)
-        _sync_player_build()
-        _refresh_wish_board_overlay()
-        _refresh_hud()
+    LEVEL_WORLD_TRAVEL.commit_world_dialogue(self)
 
 
 func _rollback_narrative_transaction(flags_before: Dictionary, currency_before: int, world_before: Dictionary, build_before: Dictionary) -> void:
-    story_flags = flags_before.duplicate(true)
-    currency_count = currency_before
-    if world_state != null:
-        world_state.data = world_before.duplicate(true)
-    if build_system != null:
-        build_system.restore(build_before)
+    LEVEL_WORLD_TRAVEL.rollback_narrative_transaction(self, flags_before, currency_before, world_before, build_before)
 
 
 func _add_world_portal_map_pins(bounds: Rect2, draw_size: Vector2, draw_width: float, base_y: float, depth_step: float) -> void:
-    for data in config.get("interactives", []):
-        if String(data.get("kind", "")) != "world_portal":
-            continue
-        var position_value := _vec2(data.get("position", [0, 0]))
-        var room := _room_for_position(position_value)
-        if not _room_is_visited(String(room.get("id", ""))):
-            continue
-        var color := Color(0.35, 0.83, 1.0) if _world_portal_missing(data).is_empty() else Color(1.0, 0.68, 0.24)
-        _add_map_pin(position_value, draw_width, base_y, depth_step, color, Vector2(13, 13), bounds, draw_size)
+    LEVEL_WORLD_TRAVEL.add_world_portal_map_pins(self, bounds, draw_size, draw_width, base_y, depth_step)
 
 
 func _world_exploration_hint() -> String:
-    var region_id := String(config.get("id", ""))
-    if region_id.contains("ch01"):
-        if inventory_counts.has("double_thread_jump"):
-            return "双线跃已会：返回运书索道，穿过盐风封门，带回失名证词。"
-        return "盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。"
-    if region_id.contains("ch02"):
-        if inventory_counts.has("silk_wall_grip"):
-            return "攀壁已会：雨溢立管通向书库；排水钟管随时可以返回钟庭。"
-        return "寻找低处检修台遗留的攀壁线爪；雨溢立管在上方，钟庭在来路。"
-    if region_id.contains("ch03"):
-        if inventory_counts.has("double_thread_jump"):
-            return "双线跃使旧地生出新路：阅览台旁的运书线通回钟庭。"
-        return "沿烛台阅览支线寻找双线跃；先前的雨渠入口仍可返回。"
-    if region_id.contains("ch04"):
-        return "根须影管通向王冠，需要灯影相位；先去黑曜营地，或沿来路回书库。"
-    if region_id.contains("ch05"):
-        return "营地的灯影相位接通冠脊索道；旧补给索道可从营地开启，返回雨渠。"
-    if region_id.contains("ch06"):
-        return "王冠与温室、黑曜两路汇合；取得共鸣后，可回旧区检修钟门寻找反证。"
-    return "来路与返程都已标在地图上。继续探索，或带着新证据返回旧地。"
+    return LEVEL_WORLD_TRAVEL.world_exploration_hint(self)
 
 
 func _draw_world_atlas() -> void:
@@ -1739,52 +1078,19 @@ func _draw_world_atlas() -> void:
 
 
 func _build_new_journey_dialog() -> void:
-    new_journey_dialog = ConfirmationDialog.new()
-    new_journey_dialog.title = "重新开始巡礼"
-    new_journey_dialog.dialog_text = "是否从苔钟庭开始新的旅途？当前归途记录会保留为上一段旅途的备份。"
-    new_journey_dialog.ok_button_text = "开始新旅途"
-    new_journey_dialog.cancel_button_text = "继续当前旅途"
-    new_journey_dialog.theme = ui_shell.theme if ui_shell != null else null
-    add_child(new_journey_dialog)
-    new_journey_dialog.confirmed.connect(_start_new_journey)
-    new_journey_dialog.canceled.connect(func():
-        active_overlay = ""
-        _sync_ui_input_lock())
+    LEVEL_JOURNEY_DATA.build_new_journey_dialog(self)
 
 
 func _preserve_previous_journey() -> bool:
-    if not FileAccess.file_exists(world_save_path):
-        return true
-    var absolute := ProjectSettings.globalize_path(world_save_path)
-    if DirAccess.dir_exists_absolute(absolute + ".previous"):
-        return false
-    # T02: `.previous` holds the latest abandoned journey; an earlier one moves
-    # to its own name first instead of being overwritten.
-    if FileAccess.file_exists(world_save_path + ".previous") and WORLD_STATE_SCRIPT.preserve_copy(world_save_path + ".previous", "earlier").is_empty():
-        return false
-    if DirAccess.copy_absolute(absolute, absolute + ".previous") != OK:
-        return false
-    return DirAccess.remove_absolute(absolute) == OK
+    return LEVEL_JOURNEY_DATA.preserve_previous_journey(self)
 
 
 func _start_new_journey() -> void:
-    if not _preserve_previous_journey():
-        _toast("旧旅途无法安全备份，当前记录已保留。")
-        active_overlay = ""
-        _sync_ui_input_lock()
-        return
-    # Keep the old scene's shared snapshot valid until it has left the tree.
-    AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
-    world_loading = true
-    _replace_with_save_slot(world_slot, world_save_path)
+    LEVEL_JOURNEY_DATA.start_new_journey(self)
 
 
 func _load_json(path: String) -> Dictionary:
-    var file := FileAccess.open(path, FileAccess.READ)
-    if file == null:
-        return {}
-    var parsed = JSON.parse_string(file.get_as_text())
-    return parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+    return LEVEL_JOURNEY_DATA.load_json(self, path)
 
 
 ## Immutable campaign presentation data is reused only by a persistent World
@@ -1793,53 +1099,11 @@ func _load_json(path: String) -> Dictionary:
 ## snapshot. Empty dictionaries are valid JSON; open/parse/type failures are
 ## deliberately not cached, so a repaired source can succeed on the next call.
 func _load_world_shared_json(path: String) -> Dictionary:
-    if not world_mode:
-        return _load_json(path)
-    var canonical_path := _world_shared_metadata_key(path)
-    world_shared_metadata_probes[canonical_path] = int(world_shared_metadata_probes.get(canonical_path, 0)) + 1
-    var stat_file := FileAccess.open(canonical_path, FileAccess.READ)
-    if stat_file == null:
-        world_shared_metadata_cache.erase(canonical_path)
-        world_shared_metadata_failures[canonical_path] = int(world_shared_metadata_failures.get(canonical_path, 0)) + 1
-        return {}
-    var source_size := stat_file.get_length()
-    stat_file.close()
-    var source_mtime := FileAccess.get_modified_time(canonical_path)
-    var cached: Variant = world_shared_metadata_cache.get(canonical_path)
-    if cached is Dictionary and int(cached.get("size", -1)) == source_size and int(cached.get("mtime", -1)) == source_mtime:
-        return (cached.get("data", {}) as Dictionary).duplicate(true)
-
-    # A changed or unreadable source must never fall back to a stale snapshot.
-    world_shared_metadata_cache.erase(canonical_path)
-    var file := FileAccess.open(canonical_path, FileAccess.READ)
-    if file == null:
-        world_shared_metadata_failures[canonical_path] = int(world_shared_metadata_failures.get(canonical_path, 0)) + 1
-        return {}
-    var read_size := file.get_length()
-    var text := file.get_as_text()
-    file.close()
-    var bytes_read := read_size
-    world_shared_metadata_reads[canonical_path] = int(world_shared_metadata_reads.get(canonical_path, 0)) + 1
-    world_shared_metadata_bytes[canonical_path] = int(world_shared_metadata_bytes.get(canonical_path, 0)) + bytes_read
-    world_shared_metadata_parses[canonical_path] = int(world_shared_metadata_parses.get(canonical_path, 0)) + 1
-    var parser := JSON.new()
-    var parse_error := parser.parse(text)
-    var parsed: Variant = parser.data
-    if parse_error != OK or not parsed is Dictionary:
-        world_shared_metadata_failures[canonical_path] = int(world_shared_metadata_failures.get(canonical_path, 0)) + 1
-        return {}
-    world_shared_metadata_cache[canonical_path] = {"mtime": FileAccess.get_modified_time(canonical_path),
-        "size": read_size, "data": parsed.duplicate(true)}
-    return parsed.duplicate(true)
+    return LEVEL_JOURNEY_DATA.load_world_shared_json(self, path)
 
 
 func world_shared_metadata_snapshot() -> Dictionary:
-    return {"cache_paths": world_shared_metadata_cache.keys().duplicate(),
-        "probes": world_shared_metadata_probes.duplicate(true),
-        "reads": world_shared_metadata_reads.duplicate(true),
-        "bytes": world_shared_metadata_bytes.duplicate(true),
-        "parses": world_shared_metadata_parses.duplicate(true),
-        "failures": world_shared_metadata_failures.duplicate(true)}
+    return LEVEL_JOURNEY_DATA.world_shared_metadata_snapshot(self)
 
 
 func _world_shared_metadata_key(path: String) -> String:
@@ -1847,176 +1111,78 @@ func _world_shared_metadata_key(path: String) -> String:
 
 
 func _art_theme_id() -> String:
-    var theme_id := String(config.get("art_theme", ""))
-    if not theme_id.is_empty():
-        if theme_id == "moss_bell":
-            return "moss_cavern"
-        return theme_id
-    var config_id := String(config.get("id", ""))
-    if config_id.contains("rain_foundry") or config_id.contains("ch02"):
-        return "rain_foundry"
-    if config_id.contains("saltwhite") or config_id.contains("ch03"):
-        return "salt_archive"
-    if config_id.contains("broken_string") or config_id.contains("ch04"):
-        return "string_greenhouse"
-    if config_id.contains("obsidian") or config_id.contains("ch05"):
-        return "obsidian_pilgrim"
-    if config_id.contains("silent_crown") or config_id.contains("ch06"):
-        return "silent_crown"
-    return "moss_cavern"
+    return LEVEL_CATALOGUE.art_theme_id(self)
 
 
 ## 钟龛 rest 音六区变体（音频规格 §2.1 摇篮曲/§4.5 ui_shrine_rest）。
 func _shrine_rest_audio_key() -> String:
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return "shrine_rest_ch02"
-    if theme == "salt_archive":
-        return "shrine_rest_ch03"
-    if theme == "string_greenhouse":
-        return "shrine_rest_ch04"
-    if theme == "obsidian_pilgrim":
-        return "shrine_rest_ch05"
-    if theme == "silent_crown":
-        return "shrine_rest_ch06"
-    return "shrine_rest_ch01"
+    return LEVEL_CATALOGUE.shrine_rest_audio_key(self)
 
 
 ## 敌人死亡材质音（音频规格 §4.3 六材质）：按章节 art theme 选择。
 func _enemy_death_sfx_key() -> String:
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return "death_copper"
-    if theme == "salt_archive":
-        return "death_salt"
-    if theme == "string_greenhouse":
-        return "death_fiber"
-    if theme == "obsidian_pilgrim":
-        return "death_obsidian"
-    if theme == "silent_crown":
-        return "death_silent"
-    return "death_moss"
+    return LEVEL_CATALOGUE.enemy_death_sfx_key(self)
 
 
 func _original_map_art() -> Dictionary:
-    var root := "res://assets/sprites/flat_maps/" + _art_theme_id() + "/"
-    return {"map":root+"background.png","sky":root+"background.png","mid_tile":root+"platform_00.tres"}
+    return LEVEL_CATALOGUE.original_map_art(self)
 
 func _is_rain_foundry_theme() -> bool:
-    return _art_theme_id() == "rain_foundry"
+    return LEVEL_CATALOGUE.is_rain_foundry_theme(self)
 
 
 func _theme_map_title() -> String:
-    var title := String(config.get("map_title", ""))
-    if not title.is_empty():
-        return title
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return "Rain Foundry Canal Map"
-    if theme == "salt_archive":
-        return "Saltwhite Archive Map"
-    if theme == "string_greenhouse":
-        return "Broken String Greenhouse Map"
-    if theme == "obsidian_pilgrim":
-        return "Obsidian Pilgrim Road Map"
-    if theme == "silent_crown":
-        return "Silent Crown Core Map"
-    return "Moss Bell Court Map"
+    return LEVEL_CATALOGUE.theme_map_title(self)
 
 
 func _theme_map_background_texture() -> String:
-    return String(_original_map_art().get("map", ""))
+    return LEVEL_CATALOGUE.theme_map_background_texture(self)
 
 
 func _theme_asset_source() -> String:
-    return "Original hand-drawn 2D PNG atlases / built-in image_gen"
+    return LEVEL_CATALOGUE.theme_asset_source(self)
 
 
 func _background_visual_asset_paths() -> Array:
-    var root := "res://assets/sprites/flat_maps/"+_art_theme_id()+"/"
-    return [root+"background.png",root+"decor_atlas.png"]
+    return LEVEL_CATALOGUE.background_visual_asset_paths(self)
 
 func _theme_boss_material() -> String:
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return "foundry_boss"
-    if theme == "salt_archive":
-        return "archive_boss"
-    if theme == "string_greenhouse":
-        return "root_boss"
-    if theme == "obsidian_pilgrim":
-        return "pilgrim_boss"
-    if theme == "silent_crown":
-        return "core_boss"
-    return "boss_stone"
+    return LEVEL_CATALOGUE.theme_boss_material(self)
 
 
 func _platform_visual_asset_paths_for_material(_material: String) -> Array:
-    var root := "res://assets/sprites/flat_maps/"+_art_theme_id()+"/"
-    return [root+"platform_atlas.png",root+"terrain_atlas.png"]
+    return LEVEL_CATALOGUE.platform_visual_asset_paths_for_material(self, _material)
 
 func _combat_progression_enabled() -> bool:
-    return String(config.get("progression_mode", "keys")).to_lower() == "combat_clear"
+    return LEVEL_CATALOGUE.combat_progression_enabled(self)
 
 
 func _combat_goal_met() -> bool:
-    return enemy_total <= 0 or enemy_defeated >= enemy_total
+    return LEVEL_CATALOGUE.combat_goal_met(self)
 
 
 func _shortcut_ids() -> Array:
-    var ids: Array = []
-    for connection in config.get("connections", []):
-        if not (connection is Dictionary):
-            continue
-        if String(connection.get("type", "")) != "shortcut":
-            continue
-        var shortcut_id := String(connection.get("shortcut_id", ""))
-        if shortcut_id.is_empty() or ids.has(shortcut_id):
-            continue
-        ids.append(shortcut_id)
-    return ids
+    return LEVEL_CATALOGUE.shortcut_ids(self)
 
 
 func _shortcut_total() -> int:
-    return _shortcut_ids().size()
+    return LEVEL_CATALOGUE.shortcut_total(self)
 
 
 func _opened_shortcut_total() -> int:
-    return opened_shortcuts.size()
+    return LEVEL_CATALOGUE.opened_shortcut_total(self)
 
 
 func _shortcut_id_for_area(area: Area2D) -> String:
-    if area == null:
-        return ""
-    return String(area.get_meta("shortcut_id", ""))
+    return LEVEL_CATALOGUE.shortcut_id_for_area(self, area)
 
 
 func _is_shortcut_open(shortcut_id: String = "") -> bool:
-    if shortcut_id.is_empty():
-        return shortcut_open
-    return opened_shortcuts.has(shortcut_id)
+    return LEVEL_CATALOGUE.is_shortcut_open(self, shortcut_id)
 
 
 func _init_inventory_state() -> void:
-    inventory_counts.clear()
-    inventory_tools.clear()
-    inventory_relics.clear()
-    inventory_materials.clear()
-    currency_count = 0
-    unlocked_abilities.clear()
-    opened_shortcuts.clear()
-    shortcut_open = false
-    visited_rooms.clear()
-    current_room_id = ""
-    var inventory_config: Dictionary = config.get("inventory", {})
-    for item_id in inventory_config.get("starting_tools", []):
-        if world_mode and WORLD_ABILITIES.has(String(item_id)):
-            continue
-        _add_inventory_item(String(item_id), 1, false)
-    for item_id in inventory_config.get("starting_relics", []):
-        _add_inventory_item(String(item_id), 1, false)
-    if carried_inventory_enabled:
-        _merge_carried_inventory()
+    LEVEL_CATALOGUE.init_inventory_state(self)
 
 
 # 跨章并集合并：starting_tools 先落底，再把携带背包中缺口补齐（按 max 计数，
@@ -2025,214 +1191,74 @@ func _init_inventory_state() -> void:
 # _refresh_ability_gates → _sync_player_abilities 之前，因此"ch2 拿
 # silk_wall_grip → 回 ch1 开 gate_wall_mossgrip"的数据链路直接成立。
 func _merge_carried_inventory() -> void:
-    for item_id_value in carried_inventory_counts.keys():
-        var item_id := String(item_id_value)
-        if item_id.is_empty():
-            continue
-        var missing := int(carried_inventory_counts[item_id_value]) - int(inventory_counts.get(item_id, 0))
-        if missing > 0:
-            _add_inventory_item(item_id, missing, false)
-    if carried_currency > 0:
-        _add_currency(carried_currency)
+    LEVEL_CATALOGUE.merge_carried_inventory(self)
 
 
 func _item_data(item_id: String) -> Dictionary:
-    var inventory_config: Dictionary = config.get("inventory", {})
-    var catalog: Dictionary = inventory_config.get("catalog", {})
-    if world_mode and not catalog.has(item_id) and world_catalog.has(item_id):
-        return world_catalog[item_id]
-    return catalog.get(item_id, {"name": item_id, "category": "Materials", "description": ""})
+    return LEVEL_CATALOGUE.item_data(self, item_id)
 
 
 # 展示层口径（圣典 §7）：铭文表优先于各章 catalog；catalog 只负责 category
 # 与圣典未收录物品（功能道具/章节变体）的功能短句，避免六章重复维护铭文。
 func _item_display_name(item_id: String) -> String:
-    var lore_entry: Dictionary = item_lore.get(item_id, {})
-    if lore_entry.has("display_name"):
-        return String(lore_entry.get("display_name", item_id))
-    var catalog: Dictionary = config.get("inventory", {}).get("catalog", {})
-    if catalog.has(item_id):
-        var entry: Dictionary = catalog.get(item_id, {})
-        if entry.has("name"):
-            return String(entry.get("name", item_id.capitalize()))
-    # 跨章携带兜底：本章 catalog 没有该物品时退回圣典名，最后才退回旧表/原始 id。
-    if world_mode and world_catalog.has(item_id):
-        return String(world_catalog[item_id].get("name", item_id))
-    if lore_entry.has("canon_name"):
-        return String(lore_entry.get("canon_name", item_id))
-    var display: Dictionary = ITEM_DISPLAY.get(item_id, {})
-    return String(display.get("name", item_id.capitalize()))
+    return LEVEL_CATALOGUE.item_display_name(self, item_id)
 
 
 # 圣典铭文多行保留分行；功能性物品先铭文后功能行（【功能】…）。
 func _item_display_description(item_id: String) -> String:
-    var lore_entry: Dictionary = item_lore.get(item_id, {})
-    var parts: Array[String] = []
-    for lore_line in lore_entry.get("lore", []):
-        parts.append(String(lore_line))
-    if not parts.is_empty():
-        var function_line := String(lore_entry.get("function", ""))
-        if not function_line.is_empty():
-            parts.append(preload("res://scripts/authored_control_hints.gd").render(function_line))
-        return "\n".join(parts)
-    var item := _item_data(item_id)
-    if item.has("description"):
-        return preload("res://scripts/authored_control_hints.gd").render(String(item.get("description", "")))
-    var display: Dictionary = ITEM_DISPLAY.get(item_id, {})
-    return preload("res://scripts/authored_control_hints.gd").render(String(display.get("description", "")))
+    return LEVEL_CATALOGUE.item_display_description(self, item_id)
 
 
 func _room_map_copy(room_id: String, field: String, fallback: String) -> String:
-    for room in config.get("map_rooms", []):
-        if not (room is Dictionary):
-            continue
-        var room_data: Dictionary = room
-        if String(room_data.get("id", "")) == room_id and room_data.has(field):
-            return preload("res://scripts/authored_control_hints.gd").render(String(room_data.get(field, fallback)))
-    var copy: Dictionary = ROOM_MAP_COPY.get(room_id, {})
-    return preload("res://scripts/authored_control_hints.gd").render(String(copy.get(field, fallback)))
+    return LEVEL_CATALOGUE.room_map_copy(self, room_id, field, fallback)
 
 
 func _npc_display_name(data: Dictionary) -> String:
-    if data.has("name"):
-        return String(data.get("name", "旅人"))
-    var role := String(data.get("role", ""))
-    return String(NPC_DISPLAY_NAMES.get(role, "旅人"))
+    return LEVEL_CATALOGUE.npc_display_name(self, data)
 
 
 func _npc_dialogue(data: Dictionary) -> Array:
-    var config_dialogue: Array = data.get("dialogue", [])
-    if not config_dialogue.is_empty():
-        return config_dialogue
-    var role := String(data.get("role", ""))
-    return NPC_DIALOGUE.get(role, ["..."])
+    return LEVEL_CATALOGUE.npc_dialogue(self, data)
 
 
 func _campaign_chapter_for_id(chapter_id: String) -> Dictionary:
-    for chapter in campaign.get("chapters", []):
-        var item := chapter as Dictionary
-        if String(item.get("id", "")) == chapter_id or String(item.get("runtime_config_id", "")) == chapter_id:
-            return item
-    var chapters: Array = campaign.get("chapters", [])
-    return chapters[0] if not chapters.is_empty() else {}
+    return LEVEL_CATALOGUE.campaign_chapter_for_id(self, chapter_id)
 
 
 func _chapter_objective_text() -> String:
-    if world_mode:
-        return _world_exploration_hint() + "  %s 地图 / %s 世界图 · F9 新旅途。" % [ui_shell._short_binding("map"), ui_shell._short_binding("inventory")]
-    if bool(config.get("boss_route_via_exploration",false)):
-        return "第%d章 %s：探索洞道，接通捷径，挑战守门者。%s 呼叫升降笼。" % [int(current_campaign_chapter.get("index",1)),String(config.get("chapter_name",config.get("name",""))),preload("res://scripts/input_prompt_bindings.gd").action_label("interact")]
-    if current_campaign_chapter.is_empty():
-        return "Defeat normal enemies, open the boss route, and clear the chapter boss."
-    return "第%d章 %s：%s" % [
-        int(current_campaign_chapter.get("index", 1)),
-        String(current_campaign_chapter.get("name", "苔钟庭")),
-        String(current_campaign_chapter.get("objective", "Defeat normal enemies, open the boss route, and clear the chapter boss."))
-    ]
+    return LEVEL_CATALOGUE.chapter_objective_text(self)
 
 
 func _next_campaign_chapter_name() -> String:
-    var current_index := int(current_campaign_chapter.get("index", 1))
-    for chapter in campaign.get("chapters", []):
-        var item := chapter as Dictionary
-        if int(item.get("index", 0)) == current_index + 1:
-            return String(item.get("name", ""))
-    return "二周目挑战"
+    return LEVEL_CATALOGUE.next_campaign_chapter_name(self)
 
 
 func _show_chapter_entry_message() -> void:
-    var message := transition_entry_message
-    if message.is_empty() and not entered_from_config_id.is_empty():
-        message = "进入" + String(config.get("name", "下一章"))
-    if message.is_empty():
-        _toast(_chapter_objective_text())
-        return
-    # Arrival is a short notification. The persistent label belongs to
-    # completion/ending events; using it here left a banner over exploration.
-    if world_mode and message.begins_with("旧路重新接通"):
-        message = String(current_campaign_chapter.get("name", message))
-    _toast(message)
+    LEVEL_CATALOGUE.show_chapter_entry_message(self)
 
 
 func _boss_display_name(boss_data: Dictionary) -> String:
-    if boss_data.has("name"):
-        return String(boss_data.get("name", "守门者"))
-    var chapter_boss: Dictionary = current_campaign_chapter.get("boss", {})
-    return String(chapter_boss.get("name", "守门者"))
+    return LEVEL_CATALOGUE.boss_display_name(self, boss_data)
 
 
 func _chapter_file_ids() -> Array:
-    var ids: Array = []
-    for chapter in chapter_file_configs:
-        var item := chapter as Dictionary
-        ids.append(String(item.get("id", "")))
-    return ids
+    return LEVEL_CATALOGUE.chapter_file_ids(self)
 
 
 ## Shared detached reward plan: derive unlocks/capacities without calling live
 ## inventory, narrative or stat helpers. No resource refills before durability.
 func _prepare_inventory_progress(items: Dictionary, next_flags: Dictionary, next_currency: int) -> Dictionary:
-    var failure: Dictionary={"ok":false,"reason":"奖励记录未写入，请重试。"}
-    if build_system==null or not WORLD_STATE_SCRIPT._whole(next_currency):return failure
-    var counts:=inventory_counts.duplicate(true)
-    for id in counts:
-        if not id is String or not WORLD_STATE_SCRIPT._whole(counts[id]):return failure
-    for id in items:
-        if not id is String or id.is_empty() or not WORLD_STATE_SCRIPT._whole(items[id]) or int(items[id])<=0:return failure
-        counts[id]=int(counts.get(id,0))+int(items[id])
-    var flags:=next_flags.duplicate(true)
-    var all_testimonies:=true
-    for index in range(1,7):
-        if int(counts.get("testimony_%02d" % index,0))<1:all_testimonies=false
-    if all_testimonies:flags["true_ending_testimony_complete"]=true
-    if world_narrative!=null:
-        for flag in world_narrative.evaluate_progress(counts,flags).get("grant_flags",[]):flags[String(flag)]=true
-    var next_build=build_system.get_script().new()
-    if not next_build.restore(build_system.serialize()).ok:return failure
-    next_build.catalog=build_system.catalog.duplicate(true)
-    next_build.sync_progress(counts,String(config.get("id","")),flags)
-    return {"ok":true,"counts":counts,"flags":flags,"currency":next_currency,"build":next_build.serialize()}
+    return LEVEL_CATALOGUE.prepare_inventory_progress(self, items, next_flags, next_currency)
 
 func _publish_inventory_progress(plan: Dictionary, candidate: Dictionary) -> void:
-    world_state.data=candidate
-    inventory_counts=plan.counts;story_flags=plan.flags;currency_count=int(plan.currency)
-    inventory_materials.clear();inventory_tools.clear();inventory_relics.clear()
-    for item in inventory_counts:
-        match String(_item_data(String(item)).get("category","Materials")):
-            "Materials":inventory_materials[item]=int(inventory_counts[item])
-            "Tools":inventory_tools.append(item)
-            "Relics":inventory_relics.append(item)
-    build_system.restore(plan.build)
-    _sync_player_build()
+    LEVEL_CATALOGUE.publish_inventory_progress(self, plan, candidate)
 
 func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true) -> void:
-    var data := _item_data(item_id)
-    var category := String(data.get("category", "Materials"))
-    inventory_counts[item_id] = int(inventory_counts.get(item_id, 0)) + amount
-    if category == "Tools" and not inventory_tools.has(item_id):
-        inventory_tools.append(item_id)
-    elif category == "Relics" and not inventory_relics.has(item_id):
-        inventory_relics.append(item_id)
-    elif category == "Materials":
-        inventory_materials[item_id] = int(inventory_materials.get(item_id, 0)) + amount
-    if item_id.begins_with("testimony_"):
-        _refresh_testimony_chain_flag()
-    if world_mode and world_narrative != null:
-        var progress: Dictionary = world_narrative.evaluate_progress(inventory_counts, story_flags)
-        for flag in progress.get("grant_flags", []):
-            story_flags[String(flag)] = true
-    if build_system != null and build_system.catalog.get("permanent_upgrades", {}).has(item_id):
-        _sync_player_build()
-    if announce:
-        _toast("收入行囊 · " + _item_display_name(item_id))
-    if active_overlay == "backpack":
-        _refresh_backpack_overlay()
+    LEVEL_CATALOGUE.add_inventory_item(self, item_id, amount, announce)
 
 
 func _add_currency(amount: int) -> void:
-    currency_count += amount
-    if active_overlay == "backpack":
-        _refresh_backpack_overlay()
+    LEVEL_CATALOGUE.add_currency(self, amount)
 
 
 func _build_metsys_bridge() -> void:
@@ -2515,83 +1541,25 @@ func _inventory_line_for_category(category: String) -> String:
 
 
 func _update_room_visit() -> void:
-    if player == null or not is_instance_valid(player):
-        return
-    var room := _room_for_position(player.global_position)
-    if room.is_empty():
-        return
-    var previous_room_id := current_room_id
-    current_room_id = String(room.get("id", ""))
-    if not current_room_id.is_empty():
-        var first_visit := not bool(visited_rooms.get(current_room_id, false))
-        visited_rooms[current_room_id] = true
-        if first_visit:
-            _play_echo_room_beat(room)
-        if world_mode:
-            CARTOGRAPHY.visit_at(story_flags, String(config.id), room, player.global_position)
-        if metsys_bridge != null:
-            metsys_bridge.update_player_position(player.global_position, current_room_id)
-        if current_room_id != previous_room_id:
-            _abort_challenge_if_left_room()
-            _show_tool_encounter_hint()
-
-            _mark_hidden_route_found()
-            _save_world()
-            _trigger_whispers("enter_room", current_room_id)
-            # 房型混响微调（规格 §5.2）：hub/vista 抬 wet、corridor/secret 收 wet。
-            if audio_director != null:
-                audio_director.on_room_changed(String(room.get("kind", "")))
-                if audio_director.has_method("set_hidden_zone"):
-                    audio_director.set_hidden_zone(_is_hidden_room(current_room_id))
+    LEVEL_ROOMS.update_room_visit(self)
 
 
 ## The five echo rooms of the silent crown each answer the first visit with the
 ## chapter's low bell phrase. `visited_rooms` is saved, so a revisit stays quiet.
 func _play_echo_room_beat(room: Dictionary) -> bool:
-    if String(config.get("id", "")) != "demo_ch06_silent_crown_core":
-        return false
-    if not String(room.get("id", "")).begins_with("echo_"):
-        return false
-    _play_sfx("ch06_beat_echo_room", -9.0)
-    return true
+    return LEVEL_ROOMS.play_echo_room_beat(self, room)
 
 
 func _room_for_x(world_x: float, legacy_only: bool = false) -> Dictionary:
-    for room in config.get("map_rooms", []):
-        if not (room is Dictionary):
-            continue
-        var room_data: Dictionary = room
-        if legacy_only and _room_has_position_bounds(room_data):
-            continue
-        var room_range: Array = room_data.get("range", [0.0, world_width])
-        if room_range.size() < 2:
-            continue
-        if world_x >= float(room_range[0]) and world_x <= float(room_range[1]):
-            return room_data
-    return {}
+    return LEVEL_ROOMS.room_for_x(self, world_x, legacy_only)
 
 
 func _room_for_position(world_position: Vector2) -> Dictionary:
-    var best_room: Dictionary = {}
-    var best_area := INF
-    for room in config.get("map_rooms", []):
-        if not (room is Dictionary):
-            continue
-        var room_data: Dictionary = room
-        var area := _room_containing_area(room_data, world_position)
-        if area < best_area:
-            best_room = room_data
-            best_area = area
-    # A nested corridor or reward pocket takes precedence over its enclosing
-    # hall. Only legacy rooms without authored 2D bounds may use x fallback.
-    return best_room if not best_room.is_empty() else _room_for_x(world_position.x, true)
+    return LEVEL_ROOMS.room_for_position(self, world_position)
 
 
 func _room_layout_rect(room_data: Dictionary) -> Rect2:
-    var rect_value: Variant = room_data.get("layout_rect", room_data.get("play_rect", []))
-    if typeof(rect_value) != TYPE_ARRAY or rect_value.size() < 4:
-        return Rect2()
-    return _rect2(rect_value)
+    return LEVEL_ROOMS.room_layout_rect(self, room_data)
 
 
 func _map_room_by_id(room_id: String) -> Dictionary:
@@ -2599,30 +1567,19 @@ func _map_room_by_id(room_id: String) -> Dictionary:
 
 
 func _rect_contains_position(rect: Rect2, position_value: Vector2, padding: float = 0.0) -> bool:
-    return (
-        position_value.x >= rect.position.x - padding
-        and position_value.x <= rect.position.x + rect.size.x + padding
-        and position_value.y >= rect.position.y - padding
-        and position_value.y <= rect.position.y + rect.size.y + padding
-    )
+    return LEVEL_ROOMS.rect_contains_position(self, rect, position_value, padding)
 
 
 func _room_contains_position(room_data: Dictionary, world_position: Vector2) -> bool:
-    return _room_containing_area(room_data, world_position) < INF
+    return LEVEL_ROOMS.room_contains_position(self, room_data, world_position)
 
 
 func _room_name(room_id: String) -> String:
-    for room in config.get("map_rooms", []):
-        if not (room is Dictionary):
-            continue
-        var room_data: Dictionary = room
-        if String(room_data.get("id", "")) == room_id and room_data.has("name"):
-            return String(room_data.get("name", room_id))
-    return String(ROOM_DISPLAY_NAMES.get(room_id, room_id if not room_id.is_empty() else "Unknown Room"))
+    return LEVEL_ROOMS.room_name(self, room_id)
 
 
 func _room_is_visited(room_id: String) -> bool:
-    return bool(visited_rooms.get(room_id, false))
+    return LEVEL_ROOMS.room_is_visited(self, room_id)
 
 
 func _refresh_map_overlay() -> void:
@@ -2638,285 +1595,66 @@ func _add_map_pin(world_position: Vector2, draw_width: float, base_y: float, dep
 
 
 func _build_world_from_config() -> void:
-    for job in _region_build_jobs():
-        callv(job.method, job.args)
+    LEVEL_REGION_BUILD.build_world_from_config(self)
 
 
 ## Shared ordered plan: synchronous boot/fixtures and budgeted travel build the
 ## same authored content. One job may contain a complex object, not one node.
 func _region_build_jobs() -> Array:
-    var jobs: Array = _background_jobs()
-    if world_mode:
-        for data in config.get("grapple_anchors", []):
-            jobs.append({"method": "_world_grapple_anchor", "args": [data]})
-    for data in config.get("cave_lifts", []):
-        jobs.append({"method": "_region_lift", "args": [data]})
-    for data in config.get("environment_blocks", []):
-        if data is Dictionary:
-            jobs.append({"method": "_environment_block", "args": [data]})
-    for data in config.get("platforms", []):
-        if not data.has("terrain_id"):
-            jobs.append({"method": "_region_platform", "args": [data]})
-    locked_gate_bodies.clear()
-    for data in config.get("locked_gates", []):
-        jobs.append({"method": "_region_gate", "args": [data]})
-    collectible_total = 0
-    for data in config.get("collectibles", []):
-        if not _combat_progression_enabled() or (data is Dictionary and (String(data.get("kind", "")) == "item" or (world_mode and String(data.get("kind", "")) == "currency"))):
-            jobs.append({"method": "_collectible", "args": [data]})
-            collectible_total += 1
-    for data in config.get("interactives", []):
-        var method: String = {"lever": "_lever", "boss_gate": "_boss_door", "world_portal": "_world_portal", "chapter_exit": "_chapter_exit", "ending_exit": "_chapter_exit", "challenge_shrine": "_challenge_shrine_from_interactive"}.get(String(data.get("kind", "")), "")
-        if not String(method).is_empty():
-            jobs.append({"method": method, "args": [data]})
-    for data in config.get("optional_challenges", []):
-        if data is Dictionary:
-            jobs.append({"method": "_challenge_shrine", "args": [data]})
-            for track in data.get("tracks", []):
-                if track is Dictionary:
-                    jobs.append({"method": "_hunt_track", "args": [data, track]})
-    for data in config.get("save_points", []):
-        jobs.append({"method": "_save_point", "args": [data]})
-    for data in config.get("npcs", []):
-        jobs.append({"method": "_npc", "args": [data]})
-    for data in config.get("enemy_spawns", []):
-        if data is Dictionary:
-            jobs.append({"method": "_enemy", "args": [data]})
-    if world_mode:
-        jobs.append({"method": "_spawn_seal_practice_targets", "args": []})
-        jobs.append({"method": "_spawn_tool_practice_targets", "args": []})
-
-        jobs.append({"method": "_spawn_hidden_route_clues", "args": []})
-        jobs.append({"method": "_spawn_ending_aftermath", "args": []})
-        for entry in SCENE_HISTORY.region_entries(String(config.get("id",""))):
-            jobs.append({"method":"_spawn_history_prop","args":[entry]})
-    jobs.append({"method": "_finish_region_geometry", "args": []})
-    return jobs
+    return LEVEL_REGION_BUILD.region_build_jobs(self)
 
 
 func _region_lift(data: Dictionary) -> void:
-    var lift := CAVE_LIFT_SCRIPT.new()
-    add_child(lift)
-    lift.configure(data, self)
-    cave_lifts.append(lift)
+    LEVEL_REGION_BUILD.region_lift(self, data)
 
 
 func _region_platform(data: Dictionary) -> void:
-    if world_platforms != null and not _is_post_boss_blocker(String(data.get("id", ""))):
-        var focus := entry_spawn_override if entry_spawn_override_enabled else active_spawn
-        world_platforms.register(self, data, focus)
-    else:
-        _make_region_platform(data)
+    LEVEL_REGION_BUILD.region_platform(self, data)
 
 
 func _make_region_platform(data: Dictionary) -> StaticBody2D:
-    var warmed: StaticBody2D = world_prefetch.take_platform(String(config.id), data) if world_mode and world_prefetch != null else null
-    return _platform(String(data.get("id", "platform")), _rect2(data.get("rect", [])),
-        _color(data.get("color", "333333")), String(data.get("material", "moss_stone")), String(data.get("collision_role", "")), warmed)
+    return LEVEL_REGION_BUILD.make_region_platform(self, data)
 
 
 func _region_gate(data: Dictionary) -> void:
-    var gate := _platform(String(data.get("id", "locked_gate")), _rect2(data.get("rect", [])),
-        _color(data.get("color", "875f29")), String(data.get("material", "bronze_bridge")))
-    gate.set_meta("required_ability", String(data.get("required_ability", "")))
-    gate.set_meta("required_ability_name", String(data.get("required_ability_name", "")))
-    gate.set_meta("requires_action", String(data.get("requires_action", "")))
-    if String(data.get("requires_action", "")) == "lantern_phase":
-        gate.add_to_group("phase_gate")
-    if String(data.get("requires_action", "")) == "thorn_downstrike":
-        gate.add_to_group("fragile_terrain")
-        gate.set_meta("gate_size", _rect2(data.get("rect", [])).size)
-    var ability := String(data.get("required_ability", ""))
-    if not ability.is_empty():
-        var sign := Node2D.new()
-        sign.set_script(ABILITY_GATE_SIGN)
-        sign.name = "AbilityGateSign"
-        sign.ability = ability
-        sign.ability_name = String(data.get("required_ability_name", ""))
-        sign.host = self
-        # Eye height above the gate's floor end (tall walls) or centred (short ledges).
-        var size := _rect2(data.get("rect", [])).size
-        sign.position = Vector2(0, maxf(0.0, size.y * 0.5 - 92.0))
-        sign.z_index = 3
-        gate.add_child(sign)
-    locked_gate_bodies[String(data.get("id", "locked_gate"))] = gate
+    LEVEL_REGION_BUILD.region_gate(self, data)
 
 
 func _finish_region_geometry() -> void:
-    hazard_total = 0
-    save_point_total = config.get("save_points", []).size()
-    hidden_save_point_total = 0
-    for point in config.get("save_points", []):
-        if point is Dictionary and bool(point.get("hidden", false)):
-            hidden_save_point_total += 1
-    enemy_total = config.get("enemy_spawns", []).size()
-    if _combat_progression_enabled() and _combat_goal_met():
-        _open_all_shortcuts(false)
+    LEVEL_REGION_BUILD.finish_region_geometry(self)
 
 
 func _spawn_seal_practice_targets() -> void:
-    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("seal_practice_plan", []):
-        if String(entry.get("region_id", "")) != String(config.get("id", "")):
-            continue
-        var target := Area2D.new()
-        target.set_script(load("res://scripts/seal_training_target.gd"))
-        target.name = String(entry.training_id)
-        target.set_meta("practice_skill_id",String(entry.get("skill_id","")))
-        target.position = _vec2(entry.position)
-        for platform in config.get("platforms", []):
-            if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
-                target.position.y = float(platform.rect[1]) - 23.0
-                if world_platforms != null:
-                    _hold_actor_support(String(platform.id))
-        target.configure({"id": String(entry.training_id), "kind": "seal_training", "hp": 30,
-            "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
-            "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": [], "locomotion": "stationary"})
-        add_child(target)
-        var label := Label.new()
-        label.name="PracticeCaption"
-        # Short title over its own rack; the tool puppet's caption sits lower,
-        # so neighbouring racks never stack their captions.
-        label.position = Vector2(-80, -175)
-        label.size = Vector2(160, 44)
-        label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-        label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
-        label.add_theme_font_size_override("font_size", 13)
-        # T03: join the tree before the text is set; a detached label shapes
-        # its wrapped caption first with the default font, then again.
-        target.add_child(label)
-        label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
-        label.set_meta("base_text",label.text)
+    LEVEL_REGION_BUILD.spawn_seal_practice_targets(self)
 
 ## E02: each primary tool has a practice puppet beside the skill racks. The
 ## puppet runs real AI from its plan profile so the tool visibly acts on it.
 func _spawn_tool_practice_targets() -> void:
-    # cached_data() deep-copies the whole route manifest, so read it once per
-    # region and keep only this region's rooms for the per-cast / per-room checks.
-    var routes: Dictionary = WORLD_ROUTES_SCRIPT.cached_data()
-    tool_practice_rooms.clear()
-    tool_encounter_hints.clear()
-    for entry in routes.get("tool_encounter_plan", []):
-        if String(entry.get("region_id", "")) == String(config.get("id", "")):
-            tool_encounter_hints[String(entry.get("room_id", ""))] = entry
-    for entry in routes.get("tool_practice_plan", []):
-        if String(entry.get("region_id", "")) != String(config.get("id", "")):
-            continue
-        tool_practice_rooms[String(entry.get("room_id", ""))] = true
-        var target := Area2D.new()
-        target.set_script(load("res://scripts/tool_training_target.gd"))
-        target.name = String(entry.training_id)
-        target.position = _vec2(entry.position)
-        var floor_id := ""
-        for platform in config.get("platforms", []):
-            if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
-                floor_id = String(platform.id)
-                target.position.y = float(platform.rect[1]) - 23.0
-                if world_platforms != null:
-                    _hold_actor_support(floor_id)
-        var data := {"id": String(entry.training_id), "kind": "tool_training", "hp": 30,
-            "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
-            "damage": 0, "patrol": 40, "combat_resistance": {"trip_immune": false, "lure_immune": false, "snare_mult": 1.0}}
-        target.configure(data, "res://assets/ui/seals/ward.svg", false, Dictionary(entry.get("puppet", {})).duplicate(true))
-        target.set_meta("tool_practice_id", String(entry.get("tool_id", "")))
-        target.set_meta("tool_practice_room", String(entry.room_id))
-        var bounds := _enemy_platform_movement_bounds(floor_id, target.position, data)
-        if bounds.size() >= 2:
-            target.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
-        add_child(target)
-        var label := Label.new()
-        label.position = Vector2(-80, -118)
-        label.size = Vector2(160, 22)
-        label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-        label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
-        label.add_theme_font_size_override("font_size", 13)
-        # T03: join the tree before the text is set (see seal practice labels).
-        target.add_child(label)
-        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
+    LEVEL_REGION_BUILD.spawn_tool_practice_targets(self)
 
 
 func _in_tool_practice_room() -> bool:
-    return tool_practice_rooms.has(current_room_id)
+    return LEVEL_REGION_BUILD.in_tool_practice_room(self)
 
 
 ## E02: the first time an equipped tool's suited encounter room is entered, say
 ## why the tool fits there. Shown once per room, kept in the save.
 func _show_tool_encounter_hint() -> void:
-    if build_system == null:
-        return
-    if tool_encounter_hints.has(current_room_id):
-        var entry: Dictionary = tool_encounter_hints[current_room_id]
-        var tool_id := String(entry.get("tool_id", ""))
-        var flag := "tool_hint_%s_%s" % [String(config.get("id", "")), current_room_id]
-        if bool(story_flags.get(flag, false)) or not build_system.state.unlocked_tools.has(tool_id) or not build_system.state.tools.has(tool_id):
-            return
-        story_flags[flag] = true
-        _toast("战具提示 · %s：%s" % [String(build_system.catalog.tools[tool_id].get("name", tool_id)), String(entry.get("note", ""))])
+    LEVEL_REGION_BUILD.show_tool_encounter_hint(self)
 
 ## W04: each planned hidden room leaks light into its entrance room. Coming
 ## near the crack says what the player notices, once; finding the room dims it.
 func _spawn_history_prop(entry: Dictionary) -> void:
-    var prop := HISTORY_PROP.new()
-    prop.entry=entry.duplicate(true)
-    prop.name="History_"+String(entry.id)
-    prop.position=_vec2(entry.position)
-    prop.seen=SCENE_HISTORY.discovered(story_flags,String(entry.id))
-    prop.set_meta("kind","history")
-    prop.set_meta("label",String(entry.title))
-    prop.set_meta("identity","环境痕迹 · 观察不会代替原始证词")
-    prop.set_meta("interaction_label","查看 · "+String(entry.title))
-    prop.set_meta("history_data",entry.duplicate(true))
-    prop.body_entered.connect(_on_interactable_entered.bind(prop))
-    prop.body_exited.connect(_on_interactable_exited.bind(prop))
-    add_child(prop)
-    _add_wayfinding(prop)
+    LEVEL_REGION_BUILD.spawn_history_prop(self, entry)
 
 func _read_history_prop(area: Area2D) -> void:
-    if active_overlay=="dialogue" and ui_shell.dialogue_area==area:
-        if bool(area.get_meta("world_line_committed",false)):_close_overlays()
-        return
-    area.set_meta("world_line_committed",false)
-    area.set_meta("dialogue_state","history")
-    area.set_meta("world_displayed_index",0)
-    area.set_meta("world_displayed_total",1)
-    _show_dialogue(area,String(area.get_meta("history_data",{}).get("text","")))
+    LEVEL_REGION_BUILD.read_history_prop(self, area)
 
 func _commit_history_prop(area: Area2D) -> void:
-    if not area.is_inside_tree() or area.is_queued_for_deletion() or not area.is_visible_in_tree() or not area.accessible_from(player) or player.global_position.distance_to(area.global_position)>INTERACTION_REACH:
-        return
-    var entry: Dictionary=area.get_meta("history_data",{})
-    if SCENE_HISTORY.discovered(story_flags,String(entry.id)):
-        area.set_meta("world_line_committed",true)
-        ui_shell.forget_dialogue_reading()
-        return
-    var flags_before := story_flags.duplicate(true)
-    var world_before := world_state.data.duplicate(true)
-    story_flags[SCENE_HISTORY.FLAG_PREFIX+String(entry.id)]=true
-    if not _save_world():
-        story_flags=flags_before
-        world_state.data=world_before
-        _toast("观察尚未记下；归途记录写入失败，请重试。")
-        return
-    area.set_meta("world_line_committed",true)
-    area.mark_seen()
-    ui_shell.forget_dialogue_reading()
+    LEVEL_REGION_BUILD.commit_history_prop(self, area)
 
 func _spawn_hidden_route_clues() -> void:
-    hidden_route_clues.clear()
-    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
-        if String(entry.get("region_id", "")) != String(config.get("id", "")):
-            continue
-        var clue := Node2D.new()
-        clue.set_script(HIDDEN_ROUTE_CLUE_SCRIPT)
-        clue.name = "HiddenClue_" + String(entry.id)
-        clue.clue_id = String(entry.id)
-        clue.found = bool(story_flags.get("hidden_found_" + String(entry.id), false))
-        clue.position = _vec2(entry.clue.position)
-        clue.set_meta("hidden_route", entry)
-        add_child(clue)
-        hidden_route_clues.append(clue)
-    _sync_hidden_route_clues_with_visits()
+    LEVEL_REGION_BUILD.spawn_hidden_route_clues(self)
 
 
 ## N05: once an ending is chosen, each region's main shrine shows what it changed.
@@ -2929,69 +1667,31 @@ func _notice_ending_aftermath() -> void:
 ## Saves from before these clues already record visits to the hidden rooms;
 ## a room the player has been in counts as found.
 func _sync_hidden_route_clues_with_visits() -> void:
-    for clue in hidden_route_clues:
-        if not is_instance_valid(clue) or clue.found:
-            continue
-        var entry: Dictionary = clue.get_meta("hidden_route")
-        if bool(visited_rooms.get(String(entry.get("hidden_room_id", "")), false)):
-            clue.found = true
-            story_flags["hidden_found_" + String(entry.id)] = true
+    LEVEL_REGION_BUILD.sync_hidden_route_clues_with_visits(self)
 
 
 func _notice_hidden_route_clues() -> void:
-    preload("res://scripts/hidden_clue_notes.gd").notice(self)
+    LEVEL_REGION_BUILD.notice_hidden_route_clues(self)
 
 
 ## Rooms the hidden route plan reaches through an environmental clue.
 func _is_hidden_room(room_id: String) -> bool:
-    if not world_mode or room_id.is_empty():
-        return false
-    for entry in WORLD_ROUTES_SCRIPT._data().get("hidden_route_plan", []):
-        if entry is Dictionary and String(entry.get("region_id", "")) == String(config.get("id", "")) and String(entry.get("hidden_room_id", "")) == room_id:
-            return true
-    return false
+    return LEVEL_REGION_BUILD.is_hidden_room(self, room_id)
 
 
 func _mark_hidden_route_found() -> void:
-    for clue in hidden_route_clues:
-        if not is_instance_valid(clue) or clue.found:
-            continue
-        var entry: Dictionary = clue.get_meta("hidden_route")
-        if String(entry.get("hidden_room_id", "")) != current_room_id:
-            continue
-        clue.found = true
-        story_flags["hidden_found_" + String(entry.id)] = true
+    LEVEL_REGION_BUILD.mark_hidden_route_found(self)
 
 const SKILL_PRACTICE_HITS := 3
 const SKILL_PRACTICE_WINDOW_MSEC := 1500
 
 func get_skill_practice_progress(skill_id: String) -> Dictionary:
-    var known: bool=build_system!=null and skill_id in build_system.state.unlocked_skills
-    var completed: bool=known and story_flags.get("skill_practiced_"+skill_id,false)==true
-    var count:=clampi(int(skill_practice_hits.get(skill_id,0)),0,SKILL_PRACTICE_HITS) if known else 0
-    return {"known":known,"completed":completed,"count":SKILL_PRACTICE_HITS if completed else count,"required":SKILL_PRACTICE_HITS,"pending_save":not completed and count>=SKILL_PRACTICE_HITS}
+    return LEVEL_REGION_BUILD.get_skill_practice_progress(self, skill_id)
 
 ## Only a canonical rack's actual skill/guard contact can train. The cast
 ## sequence is captured by emitted effects; melee cannot borrow a recent cast.
 func _on_skill_practice_hit(skill_id: String, target: Area2D=null, serial: int=0, contact_kind: String="skill") -> void:
-    if not world_mode or world_loading or player==null or build_system==null or player.hp<=0 or player.ui_input_locked:return
-    if not is_instance_valid(target) or target.get_parent()!=self or not target.is_inside_tree() or not target.get_meta("seal_training_target",false):return
-    if String(target.get_meta("practice_skill_id",""))!=skill_id or skill_id not in build_system.state.unlocked_skills:return
-    if (skill_id=="ward" and contact_kind!="guard") or (skill_id!="ward" and contact_kind!="skill"):return
-    if String(player.last_skill_cast)!=skill_id or serial<=0 or serial!=player.last_skill_cast_serial:return
-    var age:=Time.get_ticks_msec()-int(player.last_skill_cast_msec)
-    if age<0 or age>SKILL_PRACTICE_WINDOW_MSEC or target.global_position.distance_to(player.global_position)>900:return
-    if serial<=int(skill_practice_serials.get(skill_id,0)):return
-    var flag:="skill_practiced_"+skill_id
-    if bool(story_flags.get(flag,false)):return
-    skill_practice_serials[skill_id]=serial
-    skill_practice_hits[skill_id]=mini(SKILL_PRACTICE_HITS,int(skill_practice_hits.get(skill_id,0))+1)
-    if int(skill_practice_hits[skill_id])<SKILL_PRACTICE_HITS:return
-    var flags:=story_flags.duplicate(true);flags[flag]=true
-    var result:=_persist_world_change({"story_flags":flags})
-    if not result.ok:_toast("练习已达标，记录尚未写入；下次有效施放会重试。");return
-    world_state.data=result.candidate;story_flags=flags
-    _toast("已练熟「%s」· 找工匠选方向" % String(build_system.catalog.skills[skill_id].get("name",skill_id)))
+    LEVEL_REGION_BUILD.on_skill_practice_hit(self, skill_id, target, serial, contact_kind)
 
 
 func _environment_block(data: Dictionary) -> void:
@@ -3000,105 +1700,34 @@ func _environment_block(data: Dictionary) -> void:
 
 
 func _spawn_player() -> void:
-    if not is_instance_valid(player):
-        player = PLAYER_SCENE.instantiate()
-        add_child(player)
-    player.global_position = active_spawn
-    player.set_spawn(active_spawn)
-    if not player.hp_changed.is_connected(_on_hp_changed):
-        player.hp_changed.connect(_on_hp_changed)
-        player.energy_changed.connect(_on_energy_changed)
-        player.player_respawned.connect(_on_player_respawned)
-        player.ability_action.connect(_on_ability_action)
-    if player.has_signal("gate_struck") and not player.gate_struck.is_connected(_on_gate_struck):
-        player.gate_struck.connect(_on_gate_struck)
-    if world_mode:
-        player.build_system = build_system
-        _sync_player_build()
-    # 材质化脚步（音频规格 §4.2）：按章节 art theme 指定脚步材质组。
-    player.set("footstep_material", String(FOOTSTEP_MATERIAL_BY_THEME.get(_art_theme_id(), "moss")))
-    _configure_player_camera()
-    _refresh_ability_gates()
+    LEVEL_REGION_BUILD.spawn_player(self)
 
 
 func _build_hud() -> void:
-    for job in _hud_build_jobs():
-        callv(job.method, job.args)
-    _check_wish_board_rewards()
-    _refresh_hud()
+    LEVEL_HUD_BUILD.build_hud(self)
 
 
 func _hud_build_jobs() -> Array:
-    var jobs: Array = [{"method": "_begin_hud", "args": []}]
-    for method in PILGRIMAGE_UI_SCRIPT.build_steps():
-        jobs.append({"method": "_build_interface_step", "args": [method]})
-    jobs.append_array([
-        {"method": "_build_hud_labels", "args": []},
-        {"method": "_build_backpack_overlay", "args": []},
-        {"method": "_build_interface_step", "args": ["begin_inventory_refresh"]}])
-    var item_ids: Array[String] = ["currency"]
-    for section in BACKPACK_SECTIONS:
-        item_ids.append_array(_inventory_ids_for_category(String(section[1])))
-    for item_id in item_ids:
-        jobs.append({"method": "_build_interface_step", "args": ["append_inventory_item", [item_id]]})
-    jobs.append_array([
-        {"method": "_build_interface_step", "args": ["finish_inventory_refresh"]},
-        {"method": "_build_map_overlay", "args": []},
-        {"method": "_refresh_map_overlay", "args": []},
-        {"method": "_build_dialogue_overlay", "args": []},
-        {"method": "_build_settings_overlay", "args": []},
-        {"method": "_finish_hud", "args": []}])
-    return jobs
+    return LEVEL_HUD_BUILD.hud_build_jobs(self)
 
 
 func _begin_hud() -> void:
-    ui_canvas=CanvasLayer.new()
-    add_child(ui_canvas)
-    ui_shell=PILGRIMAGE_UI_SCRIPT.new()
-    ui_canvas.add_child(ui_shell)
-    ui_shell.begin_bind(self)
+    LEVEL_HUD_BUILD.begin_hud(self)
 
 
 func _build_interface_step(method: String, args: Array = []) -> void:
-    ui_shell.callv(method, args)
+    LEVEL_HUD_BUILD.build_interface_step(self, method, args)
 
 
 func _build_hud_labels() -> void:
-    hud_label=Label.new()
-    hud_label.visible=false
-    ui_shell.add_child(hud_label)
-    toast_label=ui_shell.toast
-    lore_banner_label=Label.new()
-    lore_banner_label.position=Vector2(325,603)
-    lore_banner_label.size=Vector2(620,54)
-    lore_banner_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    lore_banner_label.add_theme_font_size_override("font_size",17)
-    lore_banner_label.add_theme_color_override("font_color",PILGRIMAGE_UI_SCRIPT.IVORY)
-    lore_banner_label.visible=false
-    ui_shell.add_child(lore_banner_label)
-    win_label=Label.new()
-    win_label.position=Vector2(350,132)
-    win_label.size=Vector2(600,60)
-    win_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    win_label.add_theme_font_size_override("font_size",30)
-    win_label.visible=false
-    ui_shell.add_child(win_label)
+    LEVEL_HUD_BUILD.build_hud_labels(self)
 
 
 func _finish_hud() -> void:
-    ui_shell.frame(map_panel)
-    ui_shell.finish_bind()
-    if world_mode:
-        var workbench := get_node_or_null("/root/JourneyWorkbench")
-        if workbench != null:
-            workbench.bind_region_ui(self)
+    LEVEL_HUD_BUILD.finish_hud(self)
 
 func _build_dialogue_overlay() -> void:
-    dialogue_panel=ui_shell.dialogue
-    dialogue_name_label=ui_shell.dialogue_name
-    dialogue_meta_label=ui_shell.dialogue_identity
-    dialogue_text_label=ui_shell.dialogue_body
-    dialogue_hint_label=ui_shell.dialogue_hint
+    LEVEL_HUD_BUILD.build_dialogue_overlay(self)
 
 func _background() -> void:
     LEVEL_SCENERY.background(self)
@@ -3143,60 +1772,11 @@ func _background_shade() -> void:
 
 
 func _configure_player_camera() -> void:
-    var camera := player.get_node_or_null("Camera2D") as Camera2D
-    if camera == null:
-        return
-    player.configure_camera_focus(Rect2(-40, -120, world_width + 120.0, world_height + 190.0))
-    player.configure_room_camera(config.get("map_rooms", []))
-    if is_instance_valid(boss_arena_lock_body):
-        _lock_boss_camera()
-    var feel := get_node_or_null("/root/FeelKit")
-    if feel != null:
-        feel.register_camera(camera)
+    LEVEL_PLAYER_FRAME.configure_player_camera(self)
 
 
 func _void_respawn() -> void:
-    if player == null or not is_instance_valid(player):
-        return
-    if world_mode:
-        if player.death_timer > 0.0:
-            player.global_position = active_spawn
-            if world_gameplay_residency != null: world_gameplay_residency.warm_arrival(self, active_spawn)
-            chapter_terrain.warm_focus(active_spawn)
-            if is_instance_valid(cave_world):
-                cave_world.warm_collision_focus(active_spawn)
-            if world_platforms != null:
-                world_platforms.warm(self, active_spawn)
-            player.reset_camera_after_arrival()
-            return
-        # Falling is a resource cost, never a full-heal shortcut.
-        player._interrupt_heal()
-        player.guard_timer = 0.0
-        player.hurt_timer = 0.0
-        player.take_damage(1, player.global_position + Vector2(50, 0), false)
-        player._reset_traversal_state()
-        player.global_position = active_spawn
-        player.velocity = Vector2.ZERO
-        if world_gameplay_residency != null: world_gameplay_residency.warm_arrival(self, active_spawn)
-        chapter_terrain.warm_focus(active_spawn)
-        if is_instance_valid(cave_world):
-            cave_world.warm_collision_focus(active_spawn)
-        if world_platforms != null:
-            world_platforms.warm(self, active_spawn)
-        player.reset_camera_after_arrival()
-        _save_world()
-        _toast("坠落 · 生命 -1")
-        _refresh_hud()
-        return
-    if player.has_method("restore_at_save_point"):
-        player.restore_at_save_point()
-    if player.has_method("respawn_at"):
-        player.respawn_at(active_spawn)
-    else:
-        player.global_position = active_spawn
-    _toast("回到钟龛")
-    _update_room_visit()
-    _refresh_hud()
+    LEVEL_PLAYER_FRAME.void_respawn(self)
 
 
 func _theme_background_color() -> Color:
@@ -3309,18 +1889,7 @@ func _enemy_spawn_platform_allowed(platform_id: String, rect: Rect2) -> bool:
 
 
 func _platform_under_position(position_value: Vector2, clearance: float = 40.0) -> String:
-    var expected_top := position_value.y + clearance
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var platform_id := String(platform_data.get("id", ""))
-        var rect := _rect2(platform_data.get("rect", []))
-        if not _enemy_spawn_platform_allowed(platform_id, rect):
-            continue
-        if position_value.x >= rect.position.x - 1.0 and position_value.x <= rect.position.x + rect.size.x + 1.0 and absf(rect.position.y - expected_top) <= 8.0:
-            return platform_id
-    return ""
+    return LEVEL_RESIDENTS.platform_under_position(self, position_value, clearance)
 
 
 func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector2, data: Dictionary) -> Array:
@@ -3330,249 +1899,52 @@ func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector
 ## The subset of _enemy_spawn_rect_clear's blockers that can intersect any
 ## actor rect inside `sweep` standing at `floor_y` (same filters).
 func _enemy_walk_obstacles(sweep: Rect2, floor_y: float, floor_platform_id: String) -> Dictionary:
-    var rects: Array[Rect2] = []
-    if cave_world != null:
-        for solid in cave_world.solid_rects:
-            if solid.intersects(sweep): rects.append(solid)
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        if not String(platform_data.get("terrain_id", "")).is_empty():
-            continue
-        if String(platform_data.get("id", "")) == floor_platform_id:
-            continue
-        var rect := _rect2(platform_data.get("rect", []))
-        if rect.size.x <= 0.0 or rect.size.y <= 0.0 or rect.position.y >= floor_y + 10.0:
-            continue
-        if rect.intersects(sweep): rects.append(rect)
-    return {"rects": rects, "terrain": chapter_terrain != null and chapter_terrain.intersects_rect(sweep)}
+    return LEVEL_RESIDENTS.enemy_walk_obstacles(self, sweep, floor_y, floor_platform_id)
 
 
 func _enemy_walk_clear(position_value: Vector2, half_width: float, visual_height: float, obstacles: Dictionary) -> bool:
-    var actor_rect := Rect2(position_value + Vector2(-half_width, -visual_height), Vector2(half_width * 2.0, visual_height + 8.0))
-    if obstacles.terrain and chapter_terrain.intersects_rect(actor_rect):
-        return false
-    for rect in obstacles.rects:
-        if actor_rect.intersects(rect):
-            return false
-    return true
+    return LEVEL_RESIDENTS.enemy_walk_clear(self, position_value, half_width, visual_height, obstacles)
 
 func _spawn_normal_enemies() -> void:
-    for spawn in config.get("enemy_spawns", []):
-        if spawn is Dictionary:
-            _enemy(spawn)
+    LEVEL_RESIDENTS.spawn_normal_enemies(self)
 
 
 func _take_gameplay_prefab(kind: String, data: Dictionary, profile: Dictionary = {}) -> Area2D:
-    if not world_mode or world_prefetch == null or not world_prefetch.synchronize_route_cache():
-        return null
-    return world_prefetch.gameplay.take(String(config.id), kind, data, profile)
+    return LEVEL_RESIDENTS.take_gameplay_prefab(self, kind, data, profile)
 
 func _make_enemy_prefab(data: Dictionary, profile: Dictionary) -> Area2D:
-    var enemy := Area2D.new()
-    enemy.set_script(ENEMY_ACTOR_SCRIPT)
-    var kind := String(data.get("kind", "moss_larva"))
-    enemy.configure(data, SPRITES.get(kind, SPRITES["moss_larva"]), false, profile)
-    enemy.prepare_presentation()
-    return enemy
+    return LEVEL_RESIDENTS.make_enemy_prefab(self, data, profile)
 
 func _create_gameplay_prefab(kind: String, data: Dictionary, prepared: Dictionary) -> Area2D:
-    match kind:
-        "enemy": return _make_enemy_prefab(data, prepared.get("ai_profiles", {}).get(String(data.get("kind", "moss_larva")), {}))
-        "npc": return _make_npc(data)
-        "save_point": return _make_save_point(data)
-        "lever": return _make_lever(data)
-        "boss_gate": return _make_boss_door(data)
-        "world_portal": return _make_world_portal(data)
-    return null
+    return LEVEL_RESIDENTS.create_gameplay_prefab(self, kind, data, prepared)
 
 
 func _build_resident_interaction(kind: String, data: Dictionary) -> Area2D:
-    match kind:
-        "npc": _npc(data)
-        "save_point": _save_point(data)
-        "lever": _lever(data)
-    return get_node_or_null(NodePath(String(data.get("id", "")))) as Area2D
+    return LEVEL_RESIDENTS.build_resident_interaction(self, kind, data)
 
 
 func _release_resident_interaction(kind: String, id: String, area: Area2D) -> bool:
-    if not is_instance_valid(area):
-        return true
-    if kind == "npc":
-        var memory_key := String(config.get("id", "")) + ":" + id
-        npc_residency_memory[memory_key] = {
-            "dialogue_index": int(area.get_meta("dialogue_index", 0)),
-            "dialogue_state_indices": area.get_meta("dialogue_state_indices", {}).duplicate(true)
-        }
-    elif kind == "save_point":
-        var memory_key := String(config.get("id", "")) + ":" + id
-        save_point_residency_memory[memory_key] = bool(area.get_meta("activated", false))
-    if nearby_interactable == area:
-        nearby_interactable = null
-    if ui_shell != null and ui_shell.dialogue_area == area:
-        return false
-    var owned_tweens: Variant = area.get_meta("residency_tweens", [])
-    if owned_tweens is Array:
-        for tween in owned_tweens:
-            if tween is Tween:
-                if tween.is_valid(): tween.kill()
-                region_tweens.erase(tween)
-        area.remove_meta("residency_tweens")
-    if area.get_parent() == self:
-        remove_child(area)
-    area.free()
-    return true
+    return LEVEL_RESIDENTS.release_resident_interaction(self, kind, id, area)
 
 
 func _world_npc_residency_position(npc_id: String, fallback: Vector2) -> Vector2:
-    if not world_mode or world_narrative == null:
-        return fallback
-    var state: Dictionary = world_narrative.npc_world_state(npc_id, story_flags)
-    var region_id := "demo_" + String(state.get("region", ""))
-    if region_id == String(config.get("id", "")) and state.has("position"):
-        return _vec2(state.position)
-    return fallback
+    return LEVEL_RESIDENTS.world_npc_residency_position(self, npc_id, fallback)
 
 
 func _enemy(data: Dictionary) -> Area2D:
-    var clearance := float(data.get("clearance", 40.0))
-    var kind := String(data.get("kind", "moss_larva"))
-    var profiles: Dictionary = config.get("ai_profiles", {})
-    var profile: Dictionary = profiles.get(kind, {})
-    if profile.is_empty():
-        push_warning("Missing normal enemy AI profile: " + kind)
-    var enemy := _take_gameplay_prefab("enemy", data, profile)
-    if enemy == null: enemy = _make_enemy_prefab(data, profile)
-    # Collision clearance and support depend on the active destination, never
-    # on the region in which the detached actor was prepared.
-    enemy.position = _resolve_enemy_spawn_position(data)
-    enemy.set("death_sfx_key", _enemy_death_sfx_key())
-    var floor_platform_id := _platform_under_position(enemy.position, clearance)
-    if world_platforms != null:
-        _hold_actor_support(floor_platform_id)
-    var bounds := _enemy_platform_movement_bounds(floor_platform_id, enemy.position, data)
-    if bounds.size() >= 2 and enemy.has_method("set_platform_movement_bounds"):
-        enemy.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
-    enemy.died.connect(_on_enemy_died)
-    enemy.set_meta("platform_id", floor_platform_id)
-    enemy.set_meta("spawn_half_width", float(data.get("spawn_half_width", 36.0)))
-    enemy.set_meta("spawn_visual_height", float(data.get("spawn_visual_height", _enemy_spawn_visual_height(data))))
-    if String(enemy.locomotion)=="flight":
-        while enemy.hover_height>35 and not _enemy_spawn_rect_clear(enemy.position-Vector2(0,enemy.hover_height),24,_enemy_spawn_visual_height(data),floor_platform_id):
-            enemy.hover_height-=10
-        if not _enemy_spawn_rect_clear(enemy.position-Vector2(0,enemy.hover_height),24,_enemy_spawn_visual_height(data),floor_platform_id):
-            for offset in [-48.0,48.0,-96.0,96.0]:
-                var candidate := enemy.position+Vector2(offset,-enemy.hover_height)
-                if _enemy_spawn_rect_clear(candidate,24,_enemy_spawn_visual_height(data),floor_platform_id):
-                    enemy.position.x=candidate.x
-                    break
-    add_child(enemy)
-    if world_mode and world_gameplay_residency != null:
-        world_gameplay_residency.adopt_enemy(enemy)
-    return enemy
+    return LEVEL_RESIDENTS.enemy(self, data)
 
 
 func _spawn_boss() -> void:
-    if boss_spawned or demo_complete:
-        return
-    var boss_data: Dictionary = config.get("boss", {})
-    boss_actor = Area2D.new()
-    var clearance := float(boss_data.get("clearance", 40.0))
-    boss_actor.position = _resolve_enemy_spawn_position(boss_data)
-    boss_actor.set_script(ENEMY_ACTOR_SCRIPT)
-    var kind := String(boss_data.get("kind", "rust_crown_guardian"))
-    var profiles: Dictionary = config.get("ai_profiles", {})
-    var profile: Dictionary = profiles.get(kind, {})
-    if profile.is_empty():
-        push_warning("Missing boss AI profile: " + kind)
-    boss_actor.configure(boss_data, SPRITES.get(kind, SPRITES["rust_crown_guardian"]), true, profile)
-    boss_actor.set("death_sfx_key", _enemy_death_sfx_key())
-    var floor_platform_id := _platform_under_position(boss_actor.position, clearance)
-    if world_platforms != null:
-        _hold_actor_support(floor_platform_id)
-    var bounds := _enemy_platform_movement_bounds(floor_platform_id, boss_actor.position, boss_data)
-    if bounds.size() >= 2 and boss_actor.has_method("set_platform_movement_bounds"):
-        boss_actor.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
-    boss_actor.died.connect(_on_enemy_died)
-    boss_actor.set_meta("platform_id", floor_platform_id)
-    boss_actor.set_meta("spawn_half_width", float(boss_data.get("spawn_half_width", 84.0)))
-    boss_actor.set_meta("spawn_visual_height", float(boss_data.get("spawn_visual_height", _enemy_spawn_visual_height(boss_data))))
-    add_child(boss_actor)
-    boss_spawned = true
-    # Boss 曲按章 boss kind 选曲（终 Boss silent_crown_core 三乐章由血量轮询驱动）。
-    if audio_director != null:
-        audio_director.start_boss_music(kind)
-    else:
-        _switch_bgm("bgm_boss")
-    # Boss 战开始 ducking 示范点（规格 §5.3）：入场威压瞬间压低 BGM 再回弹，
-    # 覆盖 _debug_start_boss 与 _activate_boss_gate 两条激活路径。
-    duck_bgm(-6.0, 1.5)
-    _toast("钟门深处 · " + _boss_display_name(boss_data))
-    _refresh_hud()
+    LEVEL_BOSS.spawn_boss(self)
 
 
 func _start_boss_trial() -> void:
-    if world_gameplay_residency != null:
-        world_gameplay_residency.clear_enemy_actors()
-    for enemy_node in get_tree().get_nodes_in_group("enemy"):
-        var enemy_area := enemy_node as Area2D
-        if enemy_area == null or not is_instance_valid(enemy_area):
-            continue
-        if bool(enemy_area.get("is_boss")):
-            continue
-        if enemy_area.has_method("_cancel_attack_effects"):
-            enemy_area._cancel_attack_effects()
-        enemy_area.queue_free()
-    enemy_defeated = enemy_total
-    _open_all_shortcuts(false)
-    var boss_data: Dictionary = config.get("boss", {})
-    var boss_position := _vec2(boss_data.get("position", config.get("boss_checkpoint", active_spawn)))
-    var trial_spawn := _vec2(config.get("boss_checkpoint", boss_position + Vector2(-520.0, 0.0)))
-    if trial_spawn == Vector2.ZERO:
-        trial_spawn = boss_position + Vector2(-520.0, 0.0)
-    active_spawn = trial_spawn
-    active_save_point_id = "boss_trial"
-    if player != null and is_instance_valid(player):
-        player.global_position = trial_spawn
-        if player.has_method("set_spawn"):
-            player.set_spawn(trial_spawn)
-        if player.has_method("restore_at_save_point"):
-            player.restore_at_save_point()
-        if player.has_method("reset_camera_after_arrival"):
-            player.reset_camera_after_arrival()
-    _spawn_boss()
-    if boss_spawned and not demo_complete:
-        if boss_trial_mode or not config.get("interactives", []).is_empty():
-            _set_boss_arena_locked(true)
-    _update_room_visit()
-    _toast("试炼开始 · 苔钟守母已苏醒。")
-    _refresh_hud()
+    LEVEL_BOSS.start_boss_trial(self)
 
 
 func _set_boss_arena_locked(locked: bool) -> void:
-    if locked:
-        _lock_boss_camera()
-        if boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body):
-            return
-        var lock_rect := _boss_arena_lock_rect()
-        var material := _theme_boss_material()
-        boss_arena_lock_body = _platform("boss_arena_lock_wall", lock_rect, _color("2a1715"), material)
-        boss_arena_lock_body.set_meta("temporary_boss_lock", true)
-        if player != null and is_instance_valid(player):
-            var safe_x := lock_rect.position.x + lock_rect.size.x + 54.0
-            if player.global_position.x < safe_x:
-                player.global_position = Vector2(safe_x, player.global_position.y)
-                player.set("velocity", Vector2.ZERO)
-        _toast("钟门已合，战斗开始。")
-        return
-
-    if boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body):
-        _spawn_route_open_effect(boss_arena_lock_body.global_position)
-        boss_arena_lock_body.queue_free()
-    boss_arena_lock_body = null
-    if is_instance_valid(player):
-        player.remove_camera_lock("boss_arena")
+    LEVEL_BOSS.set_boss_arena_locked(self, locked)
 
 
 ## B04: optional challenge shrine / sealed room / optional boss helpers.
@@ -3639,377 +2011,82 @@ func _grant_optional_challenge_reward(challenge: Dictionary) -> void:
 
 
 func _lock_boss_camera() -> void:
-    if not is_instance_valid(player):
-        return
-    var boss_data: Dictionary = config.get("boss", {})
-    var point := _vec2(boss_data.get("position", active_spawn))
-    var left := float(boss_data.get("arena_min_x", point.x - 360.0))
-    var right := float(boss_data.get("arena_max_x", point.x + 360.0))
-    var floor_y := point.y + 40.0
-    # Floor/jump/telegraph framing comes from the real arena, not map rectangles.
-    player.push_camera_lock("boss_arena", Rect2(left - 100.0, floor_y - 520.0, right - left + 200.0, 620.0), 100, true, true)
+    LEVEL_BOSS.lock_boss_camera(self)
 
 
 func _boss_arena_lock_rect() -> Rect2:
-    var boss_data: Dictionary = config.get("boss", {})
-    if boss_data.has("lock_rect"):
-        return _rect2(boss_data.get("lock_rect", []))
-    var gate_position := _boss_gate_position()
-    var floor_top := _floor_top_near_x(gate_position.x)
-    var height := float(boss_data.get("lock_height", 315.0))
-    var width := float(boss_data.get("lock_width", 46.0))
-    var lock_x := float(boss_data.get("lock_x", gate_position.x - 172.0))
-    return Rect2(lock_x, floor_top - height, width, height + 44.0)
+    return LEVEL_BOSS.boss_arena_lock_rect(self)
 
 
 func _boss_gate_position() -> Vector2:
-    for interactive in config.get("interactives", []):
-        if not (interactive is Dictionary):
-            continue
-        var data: Dictionary = interactive
-        if String(data.get("kind", "")) == "boss_gate":
-            return _vec2(data.get("position", config.get("boss_checkpoint", active_spawn)))
-    return _vec2(config.get("boss_checkpoint", active_spawn))
+    return LEVEL_BOSS.boss_gate_position(self)
 
 
 func _floor_top_near_x(world_x: float) -> float:
-    var best_y := 540.0
-    var best_score := INF
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var data: Dictionary = platform
-        var rect := _rect2(data.get("rect", []))
-        if rect.size.x <= 0.0 or rect.size.y <= 0.0:
-            continue
-        if world_x < rect.position.x - 8.0 or world_x > rect.position.x + rect.size.x + 8.0:
-            continue
-        if rect.size.y > 90.0:
-            continue
-        var score := rect.position.y
-        if score < best_score:
-            best_score = score
-            best_y = rect.position.y
-    return best_y
+    return LEVEL_BOSS.floor_top_near_x(self, world_x)
 
 
 func _on_hazard_body_entered(_body: Node, _area: Area2D) -> void:
-    pass
+    LEVEL_PICKUPS.on_hazard_body_entered(self, _body, _area)
 
 func _forget_world_pickup(instance_id: int) -> void:
-    world_pickup_leases.erase(instance_id)
+    LEVEL_PICKUPS.forget_world_pickup(self, instance_id)
 
 func _pickup_retry(area: Area2D, item_id: String, reason: String) -> void:
-    area.set_meta("manual_pickup",true)
-    area.set_meta("interaction_label","重试收取 · "+("碎钱" if item_id=="currency" else _item_display_name(item_id)))
-    if not area.is_in_group("interactable"):area.add_to_group("interactable")
-    _toast(reason)
+    LEVEL_PICKUPS.pickup_retry(self, area, item_id, reason)
 
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
-    if not is_instance_valid(area) or area.is_queued_for_deletion() or world_loading or body!=player:return
-    if not world_mode:_on_collectible_body_entered_legacy(body,area);return
-    if String(area.get_meta("kind",""))=="death_cache":_recover_death_cache(area);return
-    if player==null or player.hp<=0 or chapter_transitioning or not area.is_inside_tree():return
-    var source: Dictionary=world_pickup_leases.get(area.get_instance_id(),{})
-    if source.is_empty() or source.node.get_ref()!=area or source.region!=String(config.get("id","")):return
-    if area.get_parent()!=self or String(area.name)!=String(source.id) or area.position.distance_to(source.point)>1.0:return
-    if area.global_position.distance_to(player.global_position)>INTERACTION_REACH:return
-    if bool(world_collected_ids.get(String(source.id),false)):area.queue_free();return
-    if not WORLD_STATE_SCRIPT._whole(source.amount) or int(source.amount)<=0:
-        _pickup_retry(area,String(source.item),"这份物品记录无效，尚未收取。")
-        return
-    var currency_pickup: bool=String(source.kind)=="currency"
-    var flags:=story_flags.duplicate(true)
-    var whisper_lines: Array[String]=[]
-    if not currency_pickup:
-        for value in config.get("whispers",[]):
-            if not value is Dictionary:continue
-            var id:=String(value.get("id",""))
-            if id.is_empty() or String(value.get("trigger","enter_room"))!="pickup_item" or String(value.get("item_id",""))!=String(source.item) or bool(flags.get("whisper_"+id,false)):continue
-            flags["whisper_"+id]=true;whisper_lines.append(String(value.get("line","")))
-    var items: Dictionary={}
-    if not currency_pickup:items[String(source.item)]=int(source.amount)
-    var plan:=_prepare_inventory_progress(items,flags,currency_count+(int(source.amount) if currency_pickup else 0))
-    if not plan.ok:_pickup_retry(area,String(source.item),"物品记录尚未写入，留在原地可重试收取。");return
-    # Story/whisper completion used to settle the wish board through nested
-    # _set_story_flag saves. Include any earned claim in this same candidate.
-    for wish in _wish_board_entries():
-        var target:=String(wish.get("target_flag",""))
-        var claim:=_wish_claim_flag(wish)
-        if not target.is_empty() and bool(plan.flags.get(target,false)) and not bool(plan.flags.get(claim,false)):
-            plan.flags[claim]=true;plan.currency=int(plan.currency)+maxi(0,int(wish.get("reward_currency",0)))
-    var testimony_completed:=not bool(story_flags.get("true_ending_testimony_complete",false)) and bool(plan.flags.get("true_ending_testimony_complete",false))
-    var collected:=world_collected_ids.duplicate(true);collected[String(source.id)]=true
-    var next_bells:=bell_count+(0 if currency_pickup else 1)
-    var result:=_persist_world_change({"inventory_counts":plan.counts,"story_flags":plan.flags,"currency":plan.currency,"build_state":plan.build},
-        {"collected_ids":collected,"bell_count":next_bells})
-    if not result.ok:_pickup_retry(area,String(source.item),"拾取记录未写入；物件、能力与资源保持原状，按交互键重试。");return
-    _publish_inventory_progress(plan,result.candidate)
-    world_collected_ids=collected;bell_count=next_bells
-    if testimony_completed:_play_sfx("ui_testimony_complete",-4.0)
-    if currency_pickup:_play_sfx_random(["pickup_coins_1","pickup_coins_2"],-10.0)
-    else:
-        if String(source.kind)=="item":
-            unlocked_abilities[String(source.item)]=String(source.ability_name) if not String(source.ability_name).is_empty() else String(source.item)
-            _play_sfx("ui_ability_unlock",-4.0);_refresh_ability_gates(true)
-        for line in whisper_lines:_toast(line)
-        _announce_lore_pickup(String(source.item));_play_sfx("pickup_cloth",-12.0)
-    _play_sfx("pickup")
-    if metsys_bridge!=null:metsys_bridge.store_object(area)
-    _toast(_capacity_fragment_message(String(source.item),String(source.message)));_spawn_pickup_effect(area.global_position)
-    area.queue_free();_refresh_hud();_refresh_wish_board_overlay()
-    if active_overlay=="backpack":_refresh_backpack_overlay()
+    LEVEL_PICKUPS.on_collectible_body_entered(self, body, area)
 
 ## Workshop capacity fragments report their set progress, or the finished
 ## item when a set completes; any other pickup keeps its own label.
 func _capacity_fragment_message(item_id: String, fallback: String) -> String:
-    var upgrade: Variant = build_system.catalog.get("permanent_upgrades", {}).get(item_id) if build_system != null else null
-    if not upgrade is Dictionary or int(upgrade.get("per", 1)) <= 1:
-        return fallback
-    var per := int(upgrade.per)
-    var count := int(inventory_counts.get(item_id, 0))
-    if count > 0 and count % per == 0:
-        var gain := "最大生命 +%d" if String(upgrade.stat) == "max_hp" else "绯线上限 +%d"
-        return "%s编成 · %s" % [_item_display_name(item_id.trim_suffix("_fragment")), gain % int(upgrade.amount)]
-    return "%s %d / %d" % [_item_display_name(item_id), count % per, per]
+    return LEVEL_PICKUPS.capacity_fragment_message(self, item_id, fallback)
 
 
 func _on_collectible_body_entered_legacy(body: Node, area: Area2D) -> void:
-    if world_loading:
-        return
-    if body != player or area.is_queued_for_deletion():
-        return
-    if String(area.get_meta("kind", "")) == "death_cache":
-        _recover_death_cache(area)
-        return
-    var collectible_kind := String(area.get_meta("kind", "bell_key"))
-    var item_id := String(area.get_meta("item_id", collectible_kind))
-    var amount := int(area.get_meta("amount", 1))
-    var ability_name := String(area.get_meta("ability_name", ""))
-    if collectible_kind == "currency":
-        _add_currency(amount)
-        # 松脂碎钱质感层（音频规格 §4.5 ui_pickup_resin，Kenney RPG handleCoins ×2 随机）。
-        _play_sfx_random(["pickup_coins_1", "pickup_coins_2"], -10.0)
-    else:
-        bell_count += 1
-        _add_inventory_item(item_id, amount, false)
-        if collectible_kind == "item":
-            unlocked_abilities[item_id] = ability_name if not ability_name.is_empty() else item_id
-            # 能力解锁 jingle（音频规格 §4.5 ui_ability_unlock）：与 pickup 基础音叠播。
-            _play_sfx("ui_ability_unlock", -4.0)
-            _refresh_ability_gates(true)
-        _trigger_whispers("pickup_item", item_id)
-        _announce_lore_pickup(item_id)
-        # 收进布包质感层（Kenney RPG cloth1，与 pickup.ogg 叠放）。
-        _play_sfx("pickup_cloth", -12.0)
-    _play_sfx("pickup")
-    if metsys_bridge != null:
-        metsys_bridge.store_object(area)
-    _toast(String(area.get_meta("message", "已拾取。")))
-    _spawn_pickup_effect(area.global_position)
-    if world_mode:
-        world_collected_ids[String(area.name)] = true
-        _save_world()
-    area.queue_free()
-    _refresh_hud()
+    LEVEL_PICKUPS.on_collectible_body_entered_legacy(self, body, area)
 
 
 ## play_unlock_sfx 仅在"拾取能力当场开门"时为 true；章节加载/调试同步保持静音，
 ## 避免开场把已解锁门的开门音一次性齐鸣。
 func _refresh_ability_gates(play_unlock_sfx: bool = false) -> void:
-    for gate in config.get("locked_gates", []):
-        if not (gate is Dictionary):
-            continue
-        var gate_data: Dictionary = gate
-        var gate_id := String(gate_data.get("id", ""))
-        var required_ability := String(gate_data.get("required_ability", ""))
-        if gate_id.is_empty() or required_ability.is_empty():
-            continue
-        var action := String(gate_data.get("requires_action", ""))
-        if not action.is_empty():
-            var unlock_id := String(gate_data.get("permanent_action_unlock_id", gate_id))
-            if bool(story_flags.get("action_gate_" + unlock_id, false)):
-                _unlock_ability_gate(gate_id)
-            continue
-        if _owns_permanent_item(required_ability):
-            var unlock_sfx := String(GATE_UNLOCK_SFX.get(required_ability, "gate_dash")) if play_unlock_sfx else ""
-            _unlock_ability_gate(gate_id, unlock_sfx)
-    _sync_player_abilities()
-    _refresh_world_portals()
+    LEVEL_PICKUPS.refresh_ability_gates(self, play_unlock_sfx)
 
 
 func _owns_permanent_item(item_id: String) -> bool:
-    var count: Variant=inventory_counts.get(item_id,0)
-    return WORLD_STATE_SCRIPT._whole(count) and int(count)>0
+    return LEVEL_PICKUPS.owns_permanent_item(self, item_id)
 
 func _sync_player_abilities() -> void:
-    if player == null:
-        return
-    var gated_start := bool(config.get("ability_gated_start", false))
-    player.wall_grip_unlocked = (not gated_start and not world_mode) or _owns_permanent_item("silk_wall_grip")
-    player.dash_unlocked = (not gated_start and not world_mode) or _owns_permanent_item("thread_dash")
-    player.double_jump_unlocked = _owns_permanent_item("double_thread_jump")
-    player.thread_grapple_unlocked = _owns_permanent_item("echo_hook")
-    player.bell_guard_unlocked = _owns_permanent_item("bell_guard")
-    player.thorn_downstrike_unlocked = _owns_permanent_item("thorn_downstrike")
-    player.lantern_phase_unlocked = _owns_permanent_item("lantern_phase")
-    player.crown_resonance_unlocked = _owns_permanent_item("crown_resonance")
-    _sync_player_build()
-    if world_mode:
-        for anchor in get_tree().get_nodes_in_group("grapple_anchor"):
-            if anchor.get_parent() != self:
-                continue
-            var enabled := int(inventory_counts.get(String(anchor.get_meta("required_ability", "echo_hook")), 0)) > 0
-            anchor.set_meta("grapple_enabled", enabled)
-            anchor.modulate = Color.WHITE if enabled else Color(0.50, 0.50, 0.50)
+    LEVEL_PICKUPS.sync_player_abilities(self)
 
 
 func _unlock_ability_gate(gate_id: String, unlock_sfx_key: String = "") -> void:
-    if not locked_gate_bodies.has(gate_id):
-        return
-    var body := locked_gate_bodies[gate_id] as StaticBody2D
-    if body != null and is_instance_valid(body):
-        body.queue_free()
-    locked_gate_bodies.erase(gate_id)
-    # 能力门开启音（音频规格 §4.5 ui_gate_unlock）：按门族播对应家族音。
-    if not unlock_sfx_key.is_empty():
-        _play_sfx(unlock_sfx_key, -7.0)
-        if unlock_sfx_key == "gate_downstrike" and _art_theme_id() == "string_greenhouse":
-            _play_sfx("ch04_beat_string_break", -9.0)
+    LEVEL_PICKUPS.unlock_ability_gate(self, gate_id, unlock_sfx_key)
 
 
 func _on_interactable_entered(body: Node, area: Area2D) -> void:
-    if world_loading:
-        return
-    if body != player:
-        return
-    nearby_interactable = area
-    var exit_kind := String(area.get_meta("kind", ""))
-    if (exit_kind == "chapter_exit" or exit_kind == "ending_exit") and _chapter_exit_can_open(area):
-        _defer_region_call("_activate_chapter_exit", [area])
+    LEVEL_INTERACTION.on_interactable_entered(self, body, area)
 
 
 func _on_interactable_exited(body: Node, area: Area2D) -> void:
-    if world_loading:
-        return
-    if body != player:
-        return
-    if nearby_interactable == area:
-        nearby_interactable = null
-    if String(area.get_meta("kind", "")) in ["npc","history"] and dialogue_panel != null and dialogue_panel.visible:
-        _close_overlays()
+    LEVEL_INTERACTION.on_interactable_exited(self, body, area)
 
 
 func _can_interact_with_world(allow_dialogue: bool = false) -> bool:
-    if player == null or not is_instance_valid(player) or chapter_transitioning or world_loading:
-        return false
-    if player.hp <= 0 or player.death_timer > 0.0:
-        return false
-    return active_overlay.is_empty() or (allow_dialogue and active_overlay == "dialogue")
+    return LEVEL_INTERACTION.can_interact_with_world(self, allow_dialogue)
 
 
 func _try_interact() -> void:
-    if not _can_interact_with_world(true):
-        return
-    # Continue the visible speaker only while it is valid and in range.
-    if active_overlay == "dialogue":
-        if world_mode and dialogue_text_label != null and dialogue_text_label.visible_characters >= 0 and dialogue_text_label.visible_characters < dialogue_text_label.text.length():
-            subtitle_elapsed = subtitle_seconds
-            dialogue_text_label.visible_characters = -1
-            return
-        _commit_world_dialogue()
-        var speaker: Area2D = null
-        if ui_shell != null and is_instance_valid(ui_shell.dialogue_area):
-            speaker = ui_shell.dialogue_area
-        if speaker != null and not speaker.is_queued_for_deletion() and player.global_position.distance_to(speaker.global_position) <= INTERACTION_REACH:
-            nearby_interactable = speaker
-        else:
-            _close_overlays()
-    # Overlapping Areas cannot choose the target through body-enter order.
-    if active_overlay != "dialogue":
-        nearby_interactable = interaction_target()
-    if nearby_interactable == null or not is_instance_valid(nearby_interactable):
-        for lift in cave_lifts:
-            if lift.request(player.global_position):
-                _toast(lift.last_request_text)
-                return
-        _toast("附近没有可交互的人物或机关。")
-        return
-    if bool(nearby_interactable.get_meta("manual_pickup", false)):
-        _on_collectible_body_entered(player, nearby_interactable)
-        nearby_interactable = null
-        return
-    var kind := String(nearby_interactable.get_meta("kind", ""))
-    if kind == "lever":
-        _activate_lever(nearby_interactable)
-    elif kind == "boss_gate":
-        _activate_boss_gate()
-    elif kind == "npc":
-        if world_mode and nearby_interactable.has_meta("map_seller_region") and active_overlay != "dialogue":
-            CARTOGRAPHY_UI.open_shop(self, nearby_interactable)
-        else:
-            _talk_to_npc(nearby_interactable)
-    elif kind == "history":
-        _read_history_prop(nearby_interactable)
-    elif kind == "save_point":
-        _activate_save_point(nearby_interactable)
-    elif kind == "chapter_exit" or kind == "ending_exit":
-        _activate_chapter_exit(nearby_interactable)
-    elif kind == "world_portal":
-        _activate_world_portal(nearby_interactable)
-    elif kind == "ending_gate":
-        preload("res://scripts/ending_story_desk.gd").open(self, nearby_interactable)
-    elif kind == "challenge_shrine":
-        _activate_challenge_shrine(nearby_interactable)
-    elif kind == "hunt_track":
-        _activate_hunt_track(nearby_interactable)
+    LEVEL_INTERACTION.try_interact(self)
 
 
 func interaction_target(prompt_candidate: Area2D = null) -> Area2D:
-    # Both the prompt and the actual interaction use this availability/range.
-    if not _can_interact_with_world():
-        return null
-    # Distant markers reject themselves before the shared candidate scan.
-    # Actual dispatch omits this optional hint and queries the complete range.
-    if prompt_candidate != null:
-        if prompt_candidate.is_queued_for_deletion() or not prompt_candidate.is_visible_in_tree():
-            return null
-        if player.global_position.distance_squared_to(prompt_candidate.global_position) > INTERACTION_REACH * INTERACTION_REACH:
-            return null
-    return _nearest_interactable(INTERACTION_REACH)
+    return LEVEL_INTERACTION.interaction_target(self, prompt_candidate)
 
 
 func _nearest_interactable(radius: float) -> Area2D:
-    if player == null or not is_instance_valid(player) or not player.global_position.is_finite() or not is_finite(radius) or radius < 0.0:
-        return null
-    var best: Area2D = null
-    var best_distance := radius * radius
-    var preferred_best: Area2D = null
-    var preferred_distance := best_distance
-    for child in get_children():
-        var area := child as Area2D
-        if area == null or not is_instance_valid(area) or area.is_queued_for_deletion() or not area.is_visible_in_tree():
-            continue
-        var kind := String(area.get_meta("kind", ""))
-        var manual_pickup:=bool(area.get_meta("manual_pickup",false))
-        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache", "history", "challenge_shrine", "hunt_track"].has(kind) and not manual_pickup:
-            continue
-        if kind in ["item","currency","bell_key"] and not manual_pickup:
-            continue
-        var distance: float = player.global_position.distance_squared_to(area.global_position)
-        if not is_finite(distance) or distance > radius * radius:
-            continue
-        if kind=="history" and not area.accessible_from(player):
-            continue
-        if kind=="world_portal" and _behind_locked_gate(area):
-            continue
-        if kind in ["chapter_exit", "ending_exit"] and _chapter_exit_can_open(area) and _better_interaction_target(area, distance, preferred_best, preferred_distance):
-            preferred_best = area
-            preferred_distance = distance
-        if _better_interaction_target(area, distance, best, best_distance):
-            best = area
-            best_distance = distance
-    return preferred_best if preferred_best != null else best
+    return LEVEL_INTERACTION.nearest_interactable(self, radius)
 
 
 ## A portal inside a room still closed by an ability gate must not be used from
@@ -4019,206 +2096,49 @@ func _nearest_interactable(radius: float) -> Area2D:
 ## that leads into a room every way into which is a standing ability gate is
 ## closed outright, whichever side it is reached from.
 func _behind_locked_gate(portal: Area2D) -> bool:
-    if locked_gate_bodies.is_empty() or not player.is_inside_tree():
-        return false
-    var data: Dictionary = portal.get_meta("world_portal_data", {})
-    if String(data.get("target_config_id", "")) == String(config.get("id", "")):
-        var spawn: Variant = data.get("target_spawn", [])
-        if spawn is Array and spawn.size() == 2:
-            var destination := String(_room_for_position(Vector2(float(spawn[0]), float(spawn[1]))).get("id", ""))
-            if _room_sealed_by_gates(destination):
-                return true
-    var room_id := String(data.get("room_id", ""))
-    if room_id.is_empty() or not _room_has_standing_gate(room_id):
-        return false
-    var query := PhysicsRayQueryParameters2D.create(player.global_position - Vector2(0, 42), portal.global_position, 1, [player.get_rid()])
-    return not player.get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+    return LEVEL_INTERACTION.behind_locked_gate(self, portal)
 
 
 func _room_has_standing_gate(room_id: String) -> bool:
-    for gate in config.get("locked_gates", []):
-        if locked_gate_bodies.has(String(gate.get("id", ""))) and (String(gate.get("from", "")) == room_id or String(gate.get("to", "")) == room_id):
-            return true
-    return false
+    return LEVEL_INTERACTION.room_has_standing_gate(self, room_id)
 
 
 ## True while a room can only be entered through ability gates and one of the
 ## gates leading into it from another room still stands.
 func _room_sealed_by_gates(room_id: String) -> bool:
-    if room_id.is_empty():
-        return false
-    for connection in config.get("connections", []):
-        if String(connection.get("from", "")) != room_id and String(connection.get("to", "")) != room_id:
-            continue
-        if String(connection.get("type", "")) != "ability_gate":
-            return false
-    for gate in config.get("locked_gates", []):
-        var from := String(gate.get("from", ""))
-        var to := String(gate.get("to", ""))
-        if from != to and (from == room_id or to == room_id) and locked_gate_bodies.has(String(gate.get("id", ""))):
-            return true
-    return false
+    return LEVEL_INTERACTION.room_sealed_by_gates(self, room_id)
 
 
 func _better_interaction_target(area: Area2D, distance: float, current: Area2D, current_distance: float) -> bool:
-    # Authored IDs are sibling node names; identical distances must not depend
-    # on body-enter callbacks, cached actor adoption or child insertion order.
-    return current == null or distance < current_distance or (distance == current_distance and String(area.name) < String(current.name))
+    return LEVEL_INTERACTION.better_interaction_target(self, area, distance, current, current_distance)
 
 
 func _activate_lever(area: Area2D) -> void:
-    if not _can_interact_with_world() or area == null or not is_instance_valid(area):
-        return
-    var shortcut_id := _shortcut_id_for_area(area)
-    if _is_shortcut_open(shortcut_id):
-        _toast("这条捷径已经接通。")
-        return
-    if _combat_progression_enabled() and not _shortcut_is_lever_controlled(shortcut_id):
-        if not _combat_goal_met():
-            _toast("先清除附近敌群")
-            return
-        _open_shortcut(shortcut_id)
-        _play_sfx("lever")
-        _play_sfx("lever_latch", -10.0)
-        return
-    var required_keys := int(area.get_meta("requires_keys", max_bells))
-    if bell_count < required_keys:
-        _toast("捷径需要 %d 枚路标 · 现有 %d" % [required_keys, bell_count])
-        return
-    _open_shortcut(shortcut_id)
-    _play_sfx("lever")
-    # 拉杆金属锁舌质感层（Kenney RPG Audio，与 Bread Adventure lever.ogg 叠放）。
-    _play_sfx("lever_latch", -10.0)
-    if metsys_bridge != null:
-        metsys_bridge.store_object(area)
+    LEVEL_ACTIVATION.activate_lever(self, area)
 
 
 func _open_shortcut(shortcut_id: String = "") -> void:
-    if shortcut_id.is_empty():
-        var ids := _shortcut_ids()
-        if not ids.is_empty():
-            shortcut_id = String(ids[0])
-    if not shortcut_id.is_empty():
-        opened_shortcuts[shortcut_id] = true
-    for child in get_children():
-        if child is Area2D and String(child.get_meta("kind",""))=="lever" and _shortcut_id_for_area(child)==shortcut_id:
-            var sprite := child.get_node_or_null("LeverSprite") as Sprite2D
-            if sprite!=null:_apply_original_prop(sprite,"lever_open",52)
-    shortcut_open = true
-    if bool(config.get("boss_route_via_exploration", false)) or not _combat_progression_enabled() or _combat_goal_met():
-        _unlock_boss_route()
-    # 捷径门接通（音频规格 §4.5 ui_door_open）："绕回来了"的木门吱呀。
-    _play_sfx("door_open", -9.0)
-    var progress := "%d/%d" % [_opened_shortcut_total(), max(1, _shortcut_total())]
-    _toast("捷径已通 · %s" % progress)
-    _refresh_hud()
-    _save_world()
+    LEVEL_ACTIVATION.open_shortcut(self, shortcut_id)
 
 
 func _open_all_shortcuts(show_toast: bool = true) -> void:
-    var ids := _shortcut_ids()
-    for shortcut_id in ids:
-        opened_shortcuts[String(shortcut_id)] = true
-    shortcut_open = true
-    _unlock_boss_route()
-    if show_toast:
-        _toast("本区捷径均已接通。")
-    _refresh_hud()
+    LEVEL_ACTIVATION.open_all_shortcuts(self, show_toast)
 
 
 func _activate_save_point(area: Area2D) -> void:
-    if not _can_interact_with_world() or area == null or not is_instance_valid(area):
-        return
-    if world_mode:
-        _update_room_visit()
-        CARTOGRAPHY.rest(story_flags)
-    active_spawn = area.global_position
-    active_save_point_id = String(area.name)
-    save_point_residency_memory[String(config.get("id", "")) + ":" + String(area.name)] = true
-    player.set_spawn(active_spawn)
-    if player.has_method("restore_at_save_point"):
-        player.restore_at_save_point()
-    # 钟龛安坐（音频规格 §4.5 env_shrine_wrap/env_shrine_rest）：
-    # 缠线窸窣 + 龛铃"龛中眠"动机（D-A-B），六区各自音色滤波变体。
-    _play_sfx("shrine_wrap", -9.0)
-    _play_sfx(_shrine_rest_audio_key(), -6.0)
-    # 钟龛摇篮曲（规格 §2.1）：安坐记锚点切摇篮曲；走远收场由 director 距离机自驱。
-    if audio_director != null:
-        audio_director.engage_shrine(area.global_position)
-    _play_save_point_activation(area)
-    if metsys_bridge != null:
-        metsys_bridge.store_object(area)
-    _save_world()
-    var rest_message := "安坐钟龛 · 已记下归途，恢复生命与绯线。"
-    if world_mode and not CARTOGRAPHY.has_quill(story_flags) and CARTOGRAPHY.pending_count(story_flags) > 0:
-        rest_message += "途中笔记已记下；要有盐墨绘针才能补绘进地图（地图商人有售）。"
-    _toast(rest_message)
-    _refresh_hud()
-    DEATH_RECALL.offer(self)
+    LEVEL_ACTIVATION.activate_save_point(self, area)
 
 
 func _activate_chapter_exit(area: Area2D) -> void:
-    if not _can_interact_with_world() or area == null or not is_instance_valid(area):
-        return
-    if not _chapter_exit_can_open(area):
-        _toast("需先击败守门者")
-        return
-    var kind := String(area.get_meta("kind", "chapter_exit"))
-    if kind == "ending_exit":
-        win_label.text = String(config.get("ending_message", "结局之路已开：无声王冠有了回应。"))
-        win_label.visible = true
-        _toast("最后的巡礼之路已经开启。")
-        return
-    var next_config_path := String(area.get_meta("next_config_path", ""))
-    if next_config_path.is_empty():
-        _toast("前路尚未接通。")
-        return
-    chapter_transitioning = true
-    # 章节转场：BGM 总线 0.5s 淡出（新章 set_chapter 起播再从静音 0.8s 淡入）。
-    if audio_director != null:
-        audio_director.begin_chapter_transition()
-    # 章节切换线音（音频规格 §4.5 env_chapter_transition）：挂 root 不被换场截断。
-    _play_sfx_persistent("chapter_transition", -7.0)
-    _toast("前往下一区域。")
-    _defer_region_call("_transition_to_next_chapter", [next_config_path])
+    LEVEL_ACTIVATION.activate_chapter_exit(self, area)
 
 
 func _chapter_exit_can_open(area: Area2D) -> bool:
-    return not bool(area.get_meta("requires_demo_complete", true)) or demo_complete
+    return LEVEL_ACTIVATION.chapter_exit_can_open(self, area)
 
 
 func _transition_to_next_chapter(next_config_path: String) -> void:
-    var parent_node := get_parent()
-    if parent_node == null:
-        chapter_transitioning = false
-        return
-    if world_mode:
-        var next_config_id := String(_load_json(next_config_path).get("id", ""))
-        var path := WORLD_ROUTES_SCRIPT.cached_config_path(next_config_id)
-        if path.is_empty():
-            if world_loader != null:
-                world_loader.request_manifest_refresh(self)
-            chapter_transitioning = false
-            return
-        var legacy_entry: Dictionary = _load_json(path).get("entry_from_previous", {})
-        _travel_world(path, _vec2(legacy_entry.get("position", _load_json(path).get("player_start", [120,500]))))
-        return
-    var next_config := _load_json(next_config_path)
-    var entry_data: Dictionary = next_config.get("entry_from_previous", {})
-    var entry_position := _vec2(entry_data.get("position", next_config.get("player_start", [120, 500])))
-    var entry_message := String(entry_data.get("message", "进入" + String(next_config.get("name", "下一区域")) + "。"))
-    var next_scene: Node = load("res://scenes/Main.tscn").instantiate()
-    next_scene.set("config_path", next_config_path)
-    next_scene.set("entry_spawn_override_enabled", true)
-    next_scene.set("entry_spawn_override", entry_position)
-    next_scene.set("entered_from_config_id", String(config.get("id", "")))
-    next_scene.set("transition_entry_message", entry_message)
-    next_scene.set("story_flags", story_flags.duplicate(true))
-    next_scene.set("carried_inventory_enabled", true)
-    next_scene.set("carried_inventory_counts", inventory_counts.duplicate(true))
-    next_scene.set("carried_currency", currency_count)
-    parent_node.add_child(next_scene)
-    queue_free()
+    LEVEL_ACTIVATION.transition_to_next_chapter(self, next_config_path)
 
 
 # 结局门运行时（剧情蓝图 §12：Boss 后三扇门 + 结局文本 + 存档 flag 的最小闭环）。
@@ -4241,43 +2161,11 @@ func _activate_ending_gate(area: Area2D) -> void:
 
 
 func _activate_boss_gate() -> void:
-    if not _can_interact_with_world():
-        return
-    if demo_complete:
-        _toast("前路已开启")
-        return
-    if not boss_unlocked:
-        if _combat_progression_enabled():
-            _toast("钟门未应 · 先接通捷径拉杆" if bool(config.get("boss_route_via_exploration",false)) else "钟门未应 · 先清除本区敌群")
-        else:
-            _toast("钟门未应 · 先接通捷径")
-        return
-    _spawn_boss()
-    if boss_spawned and not demo_complete:
-        _set_boss_arena_locked(true)
+    LEVEL_ACTIVATION.activate_boss_gate(self)
 
 
 func _talk_to_npc(area: Area2D) -> void:
-    var lines := _resolve_npc_lines(area)
-    if lines.is_empty():
-        _show_dialogue(area, "...")
-        return
-    var state := String(area.get_meta("dialogue_state", "repeat"))
-    var state_indices: Dictionary = area.get_meta("dialogue_state_indices", {})
-    var index := int(state_indices.get(state, 0))
-    _play_sfx("interact", -10.0)
-    _show_dialogue(area, String(lines[index % lines.size()]))
-    area.set_meta("world_displayed_index", index % lines.size())
-    area.set_meta("world_line_committed", false)
-    area.set_meta("world_displayed_total", lines.size())
-    if not world_mode:
-        state_indices[state] = index + 1
-        area.set_meta("dialogue_state_indices", state_indices)
-    area.set_meta("dialogue_index", int(area.get_meta("dialogue_index", 0)) + 1)
-    # first_meet flips npc_met_<id> only after the full round has been heard
-    # (doc 2.1: 播完整轮后置位).
-    if not world_mode and state == "first_meet" and index + 1 >= lines.size():
-        _set_story_flag("npc_met_%s" % String(area.get_meta("npc_id", area.name)))
+    LEVEL_DIALOGUE.talk_to_npc(self, area)
 
 
 # Six-state dialogue machine (doc 2.1/2.3). Priority: first_meet (only while
@@ -4290,11 +2178,7 @@ func _resolve_npc_lines(area: Area2D) -> Array:
 
 # "demo_ch01_moss_bell_court" -> "ch01" (used for boss_down_<chapter> flags).
 func _chapter_story_id() -> String:
-    for part in String(config.get("id", "")).split("_"):
-        var token := String(part)
-        if token.length() >= 3 and token.begins_with("ch") and token.substr(2).is_valid_int():
-            return token
-    return String(config.get("id", ""))
+    return LEVEL_DIALOGUE.chapter_story_id(self)
 
 
 ## A zero/negative/fractional key is not an offering. JSON whole-number floats
@@ -4322,151 +2206,27 @@ func perform_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
 
 
 func _set_story_flag(flag: String) -> void:
-    if flag.is_empty():
-        return
-    story_flags[flag] = true
-    _check_wish_board_rewards()
-    _save_world()
+    LEVEL_DIALOGUE.set_story_flag(self, flag)
 
 
 # true_ending_testimony_complete flips once all six testimonies are held
 # (doc 2.1: true_ending_branch gate).
 func _refresh_testimony_chain_flag() -> void:
-    if bool(story_flags.get("true_ending_testimony_complete", false)):
-        return
-    for index in range(1, 7):
-        if not inventory_counts.has("testimony_%02d" % index):
-            return
-    # 证词链集齐达成音（音频规格 §4.5 ui_testimony_complete）：置 flag 前一次性播。
-    _play_sfx("ui_testimony_complete", -4.0)
-    _set_story_flag("true_ending_testimony_complete")
+    LEVEL_DIALOGUE.refresh_testimony_chain_flag(self)
 
 
 # One-shot ambient whispers (绯线低语, config `whispers`). trigger:
 # "enter_room" keyed by room_id, "pickup_item" keyed by item_id.
 func _trigger_whispers(trigger: String, key: String) -> void:
-    if key.is_empty():
-        return
-    for whisper in config.get("whispers", []):
-        if not (whisper is Dictionary):
-            continue
-        var data: Dictionary = whisper
-        if String(data.get("trigger", "enter_room")) != trigger:
-            continue
-        if String(data.get("room_id", data.get("item_id", ""))) != key:
-            continue
-        var whisper_id := String(data.get("id", ""))
-        if whisper_id.is_empty() or bool(story_flags.get("whisper_%s" % whisper_id, false)):
-            continue
-        _set_story_flag("whisper_%s" % whisper_id)
-        _toast(String(data.get("line", "")))
+    LEVEL_DIALOGUE.trigger_whispers(self, trigger, key)
 
 
 func _show_dialogue(area: Area2D, line: String) -> void:
-    var voice_requested := false
-    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
-        ui_shell.build_panel.visible = false
-    # 对话混音态（规格 §5.3）：Music -4dB / Ambience -6dB，关闭时归还。
-    if active_overlay != "dialogue" and audio_director != null:
-        audio_director.on_dialogue(true)
-    active_overlay = "dialogue"
-    if backpack_panel != null:
-        backpack_panel.visible = false
-    if map_panel != null:
-        map_panel.visible = false
-    if settings_panel != null:
-        settings_panel.visible = false
-    if dialogue_panel != null:
-        dialogue_panel.visible = true
-    if dialogue_name_label != null:
-        dialogue_name_label.text = String(area.get_meta("label", area.name))
-    if dialogue_meta_label != null:
-        dialogue_meta_label.text = String(area.get_meta("identity", ""))
-    if dialogue_text_label != null:
-        dialogue_text_label.text = line
-        if world_mode:
-            subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(line) / (float(ui_shell.get_accessibility("subtitle_speed")) if ui_shell != null and ui_shell.has_method("get_accessibility") else 1.0)
-            var reading: Dictionary = ui_shell.dialogue_reading_state(area, line) if ui_shell != null and ui_shell.has_method("dialogue_reading_state") else {}
-            subtitle_elapsed = subtitle_seconds * float(reading.get("progress", 0.0))
-            dialogue_text_label.visible_characters = int(reading.get("characters", 0))
-            voice_requested = reading.is_empty()
-        else:
-            dialogue_text_label.visible_characters = -1
-            voice_requested = true
-    if dialogue_hint_label != null:
-        dialogue_hint_label.text = String(area.get_meta("help", ""))
-    if ui_shell!=null:
-        ui_shell.show_speaker(area)
-    if audio_director != null:
-        if String(area.get_meta("kind", "")) == "npc":
-            var profile := String(area.get_meta("world_dialogue_result", {}).get("voice_profile", "warm"))
-            audio_director.play_npc_voice(String(area.get_meta("npc_id", area.name)), line, profile,
-                area.get_node_or_null("FriendlyFamilySprite"), voice_requested)
-        else:
-            audio_director.stop_npc_voice()
-    _sync_ui_input_lock()
+    LEVEL_DIALOGUE.show_dialogue(self, area, line)
 
 
 func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
-    # Defeat is a production encounter, unlike offscreen residency/prewarming.
-    # The existing final save persists this flag with rewards, no extra write.
-    if world_mode:
-        var journal_flag := preload("res://scripts/enemy_journal.gd").flag_for(kind)
-        if not journal_flag.is_empty():story_flags[journal_flag]=true
-    if is_boss:
-        if demo_complete:
-            return
-        var boss_data: Dictionary = config.get("boss", {})
-        var boss_name := _boss_display_name(boss_data)
-        var reward_item := String(boss_data.get("reward_item", "crown_splinter"))
-        demo_complete = true
-        _set_story_flag("boss_down_%s" % _chapter_story_id())
-        _set_boss_arena_locked(false)
-        # Boss 战收尾：停 Boss 曲、恢复本章探索循环。
-        if audio_director != null:
-            audio_director.stop_boss_music()
-        win_label.text = String(config.get("completion_message", "DEMO COMPLETE: " + boss_name + " defeated"))
-        win_label.visible = true
-        _add_currency(30)
-        _add_inventory_item(reward_item, 1, false)
-        _announce_lore_pickup(reward_item)
-        if metsys_bridge != null and boss_actor != null:
-            if not boss_actor.has_meta("object_id"):
-                boss_actor.set_meta("object_id", "boss/" + spawn_id)
-                var boss_room := _room_for_position(boss_actor.global_position)
-                metsys_bridge.register_object(boss_actor, String(boss_actor.get_meta("object_id")), String(boss_room.get("id", "boss_chamber")))
-            metsys_bridge.store_object(boss_actor)
-        if player != null:
-            player.gain_energy(30)
-        _open_post_boss_route()
-        _spawn_ending_gates(true)
-        _toast(String(config.get("completion_toast", "Demo complete: " + boss_name + " defeated.")))
-        var transition: Dictionary = config.get("chapter_transition", {})
-        if not transition.is_empty():
-            _toast("前往下一片土地 · " + String(transition.get("entry_hint", _next_campaign_chapter_name())))
-    else:
-        var drop_item := String(config.get("enemy_drop_item", "moss_chitin"))
-        var challenge_spawn := _is_optional_challenge_spawn(spawn_id)
-        # Challenge foes pay only through the one-time clear reward: they are not
-        # in the region's combat-clear tally, and a failed attempt cannot be farmed
-        # for currency, materials, or energy (ring the bell, kill one, leave).
-        if not challenge_spawn:
-            enemy_defeated += 1
-            _add_currency(8)
-            _add_inventory_item(drop_item, 1, false)
-            if player != null:
-                player.gain_energy(20)
-        _toast("试炼之敌倒下" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
-        var elite_message := "" if challenge_spawn else _grant_elite_first_defeat(spawn_id, drop_item)
-        if challenge_spawn:
-            _on_challenge_enemy_died(spawn_id)
-        elif _combat_progression_enabled() and _combat_goal_met():
-            _open_combat_clear_route()
-            _play_sfx("door_open", -9.0)
-            # One toast label: keep the elite reward visible alongside the clear.
-            _toast("本区敌群已清 · 钟门道路开启" + ("" if elite_message.is_empty() else " " + elite_message))
-    _refresh_hud()
-    _save_world()
+    LEVEL_ENCOUNTERS.on_enemy_died(self, spawn_id, is_boss, kind)
 
 
 ## B04: an elite is an optional, harder fight. Its first defeat pays a one-time
@@ -4475,477 +2235,79 @@ const ELITE_FIRST_CURRENCY := 30
 const ELITE_FIRST_MATERIALS := 2
 
 func _spawn_is_elite(spawn_id: String) -> bool:
-    for spawn in config.get("enemy_spawns", []):
-        if spawn is Dictionary and String(spawn.get("id", "")) == spawn_id:
-            return bool(spawn.get("elite", false))
-    return false
+    return LEVEL_ENCOUNTERS.spawn_is_elite(self, spawn_id)
 
 ## Returns the reward message ("" when no bonus) so a following toast can keep it.
 func _grant_elite_first_defeat(spawn_id: String, drop_item: String) -> String:
-    if not world_mode or not _spawn_is_elite(spawn_id):
-        return ""
-    var flag := "elite_first_%s_%s" % [String(config.get("id", "")), spawn_id]
-    if bool(story_flags.get(flag, false)):
-        return ""
-    story_flags[flag] = true
-    _add_currency(ELITE_FIRST_CURRENCY)
-    _add_inventory_item(drop_item, ELITE_FIRST_MATERIALS, false)
-    var message := "精英首胜：额外 %d 枚碎钱与 %d 份材料。" % [ELITE_FIRST_CURRENCY, ELITE_FIRST_MATERIALS]
-    _toast(message)
-    return message
+    return LEVEL_ENCOUNTERS.grant_elite_first_defeat(self, spawn_id, drop_item)
 
 
 func _on_player_respawned() -> void:
-    if world_platforms != null and is_instance_valid(player):
-        world_platforms.warm(self, player.global_position)
-    if is_instance_valid(cave_world) and is_instance_valid(player):
-        cave_world.warm_collision_focus(player.global_position)
-    if chapter_terrain != null:
-        chapter_terrain.warm_focus(player.global_position)
-    death_recorded = false
-    _reset_encounters_after_player_death()
-    # Respawn first removes the old Boss event lock. Recompute the visible
-    # center after that release, before the next rendered frame.
-    player.reset_camera_after_arrival()
-    _save_world()
+    LEVEL_ENCOUNTERS.on_player_respawned(self)
 
 
 func _reset_encounters_after_player_death() -> void:
-    if demo_complete and not world_mode:
-        _refresh_hud()
-        return
-    _set_boss_arena_locked(false)
-    _clear_active_challenge(false)
-    if world_gameplay_residency != null:
-        world_gameplay_residency.clear_enemy_actors()
-    for enemy_node in get_tree().get_nodes_in_group("enemy"):
-        var enemy_area := enemy_node as Area2D
-        if enemy_area == null or not is_instance_valid(enemy_area):
-            continue
-        # Practice racks and puppets are built once per region and never respawn.
-        if enemy_area.has_meta("seal_training_target") or enemy_area.has_meta("tool_training_target"):
-            continue
-        if enemy_area.has_method("_cancel_attack_effects"):
-            enemy_area._cancel_attack_effects()
-        enemy_area.queue_free()
-    boss_actor = null
-    boss_spawned = false
-    enemy_defeated = 0
-    if boss_trial_mode:
-        _open_all_shortcuts(false)
-        pending_enemy_respawn = false
-        if player != null and is_instance_valid(player):
-            player.global_position = active_spawn
-            if player.has_method("restore_at_save_point"):
-                player.restore_at_save_point()
-            if player.has_method("reset_camera_after_arrival"):
-                player.reset_camera_after_arrival()
-        _defer_region_call("_respawn_boss_trial_boss")
-        _toast("试炼重置 · 守门者已经归位。")
-    else:
-        pending_enemy_respawn = true
-        # 死亡重置：停 Boss 曲回到本章探索循环（director 缺席回退旧 ch01 单曲）。
-        if audio_director != null:
-            audio_director.stop_boss_music()
-        else:
-            _switch_bgm("bgm_ch01")
-        _toast("重新开始 · 敌群已归位")
-    _refresh_hud()
+    LEVEL_ENCOUNTERS.reset_encounters_after_player_death(self)
 
 
 func _respawn_boss_trial_boss() -> void:
-    if demo_complete or not boss_trial_mode:
-        return
-    _spawn_boss()
+    LEVEL_ENCOUNTERS.respawn_boss_trial_boss(self)
 
 
 func _open_post_boss_route() -> void:
-    if post_boss_route_open:
-        return
-    post_boss_route_open = true
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var platform_id := String(platform_data.get("id", ""))
-        if not _is_post_boss_blocker(platform_id):
-            continue
-        var blocker := get_node_or_null(platform_id)
-        if blocker != null:
-            _spawn_route_open_effect(blocker.global_position)
-            blocker.queue_free()
+    LEVEL_ENCOUNTERS.open_post_boss_route(self)
 
 
 func _is_post_boss_blocker(platform_id: String) -> bool:
-    var lowered := platform_id.to_lower()
-    return lowered == "boss_back_wall" or lowered.ends_with("_boss_back_wall") or lowered.contains("post_boss_wall") or lowered.contains("chapter_exit_wall")
+    return LEVEL_ENCOUNTERS.is_post_boss_blocker(self, platform_id)
 
 
 func _spawn_route_open_effect(position_value: Vector2) -> void:
-    for index in range(3):
-        var ring := Line2D.new()
-        ring.name = "PostBossRouteOpenRing"
-        ring.closed = true
-        ring.width = 3.0
-        ring.default_color = Color(0.44, 1.0, 0.86, 0.72)
-        ring.points = PackedVector2Array([
-            Vector2(-34, -46),
-            Vector2(34, -46),
-            Vector2(54, 0),
-            Vector2(34, 46),
-            Vector2(-34, 46),
-            Vector2(-54, 0)
-        ])
-        ring.position = position_value
-        ring.z_index = 12
-        if not VISUAL_POLICY.attach_secondary(self, ring, &"environment", self): continue
-        var tween := _region_tween()
-        tween.tween_interval(float(index) * 0.08)
-        tween.tween_property(ring, "scale", Vector2(1.65, 1.65), 0.42)
-        tween.parallel().tween_property(ring, "modulate:a", 0.0, 0.42)
-        tween.tween_callback(ring.queue_free)
+    LEVEL_ENCOUNTERS.spawn_route_open_effect(self, position_value)
 
 
 func _on_hp_changed(value: int) -> void:
-    # 濒死混音态（规格 §5.5）：HP==1 挂低通，回升或死亡即摘除。
-    _set_low_hp_audio(value == 1)
-    if value <= 0:
-        # Enemy body-entered callbacks run during physics query flushing.
-        _defer_region_call("_record_death_cache")
-        # 玩家死亡（规格 §5.3/§5.5）：director 在场时全总线 300Hz 低通 + duck 自清；
-        # 缺席时保持旧 duck 行为。
-        if audio_director != null:
-            audio_director.on_player_death()
-        else:
-            duck_bgm(-10.0, 1.2)
-    _refresh_hud()
+    LEVEL_HUD.on_hp_changed(self, value)
 
 
 func _on_energy_changed(_value: int, _maximum: int) -> void:
-    _refresh_hud()
+    LEVEL_HUD.on_energy_changed(self, _value, _maximum)
 
 
 func _refresh_hud() -> void:
-    if hud_label == null:
-        return
-    var hp_text := str(player.hp) if player != null else "5"
-    var energy_text := "%d/%d" % [player.energy, player.max_energy] if player != null else "0/100"
-    var skill_text := "Ready" if player != null and player.skill_cooldown <= 0.0 and player.energy >= player.skill_energy_cost else "Charging"
-    var shortcut_total := _shortcut_total()
-    var opened_shortcut_count := _opened_shortcut_total()
-    var shortcut_text := ("%d/%d" % [opened_shortcut_count, shortcut_total]) if shortcut_total > 0 else ("Open" if shortcut_open else "Closed")
-    var boss_text := "Awake" if boss_spawned else ("Ready" if boss_unlocked else "Locked")
-    var save_text := active_save_point_id
-    if _combat_progression_enabled():
-        var boss_route_text := "Open" if boss_unlocked else "Closed"
-        hud_label.text = "HP %s/5  EN %s  Skill %s  Enemies %d/%d  Boss Route %s  Shortcuts %s  Boss %s  Save %s  A/D Move W/S Aim Space Jump Shift Dash LMB/J Slash RMB Heal E Skill F Use Tab Bag M Map" % [
-            hp_text,
-            energy_text,
-            skill_text,
-            enemy_defeated,
-            enemy_total,
-            boss_route_text,
-            shortcut_text,
-            boss_text,
-            save_text
-        ]
-    else:
-        hud_label.text = "HP %s/5  EN %s  Skill %s  Marks %d/%d  Enemies %d/%d  Shortcut %s  Boss %s  Save %s  A/D Move W/S Aim Space Jump Shift Dash LMB/J Slash RMB Heal E Skill F Use Tab Bag M Map" % [
-            hp_text,
-            energy_text,
-            skill_text,
-            bell_count,
-            max_bells,
-            enemy_defeated,
-            enemy_total,
-            shortcut_text,
-            boss_text,
-            save_text
-        ]
+    LEVEL_HUD.refresh_hud(self)
 
 
 func _toast(text: String) -> void:
-    if ui_shell!=null:
-        ui_shell.toast_age=0.0
-    if toast_label != null:
-        toast_label.text = text
-    # toast 提示微音（音频规格 §4.5 ui_toast）：900ms 冷却防连发刷屏音。
-    var now := Time.get_ticks_msec()
-    if now - last_toast_sfx_ms >= 900:
-        last_toast_sfx_ms = now
-        _play_sfx("ui_toast", -6.0)
-    print(text)
+    LEVEL_HUD.toast(self, text)
 
 
 ## 证词/失声印记/真名信物类物品的拾取展示（圣典 §7）：普通材料不打扰，
 ## 关键物品用独立横幅停留更久，后续 toast 不会盖掉它。headless 下纯 no-op 安全。
 func _is_story_key_item(item_id: String) -> bool:
-    return item_id.begins_with("testimony_") \
-        or item_id.begins_with("silent_mark_") \
-        or STORY_KEY_ITEM_IDS.has(item_id)
+    return LEVEL_HUD.is_story_key_item(self, item_id)
 
 
 func _announce_lore_pickup(item_id: String) -> void:
-    if not _is_story_key_item(item_id):
-        return
-    # 关键道具拾取混音态（规格 §5.3）：Music -6dB 短暂让位 + 专属拾取音。
-    if audio_director != null:
-        audio_director.on_key_item_pickup()
-    _play_sfx("ui_pickup_key_item", -8.0)
-    var lore_entry: Dictionary = item_lore.get(item_id, {})
-    var lore_lines: Array = lore_entry.get("lore", [])
-    if lore_lines.is_empty():
-        return
-    # The inscription itself is the item's backpack description; the banner
-    # only names the find (U01 less text).
-    var text := "拾获「%s」" % _item_display_name(item_id)
-    _show_lore_banner(text)
-    print("LORE_PICKUP " + text)
+    LEVEL_HUD.announce_lore_pickup(self, item_id)
 
 
 ## The story banner stays longer than a toast and later toasts never cover it.
 func _show_lore_banner(text: String) -> void:
-    lore_banner_time_left = LORE_BANNER_SECONDS
-    if lore_banner_label != null:
-        lore_banner_label.text = text
-        lore_banner_label.visible = true
+    LEVEL_HUD.show_lore_banner(self, text)
 
 
 # _process 驱动的横幅倒计时：不挂定时器/回调，headless 退出无残留。
 func _tick_lore_banner(delta: float) -> void:
-    if lore_banner_time_left <= 0.0:
-        return
-    lore_banner_time_left -= delta
-    if lore_banner_time_left <= 0.0 and lore_banner_label != null:
-        lore_banner_label.text = ""
-        lore_banner_label.visible = false
+    LEVEL_HUD.tick_lore_banner(self, delta)
 
 
 func _spawn_pickup_effect(world_position: Vector2) -> void:
-    var ring := Line2D.new()
-    ring.name = "PickupEffectRing"
-    ring.global_position = world_position
-    var points := PackedVector2Array()
-    for step in range(24):
-        var angle := TAU * float(step) / 24.0
-        points.append(Vector2(cos(angle), sin(angle)) * 20.0)
-    ring.points = points
-    ring.closed = true
-    ring.width = 3.0
-    ring.default_color = Color(1.0, 0.78, 0.25, 0.95)
-    ring.z_index = 90
-
-    var ray := Line2D.new()
-    ray.name = "PickupSparkVfx"
-    ray.global_position = world_position
-    ray.points = PackedVector2Array([
-        Vector2(-18.0, 0.0),
-        Vector2(18.0, 0.0),
-        Vector2(0.0, 0.0),
-        Vector2(0.0, -26.0)
-    ])
-    ray.width = 2.0
-    ray.default_color = Color(0.64, 1.0, 0.76, 0.86)
-    ray.z_index = 91
-    if not VISUAL_POLICY.attach_secondary_batch(self, [ring, ray], &"environment", self): return
-
-    var tween := _region_tween()
-    tween.tween_property(ring, "scale", Vector2(2.0, 2.0), 0.28)
-    tween.parallel().tween_property(ring, "modulate:a", 0.0, 0.28)
-    tween.parallel().tween_property(ray, "scale", Vector2(1.5, 1.5), 0.20)
-    tween.parallel().tween_property(ray, "modulate:a", 0.0, 0.20)
-    tween.finished.connect(Callable(ring, "queue_free"))
-    tween.finished.connect(Callable(ray, "queue_free"))
+    LEVEL_HUD.spawn_pickup_effect(self, world_position)
 
 
 func get_demo_state() -> Dictionary:
-    var chapter_exit_total := 0
-    var ending_exit_total := 0
-    for interactive in config.get("interactives", []):
-        if not (interactive is Dictionary):
-            continue
-        var interactive_data: Dictionary = interactive
-        var interactive_kind := String(interactive_data.get("kind", ""))
-        if interactive_kind == "chapter_exit":
-            chapter_exit_total += 1
-        elif interactive_kind == "ending_exit":
-            ending_exit_total += 1
-    var boss_data: Dictionary = config.get("boss", {})
-    var boss_kind := String(boss_data.get("kind", ""))
-    var boss_profile: Dictionary = config.get("ai_profiles", {}).get(boss_kind, {})
-    var transition_state: Dictionary = config.get("chapter_transition", {})
-    var boss_attack_types: Array = []
-    for attack in boss_profile.get("attacks", []):
-        if not (attack is Dictionary):
-            continue
-        var attack_data: Dictionary = attack
-        var attack_type := String(attack_data.get("type", ""))
-        if not boss_attack_types.has(attack_type):
-            boss_attack_types.append(attack_type)
-    var platform_materials: Array = []
-    var platform_visual_asset_paths: Array = []
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var material := String(platform_data.get("material", "moss_stone"))
-        if not platform_materials.has(material):
-            platform_materials.append(material)
-        for asset_path in _platform_visual_asset_paths_for_material(material):
-            var asset_path_string := String(asset_path)
-            if not asset_path_string.is_empty() and not platform_visual_asset_paths.has(asset_path_string):
-                platform_visual_asset_paths.append(asset_path_string)
-    var state := {
-        "config_path": config_path,
-        "config_id": config.get("id", ""),
-        "config_name": config.get("name", ""),
-        "config_goal": config.get("goal", ""),
-        "progression_mode": config.get("progression_mode", "keys"),
-        "art_theme_id": _art_theme_id(),
-        "map_title": _theme_map_title(),
-        "visual_asset_source": _theme_asset_source(),
-        "platform_materials": platform_materials,
-        "platform_visual_asset_paths": platform_visual_asset_paths,
-        "background_visual_asset_paths": _background_visual_asset_paths(),
-        "world_width": world_width,
-        "map_room_total": config.get("map_rooms", []).size(),
-        "platform_total": config.get("platforms", []).size(),
-        "bell_count": bell_count,
-        "required_keys": max_bells,
-        "shortcut_open": shortcut_open,
-        "shortcut_total": _shortcut_total(),
-        "opened_shortcut_total": _opened_shortcut_total(),
-        "opened_shortcut_ids": opened_shortcuts.keys(),
-        "boss_unlocked": boss_unlocked,
-        "boss_spawned": boss_spawned,
-        "boss_arena_locked": boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body),
-        "demo_complete": demo_complete,
-        "post_boss_route_open": post_boss_route_open,
-        "entry_spawn_override_enabled": entry_spawn_override_enabled,
-        "entered_from_config_id": entered_from_config_id,
-        "transition_entry_message": transition_entry_message,
-        "normal_enemy_total": enemy_total,
-        "normal_enemy_defeated": enemy_defeated,
-        "hazard_total": hazard_total,
-        "collectible_total": collectible_total,
-        "save_point_total": save_point_total,
-        "hidden_save_point_total": hidden_save_point_total,
-        "active_save_point_id": active_save_point_id,
-        "active_spawn": [active_spawn.x, active_spawn.y],
-        "ai_profile_total": config.get("ai_profiles", {}).size(),
-        "npc_total": config.get("npcs", []).size(),
-        "story_flag_total": story_flags.size(),
-        "story_flags": story_flags.duplicate(),
-        "currency_count": currency_count,
-        "inventory_item_total": inventory_counts.size(),
-        "unlocked_ability_total": unlocked_abilities.size(),
-        "unlocked_ability_ids": unlocked_abilities.keys(),
-        "locked_gate_total": config.get("locked_gates", []).size(),
-        "locked_gate_remaining": locked_gate_bodies.size(),
-        "visited_room_total": visited_rooms.size(),
-        "current_room_id": current_room_id,
-        "current_room_archetype": _room_map_copy(current_room_id, "archetype", ""),
-        "current_room_pacing_role": _room_map_copy(current_room_id, "pacing_role", ""),
-        "current_room_traversal_focus": _room_map_copy(current_room_id, "traversal_focus", ""),
-        "current_room_reward_contract": _room_map_copy(current_room_id, "reward_contract", ""),
-        "current_room_setpiece": _room_map_copy(current_room_id, "setpiece", ""),
-        "current_room_micro_objective": _room_map_copy(current_room_id, "micro_objective", ""),
-        "backpack_overlay_ready": backpack_panel != null,
-        "map_overlay_ready": map_panel != null,
-        "dialogue_overlay_ready": dialogue_panel != null,
-        "guide_marker_total": config.get("guides", []).size(),
-        "active_overlay": active_overlay,
-        "boss_trial_mode": boss_trial_mode,
-        "chapter_exit_total": chapter_exit_total,
-        "ending_exit_total": ending_exit_total,
-        "carried_inventory_enabled": carried_inventory_enabled,
-        "ending_gate_total": _ending_gate_entries().size(),
-        "ending_gates_spawned": ending_gates_spawned,
-        "ending_chosen": String(story_flags.get("ending_chosen", "")),
-        "wish_total": _wish_board_entries().size(),
-        "wish_claimed_total": _wish_claimed_total(),
-        "chapter_transition_to": transition_state.get("to_runtime_config_id", ""),
-        "boss_attack_total": boss_profile.get("attacks", []).size(),
-        "boss_attack_types": boss_attack_types
-    }
-    var enemy_positions: Array = []
-    for enemy_node in get_tree().get_nodes_in_group("enemy"):
-        var enemy_area := enemy_node as Area2D
-        if enemy_area == null or not is_instance_valid(enemy_area):
-            continue
-        if bool(enemy_area.get("is_boss")):
-            continue
-        var spawn_position_value: Vector2 = enemy_area.get("spawn_position")
-        var leash_radius_value := float(enemy_area.get("leash_radius"))
-        var spawn_half_width := float(enemy_area.get_meta("spawn_half_width", 36.0))
-        var spawn_visual_height := float(enemy_area.get_meta("spawn_visual_height", 104.0))
-        var query := PhysicsShapeQueryParameters2D.new()
-        var shape := RectangleShape2D.new()
-        # Birth clearance uses the terrain footprint retained by motion sweeps;
-        # the enlarged combat hurtbox can extend beyond that footprint.
-        var motion_size: Variant = enemy_area.get("motion_box_size")
-        var has_motion_box: bool = motion_size is Vector2 and motion_size != Vector2.ZERO
-        shape.size=motion_size if has_motion_box else enemy_area.hurtbox_size
-        query.shape=shape
-        # Zero is a configured offset here, rather than the combat-rect fallback.
-        var clearance_offset: Vector2 = enemy_area.get("motion_box_offset") if has_motion_box else enemy_area.hurtbox_offset
-        query.transform=Transform2D(0,enemy_area.global_position+clearance_offset)
-        query.collision_mask=1
-        query.collide_with_areas=false
-        var spawn_clear := get_world_2d().direct_space_state.intersect_shape(query,1).is_empty()
-        var ai_debug := {}
-        if enemy_area.has_method("get_ai_debug_state"):
-            ai_debug = enemy_area.get_ai_debug_state()
-        enemy_positions.append({
-            "id": String(enemy_area.get("spawn_id")),
-            "kind": String(enemy_area.get("kind")),
-            "position": [enemy_area.global_position.x, enemy_area.global_position.y],
-            "spawn_position": [spawn_position_value.x, spawn_position_value.y],
-            "leash_radius": leash_radius_value,
-            "spawn_visual_height": spawn_visual_height,
-            "platform_id": String(enemy_area.get_meta("platform_id","")),
-            "locomotion": String(enemy_area.get("locomotion")),
-            "spawn_clear": spawn_clear,
-            "ai_command_total": int(ai_debug.get("ai_command_total", 0)),
-            "attack_desire": float(ai_debug.get("attack_desire", 0.0)),
-            "attack_desire_threshold": float(ai_debug.get("attack_desire_threshold", 0.0)),
-            "last_player_command": String(ai_debug.get("last_player_command", "none")),
-            "last_ai_decision": String(ai_debug.get("last_ai_decision", "none")),
-            "last_attack_id": String(ai_debug.get("last_attack_id", "")),
-            "reads_player_commands": bool(ai_debug.get("reads_player_commands", false)),
-            "command_read_count": int(ai_debug.get("command_read_count", 0)),
-            "max_attack_range": float(ai_debug.get("max_attack_range", 0.0))
-        })
-    state["enemy_positions"] = enemy_positions
-    if boss_actor != null and is_instance_valid(boss_actor):
-        var boss_body_size: Vector2 = boss_actor.get("body_size")
-        var boss_hurtbox_size: Vector2 = boss_actor.get("hurtbox_size")
-        state["boss_position"] = [boss_actor.global_position.x, boss_actor.global_position.y]
-        state["boss_body_size"] = [boss_body_size.x, boss_body_size.y]
-        state["boss_hurtbox_size"] = [boss_hurtbox_size.x, boss_hurtbox_size.y]
-        state["boss_visual_scale"] = float(boss_actor.get("visual_scale"))
-        state["boss_asset_path"] = String(boss_actor.get("asset_path"))
-        if boss_actor.has_method("get_ai_debug_state"):
-            var boss_ai_debug: Dictionary = boss_actor.get_ai_debug_state()
-            state["boss_last_attack_id"] = String(boss_ai_debug.get("last_attack_id", ""))
-            state["boss_last_ai_decision"] = String(boss_ai_debug.get("last_ai_decision", ""))
-            state["boss_tactical_ai"] = bool(boss_ai_debug.get("tactical_ai", false))
-            state["boss_tactic"] = String(boss_ai_debug.get("boss_tactic", ""))
-            state["boss_tactic_timer"] = float(boss_ai_debug.get("boss_tactic_timer", 0.0))
-            state["boss_attack_desire"] = float(boss_ai_debug.get("attack_desire", 0.0))
-            state["boss_attack_desire_threshold"] = float(boss_ai_debug.get("attack_desire_threshold", 0.0))
-    if not campaign.is_empty():
-        state["campaign_chapter_total"] = campaign.get("chapters", []).size()
-        state["campaign_current_chapter"] = current_campaign_chapter.get("name", "")
-        state["campaign_next_chapter"] = _next_campaign_chapter_name()
-        state["chapter_file_total"] = chapter_file_configs.size()
-        state["chapter_file_ids"] = _chapter_file_ids()
-    if not audio_visual_manifest.is_empty():
-        state["av_runtime_event_total"] = audio_visual_manifest.get("runtime_events", {}).size()
-        state["av_chapter_total"] = audio_visual_manifest.get("chapter_audio_visual", []).size()
-    if metsys_bridge != null:
-        state.merge(metsys_bridge.get_state(), true)
-    return state
+    return LEVEL_DEMO_STATE.get_demo_state(self)
 
 
 func _wish_claimed_total() -> int:
@@ -4953,42 +2315,23 @@ func _wish_claimed_total() -> int:
 
 
 func _debug_collect_all_abilities() -> void:
-    for collectible in config.get("collectibles", []):
-        if not (collectible is Dictionary):
-            continue
-        var data: Dictionary = collectible
-        if String(data.get("kind", "")) != "item":
-            continue
-        var item_id := String(data.get("item_id", ""))
-        if item_id.is_empty():
-            continue
-        _add_inventory_item(item_id, 1, false)
-        unlocked_abilities[item_id] = String(data.get("ability_name", data.get("label", item_id)))
-    _refresh_ability_gates()
-    _refresh_hud()
+    LEVEL_DEMO_STATE.debug_collect_all_abilities(self)
 
 
 func _debug_clear_combat_route() -> void:
-    enemy_defeated = enemy_total
-    if _combat_progression_enabled():
-        _open_combat_clear_route()
-    _refresh_hud()
+    LEVEL_DEMO_STATE.debug_clear_combat_route(self)
 
 
 func _debug_open_all_shortcuts() -> void:
-    _open_all_shortcuts()
+    LEVEL_DEMO_STATE.debug_open_all_shortcuts(self)
 
 
 func _debug_start_boss() -> void:
-    boss_unlocked = true
-    _spawn_boss()
+    LEVEL_DEMO_STATE.debug_start_boss(self)
 
 
 func _debug_kill_boss() -> void:
-    if not boss_spawned:
-        _debug_start_boss()
-    if boss_actor != null and is_instance_valid(boss_actor):
-        boss_actor.take_hit(999, 1)
+    LEVEL_DEMO_STATE.debug_kill_boss(self)
 
 
 func _rect2(value: Variant) -> Rect2:
@@ -5007,628 +2350,170 @@ func _color(hex: Variant) -> Color:
     return Color.html("#" + String(hex))
 
 func _shortcut_is_lever_controlled(shortcut_id: String) -> bool:
-    if shortcut_id.is_empty():
-        return false
-    for interactive in config.get("interactives", []):
-        if interactive is Dictionary and String(interactive.get("kind", "")) == "lever" and String(interactive.get("shortcut_id", "")) == shortcut_id:
-            return true
-    return false
+    return LEVEL_ROUTE_STATE.shortcut_is_lever_controlled(self, shortcut_id)
 
 
 func _room_has_position_bounds(room_data: Dictionary) -> bool:
-    if _room_layout_rect(room_data).has_area():
-        return true
-    for rect_value in room_data.get("visit_rects", []):
-        if _rect2(rect_value).has_area():
-            return true
-    return false
+    return LEVEL_ROUTE_STATE.room_has_position_bounds(self, room_data)
 
 
 func _room_containing_area(room_data: Dictionary, world_position: Vector2) -> float:
-    var area := INF
-    var layout := _room_layout_rect(room_data)
-    if layout.has_area() and _rect_contains_position(layout, world_position):
-        area = layout.get_area()
-    for rect_value in room_data.get("visit_rects", []):
-        var rect := _rect2(rect_value)
-        if rect.has_area() and _rect_contains_position(rect, world_position):
-            area = minf(area, rect.get_area())
-    return area
+    return LEVEL_ROUTE_STATE.room_containing_area(self, room_data, world_position)
 
 
 func _unlock_boss_route() -> void:
-    boss_unlocked = true
-    shortcut_open = true
-    if gate_body != null and is_instance_valid(gate_body):
-        gate_body.queue_free()
-        gate_body = null
+    LEVEL_ROUTE_STATE.unlock_boss_route(self)
 
 
 func _open_combat_clear_route() -> void:
-    for shortcut_id in _shortcut_ids():
-        if not _shortcut_is_lever_controlled(String(shortcut_id)):
-            opened_shortcuts[String(shortcut_id)] = true
-    _unlock_boss_route()
-    _refresh_hud()
+    LEVEL_ROUTE_STATE.open_combat_clear_route(self)
 
 
 func get_build_system() -> RefCounted:
-    return build_system
+    return LEVEL_BUILD.get_build_system(self)
 
 func _sync_player_build() -> void:
-    if not world_mode or build_system == null:
-        return
-    build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
-    if player != null and is_instance_valid(player):
-        var profile: Dictionary = build_system.profile()
-        if profile != applied_build_profile:
-            player.apply_build_stats(profile)
-            applied_build_profile = profile.duplicate(true)
-            _sync_hazard_trigger_sizes()
+    LEVEL_BUILD.sync_player_build(self)
 
 
 func _sync_hazard_trigger_sizes() -> void:
-    pass
+    LEVEL_BUILD.sync_hazard_trigger_sizes(self)
 
 func _bind_build_inputs() -> void:
-    var bindings := {"skill_cycle": [KEY_C, JOY_AXIS_TRIGGER_LEFT],
-        "tool_cast": [KEY_T, JOY_BUTTON_DPAD_DOWN], "tool_cycle": [KEY_G, JOY_AXIS_TRIGGER_RIGHT]}
-    for action in bindings:
-        if InputMap.has_action(action):
-            continue
-        InputMap.add_action(action)
-        var key := InputEventKey.new()
-        key.physical_keycode = int(bindings[action][0])
-        InputMap.action_add_event(action, key)
-        if action == "tool_cast":
-            var joy := InputEventJoypadButton.new()
-            joy.button_index = int(bindings[action][1])
-            InputMap.action_add_event(action, joy)
-        else:
-            var trigger := InputEventJoypadMotion.new()
-            trigger.axis = int(bindings[action][1])
-            trigger.axis_value = 1.0
-            InputMap.action_add_event(action, trigger)
+    LEVEL_BUILD.bind_build_inputs(self)
 
 ## Artisans who sell 校习 and make 改制 (E04); each recipe names its own maker.
 const ARTISAN_NPCS := ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor"]
 
 func _near_workstation(crafting: bool = false) -> bool:
-    if player == null or player.hp <= 0 or player.death_timer > 0.0 or (boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body)):
-        return false
-    for child in get_children():
-        if not child is Area2D or player.global_position.distance_to(child.global_position) > 120.0:
-            continue
-        var kind := String(child.get_meta("kind", ""))
-        if kind == "save_point" and not crafting:
-            return true
-        if crafting and kind == "npc":
-            var id := String(child.get_meta("npc_id", child.name))
-            if id in ARTISAN_NPCS:
-                return true
-    return false
+    return LEVEL_BUILD.near_workstation(self, crafting)
 
 ## Read-only proximity query used by UI affordances and explicit quote actions.
 func is_near_shrine() -> bool:
-    return _near_workstation(false)
+    return LEVEL_BUILD.is_near_shrine(self)
 
 ## U02: beside an artisan the build page opens on 强化, where 校习 is bought.
 func is_near_artisan() -> bool:
-    return _near_workstation(true)
+    return LEVEL_BUILD.is_near_artisan(self)
 
 ## E04: which artisan is in reach; each one makes only their own 改制.
 func near_artisan_id() -> String:
-    if not _near_workstation(true):
-        return ""
-    var best := ""
-    var best_distance := INF
-    for child in get_children():
-        if not child is Area2D or String(child.get_meta("kind", "")) != "npc":
-            continue
-        var id := String(child.get_meta("npc_id", child.name))
-        var distance := player.global_position.distance_to(child.global_position)
-        if id in ARTISAN_NPCS and distance <= 120.0 and distance < best_distance:
-            best = id
-            best_distance = distance
-    return best
+    return LEVEL_BUILD.near_artisan_id(self)
 
 ## E04: why this artisan cannot make the recipe yet; "" when only the price remains.
 func artisan_craft_block(recipe: Dictionary) -> String:
-    for prerequisite in recipe.get("requires_crafted", []):
-        if not build_system.state.crafted.has(prerequisite):return "请先完成前阶改制，再制作二阶方案"
-    var artisan := String(recipe.get("artisan", ""))
-    if not artisan.is_empty() and near_artisan_id() != artisan:
-        return "「%s」要找%s制作" % [String(recipe.get("name", "")), String(recipe.get("artisan_name", "工匠"))]
-    var flag := String(recipe.get("requires_flag", ""))
-    if not flag.is_empty() and not bool(story_flags.get(flag, false)):
-        return String(recipe.get("requires_flag_hint", "工匠还不会这门手艺"))
-    for item in recipe.get("requires_items", []):
-        if int(inventory_counts.get(item, 0)) <= 0:
-            return "需要「%s」作图样（不会被收走）" % _item_display_name(String(item))
-    return ""
+    return LEVEL_BUILD.artisan_craft_block(self, recipe)
 
 func _build_wallet_snapshot() -> Dictionary:
-    return {"currency": currency_count, "inventory_counts": inventory_counts.duplicate(true)}
+    return LEVEL_BUILD.build_wallet_snapshot(self)
 
 func _set_build_wallet(wallet: Dictionary) -> void:
-    currency_count = int(wallet.get("currency", currency_count))
-    inventory_counts = wallet.get("inventory_counts", inventory_counts).duplicate(true)
-    inventory_materials.clear()
-    for item_id in inventory_counts:
-        if String(_item_data(String(item_id)).get("category", "Materials")) == "Materials":
-            inventory_materials[item_id] = int(inventory_counts[item_id])
+    LEVEL_BUILD.set_build_wallet(self, wallet)
 
 func _rollback_build_transaction(build_before: Dictionary, wallet_before: Dictionary, materials_before: Dictionary) -> void:
-    if build_system != null:
-        build_system.restore(build_before)
-    currency_count = int(wallet_before.get("currency", currency_count))
-    inventory_counts = wallet_before.get("inventory_counts", inventory_counts).duplicate(true)
-    inventory_materials = materials_before.duplicate(true)
+    LEVEL_BUILD.rollback_build_transaction(self, build_before, wallet_before, materials_before)
 
 func _finish_build_transaction(result: Dictionary, build_before: Dictionary, wallet_before: Dictionary, materials_before: Dictionary) -> Dictionary:
-    if not _save_world():
-        _rollback_build_transaction(build_before, wallet_before, materials_before)
-        result.ok = false
-        result.reason = "归途记录未能写入；本次购买或制作已回滚。"
-        _toast(String(result.reason))
-        _refresh_hud()
-        return result
-    # Apply derived player stats only after the save transaction commits. A
-    # failed disk write therefore cannot disturb HP, thread or action cooldowns.
-    _sync_player_build()
-    _refresh_hud()
-    return result
+    return LEVEL_BUILD.finish_build_transaction(self, result, build_before, wallet_before, materials_before)
 
 ## Read-only availability used by both the HUD and the actual tool transaction.
 func get_tool_readiness(id: String) -> Dictionary:
-    if not is_instance_valid(player) or player.hp <= 0 or chapter_transitioning or world_loading:
-        return {"available":false,"text":"暂不可用","detail":"等待当前旅途状态结束。"}
-    if not active_overlay.is_empty() or not player._can_start_action():
-        return {"available":false,"text":"动作中","detail":"请在动作结束后使用战具"}
-    if id == "mine":
-        var owned_traps := 0
-        for effect in get_tree().get_nodes_in_group("player_trap"):
-            if effect.get("owner_player") == player:owned_traps += 1
-        if owned_traps >= 2:
-            return {"available":false,"text":"已布满","detail":"场上已有两枚布置中的地雷"}
-    if id.is_empty():
-        return {"available":false,"text":"空槽","detail":"此战具槽位为空"}
-    if _in_tool_practice_room():
-        return {"available":true,"text":"练习","detail":"练习房免费使用，不消耗携带次数。"}
-    if build_system == null or int(build_system.state.tool_counts.get(id,0)) <= 0:
-        return {"available":false,"text":"已用尽","detail":"战具已用尽，请在钟龛补给"}
-    return {"available":true,"text":"","detail":"使用消耗一次。"}
+    return LEVEL_BUILD.get_tool_readiness(self, id)
 
 func quote_loadout_restore(name: String) -> Dictionary:
-    return preload("res://scripts/loadout_restore_review.gd").quote(self,name)
+    return LEVEL_BUILD.quote_loadout_restore(self, name)
 
 func apply_reviewed_loadout(name: String, fingerprint: String) -> Dictionary:
-    return preload("res://scripts/loadout_restore_review.gd").apply(self,name,fingerprint)
+    return LEVEL_BUILD.apply_reviewed_loadout(self, name, fingerprint)
 
 func quote_craft_cart(request: Variant) -> Dictionary:
-    var failure := {"ok":false,"reason":"请与制作这份清单的工匠面对面交谈。"}
-    if not world_mode or world_loading or chapter_transitioning or player==null or player.hp<=0 or build_system==null or world_save_blocked:return failure
-    if not _near_workstation(true) or near_artisan_id().is_empty():return failure
-    if not request is Array:return failure
-    for id in request:
-        if not id is String or not build_system.catalog.recipes.has(id):return failure
-        var recipe: Dictionary=build_system.catalog.recipes[id]
-        if String(recipe.get("kind",""))=="skill_branch" and not bool(story_flags.get("skill_practiced_"+String(recipe.target),false)):
-            return {"ok":false,"reason":"先在练针架练熟技能，再选校习方向。"}
-        var blocked:=artisan_craft_block(recipe)
-        if not blocked.is_empty():return {"ok":false,"reason":blocked}
-    var quote: Dictionary=build_system.quote_craft_batch(request,_build_wallet_snapshot())
-    if quote.get("ok",false):quote["fingerprint"]=var_to_str([request,build_system.serialize(),_build_wallet_snapshot(),quote.rows,quote.materials,quote.currency_spent,near_artisan_id(),story_flags]).sha256_text()
-    return quote
+    return LEVEL_BUILD.quote_craft_cart(self, request)
 
 func perform_build_action(action: String, id: String = "", extra: Variant = null) -> Dictionary:
-    if build_system == null or not world_mode:
-        return {"ok": false, "reason": "构筑系统在互联世界旅途中开放"}
-    if action == "use_tool":
-        var selected_tool_id := String(build_system.state.tools[int(build_system.state.active_tool_slot)])
-        var readiness := get_tool_readiness(selected_tool_id)
-        if not bool(readiness.available):
-            # Recovery and mine-cap rejections were always silent; the other
-            # unavailable states must still explain why the input did nothing.
-            if String(readiness.text) not in ["动作中", "已布满"]:
-                _toast(String(readiness.detail))
-            return {"ok":false,"reason":String(readiness.detail)}
-    if player == null or player.hp <= 0 or chapter_transitioning or world_loading:
-        return {"ok": false, "reason": "当前无法更换构筑"}
-    if action == "quote_craft_batch":return quote_craft_cart(extra)
-    if action == "quote_resupply":
-        if not _near_workstation():
-            return {"ok": false, "reason": "请在钟龛查看战具补给报价"}
-        return build_system.quote_resupply(_build_wallet_snapshot(), {} if extra == null else extra)
-    if action == "quote_loadout_management":
-        if not extra is Dictionary or not extra.get("copy",false) is bool:return {"ok":false,"reason":"方案操作无效"}
-        return build_system.preview_loadout_management(id,extra.get("name"),bool(extra.get("copy",false)),_near_workstation())
-    if action in ["resupply_tools", "paid_resupply"] and not _near_workstation():
-        return {"ok": false, "reason": "请在钟龛补给战具"}
-    if world_save_blocked:
-        return {"ok": false, "reason": "构筑存档不兼容，当前不能保存交易"}
-    var build_before: Dictionary = build_system.serialize()
-    var wallet_before := _build_wallet_snapshot()
-    var materials_before: Dictionary = inventory_materials.duplicate(true)
-    var result: Dictionary = {"ok": false, "reason": "未知构筑操作"}
-    match action:
-        "switch_crest", "crest":
-            result = build_system.switch_crest(id, _near_workstation())
-        "select_skill", "skill":
-            result = build_system.select_skill(id, int(extra) if extra is int or extra is float else -1) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整技能位置"}
-        "select_tool", "tool":
-            result = build_system.select_tool(id, int(extra) if extra is int or extra is float else -1) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整战具位置"}
-        "equip_family_slot":
-            var family := String(extra.get("family", "")) if extra is Dictionary else ""
-            var slot := int(extra.get("slot", -1)) if extra is Dictionary else -1
-            result = build_system.equip_family_slot(id, family, slot, _near_workstation())
-        "cycle_skill":
-            result = build_system.cycle_skill()
-        "cycle_tool":
-            result = build_system.cycle_tool()
-        "equip_passive", "passive":
-            result = build_system.equip_passive(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整铭饰"}
-        "save_loadout":
-            result = build_system.save_loadout(id, _near_workstation())
-        "delete_loadout":
-            result = build_system.delete_loadout(id, _near_workstation())
-        "rename_loadout":
-            result = build_system.rename_loadout(id,extra,_near_workstation())
-        "copy_loadout":
-            result = build_system.copy_loadout(id,extra,_near_workstation())
-        "restore_loadout", "load_loadout":
-            result = build_system.restore_loadout(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛恢复构筑方案"}
-        "resupply_tools", "paid_resupply":
-            result = build_system.resupply_tools(_build_wallet_snapshot(), _near_workstation(), {} if extra == null else extra)
-            if result.get("ok", false):
-                _set_build_wallet(result.wallet)
-        "craft_batch":
-            result=quote_craft_cart(extra)
-            if result.get("ok",false):
-                if not build_system.restore(result.build).ok:result={"ok":false,"reason":"制作清单构筑无法恢复"}
-                else:_set_build_wallet(result.wallet)
-        "transact", "craft":
-            var recipe: Dictionary = build_system.catalog.recipes.get(id, {})
-            var practice_target := String(recipe.get("target", ""))
-            if String(recipe.get("kind", "")) == "skill_branch" and not bool(story_flags.get("skill_practiced_" + practice_target, false)):
-                result = {"ok": false, "reason": "先在练针架上练熟「%s」，再选校习方向" % String(build_system.catalog.skills.get(practice_target, {}).get("name", practice_target))}
-            elif not _near_workstation(true):
-                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面校习"}
-            elif String(recipe.get("kind", "")) in ["tool_capacity", "slot_part", "passive"] and not artisan_craft_block(recipe).is_empty():
-                result = {"ok": false, "reason": artisan_craft_block(recipe)}
-            else:
-                result = build_system.transact(id, _build_wallet_snapshot())
-                if result.get("ok", false):
-                    _set_build_wallet(result.wallet)
-        "use_tool":
-            var selected_tool_id := String(build_system.state.tools[int(build_system.state.active_tool_slot)])
-            # E02: tools used in a practice room cost nothing and give nothing:
-            # the stock is put back to what it was, even when it was empty.
-            var practice := _in_tool_practice_room()
-            var practice_count := int(build_system.state.tool_counts.get(selected_tool_id, 0))
-            if practice and practice_count <= 0:
-                build_system.state.tool_counts[selected_tool_id] = 1
-            result = build_system.use_tool()
-            if practice:
-                build_system.state.tool_counts[selected_tool_id] = practice_count
-    if result.get("ok", false):
-        result = _finish_build_transaction(result, build_before, wallet_before, materials_before)
-        if result.get("ok", false) and action == "use_tool" and not player.cast_tool(result):
-            # Stock is durable before effects exist. If the effect cannot start,
-            # persist a refund; if that write fails, retain the spent state so
-            # memory and disk still agree and no free effect can be created.
-            var spent_build: Dictionary = build_system.serialize()
-            build_system.restore(build_before)
-            if _save_world():
-                _sync_player_build()
-                result = {"ok": false, "reason": "当前无法使用战具；已退还次数"}
-            else:
-                build_system.restore(spent_build)
-                _sync_player_build()
-                result = {"ok": false, "reason": "战具未能启动且退款暂未写入；本次次数已消耗"}
-    elif not String(result.get("reason", "")).is_empty():
-        _toast(String(result.reason))
-    return result
+    return LEVEL_BUILD.perform_build_action(self, action, id, extra)
 
 func _toggle_build() -> void:
-    if ui_shell == null or not is_instance_valid(ui_shell.get("build_panel")):
-        return
-    if active_overlay == "build":
-        _close_overlays()
-        return
-    _close_overlays()
-    active_overlay = "build"
-    ui_shell.build_panel.visible = true
-    ui_shell.refresh_build()
-    _sync_ui_input_lock()
+    LEVEL_BUILD.toggle_build(self)
 
 ## An ordinary strike on a breakable floor: the floor shudders but holds.
 func _on_gate_struck(gate: Node, _point: Vector2) -> void:
-    if not is_instance_valid(gate) or not gate.is_inside_tree():
-        return
-    gate.set_meta("crack_count", int(gate.get_meta("crack_count", 0)) + 1)
-    for child in gate.get_children():
-        # Only the drawing shudders; the collision the player stands on stays put.
-        if not child is Node2D or child is CollisionShape2D or child is CollisionPolygon2D:
-            continue
-        if not child.has_meta("shudder_base"):
-            child.set_meta("shudder_base", child.position)
-        var base: Vector2 = child.get_meta("shudder_base")
-        var tween := child.create_tween()
-        tween.tween_property(child, "position", base + Vector2(3, 1), 0.04)
-        tween.tween_property(child, "position", base + Vector2(-2, 0), 0.04)
-        tween.tween_property(child, "position", base, 0.05)
+    LEVEL_BUILD.on_gate_struck(self, gate, _point)
 
 
 func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2) -> void:
-    if _walking_world_passage():
-        return
-    if not world_mode or int(inventory_counts.get(ability_id, 0)) <= 0 or player == null or player.hp <= 0:
-        return
-    var changed := false
-    for gate in config.get("locked_gates", []):
-        if String(gate.get("requires_action", "")) != ability_id:
-            continue
-        var id := String(gate.get("id", ""))
-        if not locked_gate_bodies.has(id):
-            continue
-        var rect := _rect2(gate.get("rect", []))
-        var closest := Vector2(clampf(origin.x, rect.position.x, rect.end.x), clampf(origin.y - 42.0, rect.position.y, rect.end.y))
-        if closest.distance_to(origin - Vector2(0, 42)) > float(gate.get("action_range", 150.0)):
-            continue
-        # A downward break only acts on ground below the player, never a side wall.
-        if ability_id == "thorn_downstrike" and (direction.y < 0.5 or origin.y > rect.end.y):
-            continue
-        var unlock_id := String(gate.get("permanent_action_unlock_id", id))
-        changed = true
-        story_flags["action_gate_" + unlock_id] = true
-        var shortcut := String(gate.get("unlock_shortcut_id", ""))
-        if not shortcut.is_empty():
-            story_flags["world_shortcut_" + shortcut] = true
-        var record := String(gate.get("unlock_item_id", ""))
-        if not record.is_empty():
-            _add_inventory_item(record, 1, false)
-        _spawn_route_open_effect(rect.get_center())
-        _unlock_ability_gate(id, String(GATE_UNLOCK_SFX.get(ability_id, "gate_dash")))
-        _toast(String(gate.get("open_message", "动作唤醒旧机关，回访通路永久接通。")))
-    if changed:
-        _refresh_world_portals()
-        _save_world()
+    LEVEL_BUILD.on_ability_action(self, ability_id, origin, direction)
 
 func get_save_slots() -> Array:
-    var result: Array=[]
-    for index in range(1,4):
-        var path:=world_save_path if index==world_slot else WORLD_STATE_SCRIPT.slot_path(index)
-        var row: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path)
-        row["slot"]=index
-        row["backup"]=preload("res://scripts/save_inspector.gd").inspect(path+".bak")
-        result.append(row)
-    return result
+    return LEVEL_SAVE_SLOTS.get_save_slots(self)
 
 func quote_save_operation(action: String, index: int) -> Dictionary:
-    if not world_mode or world_loading or chapter_transitioning or player==null or player.hp<=0 or index<1 or index>3 or action not in ["switch","recover"]:
-        return {"ok":false,"reason":"当前无法切换或恢复归途记录。"}
-    var path:=world_save_path if index==world_slot else WORLD_STATE_SCRIPT.slot_path(index)
-    var primary: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path)
-    var backup: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path+".bak")
-    var result: Dictionary={"ok":true,"slot":index,"primary":primary,"backup":backup,"action":action}
-    if action=="switch":
-        if index==world_slot:result.ok=false;result["reason"]="已经在当前存档槽。"
-        elif world_save_blocked:result.ok=false;result["reason"]="当前记录暂不可保存，请先处理当前槽的恢复提示。"
-        elif primary.exists and not primary.valid:result.ok=false;result["reason"]="目标主档无法读取，请先选择恢复该槽备份。"
-    elif not backup.valid:result.ok=false;result["reason"]="该槽没有可读取的备份。"
-    elif index!=world_slot and world_save_blocked:result.ok=false;result["reason"]="离开前必须先处理当前记录的恢复提示。"
-    result["fingerprint"]=var_to_str([action,index,path,primary,backup,world_save_path,_build_wallet_snapshot(),story_flags,build_system.serialize(),player.hp,player.energy]).sha256_text()
-    return result
+    return LEVEL_SAVE_SLOTS.quote_save_operation(self, action, index)
 
 func perform_save_operation(action: String, index: int, fingerprint: String) -> Dictionary:
-    var fresh:=quote_save_operation(action,index)
-    if not fresh.get("ok",false):return fresh
-    if String(fresh.fingerprint)!=fingerprint:return {"ok":false,"changed":true,"reason":"记录或当前旅途已变化，请重新核对。"}
-    var ok:=select_save_slot(index) if action=="switch" else restore_save_backup(index)
-    return {"ok":ok,"reason":"正在进入所选旅途。" if ok else "当前操作未完成，仍停留在原旅途；请查看保存或恢复提示。"}
+    return LEVEL_SAVE_SLOTS.perform_save_operation(self, action, index, fingerprint)
 
 func get_journey_history_page(offset: int, limit: int) -> Dictionary:
-    return preload("res://scripts/journey_history.gd").summaries(world_save_path,offset,limit)
+    return LEVEL_SAVE_SLOTS.get_journey_history_page(self, offset, limit)
 
 func get_journey_archive_detail(file: String, sha: String) -> Dictionary:
-    return preload("res://scripts/journey_archive_detail.gd").inspect(world_save_path,file,sha)
+    return LEVEL_SAVE_SLOTS.get_journey_archive_detail(self, file, sha)
 
 func get_journey_history() -> Dictionary:
-    return preload("res://scripts/journey_history.gd").summaries(world_save_path)
+    return LEVEL_SAVE_SLOTS.get_journey_history(self)
 
 func select_save_slot(index: int) -> bool:
-    if not world_mode or index < 1 or index > 3 or chapter_transitioning or player.hp <= 0:
-        return false
-    var path := WORLD_STATE_SCRIPT.slot_path(index)
-    if path == world_save_path:
-        return true
-    var candidate = WORLD_STATE_SCRIPT.new()
-    if FileAccess.file_exists(path) and not candidate.read(path):
-        _toast("该旅途记录无法读取，已保留原文件；请先恢复该槽备份。")
-        return false
-    if not _save_world():
-        _toast("当前进度未能写入，尚未切换存档槽。")
-        return false
-    chapter_transitioning = true
-    _defer_region_call("_replace_with_save_slot", [index])
-    return true
+    return LEVEL_SAVE_SLOTS.select_save_slot(self, index)
 
 func _replace_with_save_slot(index: int, path_override: String = "") -> void:
-    var parent_node := get_parent()
-    var scene: Node = load("res://scenes/World.tscn").instantiate()
-    scene.world_slot = index
-    scene.world_startup_options_enabled = false
-    scene.world_save_path = path_override if not path_override.is_empty() else WORLD_STATE_SCRIPT.slot_path(index)
-    var was_current := get_tree().current_scene == self
-    parent_node.remove_child(self)
-    parent_node.add_child(scene)
-    if was_current:
-        scene.get_tree().current_scene = scene
-    queue_free()
+    LEVEL_SAVE_SLOTS.replace_with_save_slot(self, index, path_override)
 
 func restore_save_backup(index: int = 0) -> bool:
-    if not world_mode or chapter_transitioning or world_loading or (index!=0 and (index<1 or index>3)):
-        return false
-    var slot := world_slot if index == 0 else index
-    if slot!=world_slot and not _save_world():
-        _toast("当前进度未能写入，尚未恢复其他槽备份。")
-        return false
-    # The current slot restores the file this journey actually uses.
-    var path := world_save_path if slot == world_slot else WORLD_STATE_SCRIPT.slot_path(slot)
-    var recovered = WORLD_STATE_SCRIPT.new()
-    if not recovered.restore_backup(path):
-        _toast("备份恢复失败：" + recovered.last_error)
-        return false
-    chapter_transitioning = true
-    _defer_region_call("_replace_with_save_slot", [slot, path])
-    return true
+    return LEVEL_SAVE_SLOTS.restore_save_backup(self, index)
 
 ## G02: the return knot is left at the last place the player stood on
 ## permanent terrain. A lift basket travels away, and ability gates or fragile
 ## floors can be opened later, so standing on them never moves the knot there.
 func _update_safe_ground() -> void:
-    if player == null or not is_instance_valid(player):
-        return
-    if player.is_on_floor() and player.hp > 0 and _standing_on_permanent_floor():
-        last_safe_ground = player.global_position
+    LEVEL_GROUND.update_safe_ground(self)
 
 
 func _standing_on_permanent_floor() -> bool:
-    for index in range(player.get_slide_collision_count() - 1, -1, -1):
-        var collision := player.get_slide_collision(index)
-        if collision.get_normal().dot(Vector2.UP) < 0.7:
-            continue
-        # AnimatableBody2D (lift baskets) is a StaticBody2D subclass that moves.
-        var body := collision.get_collider() as StaticBody2D
-        if body == null or not is_instance_valid(body) or body is AnimatableBody2D:
-            return false
-        if body.is_in_group("fragile_terrain") or body.is_in_group("phase_gate") or locked_gate_bodies.values().has(body):
-            return false
-        return true
-    return false
+    return LEVEL_GROUND.standing_on_permanent_floor(self)
 
 
 func _ground_is_hazardous(_position_value: Vector2) -> bool:
-    return false
+    return LEVEL_GROUND.ground_is_hazardous(self, _position_value)
 
 func _record_death_cache() -> void:
-    if not world_mode or death_recorded or world_state == null:
-        return
-    var lost := int(currency_count / 2)
-    var recovery := last_safe_ground if last_safe_ground != Vector2.ZERO else active_spawn
-    if boss_spawned:recovery=active_spawn
-    var cache: Dictionary={"region_id":String(config.get("id","")),"position":[recovery.x,recovery.y],"currency":lost}
-    var result:=_persist_world_change({"currency":currency_count-lost,"death_cache":cache})
-    if not result.has("candidate"):
-        _toast("这次失落未能记录，请检查归途记录。")
-        return
-    # Death is already occurring: retain one coherent unsaved snapshot so the
-    # ordinary respawn save can retry it. Claim/purchase paths never do this.
-    world_state.data=result.candidate
-    currency_count=int(result.candidate.currency)
-    death_recorded=true
-    _spawn_death_cache()
-    _toast("一半碎钱留在归途结" if result.ok else "这次失落已暂记在旅途中，存档尚未写入；请稍后保存。")
+    LEVEL_GROUND.record_death_cache(self)
 
 
 func _spawn_death_cache() -> void:
-    if death_cache_area != null and is_instance_valid(death_cache_area):
-        death_cache_area.queue_free()
-    death_cache_area = null
-    if not world_mode or world_state == null:
-        return
-    var cache: Dictionary = world_state.data.get("death_cache", {})
-    if cache.is_empty() or String(cache.get("region_id", "")) != String(config.get("id", "")) or int(cache.get("currency", 0)) <= 0:
-        return
-    var area := Area2D.new()
-    area.name = "DeathRecoveryKnot"
-    area.position = _vec2(cache.position)
-    area.set_meta("kind", "death_cache")
-    area.set_meta("manual_pickup", true)
-    area.set_meta("label", "归途结 · 找回碎钱")
-    var shape := CollisionShape2D.new()
-    var circle := CircleShape2D.new()
-    circle.radius = 54.0
-    shape.shape = circle
-    area.add_child(shape)
-    var ring := Line2D.new()
-    ring.closed = true
-    ring.width = 4.0
-    ring.default_color = Color("e9c276")
-    for i in range(17):
-        var angle := TAU * float(i) / 16.0
-        ring.add_point(Vector2(cos(angle), sin(angle)) * 24.0 - Vector2(0, 32))
-    area.add_child(ring)
-    _add_wayfinding(area)
-    area.body_entered.connect(_on_interactable_entered.bind(area))
-    area.body_exited.connect(_on_interactable_exited.bind(area))
-    add_child(area)
-    death_cache_area = area
+    LEVEL_GROUND.spawn_death_cache(self)
 
 func _recover_death_cache(area: Area2D) -> void:
-    if not world_mode or player==null or player.hp<=0 or world_state==null or world_loading or world_save_blocked:return
-    if not is_instance_valid(area) or area!=death_cache_area or area.is_queued_for_deletion() or not area.is_inside_tree():return
-    var cache: Dictionary=world_state.data.get("death_cache",{})
-    if not WORLD_STATE_SCRIPT._valid_death_cache(cache) or cache.is_empty() or int(cache.currency)<=0:return
-    if String(cache.region_id)!=String(config.get("id","")) or area.global_position.distance_to(player.global_position)>INTERACTION_REACH:return
-    if area.position.distance_to(_vec2(cache.position))>1.0:return
-    var result:=_persist_world_change({"currency":currency_count+int(cache.currency),"death_cache":{}})
-    if not result.ok:_toast("归途结尚未写入；碎钱与结保持原状，可再次找回。");return
-    world_state.data=result.candidate
-    currency_count=int(result.candidate.currency)
-    area.queue_free();death_cache_area=null
-    _toast("归途结已收回")
-    _refresh_hud()
+    LEVEL_GROUND.recover_death_cache(self, area)
 
 
 func _hold_actor_support(platform_id: String) -> void:
-    if world_platforms != null:
-        world_platforms.hold(self, platform_id)
-    if is_instance_valid(chapter_terrain):
-        chapter_terrain.hold_collision_support(platform_id)
+    LEVEL_GROUND.hold_actor_support(self, platform_id)
 
 
 func _ensure_collision_segment(from: Vector2, to: Vector2) -> void:
-    if world_mode and is_instance_valid(chapter_terrain):
-        chapter_terrain.ensure_collision_segment(from, to)
-    if world_mode and is_instance_valid(cave_world):
-        cave_world.ensure_collision_segment(from, to)
-    if world_platforms != null:
-        world_platforms.ensure_segment(self, from, to)
+    LEVEL_GROUND.ensure_collision_segment(self, from, to)
 
 
 func _rock_ray_hit(from: Vector2, to: Vector2) -> Dictionary:
-    var hit: Dictionary = cave_world.rock_ray_hit(from, to) if world_mode and is_instance_valid(cave_world) else {}
-    if world_platforms != null:
-        var platform: Dictionary = world_platforms.ray_hit(self, from, to)
-        if not platform.is_empty() and (hit.is_empty() or from.distance_squared_to(platform.position) < from.distance_squared_to(hit.position)):
-            hit = platform
-    if world_mode and is_instance_valid(chapter_terrain):
-        var terrain: Dictionary = chapter_terrain.terrain_ray_hit(from, to)
-        if not terrain.is_empty() and (hit.is_empty() or from.distance_squared_to(terrain.position) < from.distance_squared_to(hit.position)):
-            hit = terrain
-    return hit
+    return LEVEL_GROUND.rock_ray_hit(self, from, to)
 
 
 func _walking_world_passage() -> bool:
-    return is_instance_valid(world_passage) and world_passage.active
+    return LEVEL_GROUND.walking_world_passage(self)
 
 
 func _world_collision_ready() -> bool:
-    if is_instance_valid(world_passage) and world_passage.active:
-        return not world_passage.settling and Engine.get_physics_frames() > world_passage.sync_until
-    var cave_ready: bool = not world_mode or not is_instance_valid(cave_world) or cave_world.critical_collision_ready()
-    var terrain_ready: bool = not world_mode or not is_instance_valid(chapter_terrain) or chapter_terrain.critical_collision_ready()
-    return cave_ready and terrain_ready and (world_platforms == null or world_platforms.ready())
+    return LEVEL_GROUND.world_collision_ready(self)
 
 
 func _release_region_platforms() -> void:
-    if is_instance_valid(chapter_terrain):
-        chapter_terrain.close_collisions()
-    if world_platforms != null:
-        world_platforms.shutdown()
-    if world_gameplay_residency != null:
-        world_gameplay_residency.shutdown()
-    npc_residency_memory.clear()
-    save_point_residency_memory.clear()
+    LEVEL_GROUND.release_region_platforms(self)

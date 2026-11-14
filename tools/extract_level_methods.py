@@ -117,12 +117,13 @@ for k,l in enumerate(helper):
     if m and ret.get(m.group(3)) not in (None,'void','Variant'):
         helper[k]=f'{m.group(1)}var {m.group(2)}: {ret[m.group(3)]} = {PARAM}.{m.group(3)}({m.group(4)})'
 # Constants used as types cannot be read through a parameter: copy the preload.
-body='\n'.join(helper); typed=sorted(set(re.findall(r'(?:->|:|\bas|\bis)\s*'+PARAM+r'\.([A-Z_][A-Z0-9_]*)\b',body)))
+body='\n'.join(helper); TYPE_AT=r'(->\s*|\bvar\s+\w+\s*:\s*|\bas\s+|\bis\s+)'
+typed=sorted(set(m.group(2) for m in re.finditer(TYPE_AT+PARAM+r'\.([A-Z_][A-Z0-9_]*)\b',body)))
 consts=[]
 for n in typed:
     m=re.search(r'^const '+n+r'\s*:?=\s*preload\([^)]*\)\s*$',text,re.M)
     if not m: raise SystemExit('type constant is not a preload: '+n)
-    consts.append(m.group(0)); body=re.sub(r'((?:->|:)\s*|\bas |\bis )'+PARAM+r'\.'+n+r'\b',r'\1'+n,body)
+    consts.append(m.group(0)); body=re.sub(TYPE_AT+PARAM+r'\.'+n+r'\b',r'\1'+n,body)
 helper=body.split('\n'); helper[4:4]=consts
 GD={'true','false','null','and','or','not','if','elif','else','for','while','in','is','as','var','const','func','return','pass','break','continue','match','await','preload','load','print','push_error','push_warning','range','len','str','int','float','bool','min','max','abs','clamp','lerp','sign','round','floor','ceil','sqrt','pow','absf','absi','minf','maxf','mini','maxi','clampf','clampi','lerpf','roundf','roundi','floorf','floori','ceilf','ceili','signf','signi','snappedf','snapped','is_instance_valid','is_equal_approx','is_zero_approx','typeof','weakref','randf','randi','randf_range','randi_range','deg_to_rad','rad_to_deg','sin','cos','tan','atan2','fmod','fposmod','posmod','wrapf','wrapi','move_toward','remap','inverse_lerp','smoothstep','is_finite','is_nan','var_to_str','str_to_var','hash','void','static',PARAM,'super','PI','TAU','INF','NAN','instance_from_id','type_string','error_string','printerr','print_rich','when'}
 left={k:v for k,v in unknown.items() if k not in GD}
