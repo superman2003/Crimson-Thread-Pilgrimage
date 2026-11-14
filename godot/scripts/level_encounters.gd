@@ -2,6 +2,7 @@ extends RefCounted
 ## Enemy deaths and elite rewards, resetting encounters after the player dies, and opening the route after a boss.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 static func on_enemy_died(level: Node, spawn_id: String, is_boss: bool, kind: String) -> void:
     # Defeat is a production encounter, unlike offscreen residency/prewarming.
@@ -189,7 +190,7 @@ static func spawn_route_open_effect(level: Node, position_value: Vector2) -> voi
         ])
         ring.position = position_value
         ring.z_index = 12
-        if not level.VISUAL_POLICY.attach_secondary(level, ring, &"environment", level): continue
+        if not VISUAL_POLICY.attach_secondary(level, ring, &"environment", level): continue
         var tween: Tween = level._region_tween()
         tween.tween_interval(float(index) * 0.08)
         tween.tween_property(ring, "scale", Vector2(1.65, 1.65), 0.42)

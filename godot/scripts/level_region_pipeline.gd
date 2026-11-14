@@ -2,6 +2,15 @@ extends RefCounted
 ## The region pipeline: prepare jobs (config, catalogue, chapter, inventory, build, audio, residency), finish jobs, cartography, publishing and restoring the saved build.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
+const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
+const DEATH_RECALL := preload("res://scripts/death_recall.gd")
+const MAP_PLAYER_PINS := preload("res://scripts/map_player_pins_runtime.gd")
+const WORLD_GAMEPLAY_RESIDENCY := preload("res://scripts/world_gameplay_residency.gd")
+const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
+const WORLD_PLATFORMS := preload("res://scripts/world_platform_residency.gd")
+const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
+const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func initialize_region(level: Node, prepared_config: Dictionary = {}) -> void:
     level._prepare_region(prepared_config)
@@ -82,18 +91,18 @@ static func chapter_metadata_paths(level: Node) -> Array:
 static func prepare_config_and_route(level: Node, prepared_config: Dictionary) -> void:
     level.config = prepared_config.duplicate(true) if not prepared_config.is_empty() else level._load_json(level.config_path)
     if level.world_mode and prepared_config.is_empty():
-        if not level.WORLD_ROUTES_SCRIPT.cache_is_current():
+        if not WORLD_ROUTES_SCRIPT.cache_is_current():
             level.config = {}
             level.world_initial_error = "巡礼路线在区域准备期间已过期。"
             return
-        level.config = level.WORLD_ROUTES_SCRIPT.apply_to_owned_cached(level.config)
+        level.config = WORLD_ROUTES_SCRIPT.apply_to_owned_cached(level.config)
     if level.config.is_empty():
         push_error("Missing demo config: " + level.config_path)
 
 
 static func prepare_narrative_config(level: Node) -> void:
     if level.world_mode and level.world_narrative == null:
-        level.world_narrative = level.WORLD_NARRATIVE_SCRIPT.new()
+        level.world_narrative = WORLD_NARRATIVE_SCRIPT.new()
 
 
 static func begin_world_catalog_prepare(level: Node) -> void:
@@ -101,7 +110,7 @@ static func begin_world_catalog_prepare(level: Node) -> void:
 
 
 static func prepare_world_catalog_jobs(level: Node) -> Array:
-    var routes = {"chapters": level.WORLD_ROUTES_SCRIPT.cached_chapters()}
+    var routes = {"chapters": WORLD_ROUTES_SCRIPT.cached_chapters()}
     var jobs: Array = []
     for region_id in routes.get("chapters", {}):
         var route: Dictionary = routes.chapters[region_id]
@@ -184,7 +193,7 @@ static func restore_build_state(level: Node) -> void:
     if level.config.is_empty():
         return
     if level.build_system == null:
-        level.build_system = level.BUILD_SYSTEM_SCRIPT.new()
+        level.build_system = BUILD_SYSTEM_SCRIPT.new()
         level._restore_saved_build()
 
 
@@ -217,8 +226,8 @@ static func prepare_audio(level: Node) -> void:
 static func prepare_platform_and_gameplay_residency(level: Node) -> void:
     if level.config.is_empty():
         return
-    level.world_platforms = level.WORLD_PLATFORMS.new()
-    level.world_gameplay_residency = level.WORLD_GAMEPLAY_RESIDENCY.new()
+    level.world_platforms = WORLD_PLATFORMS.new()
+    level.world_gameplay_residency = WORLD_GAMEPLAY_RESIDENCY.new()
     level.npc_residency_memory.clear()
     level.save_point_residency_memory.clear()
     var arrival_focus = level.entry_spawn_override if level.entry_spawn_override_enabled else level.active_spawn
@@ -256,9 +265,9 @@ static func bind_region_audio(level: Node) -> void:
 
 
 static func setup_cartography(level: Node) -> void:
-    level.CARTOGRAPHY_UI.setup(level)
-    level.DEATH_RECALL.setup(level)
-    level.MAP_PLAYER_PINS.setup(level)
+    CARTOGRAPHY_UI.setup(level)
+    DEATH_RECALL.setup(level)
+    MAP_PLAYER_PINS.setup(level)
     preload("res://scripts/map_directory_runtime.gd").setup(level)
     preload("res://scripts/map_control_layout.gd").apply(level)
     preload("res://scripts/shrine_return_dialog.gd").setup(level)
@@ -298,7 +307,7 @@ static func restore_saved_build(level: Node) -> void:
     # T02: keep the original file, then rebuild the build from story progress so
     # autosave can continue instead of pausing for the rest of the journey.
     var repairable: bool = level.build_system.salvageable(level.world_state.data.build_state) and FileAccess.file_exists(level.world_save_path)
-    var preserved: String = level.WORLD_STATE_SCRIPT.preserve_copy(level.world_save_path, "before_build_repair") if repairable else ""
+    var preserved: String = WORLD_STATE_SCRIPT.preserve_copy(level.world_save_path, "before_build_repair") if repairable else ""
     var salvaged: Dictionary = level.build_system.salvage(level.world_state.data.build_state, level.inventory_counts, level.story_flags) if not preserved.is_empty() else {}
     if salvaged.get("ok", false):
         var dropped: Array = salvaged.get("dropped", [])

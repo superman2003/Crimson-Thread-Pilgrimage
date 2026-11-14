@@ -2,6 +2,9 @@ extends RefCounted
 ## Activating levers and shortcuts, save points, chapter exits and boss gates, and moving to the next chapter.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
+const DEATH_RECALL := preload("res://scripts/death_recall.gd")
+const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 
 static func activate_lever(level: Node, area: Area2D) -> void:
     if not level._can_interact_with_world() or area == null or not is_instance_valid(area):
@@ -68,7 +71,7 @@ static func activate_save_point(level: Node, area: Area2D) -> void:
         return
     if level.world_mode:
         level._update_room_visit()
-        level.CARTOGRAPHY.rest(level.story_flags)
+        CARTOGRAPHY.rest(level.story_flags)
     level.active_spawn = area.global_position
     level.active_save_point_id = String(area.name)
     level.save_point_residency_memory[String(level.config.get("id", "")) + ":" + String(area.name)] = true
@@ -87,11 +90,11 @@ static func activate_save_point(level: Node, area: Area2D) -> void:
         level.metsys_bridge.store_object(area)
     level._save_world()
     var rest_message := "安坐钟龛 · 已记下归途，恢复生命与绯线。"
-    if level.world_mode and not level.CARTOGRAPHY.has_quill(level.story_flags) and level.CARTOGRAPHY.pending_count(level.story_flags) > 0:
+    if level.world_mode and not CARTOGRAPHY.has_quill(level.story_flags) and CARTOGRAPHY.pending_count(level.story_flags) > 0:
         rest_message += "途中笔记已记下；要有盐墨绘针才能补绘进地图（地图商人有售）。"
     level._toast(rest_message)
     level._refresh_hud()
-    level.DEATH_RECALL.offer(level)
+    DEATH_RECALL.offer(level)
 
 
 static func activate_chapter_exit(level: Node, area: Area2D) -> void:
@@ -131,7 +134,7 @@ static func transition_to_next_chapter(level: Node, next_config_path: String) ->
         return
     if level.world_mode:
         var next_config_id := String(level._load_json(next_config_path).get("id", ""))
-        var path = level.WORLD_ROUTES_SCRIPT.cached_config_path(next_config_id)
+        var path = WORLD_ROUTES_SCRIPT.cached_config_path(next_config_id)
         if path.is_empty():
             if level.world_loader != null:
                 level.world_loader.request_manifest_refresh(level)

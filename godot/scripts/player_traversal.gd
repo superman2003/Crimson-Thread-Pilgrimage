@@ -2,6 +2,13 @@ extends RefCounted
 ## Wall grip and grappling, phasing through gates, traversal resets, and the follow camera with its room locks.
 ## Moved out of player_controller.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
+const DASH_ART := preload("res://scripts/player_dash_art.gd")
+const GUARD_ART := preload("res://scripts/player_guard_art.gd")
+const HEAL_ART := preload("res://scripts/player_heal_art.gd")
+const HURT_ART := preload("res://scripts/player_hurt_art.gd")
+const MOVEMENT_ART := preload("res://scripts/player_movement_art.gd")
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const ABILITY_ART := preload("res://scripts/player_ability_art.gd")
 const HOOK_ART := preload("res://scripts/player_hook_art.gd")
 
@@ -60,7 +67,7 @@ static func try_start_grapple(player: Node) -> bool:
     player._play(&"hook_throw")
     player._play_sfx("hook_latch", -6.0)
     player._play_sfx("hook_reel", -8.0)
-    player.HOOK_ART.attached(player)
+    HOOK_ART.attached(player)
     return true
 
 
@@ -108,21 +115,21 @@ static func reset_traversal_state(player: Node) -> void:
     if player.is_inside_tree():
         for effect in player.get_tree().get_nodes_in_group("player_combat_effect"):
             if is_instance_valid(effect) and effect.get("owner_player") == player and effect.has_method("cancel"): effect.cancel()
-    player.CONTACT_ART.clear_player(player)
-    player.ABILITY_ART.clear(player)
-    player.HOOK_ART.clear(player)
-    player.DASH_ART.clear(player)
-    player.HURT_ART.clear(player)
-    player.MOVEMENT_ART.clear(player)
-    player.GUARD_ART.clear(player)
-    player.VISUAL_POLICY.clear_secondary(player)
+    CONTACT_ART.clear_player(player)
+    ABILITY_ART.clear(player)
+    HOOK_ART.clear(player)
+    DASH_ART.clear(player)
+    HURT_ART.clear(player)
+    MOVEMENT_ART.clear(player)
+    GUARD_ART.clear(player)
+    VISUAL_POLICY.clear_secondary(player)
     player.respawn_reveal_timer = 0.0
     player._set_death_visibility(1.0)
     player.camera_focus.clear_look()
     player._clear_action_buffer()
     player._stop_grapple()
     player._interrupt_heal()
-    player.HEAL_ART.clear(player)
+    HEAL_ART.clear(player)
     player._stop_phase()
     player.guard_timer = 0.0
     player.guard_cooldown = 0.0
@@ -167,7 +174,7 @@ static func update_phase(player: Node, delta: float) -> void:
         player.phase_safe_position = player.global_position
         player._sync_phase_gates()
         player.ability_action.emit("lantern_phase", player.global_position, Vector2(player.facing, 0))
-        player.ABILITY_ART.phase_enter(player)
+        ABILITY_ART.phase_enter(player)
         player._play_sfx("phase_enter", -8.0)
 
 

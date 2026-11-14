@@ -2,6 +2,7 @@ extends RefCounted
 ## Theme, item, NPC, chapter and shortcut lookups, and adding items and currency to the inventory.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func art_theme_id(level: Node) -> String:
     var theme_id := String(level.config.get("art_theme", ""))
@@ -321,12 +322,12 @@ static func chapter_file_ids(level: Node) -> Array:
 
 static func prepare_inventory_progress(level: Node, items: Dictionary, next_flags: Dictionary, next_currency: int) -> Dictionary:
     var failure: Dictionary={"ok":false,"reason":"奖励记录未写入，请重试。"}
-    if level.build_system==null or not level.WORLD_STATE_SCRIPT._whole(next_currency):return failure
+    if level.build_system==null or not WORLD_STATE_SCRIPT._whole(next_currency):return failure
     var counts = level.inventory_counts.duplicate(true)
     for id in counts:
-        if not id is String or not level.WORLD_STATE_SCRIPT._whole(counts[id]):return failure
+        if not id is String or not WORLD_STATE_SCRIPT._whole(counts[id]):return failure
     for id in items:
-        if not id is String or id.is_empty() or not level.WORLD_STATE_SCRIPT._whole(items[id]) or int(items[id])<=0:return failure
+        if not id is String or id.is_empty() or not WORLD_STATE_SCRIPT._whole(items[id]) or int(items[id])<=0:return failure
         counts[id]=int(counts.get(id,0))+int(items[id])
     var flags:=next_flags.duplicate(true)
     var all_testimonies:=true

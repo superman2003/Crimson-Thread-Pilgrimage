@@ -2,6 +2,7 @@ extends RefCounted
 ## HUD refresh, toasts, lore pickup banners and pickup effects.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 static func on_hp_changed(level: Node, value: int) -> void:
     # 濒死混音态（规格 §5.5）：HP==1 挂低通，回升或死亡即摘除。
@@ -140,7 +141,7 @@ static func spawn_pickup_effect(level: Node, world_position: Vector2) -> void:
     ray.width = 2.0
     ray.default_color = Color(0.64, 1.0, 0.76, 0.86)
     ray.z_index = 91
-    if not level.VISUAL_POLICY.attach_secondary_batch(level, [ring, ray], &"environment", level): return
+    if not VISUAL_POLICY.attach_secondary_batch(level, [ring, ray], &"environment", level): return
 
     var tween: Tween = level._region_tween()
     tween.tween_property(ring, "scale", Vector2(2.0, 2.0), 0.28)

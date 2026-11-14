@@ -2,6 +2,7 @@ extends RefCounted
 ## NPC speech, enemy alerts and NPC sound landmarks.
 ## Moved out of audio_director.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const LANDMARK_SCHEDULE=preload("res://scripts/npc_landmark_schedule.gd")
 
 static func play_npc_voice(director: Node, npc_id: String, line: String, profile: String = "warm", speaker: Node = null, allow_voice: bool = true) -> bool:
     director._stop_npc_landmarks()
@@ -135,12 +136,12 @@ static func tick_npc_landmarks(director: Node) -> void:
         if candidate.get_world_2d()!=director.runtime_player.get_world_2d() or String(candidate.get_meta("kind",""))!="npc":continue
         rows.append({"id":String(candidate.get_meta("npc_id","")),"distance":candidate.global_position.distance_to(director.runtime_player.global_position)})
         sources.append(weakref(candidate))
-    var selected = director.LANDMARK_SCHEDULE.choose(rows,director.landmark_times,now)
+    var selected = LANDMARK_SCHEDULE.choose(rows,director.landmark_times,now)
     if selected<0:
-        director.landmark_next_ms=now+director.LANDMARK_SCHEDULE.RETRY_MS
+        director.landmark_next_ms=now+LANDMARK_SCHEDULE.RETRY_MS
         return
     var source: Variant=sources[selected].get_ref()
-    if not is_instance_valid(source) or not director.play_npc_landmark(source):director.landmark_next_ms=now+director.LANDMARK_SCHEDULE.RETRY_MS
+    if not is_instance_valid(source) or not director.play_npc_landmark(source):director.landmark_next_ms=now+LANDMARK_SCHEDULE.RETRY_MS
 
 
 static func play_npc_landmark(director: Node, source: Node2D) -> bool:
@@ -167,7 +168,7 @@ static func play_npc_landmark(director: Node, source: Node2D) -> bool:
     if not director.start_reserved_voice(ticket,voice):voice.free();director.release_ticket(ticket);return false
     director.landmark_times.erase(id);director.landmark_times[id] = now
     while director.landmark_times.size() > 64:director.landmark_times.erase(director.landmark_times.keys()[0])
-    director.landmark_next_ms = now + director.LANDMARK_SCHEDULE.GLOBAL_GAP_MS
+    director.landmark_next_ms = now + LANDMARK_SCHEDULE.GLOBAL_GAP_MS
     return true
 
 
@@ -179,7 +180,7 @@ static func retire_invalid_landmarks(director: Node) -> void:
         var source: Variant=reference.get_ref() if reference is WeakRef else null
         var valid: bool=is_instance_valid(source) and source is Node2D and source.is_inside_tree() and not source.is_queued_for_deletion() and source.is_visible_in_tree()
         valid=valid and is_instance_valid(director.runtime_player) and director.runtime_player.is_inside_tree()
-        if valid:valid=source.get_world_2d()==director.runtime_player.get_world_2d() and source.global_position.distance_to(director.runtime_player.global_position)<=director.LANDMARK_SCHEDULE.RANGE
+        if valid:valid=source.get_world_2d()==director.runtime_player.get_world_2d() and source.global_position.distance_to(director.runtime_player.global_position)<=LANDMARK_SCHEDULE.RANGE
         if not valid:
             preload("res://scripts/audio_retirement.gd").watch_player(child)
             child.stop();child.stream=null;child.queue_free()

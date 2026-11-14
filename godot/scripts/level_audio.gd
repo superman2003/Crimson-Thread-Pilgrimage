@@ -17,7 +17,7 @@ static func begin_audio(level: Node) -> void:
     level._apply_chapter_reverb(String(level.config.get("id", "")))
     # AudioDirector 一期：不注册 autoload，由本函数实例化挂树（headless 验证脚本
     # 不跑主场景时 instance 保持 null，各薄封装回退旧行为）。
-    level.audio_director = level.AUDIO_DIRECTOR_SCRIPT.new()
+    level.audio_director = AUDIO_DIRECTOR_SCRIPT.new()
     level.audio_director.name = "AudioDirector"
     level.audio_director.autoplay_enabled = level._should_autoplay_audio()
     level.add_child(level.audio_director)
@@ -64,11 +64,11 @@ static func ensure_audio_buses(level: Node) -> void:
         if stale_lowpass != -1:
             AudioServer.remove_bus_effect(bgm_bus, stale_lowpass)
     # 子总线（MusicExplore/MusicCombat/MusicStinger/SFX*/ReverbZone）转调 director 幂等补建。
-    level.AUDIO_DIRECTOR_SCRIPT.ensure_sub_buses()
+    AUDIO_DIRECTOR_SCRIPT.ensure_sub_buses()
 
 
 static func duck_bgm(level: Node, duck_db: float, seconds: float) -> void:
-    var director: AUDIO_DIRECTOR_SCRIPT = level.AUDIO_DIRECTOR_SCRIPT.instance
+    var director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
     if director != null and director.is_inside_tree():
         director.duck(duck_db, seconds)
         return
@@ -100,7 +100,7 @@ static func set_low_hp_audio(level: Node, active: bool) -> void:
     else:
         level._stop_low_hp_heartbeat()
     # AudioDirector 在场时低通改扫频版（2kHz→800Hz 2s；关断当帧摘除），缺席回退旧行为。
-    var director: AUDIO_DIRECTOR_SCRIPT = level.AUDIO_DIRECTOR_SCRIPT.instance
+    var director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
     if director != null:
         director.set_low_hp(active)
         return
@@ -121,7 +121,7 @@ static func start_low_hp_heartbeat(level: Node) -> void:
         return
     if level.low_hp_heartbeat_player == null or not is_instance_valid(level.low_hp_heartbeat_player):
         # 循环标记由 load_cached(looped=true) 在入缓存前置好，不再原地改流。
-        var stream = level.AUDIO_DIRECTOR_SCRIPT.load_cached(String(level.AUDIO.get("low_hp_heartbeat", "")), true)
+        var stream = AUDIO_DIRECTOR_SCRIPT.load_cached(String(level.AUDIO.get("low_hp_heartbeat", "")), true)
         if stream == null:
             return
         level.low_hp_heartbeat_player = AudioStreamPlayer.new()
@@ -132,7 +132,7 @@ static func start_low_hp_heartbeat(level: Node) -> void:
         level.low_hp_heartbeat_player.volume_db = -10.0
         level.add_child(level.low_hp_heartbeat_player)
     if not level.low_hp_heartbeat_player.playing:
-        var ticket = level.AUDIO_DIRECTOR_SCRIPT.reserve_voice("low_hp_heartbeat",0,0,1)
+        var ticket = AUDIO_DIRECTOR_SCRIPT.reserve_voice("low_hp_heartbeat",0,0,1)
         if ticket != 0:AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(ticket,level.low_hp_heartbeat_player,true)
 
 
@@ -158,7 +158,7 @@ static func should_autoplay_audio(level: Node) -> bool:
 
 
 static func switch_bgm(level: Node, audio_key: String) -> void:
-    var stream = level.AUDIO_DIRECTOR_SCRIPT.load_cached(String(level.AUDIO.get(audio_key, "")), true)
+    var stream = AUDIO_DIRECTOR_SCRIPT.load_cached(String(level.AUDIO.get(audio_key, "")), true)
     if stream == null:
         return
     level._ensure_bgm_player()
@@ -182,13 +182,13 @@ static func play_sfx(level: Node, audio_key: String, volume_db: float = -7.0) ->
     if not level._should_autoplay_audio() or not level.is_inside_tree() or level.is_queued_for_deletion():
         return
     # 声部管理（规格 §5.4）：同 key 限频/并发 + 全局 24 声部，被拒即不播。
-    var voice_ticket = level.AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
+    var voice_ticket = AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
     if voice_ticket == 0:
         return
     var stream: AudioStream = level._load_audio_stream(audio_key)
     if stream == null:
         # 声部回滚（契约 release_voice）：拿不到流就撤销刚批准的登记。
-        level.AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "Sfx_" + audio_key
@@ -215,15 +215,15 @@ static func attach_pending_sfx(level: Node, instance_id: int) -> void:
         return
     if not level.is_inside_tree() or level.is_queued_for_deletion():
         player_node.free()
-        level.AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     level.add_child(player_node)
     if not player_node.is_inside_tree():
         player_node.free()
-        level.AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    level.AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
+    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
 
 
 static func cancel_pending_sfx(level: Node) -> void:
@@ -232,7 +232,7 @@ static func cancel_pending_sfx(level: Node) -> void:
         var player_node: AudioStreamPlayer = pending.get("player")
         if is_instance_valid(player_node):
             player_node.free()
-        level.AUDIO_DIRECTOR_SCRIPT.release_ticket(int(pending.get("voice_ticket",0)))
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(int(pending.get("voice_ticket",0)))
     level.pending_sfx_players.clear()
 
 
@@ -247,19 +247,19 @@ static func sfx_bus_for_key(level: Node, audio_key: String) -> String:
 
 static func load_audio_stream(level: Node, audio_key: String) -> AudioStream:
     # 统一走 AudioDirector 静态流缓存（契约 load_cached：直读 + 负缓存 + 告警一次）。
-    return level.AUDIO_DIRECTOR_SCRIPT.load_cached(String(level.AUDIO.get(audio_key, "")))
+    return AUDIO_DIRECTOR_SCRIPT.load_cached(String(level.AUDIO.get(audio_key, "")))
 
 
 static func play_sfx_persistent(level: Node, audio_key: String, volume_db: float = -7.0) -> void:
     if not level._should_autoplay_audio():
         return
-    var voice_ticket = level.AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
+    var voice_ticket = AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
     if voice_ticket == 0:
         return
     var stream: AudioStream = level._load_audio_stream(audio_key)
     if stream == null or not level.is_inside_tree():
         # 声部回滚（契约 release_voice）：拿不到流/不在树上都不会真正发声。
-        level.AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "PersistentSfx_" + audio_key
@@ -268,7 +268,7 @@ static func play_sfx_persistent(level: Node, audio_key: String, volume_db: float
     player_node.volume_db = volume_db
     level.get_tree().root.add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    level.AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
+    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
 
 
 static func play_sfx_random(level: Node, audio_keys: Array, volume_db: float = -7.0) -> void:

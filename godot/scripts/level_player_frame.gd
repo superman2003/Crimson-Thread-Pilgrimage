@@ -2,6 +2,7 @@ extends RefCounted
 ## The player camera set-up, falling out of the world, and releasing region audio when a region is left.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const AUDIO_RETIREMENT_SCRIPT := preload("res://scripts/audio_retirement.gd")
 const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
 
 static func release_region_audio(level: Node) -> void:
@@ -11,13 +12,13 @@ static func release_region_audio(level: Node) -> void:
     # Snapshot weak playback/stream handles before stopping and detaching any
     # owned players. AudioServer can retain a completed Ogg voice until its next
     # mix tick, so the shutdown probe drains these exact objects afterward.
-    level.AUDIO_RETIREMENT_SCRIPT.retire_tree(level)
+    AUDIO_RETIREMENT_SCRIPT.retire_tree(level)
     if level.bgm_player != null:
         level.bgm_player.stop()
         level.bgm_player.stream = null
     # Region field reset must not orphan the voices awaiting attachment.
     level._cancel_pending_sfx()
-    var active_director: AUDIO_DIRECTOR_SCRIPT = level.AUDIO_DIRECTOR_SCRIPT.instance
+    var active_director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
     if active_director != null and active_director != level.audio_director:
         if level.bgm_duck_tween != null and level.bgm_duck_tween.is_valid():
             level.bgm_duck_tween.kill()
@@ -28,15 +29,15 @@ static func release_region_audio(level: Node) -> void:
         level.bgm_duck_tween.kill()
     # 章节转场竞态修复：新场景的 AudioDirector 已接管总线（并按用户音量归位）时，
     # 老场景退树不得再把 BGM 总线打回默认 0dB。
-    var live_director: AUDIO_DIRECTOR_SCRIPT = level.AUDIO_DIRECTOR_SCRIPT.instance
+    var live_director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
     if live_director != null and live_director != level.audio_director:
         return
     level._set_bgm_bus_volume_db(float(level.AUDIO_BUS_DEFAULT_VOLUME_DB.get("BGM", 0.0)))
     # Stream caching is useful across regions while this director owns the mix,
     # but must not pin decoded Ogg streams past the final owning scene.
     if live_director == null or live_director == level.audio_director:
-        level.AUDIO_DIRECTOR_SCRIPT._stream_cache.clear()
-        level.AUDIO_DIRECTOR_SCRIPT._npc_voice_cache.clear()
+        AUDIO_DIRECTOR_SCRIPT._stream_cache.clear()
+        AUDIO_DIRECTOR_SCRIPT._npc_voice_cache.clear()
 
 
 static func configure_player_camera(level: Node) -> void:

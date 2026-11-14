@@ -2,6 +2,7 @@ extends RefCounted
 ## Talking to NPCs: resolving lines, story flags, testimony chains, whispers and showing the dialogue.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
 
 static func talk_to_npc(level: Node, area: Area2D) -> void:
     var lines: Array = level._resolve_npc_lines(area)
@@ -94,7 +95,7 @@ static func show_dialogue(level: Node, area: Area2D, line: String) -> void:
     if level.dialogue_text_label != null:
         level.dialogue_text_label.text = line
         if level.world_mode:
-            level.subtitle_seconds = level.WORLD_NARRATIVE_SCRIPT.subtitle_duration(line) / (float(level.ui_shell.get_accessibility("subtitle_speed")) if level.ui_shell != null and level.ui_shell.has_method("get_accessibility") else 1.0)
+            level.subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(line) / (float(level.ui_shell.get_accessibility("subtitle_speed")) if level.ui_shell != null and level.ui_shell.has_method("get_accessibility") else 1.0)
             var reading: Dictionary = level.ui_shell.dialogue_reading_state(area, line) if level.ui_shell != null and level.ui_shell.has_method("dialogue_reading_state") else {}
             level.subtitle_elapsed = level.subtitle_seconds * float(reading.get("progress", 0.0))
             level.dialogue_text_label.visible_characters = int(reading.get("characters", 0))

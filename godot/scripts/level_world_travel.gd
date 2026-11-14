@@ -2,11 +2,16 @@ extends RefCounted
 ## Wayfinding, world portals and grapple anchors, travelling between regions, region-owned tweens and deferred calls, and committing world dialogue.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const WAYFINDING := preload("res://scripts/world_wayfinding.gd")
+
+const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
+const WORLD_PASSAGE := preload("res://scripts/world_passage.gd")
+const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 
 static func add_wayfinding(level: Node, area: Area2D) -> void:
     if area.has_node("Wayfinding"):
         return
-    var marker = level.WAYFINDING.new()
+    var marker = WAYFINDING.new()
     marker.name = "Wayfinding"
     marker.host = level
     marker.area = area
@@ -101,7 +106,7 @@ static func world_grapple_anchor(level: Node, data: Dictionary) -> void:
 
 
 static func world_portal_missing(level: Node, data: Dictionary) -> String:
-    return String(level.WORLD_ROUTES_SCRIPT.access(data, level.inventory_counts, level.story_flags).hint)
+    return String(WORLD_ROUTES_SCRIPT.access(data, level.inventory_counts, level.story_flags).hint)
 
 
 static func refresh_world_portals(level: Node) -> void:
@@ -113,7 +118,7 @@ static func refresh_world_portals(level: Node) -> void:
         var area = level.get_node_or_null(NodePath(String(data.get("id", ""))))
         if area == null:
             continue
-        var status: Dictionary = level.WORLD_ROUTES_SCRIPT.access(data, level.inventory_counts, level.story_flags)
+        var status: Dictionary = WORLD_ROUTES_SCRIPT.access(data, level.inventory_counts, level.story_flags)
         area.set_meta("route_status", status.duplicate(true))
         var arch = area.get_node_or_null("WorldPortalArch") as Line2D
         if arch != null:
@@ -122,7 +127,7 @@ static func refresh_world_portals(level: Node) -> void:
         if marker != null:
             marker.gate_state = String(status.kind)
             marker.queue_redraw()
-        var walk_glyph: String = level.WORLD_PASSAGE.glyph(String(level.config.id), String(data.get("id", "")))
+        var walk_glyph: String = WORLD_PASSAGE.glyph(String(level.config.id), String(data.get("id", "")))
         var prompt := " · 向右步行进入" if walk_glyph == "→" else " · 向左步行进入" if walk_glyph == "←" else " · F 通行"
         area.set_meta("interaction_label", String(data.get("label", "旧通路")) + (prompt if status.open else " · " + String(status.label)))
 
@@ -131,14 +136,14 @@ static func activate_world_portal(level: Node, area: Area2D) -> void:
     if not level.world_mode or not level._can_interact_with_world() or level.world_portal_request_pending or area == null or not is_instance_valid(area):
         return
     var data: Dictionary = area.get_meta("world_portal_data", {})
-    if not level.WORLD_PASSAGE.endpoint(String(level.config.id), String(data.get("id", ""))).is_empty():
+    if not WORLD_PASSAGE.endpoint(String(level.config.id), String(data.get("id", ""))).is_empty():
         level.world_passage.begin(String(data.id))
         return
     var missing: String = level._world_portal_missing(data)
     if not missing.is_empty():
         level._toast(missing)
         return
-    var next_path = level.WORLD_ROUTES_SCRIPT.cached_config_path(String(data.get("target_config_id", "")))
+    var next_path = WORLD_ROUTES_SCRIPT.cached_config_path(String(data.get("target_config_id", "")))
     if next_path.is_empty() and level.world_loader != null:
         level.world_loader.request_manifest_refresh(level)
     var entry: Vector2 = level._vec2(data.get("target_spawn", [120, 500]))
@@ -244,7 +249,7 @@ static func commit_world_dialogue(level: Node) -> void:
     var recollection = preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",result),displayed_index,String(level.config.get("id","")))
     if not recollection.is_empty():level.story_flags[recollection]=true
     var response_memory = preload("res://scripts/protagonist_response_memory.gd").quote(String(area.get_meta("npc_id",area.name)),result,displayed_index,flags_before,String(level.config.get("id","")))
-    var completion = level.WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, level.story_flags)
+    var completion = WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, level.story_flags)
     var rewards: Dictionary = completion.get("rewards", {})
     var fresh_flags: Array = completion.get("flags", [])
     level.currency_count += int(rewards.get("currency", 0))
@@ -267,7 +272,7 @@ static func commit_world_dialogue(level: Node) -> void:
     if not fresh_flags.is_empty():
         # Only a saved, fully read, fresh conversation earns a short response.
         # A toast never takes control or starts another dialogue/voice sequence.
-        var response = level.WORLD_NARRATIVE_SCRIPT.completion_response(result,displayed_index,flags_before)
+        var response = WORLD_NARRATIVE_SCRIPT.completion_response(result,displayed_index,flags_before)
         if not response.is_empty():
             level._toast(response)
         elif not rewards.is_empty():

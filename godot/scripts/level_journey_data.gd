@@ -2,6 +2,8 @@ extends RefCounted
 ## Starting a new journey (dialog, backup of the previous one) and loading JSON and shared world metadata.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
+const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func build_new_journey_dialog(level: Node) -> void:
     level.new_journey_dialog = ConfirmationDialog.new()
@@ -25,7 +27,7 @@ static func preserve_previous_journey(level: Node) -> bool:
         return false
     # T02: `.previous` holds the latest abandoned journey; an earlier one moves
     # to its own name first instead of being overwritten.
-    if FileAccess.file_exists(level.world_save_path + ".previous") and level.WORLD_STATE_SCRIPT.preserve_copy(level.world_save_path + ".previous", "earlier").is_empty():
+    if FileAccess.file_exists(level.world_save_path + ".previous") and WORLD_STATE_SCRIPT.preserve_copy(level.world_save_path + ".previous", "earlier").is_empty():
         return false
     if DirAccess.copy_absolute(absolute, absolute + ".previous") != OK:
         return false
@@ -39,7 +41,7 @@ static func start_new_journey(level: Node) -> void:
         level._sync_ui_input_lock()
         return
     # Keep the old scene's shared snapshot valid until it has left the tree.
-    level.AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
+    AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
     level.world_loading = true
     level._replace_with_save_slot(level.world_slot, level.world_save_path)
 

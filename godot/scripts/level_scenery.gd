@@ -2,6 +2,11 @@ extends RefCounted
 ## Region backdrop layers, cave and terrain backgrounds, and the platform/hazard visuals drawn over collision.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const CAVE_WORLD_SCRIPT := preload("res://scripts/cave_world.gd")
+const FLAT_MAP_ART_SCRIPT := preload("res://scripts/flat_map_art.gd")
+const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
+const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
+const TERRAIN_SCRIPT := preload("res://scripts/chapter_terrain.gd")
 
 static func background(level: Node) -> void:
     for job in level._background_jobs():
@@ -32,13 +37,13 @@ static func background_base(level: Node) -> void:
 
 
 static func background_art(level: Node) -> void:
-    level.flat_map_art = level.FLAT_MAP_ART_SCRIPT.new()
+    level.flat_map_art = FLAT_MAP_ART_SCRIPT.new()
     level.add_child(level.flat_map_art)
     level.flat_map_art.configure(level._art_theme_id(), level.config)
 
 
 static func background_terrain_metadata(level: Node) -> void:
-    level.chapter_terrain = level.TERRAIN_SCRIPT.new()
+    level.chapter_terrain = TERRAIN_SCRIPT.new()
     level.add_child(level.chapter_terrain)
     level.chapter_terrain.prefetch = level.world_prefetch if level.world_mode else null
     level.chapter_terrain.region_id = String(level.config.get("id", ""))
@@ -56,7 +61,7 @@ static func background_terrain_warm(level: Node) -> void:
 
 static func background_cave(level: Node) -> void:
     if not level.config.get("cave_world", {}).is_empty():
-        level.cave_world = level.CAVE_WORLD_SCRIPT.new()
+        level.cave_world = CAVE_WORLD_SCRIPT.new()
         level.add_child(level.cave_world)
         level.cave_world.prefetch = level.world_prefetch if level.world_mode else null
         level.cave_world.region_id = String(level.config.get("id", ""))
@@ -117,7 +122,7 @@ static func background_layer(level: Node, node_name: String, sprite_key: String,
 
 
 static func platform(level: Node, node_name: String, rect: Rect2, color: Color, material: String = "moss_stone", collision_role: String = "", warmed: StaticBody2D = null) -> StaticBody2D:
-    var body: StaticBody2D = warmed if warmed != null else level.PLATFORM_BODY.create(node_name, rect, collision_role)
+    var body: StaticBody2D = warmed if warmed != null else PLATFORM_BODY.create(node_name, rect, collision_role)
     if level.flat_map_art != null and level.flat_map_art.ready_for_platforms():
         level.flat_map_art.add_platform_visual(body,rect.size,material)
     else:
@@ -192,8 +197,8 @@ static func add_hazard_visual(level: Node, _area: Area2D, _kind: String, _size: 
 
 
 static func apply_original_prop(level: Node, sprite: Sprite2D, key: String, height: float) -> void:
-    var props = level.ORIGINAL_ART.manifest("res://assets/sprites/original_interactables/manifest.json")
-    var texture = level.ORIGINAL_ART.frame(props.get(key,{}))
+    var props = ORIGINAL_ART.manifest("res://assets/sprites/original_interactables/manifest.json")
+    var texture = ORIGINAL_ART.frame(props.get(key,{}))
     if texture==null:return
     sprite.texture=texture
     sprite.scale=Vector2.ONE*(height/texture.get_height())

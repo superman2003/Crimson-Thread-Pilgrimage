@@ -2,6 +2,7 @@ extends RefCounted
 ## Building the HUD and dialogue overlay in budgeted steps.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
 
 static func build_hud(level: Node) -> void:
     for job in level._hud_build_jobs():
@@ -12,7 +13,7 @@ static func build_hud(level: Node) -> void:
 
 static func hud_build_jobs(level: Node) -> Array:
     var jobs: Array = [{"method": "_begin_hud", "args": []}]
-    for method in level.PILGRIMAGE_UI_SCRIPT.build_steps():
+    for method in PILGRIMAGE_UI_SCRIPT.build_steps():
         jobs.append({"method": "_build_interface_step", "args": [method]})
     jobs.append_array([
         {"method": "_build_hud_labels", "args": []},
@@ -36,7 +37,7 @@ static func hud_build_jobs(level: Node) -> Array:
 static func begin_hud(level: Node) -> void:
     level.ui_canvas=CanvasLayer.new()
     level.add_child(level.ui_canvas)
-    level.ui_shell=level.PILGRIMAGE_UI_SCRIPT.new()
+    level.ui_shell=PILGRIMAGE_UI_SCRIPT.new()
     level.ui_canvas.add_child(level.ui_shell)
     level.ui_shell.begin_bind(level)
 
@@ -55,7 +56,7 @@ static func build_hud_labels(level: Node) -> void:
     level.lore_banner_label.size=Vector2(620,54)
     level.lore_banner_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     level.lore_banner_label.add_theme_font_size_override("font_size",17)
-    level.lore_banner_label.add_theme_color_override("font_color",level.PILGRIMAGE_UI_SCRIPT.IVORY)
+    level.lore_banner_label.add_theme_color_override("font_color",PILGRIMAGE_UI_SCRIPT.IVORY)
     level.lore_banner_label.visible=false
     level.ui_shell.add_child(level.lore_banner_label)
     level.win_label=Label.new()

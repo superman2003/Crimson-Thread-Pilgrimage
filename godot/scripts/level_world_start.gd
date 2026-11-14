@@ -2,6 +2,11 @@ extends RefCounted
 ## Starting or resuming the world: the start route and options, restoring inventory, player, routes and discovery, saving, and the first-journey hints.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
+const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
+const WORLD_PASSAGE := preload("res://scripts/world_passage.gd")
+const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
+const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func prepare_world_start(level: Node) -> void:
     if not level.world_mode:
@@ -10,7 +15,7 @@ static func prepare_world_start(level: Node) -> void:
     startup_args.append_array(OS.get_cmdline_user_args())
     var new_game_requested: bool = level._consume_world_startup_options(startup_args)
     if level.world_state == null:
-        level.world_state = level.WORLD_STATE_SCRIPT.new()
+        level.world_state = WORLD_STATE_SCRIPT.new()
         if new_game_requested:
             if level._preserve_previous_journey():
                 level.world_resume = false
@@ -30,7 +35,7 @@ static func prepare_world_start(level: Node) -> void:
 
 
 static func damaged_save_message(level: Node) -> String:
-    var backup = level.WORLD_STATE_SCRIPT.new()
+    var backup = WORLD_STATE_SCRIPT.new()
     if backup.read(level.world_save_path + ".bak"):
         return "归途记录损坏，原文件已保留，本次进度不会写入。找到可用备份（%d 区 · %d 碎钱）：在设置里选“恢复当前槽备份”即可接着走。" % [backup.data.regions.size(), int(backup.data.currency)]
     return "归途记录损坏，备份也无法读取；原文件已保留，本次进度不会写入。"
@@ -39,7 +44,7 @@ static func damaged_save_message(level: Node) -> String:
 static func resolve_world_start_route(level: Node) -> bool:
     if level.world_start_region_id.is_empty():
         return true
-    var saved_path = level.WORLD_ROUTES_SCRIPT.cached_config_path(level.world_start_region_id)
+    var saved_path = WORLD_ROUTES_SCRIPT.cached_config_path(level.world_start_region_id)
     if saved_path.is_empty():
         # T02: a save naming a region this version no longer routes keeps all
         # of its progress and resumes at the route start instead of failing.
@@ -58,7 +63,7 @@ static func consume_world_startup_options(level: Node, arguments: PackedStringAr
     for argument in arguments:
         if argument.begins_with("--save-slot="):
             level.world_slot = clampi(int(argument.trim_prefix("--save-slot=")), 1, 3)
-            level.world_save_path = level.WORLD_STATE_SCRIPT.slot_path(level.world_slot)
+            level.world_save_path = WORLD_STATE_SCRIPT.slot_path(level.world_slot)
     return arguments.has("--new-game")
 
 
@@ -73,10 +78,10 @@ static func restore_world_inventory_and_region(level: Node) -> void:
     level.story_flags = snapshot.story_flags.duplicate(true)
     if level.world_narrative != null:
         level.story_flags = level.world_narrative.restored_ending_flags(level.story_flags)
-    level.CARTOGRAPHY.migrate(level.story_flags, snapshot.regions)
-    level.CARTOGRAPHY.legacy_quill(level.story_flags)
+    CARTOGRAPHY.migrate(level.story_flags, snapshot.regions)
+    CARTOGRAPHY.legacy_quill(level.story_flags)
     var cache: Dictionary = snapshot.get("death_cache", {})
-    if not cache.is_empty() and level.WORLD_ROUTES_SCRIPT.cached_config_path(String(cache.get("region_id", ""))).is_empty():
+    if not cache.is_empty() and WORLD_ROUTES_SCRIPT.cached_config_path(String(cache.get("region_id", ""))).is_empty():
         # T02: an 归途结 left in a region this version no longer has could never be reached.
         level.currency_count += int(cache.get("currency", 0))
         level.world_state.capture_global({"death_cache": {}, "currency": level.currency_count})
@@ -148,8 +153,8 @@ static func player_world_position(level: Node) -> Vector2:
     if level.player == null or not level.world_mode:
         return Vector2.INF
     if is_instance_valid(level.world_passage) and level.world_passage.active:
-        return level.world_passage.terminal_world_point if level.world_passage.settling else level.WORLD_COORDINATES.to_world(level.world_passage.source_id, level.player.global_position)
-    return level.WORLD_COORDINATES.to_world(String(level.config.get("id", "")), level.player.global_position)
+        return level.world_passage.terminal_world_point if level.world_passage.settling else WORLD_COORDINATES.to_world(level.world_passage.source_id, level.player.global_position)
+    return WORLD_COORDINATES.to_world(String(level.config.get("id", "")), level.player.global_position)
 
 
 static func prepare_world_checkpoint(level: Node, global_snapshot: Dictionary, region_patch: Dictionary={}) -> Dictionary:
@@ -220,7 +225,7 @@ static func first_interaction_type(level: Node, area: Area2D) -> String:
     if kind == "npc":
         return "map_shop" if area.has_meta("map_seller_region") else "talk"
     if kind == "world_portal":
-        return "walk_passage" if not level.WORLD_PASSAGE.endpoint(String(level.config.id), String(area.name)).is_empty() else "portal"
+        return "walk_passage" if not WORLD_PASSAGE.endpoint(String(level.config.id), String(area.name)).is_empty() else "portal"
     return kind
 
 

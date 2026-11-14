@@ -2,6 +2,11 @@ extends RefCounted
 ## Building a region from its config: geometry jobs, lifts, platforms and gates, practice targets, history props, hidden-route clues and spawning the player.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const CAVE_LIFT_SCRIPT := preload("res://scripts/cave_lift.gd")
+const HISTORY_PROP := preload("res://scripts/scene_history_prop.gd")
+const PLAYER_SCENE := preload("res://scenes/Player.tscn")
+const SCENE_HISTORY := preload("res://scripts/scene_history.gd")
+const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 
 static func build_world_from_config(level: Node) -> void:
     for job in level._region_build_jobs():
@@ -52,14 +57,14 @@ static func region_build_jobs(level: Node) -> Array:
 
         jobs.append({"method": "_spawn_hidden_route_clues", "args": []})
         jobs.append({"method": "_spawn_ending_aftermath", "args": []})
-        for entry in level.SCENE_HISTORY.region_entries(String(level.config.get("id",""))):
+        for entry in SCENE_HISTORY.region_entries(String(level.config.get("id",""))):
             jobs.append({"method":"_spawn_history_prop","args":[entry]})
     jobs.append({"method": "_finish_region_geometry", "args": []})
     return jobs
 
 
 static func region_lift(level: Node, data: Dictionary) -> void:
-    var lift = level.CAVE_LIFT_SCRIPT.new()
+    var lift = CAVE_LIFT_SCRIPT.new()
     level.add_child(lift)
     lift.configure(data, level)
     level.cave_lifts.append(lift)
@@ -119,7 +124,7 @@ static func finish_region_geometry(level: Node) -> void:
 
 
 static func spawn_seal_practice_targets(level: Node) -> void:
-    for entry in level.WORLD_ROUTES_SCRIPT.cached_data().get("seal_practice_plan", []):
+    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("seal_practice_plan", []):
         if String(entry.get("region_id", "")) != String(level.config.get("id", "")):
             continue
         var target := Area2D.new()
@@ -156,7 +161,7 @@ static func spawn_seal_practice_targets(level: Node) -> void:
 static func spawn_tool_practice_targets(level: Node) -> void:
     # cached_data() deep-copies the whole route manifest, so read it once per
     # region and keep only this region's rooms for the per-cast / per-room checks.
-    var routes: Dictionary = level.WORLD_ROUTES_SCRIPT.cached_data()
+    var routes: Dictionary = WORLD_ROUTES_SCRIPT.cached_data()
     level.tool_practice_rooms.clear()
     level.tool_encounter_hints.clear()
     for entry in routes.get("tool_encounter_plan", []):
@@ -217,11 +222,11 @@ static func show_tool_encounter_hint(level: Node) -> void:
 
 
 static func spawn_history_prop(level: Node, entry: Dictionary) -> void:
-    var prop = level.HISTORY_PROP.new()
+    var prop = HISTORY_PROP.new()
     prop.entry=entry.duplicate(true)
     prop.name="History_"+String(entry.id)
     prop.position=level._vec2(entry.position)
-    prop.seen=level.SCENE_HISTORY.discovered(level.story_flags,String(entry.id))
+    prop.seen=SCENE_HISTORY.discovered(level.story_flags,String(entry.id))
     prop.set_meta("kind","history")
     prop.set_meta("label",String(entry.title))
     prop.set_meta("identity","环境痕迹 · 观察不会代替原始证词")
@@ -248,13 +253,13 @@ static func commit_history_prop(level: Node, area: Area2D) -> void:
     if not area.is_inside_tree() or area.is_queued_for_deletion() or not area.is_visible_in_tree() or not area.accessible_from(level.player) or level.player.global_position.distance_to(area.global_position)>level.INTERACTION_REACH:
         return
     var entry: Dictionary=area.get_meta("history_data",{})
-    if level.SCENE_HISTORY.discovered(level.story_flags,String(entry.id)):
+    if SCENE_HISTORY.discovered(level.story_flags,String(entry.id)):
         area.set_meta("world_line_committed",true)
         level.ui_shell.forget_dialogue_reading()
         return
     var flags_before = level.story_flags.duplicate(true)
     var world_before = level.world_state.data.duplicate(true)
-    level.story_flags[level.SCENE_HISTORY.FLAG_PREFIX+String(entry.id)]=true
+    level.story_flags[SCENE_HISTORY.FLAG_PREFIX+String(entry.id)]=true
     if not level._save_world():
         level.story_flags=flags_before
         level.world_state.data=world_before
@@ -267,7 +272,7 @@ static func commit_history_prop(level: Node, area: Area2D) -> void:
 
 static func spawn_hidden_route_clues(level: Node) -> void:
     level.hidden_route_clues.clear()
-    for entry in level.WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
+    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
         if String(entry.get("region_id", "")) != String(level.config.get("id", "")):
             continue
         var clue := Node2D.new()
@@ -299,7 +304,7 @@ static func notice_hidden_route_clues(level: Node) -> void:
 static func is_hidden_room(level: Node, room_id: String) -> bool:
     if not level.world_mode or room_id.is_empty():
         return false
-    for entry in level.WORLD_ROUTES_SCRIPT._data().get("hidden_route_plan", []):
+    for entry in WORLD_ROUTES_SCRIPT._data().get("hidden_route_plan", []):
         if entry is Dictionary and String(entry.get("region_id", "")) == String(level.config.get("id", "")) and String(entry.get("hidden_room_id", "")) == room_id:
             return true
     return false
@@ -346,7 +351,7 @@ static func on_skill_practice_hit(level: Node, skill_id: String, target: Area2D=
 
 static func spawn_player(level: Node) -> void:
     if not is_instance_valid(level.player):
-        level.player = level.PLAYER_SCENE.instantiate()
+        level.player = PLAYER_SCENE.instantiate()
         level.add_child(level.player)
     level.player.global_position = level.active_spawn
     level.player.set_spawn(level.active_spawn)

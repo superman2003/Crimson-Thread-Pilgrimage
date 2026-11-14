@@ -2,11 +2,12 @@ extends RefCounted
 ## Save slots and journey history: quoting and performing save operations, switching slots and restoring backups.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func get_save_slots(level: Node) -> Array:
     var result: Array=[]
     for index in range(1,4):
-        var path = level.world_save_path if index==level.world_slot else level.WORLD_STATE_SCRIPT.slot_path(index)
+        var path = level.world_save_path if index==level.world_slot else WORLD_STATE_SCRIPT.slot_path(index)
         var row: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path)
         row["slot"]=index
         row["backup"]=preload("res://scripts/save_inspector.gd").inspect(path+".bak")
@@ -17,7 +18,7 @@ static func get_save_slots(level: Node) -> Array:
 static func quote_save_operation(level: Node, action: String, index: int) -> Dictionary:
     if not level.world_mode or level.world_loading or level.chapter_transitioning or level.player==null or level.player.hp<=0 or index<1 or index>3 or action not in ["switch","recover"]:
         return {"ok":false,"reason":"当前无法切换或恢复归途记录。"}
-    var path = level.world_save_path if index==level.world_slot else level.WORLD_STATE_SCRIPT.slot_path(index)
+    var path = level.world_save_path if index==level.world_slot else WORLD_STATE_SCRIPT.slot_path(index)
     var primary: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path)
     var backup: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path+".bak")
     var result: Dictionary={"ok":true,"slot":index,"primary":primary,"backup":backup,"action":action}
@@ -54,10 +55,10 @@ static func get_journey_history(level: Node) -> Dictionary:
 static func select_save_slot(level: Node, index: int) -> bool:
     if not level.world_mode or index < 1 or index > 3 or level.chapter_transitioning or level.player.hp <= 0:
         return false
-    var path = level.WORLD_STATE_SCRIPT.slot_path(index)
+    var path = WORLD_STATE_SCRIPT.slot_path(index)
     if path == level.world_save_path:
         return true
-    var candidate = level.WORLD_STATE_SCRIPT.new()
+    var candidate = WORLD_STATE_SCRIPT.new()
     if FileAccess.file_exists(path) and not candidate.read(path):
         level._toast("该旅途记录无法读取，已保留原文件；请先恢复该槽备份。")
         return false
@@ -74,7 +75,7 @@ static func replace_with_save_slot(level: Node, index: int, path_override: Strin
     var scene: Node = load("res://scenes/World.tscn").instantiate()
     scene.world_slot = index
     scene.world_startup_options_enabled = false
-    scene.world_save_path = path_override if not path_override.is_empty() else level.WORLD_STATE_SCRIPT.slot_path(index)
+    scene.world_save_path = path_override if not path_override.is_empty() else WORLD_STATE_SCRIPT.slot_path(index)
     var was_current = level.get_tree().current_scene == level
     parent_node.remove_child(level)
     parent_node.add_child(scene)
@@ -91,8 +92,8 @@ static func restore_save_backup(level: Node, index: int = 0) -> bool:
         level._toast("当前进度未能写入，尚未恢复其他槽备份。")
         return false
     # The current slot restores the file this journey actually uses.
-    var path = level.world_save_path if slot == level.world_slot else level.WORLD_STATE_SCRIPT.slot_path(slot)
-    var recovered = level.WORLD_STATE_SCRIPT.new()
+    var path = level.world_save_path if slot == level.world_slot else WORLD_STATE_SCRIPT.slot_path(slot)
+    var recovered = WORLD_STATE_SCRIPT.new()
     if not recovered.restore_backup(path):
         level._toast("备份恢复失败：" + recovered.last_error)
         return false

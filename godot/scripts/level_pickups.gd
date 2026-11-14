@@ -2,6 +2,7 @@ extends RefCounted
 ## Hazards, picking up collectibles and capacity fragments, and the ability gates those pickups open.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func on_hazard_body_entered(level: Node, _body: Node, _area: Area2D) -> void:
     pass
@@ -28,7 +29,7 @@ static func on_collectible_body_entered(level: Node, body: Node, area: Area2D) -
     if area.get_parent()!=level or String(area.name)!=String(source.id) or area.position.distance_to(source.point)>1.0:return
     if area.global_position.distance_to(level.player.global_position)>level.INTERACTION_REACH:return
     if bool(level.world_collected_ids.get(String(source.id),false)):area.queue_free();return
-    if not level.WORLD_STATE_SCRIPT._whole(source.amount) or int(source.amount)<=0:
+    if not WORLD_STATE_SCRIPT._whole(source.amount) or int(source.amount)<=0:
         level._pickup_retry(area,String(source.item),"这份物品记录无效，尚未收取。")
         return
     var currency_pickup: bool=String(source.kind)=="currency"
@@ -150,7 +151,7 @@ static func refresh_ability_gates(level: Node, play_unlock_sfx: bool = false) ->
 
 static func owns_permanent_item(level: Node, item_id: String) -> bool:
     var count: Variant=level.inventory_counts.get(item_id,0)
-    return level.WORLD_STATE_SCRIPT._whole(count) and int(count)>0
+    return WORLD_STATE_SCRIPT._whole(count) and int(count)>0
 
 
 static func sync_player_abilities(level: Node) -> void:

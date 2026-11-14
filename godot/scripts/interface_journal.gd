@@ -2,13 +2,14 @@ extends RefCounted
 ## The journal: records, presentation, read/star marks, sources, batches and scroll memory.
 ## Moved out of pilgrimage_interface.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ART := preload("res://scripts/hand_drawn_assets.gd")
 
 static func refresh_journal(ui: Node) -> void:
     ui.bag_grid.columns=2
     ui.bag_pin.disabled=true
     ui.bag_name.text="六区旅途记录"
     ui.bag_category_label.text="旅途记录"
-    ui.bag_icon.texture=ui.ART.item("moss_lens")
+    ui.bag_icon.texture=ART.item("moss_lens")
     if ui.journal_reading_key.is_empty():ui.bag_description.text="选择分类查看已知记录。"
     for filter_id in ui.journal_filter_buttons:ui.journal_filter_buttons[filter_id].add_theme_stylebox_override("normal",ui._tab_style(filter_id==ui.journal_filter))
     for tab in ui.bag_tabs:tab.add_theme_stylebox_override("normal",ui._tab_style(tab.text==ui.bag_category))

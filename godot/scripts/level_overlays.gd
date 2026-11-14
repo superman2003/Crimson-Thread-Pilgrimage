@@ -2,6 +2,7 @@ extends RefCounted
 ## Backpack and settings pages, and the shared overlay bookkeeping (close all, input lock, dialogue-closed notice).
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const DEATH_RECALL := preload("res://scripts/death_recall.gd")
 
 static func build_backpack_overlay(level: Node) -> void:
     level.backpack_panel=level.ui_shell.bag
@@ -119,7 +120,7 @@ static func close_overlays(level: Node) -> void:
     var map_purchase = level.get_node_or_null("MapPurchaseDialog")
     if map_purchase != null:
         map_purchase.hide()
-    var recall_dialog = level.get_node_or_null(level.DEATH_RECALL.DIALOG)
+    var recall_dialog = level.get_node_or_null(DEATH_RECALL.DIALOG)
     if recall_dialog != null:
         recall_dialog.hide()
     var ending_story = level.get_node_or_null("EndingStoryDesk")

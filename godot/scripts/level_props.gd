@@ -2,6 +2,9 @@ extends RefCounted
 ## Builders for placed world props: collectibles, levers, boss doors, chapter exits, save points and NPCs.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func collectible(level: Node, data: Dictionary) -> void:
     if level.world_mode and bool(level.world_collected_ids.get(String(data.get("id", "")), false)):
@@ -15,7 +18,7 @@ static func collectible(level: Node, data: Dictionary) -> void:
     area.set_meta("kind", collectible_kind)
     area.set_meta("item_id", item_id)
     var amount_value: Variant=data.get("amount",1)
-    area.set_meta("amount",int(amount_value) if level.WORLD_STATE_SCRIPT._whole(amount_value) else 0)
+    area.set_meta("amount",int(amount_value) if WORLD_STATE_SCRIPT._whole(amount_value) else 0)
     area.set_meta("ability_name", String(data.get("ability_name", data.get("label", ""))))
     area.set_meta("object_id", "collectible/" + area.name)
 
@@ -26,7 +29,7 @@ static func collectible(level: Node, data: Dictionary) -> void:
     area.add_child(shape)
 
     var sprite := Sprite2D.new()
-    sprite.texture = level.ORIGINAL_ART.item(item_id)
+    sprite.texture = ORIGINAL_ART.item(item_id)
     if sprite.texture != null:
         sprite.scale=Vector2.ONE*(32.0/maxf(sprite.texture.get_width(),sprite.texture.get_height()))
     area.add_child(sprite)
@@ -307,7 +310,7 @@ static func play_save_point_activation(level: Node, area: Area2D) -> void:
             var angle := TAU * float(step) / 32.0
             points.append(Vector2(cos(angle), sin(angle)) * (24.0 + float(index) * 8.0))
         echo.points = points
-        if not level.VISUAL_POLICY.attach_secondary(level, echo, &"environment", level): continue
+        if not VISUAL_POLICY.attach_secondary(level, echo, &"environment", level): continue
         var tween: Tween = level._region_tween()
         tween.bind_node(echo)
         tween.tween_interval(float(index) * 0.07)
@@ -340,10 +343,10 @@ static func make_npc(level: Node, data: Dictionary) -> Area2D:
     shape.shape = circle
     area.add_child(shape)
 
-    var art_id = level.ORIGINAL_ART.npc_art_id(String(data.get("id","")))
-    var manifest_path = level.ORIGINAL_ART.character_manifest("original_npcs", art_id)
-    var art_data = level.ORIGINAL_ART.manifest(manifest_path)
-    var npc_frames = level.ORIGINAL_ART.frames(manifest_path)
+    var art_id = ORIGINAL_ART.npc_art_id(String(data.get("id","")))
+    var manifest_path = ORIGINAL_ART.character_manifest("original_npcs", art_id)
+    var art_data = ORIGINAL_ART.manifest(manifest_path)
+    var npc_frames = ORIGINAL_ART.frames(manifest_path)
     if npc_frames != null:
         var sprite := AnimatedSprite2D.new()
         sprite.set_script(preload("res://scripts/npc_dialogue_motion.gd"))

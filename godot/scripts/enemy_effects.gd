@@ -2,12 +2,18 @@ extends RefCounted
 ## Attack telegraphs, wind-up and burst effects, and the command effects an enemy's attacks spawn.
 ## Moved out of enemy_actor.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
+const BOSS_STYLE := preload("res://scripts/boss_combat_style.gd")
+const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
+const MINOR_SKILL_ART := preload("res://scripts/minor_enemy_skill_art.gd")
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+
 const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
 
 static func effect(actor: Node, effect_kind: String, point: Vector2, vel: Vector2, command: Dictionary, warning: float, lifetime: float) -> Node2D:
     if actor.dying or actor.is_queued_for_deletion() or not actor.is_inside_tree() or not actor.world_residency_active():
         return null
-    var effect = actor.ATTACK_EFFECT.new()
+    var effect = ATTACK_EFFECT.new()
     effect.effect_kind=effect_kind
     effect.position=point
     effect.velocity=vel
@@ -24,7 +30,7 @@ static func effect(actor: Node, effect_kind: String, point: Vector2, vel: Vector
             actor.get_parent()._ensure_collision_segment(point, point + effect.heading * effect.length)
         var query = PhysicsRayQueryParameters2D.create(point, point + effect.heading * effect.length, 1)
         query.collide_with_areas = false
-        query.exclude = actor.ATTACK_EFFECT.player_bodies(actor.get_tree())
+        query.exclude = ATTACK_EFFECT.player_bodies(actor.get_tree())
         var obstruction = actor.get_world_2d().direct_space_state.intersect_ray(query)
         if actor.get_parent().has_method("_rock_ray_hit"):
             var rock: Dictionary = actor.get_parent()._rock_ray_hit(point, point + effect.heading * effect.length)
@@ -41,8 +47,8 @@ static func effect(actor: Node, effect_kind: String, point: Vector2, vel: Vector
     effect.steering=float(command.get("steering",0))
     effect.impact_pool=bool(command.get("impact_pool",false))
     effect.owner_actor=actor
-    effect.boss_command_id=String(command.get("id","")) if actor.BOSS_SKILL_ART.matches(actor,command) else ""
-    effect.minor_command_id=String(command.get("id","")) if actor.MINOR_SKILL_ART.matches(actor,command) else ""
+    effect.boss_command_id=String(command.get("id","")) if BOSS_SKILL_ART.matches(actor,command) else ""
+    effect.minor_command_id=String(command.get("id","")) if MINOR_SKILL_ART.matches(actor,command) else ""
     # Freed Object references cannot be converted to a typed lambda argument.
     # Prune in place, retaining the typed array and never dereferencing stale nodes.
     for index in range(actor.owned_attack_effects.size() - 1, -1, -1):
@@ -56,7 +62,7 @@ static func effect(actor: Node, effect_kind: String, point: Vector2, vel: Vector
 
 
 static func spawn_command_effects(actor: Node, command: Dictionary, warning: bool) -> void:
-    if actor.BOSS_STYLE.spawn(actor,command,warning):return
+    if BOSS_STYLE.spawn(actor,command,warning):return
     var type := String(command.get("type","melee"))
     var origin = actor.global_position+Vector2(actor.attack_direction*18,-22)
     var aim = (actor.attack_target-origin).normalized()
@@ -94,7 +100,7 @@ static func spawn_command_effects(actor: Node, command: Dictionary, warning: boo
             actor._effect("eruption" if type=="rootline" else "pool",Vector2(x,floor_y-5),Vector2.ZERO,command,delay,float(command.get("hazard_life",.7)))
     elif type=="blink":
         BOSS_SKILL_ART.spawn_departure(actor,command)
-        actor.MINOR_SKILL_ART.spawn_departure(actor,command)
+        MINOR_SKILL_ART.spawn_departure(actor,command)
         var x = actor.attack_target.x-actor.attack_direction*float(command.get("blink_offset",115))
         actor.global_position.x=clampf(x,actor.platform_min_x,actor.platform_max_x)
         actor.reset_physics_interpolation()
@@ -106,8 +112,8 @@ static func spawn_command_effects(actor: Node, command: Dictionary, warning: boo
 
 static func show_telegraph(actor: Node, command: Dictionary) -> void:
     actor._clear_telegraph()
-    if actor.BOSS_SKILL_ART.matches(actor, command): return
-    if actor.MINOR_SKILL_ART.ready_for(actor,command): return
+    if BOSS_SKILL_ART.matches(actor, command): return
+    if MINOR_SKILL_ART.ready_for(actor,command): return
     if actor.original_visual:
         return
     var attack_type := String(command.get("type", "melee"))
@@ -141,7 +147,7 @@ static func show_telegraph(actor: Node, command: Dictionary) -> void:
         Vector2(offset - width * 0.5, -26.0 + height * 0.5)
     ])
     actor.telegraph.color = color
-    actor.VISUAL_POLICY.place_danger(actor.telegraph, true)
+    VISUAL_POLICY.place_danger(actor.telegraph, true)
     actor.add_child(actor.telegraph)
     actor._add_attack_type_signature(actor.telegraph, command, Vector2(offset, -26.0), width, height, dir)
     actor.telegraph_tween = actor._combat_tween()
@@ -244,7 +250,7 @@ static func add_attack_type_signature(actor: Node, parent: Node2D, command: Dict
 
 static func clear_telegraph(actor: Node) -> void:
     BOSS_SKILL_ART.clear(actor)
-    actor.MINOR_SKILL_ART.clear(actor)
+    MINOR_SKILL_ART.clear(actor)
     actor.support_target = null
     if actor.telegraph_tween != null and is_instance_valid(actor.telegraph_tween) and actor.telegraph_tween.is_valid():
         actor.telegraph_tween.kill()
@@ -267,7 +273,7 @@ static func original_attack_arc(actor: Node, command: Dictionary, warning: bool)
     line.name = "OriginalAttackWarning" if warning else "OriginalAttackArc"
     line.width = 1.6 if warning else 3.5
     line.default_color = Color(.95,.77,.45,.68) if warning else Color(.86,.33,.25,.85)
-    actor.VISUAL_POLICY.place_danger(line, warning)
+    VISUAL_POLICY.place_danger(line, warning)
     var points := PackedVector2Array()
     var reach := float(command.get("hit_width",80))*.62
     if type in ["beam", "pool", "rootline"]:
@@ -313,8 +319,8 @@ static func original_attack_arc(actor: Node, command: Dictionary, warning: bool)
 
 
 static func spawn_windup_vfx(actor: Node, command: Dictionary) -> void:
-    if actor.BOSS_SKILL_ART.spawn(actor, command, "warning"): return
-    if actor.MINOR_SKILL_ART.spawn(actor,command,"warning"): return
+    if BOSS_SKILL_ART.spawn(actor, command, "warning"): return
+    if MINOR_SKILL_ART.spawn(actor,command,"warning"): return
     if actor.original_visual:
         actor._original_attack_arc(command, true)
         return
@@ -349,7 +355,7 @@ static func spawn_windup_vfx(actor: Node, command: Dictionary) -> void:
     ])
     warning.width = 3.0 if actor.is_boss else 2.0
     warning.default_color = Color(1.0, 0.72, 0.28, 0.92)
-    actor.VISUAL_POLICY.place_danger(warning, true)
+    VISUAL_POLICY.place_danger(warning, true)
     actor.add_child(warning)
     actor.windup_vfx_tween = actor._combat_tween()
     actor.windup_vfx_tween.tween_property(warning, "scale", Vector2(1.16, 1.16), float(command.get("windup", 0.25)))
@@ -358,8 +364,8 @@ static func spawn_windup_vfx(actor: Node, command: Dictionary) -> void:
 
 
 static func spawn_attack_burst_vfx(actor: Node, command: Dictionary) -> void:
-    if actor.BOSS_SKILL_ART.spawn(actor, command, "execution"): return
-    if actor.MINOR_SKILL_ART.spawn(actor,command,"execution"): return
+    if BOSS_SKILL_ART.spawn(actor, command, "execution"): return
+    if MINOR_SKILL_ART.spawn(actor,command,"execution"): return
     if actor.original_visual:
         actor._original_attack_arc(command, false)
         return
@@ -386,7 +392,7 @@ static func spawn_attack_burst_vfx(actor: Node, command: Dictionary) -> void:
         height = float(command.get("hit_height", 72.0))
     burst.width = 5.0 if actor.is_boss else 3.0
     burst.default_color = Color(1.0, 0.34, 0.22, 0.88) if actor.is_boss else Color(1.0, 0.78, 0.34, 0.86)
-    actor.VISUAL_POLICY.place_danger(burst)
+    VISUAL_POLICY.place_danger(burst)
     if attack_type == "aoe":
         var points := PackedVector2Array()
         for step in range(26):
@@ -433,8 +439,8 @@ static func spawn_attack_burst_vfx(actor: Node, command: Dictionary) -> void:
 
 static func spawn_hit_spark(actor: Node, hit_direction: int, contact_call: int = -1) -> void:
     if contact_call < 0:
-        contact_call = actor.CONTACT_ART.begin_receiver_call(actor)
-    actor.CONTACT_ART.receiver_hit(actor, hit_direction, contact_call)
+        contact_call = CONTACT_ART.begin_receiver_call(actor)
+    CONTACT_ART.receiver_hit(actor, hit_direction, contact_call)
 
 
 static func cancel_attack_effects(actor: Node) -> void:

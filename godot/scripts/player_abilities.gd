@@ -2,6 +2,9 @@ extends RefCounted
 ## Casting skills and tools, healing (readiness, channel, interruption), build stats, guard and resonance.
 ## Moved out of player_controller.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ABILITY_ART := preload("res://scripts/player_ability_art.gd")
+const GUARD_ART := preload("res://scripts/player_guard_art.gd")
+const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 
 static func get_cast_readiness(player: Node, skill_id: String = "") -> Dictionary:
     if player.hp <= 0 or player.death_timer > 0.0:
@@ -120,7 +123,7 @@ static func try_heal(player: Node) -> bool:
     # A payment listener may cancel, change build, or begin a newer channel.
     if player.heal_reservation_generation != reservation_generation or player.heal_timer <= 0.0:
         return false
-    player.HEAL_ART.start(player)
+    HEAL_ART.start(player)
     player._seal_present("heal", "prepare")
     player.heal_voice = player._play_sfx_voice("heal", -5.0)
     player._start_bind_channel()
@@ -150,7 +153,7 @@ static func update_heal(player: Node, delta: float) -> void:
         player._play_sfx("bind_tighten", -6.0)
         # Settle the paid build before HP listeners can replace that build.
         player._seal_heal_completed()
-        player.HEAL_ART.completed(player)
+        HEAL_ART.completed(player)
         player.hp_changed.emit(player.hp)
         if player.heal_reservation_generation==completed_generation:
             player.heal_state_changed.emit("completed")
@@ -169,7 +172,7 @@ static func interrupt_heal(player: Node) -> void:
         player.heal_timer = 0.0
         player.heal_cooldown = maxf(player.heal_cooldown, 0.3)
         player.heal_reserved_practice = 0
-        player.HEAL_ART.interrupted(player)
+        HEAL_ART.interrupted(player)
         # The channel sound outlasts the channel; cut it where the thread snaps.
         if is_instance_valid(player.heal_voice) and not player.heal_voice.is_queued_for_deletion():
             player.heal_voice.stop()
@@ -251,7 +254,7 @@ static func try_guard(player: Node) -> bool:
     player.guard_refunded = false
     player.ability_action.emit("bell_guard", player.global_position, Vector2(player.facing, 0))
     player._play(&"guard")
-    player.GUARD_ART.start(player)
+    GUARD_ART.start(player)
     return true
 
 
@@ -264,7 +267,7 @@ static func try_resonance(player: Node) -> bool:
     player.active_skill = {"kind": "resonance", "range": 160.0, "damage": 1}
     player.skill_effect_started = false
     player.ability_action.emit("crown_resonance", player.global_position, Vector2(player.facing, 0))
-    player.ABILITY_ART.resonance(player)
+    ABILITY_ART.resonance(player)
     return true
 
 
@@ -277,7 +280,7 @@ static func apply_special_skill(player: Node) -> void:
         player.guard_timer = minf(0.65, float(player.active_skill.get("duration", 0.5)))
         player.guard_initial_duration = player.guard_timer
         player.guard_refunded = false
-        player.GUARD_ART.start(player)
+        GUARD_ART.start(player)
     elif id == "shockwave" or kind == "shockwave":
         player.cast_tool({"kind": "wave", "damage": player.attack_damage, "range": player.attack_range, "duration": 0.8, "stagger": player.active_skill.get("stagger", 0.0), "skill_effect": true})
     elif kind == "control":

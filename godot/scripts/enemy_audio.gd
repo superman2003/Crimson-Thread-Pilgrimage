@@ -2,6 +2,11 @@ extends RefCounted
 ## Enemy sound: listener distance and occlusion, attack and material cues, role cues and voice budgeting.
 ## Moved out of enemy_actor.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const COMBAT_AUDIO := preload("res://scripts/enemy_combat_audio.gd")
+const SOUND_FILTER := preload("res://scripts/enemy_sound_filter.gd")
+const STREAM_SOURCE := preload("res://scripts/audio_stream_source.gd")
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+
 
 static func sfx_listener(actor: Node) -> CollisionObject2D:
     var nearest: CollisionObject2D = null
@@ -45,7 +50,7 @@ static func play_sfx(actor: Node, audio_key: String, volume_db: float = -6.0, pi
     player_node.name = "Sfx_" + audio_key
     # 总线归位（音频规格 §5.1）：敌人/Boss 音走 SFXEnemy 子总线，缺席时回落 SFX/Master。
     var occluded: bool = actor._sfx_occluded()
-    player_node.bus = actor.SOUND_FILTER.route(actor._sfx_bus_name(), occluded, voice_priority)
+    player_node.bus = SOUND_FILTER.route(actor._sfx_bus_name(), occluded, voice_priority)
     player_node.stream = stream
     player_node.volume_db = actor._sfx_volume(volume_db, voice_priority, occluded)
     player_node.set_meta("authored_volume_db", volume_db)
@@ -64,9 +69,9 @@ static func stop_parade_layer(actor: Node) -> void:
 
 
 static func play_attack_sfx(actor: Node, phase: String) -> void:
-    var material = actor.COMBAT_AUDIO.release_family(actor.kind,actor.locomotion,actor.active_attack)
+    var material = COMBAT_AUDIO.release_family(actor.kind,actor.locomotion,actor.active_attack)
     if phase == "windup":
-        actor._play_combat_material(actor.COMBAT_AUDIO.preparation_family(material),-11.0 if actor.is_boss else -15.0)
+        actor._play_combat_material(COMBAT_AUDIO.preparation_family(material),-11.0 if actor.is_boss else -15.0)
         if actor.is_boss:
             # Boss 前摇分档（音频规格 §4.4）：damage>=2（各 Boss aoe/shockwave 大招）走 lethal 档。
             actor._play_sfx("boss_windup_lethal" if actor._active_attack_is_heavy() else "boss_windup_light", -6.0 if actor._active_attack_is_heavy() else -18.0, 1.0, 0)
@@ -98,12 +103,12 @@ static func play_attack_sfx(actor: Node, phase: String) -> void:
 
 
 static func play_combat_material(actor: Node, family: String, volume: float) -> bool:
-    var count = actor.COMBAT_AUDIO.variant_count(family)
+    var count = COMBAT_AUDIO.variant_count(family)
     var previous:=int(actor.combat_audio_last_variant.get(family,0))
     var variant = actor.combat_audio_rng.randi_range(1,count)
     if variant==previous and count>1:variant=variant%count+1
-    var path = actor.COMBAT_AUDIO.path(family,variant)
-    if not actor.STREAM_SOURCE.exists(path):return false
+    var path = COMBAT_AUDIO.path(family,variant)
+    if not STREAM_SOURCE.exists(path):return false
     actor.combat_audio_last_variant[family]=variant
     var pitch = actor.combat_audio_rng.randf_range(.97,1.03)*(0.91 if actor.is_boss and not family.begins_with("prep_") else 1.0)
     actor._play_sfx("combat_"+family+"_"+str(variant),volume,pitch,1)
@@ -148,7 +153,7 @@ static func role_cue(actor: Node, cue: String) -> void:
         ring.position = Vector2(0, -48)
         ring.width = 3.0 if reveal else 2.0
         ring.default_color = Color(0.96, 0.32, 0.28, 0.95) if reveal else Color(1.0, 0.82, 0.42, 0.9)
-        actor.VISUAL_POLICY.place_danger(ring, true)
+        VISUAL_POLICY.place_danger(ring, true)
         actor.add_child(ring)
         var tween: Tween = actor._combat_tween()
         var life := 0.4 if reveal else 0.55
@@ -196,7 +201,7 @@ static func play_detached_sfx(actor: Node, audio_key: String, volume_db: float =
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
     var occluded: bool = actor._sfx_occluded()
-    player_node.bus = actor.SOUND_FILTER.route(actor._sfx_bus_name(), occluded, 0)
+    player_node.bus = SOUND_FILTER.route(actor._sfx_bus_name(), occluded, 0)
     player_node.stream = stream
     player_node.volume_db = actor._sfx_volume(volume_db, 1, occluded)
     player_node.max_distance = 900.0
@@ -218,7 +223,7 @@ static func should_play_sfx(actor: Node) -> bool:
 static func load_sfx_stream(actor: Node, audio_key: String) -> AudioStream:
     var path := String(actor.SFX.get(audio_key, ""))
     if path.is_empty() and audio_key.begins_with("combat_"):
-        path=actor.COMBAT_AUDIO.ROOT+audio_key.trim_prefix("combat_")+".ogg"
+        path=COMBAT_AUDIO.ROOT+audio_key.trim_prefix("combat_")+".ogg"
     if path.is_empty() and audio_key.begins_with("boss_ch"):
         # Boss 四件套（roar/phase_shift/atk_light/atk_heavy × 六章）按键名直取合成包文件。
         path = "res://assets/audio/sfx/generated/%s.ogg" % audio_key

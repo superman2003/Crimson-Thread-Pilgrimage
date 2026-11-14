@@ -2,6 +2,7 @@ extends RefCounted
 ## Safe ground and the death cache, collision segments and rock rays, and releasing region platforms.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func update_safe_ground(level: Node) -> void:
     if level.player == null or not is_instance_valid(level.player):
@@ -88,7 +89,7 @@ static func recover_death_cache(level: Node, area: Area2D) -> void:
     if not level.world_mode or level.player==null or level.player.hp<=0 or level.world_state==null or level.world_loading or level.world_save_blocked:return
     if not is_instance_valid(area) or area!=level.death_cache_area or area.is_queued_for_deletion() or not area.is_inside_tree():return
     var cache: Dictionary=level.world_state.data.get("death_cache",{})
-    if not level.WORLD_STATE_SCRIPT._valid_death_cache(cache) or cache.is_empty() or int(cache.currency)<=0:return
+    if not WORLD_STATE_SCRIPT._valid_death_cache(cache) or cache.is_empty() or int(cache.currency)<=0:return
     if String(cache.region_id)!=String(level.config.get("id","")) or area.global_position.distance_to(level.player.global_position)>level.INTERACTION_REACH:return
     if area.position.distance_to(level._vec2(cache.position))>1.0:return
     var result: Dictionary = level._persist_world_change({"currency":level.currency_count+int(cache.currency),"death_cache":{}})
