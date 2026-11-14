@@ -1,0 +1,45 @@
+{
+  "kind": "rain_censer_mote",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "White/grey matte and altered vapor silhouette; alpha minimum198, not transparent. Not registered.",
+  "source_sha256": "44891ff0ce008b30416bce62790a0be5330f8c5ad43d05afe6e116fcbb4008fe",
+  "prompt_sha256": "9c5a3601099313150d7d33a7bb399df8a6519f639140be1a3de51a917ce6c38f",
+  "reference_sha256": "61c3d029176aa2a7b2203c236c768b38adcb8079a89772e25c6febaeedd312e4",
+  "actual_prompt": "Make a transparent PNG sticker sheet of these exact 22 little bronze moth characters in exactly the same 6 columns x4rows, last2cells empty. Remove EVERY smoke, fog, blur, glow and background pixel, including smoke attached to each insect. Keep only the solid bronze mask/crest/round vessel/bellfeet and solid blue-gray veined insect wings. All 22 insect drawings are OPAQUE crisp inked cutouts, alpha255 on solid interiors, with ONLY a thin antialias border. EVERY pixel outside the 22 actual insects is TRANSPARENT alpha0, the entire gutters and last2cells blank transparent. Preserve exact pose, size, position, order and colors of the solid insects. Do not add any atmospheric shading or haze whatsoever. Clean opaque sticker cutouts on transparency.",
+  "targets": {
+    "censer_cloud_windup": [
+      0,
+      1,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "censer_cloud_recover": [
+      11,
+      12,
+      13,
+      22,
+      23
+    ],
+    "recover": [
+      17,
+      18,
+      19,
+      22,
+      23
+    ],
+    "windup": [
+      12,
+      13,
+      14
+    ]
+  },
+  "reference_recipe": "Frozen selected original poses define frameorder, commonriganchors and unchangedneighbor boundaries. Accepted walk supplies identity. All finalnewpixels builtinimage_gen; sourcewide registration only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/rain_censer_mote-actions-01-6x4.json",
+  "guide_sha256": "ab18082fbafc5942d2b507e189daba98b355711c21387ad145726dc83b37ef66"
+}

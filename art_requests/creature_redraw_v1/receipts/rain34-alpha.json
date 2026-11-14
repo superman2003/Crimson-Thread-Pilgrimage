@@ -1,0 +1,45 @@
+{
+  "kind": "rain_censer_mote",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Extraction retains broad background wash. Not registered.",
+  "source_sha256": "358e0ceda6ee9cfdf589172e7bac3e6f90a756062c4c7d413dd5820703527318",
+  "prompt_sha256": "43a4127e3ddb5855caa3b72f0ac597772ff565d2ace5d08c82fde4d79596c984",
+  "reference_sha256": "61c3d029176aa2a7b2203c236c768b38adcb8079a89772e25c6febaeedd312e4",
+  "actual_prompt": "Background removal only. Extract these exact TWENTY TWO bronze moth sprite figures from the large diffuse grey/brown background. Delete ALL broad blurry grey/brown circles and ALL canvas wash, all gutters and last2emptycells must be transparent alpha0. Preserve each bronze insect, its veined blue wings, bell feet and ONLY the small crisp outlined curls attached immediately behind its abdomen. No surrounding glow. Keep every figure silhouette, pose, size, exact6columns x4rows grid, order and position unchanged. Transparent PNG cutouts with narrow natural antialiased edges, no matte/floor/shadows/text.",
+  "targets": {
+    "censer_cloud_windup": [
+      0,
+      1,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "censer_cloud_recover": [
+      11,
+      12,
+      13,
+      22,
+      23
+    ],
+    "recover": [
+      17,
+      18,
+      19,
+      22,
+      23
+    ],
+    "windup": [
+      12,
+      13,
+      14
+    ]
+  },
+  "reference_recipe": "Frozen selected original poses define frameorder, commonriganchors and unchangedneighbor boundaries. Accepted walk supplies identity. All finalnewpixels builtinimage_gen; sourcewide registration only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/rain_censer_mote-actions-01-6x4.json",
+  "guide_sha256": "ab18082fbafc5942d2b507e189daba98b355711c21387ad145726dc83b37ef66"
+}
