@@ -1,0 +1,45 @@
+{
+  "kind": "rain_censer_mote",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "White-background extraction still leaves diffuse wash. Not registered.",
+  "source_sha256": "a3168ba95b16aa68c00a7455eba8e5b67ff3011e5de200288d2ce4e57f7e44db",
+  "prompt_sha256": "4110f4aafcc0eec96c7705242252ecd1526908ad7a9974160952a89f9853abda",
+  "reference_sha256": "44891ff0ce008b30416bce62790a0be5330f8c5ad43d05afe6e116fcbb4008fe",
+  "actual_prompt": "Remove only the white background from this exact twenty-two bronze moth sprite atlas. Keep the insects unchanged. All white/grey background and gutters must become fully transparent alpha0. Preserve their solid colors, exact edges, all wings, silhouettes, positions, sizes, exact6columns x4rows layout. Last2cells entirely transparent empty. Output a TRUE transparent RGBA PNG with alpha0 outside figures. No white matte or checkerboard texture.",
+  "targets": {
+    "censer_cloud_windup": [
+      0,
+      1,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "censer_cloud_recover": [
+      11,
+      12,
+      13,
+      22,
+      23
+    ],
+    "recover": [
+      17,
+      18,
+      19,
+      22,
+      23
+    ],
+    "windup": [
+      12,
+      13,
+      14
+    ]
+  },
+  "reference_recipe": "Frozen selected original poses define frameorder, commonriganchors and unchangedneighbor boundaries. Accepted walk supplies identity. All finalnewpixels builtinimage_gen; sourcewide registration only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/rain_censer_mote-actions-01-6x4.json",
+  "guide_sha256": "ab18082fbafc5942d2b507e189daba98b355711c21387ad145726dc83b37ef66"
+}

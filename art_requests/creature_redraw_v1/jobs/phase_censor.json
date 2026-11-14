@@ -24,6 +24,102 @@
       "ground_y": 237,
       "registration": "cell_center",
       "center_y": 132
+    },
+    {
+      "clip": "censor_blink",
+      "count": 3,
+      "target_frames": [
+        19,
+        20,
+        21
+      ],
+      "original_frame_count": 24,
+      "cells": [
+        7,
+        8,
+        9
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/phase_censor/actions_01.png",
+      "sha256": "00852de646eb074d0c51e6c00149415a12b6fa10dd65a85bd8ab269d4e21c58b",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "88a919c1cbcedcd63f8ea186084e6070176d9b67b4d2f48488e192971546e546",
+      "reference": {
+        "sha256": "16afa4c81ba619a444331edd34db95ba4514b11af7692e22844b0d4544cdc2bb",
+        "reconstruction": "Frozen selected original poses define frameorder, commonriganchors and unchangedneighbor boundaries. Accepted walk supplies identity. All finalnewpixels builtinimage_gen; sourcewide registration only. All selectedcells share one registration from originalselected medianbodycentroid andfootline: no independentceltranslationorresizing."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/phase_censor-actions-01.json",
+      "guide_sha256": "16c0b1823e04ec2698029d942332357bc9086f0c56d25af3a2ae2435f47735e8",
+      "reference_height": 176,
+      "registration": "cell_center",
+      "center_x": 183.421966,
+      "center_y": 140.062995
+    },
+    {
+      "clip": "attack",
+      "count": 3,
+      "target_frames": [
+        1,
+        2,
+        3
+      ],
+      "original_frame_count": 24,
+      "cells": [
+        10,
+        11,
+        12
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "grid": [
+        4,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/phase_censor/actions_01.png",
+      "sha256": "00852de646eb074d0c51e6c00149415a12b6fa10dd65a85bd8ab269d4e21c58b",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "88a919c1cbcedcd63f8ea186084e6070176d9b67b4d2f48488e192971546e546",
+      "reference": {
+        "sha256": "16afa4c81ba619a444331edd34db95ba4514b11af7692e22844b0d4544cdc2bb",
+        "reconstruction": "Frozen selected original poses define frameorder, commonriganchors and unchangedneighbor boundaries. Accepted walk supplies identity. All finalnewpixels builtinimage_gen; sourcewide registration only. All selectedcells share one registration from originalselected medianbodycentroid andfootline: no independentceltranslationorresizing."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/phase_censor-actions-01.json",
+      "guide_sha256": "16c0b1823e04ec2698029d942332357bc9086f0c56d25af3a2ae2435f47735e8",
+      "reference_height": 176,
+      "registration": "cell_center",
+      "center_x": 183.421966,
+      "center_y": 140.062995
     }
   ]
 }
