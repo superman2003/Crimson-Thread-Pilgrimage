@@ -577,6 +577,8 @@ var world_start_region_id := ""
 
 const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
 const WORLD_ATLAS := preload("res://scripts/world_atlas.gd")
+const ENEMY_PLACEMENT := preload("res://scripts/enemy_placement.gd")
+const ENDING_GATES := preload("res://scripts/ending_gates.gd")
 const OPTIONAL_CHALLENGES := preload("res://scripts/optional_challenges.gd")
 const WISH_TOPICS := preload("res://scripts/wish_topics.gd")
 const MAP_OVERLAY := preload("res://scripts/map_overlay.gd")
@@ -3273,35 +3275,10 @@ func _spawn_hidden_route_clues() -> void:
 
 ## N05: once an ending is chosen, each region's main shrine shows what it changed.
 func _spawn_ending_aftermath() -> void:
-    if ending_aftermath != null and is_instance_valid(ending_aftermath):
-        ending_aftermath.queue_free()
-    ending_aftermath = null
-    if world_narrative == null:
-        return
-    var scene: Dictionary = world_narrative.aftermath_scene(String(config.get("id", "")), story_flags)
-    for data in config.get("save_points", []) if not scene.is_empty() else []:
-        if String(data.get("id", "")) != String(scene.anchor):
-            continue
-        ending_aftermath = Node2D.new()
-        ending_aftermath.set_script(ENDING_AFTERMATH_SCRIPT)
-        ending_aftermath.name = "EndingAftermath"
-        ending_aftermath.look = String(scene.get("look", "bells"))
-        # Beside the lamp, standing on the floor the pedestal stands on.
-        ending_aftermath.position = _vec2(data.position) + Vector2(70, 28)
-        ending_aftermath.set_meta("aftermath", scene)
-        add_child(ending_aftermath)
+    ENDING_GATES.spawn_ending_aftermath(self)
 
 func _notice_ending_aftermath() -> void:
-    if not active_overlay.is_empty() or ending_aftermath == null or not is_instance_valid(ending_aftermath):
-        return
-    var scene: Dictionary = ending_aftermath.get_meta("aftermath")
-    var flag := String(scene.get("seen_flag", ""))
-    if bool(story_flags.get(flag, false)) or player.global_position.distance_to(ending_aftermath.global_position) > AFTERMATH_NOTICE_RANGE:
-        return
-    story_flags[flag] = true
-    _save_world()
-    # The shrine's own prompt would cover a toast at once; the banner stays.
-    _show_lore_banner("%s · %s" % [String(scene.get("region_name", "")), String(scene.get("line", ""))])
+    ENDING_GATES.notice_ending_aftermath(self)
 
 ## Saves from before these clues already record visits to the hidden rooms;
 ## a room the player has been in counts as found.
@@ -4110,180 +4087,27 @@ func _npc(data: Dictionary) -> void:
 
 
 func _resolve_enemy_spawn_position(data: Dictionary) -> Vector2:
-    var requested := _vec2(data.get("position", [0, 0]))
-    var clearance := float(data.get("clearance", 40.0))
-    var requested_top := requested.y + clearance
-    var explicit_platform := String(data.get("platform_id", ""))
-    var best_platform_id := ""
-    var best_rect := Rect2()
-    var best_score := INF
-
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var platform_id := String(platform_data.get("id", ""))
-        var rect := _rect2(platform_data.get("rect", []))
-        if not _enemy_spawn_platform_allowed(platform_id, rect):
-            continue
-        if not explicit_platform.is_empty() and platform_id != explicit_platform:
-            continue
-
-        var margin := minf(38.0, rect.size.x * 0.22)
-        var clamped_x := clampf(requested.x, rect.position.x + margin, rect.position.x + rect.size.x - margin)
-        if explicit_platform.is_empty() and absf(clamped_x - requested.x) > 2.0:
-            continue
-
-        var score := absf(rect.position.y - requested_top) + absf(clamped_x - requested.x) * 0.25
-        if score < best_score:
-            best_score = score
-            best_rect = rect
-            best_platform_id = platform_id
-
-    if best_score < INF:
-        return _safe_enemy_spawn_on_platform(data, requested, best_platform_id, best_rect, clearance)
-    return _fallback_enemy_spawn_position(data, requested, clearance)
+    return ENEMY_PLACEMENT.resolve_enemy_spawn_position(self, data)
 
 
 func _safe_enemy_spawn_on_platform(data: Dictionary, requested: Vector2, platform_id: String, rect: Rect2, clearance: float) -> Vector2:
-    var half_width := float(data.get("spawn_half_width", 36.0))
-    var visual_height := float(data.get("spawn_visual_height", _enemy_spawn_visual_height(data)))
-    var margin := maxf(half_width + 12.0, minf(54.0, rect.size.x * 0.24))
-    var min_x := rect.position.x + margin
-    var max_x := rect.position.x + rect.size.x - margin
-    if min_x > max_x:
-        var center_x := rect.position.x + rect.size.x * 0.5
-        var center_position := Vector2(center_x, rect.position.y - clearance)
-        if _enemy_spawn_rect_clear(center_position, half_width, visual_height, platform_id):
-            return center_position
-        return _fallback_enemy_spawn_position(data, requested, clearance, platform_id)
-
-    var requested_x := clampf(requested.x, min_x, max_x)
-    var candidate_xs: Array = [
-        requested_x,
-        requested_x - 70.0,
-        requested_x + 70.0,
-        requested_x - 140.0,
-        requested_x + 140.0,
-        min_x,
-        max_x,
-        rect.position.x + rect.size.x * 0.5
-    ]
-    var best_position := Vector2(requested_x, rect.position.y - clearance)
-    var best_score := INF
-    for candidate_value in candidate_xs:
-        var x := clampf(float(candidate_value), min_x, max_x)
-        var position_value := Vector2(x, rect.position.y - clearance)
-        var score := absf(x - requested.x)
-        # Clearance is pure geometry. A tied/worse candidate cannot replace
-        # the first winner, so do not spend collision queries on that candidate.
-        if score >= best_score:
-            continue
-        if not _enemy_spawn_rect_clear(position_value, half_width, visual_height, platform_id):
-            continue
-        if score < best_score:
-            best_score = score
-            best_position = position_value
-    if best_score < INF:
-        return best_position
-    return _fallback_enemy_spawn_position(data, requested, clearance, platform_id)
+    return ENEMY_PLACEMENT.safe_enemy_spawn_on_platform(self, data, requested, platform_id, rect, clearance)
 
 
 func _fallback_enemy_spawn_position(data: Dictionary, requested: Vector2, clearance: float, preferred_platform_id: String = "") -> Vector2:
-    var half_width := float(data.get("spawn_half_width", 36.0))
-    var visual_height := float(data.get("spawn_visual_height", _enemy_spawn_visual_height(data)))
-    var requested_top := requested.y + clearance
-    var best_position := requested
-    var best_score := INF
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var platform_id := String(platform_data.get("id", ""))
-        var rect := _rect2(platform_data.get("rect", []))
-        if not _enemy_spawn_platform_allowed(platform_id, rect):
-            continue
-        var margin := maxf(half_width + 12.0, minf(54.0, rect.size.x * 0.24))
-        var min_x := rect.position.x + margin
-        var max_x := rect.position.x + rect.size.x - margin
-        if min_x > max_x:
-            continue
-        var candidate_xs: Array = [
-            clampf(requested.x, min_x, max_x),
-            rect.position.x + rect.size.x * 0.5,
-            min_x,
-            max_x
-        ]
-        var step := maxf(44.0, half_width * 1.5)
-        var scan_x := min_x
-        while scan_x <= max_x + 0.5:
-            candidate_xs.append(scan_x)
-            scan_x += step
-        for candidate_value in candidate_xs:
-            var x := clampf(float(candidate_value), min_x, max_x)
-            var position_value := Vector2(x, rect.position.y - clearance)
-            var platform_bias := 0.0 if platform_id == preferred_platform_id else 220.0
-            var score := absf(rect.position.y - requested_top) * 1.8 + absf(x - requested.x) * 0.35 + platform_bias
-            if score >= best_score:
-                continue
-            if not _enemy_spawn_rect_clear(position_value, half_width, visual_height, platform_id):
-                continue
-            if score < best_score:
-                best_score = score
-                best_position = position_value
-    if best_score >= INF:
-        push_warning("No clear enemy spawn found for " + String(data.get("id", "enemy")) + "; check platform geometry.")
-    return best_position
+    return ENEMY_PLACEMENT.fallback_enemy_spawn_position(self, data, requested, clearance, preferred_platform_id)
 
 
 func _enemy_spawn_visual_height(data: Dictionary) -> float:
-    var original_path := String(data.get("sprite",""))
-    if original_path.contains("original_creatures"):
-        return maxf(20,float(ORIGINAL_ART.manifest(original_path).get("display_height",90))-40)
-    var region: Array = data.get("sprite_region", [])
-    var region_height := 72.0
-    if region.size() >= 4:
-        region_height = float(region[3])
-    var scale_value := float(data.get("visual_scale", 1.0))
-    var offset := _vec2(data.get("visual_offset", [0, 0]))
-    var sprite_center_above_origin := 18.0 - offset.y
-    return clampf(sprite_center_above_origin + region_height * scale_value * 0.5 + 12.0, 48.0, 116.0)
+    return ENEMY_PLACEMENT.enemy_spawn_visual_height(self, data)
 
 
 func _enemy_spawn_rect_clear(position_value: Vector2, half_width: float = 36.0, visual_height: float = 104.0, floor_platform_id: String = "") -> bool:
-    var actor_rect := Rect2(position_value + Vector2(-half_width, -visual_height), Vector2(half_width * 2.0, visual_height + 8.0))
-    if chapter_terrain != null and chapter_terrain.intersects_rect(actor_rect):
-        return false
-    if cave_world != null and cave_world.intersects_rect(actor_rect):
-        return false
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        if not String(platform_data.get("terrain_id", "")).is_empty():
-            continue # The anchor rectangle was replaced by a continuous terrain polygon.
-        var platform_id := String(platform_data.get("id", ""))
-        if platform_id == floor_platform_id:
-            continue
-        var rect := _rect2(platform_data.get("rect", []))
-        if rect.size.x <= 0.0 or rect.size.y <= 0.0:
-            continue
-        if rect.position.y >= position_value.y + 10.0:
-            continue
-        if actor_rect.intersects(rect):
-            return false
-    return true
+    return ENEMY_PLACEMENT.enemy_spawn_rect_clear(self, position_value, half_width, visual_height, floor_platform_id)
 
 
 func _enemy_spawn_platform_allowed(platform_id: String, rect: Rect2) -> bool:
-    if rect.size.x <= 0.0 or rect.size.y <= 0.0:
-        return false
-    var lowered := platform_id.to_lower()
-    if lowered.contains("wall") or lowered.contains("gate") or lowered.contains("locked"):
-        return false
-    if rect.size.x < 86.0 or rect.size.y > 90.0:
-        return false
-    return true
+    return ENEMY_PLACEMENT.enemy_spawn_platform_allowed(self, platform_id, rect)
 
 
 func _platform_under_position(position_value: Vector2, clearance: float = 40.0) -> String:
@@ -4302,43 +4126,7 @@ func _platform_under_position(position_value: Vector2, clearance: float = 40.0) 
 
 
 func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector2, data: Dictionary) -> Array:
-    if platform_id.is_empty():
-        return []
-    var floor_rect := Rect2()
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        if String(platform_data.get("id", "")) == platform_id:
-            floor_rect = _rect2(platform_data.get("rect", []))
-            break
-    if floor_rect.size.x <= 0.0:
-        return []
-
-    var half_width := float(data.get("spawn_half_width", 36.0))
-    var visual_height := float(data.get("spawn_visual_height", _enemy_spawn_visual_height(data)))
-    var margin := maxf(half_width + 12.0, minf(54.0, floor_rect.size.x * 0.24))
-    var min_x := floor_rect.position.x + margin
-    var max_x := floor_rect.position.x + floor_rect.size.x - margin
-    if min_x >= max_x:
-        return []
-
-    var center_x := clampf(spawn_position.x, min_x, max_x)
-    var step := maxf(8.0, minf(18.0, half_width * 0.45))
-    var left := center_x
-    var right := center_x
-    # T03: the walk tests up to ~100 positions; each full clearance query
-    # scanned every platform and rock rect (10–60 ms per enemy in one build
-    # frame). Collect once what can touch this floor's swept band, then test
-    # the same positions against only those (same results, same order).
-    var obstacles := _enemy_walk_obstacles(Rect2(min_x - step - half_width, spawn_position.y - visual_height, max_x - min_x + 2.0 * (step + half_width), visual_height + 8.0).grow(1.0), spawn_position.y, platform_id)
-    while left - step >= min_x and _enemy_walk_clear(Vector2(left - step, spawn_position.y), half_width, visual_height, obstacles):
-        left -= step
-    while right + step <= max_x and _enemy_walk_clear(Vector2(right + step, spawn_position.y), half_width, visual_height, obstacles):
-        right += step
-    if right - left < half_width:
-        return [left-0.05, right+0.05]
-    return [left, right]
+    return ENEMY_PLACEMENT.enemy_platform_movement_bounds(self, platform_id, spawn_position, data)
 
 
 ## The subset of _enemy_spawn_rect_clear's blockers that can intersect any
@@ -5241,186 +5029,17 @@ func _transition_to_next_chapter(next_config_path: String) -> void:
 #    缺省绕 Boss 尸位/玩家横向散开), requires:{items:[], flags:[]},
 #    message(达成结局文案), reject_message(可选，缺项拒绝提示)}
 func _ending_gate_entries() -> Array:
-    var entries: Array = []
-    for gate in config.get("ending_gates", []):
-        if gate is Dictionary:
-            entries.append(gate)
-    return entries
+    return ENDING_GATES.ending_gate_entries(self)
 
 
 ## announce: the doors appear at the final defeat (the ending-doors beat plays
 ## once); reloading a completed region restores them silently.
 func _spawn_ending_gates(announce: bool = false) -> void:
-    if ending_gates_spawned:
-        return
-    var entries := _ending_gate_entries()
-    if entries.is_empty():
-        return
-    ending_gates_spawned = true
-    if announce:
-        _play_sfx("ch06_beat_ending_doors", -6.0)
-    var anchor := Vector2(world_width * 0.5, world_height * 0.5)
-    if boss_actor != null and is_instance_valid(boss_actor):
-        anchor = boss_actor.global_position
-    elif config.get("boss", {}).has("position"):
-        # Reloaded completed regions have no boss actor: keep the ending choice
-        # in the authored arena instead of moving it to the player checkpoint.
-        anchor = _vec2(config.boss.position)
-    elif player != null and is_instance_valid(player):
-        anchor = player.global_position
-    for index in range(entries.size()):
-        var data: Dictionary = entries[index]
-        var ending := String(data.get("ending", String(data.get("id", "ending_%d" % index))))
-        var area := Area2D.new()
-        area.name = String(data.get("id", "ending_gate_%d" % index))
-        var fallback := anchor + Vector2(-230.0 + 230.0 * float(index), 0.0)
-        area.position = _vec2(data.get("position", [fallback.x, fallback.y]))
-        area.set_meta("kind", "ending_gate")
-        area.set_meta("label", String(data.get("label", "结局之门")))
-        area.set_meta("ending", ending)
-        area.set_meta("requires", data.get("requires", {}))
-        area.set_meta("message", String(data.get("message", "")))
-        area.set_meta("reject_message", String(data.get("reject_message", "")))
-        area.set_meta("object_id", "interactable/" + area.name)
-
-        var shape := CollisionShape2D.new()
-        var rectangle := RectangleShape2D.new()
-        rectangle.size = _vec2(data.get("interaction_size", [150, 150]))
-        shape.shape = rectangle
-        area.add_child(shape)
-
-        var tint: Color = ENDING_GATE_TINTS.get(ending, Color(0.82, 0.90, 1.0, 0.90))
-        var sprite := Sprite2D.new()
-        sprite.name = "EndingGateSprite"
-        sprite.texture = load(SPRITES["boss_gate"])
-        sprite.scale = Vector2(0.66, 0.66)
-        sprite.modulate = tint
-        sprite.z_index = 7
-        area.add_child(sprite)
-
-        var glow := Line2D.new()
-        glow.name = "EndingGateGlow"
-        glow.width = 3.0
-        glow.closed = true
-        glow.default_color = Color(tint.r, tint.g, tint.b, 0.66)
-        glow.points = PackedVector2Array([
-            Vector2(-36, -52), Vector2(36, -52), Vector2(46, 0), Vector2(30, 54), Vector2(-30, 54), Vector2(-46, 0)
-        ])
-        glow.z_index = 8
-        area.add_child(glow)
-
-        var tween := _region_tween()
-        tween.set_loops()
-        tween.tween_property(glow, "scale", Vector2(1.12, 1.12), 0.8)
-        tween.parallel().tween_property(glow, "modulate:a", 0.42, 0.8)
-        tween.tween_property(glow, "scale", Vector2(0.96, 0.96), 0.8)
-        tween.parallel().tween_property(glow, "modulate:a", 1.0, 0.8)
-
-        _add_wayfinding(area)
-        area.body_entered.connect(_on_interactable_entered.bind(area))
-        area.body_exited.connect(_on_interactable_exited.bind(area))
-        add_child(area)
-    _toast("守门者陨落 · 结局之门显现")
-
-
-func _ending_gate_missing_requirements(requires_value: Variant) -> Array[String]:
-    var missing: Array[String] = []
-    if typeof(requires_value) != TYPE_DICTIONARY:
-        return missing
-    var requires: Dictionary = requires_value
-    for item_value in requires.get("items", []):
-        var item_id := String(item_value)
-        if not item_id.is_empty() and int(inventory_counts.get(item_id, 0)) <= 0:
-            missing.append(_item_display_name(item_id))
-    for flag_value in requires.get("flags", []):
-        var flag := String(flag_value)
-        if not flag.is_empty() and not bool(story_flags.get(flag, false)):
-            missing.append(flag)
-    return missing
+    ENDING_GATES.spawn_ending_gates(self, announce)
 
 
 func _activate_ending_gate(area: Area2D) -> void:
-    if not _can_interact_with_world() or area == null or not is_instance_valid(area):
-        return
-    var ending := String(area.get_meta("ending", ""))
-    var chosen := String(story_flags.get("ending_chosen", ""))
-    if world_mode and world_narrative != null:
-        chosen = String(world_narrative.restored_ending_flags(story_flags).get("ending_chosen", ""))
-    if not chosen.is_empty():
-        if chosen == ending:
-            if win_label != null:
-                var saved_message := String(area.get_meta("message", ""))
-                if world_mode and world_narrative != null:
-                    saved_message = String(world_narrative.evaluate_ending(chosen, inventory_counts, story_flags).get("message", saved_message))
-                win_label.text = saved_message
-                win_label.visible = true
-            _toast("结局已选定：" + String(area.get_meta("label", ending)))
-        else:
-            var chosen_title := chosen
-            if world_mode and world_narrative != null:
-                chosen_title = String(world_narrative.evaluate_ending(chosen, inventory_counts, story_flags).get("title", chosen))
-            _toast("结局已定（%s），此门不再回应。" % chosen_title)
-        return
-    var evaluated: Dictionary = {}
-    var missing: Array[String] = []
-    var gate_available := false
-    if world_mode and world_narrative != null:
-        evaluated = world_narrative.evaluate_ending(ending, inventory_counts, story_flags)
-        gate_available = bool(evaluated.get("available", false))
-        for requirement in evaluated.get("known_missing", []):
-            missing.append(String(requirement.get("label", requirement.get("id", ""))))
-        var hidden_missing_count := int(evaluated.get("hidden_missing_count", 0))
-        if hidden_missing_count > 0:
-            missing.append("尚有%d条未发现证言" % hidden_missing_count)
-        if not gate_available and missing.is_empty():
-            missing.append("仍有未完成要求")
-    else:
-        missing = _ending_gate_missing_requirements(area.get_meta("requires", {}))
-        gate_available = missing.is_empty()
-    if not gate_available:
-        var reject := String(area.get_meta("reject_message", ""))
-        if reject.is_empty():
-            reject = "此门未应：缺少 " + "、".join(missing)
-        # 门拒绝=取消音（音频规格 §4.5 ui_menu_cancel，Kenney Interface）。
-        _play_sfx("ui_menu_cancel", -4.0)
-        _toast(reject)
-        return
-    var flags_before := story_flags.duplicate(true)
-    var currency_before := currency_count
-    var world_before: Dictionary = world_state.data.duplicate(true) if world_state != null else {}
-    var build_before: Dictionary = build_system.serialize() if build_system != null else {}
-    if not evaluated.is_empty():
-        for flag in evaluated.get("grant_flags", []):
-            story_flags[String(flag)] = true
-        story_flags["ending_consequences"] = evaluated.get("consequences", {}).duplicate(true)
-    story_flags["ending_chosen"] = ending
-    story_flags[ending + "_done"] = true
-    if world_mode and world_narrative != null:
-        story_flags = world_narrative.restored_ending_flags(story_flags)
-    _check_wish_board_rewards(false)
-    if not _save_world():
-        _rollback_narrative_transaction(flags_before, currency_before, world_before, build_before)
-        _toast("归途记录未能写入；结局尚未选定，请重试。")
-        return
-    if not evaluated.is_empty():
-        area.set_meta("message", String(evaluated.get("message", area.get_meta("message", ""))))
-    _spawn_ending_aftermath()
-    for child in get_children():
-        if child is Area2D and String(child.get_meta("kind", "")) == "npc":
-            _apply_world_npc_state(child)
-    _refresh_wish_board_overlay()
-    _play_sfx("interact", -6.0)
-    # 结局确认音 + 终止式 stinger（音频规格 §3.8）：stinger 挂 root 防演出切场截断。
-    _play_sfx("ui_menu_confirm", 0.0)
-    _play_sfx_persistent(String(ENDING_STINGER_SFX.get(ending, "ending_a_stinger")), -5.0)
-    # 三结局全曲（规格 §3.8）：短 stinger 之后紧跟整曲（MusicStinger 总线）。
-    if audio_director != null:
-        audio_director.play_stinger(ending)
-    if win_label != null:
-        win_label.text = String(area.get_meta("message", "结局：" + ending))
-        win_label.visible = true
-    _toast("结局达成：" + String(area.get_meta("label", ending)))
-    _refresh_hud()
+    ENDING_GATES.activate_ending_gate(self, area)
 
 
 func _activate_boss_gate() -> void:

@@ -17,7 +17,7 @@ static func wish_board_entries(level: Node) -> Array:
 
 
 static func build_wish_board_overlay(level: Node) -> void:
-    if level.map_panel == null or wish_board_entries(level).is_empty():
+    if level.map_panel == null or level._wish_board_entries().is_empty():
         return
     level.wish_panel = ColorRect.new()
     level.wish_panel.name = "WishBoardPanel"
@@ -40,7 +40,7 @@ static func build_wish_board_overlay(level: Node) -> void:
     level.wish_text.add_theme_font_size_override("font_size", 14)
     level.wish_text.add_theme_color_override("font_color", level.PILGRIMAGE_UI_SCRIPT.IVORY)
     level.wish_panel.add_child(level.wish_text)
-    refresh_wish_board_overlay(level)
+    level._refresh_wish_board_overlay()
 
 
 static func wish_completed(level: Node, wish: Dictionary) -> bool:
@@ -53,11 +53,11 @@ static func wish_claim_flag(level: Node, wish: Dictionary) -> String:
 
 
 static func check_wish_board_rewards(level: Node, announce: bool = true) -> void:
-    for wish_value in wish_board_entries(level):
+    for wish_value in level._wish_board_entries():
         var wish: Dictionary = wish_value
         if not wish_completed(level, wish):
             continue
-        var claim_flag := wish_claim_flag(level, wish)
+        var claim_flag: String = level._wish_claim_flag(wish)
         if bool(level.story_flags.get(claim_flag, false)):
             continue
         # 直接写 flag（不走 _set_story_flag）避免奖励检查递归。
@@ -76,14 +76,14 @@ static func check_wish_board_rewards(level: Node, announce: bool = true) -> void
             level._item_display_name("currency")
         ])
     if announce:
-        refresh_wish_board_overlay(level)
+        level._refresh_wish_board_overlay()
 
 
 static func refresh_wish_board_overlay(level: Node) -> void:
     if level.wish_text == null:
         return
     var lines: Array[String] = []
-    for wish_value in wish_board_entries(level):
+    for wish_value in level._wish_board_entries():
         var wish: Dictionary = wish_value
         var done := wish_completed(level, wish)
         lines.append("%s [%s] %s" % [
@@ -189,11 +189,11 @@ static func wish_dialogue_candidate(level: Node, area: Area2D, flags: Dictionary
 static func wish_topic_plan(level: Node, quest: Dictionary, area: Area2D) -> Dictionary:
     var next_counts: Dictionary = level.inventory_counts.duplicate(true)
     var next_flags: Dictionary = level.story_flags.duplicate(true)
-    var dialogue: Dictionary = wish_dialogue_candidate(level, area, next_flags, level.currency_count)
+    var dialogue: Dictionary = level._wish_dialogue_candidate(area, next_flags, level.currency_count)
     next_flags = dialogue.flags
     var next_currency := int(dialogue.currency)
     var complete_flag := String(quest.get("complete_flag", ""))
-    var delivered: bool = not complete_flag.is_empty() and not bool(next_flags.get(complete_flag, false)) and wish_offering_available(level, String(quest.get("item", "")))
+    var delivered: bool = not complete_flag.is_empty() and not bool(next_flags.get(complete_flag, false)) and level.wish_offering_available(String(quest.get("item", "")))
     var reward := ""
     if delivered:
         var required := String(quest.get("item", ""))
@@ -214,9 +214,9 @@ static func wish_topic_plan(level: Node, quest: Dictionary, area: Area2D) -> Dic
     elif not bool(next_flags.get(complete_flag, false)):
         var accept_flag := String(quest.get("accept_flag", ""))
         if not accept_flag.is_empty():next_flags[accept_flag] = true
-    for wish in wish_board_entries(level):
+    for wish in level._wish_board_entries():
         var target := String(wish.get("target_flag", ""))
-        var claim := wish_claim_flag(level, wish)
+        var claim: String = level._wish_claim_flag(wish)
         if not target.is_empty() and bool(next_flags.get(target, false)) and not bool(next_flags.get(claim, false)):
             next_flags[claim] = true
             next_currency += maxi(0, int(wish.get("reward_currency", 0)))
@@ -234,7 +234,7 @@ static func quote_wish_topic(level: Node, quest: Dictionary, area: Area2D) -> Di
     for key in ["item","reward","complete_flag"]:
         if not quest.get(key,"") is String or String(quest.get(key,"")).is_empty():return failure
     if not quest.get("consume",false) is bool:return failure
-    var plan := wish_topic_plan(level, quest,area)
+    var plan: Dictionary = level._wish_topic_plan(quest,area)
     var required := String(quest.item)
     var next_build = level.build_system.get_script().new()
     if not next_build.restore(level.build_system.serialize()).ok:return failure
@@ -251,7 +251,7 @@ static func perform_wish_topic(level: Node, quest: Dictionary, area: Area2D) -> 
     var failure := {"ok":false,"reason":"归途记录未能写入；本次心愿尚未确认，请重试。"}
     if not level.world_mode or level.world_loading or level.world_state == null or level.player == null or level.build_system == null or level.world_save_blocked:
         return failure
-    var plan := wish_topic_plan(level, quest,area)
+    var plan: Dictionary = level._wish_topic_plan(quest,area)
     var next_counts: Dictionary = plan.counts
     var next_flags: Dictionary = plan.flags
     var dialogue: Dictionary = plan.dialogue
@@ -290,14 +290,14 @@ static func perform_wish_topic(level: Node, quest: Dictionary, area: Area2D) -> 
     if testimony_completed:level._play_sfx("ui_testimony_complete", -4.0)
     if delivered and not reward.is_empty():level._toast("收入行囊 · " + level._item_display_name(reward))
     if not String(dialogue.get("response_text","")).is_empty():level._toast(String(dialogue.response_text))
-    refresh_wish_board_overlay(level)
+    level._refresh_wish_board_overlay()
     level._refresh_hud()
     return {"ok":true,"delivered":delivered}
 
 
 static func wish_claimed_total(level: Node) -> int:
     var claimed := 0
-    for wish_value in wish_board_entries(level):
-        if bool(level.story_flags.get(wish_claim_flag(level, wish_value), false)):
+    for wish_value in level._wish_board_entries():
+        if bool(level.story_flags.get(level._wish_claim_flag(wish_value), false)):
             claimed += 1
     return claimed
