@@ -46,8 +46,8 @@ def main():
         print('UI_TRANSLATIONS self-test OK')
         return 0
     data = json.loads(PATH.read_text(encoding='utf-8'))
-    scripts = '\n'.join(p.read_text(encoding='utf-8') for p in sorted((ROOT / 'godot/scripts').glob('*.gd'))
-                        if not p.name.endswith('_validation.gd'))
+    sources = sorted((ROOT / 'godot/scripts').glob('*.gd')) + sorted((ROOT / 'godot/journey').rglob('*.gd'))
+    scripts = '\n'.join(p.read_text(encoding='utf-8') for p in sources if not p.name.endswith('_validation.gd'))
     found = problems(data, scripts)
     for line in found:
         print('UI_TRANSLATIONS', line)
