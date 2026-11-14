@@ -2,6 +2,7 @@ extends RefCounted
 ## Where an enemy stands: a safe spot on its platform, a fallback when the authored one is blocked, and how far it may patrol.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 
 static func resolve_enemy_spawn_position(level: Node, data: Dictionary) -> Vector2:
     var requested: Vector2 = level._vec2(data.get("position", [0, 0]))
@@ -133,7 +134,7 @@ static func fallback_enemy_spawn_position(level: Node, data: Dictionary, request
 static func enemy_spawn_visual_height(level: Node, data: Dictionary) -> float:
     var original_path := String(data.get("sprite",""))
     if original_path.contains("original_creatures"):
-        return maxf(20,float(level.ORIGINAL_ART.manifest(original_path).get("display_height",90))-40)
+        return maxf(20,float(ORIGINAL_ART.manifest(original_path).get("display_height",90))-40)
     var region: Array = data.get("sprite_region", [])
     var region_height := 72.0
     if region.size() >= 4:

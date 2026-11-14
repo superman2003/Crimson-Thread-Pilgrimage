@@ -2,6 +2,8 @@ extends RefCounted
 ## NPC wishes: the wish board, what an NPC can be asked or given, and which lines they speak.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
+const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
 
 static func wish_board_entries(level: Node) -> Array:
     var entries: Array = []
@@ -30,7 +32,7 @@ static func build_wish_board_overlay(level: Node) -> void:
     title.text = "巡礼愿板"
     title.position = Vector2(16, 12)
     title.add_theme_font_size_override("font_size", 20)
-    title.add_theme_color_override("font_color", level.PILGRIMAGE_UI_SCRIPT.GOLD)
+    title.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.GOLD)
     level.wish_panel.add_child(title)
 
     level.wish_text = Label.new()
@@ -38,7 +40,7 @@ static func build_wish_board_overlay(level: Node) -> void:
     level.wish_text.size = Vector2(284, 332)
     level.wish_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     level.wish_text.add_theme_font_size_override("font_size", 14)
-    level.wish_text.add_theme_color_override("font_color", level.PILGRIMAGE_UI_SCRIPT.IVORY)
+    level.wish_text.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     level.wish_panel.add_child(level.wish_text)
     level._refresh_wish_board_overlay()
 
@@ -177,7 +179,7 @@ static func wish_dialogue_candidate(level: Node, area: Area2D, flags: Dictionary
     var recollection: String = preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",area.get_meta("world_dialogue_result",{})),index,String(level.config.get("id","")))
     if not recollection.is_empty():flags[recollection]=true
     var response_memory: Dictionary = preload("res://scripts/protagonist_response_memory.gd").quote(String(area.get_meta("npc_id",area.name)),area.get_meta("world_dialogue_result",{}),index,flags,String(level.config.get("id","")))
-    var completion: Dictionary = level.WORLD_NARRATIVE_SCRIPT.completion_outcome(area.get_meta("world_dialogue_result", {}), index, flags)
+    var completion: Dictionary = WORLD_NARRATIVE_SCRIPT.completion_outcome(area.get_meta("world_dialogue_result", {}), index, flags)
     for flag in completion.flags:flags[String(flag)] = true
     wallet += int(completion.rewards.get("currency", 0))
     if bool(flags.get("reward_returned_names_claimed", false)):
