@@ -57,7 +57,7 @@ def convert(name):
         s=re.sub('\0\\(\\s*\\)','(level)',s); s=re.sub('\0\\(','(level, ',s)
         assert '\0' not in s,line
         # loosen inferred declarations that now read through the untyped level
-        d=re.match(r'^(\s*)var (\w+) := (.*)$',s)
+        d=re.match(r'^(\s*)var (\w+)\s*:=\s*(.*)$',s)
         if d and (re.search(r'\blevel\.',d.group(3)) or any(re.search(r'(?<![\w.])'+re.escape(v)+r'\b',d.group(3)) for v in loose)):
             if not re.match(r'^(float|int|String|bool|Vector2|Vector2i|Rect2|Color|Array|Dictionary|str|maxf|minf|maxi|mini|clampf|clampi|absf|absi)\(',d.group(3)):
                 loose.add(d.group(2)); s=f'{d.group(1)}var {d.group(2)} = {d.group(3)}'
