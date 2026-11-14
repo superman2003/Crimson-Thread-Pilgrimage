@@ -15,6 +15,11 @@ signal skill_cast(skill_id: String)
 signal combat_observed(event: Dictionary)
 
 @export var debug_invulnerable := false
+## Journey difficulty (difficulty_setting.gd): whole masks added to each hit,
+## and seconds of extra safety after one. Both are 0 on the standard tier.
+var difficulty_damage_bonus := 0
+var difficulty_mercy := 0.0
+var mercy_timer := 0.0
 @export var bell_guard_unlocked := false
 @export var thorn_downstrike_unlocked := false
 @export var lantern_phase_unlocked := false
@@ -521,6 +526,8 @@ func _physics_process(delta: float) -> void:
 
     if hurt_timer > 0.0:
         hurt_timer -= delta
+    if mercy_timer > 0.0:
+        mercy_timer -= delta
 
     if self_flash_timer > 0.0:
         self_flash_timer -= delta
@@ -2256,7 +2263,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         return false
     if debug_invulnerable:
         return false
-    if hurt_timer > 0.0 or death_timer > 0.0:
+    if hurt_timer > 0.0 or death_timer > 0.0 or mercy_timer > 0.0:
         return false
     if amount <= 0:
         return false
@@ -2296,6 +2303,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     attack_timer = 0.0
     attack_shape.set_deferred("disabled", true)
     amount = maxi(1, int(ceil(float(amount) * float(build_profile.get("damage_taken_mult", 1.0)))))
+    amount = maxi(1, amount + difficulty_damage_bonus)
     var hp_before_damage := hp
     hp = maxi(0, hp - amount)
     hp_changed.emit(hp)
@@ -2334,6 +2342,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         flash_material.set_shader_parameter("flash_amount", 1.0 if bool(_accessibility().get("flash_enabled", true)) else 0.0)
     gain_energy(energy_on_damage)
     hurt_timer = 0.35
+    mercy_timer = hurt_timer + difficulty_mercy if difficulty_mercy > 0.0 else 0.0
     var knockback_dir := signf(global_position.x - source_position.x)
     if knockback_dir == 0.0:
         knockback_dir = -facing

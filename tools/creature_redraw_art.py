@@ -71,12 +71,6 @@ LEGACY_ACCENT_SOURCES = {
     ('saltwhite_contract_judge', 'windup'): '5efa67075624690cffedc7a2a6000764838488a163e9e997cbb0b28764a214a3',
 }
 
-# Merged minutes before this check landed (#636) and fails both parts of it.
-# Kept only so the contract stays green until the clip is redrawn: delete this
-# entry with that redraw. Pinned to the sheet, so a new pass is judged in full.
-PENDING_STYLE_REDRAW = {
-    ('summoned_page', 'windup'): '7cabfa1e7070d40b9b87888dd98cdb8c6c1645177263d414560cb739d30df3d7',
-}
 
 
 def surface_style(drawings):
@@ -370,9 +364,6 @@ def build(kind, check=False):
             raise ValueError(f'Redrawn body size differs from the replaced clip: {name} {measured}')
         defects = style_defects([source_drawing(frame, atlas_cache) for frame in clip['frames']], cels,
                                 LEGACY_ACCENT_SOURCES.get((kind, name)) == job['sha256'])
-        if defects and PENDING_STYLE_REDRAW.get((kind, name)) == job['sha256']:
-            print(f'STYLE_REDRAW_PENDING {kind}/{name}: '+'; '.join(defects))
-            defects = []
         if defects:
             raise ValueError(f'Redraw drifts from the established painting: {kind}/{name}: '+'; '.join(defects))
         unique = len({sha256(a.tobytes()).hexdigest() for a, _ in cels})
