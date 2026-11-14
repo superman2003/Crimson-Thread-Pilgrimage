@@ -51,7 +51,7 @@ def defaults():
         add(joys, action, token)
     for action, token in re.findall(r'_bind_joy_axis\("(\w+)", (JOY_AXIS_\w+),', player):
         add(joys, action, token)
-    level = (SCRIPTS / 'main_level.gd').read_text(encoding='utf-8')
+    level = (SCRIPTS / 'main_level.gd').read_text(encoding='utf-8') + (SCRIPTS / 'level_build.gd').read_text(encoding='utf-8')
     for action, key, joy in re.findall(r'"(\w+)": \[(KEY_\w+), (JOY_\w+)\]', level):
         add(keys, action, key)
         add(joys, action, joy)

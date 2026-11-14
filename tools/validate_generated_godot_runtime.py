@@ -666,6 +666,11 @@ def validate_chapter_chain(configs: list[dict[str, Any]]) -> None:
 
 def validate_main_level_runtime_contract() -> None:
     source = MAIN_LEVEL.read_text(encoding="utf-8")
+    # Methods moved out of main_level.gd into helpers still count as Main's.
+    for helper in sorted(MAIN_LEVEL.parent.glob("*.gd")):
+        text = helper.read_text(encoding="utf-8")
+        if "## Moved out of main_level.gd" in text:
+            source += "\n" + text
     required_snippets = [
         "locked_gate_bodies",
         "unlocked_abilities",
