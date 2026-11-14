@@ -93,9 +93,5 @@ func show_achievements() -> void:
         window.visibility_changed.connect(func():
             if not window.visible and buttons.has("achievements"):buttons["achievements"].grab_focus())
     var list:=window.get_node("List") as ItemList
-    list.clear()
-    var record:=preload("res://scripts/achievements.gd").new()
-    for row in record.rows():
-        list.add_item(("● " if row.earned else "○ ")+String(row.name)+"　"+String(row.goal))
-        list.set_item_disabled(list.item_count-1,not row.earned)
+    preload("res://scripts/achievements.gd").fill(list)
     window.popup_centered();list.grab_focus()

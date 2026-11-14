@@ -95,3 +95,10 @@ func rows() -> Array:
     for entry in LIST:
         result.append({"id":entry.id,"name":entry.name,"goal":entry.goal,"earned":unlocked.has(entry.id)})
     return result
+
+## Fill `list` with every achievement; unearned ones are greyed out.
+static func fill(list: ItemList) -> void:
+    list.clear()
+    for row in new().rows():
+        list.add_item(("● " if row.earned else "○ ")+String(row.name)+"　"+String(row.goal))
+        list.set_item_disabled(list.item_count-1,not row.earned)
