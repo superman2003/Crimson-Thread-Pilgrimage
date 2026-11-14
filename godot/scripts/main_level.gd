@@ -272,85 +272,6 @@ const MOSSY_PLATFORM_TILES := {
     "cap_small": "res://assets/sprites/gothicvania/demo/platform_boss_stone.png"
 }
 
-const INDUSTRIAL_PLATFORM_TILES := {
-    "left": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_001.png",
-    "mid": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_002.png",
-    "mid_alt": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_003.png",
-    "right": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_004.png",
-    "cap_small": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_008.png",
-    "warning": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_064.png",
-    "pipe": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_085.png",
-    "pipe_cap": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_099.png",
-    "panel": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_073.png",
-    "panel_alt": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_075.png",
-    "gear": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_067.png",
-    "light_blue": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_090.png",
-    "light_yellow": "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_093.png"
-}
-
-const GOTHICVANIA_CEMETERY_ASSETS := {
-    "tileset": "res://assets/third_party/gothicvania_cemetery/tileset.png",
-    "background": "res://assets/third_party/gothicvania_cemetery/background.png",
-    "graveyard": "res://assets/third_party/gothicvania_cemetery/graveyard.png",
-    "mountains": "res://assets/third_party/gothicvania_cemetery/mountains.png"
-}
-
-const CEMETERY_PLATFORM_REGIONS := {
-    "left": [16, 64, 32, 80],
-    "mid": [48, 56, 80, 64],
-    "mid_alt": [304, 16, 64, 64],
-    "right": [176, 60, 32, 80],
-    "cap_small": [224, 50, 48, 88]
-}
-
-const KENNEY_DELUXE_ASSETS := {
-    "bg": "res://assets/third_party/kenney_platformer_deluxe/bg.png",
-    "bg_castle": "res://assets/third_party/kenney_platformer_deluxe/bg_castle.png"
-}
-
-const GODOT_PLATFORMER_2D_ASSETS := {
-    "sky": "res://assets/third_party/godot_platformer_2d/sky.png",
-    "mountains": "res://assets/third_party/godot_platformer_2d/mountains.png"
-}
-
-
-const KENNEY_DELUXE_TILE_FAMILIES := {
-    "grass": {
-        "left": "res://assets/third_party/kenney_platformer_deluxe/grassLeft.png",
-        "mid": "res://assets/third_party/kenney_platformer_deluxe/grassMid.png",
-        "right": "res://assets/third_party/kenney_platformer_deluxe/grassRight.png"
-    },
-    "grass_half": {
-        "left": "res://assets/third_party/kenney_platformer_deluxe/grassHalfLeft.png",
-        "mid": "res://assets/third_party/kenney_platformer_deluxe/grassHalfMid.png",
-        "right": "res://assets/third_party/kenney_platformer_deluxe/grassHalfRight.png"
-    },
-    "dirt": {
-        "left": "res://assets/third_party/kenney_platformer_deluxe/dirtLeft.png",
-        "mid": "res://assets/third_party/kenney_platformer_deluxe/dirtMid.png",
-        "right": "res://assets/third_party/kenney_platformer_deluxe/dirtRight.png"
-    },
-    "stone": {
-        "left": "res://assets/third_party/kenney_platformer_deluxe/stoneLeft.png",
-        "mid": "res://assets/third_party/kenney_platformer_deluxe/stoneMid.png",
-        "right": "res://assets/third_party/kenney_platformer_deluxe/stoneRight.png"
-    },
-    "castle": {
-        "left": "res://assets/third_party/kenney_platformer_deluxe/castleLeft.png",
-        "mid": "res://assets/third_party/kenney_platformer_deluxe/castleMid.png",
-        "right": "res://assets/third_party/kenney_platformer_deluxe/castleRight.png"
-    },
-    "snow": {
-        "left": "res://assets/third_party/kenney_platformer_deluxe/snowLeft.png",
-        "mid": "res://assets/third_party/kenney_platformer_deluxe/snowMid.png",
-        "right": "res://assets/third_party/kenney_platformer_deluxe/snowRight.png"
-    },
-    "snow_half": {
-        "left": "res://assets/third_party/kenney_platformer_deluxe/snowHalfLeft.png",
-        "mid": "res://assets/third_party/kenney_platformer_deluxe/snowHalfMid.png",
-        "right": "res://assets/third_party/kenney_platformer_deluxe/snowHalfRight.png"
-    }
-}
 
 const AUDIO := {
     "bgm_ch01": "res://assets/audio/bgm/ch01_cave_loop.ogg",
@@ -1228,14 +1149,6 @@ func _consume_world_startup_options(arguments: PackedStringArray) -> bool:
     return arguments.has("--new-game")
 
 
-func _build_world_catalog() -> void:
-    # Cross-region items keep their category and description on every visit.
-    var routes := _load_json("res://data/world_routes.json")
-    for region_id in routes.get("chapters", {}):
-        var region_config := WORLD_ROUTES_SCRIPT.apply_to_owned_cached(_load_json(WORLD_ROUTES_SCRIPT.cached_config_path(String(region_id))))
-        world_catalog.merge(region_config.get("inventory", {}).get("catalog", {}), false)
-
-
 func _restore_world_inventory_and_region() -> void:
     var snapshot: Dictionary = world_state.data
     story_flags = snapshot.story_flags.duplicate(true)
@@ -1265,11 +1178,6 @@ func _restore_world_inventory_and_region() -> void:
     if not String(region.checkpoint_id).is_empty():
         active_spawn = _vec2(region.checkpoint)
         active_save_point_id = String(region.checkpoint_id)
-
-
-func _restore_world_runtime() -> void:
-    for job in _world_runtime_jobs():
-        callv(job.method, job.args)
 
 
 func _world_runtime_jobs() -> Array:
@@ -1644,7 +1552,6 @@ func _travel_world(next_path: String, entry: Vector2) -> void:
         _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
 
 
-
 func _request_world_travel(next_path: String, entry: Vector2, shortcut: String = "") -> void:
     if world_loader == null or world_loader.phase != "idle":
         world_portal_request_pending = false
@@ -1793,15 +1700,6 @@ func _add_world_portal_map_pins(bounds: Rect2, draw_size: Vector2, draw_width: f
             continue
         var color := Color(0.35, 0.83, 1.0) if _world_portal_missing(data).is_empty() else Color(1.0, 0.68, 0.24)
         _add_map_pin(position_value, draw_width, base_y, depth_step, color, Vector2(13, 13), bounds, draw_size)
-
-
-func _world_route_status() -> String:
-    var parts: Array[String] = []
-    for data in config.get("interactives", []):
-        if String(data.get("kind", "")) == "world_portal":
-            var status := String(WORLD_ROUTES_SCRIPT.access(data, inventory_counts, story_flags).label)
-            parts.append("%s〔%s〕" % [String(data.get("label", "通路")), status])
-    return " · ".join(parts)
 
 
 func _world_exploration_hint() -> String:
@@ -2021,32 +1919,8 @@ func _theme_map_background_texture() -> String:
     return String(_original_map_art().get("map", ""))
 
 
-func _theme_map_art_modulate() -> Color:
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return Color(0.72, 0.90, 0.96, 0.48)
-    if theme == "salt_archive":
-        return Color(0.92, 0.86, 0.70, 0.48)
-    if theme == "string_greenhouse":
-        return Color(0.62, 0.88, 0.66, 0.48)
-    if theme == "obsidian_pilgrim":
-        return Color(0.92, 0.56, 0.40, 0.46)
-    if theme == "silent_crown":
-        return Color(0.76, 0.80, 1.0, 0.46)
-    return Color(0.66, 0.82, 0.72, 0.48)
-
-
 func _theme_asset_source() -> String:
     return "Original hand-drawn 2D PNG atlases / built-in image_gen"
-
-
-func _theme_uses_industrial_tiles() -> bool:
-    return _art_theme_id() == "rain_foundry"
-
-
-func _theme_uses_kenney_deluxe() -> bool:
-    var theme := _art_theme_id()
-    return theme == "string_greenhouse" or theme == "obsidian_pilgrim" or theme == "silent_crown"
 
 
 func _background_visual_asset_paths() -> Array:
@@ -2276,28 +2150,6 @@ func _boss_display_name(boss_data: Dictionary) -> String:
         return String(boss_data.get("name", "守门者"))
     var chapter_boss: Dictionary = current_campaign_chapter.get("boss", {})
     return String(chapter_boss.get("name", "守门者"))
-
-
-func _load_chapter_file_configs() -> Array:
-    var loaded: Array = []
-    var dir := DirAccess.open(CHAPTER_DATA_DIR)
-    if dir == null:
-        return loaded
-    var files: Array = []
-    dir.list_dir_begin()
-    var file_name := dir.get_next()
-    while file_name != "":
-        if not dir.current_is_dir() and file_name.ends_with(".json"):
-            files.append(file_name)
-        file_name = dir.get_next()
-    dir.list_dir_end()
-    files.sort()
-    for name in files:
-        var path := CHAPTER_DATA_DIR + "/" + String(name)
-        var chapter := _load_world_shared_json(path)
-        if not chapter.is_empty():
-            loaded.append(chapter)
-    return loaded
 
 
 func _chapter_file_ids() -> Array:
@@ -3584,23 +3436,6 @@ func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_st
         _add_map_ui_rect("MetSysPassage_" + interact_type, marker_position - Vector2(4.0, 17.0), Vector2(8.0, 34.0), marker_color, Color(1.0, 0.95, 0.72, 0.94), 2.0)
 
 
-func _add_map_room_texture(rect_position: Vector2, rect_size: Vector2, visited: bool, current: bool) -> void:
-    var texture := TextureRect.new()
-    texture.name = "RoomOriginalTexture"
-    texture.texture = _load_texture_resource(String(_original_map_art().get("mid_tile", "")))
-    texture.position = rect_position + Vector2(3.0, 3.0)
-    texture.size = rect_size - Vector2(6.0, 6.0)
-    texture.stretch_mode = TextureRect.STRETCH_SCALE
-    if current:
-        texture.modulate = _theme_map_art_modulate() * Color(1.25, 1.25, 1.25, 1.75)
-    elif visited:
-        texture.modulate = _theme_map_art_modulate() * Color(0.92, 0.92, 0.92, 1.25)
-    else:
-        texture.modulate = _theme_map_art_modulate() * Color(0.42, 0.42, 0.42, 0.75)
-    texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    map_draw_root.add_child(texture)
-
-
 func _add_map_ui_rect(node_name: String, rect_position: Vector2, rect_size: Vector2, fill: Color, border: Color, border_width: float) -> ColorRect:
     var border_rect := ColorRect.new()
     border_rect.name = node_name + "Border"
@@ -4004,24 +3839,6 @@ func _environment_block(data: Dictionary) -> void:
     if flat_map_art != null:
         flat_map_art.add_environment_ornament(data)
 
-func _add_environment_block_texture(block_id: String, rect: Rect2, z_value: int, block_alpha: float) -> void:
-    var art := _original_map_art()
-    var texture_path := String(art.get("wall", ""))
-    var texture := _load_texture_resource(texture_path)
-    if texture == null:
-        return
-    var panel := Sprite2D.new()
-    panel.name = block_id + "Texture"
-    panel.texture = texture
-    panel.centered = true
-    panel.position = rect.position + rect.size * 0.5
-    panel.scale = Vector2(rect.size.x / float(texture.get_width()), rect.size.y / float(texture.get_height()))
-    panel.flip_h = block_id.hash() % 2 == 1
-    panel.modulate = Color(0.88, 0.92, 0.90, 0.34 if block_alpha < 0.80 else 0.58)
-    panel.z_index = z_value
-    panel.set_meta("original_map_asset", texture_path)
-    add_child(panel)
-
 
 func _spawn_player() -> void:
     if not is_instance_valid(player):
@@ -4272,89 +4089,6 @@ func _theme_background_color() -> Color:
     return Color(0.055, 0.065, 0.072)
 
 
-func _theme_background_tint() -> Color:
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return Color(0.70, 0.92, 1.0, 1.0)
-    if theme == "salt_archive":
-        return Color(1.0, 0.92, 0.72, 1.0)
-    if theme == "string_greenhouse":
-        return Color(0.68, 1.0, 0.70, 1.0)
-    if theme == "obsidian_pilgrim":
-        return Color(1.0, 0.62, 0.48, 1.0)
-    if theme == "silent_crown":
-        return Color(0.72, 0.78, 1.0, 1.0)
-    return Color(1.0, 1.0, 1.0, 1.0)
-
-
-func _original_background_layers() -> void:
-    var art := _original_map_art()
-    _add_original_parallax_layer(
-        "OriginalSky",
-        String(art.get("sky", "")),
-        Vector2(0.04, 0.05),
-        -118,
-        1.14,
-        Vector2(0, -170),
-        Color(0.90, 0.94, 0.94, 1.0)
-    )
-    _add_original_parallax_layer(
-        "OriginalFar",
-        String(art.get("far", "")),
-        Vector2(0.12, 0.10),
-        -113,
-        1.10,
-        Vector2(0, -130),
-        Color(0.86, 0.91, 0.90, 0.94)
-    )
-    _add_original_parallax_layer(
-        "OriginalMid",
-        String(art.get("mid", "")),
-        Vector2(0.28, 0.18),
-        -106,
-        1.08,
-        Vector2(0, -110),
-        Color(0.92, 0.96, 0.94, 0.96)
-    )
-    _add_original_parallax_layer(
-        "OriginalNear",
-        String(art.get("near", "")),
-        Vector2(0.62, 0.34),
-        -97,
-        1.08,
-        Vector2(0, -100),
-        Color(0.90, 0.94, 0.92, 0.90)
-    )
-    if _art_theme_id() == "rain_foundry":
-        _background_rain_streaks()
-
-
-func _add_original_parallax_layer(node_name: String, texture_path: String, scroll_scale_value: Vector2, z_value: int, scale_value: float, offset: Vector2, tint: Color) -> void:
-    var texture := _load_texture_resource(texture_path)
-    if texture == null:
-        return
-    var parallax := Parallax2D.new()
-    parallax.name = node_name
-    parallax.scroll_scale = scroll_scale_value
-    parallax.z_index = z_value
-    var tile_width := float(texture.get_width()) * scale_value
-    var x := offset.x - tile_width
-    var index := 0
-    while x < world_width + tile_width * 2.0:
-        var sprite := Sprite2D.new()
-        sprite.name = "%sTexture%02d" % [node_name, index]
-        sprite.texture = texture
-        sprite.centered = false
-        sprite.position = Vector2(x, offset.y)
-        sprite.scale = Vector2(scale_value, scale_value)
-        sprite.flip_h = index % 2 == 1
-        sprite.modulate = tint
-        parallax.add_child(sprite)
-        x += tile_width
-        index += 1
-    add_child(parallax)
-
-
 func _background_layer(node_name: String, sprite_key: String, z_value: int, tint: Color = Color.WHITE) -> void:
     var sprite := Sprite2D.new()
     sprite.name = node_name
@@ -4377,169 +4111,6 @@ func _background_layer(node_name: String, sprite_key: String, z_value: int, tint
             sprite.modulate = tint
     sprite.z_index = z_value
     add_child(sprite)
-
-
-func _cemetery_background_layers() -> void:
-    _background_repeated_sprite(
-        "BgCemeterySky",
-        GOTHICVANIA_CEMETERY_ASSETS["background"],
-        Vector2(-220, -70),
-        384.0,
-        Color(0.82, 0.78, 0.62, 0.30),
-        -118,
-        Vector2(2.4, 2.4),
-        0.0
-    )
-    _background_repeated_sprite(
-        "BgCemeteryMountains",
-        GOTHICVANIA_CEMETERY_ASSETS["mountains"],
-        Vector2(-120, 70),
-        520.0,
-        Color(0.70, 0.64, 0.48, 0.42),
-        -112,
-        Vector2(2.15, 2.15),
-        18.0
-    )
-    _background_repeated_sprite(
-        "BgCemeteryGraveyard",
-        GOTHICVANIA_CEMETERY_ASSETS["graveyard"],
-        Vector2(-80, 290),
-        520.0,
-        Color(0.88, 0.80, 0.56, 0.42),
-        -104,
-        Vector2(2.0, 2.0),
-        16.0
-    )
-
-
-func _kenney_deluxe_background_layers(tint: Color = Color.WHITE) -> void:
-    var texture_path := KENNEY_DELUXE_ASSETS["bg_castle"] if _art_theme_id() == "obsidian_pilgrim" or _art_theme_id() == "silent_crown" else KENNEY_DELUXE_ASSETS["bg"]
-    _background_repeated_sprite(
-        "BgKenneyDeluxe",
-        texture_path,
-        Vector2(-160, 24),
-        512.0,
-        Color(0.48, 0.58, 0.66, 0.23) * tint,
-        -116,
-        Vector2(2.8, 2.8),
-        22.0
-    )
-    _background_repeated_sprite(
-        "BgKenneyDeluxeFar",
-        texture_path,
-        Vector2(120, 240),
-        760.0,
-        Color(0.42, 0.50, 0.56, 0.16) * tint,
-        -108,
-        Vector2(2.0, 2.0),
-        32.0
-    )
-
-
-func _godot_platformer_background_layers(tint: Color = Color.WHITE) -> void:
-    _background_repeated_sprite(
-        "BgSilentSky",
-        GODOT_PLATFORMER_2D_ASSETS["sky"],
-        Vector2(-160, -90),
-        480.0,
-        Color(0.40, 0.48, 0.76, 0.28) * tint,
-        -118,
-        Vector2(3.2, 3.2),
-        0.0
-    )
-    _background_repeated_sprite(
-        "BgSilentMountains",
-        GODOT_PLATFORMER_2D_ASSETS["mountains"],
-        Vector2(-180, 120),
-        900.0,
-        Color(0.50, 0.56, 0.82, 0.30) * tint,
-        -108,
-        Vector2(1.35, 1.35),
-        28.0
-    )
-
-
-func _industrial_background_layers(tint: Color = Color.WHITE) -> void:
-    _background_repeated_sprite(
-        "BgFoundryPanel",
-        INDUSTRIAL_PLATFORM_TILES["panel"],
-        Vector2(-160, 78),
-        520.0,
-        Color(0.52, 0.64, 0.63, 0.22) * tint,
-        -116,
-        Vector2(2.45, 2.45),
-        28.0
-    )
-    _background_repeated_sprite(
-        "BgFoundryPipe",
-        INDUSTRIAL_PLATFORM_TILES["pipe"],
-        Vector2(-80, 300),
-        350.0,
-        Color(0.58, 0.76, 0.78, 0.30) * tint,
-        -110,
-        Vector2(1.55, 2.95),
-        18.0
-    )
-    _background_repeated_sprite(
-        "BgFoundryGear",
-        INDUSTRIAL_PLATFORM_TILES["gear"],
-        Vector2(640, 118),
-        1450.0,
-        Color(0.72, 0.82, 0.80, 0.22) * tint,
-        -104,
-        Vector2(1.65, 1.65),
-        42.0
-    )
-    _background_repeated_sprite(
-        "BgFoundrySignal",
-        INDUSTRIAL_PLATFORM_TILES["light_blue"],
-        Vector2(360, 220),
-        1180.0,
-        Color(0.80, 0.96, 1.0, 0.26) * tint,
-        -101,
-        Vector2(1.0, 1.0),
-        30.0
-    )
-    _background_rain_streaks()
-
-
-func _background_repeated_sprite(node_prefix: String, texture_path: String, start_position: Vector2, spacing: float, tint: Color, z_value: int, scale_value: Vector2, y_wave: float) -> void:
-    var texture := _load_texture_resource(texture_path)
-    if texture == null:
-        return
-    var x := start_position.x
-    var index := 0
-    while x < world_width + 700.0:
-        var sprite := Sprite2D.new()
-        sprite.name = "%s%02d" % [node_prefix, index]
-        sprite.texture = texture
-        sprite.centered = false
-        sprite.position = Vector2(x, start_position.y + float((index % 3) - 1) * y_wave)
-        sprite.scale = scale_value
-        sprite.modulate = tint
-        sprite.z_index = z_value
-        add_child(sprite)
-        x += spacing
-        index += 1
-
-
-func _background_rain_streaks() -> void:
-    var index := 0
-    var x := -240.0
-    while x < world_width + 500.0:
-        var rain := Line2D.new()
-        rain.name = "BgRainStreak%02d" % index
-        var top_y := -80.0 + float(index % 5) * 34.0
-        rain.points = PackedVector2Array([
-            Vector2(x, top_y),
-            Vector2(x - 36.0, top_y + 190.0)
-        ])
-        rain.width = 2.0
-        rain.default_color = Color(0.58, 0.82, 0.88, 0.18)
-        rain.z_index = -98
-        add_child(rain)
-        x += 155.0
-        index += 1
 
 
 func _platform(node_name: String, rect: Rect2, color: Color, material: String = "moss_stone", collision_role: String = "", warmed: StaticBody2D = null) -> StaticBody2D:
@@ -4606,390 +4177,6 @@ func _add_platform_plate(parent: Node, local_center: Vector2, plate_size: Vector
     plate.z_index = z_value
     parent.add_child(plate)
     return plate
-
-
-func _platform_shadow_color(material: String) -> Color:
-    if material == "salt_marble" or material == "vellum_bridge" or material == "archive_boss":
-        return Color(0.02, 0.018, 0.014, 0.22)
-    if material == "moss_stone" or material == "bronze_bridge" or material == "boss_stone":
-        return Color(0.0, 0.025, 0.016, 0.26)
-    return Color(0.0, 0.0, 0.0, 0.32)
-
-
-func _add_platform_visual(parent: Node, size_value: Vector2, material: String) -> void:
-    _add_original_platform_visual(parent, size_value, material)
-
-
-func _add_original_platform_visual(parent: Node, size_value: Vector2, material: String) -> void:
-    var art := _original_map_art()
-    var left_texture := _load_texture_resource(String(art.get("left", "")))
-    var mid_texture := _load_texture_resource(String(art.get("mid_tile", "")))
-    var mid_alt_texture := _load_texture_resource(String(art.get("mid_alt", "")))
-    var right_texture := _load_texture_resource(String(art.get("right", "")))
-    var cap_texture := _load_texture_resource(String(art.get("cap_small", "")))
-    var top_y := -size_value.y * 0.5
-    var visual_scale_y := clampf(size_value.y / 128.0 + 0.38, 0.56, 1.0)
-    var visual_center_y := top_y + 64.0 * visual_scale_y
-    var tint := Color(1.0, 1.0, 1.0, 0.98)
-    if material.contains("boss"):
-        tint = Color(1.08, 0.96, 0.86, 1.0)
-    elif material.contains("wall") or material.contains("gate"):
-        tint = Color(0.86, 0.88, 0.86, 1.0)
-
-    if size_value.x < 286.0 and cap_texture != null:
-        var cap := _add_platform_sprite(parent, "Material", cap_texture, Vector2(0.0, visual_center_y), tint, -3)
-        cap.scale = Vector2(minf(1.0, (size_value.x + 16.0) / float(cap_texture.get_width())), visual_scale_y)
-        cap.set_meta("original_map_asset", String(art.get("cap_small", "")))
-        return
-    if left_texture == null or mid_texture == null or right_texture == null:
-        _add_platform_plate(parent, Vector2(0, 8), size_value, _platform_body_color(material, Color(0.16, 0.20, 0.18)), -4)
-        return
-
-    var start_x := -size_value.x * 0.5
-    var end_x := size_value.x * 0.5
-    var left_width := float(left_texture.get_width())
-    var right_width := float(right_texture.get_width())
-    var left := _add_platform_sprite(parent, "Material", left_texture, Vector2(start_x + left_width * 0.5, visual_center_y), tint, -3)
-    left.scale.y = visual_scale_y
-    left.set_meta("original_map_asset", String(art.get("left", "")))
-    var right := _add_platform_sprite(parent, "OriginalMapPlatformRight", right_texture, Vector2(end_x - right_width * 0.5, visual_center_y), tint, -3)
-    right.scale.y = visual_scale_y
-    right.set_meta("original_map_asset", String(art.get("right", "")))
-
-    var x := start_x + left_width
-    var index := 0
-    while x < end_x - right_width:
-        var texture := mid_alt_texture if index % 4 == 3 and mid_alt_texture != null else mid_texture
-        var available := end_x - right_width - x
-        var draw_width := minf(float(texture.get_width()), available)
-        if draw_width <= 0.0:
-            break
-        var tile := _add_platform_sprite(parent, "OriginalMapPlatformTile", texture, Vector2(x + draw_width * 0.5, visual_center_y), tint, -3)
-        tile.scale = Vector2(draw_width / float(texture.get_width()), visual_scale_y)
-        tile.set_meta("original_map_asset", String(art.get("mid_tile", "")) if texture == mid_texture else String(art.get("mid_alt", "")))
-        x += draw_width
-        index += 1
-
-
-func _is_cemetery_material(material: String) -> bool:
-    return material == "salt_marble" or material == "vellum_bridge" or material == "archive_boss"
-
-
-func _kenney_deluxe_family(material: String) -> String:
-    if material == "moss_stone" or material == "greenhouse_loam":
-        return "grass"
-    if material == "bronze_bridge" or material == "glassvine_bridge":
-        return "grass_half"
-    if material == "boss_stone" or material == "root_boss" or material == "dirt":
-        return "dirt"
-    if material == "stone" or material == "obsidian_basalt":
-        return "stone"
-    if material == "ember_bridge" or material == "pilgrim_boss":
-        return "castle"
-    if material == "crown_bone":
-        return "snow"
-    if material == "void_bridge" or material == "core_boss":
-        return "snow_half"
-    return ""
-
-
-func _is_industrial_material(material: String) -> bool:
-    return material in ["rain_pipe", "wet_metal", "sluice_bridge", "foundry_boss", "drain_grate"] or _theme_uses_industrial_tiles()
-
-
-func _add_mossy_platform_visual(parent: Node, size_value: Vector2, material: String) -> void:
-    var tint := _platform_tint(material)
-    var top_y := -size_value.y * 0.5
-    var visual_center_y := top_y + 52.0
-    var left_texture := _load_texture_resource(MOSSY_PLATFORM_TILES["left"])
-    var mid_texture := _load_texture_resource(MOSSY_PLATFORM_TILES["mid"])
-    var mid_alt_texture := _load_texture_resource(MOSSY_PLATFORM_TILES["mid_alt"])
-    var right_texture := _load_texture_resource(MOSSY_PLATFORM_TILES["right"])
-    var cap_texture := _load_texture_resource(MOSSY_PLATFORM_TILES["cap_small"])
-
-    if size_value.x < 165.0 and cap_texture != null:
-        _add_platform_sprite(parent, "Material", cap_texture, Vector2.ZERO + Vector2(0, visual_center_y + 8.0), tint, -3)
-        return
-    if left_texture == null or mid_texture == null or right_texture == null:
-        _add_platform_plate(parent, Vector2(0, 8), size_value, Color(0.06, 0.12, 0.09, 0.90), -4)
-        return
-
-    var left_width := float(left_texture.get_width())
-    var right_width := float(right_texture.get_width())
-    var start_x := -size_value.x * 0.5
-    var end_x := size_value.x * 0.5
-    _add_platform_sprite(parent, "Material", left_texture, Vector2(start_x + left_width * 0.5, visual_center_y), tint, -3)
-    _add_platform_sprite(parent, "MossyPlatformRight", right_texture, Vector2(end_x - right_width * 0.5, visual_center_y), tint, -3)
-
-    var x := start_x + left_width
-    var index := 0
-    while x < end_x - right_width - 12.0:
-        var texture := mid_texture if index % 2 == 0 or mid_alt_texture == null else mid_alt_texture
-        var tile_width := float(texture.get_width())
-        _add_platform_sprite(parent, "MossyPlatformTile", texture, Vector2(x + tile_width * 0.5, visual_center_y), tint, -3)
-        x += tile_width - 8.0
-        index += 1
-
-
-func _add_industrial_platform_visual(parent: Node, size_value: Vector2, material: String) -> void:
-    var tint := _platform_tint(material)
-    var top_y := -size_value.y * 0.5
-    var visual_center_y := top_y + 35.0
-    var left_texture := _load_texture_resource(INDUSTRIAL_PLATFORM_TILES["left"])
-    var mid_texture := _load_texture_resource(INDUSTRIAL_PLATFORM_TILES["mid"])
-    var mid_alt_texture := _load_texture_resource(INDUSTRIAL_PLATFORM_TILES["mid_alt"])
-    var right_texture := _load_texture_resource(INDUSTRIAL_PLATFORM_TILES["right"])
-    var cap_texture := _load_texture_resource(INDUSTRIAL_PLATFORM_TILES["cap_small"])
-
-    if size_value.x < 140.0 and cap_texture != null:
-        _add_platform_sprite(parent, "IndustrialPlatformCap", cap_texture, Vector2(0, visual_center_y), tint, -3)
-        return
-    if left_texture == null or mid_texture == null or right_texture == null:
-        _add_platform_plate(parent, Vector2(0, 8), size_value, Color(0.24, 0.31, 0.31, 0.92), -4)
-        return
-
-    var left_width := float(left_texture.get_width())
-    var right_width := float(right_texture.get_width())
-    var start_x := -size_value.x * 0.5
-    var end_x := size_value.x * 0.5
-    _add_platform_sprite(parent, "IndustrialPlatformLeft", left_texture, Vector2(start_x + left_width * 0.5, visual_center_y), tint, -3)
-    _add_platform_sprite(parent, "IndustrialPlatformRight", right_texture, Vector2(end_x - right_width * 0.5, visual_center_y), tint, -3)
-
-    var x := start_x + left_width
-    var index := 0
-    while x < end_x - right_width - 8.0:
-        var texture := mid_texture if index % 2 == 0 or mid_alt_texture == null else mid_alt_texture
-        var tile_width := float(texture.get_width())
-        _add_platform_sprite(parent, "IndustrialPlatformTile", texture, Vector2(x + tile_width * 0.5, visual_center_y), tint, -3)
-        x += tile_width - 4.0
-        index += 1
-
-    if material == "sluice_bridge" or material == "foundry_boss":
-        _add_industrial_warning_strip(parent, size_value, top_y + 71.0)
-
-
-func _add_cemetery_platform_visual(parent: Node, size_value: Vector2, material: String) -> void:
-    var texture := _load_texture_resource(GOTHICVANIA_CEMETERY_ASSETS["tileset"])
-    var tint := _platform_tint(material)
-    var top_y := -size_value.y * 0.5
-    var visual_center_y := top_y + 34.0
-    _add_cemetery_platform_fill(parent, size_value, material)
-    if texture == null:
-        _add_platform_plate(parent, Vector2(0, 8), size_value, Color(0.17, 0.14, 0.16, 0.94), -4)
-        return
-    if size_value.x < 150.0:
-        _add_platform_region_sprite(parent, "CemeteryPlatformCap", texture, CEMETERY_PLATFORM_REGIONS["cap_small"], Vector2(0, visual_center_y), tint, -3)
-        return
-    var left_region: Array = CEMETERY_PLATFORM_REGIONS["left"]
-    var mid_region: Array = CEMETERY_PLATFORM_REGIONS["mid"]
-    var right_region: Array = CEMETERY_PLATFORM_REGIONS["right"]
-    var start_x := -size_value.x * 0.5
-    var end_x := size_value.x * 0.5
-    var left_width := float(left_region[2])
-    var right_width := float(right_region[2])
-    _add_platform_region_sprite(parent, "CemeteryPlatformLeft", texture, left_region, Vector2(start_x + left_width * 0.5, visual_center_y), tint, -3)
-    _add_platform_region_sprite(parent, "CemeteryPlatformRight", texture, right_region, Vector2(end_x - right_width * 0.5, visual_center_y), tint, -3)
-    var x := start_x + left_width
-    var tile_stride := 54.0
-    while x < end_x - right_width:
-        var region: Array = mid_region
-        var tile_width := float(region[2])
-        var draw_width := minf(tile_width, end_x - right_width - x)
-        if draw_width <= 0.0:
-            break
-        var tile := _add_platform_region_sprite(parent, "CemeteryPlatformTile", texture, region, Vector2(x + draw_width * 0.5, visual_center_y), tint, -3)
-        tile.region_rect = Rect2(float(region[0]), float(region[1]), draw_width, float(region[3]))
-        x += minf(tile_stride, draw_width)
-
-
-func _add_cemetery_platform_fill(parent: Node, size_value: Vector2, material: String) -> void:
-    var base := Color(0.30, 0.27, 0.22, 0.96)
-    var top := Color(0.63, 0.58, 0.40, 0.76)
-    if material == "vellum_bridge":
-        base = Color(0.38, 0.33, 0.22, 0.95)
-        top = Color(0.82, 0.70, 0.43, 0.76)
-    elif material == "archive_boss":
-        base = Color(0.35, 0.27, 0.20, 0.96)
-        top = Color(0.88, 0.65, 0.42, 0.78)
-    _add_platform_plate(parent, Vector2(0, 8), size_value, base, -5)
-    _add_platform_plate(parent, Vector2(0, -size_value.y * 0.5 + 5.0), Vector2(size_value.x, 10.0), top, -4)
-
-
-func _add_kenney_deluxe_platform_visual(parent: Node, size_value: Vector2, material: String, family: String) -> void:
-    var family_tiles: Dictionary = KENNEY_DELUXE_TILE_FAMILIES.get(family, {})
-    var tint := _platform_tint(material)
-    var top_y := -size_value.y * 0.5
-    var visual_center_y := top_y + 34.0
-    var left_texture := _load_texture_resource(String(family_tiles.get("left", "")))
-    var mid_texture := _load_texture_resource(String(family_tiles.get("mid", "")))
-    var right_texture := _load_texture_resource(String(family_tiles.get("right", "")))
-    if left_texture == null or mid_texture == null or right_texture == null:
-        _add_platform_plate(parent, Vector2(0, 8), size_value, Color(0.12, 0.16, 0.16, 0.92), -4)
-        return
-    if size_value.x < 132.0:
-        var cap := _add_platform_sprite(parent, "KenneyDeluxePlatformCap", mid_texture, Vector2(0, visual_center_y), tint, -3)
-        cap.scale = Vector2(0.72, 0.72)
-        return
-    var left_width := float(left_texture.get_width())
-    var right_width := float(right_texture.get_width())
-    var start_x := -size_value.x * 0.5
-    var end_x := size_value.x * 0.5
-    _add_platform_sprite(parent, "KenneyDeluxePlatformLeft", left_texture, Vector2(start_x + left_width * 0.5, visual_center_y), tint, -3)
-    _add_platform_sprite(parent, "KenneyDeluxePlatformRight", right_texture, Vector2(end_x - right_width * 0.5, visual_center_y), tint, -3)
-    var x := start_x + left_width
-    var index := 0
-    while x < end_x - right_width - 4.0:
-        var tile_width := float(mid_texture.get_width())
-        _add_platform_sprite(parent, "KenneyDeluxePlatformTile", mid_texture, Vector2(x + tile_width * 0.5, visual_center_y), tint, -3)
-        x += tile_width - 3.0
-        index += 1
-
-
-func _add_industrial_warning_strip(parent: Node, size_value: Vector2, local_y: float) -> void:
-    var texture := _load_texture_resource(INDUSTRIAL_PLATFORM_TILES["warning"])
-    if texture == null:
-        return
-    var start_x := -size_value.x * 0.5 + 44.0
-    var end_x := size_value.x * 0.5 - 44.0
-    var x := start_x
-    while x < end_x:
-        _add_platform_sprite(parent, "IndustrialWarningStripe", texture, Vector2(x, local_y), Color(1.0, 1.0, 1.0, 0.92), -2)
-        x += 68.0
-
-
-func _add_platform_sprite(parent: Node, node_name: String, texture: Texture2D, local_position: Vector2, tint: Color, z_value: int) -> Sprite2D:
-    var sprite := Sprite2D.new()
-    sprite.name = node_name
-    sprite.texture = texture
-    sprite.position = local_position
-    sprite.modulate = tint
-    sprite.z_index = z_value
-    parent.add_child(sprite)
-    return sprite
-
-
-func _add_platform_region_sprite(parent: Node, node_name: String, texture: Texture2D, region_value: Array, local_position: Vector2, tint: Color, z_value: int) -> Sprite2D:
-    var sprite := Sprite2D.new()
-    sprite.name = node_name
-    sprite.texture = texture
-    sprite.region_enabled = true
-    sprite.region_rect = Rect2(float(region_value[0]), float(region_value[1]), float(region_value[2]), float(region_value[3]))
-    sprite.position = local_position
-    sprite.modulate = tint
-    sprite.z_index = z_value
-    parent.add_child(sprite)
-    return sprite
-
-
-func _platform_tint(material: String) -> Color:
-    if material == "archive_boss":
-        return Color(1.0, 0.88, 0.60, 1.0)
-    if material == "vellum_bridge":
-        return Color(0.96, 0.90, 0.72, 1.0)
-    if material == "salt_marble":
-        return Color(0.86, 0.88, 0.76, 1.0)
-    if material == "root_boss":
-        return Color(0.76, 0.92, 0.60, 1.0)
-    if material == "glassvine_bridge":
-        return Color(0.62, 0.96, 0.74, 1.0)
-    if material == "greenhouse_loam":
-        return Color(0.68, 0.88, 0.55, 1.0)
-    if material == "pilgrim_boss":
-        return Color(1.0, 0.55, 0.42, 1.0)
-    if material == "ember_bridge":
-        return Color(0.92, 0.56, 0.38, 1.0)
-    if material == "obsidian_basalt":
-        return Color(0.58, 0.56, 0.65, 1.0)
-    if material == "core_boss":
-        return Color(0.72, 0.78, 1.0, 1.0)
-    if material == "void_bridge":
-        return Color(0.62, 0.66, 0.88, 1.0)
-    if material == "crown_bone":
-        return Color(0.78, 0.82, 0.96, 1.0)
-    if material == "foundry_boss":
-        return Color(1.0, 0.82, 0.62, 1.0)
-    if material == "sluice_bridge":
-        return Color(0.98, 0.94, 0.76, 1.0)
-    if material == "rain_pipe":
-        return Color(0.76, 0.92, 0.98, 1.0)
-    if material == "drain_grate":
-        return Color(0.74, 0.82, 0.82, 1.0)
-    if material == "wet_metal":
-        return Color(0.88, 0.98, 1.0, 1.0)
-    if material == "dirt":
-        return Color(0.72, 0.58, 0.40, 1.0)
-    if material == "stone":
-        return Color(0.72, 0.72, 0.78, 1.0)
-    if material == "boss_stone":
-        return Color(0.88, 0.78, 0.74, 1.0)
-    if material == "bronze_bridge":
-        return Color(0.95, 0.94, 0.78, 1.0)
-    return Color(1.0, 1.0, 1.0, 1.0)
-
-
-func _decorate_platform(parent: Node, size_value: Vector2, material: String) -> void:
-    var width: float = size_value.x
-    var top_y: float = -size_value.y * 0.5
-    var segment_count: int = maxi(2, int(width / 86.0))
-    for index in range(segment_count):
-        var t := float(index + 1) / float(segment_count + 1)
-        var x := -width * 0.5 + width * t
-        if material == "greenhouse_loam" and index % 2 == 0:
-            _add_vine(parent, Vector2(x + 16.0, top_y + 18.0), Color(0.50, 0.95, 0.50, 0.88))
-        elif material == "glassvine_bridge" and index % 3 == 1:
-            _add_vine(parent, Vector2(x + 8.0, top_y + 18.0), Color(0.42, 1.0, 0.76, 0.74))
-        elif material == "root_boss" and index % 2 == 1:
-            _add_crack(parent, Vector2(x - 8.0, top_y + 16.0), Color(0.42, 0.82, 0.36, 0.80))
-        elif material == "salt_marble" or material == "vellum_bridge" or material == "archive_boss":
-            if index % 3 == 1:
-                _add_crack(parent, Vector2(x - 8.0, top_y + 48.0), Color(0.92, 0.78, 0.50, 0.72))
-        elif material == "obsidian_basalt" or material == "ember_bridge" or material == "pilgrim_boss":
-            if index % 2 == 0:
-                _add_crack(parent, Vector2(x - 12.0, top_y + 44.0), Color(1.0, 0.34, 0.22, 0.68))
-        elif material == "crown_bone" or material == "void_bridge" or material == "core_boss":
-            if index % 2 == 1:
-                _add_crack(parent, Vector2(x - 12.0, top_y + 44.0), Color(0.54, 0.68, 1.0, 0.74))
-        elif _is_industrial_material(material) and index % 3 == 1:
-            _add_pipe_marker(parent, Vector2(x, top_y + 52.0), material)
-
-
-func _add_pipe_marker(parent: Node, local_position: Vector2, material: String) -> void:
-    var texture_key := "light_yellow" if material == "foundry_boss" else "pipe_cap"
-    var texture := _load_texture_resource(INDUSTRIAL_PLATFORM_TILES[texture_key])
-    if texture == null:
-        return
-    var tint := Color(1.0, 0.88, 0.56, 0.80) if material == "foundry_boss" else Color(0.70, 0.94, 1.0, 0.62)
-    var marker := _add_platform_sprite(parent, "IndustrialPipeMarker", texture, local_position, tint, 1)
-    marker.scale = Vector2(0.52, 0.52)
-
-
-func _add_vine(parent: Node, local_position: Vector2, vine_color: Color = Color(0.33, 0.70, 0.34, 0.82)) -> void:
-    var vine := Line2D.new()
-    vine.name = "MossVine"
-    vine.points = PackedVector2Array([
-        local_position,
-        local_position + Vector2(-4.0, 18.0),
-        local_position + Vector2(3.0, 36.0)
-    ])
-    vine.width = 3.0
-    vine.default_color = vine_color
-    vine.z_index = 2
-    parent.add_child(vine)
-
-
-func _add_crack(parent: Node, local_position: Vector2, crack_color: Color) -> void:
-    var crack := Line2D.new()
-    crack.name = "RedStoneCrack"
-    crack.points = PackedVector2Array([
-        local_position,
-        local_position + Vector2(14.0, 6.0),
-        local_position + Vector2(7.0, 20.0),
-        local_position + Vector2(31.0, 28.0)
-    ])
-    crack.width = 2.0
-    crack.default_color = crack_color
-    crack.z_index = 2
-    parent.add_child(crack)
 
 
 func _hazard(_data: Dictionary) -> void:
@@ -5618,7 +4805,6 @@ func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector
     return [left, right]
 
 
-
 ## The subset of _enemy_spawn_rect_clear's blockers that can intersect any
 ## actor rect inside `sweep` standing at `floor_y` (same filters).
 func _enemy_walk_obstacles(sweep: Rect2, floor_y: float, floor_platform_id: String) -> Dictionary:
@@ -5865,7 +5051,6 @@ func _set_boss_arena_locked(locked: bool) -> void:
     boss_arena_lock_body = null
     if is_instance_valid(player):
         player.remove_camera_lock("boss_arena")
-
 
 
 ## B04: optional challenge shrine / sealed room / optional boss helpers.
@@ -6325,10 +5510,6 @@ func _floor_top_near_x(world_x: float) -> float:
             best_score = score
             best_y = rect.position.y
     return best_y
-
-
-func _world_label(text: String, position_value: Vector2, color: Color) -> void:
-    pass
 
 
 func _on_hazard_body_entered(_body: Node, _area: Area2D) -> void:
@@ -7936,11 +7117,6 @@ func _wish_claimed_total() -> int:
     return claimed
 
 
-func _debug_collect_all_keys() -> void:
-    bell_count = max_bells
-    _refresh_hud()
-
-
 func _debug_collect_all_abilities() -> void:
     for collectible in config.get("collectibles", []):
         if not (collectible is Dictionary):
@@ -7962,10 +7138,6 @@ func _debug_clear_combat_route() -> void:
     if _combat_progression_enabled():
         _open_combat_clear_route()
     _refresh_hud()
-
-
-func _debug_open_shortcut() -> void:
-    _open_all_shortcuts()
 
 
 func _debug_open_all_shortcuts() -> void:
@@ -8045,7 +7217,6 @@ func _open_combat_clear_route() -> void:
     _refresh_hud()
 
 
-
 func get_build_system() -> RefCounted:
     return build_system
 
@@ -8060,9 +7231,6 @@ func _sync_player_build() -> void:
             applied_build_profile = profile.duplicate(true)
             _sync_hazard_trigger_sizes()
 
-## Legacy compatibility hooks; environmental traps no longer have a trigger.
-func _hazard_trigger_multiplier() -> float:
-    return 1.0
 
 func _sync_hazard_trigger_sizes() -> void:
     pass
