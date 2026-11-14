@@ -12,10 +12,10 @@ static func optional_challenge(level: Node, challenge_id: String) -> Dictionary:
 
 static func challenge_shrine_from_interactive(level: Node, data: Dictionary) -> void:
     # Allow authored interactives of kind challenge_shrine to reuse the same path.
-    var challenge := optional_challenge(level, String(data.get("challenge_id", "")))
+    var challenge: Dictionary = level._optional_challenge(String(data.get("challenge_id", "")))
     if challenge.is_empty():
         challenge = {"id": String(data.get("challenge_id", data.get("id", ""))), "shrine": data, "clear_flag": String(data.get("clear_flag", "")), "name": String(data.get("label", "可选挑战"))}
-    challenge_shrine(level, challenge)
+    level._challenge_shrine(challenge)
 
 
 static func challenge_shrine(level: Node, challenge: Dictionary) -> void:
@@ -31,7 +31,7 @@ static func challenge_shrine(level: Node, challenge: Dictionary) -> void:
     area.set_meta("object_id", "interactable/" + shrine_id)
     var cleared := bool(level.story_flags.get(String(challenge.get("clear_flag", "")), false))
     var label := String(shrine.get("label", String(challenge.get("name", "可选挑战"))))
-    var claim_pending:=bool(level.story_flags.get(challenge_pending_flag(level, challenge),false)) and not cleared
+    var claim_pending:=bool(level.story_flags.get(level._challenge_pending_flag(challenge),false)) and not cleared
     if claim_pending:label="%s · 胜利待记录" % String(challenge.get("name","可选挑战"))
     if cleared:
         label = "%s · 已清" % String(challenge.get("name", "可选挑战"))
@@ -125,7 +125,7 @@ static func activate_hunt_track(level: Node, area: Area2D) -> void:
     var flag := String(area.get_meta("track_flag", ""))
     var hint := String(area.get_meta("track_hint", ""))
     var challenge_id := String(area.get_meta("challenge_id", ""))
-    var challenge := optional_challenge(level, challenge_id)
+    var challenge: Dictionary = level._optional_challenge(challenge_id)
     if flag.is_empty():
         level._toast("这道残迹已经模糊了。")
         return
@@ -142,7 +142,7 @@ static func activate_hunt_track(level: Node, area: Area2D) -> void:
     if already:
         level._toast(hint if not hint.is_empty() else "残迹已循过。")
     else:
-        var ready := challenge_tracks_ready(level, challenge)
+        var ready: bool = level._challenge_tracks_ready(challenge)
         if ready and not challenge.is_empty():
             level._toast("%s · 残迹已齐 · 去敲余响钟" % String(challenge.get("name", "追踪狩猎")))
         elif not hint.is_empty():
@@ -155,7 +155,7 @@ static func activate_challenge_shrine(level: Node, area: Area2D) -> void:
     if area == null or not is_instance_valid(area):
         return
     var challenge_id := String(area.get_meta("challenge_id", ""))
-    var challenge := optional_challenge(level, challenge_id)
+    var challenge: Dictionary = level._optional_challenge(challenge_id)
     if challenge.is_empty():
         level._toast("这座余响钟已经哑了。")
         return
@@ -163,16 +163,16 @@ static func activate_challenge_shrine(level: Node, area: Area2D) -> void:
     if not clear_flag.is_empty() and bool(level.story_flags.get(clear_flag, false)):
         level._toast("%s已清·可回访，奖励不会再发。" % String(challenge.get("name", "可选挑战")))
         return
-    if bool(level.story_flags.get(challenge_pending_flag(level, challenge),false)):
-        grant_optional_challenge_reward(level, challenge)
+    if bool(level.story_flags.get(level._challenge_pending_flag(challenge),false)):
+        level._grant_optional_challenge_reward(challenge)
         return
-    if String(challenge.get("kind", "")) == "tracking_hunt" and not challenge_tracks_ready(level, challenge):
+    if String(challenge.get("kind", "")) == "tracking_hunt" and not level._challenge_tracks_ready(challenge):
         level._toast("%s · 猎物未显形 · 先找残迹" % String(challenge.get("name", "追踪狩猎")))
         return
     if not level.active_challenge_id.is_empty():
         level._toast("先了结当前的可选挑战。")
         return
-    start_optional_challenge(level, challenge)
+    level._start_optional_challenge(challenge)
 
 
 static func challenge_lock_inside_x(level: Node, challenge: Dictionary, lock_rect: Rect2) -> float:
@@ -217,15 +217,15 @@ static func start_optional_challenge(level: Node, challenge: Dictionary) -> void
     var challenge_id := String(challenge.get("id", ""))
     if challenge_id.is_empty():
         return
-    if bool(level.story_flags.get(challenge_pending_flag(level, challenge),false)):
-        grant_optional_challenge_reward(level, challenge)
+    if bool(level.story_flags.get(level._challenge_pending_flag(challenge),false)):
+        level._grant_optional_challenge_reward(challenge)
         return
     level.active_challenge_id = challenge_id
     level.challenge_alive_ids.clear()
     var lock_rect_value = challenge.get("lock_rect", [])
     if lock_rect_value is Array and lock_rect_value.size() >= 4:
         var lock_rect: Rect2 = level._rect2(lock_rect_value)
-        set_challenge_arena_locked(level, true, lock_rect, challenge_lock_inside_x(level, challenge, lock_rect))
+        set_challenge_arena_locked(level, true, lock_rect, level._challenge_lock_inside_x(challenge, lock_rect))
     var kind_label := challenge_kind_label(level, challenge)
     level._toast("%s · %s" % [kind_label, String(challenge.get("name", "余响试炼"))])
     var skipped_spawns := 0
@@ -249,7 +249,7 @@ static func start_optional_challenge(level: Node, challenge: Dictionary) -> void
             skipped_spawns += 1
             push_warning("Optional challenge spawn failed, skipping %s" % spawn_id)
     if level.challenge_alive_ids.is_empty():
-        clear_active_challenge(level, false)
+        level._clear_active_challenge(false)
         level._toast("试炼钟空响了一声。")
     elif skipped_spawns > 0:
         level._toast("有试炼之敌没有显形。")
@@ -284,7 +284,7 @@ static func set_challenge_arena_locked(level: Node, locked: bool, lock_rect: Rec
 
 static func clear_active_challenge(level: Node, grant_if_empty: bool) -> void:
     if grant_if_empty and not level.active_challenge_id.is_empty() and level.challenge_alive_ids.is_empty():
-        grant_optional_challenge_reward(level, optional_challenge(level, level.active_challenge_id))
+        level._grant_optional_challenge_reward(level._optional_challenge(level.active_challenge_id))
     set_challenge_arena_locked(level, false)
     level.active_challenge_id = ""
     level.challenge_alive_ids.clear()
@@ -293,7 +293,7 @@ static func clear_active_challenge(level: Node, grant_if_empty: bool) -> void:
 static func abort_challenge_if_left_room(level: Node) -> void:
     if level.active_challenge_id.is_empty():
         return
-    var room_id := String(optional_challenge(level, level.active_challenge_id).get("room_id", ""))
+    var room_id := String(level._optional_challenge(level.active_challenge_id).get("room_id", ""))
     if room_id.is_empty() or level.current_room_id == room_id:
         return
     for enemy_node in level.get_tree().get_nodes_in_group("enemy"):
@@ -302,7 +302,7 @@ static func abort_challenge_if_left_room(level: Node) -> void:
         if enemy_node.has_method("_cancel_attack_effects"):
             enemy_node._cancel_attack_effects()
         enemy_node.queue_free()
-    clear_active_challenge(level, false)
+    level._clear_active_challenge(false)
     level._toast("离开试炼")
 
 
@@ -311,9 +311,9 @@ static func on_challenge_enemy_died(level: Node, spawn_id: String) -> void:
         return
     level.challenge_alive_ids.erase(spawn_id)
     if level.challenge_alive_ids.is_empty() and not level.active_challenge_id.is_empty():
-        var challenge: Dictionary = optional_challenge(level, level.active_challenge_id)
+        var challenge: Dictionary = level._optional_challenge(level.active_challenge_id)
         set_challenge_arena_locked(level, false)
-        grant_optional_challenge_reward(level, challenge)
+        level._grant_optional_challenge_reward(challenge)
         level.active_challenge_id = ""
 
 
@@ -335,9 +335,9 @@ static func grant_optional_challenge_reward(level: Node, challenge: Dictionary) 
     if not level.world_mode:grant_optional_challenge_reward_legacy(level, challenge);return
     if challenge.is_empty() or level.world_loading or level.build_system==null:return
     var id:=String(challenge.get("id",""))
-    if id.is_empty() or optional_challenge(level, id)!=challenge:return
+    if id.is_empty() or level._optional_challenge(id)!=challenge:return
     var clear_flag:=String(challenge.get("clear_flag",""))
-    var pending_flag:=challenge_pending_flag(level, challenge)
+    var pending_flag: String = level._challenge_pending_flag(challenge)
     if clear_flag.is_empty() or bool(level.story_flags.get(clear_flag,false)):return
     var earned: bool=bool(level.story_flags.get(pending_flag,false)) or (level.active_challenge_id==id and level.challenge_alive_ids.is_empty())
     if not earned:return

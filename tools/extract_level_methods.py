@@ -1,4 +1,12 @@
-"""Move a set of main_level.gd methods into a static helper taking `level`."""
+"""Move a set of main_level.gd methods into a static helper taking `level`.
+
+usage: tools/extract_level_methods.py m1,m2,... helper_name HELPER_CONST "doc line"
+The level keeps one-line forwarders with the original names; moved functions
+call each other through `level.<name>` so overrides in subclasses still run.
+Afterwards: parse-check both scripts, give explicit types to every `var x = `
+it reports as loosened (or that fails with "Cannot infer the type"), check
+wrappers whose default arguments contain a comma, run the related suites.
+"""
 import re,sys,keyword
 from pathlib import Path
 SRC=Path('godot/scripts/main_level.gd')
@@ -42,9 +50,9 @@ def convert(name):
                 if prev=='.' or t in locals_: res.append(t)
                 elif t=='self': res.append('level')
                 elif t in MOVE:
-                    if nxt=='(':
-                        res.append(public(t)); res.append('\0')   # marker: insert level arg
-                    else: res.append('level.'+t)
+                    # Keep virtual dispatch: a level subclass (tests override
+                    # several of these) must still run its own version.
+                    res.append('level.'+t)
                 elif t in members or t in INHERITED: res.append('level.'+t)
                 else:
                     res.append(t)

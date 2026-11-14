@@ -100,7 +100,7 @@ static func toggle_map(level: Node) -> void:
         level.map_panel.visible = true
     level._sync_ui_input_lock()
     level._update_room_visit()
-    refresh_map_overlay(level)
+    level._refresh_map_overlay()
 
 
 static func room_map_rect(level: Node, room_data: Dictionary) -> Rect2:
@@ -249,23 +249,23 @@ static func map_world_to_overlay(level: Node, world_position: Vector2, layout_bo
 
 static func map_room_world_position_to_overlay(level: Node, room: Dictionary, world_position: Vector2, layout_bounds: Rect2, draw_size: Vector2) -> Vector2:
     if room.is_empty():
-        return map_world_to_overlay(level, world_position, layout_bounds, draw_size)
+        return level._map_world_to_overlay(world_position, layout_bounds, draw_size)
     var map_rect := room_map_rect(level, room)
     var physical_rect: Rect2 = level._room_layout_rect(room)
     if map_rect.size.x <= 0.0 or map_rect.size.y <= 0.0:
-        return map_world_to_overlay(level, world_position, layout_bounds, draw_size)
+        return level._map_world_to_overlay(world_position, layout_bounds, draw_size)
     var normalized := Vector2(0.5, 0.5)
     if physical_rect.size.x > 0.0 and physical_rect.size.y > 0.0:
         normalized.x = clampf((world_position.x - physical_rect.position.x) / physical_rect.size.x, 0.16, 0.84)
         normalized.y = clampf((world_position.y - physical_rect.position.y) / physical_rect.size.y, 0.20, 0.80)
-    return map_world_to_overlay(level, map_rect.position + map_rect.size * normalized, layout_bounds, draw_size)
+    return level._map_world_to_overlay(map_rect.position + map_rect.size * normalized, layout_bounds, draw_size)
 
 
 static func map_room_overlay_rect(level: Node, room_data: Dictionary, layout_bounds: Rect2, draw_size: Vector2, draw_width: float, base_y: float, depth_step: float) -> Rect2:
     var layout := room_map_rect(level, room_data)
     if layout.size.x > 0.0 and layout.size.y > 0.0 and layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0:
-        var top_left := map_world_to_overlay(level, layout.position, layout_bounds, draw_size)
-        var bottom_right := map_world_to_overlay(level, layout.position + layout.size, layout_bounds, draw_size)
+        var top_left: Vector2 = level._map_world_to_overlay(layout.position, layout_bounds, draw_size)
+        var bottom_right: Vector2 = level._map_world_to_overlay(layout.position + layout.size, layout_bounds, draw_size)
         return Rect2(top_left, Vector2(maxf(24.0, bottom_right.x - top_left.x), maxf(12.0, bottom_right.y - top_left.y)))
     var room_range: Array = room_data.get("range", [0.0, 0.0])
     if room_range.size() < 2:
@@ -281,18 +281,18 @@ static func map_room_overlay_rect(level: Node, room_data: Dictionary, layout_bou
 static func add_world_map_pins(level: Node, draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
     for data in level.config.get("cave_lifts", []):
         for y in [float(data.top_y),float(data.bottom_y)]:
-            add_map_pin(level, Vector2(float(data.x),y),draw_width,base_y,depth_step,Color(.6,.8,.9,.95),Vector2(11,11),layout_bounds,draw_size)
+            level._add_map_pin(Vector2(float(data.x),y),draw_width,base_y,depth_step,Color(.6,.8,.9,.95),Vector2(11,11),layout_bounds,draw_size)
     for collectible in level.config.get("collectibles", []):
         if collectible is Dictionary:
             var data: Dictionary = collectible
-            add_map_pin(level, level._vec2(data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(1.0, 0.74, 0.24, 0.95), Vector2(9, 9), layout_bounds, draw_size)
+            level._add_map_pin(level._vec2(data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(1.0, 0.74, 0.24, 0.95), Vector2(9, 9), layout_bounds, draw_size)
     for interactive in level.config.get("interactives", []):
         if interactive is Dictionary:
             var data: Dictionary = interactive
-            add_map_pin(level, level._vec2(data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(0.94, 0.54, 0.22, 0.95), Vector2(9, 9), layout_bounds, draw_size)
+            level._add_map_pin(level._vec2(data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(0.94, 0.54, 0.22, 0.95), Vector2(9, 9), layout_bounds, draw_size)
     var boss_data: Dictionary = level.config.get("boss", {})
     if not boss_data.is_empty():
-        add_map_pin(level, level._vec2(boss_data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(0.86, 0.18, 0.16, 0.95), Vector2(14, 14), layout_bounds, draw_size)
+        level._add_map_pin(level._vec2(boss_data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(0.86, 0.18, 0.16, 0.95), Vector2(14, 14), layout_bounds, draw_size)
 
 
 static func add_map_pin(level: Node, world_position: Vector2, draw_width: float, base_y: float, depth_step: float, color: Color, size_value: Vector2 = Vector2(9, 9), layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
@@ -317,8 +317,8 @@ static func add_map_route_line(level: Node, rooms: Array, draw_width: float, bas
             if not (connection_value is Dictionary):
                 continue
             var connection: Dictionary = connection_value
-            var from_room := map_room_by_id(level, String(connection.get("from", "")))
-            var to_room := map_room_by_id(level, String(connection.get("to", "")))
+            var from_room: Dictionary = level._map_room_by_id(String(connection.get("from", "")))
+            var to_room: Dictionary = level._map_room_by_id(String(connection.get("to", "")))
             if from_room.is_empty() or to_room.is_empty():
                 continue
             var from_rect := room_map_rect(level, from_room)
@@ -332,8 +332,8 @@ static func add_map_route_line(level: Node, rooms: Array, draw_width: float, bas
             edge.default_color = Color(0.91, 0.68, 0.28, 0.86) if edge_kind in ["unlock_shortcut", "ability_gate"] else (Color(0.38, 0.76, 0.96, 0.78) if edge_kind == "one_way_drop" else Color(0.33, 0.72, 0.58, 0.70))
             edge.z_index = 1
             edge.points = PackedVector2Array([
-                map_world_to_overlay(level, from_rect.position + from_rect.size * 0.5, layout_bounds, draw_size),
-                map_world_to_overlay(level, to_rect.position + to_rect.size * 0.5, layout_bounds, draw_size)
+                level._map_world_to_overlay(from_rect.position + from_rect.size * 0.5, layout_bounds, draw_size),
+                level._map_world_to_overlay(to_rect.position + to_rect.size * 0.5, layout_bounds, draw_size)
             ])
             level.map_draw_root.add_child(edge)
             drew_connection = true
@@ -354,7 +354,7 @@ static func add_map_route_line(level: Node, rooms: Array, draw_width: float, bas
         var point := Vector2.ZERO
         var layout := room_map_rect(level, room_data)
         if layout.size.x > 0.0 and layout.size.y > 0.0 and layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
-            point = map_world_to_overlay(level, layout.position + layout.size * 0.5, layout_bounds, draw_size)
+            point = level._map_world_to_overlay(layout.position + layout.size * 0.5, layout_bounds, draw_size)
         else:
             var room_range: Array = room_data.get("range", [0.0, 0.0])
             if room_range.size() < 2:
