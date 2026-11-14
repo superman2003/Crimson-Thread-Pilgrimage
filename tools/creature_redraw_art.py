@@ -100,6 +100,13 @@ def style_defects(replaced, redrawn, accent_waived=False):
     return found
 
 
+def body_area_within_limit(measured, replaced):
+    # Evaluate pixels before rounding the displayed ratio. Inclusive endpoints
+    # also avoid abs(1.04 - 1) becoming 0.040000000000000036.
+    ratio = measured / replaced
+    return 1 - BODY_AREA_TOLERANCE <= ratio <= 1 + BODY_AREA_TOLERANCE
+
+
 def body_area(clip, canvas):
     """Median solid area of the clip being replaced, on the rig canvas."""
     pages = fit.Atlases()
@@ -359,8 +366,9 @@ def build(kind, check=False):
                      for i, frame in enumerate(clip['frames'])]
                     if 'target_frames' in job else cels)
         measured = metrics(complete, base['canvas'], bool(clip['loop']))
-        measured['body_area_ratio'] = round(measured.pop('body_area')/replaced, 3)
-        if abs(measured['body_area_ratio']-1) > BODY_AREA_TOLERANCE:
+        measured_area = measured.pop('body_area')
+        measured['body_area_ratio'] = round(measured_area/replaced, 3)
+        if not body_area_within_limit(measured_area, replaced):
             raise ValueError(f'Redrawn body size differs from the replaced clip: {name} {measured}')
         defects = style_defects([source_drawing(frame, atlas_cache) for frame in clip['frames']], cels,
                                 LEGACY_ACCENT_SOURCES.get((kind, name)) == job['sha256'])

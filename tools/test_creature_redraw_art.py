@@ -65,6 +65,13 @@ class PaintingStyle(unittest.TestCase):
 
 
 class DeliveryContracts(unittest.TestCase):
+    def test_partial_pollen_windup_keeps_its_active_attack_handoff(self):
+        from audit_creature_redraw_handoffs import MAX_CHANGE, measure
+        manifest = art.read(art.fit.CREATURES/'pollen_lutist'/art.LAYER)
+        edges = [dict(source='windup', source_frame=-1, target='attack', target_frame=0)]
+        rows = measure(manifest, edges, art.fit.Atlases().alpha)
+        self.assertLessEqual(rows[0]['change'], MAX_CHANGE, rows[0])
+
     def test_all_does_not_succeed_for_an_unhydrated_request_directory(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(art, 'REQUEST', Path(folder)):
             error = io.StringIO()
@@ -225,11 +232,27 @@ class DeliveryContracts(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'body size differs'):
                 art.build('rust_crown_guardian',check=True)
 
+    def test_body_mass_uses_actual_pixels_before_display_rounding(self):
+        baseline = Image.new('RGBA', (100, 100), 'white')
+        near = Image.new('RGBA', (104, 100), 'white')
+        near.putpixel((0, 0), (255, 255, 255, 0)) # 10,399 solid pixels: +3.99%.
+        outside = Image.new('RGBA', (105, 100))
+        ImageDraw.Draw(outside).rectangle((0, 0, 103, 99), fill='white')
+        outside.putpixel((104, 0), (255, 255, 255, 255)) # 10,401: +4.01%.
+        def area(image):
+            return art.metrics([(image, (0, 0))], (110, 110), True)['body_area']
+        reference, inside, beyond = area(baseline), area(near), area(outside)
+        self.assertEqual(round(inside/reference, 3), round(beyond/reference, 3))
+        self.assertTrue(art.body_area_within_limit(inside, reference))
+        self.assertFalse(art.body_area_within_limit(beyond, reference))
+        self.assertTrue(art.body_area_within_limit(10400, 10000))
+        self.assertTrue(art.body_area_within_limit(9600, 10000))
+
     def test_every_registered_clip_keeps_the_replaced_body_area(self):
         for path in sorted((art.REQUEST/'jobs').glob('*.json')):
             record = art.read(art.fit.CREATURES/path.stem/art.LAYER)['redraw_record']['clips']
             for clip, measured in record.items():
-                self.assertLessEqual(abs(measured['body_area_ratio']-1),art.BODY_AREA_TOLERANCE,(path.stem,clip))
+                self.assertTrue(1-art.BODY_AREA_TOLERANCE <= measured['body_area_ratio'] <= 1+art.BODY_AREA_TOLERANCE,(path.stem,clip))
 
 
     def test_leg_change_separates_a_sliding_still_from_a_stride(self):
