@@ -1,0 +1,20 @@
+{
+  "kind": "pipe_thrower",
+  "clip": "actions_01",
+  "status": "partially_rejected",
+  "reason": "Attack body median ratio1.087; only two recovery clips accepted.",
+  "source_sha256": "8d99b0fb5f5e4b78c04a6bce74371db30aa5db079e21c5b51b2830ecf703a487",
+  "prompt_sha256": "3897c244696af2dbffe20b89646c5d69f75d5d64431cfbdad6b00512a19380b1",
+  "reference_sha256": "8ab1c2e761b15a189693d6de653a990a5f117287c4af45a6458335fe081a2c8b",
+  "actual_prompt": "BACKGROUND EXTRACTION ONLY. Clean this exact10-cel Pipe Thrower sprite sheet,4equalcolumns by3equalrows, first10cells occupied,last2 empty. Preserve EVERY sprite drawing exactly: copper shell, oval eye, antennae, slate-blue apron, pipe, gloves/boots, every pose/scale/location and inkdetail. Remove ALL the white/grey/beige fog and muddy shadows around and between the figures. Empty backgrounds and cell gutters MUST be fully transparent alpha0. Keep only thin natural antialiased edges on the actual figures; no wide soft halo. Do not paint white/gray/colored matte or checkerboard. Do not resize,reposition,repaintanatomy, change pipe angle, duplicate/remove sprites or rearrange the4x3layout. The lasttwo cells stay completely transparent empty. TRUE transparent RGBA alpha0background/gutters, no floor/shadow, haze, glow, particles, text, grid or labels.",
+  "reference_recipe": "Frozen selected guide defines target order and pose/anchors, accepted pipe_thrower walk supplies identity; all final cels from built-in image_gen. Whole-source registration only. Builtinimage_genalphaextraction of first10celraw afterbackgroundwashrejected; poses unchanged. All selectedcells share one registration from originalselected medianbodycentroid andfootline: no independentceltranslationorresizing.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/pipe_thrower-actions-01.json",
+  "guide_sha256": "7988fe116f2cdc01a3c4e11075d8da8f32e2c53df7bb61548943a1c96bbbcadc",
+  "accepted_clips": [
+    "recover",
+    "pipe_mortar_recover"
+  ],
+  "rejected_clips": [
+    "attack"
+  ]
+}

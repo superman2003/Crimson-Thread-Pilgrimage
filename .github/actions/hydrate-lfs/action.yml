@@ -1,0 +1,42 @@
+name: Hydrate selected LFS assets from cache
+description: Reuse content-addressed objects and save immediately after successful hydration.
+inputs:
+  include:
+    description: Required Git LFS include patterns, separated by commas.
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Identify required LFS objects
+      id: key
+      shell: bash
+      env:
+        LFS_INCLUDE: ${{ inputs.include }}
+      run: |
+        git lfs install --skip-smudge
+        python3 tools/ci/lfs_cache.py --include="$LFS_INCLUDE"
+    - name: Restore LFS objects
+      id: cache
+      if: steps.key.outputs.count != '0'
+      uses: actions/cache/restore@v4
+      with:
+        path: .git/lfs/objects
+        key: ${{ steps.key.outputs.key }}
+        restore-keys: |
+          lfs-v2-
+          lfs-v1-
+    # Always hydrate the exact checkout, including on an exact cache hit.
+    # A partial restore only supplies reusable objects, never older game files.
+    - name: Hydrate selected assets
+      shell: bash
+      env:
+        LFS_INCLUDE: ${{ inputs.include }}
+      run: python3 tools/hydrate_runtime_assets.py --include="$LFS_INCLUDE"
+    # Save before long Godot tests, so a failed test does not waste downloads.
+    # PR caches are scoped to their merge ref; main caches serve later PRs.
+    - name: Save successfully hydrated LFS objects
+      if: steps.key.outputs.count != '0' && steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v4
+      with:
+        path: .git/lfs/objects
+        key: ${{ steps.key.outputs.key }}

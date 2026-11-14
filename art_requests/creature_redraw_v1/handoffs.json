@@ -210,6 +210,44 @@
         "target": "recover",
         "target_frame": 0
       }
+    ],
+    "wax_lancer": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "wax_high_windup",
+        "source_frame": -1,
+        "target": "wax_high",
+        "target_frame": 0
+      },
+      {
+        "source": "wax_high",
+        "source_frame": -1,
+        "target": "wax_high_recover",
+        "target_frame": 0
+      },
+      {
+        "source": "wax_high_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      }
     ]
   }
 }
