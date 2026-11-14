@@ -11,7 +11,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = (
-    "audio_director.gd", "audio_stream_source.gd", "duck_mix.gd", "npc_landmark_schedule.gd",
+    "audio_director.gd", "audio_ambience.gd", "audio_music.gd", "audio_npc_voices.gd", "audio_user_mix.gd", "audio_stream_source.gd", "duck_mix.gd", "npc_landmark_schedule.gd",
     "audio_retirement.gd", "music_layer_phase.gd", "spatial_enemy_alert.gd", "landmark_spatial_refresh.gd",
     "room_reverb_validation.gd", "audio_user_volume_validation.gd",
     "npc_sound_landmark.gd", "enemy_sound_filter.gd",

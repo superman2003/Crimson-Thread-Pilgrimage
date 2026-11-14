@@ -81,7 +81,12 @@ func run() -> void:
 	var ui: Node = scene.ui_shell
 
 	# --- Every action the player presses in play is remappable. ---
+	# player_controller.gd and the helpers its methods were moved into.
 	var source := FileAccess.get_file_as_string("res://scripts/player_controller.gd")
+	for file in DirAccess.get_files_at("res://scripts"):
+		if file.ends_with(".gd"):
+			var helper := FileAccess.get_file_as_string("res://scripts/" + file)
+			if helper.contains("## Moved out of player_controller.gd"):source += "\n" + helper
 	var pressed: Dictionary = {}
 	var pattern := RegEx.new()
 	pattern.compile("is_action(?:_just)?_(?:pressed|released)\\(\"([a-z_0-9]+)\"")

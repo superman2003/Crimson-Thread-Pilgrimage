@@ -577,6 +577,10 @@ var world_start_region_id := ""
 
 const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
 const WORLD_ATLAS := preload("res://scripts/world_atlas.gd")
+const LEVEL_PROPS := preload("res://scripts/level_props.gd")
+const LEVEL_SCENERY := preload("res://scripts/level_scenery.gd")
+const LEVEL_OVERLAYS := preload("res://scripts/level_overlays.gd")
+const LEVEL_AUDIO := preload("res://scripts/level_audio.gd")
 const ENEMY_PLACEMENT := preload("res://scripts/enemy_placement.gd")
 const ENDING_GATES := preload("res://scripts/ending_gates.gd")
 const OPTIONAL_CHALLENGES := preload("res://scripts/optional_challenges.gd")
@@ -2239,71 +2243,32 @@ func _build_metsys_bridge() -> void:
 
 
 func _build_audio() -> void:
-    _begin_audio()
-    _start_audio_explore()
-    _start_audio_ambience()
+    LEVEL_AUDIO.build_audio(self)
 
 
 ## Separate stream loads remain ordinary prepare jobs so cancellation and the
 ## existing per-frame operation/time budget also apply between the two decodes.
 func _begin_audio() -> void:
-    if config.is_empty():
-        return
-    _ensure_audio_buses()
-    _apply_chapter_reverb(String(config.get("id", "")))
-    # AudioDirector 一期：不注册 autoload，由本函数实例化挂树（headless 验证脚本
-    # 不跑主场景时 instance 保持 null，各薄封装回退旧行为）。
-    audio_director = AUDIO_DIRECTOR_SCRIPT.new()
-    audio_director.name = "AudioDirector"
-    audio_director.autoplay_enabled = _should_autoplay_audio()
-    add_child(audio_director)
-    if _should_autoplay_audio():
-        # 探索播放器仍叫 BgmPlayer、挂本节点、bus=BGM（audio_visual_validation 口径）。
-        _ensure_bgm_player()
-        audio_director.attach_explore_player(bgm_player)
-    audio_director.prepare_chapter(String(config.get("id", "")))
+    LEVEL_AUDIO.begin_audio(self)
 
 
 func _start_audio_explore() -> void:
-    if not is_queued_for_deletion() and is_instance_valid(audio_director) and audio_director.autoplay_enabled:
-        audio_director._play_explore_track(audio_director._explore_track_path())
+    LEVEL_AUDIO.start_audio_explore(self)
 
 
 func _start_audio_ambience() -> void:
-    if not is_queued_for_deletion() and is_instance_valid(audio_director) and audio_director.autoplay_enabled:
-        audio_director._start_ambience()
+    LEVEL_AUDIO.start_audio_ambience(self)
 
 
 ## 音频设置面板开关键（V）：玩家基础键位由 player_controller 注册，这里只补自己的。
 func _bind_audio_settings_key() -> void:
-    if not InputMap.has_action("audio_settings"):
-        InputMap.add_action("audio_settings")
-    if InputMap.action_get_events("audio_settings").is_empty():
-        var event := InputEventKey.new()
-        event.physical_keycode = KEY_V
-        InputMap.action_add_event("audio_settings", event)
+    LEVEL_AUDIO.bind_audio_settings_key(self)
 
 
 ## P0 总线保障（规格 §5.1）：default_bus_layout.tres 缺失或加载失败时动态补建。
 ## 幂等：章节切换重建场景时只补缺，并清理上一场景遗留的濒死低通 / duck 音量。
 func _ensure_audio_buses() -> void:
-    for bus_name in AUDIO_BUSES:
-        if AudioServer.get_bus_index(bus_name) == -1:
-            AUDIO_DIRECTOR_SCRIPT._ensure_bus(String(bus_name), "Master")
-        var bus_index := AudioServer.get_bus_index(bus_name)
-        AudioServer.set_bus_volume_db(bus_index, float(AUDIO_BUS_DEFAULT_VOLUME_DB.get(bus_name, 0.0)))
-    for reverb_bus_name in ["SFX", "Ambience"]:
-        var reverb_bus := AudioServer.get_bus_index(reverb_bus_name)
-        if reverb_bus != -1 and _find_bus_effect(reverb_bus, "AudioEffectReverb") == -1:
-            AudioServer.add_bus_effect(reverb_bus, AudioEffectReverb.new())
-    low_hp_audio_active = false
-    var bgm_bus := AudioServer.get_bus_index("BGM")
-    if bgm_bus != -1:
-        var stale_lowpass := _find_bus_effect(bgm_bus, "AudioEffectLowPassFilter")
-        if stale_lowpass != -1:
-            AudioServer.remove_bus_effect(bgm_bus, stale_lowpass)
-    # 子总线（MusicExplore/MusicCombat/MusicStinger/SFX*/ReverbZone）转调 director 幂等补建。
-    AUDIO_DIRECTOR_SCRIPT.ensure_sub_buses()
+    LEVEL_AUDIO.ensure_audio_buses(self)
 
 
 func _find_bus_effect(bus_index: int, effect_class: String) -> int:
@@ -2342,221 +2307,75 @@ func _apply_chapter_reverb(chapter_id: String) -> void:
 ## AudioDirector 在场时转调（回弹基准含用户音量），缺席时保持旧行为。
 ## headless 下 AudioServer 照常可写、tween 随场景销毁，安全 no-op。
 func duck_bgm(duck_db: float, seconds: float) -> void:
-    var director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
-    if director != null and director.is_inside_tree():
-        director.duck(duck_db, seconds)
-        return
-    var bus_index := AudioServer.get_bus_index("BGM")
-    if bus_index == -1 or not is_inside_tree():
-        return
-    if bgm_duck_tween != null and bgm_duck_tween.is_valid():
-        bgm_duck_tween.kill()
-    var base_db := float(AUDIO_BUS_DEFAULT_VOLUME_DB.get("BGM", 0.0))
-    var ducked_db := base_db + minf(duck_db, 0.0)
-    bgm_duck_tween = _region_tween()
-    bgm_duck_tween.tween_method(_set_bgm_bus_volume_db, AudioServer.get_bus_volume_db(bus_index), ducked_db, 0.35)
-    bgm_duck_tween.tween_interval(maxf(seconds, 0.0))
-    bgm_duck_tween.tween_method(_set_bgm_bus_volume_db, ducked_db, base_db, 0.6)
+    LEVEL_AUDIO.duck_bgm(self, duck_db, seconds)
 
 
 func _set_bgm_bus_volume_db(value: float) -> void:
-    var bus_index := AudioServer.get_bus_index("BGM")
-    if bus_index != -1:
-        AudioServer.set_bus_volume_db(bus_index, value)
+    LEVEL_AUDIO.set_bgm_bus_volume_db(self, value)
 
 
 ## 濒死混音态（规格 §5.5）：HP==1 时 BGM 总线挂 800Hz 低通 + 55-60 BPM 心跳
 ## 循环（自产 player_low_hp_heartbeat.wav，不与音乐 BPM 同步）；HP 回升/死亡移除。
 func _set_low_hp_audio(active: bool) -> void:
-    if active == low_hp_audio_active:
-        return
-    low_hp_audio_active = active
-    if active:
-        _start_low_hp_heartbeat()
-    else:
-        _stop_low_hp_heartbeat()
-    # AudioDirector 在场时低通改扫频版（2kHz→800Hz 2s；关断当帧摘除），缺席回退旧行为。
-    var director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
-    if director != null:
-        director.set_low_hp(active)
-        return
-    var bus_index := AudioServer.get_bus_index("BGM")
-    if bus_index == -1:
-        return
-    var effect_index := _find_bus_effect(bus_index, "AudioEffectLowPassFilter")
-    if active and effect_index == -1:
-        var lowpass := AudioEffectLowPassFilter.new()
-        lowpass.cutoff_hz = LOW_HP_LOWPASS_CUTOFF_HZ
-        AudioServer.add_bus_effect(bus_index, lowpass)
-    elif not active and effect_index != -1:
-        AudioServer.remove_bus_effect(bus_index, effect_index)
+    LEVEL_AUDIO.set_low_hp_audio(self, active)
 
 
 func _start_low_hp_heartbeat() -> void:
-    if not _should_autoplay_audio():
-        return
-    if low_hp_heartbeat_player == null or not is_instance_valid(low_hp_heartbeat_player):
-        # 循环标记由 load_cached(looped=true) 在入缓存前置好，不再原地改流。
-        var stream := AUDIO_DIRECTOR_SCRIPT.load_cached(String(AUDIO.get("low_hp_heartbeat", "")), true)
-        if stream == null:
-            return
-        low_hp_heartbeat_player = AudioStreamPlayer.new()
-        low_hp_heartbeat_player.name = "LowHpHeartbeat"
-        # 濒死心跳走 SFXDry（send→Master 干声）：不吃章节混响，贴耳而非贴房间。
-        low_hp_heartbeat_player.bus = _first_existing_bus(["SFXDry", "SFX", "Master"])
-        low_hp_heartbeat_player.stream = stream
-        low_hp_heartbeat_player.volume_db = -10.0
-        add_child(low_hp_heartbeat_player)
-    if not low_hp_heartbeat_player.playing:
-        var ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice("low_hp_heartbeat",0,0,1)
-        if ticket != 0:AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(ticket,low_hp_heartbeat_player,true)
+    LEVEL_AUDIO.start_low_hp_heartbeat(self)
 
 
 func _first_existing_bus(bus_names: Array) -> String:
-    for bus_name in bus_names:
-        if AudioServer.get_bus_index(String(bus_name)) != -1:
-            return String(bus_name)
-    return "Master"
+    return LEVEL_AUDIO.first_existing_bus(self, bus_names)
 
 
 func _stop_low_hp_heartbeat() -> void:
-    if low_hp_heartbeat_player != null and is_instance_valid(low_hp_heartbeat_player) and low_hp_heartbeat_player.playing:
-        low_hp_heartbeat_player.stop()
+    LEVEL_AUDIO.stop_low_hp_heartbeat(self)
 
 
 func _should_autoplay_audio() -> bool:
-    if DisplayServer.get_name() != "headless":
-        return true
-    for arg in OS.get_cmdline_args():
-        if String(arg).contains("audio_visual_validation.gd"):
-            return true
-    return false
+    return LEVEL_AUDIO.should_autoplay_audio(self)
 
 
 ## 旧版单播放器 BGM 切换：仅作 AudioDirector 缺席时的兜底路径。
 ## 无缝循环由 load_cached(looped=true) 承担；缓存对同路径返回同一对象，
 ## 因此下方 stream 同一性比较的"同曲去重"再次生效（不重头重播）。
 func _switch_bgm(audio_key: String) -> void:
-    var stream := AUDIO_DIRECTOR_SCRIPT.load_cached(String(AUDIO.get(audio_key, "")), true)
-    if stream == null:
-        return
-    _ensure_bgm_player()
-    if bgm_player.stream == stream and bgm_player.playing:
-        return
-    bgm_player.stream = stream
-    bgm_player.play()
+    LEVEL_AUDIO.switch_bgm(self, audio_key)
 
 
 func _ensure_bgm_player() -> void:
-    if bgm_player != null and is_instance_valid(bgm_player):
-        return
-    bgm_player = AudioStreamPlayer.new()
-    bgm_player.name = "BgmPlayer"
-    bgm_player.bus = "BGM" if AudioServer.get_bus_index("BGM") != -1 else "Master"
-    bgm_player.volume_db = -18.0
-    add_child(bgm_player)
+    LEVEL_AUDIO.ensure_bgm_player(self)
 
 
 func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
-    if not _should_autoplay_audio() or not is_inside_tree() or is_queued_for_deletion():
-        return
-    # 声部管理（规格 §5.4）：同 key 限频/并发 + 全局 24 声部，被拒即不播。
-    var voice_ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
-    if voice_ticket == 0:
-        return
-    var stream := _load_audio_stream(audio_key)
-    if stream == null:
-        # 声部回滚（契约 release_voice）：拿不到流就撤销刚批准的登记。
-        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
-        return
-    var player_node := AudioStreamPlayer.new()
-    player_node.name = "Sfx_" + audio_key
-    player_node.bus = _sfx_bus_for_key(audio_key)
-    player_node.stream = stream
-    player_node.volume_db = volume_db
-    var instance_id := player_node.get_instance_id()
-    pending_sfx_players[instance_id] = {"player": player_node, "voice_ticket": voice_ticket}
-    # Interactable signals can close an overlay while this level or one of its
-    # children is entering/exiting the tree. Defer attachment until scene-tree
-    # notifications finish, then play only after the player is actually inside.
-    call_deferred("_attach_pending_sfx", instance_id)
+    LEVEL_AUDIO.play_sfx(self, audio_key, volume_db)
 
 
 func _attach_pending_sfx(instance_id: int) -> void:
-    if not pending_sfx_players.has(instance_id):
-        return
-    var pending: Dictionary = pending_sfx_players[instance_id]
-    pending_sfx_players.erase(instance_id)
-    var player_node: AudioStreamPlayer = pending.get("player")
-    var voice_ticket := int(pending.get("voice_ticket",0))
-    if not is_instance_valid(player_node):
-        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
-        return
-    if not is_inside_tree() or is_queued_for_deletion():
-        player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
-        return
-    add_child(player_node)
-    if not player_node.is_inside_tree():
-        player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
-        return
-    player_node.finished.connect(Callable(player_node, "queue_free"))
-    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
+    LEVEL_AUDIO.attach_pending_sfx(self, instance_id)
 
 
 func _cancel_pending_sfx() -> void:
-    for pending_value in pending_sfx_players.values():
-        var pending: Dictionary = pending_value
-        var player_node: AudioStreamPlayer = pending.get("player")
-        if is_instance_valid(player_node):
-            player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_ticket(int(pending.get("voice_ticket",0)))
-    pending_sfx_players.clear()
+    LEVEL_AUDIO.cancel_pending_sfx(self)
 
 
 ## UI 音走 UI 总线（干声），世界音走 SFXWorld 子总线（send→SFX 吃章节混响）。
 func _sfx_bus_for_key(audio_key: String) -> String:
-    if audio_key.begins_with("ui_"):
-        if AudioServer.get_bus_index("UI") != -1:
-            return "UI"
-    elif AudioServer.get_bus_index("SFXWorld") != -1:
-        return "SFXWorld"
-    return "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+    return LEVEL_AUDIO.sfx_bus_for_key(self, audio_key)
 
 
 func _load_audio_stream(audio_key: String) -> AudioStream:
-    # 统一走 AudioDirector 静态流缓存（契约 load_cached：直读 + 负缓存 + 告警一次）。
-    return AUDIO_DIRECTOR_SCRIPT.load_cached(String(AUDIO.get(audio_key, "")))
+    return LEVEL_AUDIO.load_audio_stream(self, audio_key)
 
 
 ## 场景切换不截断的一次性音（章节切换线音）：播放器挂 tree root，播完自毁。
 func _play_sfx_persistent(audio_key: String, volume_db: float = -7.0) -> void:
-    if not _should_autoplay_audio():
-        return
-    var voice_ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
-    if voice_ticket == 0:
-        return
-    var stream := _load_audio_stream(audio_key)
-    if stream == null or not is_inside_tree():
-        # 声部回滚（契约 release_voice）：拿不到流/不在树上都不会真正发声。
-        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
-        return
-    var player_node := AudioStreamPlayer.new()
-    player_node.name = "PersistentSfx_" + audio_key
-    player_node.bus = _sfx_bus_for_key(audio_key)
-    player_node.stream = stream
-    player_node.volume_db = volume_db
-    get_tree().root.add_child(player_node)
-    player_node.finished.connect(Callable(player_node, "queue_free"))
-    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
+    LEVEL_AUDIO.play_sfx_persistent(self, audio_key, volume_db)
 
 
 ## 同事件多变体随机轮播（Kenney 变体组用）。
 func _play_sfx_random(audio_keys: Array, volume_db: float = -7.0) -> void:
-    if audio_keys.is_empty():
-        return
-    _play_sfx(String(audio_keys[randi() % audio_keys.size()]), volume_db)
+    LEVEL_AUDIO.play_sfx_random(self, audio_keys, volume_db)
 
 
 func _load_texture_resource(path: String) -> Texture2D:
@@ -2575,10 +2394,7 @@ func _load_texture_resource(path: String) -> Texture2D:
 
 
 func _build_backpack_overlay() -> void:
-    backpack_panel=ui_shell.bag
-    backpack_text=ui_shell.legacy_bag_text
-    backpack_detail_text=ui_shell.legacy_bag_detail
-    _refresh_backpack_overlay(false)
+    LEVEL_OVERLAYS.build_backpack_overlay(self)
 
 func _build_map_overlay() -> void:
     MAP_OVERLAY.build_map_overlay(self)
@@ -2610,25 +2426,7 @@ func _refresh_wish_board_overlay() -> void:
 
 
 func _toggle_backpack() -> void:
-    if active_overlay in ["cartographer", "recall"]: _close_overlays()
-    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
-        ui_shell.build_panel.visible = false
-    if active_overlay == "backpack":
-        _close_overlays()
-        return
-    _play_sfx("ui_inventory_open", -2.0)
-    _notify_dialogue_closed()
-    active_overlay = "backpack"
-    if map_panel != null:
-        map_panel.visible = false
-    if dialogue_panel != null:
-        dialogue_panel.visible = false
-    if settings_panel != null:
-        settings_panel.visible = false
-    if backpack_panel != null:
-        backpack_panel.visible = true
-    _sync_ui_input_lock()
-    _refresh_backpack_overlay()
+    LEVEL_OVERLAYS.toggle_backpack(self)
 
 
 func _toggle_map() -> void:
@@ -2638,129 +2436,41 @@ func _toggle_map() -> void:
 # ---- 音频设置覆盖层（音量四滑条，复用背包面板构建模式）----
 
 func _build_settings_overlay() -> void:
-    settings_panel=ui_shell.settings
-    settings_text=ui_shell.legacy_settings
-    _refresh_settings_overlay()
+    LEVEL_OVERLAYS.build_settings_overlay(self)
 
 func _toggle_audio_settings() -> void:
-    if active_overlay in ["cartographer", "recall"]: _close_overlays()
-    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
-        ui_shell.build_panel.visible = false
-    if active_overlay == "settings":
-        _close_overlays()
-        return
-    _play_sfx("ui_menu_confirm", -2.0)
-    _notify_dialogue_closed()
-    active_overlay = "settings"
-    if backpack_panel != null:
-        backpack_panel.visible = false
-    if map_panel != null:
-        map_panel.visible = false
-    if dialogue_panel != null:
-        dialogue_panel.visible = false
-    if settings_panel != null:
-        settings_panel.visible = true
-    _sync_ui_input_lock()
-    _refresh_settings_overlay()
+    LEVEL_OVERLAYS.toggle_audio_settings(self)
 
 
 func _settings_selection_clamped() -> int:
-    return clampi(settings_selection, 0, AUDIO_SETTINGS_ROWS.size() - 1)
+    return LEVEL_OVERLAYS.settings_selection_clamped(self)
 
 
 func _move_settings_selection(delta: int) -> void:
-    _play_sfx_random(["ui_menu_move_1", "ui_menu_move_2"], -5.0)
-    settings_selection = wrapi(_settings_selection_clamped() + delta, 0, AUDIO_SETTINGS_ROWS.size())
-    _refresh_settings_overlay()
+    LEVEL_OVERLAYS.move_settings_selection(self, delta)
 
 
 func _adjust_settings_volume(delta: float) -> void:
-    if audio_director == null:
-        return
-    var which := String(AUDIO_SETTINGS_ROWS[_settings_selection_clamped()][0])
-    var value: float = clampf(float(audio_director.get_user_volume(which)) + delta, 0.0, 100.0)
-    audio_director.set_user_volume(which, value)
-    if which == "sfx":
-        # SFX 行试听反馈改播世界音（走 SFXWorld→SFX 总线）：调的就是它，所听即所调。
-        _play_sfx("pickup")
-    else:
-        _play_sfx_random(["ui_menu_move_1", "ui_menu_move_2"], -5.0)
-    _refresh_settings_overlay()
+    LEVEL_OVERLAYS.adjust_settings_volume(self, delta)
 
 
 func _refresh_settings_overlay() -> void:
-    if settings_text == null:
-        return
-    var lines: Array[String] = []
-    for index in AUDIO_SETTINGS_ROWS.size():
-        var row: Array = AUDIO_SETTINGS_ROWS[index]
-        var percent := 100.0
-        if audio_director != null:
-            percent = float(audio_director.get_user_volume(String(row[0])))
-        var filled := clampi(int(round(percent / 10.0)), 0, 10)
-        var bar := "█".repeat(filled) + "░".repeat(10 - filled)
-        var marker := "▶ " if index == _settings_selection_clamped() else "  "
-        lines.append("%s%s  [%s] %d%%" % [marker, String(row[1]), bar, int(round(percent))])
-    lines.append("")
-    lines.append("W/S 选择   A/D 调节   V/Esc 关闭")
-    settings_text.text = "\n".join(lines)
-    if ui_shell != null:
-        ui_shell.refresh_settings_selection()
+    LEVEL_OVERLAYS.refresh_settings_overlay(self)
 
 
 func _close_overlays() -> void:
-    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
-        ui_shell.build_panel.visible = false
-    # UI 关闭音（音频规格 §4.5）：按正在关的 overlay 选音，空关不发声。
-    if active_overlay == "backpack":
-        _play_sfx("ui_inventory_close", -3.0)
-    elif active_overlay == "map":
-        _play_sfx("ui_map_close", -3.0)
-    elif active_overlay == "dialogue":
-        _play_sfx("ui_dialogue_close", -4.0)
-    elif active_overlay == "settings":
-        _play_sfx("ui_menu_cancel", -4.0)
-    var map_purchase := get_node_or_null("MapPurchaseDialog")
-    if map_purchase != null:
-        map_purchase.hide()
-    var recall_dialog := get_node_or_null(DEATH_RECALL.DIALOG)
-    if recall_dialog != null:
-        recall_dialog.hide()
-    var ending_story := get_node_or_null("EndingStoryDesk")
-    if ending_story != null:
-        ending_story.hide()
-    _notify_dialogue_closed()
-    active_overlay = ""
-    if backpack_panel != null:
-        backpack_panel.visible = false
-    if map_panel != null:
-        map_panel.visible = false
-    if dialogue_panel != null:
-        dialogue_panel.visible = false
-    if settings_panel != null:
-        settings_panel.visible = false
-    _sync_ui_input_lock()
+    LEVEL_OVERLAYS.close_overlays(self)
 
 
 ## 玩家输入闸（契约 ui_input_locked）：任一 overlay 开合即同步，锁移动/瞄准
 ## 不锁 Esc/UI 键；player_controller 侧按该标志忽略 move_left/right 与 aim_up/down。
 func _sync_ui_input_lock() -> void:
-    if player != null and is_instance_valid(player):
-        player.set("ui_input_locked", active_overlay != "")
-    if is_inside_tree():
-        for actor in get_tree().get_nodes_in_group("enemy"):
-            if actor.has_method("_set_combat_visuals_paused"):
-                actor._set_combat_visuals_paused(active_overlay != "")
+    LEVEL_OVERLAYS.sync_ui_input_lock(self)
 
 
 ## 对话面板关闭时归还 BGM/Ambience 压低（所有关闭路径共用：Esc、走远、切换 overlay）。
 func _notify_dialogue_closed() -> void:
-    var history := ui_shell!=null and is_instance_valid(ui_shell.dialogue_area) and String(ui_shell.dialogue_area.get_meta("kind",""))=="history"
-    if not history:_commit_world_dialogue()
-    if ui_shell!=null:
-        ui_shell.close_dialogue()
-    if active_overlay == "dialogue" and audio_director != null:
-        audio_director.on_dialogue(false)
+    LEVEL_OVERLAYS.notify_dialogue_closed(self)
 
 
 # 背包分区顺序：印记/证词等剧情要物靠前，材料殿后；分区标题仅作视觉分组。
@@ -2776,96 +2486,32 @@ const BACKPACK_SECTIONS := [
 
 
 func _refresh_backpack_overlay(render_inventory: bool = true) -> void:
-    if backpack_text == null:
-        return
-    backpack_entry_ids.clear()
-    var lines: Array[String] = []
-    backpack_entry_ids.append("currency")
-    lines.append("%s%s x%d" % [_selection_marker("currency"), _item_display_name("currency"), currency_count])
-    if not _combat_progression_enabled():
-        lines.append("")
-        lines.append("Route Marks")
-        lines.append(_inventory_line_for_category("Combat"))
-    for section in BACKPACK_SECTIONS:
-        var section_ids := _inventory_ids_for_category(String(section[1]))
-        if section_ids.is_empty():
-            continue
-        lines.append("")
-        lines.append(String(section[0]))
-        for item_id in section_ids:
-            backpack_entry_ids.append(item_id)
-            var count := int(inventory_counts.get(item_id, 0))
-            var count_suffix := " x%d" % count if count > 1 else ""
-            lines.append("%s%s%s" % [_selection_marker(item_id), _item_display_name(item_id), count_suffix])
-    lines.append("")
-    lines.append("%s 行囊   %s/%s 查看铭文   %s 地图   %s 关闭" % [ui_shell._short_binding("inventory"), ui_shell._short_binding("aim_up"), ui_shell._short_binding("aim_down"), ui_shell._short_binding("map"), ui_shell._short_binding("close_overlay")])
-    backpack_text.text = "\n".join(lines)
-    _refresh_backpack_detail()
-    if render_inventory and ui_shell!=null:
-        ui_shell.refresh_inventory()
+    LEVEL_OVERLAYS.refresh_backpack_overlay(self, render_inventory)
 
 
 func _inventory_ids_for_category(category: String) -> Array[String]:
-    var ids: Array[String] = []
-    for item_id in inventory_counts.keys():
-        var data := _item_data(String(item_id))
-        if String(data.get("category", "")) == category:
-            ids.append(String(item_id))
-    return ids
+    return LEVEL_OVERLAYS.inventory_ids_for_category(self, category)
 
 
 func _selection_marker(item_id: String) -> String:
-    var index := backpack_entry_ids.find(item_id)
-    return "▶ " if index == _backpack_selection_clamped() else "  "
+    return LEVEL_OVERLAYS.selection_marker(self, item_id)
 
 
 func _backpack_selection_clamped() -> int:
-    if backpack_entry_ids.is_empty():
-        return -1
-    return clampi(backpack_selection, 0, backpack_entry_ids.size() - 1)
+    return LEVEL_OVERLAYS.backpack_selection_clamped(self)
 
 
 func _move_backpack_selection(delta: int) -> void:
-    if backpack_entry_ids.is_empty():
-        return
-    _play_sfx_random(["ui_menu_move_1", "ui_menu_move_2"], -5.0)
-    if ui_shell != null:
-        ui_shell.move_inventory_selection(delta)
-    else:
-        backpack_selection = wrapi(_backpack_selection_clamped() + delta, 0, backpack_entry_ids.size())
-    _refresh_backpack_overlay()
+    LEVEL_OVERLAYS.move_backpack_selection(self, delta)
 
 
 # 详情区：选中物品的完整铭文（多行保留分行；功能行随描述一起展示）。
 func _refresh_backpack_detail() -> void:
-    if backpack_detail_text == null:
-        return
-    var index := _backpack_selection_clamped()
-    if index < 0:
-        backpack_detail_text.text = ""
-        return
-    var item_id := backpack_entry_ids[index]
-    var lines: Array[String] = []
-    if item_id == "currency":
-        lines.append("%s x%d" % [_item_display_name("currency"), currency_count])
-    else:
-        var count := int(inventory_counts.get(item_id, 0))
-        lines.append(_item_display_name(item_id) + (" x%d" % count if count > 1 else ""))
-    var description := _item_display_description(item_id)
-    if not description.is_empty():
-        lines.append("")
-        for description_line in description.split("\n"):
-            lines.append(description_line)
-    backpack_detail_text.text = "\n".join(lines)
+    LEVEL_OVERLAYS.refresh_backpack_detail(self)
 
 
 func _inventory_line_for_category(category: String) -> String:
-    var entries: Array[String] = []
-    for item_id in inventory_counts.keys():
-        var data := _item_data(String(item_id))
-        if String(data.get("category", "")) == category:
-            entries.append("%s x%d" % [_item_display_name(String(item_id)), int(inventory_counts[item_id])])
-    return "  None" if entries.is_empty() else "  " + ", ".join(entries)
+    return LEVEL_OVERLAYS.inventory_line_for_category(self, category)
 
 
 func _update_room_visit() -> void:
@@ -3455,79 +3101,45 @@ func _build_dialogue_overlay() -> void:
     dialogue_hint_label=ui_shell.dialogue_hint
 
 func _background() -> void:
-    for job in _background_jobs():
-        callv(job.method, job.args)
+    LEVEL_SCENERY.background(self)
 
 
 func _background_jobs() -> Array:
-    var jobs: Array = [
-        {"method": "_background_base", "args": []},
-        {"method": "_background_art", "args": []},
-        {"method": "_background_terrain_metadata", "args": []}]
-    for landform in config.get("terrain", []):
-        jobs.append({"method": "_background_landform", "args": [landform]})
-    jobs.append({"method": "_background_terrain_warm", "args": []})
-    jobs.append({"method": "_background_cave", "args": []})
-    jobs.append({"method": "_background_cave_surface", "args": []})
-    jobs.append({"method": "_background_shade", "args": []})
-    return jobs
+    return LEVEL_SCENERY.background_jobs(self)
 
 
 func _background_base() -> void:
-    var bg := Polygon2D.new()
-    bg.polygon = PackedVector2Array([Vector2(-300, -200), Vector2(world_width + 300, -200),
-        Vector2(world_width + 300, world_height + 220), Vector2(-300, world_height + 220)])
-    bg.color = _theme_background_color()
-    bg.z_index = -120
-    add_child(bg)
+    LEVEL_SCENERY.background_base(self)
 
 
 func _background_art() -> void:
-    flat_map_art = FLAT_MAP_ART_SCRIPT.new()
-    add_child(flat_map_art)
-    flat_map_art.configure(_art_theme_id(), config)
+    LEVEL_SCENERY.background_art(self)
 
 
 func _background_terrain_metadata() -> void:
-    chapter_terrain = TERRAIN_SCRIPT.new()
-    add_child(chapter_terrain)
-    chapter_terrain.prefetch = world_prefetch if world_mode else null
-    chapter_terrain.region_id = String(config.get("id", ""))
-    chapter_terrain.prepare_config(config, _art_theme_id(), world_mode, world_mode)
+    LEVEL_SCENERY.background_terrain_metadata(self)
 
 
 func _background_landform(data: Dictionary) -> void:
-    chapter_terrain._build_landform(data)
+    LEVEL_SCENERY.background_landform(self, data)
 
 
 func _background_terrain_warm() -> void:
-    if world_mode:
-        chapter_terrain.warm_focus(entry_spawn_override if entry_spawn_override_enabled else active_spawn)
+    LEVEL_SCENERY.background_terrain_warm(self)
 
 
 func _background_cave() -> void:
-    if not config.get("cave_world", {}).is_empty():
-        cave_world = CAVE_WORLD_SCRIPT.new()
-        add_child(cave_world)
-        cave_world.prefetch = world_prefetch if world_mode else null
-        cave_world.region_id = String(config.get("id", ""))
-        cave_world.configure(config, _art_theme_id(), self, world_mode, entry_spawn_override if entry_spawn_override_enabled else active_spawn, true)
+    LEVEL_SCENERY.background_cave(self)
 
 
 ## Second half of the painted rock: body trim and rim chunks, in a build job of
 ## its own so the cave does not take one long frame on a first visit.
 func _background_cave_surface() -> void:
-    if cave_world != null and is_instance_valid(cave_world):
-        cave_world.finish_surface()
+    LEVEL_SCENERY.background_cave_surface(self)
 
 
 func _background_shade() -> void:
-    var shade := Polygon2D.new()
-    shade.polygon = PackedVector2Array([Vector2(-300, -200), Vector2(world_width + 300, -200),
-        Vector2(world_width + 300, world_height + 220), Vector2(-300, world_height + 220)])
-    shade.color = Color(0, 0, 0, 0.025)
-    shade.z_index = -94
-    add_child(shade)
+    LEVEL_SCENERY.background_shade(self)
 
 
 func _configure_player_camera() -> void:
@@ -3588,502 +3200,88 @@ func _void_respawn() -> void:
 
 
 func _theme_background_color() -> Color:
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return Color(0.065, 0.078, 0.080)
-    if theme == "salt_archive":
-        return Color(0.075, 0.070, 0.058)
-    if theme == "string_greenhouse":
-        return Color(0.043, 0.068, 0.052)
-    if theme == "obsidian_pilgrim":
-        return Color(0.052, 0.047, 0.052)
-    if theme == "silent_crown":
-        return Color(0.040, 0.045, 0.062)
-    return Color(0.055, 0.065, 0.072)
+    return LEVEL_SCENERY.theme_background_color(self)
 
 
 func _background_layer(node_name: String, sprite_key: String, z_value: int, tint: Color = Color.WHITE) -> void:
-    var sprite := Sprite2D.new()
-    sprite.name = node_name
-    sprite.texture = _load_texture_resource(SPRITES[sprite_key])
-    sprite.centered = false
-    sprite.position = Vector2(-180, -40)
-    if sprite.texture != null and sprite.texture.get_width() > 0 and sprite.texture.get_height() > 0:
-        sprite.scale = Vector2(1.12, 1.12)
-        if sprite_key == "bg_far":
-            sprite.position = Vector2(760, -50)
-            sprite.modulate = Color(0.75, 0.88, 0.82, 0.42) * tint
-        elif sprite_key == "bg_mid":
-            sprite.position = Vector2(1700, -35)
-            sprite.modulate = Color(0.70, 0.94, 0.82, 0.34) * tint
-        elif sprite_key == "bg_near":
-            sprite.position = Vector2(-120, -320)
-            sprite.scale = Vector2(0.36, 0.36)
-            sprite.modulate = Color(0.76, 0.98, 0.80, 0.46) * tint
-        else:
-            sprite.modulate = tint
-    sprite.z_index = z_value
-    add_child(sprite)
+    LEVEL_SCENERY.background_layer(self, node_name, sprite_key, z_value, tint)
 
 
 func _platform(node_name: String, rect: Rect2, color: Color, material: String = "moss_stone", collision_role: String = "", warmed: StaticBody2D = null) -> StaticBody2D:
-    var body: StaticBody2D = warmed if warmed != null else PLATFORM_BODY.create(node_name, rect, collision_role)
-    if flat_map_art != null and flat_map_art.ready_for_platforms():
-        flat_map_art.add_platform_visual(body,rect.size,material)
-    else:
-        _add_platform_readability_base(body,rect.size,material,color)
-    add_child(body)
-    return body
+    return LEVEL_SCENERY.platform(self, node_name, rect, color, material, collision_role, warmed)
 
 
 func _add_platform_readability_base(parent: Node, size_value: Vector2, material: String, fallback_color: Color) -> void:
-    var body_color := _platform_body_color(material, fallback_color)
-    var edge_color := _platform_edge_color(material)
-    _add_platform_plate(parent, Vector2(0, 6.0), size_value + Vector2(10.0, 18.0), body_color, -6)
-    _add_platform_plate(parent, Vector2(0, -size_value.y * 0.5 + 4.0), Vector2(size_value.x + 12.0, 8.0), edge_color, -2)
-    _add_platform_plate(parent, Vector2(0, size_value.y * 0.5 - 3.0), Vector2(size_value.x + 8.0, 5.0), Color(0.015, 0.026, 0.024, 0.82), -2)
+    LEVEL_SCENERY.add_platform_readability_base(self, parent, size_value, material, fallback_color)
 
 
 func _platform_body_color(material: String, fallback_color: Color) -> Color:
-    var theme := _art_theme_id()
-    var color := Color(0.15, 0.22, 0.18, 0.98)
-    if theme == "rain_foundry":
-        color = Color(0.19, 0.24, 0.24, 0.98)
-    elif theme == "salt_archive":
-        color = Color(0.26, 0.23, 0.20, 0.98)
-    elif theme == "string_greenhouse":
-        color = Color(0.17, 0.24, 0.17, 0.98)
-    elif theme == "obsidian_pilgrim":
-        color = Color(0.19, 0.17, 0.20, 0.98)
-    elif theme == "silent_crown":
-        color = Color(0.20, 0.21, 0.27, 0.98)
-    if material.contains("wall") or material.contains("gate"):
-        color = color.darkened(0.18)
-    return color
+    return LEVEL_SCENERY.platform_body_color(self, material, fallback_color)
 
 
 func _platform_edge_color(material: String) -> Color:
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return Color(0.44, 0.61, 0.60, 0.96)
-    if theme == "salt_archive":
-        return Color(0.72, 0.63, 0.44, 0.96)
-    if theme == "string_greenhouse":
-        return Color(0.44, 0.62, 0.34, 0.96)
-    if theme == "obsidian_pilgrim":
-        return Color(0.52, 0.40, 0.36, 0.96)
-    if theme == "silent_crown":
-        return Color(0.59, 0.62, 0.75, 0.96)
-    return Color(0.45, 0.60, 0.33, 0.96)
+    return LEVEL_SCENERY.platform_edge_color(self, material)
 
 
 func _add_platform_plate(parent: Node, local_center: Vector2, plate_size: Vector2, plate_color: Color, z_value: int) -> Polygon2D:
-    var plate := Polygon2D.new()
-    var half := plate_size * 0.5
-    plate.polygon = PackedVector2Array([
-        local_center + Vector2(-half.x, -half.y),
-        local_center + Vector2(half.x, -half.y),
-        local_center + Vector2(half.x, half.y),
-        local_center + Vector2(-half.x, half.y)
-    ])
-    plate.color = plate_color
-    plate.z_index = z_value
-    parent.add_child(plate)
-    return plate
+    return LEVEL_SCENERY.add_platform_plate(self, parent, local_center, plate_size, plate_color, z_value)
 
 
 func _hazard(_data: Dictionary) -> void:
-    # Legacy level data cannot recreate graphics, colliders or damage triggers.
-    pass
+    LEVEL_SCENERY.hazard(self, _data)
 
 func _add_hazard_visual(_area: Area2D, _kind: String, _size: Vector2) -> void:
-    pass
+    LEVEL_SCENERY.add_hazard_visual(self, _area, _kind, _size)
 
 func _apply_original_prop(sprite: Sprite2D, key: String, height: float) -> void:
-    var props := ORIGINAL_ART.manifest("res://assets/sprites/original_interactables/manifest.json")
-    var texture := ORIGINAL_ART.frame(props.get(key,{}))
-    if texture==null:return
-    sprite.texture=texture
-    sprite.scale=Vector2.ONE*(height/texture.get_height())
-    sprite.position=Vector2(0,40-height*.5)
-    sprite.modulate=Color.WHITE
+    LEVEL_SCENERY.apply_original_prop(self, sprite, key, height)
 
 func _collectible(data: Dictionary) -> void:
-    if world_mode and bool(world_collected_ids.get(String(data.get("id", "")), false)):
-        return
-    var area := Area2D.new()
-    area.name = String(data.get("id", "collectible"))
-    area.position = _vec2(data.get("position", [0, 0]))
-    var collectible_kind := String(data.get("kind", "bell_key"))
-    var item_id := String(data.get("item_id", collectible_kind))
-    area.set_meta("message", String(data.get("label", "取得钟钥。")))
-    area.set_meta("kind", collectible_kind)
-    area.set_meta("item_id", item_id)
-    var amount_value: Variant=data.get("amount",1)
-    area.set_meta("amount",int(amount_value) if WORLD_STATE_SCRIPT._whole(amount_value) else 0)
-    area.set_meta("ability_name", String(data.get("ability_name", data.get("label", ""))))
-    area.set_meta("object_id", "collectible/" + area.name)
-
-    var shape := CollisionShape2D.new()
-    var circle := CircleShape2D.new()
-    circle.radius = 18
-    shape.shape = circle
-    area.add_child(shape)
-
-    var sprite := Sprite2D.new()
-    sprite.texture = ORIGINAL_ART.item(item_id)
-    if sprite.texture != null:
-        sprite.scale=Vector2.ONE*(32.0/maxf(sprite.texture.get_width(),sprite.texture.get_height()))
-    area.add_child(sprite)
-    area.set_meta("manual_pickup",collectible_kind=="item" and _is_story_key_item(item_id))
-    if bool(area.get_meta("manual_pickup")):
-        area.add_to_group("interactable")
-        area.set_meta("interaction_label","收取 · "+_item_display_name(item_id))
-    else:
-        area.body_entered.connect(_on_collectible_body_entered.bind(area))
-    add_child(area)
-    if world_mode:
-        var instance_id:=area.get_instance_id()
-        world_pickup_leases[instance_id]={"node":weakref(area),"id":String(area.name),"region":String(config.get("id","")),
-            "kind":collectible_kind,"item":item_id,"amount":data.get("amount",1),"point":area.position,
-            "ability_name":String(data.get("ability_name",data.get("label",""))),"message":String(data.get("label","已拾取。"))}
-        area.tree_exiting.connect(_forget_world_pickup.bind(instance_id))
-    if metsys_bridge != null:
-        var room := _room_for_position(area.global_position)
-        metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
+    LEVEL_PROPS.collectible(self, data)
 
 
 func _make_lever(data: Dictionary) -> Area2D:
-    var area := Area2D.new()
-    area.name = String(data.get("id", "shortcut_lever"))
-    area.position = _vec2(data.get("position", [0, 0]))
-    area.set_meta("kind", "lever")
-    area.set_meta("label", String(data.get("label", "守门者通路机关" if _combat_progression_enabled() else "捷径拉杆")))
-    area.set_meta("object_id", "interactable/" + area.name)
-    area.set_meta("requires_keys", int(data.get("requires_keys", max_bells)))
-    area.set_meta("shortcut_id", String(data.get("shortcut_id", "")))
-    area.set_meta("opens_connection", data.get("opens_connection", {}))
-
-    var shape := CollisionShape2D.new()
-    var rectangle := RectangleShape2D.new()
-    rectangle.size = Vector2(50, 72)
-    shape.shape = rectangle
-    area.add_child(shape)
-
-    var sprite := Sprite2D.new()
-    sprite.texture = load(SPRITES["lever"])
-    sprite.scale = Vector2(0.52, 0.52)
-    sprite.name="LeverSprite"
-    _apply_original_prop(sprite,"lever_closed",83)
-    area.add_child(sprite)
-    return area
+    return LEVEL_PROPS.make_lever(self, data)
 
 
 func _lever(data: Dictionary) -> void:
-    if world_mode and world_gameplay_residency != null and world_gameplay_residency.should_defer("lever", data, self):
-        return
-    var area := _take_gameplay_prefab("lever", data)
-    if area == null: area = _make_lever(data)
-    area.set_meta("requires_keys", int(data.get("requires_keys", max_bells)))
-    area.set_meta("label", String(data.get("label", "守门者通路机关" if _combat_progression_enabled() else "捷径拉杆")))
-    var lever_sprite := area.get_node_or_null("LeverSprite") as Sprite2D
-    if lever_sprite != null and _is_shortcut_open(String(data.get("shortcut_id", ""))):
-        _apply_original_prop(lever_sprite, "lever_open", 52)
-    _add_wayfinding(area)
-    area.body_entered.connect(_on_interactable_entered.bind(area))
-    area.body_exited.connect(_on_interactable_exited.bind(area))
-    add_child(area)
-    if world_mode and world_gameplay_residency != null:
-        world_gameplay_residency.adopt("lever", String(data.get("id", "")), area)
-    if metsys_bridge != null:
-        var room := _room_for_position(area.global_position)
-        metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
+    LEVEL_PROPS.lever(self, data)
 
 
 func _make_boss_door(data: Dictionary) -> Area2D:
-    var area := Area2D.new()
-    area.name = String(data.get("id", "boss_gate"))
-    area.position = _vec2(data.get("position", [0, 0]))
-    area.set_meta("kind", "boss_gate")
-    area.set_meta("label", "踏入钟门")
-    area.set_meta("object_id", "interactable/" + area.name)
-
-    var shape := CollisionShape2D.new()
-    var rectangle := RectangleShape2D.new()
-    rectangle.size = Vector2(96, 126)
-    shape.shape = rectangle
-    area.add_child(shape)
-
-    var sprite := Sprite2D.new()
-    sprite.texture = load(SPRITES["boss_gate"])
-    sprite.scale = Vector2(0.82, 0.82)
-    _apply_original_prop(sprite,"gate_closed",152)
-    area.add_child(sprite)
-    return area
+    return LEVEL_PROPS.make_boss_door(self, data)
 
 
 func _boss_door(data: Dictionary) -> void:
-    var area := _take_gameplay_prefab("boss_gate", data)
-    if area == null: area = _make_boss_door(data)
-    _add_wayfinding(area)
-    area.body_entered.connect(_on_interactable_entered.bind(area))
-    area.body_exited.connect(_on_interactable_exited.bind(area))
-    add_child(area)
-    if metsys_bridge != null:
-        var room := _room_for_position(area.global_position)
-        metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
+    LEVEL_PROPS.boss_door(self, data)
 
 
 func _chapter_exit(data: Dictionary) -> void:
-    var area := Area2D.new()
-    area.name = String(data.get("id", "chapter_exit"))
-    area.position = _vec2(data.get("position", [0, 0]))
-    var kind := String(data.get("kind", "chapter_exit"))
-    area.set_meta("kind", kind)
-    area.set_meta("label", String(data.get("label", "区域出口")))
-    area.set_meta("object_id", "interactable/" + area.name)
-    area.set_meta("next_runtime_config_id", String(data.get("next_runtime_config_id", "")))
-    area.set_meta("next_config_path", String(data.get("next_config_path", "")))
-    area.set_meta("requires_demo_complete", bool(data.get("requires_demo_complete", true)))
-
-    var shape := CollisionShape2D.new()
-    var rectangle := RectangleShape2D.new()
-    rectangle.size = _vec2(data.get("interaction_size", [210, 156]))
-    shape.shape = rectangle
-    area.add_child(shape)
-
-    var sprite := Sprite2D.new()
-    sprite.name = "ChapterExitSprite"
-    sprite.texture = load(SPRITES["boss_gate"])
-    sprite.scale = Vector2(0.66, 0.66)
-    sprite.modulate = Color(0.48, 1.0, 0.92, 0.84) if kind == "chapter_exit" else Color(1.0, 0.74, 0.96, 0.88)
-    _apply_original_prop(sprite,"gate_open",138)
-    sprite.z_index = 7
-    area.add_child(sprite)
-
-    var glow := Line2D.new()
-    glow.name = "ChapterExitGlow"
-    glow.width = 3.0
-    glow.closed = true
-    glow.default_color = Color(0.42, 1.0, 0.92, 0.62) if kind == "chapter_exit" else Color(1.0, 0.54, 0.88, 0.70)
-    glow.points = PackedVector2Array([
-        Vector2(-36, -52), Vector2(36, -52), Vector2(46, 0), Vector2(30, 54), Vector2(-30, 54), Vector2(-46, 0)
-    ])
-    glow.z_index = 8
-    area.add_child(glow)
-
-    var tween := _region_tween()
-    tween.set_loops()
-    tween.tween_property(glow, "scale", Vector2(1.12, 1.12), 0.8)
-    tween.parallel().tween_property(glow, "modulate:a", 0.42, 0.8)
-    tween.tween_property(glow, "scale", Vector2(0.96, 0.96), 0.8)
-    tween.parallel().tween_property(glow, "modulate:a", 1.0, 0.8)
-
-    _add_wayfinding(area)
-    area.body_entered.connect(_on_interactable_entered.bind(area))
-    area.body_exited.connect(_on_interactable_exited.bind(area))
-    add_child(area)
-    if metsys_bridge != null:
-        var room := _room_for_position(area.global_position)
-        metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
+    LEVEL_PROPS.chapter_exit(self, data)
 
 
 func _make_save_point(data: Dictionary) -> Area2D:
-    var area := Area2D.new()
-    area.name = String(data.get("id", "save_point"))
-    area.position = _vec2(data.get("position", active_spawn))
-    area.set_meta("kind", "save_point")
-    area.set_meta("label", String(data.get("label", "钟龛")))
-    area.set_meta("hidden", bool(data.get("hidden", false)))
-    area.set_meta("object_id", "save_point/" + area.name)
-    area.set_meta("activated", false)
-
-    var shape := CollisionShape2D.new()
-    var circle := CircleShape2D.new()
-    circle.radius = 42 if bool(data.get("hidden", false)) else 52
-    shape.shape = circle
-    area.add_child(shape)
-
-    var pedestal := Polygon2D.new()
-    pedestal.name = "SavePointPedestal"
-    pedestal.polygon = PackedVector2Array([
-        Vector2(-32, 28),
-        Vector2(-18, 8),
-        Vector2(0, 0),
-        Vector2(18, 8),
-        Vector2(32, 28)
-    ])
-    pedestal.color = Color(0.13, 0.22, 0.20, 0.94)
-    pedestal.z_index = 5
-    area.add_child(pedestal)
-
-    var marker := Sprite2D.new()
-    marker.name = "SavePointSprite"
-    marker.texture = load(SPRITES["save_point"])
-    marker.position = Vector2(0, -18)
-    marker.scale = Vector2(2.9, 2.9)
-    marker.modulate = Color(0.70, 1.0, 0.82, 0.84) if bool(data.get("hidden", false)) else Color(0.92, 1.0, 0.62, 1.0)
-    _apply_original_prop(marker,"rest_root" if bool(data.get("hidden",false)) else "rest_bell",118)
-    marker.z_index = 8
-    area.add_child(marker)
-
-    var ring := Line2D.new()
-    ring.name = "SavePointHalo"
-    ring.width = 3.0
-    ring.default_color = Color(0.40, 1.0, 0.78, 0.48) if bool(data.get("hidden", false)) else Color(0.78, 1.0, 0.56, 0.72)
-    ring.closed = true
-    ring.z_index = 6
-    ring.points = PackedVector2Array([
-        Vector2(-24, 8), Vector2(-10, -13), Vector2(12, -15), Vector2(27, 7), Vector2(10, 24), Vector2(-14, 22)
-    ])
-    area.add_child(ring)
-
-    return area
+    return LEVEL_PROPS.make_save_point(self, data)
 
 
 func _save_point(data: Dictionary) -> void:
-    if world_mode and world_gameplay_residency != null and world_gameplay_residency.should_defer("save_point", data, self):
-        return
-    var area := _take_gameplay_prefab("save_point", data)
-    if area == null: area = _make_save_point(data)
-    _add_wayfinding(area)
-    area.body_entered.connect(_on_interactable_entered.bind(area))
-    area.body_exited.connect(_on_interactable_exited.bind(area))
-    add_child(area)
-    var checkpoint_key := String(config.get("id", "")) + ":" + String(area.name)
-    var was_activated := bool(save_point_residency_memory.get(checkpoint_key, false))
-    if world_mode and (was_activated or String(area.name) == String(active_save_point_id)):
-        save_point_residency_memory[checkpoint_key] = true
-        area.set_meta("activated", true)
-        var marker := area.get_node_or_null("SavePointSprite") as Sprite2D
-        var ring := area.get_node_or_null("SavePointHalo") as Line2D
-        if marker != null: marker.modulate = Color(1.0, 0.94, 0.78, 1.0)
-        if ring != null: ring.default_color = Color(0.90, 1.0, 0.58, 0.95)
-    if world_mode and world_gameplay_residency != null:
-        world_gameplay_residency.adopt("save_point", String(data.get("id", "")), area)
-    area.set_meta("residency_tweens", _animate_save_point(area, area.get_node("SavePointSprite"), area.get_node("SavePointHalo")))
-    if metsys_bridge != null:
-        var room := _room_for_position(area.global_position)
-        metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
+    LEVEL_PROPS.save_point(self, data)
 
 
 func _animate_save_point(area: Area2D, marker: Sprite2D, ring: Line2D) -> Array:
-    # Bind looping visuals to the shrine itself so any external/tree teardown
-    # also retires them, even when the residency owner cannot inspect freed meta.
-    var pulse := _region_tween()
-    pulse.bind_node(area)
-    pulse.set_loops()
-    pulse.tween_property(ring, "scale", Vector2(1.22, 1.22), 0.95).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-    pulse.parallel().tween_property(ring, "modulate:a", 0.35, 0.95)
-    pulse.tween_property(ring, "scale", Vector2(0.92, 0.92), 0.95).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-    pulse.parallel().tween_property(ring, "modulate:a", 0.95, 0.95)
-
-    var blink := _region_tween()
-    blink.bind_node(area)
-    blink.set_loops()
-    blink.tween_property(area, "modulate:a", 0.82, 1.25)
-    blink.tween_property(area, "modulate:a", 1.0, 1.25)
-    return [pulse, blink]
+    return LEVEL_PROPS.animate_save_point(self, area, marker, ring)
 
 
 func _play_save_point_activation(area: Area2D) -> void:
-    area.set_meta("activated", true)
-    var sprite := area.get_node_or_null("SavePointSprite") as Sprite2D
-    var ring := area.get_node_or_null("SavePointHalo") as Line2D
-    if sprite != null:
-        sprite.modulate = Color(1.0, 0.94, 0.78, 1.0)
-        var base_scale := sprite.scale
-        var flash := _region_tween()
-        flash.bind_node(sprite)
-        flash.tween_property(sprite, "scale", base_scale*1.08, 0.10).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-        flash.tween_property(sprite, "scale", base_scale, 0.18)
-    if ring != null:
-        ring.default_color = Color(0.90, 1.0, 0.58, 0.95)
-    for index in range(3):
-        var echo := Line2D.new()
-        echo.name = "SavePointActivationRing"
-        echo.global_position = area.global_position + Vector2(0, -10)
-        echo.closed = true
-        echo.width = 3.0
-        echo.default_color = Color(0.74, 1.0, 0.70, 0.78)
-        echo.z_index = 90
-        var points := PackedVector2Array()
-        for step in range(32):
-            var angle := TAU * float(step) / 32.0
-            points.append(Vector2(cos(angle), sin(angle)) * (24.0 + float(index) * 8.0))
-        echo.points = points
-        if not VISUAL_POLICY.attach_secondary(self, echo, &"environment", self): continue
-        var tween := _region_tween()
-        tween.bind_node(echo)
-        tween.tween_interval(float(index) * 0.07)
-        tween.tween_property(echo, "scale", Vector2(2.15, 2.15), 0.38).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-        tween.parallel().tween_property(echo, "modulate:a", 0.0, 0.38)
-        tween.finished.connect(Callable(echo, "queue_free"))
+    LEVEL_PROPS.play_save_point_activation(self, area)
 
 
 func _make_npc(data: Dictionary) -> Area2D:
-    var area := Area2D.new()
-    area.name = String(data.get("id", "npc"))
-    area.position = _vec2(data.get("position", [0, 0]))
-    var role := String(data.get("role", ""))
-    area.set_meta("kind", "npc")
-    area.add_to_group("npc_sound_landmark")
-    area.set_meta("label", _npc_display_name(data))
-    area.set_meta("dialogue", _npc_dialogue(data))
-    area.set_meta("dialogue_index", 0)
-    area.set_meta("npc_id", String(data.get("id", "")))
-    area.set_meta("story_dialogue", data.get("story_dialogue", {}))
-    area.set_meta("dialogue_meta", data.get("dialogue_meta", {}))
-    area.set_meta("dialogue_state", "")
-    area.set_meta("dialogue_state_indices", {})
-    area.set_meta("identity", String(data.get("identity", "")))
-    area.set_meta("help", String(data.get("help", "")))
-
-    var shape := CollisionShape2D.new()
-    var circle := CircleShape2D.new()
-    circle.radius = 34
-    shape.shape = circle
-    area.add_child(shape)
-
-    var art_id := ORIGINAL_ART.npc_art_id(String(data.get("id","")))
-    var manifest_path := ORIGINAL_ART.character_manifest("original_npcs", art_id)
-    var art_data := ORIGINAL_ART.manifest(manifest_path)
-    var npc_frames := ORIGINAL_ART.frames(manifest_path)
-    if npc_frames != null:
-        var sprite := AnimatedSprite2D.new()
-        sprite.set_script(preload("res://scripts/npc_dialogue_motion.gd"))
-        sprite.name="FriendlyFamilySprite"
-        sprite.sprite_frames=npc_frames
-        sprite.play("idle")
-        sprite.scale=Vector2.ONE*float(art_data.get("visual_scale",.3))
-        sprite.position=_vec2(art_data.get("visual_offset",[0,-24]))
-        sprite.z_index=3
-        area.add_child(sprite)
-    area.add_to_group("interactable")
-    area.set_meta("portrait_id",art_id)
-    area.set_meta("dialogue_topics",data.get("dialogue_topics",{}))
-    return area
+    return LEVEL_PROPS.make_npc(self, data)
 
 
 func _npc(data: Dictionary) -> void:
-    if world_mode and world_gameplay_residency != null and world_gameplay_residency.should_defer("npc", data, self):
-        return
-    var area := _take_gameplay_prefab("npc", data)
-    if area == null: area = _make_npc(data)
-    var memory_key := String(config.get("id", "")) + ":" + String(data.get("id", ""))
-    var memory: Dictionary = npc_residency_memory.get(memory_key, {})
-    if memory.has("dialogue_index"):
-        area.set_meta("dialogue_index", int(memory.dialogue_index))
-        area.set_meta("dialogue_state_indices", memory.get("dialogue_state_indices", {}).duplicate(true))
-    _add_wayfinding(area)
-    area.body_entered.connect(_on_interactable_entered.bind(area))
-    area.body_exited.connect(_on_interactable_exited.bind(area))
-    add_child(area)
-    _apply_world_npc_state(area)
-    if world_mode and world_gameplay_residency != null:
-        world_gameplay_residency.adopt("npc", String(data.get("id", "")), area)
-    if world_platforms != null:
-        _hold_actor_support(_platform_under_position(area.position, 100))
+    LEVEL_PROPS.npc(self, data)
 
 
 func _resolve_enemy_spawn_position(data: Dictionary) -> Vector2:
