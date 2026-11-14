@@ -1,0 +1,998 @@
+{
+  "waterwheel_knight": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride_travel",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_elite_ride_travel",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_return_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_return_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_return",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_return",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_return_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_return_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_return_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "wheel_return_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "normal_attack_entry_and_loop_interruptions": [
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.16686438944569437
+      },
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.24032980456026054
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.26709444555845197
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.22376257958513046
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2417499243112322
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.19250102585145668
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.18924302788844627
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.22113112429764215
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.18520091299962838
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.25561397474325587
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2687911326636647
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.28039566557311857
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2725824121103476
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2475133125690746
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2748650923313035
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3236106400503901
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.322861541422111
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2645324757589046
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2507291561902846
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.26760280842527584
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.25835728331568597
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.24209209209209204
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2935330689773339
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.33363842188930104
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.33069439145364365
+      }
+    ],
+    "max_change": 0.33363842188930104
+  },
+  "echo_waterwheel_knight": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_elite_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_elite_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_elite",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_elite",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_elite_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_elite_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_elite_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_elite_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_wave_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_wave_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_wave",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_wave",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_wave_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_wave_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_wave_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_wheel_wave_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "normal_attack_entry_and_loop_interruptions": [
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.31792882442233095
+      },
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.331195439159095
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3575236966824644
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.39858255725414393
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3670578473210052
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3393339333933393
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.35317436482671627
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.39499526739233315
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.35793160769413446
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3555582568528536
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3787262461295611
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3361635220125786
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3965527559997606
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.40148261457904333
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.39772390492561205
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.32581672809044915
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.37678988676532266
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.39051374095215674
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3118510782085151
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.22869782650509718
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.26144858345373456
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2200308364383914
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2951476663172822
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2878467471078492
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.35200193540583036
+      }
+    ],
+    "max_change": 0.40148261457904333
+  },
+  "kneeling_crossbowman": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "crossbow_low_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "crossbow_low_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "crossbow_low",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "crossbow_low",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "crossbow_low_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "crossbow_low_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "crossbow_low_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "crossbow_low_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "normal_attack_entry_and_loop_interruptions": [
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.39300157507130395
+      },
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.38176110339148783
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3791174317682735
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.4029804085035431
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.39215993318718034
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.4048120919232945
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.37688888888888894
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.430327868852459
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3486364839819963
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.29941494887637377
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2864099158919876
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.28942259692717287
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.33033622145932107
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3460551460551461
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.34642798846509604
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2913403572032227
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3019821220365332
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.33953991880920165
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.30812417437252315
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.31024261719178836
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3351165456629729
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3428415300546448
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.30898752346251523
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2825845195729537
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.291710272652162
+      }
+    ],
+    "max_change": 0.430327868852459
+  }
+}
