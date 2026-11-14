@@ -1,0 +1,262 @@
+{
+  "schema": 1,
+  "kind": "kneeling_crossbowman",
+  "baseline": "godot/assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_manifest.json",
+  "baseline_sha256": "852a26bee5e52f6a93edd5a57e4b41ed2c596f5c2657e29a0998b3b4126ef838",
+  "canvas": [
+    332,
+    229
+  ],
+  "grid": [
+    4,
+    3
+  ],
+  "frame_fit_reference_sha256": "58de3ac0ba0a72cfc07f81811e9ff0b30028ca24ca66f0655b037c1194fceb2d",
+  "explanation": "Reference only: frozen production scale about canvas-centred pivot; final poses are authored with image_gen",
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png": "78a37204065af588562a7d547880812a5e10409387cc2d42d30d6cf7500938a9",
+    "res://assets/sprites/original_creatures/kneeling_crossbowman/combat_motion_v7.png": "2a28dc28977308086f793d6365b11fe8624c473665d5238c414414fcdfc489db"
+  },
+  "entries": [
+    {
+      "clip": "crossbow_low_windup",
+      "frame": 17,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
+        "region": [
+          1793,
+          1268,
+          186,
+          169
+        ],
+        "margin": [
+          61,
+          55,
+          146,
+          60
+        ]
+      },
+      "reference_fit": [
+        1.045,
+        -7.5,
+        105.5
+      ]
+    },
+    {
+      "clip": "crossbow_low_windup",
+      "frame": 18,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/combat_motion_v7.png",
+        "region": [
+          2394,
+          638,
+          208,
+          154
+        ],
+        "margin": [
+          63,
+          67,
+          124,
+          75
+        ]
+      },
+      "reference_fit": [
+        1.086,
+        -3.6,
+        103.5
+      ]
+    },
+    {
+      "clip": "crossbow_low_windup",
+      "frame": 19,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
+        "region": [
+          2,
+          1473,
+          214,
+          169
+        ],
+        "margin": [
+          56,
+          54,
+          118,
+          60
+        ]
+      },
+      "reference_fit": [
+        1.044,
+        -5.7,
+        104.5
+      ]
+    },
+    {
+      "clip": "recover",
+      "frame": 17,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
+        "region": [
+          1416,
+          855,
+          196,
+          183
+        ],
+        "margin": [
+          70,
+          40,
+          136,
+          46
+        ]
+      },
+      "reference_fit": [
+        1.079,
+        1.5,
+        104.5
+      ]
+    },
+    {
+      "clip": "recover",
+      "frame": 18,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/combat_motion_v7.png",
+        "region": [
+          1707,
+          425,
+          201,
+          187
+        ],
+        "margin": [
+          69,
+          34,
+          131,
+          42
+        ]
+      },
+      "reference_fit": [
+        1.08,
+        0.8,
+        102.5
+      ]
+    },
+    {
+      "clip": "recover",
+      "frame": 19,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
+        "region": [
+          1616,
+          855,
+          203,
+          183
+        ],
+        "margin": [
+          68,
+          41,
+          129,
+          46
+        ]
+      },
+      "reference_fit": [
+        1.053,
+        0.9,
+        104.5
+      ]
+    },
+    {
+      "clip": "windup",
+      "frame": 18,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/combat_motion_v7.png",
+        "region": [
+          431,
+          210,
+          192,
+          207
+        ],
+        "margin": [
+          65,
+          14,
+          140,
+          22
+        ]
+      },
+      "reference_fit": [
+        1.053,
+        2.1,
+        103.5
+      ]
+    },
+    {
+      "clip": "windup",
+      "frame": 19,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/motion_v8_00.png",
+        "region": [
+          472,
+          420,
+          213,
+          193
+        ],
+        "margin": [
+          64,
+          30,
+          119,
+          36
+        ]
+      },
+      "reference_fit": [
+        1.08,
+        4.8,
+        103.5
+      ]
+    },
+    {
+      "clip": "windup",
+      "frame": 20,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/kneeling_crossbowman/combat_motion_v7.png",
+        "region": [
+          625,
+          210,
+          205,
+          213
+        ],
+        "margin": [
+          61,
+          8,
+          127,
+          16
+        ]
+      },
+      "reference_fit": [
+        1.0,
+        0,
+        0
+      ]
+    }
+  ],
+  "targets": {
+    "crossbow_low_windup": [
+      17,
+      18,
+      19
+    ],
+    "recover": [
+      17,
+      18,
+      19
+    ],
+    "windup": [
+      18,
+      19,
+      20
+    ]
+  },
+  "original_frame_counts": {
+    "crossbow_low_windup": 24,
+    "recover": 24,
+    "windup": 24
+  },
+  "reference_height": 186,
+  "reference_sha256": "1ade6a0fc5e55cc15a68ed511274b254ec50e9130e61ce7ace1953a457312690"
+}

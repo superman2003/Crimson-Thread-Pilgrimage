@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "batch": 35,
+  "generator": "built-in image_gen",
+  "delivered_clips": 9,
+  "delivered_new_cels": 33,
+  "mixed_source": {
+    "source": "sources/kneeling_crossbowman/actions_01.png",
+    "accepted_cells": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "rejected_cells": [
+      0,
+      1,
+      2
+    ],
+    "reason": "Initial low-windup frame18 still required scale1.091. Repainted with built-in image_gen; final scale1.060.",
+    "correction_source": "sources/kneeling_crossbowman/actions_low_windup_corrected.png",
+    "correction_accepted_cells": [
+      0,
+      1,
+      2
+    ]
+  },
+  "new_pixels": "All authored by built-in image_gen. Repository tools only crop, register each full source with one common scale/anchor, and pack; no cel synthesis or individual transforms."
+}
