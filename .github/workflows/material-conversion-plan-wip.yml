@@ -24,11 +24,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: false
-          sparse-checkout: |
-            godot
-            tools
-            .github
-          sparse-checkout-cone-mode: true
       - name: Restore and hydrate only project assets
         uses: ./.github/actions/hydrate-lfs
         with:

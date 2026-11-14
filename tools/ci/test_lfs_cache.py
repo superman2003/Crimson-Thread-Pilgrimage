@@ -4,10 +4,11 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import stat
 import tempfile
 import unittest
 
-from lfs_cache import cache_key
+from lfs_cache import cache_key, selected_objects
 
 
 class CacheIdentity(unittest.TestCase):
@@ -29,8 +30,8 @@ class CacheIdentity(unittest.TestCase):
             root = Path(temporary)
             env = dict(os.environ, GIT_LFS_SKIP_SMUDGE='1')
 
-            def git(*args):
-                return subprocess.run(['git', *args], cwd=root, env=env, check=True, capture_output=True).stdout
+            def git(*args, data=None):
+                return subprocess.run(['git', *args], cwd=root, env=env, input=data, check=True, capture_output=True).stdout
 
             git('init', '-q')
             git('config', 'user.email', 'fixture@example.invalid')
@@ -45,11 +46,27 @@ class CacheIdentity(unittest.TestCase):
             assets.mkdir(parents=True)
             image = assets / 'has space.png'
             image.write_text(pointer, encoding='utf-8', newline='\n')
+            unrelated = root / 'art_requests/draft.bin'
+            unrelated.parent.mkdir()
+            unrelated.write_bytes(b'excluded artwork fixture\n' * 200)
             git('add', '.')
+            legacy_oid = git('hash-object', '-w', '--stdin', data=b'legacy ordinary Git bytes\n' * 128).decode().strip()
+            git('update-index', '--add', '--cacheinfo', '100644', legacy_oid, 'godot/assets/legacy.png')
             git('-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'fixture pointers')
             listing = ['lfs', 'ls-files', '--long', '--json', '--include=godot/assets/**']
             before = cache_key(git(*listing))
             self.assertEqual(before[1], 1)
+            self.assertEqual(cache_key(selected_objects('godot/assets/**', root)), before)
+            # Emulate an excluded, not-yet-downloaded partial-clone blob. The
+            # key must not attempt to inspect it while selecting runtime art.
+            outside_blob = git('rev-parse', 'HEAD:art_requests/draft.bin').decode().strip()
+            git('sparse-checkout', 'set', '--cone', 'godot')
+            outside_path = root / '.git/objects' / outside_blob[:2] / outside_blob[2:]
+            self.assertTrue(outside_path.resolve().is_relative_to(root.resolve()))
+            outside_path.chmod(stat.S_IREAD | stat.S_IWRITE)
+            outside_path.unlink()
+            self.assertEqual(cache_key(selected_objects('godot/assets/**', root)), before)
+            git('hash-object', '-w', '--stdin', data=b'excluded artwork fixture\n' * 200)
             self.assertEqual(cache_key(git('lfs', 'ls-files', '--long', '--json', '--include=unrelated/**'))[1], 0)
             obj = root / '.git/lfs/objects' / oid[:2] / oid[2:4] / oid
             obj.parent.mkdir(parents=True)
@@ -57,7 +74,7 @@ class CacheIdentity(unittest.TestCase):
             # The remote is unreachable: success requires reuse of the cache.
             git('lfs', 'pull', '--include=godot/assets/**')
             self.assertEqual(image.read_bytes(), data)
-            self.assertEqual(cache_key(git(*listing)), before)
+            self.assertEqual(cache_key(selected_objects('godot/assets/**', root)), before)
 
 
 if __name__ == '__main__':
