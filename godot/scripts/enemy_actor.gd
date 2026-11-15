@@ -21,6 +21,8 @@ const ENEMY_AUDIO := preload("res://scripts/enemy_audio.gd")
 const ENEMY_ENGAGEMENT := preload("res://scripts/enemy_engagement.gd")
 const ENEMY_ATTACK_CHOICE := preload("res://scripts/enemy_attack_choice.gd")
 const ENEMY_ATTACK_PHASES := preload("res://scripts/enemy_attack_phases.gd")
+const ENEMY_LIFECYCLE := preload("res://scripts/enemy_lifecycle.gd")
+const ENEMY_COMMANDS := preload("res://scripts/enemy_commands.gd")
 var minor_skill_texture: Texture2D
 var locomotion := "ground"
 var flight_clock := 0.0
@@ -74,35 +76,14 @@ func apply_stagger(seconds: float) -> void:
         trip_timer = maxf(trip_timer, minf(0.6, seconds))
 
 func apply_trip(seconds: float) -> void:
-    if not bool(combat_resistance.get("trip_immune", is_boss)):
-        trip_timer = maxf(trip_timer, minf(1.0, seconds))
-        attack_recovery=false
-        recovery_velocity_x=0.0
-        _cancel_unarmed_attack_effects()
-        _clear_telegraph()
-        state = "recover"
-        state_timer = maxf(state_timer, trip_timer)
+    ENEMY_COMMANDS.apply_trip(self, seconds)
 
 func apply_target_interference(seconds: float) -> void:
     if not is_boss:
         interference_timer = maxf(interference_timer, minf(3.0, seconds))
 
 func investigate_lure(point: Vector2, seconds: float) -> void:
-    if bool(combat_resistance.get("lure_immune", is_boss)) or not bool(ai_profile.get("lure_eligible", not is_boss)) or dying or state in ["windup", "active"]:
-        return
-    if is_inside_tree():
-        if get_parent().has_method("_ensure_collision_segment"):
-            get_parent()._ensure_collision_segment(global_position + Vector2(0, -24), point)
-        if get_parent().has_method("_rock_ray_hit") and not get_parent()._rock_ray_hit(global_position + Vector2(0, -24), point).is_empty():
-            return
-        var lure_ray := PhysicsRayQueryParameters2D.create(global_position + Vector2(0,-24), point, 1)
-        lure_ray.collide_with_areas = false
-        # Like sight, a lure is hidden by terrain, not by the Player's body.
-        lure_ray.exclude = ATTACK_EFFECT.player_bodies(get_tree())
-        if not get_world_2d().direct_space_state.intersect_ray(lure_ray).is_empty():
-            return
-    lure_position = point
-    lure_timer = maxf(lure_timer, minf(2.0, seconds))
+    ENEMY_COMMANDS.investigate_lure(self, point, seconds)
 
 var original_visual := false
 var authored_combat_sequences: Array=[]
@@ -112,41 +93,13 @@ var combat_visuals_paused := false
 var animation_was_playing := false
 
 func _update_locomotion(delta: float, target: CharacterBody2D) -> void:
-    if locomotion=="stationary":
-        global_position=spawn_position
-        return
-    if locomotion=="flight":
-        if state=="active" and String(active_attack.get("type",""))=="dive":
-            return
-        flight_clock+=delta
-        var desired := spawn_position.y+sin(flight_clock*2.8+start_x*.01)*11
-        var aggro_range := float(ai_profile.get("aggro_range", 220.0 if not is_boss else 460.0))
-        var target_engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range) and _has_line_of_sight(target)
-        var returning_home := not is_boss and leash_radius > 0.0 and (absf(global_position.x - spawn_position.x) > leash_radius or _should_return_to_spawn(target, aggro_range))
-        # Keep the authored boss tracking rule intact. Ordinary flyers only
-        # follow a visible target inside their territory, so remote/rest targets
-        # cannot pull them away from their home pocket while horizontal patrol idles.
-        var should_track_target := target != null if is_boss else target_engaged and not returning_home
-        if should_track_target and state not in ["windup","active"]:
-            desired=clampf(target.global_position.y-90,spawn_position.y-65,spawn_position.y+75)+sin(flight_clock*3)*8
-        var candidate := Vector2(global_position.x,move_toward(global_position.y,desired,85*delta))
-        var level := get_parent()
-        if not level.has_method("_enemy_spawn_rect_clear") or level._enemy_spawn_rect_clear(candidate,24,float(get_meta("spawn_visual_height",60)),String(get_meta("platform_id",""))):
-            global_position=candidate
-        return
-    if state=="active" and String(active_attack.get("type",""))=="vault":
-        return
-    var terrain: Node = get_parent().get("chapter_terrain")
-    if terrain!=null:
-        var floor_y: float = terrain.floor_height(global_position.x,spawn_position.y+40,210)
-        if is_finite(floor_y):
-            global_position.y=floor_y-40
+    ENEMY_COMMANDS.update_locomotion(self, delta, target)
 
 func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Dictionary, warning: float, lifetime: float) -> Node2D:
     return ENEMY_EFFECTS.effect(self, effect_kind, point, vel, command, warning, lifetime)
 
 func _spawn_command_effects(command: Dictionary, warning: bool) -> void:
-    ENEMY_EFFECTS.spawn_command_effects(self, command, warning)
+    ENEMY_COMMANDS.spawn_command_effects(self, command, warning)
 
 signal died(spawn_id: String, is_boss: bool, kind: String)
 
@@ -518,99 +471,15 @@ func _update_animation_motion(delta: float, previous_position: Vector2, previous
 
 
 func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, profile: Dictionary = {}) -> void:
-    spawn_id = String(data.get("id", "enemy"))
-    kind = String(data.get("kind", "moss_larva"))
-    ai_rng.seed = hash(spawn_id + ":" + kind)
-    combat_audio_rng.seed = hash(spawn_id + ":sound:" + kind)
-    hp = int(data.get("hp", 2))
-    max_hp = hp
-    damage = int(data.get("damage", 1))
-    patrol_distance = float(data.get("patrol", 80.0))
-    is_boss = boss_flag
-    encounter_role = String(data.get("encounter_role", ""))
-    speed = float(profile.get("move_speed", 34.0 if is_boss else 42.0))
-    leash_radius = float(data.get("leash_radius", profile.get("leash_radius", 9999.0 if is_boss else 240.0)))
-    asset_path = String(data.get("sprite", sprite_path))
-    sprite_parts = data.get("sprite_parts", [])
-    sprite_region = data.get("sprite_region", [])
-    sprite_regions = data.get("sprite_regions", {})
-    visual_scale = float(data.get("visual_scale", 0.0))
-    visual_offset = _vec2(data.get("visual_offset", [0, 0]))
-    body_size = _vec2_or(data.get("body_size", []), Vector2(132, 128) if is_boss else Vector2(50, 46))
-    hurtbox_size = _vec2_or(data.get("hurtbox_size", []), Vector2(142, 144) if is_boss else Vector2(58, 56))
-    hurtbox_offset = _vec2_or(data.get("hurtbox_offset", []), Vector2(0, -40) if is_boss else Vector2(0, -18))
-    sprite_faces_left = bool(data.get("sprite_faces_left", false))
-    if data.has("visual_modulate"):
-        visual_modulate = Color.html("#" + String(data.get("visual_modulate", "ffffff")))
-    if data.has("arena_min_x"):
-        arena_min_x = float(data.get("arena_min_x", -INF))
-    if data.has("arena_max_x"):
-        arena_max_x = float(data.get("arena_max_x", INF))
-    combat_resistance = data.get("combat_resistance", {"trip_immune": is_boss, "lure_immune": is_boss, "snare_mult": 0.35 if is_boss else 1.0})
-    ai_profile = profile.duplicate(true)
-    var original_profile: Dictionary = ORIGINAL_ART.manifest("res://data/original_creature_combat.json").get(kind,{})
-    if not original_profile.is_empty():
-        ai_profile.merge(original_profile,true)
-    # Room pacing is an explicit spawn override, after the species identity.
-    # Tree-out prefabs and live actors use the same configure contract.
-    var encounter_profile: Variant = data.get("encounter_profile", {})
-    if encounter_profile is Dictionary:
-        ai_profile.merge(encounter_profile, true)
-    if is_boss:ai_profile=BOSS_STYLE.apply(kind,ai_profile)
-    locomotion = String(ai_profile.get("locomotion",data.get("locomotion","ground")))
-    hover_height = float(ai_profile.get("hover_height",95)) if locomotion=="flight" else 0.0
-    speed = float(ai_profile.get("move_speed",speed))
-    var original_path := ORIGINAL_ART.character_manifest("original_creatures", kind)
-    var art_data := ORIGINAL_ART.manifest(original_path)
-    if not art_data.is_empty():
-        asset_path=original_path
-        sprite_parts=[]
-        sprite_region=[]
-        sprite_regions={}
-        visual_scale=float(art_data.get("visual_scale",1))
-        visual_offset=_vec2(art_data.get("visual_offset",[0,0]))
-        visual_modulate=Color.WHITE
-        sprite_faces_left=false
-        original_visual=true
-        authored_combat_sequences=art_data.get("authored_combat_sequences",[])
-        var h := float(art_data.get("display_height",90))
-        if not data.has("hurtbox_offset"):
-            hurtbox_offset=Vector2(0,40-h*.5)
-        if not data.has("body_size"):
-            body_size=Vector2(98 if is_boss else 35,h*.72)
-        if not data.has("hurtbox_size"):
-            hurtbox_size=Vector2(125 if is_boss else 48,h*.84)
-    hurtbox_authored = data.has("hurtbox_size") or data.has("hurtbox_offset")
-    ai_profile["lure_eligible"] = bool(data.get("lure_eligible", ai_profile.get("lure_eligible", not is_boss and locomotion != "stationary")))
-    is_elite = bool(data.get("elite", false)) and not is_boss and ai_profile.get("elite") is Dictionary
-    if is_elite:
-        _apply_elite_profile(ai_profile.elite)
-    ai_commands = ai_profile.get("attacks", [])
-    for command in ai_commands:
-        cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
-    tactical_role = "boss" if is_boss else String(ai_profile.get("tactical_role", "patrol"))
-    if not TACTICAL_ROLES.has(tactical_role): tactical_role = "patrol"
+    ENEMY_LIFECYCLE.configure(self, data, sprite_path, boss_flag, profile)
 
 
 func _apply_elite_profile(elite: Dictionary) -> void:
-    hp = maxi(hp + 1, ceili(float(hp) * float(elite.get("hp_mult", 1.75))))
-    max_hp = hp
-    var bonus := int(elite.get("damage_bonus", 1))
-    damage += bonus
-    var attacks: Array = []
-    for command: Dictionary in ai_profile.get("attacks", []):
-        var boosted := command.duplicate(true)
-        boosted["damage"] = int(boosted.get("damage", 1)) + bonus
-        attacks.append(boosted)
-    for command: Dictionary in elite.get("attacks", []):
-        attacks.append(command.duplicate(true))
-    ai_profile["attacks"] = attacks
-    if visual_scale > 0.0:
-        visual_scale *= float(elite.get("visual_scale_mult", 1.0))
+    ENEMY_LIFECYCLE.apply_elite_profile(self, elite)
 
 
 func contact_visual_call_serial() -> int:
-    return int(get_meta(CONTACT_ART.CALL_META, 0))
+    return ENEMY_LIFECYCLE.contact_visual_call_serial(self)
 
 
 func take_hit(amount: int, hit_direction: int) -> void:
@@ -661,82 +530,17 @@ func take_hit(amount: int, hit_direction: int) -> void:
 
 
 func _hit_is_armored() -> bool:
-    # Poise: after being chained, the next attack shrugs off interruption.
-    # Elites keep poise through every strike once it has begun.
-    return (poise_timer > 0.0 and state in ["windup", "active"]) or (is_elite and state == "active")
+    return ENEMY_LIFECYCLE.hit_is_armored(self)
 
 
 func _react_to_hit(hit_direction: int) -> void:
-    recent_hit_times.append(ai_clock)
-    while not recent_hit_times.is_empty() and ai_clock - recent_hit_times[0] > 1.4:
-        recent_hit_times.pop_front()
-    var target := _target_player()
-    if target != null:
-        last_seen_position = target.global_position
-        memory_timer = TARGET_MEMORY_SECONDS
-    attack_desire += 0.25
-    if _hit_is_armored():
-        knockback_velocity *= 0.35
-        return
-    _cancel_unarmed_attack_effects()
-    attack_recovery=false
-    recovery_velocity_x=0.0
-    active_attack = {}
-    pose_loop_animation = ""
-    state = "recover"
-    state_timer = 0.16
-    if not original_visual:_fit_animation_duration(state_timer)
-    _clear_telegraph()
-    if recent_hit_times.size() >= 3 and poise_cooldown <= 0.0:
-        poise_timer = 1.8
-        poise_cooldown = 4.5
-        attack_desire = maxf(attack_desire, _attack_desire_threshold())
-    # Close-range ground fighters hop clear of a combo instead of eating it.
-    var close_fighter := locomotion == "ground" and float(ai_profile.get("preferred_range", 54.0)) < 120.0
-    if close_fighter and recent_hit_times.size() >= 2 and backstep_cooldown <= 0.0:
-        knockback_velocity = float(hit_direction) * 560.0
-        backstep_cooldown = 3.0
+    ENEMY_LIFECYCLE.react_to_hit(self, hit_direction)
 
 
 ## 死亡溶解（规格 §3.4 简化通用版）：died 当帧发出、立即离开 enemy 组，
 ## 之后表现层溶解 0.45s（Boss 0.9s）再 queue_free——计数/掉落逻辑不受影响。
 func _begin_death_dissolve() -> void:
-    if dying or is_queued_for_deletion():
-        return
-    dying = true
-    if boss_brain != null:boss_brain.reset_plan()
-    active_attack = {}
-    state = "dead"
-    _cancel_attack_effects()
-    # Death may be triggered by an Area callback during physics flushing.
-    set_deferred("monitoring", false)
-    set_deferred("monitorable", false)
-    remove_from_group("enemy")
-    knockback_velocity = 0.0
-    # 材质化死亡音（音频规格 §4.3）：挂到父节点播放，避免溶解 queue_free 截断尾音。
-    _play_detached_sfx("boss_death" if is_boss else death_sfx_key, -4.0 if is_boss else -6.0)
-    # ch3 beat `contract_break`（manifest ch03_beat_03）：盐白契约判官死亡时
-    # 契约碎页散开——纸页撕裂与低频钟声叠层（同走独立宿主避免截断）。
-    if is_boss and kind == "saltwhite_contract_judge":
-        _play_detached_sfx("ch03_beat_contract_break", -8.0)
-    pose_loop_animation = ""
-    _set_enemy_animation("death")
-    _pose_sprite("death")
-    _clear_telegraph()
-    died.emit(spawn_id, is_boss, kind)
-    if is_queued_for_deletion():
-        return
-    if sprite == null or not is_instance_valid(sprite):
-        queue_free()
-        return
-    var duration := 0.9 if is_boss else 0.45
-    _fit_animation_duration(duration)
-    var tween := create_tween()
-    tween.tween_interval(0.05)
-    tween.tween_callback(func() -> void: _set_flash_amount(0.0))
-    tween.tween_property(sprite, "modulate:a", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-    tween.parallel().tween_property(sprite, "position:y", sprite.position.y + 14.0, duration)
-    tween.finished.connect(Callable(self, "queue_free"))
+    ENEMY_LIFECYCLE.begin_death_dissolve(self)
 
 
 ## C01: field enemies were hittable only through a fixed 48px-wide box while
@@ -744,249 +548,56 @@ func _begin_death_dissolve() -> void:
 ## Fit the hit box to the drawn idle body (core 62% of its width, centred on it
 ## vertically); authored boxes, Bosses and contact damage are unchanged.
 func _fit_hurtbox_to_art() -> void:
-    motion_box_size = hurtbox_size
-    motion_box_offset = hurtbox_offset
-    if is_boss or hurtbox_authored or not original_visual or not is_instance_valid(animated_sprite):
-        return
-    var frames := animated_sprite.sprite_frames
-    var animation := &"idle" if frames != null and frames.has_animation(&"idle") else animated_sprite.animation
-    var count := frames.get_frame_count(animation) if frames != null and frames.has_animation(animation) else 0
-    var width := 0.0
-    var height := 0.0
-    var core := Rect2()
-    var measured := 0
-    for index in count:
-        var drawn := _drawn_body_rect(animation, index)
-        if drawn.has_area():
-            width += drawn.size.x
-            height += drawn.size.y
-            core = drawn if measured == 0 else core.intersection(drawn)
-            measured += 1
-    if measured == 0 or not core.has_area():
-        return
-    # Keep the fixed box inside every idle pose, including the smallest one.
-    # Averaging alone put part of it in the air as bees/lancers changed pose.
-    hurtbox_size = Vector2(clampf(maxf(hurtbox_size.x, minf(width / measured * 0.62, core.size.x)), 40.0, 160.0), minf(height / measured * 0.84, core.size.y))
-    hurtbox_offset = core.get_center()
+    ENEMY_LIFECYCLE.fit_hurtbox_to_art(self)
 
 
 ## Opaque part of one animation frame in this actor's local space.
 func _drawn_body_rect(animation: StringName, index: int) -> Rect2:
-    var frames := animated_sprite.sprite_frames
-    if frames == null or not frames.has_animation(animation):
-        return Rect2()
-    var texture := frames.get_frame_texture(animation, index)
-    if texture == null:
-        return Rect2()
-    var size := texture.get_size()
-    var inner := Rect2(Vector2.ZERO, size)
-    if texture is AtlasTexture:
-        inner = Rect2(texture.margin.position, texture.region.size)
-    var origin := (-size * 0.5 if animated_sprite.centered else Vector2.ZERO) + animated_sprite.offset
-    var a := animated_sprite.transform * (origin + inner.position)
-    var b := animated_sprite.transform * (origin + inner.end)
-    return Rect2(Vector2(minf(a.x, b.x), minf(a.y, b.y)), (b - a).abs())
+    return ENEMY_LIFECYCLE.drawn_body_rect(self, animation, index)
 
 
 func get_motion_rect() -> Rect2:
-    var size := motion_box_size if motion_box_size != Vector2.ZERO else (hurtbox_size if hurtbox_size != Vector2.ZERO else (Vector2(142, 144) if is_boss else Vector2(58, 56)))
-    var offset := motion_box_offset if motion_box_size != Vector2.ZERO else hurtbox_offset
-    var center := global_position + (offset if offset != Vector2.ZERO else (Vector2(0.0, -40.0) if is_boss else Vector2(0.0, -18.0)))
-    return Rect2(center - size * 0.5, size)
+    return ENEMY_LIFECYCLE.get_motion_rect(self)
 
 
 func get_hurtbox_rect() -> Rect2:
-    var size := hurtbox_size if hurtbox_size != Vector2.ZERO else (Vector2(142, 144) if is_boss else Vector2(58, 56))
-    var center := global_position + (hurtbox_offset if hurtbox_offset != Vector2.ZERO else (Vector2(0.0, -40.0) if is_boss else Vector2(0.0, -18.0)))
-    return Rect2(center - size * 0.5, size)
+    return ENEMY_LIFECYCLE.get_hurtbox_rect(self)
 
 
 func get_ai_debug_state() -> Dictionary:
-    return {
-        "behavior_tree": boss_brain.debug_state() if boss_brain != null else {},
-        "ai_command_total": ai_commands.size(),
-        "attack_desire": attack_desire,
-        "attack_desire_threshold": _attack_desire_threshold(),
-        "last_player_command": last_player_command,
-        "last_ai_decision": last_ai_decision,
-        "tactical_role": tactical_role,
-        "alarm_alerted": alarm_alerted,
-        "support_cooldown": support_cooldown,
-        "last_attack_id": last_attack_id,
-        "reads_player_commands": true,
-        "command_read_count": command_read_count,
-        "aggro_vertical_tolerance": float(ai_profile.get("aggro_vertical_tolerance", 190.0 if is_boss else 118.0)),
-        "attack_vertical_tolerance": float(ai_profile.get("attack_vertical_tolerance", 132.0 if is_boss else 72.0)),
-        "max_attack_range": _max_attack_range(false),
-        "tactical_ai": _boss_tactical_enabled(),
-        "boss_tactic": boss_tactic,
-        "boss_tactic_timer": boss_tactic_timer,
-        "boss_press_timer": boss_press_timer,
-        "boss_reposition_target_x": boss_reposition_target_x
-    }
+    return ENEMY_LIFECYCLE.get_ai_debug_state(self)
 
 
 func _tick_timers(delta: float) -> void:
-    snare_timer = maxf(0.0, snare_timer - delta)
-    salt_mark_timer = maxf(0.0, salt_mark_timer - delta)
-    interference_timer = maxf(0.0, interference_timer - delta)
-    lure_timer = maxf(0.0, lure_timer - delta)
-    trip_timer = maxf(0.0, trip_timer - delta)
-    contact_timer = maxf(0.0, contact_timer - delta)
-    ai_clock += delta
-    memory_timer = maxf(0.0, memory_timer - delta)
-    alarm_cooldown = maxf(0.0, alarm_cooldown - delta)
-    support_cooldown = maxf(0.0, support_cooldown - delta)
-    reveal_hold = maxf(0.0, reveal_hold - delta)
-    poise_timer = maxf(0.0, poise_timer - delta)
-    poise_cooldown = maxf(0.0, poise_cooldown - delta)
-    backstep_cooldown = maxf(0.0, backstep_cooldown - delta)
-    patrol_pause_timer = maxf(0.0, patrol_pause_timer - delta)
-    _tick_hit_flash(delta)
-    if absf(knockback_velocity) > 0.0:
-        var decay := exp(-maxf(0.0,delta)/KNOCKBACK_TAU)
-        var start := global_position
-        var finish := start+Vector2(knockback_velocity*KNOCKBACK_TAU*(1.0-decay),0)
-        global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self,start,finish) if is_inside_tree() else finish
-        knockback_velocity = 0.0 if absf(global_position.x-finish.x)>.01 else knockback_velocity*decay
-        if absf(knockback_velocity) < 8.0:
-            knockback_velocity = 0.0
-        _clamp_movement_bounds()
-    for key in cooldowns.keys():
-        cooldowns[key] = maxf(0.0, float(cooldowns[key]) - delta)
-    if boss_tactic_timer > 0.0:
-        boss_tactic_timer = maxf(0.0, boss_tactic_timer - delta)
+    ENEMY_LIFECYCLE.tick_timers(self, delta)
 
 
 func _tick_hit_flash(delta: float) -> void:
-    if flash_timer > 0.0:
-        # Physics catch-up may run several times before the next presentation.
-        # Do not consume a new hit's entire flash before it can be drawn.
-        if Engine.get_process_frames() > flash_started_process_frame:
-            flash_timer = maxf(0.0,flash_timer-delta)
-        if flash_timer <= 0.0:
-            _set_flash_amount(0.0)
-        else:
-            _set_flash_amount(1.0 if flash_timer > FLASH_HALF_TIME else flash_timer/FLASH_HALF_TIME)
+    ENEMY_LIFECYCLE.tick_hit_flash(self, delta)
 
 
 func _set_flash_amount(amount: float) -> void:
-    for material_value in flash_materials:
-        var material := material_value as ShaderMaterial
-        if material != null:
-            material.set_shader_parameter("flash_amount", amount)
+    ENEMY_LIFECYCLE.set_flash_amount(self, amount)
 
 
 func _is_attack_state() -> bool:
-    return state in ["windup", "active", "recover", "support"]
+    return ENEMY_LIFECYCLE.is_attack_state(self)
 
 
 func _clamp_to_arena() -> void:
-    if arena_min_x >= arena_max_x:
-        return
-    global_position.x = clampf(global_position.x, arena_min_x, arena_max_x)
+    ENEMY_LIFECYCLE.clamp_to_arena(self)
 
 
 func _clamp_movement_bounds() -> void:
-    _clamp_to_arena()
-    if is_boss:
-        return
-    var min_x := -INF
-    var max_x := INF
-    if leash_radius > 0.0:
-        min_x = spawn_position.x - leash_radius
-        max_x = spawn_position.x + leash_radius
-    if platform_min_x < platform_max_x:
-        min_x = maxf(min_x, platform_min_x)
-        max_x = minf(max_x, platform_max_x)
-    if min_x >= max_x:
-        return
-    var clamped_x := clampf(global_position.x, min_x, max_x)
-    if not is_equal_approx(clamped_x, global_position.x):
-        var next_position := global_position
-        next_position.x = clamped_x
-        global_position = next_position
-        direction *= -1
-        _set_sprite_flip(direction < 0)
+    ENEMY_LIFECYCLE.clamp_movement_bounds(self)
 
 
 func set_platform_movement_bounds(min_x: float, max_x: float) -> void:
-    platform_min_x = min_x-100 if locomotion=="flight" else min_x
-    platform_max_x = max_x+100 if locomotion=="flight" else max_x
+    ENEMY_LIFECYCLE.set_platform_movement_bounds(self, min_x, max_x)
 
 
 func reset_for_respawn() -> void:
-    if dying or is_queued_for_deletion():
-        return
-    if boss_brain != null:boss_brain.reset_plan()
-    attack_execution_serial += 1
-    attack_completed_serial = -1
-    CONTACT_ART.clear_receiver(self)
-    _cancel_attack_effects()
-    _clear_telegraph()
-    for tween in combat_tweens:
-        if is_instance_valid(tween) and tween.is_valid():
-            tween.kill()
-    combat_tweens.clear()
-    for child in get_children():
-        if (child is Line2D and String(child.name).begins_with("OriginalAttack")) or child.name in ["EnemyWindupVfx", "BossAttackBurstVfx", "EnemyAttackBurstVfx", "HitSpark"]:
-            child.queue_free()
-    battle_phase = 1
-    phase_pause = 0.0
-    attack_elapsed = 0.0
-    attack_recovery=false
-    recovery_velocity_x=0.0
-    completed_attack_count=0
-    boss_target_history.clear()
-    boss_attack_history.clear()
-    boss_history_clock=0.0
-    combo_visual_stage=""
-    trail_clock = 0.0
-    cooldowns.clear()
-    for command in ai_commands:
-        cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
-    hp = max_hp
-    knockback_velocity = 0.0
-    _set_flash_amount(0.0)
-    global_position = spawn_position
-    reset_physics_interpolation()
-    direction = 1
-    attack_direction = 1
-    attack_has_hit = false
-    active_attack = {}
-    state = "patrol"
-    attack_desire = 0.0
-    snare_timer = 0.0
-    clear_salt_mark()
-    interference_timer = 0.0
-    lure_timer = 0.0
-    trip_timer = 0.0
-    last_player_command = "none"
-    last_ai_decision = "patrol"
-    last_attack_id = ""
-    boss_tactic = "observe"
-    boss_tactic_timer = 0.0
-    boss_press_timer = 0.0
-    boss_reposition_target_x = spawn_position.x
-    engage_announced = false
-    boss_phase_shift_played = false
-    memory_timer = 0.0
-    alarm_cooldown = 0.0
-    alarm_alerted = 0
-    alarm_search = false
-    support_cooldown = 0.0
-    reveal_hold = 0.0
-    role_cue_counts.clear()
-    state_timer = 0.0
-    contact_timer = 0.0
-    flash_timer = 0.0
-    modulate = Color.WHITE
-    monitoring = true
-    monitorable = true
-    _clear_telegraph()
-    _set_enemy_animation("idle")
-    _pose_sprite("idle")
-    _set_sprite_flip(false)
+    ENEMY_LIFECYCLE.reset_for_respawn(self)
 
 
 func _target_player() -> CharacterBody2D:

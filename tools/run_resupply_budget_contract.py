@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["build_system.gd","resupply_planner.gd","resupply_budget.gd","resupply_budget_validation.gd","resupply_plan_validation.gd"]
+SCRIPTS = ["build_system.gd", "build_loadouts.gd", "build_persistence.gd", "build_transactions.gd","resupply_planner.gd","resupply_budget.gd","resupply_budget_validation.gd","resupply_plan_validation.gd"]
 SCRIPTS += ["resupply_plan_memory.gd", "journey_desk_store.gd"]
 MARKER = re.compile("^RESUPPLY_BUDGET checks=[1-9][0-9]* failures=0$", re.M)
 

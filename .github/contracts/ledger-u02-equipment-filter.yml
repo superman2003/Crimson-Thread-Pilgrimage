@@ -3,12 +3,18 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
       - 'godot/scripts/interface_build_panel.gd'
       - 'godot/scripts/interface_build_refresh.gd'
       - 'godot/scripts/interface_dialogue.gd'
       - 'godot/scripts/interface_journal.gd'
       - 'godot/scripts/interface_settings.gd'
       - 'godot/scripts/build_system.gd'
+      - 'godot/scripts/build_loadouts.gd'
+      - 'godot/scripts/build_persistence.gd'
+      - 'godot/scripts/build_transactions.gd'
       - 'godot/data/build_catalog.json'
       - 'godot/scripts/equipment_catalog_filter*.gd'
       - 'godot/assets/fonts/**'

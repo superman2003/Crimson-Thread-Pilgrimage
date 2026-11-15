@@ -194,6 +194,9 @@ const INTERFACE_BUILD_PANEL := preload("res://scripts/interface_build_panel.gd")
 const INTERFACE_BUILD_REFRESH := preload("res://scripts/interface_build_refresh.gd")
 const INTERFACE_JOURNAL := preload("res://scripts/interface_journal.gd")
 const INTERFACE_DIALOGUE := preload("res://scripts/interface_dialogue.gd")
+const INTERFACE_HUD := preload("res://scripts/interface_hud.gd")
+const INTERFACE_BAG := preload("res://scripts/interface_bag.gd")
+const INTERFACE_THEME := preload("res://scripts/interface_theme.gd")
 var binding_recovery_notice := ""
 var build_shortcut: Node
 var remap_scroll: ScrollContainer
@@ -303,534 +306,68 @@ func finish_bind() -> void:
 ## shaped outside the tree costs ~4 ms per control, which made each region's UI
 ## rebuild stall for 100+ ms in one loading step (T03).
 func _label(parent: Node, text: String, position_value: Vector2, size_value: Vector2, font_size: int=18, tint: Color=IVORY) -> Label:
-    var label:=Label.new()
-    label.position=position_value
-    label.size=size_value
-    label.add_theme_font_size_override("font_size",font_size)
-    if font_size>=20:
-        label.add_theme_font_override("font",display_font())
-    label.add_theme_color_override("font_shadow_color",Color(0,0,0,.7))
-    label.add_theme_constant_override("shadow_offset_y",1)
-    label.add_theme_color_override("font_color",tint)
-    label.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    parent.add_child(label)
-    label.text=text
-    return label
+    return INTERFACE_THEME.label(self, parent, text, position_value, size_value, font_size, tint)
 
 func _style(tint: Color, border: Color, width: int=1) -> StyleBoxFlat:
-    var style:=StyleBoxFlat.new()
-    style.bg_color=tint
-    # Native borders stay clear; etched strokes are drawn once by the button.
-    style.border_color=Color(0,0,0,0)
-    style.set_border_width_all(width)
-    style.set_corner_radius_all(0)
-    style.corner_detail=1
-    style.content_margin_top=4
-    style.content_margin_bottom=4
-    style.content_margin_left=10
-    style.content_margin_right=10
-    return style
+    return INTERFACE_THEME.style(self, tint, border, width)
 
 func _meter_style(tint: Color) -> StyleBoxFlat:
-    var result:=_style(tint,tint,0)
-    result.content_margin_left=0
-    result.content_margin_right=0
-    result.content_margin_top=0
-    result.content_margin_bottom=0
-    result.set_corner_radius_all(2)
-    return result
+    return INTERFACE_THEME.meter_style(self, tint)
 
 func _tab_style(selected: bool) -> StyleBoxFlat:
-    var result:=_style(Color(0,0,0,0),RED if selected else Color("43504a"),0)
-    result.border_width_bottom=2 if selected else 1
-    result.set_corner_radius_all(0)
-    return result
+    return INTERFACE_THEME.tab_style(self, selected)
 
 func _button(parent: Node, text: String, position_value: Vector2, size_value: Vector2, action: Callable) -> Button:
-    var button:=INSCRIBED_BUTTON.new()
-    button.position=position_value
-    button.size=size_value
-    button.add_theme_font_size_override("font_size",TYPE.ACTION)
-    button.add_theme_color_override("font_color",IVORY)
-    button.add_theme_stylebox_override("normal",_style(Color(.01,.025,.028,.35),Color("61553f")))
-    button.add_theme_stylebox_override("hover",_style(Color(.18,.06,.055,.25),RED))
-    button.add_theme_stylebox_override("focus",_style(Color(0,0,0,0),GOLD,2))
-    button.add_theme_stylebox_override("pressed",_style(Color(.25,.07,.06,.3),RED,2))
-    button.add_theme_color_override("font_disabled_color",MUTED.darkened(0.3))
-    button.add_theme_stylebox_override("disabled",_style(Color("182025"),Color("303c3d")))
-    button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
-    button.focus_mode=Control.FOCUS_ALL
-    button.pressed.connect(action)
-    parent.add_child(button)
-    button.text=text
-    return button
+    return INTERFACE_THEME.button(self, parent, text, position_value, size_value, action)
 
 func _panel(parent: Node, title: String, position_value: Vector2, size_value: Vector2) -> ColorRect:
-    var root:=ColorRect.new()
-    root.position=position_value
-    root.size=size_value
-    root.color=Color(0,0,0,0)
-    root.z_index=10
-    root.visible=false
-    parent.add_child(root)
-    frame(root)
-    var marks := {"契印与构筑":["seal","行装与构筑"],"巡礼行囊":["inventory","器物与旧物"],"设置与无障碍":["settings","声音与无障碍"]}
-    if marks.has(title):
-        var mark: Array=marks[title]
-        var title_mark:=_icon(root,inscription_mark(String(mark[0])),Vector2(26,5),Vector2(166,82))
-        title_mark.name="InscribedTitle"
-        var subtitle:=_label(root,String(mark[1]),Vector2(198,24),Vector2(310,28),18,GOLD)
-        subtitle.name="InscriptionSubtitle"
-        subtitle.add_theme_font_override("font",display_font())
-        _label(root,"绯线巡礼  /  归途手札",Vector2(200,58),Vector2(380,20),11,MUTED)
-    elif not title.is_empty():
-        _label(root,title,Vector2(34,16),Vector2(size_value.x*0.65,44),30)
-    _button(root,"返回",Vector2(size_value.x-91,24),Vector2(62,34),func():level._close_overlays())
-    return root
+    return INTERFACE_THEME.panel(self, parent, title, position_value, size_value)
 
 func frame(control: Control) -> void:
-    control.z_index=10
-    var chrome:=CHROME.new()
-    chrome.kind="dialogue" if control==dialogue else "frame"
-    chrome.size=control.size
-    chrome.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    control.add_child(chrome)
-    control.move_child(chrome,0)
+    INTERFACE_THEME.frame(self, control)
 
 func _well(parent: Control, point: Vector2, dimensions: Vector2) -> void:
-    var well:=CHROME.new()
-    well.kind="well"
-    well.position=point
-    well.size=dimensions
-    well.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    parent.add_child(well)
-    parent.move_child(well,1)
+    INTERFACE_THEME.well(self, parent, point, dimensions)
 
 func _fit_viewport() -> void:
-    var available:=get_viewport_rect().size
-    var factor:=minf(available.x/1280.0,available.y/720.0)
-    set_anchors_preset(Control.PRESET_TOP_LEFT)
-    size=Vector2(1280,720)
-    scale=Vector2.ONE*factor
-    position=(available-Vector2(1280,720)*factor)*0.5
-    if modal_shade!=null:
-        modal_shade.position=-position/factor
-        modal_shade.size=available/factor
+    INTERFACE_THEME.fit_viewport(self)
 
 func _install_theme(target: Theme) -> void:
-    target.set_color("font_color","Label",IVORY)
-    target.set_color("font_color","Button",IVORY)
-    target.set_color("default_color","RichTextLabel",IVORY)
-    target.set_color("title_color","Window",IVORY)
-    target.set_font("title_font","Window",display_font())
-    for state in ["embedded_border","embedded_unfocused_border"]:
-        # Keep the engine's title/close-button margins and hit geometry.
-        var window_style := ThemeDB.get_default_theme().get_stylebox(state,"Window").duplicate() as StyleBoxFlat
-        if window_style != null:
-            window_style.bg_color = Color("101f20")
-            window_style.border_color = Color("101f20")
-            window_style.shadow_color = Color(GOLD,0.5)
-            window_style.shadow_size = 1
-            target.set_stylebox(state,"Window",window_style)
-    target.set_font_size("font_size","Button",17)
-    target.set_color("font_hover_color","Button",IVORY)
-    target.set_color("font_pressed_color","Button",IVORY)
-    target.set_color("font_focus_color","Button",IVORY)
-    target.set_color("font_disabled_color","Button",MUTED.darkened(0.3))
-    # Native dialog buttons share the shell's ink/copper palette. Unlike the
-    # inscribed buttons they have no drawn chrome, so their focus border must
-    # live in the style itself rather than the transparent _style default.
-    for state in ["normal", "hover", "pressed", "disabled", "focus"]:
-        var background := Color("101f20")
-        var border := GOLD.darkened(0.4)
-        if state == "hover" or state == "pressed":
-            background = Color("302220")
-            border = RED
-        elif state == "disabled":
-            background = Color("182025")
-            border = Color("303c3d")
-        elif state == "focus":
-            background = Color(0,0,0,0)
-            border = GOLD
-        var button_style := _style(background,border,2 if state == "focus" else 1)
-        button_style.border_color = border
-        target.set_stylebox(state,"Button",button_style)
-        # Theme lookup tries this theme's Button entry before the engine's
-        # CheckButton one, so pin settings toggles to their default chrome.
-        target.set_stylebox(state,"CheckButton",ThemeDB.get_default_theme().get_stylebox(state,"CheckButton"))
-    target.set_stylebox("panel","TooltipPanel",_style(Color("152229"),GOLD))
-    target.set_color("font_color","TooltipLabel",IVORY)
-    target.set_font_size("font_size","TooltipLabel",16)
-    target.set_stylebox("scroll","VScrollBar",_style(Color("162027"),Color("162027"),0))
-    target.set_stylebox("grabber","VScrollBar",_style(Color("706951"),Color("706951"),0))
-    target.set_stylebox("grabber_highlight","VScrollBar",_style(GOLD,GOLD,0))
-    target.set_stylebox("grabber_pressed","VScrollBar",_style(RED,RED,0))
-    target.set_stylebox("slider","HSlider",_style(Color("26353a"),Color("4a5148")))
-    target.set_stylebox("grabber_area","HSlider",_style(GOLD,GOLD,0))
-    target.set_stylebox("grabber_area_highlight","HSlider",_style(IVORY,IVORY,0))
-    target.set_stylebox("panel","AcceptDialog",_style(Color("10191f"),GOLD,2))
-    target.set_font("font","OptionButton",display_font())
-    target.set_font_size("font_size","OptionButton",16)
-    target.set_color("font_color","OptionButton",IVORY)
-    target.set_stylebox("normal","OptionButton",_style(Color("101f20"),Color("61553f")))
-    target.set_stylebox("hover","OptionButton",_style(Color("2c2522"),RED))
-    target.set_stylebox("pressed","OptionButton",_style(Color("302220"),RED))
-    target.set_stylebox("focus","OptionButton",_style(Color(0,0,0,0),RED,1))
-    target.set_stylebox("panel","PopupMenu",_style(Color("0b1c1e"),GOLD))
-    target.set_stylebox("hover","PopupMenu",_style(Color("302220"),RED))
-    target.set_color("font_color","PopupMenu",IVORY)
-    target.set_font("font","PopupMenu",display_font())
+    INTERFACE_THEME.install_theme(self, target)
 
 func _icon(parent: Node, asset: Texture2D, position_value: Vector2, size_value: Vector2) -> TextureRect:
-    var icon:=TextureRect.new()
-    icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
-    icon.texture=asset
-    icon.position=position_value
-    icon.size=size_value
-    icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-    icon.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    parent.add_child(icon)
-    return icon
+    return INTERFACE_THEME.icon(self, parent, asset, position_value, size_value)
 
 func _build_hud() -> void:
-    healing_payment=HEAL_READOUT.create_label(self,display_font(),GOLD)
-    healing_payment_track=preload("res://scripts/heal_reservation_track.gd").new()
-    add_child(healing_payment_track)
-    hud_card=Control.new()
-    hud_card.position=Vector2(26,24)
-    hud_card.size=Vector2(330,106)
-    hud_card.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    add_child(hud_card)
-    var backing:=CHROME.new()
-    backing.kind="hud"
-    backing.size=hud_card.size
-    backing.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    hud_card.add_child(backing)
-    hud_crest=_icon(hud_card,load("res://assets/ui/seals/crimson.svg"),Vector2(10,16),Vector2(55,55))
-    health_glyphs=CHROME.new()
-    health_glyphs.kind="health"
-    health_glyphs.position=Vector2(77,7)
-    health_glyphs.size=Vector2(205,46)
-    hud_card.add_child(health_glyphs)
-    hearts=_label(hud_card,"",Vector2(266,17),Vector2(55,27),TYPE.ACTION,IVORY)
-    hearts.add_theme_font_override("font",display_font())
-    hearts.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-    _label(hud_card,"绯线",Vector2(79,58),Vector2(65,22),TYPE.CONTROL,GOLD).add_theme_font_override("font",display_font())
-    energy_status=_label(hud_card,"",Vector2(205,58),Vector2(112,22),TYPE.CONTROL,IVORY)
-    energy_status.add_theme_font_override("font",display_font())
-    energy_status.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-    thread_bar=ProgressBar.new()
-    thread_bar.position=Vector2(80,85)
-    thread_bar.size=Vector2(224,5)
-    thread_bar.custom_minimum_size=Vector2(0,5)
-    thread_bar.show_percentage=false
-    thread_bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    thread_bar.add_theme_font_size_override("font_size",1)
-    thread_bar.add_theme_constant_override("outline_size",0)
-    thread_bar.add_theme_stylebox_override("background",_meter_style(Color("293237")))
-    thread_bar.add_theme_stylebox_override("fill",_meter_style(RED))
-    thread_bar.size=Vector2(224,5)
-    hud_card.add_child(thread_bar)
-    thread_bar.update_minimum_size()
-    thread_bar.size=Vector2(224,5)
-    thread_thresholds=CHROME.new()
-    thread_thresholds.kind="thresholds"
-    thread_thresholds.position=Vector2(80,81)
-    thread_thresholds.size=Vector2(224,13)
-    hud_card.add_child(thread_thresholds)
-    currency_emblem=_icon(self,ART.item("currency"),Vector2(1130,31),Vector2(28,28))
-    currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),TYPE.READING,GOLD)
-    location_rule=CHROME.new()
-    location_rule.kind="location"
-    location_rule.position=Vector2(443,24)
-    location_rule.size=Vector2(394,51)
-    add_child(location_rule)
-    location=_label(self,"",Vector2(478,27),Vector2(324,38),TYPE.HUD_PLACE,IVORY)
-    location.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    toast=_label(self,"",Vector2(395,102),Vector2(490,60),TYPE.BODY,IVORY)
-    toast.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),Color("514e3e")))
-    toast.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    toast.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    prompt=_label(self,"",Vector2(370,549),Vector2(540,42),TYPE.TITLE,IVORY)
-    prompt.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    prompt.clip_text=true
-    prompt.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),GOLD))
-    combat_status=_label(self,"",Vector2(28,144),Vector2(360,76),TYPE.CONTROL,IVORY)
-    combat_status.visible=false
-    mechanism_status=_label(self,"",Vector2(30,141),Vector2(360,26),TYPE.CONTROL,GOLD)
-    healing_status=_label(self,"",Vector2(30,169),Vector2(360,24),TYPE.CONTROL,MUTED)
-    healing_status.mouse_filter=Control.MOUSE_FILTER_PASS
-    healing_status.add_theme_stylebox_override("normal",_meter_style(Color(0.04,0.07,0.08,0.9)))
-    healing_bar=ProgressBar.new()
-    healing_bar.position=Vector2(30,197)
-    healing_bar.size=Vector2(300,6)
-    healing_bar.show_percentage=false
-    healing_bar.add_theme_font_size_override("font_size",1)
-    healing_bar.add_theme_constant_override("outline_size",0)
-    healing_bar.max_value=1.0
-    healing_bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    healing_bar.add_theme_stylebox_override("background",_meter_style(Color("233039")))
-    healing_bar.add_theme_stylebox_override("fill",_meter_style(IVORY))
-    healing_bar.visible=false
-    healing_bar.size=Vector2(300,6)
-    add_child(healing_bar)
-    healing_bar.update_minimum_size()
-    healing_bar.size=Vector2(300,6)
-    pinned=_label(self,"",Vector2(30,212),Vector2(300,45),TYPE.CONTROL,MUTED)
-    pinned.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    for index in 4:
-        var card:=Panel.new()
-        card.position=Vector2(28+index*105,610)
-        card.size=Vector2(96,78)
-        card.mouse_filter=Control.MOUSE_FILTER_IGNORE
-        card.add_theme_stylebox_override("panel",_style(Color(0.04,0.07,0.08,0.94),Color("514e3e")))
-        add_child(card)
-        tactical_cards.append(card)
-        var card_frame:=CHROME.new()
-        card_frame.kind="tactical"
-        card_frame.size=card.size
-        card.add_child(card_frame)
-        tactical_icons.append(_icon(card,null,Vector2(6,6),Vector2(46,46)))
-        tactical_values.append(_label(card,"",Vector2(53,13),Vector2(39,30),TYPE.CAPTION,GOLD))
-        tactical_names.append(_label(card,"",Vector2(8,54),Vector2(83,20),TYPE.CAPTION,IVORY))
-        tactical_names[-1].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    tutorial_hint=_label(self,"",Vector2(28,687),Vector2(620,23),TYPE.CAPTION,MUTED)
-    for entry in [["B  构筑",_request_build_toggle],["Tab  行囊",func():level._toggle_backpack()],["M  地图",func():level._toggle_map()],["V  设置",func():level._toggle_audio_settings()]]:
-        quick_actions.append(_button(self,entry[0],Vector2(827+quick_actions.size()*108,673),Vector2(100,33),entry[1]))
-    boss_name=_label(self,"",Vector2(395,593),Vector2(490,27),TYPE.ACTION,GOLD)
-    boss_name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    boss_bar=ProgressBar.new()
-    boss_bar.position=Vector2(468,628)
-    boss_bar.size=Vector2(344,7)
-    boss_bar.show_percentage=false
-    boss_bar.add_theme_font_size_override("font_size",1)
-    boss_bar.add_theme_constant_override("outline_size",0)
-    boss_bar.add_theme_stylebox_override("background",_meter_style(Color("20262a")))
-    boss_bar.add_theme_stylebox_override("fill",_meter_style(RED))
-    boss_bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    boss_bar.size=Vector2(344,7)
-    add_child(boss_bar)
-    boss_bar.update_minimum_size()
-    boss_bar.size=Vector2(344,7)
+    INTERFACE_HUD.build_hud(self)
 
 func _build_bag() -> void:
-    bag=_panel(self,"巡礼行囊",Vector2(85,54),Vector2(1110,600))
-    bag.name="BackpackOverlay"
-    _well(bag,Vector2(724,136),Vector2(356,444))
-    _well(bag,Vector2(26,186),Vector2(665,354))
-    _label(bag,"器物有用途，旧物有来处。",Vector2(34,101),Vector2(260,26),16,MUTED)
-    _icon(bag,ART.item("currency"),Vector2(848,31),Vector2(28,28))
-    bag_currency=_label(bag,"",Vector2(883,32),Vector2(120,30),20,GOLD)
-    var categories:= ["全部","织具","遗物","材料","要物","旅记"]
-    for i in categories.size():
-        var category: String=categories[i]
-        var button:=_button(bag,category,Vector2(34+i*108,136),Vector2(100,38),func():
-            bag_category=category
-            refresh_inventory())
-        bag_tabs.append(button)
-        button.set_meta("inscription_tab",true)
-        button.add_theme_font_size_override("font_size",20)
-    var scroll:=ScrollContainer.new()
-    scroll.position=Vector2(34,194)
-    scroll.size=Vector2(645,337)
-    scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
-    bag.add_child(scroll)
-    bag_scroll=scroll
-    journal_filters=HBoxContainer.new()
-    journal_filters.position=Vector2(34,189)
-    journal_filters.add_theme_constant_override("separation",SPACING.ROW)
-    journal_filters.visible=false
-    bag.add_child(journal_filters)
-    var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["ability","能力"],["people","人物"],["voice","自述"]]
-    var filter_width:=floorf((645.0-(filters.size()-1)*float(SPACING.ROW))/filters.size())
-    for pair in filters:
-        var filter_id:=String(pair[0])
-        var filter_button:=_button(journal_filters,String(pair[1]),Vector2.ZERO,Vector2(filter_width,28),func():
-            journal_filter=filter_id
-            journal_selection=0
-            bag_scroll.scroll_vertical=0
-            refresh_inventory())
-        filter_button.custom_minimum_size=Vector2(filter_width,28)
-        filter_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
-        journal_filter_buttons[filter_id]=filter_button
-    journal_tools=HBoxContainer.new()
-    journal_tools.position=Vector2(34,222)
-    journal_tools.size=Vector2(645,30)
-    journal_tools.add_theme_constant_override("separation",8)
-    bag.add_child(journal_tools)
-    # Enter the tree before setting text: shaping text on a detached control
-    # costs several ms each (see the 10-21 UI rebuild report).
-    journal_search=LineEdit.new()
-    journal_search.custom_minimum_size=Vector2(236,30)
-    journal_search.add_theme_font_size_override("font_size",TYPE.CONTROL)
-    journal_tools.add_child(journal_search)
-    journal_search.placeholder_text="搜索已知记录 · Ctrl+F"
-    journal_search.tooltip_text="只搜索已知标题和正文。空格分词；双引号或中文引号查短语；-词语 排除匹配。"
-    journal_search.max_length=80
-    journal_search.text_changed.connect(func(_value: String):journal_selection=0;refresh_inventory())
-    journal_unread=CheckButton.new()
-    journal_unread.add_theme_font_size_override("font_size",TYPE.CONTROL)
-    journal_tools.add_child(journal_unread)
-    journal_unread.text="仅未读"
-    journal_unread.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
-    journal_stars=CheckButton.new()
-    journal_stars.add_theme_font_size_override("font_size",TYPE.CONTROL)
-    journal_tools.add_child(journal_stars)
-    journal_stars.text="仅收藏"
-    journal_stars.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
-    journal_sort=OptionButton.new()
-    journal_sort.add_theme_font_size_override("font_size",TYPE.CONTROL)
-    journal_sort.custom_minimum_size=Vector2(127,30)
-    journal_tools.add_child(journal_sort)
-    journal_sort.add_item("旅途顺序")
-    journal_sort.add_item("按标题")
-    journal_sort.add_item("未读优先")
-    preload("res://scripts/journal_find_dialog.gd").install(self)
-    journal_sort.item_selected.connect(func(_index: int):journal_selection=0;refresh_inventory())
-    journal_count=_label(bag,"",Vector2(34,255),Vector2(645,20),12,MUTED)
-    bag_grid=GridContainer.new()
-    bag_grid.columns=6
-    bag_grid.add_theme_constant_override("h_separation",SPACING.ROW)
-    bag_grid.add_theme_constant_override("v_separation",10)
-    scroll.add_child(bag_grid)
-    var divider:=ColorRect.new()
-    divider.position=Vector2(704,178)
-    divider.size=Vector2(1,357)
-    divider.color=Color(.52,.46,.35,.45)
-    divider.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    bag.add_child(divider)
-    bag_icon=_icon(bag,null,Vector2(834,166),Vector2(95,95))
-    bag_name=_label(bag,"",Vector2(734,273),Vector2(342,34),23)
-    bag_name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    bag_category_label=_label(bag,"",Vector2(734,314),Vector2(342,26),TYPE.BODY,GOLD)
-    bag_category_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    bag_description=RichTextLabel.new()
-    bag_description.position=Vector2(738,354)
-    bag_description.size=Vector2(330,160)
-    bag_description.add_theme_font_size_override("normal_font_size",TYPE.ACTION)
-    bag_description.add_theme_color_override("default_color",IVORY)
-    bag_description.scroll_active=true
-    bag.add_child(bag_description)
-    bag.visibility_changed.connect(_journal_bag_visibility_changed)
-    bag_pin=_button(bag,"钉在旅记",Vector2(738,533),Vector2(330,35),_pin_item)
-    journal_mark_button=_button(bag,"标为已读",Vector2(738,571),Vector2(160,27),_toggle_journal_read)
-    journal_star_button=_button(bag,"收藏记录",Vector2(908,571),Vector2(160,27),_toggle_journal_star)
-    journal_mark_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
-    journal_star_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
-    journal_batch_button=_button(bag,"筛选结果标已读",Vector2(562,571),Vector2(166,27),_open_journal_batch)
-    journal_batch_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
-    journal_batch_button.tooltip_text="确认后，将当前筛选中最多256条已知记录标为已读；不推进任务。"
-    bag_footer_hint=_label(bag,"",Vector2(34,552),Vector2(520,30),TYPE.CAPTION,MUTED)
-    _refresh_bag_footer_hint()
-    legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
-    preload("res://scripts/resource_purpose_dialog.gd").setup(self)
-    preload("res://scripts/journal_mark_desk.gd").install(self)
-    legacy_bag_detail=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
-    legacy_bag_text.visible=false
-    legacy_bag_detail.visible=false
+    INTERFACE_BAG.build_bag(self)
 
 func _matches(category: String) -> bool:
-    match bag_category:
-        "织具":return category in ["Tools","Abilities","Charms","Upgrades"]
-        "遗物":return category=="Relics"
-        "材料":return category=="Materials"
-        "要物":return category in ["Quest","Combat"]
-    return true
+    return INTERFACE_BAG.matches(self, category)
 
 func refresh_inventory() -> void:
-    if bag_grid==null:return
-    if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
-    if bag_category=="旅记":
-        var sources:=preload("res://scripts/journal_sources.gd").links(String(journal_current_document.get("key","")),level.inventory_counts,level.story_flags)
-        bag_pin.disabled=sources.is_empty()
-        bag_pin.text="回看来源 · %d条" % sources.size() if not sources.is_empty() else "PgUp/PgDn · LB/RB 翻页"
-        bag_pin.tooltip_text="回看本条引用的已知原始记录；关闭后回到原文。" if not sources.is_empty() else "Home 到开头，End 到末尾；切换记录后保留本次阅读位置。"
-    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
-    if journal_filters!=null:
-        journal_filters.visible=bag_category=="旅记"
-        bag_scroll.position.y=279 if journal_filters.visible else 194
-        bag_scroll.size.y=252 if journal_filters.visible else 337
-        for control in [journal_tools,journal_count,journal_mark_button,journal_star_button,journal_batch_button]:control.visible=journal_filters.visible
-    begin_inventory_refresh()
-    if bag_category=="旅记":
-        _refresh_journal()
-        return
-    for item_id in _visible_inventory_ids():
-        append_inventory_item(item_id)
-    finish_inventory_refresh()
+    INTERFACE_BAG.refresh_inventory(self)
 
 func begin_inventory_refresh() -> void:
-    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
-    _remember_journal_scroll()
-    if bag_category!="旅记":
-        journal_reading_key=""
-        journal_restore_pending=false
-    if bag_pin!=null:
-        bag_pin.text="PgUp/PgDn · LB/RB 翻页" if bag_category=="旅记" else "钉在旅记"
-        bag_pin.tooltip_text="Home 到开头，End 到末尾；切换记录后保留本次阅读位置。" if bag_category=="旅记" else ""
-    (bag.get_node("InscribedTitle") as TextureRect).texture=inscription_mark("journal" if bag_category=="旅记" else "inventory")
-    (bag.get_node("InscriptionSubtitle") as Label).text="证词与心愿" if bag_category=="旅记" else "器物与旧物"
-    for node in bag_grid.get_children():
-        bag_grid.remove_child(node)
-        node.queue_free()
-    bag_currency.text=str(level.currency_count)
-    bag_grid.columns=6
-    inventory_build_selection=_reconcile_inventory_selection()
+    INTERFACE_BAG.begin_inventory_refresh(self)
 
 func append_inventory_item(item_id: String) -> void:
-    var button:=_button(bag_grid,"",Vector2.ZERO,Vector2(94,98),func():
-        level.backpack_selection=level.backpack_entry_ids.find(item_id)
-        level._refresh_backpack_detail()
-        refresh_inventory())
-    button.set_meta("item_id",item_id)
-    button.custom_minimum_size=Vector2(94,98)
-    if item_id==inventory_build_selection:
-        button.add_theme_stylebox_override("normal",_style(Color(.2,.065,.055,.2),RED,2))
-    _icon(button,ART.item(item_id),Vector2(15,8),Vector2(64,58))
-    var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
-    var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
-    name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    _label(button,str(count),Vector2(59,48),Vector2(30,23),TYPE.CAPTION,GOLD)
+    INTERFACE_BAG.append_inventory_item(self, item_id)
 
 func finish_inventory_refresh() -> void:
-    var selected := inventory_build_selection
-    for tab in bag_tabs:
-        tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
-    bag_pin.disabled=selected.is_empty()
-    if selected.is_empty():
-        bag_icon.texture=null
-        bag_name.text="这一分类暂无物品"
-        bag_category_label.text=bag_category
-        bag_description.text=""
-        bag_pin.text="钉在旅记"
-    else:
-        _show_inventory_detail(selected)
+    INTERFACE_BAG.finish_inventory_refresh(self)
 
 
 func _show_inventory_detail(selected: String) -> void:
-    bag_icon.texture=ART.item(selected)
-    bag_name.text=level._item_display_name(selected)
-    bag_category_label.text=_category_name(String(level._item_data(selected).get("category","Currency")))+"  ·  "+str(level.currency_count if selected=="currency" else level.inventory_counts.get(selected,0))
-    bag_description.text=level._item_display_description(selected)
-    if bag_description.text.is_empty():bag_description.text="一路拾得的松脂碎片，可用来兑换巡礼所需。"
-    bag_pin.text="取消旅记标记" if bool(level.story_flags.get("ui_pin_"+selected,false)) else "钉在旅记"
-    for i in bag_tabs.size():
-        bag_tabs[i].add_theme_stylebox_override("normal",_tab_style(bag_tabs[i].text==bag_category))
+    INTERFACE_BAG.show_inventory_detail(self, selected)
 
 func _category_name(category: String) -> String:
-    return {"Tools":"织具","Abilities":"能力","Charms":"铭饰","Upgrades":"强化","Relics":"遗物","Quest":"要物","Materials":"材料","Combat":"印记","Currency":"碎钱"}.get(category,category)
+    return INTERFACE_BAG.category_name(self, category)
 
 func _pin_item() -> void:
-    if bag_category=="旅记":
-        _open_journal_sources()
-        return
-    var id := _reconcile_inventory_selection()
-    if id.is_empty():return
-    var was_pinned:=bool(level.story_flags.get("ui_pin_"+id,false))
-    for key in level.story_flags.keys():
-        if String(key).begins_with("ui_pin_"):level.story_flags[key]=false
-    level.story_flags["ui_pin_"+id]=not was_pinned
-    refresh_inventory()
+    INTERFACE_BAG.pin_item(self)
 
 func _build_dialogue() -> void:
     INTERFACE_DIALOGUE.build_dialogue(self)
@@ -1259,40 +796,13 @@ func _process(delta: float) -> void:
             break
 
 func _visible_inventory_ids() -> Array[String]:
-    var ids: Array[String] = []
-    for value in level.backpack_entry_ids:
-        var id := String(value)
-        if id=="currency":
-            if bag_category=="全部":ids.append(id)
-            continue
-        if _matches(String(level._item_data(id).get("category",""))):
-            ids.append(id)
-    return ids
+    return INTERFACE_BAG.visible_inventory_ids(self)
 
 func _reconcile_inventory_selection() -> String:
-    var visible_ids := _visible_inventory_ids()
-    if visible_ids.is_empty():
-        level.backpack_selection=-1
-        return ""
-    var index: int = level._backpack_selection_clamped()
-    var selected := String(level.backpack_entry_ids[index]) if index >= 0 else ""
-    if not visible_ids.has(selected):
-        selected=visible_ids[0]
-        level.backpack_selection=level.backpack_entry_ids.find(selected)
-        level._refresh_backpack_detail()
-    return selected
+    return INTERFACE_BAG.reconcile_inventory_selection(self)
 
 func move_inventory_selection(delta: int) -> void:
-    if bag_category=="旅记":
-        if bag_grid.get_child_count()>0:
-            journal_selection=wrapi(journal_selection+delta,0,bag_grid.get_child_count())
-            journal_memory[journal_filter]=String(bag_grid.get_child(journal_selection).get_meta("journal_key",""))
-        return
-    var selected := _reconcile_inventory_selection()
-    var visible_ids := _visible_inventory_ids()
-    if visible_ids.is_empty():return
-    var next_id := visible_ids[wrapi(visible_ids.find(selected)+delta,0,visible_ids.size())]
-    level.backpack_selection=level.backpack_entry_ids.find(next_id)
+    INTERFACE_BAG.move_inventory_selection(self, delta)
 
 func _audio_save_feedback(saved: Dictionary) -> void:
     if not is_instance_valid(toast):return
@@ -1360,64 +870,7 @@ func _combat_snapshot() -> Dictionary:
     return combat_snapshot
 
 func _refresh_combat_status(player: Node) -> void:
-    var state: Dictionary={}
-    if player.has_method("get_combat_ui_state"):state=player.call("get_combat_ui_state")
-    var snapshot:=_combat_snapshot()
-    var skill_lines: Array[String]=[]
-    var tool_lines: Array[String]=[]
-    var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
-    var build_state: Dictionary=system.state if system!=null else {}
-    var equipped_skills: Array=build_state.get("skills",[build_state.get("skill","cleave")])
-    var equipped_tools: Array=build_state.get("tools",[build_state.get("tool","shard")])
-    for slot in equipped_skills.size():
-        var id:=String(equipped_skills[slot])
-        if id.is_empty():skill_lines.append("○%d 未装备技能" % (slot+1));continue
-        for skill in snapshot.get("skills",[]):
-            if String(skill.get("id",""))!=id:continue
-            var remaining:=float(system.cooldowns.get(id,0)) if system!=null else float(state.get("skill_cooldown",0))
-            var dormant_reason:=_family_slot_dormancy_reason(snapshot,"thread_skill",slot,id)
-            var status:=("休眠："+dormant_reason) if not dormant_reason.is_empty() else "%.1fs" % remaining if remaining>0 else "就绪"
-            skill_lines.append("%s%d %s %s" % ["▶" if slot==int(build_state.get("active_skill_slot",0)) and dormant_reason.is_empty() else "○",slot+1,String(skill.get("name",id)),status])
-    for slot in equipped_tools.size():
-        var id:=String(equipped_tools[slot])
-        if id.is_empty():tool_lines.append("○%d 未携带战具" % (slot+1));continue
-        for tool in snapshot.get("tools",[]):
-            if String(tool.get("id",""))==id:
-                var dormant_reason:=_family_slot_dormancy_reason(snapshot,"tool",slot,id)
-                var status:="休眠："+dormant_reason if not dormant_reason.is_empty() else "%d次" % int(tool.get("count",0))
-                tool_lines.append("%s%d %s %s" % ["▶" if slot==int(build_state.get("active_tool_slot",0)) and dormant_reason.is_empty() else "○",slot+1,String(tool.get("name",id)),status])
-    combat_status.text=" · ".join(skill_lines)+"\n"+" · ".join(tool_lines)
-    if player.has_method("get_seal_mechanism_snapshot"):
-        var mechanism: Dictionary=player.call("get_seal_mechanism_snapshot")
-        var maximum:=int(mechanism.get("max_stacks",mechanism.get("max",3)))
-        var amount:=int(mechanism.get("stacks",mechanism.get("value",0)))
-        mechanism_status.text=String(mechanism.get("label",mechanism.get("name","契印")))+"  "+("%d / %d" % [amount,maximum] if maximum>0 else "%d 个目标" % amount)
-        if not bool(mechanism.get("unlocked",true)):
-            mechanism_status.text=String(mechanism.get("label","契印"))+" · 尚未修复"
-        elif float(mechanism.get("remaining",0.0))>0.0 and amount>0:
-            mechanism_status.text+=" · %.1fs" % float(mechanism.remaining)
-        if float(mechanism.get("heal_remaining",0.0))>0.0:
-            mechanism_status.text+=" · %s %.1fs" % [String(mechanism.get("heal_effect","治疗效果")),float(mechanism.heal_remaining)]
-        combat_status.text+="\n"+mechanism_status.text
-    var heal: Dictionary=state.get("heal",{})
-    var paid:=HEAL_READOUT.apply(healing_payment,heal,int(player.energy),int(player.max_energy),level.active_overlay!="")
-    if is_instance_valid(healing_payment_track):healing_payment_track.update_snapshot(paid,level.active_overlay!="")
-    if is_instance_valid(pinned):pinned.position.y=248.0 if bool(paid.active) else 212.0
-    # Full health leaves nothing to do: keep the corner quiet (U01 less text).
-    healing_status.visible=not heal.is_empty() and level.active_overlay=="" and String(heal.get("reason",""))!="full_health"
-    if not heal.is_empty():
-        var reason := String(heal.get("reason","busy"))
-        var status: String = {"ready":"可用 +%d" % int(heal.get("amount",1)),"channeling":"治疗中 %.1fs" % float(heal.get("remaining",0.0)),
-            "dead":"等待复生","busy":"动作中","full_health":"生命已满","energy":"缺 %d 绯线" % int(heal.get("missing_energy",0)),
-            "airborne":"落地后可用","moving":"停稳后可用","cooldown":"冷却 %.1fs" % float(heal.get("cooldown",0.0))}.get(reason,"动作中")
-        healing_status.text="[%s] 治疗 %d · %s" % [_short_binding("heal"),int(heal.get("cost",0)),status]
-        healing_status.tooltip_text="消耗 %d 绯线 · 恢复 %d 生命 · %.2f秒\n中断损失 %d 绯线；移动、跳跃、冲刺或受击会中断。" % [int(heal.get("cost",0)),int(heal.get("amount",0)),float(heal.get("duration",0.0)),int(heal.get("interrupt_loss",0))]
-        healing_status.add_theme_color_override("font_color",GOLD if bool(heal.get("available",false)) else IVORY if reason=="channeling" else MUTED)
-    healing_bar.visible=bool(state.get("heal_active",false)) and level.active_overlay==""
-    healing_bar.value=clampf(float(state.get("heal_progress",0)),0,1)
-    if healing_bar.visible:combat_status.text+=" · 治疗中"
-    combat_status.visible=false
-    _refresh_tactical_cards(snapshot,build_state,system)
+    INTERFACE_HUD.refresh_combat_status(self, player)
 
 
 func _refresh_journal() -> void:
@@ -1484,108 +937,27 @@ func _scroll_journal(step: int) -> void:
     INTERFACE_JOURNAL.scroll_journal(self, step)
 
 func _ending_status_label(entry: Dictionary) -> String:
-    if bool(entry.get("chosen",false)):return "已选择"
-    if bool(entry.get("available",false)):return "可以选择"
-    if String(entry.get("status",""))=="closed":return "已关闭"
-    return "准备中"
+    return INTERFACE_HUD.ending_status_label(self, entry)
 
 func _hud_groups() -> Dictionary:
-    return {"top":[hud_card,mechanism_status,healing_status,healing_bar,healing_payment,healing_payment_track,pinned],"tactical":tactical_cards}
+    return INTERFACE_HUD.hud_groups(self)
 
 ## The player, enemies and their attacks take priority over HUD chrome: a group
 ## with any of them behind it on screen fades until the space is clear again.
 func _refresh_hud_occlusion(delta: float) -> void:
-    var occupants:=HUD_OCCLUSION.occupant_rects(level) if level.active_overlay=="" else ([] as Array[Rect2])
-    var groups:=_hud_groups()
-    for key in groups:
-        var faded:=HUD_OCCLUSION.covered(HUD_OCCLUSION.group_rect(groups[key]),occupants)
-        var alpha:=HUD_OCCLUSION.step_alpha(float(hud_group_alpha.get(key,1.0)),faded,delta)
-        hud_group_alpha[key]=alpha
-        for item in groups[key]:
-            if is_instance_valid(item):(item as CanvasItem).modulate.a=alpha
+    INTERFACE_HUD.refresh_hud_occlusion(self, delta)
 
 ## U03: the thread meter itself says whether a heal and the active thread art
 ## are affordable. Dormant or empty active skill slots draw no cost mark.
 func _refresh_thread_thresholds(player: Node) -> void:
-    # UI fixtures drive the HUD with lightweight players that have no heal cost.
-    var heal_cost:=int(player.get("heal_energy_cost")) if "heal_energy_cost" in player else 0
-    var skill_cost:=0
-    var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
-    if system!=null and system.has_method("selected_skill"):
-        var skill: Dictionary=system.selected_skill()
-        if not skill.is_empty():skill_cost=maxi(0,int(skill.get("energy_cost",0)))
-    var energy:=int(player.energy)
-    var maximum:=maxi(1,int(player.max_energy))
-    if thread_thresholds.energy!=energy or thread_thresholds.heal_cost!=heal_cost or thread_thresholds.skill_cost!=skill_cost or thread_thresholds.maximum!=maximum:
-        thread_thresholds.energy=energy
-        thread_thresholds.heal_cost=heal_cost
-        thread_thresholds.skill_cost=skill_cost
-        thread_thresholds.maximum=maximum
-        thread_thresholds.queue_redraw()
+    INTERFACE_HUD.refresh_thread_thresholds(self, player)
 
 
 func _skill_readiness(item: Dictionary, remaining: float, active: bool) -> Dictionary:
-    var cost := maxi(0, int(item.get("energy_cost", 0)))
-    var energy := int(level.player.energy) if level != null and is_instance_valid(level.player) else 0
-    var detail := "需要 %d 绯线；当前 %d。" % [cost, energy]
-    if remaining > 0.0:
-        return {"text":"%.1fs" % remaining, "available":false, "detail":"冷却中。" + detail}
-    if level != null and is_instance_valid(level.player) and level.player.has_method("get_cast_readiness"):
-        var action: Dictionary = level.player.get_cast_readiness(String(item.get("id","")))
-        if not bool(action.available):return {"text":action.text,"available":false,"detail":String(action.detail)+detail}
-    if energy < cost:
-        return {"text":"缺%d" % (cost - energy), "available":false, "detail":"绯线不足。" + detail}
-    return {"text":_short_binding("skill_1") if active else "待切换", "available":true, "detail":detail}
+    return INTERFACE_HUD.skill_readiness(self, item, remaining, active)
 
 func _refresh_tactical_cards(snapshot: Dictionary, build_state: Dictionary, system: Variant) -> void:
-    var crest_id:=String(build_state.get("crest","crimson"))
-    if hud_crest.get_meta("crest_id","")!=crest_id:
-        hud_crest.set_meta("crest_id",crest_id)
-        var crest_path:="res://assets/ui/seals/%s.svg" % crest_id
-        hud_crest.texture=load(crest_path) if ResourceLoader.exists(crest_path) else null
-    for index in tactical_cards.size():
-        var is_skill:=index<2
-        var slot:=index%2
-        var equipped: Array=build_state.get("skills" if is_skill else "tools",[])
-        var id:=String(equipped[slot]) if slot<equipped.size() else ""
-        var family_id:="thread_skill" if is_skill else "tool"
-        var dormant_reason:=_family_slot_dormancy_reason(snapshot,family_id,slot,id)
-        var path:="res://assets/ui/seals/%s.svg" % id
-        if tactical_icons[index].get_meta("asset_id","")!=id:
-            tactical_icons[index].set_meta("asset_id",id)
-            tactical_icons[index].texture=load(path) if not id.is_empty() and ResourceLoader.exists(path) else null
-        tactical_names[index].text="未装备" if is_skill else "未携带"
-        tactical_values[index].text="—"
-        var active:=slot==int(build_state.get("active_skill_slot" if is_skill else "active_tool_slot",0)) and dormant_reason.is_empty()
-        var signature:=id+str(active)+dormant_reason
-        if tactical_signatures[index]!=signature:
-            tactical_signatures[index]=signature
-            tactical_cards[index].set_meta("inscription_active",active)
-            tactical_cards[index].get_child(0).queue_redraw()
-            var card_style:=_style(Color(.025,.065,.07,.94),RED if active else Color("65583f"))
-            card_style.border_width_bottom=2 if active else 1
-            tactical_cards[index].add_theme_stylebox_override("panel",card_style)
-        for item in snapshot.get("skills" if is_skill else "tools",[]):
-            if String(item.get("id",""))!=id:continue
-            var item_name:=String(item.get("name",id))
-            tactical_names[index].text=("休眠 · "+item_name) if not dormant_reason.is_empty() else item_name
-            tactical_cards[index].tooltip_text="未激活："+dormant_reason if not dormant_reason.is_empty() else item_name
-            if not dormant_reason.is_empty():
-                tactical_values[index].text=dormant_reason
-                tactical_icons[index].modulate=Color(0.45,0.45,0.45)
-                break
-            if is_skill:
-                var remaining:=float(system.cooldowns.get(id,0)) if system!=null else 0.0
-                var readiness := _skill_readiness(item,remaining,active)
-                tactical_values[index].text=String(readiness.text)
-                tactical_cards[index].tooltip_text=item_name+" · "+String(readiness.detail)
-                tactical_icons[index].modulate=Color.WHITE if readiness.available else Color(0.45,0.45,0.45)
-            else:
-                var count := int(item.get("count",0))
-                var readiness: Dictionary = level.get_tool_readiness(id) if level.has_method("get_tool_readiness") else {"available":count>0,"text":"" if count>0 else "已用尽","detail":""}
-                tactical_values[index].text=String(readiness.text) if not String(readiness.text).is_empty() else "× %d" % count
-                tactical_cards[index].tooltip_text=item_name+" · 剩余 %d / %d 次。" % [count,int(item.get("capacity",count))]+String(readiness.detail)
-                tactical_icons[index].modulate=Color.WHITE if bool(readiness.available) else Color(0.45,0.45,0.45)
+    INTERFACE_HUD.refresh_tactical_cards(self, snapshot, build_state, system)
 
 func _sync_reading_session() -> void:
     if not is_instance_valid(level):
