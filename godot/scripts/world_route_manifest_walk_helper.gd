@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Connector integration, not natural campaign completion. Placement is only at
 ## authored mouths; gate prerequisites are explicit fixtures before admission.
 ## The complete connector then uses the existing Player's input and collisions.
@@ -82,7 +83,7 @@ func _walk_route(route: Dictionary, side: String) -> bool:
     var mouth: Dictionary = route[side]
     var other: Dictionary = route["b" if side == "a" else "a"]
     var label := String(route.id) + " " + side
-    var area: Node = scene.get_node_or_null(String(mouth.portal))
+    var area: Node = LEVEL_HOST.find(scene, String(mouth.portal))
     _check(is_instance_valid(area), label + ": authored mouth exists")
     if not is_instance_valid(area): return false
     # The same mouth-only setup and input/collision stepping as the unchanged

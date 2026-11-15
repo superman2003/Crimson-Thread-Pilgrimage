@@ -78,7 +78,7 @@ func run() -> void:
         level.world_mode = false
         for data in config.get("collectibles", []):
             level._collectible(data)
-            var area := LEVEL_HOST.children(level)[level.get_child_count() - 1] as Area2D
+            var area := LEVEL_HOST.children(level)[-1] as Area2D
             var sprite: Sprite2D
             var sprite_count := 0
             if area != null:
