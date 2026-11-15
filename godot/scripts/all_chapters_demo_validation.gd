@@ -2,6 +2,8 @@ extends SceneTree
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
 const ART := preload("res://scripts/hand_drawn_assets.gd")
+const CHAPTER_UNIQUENESS_CHECKS := preload("res://scripts/chapter_uniqueness_checks.gd")
+const CHAPTER_ROUTE_CHECKS := preload("res://scripts/chapter_route_checks.gd")
 const CONFIG_PATHS := [
     "res://data/demo_ch01_moss_bell_court.json",
     "res://data/demo_ch02_rain_foundry_canal.json",
@@ -35,266 +37,67 @@ func _run() -> void:
 
 
 func _validate_ch01_ch02_differ(ch01_config: Dictionary, ch02_config: Dictionary) -> void:
-    _assert(String(ch01_config.get("art_theme", "")) == "moss_cavern", "CH01 declares moss cavern theme")
-    _assert(String(ch02_config.get("art_theme", "")) == "rain_foundry", "CH02 declares rain foundry theme")
-    _assert(String(ch01_config.get("map_title", "")) != String(ch02_config.get("map_title", "")), "CH01 and CH02 map titles differ")
-    _assert(_world_is_expanded_2d(ch01_config.get("world", {})), "CH01 is expanded beyond the original short map")
-    _assert(_world_is_expanded_2d(ch02_config.get("world", {})), "CH02 is expanded beyond the original copied map")
-    # CH02 boxgarden rebuild: density-first vertical world, so require it to stay in
-    # the CH01 scale band and be a boxgarden (aspect <= 1.7) instead of "bigger ribbon".
-    _assert(_world_area(ch02_config) >= _world_area(ch01_config) * 0.6, "CH02 boxgarden area is within the CH01 scale band")
-    var ch02_world: Dictionary = ch02_config.get("world", {})
-    _assert(float(ch02_world.get("width", 0)) <= float(ch02_world.get("height", 1)) * 1.7, "CH02 is a vertical boxgarden, not a horizontal ribbon")
-    _assert(ch01_config.get("map_rooms", []).size() >= 12, "CH01 has added rooms")
-    _assert(ch02_config.get("map_rooms", []).size() >= 14, "CH02 has a larger room chain")
-    _assert(_normalized_route_signature(ch01_config) != _normalized_route_signature(ch02_config), "CH02 normalized route rhythm is not a copy of CH01")
-    _assert(_shared_enemy_position_count(ch01_config, ch02_config) <= 2, "CH02 enemy placement is not copied from CH01")
-    var ch02_materials := _platform_materials(ch02_config)
-    _assert(ch02_materials.has("wet_metal") and ch02_materials.has("foundry_boss"), "CH02 has industrial material set")
-    _assert(not ch02_materials.has("moss_stone"), "CH02 does not reuse moss platform material")
+    CHAPTER_UNIQUENESS_CHECKS.validate_ch01_ch02_differ(self, ch01_config, ch02_config)
 
 
 func _validate_chapter_geometry_uniqueness(configs: Array) -> void:
-    var topology_signatures: Array = []
-    var route_signatures: Array = []
-    for config_value in configs:
-        var config: Dictionary = config_value
-        var fingerprint: Dictionary = config.get("map_topology", {}).get("graph_fingerprint", {})
-        var topology_signature := JSON.stringify({
-            "vertices": fingerprint.get("vertices", 0),
-            "edges": fingerprint.get("edges", 0),
-            "cycle_rank": fingerprint.get("cycle_rank", -1),
-            "maximum_degree": fingerprint.get("maximum_degree", 0),
-            "degree_sequence": fingerprint.get("degree_sequence", [])
-        })
-        var route_signature := _normalized_route_signature(config)
-        _assert(not topology_signatures.has(topology_signature), String(config.get("id", "")) + " unlabeled topology fingerprint is unique")
-        _assert(not route_signatures.has(route_signature), String(config.get("id", "")) + " normalized route rhythm is unique")
-        topology_signatures.append(topology_signature)
-        route_signatures.append(route_signature)
+    CHAPTER_UNIQUENESS_CHECKS.validate_chapter_geometry_uniqueness(self, configs)
 
 
 func _normalized_route_signature(config: Dictionary) -> String:
-    var route: Array = []
-    for platform_value in config.get("platforms", []):
-        if platform_value is Dictionary and String(platform_value.get("route_role", "")) == "main":
-            route.append(platform_value)
-    route.sort_custom(func(left: Dictionary, right: Dictionary) -> bool:
-        return int(left.get("route_order", -1)) < int(right.get("route_order", -1))
-    )
-    var world: Dictionary = config.get("world", {})
-    var world_width := maxf(1.0, float(world.get("width", 1)))
-    var world_height := maxf(1.0, float(world.get("height", 1)))
-    var tokens: Array = []
-    for index in range(route.size() - 1):
-        var current_rect: Array = route[index].get("rect", [])
-        var next_rect: Array = route[index + 1].get("rect", [])
-        if current_rect.size() < 4 or next_rect.size() < 4:
-            continue
-        var gap := float(next_rect[0]) - float(current_rect[0]) - float(current_rect[2])
-        var delta_y := float(next_rect[1]) - float(current_rect[1])
-        tokens.append("%d:%d:%d" % [
-            roundi(float(current_rect[2]) / world_width * 1000.0),
-            roundi(gap / world_width * 1000.0),
-            roundi(delta_y / world_height * 100.0)
-        ])
-    return "|".join(tokens)
+    return CHAPTER_UNIQUENESS_CHECKS.normalized_route_signature(self, config)
 
 
 func _validate_chapter_visual_uniqueness() -> void:
-    var boss_signatures: Array = []
-    var material_signatures: Array = []
-    var used_platform_asset_paths: Array = []
-    var used_background_asset_paths: Array = []
-    var used_enemy_signatures: Array = []
-    for config_path in CONFIG_PATHS:
-        var config := _load_json(String(config_path))
-        var material_signature := _material_signature(config)
-        _assert(not material_signature.is_empty(), String(config.get("id", "")) + " chapter has platform materials")
-        _assert(not material_signatures.has(material_signature), String(config.get("id", "")) + " platform material set is unique")
-        material_signatures.append(material_signature)
-        var asset_paths := _platform_asset_paths(config)
-        _assert(asset_paths.size() >= 1, String(config.get("id", "")) + " chapter resolves platform asset files")
-        for asset_path in asset_paths:
-            _assert(FileAccess.file_exists(String(asset_path)), String(config.get("id", "")) + " platform asset file exists: " + String(asset_path))
-            _assert(not used_platform_asset_paths.has(asset_path), String(config.get("id", "")) + " platform asset file is not reused: " + String(asset_path))
-            used_platform_asset_paths.append(asset_path)
-        var background_paths := _background_asset_paths(config)
-        _assert(background_paths.size() >= 1, String(config.get("id", "")) + " chapter resolves background asset files")
-        for background_path in background_paths:
-            _assert(FileAccess.file_exists(String(background_path)), String(config.get("id", "")) + " background asset file exists: " + String(background_path))
-            _assert(not used_background_asset_paths.has(background_path), String(config.get("id", "")) + " background asset file is not reused: " + String(background_path))
-            used_background_asset_paths.append(background_path)
-        # V01: no solid ledge cuts through a standing NPC (head room the Player could not stand in).
-        var clashes: Array = []
-        for npc in config.get("npcs", []):
-            var figure := Rect2(float(npc.position[0]) - 40.0, float(npc.position[1]) + 40.0 - 110.0, 80.0, 102.0)
-            for platform in config.get("platforms", []):
-                if figure.intersects(Rect2(platform.rect[0], platform.rect[1], platform.rect[2], platform.rect[3])):
-                    clashes.append("%s/%s" % [npc.id, platform.get("id", "")])
-        _assert(clashes.is_empty(), String(config.get("id", "")) + " NPCs stand clear of ledges " + str(clashes))
-        var boss: Dictionary = config.get("boss", {})
-        var boss_signature := _visual_signature(boss)
-        _assert(_uses_dark_fantasy_sprite(boss), String(config.get("id", "")) + " boss uses dark fantasy sprite")
-        _validate_high_fidelity_boss_manifest(config, boss)
-        _assert(_visual_has_runtime_keyframes(boss), String(config.get("id", "")) + " boss has runtime keyframe manifest")
-        _assert(not boss_signature.is_empty(), String(config.get("id", "")) + " boss has configured visual region")
-        _assert(_array_min2(boss.get("body_size", []), Vector2(100.0, 120.0)), String(config.get("id", "")) + " boss body size is enlarged")
-        _assert(_array_min2(boss.get("hurtbox_size", []), Vector2(110.0, 130.0)), String(config.get("id", "")) + " boss hurtbox size is enlarged")
-        _assert(not boss_signatures.has(boss_signature), String(config.get("id", "")) + " boss visual is unique")
-        boss_signatures.append(boss_signature)
-        var enemy_signatures: Array = []
-        for enemy in config.get("enemy_spawns", []):
-            if not (enemy is Dictionary):
-                continue
-            var enemy_data: Dictionary = enemy
-            var signature := _visual_signature(enemy_data)
-            _assert(_uses_dark_fantasy_sprite(enemy_data), String(config.get("id", "")) + " enemy uses dark fantasy sprite: " + String(enemy_data.get("id", "")))
-            _assert(_visual_has_runtime_keyframes(enemy_data), String(config.get("id", "")) + " enemy has runtime keyframe manifest: " + String(enemy_data.get("id", "")))
-            _assert(not signature.is_empty(), String(config.get("id", "")) + " enemy has visual region: " + String(enemy_data.get("id", "")))
-            if not enemy_signatures.has(signature):
-                _assert(not used_enemy_signatures.has(signature), String(config.get("id", "")) + " enemy visual is not reused from earlier chapter: " + String(enemy_data.get("id", "")))
-                enemy_signatures.append(signature)
-        _assert(enemy_signatures.size() >= mini(4, config.get("enemy_spawns", []).size()), String(config.get("id", "")) + " chapter has varied enemy visuals")
-        for signature in enemy_signatures:
-            used_enemy_signatures.append(signature)
+    CHAPTER_UNIQUENESS_CHECKS.validate_chapter_visual_uniqueness(self)
 
 
 func _material_signature(config: Dictionary) -> String:
-    var materials: Array = []
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var material := String((platform as Dictionary).get("material", ""))
-        if not material.is_empty() and not materials.has(material):
-            materials.append(material)
-    materials.sort()
-    return "|".join(materials)
+    return CHAPTER_UNIQUENESS_CHECKS.material_signature(self, config)
 
 
 func _platform_asset_paths(config: Dictionary) -> Array:
-    var directory := "res://assets/sprites/flat_maps/"+_original_art_theme_key(config)
-    return [directory+"/platform_atlas.png",directory+"/terrain_atlas.png"]
+    return CHAPTER_UNIQUENESS_CHECKS.platform_asset_paths(self, config)
 
 
 func _background_asset_paths(config: Dictionary) -> Array:
-    var directory := "res://assets/sprites/flat_maps/"+_original_art_theme_key(config)
-    return [directory+"/background.png",directory+"/decor_atlas.png"]
+    return CHAPTER_UNIQUENESS_CHECKS.background_asset_paths(self, config)
 
 
 func _original_art_theme_key(config: Dictionary) -> String:
-    var theme := _art_theme_for_config(config)
-    return "moss_cavern" if theme == "moss_bell" else theme
+    return CHAPTER_UNIQUENESS_CHECKS.original_art_theme_key(self, config)
 
 
 func _art_theme_for_config(config: Dictionary) -> String:
-    var theme := String(config.get("art_theme", ""))
-    if not theme.is_empty():
-        return theme
-    var config_id := String(config.get("id", ""))
-    if config_id.contains("rain_foundry") or config_id.contains("ch02"):
-        return "rain_foundry"
-    if config_id.contains("saltwhite") or config_id.contains("ch03"):
-        return "salt_archive"
-    if config_id.contains("broken_string") or config_id.contains("ch04"):
-        return "string_greenhouse"
-    if config_id.contains("obsidian") or config_id.contains("ch05"):
-        return "obsidian_pilgrim"
-    if config_id.contains("silent_crown") or config_id.contains("ch06"):
-        return "silent_crown"
-    return "moss_cavern"
+    return CHAPTER_UNIQUENESS_CHECKS.art_theme_for_config(self, config)
 
 
 func _array_min2(value, minimum: Vector2) -> bool:
-    if not (value is Array):
-        return false
-    var data: Array = value
-    if data.size() < 2:
-        return false
-    return float(data[0]) >= minimum.x and float(data[1]) >= minimum.y
+    return CHAPTER_UNIQUENESS_CHECKS.array_min2(self, value, minimum)
 
 
 func _visual_signature(data: Dictionary) -> String:
-    var sprite_path := String(data.get("sprite", ""))
-    if sprite_path.is_empty():
-        return ""
-    return JSON.stringify({
-        "sprite": sprite_path,
-        "region": data.get("sprite_region", []),
-        "scale": data.get("visual_scale", 0.0),
-        "offset": data.get("visual_offset", [])
-    })
+    return CHAPTER_UNIQUENESS_CHECKS.visual_signature(self, data)
 
 
 func _uses_dark_fantasy_sprite(data: Dictionary) -> bool:
-    var sprite_path := String(data.get("sprite", ""))
-    if sprite_path.contains("kenney_monster_builder"):
-        return false
-    return sprite_path.contains("assets/sprites/original_creatures/")
+    return CHAPTER_UNIQUENESS_CHECKS.uses_dark_fantasy_sprite(self, data)
 
 
 func _visual_has_runtime_keyframes(data: Dictionary) -> bool:
-    var sprite_path := String(data.get("sprite", ""))
-    if not sprite_path.ends_with(".json") or not FileAccess.file_exists(sprite_path):
-        return false
-    var file := FileAccess.open(sprite_path, FileAccess.READ)
-    if file == null:
-        return false
-    var manifest = JSON.parse_string(file.get_as_text())
-    if typeof(manifest) != TYPE_DICTIONARY:
-        return false
-    var required := ["idle", "walk", "attack", "hurt", "death"]
-    var found: Dictionary = {}
-    for animation in manifest.get("animations", []):
-        if not (animation is Dictionary):
-            continue
-        var data_animation: Dictionary = animation
-        var name := String(data_animation.get("name", ""))
-        if not required.has(name):
-            continue
-        var frames: Array = data_animation.get("frames", [])
-        if frames.is_empty():
-            return false
-        for frame in frames:
-            var frame_path := String(frame.get("atlas", "")) if frame is Dictionary else String(frame)
-            if frame_path.is_empty() or not FileAccess.file_exists(frame_path):
-                return false
-        found[name] = true
-    for name in required:
-        if not found.has(name):
-            return false
-    return true
+    return CHAPTER_UNIQUENESS_CHECKS.visual_has_runtime_keyframes(self, data)
 
 
 func _validate_high_fidelity_boss_manifest(config: Dictionary, boss: Dictionary) -> void:
-    var path := "res://assets/sprites/original_creatures/"+String(boss.kind)+"/manifest.json"
-    _assert(String(boss.sprite)==path,String(config.id)+" uses its original boss atlas")
-    _assert(String(boss.visual_source)=="original_hand_drawn",String(config.id)+" original art provenance")
-    for animation in ["heavy", "cast", "phase", "heavy_windup", "cast_windup", "phase_windup"]:
-        _assert(_manifest_has_directional_animation(path,animation),String(config.id)+" boss animation "+animation)
+    CHAPTER_UNIQUENESS_CHECKS.validate_high_fidelity_boss_manifest(self, config, boss)
 
 
 func _manifest_has_directional_animation(sprite_path: String, animation_name: String) -> bool:
-    var file := FileAccess.open(sprite_path, FileAccess.READ)
-    if file == null:
-        return false
-    var manifest = JSON.parse_string(file.get_as_text())
-    if typeof(manifest) != TYPE_DICTIONARY:
-        return false
-    for animation in manifest.get("animations", []):
-        if not (animation is Dictionary):
-            continue
-        var data_animation: Dictionary = animation
-        if String(data_animation.get("name", "")) != animation_name:
-            continue
-        return (data_animation.get("frames", []) as Array).size() >= 2
-    return false
+    return CHAPTER_UNIQUENESS_CHECKS.manifest_has_directional_animation(self, sprite_path, animation_name)
 
 
 func _validate_runtime_boss_manifest(config_id: String, state: Dictionary) -> void:
-    var config := _load_json("res://data/"+config_id+".json")
-    var path := ART.character_manifest("original_creatures", String(config.boss.kind))
-    _assert(String(state.get("boss_asset_path", "")) == path, config_id + " runtime uses the current original-art motion manifest")
+    CHAPTER_UNIQUENESS_CHECKS.validate_runtime_boss_manifest(self, config_id, state)
 
 
 func _text_has(value, needle: String) -> bool:
@@ -302,50 +105,11 @@ func _text_has(value, needle: String) -> bool:
 
 
 func _validate_ai_profiles(config: Dictionary, config_id: String) -> void:
-    var profiles: Dictionary = config.get("ai_profiles", {})
-    _assert(not profiles.is_empty(), config_id + " has ai profile table")
-    var kinds: Array = []
-    for enemy in config.get("enemy_spawns", []):
-        if enemy is Dictionary:
-            var enemy_kind := String((enemy as Dictionary).get("kind", ""))
-            if not enemy_kind.is_empty() and not kinds.has(enemy_kind):
-                kinds.append(enemy_kind)
-    var boss_kind := String(config.get("boss", {}).get("kind", ""))
-    if not boss_kind.is_empty() and not kinds.has(boss_kind):
-        kinds.append(boss_kind)
-    for kind in kinds:
-        _assert(profiles.has(kind), config_id + " ai profile exists: " + String(kind))
-        var profile: Dictionary = profiles.get(kind, {})
-        var attacks: Array = profile.get("attacks", [])
-        if kind == boss_kind:
-            _assert(attacks.size() >= 2, config_id + " boss ai profile has attack desire commands: " + String(kind))
-        else:
-            _assert(attacks.size() >= 2, config_id + " small enemy has at least two distinct attack commands: " + String(kind))
-        _assert(float(profile.get("aggro_range", 0.0)) >= float(profile.get("preferred_range", 0.0)), config_id + " ai profile can engage beyond preferred range: " + String(kind))
-        var boss_animation_mapped := 0
-        for attack in attacks:
-            _assert(attack is Dictionary, config_id + " ai attack is dictionary: " + String(kind))
-            var attack_data: Dictionary = attack
-            _assert(not String(attack_data.get("id", "")).is_empty(), config_id + " ai attack has id: " + String(kind))
-            _assert(float(attack_data.get("range", 0.0)) >= 60.0, config_id + " ai attack has usable range: " + String(kind))
-            _assert(float(attack_data.get("cooldown", 0.0)) > 0.0, config_id + " ai attack has cooldown: " + String(kind))
-            if kind == boss_kind:
-                boss_animation_mapped += _validate_boss_ai_animation(config_id, attack_data)
-        if kind == boss_kind:
-            var min_mapped := 0
-            if config_id == "demo_ch01_moss_bell_court" or config_id == "demo_ch02_rain_foundry_canal":
-                min_mapped = 3
-            elif config_id == "demo_ch03_saltwhite_archive" or config_id == "demo_ch04_broken_string_greenhouse":
-                min_mapped = 4
-            if min_mapped > 0:
-                _assert(boss_animation_mapped >= min_mapped, config_id + " boss ai has enough high-fidelity animation mappings")
+    CHAPTER_UNIQUENESS_CHECKS.validate_ai_profiles(self, config, config_id)
 
 
 func _validate_boss_ai_animation(config_id: String, attack_data: Dictionary) -> int:
-    var config := _load_json("res://data/"+config_id+".json")
-    var path := "res://assets/sprites/original_creatures/"+String(config.boss.kind)+"/manifest.json"
-    _assert(_manifest_has_directional_animation(path,String(attack_data.get("animation","attack"))),config_id+" attack maps to a real animation")
-    return 1
+    return CHAPTER_UNIQUENESS_CHECKS.validate_boss_ai_animation(self, config_id, attack_data)
 
 
 func _validate_chapter(config_path: String) -> void:
@@ -539,470 +303,141 @@ func _validate_chapter(config_path: String) -> void:
 
 
 func _normal_enemy_kinds(scene: Node) -> Array:
-    var kinds: Array = []
-    for child in scene.get_children():
-        if child.is_in_group("enemy") and not child.is_boss:
-            kinds.append(child.kind)
-    return kinds
+    return CHAPTER_ROUTE_CHECKS.normal_enemy_kinds(self, scene)
 
 
 func _attacks_have_pose_keys(attacks: Array) -> bool:
-    if attacks.is_empty():
-        return false
-    for attack in attacks:
-        if not (attack is Dictionary):
-            return false
-        var data: Dictionary = attack
-        if not data.has("windup_scale") or not data.has("active_scale") or not data.has("recover_offset"):
-            return false
-    return true
+    return CHAPTER_ROUTE_CHECKS.attacks_have_pose_keys(self, attacks)
 
 
 func _find_runtime_scene(config_id: String) -> Node:
-    for child in root.get_children():
-        if child == null or not is_instance_valid(child):
-            continue
-        if not child.has_method("get_demo_state"):
-            continue
-        var state: Dictionary = child.get_demo_state()
-        if String(state.get("config_id", "")) == config_id:
-            return child
-    return null
+    return CHAPTER_ROUTE_CHECKS.find_runtime_scene(self, config_id)
 
 
 func _points_match(actual_value, expected_value) -> bool:
-    if not (actual_value is Array) or not (expected_value is Array):
-        return false
-    var actual: Array = actual_value
-    var expected: Array = expected_value
-    if actual.size() < 2 or expected.size() < 2:
-        return false
-    return absf(float(actual[0]) - float(expected[0])) <= 0.5 and absf(float(actual[1]) - float(expected[1])) <= 0.5
+    return CHAPTER_ROUTE_CHECKS.points_match(self, actual_value, expected_value)
 
 
 func _vec2(value) -> Vector2:
-    if not (value is Array):
-        return Vector2.ZERO
-    var data: Array = value
-    if data.size() < 2:
-        return Vector2.ZERO
-    return Vector2(float(data[0]), float(data[1]))
+    return CHAPTER_ROUTE_CHECKS.vec2(self, value)
 
 
 func _interactive_by_kind(interactives: Array, kind: String) -> Dictionary:
-    for interactive in interactives:
-        var item: Dictionary = interactive
-        if String(item.get("kind", "")) == kind:
-            return item
-    return {}
+    return CHAPTER_ROUTE_CHECKS.interactive_by_kind(self, interactives, kind)
 
 
 func _interactive_exit(interactives: Array) -> Dictionary:
-    for interactive in interactives:
-        var item: Dictionary = interactive
-        var kind := String(item.get("kind", ""))
-        if kind == "chapter_exit" or kind == "ending_exit":
-            return item
-    return {}
+    return CHAPTER_ROUTE_CHECKS.interactive_exit(self, interactives)
 
 
 func _item_collectible_count(config: Dictionary) -> int:
-    var total := 0
-    for collectible in config.get("collectibles", []):
-        if collectible is Dictionary and String((collectible as Dictionary).get("kind", "")) == "item":
-            total += 1
-    return total
+    return CHAPTER_ROUTE_CHECKS.item_collectible_count(self, config)
 
 
 func _collectibles_have_no_route_tokens(config: Dictionary) -> bool:
-    for collectible in config.get("collectibles", []):
-        if not (collectible is Dictionary):
-            return false
-        if String((collectible as Dictionary).get("kind", "")) not in ["item"]:
-            return false
-    return true
+    return CHAPTER_ROUTE_CHECKS.collectibles_have_no_route_tokens(self, config)
 
 
 func _room_by_kind(rooms: Array, kind: String) -> Dictionary:
-    for room in rooms:
-        if not (room is Dictionary):
-            continue
-        var data: Dictionary = room
-        if String(data.get("kind", "")) == kind:
-            return data
-    return {}
+    return CHAPTER_ROUTE_CHECKS.room_by_kind(self, rooms, kind)
 
 
 func _position_inside_room(position_value, room: Dictionary) -> bool:
-    if room.is_empty() or not (position_value is Array):
-        return false
-    var position_data: Array = position_value
-    if position_data.size() < 2:
-        return false
-    var x := float(position_data[0])
-    var y := float(position_data[1])
-    if _room_contains_position(room, Vector2(x, y)):
-        return true
-    var range_data: Array = room.get("range", [])
-    if range_data.size() < 2:
-        return false
-    return x >= float(range_data[0]) and x <= float(range_data[1])
+    return CHAPTER_ROUTE_CHECKS.position_inside_room(self, position_value, room)
 
 
 func _position_has_floor(config: Dictionary, position_value, clearance: float) -> bool:
-    if not (position_value is Array):
-        return false
-    var position_data: Array = position_value
-    if position_data.size() < 2:
-        return false
-    var x := float(position_data[0])
-    var expected_top := float(position_data[1]) + clearance
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var rect := _platform_rect(platform_data.get("rect", []))
-        if not _playable_floor_allowed(platform_data, rect):
-            continue
-        if x >= rect.position.x - 1.0 and x <= rect.position.x + rect.size.x + 1.0 and absf(rect.position.y - expected_top) <= 8.0:
-            return true
-    return false
+    return CHAPTER_ROUTE_CHECKS.position_has_floor(self, config, position_value, clearance)
 
 
 func _late_route_has_no_large_gap(config: Dictionary, exit_position_value, max_gap: float) -> bool:
-    if _uses_layout_rects(config.get("map_rooms", [])):
-        return true
-    if not (exit_position_value is Array):
-        return false
-    var exit_position: Array = exit_position_value
-    if exit_position.size() < 2:
-        return false
-    var start_x := _late_route_start_x(config)
-    var end_x := float(exit_position[0])
-    var ranges: Array = []
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var rect := _platform_rect(platform_data.get("rect", []))
-        if not _playable_floor_allowed(platform_data, rect):
-            continue
-        if rect.size.x < 180.0 or rect.position.y < 492.0 or rect.position.y > 545.0:
-            continue
-        var left := maxf(start_x, rect.position.x)
-        var right := minf(end_x, rect.position.x + rect.size.x)
-        if right > left:
-            ranges.append([left, right])
-    ranges.sort_custom(func(a, b): return float(a[0]) < float(b[0]))
-    var cursor := start_x
-    for range_item in ranges:
-        var left := float(range_item[0])
-        var right := float(range_item[1])
-        if left - cursor > max_gap:
-            return false
-        cursor = maxf(cursor, right)
-    return end_x - cursor <= max_gap
+    return CHAPTER_ROUTE_CHECKS.late_route_has_no_large_gap(self, config, exit_position_value, max_gap)
 
 
 func _uses_layout_rects(rooms: Array) -> bool:
-    for room in rooms:
-        if not (room is Dictionary):
-            continue
-        var rect := _room_layout_rect(room)
-        if rect.size.x > 0.0 and rect.size.y > 0.0:
-            return true
-    return false
+    return CHAPTER_ROUTE_CHECKS.uses_layout_rects(self, rooms)
 
 
 func _late_route_start_x(config: Dictionary) -> float:
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        if String(platform_data.get("id", "")) == "backdoor_room":
-            return _platform_rect(platform_data.get("rect", [])).position.x
-    return 3600.0
+    return CHAPTER_ROUTE_CHECKS.late_route_start_x(self, config)
 
 
 func _playable_floor_allowed(platform_data: Dictionary, rect: Rect2) -> bool:
-    if rect.size.x <= 0.0 or rect.size.y <= 0.0:
-        return false
-    var lowered := String(platform_data.get("id", "")).to_lower()
-    if lowered.contains("wall") or lowered.contains("gate") or lowered.contains("locked"):
-        return false
-    return rect.size.x >= 26.0 and rect.size.y <= 90.0
+    return CHAPTER_ROUTE_CHECKS.playable_floor_allowed(self, platform_data, rect)
 
 
 func _platform_rect(rect_value) -> Rect2:
-    if not (rect_value is Array):
-        return Rect2()
-    var data: Array = rect_value
-    if data.size() < 4:
-        return Rect2()
-    return Rect2(float(data[0]), float(data[1]), float(data[2]), float(data[3]))
+    return CHAPTER_ROUTE_CHECKS.platform_rect(self, rect_value)
 
 
 func _exit_points_to_next(config: Dictionary, config_id: String) -> bool:
-    var exit_data := _interactive_exit(config.get("interactives", []))
-    if exit_data.is_empty():
-        return false
-    if config_id.ends_with("silent_crown_core"):
-        return String(exit_data.get("kind", "")) == "ending_exit"
-    var transition: Dictionary = config.get("chapter_transition", {})
-    return String(exit_data.get("kind", "")) == "chapter_exit" and not String(transition.get("to_runtime_config_id", "")).is_empty() and String(exit_data.get("next_runtime_config_id", "")) == String(transition.get("to_runtime_config_id", ""))
+    return CHAPTER_ROUTE_CHECKS.exit_points_to_next(self, config, config_id)
 
 
 func _attack_types(profile: Dictionary) -> Array:
-    var types: Array = []
-    for attack in profile.get("attacks", []):
-        if not (attack is Dictionary):
-            continue
-        var data: Dictionary = attack
-        var attack_type := String(data.get("type", ""))
-        if not types.has(attack_type):
-            types.append(attack_type)
-    return types
+    return CHAPTER_ROUTE_CHECKS.attack_types(self, profile)
 
 
 func _world_area(config: Dictionary) -> float:
-    var world: Dictionary = config.get("world", {})
-    return float(world.get("width", 0)) * float(world.get("height", 0))
+    return CHAPTER_ROUTE_CHECKS.world_area(self, config)
 
 
 func _world_is_expanded_2d(world: Dictionary) -> bool:
-    # True-2D maps trade raw ribbon width for stacked vertical layers, so
-    # require enough playable area on both axes instead of 1D length.
-    var width := float(world.get("width", 0))
-    var height := float(world.get("height", 0))
-    return width >= 5200.0 and height >= 2400.0 and width * height >= 14000000.0
+    return CHAPTER_ROUTE_CHECKS.world_is_expanded_2d(self, world)
 
 
 func _rooms_cover_world(rooms: Array, world: Dictionary) -> bool:
-    # Every room must expose a positive 2D layout rect, and together the
-    # rooms must span most of the world on both axes.
-    if rooms.is_empty():
-        return false
-    var min_x := INF
-    var min_y := INF
-    var max_x := -INF
-    var max_y := -INF
-    for room in rooms:
-        if not (room is Dictionary):
-            return false
-        var rect := _room_layout_rect(room)
-        if rect.size.x <= 0.0 or rect.size.y <= 0.0:
-            return false
-        min_x = minf(min_x, rect.position.x)
-        min_y = minf(min_y, rect.position.y)
-        max_x = maxf(max_x, rect.position.x + rect.size.x)
-        max_y = maxf(max_y, rect.position.y + rect.size.y)
-    var width := maxf(1.0, float(world.get("width", 1)))
-    var height := maxf(1.0, float(world.get("height", 1)))
-    return (max_x - min_x) >= width * 0.72 and (max_y - min_y) >= height * 0.55
+    return CHAPTER_ROUTE_CHECKS.rooms_cover_world(self, rooms, world)
 
 
 func _has_multilayer_room_kinds(rooms: Array) -> bool:
-    var room_types: Dictionary = {}
-    var min_layer := 999
-    var max_layer := -999
-    for room in rooms:
-        if not (room is Dictionary):
-            continue
-        var data: Dictionary = room
-        room_types[String(data.get("room_type", data.get("kind", "")))] = true
-        var layer := int(data.get("layer", data.get("depth", 0)))
-        min_layer = mini(min_layer, layer)
-        max_layer = maxi(max_layer, layer)
-    return room_types.size() >= 3 and max_layer - min_layer >= 3
+    return CHAPTER_ROUTE_CHECKS.has_multilayer_room_kinds(self, rooms)
 
 
 func _has_multilevel_platforms(platforms: Array) -> bool:
-    # Split the playable vertical span into thirds and require standable
-    # floors in every band, so each chapter is genuinely stacked in 2D.
-    var min_y := INF
-    var max_y := -INF
-    var floor_ys: Array = []
-    for platform in platforms:
-        if not (platform is Dictionary):
-            continue
-        var data: Dictionary = platform
-        var rect := _platform_rect(data.get("rect", []))
-        if not _playable_floor_allowed(data, rect):
-            continue
-        floor_ys.append(rect.position.y)
-        min_y = minf(min_y, rect.position.y)
-        max_y = maxf(max_y, rect.position.y)
-    if floor_ys.size() < 3 or max_y - min_y < 1200.0:
-        return false
-    var band := (max_y - min_y) / 3.0
-    var has_upper := false
-    var has_mid := false
-    var has_lower := false
-    for y_value in floor_ys:
-        var y := float(y_value)
-        if y < min_y + band:
-            has_upper = true
-        elif y < min_y + band * 2.0:
-            has_mid = true
-        else:
-            has_lower = true
-    return has_upper and has_mid and has_lower
+    return CHAPTER_ROUTE_CHECKS.has_multilevel_platforms(self, platforms)
 
 
 func _connections_reference_rooms(connections: Array, rooms: Array) -> bool:
-    var ids: Dictionary = {}
-    for room in rooms:
-        if room is Dictionary:
-            ids[String((room as Dictionary).get("id", ""))] = true
-    if connections.is_empty():
-        return false
-    for connection in connections:
-        if not (connection is Dictionary):
-            return false
-        var data: Dictionary = connection
-        if not ids.has(String(data.get("from", ""))) or not ids.has(String(data.get("to", ""))):
-            return false
-    return true
+    return CHAPTER_ROUTE_CHECKS.connections_reference_rooms(self, connections, rooms)
 
 
 func _positions_map_to_rooms(config: Dictionary, config_id: String) -> bool:
-    var rooms: Array = config.get("map_rooms", [])
-    var positions: Array = [
-        config.get("player_start", []),
-        config.get("boss_checkpoint", []),
-        config.get("boss", {}).get("position", [])
-    ]
-    for enemy in config.get("enemy_spawns", []):
-        if enemy is Dictionary:
-            positions.append((enemy as Dictionary).get("position", []))
-    for save_point in config.get("save_points", []):
-        if save_point is Dictionary:
-            positions.append((save_point as Dictionary).get("position", []))
-    for npc in config.get("npcs", []):
-        if npc is Dictionary:
-            positions.append((npc as Dictionary).get("position", []))
-    for interactive in config.get("interactives", []):
-        if interactive is Dictionary:
-            positions.append((interactive as Dictionary).get("position", []))
-    for position_value in positions:
-        if not _position_inside_any_room(position_value, rooms):
-            print("POSITION_OUTSIDE_ROOM: %s %s" % [config_id, JSON.stringify(position_value)])
-            return false
-    return true
+    return CHAPTER_ROUTE_CHECKS.positions_map_to_rooms(self, config, config_id)
 func _position_inside_any_room(position_value, rooms: Array) -> bool:
-    if not (position_value is Array):
-        return false
-    var position_data: Array = position_value
-    if position_data.size() < 2:
-        return false
-    var x := float(position_data[0])
-    var y := float(position_data[1])
-    for room in rooms:
-        if not (room is Dictionary):
-            continue
-        var room_data: Dictionary = room
-        if _room_contains_position(room_data, Vector2(x, y)):
-            return true
-        if _uses_layout_rects([room_data]):
-            continue
-        var range_data: Array = room_data.get("range", [])
-        if range_data.size() < 2:
-            continue
-        if x >= float(range_data[0]) and x <= float(range_data[1]):
-            return true
-    return false
+    return CHAPTER_ROUTE_CHECKS.position_inside_any_room(self, position_value, rooms)
 
 
 func _room_layout_rect(room: Dictionary) -> Rect2:
-    var rect_value = room.get("layout_rect", room.get("play_rect", []))
-    if not (rect_value is Array):
-        return Rect2()
-    var data: Array = rect_value
-    if data.size() < 4:
-        return Rect2()
-    return Rect2(float(data[0]), float(data[1]), float(data[2]), float(data[3]))
+    return CHAPTER_ROUTE_CHECKS.room_layout_rect(self, room)
 
 
 func _room_contains_position(room: Dictionary, position_value: Vector2) -> bool:
-    var layout_rect := _room_layout_rect(room)
-    if layout_rect.size.x > 0.0 and layout_rect.size.y > 0.0:
-        if position_value.x >= layout_rect.position.x and position_value.x <= layout_rect.position.x + layout_rect.size.x and position_value.y >= layout_rect.position.y and position_value.y <= layout_rect.position.y + layout_rect.size.y:
-            return true
-    for rect_value in room.get("visit_rects", []):
-        if not (rect_value is Array):
-            continue
-        var data: Array = rect_value
-        if data.size() < 4:
-            continue
-        var rect := Rect2(float(data[0]), float(data[1]), float(data[2]), float(data[3]))
-        if position_value.x >= rect.position.x and position_value.x <= rect.position.x + rect.size.x and position_value.y >= rect.position.y and position_value.y <= rect.position.y + rect.size.y:
-            return true
-    return false
+    return CHAPTER_ROUTE_CHECKS.room_contains_position(self, room, position_value)
 
 
 func _platform_materials(config: Dictionary) -> Array:
-    var materials: Array = []
-    for platform in config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var data: Dictionary = platform
-        var material := String(data.get("material", ""))
-        if not materials.has(material):
-            materials.append(material)
-    return materials
+    return CHAPTER_ROUTE_CHECKS.platform_materials(self, config)
 
 
 func _platform_signature_overlap(left_config: Dictionary, right_config: Dictionary) -> float:
-    var left_signatures: Array = []
-    for platform in left_config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        left_signatures.append(_platform_signature(platform as Dictionary))
-    var compared := 0
-    var matched := 0
-    for platform in right_config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        compared += 1
-        if left_signatures.has(_platform_signature(platform as Dictionary)):
-            matched += 1
-    if compared <= 0:
-        return 1.0
-    return float(matched) / float(compared)
+    return CHAPTER_ROUTE_CHECKS.platform_signature_overlap(self, left_config, right_config)
 
 
 func _platform_signature(platform: Dictionary) -> String:
-    return JSON.stringify({
-        "rect": platform.get("rect", []),
-        "material": platform.get("material", "")
-    })
+    return CHAPTER_ROUTE_CHECKS.platform_signature(self, platform)
 
 
 func _shared_enemy_position_count(left_config: Dictionary, right_config: Dictionary) -> int:
-    var left_positions: Array = []
-    for enemy in left_config.get("enemy_spawns", []):
-        if enemy is Dictionary:
-            left_positions.append(_enemy_position_signature(enemy as Dictionary))
-    var count := 0
-    for enemy in right_config.get("enemy_spawns", []):
-        if enemy is Dictionary and left_positions.has(_enemy_position_signature(enemy as Dictionary)):
-            count += 1
-    return count
+    return CHAPTER_ROUTE_CHECKS.shared_enemy_position_count(self, left_config, right_config)
 
 
 func _enemy_position_signature(enemy: Dictionary) -> String:
-    var position: Array = enemy.get("position", [])
-    if position.size() < 2:
-        return ""
-    return "%d:%d" % [int(position[0]), int(position[1])]
+    return CHAPTER_ROUTE_CHECKS.enemy_position_signature(self, enemy)
 
 
 func _load_json(path: String) -> Dictionary:
-    var file := FileAccess.open(path, FileAccess.READ)
-    if file == null:
-        return {}
-    var data = JSON.parse_string(file.get_as_text())
-    return data if typeof(data) == TYPE_DICTIONARY else {}
+    return CHAPTER_ROUTE_CHECKS.load_json(self, path)
 
 
 func _assert(condition: bool, label: String) -> void:
