@@ -174,8 +174,8 @@ func cancel_staging() -> void:
     LOADER_STAGING.cancel(self)
 
 
-func handover_staged_async(host: Node) -> bool:
-    return await LOADER_STAGING.handover_async(self, host)
+func handover_staged_async(host: Node, arrival: Vector2 = Vector2.INF) -> bool:
+    return await LOADER_STAGING.handover_async(self, host, arrival)
 
 
 ## Owned startup and foreground travel must unwind before the host leaves.
@@ -193,7 +193,8 @@ func _next_process_frame(tree: SceneTree) -> void:
 
 
 func _frame_signal(tree: SceneTree) -> Signal:
-    if startup_token == null and transition_token == null:
+    # A hidden build or its retirement also waits on frames shutdown can wake.
+    if startup_token == null and transition_token == null and staging.is_empty() and staging_retiring == 0:
         return tree.process_frame
     if _startup_frame_tree != tree:
         _disconnect_startup_frames()

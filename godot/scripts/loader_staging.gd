@@ -163,7 +163,7 @@ static func _retire(loader: RefCounted, root: Node) -> void:
             root.remove_child(child)
             child.free()
             operations += 1
-        await tree.process_frame
+        await loader._frame_signal(tree)
     if is_instance_valid(root):
         root.free()
     loader.staging_retiring -= 1
@@ -171,11 +171,15 @@ static func _retire(loader: RefCounted, root: Node) -> void:
 
 ## Retires the source region and makes the hidden destination current. The
 ## source is evicted over several frames; the switch itself does not yield.
-static func handover_async(loader: RefCounted, host: Node) -> bool:
+## `arrival`, when finite, replaces the entry the destination was staged for
+## (a passage hands over where the player actually reached its terminal).
+static func handover_async(loader: RefCounted, host: Node, arrival: Vector2 = Vector2.INF) -> bool:
     if loader.phase != "staged" or loader.staging.is_empty() or loader.staging.host != host or not loader._alive(host):
         return false
     var staging: Dictionary = loader.staging
     loader.phase = "unloading"
+    var previous_mode: int = host.process_mode
+    host.process_mode = Node.PROCESS_MODE_DISABLED
     host.world_loading = true
     host._stop_region_tweens()
     host._release_region_audio()
@@ -186,6 +190,9 @@ static func handover_async(loader: RefCounted, host: Node) -> bool:
     var switch_started := Time.get_ticks_usec()
     var old_root: Node = host.region_root
     REGION_STATE.apply(host, staging.state, staging.fields)
+    if arrival.is_finite():
+        host.entry_spawn_override = arrival
+        host.active_spawn = arrival
     host.region_root = staging.root
     loader.staging = {}
     if is_instance_valid(old_root):
@@ -213,6 +220,7 @@ static func handover_async(loader: RefCounted, host: Node) -> bool:
         host.world_gameplay_residency.generation = loader.generation
     host.player.reset_camera_after_arrival()
     host.chapter_transitioning = false
+    host.process_mode = previous_mode
     loader.phase = "idle"
     loader.last_transition["handover_switch_usec"] = Time.get_ticks_usec() - switch_started
     return true

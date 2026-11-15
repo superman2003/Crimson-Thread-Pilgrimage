@@ -14,6 +14,13 @@ static func shutdown(loader: RefCounted) -> void:
         loader._write_startup_exit_snapshot(loader._startup_exit_snapshot())
     loader.shutting_down = true
     loader.cancel_requested = true
+    # A destination being built hidden is dropped at once; its coroutine wakes
+    # below, sees shutting_down and returns without touching the freed host.
+    if not loader.staging.is_empty():
+        var staged_root: Variant = loader.staging.root
+        loader.staging = {}
+        if is_instance_valid(staged_root):
+            staged_root.free()
     if loader.transition_token != null:
         loader.transition_token.cancel()
     if loader.startup_token != null:

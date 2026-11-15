@@ -106,6 +106,11 @@ func _run() -> void:
         var target := "demo_ch02_rain_foundry_canal" if direction > 0 else origin_id
         _check(String(scene.config.id) == target, "full walk reaches " + target)
         _check(bool(passage.last_result.get("arrived", false)) and float(passage.last_result.get("distance", 0)) >= 8500, "full 8540px connector traversed by physics")
+        # This walk invalidates the route manifest after admission, so the hidden
+        # build cannot validate its destination: the terminal falls back to the
+        # ordinary budgeted load. (world_passage_network covers the hidden build.)
+        _check(not bool(passage.last_result.get("staged", false)) and walk_loading_frames > 0, "stale-manifest hidden build falls back to the terminal load")
+        print("PASSAGE_STAGED_FALLBACK direction=%d terminal_wait_frames=%d staging_wall_ms=%.1f handover_switch_ms=%.1f" % [direction, int(passage.last_result.get("terminal_wait_frames", -1)), float(scene.world_loader.last_transition.get("staging_wall_usec", 0)) / 1000.0, float(scene.world_loader.last_transition.get("handover_switch_usec", 0)) / 1000.0])
         _check(scene.get_instance_id() == host_id and scene.player.get_instance_id() == player_id and scene.build_system.get_instance_id() == build_id, "host player build identities survive terminal loading")
         _check(scene.player.hp == 3 and scene.player.energy == 41 and scene.currency_count == 97, "full walk preserves HP energy currency")
         _check(scene.player.collision_layer == 1 and scene.player.collision_mask != 64 and passage.get_child_count() == 0, "arrival clears tube physics and restores mask")
@@ -136,6 +141,8 @@ func _run() -> void:
         _check(not passage.begin("moss_rain_pipe") and not passage.active, "physical entry respects far-side latch")
         descriptor.erase("requires_shortcut")
     var source_checkpoint: Vector2 = scene.active_spawn
+    # The terminal fallback load (used when no hidden build is available).
+    passage.staging_enabled = false
     _check(passage.begin("moss_rain_pipe"), "enter for terminal cancellation fixture")
     # Fixture positioning at the terminal only tests rollback; not travel evidence.
     scene.player.global_position = passage.destination_point + Vector2(0, 40)
@@ -196,6 +203,8 @@ func _jump_past_mouth(portal: Node2D, passage: Node) -> bool:
     scene.process_mode = Node.PROCESS_MODE_DISABLED
     return failures.is_empty()
 
+var walk_loading_frames := 0
+
 func _walk(direction: int, arrival: bool) -> void:
     Input.action_release("move_left")
     Input.action_release("move_right")
@@ -204,8 +213,11 @@ func _walk(direction: int, arrival: bool) -> void:
     scene.player.process_mode = Node.PROCESS_MODE_ALWAYS
     var previous: Vector2 = scene.player_world_position()
     var max_step := 0.0
+    walk_loading_frames = 0
     for frame in range(3600):
         await _frames()
+        if scene.world_loader.loading_canvas != null:
+            walk_loading_frames += 1
         if not scene.world_passage.settling:
             scene.world_passage.step()
         if scene.world_passage.settling:
