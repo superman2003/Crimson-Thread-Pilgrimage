@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/'+name for name in ['archive_page_view.gd','build_system.gd','journey_archive_detail.gd','journey_archive_comparison.gd','journey_history.gd','journey_history_browser.gd','narrative_journey.gd','resupply_budget.gd','world_coordinates.gd','world_narrative.gd','world_state.gd','permanent_ability_roles.gd','journey_comparison_validation.gd']]
+DEPS = ['scripts/'+name for name in ['archive_page_view.gd','build_system.gd', 'build_loadouts.gd', 'build_persistence.gd', 'build_transactions.gd','journey_archive_detail.gd','journey_archive_comparison.gd','journey_history.gd','journey_history_browser.gd','narrative_journey.gd','resupply_budget.gd','world_coordinates.gd','world_narrative.gd','world_state.gd','permanent_ability_roles.gd','journey_comparison_validation.gd']]
 MARKER = '^JOURNEY_COMPARISON checks=[1-9][0-9]* failures=0$'
 
 def invoke(command, env, log, marker):

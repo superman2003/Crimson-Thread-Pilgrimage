@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/level_travel_async.gd'
       - 'godot/scripts/level_activation.gd'
       - 'godot/scripts/level_boss.gd'
       - 'godot/scripts/level_build.gd'
@@ -36,6 +37,7 @@ on:
       - 'godot/scripts/optional_challenges.gd'
       - 'godot/scripts/wish_topics.gd'
       - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/audio_game_state.gd'
       - 'godot/scripts/audio_ambience.gd'
       - 'godot/scripts/audio_music.gd'
       - 'godot/scripts/audio_npc_voices.gd'
@@ -55,6 +57,11 @@ on:
       - 'godot/scripts/world_startup_budget_validation.gd'
       - 'godot/scripts/world_prefetch.gd'
       - 'godot/scripts/world_region_loader.gd'
+      - 'godot/scripts/loader_budgeted_prepare.gd'
+      - 'godot/scripts/loader_region_state.gd'
+      - 'godot/scripts/loader_startup.gd'
+      - 'godot/scripts/loader_startup_support.gd'
+      - 'godot/scripts/loader_transitions.gd'
       - '.github/contracts/background-resource-ownership.yml'
 
 permissions:

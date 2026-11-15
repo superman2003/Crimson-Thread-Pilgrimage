@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/level_travel_async.gd'
       - 'godot/scripts/level_activation.gd'
       - 'godot/scripts/level_boss.gd'
       - 'godot/scripts/level_build.gd'
@@ -37,6 +38,11 @@ on:
       - 'godot/scripts/wish_topics.gd'
       - 'godot/scripts/world_routes.gd'
       - 'godot/scripts/world_region_loader.gd'
+      - 'godot/scripts/loader_budgeted_prepare.gd'
+      - 'godot/scripts/loader_region_state.gd'
+      - 'godot/scripts/loader_startup.gd'
+      - 'godot/scripts/loader_startup_support.gd'
+      - 'godot/scripts/loader_transitions.gd'
       - 'godot/scripts/world_transition_token.gd'
       - 'godot/scripts/world_prefetch.gd'
       - 'godot/scripts/world_atlas.gd'

@@ -611,6 +611,7 @@ const LEVEL_PLAYER_FRAME := preload("res://scripts/level_player_frame.gd")
 const LEVEL_RESIDENTS := preload("res://scripts/level_residents.gd")
 const LEVEL_DEMO_STATE := preload("res://scripts/level_demo_state.gd")
 const LEVEL_ROUTE_STATE := preload("res://scripts/level_route_state.gd")
+const LEVEL_TRAVEL_ASYNC := preload("res://scripts/level_travel_async.gd")
 
 func _ready() -> void:
     preload("res://scripts/application_close.gd").install(get_tree())
@@ -1027,18 +1028,7 @@ func _request_world_travel(next_path: String, entry: Vector2, shortcut: String =
 
 
 func _travel_world_async(next_path: String, entry: Vector2, shortcut: String = "") -> void:
-    if world_loader == null or world_loader.phase != "idle":
-        world_portal_request_pending = false
-        return
-    var publish_flags: Dictionary = {}
-    if not shortcut.is_empty():
-        publish_flags["world_shortcut_" + shortcut] = true
-    var ok: bool = await world_loader.replace_region_async(self, next_path, entry, Vector2.INF, publish_flags)
-    if not is_instance_valid(self) or not is_inside_tree():
-        return
-    world_portal_request_pending = false
-    if not ok:
-        _toast("旧路暂未接通，仍留在当前区域。" + world_loader.last_error)
+    await LEVEL_TRAVEL_ASYNC.travel_world_async(self, next_path, entry, shortcut)
 
 
 func _region_tween() -> Tween:

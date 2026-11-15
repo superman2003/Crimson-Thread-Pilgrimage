@@ -7,6 +7,8 @@ const PLAYER_ATTACK := preload("res://scripts/player_attack.gd")
 const PLAYER_ANIMATION := preload("res://scripts/player_animation.gd")
 const PLAYER_ABILITIES := preload("res://scripts/player_abilities.gd")
 const PLAYER_SPRITES := preload("res://scripts/player_sprites.gd")
+const PLAYER_DAMAGE := preload("res://scripts/player_damage.gd")
+const PLAYER_INPUT_BUFFER := preload("res://scripts/player_input_buffer.gd")
 
 signal hp_changed(value: int)
 signal player_respawned
@@ -670,118 +672,37 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true, q
 ## 普攻三采样顺序轮换 + 每次 ±4% 随机变调（音频规格 §4.1）；
 ## 合成包缺失时回落旧 player_attack.ogg。
 func _play_attack_swing_sfx() -> void:
-    var variant_keys := ["attack_v1", "attack_v2", "attack_v3"]
-    var key: String = variant_keys[attack_sample_index % variant_keys.size()]
-    attack_sample_index = (attack_sample_index + 1) % variant_keys.size()
-    if not FileAccess.file_exists(String(SFX.get(key, ""))):
-        key = "attack"
-    _play_sfx(key, -5.0, randf_range(0.96, 1.04), "player_attack")
+    PLAYER_INPUT_BUFFER.play_attack_swing_sfx(self)
 
 
 func _clear_action_buffer() -> void:
-    buffered_action = &""
-    action_buffer_timer = 0.0
-    buffered_direction = Vector2.ZERO
+    PLAYER_INPUT_BUFFER.clear_action_buffer(self)
 
 
 func _sample_action_input(delta: float) -> void:
-    action_buffer_timer = maxf(0.0, action_buffer_timer - delta)
-    if action_buffer_timer <= 0.0:
-        _clear_action_buffer()
-    # Latest command replaces the pending command; holding never repeats it.
-    # Preserve the existing dash priority when both buttons arrive in one tick.
-    var action: StringName = &""
-    if Input.is_action_just_pressed("dash") and dash_unlocked:
-        action = &"dash"
-    elif Input.is_action_just_pressed("attack"):
-        action = &"attack"
-    elif Input.is_action_just_pressed("hook"):
-        # C01: a hook pressed during a swing, its owed recovery or a dash waits
-        # like the nail does instead of being dropped.
-        action = &"hook"
-    if action == &"":
-        return
-    buffered_action = action
-    action_buffer_timer = action_buffer_time
-    if action == &"attack":
-        buffered_direction = _read_attack_direction()
-    else:
-        var axis := _move_axis()
-        buffered_direction = Vector2(signf(axis) if absf(axis) > 0.1 else float(facing), 0.0)
+    PLAYER_INPUT_BUFFER.sample_action_input(self, delta)
 
 
 func _consume_action_input(action: StringName) -> bool:
-    if buffered_action != action:
-        return false
-    var dash := action == &"dash"
-    if not dash and attack_cancel_lock > 0.0:
-        # The buffered swing or hook waits out the cut recovery instead of being
-        # lost, even when that recovery is longer than the input buffer and the
-        # dash that cut it is still running.
-        action_buffer_timer = maxf(action_buffer_timer, attack_cancel_lock + 0.05)
-    if not _can_start_action(dash, dash):
-        return false
-    if dash and (not dash_unlocked or dash_cooldown > 0.0):
-        return false
-    if not dash and attack_cancel_lock > 0.0:
-        return false
-    var direction := buffered_direction
-    # Consume before any signal/callback can re-enter action handling.
-    _clear_action_buffer()
-    if absf(direction.x) > 0.1:
-        facing = signi(direction.x)
-        sprite.flip_h = facing < 0
-    if action == &"attack":
-        _start_attack(&"attack_1", true, direction)
-    elif action == &"hook":
-        if not _try_start_grapple():
-            _start_attack(&"hook_throw")
-    else:
-        _cancel_attack_recovery()
-        _start_dash()
-    return true
+    return PLAYER_INPUT_BUFFER.consume_action_input(self, action)
 
 
 ## A nail swing or hook throw (not a thread art) commits through its wind-up
 ## and active frames; only its recovery may be cut.
 func _attack_recovery_cancelable() -> bool:
-    if attack_timer <= 0.0 or not active_skill.is_empty() or current_attack not in [&"attack_1", &"attack_2", &"hook_throw"]:
-        return false
-    return attack_duration - attack_timer > attack_windup + attack_active_time
+    return PLAYER_INPUT_BUFFER.attack_recovery_cancelable(self)
 
 
 func _cancel_attack_recovery() -> void:
-    if attack_timer <= 0.0:
-        return
-    attack_cancel_lock = attack_timer
-    recovery_cancel_count += 1
-    attack_timer = 0.0
-    attack_shape.disabled = true
-    traversal_downstrike_active = false
-    run_attack_pose = false
+    PLAYER_INPUT_BUFFER.cancel_attack_recovery(self)
 
 
 func _start_dash() -> void:
-    _clear_action_buffer()
-    _stop_grapple()
-    dash_timer = dash_time
-    dash_cooldown = dash_cooldown_time
-    velocity.y = 0.0
-    velocity.x = dash_speed * facing
-    dash_ghost_tick = 0
-    dash_start_position = global_position
-    _sync_attack_hitbox()
-    ability_action.emit("thread_dash", global_position, Vector2(facing, 0))
-    if feel != null:
-        _add_trauma(0.08)
-    _play(&"dash")
-    _play_sfx("dash", -7.0)
+    PLAYER_INPUT_BUFFER.start_dash(self)
 
 
 func _can_start_action(allow_grapple: bool = false, allow_recovery_cancel: bool = false) -> bool:
-    if get_parent().has_method("_walking_world_passage") and get_parent()._walking_world_passage():
-        return false
-    return death_timer <= 0.0 and hurt_timer <= 0.0 and (attack_timer <= 0.0 or (allow_recovery_cancel and _attack_recovery_cancelable())) and dash_timer <= 0.0 and (allow_grapple or grapple_timer <= 0.0) and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
+    return PLAYER_INPUT_BUFFER.can_start_action(self, allow_grapple, allow_recovery_cancel)
 
 ## Read-only HUD query; shares the real action gate, including traversal handoff.
 func get_cast_readiness(skill_id: String = "") -> Dictionary:
@@ -949,11 +870,7 @@ func gain_energy(amount: int, practice_gain: bool = false) -> void:
     _apply_thread_balance(int(change.energy),int(change.practice))
 
 func _apply_thread_balance(next_energy: int, next_practice: int) -> void:
-    var before := energy
-    energy=clampi(next_energy,0,max_energy)
-    practice_energy=clampi(next_practice,0,energy)
-    if energy != before:
-        energy_changed.emit(energy, max_energy)
+    PLAYER_INPUT_BUFFER.apply_thread_balance(self, next_energy, next_practice)
 
 
 func _update_ground_motion(delta: float, platform_motion: Vector2 = Vector2.ZERO) -> void:
@@ -1145,110 +1062,11 @@ func _spawn_land_vfx() -> void:
 
 
 func practice_guard_contact(source_position: Vector2) -> bool:
-    # A practice contact is eligible only while already guarding the correct side.
-    # It cannot damage, begin a guard, heal, or exceed the real prepaid guard refund.
-    var source_side := signf(source_position.x - global_position.x)
-    if guard_timer <= 0.0 or hurt_timer > 0.0 or death_timer > 0.0 or debug_invulnerable or arrival_guard_timer > 0.0 or (source_side != 0.0 and int(source_side) != facing):
-        return false
-    take_damage(1, source_position, true)
-    return guard_timer <= 0.0
+    return PLAYER_DAMAGE.practice_guard_contact(self, source_position)
 
 
 func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> bool:
-    if arrival_guard_timer > 0.0:
-        return false
-    if debug_invulnerable:
-        return false
-    if hurt_timer > 0.0 or death_timer > 0.0 or mercy_timer > 0.0:
-        return false
-    if amount <= 0:
-        return false
-    camera_focus.clear_look()
-    _clear_action_buffer()
-    var source_side := signf(source_position.x - global_position.x)
-    if blockable and guard_timer > 0.0 and (source_side == 0.0 or int(source_side) == facing):
-        var perfect := guard_timer >= guard_initial_duration - 0.14 and not guard_refunded
-        if perfect:
-            guard_refunded = true
-            if _crest() == "bell" and _seal_mechanism_ready():
-                bell_pressure = mini(2, bell_pressure + 1)
-            # Guard refund stays below its payment: no repeatable energy source.
-            gain_energy(4 if String(active_skill.get("kind", "")) != "defense" else 0)
-            ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
-        guard_timer = 0.0
-        hurt_timer = 0.12
-        _play_sfx("guard_perfect" if perfect else "guard_block", -5.0, 1.0, "player_guard", 0)
-        if perfect and footstep_material == "salt":
-            _play_sfx("ch03_beat_guard_ring", -10.0)
-        GUARD_ART.blocked(self, perfect)
-        combat_observed.emit({"kind":"guard","perfect":perfect})
-        return false
-    GUARD_ART.clear(self)
-    CONTACT_ART.clear_player(self)
-    ABILITY_ART.clear(self)
-    HOOK_ART.clear(self)
-    DASH_ART.clear(self)
-    line_stacks = 0
-    line_expiry = 0.0
-    _interrupt_heal()
-    _stop_phase()
-    _stop_grapple()
-    guard_timer = 0.0
-    # A damaging hit interrupts dash motion so the next tick preserves knockback.
-    dash_timer = 0.0
-    attack_timer = 0.0
-    attack_shape.set_deferred("disabled", true)
-    amount = maxi(1, int(ceil(float(amount) * float(build_profile.get("damage_taken_mult", 1.0)))))
-    amount = maxi(1, amount + difficulty_damage_bonus)
-    var hp_before_damage := hp
-    hp = maxi(0, hp - amount)
-    hp_changed.emit(hp)
-    combat_observed.emit({"kind":"hurt","damage":hp_before_damage-hp,"lethal":hp<=0})
-    # P0 生死攸关音：声部抢占最高优先级。
-    _play_sfx("hurt", -6.0, 1.0, "", 0)
-    if hp <= 0:
-        bell_pressure = 0
-        heal_speed_timer = 0.0
-        heal_stability_timer = 0.0
-        status_resist_timer = 0.0
-        for enemy in get_tree().get_nodes_in_group("enemy"):
-            if enemy.has_method("clear_salt_mark"):
-                enemy.clear_salt_mark()
-        death_timer = 0.9
-        HURT_ART.died(self)
-        respawn_reveal_timer = 0.0
-        _set_death_visibility(1.0)
-        velocity = Vector2.ZERO
-        _stop_wall_slide_loop()
-        # 死亡=绯线松脱（音频规格 §4.2 player_death）：无惨叫，只有线散与长呼气。
-        _play_sfx("death_cocoon", -5.0, 1.0, "", 0)
-        if feel != null:
-            feel.hitstop(200.0)
-            _add_trauma(0.60)
-            _black_frame(global_position, 3)
-        _play(&"death")
-        return true
-    HURT_ART.hurt(self, source_position)
-    if feel != null:
-        feel.hitstop(110.0)
-        _add_trauma(0.45)
-        _black_frame(global_position, 2)
-    self_flash_timer = 0.05
-    if flash_material != null:
-        flash_material.set_shader_parameter("flash_amount", 1.0 if bool(_accessibility().get("flash_enabled", true)) else 0.0)
-    gain_energy(energy_on_damage)
-    hurt_timer = 0.35
-    mercy_timer = hurt_timer + difficulty_mercy if difficulty_mercy > 0.0 else 0.0
-    var knockback_dir := signf(global_position.x - source_position.x)
-    if knockback_dir == 0.0:
-        knockback_dir = -facing
-    if heal_stability_timer > 0.0:
-        heal_stability_timer = 0.0
-        velocity = Vector2.ZERO
-    else:
-        velocity = Vector2(knockback_dir * 260.0 * float(build_profile.get("knockback_mult", 1.0)), -170.0)
-    _play(&"hurt")
-    return true
+    return PLAYER_DAMAGE.take_damage(self, amount, source_position, blockable)
 
 
 ## 受伤丝线崩断（规格 §2.10）：从受击点向外 5 条绯线绷断飞散。
@@ -1257,113 +1075,43 @@ func _spawn_thread_snap_vfx(source_position: Vector2) -> void:
 
 
 func can_deflect_projectile() -> bool:
-    if attack_timer <= 0.0 or guard_timer > 0.0 or hurt_timer > 0.0 or death_timer > 0.0:
-        return false
-    if not active_skill.is_empty() and String(active_skill.get("kind", "")) not in ["melee", "thrust", "crosscut"]:
-        return false
-    var elapsed := attack_duration - attack_timer
-    return elapsed >= attack_windup and elapsed <= attack_windup + attack_active_time
+    return PLAYER_DAMAGE.can_deflect_projectile(self)
 
 
 func can_ignore_enemy_contact(_source_position: Vector2) -> bool:
-    if death_timer > 0.0 or hurt_timer > 0.0:
-        return true
-    if not active_skill.is_empty():
-        return false
-    if dash_timer > 0.0 or enemy_contact_guard_timer > 0.0:
-        return true
-    return false
+    return PLAYER_DAMAGE.can_ignore_enemy_contact(self, _source_position)
 
 
 func set_spawn(position_value: Vector2) -> void:
-    spawn_position = position_value
+    PLAYER_DAMAGE.set_spawn(self, position_value)
 
 
 func prepare_region_handoff() -> void:
-    # Cancel references to the departing geometry without making travel a free
-    # cooldown reset or restoring the already reserved healing energy.
-    var dash_remaining := dash_cooldown
-    var guard_remaining := guard_cooldown
-    var grapple_remaining := grapple_recovery_timer
-    _reset_traversal_state()
-    dash_cooldown = dash_remaining
-    guard_cooldown = guard_remaining
-    grapple_recovery_timer = grapple_remaining
-    attack_vfx_started = false
-    skill_effect_started = false
-    skill_displacement_done = 0.0
-    velocity = Vector2.ZERO
-    ui_input_locked = false
+    PLAYER_DAMAGE.prepare_region_handoff(self)
 
 
 func respawn_at(position_value: Vector2) -> void:
-    _reset_traversal_state()
-    global_position = position_value
-    velocity = Vector2.ZERO
-    reset_camera_after_arrival()
-    player_respawned.emit()
+    PLAYER_DAMAGE.respawn_at(self, position_value)
 
 
 func reset_camera_after_arrival() -> void:
-    camera_focus.clear_look()
-    var camera := get_node_or_null("Camera2D") as Camera2D
-    if camera != null:
-        room_camera.update(camera_focus, global_position)
-        camera_focus.apply_limits(camera)
-        camera_focus.reset_follow(global_position)
-        camera.position = Vector2(0, -55)
-        camera.offset = Vector2.ZERO
-        camera.rotation = 0.0
-        camera.reset_smoothing()
-    reset_physics_interpolation()
-    if camera != null:
-        camera.force_update_scroll()
+    PLAYER_DAMAGE.reset_camera_after_arrival(self)
 
 
 func _set_death_visibility(amount: float) -> void:
-    # The hit-flash shader writes COLOR itself, so CanvasItem alpha alone does
-    # not fade the authored player or the idle layers using this material.
-    if flash_material != null:
-        flash_material.set_shader_parameter("presentation_alpha", clampf(amount, 0.0, 1.0))
+    PLAYER_DAMAGE.set_death_visibility(self, amount)
 
 
 func _update_respawn_reveal(delta: float) -> void:
-    if respawn_reveal_timer <= 0.0:
-        return
-    respawn_reveal_timer = maxf(0.0, respawn_reveal_timer - delta)
-    _set_death_visibility(1.0 - respawn_reveal_timer / RESPAWN_REVEAL_SECONDS)
+    PLAYER_DAMAGE.update_respawn_reveal(self, delta)
 
 
 func _hard_respawn() -> void:
-    snare_timer = 0.0
-    hp = max_hp
-    energy = 0
-    practice_energy = 0
-    hp_changed.emit(hp)
-    energy_changed.emit(energy, max_energy)
-    respawn_at(spawn_position)
-    # 钟龛复活（音频规格 §4.2 player_respawn）：龛铃三音上行 + 吸气。
-    _play_sfx("respawn_weave", -7.0, 1.0, "", 0)
-    _play(&"idle")
-    respawn_reveal_timer = RESPAWN_REVEAL_SECONDS
-    _set_death_visibility(0.0)
-    HURT_ART.respawned(self)
+    PLAYER_DAMAGE.hard_respawn(self)
 
 
 func restore_at_save_point() -> void:
-    _reset_traversal_state()
-    snare_timer = 0.0
-    hp = max_hp
-    energy = max_energy
-    practice_energy = 0
-    hurt_timer = 0.0
-    death_timer = 0.0
-    heal_cooldown = 0.0
-    skill_cooldown = 0.0
-    velocity = Vector2.ZERO
-    hp_changed.emit(hp)
-    energy_changed.emit(energy, max_energy)
-    _play(&"idle")
+    PLAYER_DAMAGE.restore_at_save_point(self)
 
 
 func _load_sprite_frames() -> void:
@@ -1379,27 +1127,7 @@ func _res_path_from_manifest(path: String) -> String:
 
 
 func get_player_debug_state() -> Dictionary:
-    return {
-        "player_manifest": PLAYER_MANIFEST,
-        "speed": speed,
-        "jump_velocity": jump_velocity,
-        "gravity": gravity,
-        "dash_speed": dash_speed,
-        "coyote_time": coyote_time,
-        "jump_buffer_time": jump_buffer_time,
-        "jump_cut_multiplier": jump_cut_multiplier,
-        "sprite_scale": sprite.scale if sprite != null else Vector2.ZERO,
-        "animation_count": sprite.sprite_frames.get_animation_names().size() if sprite != null and sprite.sprite_frames != null else 0,
-        "idle_frame_count": sprite.sprite_frames.get_frame_count(&"idle") if sprite != null and sprite.sprite_frames != null and sprite.sprite_frames.has_animation(&"idle") else 0,
-        "directional_attack": true,
-        "double_jump_unlocked": double_jump_unlocked,
-        "air_jump_available": air_jump_available,
-        "thread_grapple_unlocked": thread_grapple_unlocked,
-        "grappling": grapple_timer > 0.0,
-        "attack_direction": [current_attack_direction.x, current_attack_direction.y],
-        "downslash_bounce_velocity": downslash_bounce_velocity,
-        "enemy_contact_guard_time": enemy_contact_guard_time
-    }
+    return PLAYER_DAMAGE.get_player_debug_state(self)
 
 
 func _load_texture_resource(path: String) -> Texture2D:
@@ -1513,15 +1241,7 @@ func _black_frame(point: Vector2, frames: int) -> void:
 
 
 func get_combat_ui_state() -> Dictionary:
-    var skill := selected_skill
-    if build_system != null and build_system.has_method("selected_skill"):
-        skill = build_system.selected_skill()
-    return {"heal_progress": 1.0 - heal_timer / maxf(0.2, heal_duration) if heal_timer > 0.0 else 0.0,
-        "heal_active": heal_timer > 0.0, "heal_cost": heal_energy_cost, "heal":get_heal_readiness(),
-        "skill_name": String(skill.get("name", skill.get("label", skill.get("id", "绯线震击")))),
-        "skill_cooldown": float(skill.get("cooldown_remaining", skill_cooldown)), "skill_cost": int(skill.get("energy_cost", skill_energy_cost)),
-        "guard_cooldown": guard_cooldown, "phase_active": phase_active,
-        "equipment_name": "", "equipment_count": 0}
+    return PLAYER_DAMAGE.get_combat_ui_state(self)
 
 
 func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -> void:

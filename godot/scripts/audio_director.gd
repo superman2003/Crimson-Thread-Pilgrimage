@@ -191,6 +191,7 @@ const AUDIO_MUSIC := preload("res://scripts/audio_music.gd")
 const AUDIO_AMBIENCE := preload("res://scripts/audio_ambience.gd")
 const AUDIO_USER_MIX := preload("res://scripts/audio_user_mix.gd")
 const AUDIO_NPC_VOICES := preload("res://scripts/audio_npc_voices.gd")
+const AUDIO_GAME_STATE := preload("res://scripts/audio_game_state.gd")
 var npc_landmarks_enabled := true
 var landmark_next_ms := 0
 var landmark_times: Dictionary = {}
@@ -483,108 +484,33 @@ func bind_runtime(player: Node, get_enemies: Callable) -> void:
 
 ## 钟龛安坐：记录锚点并起摇篮曲；玩家走远由 _process 距离机自动收场。
 func engage_shrine(anchor: Vector2) -> void:
-    shrine_anchor = anchor
-    shrine_engaged = true
-    start_lullaby()
+    AUDIO_GAME_STATE.engage_shrine(self, anchor)
 
 
 func _process(delta: float) -> void:
-    if _npc_speaker != null:
-        var speaker: Node = _npc_speaker.get_ref()
-        if not is_instance_valid(speaker) or not speaker.is_inside_tree() or speaker.is_queued_for_deletion() \
-                or (speaker.has_method("accepts_utterance") and not bool(speaker.call("accepts_utterance"))):
-            stop_npc_voice()
-    _tick_shrine_lullaby()
-    ambient_soundscape.tick(self, runtime_player as Node2D)
-    ai_poll_accum += delta
-    if ai_poll_accum < COMBAT_POLL_INTERVAL_S:
-        return
-    var tick := ai_poll_accum
-    _retire_invalid_landmarks()
-    _tick_npc_landmarks()
-    ai_poll_accum = 0.0
-    var enemies := _runtime_enemies()
-    _tick_combat_layer(tick, enemies)
-    _tick_boss_phase(enemies)
+    AUDIO_GAME_STATE.process(self, delta)
 
 
 func _runtime_enemies() -> Array:
-    if get_enemies_source.is_valid():
-        var result: Variant = get_enemies_source.call()
-        if typeof(result) == TYPE_ARRAY:
-            return result
-    return []
+    return AUDIO_GAME_STATE.runtime_enemies(self)
 
 
 ## 摇篮曲距离机：走远（>150px）收场；仍坐龛中且摇篮曲被 Boss 战打断过，
 ## Boss 收尾后在此自然重触发（修 Boss×摇篮曲互斥后的恢复路径）。
 func _tick_shrine_lullaby() -> void:
-    if not shrine_engaged:
-        return
-    var player_2d := runtime_player as Node2D
-    if player_2d == null or not is_instance_valid(player_2d):
-        return
-    if player_2d.global_position.distance_to(shrine_anchor) > LULLABY_LEAVE_DISTANCE:
-        shrine_engaged = false
-        stop_lullaby()
-    elif not lullaby_active and not boss_active:
-        start_lullaby()
+    AUDIO_GAME_STATE.tick_shrine_lullaby(self)
 
 
 ## 战斗层轮询：0.25s 一拍读取敌人 combat_engaged()（巡逻、回位、蛰伏、守点之外
 ## 即视为交战；旧接口按 last_ai_decision 的 patrol/return 判定），离战 4s 冷静期才收层（防抽泵）。
 func _tick_combat_layer(tick: float, enemies: Array) -> void:
-    if boss_active:
-        return
-    var engaged := false
-    for enemy_variant in enemies:
-        var enemy_node := enemy_variant as Node
-        if enemy_node == null or not is_instance_valid(enemy_node) or enemy_node.get("is_boss") == true:
-            continue
-        if enemy_node.has_method("world_residency_active") and not enemy_node.world_residency_active(): continue
-        var decision_value: Variant = enemy_node.get("last_ai_decision")
-        if typeof(decision_value) != TYPE_STRING:
-            continue
-        var decision := String(decision_value)
-        # Lurking ambushers and guards at their post are calm, not combat.
-        var in_combat := bool(enemy_node.combat_engaged()) if enemy_node.has_method("combat_engaged") else decision != "patrol" and decision != "return"
-        if not decision.is_empty() and in_combat:
-            engaged = true
-            # An encounter has one quiet material voice accent, never one per poll.
-            if not combat_active:
-                play_enemy_alert(String(enemy_node.get("kind")), enemy_node as Node2D)
-            break
-    if engaged:
-        combat_calm_time = 0.0
-        enter_combat()
-    elif combat_active:
-        combat_calm_time += tick
-        if combat_calm_time >= COMBAT_CALM_SECONDS:
-            combat_calm_time = 0.0
-            exit_combat()
+    AUDIO_GAME_STATE.tick_combat_layer(self, tick, enemies)
 
 
 ## 终 Boss 三乐章钩子：enemy_actor 无血量相变系统，按 hp/max_hp 阈值（2/3、1/3）
 ## 驱动 set_boss_phase；非终 Boss 由 set_boss_phase 侧忽略换曲。
 func _tick_boss_phase(enemies: Array) -> void:
-    if not boss_active:
-        return
-    for enemy_variant in enemies:
-        var enemy_node := enemy_variant as Node
-        if enemy_node == null or not is_instance_valid(enemy_node) or enemy_node.get("is_boss") != true:
-            continue
-        var hp_value: Variant = enemy_node.get("hp")
-        var max_hp_value: Variant = enemy_node.get("max_hp")
-        if typeof(hp_value) != TYPE_INT or typeof(max_hp_value) != TYPE_INT:
-            return
-        var ratio := float(hp_value) / maxf(1.0, float(max_hp_value))
-        var phase := 1
-        if ratio <= 1.0 / 3.0:
-            phase = 3
-        elif ratio <= 2.0 / 3.0:
-            phase = 2
-        set_boss_phase(phase)
-        return
+    AUDIO_GAME_STATE.tick_boss_phase(self, enemies)
 
 
 # ---- 章节选曲 ----
@@ -830,203 +756,54 @@ func _clear_duck_layers(render: bool = true) -> void:
 
 
 func on_dialogue(open: bool) -> void:
-    if open == dialogue_open:
-        if not open: stop_npc_voice()
-        return
-    dialogue_open = open
-    if open:ambient_soundscape.stop()
-    if not open: stop_npc_voice()
-    # Dialogue changes the baseline; independent transient ducks keep their leases.
-    if open:_stop_npc_landmarks()
-    _tween_bus_db("BGM", _music_rest_db(), 0.25)
-    _tween_bus_db("Ambience", _ambience_rest_db(), 0.25)
+    AUDIO_GAME_STATE.on_dialogue(self, open)
 
 
 func on_key_item_pickup() -> void:
-    duck(-6.0, 1.4)
+    AUDIO_GAME_STATE.on_key_item_pickup(self)
 
 
 ## 章节转场（main_level._activate_chapter_exit 调用）：BGM 总线 0.5s 淡出；
 ## 新章 _ensure_audio_buses + _load_user_volumes 会复位到用户基准。
 func begin_chapter_transition() -> void:
-    ambient_soundscape.transitioning = true
-    ambient_soundscape.stop()
-    _clear_duck_layers()
-    _stop_npc_landmarks()
-    set_hidden_zone(false)
-    _tween_bus_db("BGM", SILENT_DB, CHAPTER_EXIT_BGM_FADE_S)
+    AUDIO_GAME_STATE.begin_chapter_transition(self)
 
 
 func cancel_chapter_transition() -> void:
-    ambient_soundscape.transitioning = false
-    var transition: Tween = bus_tweens.get("BGM")
-    if transition != null and transition.is_valid():
-        transition.kill()
-    bus_tweens.erase("BGM")
-    _apply_user_volume("music")
+    AUDIO_GAME_STATE.cancel_chapter_transition(self)
 
 
 ## 房型混响微调：hub/vista wet +0.10、corridor/secret wet -0.08，0.6s tween 回归基准。
 ## transit 房同时驱动钟道站厅音乐层。
 func on_room_changed(kind: String) -> void:
-    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
-        return
-    if is_instance_valid(room_ambience_mix):
-        room_ambience_mix.update_room()
-    var leaving_transit := in_transit_room and kind != "transit"
-    in_transit_room = kind == "transit"
-    _update_transit_loop(in_transit_room and not combat_active and not boss_active and not lullaby_active)
-    if leaving_transit and not combat_active and not boss_active and not lullaby_active:
-        _fade_explore_resume(TRANSIT_LOOP_FADE_OUT_S)
-    var delta := float(ROOM_REVERB_WET_DELTA.get(kind, 0.0))
-    for bus_name in ["SFX", "Ambience"]:
-        var reverb := _bus_reverb(String(bus_name))
-        if reverb == null:
-            room_reverb_mix.release_bus(self, String(bus_name))
-            base_reverb_wet.erase(bus_name)
-            continue
-        var baseline: float = room_reverb_mix.capture(self, String(bus_name), reverb)
-        base_reverb_wet[bus_name] = baseline
-        reverb_tweens[bus_name] = room_reverb_mix.fade(self, String(bus_name), reverb, baseline + delta, 0.6)
+    AUDIO_GAME_STATE.on_room_changed(self, kind)
 
 
 ## 钟道站厅音乐层：transit 房以 -10dB 在 MusicStinger 总线起 bellway_transit_loop
 ## 循环，离开 transit 房 1s 淡出。
 func _update_transit_loop(in_transit: bool) -> void:
-    if in_transit:
-        if not autoplay_enabled or combat_active or boss_active or lullaby_active:
-            return
-        if transit_tween != null and transit_tween.is_valid():
-            transit_tween.kill()
-        if transit_player != null and is_instance_valid(transit_player) and transit_player.playing:
-            transit_player.volume_db = TRANSIT_LOOP_DB
-            _fade_explore_to_pause(0.8)
-            return
-        var stream := load_cached(BELLWAY_TRANSIT_LOOP, true)
-        if stream == null:
-            return
-        if transit_player == null or not is_instance_valid(transit_player):
-            transit_player = AudioStreamPlayer.new()
-            transit_player.name = "BellwayTransitLoop"
-            transit_player.bus = _bus_or("MusicStinger", "BGM")
-            add_child(transit_player)
-        transit_player.stream = stream
-        transit_player.volume_db = TRANSIT_LOOP_DB
-        transit_player.play()
-        _fade_explore_to_pause(0.8)
-        return
-    if transit_player == null or not is_instance_valid(transit_player) or not transit_player.playing:
-        return
-    if transit_tween != null and transit_tween.is_valid():
-        transit_tween.kill()
-    if not is_inside_tree():
-        transit_player.stop()
-        return
-    transit_tween = create_tween()
-    transit_tween.tween_property(transit_player, "volume_db", SILENT_DB, TRANSIT_LOOP_FADE_OUT_S)
-    transit_tween.tween_callback(transit_player.stop)
+    AUDIO_GAME_STATE.update_transit_loop(self, in_transit)
 
 
 ## 隐藏房间：在 Ambience 总线上 1.5s 淡入黑潮低鸣，离开 1.2s 淡出。
 ## 进入同一类房间不重启已在响的循环。
 func set_hidden_zone(active: bool) -> void:
-    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
-        return
-    if active == hidden_zone:
-        return
-    hidden_zone = active
-    if hidden_drone_tween != null and hidden_drone_tween.is_valid():
-        hidden_drone_tween.kill()
-    if active:
-        if not autoplay_enabled:
-            return
-        var stream := load_cached(HIDDEN_DRONE, true)
-        if stream == null:
-            return
-        if hidden_drone_player == null or not is_instance_valid(hidden_drone_player):
-            hidden_drone_player = AudioStreamPlayer.new()
-            hidden_drone_player.name = "HiddenDrone"
-            hidden_drone_player.bus = _bus_or("Ambience", "Master")
-            add_child(hidden_drone_player)
-        if not hidden_drone_player.playing:
-            hidden_drone_player.stream = stream
-            hidden_drone_player.volume_db = SILENT_DB
-            hidden_drone_player.play()
-        if not is_inside_tree():
-            hidden_drone_player.volume_db = HIDDEN_DRONE_DB
-            return
-        hidden_drone_tween = create_tween()
-        hidden_drone_tween.tween_property(hidden_drone_player, "volume_db", HIDDEN_DRONE_DB, HIDDEN_DRONE_FADE_IN_S)
-        return
-    if hidden_drone_player == null or not is_instance_valid(hidden_drone_player) or not hidden_drone_player.playing:
-        return
-    if not is_inside_tree():
-        hidden_drone_player.stop()
-        return
-    hidden_drone_tween = create_tween()
-    hidden_drone_tween.tween_property(hidden_drone_player, "volume_db", SILENT_DB, HIDDEN_DRONE_FADE_OUT_S)
-    hidden_drone_tween.tween_callback(hidden_drone_player.stop)
+    AUDIO_GAME_STATE.set_hidden_zone(self, active)
 
 
 ## 濒死低通扫频：2kHz 起 2s 滑到 800Hz。关断需当帧移除效果
 ## （audio_visual_validation 同帧断言），反向扫频以瞬时摘除代偿。
 func set_low_hp(active: bool) -> void:
-    if active == low_hp_active:
-        return
-    low_hp_active = active
-    var bus_index := AudioServer.get_bus_index("BGM")
-    if bus_index == -1:
-        return
-    if low_hp_tween != null and low_hp_tween.is_valid():
-        low_hp_tween.kill()
-    var effect_index := _find_bus_effect(bus_index, "AudioEffectLowPassFilter")
-    if active:
-        var lowpass: AudioEffectLowPassFilter
-        if effect_index == -1:
-            lowpass = AudioEffectLowPassFilter.new()
-            lowpass.cutoff_hz = LOW_HP_SWEEP_START_HZ
-            AudioServer.add_bus_effect(bus_index, lowpass)
-        else:
-            lowpass = AudioServer.get_bus_effect(bus_index, effect_index) as AudioEffectLowPassFilter
-        if lowpass == null:
-            return
-        if is_inside_tree():
-            low_hp_tween = create_tween()
-            low_hp_tween.tween_property(lowpass, "cutoff_hz", LOW_HP_SWEEP_TARGET_HZ, LOW_HP_SWEEP_SECONDS)
-        else:
-            lowpass.cutoff_hz = LOW_HP_SWEEP_TARGET_HZ
-    elif effect_index != -1:
-        AudioServer.remove_bus_effect(bus_index, effect_index)
+    AUDIO_GAME_STATE.set_low_hp(self, active)
 
 
 ## 玩家死亡：全总线 300Hz 低通（挂 Master）+ duck，1.6s 后自清防跨场景残留。
 func on_player_death() -> void:
-    ambient_soundscape.stop()
-    duck(-10.0, 1.2)
-    var master_index := AudioServer.get_bus_index("Master")
-    if master_index == -1:
-        return
-    if _find_bus_effect(master_index, "AudioEffectLowPassFilter") == -1:
-        var lowpass := AudioEffectLowPassFilter.new()
-        lowpass.cutoff_hz = DEATH_LOWPASS_HZ
-        AudioServer.add_bus_effect(master_index, lowpass)
-    if death_tween != null and death_tween.is_valid():
-        death_tween.kill()
-    if is_inside_tree():
-        death_tween = create_tween()
-        death_tween.tween_interval(1.6)
-        death_tween.tween_callback(_clear_death_lowpass)
-    else:
-        _clear_death_lowpass()
+    AUDIO_GAME_STATE.on_player_death(self)
 
 
 func _clear_death_lowpass() -> void:
-    var master_index := AudioServer.get_bus_index("Master")
-    if master_index == -1:
-        return
-    var effect_index := _find_bus_effect(master_index, "AudioEffectLowPassFilter")
-    if effect_index != -1:
-        AudioServer.remove_bus_effect(master_index, effect_index)
+    AUDIO_GAME_STATE.clear_death_lowpass(self)
 
 
 # ---- 用户音量（持久化 user://audio_settings.cfg）----

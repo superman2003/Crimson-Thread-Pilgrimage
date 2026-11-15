@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/player_damage.gd'
+      - 'godot/scripts/player_input_buffer.gd'
       - 'godot/scripts/player_abilities.gd'
       - 'godot/scripts/player_animation.gd'
       - 'godot/scripts/player_attack.gd'
@@ -13,6 +15,9 @@ on:
       - 'godot/scripts/player_sprites.gd'
       - 'godot/scripts/player_traversal.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
       - 'godot/scripts/interface_build_panel.gd'
       - 'godot/scripts/interface_build_refresh.gd'
       - 'godot/scripts/interface_dialogue.gd'
@@ -22,6 +27,9 @@ on:
       - 'godot/scripts/artisan_crafts_validation.gd'
       - 'godot/scripts/proof_crafts_validation.gd'
       - 'godot/scripts/build_system.gd'
+      - 'godot/scripts/build_loadouts.gd'
+      - 'godot/scripts/build_persistence.gd'
+      - 'godot/scripts/build_transactions.gd'
       - 'tools/audit_economy.py'
       - 'tools/test_proof_craft_economy.py'
       - 'godot/scripts/world_host_validation.gd'
