@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["audio_director.gd", "audio_stream_source.gd","audio_volume_preferences.gd","audio_volume_preferences_validation.gd","audio_user_volume_validation.gd","duck_mix.gd","npc_landmark_schedule.gd","audio_retirement.gd","music_layer_phase.gd","spatial_enemy_alert.gd", "landmark_spatial_refresh.gd"]
+SCRIPTS = ["audio_director.gd", "audio_ambience.gd", "audio_music.gd", "audio_npc_voices.gd", "audio_user_mix.gd", "audio_stream_source.gd","audio_volume_preferences.gd","audio_volume_preferences_validation.gd","audio_user_volume_validation.gd","duck_mix.gd","npc_landmark_schedule.gd","audio_retirement.gd","music_layer_phase.gd","spatial_enemy_alert.gd", "landmark_spatial_refresh.gd"]
 SCRIPTS += ["npc_sound_landmark.gd", "enemy_sound_filter.gd",
             "room_ambience_mix.gd", "ambient_soundscape.gd", "spatial_ambience_voice.gd"]
 MARKER = re.compile("^AUDIO_VOLUME_SAVE checks=[1-9][0-9]* failures=0$", re.M)

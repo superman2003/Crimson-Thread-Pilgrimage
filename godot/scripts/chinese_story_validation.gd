@@ -59,7 +59,12 @@ func _run() -> void:
 
     # Fallback names and messages reach the screen when data carries none
     # (seven optional pickups have no label): none of them may be English.
+    # main_level.gd and the helpers its methods were moved into.
     var source := FileAccess.get_file_as_string("res://scripts/main_level.gd")
+    for file in DirAccess.get_files_at("res://scripts"):
+        if file.ends_with(".gd"):
+            var helper := FileAccess.get_file_as_string("res://scripts/" + file)
+            if helper.contains("## Moved out of main_level.gd"):source += "\n" + helper
     var english := RegEx.new()
     english.compile("_toast\\(\\s*\"[A-Za-z]|get\\(\"(label|name|message|ending_message)\",\\s*\"[A-Za-z]|get_meta\\(\"message\",\\s*\"[A-Za-z]")
     var hit := english.search(source)

@@ -38,6 +38,11 @@ def audit(catalog_override: dict | None = None) -> tuple[dict, list[str]]:
     from audit_material_exchange import audit as audit_exchange
     errors: list[str] = audit_exchange()
     main = MAIN.read_text(encoding="utf-8")
+    # Methods moved out of main_level.gd into helpers still count as Main's.
+    for helper in sorted(MAIN.parent.glob("*.gd")):
+        text = helper.read_text(encoding="utf-8")
+        if "## Moved out of main_level.gd" in text:
+            main += "\n" + text
     # The runtime must charge the seller's price, not a shared constant.
     cartography = (ROOT / "godot/scripts/cartography_runtime.gd").read_text(encoding="utf-8")
     if 'seller.get("price"' not in cartography or "JOURNAL.PRICE," in cartography.replace("JOURNAL.PRICE))", ""):

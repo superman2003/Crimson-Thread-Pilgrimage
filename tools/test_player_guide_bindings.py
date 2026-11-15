@@ -55,12 +55,13 @@ def defaults():
     for action, key, joy in re.findall(r'"(\w+)": \[(KEY_\w+), (JOY_\w+)\]', level):
         add(keys, action, key)
         add(joys, action, joy)
-    settings = re.search(r'func _bind_audio_settings_key\(\).*?physical_keycode = (KEY_\w+)', level, re.S)
+    audio = (SCRIPTS / 'level_audio.gd').read_text(encoding='utf-8')
+    settings = re.search(r'func bind_audio_settings_key\(level: Node\).*?physical_keycode = (KEY_\w+)', audio, re.S)
     add(keys, 'audio_settings', settings.group(1))
     shortcut = (SCRIPTS / 'build_shortcut_input.gd').read_text(encoding='utf-8')
     add(keys, 'build_menu', re.search(r'physical_keycode = (KEY_\w+)', shortcut).group(1))
     add(joys, 'build_menu', re.search(r'button_index = (JOY_BUTTON_\w+)', shortcut).group(1))
-    ui = (SCRIPTS / 'pilgrimage_interface.gd').read_text(encoding='utf-8')
+    ui = (SCRIPTS / 'pilgrimage_interface.gd').read_text(encoding='utf-8') + (SCRIPTS / 'interface_settings.gd').read_text(encoding='utf-8')
     for action, joy in re.findall(r'\["(\w+)",(JOY_BUTTON_\w+)\]', ui):
         if not action.startswith('ui_'):
             add(joys, action, joy)

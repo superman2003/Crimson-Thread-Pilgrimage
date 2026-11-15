@@ -107,8 +107,9 @@ func _check_lock_contract() -> void:
         _check(operation > locked and operation < unlocked, "topology mutation stays inside driver lock: " + method)
     _check(not body.contains("await ") and not body.contains("\n    return"), "locked transaction cannot yield or return before unlocking")
     _check(body.contains("if AudioServer.get_bus_send(index) != send:"), "complete default routes avoid redundant StringName assignment")
-    var main_source := FileAccess.get_file_as_string("res://scripts/main_level.gd")
-    var fallback := main_source.get_slice("func _ensure_audio_buses()", 1).get_slice("\n\nfunc ", 0)
+    # Main's fallback lives in level_audio.gd; main_level.gd forwards to it.
+    var main_source := FileAccess.get_file_as_string("res://scripts/level_audio.gd")
+    var fallback := main_source.get_slice("static func ensure_audio_buses(level: Node)", 1).get_slice("\n\nstatic func ", 0)
     _check(fallback.contains("AUDIO_DIRECTOR_SCRIPT._ensure_bus(") and not fallback.contains("AudioServer.add_bus()") and not fallback.contains("AudioServer.set_bus_send("), "Main's actual missing-bus fallback uses the same transaction")
 
 func _check(ok: bool, label: String) -> void:

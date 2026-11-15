@@ -4,6 +4,14 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/player_abilities.gd'
+      - 'godot/scripts/player_animation.gd'
+      - 'godot/scripts/player_attack.gd'
+      - 'godot/scripts/player_audio.gd'
+      - 'godot/scripts/player_effects.gd'
+      - 'godot/scripts/player_seals.gd'
+      - 'godot/scripts/player_sprites.gd'
+      - 'godot/scripts/player_traversal.gd'
       - 'godot/scripts/player_layered_idle*.gd'
       - 'godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/**'
       - 'godot/shaders/hit_flash.gdshader'
