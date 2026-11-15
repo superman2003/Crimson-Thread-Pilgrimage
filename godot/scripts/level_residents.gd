@@ -108,7 +108,7 @@ static func release_resident_interaction(level: Node, kind: String, id: String, 
                 level.region_tweens.erase(tween)
         area.remove_meta("residency_tweens")
     if LEVEL_HOST.owns(level, area):
-        level.remove_child(area)
+        area.get_parent().remove_child(area)
     area.free()
     return true
 
@@ -155,7 +155,7 @@ static func enemy(level: Node, data: Dictionary) -> Area2D:
                 if level._enemy_spawn_rect_clear(candidate,24,level._enemy_spawn_visual_height(data),floor_platform_id):
                     enemy.position.x=candidate.x
                     break
-    level.add_child(enemy)
+    LEVEL_HOST.region_parent(level).add_child(enemy)
     if level.world_mode and level.world_gameplay_residency != null:
         level.world_gameplay_residency.adopt_enemy(enemy)
     return enemy

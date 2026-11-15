@@ -66,7 +66,7 @@ static func region_build_jobs(level: Node) -> Array:
 
 static func region_lift(level: Node, data: Dictionary) -> void:
     var lift = CAVE_LIFT_SCRIPT.new()
-    level.add_child(lift)
+    LEVEL_HOST.region_parent(level).add_child(lift)
     lift.configure(data, level)
     level.cave_lifts.append(lift)
 
@@ -141,7 +141,7 @@ static func spawn_seal_practice_targets(level: Node) -> void:
         target.configure({"id": String(entry.training_id), "kind": "seal_training", "hp": 30,
             "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
             "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": [], "locomotion": "stationary"})
-        level.add_child(target)
+        LEVEL_HOST.region_parent(level).add_child(target)
         var label := Label.new()
         label.name="PracticeCaption"
         # Short title over its own rack; the tool puppet's caption sits lower,
@@ -192,7 +192,7 @@ static func spawn_tool_practice_targets(level: Node) -> void:
         var bounds: Array = level._enemy_platform_movement_bounds(floor_id, target.position, data)
         if bounds.size() >= 2:
             target.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
-        level.add_child(target)
+        LEVEL_HOST.region_parent(level).add_child(target)
         var label := Label.new()
         label.position = Vector2(-80, -118)
         label.size = Vector2(160, 22)
@@ -235,7 +235,7 @@ static func spawn_history_prop(level: Node, entry: Dictionary) -> void:
     prop.set_meta("history_data",entry.duplicate(true))
     prop.body_entered.connect(level._on_interactable_entered.bind(prop))
     prop.body_exited.connect(level._on_interactable_exited.bind(prop))
-    level.add_child(prop)
+    LEVEL_HOST.region_parent(level).add_child(prop)
     level._add_wayfinding(prop)
 
 
@@ -283,7 +283,7 @@ static func spawn_hidden_route_clues(level: Node) -> void:
         clue.found = bool(level.story_flags.get("hidden_found_" + String(entry.id), false))
         clue.position = level._vec2(entry.clue.position)
         clue.set_meta("hidden_route", entry)
-        level.add_child(clue)
+        LEVEL_HOST.region_parent(level).add_child(clue)
         level.hidden_route_clues.append(clue)
     level._sync_hidden_route_clues_with_visits()
 

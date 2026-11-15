@@ -110,6 +110,16 @@ func _run() -> void:
         _check(scene.player.hp == 3 and scene.player.energy == 41 and scene.currency_count == 97, "full walk preserves HP energy currency")
         _check(scene.player.collision_layer == 1 and scene.player.collision_mask != 64 and passage.get_child_count() == 0, "arrival clears tube physics and restores mask")
         _check(scene.player_world_position().distance_to(passage.last_result.get("world_position", Vector2.INF)) < 0.1, "terminal rebase preserves world position")
+        # W00 stage 1c: the region container is persistent. Arrival must leave it
+        # live and visible, with the destination's nodes inside it and unfrozen.
+        var region: Node2D = scene.region_root
+        _check(region != null and region.get_parent() == scene and region.visible and region.process_mode == Node.PROCESS_MODE_INHERIT, "region container stays live and visible after arrival")
+        # Only enemies suspended by distance may be disabled; a node left over from
+        # the passage freeze would be a disabled non-enemy.
+        var frozen_after: Array[String] = []
+        for node in region.get_children():
+            if node.process_mode == Node.PROCESS_MODE_DISABLED and not node.is_in_group("enemy"): frozen_after.append(String(node.name))
+        _check(region.get_child_count() > 20 and frozen_after.is_empty(), "destination nodes live in the container and none stays frozen (%s of %d)" % [",".join(frozen_after), region.get_child_count()])
         var saved := STATE.new()
         _check(saved.read(SAVE) and saved.data.current_region == target, "completed target is restartable")
         _check(scene.player_world_position().distance_to(start) > 8500, "world distance is traversed rather than paired teleport")

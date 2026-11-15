@@ -21,7 +21,7 @@ static func spawn_ending_aftermath(level: Node) -> void:
         # Beside the lamp, standing on the floor the pedestal stands on.
         level.ending_aftermath.position = level._vec2(data.position) + Vector2(70, 28)
         level.ending_aftermath.set_meta("aftermath", scene)
-        level.add_child(level.ending_aftermath)
+        LEVEL_HOST.region_parent(level).add_child(level.ending_aftermath)
 
 
 static func notice_ending_aftermath(level: Node) -> void:
@@ -114,7 +114,7 @@ static func spawn_ending_gates(level: Node, announce: bool = false) -> void:
         level._add_wayfinding(area)
         area.body_entered.connect(level._on_interactable_entered.bind(area))
         area.body_exited.connect(level._on_interactable_exited.bind(area))
-        level.add_child(area)
+        LEVEL_HOST.region_parent(level).add_child(area)
     level._toast("守门者陨落 · 结局之门显现")
 
 

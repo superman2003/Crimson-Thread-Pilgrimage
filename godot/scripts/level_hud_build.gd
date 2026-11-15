@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Building the HUD and dialogue overlay in budgeted steps.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -36,7 +37,7 @@ static func hud_build_jobs(level: Node) -> Array:
 
 static func begin_hud(level: Node) -> void:
     level.ui_canvas=CanvasLayer.new()
-    level.add_child(level.ui_canvas)
+    LEVEL_HOST.region_parent(level).add_child(level.ui_canvas)
     level.ui_shell=PILGRIMAGE_UI_SCRIPT.new()
     level.ui_canvas.add_child(level.ui_shell)
     level.ui_shell.begin_bind(level)

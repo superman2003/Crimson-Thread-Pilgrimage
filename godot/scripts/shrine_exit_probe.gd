@@ -15,6 +15,10 @@ static func disable_ability_pickups(world: Node) -> void:
     for child in LEVEL_HOST.children(world): _discard_ability_pickup(child)
 
 static func _discard_ability_pickup(node: Node) -> void:
+    # Region nodes are added under the host's region container (W00 stage 1).
+    if node.has_meta(LEVEL_HOST.META) and not node.child_entered_tree.is_connected(_discard_ability_pickup):
+        node.child_entered_tree.connect(_discard_ability_pickup)
+        return
     if node is Area2D and String(node.get_meta("item_id", "")) in ABILITY_ITEMS:
         node.queue_free()
 

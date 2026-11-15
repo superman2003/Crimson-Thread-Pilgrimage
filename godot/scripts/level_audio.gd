@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Level-side audio: buses, BGM switching, low-HP heartbeat and one-shot sound effects. Chapter reverb stays in main_level.gd, where the room-reverb contract reads it.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -20,7 +21,7 @@ static func begin_audio(level: Node) -> void:
     level.audio_director = AUDIO_DIRECTOR_SCRIPT.new()
     level.audio_director.name = "AudioDirector"
     level.audio_director.autoplay_enabled = level._should_autoplay_audio()
-    level.add_child(level.audio_director)
+    LEVEL_HOST.region_parent(level).add_child(level.audio_director)
     if level._should_autoplay_audio():
         # 探索播放器仍叫 BgmPlayer、挂本节点、bus=BGM（audio_visual_validation 口径）。
         ensure_bgm_player(level)
@@ -130,7 +131,7 @@ static func start_low_hp_heartbeat(level: Node) -> void:
         level.low_hp_heartbeat_player.bus = first_existing_bus(level, ["SFXDry", "SFX", "Master"])
         level.low_hp_heartbeat_player.stream = stream
         level.low_hp_heartbeat_player.volume_db = -10.0
-        level.add_child(level.low_hp_heartbeat_player)
+        LEVEL_HOST.region_parent(level).add_child(level.low_hp_heartbeat_player)
     if not level.low_hp_heartbeat_player.playing:
         var ticket = AUDIO_DIRECTOR_SCRIPT.reserve_voice("low_hp_heartbeat",0,0,1)
         if ticket != 0:AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(ticket,level.low_hp_heartbeat_player,true)
@@ -175,7 +176,7 @@ static func ensure_bgm_player(level: Node) -> void:
     level.bgm_player.name = "BgmPlayer"
     level.bgm_player.bus = "BGM" if AudioServer.get_bus_index("BGM") != -1 else "Master"
     level.bgm_player.volume_db = -18.0
-    level.add_child(level.bgm_player)
+    LEVEL_HOST.region_parent(level).add_child(level.bgm_player)
 
 
 static func play_sfx(level: Node, audio_key: String, volume_db: float = -7.0) -> void:
@@ -217,7 +218,7 @@ static func attach_pending_sfx(level: Node, instance_id: int) -> void:
         player_node.free()
         AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
-    level.add_child(player_node)
+    LEVEL_HOST.region_parent(level).add_child(player_node)
     if not player_node.is_inside_tree():
         player_node.free()
         AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)

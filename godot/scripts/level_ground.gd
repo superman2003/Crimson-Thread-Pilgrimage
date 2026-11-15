@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Safe ground and the death cache, collision segments and rock rays, and releasing region platforms.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -81,7 +82,7 @@ static func spawn_death_cache(level: Node) -> void:
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     level.death_cache_area = area
 
 

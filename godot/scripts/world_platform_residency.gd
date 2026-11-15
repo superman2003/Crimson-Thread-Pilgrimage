@@ -84,7 +84,7 @@ func update(host: Node2D, focus: Vector2, velocity: Vector2, delta: float, eager
                 break
             var body: Variant = resident[id]
             if is_instance_valid(body):
-                host.remove_child(body)
+                body.get_parent().remove_child(body)
                 body.free()
             resident.erase(id)
             releases += 1

@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Builders for placed world props: collectibles, levers, boss doors, chapter exits, save points and NPCs.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -39,7 +40,7 @@ static func collectible(level: Node, data: Dictionary) -> void:
         area.set_meta("interaction_label","收取 · "+level._item_display_name(item_id))
     else:
         area.body_entered.connect(level._on_collectible_body_entered.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     if level.world_mode:
         var instance_id:=area.get_instance_id()
         level.world_pickup_leases[instance_id]={"node":weakref(area),"id":String(area.name),"region":String(level.config.get("id","")),
@@ -90,7 +91,7 @@ static func lever(level: Node, data: Dictionary) -> void:
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     if level.world_mode and level.world_gameplay_residency != null:
         level.world_gameplay_residency.adopt("lever", String(data.get("id", "")), area)
     if level.metsys_bridge != null:
@@ -126,7 +127,7 @@ static func boss_door(level: Node, data: Dictionary) -> void:
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     if level.metsys_bridge != null:
         var room: Dictionary = level._room_for_position(area.global_position)
         level.metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
@@ -180,7 +181,7 @@ static func chapter_exit(level: Node, data: Dictionary) -> void:
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     if level.metsys_bridge != null:
         var room: Dictionary = level._room_for_position(area.global_position)
         level.metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
@@ -247,7 +248,7 @@ static func save_point(level: Node, data: Dictionary) -> void:
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     var checkpoint_key := String(level.config.get("id", "")) + ":" + String(area.name)
     var was_activated := bool(level.save_point_residency_memory.get(checkpoint_key, false))
     if level.world_mode and (was_activated or String(area.name) == String(level.active_save_point_id)):
@@ -376,7 +377,7 @@ static func npc(level: Node, data: Dictionary) -> void:
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     level._apply_world_npc_state(area)
     if level.world_mode and level.world_gameplay_residency != null:
         level.world_gameplay_residency.adopt("npc", String(data.get("id", "")), area)

@@ -635,6 +635,12 @@ func _ready() -> void:
         world_passage = WORLD_PASSAGE.new()
         add_child(world_passage)
         world_passage.bind(self)
+    # Region-owned nodes live under this container, ahead of the player in draw
+    # order (as on first load), so eviction and passage freezing act on one node.
+    region_root = Node2D.new()
+    region_root.name = "Region"
+    region_root.set_meta(LEVEL_HOST.META, self)
+    add_child(region_root)
     if world_mode:
         var previous_mode := process_mode
         process_mode = Node.PROCESS_MODE_DISABLED

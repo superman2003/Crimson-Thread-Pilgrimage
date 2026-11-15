@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Spawning the boss and boss trials, locking the arena and its camera, and where the boss gate stands.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -28,7 +29,7 @@ static func spawn_boss(level: Node) -> void:
     level.boss_actor.set_meta("platform_id", floor_platform_id)
     level.boss_actor.set_meta("spawn_half_width", float(boss_data.get("spawn_half_width", 84.0)))
     level.boss_actor.set_meta("spawn_visual_height", float(boss_data.get("spawn_visual_height", level._enemy_spawn_visual_height(boss_data))))
-    level.add_child(level.boss_actor)
+    LEVEL_HOST.region_parent(level).add_child(level.boss_actor)
     level.boss_spawned = true
     # Boss 曲按章 boss kind 选曲（终 Boss silent_crown_core 三乐章由血量轮询驱动）。
     if level.audio_director != null:

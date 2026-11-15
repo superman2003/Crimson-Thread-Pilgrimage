@@ -34,7 +34,7 @@ static func setup(level: Node) -> void:
     dialog.get_label().autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     dialog.get_label().custom_minimum_size = Vector2(430, 90)
     # Join the tree before any text: shaping outside it costs ~4 ms per string.
-    level.add_child(dialog)
+    LEVEL_HOST.region_parent(level).add_child(dialog)
     dialog.dialog_hide_on_ok=false
     if level.ui_shell.has_method("register_text_entry_window"):level.ui_shell.register_text_entry_window(dialog)
     dialog.title = "钟龛 · 召回归途结"

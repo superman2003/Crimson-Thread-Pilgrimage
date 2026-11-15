@@ -28,6 +28,12 @@ static func container(level: Node) -> Node:
 	return root if root is Node and is_instance_valid(root) else null
 
 
+## Where region-owned nodes are added: the container once it exists.
+static func region_parent(level: Node) -> Node:
+	var root := container(level)
+	return root if root != null else level
+
+
 ## Region container first, then the host itself (session nodes, absolute paths).
 static func find(level: Node, path: NodePath) -> Node:
 	var root := container(level)
