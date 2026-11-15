@@ -6,7 +6,7 @@ extends SceneTree
 ## reached with the synchronous travel fixture, not by natural play.
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
-const FIELDS := preload("res://scripts/world_host_fields.gd")
+const FIELDS := preload("res://scripts/world_host_fields_checks.gd")
 const LOADER := preload("res://scripts/world_region_loader.gd")
 const PASSAGE := preload("res://scripts/world_passage.gd")
 ## Same reach as the neighbour prefetch trigger and the camera half extents.
@@ -44,7 +44,7 @@ func check_fields() -> void:
 	for field in script_fields:
 		if field in LOADER.SESSION_FIELDS:
 			continue
-		check(seen.has(field), "%s is reset on travel but not classified in world_host_fields.gd" % field)
+		check(seen.has(field), "%s is reset on travel but not classified in world_host_fields_checks.gd" % field)
 	var counts := {}
 	for group in FIELDS.GROUPS:
 		counts[group] = FIELDS.GROUPS[group].size()
