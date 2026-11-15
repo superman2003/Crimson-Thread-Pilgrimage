@@ -46,6 +46,13 @@ class CachedHydrationWorkflows(unittest.TestCase):
         self.assertEqual(cached['if'], "steps.needs.outputs.lfs != ''")
         self.assertLess(steps.index(cached), next(i for i, s in enumerate(steps) if 'tools/ci/contracts.py run' in s.get('run', '')))
 
+    def test_motion_scale_consistency_hydrates_creature_atlases(self):
+        steps = workflow('motion-scale-consistency.yml')['jobs']['scale']['steps']
+        self.assertFalse(steps[0]['with']['lfs'])
+        cached, = [s for s in steps if s.get('uses') == './.github/actions/hydrate-lfs']
+        self.assertEqual(cached['with']['include'], 'godot/assets/sprites/original_creatures/**,art_requests/motion_onion/**')
+        self.assertLess(steps.index(cached), next(i for i, s in enumerate(steps) if 'audit_motion_scale_consistency.py' in s.get('run', '')))
+
     def test_static_jobs_do_not_download_assets_native_jobs_still_hydrate(self):
         for name in ('material-conversion-plan-wip.yml', 'settings-dialog-layout.yml'):
             jobs = workflow(name)['jobs']
