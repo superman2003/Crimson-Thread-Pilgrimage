@@ -72,10 +72,16 @@ static func build_hud_labels(level: Node) -> void:
 static func finish_hud(level: Node) -> void:
     level.ui_shell.frame(level.map_panel)
     level.ui_shell.finish_bind()
-    if level.world_mode:
-        var workbench = level.get_node_or_null("/root/JourneyWorkbench")
-        if workbench != null:
-            workbench.bind_region_ui(level)
+    # The workbench is one shared entry bound to the current region's interface;
+    # a destination built hidden binds it at handover instead (W00 stage 3).
+    if level.world_mode and (level.world_loader == null or not level.world_loader.staging_building()):
+        bind_journey_workbench(level)
+
+
+static func bind_journey_workbench(level: Node) -> void:
+    var workbench = level.get_node_or_null("/root/JourneyWorkbench")
+    if workbench != null:
+        workbench.bind_region_ui(level)
 
 
 static func build_dialogue_overlay(level: Node) -> void:

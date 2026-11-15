@@ -1,4 +1,5 @@
 extends RefCounted
+const LOADER_STAGING := preload("res://scripts/loader_staging.gd")
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Budgeted region preparation: async preflight, catalogue region preparation, construction, eviction and finishing within the frame budget.
 ## Moved out of world_region_loader.gd unchanged in behaviour; it keeps one-line
@@ -217,7 +218,8 @@ static func evict_budgeted(loader: RefCounted, host: Node) -> bool:
                 break
             var child: Variant = children[cursor]
             cursor += 1
-            if not is_instance_valid(child) or child == host.player or child == host.world_passage or not LEVEL_HOST.owns(host, child):
+            # A destination waiting hidden for handover is not the departing region.
+            if not is_instance_valid(child) or child == host.player or child == host.world_passage or child.has_meta(LEVEL_HOST.META) or not LEVEL_HOST.owns(host, child):
                 continue
             child.get_parent().remove_child(child)
             child.free()
@@ -384,7 +386,7 @@ static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionar
     # One optional next-read ticket is owned by this invocation, never a
     # shared cache or a second reader. Every failure path drains its ownership.
     var catalog_read_ahead := {}
-    var prepare_jobs: Array = host._region_prepare_jobs(target)
+    var prepare_jobs: Array = LOADER_STAGING.hold_back(loader, host._region_prepare_jobs(target))
     loader.last_transition["prepare_plan_usec"] = Time.get_ticks_usec() - prepare_wall_started
     var prepare_role := "target" if cancellable else "rollback"
     var prepare_cursor := 0
@@ -535,7 +537,7 @@ static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionar
         return false
     if not await loader._warm_region_textures(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
         return false
-    var jobs: Array = host._region_build_jobs()
+    var jobs: Array = LOADER_STAGING.hold_back(loader, host._region_build_jobs())
     var cursor := 0
     loader.last_transition["jobs"] = jobs.size()
     loader.last_transition["build_cursor"] = 0
@@ -576,7 +578,7 @@ static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionar
 
 static func finish_budgeted(loader: RefCounted, host: Node, cancellable: bool) -> bool:
     var finish_tree := host.get_tree()
-    var jobs: Array = host._region_finish_jobs()
+    var jobs: Array = LOADER_STAGING.hold_back(loader, host._region_finish_jobs())
     var cursor := 0
     var wall_started := Time.get_ticks_usec()
     loader.last_transition["commit_jobs"] = jobs.size()

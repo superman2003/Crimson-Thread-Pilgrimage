@@ -28,6 +28,7 @@ const LOADER_REGION_STATE := preload("res://scripts/loader_region_state.gd")
 const LOADER_STARTUP := preload("res://scripts/loader_startup.gd")
 const LOADER_BUDGETED_PREPARE := preload("res://scripts/loader_budgeted_prepare.gd")
 const LOADER_TRANSITIONS := preload("res://scripts/loader_transitions.gd")
+const LOADER_STAGING := preload("res://scripts/loader_staging.gd")
 const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_path",
     "world_startup_options_enabled", "world_save_blocked",
     "world_state", "world_slot", "world_loader", "build_system", "applied_build_profile",
@@ -155,9 +156,43 @@ func cancel_transition() -> void:
         cancel_requested = true
 
 
+## W00 stage 3: a destination built hidden while the source region stays
+## resident. Empty when there is none; see loader_staging.gd.
+var staging: Dictionary = {}
+var staging_retiring := 0
+
+
+func staging_building() -> bool:
+    return LOADER_STAGING.switched_in(self)
+
+
+func stage_region_async(host: Node, path: String, entry: Vector2) -> bool:
+    return await LOADER_STAGING.stage_region_async(self, host, path, entry)
+
+
+func cancel_staging() -> void:
+    LOADER_STAGING.cancel(self)
+
+
+func handover_staged_async(host: Node) -> bool:
+    return await LOADER_STAGING.handover_async(self, host)
+
+
 ## Owned startup and foreground travel must unwind before the host leaves.
 ## Ordinary callers and background refresh retain their SceneTree waits.
-func _next_process_frame(tree: SceneTree) -> Signal:
+## While a destination is being built hidden (W00 stage 3) the host carries the
+## destination's fields only inside a batch of jobs: every yield hands the host
+## back to the source region first and takes it again on resume.
+func _next_process_frame(tree: SceneTree) -> void:
+    var resume: bool = LOADER_STAGING.switched_in(self)
+    if resume:
+        LOADER_STAGING.leave(self)
+    await _frame_signal(tree)
+    if resume:
+        LOADER_STAGING.enter(self)
+
+
+func _frame_signal(tree: SceneTree) -> Signal:
     if startup_token == null and transition_token == null:
         return tree.process_frame
     if _startup_frame_tree != tree:

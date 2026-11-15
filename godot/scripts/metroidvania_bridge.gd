@@ -30,7 +30,17 @@ var wall_border_count := 0
 var passage_border_count := 0
 
 
+## W00 stage 3: MetSys holds one region's map at a time. A destination built
+## while the source region is still resident keeps its configuration and every
+## call made during its build here, and applies them when it becomes current.
+var deferred := false
+var deferred_calls: Array = []
+
+
 func configure(level_config: Dictionary, world_width: float, world_height: float) -> void:
+    if deferred:
+        deferred_calls.append({"method": "configure", "args": [level_config, world_width, world_height]})
+        return
     metsys = get_node_or_null("/root/MetSys")
     if metsys == null:
         push_warning("MetSys autoload is not available.")
@@ -299,7 +309,26 @@ func update_player_position(global_position: Vector2, room_id: String) -> void:
     metsys.cell_changed.emit(coords)
 
 
+func complete_deferred() -> void:
+    if not deferred:
+        return
+    deferred = false
+    var calls := deferred_calls
+    deferred_calls = []
+    for call in calls:
+        # Objects registered during the hidden build may have been retired since.
+        var live := true
+        for value in call.args:
+            if value is Object and not is_instance_valid(value):
+                live = false
+        if live:
+            callv(call.method, call.args)
+
+
 func register_object(object: Object, object_id: String, room_id: String = "") -> void:
+    if deferred:
+        deferred_calls.append({"method": "register_object", "args": [object, object_id, room_id]})
+        return
     if not bridge_ready or object_id.is_empty():
         return
     object.set_meta("object_id", object_id)
@@ -322,6 +351,9 @@ func register_object(object: Object, object_id: String, room_id: String = "") ->
 
 
 func store_object(object: Object) -> void:
+    if deferred:
+        deferred_calls.append({"method": "store_object", "args": [object]})
+        return
     if not bridge_ready:
         return
     var object_id := String(object.get_meta("object_id", ""))
@@ -349,6 +381,9 @@ func _preserve_stored_interaction() -> void:
 
 
 func discover_room(room_id: String) -> void:
+    if deferred:
+        deferred_calls.append({"method": "discover_room", "args": [room_id]})
+        return
     if not bridge_ready or not room_coords.has(room_id):
         return
     var coords: Vector3i = room_coords[room_id]
