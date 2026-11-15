@@ -42,6 +42,36 @@ def production_edges(manifest, edges):
     return result
 
 
+def unchanged_entry_edges(manifest, baseline, edges):
+    """Audit a changed phase boundary whose windup entry was left untouched.
+
+    Keep every loop interruption mandatory for a newly drawn entry. Partial
+    tail repairs may retain an older entry that was never in this redraw's
+    scope; validate that fact against both provenance and the frozen baseline
+    before measuring only the newly changed phase boundary.
+    """
+    clips = {c['name']: c for c in fit.animations_of(manifest)}
+    originals = {c['name']: c for c in fit.animations_of(baseline)}
+    reviewed = manifest.get('redraw_record', {}).get('clips', {})
+    for edge in edges:
+        name = edge['source']
+        target = 'attack' if name == 'windup' else name.removesuffix('_windup')
+        frames = reviewed.get(name, {}).get('target_frames')
+        count = len(clips.get(name, {}).get('frames', []))
+        next_record = reviewed.get(target, {})
+        next_targets = next_record.get('target_frames')
+        next_changed = (0 in next_targets if isinstance(next_targets, list) else
+                        next_record.get('frames') == len(clips.get(target, {}).get('frames', [])) and bool(next_record))
+        if (not (name == 'windup' or name.endswith('_windup')) or
+                edge['source_frame'] != -1 or edge['target_frame'] != 0 or edge['target'] != target or
+                not isinstance(frames, list) or not frames or 0 in frames or
+                not (count - 1 in frames or next_changed)):
+            raise ValueError('Exact handoff requires a partial windup tail with an unchanged entry')
+        if name not in originals or clips[name]['frames'][0] != originals[name]['frames'][0]:
+            raise ValueError('Exact handoff entry differs from the frozen baseline')
+    return list(edges)
+
+
 def measure(manifest, edges, alpha):
     clips = {c['name']: c for c in fit.animations_of(manifest)}
     canvas = manifest['canvas']
@@ -78,10 +108,18 @@ def main():
         raise ValueError('Missing reviewed handoff specification')
     failures, checks = [], 0
     pages = fit.Atlases()
-    for kind, edges in spec['kinds'].items():
+    exact = spec.get('unchanged_entry_kinds', {})
+    for kind in dict.fromkeys([*spec['kinds'], *exact]):
         path = fit.active_manifest(fit.CREATURES / kind)
         manifest = json.loads(path.read_text(encoding='utf-8'))
-        rows = measure(manifest, production_edges(manifest, edges), pages.alpha)
+        edges = production_edges(manifest, spec['kinds'].get(kind, []))
+        if kind in exact:
+            filename = manifest.get('redraw_record', {}).get('baseline', '')
+            if not filename or Path(filename).name != filename:
+                raise ValueError('Exact handoff requires a local frozen baseline')
+            baseline = json.loads((path.parent / filename).read_text(encoding='utf-8'))
+            edges += unchanged_entry_edges(manifest, baseline, exact[kind])
+        rows = measure(manifest, edges, pages.alpha)
         bad = [r for r in rows if r['change'] > MAX_CHANGE]
         failures.extend(dict(kind=kind, **r) for r in bad)
         checks += len(rows)

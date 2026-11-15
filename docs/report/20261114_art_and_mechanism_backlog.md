@@ -4,23 +4,11 @@
 
 ## 一、需要美术
 
-### 1. 怪物动作重画：剩 38 段、912 帧
+### 1. 怪物动作首轮重画：261/261段完成
 
-清单共 261 段，已完成 223 段、3201 张原画。第35–36批补完水轮骑士、回响水轮骑士、跪姿弩手、阀门爬虫、棘卫、回响棘卫和静默号手的18段动作、71张局部原画，修复23处体型异常；报告与对照动画见 `artifacts/creature_redraw_batch35/`、`artifacts/creature_redraw_batch36/`。912帧是剩余片段的全部帧引用数；局部重绘按标记帧及相邻帧交付，不必将每段24帧全部重画。剩余9个角色：
+2026-11-15第37批一次补完最后9个角色的38段动作、425张原画。相位审查者1段、棘花微光5段、雨香炉微光4段、回响契约书记4段、同位素辉光6段、黑曜铃轮2段、坠铃虫4段、延迟之影5段、回响朝圣指挥官7段均已交付；13段采用完整24帧，其余25段覆盖清单标记和相邻帧。63处原大小异常修复，222处变化端点生产衔接通过。
 
-| 角色 | 段数 | 片段 |
-|---|---|---|
-| echo_pilgrim_commander_minor | 7 | windup、attack、minor_banner_windup／recover、minor_elite_rally_windup／本体／recover |
-| isotope_lumen | 6 | windup、attack、recover、lumen_focus_windup／本体／recover |
-| thorn_bloom_mote | 5 | windup、attack、bloom_seeds_windup／本体／recover |
-| delayed_shadow | 5 | attack、recover、shadow_echo_windup／本体／recover |
-| rain_censer_mote | 4 | windup、recover、censer_cloud_windup／recover |
-| echo_contract_scribe | 4 | windup、attack、echo_scribe_seals_windup／本体 |
-| falling_clapper | 4 | attack、recover、clapper_wave_windup／recover |
-| obsidian_bellwheel | 2 | bellwheel_waves、bellwheel_waves_recover |
-| phase_censor | 1 | windup |
-
-交付流程不变：按 `art_requests/creature_redraw_v1/` 的冻结参考出图，`tools/creature_redraw_art.py` 打包并过体量、邻帧、画风门槛。另有既有步态返工 224 张，单独记账。
+清单累计完成261段、3626张原画，待处理片段为0。源图、实际提示词和冻结参考在 `art_requests/creature_redraw_v1/`；完成证明、修复明细、逐帧前后图与半速动画在 `artifacts/creature_redraw_batch37/`。此前第35–36批的18段、71张及23处修复也保留各自记录。261段清单之外的强调色复看、转身／急停和其余素材缺口继续列于下文；既有步态返工224张单独记账。
 
 ### 2. 已合并但需复看的 7 段：强调色丢失
 

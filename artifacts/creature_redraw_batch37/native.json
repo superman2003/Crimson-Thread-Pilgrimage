@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "engine": "4.6.1.stable.official.14d19694e",
+  "mode": "Existing production character_motion_v8 subset; isolated headless project, nine complete unmodified creature folders with required scripts/Beehave/VFX dependencies. No full-project or real-GL claim.",
+  "marker": "CHARACTER_MOTION_V8 checks=6863 failures=0 characters=9 old_poses=896 new_poses=1792",
+  "results": [
+    {
+      "step": "import",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "step": "character_motion_v8",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    }
+  ],
+  "production_script_sha256": {
+    "enemy_actor.gd": "72e1ac613b9e37b73d04a2620b21ca95579c251cfb41ab4de14304d2d848cdfc",
+    "hand_drawn_assets.gd": "339c5c4853ecc4026c4c46a4e1be31e9f978ca1d5f57f2290e96262480b0e8da",
+    "character_motion_v8_validation.gd": "7fc1dbf6574696fd8f823a7da32707b70e3009fa57bd7ad69f1dd4291a93e4f7",
+    "background_resource_job.gd": "06acba9c5502a82728a530ee8d879189ec3b2d17e705ad1804c7121d5bdc562c",
+    "enemy_motion_transitions.gd": "b5e7e5ca243571273fd86369e349648b64d77b129fa48dc1414197787632690e",
+    "enemy_animation_timing.gd": "a31b2623a6dd40b038b2250681e84fd479ae9b135f09a6d31959b4728bd277e7"
+  },
+  "creatures": {
+    "phase_censor": {
+      "motion_redraw_manifest.json": "1f216cd20d60c482f17df8749fbf2af8e5528dca9c6c8f8cb4c1cffd6fb25cef",
+      "frame_fit.json": "12217a26e5a050972258723cf622443464e8178ab3cda6e4f8582db9a62aab44",
+      "motion_redraw_00.png": "22237ae1931a2e75fc8bcee914f6d3e718a4d24acf3504118544a285dc5017f2"
+    },
+    "thorn_bloom_mote": {
+      "motion_redraw_manifest.json": "751283ac016b646312091ad13d5477d44decb8f471a17f8f63c3ed82f654be59",
+      "frame_fit.json": "ff60d0e142b9a799808c6d4c7e72436a172a565daa1065a6979a2ebc9a260904",
+      "motion_redraw_00.png": "70d478ecfe23e57acc61283bdc896bf42940b676717ef4c1e75d87ea02275b01"
+    },
+    "rain_censer_mote": {
+      "motion_redraw_manifest.json": "e27f7fb2343703858012d6136af40f523df414f9889ea0d49163b51c1995ce97",
+      "frame_fit.json": "0daee265c180444ccf1c19099180cfd43b77a68f899e740f541857d87f42395c",
+      "motion_redraw_00.png": "10291c0b06ecd0b5d29a31be94b9f1d328c70d644eef62d962995a099abcf954"
+    },
+    "echo_contract_scribe": {
+      "motion_redraw_manifest.json": "537fc5194f0ce1caa6229e9a0610b695d340ac639098b071e11761d1848d5471",
+      "frame_fit.json": "cac31f2ac812c75c773ba1fa5ee33c19306175156459d2c0fb754e75a1d36d88",
+      "motion_redraw_00.png": "a213b15ed405c6e960e89ad74cedd0cbfa785134b34ae51a59621ecc2bac9f34"
+    },
+    "isotope_lumen": {
+      "motion_redraw_manifest.json": "7084948203938b778b7c70e8e271bb05ea740986f91bb95a05969819539e1382",
+      "frame_fit.json": "c58f927494848d73dc71e87fc0d371c8c5ab826644848d13e7ad1ae93deff1a7",
+      "motion_redraw_00.png": "3acd6e0ddebe1d72f015af06de56993e83d09218cabb778c4fb4ced749ca95ea",
+      "motion_redraw_01.png": "bd311c9325bcab5d3fde675e0dcd31951a3704fb210ecc41eea7d4505fa79e8c"
+    },
+    "obsidian_bellwheel": {
+      "motion_redraw_manifest.json": "3550040418d820ae80b01da5b3fc61cb0ead54f5eda619284825d807e452361c",
+      "frame_fit.json": "bd52d2e8cd7a6816afe834de1880b8bbf14c87e40ab6aa0a7ebf813425c9b89a",
+      "motion_redraw_00.png": "ec8a6b0a96f59a967f147cac67b540cd7525ab79d7c53a3e4dd91dc13e297b5a"
+    },
+    "falling_clapper": {
+      "motion_redraw_manifest.json": "1677a76e0e7c8b49bfac97cc0db48dd0f8e6c5906bdc2c7b985de5dc8148fc99",
+      "frame_fit.json": "aadbc9f9e2ca968a8335d15403aac100c802f2d56d897c4cb7522cb847a73785",
+      "motion_redraw_00.png": "b89e571b39ffdd565dcce32f4987d74b0404402ed08f213f0bff63c704e8bc1e"
+    },
+    "delayed_shadow": {
+      "motion_redraw_manifest.json": "d8ff898aa03628d1f305ef80314520d55c3cc8c10f1b16d530d5738fc5348a7f",
+      "frame_fit.json": "81d2162d20c7ec83c91c2e815f5acb9be2c05ed43aaabe2413b74a7c8433d5a6",
+      "motion_redraw_00.png": "ca3dd8d3dd8858e44e7d039a70a32dc110c9b90589c0ba1840bcfec7d980ea6a"
+    },
+    "echo_pilgrim_commander_minor": {
+      "motion_redraw_manifest.json": "1276a1da4ebdf8e3e0d480ae867f02d77ca8220409f7c2757a06f8f62918e247",
+      "frame_fit.json": "c350d4e8a42689bcc0f44626fb1c0efbf499463eae6dc9400204ade217120a3e",
+      "motion_redraw_00.png": "390df25d81e9eb86daf382a1ae445e080d566bc481dd8d8e949a9923c8586222"
+    }
+  }
+}

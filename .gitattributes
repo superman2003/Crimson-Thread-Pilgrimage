@@ -468,6 +468,22 @@ artifacts/creature_redraw_batch35/*.webp -filter -diff -merge -text
 art_requests/creature_redraw_v1/sources/thorn_sentinel/*.png -filter -diff -merge -text
 artifacts/creature_redraw_batch36/*.jpg -filter -diff -merge -text
 artifacts/creature_redraw_batch36/*.webp -filter -diff -merge -text
+
+# Complete final 38-clip delivery: retain raw masters and production atlases in LFS.
+art_requests/creature_redraw_v1/sources/*/final37*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/phase_censor/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/thorn_bloom_mote/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/rain_censer_mote/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/echo_contract_scribe/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/isotope_lumen/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/obsidian_bellwheel/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/falling_clapper/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/delayed_shadow/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+godot/assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_redraw_*.png filter=lfs diff=lfs merge=lfs -text
+art_requests/creature_redraw_v1/guides/support/*.png -filter -diff -merge -text
+art_requests/creature_redraw_v1/receipts/final37/*.jpg -filter -diff -merge -text
+artifacts/creature_redraw_batch37/*.jpg -filter -diff -merge -text
+artifacts/creature_redraw_batch37/*.webp -filter -diff -merge -text
 artifacts/creature_redraw_batch25/*.jpg -filter -diff -merge -text
 artifacts/creature_redraw_batch25/*.webp -filter -diff -merge -text
 
