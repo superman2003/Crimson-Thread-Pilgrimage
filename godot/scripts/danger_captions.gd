@@ -1,4 +1,5 @@
 extends Node
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Captions are a view of the actor's current tell, never an encounter predictor.
 const MAX_SCAN := 128
 const MAX_DISTANCE := 620.0
@@ -32,7 +33,7 @@ static func rank(unblockable: bool,boss: bool,remaining: float,distance: float) 
 
 func observe(actor: Node) -> Dictionary:
     if not is_instance_valid(actor) or actor.is_queued_for_deletion() or actor.get_script()!=preload("res://scripts/enemy_actor.gd"):return {}
-    if actor.get_parent()!=level or not actor.is_inside_tree() or not actor.world_residency_active() or not actor.is_visible_in_tree():return {}
+    if not LEVEL_HOST.owns(level, actor) or not actor.is_inside_tree() or not actor.world_residency_active() or not actor.is_visible_in_tree():return {}
     if actor.dying or actor.hp<=0 or actor.state!="windup" or actor.active_attack.is_empty() or not is_finite(actor.state_timer) or actor.state_timer<=0:return {}
     if not is_instance_valid(actor.sprite) or not actor.sprite.is_visible_in_tree() or actor.modulate.a<0.1 or actor.sprite.modulate.a<0.1:return {}
     var point: Vector2=actor.global_position+Vector2(0,-40)

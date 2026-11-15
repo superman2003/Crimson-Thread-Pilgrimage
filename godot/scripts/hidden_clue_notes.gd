@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Public notes contain only noticed entrance observations, never reward ids or
 ## hidden-room identities. Map lookup adds the existing per-segment ink gate.
 const ROUTES:=preload("res://scripts/world_routes.gd")
@@ -76,7 +77,7 @@ static func notice(level: Node) -> void:
     if not level.world_mode or not level.active_overlay.is_empty() or level.world_loading or level.world_save_blocked or level.world_state==null:return
     if not is_instance_valid(level.player) or level.player.hp<=0:return
     for clue in level.hidden_route_clues:
-        if not is_instance_valid(clue) or clue.is_queued_for_deletion() or not clue.is_inside_tree() or clue.get_parent()!=level or clue.found:continue
+        if not is_instance_valid(clue) or clue.is_queued_for_deletion() or not clue.is_inside_tree() or not LEVEL_HOST.owns(level, clue) or clue.found:continue
         var entry: Dictionary=clue.get_meta("hidden_route",{})
         if String(entry.get("region_id",""))!=String(level.config.get("id","")):continue
         var flag:=SEEN+String(entry.get("id",""))

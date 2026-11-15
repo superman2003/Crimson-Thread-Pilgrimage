@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Enemy deaths and elite rewards, resetting encounters after the player dies, and opening the route after a boss.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -162,7 +163,7 @@ static func open_post_boss_route(level: Node) -> void:
         var platform_id := String(platform_data.get("id", ""))
         if not level._is_post_boss_blocker(platform_id):
             continue
-        var blocker = level.get_node_or_null(platform_id)
+        var blocker = LEVEL_HOST.find(level, platform_id)
         if blocker != null:
             level._spawn_route_open_effect(blocker.global_position)
             blocker.queue_free()

@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Attack telegraphs, wind-up and burst effects, and the command effects an enemy's attacks spawn.
 ## Moved out of enemy_actor.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -26,14 +27,14 @@ static func effect(actor: Node, effect_kind: String, point: Vector2, vel: Vector
     effect.length=float(command.get("beam_length",360))
     effect.beam_max_length=effect.length
     if effect_kind == "beam" and actor.is_inside_tree():
-        if actor.get_parent().has_method("_ensure_collision_segment"):
-            actor.get_parent()._ensure_collision_segment(point, point + effect.heading * effect.length)
+        if LEVEL_HOST.of(actor).has_method("_ensure_collision_segment"):
+            LEVEL_HOST.of(actor)._ensure_collision_segment(point, point + effect.heading * effect.length)
         var query = PhysicsRayQueryParameters2D.create(point, point + effect.heading * effect.length, 1)
         query.collide_with_areas = false
         query.exclude = ATTACK_EFFECT.player_bodies(actor.get_tree())
         var obstruction = actor.get_world_2d().direct_space_state.intersect_ray(query)
-        if actor.get_parent().has_method("_rock_ray_hit"):
-            var rock: Dictionary = actor.get_parent()._rock_ray_hit(point, point + effect.heading * effect.length)
+        if LEVEL_HOST.of(actor).has_method("_rock_ray_hit"):
+            var rock: Dictionary = LEVEL_HOST.of(actor)._rock_ray_hit(point, point + effect.heading * effect.length)
             if not rock.is_empty() and (obstruction.is_empty() or point.distance_squared_to(rock.position) < point.distance_squared_to(obstruction.position)):
                 obstruction = rock
         if not obstruction.is_empty():
@@ -92,7 +93,7 @@ static func spawn_command_effects(actor: Node, command: Dictionary, warning: boo
             if type=="rootline" and not bool(command.get("targeted",false)):
                 x=actor.global_position.x+actor.attack_direction*(i+1)*float(command.get("spacing",90))
                 floor_y=actor.global_position.y+40
-            var terrain: Node=actor.get_parent().get("chapter_terrain")
+            var terrain: Node=LEVEL_HOST.of(actor).get("chapter_terrain")
             if terrain!=null:
                 var sampled: float=terrain.floor_height(x,floor_y,210)
                 if is_finite(sampled):floor_y=sampled

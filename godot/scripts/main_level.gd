@@ -1,6 +1,10 @@
 extends Node2D
 
 const INTERACTION_REACH := 150.0
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
+## W00 stage 1: container for region-owned nodes (null until they move there).
+## Code outside the region uses world_node()/world_children() so both layouts work.
+var region_root: Node2D = null
 
 const FLAT_MAP_ART_SCRIPT := preload("res://scripts/flat_map_art.gd")
 const TERRAIN_SCRIPT := preload("res://scripts/chapter_terrain.gd")
@@ -612,6 +616,14 @@ const LEVEL_RESIDENTS := preload("res://scripts/level_residents.gd")
 const LEVEL_DEMO_STATE := preload("res://scripts/level_demo_state.gd")
 const LEVEL_ROUTE_STATE := preload("res://scripts/level_route_state.gd")
 const LEVEL_TRAVEL_ASYNC := preload("res://scripts/level_travel_async.gd")
+
+func world_node(path: NodePath) -> Node:
+    return LEVEL_HOST.find(self, path)
+
+
+func world_children() -> Array[Node]:
+    return LEVEL_HOST.children(self)
+
 
 func _ready() -> void:
     preload("res://scripts/application_close.gd").install(get_tree())

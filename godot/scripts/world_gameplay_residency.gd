@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Active-world residency for low-risk, reconstructible interactions. Stateful
 ## portals, map sellers, gates, exits, enemies and bosses remain world-owned.
 const HALF := Vector2(1280.0, 900.0)
@@ -74,7 +75,7 @@ func configure(host: Node, config: Dictionary, next_generation: int, focus: Vect
 			if kind == "npc":
 				point = host._world_npc_residency_position(id, point)
 			records[key] = {"kind": kind, "id": id, "data": data.duplicate(true), "position": point}
-			var actor := host.get_node_or_null(NodePath(id)) as Area2D
+			var actor := LEVEL_HOST.find(host, NodePath(id)) as Area2D
 			if actor != null: resident[key] = actor
 	for data_value in config.get("enemy_spawns", []):
 		if not data_value is Dictionary: continue

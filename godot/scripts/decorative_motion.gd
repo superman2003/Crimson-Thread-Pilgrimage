@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Cosmetic clocks only: never controls attacks, tells, hit flashes or audio.
 static var enabled := true
 const FRAME_SECONDS := 1.0/30.0
@@ -12,7 +13,7 @@ var player_has_hp:=false
 
 func active(actor: Node2D) -> bool:
     if not enabled or not is_instance_valid(actor) or actor.is_queued_for_deletion() or not actor.is_inside_tree() or not actor.is_visible_in_tree() or not actor.can_process():return false
-    var host:=actor.get_parent()
+    var host:=LEVEL_HOST.of(actor)
     if not is_instance_valid(host) or host.is_queued_for_deletion():return false
     if host_id!=host.get_instance_id():
         host_id=host.get_instance_id();properties.clear()

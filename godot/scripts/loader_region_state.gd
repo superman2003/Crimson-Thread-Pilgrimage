@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Region state for the loader: snapshots, preflight and config validation, synchronous region replacement, batch measurement, catalogue staging, texture polling and prepare metrics.
 ## Moved out of world_region_loader.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -10,7 +11,7 @@ const ROUTES := preload("res://scripts/world_routes.gd")
 static func snapshot(loader: RefCounted, host: Node) -> Dictionary:
     return {"region_id": loader.active_region_id, "generation": loader.generation, "phase": loader.phase,
         "resident_regions": 1 if not loader.active_region_id.is_empty() else 0,
-        "region_nodes": maxi(0, host.get_child_count() - 1),
+        "region_nodes": maxi(0, LEVEL_HOST.children(host).size() - 1),
         "unloaded_nodes": loader.unloaded_nodes,
         "player_id": host.player.get_instance_id() if is_instance_valid(host.player) else 0,
         "world_bounds": COORDINATES.region_bounds(loader.active_region_id)}
@@ -78,10 +79,10 @@ static func replace_region(loader: RefCounted, host: Node, path: String, entry: 
     host._release_region_audio()
     host._release_region_platforms()
     loader.phase = "unloading"
-    for child in host.get_children():
+    for child in LEVEL_HOST.children(host):
         if child == host.player or child == host.world_passage:
             continue
-        host.remove_child(child)
+        child.get_parent().remove_child(child)
         child.free()
         loader.unloaded_nodes += 1
     loader._reset_region_fields(host)

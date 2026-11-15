@@ -33,7 +33,8 @@ const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_pat
     "world_state", "world_slot", "world_loader", "build_system", "applied_build_profile",
     "world_catalog", "world_narrative", "world_write_error_shown", "world_prefetch", "world_passage",
     "world_shared_metadata_cache", "world_shared_metadata_reads", "world_shared_metadata_probes",
-    "world_shared_metadata_bytes", "world_shared_metadata_parses", "world_shared_metadata_failures"]
+    "world_shared_metadata_bytes", "world_shared_metadata_parses", "world_shared_metadata_failures",
+    "region_root"]
 var generation := 0
 var active_region_id := ""
 var phase := "idle"

@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Backpack and settings pages, and the shared overlay bookkeeping (close all, input lock, dialogue-closed notice).
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -117,13 +118,13 @@ static func close_overlays(level: Node) -> void:
         level._play_sfx("ui_dialogue_close", -4.0)
     elif level.active_overlay == "settings":
         level._play_sfx("ui_menu_cancel", -4.0)
-    var map_purchase = level.get_node_or_null("MapPurchaseDialog")
+    var map_purchase = LEVEL_HOST.find(level, "MapPurchaseDialog")
     if map_purchase != null:
         map_purchase.hide()
-    var recall_dialog = level.get_node_or_null(DEATH_RECALL.DIALOG)
+    var recall_dialog = LEVEL_HOST.find(level, DEATH_RECALL.DIALOG)
     if recall_dialog != null:
         recall_dialog.hide()
-    var ending_story = level.get_node_or_null("EndingStoryDesk")
+    var ending_story = LEVEL_HOST.find(level, "EndingStoryDesk")
     if ending_story != null:
         ending_story.hide()
     level._notify_dialogue_closed()

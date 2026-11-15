@@ -1,4 +1,5 @@
 extends ConfirmationDialog
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## The interact path previews a choice; only an explicit second action commits it.
 const JOURNEY := preload("res://scripts/narrative_journey.gd")
 const NAME := "EndingStoryDesk"
@@ -37,7 +38,7 @@ static func open(level: Node, gate: Area2D) -> void:
     if not selected.is_empty() and selected != requested:
         level._activate_ending_gate(gate)
         return
-    var desk = level.get_node_or_null(NAME)
+    var desk = LEVEL_HOST.find(level, NAME)
     if desk == null:
         desk = load("res://scripts/ending_story_desk.gd").new()
         desk.name = NAME
@@ -122,7 +123,7 @@ func _confirm() -> void:
             _show_page()
         return
     var gate = gate_ref.get_ref() if gate_ref != null else null
-    if not is_instance_valid(gate) or gate.is_queued_for_deletion() or gate.get_parent() != level or String(gate.get_meta("ending", "")) != ending or String(level.config.get("id", "")) != region or level.world_loading or level.chapter_transitioning or level.player == null or level.player.hp <= 0 or level.player.global_position.distance_to(gate.global_position) > level.INTERACTION_REACH:
+    if not is_instance_valid(gate) or gate.is_queued_for_deletion() or not LEVEL_HOST.owns(level, gate) or String(gate.get_meta("ending", "")) != ending or String(level.config.get("id", "")) != region or level.world_loading or level.chapter_transitioning or level.player == null or level.player.hp <= 0 or level.player.global_position.distance_to(gate.global_position) > level.INTERACTION_REACH:
         hide()
         return
     var fresh := _quote(level)

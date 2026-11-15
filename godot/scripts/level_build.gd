@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## The build system bridge: workstations and artisans, wallet transactions, quotes, build actions and ability actions.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -47,7 +48,7 @@ static func bind_build_inputs(level: Node) -> void:
 static func near_workstation(level: Node, crafting: bool = false) -> bool:
     if level.player == null or level.player.hp <= 0 or level.player.death_timer > 0.0 or (level.boss_arena_lock_body != null and is_instance_valid(level.boss_arena_lock_body)):
         return false
-    for child in level.get_children():
+    for child in LEVEL_HOST.children(level):
         if not child is Area2D or level.player.global_position.distance_to(child.global_position) > 120.0:
             continue
         var kind := String(child.get_meta("kind", ""))
@@ -73,7 +74,7 @@ static func near_artisan_id(level: Node) -> String:
         return ""
     var best := ""
     var best_distance := INF
-    for child in level.get_children():
+    for child in LEVEL_HOST.children(level):
         if not child is Area2D or String(child.get_meta("kind", "")) != "npc":
             continue
         var id := String(child.get_meta("npc_id", child.name))

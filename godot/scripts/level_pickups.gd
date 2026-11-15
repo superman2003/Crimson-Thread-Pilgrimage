@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Hazards, picking up collectibles and capacity fragments, and the ability gates those pickups open.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -26,7 +27,7 @@ static func on_collectible_body_entered(level: Node, body: Node, area: Area2D) -
     if level.player==null or level.player.hp<=0 or level.chapter_transitioning or not area.is_inside_tree():return
     var source: Dictionary=level.world_pickup_leases.get(area.get_instance_id(),{})
     if source.is_empty() or source.node.get_ref()!=area or source.region!=String(level.config.get("id","")):return
-    if area.get_parent()!=level or String(area.name)!=String(source.id) or area.position.distance_to(source.point)>1.0:return
+    if not LEVEL_HOST.owns(level, area) or String(area.name)!=String(source.id) or area.position.distance_to(source.point)>1.0:return
     if area.global_position.distance_to(level.player.global_position)>level.INTERACTION_REACH:return
     if bool(level.world_collected_ids.get(String(source.id),false)):area.queue_free();return
     if not WORLD_STATE_SCRIPT._whole(source.amount) or int(source.amount)<=0:
@@ -169,7 +170,7 @@ static func sync_player_abilities(level: Node) -> void:
     level._sync_player_build()
     if level.world_mode:
         for anchor in level.get_tree().get_nodes_in_group("grapple_anchor"):
-            if anchor.get_parent() != level:
+            if not LEVEL_HOST.owns(level, anchor):
                 continue
             var enabled := int(level.inventory_counts.get(String(anchor.get_meta("required_ability", "echo_hook")), 0)) > 0
             anchor.set_meta("grapple_enabled", enabled)

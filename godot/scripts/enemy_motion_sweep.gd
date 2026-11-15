@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Area2D enemies need an explicit body sweep during authored attack movement.
 static func constrain(actor: Area2D, start: Vector2, finish: Vector2) -> Vector2:
     if not start.is_finite() or not finish.is_finite(): return start
@@ -6,7 +7,7 @@ static func constrain(actor: Area2D, start: Vector2, finish: Vector2) -> Vector2
     if motion.length_squared() < 0.000001: return finish
     var box: Rect2 = actor.get_motion_rect() if actor.has_method("get_motion_rect") else actor.get_hurtbox_rect()
     var offset := box.get_center() - actor.global_position
-    var level := actor.get_parent()
+    var level := LEVEL_HOST.of(actor)
     if level.has_method("_ensure_collision_segment"): level._ensure_collision_segment(start + offset, finish + offset)
     var shape := RectangleShape2D.new(); shape.size = box.size
     var query := PhysicsShapeQueryParameters2D.new()

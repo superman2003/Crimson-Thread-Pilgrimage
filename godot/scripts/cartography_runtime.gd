@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 const SURFACE := preload("res://scripts/survey_map_surface.gd")
 const INK := preload("res://scripts/hand_drawn_map_room.gd")
@@ -8,7 +9,7 @@ const COMPASS_PRICE := 15
 static func setup(level: Node) -> void:
     var sellers: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/cartography_sellers.json"))
     var seller: Dictionary=sellers.get(String(level.config.id),{})
-    var area:=level.get_node_or_null(NodePath(String(seller.get("npc_id","")))) as Area2D
+    var area:=LEVEL_HOST.find(level, NodePath(String(seller.get("npc_id","")))) as Area2D
     if area==null:push_error("Missing authored map NPC for "+String(level.config.id));return
     area.set_meta("map_seller_region",String(level.config.id));area.set_meta("map_seller_data",seller.duplicate(true))
     area.set_meta("interaction_label",String(area.get_meta("label","地图NPC"))+" · 交谈 / 购买本区地图")
@@ -37,10 +38,10 @@ static func setup(level: Node) -> void:
 
 static func _merchant_valid(level: Node, area: Area2D) -> bool:
     if not is_instance_valid(level) or not is_instance_valid(area) or not level.world_mode or level.world_loading or level.chapter_transitioning or level.player==null:return false
-    if not area.is_inside_tree() or area.is_queued_for_deletion() or not area.is_visible_in_tree() or area.get_parent()!=level:return false
+    if not area.is_inside_tree() or area.is_queued_for_deletion() or not area.is_visible_in_tree() or not LEVEL_HOST.owns(level, area):return false
     if level.player.hp<=0 or level.player.death_timer>0 or area.global_position.distance_to(level.player.global_position)>150:return false
     var seller: Dictionary=area.get_meta("map_seller_data",{})
-    return String(area.get_meta("map_seller_region",""))==String(level.config.id) and String(seller.get("npc_id",""))==String(area.name) and level.get_node_or_null(NodePath(String(area.name)))==area
+    return String(area.get_meta("map_seller_region",""))==String(level.config.id) and String(seller.get("npc_id",""))==String(area.name) and LEVEL_HOST.find(level, NodePath(String(area.name)))==area
 
 static func tool_price(kind: String) -> int:
     return JOURNAL.QUILL_PRICE if kind=="quill" else COMPASS_PRICE
@@ -76,7 +77,7 @@ static func quote_purchase(level: Node, area: Area2D, kind: String="map") -> Dic
 static func open_shop(level: Node, area: Area2D, kind: String="map") -> void:
     if not _merchant_valid(level,area):return
     level._close_overlays();level.active_overlay="cartographer";level._sync_ui_input_lock()
-    var dialog: ConfirmationDialog=level.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(level, "MapPurchaseDialog")
     var quote:=quote_purchase(level,area,kind)
     dialog.set_meta("purchase_kind",kind);dialog.set_meta("purchase_fingerprint",String(quote.get("fingerprint","")))
     var note:=String(area.get_meta("map_seller_data",{}).get("note",""))
@@ -100,7 +101,7 @@ static func _shop_custom_action(action: String, host: WeakRef, merchant: WeakRef
 static func _shop_confirm(host: WeakRef, merchant: WeakRef) -> void:
     var level=host.get_ref();var area=merchant.get_ref()
     if not is_instance_valid(level) or not is_instance_valid(area):return
-    var dialog:=level.get_node_or_null("MapPurchaseDialog") as ConfirmationDialog
+    var dialog:=LEVEL_HOST.find(level, "MapPurchaseDialog") as ConfirmationDialog
     if dialog==null or not dialog.visible:return
     var kind:=String(dialog.get_meta("purchase_kind","map"))
     var fresh:=quote_purchase(level,area,kind)
