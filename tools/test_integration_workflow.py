@@ -43,7 +43,7 @@ class IntegrationWorkflowTests(unittest.TestCase):
                 self.assertNotIn('needs:', job)
                 self.assertIn('VALIDATION_SHA: ${{ github.sha }}', job)
                 self.assertIn('Godot_v4.6.1-stable_linux.x86_64.zip', job)
-                self.assertIn('--recovery-mode --timeout 600', job)
+                self.assertIn('--recovery-mode --timeout 900', job)
                 self.assertIn('sudo apt-get install -y xvfb libgl1-mesa-dri', job)
 
     def test_distinct_logs_are_preserved_even_on_failure(self):
