@@ -33,7 +33,7 @@ MARKER = r'^WORLD_WHEEL_ROUTE steps=\d+ failures=0 damage_suppression=false earn
 
 def sources():
     result = freeze()
-    for name in [SCRIPT, SEED, 'tools/run_waterwheel_route.py', 'tools/build_chapter_terrain.py', 'tools/handcraft_ch02_boxgarden.mjs']:
+    for name in [SCRIPT, SEED, 'tools/run_waterwheel_route.py', 'tools/build_chapter_terrain.py', 'tools/handcraft_ch02_boxgarden.mjs', 'tools/handcraft_ch02_rooms.mjs', 'tools/boxgarden_uniqueness.mjs']:
         result[name] = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
     return result
 
@@ -56,7 +56,7 @@ def main():
     (logs / 'runner.py.txt').write_bytes(Path(__file__).read_bytes())
     (logs / 'runtime.gd.txt').write_bytes((ROOT / 'godot/scripts/player_tool_effect.gd').read_bytes())
     (logs / 'source.diff').write_bytes(subprocess.check_output(
-        ['git', '-c', 'core.safecrlf=false', 'diff', 'HEAD', '--', 'godot', 'tools/run_waterwheel_route.py', 'tools/build_chapter_terrain.py', 'tools/handcraft_ch02_boxgarden.mjs'], cwd=ROOT))
+        ['git', '-c', 'core.safecrlf=false', 'diff', 'HEAD', '--', 'godot', 'tools/run_waterwheel_route.py', 'tools/build_chapter_terrain.py', 'tools/handcraft_ch02_boxgarden.mjs', 'tools/handcraft_ch02_rooms.mjs', 'tools/boxgarden_uniqueness.mjs'], cwd=ROOT))
     started = time.monotonic()
     code, timed_out = None, False
     display = nullcontext({}) if args.native_gl else software_gl(logs / 'display')
