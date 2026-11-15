@@ -20,6 +20,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { median, mainRouteOrdered, rhythmTokens, sizeTokens, duplicateWindows, repeatRatio } from "./boxgarden_uniqueness.mjs";
+import { ROOMS } from "./handcraft_ch02_rooms.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE_PATH = join(ROOT, "godot/data/demo_ch02_rain_foundry_canal.json");
@@ -48,166 +50,6 @@ function reachable(a, b, useDash = true) {
 // ---- room metadata ---------------------------------------------------------
 // zoneA aqueduct band / zoneB pendulum works / zoneC pump atrium hub /
 // zoneD standpipe well / zoneE sunken canal layer / zoneF hammer-forge boss wing
-const ROOMS = {
-  // A ------------------------------------------------------------------------
-  upper_sluice: { name: "上闸口", kind: "entry", depth: 2,
-    objective: "从苔钟庭的排水钟管落进上闸口，跟着水走。", guide: "雨从这里入渠；整章的路就是水的路。",
-    danger: "落点干净，湿石打滑。", next: "渡槽闸口", setpiece: "排水钟管的出口铁唇",
-    traversal_focus: "跨章入口", pacing_role: "explore_and_loop" },
-  aqueduct_gate: { name: "渡槽闸口", kind: "corridor", depth: 2,
-    objective: "沿渡槽东行，读懂闸口的水位刻度。", guide: "上方夹层有一间不下雨的房间。",
-    danger: "闸齿间歇开合。", next: "雨栅长堤", setpiece: "锈闸雨幕",
-    traversal_focus: "安全试跳", pacing_role: "explore_and_loop" },
-  rain_deck: { name: "雨栅长堤", kind: "corridor", depth: 2,
-    objective: "顶着雨幕横越长堤。", guide: "管渠童子会替你数水滴的拍子。",
-    danger: "钟坠从渠顶松脱。", next: "闸锁台阶", setpiece: "雨栅与吊钟坠",
-    traversal_focus: "横越教学", pacing_role: "explore_and_loop" },
-  gutter_interstice: { name: "渡槽夹层", kind: "secret", depth: 1,
-    objective: "找到那间不下雨的房间。", guide: "闸口上沿的检修缝可以跳进去。",
-    danger: "夹层安静得反常。", next: "渡槽闸口", setpiece: "干燥的检修暗格",
-    traversal_focus: "隐藏探索", pacing_role: "reward" },
-  sluice_locks: { name: "闸锁台阶", kind: "corridor", depth: 2,
-    objective: "顺闸锁逐级下行。", guide: "台阶尽头是钟龛的灯。",
-    danger: "闸齿锈刺外露。", next: "渡槽钟龛", setpiece: "成排的青铜闸锁",
-    traversal_focus: "下行节奏", pacing_role: "tension" },
-  aqueduct_shrine: { name: "渡槽钟龛", kind: "save", depth: 2,
-    objective: "点亮入渠后的第一座钟龛。", guide: "钟龛会记录你的归处。",
-    danger: "安全屋。", next: "检修匍匐缝", setpiece: "渡槽下的苔灯",
-    traversal_focus: "存档教学", pacing_role: "respite" },
-  flume_crawl: { name: "检修匍匐缝", kind: "corridor", depth: 2,
-    objective: "贴顶匍匐挤过渡槽底部的检修缝。", guide: "雨水从格栅缝里砸头顶——忍住，前方有光。",
-    danger: "低顶通道，无法起跳。", next: "泵房中庭", setpiece: "格栅漏雨的一线缝",
-    traversal_focus: "压缩通道", pacing_role: "tension" },
-  // C ------------------------------------------------------------------------
-  pump_atrium: { name: "泵房中庭", kind: "hub", depth: 3,
-    objective: "以泵房中庭为枢纽：上读水表、西攀立管、下探沉渠、东讨锤炉。", guide: "记住这里；所有水最终都绕回泵房。",
-    danger: "巨型水轮的剪影在腔底转动。", next: "四方", setpiece: "1600px 泵房竖腔",
-    traversal_focus: "垂直枢纽分流", pacing_role: "hub" },
-  wish_board_landing: { name: "愿板平台", kind: "vista", depth: 2,
-    objective: "查看巡礼愿板上钉着的求助。", guide: "工头在找三枚工牌。",
-    danger: "平台悬在中庭高处。", next: "水表回廊", setpiece: "钉满湿纸的愿板",
-    traversal_focus: "支线锚定", pacing_role: "respite" },
-  gauge_gallery: { name: "水表回廊", kind: "corridor", depth: 3,
-    objective: "沿水表回廊横越中庭上层。", guide: "东端通向阀顶眺台。",
-    danger: "回廊悬空，钟蛾游弋。", next: "阀顶眺台", setpiece: "成排的黄铜水表",
-    traversal_focus: "高空横越", pacing_role: "explore_and_loop" },
-  valve_overlook: { name: "阀顶眺台", kind: "corridor", depth: 3,
-    objective: "俯瞰整条锤炉长堤，找到俯冲的落点。", guide: "尽头一跃可直落炉前钟龛。",
-    danger: "俯冲无回头路。", next: "炉前钟龛", setpiece: "红阀阵列与雨中长堤",
-    traversal_focus: "单向俯冲", pacing_role: "explore_and_loop" },
-  bellbone_wl_station: { name: "钟骨长梯·水线站", kind: "transit", depth: 4,
-    objective: "参观封存的水线层站厅。", guide: "贯穿世界的长梯尚未通电，记住它的位置。",
-    danger: "站厅只有滴水声。", next: "泵房中庭", setpiece: "青铜长梯与水线刻度",
-    traversal_focus: "世界纵轴锚点", pacing_role: "respite" },
-  atrium_west_vault: { name: "西高台暗室", kind: "secret", depth: 3,
-    objective: "破开湿墙封条，取回暗室里的纺锤。", guide: "需要丝壁攀附。",
-    danger: "暗室里的水声不对劲。", next: "泵房中庭", setpiece: "半沉的能量纺锤",
-    traversal_focus: "回访门", pacing_role: "reward" },
-  // D ------------------------------------------------------------------------
-  well_a: { name: "立管井口", kind: "corridor", depth: 4,
-    objective: "从中庭西沿下探立管井口。", guide: "失聪铁匠柳守在井沿。",
-    danger: "落下去就没有原路。", next: "湿墙试炼间", setpiece: "锈死的立管井盖",
-    traversal_focus: "单向下探", pacing_role: "explore_and_loop" },
-  grip_trial_cell: { name: "湿墙试炼间", kind: "arena", depth: 5,
-    objective: "击败井底守卫，取回丝壁攀附。", guide: "贴住青铜湿墙，绯线会替你抓住一瞬。",
-    danger: "守卫的巢就在井底正中。", next: "立管井", setpiece: "两面对峙的青铜湿墙",
-    traversal_focus: "精英战与能力获取", pacing_role: "climax" },
-  standpipe_shaft: { name: "立管井", kind: "shaft", depth: 3,
-    objective: "沿湿墙一路蹬墙攀上立管井。", guide: "需要丝壁攀附；井顶通向水塔。",
-    danger: "1800px 落差，别在中途松手。", next: "立管钟龛", setpiece: "垂直立管与检修蹬位",
-    traversal_focus: "攀墙竖井", pacing_role: "explore_and_loop" },
-  riser_shrine: { name: "立管钟龛", kind: "save", depth: 1,
-    objective: "在立管井顶点灯。", guide: "东沿可以一路坠回水线站厅。",
-    danger: "安全屋，风雨在外。", next: "高位水塔", setpiece: "井顶的苔灯",
-    traversal_focus: "高位存档", pacing_role: "respite" },
-  high_water_tower: { name: "高位水塔", kind: "gate", depth: 0,
-    objective: "攀上水塔，仰望通往盐白档案馆的雨溢立管。", guide: "立管口封存；需要丝壁攀附与回声钩索才能回访。",
-    danger: "塔顶风大。", next: "盐白档案馆（回访）", setpiece: "封存的雨溢立管口",
-    traversal_focus: "跨章回访门", pacing_role: "foreshadow" },
-  // E ------------------------------------------------------------------------
-  well_b: { name: "泵井坠道", kind: "shaft", depth: 5,
-    objective: "从中庭地缝坠入泵井。", guide: "这是单向坠道——回程走水轮泄洪梯。",
-    danger: "井壁湿滑，无法攀回。", next: "溢流庭", setpiece: "垂直泵井",
-    traversal_focus: "纵向下探", pacing_role: "explore_and_loop" },
-  overflow_court: { name: "溢流庭", kind: "corridor", depth: 6,
-    objective: "沿双层溢流庭探索沉渠。", guide: "上层有一段湿苔颜色不对。",
-    danger: "假苔地板一踩就塌。", next: "暗渠走道", setpiece: "绕柱双层溢流廊",
-    traversal_focus: "环形探索", pacing_role: "explore_and_loop" },
-  undercanal: { name: "暗渠走道", kind: "corridor", depth: 7,
-    objective: "沿暗渠西行到最深处。", guide: "井底有人敲三下，不要回答第四下。",
-    danger: "低照度，水面下有影子。", next: "沉渠尽头", setpiece: "半沉的暗渠栈道",
-    traversal_focus: "低视野推进", pacing_role: "pressure" },
-  tide_listening_cell: { name: "听潮暗室", kind: "secret", depth: 8,
-    objective: "从塌落的湿苔板坠入听潮暗室。", guide: "黑潮在这里学人敲击；隐藏钟龛也在这里。",
-    danger: "敲击声从墙那边来。", next: "暗渠走道", setpiece: "黑潮水面与隐苔龛",
-    traversal_focus: "平台间转移", pacing_role: "reward" },
-  rain_curtain_gallery: { name: "水幕暗渠", kind: "secret", depth: 5,
-    objective: "从暗渠尽头穿过水幕，沿暗壁攀回立管井底。", guide: "水幕后面不是墙。",
-    danger: "水声盖过一切脚步。", next: "湿墙试炼间", setpiece: "整面下坠的水幕",
-    traversal_focus: "隐藏回环", pacing_role: "reward" },
-  silt_vault: { name: "淤金库", kind: "treasure", depth: 6,
-    objective: "搜刮沉在淤泥里的库房。", guide: "半沉工头想找回三枚工牌。",
-    danger: "孢箱会炸。", next: "水轮竖井", setpiece: "半埋的货箱阵",
-    traversal_focus: "奖励与叙事", pacing_role: "respite" },
-  drowned_archive_pod: { name: "沉没档案舱", kind: "gate", depth: 7,
-    objective: "冲过淤水间隙，读取沉没档案舱里的证词。", guide: "需要绯线冲刺。",
-    danger: "舱里的名单不愿被读。", next: "淤金库", setpiece: "灌满水的青铜档案舱",
-    traversal_focus: "回访门", pacing_role: "reward" },
-  wheel_shaft: { name: "水轮竖井", kind: "shaft", depth: 6,
-    objective: "抵达巨型水轮的底座，拉下捷径控制器。", guide: "泄洪梯打通后长期有效。",
-    danger: "水轮齿隙深不见底。", next: "泄洪栈梯", setpiece: "全章最大的水轮",
-    traversal_focus: "捷径解锁", pacing_role: "reward" },
-  wheel_interior: { name: "水轮内部", kind: "gate", depth: 6,
-    objective: "等辐条转到位，冲进水轮内部。", guide: "需要绯线冲刺；机械本身是路。",
-    danger: "轮毂随时会转。", next: "配重暗格", setpiece: "转动的轮毂内腔",
-    traversal_focus: "冲刺门", pacing_role: "reward" },
-  counterweight_niche: { name: "配重暗格", kind: "secret", depth: 5,
-    objective: "在配重块后找到藏起的地图残页。", guide: "从水轮内部向上爬。",
-    danger: "配重随水位起落。", next: "水轮内部", setpiece: "嵌着残页的配重块",
-    traversal_focus: "隐藏探索", pacing_role: "reward" },
-  furnace_floor: { name: "炉底", kind: "gate", depth: 7,
-    objective: "抵达锤炉的炉底，查看被铸渣封住的滑道口。", guide: "铸渣滑道通向黑曜巡礼路——现在还封着。",
-    danger: "炉渣余温未散。", next: "黑曜巡礼路（单向）", setpiece: "封存的铸渣滑道口",
-    traversal_focus: "跨章捷径锚点", pacing_role: "foreshadow" },
-  spillway_ladder: { name: "泄洪栈梯", kind: "shaft", depth: 4,
-    objective: "沿泄洪栈梯一路爬回泵房中庭。", guide: "这是沉渠唯一的回程。",
-    danger: "栈梯上有伏兵。", next: "泵房中庭", setpiece: "贯穿三层的泄洪栈梯",
-    traversal_focus: "纵向回环", pacing_role: "explore_and_loop" },
-  // F ------------------------------------------------------------------------
-  preboss_causeway: { name: "锤炉长堤", kind: "corridor", depth: 4,
-    objective: "突破重怪把守的炉前长堤。", guide: "长堤重怪硬吃不亏——绕背打。",
-    danger: "吊锤毫无预兆地砸落。", next: "炉前钟龛", setpiece: "锤炉仪仗残骸",
-    traversal_focus: "重压走廊", pacing_role: "pressure" },
-  forge_shrine: { name: "炉前钟龛", kind: "save", depth: 4,
-    objective: "点亮炉前苔灯，准备面对执剪者。", guide: "死亡回跑很短。",
-    danger: "门后就是执剪者的领域。", next: "沉炉大厅", setpiece: "炉前苔灯",
-    traversal_focus: "战前存档", pacing_role: "tension" },
-  smith_arena: { name: "沉炉大厅", kind: "boss", depth: 4,
-    objective: "击败绯线执剪者，取回铁匠誓牌。", guide: "入口会在战斗时封闭。",
-    danger: "执剪者的剪线覆盖全场。", next: "回声出水口", setpiece: "沉锤铁匠的旧炉",
-    traversal_focus: "首领战", pacing_role: "boss" },
-  echo_outfall: { name: "回声出水口", kind: "exit", depth: 4,
-    objective: "顺出水口东行，前往盐白书库。", guide: "头顶的钟摆车间在锤声停后开启。",
-    danger: "出水口铁声隆隆。", next: "第三章：盐白书库", setpiece: "巨大的出水铁口",
-    traversal_focus: "章节收束", pacing_role: "denouement" },
-  // B ------------------------------------------------------------------------
-  pendulum_gantry: { name: "钟摆吊架", kind: "shaft", depth: 2,
-    objective: "沿吊架蹬位攀上钟摆车间。", guide: "锤声停了，吊架才肯静止。",
-    danger: "攀升很长，别在中途松手。", next: "钟摆车间", setpiece: "静止的巨型钟摆",
-    traversal_focus: "纵向攀爬", pacing_role: "explore_and_loop" },
-  pendulum_works: { name: "钟摆车间", kind: "treasure", depth: 1,
-    objective: "在停摆的车间取回回声钩索。", guide: "执剪者的战利品；钩环门从此为你打开。",
-    danger: "钟摆随时可能复摆。", next: "钩环回廊", setpiece: "悬满钩环的车间",
-    traversal_focus: "能力获取", pacing_role: "climax" },
-  pendulum_vault: { name: "钩环链暗室", kind: "treasure", depth: 1,
-    objective: "钩过链隙取回工牌。", guide: "需要回声钩索。",
-    danger: "链隙下就是深渊。", next: "钟摆车间", setpiece: "垂链与卡住的工牌",
-    traversal_focus: "钩索门", pacing_role: "reward" },
-  hook_gallery: { name: "钩环回廊", kind: "arena", depth: 0,
-    objective: "清理钩环回廊的伏击，再从西沿坠回阀顶眺台。", guide: "天窗后还有一间暗室。",
-    danger: "回廊脚下是空的。", next: "阀顶眺台", setpiece: "成排的青铜钩环",
-    traversal_focus: "立体战斗", pacing_role: "pressure" },
-};
 const ROOM_ORDER = Object.keys(ROOMS);
 
 // ---- platform layout -------------------------------------------------------
@@ -894,45 +736,6 @@ function wallSlots(platforms) {
 }
 
 // ---- uniqueness mirror -----------------------------------------------------
-const median = (arr) => { const s = [...arr].sort((a, b) => a - b); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
-function mainRouteOrdered(design) {
-  return design.filter((p) => p.route_role === "main").sort((a, b) => a.route_order - b.route_order);
-}
-function rhythmTokens(route) {
-  if (route.length < 2) return [];
-  const centers = route.map((p) => [p.x + p.w / 2, p.y + p.h / 2]);
-  const dists = centers.slice(1).map((c, i) => Math.hypot(c[0] - centers[i][0], c[1] - centers[i][1]));
-  const nz = dists.filter((d) => d > 1e-6);
-  const dScale = nz.length ? median(nz) : 1;
-  const wScale = median(route.map((p) => p.w).filter((w) => w > 0)) || 1;
-  const toks = [];
-  for (let i = 0; i + 1 < centers.length; i++) {
-    const dx = centers[i + 1][0] - centers[i][0], dy = centers[i + 1][1] - centers[i][1];
-    const a = ((Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) % 8) + 8) % 8;
-    const d = Math.min(12, Math.max(0, Math.round((dists[i] / dScale) * 4)));
-    const w = Math.round((route[i + 1].w / wScale) * 4);
-    toks.push(`a${a}:d${d}:w${w}`);
-  }
-  return toks;
-}
-function sizeTokens(route) {
-  if (!route.length) return [];
-  const scale = median(route.map((p) => Math.sqrt(Math.max(1, p.w * p.h))));
-  return route.map((p) => `w${Math.round((p.w / scale) * 4)}:h${Math.round((p.h / scale) * 4)}`);
-}
-function duplicateWindows(values, size) {
-  const seen = new Map(); const dups = [];
-  for (let i = 0; i + size <= values.length; i++) {
-    const key = values.slice(i, i + size).join("|");
-    if (seen.has(key)) dups.push({ first: seen.get(key), pos: i });
-    else seen.set(key, i);
-  }
-  return dups;
-}
-function repeatRatio(values, size) {
-  const total = Math.max(1, values.length - size + 1);
-  return duplicateWindows(values, size).length / total;
-}
 function physicsOk(r) {
   const reachNoDash = bfsReach(r.design, "start_ground", false);
   if (r.design.some((p) => p.route_role === "main" && !reachNoDash.has(p.id))) return false;
