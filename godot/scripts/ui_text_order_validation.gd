@@ -91,6 +91,7 @@ func run() -> void:
 
     # Region-owned dialogs and the pin toolbar, rebuilt by the real setup calls.
     world.child_entered_tree.connect(observe)
+    world.region_root.child_entered_tree.connect(observe)
     for dialog_name in ["MapPurchaseDialog", "DeathRecallDialog"]:
         var old: Node = LEVEL_HOST.find(world, dialog_name)
         if old != null: old.free()
@@ -103,6 +104,7 @@ func run() -> void:
         if is_instance_valid(item.node) and item.node is ConfirmationDialog and item.node != shop: recall = item.node
     check(recall != null and entry_for(recall).get("text", "x") == "" and not recall.title.is_empty(), "recall dialog joins the tree before its texts")
     world.child_entered_tree.disconnect(observe)
+    world.region_root.child_entered_tree.disconnect(observe)
     var toolbar: Node = world.map_panel.get_node_or_null("PlayerPinToolbar")
     if toolbar != null: toolbar.free()
     var status_old: Node = world.map_panel.get_node_or_null("PlayerPinStatus")

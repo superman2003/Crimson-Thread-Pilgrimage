@@ -52,7 +52,7 @@ static func challenge_shrine(level: Node, challenge: Dictionary) -> void:
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     if level.metsys_bridge != null:
         var room: Dictionary = level._room_for_position(area.global_position)
         level.metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
@@ -114,7 +114,7 @@ static func hunt_track(level: Node, challenge: Dictionary, track: Dictionary) ->
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
     if level.metsys_bridge != null:
         var room: Dictionary = level._room_for_position(area.global_position)
         level.metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))

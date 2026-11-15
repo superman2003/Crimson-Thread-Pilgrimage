@@ -19,7 +19,7 @@ static func setup(level: Node) -> void:
     var frame:=StyleBoxFlat.new();frame.bg_color=Color("18252c");frame.border_color=Color("bda176");frame.set_border_width_all(2)
     dialog.theme.set_stylebox("panel","AcceptDialog",frame)
     dialog.get_label().autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;dialog.get_label().custom_minimum_size=Vector2(450,160)
-    level.add_child(dialog);dialog.dialog_hide_on_ok=false
+    LEVEL_HOST.region_parent(level).add_child(dialog);dialog.dialog_hide_on_ok=false
     dialog.title=String(area.get_meta("label","地图NPC"))+" · 地图与工具"
     # Assign the resting text in-tree (shaping outside it costs ~4 ms per string);
     # opening the shop replaces it with the live quote.

@@ -67,7 +67,7 @@ static func world_portal(level: Node, data: Dictionary) -> void:
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
-    level.add_child(area)
+    LEVEL_HOST.region_parent(level).add_child(area)
 
 
 static func apply_world_npc_state(level: Node, area: Area2D) -> void:
@@ -103,7 +103,7 @@ static func world_grapple_anchor(level: Node, data: Dictionary) -> void:
     chain.add_point(Vector2(0, -45))
     chain.add_point(Vector2(0, -13))
     anchor.add_child(chain)
-    level.add_child(anchor)
+    LEVEL_HOST.region_parent(level).add_child(anchor)
 
 
 static func world_portal_missing(level: Node, data: Dictionary) -> String:

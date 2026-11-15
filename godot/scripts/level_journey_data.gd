@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Starting a new journey (dialog, backup of the previous one) and loading JSON and shared world metadata.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -12,7 +13,7 @@ static func build_new_journey_dialog(level: Node) -> void:
     level.new_journey_dialog.ok_button_text = "开始新旅途"
     level.new_journey_dialog.cancel_button_text = "继续当前旅途"
     level.new_journey_dialog.theme = level.ui_shell.theme if level.ui_shell != null else null
-    level.add_child(level.new_journey_dialog)
+    LEVEL_HOST.region_parent(level).add_child(level.new_journey_dialog)
     level.new_journey_dialog.confirmed.connect(level._start_new_journey)
     level.new_journey_dialog.canceled.connect(func():
         level.active_overlay = ""

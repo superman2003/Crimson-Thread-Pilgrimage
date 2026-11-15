@@ -137,6 +137,15 @@ func run() -> void:
 		if root_children < 0:
 			root_children = root.get_child_count()
 			player_children = scene.player.get_child_count()
+		# Stage 1c: region nodes sit in the persistent container; only session nodes
+		# and a few strays (freed on travel all the same) stay directly on the host.
+		var region: Node2D = scene.region_root
+		check(region != null and region.get_parent() == scene and region.position == Vector2.ZERO and region.visible, id + " region container present at the origin")
+		check(region.get_meta(LEVEL_HOST.META) == scene, id + " container names its host")
+		var direct := 0
+		for child in scene.get_children():
+			if child != region and child != scene.player and child != scene.world_passage: direct += 1
+		check(region.get_child_count() >= 60 and direct <= 8, "%s region nodes are in the container (%d inside, %d strays on the host)" % [id, region.get_child_count(), direct])
 		# Region travel must leave no node outside the host's region-owned children.
 		var root_names: Array[String] = []
 		for child in root.get_children():

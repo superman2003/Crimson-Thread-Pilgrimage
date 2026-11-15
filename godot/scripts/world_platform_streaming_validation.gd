@@ -82,7 +82,7 @@ func _region(id: String) -> void:
         var body: StaticBody2D = scene._make_region_platform(data)
         body.disable_mode = CollisionObject2D.DISABLE_MODE_KEEP_ACTIVE
         body.collision_layer = REFERENCE_LAYER
-        scene.remove_child(body)
+        body.get_parent().remove_child(body)
         references.add_child(body)
         body.name = String(data.id)
         ref_by_id[String(data.id)] = body

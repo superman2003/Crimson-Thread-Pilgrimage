@@ -2,6 +2,7 @@ extends Node2D
 ## Registered physical connector network. World-coordinate endpoints remain
 ## fixed; destination gameplay is still loaded at the terminal, not seamless.
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
 const ROCK := preload("res://scripts/world_rock_material.gd")
@@ -172,7 +173,9 @@ func begin(portal_id: String) -> bool:
     host.player.collision_mask = TRANSIT_LAYER
     host.player.velocity = speed
     frozen.clear()
-    for node in host.get_children():
+    # Region nodes one by one: the persistent container itself is never frozen,
+    # so the destination built into it starts live, as fresh host children did.
+    for node in LEVEL_HOST.children(host):
         if node == host.player or node == self:
             continue
         var record := {"node": node, "mode": node.process_mode}
@@ -457,7 +460,9 @@ func _finish_arrival() -> void:
 
 func _freeze_current_region() -> void:
     frozen.clear()
-    for node in host.get_children():
+    # Region nodes one by one: the persistent container itself is never frozen,
+    # so the destination built into it starts live, as fresh host children did.
+    for node in LEVEL_HOST.children(host):
         if node == self or node == host.player:
             continue
         var record := {"node": node, "mode": node.process_mode}

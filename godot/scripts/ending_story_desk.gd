@@ -43,7 +43,7 @@ static func open(level: Node, gate: Area2D) -> void:
         desk = load("res://scripts/ending_story_desk.gd").new()
         desk.name = NAME
         desk.theme = level.ui_shell.theme
-        level.add_child(desk)
+        LEVEL_HOST.region_parent(level).add_child(desk)
         level.ui_shell.register_text_entry_window(desk)
     desk.host_ref = weakref(level)
     desk.gate_ref = weakref(gate)
