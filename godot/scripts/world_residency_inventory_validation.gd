@@ -7,7 +7,7 @@ const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## reached with the synchronous travel fixture, not by natural play.
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
-const FIELDS := preload("res://scripts/world_host_fields_checks.gd")
+const FIELDS := preload("res://scripts/region_state.gd")
 const LOADER := preload("res://scripts/world_region_loader.gd")
 const PASSAGE := preload("res://scripts/world_passage.gd")
 ## Same reach as the neighbour prefetch trigger and the camera half extents.
@@ -45,12 +45,43 @@ func check_fields() -> void:
 	for field in script_fields:
 		if field in LOADER.SESSION_FIELDS:
 			continue
-		check(seen.has(field), "%s is reset on travel but not classified in world_host_fields_checks.gd" % field)
+		check(seen.has(field), "%s is reset on travel but not classified in region_state.gd" % field)
 	var counts := {}
 	for group in FIELDS.GROUPS:
 		counts[group] = FIELDS.GROUPS[group].size()
 	print("WORLD_RESIDENCY_FIELDS ", JSON.stringify({"script_fields": script_fields.size(),
 		"session": LOADER.SESSION_FIELDS.size(), "reset_on_travel": seen.size(), "groups": counts}))
+
+
+## Stage 2: the region's field set can be taken off the host and put back with
+## nothing lost, and an empty set is exactly what travel resets the host to.
+func check_region_state(scene: Node, id: String) -> void:
+	var names: Array[String] = FIELDS.fields()
+	var progress_before := {}
+	for field in FIELDS.PROGRESS_VALUES:
+		progress_before[field] = var_to_str(scene.get(field))
+	var state: Dictionary = FIELDS.capture(scene)
+	check(state.size() == names.size() and names.size() == 94, "%s region set holds every region field (%d)" % [id, state.size()])
+	var defaults: Node = scene.get_script().new()
+	var previous: Dictionary = FIELDS.switch_to(scene, FIELDS.fresh(scene))
+	var not_default: Array[String] = []
+	for field in names:
+		if var_to_str(scene.get(field)) != var_to_str(defaults.get(field)):
+			not_default.append(field)
+	defaults.free()
+	check(not_default.is_empty(), "%s an empty set equals the script defaults (%s)" % [id, ",".join(not_default)])
+	for field in FIELDS.PROGRESS_VALUES:
+		check(var_to_str(scene.get(field)) == progress_before[field], "%s switching the region set leaves %s alone" % [id, field])
+	FIELDS.apply(scene, previous)
+	var changed: Array[String] = []
+	for field in names:
+		var now: Variant = scene.get(field)
+		var before: Variant = state[field]
+		var same: bool = is_same(now, before) if (before is Object or before is Array or before is Dictionary) else now == before
+		if not same:
+			changed.append(field)
+	check(changed.is_empty(), "%s putting the set back restores every field (%s)" % [id, ",".join(changed)])
+	check(is_instance_valid(scene.hud_label) and String(scene.config.id) == id, id + " host works on the restored set")
 
 
 static func shape_bounds(node: Node) -> Rect2:
@@ -167,6 +198,7 @@ func run() -> void:
 		previous_hud = scene.hud_label
 		for field in FIELDS.PROGRESS_VALUES:
 			previous_progress[field] = var_to_str(scene.get(field))
+		check_region_state(scene, id)
 		var metrics := measure(scene)
 		metrics["region"] = id
 		check(metrics.top_level > 0 and metrics.shapes > 0, id + " region owns nodes and collision")

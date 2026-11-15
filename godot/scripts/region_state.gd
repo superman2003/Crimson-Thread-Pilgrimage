@@ -1,10 +1,12 @@
 extends RefCounted
-## W00 stage 0: every main_level script variable that region travel resets,
-## grouped by where it should live once two regions can be resident at once.
-## world_residency_inventory_validation fails when a field is added, removed
-## or left unclassified, so this list stays the migration inventory for stage 2.
-## Target "region" moves into a per-region RegionState; "session" should stop
-## being rebuilt on travel; "transition" is loader control state.
+## W00 stage 2 (docs/W00_SEAMLESS_RESIDENCY_PLAN.md): the level host's fields
+## that describe one resident region, taken out and put back as a set.
+## The fields stay on the host, where roughly 7000 references read them; a
+## second region is built by switching this set around each batch of build
+## jobs, and becomes the current region by applying its set at handover.
+## GROUPS classifies every host variable that region travel resets;
+## world_residency_inventory_validation fails when one is added or removed
+## without being classified here.
 
 const GROUPS := {
 	"region_nodes": ["flat_map_art", "chapter_terrain", "cave_world", "cave_lifts", "world_platforms",
@@ -38,20 +40,62 @@ const GROUPS := {
 		"world_start_region_id", "world_catalog_prepare_staging"],
 }
 
+## "region": part of the set switched with the region (its nodes, runtime
+## state, interface and audio are all rebuilt per region today).
+## "host": stays with the host; reset and restored from WorldState on travel,
+## so its value is the same for every region.
+## "transition": loader control state.
 const TARGET := {
-	"region_nodes": "region", "region_runtime": "region", "interface": "session", "audio": "session",
-	"progress": "session", "static_data": "session", "transition": "transition",
+	"region_nodes": "region", "region_runtime": "region", "interface": "region", "audio": "region",
+	"progress": "host", "static_data": "host", "transition": "transition",
 }
 
-## Progress fields are reset and then restored from WorldState on every travel,
-## so their values must survive it unchanged (validated). The two RefCounted
-## trackers are rebuilt from saved data and compared through their snapshots.
+## Progress values that must survive travel unchanged (validated).
 const PROGRESS_VALUES := ["unlocked_abilities", "inventory_counts", "inventory_tools", "inventory_relics",
 	"inventory_materials", "currency_count", "story_flags", "world_collected_ids"]
 
 
-static func group_of(field: String) -> String:
+static func fields() -> Array[String]:
+	var out: Array[String] = []
 	for group in GROUPS:
-		if field in GROUPS[group]:
-			return group
-	return ""
+		if TARGET[group] == "region":
+			out.append_array(GROUPS[group])
+	return out
+
+
+## The host's current region set. Values are handed over as they are (no
+## copies): the caller owns the set until it is applied again.
+static func capture(host: Node) -> Dictionary:
+	var state := {}
+	for field in fields():
+		state[field] = host.get(field)
+	return state
+
+
+static func apply(host: Node, state: Dictionary) -> void:
+	for field in fields():
+		host.set(field, state[field])
+
+
+## A set holding the script defaults, as a region has before it is built.
+static func fresh(host: Node) -> Dictionary:
+	var defaults: Node = host.get_script().new()
+	var state := fresh_from(defaults)
+	defaults.free()
+	return state
+
+
+## The same, read from a detached host instance the caller already made.
+static func fresh_from(defaults: Node) -> Dictionary:
+	var state := {}
+	for field in fields():
+		var value: Variant = defaults.get(field)
+		state[field] = value.duplicate(true) if value is Array or value is Dictionary else value
+	return state
+
+
+## Puts `state` on the host and returns the set it replaced.
+static func switch_to(host: Node, state: Dictionary) -> Dictionary:
+	var previous := capture(host)
+	apply(host, state)
+	return previous
