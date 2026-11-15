@@ -69,10 +69,10 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Run release gate regression tests
@@ -98,7 +98,7 @@ jobs:
       - name: Build and boot the actual release on its target OS
         run: python tools/build_release.py --target '${{ matrix.target }}' --output dist/releases
       - name: Upload validated candidate (no public Release is created)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: desktop-candidate-${{ matrix.target }}-${{ github.sha }}
           path: |
@@ -108,7 +108,7 @@ jobs:
           retention-days: 14
       - name: Preserve export and player logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: desktop-candidate-logs-${{ matrix.target }}-${{ github.sha }}
           path: |
@@ -116,17 +116,16 @@ jobs:
             ${{ runner.temp }}/release-engine/install-receipt.json
           if-no-files-found: ignore
           retention-days: 14
-  # Experimental: proves the macOS export on a real Mac without gating the
-  # Windows/Linux candidates above. A failure here does not fail the workflow.
+  # Proves the macOS export on a real Mac. Gating since 2026-11-15, after 12
+  # consecutive green runs; the build is universal and not notarised.
   macos:
     runs-on: macos-15
-    continue-on-error: true
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Check the macOS builder and preset
@@ -138,7 +137,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python tools/build_macos_candidate.py --engine-root "$RUNNER_TEMP/release-engine" --output dist/releases
       - name: Upload macOS candidate (unsigned, not notarised)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: desktop-candidate-macos-${{ github.sha }}
           path: |
@@ -148,7 +147,7 @@ jobs:
           retention-days: 14
       - name: Preserve export and player logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: desktop-candidate-logs-macos-${{ github.sha }}
           path: dist/releases/*-logs/

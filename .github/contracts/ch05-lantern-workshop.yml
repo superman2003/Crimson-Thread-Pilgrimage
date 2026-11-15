@@ -50,7 +50,7 @@ jobs:
             --suite world_upgrade --suite obsidian_experience
       - name: Preserve focused regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ch05-lantern-workshop-regression-logs
           path: ${{ runner.temp }}/regression-logs

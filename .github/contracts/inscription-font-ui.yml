@@ -74,7 +74,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/inscription-font-logs/headless-settings"
       - name: Preserve typography validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: inscription-font-ui-logs
           path: ${{ runner.temp }}/inscription-font-logs

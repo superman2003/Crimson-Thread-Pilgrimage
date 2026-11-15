@@ -62,7 +62,7 @@ jobs:
             --timeout 240
       - name: Preserve CH06 validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ch06-hidden-route-logs
           path: ${{ runner.temp }}/ch06-route-logs

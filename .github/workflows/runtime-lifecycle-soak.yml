@@ -33,7 +33,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Check out exact source and hydrate runtime assets
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: false
@@ -59,7 +59,7 @@ jobs:
           python3 tools/run_runtime_soak.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --seconds "$SOAK_SECONDS" --log-dir "$RUNNER_TEMP/runtime-soak"
       - name: Preserve all evidence including failures
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: runtime-lifecycle-soak
           path: |

@@ -74,7 +74,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/minor-enemy-skill-logs"
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: minor-enemy-skill-art-logs
           path: ${{ runner.temp }}/minor-enemy-skill-logs

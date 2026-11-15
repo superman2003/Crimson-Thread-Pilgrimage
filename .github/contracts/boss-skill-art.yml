@@ -67,7 +67,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/boss-skill-logs"
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: boss-skill-art-logs
           path: ${{ runner.temp }}/boss-skill-logs

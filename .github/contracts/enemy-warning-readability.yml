@@ -70,7 +70,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/regression-logs"
       - name: Preserve focused regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: enemy-warning-readability-regressions
           path: ${{ runner.temp }}/regression-logs

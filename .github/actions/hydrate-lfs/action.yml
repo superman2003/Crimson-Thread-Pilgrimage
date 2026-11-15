@@ -18,7 +18,7 @@ runs:
     - name: Restore LFS objects
       id: cache
       if: steps.key.outputs.count != '0'
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@v5
       with:
         path: .git/lfs/objects
         key: ${{ steps.key.outputs.key }}
@@ -36,7 +36,7 @@ runs:
     # PR caches are scoped to their merge ref; main caches serve later PRs.
     - name: Save successfully hydrated LFS objects
       if: steps.key.outputs.count != '0' && steps.cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       with:
         path: .git/lfs/objects
         key: ${{ steps.key.outputs.key }}

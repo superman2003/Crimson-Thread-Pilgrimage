@@ -111,7 +111,7 @@ jobs:
           grep -q 'threaded=false' "$RUNNER_TEMP/background-resource/headless/background_texture_contention.log"
       - name: Preserve all logs including failures
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: background-resource-ownership
           path: ${{ runner.temp }}/background-resource/

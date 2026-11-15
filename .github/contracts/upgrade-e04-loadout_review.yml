@@ -76,7 +76,7 @@ jobs:
           PY
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: upgrade-e04-logs
           path: ${{ runner.temp }}/upgrade-e04

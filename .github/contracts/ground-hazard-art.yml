@@ -60,7 +60,7 @@ jobs:
             --suite character_art_prewarm --log-dir "$RUNNER_TEMP/ground-hazard-logs"
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ground-hazard-art-logs
           path: ${{ runner.temp }}/ground-hazard-logs
