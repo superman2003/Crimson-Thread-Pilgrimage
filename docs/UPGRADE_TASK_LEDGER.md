@@ -53,6 +53,23 @@
 | T04 | 第二新档已从原J前钟龛字节正常返程取得王冠共鸣，实际付费R接通工房、取得奖励与独立恢复通过；正式零死，校准与反向失败保留（[11-06共鸣报告](report/20261106_t04_crown_resonance_return.md)）；原西环校准1次死亡仍保留；尚未完成六区全流程 | 最终Boss与结局；当前版本完整双顺序、不同构筑与陌生玩家记录 |
 | T05 | 已有 Windows/Linux 打包、ZIP 校验、独立启动和读档写回门禁保留；发布引擎／模板增加官方 SHA512 校验重试与完整安装回执，17 项 HTTP／TLS／归档测试及摘要反向验证通过；入口场景与许可文件由 `build_release` 校验，说明里的键位与游戏默认绑定一致（`test_player_guide_bindings`）；玩家启动时先显示标题卡（继续旅途／新旅途／退出），期间世界暂停（`title_card`，11-13）；实验性 macOS 候选包（通用架构，未公证，CI 任务允许失败，11-13） | 两平台实际新 CI、最终候选包重新构建与人工实机验收；结局说明待三结局人工验收后补写 |
 
+## 2026-11-14：五个大脚本按职责拆分（T03 代码整理，拆分第六步）
+
+把剩下最大的五个运行时脚本按职责拆到 28 个新脚本里，行为不变。原脚本保留同名的一行转发方法，调用方、信号连接和验证子类都不用改。
+
+| 原脚本 | 拆分前 → 后（行） | 新脚本 |
+|---|---|---|
+| `main_level.gd` | 6436 → 5634 | `level_audio`（音频总线、背景乐、低血心跳、音效）、`level_overlays`（背包页、设置页、关闭所有页面）、`level_scenery`（背景层、平台外观）、`level_props`（收集物、拉杆、首领门、出口、存档点、NPC 的布置） |
+| `enemy_actor.gd` | 3399 → 1602 | `enemy_boss_tactics`、`enemy_presentation`、`enemy_audio`、`enemy_effects`、`enemy_engagement`、`enemy_attack_choice`、`enemy_attack_phases` |
+| `player_controller.gd` | 2756 → 1548 | `player_seals`、`player_audio`、`player_effects`、`player_traversal`、`player_attack`、`player_animation`、`player_abilities`、`player_sprites` |
+| `pilgrimage_interface.gd` | 3269 → 1625 | `interface_settings`、`interface_build_panel`、`interface_build_refresh`、`interface_journal`、`interface_dialogue` |
+| `audio_director.gd` | 1730 → 1188 | `audio_music`、`audio_ambience`、`audio_user_mix`、`audio_npc_voices` |
+
+- 留在原处的：章节混响（混响契约直接从 `main_level.gd` 抽取这两个函数）、设置页按键表（间距检查按函数名豁免）、`_audio_save_feedback`（音量保存契约直接抽取）、所有静态函数、含 `await` 或 `super` 的方法。
+- 会读源码文本的检查改为同时读取拆出的脚本：`chinese_story_validation`、`settings_remap_validation`、`audio_bus_topology_validation`、`audit_economy.py`、`test_player_guide_bindings.py`。
+- 把脚本复制进临时工程的四个音频契约补上新的音频脚本；各契约的触发路径在原脚本旁补上它拆出的脚本。
+- `tools/extract_level_methods.py` 改为通用：可指定源文件（`--source`）和参数名（`--param`）；顶层常量不再被并进前一个函数；按源方法的返回类型补回显式类型；被用作类型的 preload 常量复制到新脚本；协程和调用 `super` 的方法自动留在原处。
+
 ## 2026-11-14：待美术与待新机制清单
 
 整理代码已就绪、只差素材或只差一个尚不存在的机制的事项，见 [报告](../../report/20261114_art_and_mechanism_backlog.md)：
