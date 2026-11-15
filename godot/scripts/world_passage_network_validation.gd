@@ -149,8 +149,8 @@ func _run() -> void:
             var state := STATE.new()
             check(state.read(SAVE) and state.data.current_region==other.region,"Completed destination is persisted")
             check(scene.player_world_position().distance_to(passage.last_result.world_position)<0.1,"Terminal coordinate rebase stays continuous")
-            # W00 stage 4 pilot: the drainpipe's destination is built during the
-            # walk and takes over at the terminal with no loading screen.
+            # W00 stages 4-5: every passage builds its destination during the walk
+            # and hands over at the terminal with no loading screen.
             if String(route.id) in passage.STAGED_PASSAGES:
                 check(bool(passage.last_result.get("staged",false)),String(route.id)+" "+side+": destination built during the walk and handed over")
                 check(walk_loading_frames==0,String(route.id)+" "+side+": no loading screen at any frame (%d)" % walk_loading_frames)
