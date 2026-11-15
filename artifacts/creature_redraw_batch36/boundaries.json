@@ -1,0 +1,519 @@
+{
+  "valve_crawler": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "valve_vent_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "valve_vent_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "valve_vent",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "valve_vent",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "valve_vent_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "valve_vent_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "valve_vent_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "valve_vent_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "attack",
+        "source_frame": 23,
+        "target": "recover",
+        "target_frame": 0,
+        "change": 0.4297686892390211
+      }
+    ],
+    "max_change": 0.4297686892390211
+  },
+  "thorn_sentinel": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "thorn_ring_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "thorn_ring_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "thorn_ring",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "thorn_ring",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "thorn_ring_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "thorn_ring_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "thorn_ring_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "thorn_ring_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [],
+    "max_change": 0
+  },
+  "echo_thorn_sentinel": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 5,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_thorn_double_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_thorn_double_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_thorn_double",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_thorn_double",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_thorn_double_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_thorn_double_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_thorn_double_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_thorn_double_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [],
+    "max_change": 0
+  },
+  "silent_bugbler": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 5,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 5,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bugle_pulse_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bugle_pulse_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bugle_pulse",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bugle_pulse",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bugle_pulse_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bugle_pulse_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "bugle_pulse_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bugle_pulse_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "bugle_pulse_recover",
+        "source_frame": 23,
+        "target": "idle",
+        "target_frame": 0,
+        "change": 0.3792854043107189
+      },
+      {
+        "source": "bugle_pulse_recover",
+        "source_frame": 23,
+        "target": "walk",
+        "target_frame": 0,
+        "change": 0.4150570985478641
+      }
+    ],
+    "max_change": 0.4150570985478641
+  }
+}

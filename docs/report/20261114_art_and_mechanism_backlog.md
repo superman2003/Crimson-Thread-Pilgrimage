@@ -4,9 +4,9 @@
 
 ## 一、需要美术
 
-### 1. 怪物动作重画：剩 47 段、1128 帧
+### 1. 怪物动作重画：剩 38 段、912 帧
 
-清单共 261 段，已完成 214 段、3163 张原画。第35批补完水轮骑士、回响水轮骑士和跪姿弩手的9段动作、33张局部原画，修复11处体型异常，报告与对照动画见 `artifacts/creature_redraw_batch35/`。1128帧是剩余片段的全部帧引用数；局部重绘按标记帧及相邻帧交付，不必将每段24帧全部重画。剩余13个角色：
+清单共 261 段，已完成 223 段、3201 张原画。第35–36批补完水轮骑士、回响水轮骑士、跪姿弩手、阀门爬虫、棘卫、回响棘卫和静默号手的18段动作、71张局部原画，修复23处体型异常；报告与对照动画见 `artifacts/creature_redraw_batch35/`、`artifacts/creature_redraw_batch36/`。912帧是剩余片段的全部帧引用数；局部重绘按标记帧及相邻帧交付，不必将每段24帧全部重画。剩余9个角色：
 
 | 角色 | 段数 | 片段 |
 |---|---|---|
@@ -17,11 +17,7 @@
 | rain_censer_mote | 4 | windup、recover、censer_cloud_windup／recover |
 | echo_contract_scribe | 4 | windup、attack、echo_scribe_seals_windup／本体 |
 | falling_clapper | 4 | attack、recover、clapper_wave_windup／recover |
-| valve_crawler | 3 | windup、attack、valve_vent_windup |
-| silent_bugbler | 2 | attack、bugle_pulse_recover |
 | obsidian_bellwheel | 2 | bellwheel_waves、bellwheel_waves_recover |
-| echo_thorn_sentinel | 2 | windup、echo_thorn_double |
-| thorn_sentinel | 2 | windup、thorn_ring_windup |
 | phase_censor | 1 | windup |
 
 交付流程不变：按 `art_requests/creature_redraw_v1/` 的冻结参考出图，`tools/creature_redraw_art.py` 打包并过体量、邻帧、画风门槛。另有既有步态返工 224 张，单独记账。

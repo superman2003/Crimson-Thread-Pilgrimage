@@ -256,6 +256,28 @@
         "target": "attack",
         "target_frame": 0
       }
+    ],
+    "valve_crawler": [
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      }
+    ],
+    "silent_bugbler": [
+      {
+        "source": "bugle_pulse_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "bugle_pulse_recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      }
     ]
   }
 }
