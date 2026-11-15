@@ -249,7 +249,9 @@ static func region_finish_jobs(level: Node) -> Array:
     jobs.append({"method": "_bind_region_audio", "args": []})
     jobs.append_array(level._hud_build_jobs())
     if level.world_mode:
-        jobs.append({"method": "_setup_cartography", "args": []})
+        # One job per map subsystem (T03: together they were one 12-29 ms job).
+        for part in range(CARTOGRAPHY_PARTS):
+            jobs.append({"method": "_setup_cartography_part", "args": [part]})
         jobs.append({"method": "_build_new_journey_dialog", "args": []})
     return jobs
 
@@ -264,14 +266,24 @@ static func bind_region_audio(level: Node) -> void:
     level.audio_director.bind_runtime(level.player, func() -> Array: return level.get_tree().get_nodes_in_group("enemy"))
 
 
+const CARTOGRAPHY_PARTS := 7
+
+
 static func setup_cartography(level: Node) -> void:
-    CARTOGRAPHY_UI.setup(level)
-    DEATH_RECALL.setup(level)
-    MAP_PLAYER_PINS.setup(level)
-    preload("res://scripts/map_directory_runtime.gd").setup(level)
-    preload("res://scripts/map_control_layout.gd").apply(level)
-    preload("res://scripts/shrine_return_dialog.gd").setup(level)
-    preload("res://scripts/death_recovery_map.gd").setup(level)
+    for part in range(CARTOGRAPHY_PARTS):
+        setup_cartography_part(level, part)
+
+
+## The map subsystems in their original order, one at a time.
+static func setup_cartography_part(level: Node, part: int) -> void:
+    match part:
+        0: CARTOGRAPHY_UI.setup(level)
+        1: DEATH_RECALL.setup(level)
+        2: MAP_PLAYER_PINS.setup(level)
+        3: preload("res://scripts/map_directory_runtime.gd").setup(level)
+        4: preload("res://scripts/map_control_layout.gd").apply(level)
+        5: preload("res://scripts/shrine_return_dialog.gd").setup(level)
+        6: preload("res://scripts/death_recovery_map.gd").setup(level)
 
 
 static func publish_region(level: Node) -> void:

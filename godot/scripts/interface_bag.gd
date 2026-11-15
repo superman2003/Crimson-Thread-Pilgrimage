@@ -8,6 +8,13 @@ const SPACING := preload("res://scripts/ui_spacing_scale.gd")
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 
 static func build_bag(ui: Node) -> void:
+    build_bag_frame(ui)
+    build_bag_journal_tools(ui)
+    build_bag_detail(ui)
+
+
+## Panel, category tabs, list scroll and journal filters.
+static func build_bag_frame(ui: Node) -> void:
     ui.bag=ui._panel(ui,"巡礼行囊",Vector2(85,54),Vector2(1110,600))
     ui.bag.name="BackpackOverlay"
     ui._well(ui.bag,Vector2(724,136),Vector2(356,444))
@@ -47,6 +54,10 @@ static func build_bag(ui: Node) -> void:
         filter_button.custom_minimum_size=Vector2(filter_width,28)
         filter_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
         ui.journal_filter_buttons[filter_id]=filter_button
+
+
+## Journal search, toggles and sort, the find dialog and the item grid.
+static func build_bag_journal_tools(ui: Node) -> void:
     ui.journal_tools=HBoxContainer.new()
     ui.journal_tools.position=Vector2(34,222)
     ui.journal_tools.size=Vector2(645,30)
@@ -86,7 +97,11 @@ static func build_bag(ui: Node) -> void:
     ui.bag_grid.columns=6
     ui.bag_grid.add_theme_constant_override("h_separation",SPACING.ROW)
     ui.bag_grid.add_theme_constant_override("v_separation",10)
-    scroll.add_child(ui.bag_grid)
+    ui.bag_scroll.add_child(ui.bag_grid)
+
+
+## Detail pane, its buttons and the bag's dialogs.
+static func build_bag_detail(ui: Node) -> void:
     var divider:=ColorRect.new()
     divider.position=Vector2(704,178)
     divider.size=Vector2(1,357)

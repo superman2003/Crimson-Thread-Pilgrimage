@@ -217,7 +217,7 @@ func bind(runtime: Node) -> void:
     finish_bind()
 
 static func build_steps() -> Array[String]:
-    return ["_build_hud", "_build_bag", "_build_dialogue", "_begin_settings",
+    return ["_build_hud", "_build_bag_frame", "_build_bag_journal_tools", "_build_bag_detail", "_build_dialogue", "_begin_settings",
         "_build_settings_audio", "_build_settings_accessibility", "_build_settings_controls",
         "_finish_settings", "_build_build_panel"]
 
@@ -269,7 +269,16 @@ func begin_bind(runtime: Node) -> void:
     _bind_ui_navigation()
     _load_accessibility()
 
-func finish_bind() -> void:
+const DESKS := ["res://scripts/goal_desk.gd", "res://scripts/expedition_desk.gd", "res://scripts/practice_desk.gd",
+    "res://scripts/settings_profiles_desk.gd", "res://scripts/combat_desk.gd", "res://scripts/field_contract_desk.gd",
+    "res://scripts/sparring_desk.gd", "res://scripts/material_exchange_desk.gd", "res://scripts/danger_caption_desk.gd",
+    "res://scripts/credits_reader.gd"]
+
+
+## The region build installs the desks as separate jobs (install_desk) after
+## this; direct callers get them here as before (T03: together with the scan
+## below they were one 14-40 ms job).
+func finish_bind(defer_desks: bool = false) -> void:
     if settings!=null and not settings.visibility_changed.is_connected(_remap_visibility_changed):
         settings.visibility_changed.connect(_remap_visibility_changed)
     if not get_viewport().size_changed.is_connected(_fit_viewport):
@@ -282,24 +291,35 @@ func finish_bind() -> void:
     # its button row and content joined for d-pad navigation.
     if not get_tree().node_added.is_connected(_bridge_dialog_focus):
         get_tree().node_added.connect(_bridge_dialog_focus)
-    var scope: Node=level if level is Node else self
-    for dialog in scope.find_children("*","AcceptDialog",true,false):_bridge_dialog_focus(dialog)
-    # Dropdown popups are internal children that find_children does not list.
-    for menu in scope.find_children("*","OptionButton",true,false)+scope.find_children("*","MenuButton",true,false):_bridge_dialog_focus(menu.get_popup())
+    # This region's nodes and the host's own children; never a second region
+    # resident beside it (a destination built hidden, or the one it replaces).
+    var scopes: Array[Node] = [self]
+    if level is Node:
+        scopes = []
+        for child in preload("res://scripts/level_host.gd").children(level):
+            if not child.has_meta(preload("res://scripts/level_host.gd").META):
+                scopes.append(child)
+    for scope in scopes:
+        if scope is AcceptDialog: _bridge_dialog_focus(scope)
+        for dialog in scope.find_children("*","AcceptDialog",true,false):_bridge_dialog_focus(dialog)
+        # Dropdown popups are internal children that find_children does not list.
+        for menu in scope.find_children("*","OptionButton",true,false)+scope.find_children("*","MenuButton",true,false):_bridge_dialog_focus(menu.get_popup())
     _fit_viewport()
+    if not defer_desks:
+        complete_bind()
+        for index in range(DESKS.size()):
+            install_desk(index)
+
+
+## The interface accepts input and frames only from here on.
+func complete_bind() -> void:
     construction_complete=true
     set_process(true)
     set_process_input(true)
-    preload("res://scripts/goal_desk.gd").install(self)
-    preload("res://scripts/expedition_desk.gd").install(self)
-    preload("res://scripts/practice_desk.gd").install(self)
-    preload("res://scripts/settings_profiles_desk.gd").install(self)
-    preload("res://scripts/combat_desk.gd").install(self)
-    preload("res://scripts/field_contract_desk.gd").install(self)
-    preload("res://scripts/sparring_desk.gd").install(self)
-    preload("res://scripts/material_exchange_desk.gd").install(self)
-    preload("res://scripts/danger_caption_desk.gd").install(self)
-    preload("res://scripts/credits_reader.gd").install(self)
+
+
+func install_desk(index: int) -> void:
+    load(DESKS[index]).install(self)
 
 ## Styles and geometry are set while the control is outside the tree (cheap:
 ## no text to shape yet); text is assigned only after it joins the tree. Text
@@ -341,8 +361,19 @@ func _icon(parent: Node, asset: Texture2D, position_value: Vector2, size_value: 
 func _build_hud() -> void:
     INTERFACE_HUD.build_hud(self)
 
+## Whole bag for direct callers; the region build runs its three parts as
+## separate jobs (T03: the bag was one 19-28 ms job).
 func _build_bag() -> void:
     INTERFACE_BAG.build_bag(self)
+
+func _build_bag_frame() -> void:
+    INTERFACE_BAG.build_bag_frame(self)
+
+func _build_bag_journal_tools() -> void:
+    INTERFACE_BAG.build_bag_journal_tools(self)
+
+func _build_bag_detail() -> void:
+    INTERFACE_BAG.build_bag_detail(self)
 
 func _matches(category: String) -> bool:
     return INTERFACE_BAG.matches(self, category)
