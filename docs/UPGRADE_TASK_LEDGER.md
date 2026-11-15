@@ -51,7 +51,42 @@
 | T02 | 多槽、`.bak` 与恢复前另存已有；损坏存档提示备份情况并经设置恢复；本版本构筑读不了时按剧情重建（原存档另存，更新版本的构筑仍暂停保存）；区域不在路线中时从起点继续；`.previous` 不再被覆盖；构筑存档新增 `crafted` 并对旧存档补承力扣；修复换到无可用战具的契印后存档读不回；`save_recovery` 在正式 World 验证；游戏内分页浏览旧旅途并只读核对归档，坏条目单独隔离（`journey_archive_browser`，[报告](report/20261026_t02_archive_browser.md)）；存档槽显示完成度与游玩时长，时长记在存档旁、不改存档格式（`journey_progress`，11-13） | 损坏提示与恢复入口的实机理解（T04） |
 | T03 | 既有 30 分钟生命周期、岩体索引和按需界面改进保留；收集物与背包图集进入双所有者后台队列，新专项 243 项，同机初庭背包最重项 33.64–36.03ms→0.46–0.61ms；设置页拆为五组构建，最大组新增 26 个控件，主线组合约 4–6ms，页面像素和完整树一致；来源存档备份单线程准备、相同文件复用，111 项专项，交替两轮发布 CPU 中位数 20.350→16.620ms、17.964→10.219ms（保留两区变慢样本）；长跑进程采样改用引擎自报 PID，18 项工具检查与 Windows 真实进程树正反验证通过；音频准备分三作业并统一退场，233 项覆盖取消／宿主退出，前台帧等待可退出唤醒，反向准确失败 3／38 项；引擎默认主题字体换成全局字体后，切区到达时最慢的界面重建作业中位 41→17ms（11-13） | 岩体、音频组合最终验收、最终文件替换与其余初始化／发布尖峰；当前组合自然帧时间、整合长跑及发布包退出边界 |
 | T04 | 第二新档已从原J前钟龛字节正常返程取得王冠共鸣，实际付费R接通工房、取得奖励与独立恢复通过；正式零死，校准与反向失败保留（[11-06共鸣报告](report/20261106_t04_crown_resonance_return.md)）；原西环校准1次死亡仍保留；尚未完成六区全流程 | 最终Boss与结局；当前版本完整双顺序、不同构筑与陌生玩家记录 |
-| T05 | 已有 Windows/Linux 打包、ZIP 校验、独立启动和读档写回门禁保留；发布引擎／模板增加官方 SHA512 校验重试与完整安装回执，17 项 HTTP／TLS／归档测试及摘要反向验证通过；入口场景与许可文件由 `build_release` 校验，说明里的键位与游戏默认绑定一致（`test_player_guide_bindings`）；玩家启动时先显示标题卡（继续旅途／新旅途／退出），期间世界暂停（`title_card`，11-13）；实验性 macOS 候选包（通用架构，未公证，CI 任务允许失败，11-13） | 两平台实际新 CI、最终候选包重新构建与人工实机验收；结局说明待三结局人工验收后补写 |
+| T05 | 已有 Windows/Linux 打包、ZIP 校验、独立启动和读档写回门禁保留；发布引擎／模板增加官方 SHA512 校验重试与完整安装回执，17 项 HTTP／TLS／归档测试及摘要反向验证通过；入口场景与许可文件由 `build_release` 校验，说明里的键位与游戏默认绑定一致（`test_player_guide_bindings`）；玩家启动时先显示标题卡（继续旅途／新旅途／退出），期间世界暂停（`title_card`，11-13）；macOS 候选包（通用架构，未公证；连续 12 次通过后改为正式门禁，11-15）；CI 的 GitHub 官方 action 升到 Node 24 版本（11-15） | 最终候选包的人工实机验收（三平台候选包已由 CI 在每次合并后自动重建）；结局说明待三结局人工验收后补写 |
+
+## 2026-11-15：删去 148 个只在内部使用的转发方法（T03 代码整理）
+
+拆分时，七个大脚本为每个搬走的方法保留了一行转发，共 935 个（按 main 上当时的状态统计）。这次删掉其中 148 个，调用处改为直接调用新脚本：在原脚本里写成 `新脚本.方法(self, …)`，在被转发到的新脚本里写成 `方法(参数, …)`。
+
+| 原脚本 | 行数 |
+|---|---|
+| `main_level.gd` | 2509 → 2372 |
+| `enemy_actor.gd` | 1213 → 1071 |
+| `player_controller.gd` | 1268 → 1204 |
+| `pilgrimage_interface.gd` | 997 → 939 |
+| `audio_director.gd` | 965 → 922 |
+| `build_system.gd` | 706 → 691 |
+| `world_region_loader.gd` | 339 → 326 |
+
+新工具 `tools/inline_forwarders.py` 只删同时满足以下条件的转发方法；其余的照旧保留：
+- 不是公开方法（以下划线开头），也没有被任何验证子类重写。
+- 项目里其他任何文件都没有提到这个名字（验证、工具、场景、数据）。
+- 每一处使用都是直接调用：不以字符串形式出现（`callv`、`has_method`），不当作 Callable 引用，也不在别的实例上调用（如 `candidate._x()`）。
+- 所有调用都在原脚本，或者就在它转发去的那个新脚本里，所以不会新增 preload，也就不会形成 preload 循环。
+- 新脚本的函数签名保留了调用方依赖的默认值；新脚本里没有和目标函数同名的局部变量。
+
+检查：所有改动脚本 `godot --check-only` 无错误；删掉的名字在全项目没有残留引用；`npm run test:ci`、`test:runner`、`test:campaign`、`test:export` 通过；复制脚本的 8 个契约通过。
+
+## 2026-11-15：macOS 候选包改为正式门禁；CI 的 GitHub action 升到 Node 24 版本（T05）
+
+- 发布候选工作流在每次合并进 main 后都会重建 Windows、Linux、macOS 三个候选包。合并 #665 后的那次三平台全部通过，并上传了三份候选包。
+- macOS 任务最近 12 次完成的运行全部通过（另有 1 次被取消），去掉 `continue-on-error`，改为正式门禁。
+- 所有工作流、复合 action 和契约里的官方 action 各自升到第一个默认运行 Node 24 的大版本，消除 Node 20 弃用警告：
+  - `checkout` v4 → v5
+  - `upload-artifact` v4 → v6
+  - `setup-python` v5 → v6
+  - `download-artifact` v4 → v7（这里按名称下载，不受 v5 的按 ID 路径变化影响）
+  - `cache`／`cache/save`／`cache/restore` v4 → v5
+- 这些版本都要求 runner 不低于 2.327.1；本仓库只用 GitHub 托管的 runner。本地契约模拟器只认 action 的名字，不看版本号。
 
 ## 2026-11-15：敌人落点查询共用平台缓存，ch01/ch02 生成敌人的尖峰降到约 15ms（T03）
 
@@ -78,6 +113,23 @@ ch01、ch02 分别有 145、174 块平台，而一个敌人的落点要扫全部
 拆分前后各跑一次 `all_chapters_demo`：2190 条检查结果逐行相同，无失败。
 
 `world_second_order_playback.gd`（969 行）不拆：`verify_second_order_crown.py` 会冻结它的源码快照，用来核对既有证据。
+
+## 2026-11-15：六个 Python 生成工具和两个箱庭地图脚本按职责拆成模块（T03 代码整理）
+
+素材与地图生成工具里最大的六个拆成主流程加若干模块。函数原样搬走，原文件用 `from 模块 import (…)` 显式导回，所以命名空间和导入它们的脚本都不变。
+
+| 工具 | 行数 | 新模块 |
+|---|---|---|
+| `build_small_enemy_runtime_assets.py` | 2182 → 533 | `small_enemy_frames`、`small_enemy_poses`、`small_enemy_reviews` |
+| `generate_music_pack.py` | 1800 → 317 | `music_dsp`、`music_region_tracks`、`music_story_tracks` |
+| `generate_ambience_pack.py` | 1597 → 365 | `ambience_dsp`、`ambience_beds`、`ambience_cues` |
+| `build_silksong_scale_map_blueprints.py` | 1355 → 601 | `blueprint_rendering`、`blueprint_data` |
+| `generate_sfx_pack.py` | 1088 → 279 | `sfx_dsp`、`sfx_recipes` |
+| `blueprint_to_godot_runtime.py` | 1006 → 311 | `blueprint_runtime_parts` |
+
+- 新工具 `tools/split_python_module.py`：给定函数名，把它们连同依赖到的顶层函数、类、常量和所用的导入一起搬走；读 `globals()`、用 `global` 的定义或被保留名依赖的定义会直接报错。
+- 核对：分别加载拆分前后的模块，逐个比较原模块里的每个名字。454 个函数的字节码或语法树一致，常量值一致：`PACK` 里的函数引用按名字比较；`CHAPTERS` 里由 `__file__` 推出的路径按所在目录比较。
+- 箱庭地图脚本：`handcraft_ch01_boxgarden.mjs` 1130 → 692 行，`handcraft_ch02_boxgarden.mjs` 1072 → 875 行。两章相同的路线节奏／尺寸记号函数合并为 `boxgarden_uniqueness.mjs`；第一章的房间表、NPC 剧情与低语，以及第二章的房间表，各自成数据模块。拆分前后各跑一次 `--write`，两章生成的地图 JSON 和日志逐字节相同。`npm run check` 同时检查新模块；铸匠、水车两个路线契约把新模块列入源文件清单。
 
 ## 2026-11-15：七个运行时脚本继续拆分，区域加载协程也搬出（T03 代码整理，拆分第八步）
 
