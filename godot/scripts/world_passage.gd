@@ -182,18 +182,8 @@ func begin(portal_id: String) -> bool:
     host.player.collision_layer = TRANSIT_LAYER
     host.player.collision_mask = TRANSIT_LAYER
     host.player.velocity = speed
-    frozen.clear()
-    # Region nodes one by one: the persistent container itself is never frozen,
-    # so the destination built into it starts live, as fresh host children did.
-    for node in LEVEL_HOST.children(host):
-        if node == host.player or node == self:
-            continue
-        var record := {"node": node, "mode": node.process_mode}
-        node.process_mode = Node.PROCESS_MODE_DISABLED
-        if node is CanvasItem or node is CanvasLayer:
-            record["visible"] = node.visible
-            node.visible = false
-        frozen.append(record)
+    _freeze_current_region()
+    _draw_above_region()
     _build_tube()
     retry_blocked = false
     active = true
@@ -532,6 +522,9 @@ func _finish_arrival() -> void:
         _camera_bounds()
         host.player.reset_camera_after_arrival()
 
+## The source region stops simulating but stays on screen behind the tube, so
+## walking into a mouth keeps the room in view (W00 stage 6). Only what would
+## read as wrong when frozen is hidden: the HUD/dialog layers and enemies.
 func _freeze_current_region() -> void:
     frozen.clear()
     # Region nodes one by one: the persistent container itself is never frozen,
@@ -541,10 +534,21 @@ func _freeze_current_region() -> void:
             continue
         var record := {"node": node, "mode": node.process_mode}
         node.process_mode = Node.PROCESS_MODE_DISABLED
-        if node is CanvasItem or node is CanvasLayer:
+        if node is CanvasLayer or ((node is CanvasItem) and _hidden_in_transit(node)):
             record["visible"] = node.visible
             node.visible = false
         frozen.append(record)
+
+
+static func _hidden_in_transit(node: Node) -> bool:
+    return node.is_in_group("enemy") or node.is_in_group("boss") or node.is_in_group("hostile_attack") or node.is_in_group("player_combat_effect") or node.is_in_group("player_snare_field")
+
+
+## The tube draws over the frozen room at its mouth, and under the player.
+func _draw_above_region() -> void:
+    var region: Node = host.region_root
+    if is_instance_valid(region) and get_index() < region.get_index():
+        host.move_child(self, region.get_index())
 
 func _return_to_source(cancelled: bool) -> void:
     host.player.prepare_region_handoff()
@@ -559,7 +563,7 @@ func _return_to_source(cancelled: bool) -> void:
         var node: Variant = record.node
         if is_instance_valid(node):
             node.process_mode = record.mode
-            if node is CanvasItem or node is CanvasLayer:
+            if record.has("visible"):
                 node.visible = bool(record.visible)
     host.player.collision_layer = original_layer
     host.player.collision_mask = original_mask

@@ -38,12 +38,25 @@ func _run() -> void:
     scene.currency_count = 97
     scene.player.dash_cooldown = 1.1
     scene.player.global_position = portal.global_position
+    var enemy_visibility_before := {}
+    for enemy in get_nodes_in_group("enemy"):
+        if LEVEL_HOST.owns(scene, enemy): enemy_visibility_before[enemy.get_instance_id()] = enemy.visible
     _check(passage.begin("moss_rain_pipe"), "physical pipe enters at authored endpoint")
     _check(scene.player_world_position() == COORD.to_world(origin_id, portal.global_position), "entry does not teleport")
     _check(not passage.begin("moss_rain_pipe"), "double entry rejected")
     _check(scene.player.hp == 3 and scene.player.energy == 41 and scene.player.dash_cooldown == 1.1, "entry preserves resources and cooldown")
     _check(not scene.player._can_start_action(), "source actors cannot be attacked while frozen")
     _check(not scene.ui_canvas.visible, "source UI hidden in pipe")
+    # W00 stage 6: the room stays on screen at the mouth; it only stops.
+    _check(scene.chapter_terrain.visible and scene.cave_world.visible and scene.chapter_terrain.process_mode == Node.PROCESS_MODE_DISABLED and scene.cave_world.process_mode == Node.PROCESS_MODE_DISABLED, "source terrain stays visible but stopped in the pipe")
+    var shown_enemies := 0
+    var region_enemies := 0
+    for enemy in get_nodes_in_group("enemy"):
+        if LEVEL_HOST.owns(scene, enemy):
+            region_enemies += 1
+            if enemy.is_visible_in_tree(): shown_enemies += 1
+    _check(region_enemies > 0 and shown_enemies == 0, "frozen source enemies are hidden in the pipe (%d of %d shown)" % [shown_enemies, region_enemies])
+    _check(passage.get_index() > scene.region_root.get_index() and passage.get_index() < scene.player.get_index(), "tube draws above the frozen room and below the player")
     var before := FileAccess.get_file_as_string(SAVE)
     scene._save_world()
     _check(FileAccess.get_file_as_string(SAVE) == before, "pipe position is not written as checkpoint")
@@ -67,6 +80,10 @@ func _run() -> void:
     await _frames(3)
     _check(not passage.active and scene.player.global_position == portal.global_position, "cancel returns to source endpoint")
     _check(scene.ui_canvas.visible and scene.player.collision_layer == 1, "cancel restores UI and collision")
+    var changed_after := 0
+    for enemy in get_nodes_in_group("enemy"):
+        if LEVEL_HOST.owns(scene, enemy) and enemy_visibility_before.get(enemy.get_instance_id(), enemy.visible) != enemy.visible: changed_after += 1
+    _check(changed_after == 0 and scene.chapter_terrain.process_mode != Node.PROCESS_MODE_DISABLED and scene.cave_world.process_mode != Node.PROCESS_MODE_DISABLED, "cancel restores every enemy's visibility and resumes the room (%d changed)" % changed_after)
     _check(scene.player._can_start_action(), "cancel restores combat input")
     # Walk back over the mouth rather than teleporting: real collision/input.
     _check(passage.begin("moss_rain_pipe"), "reenter for physical reversal")
