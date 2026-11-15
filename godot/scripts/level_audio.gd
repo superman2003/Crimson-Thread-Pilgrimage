@@ -23,7 +23,7 @@ static func begin_audio(level: Node) -> void:
     level.add_child(level.audio_director)
     if level._should_autoplay_audio():
         # 探索播放器仍叫 BgmPlayer、挂本节点、bus=BGM（audio_visual_validation 口径）。
-        level._ensure_bgm_player()
+        ensure_bgm_player(level)
         level.audio_director.attach_explore_player(level.bgm_player)
     level.audio_director.prepare_chapter(String(level.config.get("id", "")))
 
@@ -98,7 +98,7 @@ static func set_low_hp_audio(level: Node, active: bool) -> void:
     if active:
         level._start_low_hp_heartbeat()
     else:
-        level._stop_low_hp_heartbeat()
+        stop_low_hp_heartbeat(level)
     # AudioDirector 在场时低通改扫频版（2kHz→800Hz 2s；关断当帧摘除），缺席回退旧行为。
     var director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
     if director != null:
@@ -127,7 +127,7 @@ static func start_low_hp_heartbeat(level: Node) -> void:
         level.low_hp_heartbeat_player = AudioStreamPlayer.new()
         level.low_hp_heartbeat_player.name = "LowHpHeartbeat"
         # 濒死心跳走 SFXDry（send→Master 干声）：不吃章节混响，贴耳而非贴房间。
-        level.low_hp_heartbeat_player.bus = level._first_existing_bus(["SFXDry", "SFX", "Master"])
+        level.low_hp_heartbeat_player.bus = first_existing_bus(level, ["SFXDry", "SFX", "Master"])
         level.low_hp_heartbeat_player.stream = stream
         level.low_hp_heartbeat_player.volume_db = -10.0
         level.add_child(level.low_hp_heartbeat_player)
@@ -161,7 +161,7 @@ static func switch_bgm(level: Node, audio_key: String) -> void:
     var stream = AUDIO_DIRECTOR_SCRIPT.load_cached(String(level.AUDIO.get(audio_key, "")), true)
     if stream == null:
         return
-    level._ensure_bgm_player()
+    ensure_bgm_player(level)
     if level.bgm_player.stream == stream and level.bgm_player.playing:
         return
     level.bgm_player.stream = stream
@@ -185,7 +185,7 @@ static func play_sfx(level: Node, audio_key: String, volume_db: float = -7.0) ->
     var voice_ticket = AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
     if voice_ticket == 0:
         return
-    var stream: AudioStream = level._load_audio_stream(audio_key)
+    var stream: AudioStream = load_audio_stream(level, audio_key)
     if stream == null:
         # 声部回滚（契约 release_voice）：拿不到流就撤销刚批准的登记。
         AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
@@ -256,7 +256,7 @@ static func play_sfx_persistent(level: Node, audio_key: String, volume_db: float
     var voice_ticket = AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
     if voice_ticket == 0:
         return
-    var stream: AudioStream = level._load_audio_stream(audio_key)
+    var stream: AudioStream = load_audio_stream(level, audio_key)
     if stream == null or not level.is_inside_tree():
         # 声部回滚（契约 release_voice）：拿不到流/不在树上都不会真正发声。
         AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)

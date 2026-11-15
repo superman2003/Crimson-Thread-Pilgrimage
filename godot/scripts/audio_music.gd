@@ -29,7 +29,7 @@ static func play_explore_track(director: Node, path: String) -> void:
     director._explore_path = path
     director._explore_session = director._explore_epoch
     director._explore_owners[path] = director.get_instance_id()
-    director._kill_explore_tween()
+    kill_explore_tween(director)
     director.explore_player.stream_paused = false
     director.explore_player.stream = stream
     var position := float(director._explore_resume.get(path, 0.0))
@@ -70,7 +70,7 @@ static func kill_explore_tween(director: Node) -> void:
 static func fade_explore_to_pause(director: Node, seconds: float) -> void:
     if director.explore_player == null or not is_instance_valid(director.explore_player):
         return
-    director._kill_explore_tween()
+    kill_explore_tween(director)
     if not director.is_inside_tree() or not director.explore_player.playing or director.explore_player.stream_paused:
         director.explore_player.stream_paused = true
         director.explore_player.volume_db = director.EXPLORE_DB
@@ -90,7 +90,7 @@ static func finish_explore_pause(director: Node) -> void:
 static func fade_explore_resume(director: Node, seconds: float) -> void:
     if director.explore_player == null or not is_instance_valid(director.explore_player):
         return
-    director._kill_explore_tween()
+    kill_explore_tween(director)
     director.explore_player.stream_paused = false
     if not director.is_inside_tree():
         director.explore_player.volume_db = director.EXPLORE_DB
@@ -157,7 +157,7 @@ static func exit_combat(director: Node) -> void:
         return
     director.combat_active = false
     if director.autoplay_enabled and not director.boss_active and not director.lullaby_active:
-        director._resume_region_music(2.5)
+        resume_region_music(director, 2.5)
     if director.combat_player == null or not is_instance_valid(director.combat_player) or not director.combat_player.playing:
         return
     if director.combat_tween != null and director.combat_tween.is_valid():
@@ -214,7 +214,7 @@ static func start_boss_music(director: Node, boss_id: String) -> void:
     director._update_transit_loop(false)
     director.active_boss_id = boss_id
     director.boss_phase = 1
-    director._fade_out_combat_layer()
+    fade_out_combat_layer(director)
     if not director.autoplay_enabled:
         return
     # 摇篮曲×Boss 互斥：boss_active 已置位，stop_lullaby 不会误恢复探索曲。
@@ -230,7 +230,7 @@ static func start_boss_music(director: Node, boss_id: String) -> void:
         director.boss_player.name = "MusicBossPlayer"
         director.boss_player.bus = director._bus_or("MusicCombat", "BGM")
         director.add_child(director.boss_player)
-    director._kill_boss_tween()
+    kill_boss_tween(director)
     director.boss_player.volume_db = director.BOSS_DB
     director.boss_player.stream = stream
     director.boss_player.play()
@@ -257,7 +257,7 @@ static func set_boss_phase(director: Node, p: int) -> void:
     if not is_instance_valid(director.boss_player):return
     var stream: AudioStream = director._music_candidate(director._boss_track_path(director.active_boss_id,next_phase))
     if stream==null:return
-    director._kill_boss_tween()
+    kill_boss_tween(director)
     director.boss_player.stream=stream
     director.boss_player.play()
     director.boss_phase=next_phase
@@ -269,7 +269,7 @@ static func stop_boss_music(director: Node) -> void:
     director.boss_active = false
     director.active_boss_id = ""
     director.boss_phase = 0
-    director._kill_boss_tween()
+    kill_boss_tween(director)
     if director.boss_player != null and is_instance_valid(director.boss_player) and director.boss_player.playing:
         if director.is_inside_tree():
             # Boss 曲 0.8s 淡出（原为硬停）。
@@ -280,7 +280,7 @@ static func stop_boss_music(director: Node) -> void:
             director._finish_boss_stop()
     if director.autoplay_enabled and not director.lullaby_active:
         # 探索曲从 -12dB 1.2s 淡入恢复。
-        director._resume_region_music(director.BOSS_EXIT_EXPLORE_FADE_S)
+        resume_region_music(director, director.BOSS_EXIT_EXPLORE_FADE_S)
 
 
 static func kill_boss_tween(director: Node) -> void:
@@ -304,7 +304,7 @@ static func start_lullaby(director: Node) -> void:
     if director.autoplay_enabled:
         stream=director._music_candidate(director._lullaby_path())
         if stream==null:return
-    director._fade_out_combat_layer()
+    fade_out_combat_layer(director)
     director.lullaby_active = true
     director._update_transit_loop(false)
     if not director.autoplay_enabled:
@@ -343,7 +343,7 @@ static func stop_lullaby(director: Node) -> void:
             director.lullaby_player.stop()
     if director.autoplay_enabled and not director.boss_active and not director.combat_active:
         # 退出对称交叉淡化：探索曲 0.8s 淡入恢复。
-        director._resume_region_music(director.LULLABY_EXPLORE_FADE_S)
+        resume_region_music(director, director.LULLABY_EXPLORE_FADE_S)
 
 
 static func play_stinger(director: Node, key: String) -> void:

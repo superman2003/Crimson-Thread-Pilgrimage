@@ -7,7 +7,7 @@ const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 static func update_safe_ground(level: Node) -> void:
     if level.player == null or not is_instance_valid(level.player):
         return
-    if level.player.is_on_floor() and level.player.hp > 0 and level._standing_on_permanent_floor():
+    if level.player.is_on_floor() and level.player.hp > 0 and standing_on_permanent_floor(level):
         level.last_safe_ground = level.player.global_position
 
 

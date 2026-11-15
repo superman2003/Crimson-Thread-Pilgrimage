@@ -114,15 +114,15 @@ static func update_patrol_or_aggro(actor: Node, delta: float, target: CharacterB
     if actor.memory_timer > 0.0 and not actor.is_boss:
         if actor.tactical_role == "guard":
             # A guard does not leave its post to search; it resumes watch.
-            actor._return_to_post(delta, "hold_post")
+            return_to_post(actor, delta, "hold_post")
             return
-        actor._investigate(delta)
+        investigate(actor, delta)
         return
     if actor.tactical_role == "ambush":
-        actor._return_to_post(delta, "lurk")
+        return_to_post(actor, delta, "lurk")
         return
     if actor.tactical_role == "guard":
-        actor._return_to_post(delta, "hold_post")
+        return_to_post(actor, delta, "hold_post")
         return
     actor.last_ai_decision = "patrol"
     actor._patrol(delta)
@@ -222,7 +222,7 @@ static func try_start_support(actor: Node) -> bool:
     VISUAL_POLICY.place_danger(link, true)
     actor.add_child(link)
     actor.windup_vfx = link
-    actor._update_support_link(chosen)
+    update_support_link(actor, chosen)
     return true
 
 
@@ -238,7 +238,7 @@ static func update_support(actor: Node, delta: float, target: CharacterBody2D) -
     if not actor._support_ally_valid(ally) or target == null or not actor._target_inside_leash(target) or not actor._target_in_engage_window(target, aggro_range) or not actor._has_line_of_sight(target) or actor.lure_timer > 0.0 or actor.interference_timer > 0.0 or actor.trip_timer > 0.0:
         actor._finish_support()
         return
-    actor._update_support_link(ally)
+    update_support_link(actor, ally)
     actor.state_timer -= delta
     if actor.state_timer <= 0.0:
         ally.hp = mini(ally.max_hp, ally.hp + 1)
@@ -294,7 +294,7 @@ static func move_in_combat(actor: Node, delta: float, target: CharacterBody2D) -
         # Circle just outside the player's reach until an attacker slot frees.
         desired = maxf(desired, 150.0)
         pressured = false
-    desired += actor._ally_queue_offset(target)
+    desired += ally_queue_offset(actor, target)
     var chase_speed: float = actor._movement_speed() * (float(actor.ai_profile.get("pressure_speed_multiplier", 1.18)) if pressured else 1.0)
     var movement_direction := 0.0
     if attack_range > 0.0 and distance > attack_range - 10.0 and distance > desired + 14.0:

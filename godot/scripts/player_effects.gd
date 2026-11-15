@@ -47,7 +47,7 @@ static func spawn_dash_ghost(player: Node) -> void:
 
 static func spawn_heal_effect(player: Node) -> void:
     for index in range(3):
-        player._add_heal_ring(22.0 + float(index) * 15.0, 0.10 * float(index))
+        add_heal_ring(player, 22.0 + float(index) * 15.0, 0.10 * float(index))
     for index in range(8):
         var thread := Line2D.new()
         thread.name = "HealThread"

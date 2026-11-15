@@ -96,7 +96,7 @@ static func refresh_journal(ui: Node) -> void:
     if records.is_empty():
         ui.journal_current_document={}
         if ui.bag.has_node("JournalDocumentFind"):ui.bag.get_node("JournalDocumentFind").refresh_launcher()
-        ui._refresh_journal_actions()
+        refresh_journal_actions(ui)
         ui.journal_reading_key=""
         ui.journal_restore_pending=false
         ui.bag_name.text="尚无敌人记录" if ui.journal_filter=="enemy" else "这一分类暂无记录"
@@ -143,7 +143,7 @@ static func refresh_journal(ui: Node) -> void:
     if not records.is_empty():
         ui.journal_selection=clampi(ui.journal_selection,0,records.size()-1)
         ui._show_journal_record(records[ui.journal_selection])
-        if selected_button!=null and ui.bag.visible and not ui._journal_tools_focused():selected_button.grab_focus()
+        if selected_button!=null and ui.bag.visible and not journal_tools_focused(ui):selected_button.grab_focus()
 
 
 static func journal_presentation(ui: Node, entry: Dictionary) -> Dictionary:
@@ -237,7 +237,7 @@ static func show_journal_record(ui: Node, entry: Dictionary) -> void:
     var text:=String(presentation.text)
     var key:=String(entry.get("record_kind",""))+":"+String(entry.get("id",""))
     ui.journal_current_document=ui.journal_catalog.document(key,ui.bag_name.text,ui.bag_category_label.text,text)
-    ui._refresh_journal_actions()
+    refresh_journal_actions(ui)
     if ui.journal_reading_key==key and ui.bag_description.text==text:return
     ui.bag_description.text=text
     ui.journal_reading_key=key if ui.bag.is_visible_in_tree() else ""

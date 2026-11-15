@@ -142,7 +142,7 @@ static func apply_attack_hits(player: Node) -> void:
             var target_hp_before := int(node.get("hp"))
             var practice_contact: bool=node.has_meta("seal_training_target") or node.has_meta("tool_training_target")
             var contact_call: int = int(node.contact_visual_call_serial()) + 1 if node.has_method("contact_visual_call_serial") else -1
-            node.take_hit(player.attack_damage, player._attack_hit_direction())
+            node.take_hit(player.attack_damage, attack_hit_direction(player))
             var accepted := is_instance_valid(node) and int(node.get("hp")) < target_hp_before
             if not accepted:
                 continue
@@ -174,10 +174,10 @@ static func apply_attack_hits(player: Node) -> void:
             if not player.attack_pogo_paid:
                 player._apply_downslash_bounce(node.global_position)
                 player.attack_pogo_paid = true
-            player._trigger_hit_feedback(killed)
+            trigger_hit_feedback(player, killed)
             player._spawn_hit_confirm_vfx(node.global_position, player.current_attack, node, contact_call)
     player._try_gate_strike(attack_rect)
-    player._try_hazard_pogo(attack_rect)
+    try_hazard_pogo(player, attack_rect)
 
 
 static func try_gate_strike(player: Node, attack_rect: Rect2) -> void:
@@ -297,7 +297,7 @@ static func apply_downslash_bounce(player: Node, _target_position: Vector2) -> v
     player.coyote_timer = 0.0
     player.jump_buffer_timer = 0.0
     player.enemy_contact_guard_timer = maxf(player.enemy_contact_guard_timer, player.enemy_contact_guard_time)
-    player._play_pogo_squash()
+    play_pogo_squash(player)
     player.pogo_chain = mini(player.pogo_chain + 1, 4)
     # pogo=敲钟（音频规格 §4.2）：D5 小铜铃自产音源，连击保留半音阶 pitch 爬升。
     player._play_sfx("pogo", -6.0, pow(2.0, float(player.pogo_chain) / 12.0))

@@ -85,7 +85,7 @@ static func set_boss_arena_locked(level: Node, locked: bool) -> void:
         level._lock_boss_camera()
         if level.boss_arena_lock_body != null and is_instance_valid(level.boss_arena_lock_body):
             return
-        var lock_rect: Rect2 = level._boss_arena_lock_rect()
+        var lock_rect: Rect2 = boss_arena_lock_rect(level)
         var material: String = level._theme_boss_material()
         level.boss_arena_lock_body = level._platform("boss_arena_lock_wall", lock_rect, level._color("2a1715"), material)
         level.boss_arena_lock_body.set_meta("temporary_boss_lock", true)
@@ -122,7 +122,7 @@ static func boss_arena_lock_rect(level: Node) -> Rect2:
     if boss_data.has("lock_rect"):
         return level._rect2(boss_data.get("lock_rect", []))
     var gate_position: Vector2 = level._boss_gate_position()
-    var floor_top: float = level._floor_top_near_x(gate_position.x)
+    var floor_top: float = floor_top_near_x(level, gate_position.x)
     var height := float(boss_data.get("lock_height", 315.0))
     var width := float(boss_data.get("lock_width", 46.0))
     var lock_x := float(boss_data.get("lock_x", gate_position.x - 172.0))

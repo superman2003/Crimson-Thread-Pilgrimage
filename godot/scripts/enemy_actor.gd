@@ -336,9 +336,9 @@ var presentation_prepared := false
 
 func prepare_presentation() -> void:
     if presentation_prepared: return
-    _build_shape()
-    _build_sprite()
-    _fit_hurtbox_to_art()
+    ENEMY_PRESENTATION.build_shape(self)
+    ENEMY_PRESENTATION.build_sprite(self)
+    ENEMY_LIFECYCLE.fit_hurtbox_to_art(self)
     if is_boss: boss_skill_texture = BOSS_SKILL_ART.texture_for(kind)
     MINOR_SKILL_ART.prepare(self)
     presentation_prepared = true
@@ -417,7 +417,7 @@ func _step_enemy(delta: float) -> void:
         if get_parent().has_method("_toast"):
             get_parent()._toast(String(ai_profile.get("phase_name","第二阶段")))
     if phase_pause>0:
-        _tick_hit_flash(delta)
+        ENEMY_LIFECYCLE.tick_hit_flash(self, delta)
         phase_pause-=delta
         return
     _tick_timers(delta)
@@ -474,10 +474,6 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
     ENEMY_LIFECYCLE.configure(self, data, sprite_path, boss_flag, profile)
 
 
-func _apply_elite_profile(elite: Dictionary) -> void:
-    ENEMY_LIFECYCLE.apply_elite_profile(self, elite)
-
-
 func contact_visual_call_serial() -> int:
     return ENEMY_LIFECYCLE.contact_visual_call_serial(self)
 
@@ -495,8 +491,8 @@ func take_hit(amount: int, hit_direction: int) -> void:
         _play_sfx("hit_kill", -5.0, 1.0, 0)
     else:
         _play_sfx(_hit_tier_key(), -6.0)
-    _spawn_hit_spark(hit_direction, contact_call)
-    var armored := hp - amount > 0 and ((not is_boss and _hit_is_armored()) or (is_boss and _is_attack_state()))
+    ENEMY_EFFECTS.spawn_hit_spark(self, hit_direction, contact_call)
+    var armored := hp - amount > 0 and ((not is_boss and ENEMY_LIFECYCLE.hit_is_armored(self)) or (is_boss and _is_attack_state()))
     if not armored:
         pose_loop_animation = ""
         # A hit overlays the pose already on screen. Swapping to an unrelated
@@ -524,17 +520,9 @@ func take_hit(amount: int, hit_direction: int) -> void:
         boss_tactic_timer = float(ai_profile.get("hurt_evade_time", 0.42))
         boss_press_timer = 0.0
     if not is_boss and hp > 0:
-        _react_to_hit(hit_direction)
+        ENEMY_LIFECYCLE.react_to_hit(self, hit_direction)
     if hp <= 0:
         _begin_death_dissolve()
-
-
-func _hit_is_armored() -> bool:
-    return ENEMY_LIFECYCLE.hit_is_armored(self)
-
-
-func _react_to_hit(hit_direction: int) -> void:
-    ENEMY_LIFECYCLE.react_to_hit(self, hit_direction)
 
 
 ## 死亡溶解（规格 §3.4 简化通用版）：died 当帧发出、立即离开 enemy 组，
@@ -547,13 +535,9 @@ func _begin_death_dissolve() -> void:
 ## their drawn bodies are 70-180px wide, so swings at a visible flank missed.
 ## Fit the hit box to the drawn idle body (core 62% of its width, centred on it
 ## vertically); authored boxes, Bosses and contact damage are unchanged.
-func _fit_hurtbox_to_art() -> void:
-    ENEMY_LIFECYCLE.fit_hurtbox_to_art(self)
 
 
 ## Opaque part of one animation frame in this actor's local space.
-func _drawn_body_rect(animation: StringName, index: int) -> Rect2:
-    return ENEMY_LIFECYCLE.drawn_body_rect(self, animation, index)
 
 
 func get_motion_rect() -> Rect2:
@@ -572,20 +556,12 @@ func _tick_timers(delta: float) -> void:
     ENEMY_LIFECYCLE.tick_timers(self, delta)
 
 
-func _tick_hit_flash(delta: float) -> void:
-    ENEMY_LIFECYCLE.tick_hit_flash(self, delta)
-
-
 func _set_flash_amount(amount: float) -> void:
     ENEMY_LIFECYCLE.set_flash_amount(self, amount)
 
 
 func _is_attack_state() -> bool:
     return ENEMY_LIFECYCLE.is_attack_state(self)
-
-
-func _clamp_to_arena() -> void:
-    ENEMY_LIFECYCLE.clamp_to_arena(self)
 
 
 func _clamp_movement_bounds() -> void:
@@ -631,8 +607,6 @@ func _fresh_engage_range(aggro_range: float) -> float:
 
 
 ## Ambushers and guards wait at their spawn instead of patrolling or searching.
-func _return_to_post(delta: float, waiting_decision: String) -> void:
-    ENEMY_ENGAGEMENT.return_to_post(self, delta, waiting_decision)
 
 
 ## Bells, horns and banners tell nearby idle allies where the player was seen.
@@ -661,10 +635,6 @@ func _try_start_support() -> bool:
     return ENEMY_ENGAGEMENT.try_start_support(self)
 
 
-func _update_support_link(ally: Area2D) -> void:
-    ENEMY_ENGAGEMENT.update_support_link(self, ally)
-
-
 func _update_support(delta: float, target: CharacterBody2D) -> void:
     ENEMY_ENGAGEMENT.update_support(self, delta, target)
 
@@ -673,16 +643,8 @@ func _finish_support() -> void:
     ENEMY_ENGAGEMENT.finish_support(self)
 
 
-func _investigate(delta: float) -> void:
-    ENEMY_ENGAGEMENT.investigate(self, delta)
-
-
 func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
     ENEMY_ENGAGEMENT.move_in_combat(self, delta, target)
-
-
-func _ally_queue_offset(target: CharacterBody2D) -> float:
-    return ENEMY_ENGAGEMENT.ally_queue_offset(self, target)
 
 
 func _boss_tactical_enabled() -> bool:
@@ -697,52 +659,12 @@ func _prepare_boss_tactic(target: CharacterBody2D, distance: float = -1.0) -> vo
     BOSS_TACTICS.prepare_boss_tactic(self, target, distance)
 
 
-func _boss_tactic_finished(target: CharacterBody2D, distance: float) -> bool:
-    return BOSS_TACTICS.boss_tactic_finished(self, target, distance)
-
-
-func _choose_boss_tactic(target: CharacterBody2D, distance: float) -> void:
-    BOSS_TACTICS.choose_boss_tactic(self, target, distance)
-
-
-func _set_boss_tactic(next_tactic: String, duration: float, target: CharacterBody2D) -> void:
-    BOSS_TACTICS.set_boss_tactic(self, next_tactic, duration, target)
-
-
 func _boss_tactic_duration(tactic: String, fallback: float) -> float:
     return BOSS_TACTICS.boss_tactic_duration(self, tactic, fallback)
 
 
-func _boss_should_evade_player_command(pressure: float) -> bool:
-    return BOSS_TACTICS.boss_should_evade_player_command(self, pressure)
-
-
-func _boss_should_reposition(target: CharacterBody2D, distance: float) -> bool:
-    return BOSS_TACTICS.boss_should_reposition(self, target, distance)
-
-
-func _boss_spacing_direction(distance: float, dx: float) -> float:
-    return BOSS_TACTICS.boss_spacing_direction(self, distance, dx)
-
-
 func _boss_reposition_x(target: CharacterBody2D) -> float:
     return BOSS_TACTICS.boss_reposition_x(self, target)
-
-
-func _boss_has_arena_bounds() -> bool:
-    return BOSS_TACTICS.boss_has_arena_bounds(self)
-
-
-func _boss_min_x() -> float:
-    return BOSS_TACTICS.boss_min_x(self)
-
-
-func _boss_max_x() -> float:
-    return BOSS_TACTICS.boss_max_x(self)
-
-
-func _boss_at_arena_edge() -> bool:
-    return BOSS_TACTICS.boss_at_arena_edge(self)
 
 
 func _patrol(delta: float) -> void:
@@ -763,10 +685,6 @@ func _return_to_spawn(delta: float) -> void:
 
 func _target_in_engage_window(target: CharacterBody2D, aggro_range: float) -> bool:
     return ENEMY_ATTACK_CHOICE.target_in_engage_window(self, target, aggro_range)
-
-
-func _target_in_any_attack_window(target: CharacterBody2D) -> bool:
-    return ENEMY_ATTACK_CHOICE.target_in_any_attack_window(self, target)
 
 
 func _attack_can_reach_target(command: Dictionary, target: CharacterBody2D, ignore_cooldown: bool = false) -> bool:
@@ -821,18 +739,6 @@ func _read_player_command(target: CharacterBody2D) -> String:
     return ENEMY_ATTACK_CHOICE.read_player_command(self, target)
 
 
-func _player_facing(target: CharacterBody2D) -> int:
-    return ENEMY_ATTACK_CHOICE.player_facing(self, target)
-
-
-func _float_property(node: Object, key: String, fallback: float) -> float:
-    return ENEMY_ATTACK_CHOICE.float_property(self, node, key, fallback)
-
-
-func _vector2_property(node: Object, key: String, fallback: Vector2) -> Vector2:
-    return ENEMY_ATTACK_CHOICE.vector2_property(self, node, key, fallback)
-
-
 func _try_start_attack(target: CharacterBody2D) -> bool:
     return ENEMY_ATTACK_PHASES.try_start_attack(self, target)
 
@@ -852,15 +758,10 @@ func _aim_attack(command: Dictionary, target: CharacterBody2D) -> void:
 func _update_active(delta: float) -> void:
     ENEMY_ATTACK_PHASES.update_active(self, delta)
 
-func _update_authored_combo(progress: float) -> bool:
-    return ENEMY_ATTACK_PHASES.update_authored_combo(self, progress)
-
 
 func _update_recover(delta: float) -> void:
     ENEMY_ATTACK_PHASES.update_recover(self, delta)
 
-func _prepare_recovery_action(delta: float) -> void:
-    ENEMY_ATTACK_PHASES.prepare_recovery_action(self, delta)
 
 func _sync_walk_cadence(delta: float, previous: Vector2) -> void:
     ENEMY_ATTACK_PHASES.sync_walk_cadence(self, delta, previous)
@@ -907,14 +808,6 @@ func body_center() -> Vector2:
     return global_position
 
 
-func _build_shape() -> void:
-    ENEMY_PRESENTATION.build_shape(self)
-
-
-func _build_sprite() -> void:
-    ENEMY_PRESENTATION.build_sprite(self)
-
-
 ## Frames were drawn one at a time and the same body differs in size between
 ## neighbours. The measured correction is applied where the frame is drawn, so
 ## sprite.scale and sprite.position keep their gameplay meaning.
@@ -934,16 +827,6 @@ func _advance_wing_flap(delta: float) -> void:
 
 ## 受击白闪 Shader（规格 §3.1）：每个可见 sprite 挂一份独立 ShaderMaterial，
 ## modulate 乘法调制无法“变白”，必须走 shader mix。
-func _attach_flash_materials() -> void:
-    ENEMY_PRESENTATION.attach_flash_materials(self)
-
-
-func _build_part_sprite() -> Node2D:
-    return ENEMY_PRESENTATION.build_part_sprite(self)
-
-
-func _load_enemy_sprite_frames(manifest_path: String) -> SpriteFrames:
-    return ENEMY_PRESENTATION.load_enemy_sprite_frames(self, manifest_path)
 
 
 func _vec2(value: Variant) -> Vector2:
@@ -991,10 +874,6 @@ func _has_enemy_animation(animation_name: String) -> bool:
     return ENEMY_PRESENTATION.has_enemy_animation(self, animation_name)
 
 
-func _is_directional_animation_name(animation_name: String) -> bool:
-    return ENEMY_PRESENTATION.is_directional_animation_name(self, animation_name)
-
-
 func _apply_sprite_flip(allow_motion: bool = true) -> void:
     ENEMY_PRESENTATION.apply_sprite_flip(self, allow_motion)
 
@@ -1002,20 +881,8 @@ func _on_motion_animation_finished() -> void:
     ENEMY_PRESENTATION.on_motion_animation_finished(self)
 
 
-func _apply_sprite_region(animation_name: String) -> void:
-    ENEMY_PRESENTATION.apply_sprite_region(self, animation_name)
-
-
 func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
     ENEMY_PRESENTATION.pose_sprite(self, pose_name, command)
-
-
-func _pose_offset(command: Dictionary, key: String, fallback: Vector2) -> Vector2:
-    return ENEMY_PRESENTATION.pose_offset(self, command, key, fallback)
-
-
-func _pose_scale(command: Dictionary, key: String, fallback: Vector2) -> Vector2:
-    return ENEMY_PRESENTATION.pose_scale(self, command, key, fallback)
 
 
 ## S03: terrain between this actor and the player muffles its one-shots, using
@@ -1024,8 +891,6 @@ func _pose_scale(command: Dictionary, key: String, fallback: Vector2) -> Vector2
 const SFX_OCCLUSION_DB := 10.0
 const SFX_DANGER_OCCLUSION_DB := 4.0
 
-func _sfx_listener() -> CollisionObject2D:
-    return ENEMY_AUDIO.sfx_listener(self)
 
 func _sfx_occluded() -> bool:
     return ENEMY_AUDIO.sfx_occluded(self)
@@ -1122,9 +987,6 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
     ENEMY_AUDIO.play_detached_sfx(self, audio_key, volume_db)
 
 
-func _original_attack_arc(command: Dictionary, warning: bool) -> void:
-    ENEMY_EFFECTS.original_attack_arc(self, command, warning)
-
 func _spawn_windup_vfx(command: Dictionary) -> void:
     ENEMY_EFFECTS.spawn_windup_vfx(self, command)
 
@@ -1167,10 +1029,6 @@ static func _load_stream_direct(path: String, looped: bool = false) -> AudioStre
                 wav.loop_end=wav.data.size()/((2 if wav.format==AudioStreamWAV.FORMAT_16_BITS else 1)*(2 if wav.stereo else 1))
         return wav
     return load(path) as AudioStream if ResourceLoader.exists(path,"AudioStream") else null
-
-
-func _spawn_hit_spark(hit_direction: int, contact_call: int = -1) -> void:
-    ENEMY_EFFECTS.spawn_hit_spark(self, hit_direction, contact_call)
 
 
 func _cancel_attack_effects() -> void:

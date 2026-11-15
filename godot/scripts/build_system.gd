@@ -454,8 +454,6 @@ func refill_tools(at_bell: bool = false) -> Dictionary:
     return _fail("战具补给需消耗碎钱与材料")
 
 ## A plan is a read-only shopping request, never stock or progress data.
-func _normalize_resupply_plan(plan: Variant) -> Dictionary:
-    return BUILD_TRANSACTIONS.normalize_resupply_plan(self, plan)
 
 func quote_resupply(wallet: Dictionary, plan: Variant = {}) -> Dictionary:
     return BUILD_TRANSACTIONS.quote_resupply(self, wallet, plan)
@@ -476,14 +474,7 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
 ## A new part may wake an item that a legacy migration parked in a locked slot.
 ## Keep the live build and every saved loadout valid: drop woken accessories
 ## that would overflow the crest's capacity, then refresh the aliases.
-func _settle_unlocked_slots() -> void:
-    BUILD_TRANSACTIONS.settle_unlocked_slots(self)
 
-func _settle_families(families: Dictionary, crest: String) -> void:
-    BUILD_TRANSACTIONS.settle_families(self, families, crest)
-
-func _loadout_name_error(value: Variant) -> String:
-    return BUILD_LOADOUTS.loadout_name_error(self, value)
 
 func preview_loadout_management(source: String, target: Variant, copy: bool = false, at_bell: bool = true) -> Dictionary:
     return BUILD_LOADOUTS.preview_loadout_management(self, source, target, copy, at_bell)
@@ -504,8 +495,6 @@ func delete_loadout(name: String, at_bell: bool = true) -> Dictionary:
 func preview_loadout(name: String, at_bell: bool = true) -> Dictionary:
     return BUILD_LOADOUTS.preview_loadout(self, name, at_bell)
 
-func _loadout_changes(candidate: RefCounted) -> Array:
-    return BUILD_LOADOUTS.loadout_changes(self, candidate)
 
 func restore_loadout(name: String, at_bell: bool = true) -> Dictionary:
     return BUILD_LOADOUTS.restore_loadout(self, name, at_bell)
@@ -519,8 +508,6 @@ func _validate_loadout(build: Dictionary) -> String:
 ## Mirrors _normalize_active_slots(): when a crest switch leaves no usable item in
 ## a family (e.g. only a dormant copper pot under 司铸), the active slot falls back
 ## to 0. That state is what the game saves, so it must also load.
-func _active_slot_valid(family: String, active: int, values: Array, crest: String) -> bool:
-    return BUILD_LOADOUTS.active_slot_valid(self, family, active, values, crest)
 
 func serialize() -> Dictionary:
     return BUILD_PERSISTENCE.serialize(self)
@@ -531,8 +518,6 @@ func _counter(value: Variant, maximum: int = 1000000) -> bool:
 func _legacy_family_arrays(crest: String, skills: Array, tools: Array, passives: Array) -> Dictionary:
     return BUILD_PERSISTENCE.legacy_family_arrays(self, crest, skills, tools, passives)
 
-func _legacy_assign_family(families: Dictionary, family: String, ids: Array, crest: String) -> void:
-    BUILD_PERSISTENCE.legacy_assign_family(self, families, family, ids, crest)
 
 func _migration_active_slot(family: String, requested: int, values: Array, crest: String) -> int:
     return BUILD_PERSISTENCE.migration_active_slot(self, family, requested, values, crest)

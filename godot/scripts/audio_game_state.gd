@@ -15,7 +15,7 @@ static func process(director: Node, delta: float) -> void:
         if not is_instance_valid(speaker) or not speaker.is_inside_tree() or speaker.is_queued_for_deletion() \
                 or (speaker.has_method("accepts_utterance") and not bool(speaker.call("accepts_utterance"))):
             director.stop_npc_voice()
-    director._tick_shrine_lullaby()
+    tick_shrine_lullaby(director)
     director.ambient_soundscape.tick(director, director.runtime_player as Node2D)
     director.ai_poll_accum += delta
     if director.ai_poll_accum < director.COMBAT_POLL_INTERVAL_S:
@@ -24,9 +24,9 @@ static func process(director: Node, delta: float) -> void:
     director._retire_invalid_landmarks()
     director._tick_npc_landmarks()
     director.ai_poll_accum = 0.0
-    var enemies: Array = director._runtime_enemies()
+    var enemies: Array = runtime_enemies(director)
     director._tick_combat_layer(tick, enemies)
-    director._tick_boss_phase(enemies)
+    tick_boss_phase(director, enemies)
 
 
 static func runtime_enemies(director: Node) -> Array:

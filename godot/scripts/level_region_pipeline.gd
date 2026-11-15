@@ -13,9 +13,9 @@ const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
 static func initialize_region(level: Node, prepared_config: Dictionary = {}) -> void:
-    level._prepare_region(prepared_config)
+    prepare_region(level, prepared_config)
     level._build_world_from_config()
-    level._finish_region()
+    finish_region(level)
 
 
 static func prepare_region(level: Node, prepared_config: Dictionary = {}) -> void:
@@ -47,7 +47,7 @@ static func region_prepare_jobs(level: Node, prepared_config: Dictionary = {}) -
         {"method": "_prepare_campaign_metadata", "args": []},
         {"method": "_begin_chapter_metadata", "args": []}
     ])
-    for path in level._chapter_metadata_paths():
+    for path in chapter_metadata_paths(level):
         jobs.append({"method": "_prepare_chapter_metadata", "args": [path]})
     jobs.append_array([
         {"method": "_prepare_av_metadata", "args": []},
@@ -194,7 +194,7 @@ static func restore_build_state(level: Node) -> void:
         return
     if level.build_system == null:
         level.build_system = BUILD_SYSTEM_SCRIPT.new()
-        level._restore_saved_build()
+        restore_saved_build(level)
 
 
 static func sync_build_progress(level: Node) -> void:

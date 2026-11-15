@@ -42,7 +42,7 @@ static func target_inside_leash(actor: Node, target: CharacterBody2D) -> bool:
     if target_from_spawn <= actor.leash_radius:
         return true
     var attack_margin := float(actor.ai_profile.get("leash_attack_margin", 42.0))
-    return target_from_spawn <= actor.leash_radius + attack_margin and actor._target_in_any_attack_window(target)
+    return target_from_spawn <= actor.leash_radius + attack_margin and target_in_any_attack_window(actor, target)
 
 
 static func should_return_to_spawn(actor: Node, target: CharacterBody2D, aggro_range: float) -> bool:
@@ -52,7 +52,7 @@ static func should_return_to_spawn(actor: Node, target: CharacterBody2D, aggro_r
         return true
     if target == null:
         return false
-    if actor._target_inside_leash(target) and actor._target_in_any_attack_window(target):
+    if actor._target_inside_leash(target) and target_in_any_attack_window(actor, target):
         return false
     var target_near_enemy: bool = actor._target_in_engage_window(target, aggro_range)
     return target_near_enemy and not actor._target_inside_leash(target)
@@ -251,12 +251,12 @@ static func lead_target(actor: Node, target: CharacterBody2D, lead_seconds: floa
 
 static func read_player_command(actor: Node, target: CharacterBody2D) -> String:
     actor.command_read_count += 1
-    if actor._float_property(target, "death_timer", 0.0) > 0.0:
+    if float_property(actor, target, "death_timer", 0.0) > 0.0:
         return "dead"
-    var attack_timer_value: float = actor._float_property(target, "attack_timer", 0.0)
+    var attack_timer_value: float = float_property(actor, target, "attack_timer", 0.0)
     if attack_timer_value > 0.0:
         var attack_name := String(target.get("current_attack"))
-        var attack_vector: Vector2 = actor._vector2_property(target, "current_attack_direction", Vector2(float(actor._player_facing(target)), 0.0))
+        var attack_vector: Vector2 = vector2_property(actor, target, "current_attack_direction", Vector2(float(player_facing(actor, target)), 0.0))
         if attack_name == "attack_2":
             return "skill"
         if attack_name == "hook_throw":
@@ -267,9 +267,9 @@ static func read_player_command(actor: Node, target: CharacterBody2D) -> String:
             return "slash_up"
         return "slash_forward"
     var velocity_value := target.velocity
-    if actor._float_property(target, "dash_timer", 0.0) > 0.0:
+    if float_property(actor, target, "dash_timer", 0.0) > 0.0:
         return "dash_toward" if signf(velocity_value.x) == -float(actor.direction) else "dash_away"
-    if actor._float_property(target, "heal_timer", 0.0) > 0.0:
+    if float_property(actor, target, "heal_timer", 0.0) > 0.0:
         return "heal"
     if velocity_value.y > 180.0 and target.global_position.y < actor.global_position.y - 26.0:
         return "falling_attack"
@@ -283,7 +283,7 @@ static func read_player_command(actor: Node, target: CharacterBody2D) -> String:
 
 
 static func player_facing(actor: Node, target: CharacterBody2D) -> int:
-    var value := int(actor._float_property(target, "facing", 1.0))
+    var value := int(float_property(actor, target, "facing", 1.0))
     return -1 if value < 0 else 1
 
 

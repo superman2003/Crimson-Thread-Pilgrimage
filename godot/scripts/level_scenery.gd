@@ -31,7 +31,7 @@ static func background_base(level: Node) -> void:
     var bg := Polygon2D.new()
     bg.polygon = PackedVector2Array([Vector2(-300, -200), Vector2(level.world_width + 300, -200),
         Vector2(level.world_width + 300, level.world_height + 220), Vector2(-300, level.world_height + 220)])
-    bg.color = level._theme_background_color()
+    bg.color = theme_background_color(level)
     bg.z_index = -120
     level.add_child(bg)
 
@@ -126,17 +126,17 @@ static func platform(level: Node, node_name: String, rect: Rect2, color: Color, 
     if level.flat_map_art != null and level.flat_map_art.ready_for_platforms():
         level.flat_map_art.add_platform_visual(body,rect.size,material)
     else:
-        level._add_platform_readability_base(body,rect.size,material,color)
+        add_platform_readability_base(level, body,rect.size,material,color)
     level.add_child(body)
     return body
 
 
 static func add_platform_readability_base(level: Node, parent: Node, size_value: Vector2, material: String, fallback_color: Color) -> void:
-    var body_color: Color = level._platform_body_color(material, fallback_color)
-    var edge_color: Color = level._platform_edge_color(material)
-    level._add_platform_plate(parent, Vector2(0, 6.0), size_value + Vector2(10.0, 18.0), body_color, -6)
-    level._add_platform_plate(parent, Vector2(0, -size_value.y * 0.5 + 4.0), Vector2(size_value.x + 12.0, 8.0), edge_color, -2)
-    level._add_platform_plate(parent, Vector2(0, size_value.y * 0.5 - 3.0), Vector2(size_value.x + 8.0, 5.0), Color(0.015, 0.026, 0.024, 0.82), -2)
+    var body_color: Color = platform_body_color(level, material, fallback_color)
+    var edge_color: Color = platform_edge_color(level, material)
+    add_platform_plate(level, parent, Vector2(0, 6.0), size_value + Vector2(10.0, 18.0), body_color, -6)
+    add_platform_plate(level, parent, Vector2(0, -size_value.y * 0.5 + 4.0), Vector2(size_value.x + 12.0, 8.0), edge_color, -2)
+    add_platform_plate(level, parent, Vector2(0, size_value.y * 0.5 - 3.0), Vector2(size_value.x + 8.0, 5.0), Color(0.015, 0.026, 0.024, 0.82), -2)
 
 
 static func platform_body_color(level: Node, material: String, fallback_color: Color) -> Color:

@@ -105,7 +105,7 @@ static func update_windup(actor: Node, delta: float) -> void:
         actor._stop_parade_layer()
         actor.state_timer = float(actor.active_attack.get("active", 0.16))
         if actor.active_attack.has("combo_beats"):
-            actor._update_authored_combo(0.0)
+            update_authored_combo(actor, 0.0)
         else:
             actor._pose_sprite("active", actor.active_attack)
             actor._play_attack_sfx("active")
@@ -138,7 +138,7 @@ static func update_active(actor: Node, delta: float) -> void:
     actor.attack_elapsed+=delta
     var progress := clampf(actor.attack_elapsed/maxf(.01,float(actor.active_attack.get("active",.24))),0,1)
     var contact_live:=true
-    if attack_type=="combo" and actor.active_attack.has("combo_beats"):contact_live=actor._update_authored_combo(progress)
+    if attack_type=="combo" and actor.active_attack.has("combo_beats"):contact_live=update_authored_combo(actor, progress)
     if actor.active_attack.has("contact_window"):
         var window: Array=actor.active_attack.contact_window
         contact_live=contact_live and progress>=float(window[0]) and progress<=float(window[1])
@@ -217,7 +217,7 @@ static func update_authored_combo(actor: Node, progress: float) -> bool:
 
 static func update_recover(actor: Node, delta: float) -> void:
     if actor.attack_recovery and not actor.active_attack.is_empty():
-        actor._prepare_recovery_action(delta)
+        prepare_recovery_action(actor, delta)
         if actor.trip_timer<=0.0 and absf(actor.recovery_velocity_x)>.1:
             var previous = actor.global_position
             actor.global_position=preload("res://scripts/enemy_motion_sweep.gd").constrain(actor,previous,previous+Vector2(actor.recovery_velocity_x*minf(delta,maxf(0.0,actor.state_timer)),0))

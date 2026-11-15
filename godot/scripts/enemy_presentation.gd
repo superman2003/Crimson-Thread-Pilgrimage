@@ -17,7 +17,7 @@ static func build_shape(actor: Node) -> void:
 
 static func build_sprite(actor: Node) -> void:
     if not actor.sprite_parts.is_empty():
-        actor.sprite = actor._build_part_sprite()
+        actor.sprite = build_part_sprite(actor)
     elif actor.asset_path.ends_with(".json"):
         # Presentation can select another manifest after configure (original
         # source poses, skins or prefab overrides). Do not carry choreography
@@ -25,7 +25,7 @@ static func build_sprite(actor: Node) -> void:
         actor.authored_combat_sequences = ORIGINAL_ART.manifest(actor.asset_path).get("authored_combat_sequences", []).duplicate()
         actor.animated_sprite = AnimatedSprite2D.new()
         actor.animated_sprite.name = "EnemyAnimatedSprite"
-        actor.animated_sprite.sprite_frames = actor._load_enemy_sprite_frames(actor.asset_path)
+        actor.animated_sprite.sprite_frames = load_enemy_sprite_frames(actor, actor.asset_path)
         actor.frame_fit = ORIGINAL_ART.frame_fit(actor.asset_path) if actor.asset_path.contains("original_creatures") else {}
         if not actor.frame_fit.is_empty():
             actor.animated_sprite.frame_changed.connect(actor._apply_frame_fit)
@@ -52,9 +52,9 @@ static func build_sprite(actor: Node) -> void:
     actor.sprite.modulate = actor.visual_modulate
     actor.sprite_base_position = actor.sprite.position
     actor.sprite_base_scale = actor.sprite.scale
-    actor._apply_sprite_region("idle")
+    apply_sprite_region(actor, "idle")
     actor.add_child(actor.sprite)
-    actor._attach_flash_materials()
+    attach_flash_materials(actor)
     actor._apply_frame_fit()
     actor._apply_wing_flap()
 
@@ -224,8 +224,8 @@ static func set_enemy_animation(actor: Node, animation_name: String, restart: bo
     var next_animation: String = actor._resolve_directional_animation(animation_name)
     if actor.animated_sprite != null and actor.animated_sprite.sprite_frames != null and not actor.animated_sprite.sprite_frames.has_animation(next_animation):
         next_animation = "idle"
-    actor.current_animation_has_explicit_direction = actor._is_directional_animation_name(next_animation) and actor._has_enemy_animation(next_animation)
-    actor._apply_sprite_region(next_animation)
+    actor.current_animation_has_explicit_direction = is_directional_animation_name(actor, next_animation) and actor._has_enemy_animation(next_animation)
+    apply_sprite_region(actor, next_animation)
     actor._apply_sprite_flip(animation_name in ["idle","walk"] and not restart)
     if actor.motion_transitions.request_loop(actor,animation_name,restart):return
     if actor.animated_sprite == null or actor.animated_sprite.sprite_frames == null:
@@ -282,7 +282,7 @@ static func animation_seconds(actor: Node, name: String) -> float:
 
 
 static func resolve_directional_animation(actor: Node, animation_name: String) -> String:
-    if actor._is_directional_animation_name(animation_name):
+    if is_directional_animation_name(actor, animation_name):
         return animation_name
     var direction_suffix = "_left" if (actor.attack_direction if actor._is_attack_state() else actor.direction) < 0 else "_right"
     var directional_animation = animation_name + direction_suffix
@@ -431,7 +431,7 @@ static func pose_sprite(actor: Node, pose_name: String, command: Dictionary = {}
                 else:
                     actor._fit_animation_duration(duration, pose_name)
         return
-    actor._apply_sprite_region("attack" if pose_name == "windup" or pose_name == "active" else pose_name)
+    apply_sprite_region(actor, "attack" if pose_name == "windup" or pose_name == "active" else pose_name)
     var attack_type := String(command.get("type", "melee"))
     var pose_direction = actor.attack_direction if pose_name == "windup" or pose_name == "active" or pose_name == "recover" else actor.direction
     var lunge_bias := 10.0 if attack_type == "lunge" or attack_type == "melee" else 0.0
@@ -443,18 +443,18 @@ static func pose_sprite(actor: Node, pose_name: String, command: Dictionary = {}
     var target_rotation := 0.0
     var time := 0.10
     if pose_name == "windup":
-        target_position += actor._pose_offset(command, "windup_offset", Vector2(-pose_direction * 12.0 * power, -7.0 - slam_bias * 0.45))
-        target_scale = actor.sprite_base_scale * actor._pose_scale(command, "windup_scale", Vector2(1.05 + 0.02 * power, 0.94))
+        target_position += pose_offset(actor, command, "windup_offset", Vector2(-pose_direction * 12.0 * power, -7.0 - slam_bias * 0.45))
+        target_scale = actor.sprite_base_scale * pose_scale(actor, command, "windup_scale", Vector2(1.05 + 0.02 * power, 0.94))
         target_rotation = deg_to_rad(float(command.get("windup_rotation", -pose_direction * (6.0 + shock_bias * 0.30) * power)))
         time = float(command.get("windup", 0.22)) * 0.45
     elif pose_name == "active":
-        target_position += actor._pose_offset(command, "active_offset", Vector2(pose_direction * (22.0 + lunge_bias + shock_bias) * power, slam_bias + 2.0))
-        target_scale = actor.sprite_base_scale * actor._pose_scale(command, "active_scale", Vector2(1.16 + 0.03 * power, 0.86))
+        target_position += pose_offset(actor, command, "active_offset", Vector2(pose_direction * (22.0 + lunge_bias + shock_bias) * power, slam_bias + 2.0))
+        target_scale = actor.sprite_base_scale * pose_scale(actor, command, "active_scale", Vector2(1.16 + 0.03 * power, 0.86))
         target_rotation = deg_to_rad(float(command.get("active_rotation", pose_direction * (11.0 + shock_bias * 0.24) * power)))
         time = 0.08
     elif pose_name == "recover":
-        target_position += actor._pose_offset(command, "recover_offset", Vector2(-pose_direction * 8.0 * power, 3.0))
-        target_scale = actor.sprite_base_scale * actor._pose_scale(command, "recover_scale", Vector2(0.96, 1.04))
+        target_position += pose_offset(actor, command, "recover_offset", Vector2(-pose_direction * 8.0 * power, 3.0))
+        target_scale = actor.sprite_base_scale * pose_scale(actor, command, "recover_scale", Vector2(0.96, 1.04))
         target_rotation = deg_to_rad(float(command.get("recover_rotation", -pose_direction * 4.0 * power)))
         time = 0.12
     elif pose_name == "hurt":

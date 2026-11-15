@@ -16,13 +16,13 @@ static func counter(system: RefCounted, value: Variant, maximum: int) -> bool:
 static func legacy_family_arrays(system: RefCounted, crest: String, skills: Array, tools: Array, passives: Array) -> Dictionary:
     var families := {"tool": ["", ""], "combat_accessory": ["", "", ""],
         "travel_accessory": ["", "", ""], "thread_skill": ["", ""]}
-    system._legacy_assign_family(families, "tool", tools, crest)
-    system._legacy_assign_family(families, "thread_skill", skills, crest)
+    legacy_assign_family(system, families, "tool", tools, crest)
+    legacy_assign_family(system, families, "thread_skill", skills, crest)
     for id_value in passives:
         if not id_value is String or not system.catalog.passives.has(id_value): continue
         var family := String(system.catalog.passives[id_value].get("family", ""))
         if not families.has(family): continue
-        system._legacy_assign_family(families, family, [String(id_value)], crest)
+        legacy_assign_family(system, families, family, [String(id_value)], crest)
     return families
 
 

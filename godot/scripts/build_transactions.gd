@@ -28,7 +28,7 @@ static func normalize_resupply_plan(system: RefCounted, plan: Variant) -> Dictio
 static func quote_resupply(system: RefCounted, wallet: Dictionary, plan: Variant) -> Dictionary:
     if not wallet.get("inventory_counts") is Dictionary or not system._counter(wallet.get("currency")):
         return system._resupply_result(false, "无效钱包", wallet, {}, {"currency": 0, "materials": {}})
-    var normalized: Dictionary = system._normalize_resupply_plan(plan)
+    var normalized: Dictionary = normalize_resupply_plan(system, plan)
     if not normalized.ok:return system._resupply_result(false, normalized.reason, wallet, {}, {"currency":0,"materials":{}})
     var request: Dictionary = normalized.plan
     var next_wallet: Dictionary = wallet.duplicate(true)
@@ -198,16 +198,16 @@ static func transact(system: RefCounted, recipe_id: String, wallet: Dictionary) 
         system.state.crafted.append(recipe_id)
     elif kind == "slot_part":
         system.state.crafted.append(recipe_id)
-        system._settle_unlocked_slots()
+        settle_unlocked_slots(system)
     return system._ok({"wallet": next_wallet, "currency_spent": cost, "recipe_id": recipe_id})
 
 
 static func settle_unlocked_slots(system: RefCounted) -> void:
-    system._settle_families(system.state.equipped_families, String(system.state.crest))
+    settle_families(system, system.state.equipped_families, String(system.state.crest))
     system._sync_aliases()
     for name in system.state.loadouts:
         var saved: Dictionary = system.state.loadouts[name]
-        system._settle_families(saved.equipped_families, String(saved.crest))
+        settle_families(system, saved.equipped_families, String(saved.crest))
         saved.passives = system._active_accessories(saved.equipped_families, String(saved.crest))
 
 

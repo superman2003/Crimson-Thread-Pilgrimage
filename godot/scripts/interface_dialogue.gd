@@ -52,10 +52,10 @@ static func build_dialogue(ui: Node) -> void:
 
 static func show_speaker(ui: Node, area: Area2D) -> void:
     if is_instance_valid(ui.dialogue_area) and ui.dialogue_area != area:
-        ui._speaker_motion(ui.dialogue_area,false)
+        speaker_motion(ui, ui.dialogue_area,false)
     ui.dialogue_area=area
     ui.dialogue_scroll.scroll_vertical=0
-    ui.dialogue_reading_key=ui._dialogue_reading_key(area,ui.dialogue_body.text)
+    ui.dialogue_reading_key=dialogue_reading_key(ui, area,ui.dialogue_body.text)
     var reading = ui.dialogue_reading.restore(ui.dialogue_reading_key)
     if not reading.is_empty():ui._restore_dialogue_scroll(ui.dialogue_reading_key,int(reading.scroll))
     var history := String(area.get_meta("kind",""))=="history"
@@ -74,7 +74,7 @@ static func show_speaker(ui: Node, area: Area2D) -> void:
             ui.dialogue_quest_button.text="预览交付"
         elif bool(ui.level.story_flags.get(String(quest.get("complete_flag","")),false)):
             ui.dialogue_quest_button.text="回访心愿"
-    ui._speaker_motion(area,true)
+    speaker_motion(ui, area,true)
     ui.dialogue_portrait.call("bind_speaker", area, ART.item("moss_lens") if history else ART.portrait(String(area.get_meta("npc_id",""))))
 
 
@@ -165,7 +165,7 @@ static func dialogue_reading_key(ui: Node, area: Area2D,line: String) -> String:
 
 
 static func dialogue_reading_state(ui: Node, area: Area2D,line: String) -> Dictionary:
-    return ui.dialogue_reading.restore(ui._dialogue_reading_key(area,line))
+    return ui.dialogue_reading.restore(dialogue_reading_key(ui, area,line))
 
 
 static func forget_dialogue_reading(ui: Node) -> void:
@@ -198,8 +198,8 @@ static func remember_dialogue_reading(ui: Node) -> void:
 
 
 static func close_dialogue(ui: Node) -> void:
-    ui._remember_dialogue_reading()
-    ui._speaker_motion(ui.dialogue_area,false)
+    remember_dialogue_reading(ui)
+    speaker_motion(ui, ui.dialogue_area,false)
     if is_instance_valid(ui.dialogue_portrait): ui.dialogue_portrait.call("release_speaker")
     var director: Node = ui.level.get("audio_director") as Node if is_instance_valid(ui.level) else null
     if is_instance_valid(director) and director.has_method("stop_npc_voice"): director.call("stop_npc_voice")

@@ -16,7 +16,7 @@ static func sync_player_build(level: Node) -> void:
         if profile != level.applied_build_profile:
             level.player.apply_build_stats(profile)
             level.applied_build_profile = profile.duplicate(true)
-            level._sync_hazard_trigger_sizes()
+            sync_hazard_trigger_sizes(level)
 
 
 static func sync_hazard_trigger_sizes(level: Node) -> void:
@@ -122,7 +122,7 @@ static func rollback_build_transaction(level: Node, build_before: Dictionary, wa
 
 static func finish_build_transaction(level: Node, result: Dictionary, build_before: Dictionary, wallet_before: Dictionary, materials_before: Dictionary) -> Dictionary:
     if not level._save_world():
-        level._rollback_build_transaction(build_before, wallet_before, materials_before)
+        rollback_build_transaction(level, build_before, wallet_before, materials_before)
         result.ok = false
         result.reason = "归途记录未能写入；本次购买或制作已回滚。"
         level._toast(String(result.reason))
@@ -271,7 +271,7 @@ static func perform_build_action(level: Node, action: String, id: String = "", e
             if practice:
                 level.build_system.state.tool_counts[selected_tool_id] = practice_count
     if result.get("ok", false):
-        result = level._finish_build_transaction(result, build_before, wallet_before, materials_before)
+        result = finish_build_transaction(level, result, build_before, wallet_before, materials_before)
         if result.get("ok", false) and action == "use_tool" and not level.player.cast_tool(result):
             # Stock is durable before effects exist. If the effect cannot start,
             # persist a refund; if that write fails, retain the spent state so

@@ -259,7 +259,7 @@ static func save_point(level: Node, data: Dictionary) -> void:
         if ring != null: ring.default_color = Color(0.90, 1.0, 0.58, 0.95)
     if level.world_mode and level.world_gameplay_residency != null:
         level.world_gameplay_residency.adopt("save_point", String(data.get("id", "")), area)
-    area.set_meta("residency_tweens", level._animate_save_point(area, area.get_node("SavePointSprite"), area.get_node("SavePointHalo")))
+    area.set_meta("residency_tweens", animate_save_point(level, area, area.get_node("SavePointSprite"), area.get_node("SavePointHalo")))
     if level.metsys_bridge != null:
         var room: Dictionary = level._room_for_position(area.global_position)
         level.metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))

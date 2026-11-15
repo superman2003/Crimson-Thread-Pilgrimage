@@ -322,7 +322,7 @@ static func spawn_windup_vfx(actor: Node, command: Dictionary) -> void:
     if BOSS_SKILL_ART.spawn(actor, command, "warning"): return
     if MINOR_SKILL_ART.spawn(actor,command,"warning"): return
     if actor.original_visual:
-        actor._original_attack_arc(command, true)
+        original_attack_arc(actor, command, true)
         return
     var warning := Line2D.new()
     warning.name = "EnemyWindupVfx"
@@ -367,7 +367,7 @@ static func spawn_attack_burst_vfx(actor: Node, command: Dictionary) -> void:
     if BOSS_SKILL_ART.spawn(actor, command, "execution"): return
     if MINOR_SKILL_ART.spawn(actor,command,"execution"): return
     if actor.original_visual:
-        actor._original_attack_arc(command, false)
+        original_attack_arc(actor, command, false)
         return
     var burst := Line2D.new()
     burst.name = "BossAttackBurstVfx" if actor.is_boss else "EnemyAttackBurstVfx"

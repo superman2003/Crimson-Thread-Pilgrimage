@@ -163,11 +163,11 @@ static func refresh_backpack_overlay(level: Node, render_inventory: bool = true)
     level.backpack_entry_ids.clear()
     var lines: Array[String] = []
     level.backpack_entry_ids.append("currency")
-    lines.append("%s%s x%d" % [level._selection_marker("currency"), level._item_display_name("currency"), level.currency_count])
+    lines.append("%s%s x%d" % [selection_marker(level, "currency"), level._item_display_name("currency"), level.currency_count])
     if not level._combat_progression_enabled():
         lines.append("")
         lines.append("Route Marks")
-        lines.append(level._inventory_line_for_category("Combat"))
+        lines.append(inventory_line_for_category(level, "Combat"))
     for section in level.BACKPACK_SECTIONS:
         var section_ids: Array[String] = level._inventory_ids_for_category(String(section[1]))
         if section_ids.is_empty():
@@ -178,7 +178,7 @@ static func refresh_backpack_overlay(level: Node, render_inventory: bool = true)
             level.backpack_entry_ids.append(item_id)
             var count := int(level.inventory_counts.get(item_id, 0))
             var count_suffix := " x%d" % count if count > 1 else ""
-            lines.append("%s%s%s" % [level._selection_marker(item_id), level._item_display_name(item_id), count_suffix])
+            lines.append("%s%s%s" % [selection_marker(level, item_id), level._item_display_name(item_id), count_suffix])
     lines.append("")
     lines.append("%s 行囊   %s/%s 查看铭文   %s 地图   %s 关闭" % [level.ui_shell._short_binding("inventory"), level.ui_shell._short_binding("aim_up"), level.ui_shell._short_binding("aim_down"), level.ui_shell._short_binding("map"), level.ui_shell._short_binding("close_overlay")])
     level.backpack_text.text = "\n".join(lines)
