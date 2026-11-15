@@ -4,6 +4,35 @@ extends RefCounted
 ## methods of the same names, so callers and validations are unaffected.
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 
+## T03: every placement query used to re-read each platform dictionary and
+## re-parse its rect through the level (ch01/ch02 have 145/174 platforms and a
+## spawn runs up to a dozen such scans). Parse them once per platform list:
+## [id, rect, may hold an enemy, replaced by terrain]. A different or grown
+## list (validations append blockers) rebuilds the cache.
+const PLATFORM_ID := 0
+const PLATFORM_RECT := 1
+const PLATFORM_ALLOWED := 2
+const PLATFORM_TERRAIN := 3
+
+static func platform_entries(level: Node) -> Array:
+    var platforms: Variant = level.config.get("platforms", [])
+    if not platforms is Array:
+        return []
+    var cached: Dictionary = level.get_meta(&"spawn_platform_cache", {})
+    if not cached.is_empty() and is_same(cached.source, platforms) and int(cached.size) == platforms.size():
+        return cached.entries
+    var entries: Array = []
+    for platform in platforms:
+        if not (platform is Dictionary):
+            continue
+        var platform_data: Dictionary = platform
+        var platform_id := String(platform_data.get("id", ""))
+        var rect: Rect2 = level._rect2(platform_data.get("rect", []))
+        entries.append([platform_id, rect, level._enemy_spawn_platform_allowed(platform_id, rect), not String(platform_data.get("terrain_id", "")).is_empty()])
+    level.set_meta(&"spawn_platform_cache", {"source": platforms, "size": platforms.size(), "entries": entries})
+    return entries
+
+
 static func resolve_enemy_spawn_position(level: Node, data: Dictionary) -> Vector2:
     var requested: Vector2 = level._vec2(data.get("position", [0, 0]))
     var clearance := float(data.get("clearance", 40.0))
@@ -13,13 +42,10 @@ static func resolve_enemy_spawn_position(level: Node, data: Dictionary) -> Vecto
     var best_rect := Rect2()
     var best_score := INF
 
-    for platform in level.config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var platform_id := String(platform_data.get("id", ""))
-        var rect: Rect2 = level._rect2(platform_data.get("rect", []))
-        if not level._enemy_spawn_platform_allowed(platform_id, rect):
+    for entry in platform_entries(level):
+        var platform_id: String = entry[PLATFORM_ID]
+        var rect: Rect2 = entry[PLATFORM_RECT]
+        if not entry[PLATFORM_ALLOWED]:
             continue
         if not explicit_platform.is_empty() and platform_id != explicit_platform:
             continue
@@ -90,13 +116,10 @@ static func fallback_enemy_spawn_position(level: Node, data: Dictionary, request
     var requested_top := requested.y + clearance
     var best_position := requested
     var best_score := INF
-    for platform in level.config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var platform_id := String(platform_data.get("id", ""))
-        var rect: Rect2 = level._rect2(platform_data.get("rect", []))
-        if not level._enemy_spawn_platform_allowed(platform_id, rect):
+    for entry in platform_entries(level):
+        var platform_id: String = entry[PLATFORM_ID]
+        var rect: Rect2 = entry[PLATFORM_RECT]
+        if not entry[PLATFORM_ALLOWED]:
             continue
         var margin := maxf(half_width + 12.0, minf(54.0, rect.size.x * 0.24))
         var min_x: float = rect.position.x + margin
@@ -151,16 +174,12 @@ static func enemy_spawn_rect_clear(level: Node, position_value: Vector2, half_wi
         return false
     if level.cave_world != null and level.cave_world.intersects_rect(actor_rect):
         return false
-    for platform in level.config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        if not String(platform_data.get("terrain_id", "")).is_empty():
+    for entry in platform_entries(level):
+        if entry[PLATFORM_TERRAIN]:
             continue # The anchor rectangle was replaced by a continuous terrain polygon.
-        var platform_id := String(platform_data.get("id", ""))
-        if platform_id == floor_platform_id:
+        if entry[PLATFORM_ID] == floor_platform_id:
             continue
-        var rect: Rect2 = level._rect2(platform_data.get("rect", []))
+        var rect: Rect2 = entry[PLATFORM_RECT]
         if rect.size.x <= 0.0 or rect.size.y <= 0.0:
             continue
         if rect.position.y >= position_value.y + 10.0:
@@ -185,12 +204,9 @@ static func enemy_platform_movement_bounds(level: Node, platform_id: String, spa
     if platform_id.is_empty():
         return []
     var floor_rect := Rect2()
-    for platform in level.config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        if String(platform_data.get("id", "")) == platform_id:
-            floor_rect = level._rect2(platform_data.get("rect", []))
+    for entry in platform_entries(level):
+        if entry[PLATFORM_ID] == platform_id:
+            floor_rect = entry[PLATFORM_RECT]
             break
     if floor_rect.size.x <= 0.0:
         return []

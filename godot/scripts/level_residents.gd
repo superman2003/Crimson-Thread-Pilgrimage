@@ -2,16 +2,14 @@ extends RefCounted
 ## Enemy platforms and walk obstacles, gameplay prefabs, resident NPC interactions and creating enemies.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
+const ENEMY_PLACEMENT := preload("res://scripts/enemy_placement.gd")
 
 static func platform_under_position(level: Node, position_value: Vector2, clearance: float = 40.0) -> String:
     var expected_top := position_value.y + clearance
-    for platform in level.config.get("platforms", []):
-        if not (platform is Dictionary):
-            continue
-        var platform_data: Dictionary = platform
-        var platform_id := String(platform_data.get("id", ""))
-        var rect: Rect2 = level._rect2(platform_data.get("rect", []))
-        if not level._enemy_spawn_platform_allowed(platform_id, rect):
+    for entry in ENEMY_PLACEMENT.platform_entries(level):
+        var platform_id: String = entry[ENEMY_PLACEMENT.PLATFORM_ID]
+        var rect: Rect2 = entry[ENEMY_PLACEMENT.PLATFORM_RECT]
+        if not entry[ENEMY_PLACEMENT.PLATFORM_ALLOWED]:
             continue
         if position_value.x >= rect.position.x - 1.0 and position_value.x <= rect.position.x + rect.size.x + 1.0 and absf(rect.position.y - expected_top) <= 8.0:
             return platform_id
@@ -23,15 +21,12 @@ static func enemy_walk_obstacles(level: Node, sweep: Rect2, floor_y: float, floo
     if level.cave_world != null:
         for solid in level.cave_world.solid_rects:
             if solid.intersects(sweep): rects.append(solid)
-    for platform in level.config.get("platforms", []):
-        if not (platform is Dictionary):
+    for entry in ENEMY_PLACEMENT.platform_entries(level):
+        if entry[ENEMY_PLACEMENT.PLATFORM_TERRAIN]:
             continue
-        var platform_data: Dictionary = platform
-        if not String(platform_data.get("terrain_id", "")).is_empty():
+        if entry[ENEMY_PLACEMENT.PLATFORM_ID] == floor_platform_id:
             continue
-        if String(platform_data.get("id", "")) == floor_platform_id:
-            continue
-        var rect: Rect2 = level._rect2(platform_data.get("rect", []))
+        var rect: Rect2 = entry[ENEMY_PLACEMENT.PLATFORM_RECT]
         if rect.size.x <= 0.0 or rect.size.y <= 0.0 or rect.position.y >= floor_y + 10.0:
             continue
         if rect.intersects(sweep): rects.append(rect)
