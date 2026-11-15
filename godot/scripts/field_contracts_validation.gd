@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const CONTRACTS := preload("res://scripts/field_contracts.gd")
 var checks:=0
 var failures: Array[String]=[]
@@ -22,7 +23,7 @@ func run() -> void:
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(main)
     main.set_process(false);main.player.set_physics_process(false)
     var shrine: Area2D
-    for child in main.get_children():
+    for child in LEVEL_HOST.children(main):
         if child is Area2D and child.get_meta("kind","")=="save_point":shrine=child;break
     main.player.global_position=shrine.global_position
     main._toggle_build()

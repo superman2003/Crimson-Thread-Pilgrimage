@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const MODEL:=preload("res://scripts/achievements.gd")
 const PROGRESS:=preload("res://scripts/journey_progress.gd")
 const ABILITIES:=preload("res://scripts/permanent_ability_roles.gd")
@@ -77,12 +78,12 @@ func run() -> void:
     DirAccess.remove_absolute(ProjectSettings.globalize_path(later.store.path))
     # Notice: own label, replaces itself, removes itself.
     var host:=Node.new();root.add_child(host)
-    NOTICE.show_on(host,[]);check(host.get_child_count()==0,"no names, no notice")
+    NOTICE.show_on(host,[]);check(LEVEL_HOST.children(host).size()==0,"no names, no notice")
     NOTICE.show_on(host,["第一缕线","叩开钟门"]);await process_frame
-    var notice:=host.get_node("AchievementNotice")
+    var notice:=LEVEL_HOST.find(host, "AchievementNotice")
     check(notice.label.text=="成就 · 第一缕线 · 叩开钟门","names are shown briefly")
     NOTICE.show_on(host,["八线俱全"]);await process_frame
-    check(host.get_child_count()==1 and notice.label.text=="成就 · 八线俱全","a later notice reuses the banner")
+    check(LEVEL_HOST.children(host).size()==1 and notice.label.text=="成就 · 八线俱全","a later notice reuses the banner")
     notice.left=0.01;await create_timer(0.2).timeout;await process_frame
     check(not is_instance_valid(notice) or notice.is_queued_for_deletion(),"the banner removes itself")
     host.queue_free()

@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const NOTES:=preload("res://scripts/hidden_clue_notes.gd")
 const ROUTES:=preload("res://scripts/world_routes.gd")
 const ATLAS:=preload("res://scripts/world_atlas.gd")
@@ -77,7 +78,7 @@ static func pure(tree: SceneTree) -> void:
 static func notice(tree: SceneTree,scene: Node) -> void:
     var plan:=ROUTES.cached_hidden_clues()
     var entry: Dictionary=plan[0]
-    var clue: Node2D=scene.get_node("HiddenClue_"+String(entry.id))
+    var clue: Node2D=LEVEL_HOST.find(scene, "HiddenClue_"+String(entry.id))
     var flags: Dictionary=scene.story_flags.duplicate(true)
     var world: Dictionary=scene.world_state.data.duplicate(true)
     var position: Vector2=scene.player.position
@@ -182,7 +183,7 @@ static func visibility(tree: SceneTree,scene: Node) -> void:
     var saved:=FileAccess.get_file_as_bytes(tree.SAVE)
     NOTES.notice(scene)
     tree.check(FileAccess.get_file_as_bytes(tree.SAVE)==saved,"visible observed clue still commits only once")
-    var cave_clue: Node2D=scene.get_node("HiddenClue_ch01_fake_moss_grotto")
+    var cave_clue: Node2D=LEVEL_HOST.find(scene, "HiddenClue_ch01_fake_moss_grotto")
     scene.player.position=cave_clue.position
     tree.check(not NOTES.can_observe(scene,cave_clue),"authored nonresident low roof blocks an eye point inside its solid rock")
     scene.player.position=cave_clue.position+Vector2(0,60)

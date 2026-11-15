@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const SAVE := "user://world_death_cache_flush.json"
 var failures: Array[String] = []
 var checks := 0
@@ -24,7 +25,7 @@ func run() -> void:
     scene.player.debug_invulnerable = false
     scene.death_recorded = false
     var shrine: Area2D = null
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("kind", "")) == "save_point":
             shrine = child
             break
@@ -126,7 +127,7 @@ func run() -> void:
 ## after three guardians, never on respawn, and keeps only 60%.
 func remote_recall(scene: Node, shrine: Area2D) -> void:
     var recall := preload("res://scripts/death_recall.gd")
-    var dialog: ConfirmationDialog = scene.get_node_or_null(recall.DIALOG)
+    var dialog: ConfirmationDialog = LEVEL_HOST.find(scene, recall.DIALOG)
     check(dialog != null and not dialog.visible and scene.active_overlay == "", "respawning never offers the remote recall")
     var knot: int = int(scene.world_state.data.death_cache.get("currency", 0))
     var wallet: int = scene.currency_count

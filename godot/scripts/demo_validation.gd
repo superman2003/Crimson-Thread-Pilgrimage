@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 var failures := 0
 
@@ -50,7 +51,7 @@ func _run() -> void:
     _assert(int(state.get("av_runtime_event_total", 0)) >= 8, "scene loads required runtime audio visual events")
     _assert(state.get("av_chapter_total") == 6, "scene loads CH01-CH06 audio visual beats")
 
-    var trap: Area2D = scene.get_node_or_null("trap_fake_moss_01")
+    var trap: Area2D = LEVEL_HOST.find(scene, "trap_fake_moss_01")
     _assert(trap == null, "retired trap is absent")
     scene.player.global_position = Vector2(1500, 550)
     var position_before_trap: Vector2 = scene.player.global_position
@@ -59,7 +60,7 @@ func _run() -> void:
     _assert(int(scene.player.hp) == hp_before_trap, "legacy trap contact cannot damage the player")
     _assert(scene.player.global_position.distance_to(position_before_trap) < 0.1, "trap does not teleport the player")
 
-    var dash_pickup: Area2D = scene.get_node_or_null("col_thread_dash")
+    var dash_pickup: Area2D = LEVEL_HOST.find(scene, "col_thread_dash")
     _assert(dash_pickup != null, "thread_dash pickup spawned at the broken branch altar")
     _assert(scene.locked_gate_bodies.has("gate_dash_bell_gap"), "dash gate is sealed before pickup")
     _assert(scene.locked_gate_bodies.has("gate_jump_salt"), "future-ability gate is sealed before pickup")
@@ -69,7 +70,7 @@ func _run() -> void:
     _assert(not scene.locked_gate_bodies.has("gate_dash_cache"), "all dash gates open after pickup")
     _assert(scene.locked_gate_bodies.has("gate_jump_salt"), "future-ability gates stay sealed for revisits")
 
-    var save_point: Area2D = scene.get_node_or_null("save_hidden_upper_respite")
+    var save_point: Area2D = LEVEL_HOST.find(scene, "save_hidden_upper_respite")
     _assert(save_point != null, "hidden save point exists")
     _assert(save_point.has_node("SavePointSprite"), "save point uses open sprite")
     _assert(save_point.has_node("SavePointHalo"), "save point has animated halo")
@@ -95,14 +96,14 @@ func _run() -> void:
         await physics_frame
     _assert(scene.player.global_position.distance_to(save_point.global_position) < 40.0, "void fall respawns at activated save point after death")
 
-    var npc: Area2D = scene.get_node_or_null("npc_threadsmith_apprentice")
+    var npc: Area2D = LEVEL_HOST.find(scene, "npc_threadsmith_apprentice")
     _assert(npc != null, "threadsmith npc exists")
     scene.player.global_position = npc.global_position
     scene._try_interact()
     _assert(int(npc.get_meta("dialogue_index", 0)) == 1, "F interaction advances npc dialogue")
 
     scene._debug_clear_combat_route()
-    var lever: Area2D = scene.get_node_or_null("shortcut_lever")
+    var lever: Area2D = LEVEL_HOST.find(scene, "shortcut_lever")
     _assert(lever != null, "shortcut lever exists")
     scene.player.global_position = lever.global_position
     scene._try_interact()
@@ -110,7 +111,7 @@ func _run() -> void:
     _assert(state.get("shortcut_open") == true, "combat clear opens boss route")
     _assert(state.get("boss_unlocked") == true, "combat clear unlocks boss")
 
-    var boss_gate: Area2D = scene.get_node_or_null("boss_gate")
+    var boss_gate: Area2D = LEVEL_HOST.find(scene, "boss_gate")
     _assert(boss_gate != null, "boss gate exists")
     scene.player.global_position = boss_gate.global_position
     scene._try_interact()
@@ -123,7 +124,7 @@ func _run() -> void:
     scene._debug_kill_boss()
     state = scene.get_demo_state()
     _assert(state.get("demo_complete") == true, "demo can complete")
-    var chapter_exit: Area2D = scene.get_node_or_null("ch01_chapter_exit")
+    var chapter_exit: Area2D = LEVEL_HOST.find(scene, "ch01_chapter_exit")
     _assert(chapter_exit != null, "chapter exit exists after boss")
     _assert(String(chapter_exit.get_meta("next_runtime_config_id", "")) == "demo_ch02_rain_foundry_canal", "chapter exit points to CH02")
 

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Condition matrix plus live entry feedback; does not claim physical traversal.
 const ROUTES := preload("res://scripts/world_routes.gd")
 var checks := 0
@@ -37,7 +38,7 @@ func run() -> void:
     scene.set_process(false)
     scene.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)
-    var area: Node = scene.get_node("moss_archive_return")
+    var area: Node = LEVEL_HOST.find(scene, "moss_archive_return")
     scene._refresh_world_portals()
     check(area.get_node("Wayfinding").gate_state=="far_side","closed near-side entry visibly identifies distant latch")
     scene.story_flags["world_shortcut_archive_return"]=true

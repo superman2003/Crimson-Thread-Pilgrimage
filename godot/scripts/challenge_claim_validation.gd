@@ -21,7 +21,7 @@ func run() -> void:
     var pending: String=scene._challenge_pending_flag(spec)
     var clear: String=spec.clear_flag
     var evidence: String=spec.reward.item_id
-    var shrine: Area2D=scene.get_node(String(spec.shrine.id))
+    var shrine: Area2D=LEVEL_HOST.find(scene, String(spec.shrine.id))
     scene.player.global_position=shrine.global_position;scene.player.debug_invulnerable=true
     scene.player.set_physics_process(false);scene.set_process(false);scene.current_room_id=String(spec.room_id)
     scene.player.hp=3;scene.player.energy=43;scene.currency_count=110
@@ -55,7 +55,7 @@ func run() -> void:
     var saved:=STATE.new();check(saved.read(SAVE) and saved.data.story_flags.get(pending,false) and not saved.data.story_flags.get(clear,false) and saved.data.currency==110,"disk stores pending proof without reward or false clear")
     RETIRE.retire_tree(scene);scene.free();await tick(2)
     await boot(true)
-    spec=challenge(id);shrine=scene.get_node(String(spec.shrine.id))
+    spec=challenge(id);shrine=LEVEL_HOST.find(scene, String(spec.shrine.id))
     scene.player.global_position=shrine.global_position;scene.player.debug_invulnerable=true
     scene.player.set_physics_process(false);scene.set_process(false);scene.current_room_id=String(spec.room_id)
     scene.player.hp=3;scene.player.energy=43

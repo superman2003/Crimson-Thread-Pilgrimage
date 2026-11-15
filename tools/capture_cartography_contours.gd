@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 var output: String
 func _initialize() -> void: call_deferred("run")
@@ -34,7 +35,7 @@ func run() -> void:
             JOURNAL.visit(scene.story_flags,String(id),String(room.id))
         if count==0: await capture(scene,"00_pending")
         scene._close_overlays()
-        scene._activate_save_point(scene.get_node(String(scene.config.save_points[0].id)))
+        scene._activate_save_point(LEVEL_HOST.find(scene, String(scene.config.save_points[0].id)))
         scene._toggle_map()
         await capture(scene,"%02d_charted" % count)
         scene.queue_free()

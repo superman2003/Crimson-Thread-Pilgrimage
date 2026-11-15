@@ -1,16 +1,17 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Probe the legacy entry points with real Player state, including unknown kinds.
 const KINDS := ["spikes", "bell", "bell_gap", "fake_moss_floor", "spore_chest", "falling_clapper", "shortcut_revenge", "false_lamp", "unknown_legacy_trap"]
 
 static func probe(level: Node2D, player: CharacterBody2D) -> Array:
     var results: Array = []
-    var children := level.get_child_count()
+    var children := LEVEL_HOST.children(level).size()
     player.arrival_guard_timer = 0.0
     player.hurt_timer = 0.0
     var hp: int = player.hp
     for kind: String in KINDS:
         level.call("_hazard", {"id":"retired_"+kind,"kind":kind,"rect":[100,100,200,30],"damage":999})
-        results.append([level.get_child_count()==children, kind+" cannot create an environmental trap"])
+        results.append([LEVEL_HOST.children(level).size()==children, kind+" cannot create an environmental trap"])
         var legacy := Area2D.new()
         legacy.set_meta("damage",999)
         level.call("_add_hazard_visual",legacy,kind,Vector2(200,30))

@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const MARKER := preload("res://scripts/world_wayfinding.gd")
 var checker: Callable
@@ -28,7 +29,7 @@ func run(world: Node, callback: Callable) -> void:
     var z := _area(world, "Selection_Z", origin + Vector2(40, 0))
     var a := _area(world, "Selection_A", origin - Vector2(40, 0))
     _check(world.interaction_target() == a, "equal-distance selection follows authored ID, not insertion order")
-    world.move_child(z, world.get_child_count() - 1)
+    world.move_child(z, LEVEL_HOST.children(world).size() - 1)
     _check(world.interaction_target() == a, "reordering adopted area children keeps the same target")
     var a_marker: Node = a.get_node("Wayfinding")
     var z_marker: Node = z.get_node("Wayfinding")

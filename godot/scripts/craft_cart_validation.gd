@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const BUILD=preload("res://scripts/build_system.gd")
 const STATE=preload("res://scripts/world_state.gd")
 const RETIRE=preload("res://scripts/audio_retirement.gd")
@@ -47,7 +48,7 @@ func run() -> void:
     scene._travel_world(routes.config_path("demo_ch02_rain_foundry_canal"),Vector2(1000,500))
     for unused in 20:await physics_frame;await process_frame
     var npc: Area2D
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("npc_id",""))=="npc_rain_smith_liu":npc=child
     check(is_instance_valid(npc),"actual authored rain smith loaded")
     if not is_instance_valid(npc):quit(1);return

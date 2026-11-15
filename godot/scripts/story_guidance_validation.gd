@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 var failures := 0
 
@@ -31,7 +32,7 @@ func _run() -> void:
     _assert(int(scene.get_demo_state().get("guide_marker_total", -1)) == 0, "guide arrow config is empty at runtime")
     _assert(_count_nodes_with_prefix(scene, "guide") == 0, "guide arrow nodes are not spawned")
 
-    var npc: Area2D = scene.get_node_or_null("npc_gate_pilgrim")
+    var npc: Area2D = LEVEL_HOST.find(scene, "npc_gate_pilgrim")
     _assert(npc != null, "story NPC exists")
     scene.player.global_position = npc.global_position
     scene._try_interact()

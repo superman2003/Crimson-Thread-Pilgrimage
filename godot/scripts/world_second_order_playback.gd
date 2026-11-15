@@ -423,12 +423,12 @@ func greenhouse_entry() -> void:
         if not await order_walk_only(point):return
     if not await order_leap(Vector2(530,2760),999,"normal jump past the archive walk mouth to the ravine guide"):return
     var candidates: Array=[]
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and scene.player.position.distance_to(child.position)<260:candidates.append({"id":str(child.name),"position":str(child.position),"kind":child.get_meta("kind",""),"visible":child.is_visible_in_tree(),"global":str(child.global_position),"distance":scene.player.global_position.distance_to(child.global_position)})
     print("SECOND_ORDER_GUIDE_NEARBY "+JSON.stringify({"player":str(scene.player.position),"global_player":str(scene.player.global_position),"can_interact":scene._can_interact_with_world(),"loading":scene.world_loading,"passage_route":scene.world_passage.route,"transitioning":scene.chapter_transitioning,"death_timer":scene.player.death_timer,"overlay":scene.active_overlay,"target":str(scene.interaction_target()),"candidates":candidates}))
     await _world_interact()
     print("SECOND_ORDER_GUIDE_F_RESULT ",scene.config.id," overlay=",scene.active_overlay," target=",scene.interaction_target())
-    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, "MapPurchaseDialog")
     _check(dialog.visible and not dialog.get_ok_button().disabled,"F opens the original C5 guide shop with earned funds")
     if failures>0:return
     var expression:=RegEx.new();expression.compile("本区地图：([0-9]+)枚")
@@ -698,7 +698,7 @@ func crown_map() -> void:
     if not await order_leap(Vector2(2220,3040),999,"normal drop across the authored clapper to the map keeper"):return
     if not await order_walk_only(Vector2(2220,3040)):return
     await _world_interact()
-    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, "MapPurchaseDialog")
     _check(dialog.visible and not dialog.get_ok_button().disabled,"actual F opens affordable C6 map quote")
     if failures>0:return
     print("SECOND_ORDER_CROWN_DIALOG "+JSON.stringify({"dialog":dialog.dialog_text,"title":dialog.title}))

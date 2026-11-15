@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## E05: on the real World and with only joypad events, a player at a shrine can
 ## open the build page, save a loadout, change equipment, review the restore's
 ## differences and cost, back out safely, and confirm the restore. Every move
@@ -95,7 +96,7 @@ func run() -> void:
 	await frames(6)
 	ui = world.ui_shell
 	var shrine: Area2D = null
-	for child in world.get_children():
+	for child in LEVEL_HOST.children(world):
 		if child is Area2D and String(child.get_meta("kind", "")) == "save_point":
 			shrine = child
 			break

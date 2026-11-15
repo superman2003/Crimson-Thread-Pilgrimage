@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const JOB := preload("res://scripts/world_config_read_job.gd")
 const LOADER := preload("res://scripts/world_region_loader.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -80,7 +81,7 @@ func _source_cancel() -> void:
     scene.world_prefetch.desired.clear()
     scene.currency_count += 17
     var ids := []
-    for child in scene.get_children(): ids.append(child.get_instance_id())
+    for child in LEVEL_HOST.children(scene): ids.append(child.get_instance_id())
     var state: Dictionary = scene.world_state.data.duplicate(true)
     var position: Vector2 = scene.player.global_position
     var generation: int = scene.world_loader.generation
@@ -90,7 +91,7 @@ func _source_cancel() -> void:
     process_frame.connect(_cancel_read, CONNECT_ONE_SHOT)
     var ok: bool = await scene.world_loader.replace_region_async(scene, ROUTES.config_path("demo_ch02_rain_foundry_canal"), Vector2(120,500))
     var after_ids := []
-    for child in scene.get_children(): after_ids.append(child.get_instance_id())
+    for child in LEVEL_HOST.children(scene): after_ids.append(child.get_instance_id())
     _check(not ok and cancel_loader.last_transition.preflight_cancelled and cancel_loader.last_transition.json_background, "cancel reaches cold background stage")
     _check(ids == after_ids and scene.player.global_position == position, "read cancellation preserves source nodes and player")
     _check(scene.world_loader.generation == generation and scene.world_state.data == state, "read cancellation precedes generation and state publication")

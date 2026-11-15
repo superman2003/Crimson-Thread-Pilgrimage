@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const LEVEL := preload("res://scripts/main_level.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const AUDIO := preload("res://scripts/audio_director.gd")
@@ -130,7 +131,7 @@ func actual_interface() -> void:
     var level=load("res://scenes/Main.tscn").instantiate();root.add_child(level)
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(level)
     await real_wait(.5)
-    var actor: Area2D=level.get_node("npc_gate_pilgrim")
+    var actor: Area2D=LEVEL_HOST.find(level, "npc_gate_pilgrim")
     var sprite:=actor.get_node("FriendlyFamilySprite") as AnimatedSprite2D
     var original_mode: bool=level.world_mode
     level.world_mode=false

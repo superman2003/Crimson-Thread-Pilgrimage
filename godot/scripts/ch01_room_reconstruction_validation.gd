@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Real player, initial single jump, five room pockets. Incidental combat is disabled.
 var world: Node
 var failures := 0
@@ -45,9 +46,9 @@ func resident_save_point(id: String) -> Area2D:
     var marker: Area2D
     for frame in 120:
         await physics_frame
-        marker = world.get_node_or_null(NodePath(id)) as Area2D
+        marker = LEVEL_HOST.find(world, NodePath(id)) as Area2D
         var snapshot: Dictionary = world.world_gameplay_residency.snapshot()
-        if is_instance_valid(marker) and marker.is_inside_tree() and marker.get_parent() == world and String(marker.get_meta("kind", "")) == "save_point" and marker.global_position.distance_to(world.to_global(point)) <= 4.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
+        if is_instance_valid(marker) and marker.is_inside_tree() and LEVEL_HOST.owns(world, marker) and String(marker.get_meta("kind", "")) == "save_point" and marker.global_position.distance_to(world.to_global(point)) <= 4.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
             world.player.set_physics_process(prior_physics)
             world.process_mode = prior_mode
             for paused in paused_enemies:
@@ -135,7 +136,7 @@ func run() -> void:
             return
         await place(marker.global_position+Vector2(0,40))
         check(absf(world.player.global_position.y-marker.global_position.y-40)<4,name+" unchanged recovery floor")
-    var portal: Node2D = world.get_node("upgrade_echo_hook_1_access_a")
+    var portal: Node2D = LEVEL_HOST.find(world, "upgrade_echo_hook_1_access_a")
     await place(portal.global_position+Vector2(0,40))
     check(absf(world.player.global_position.x-4580)<2,"Existing hook workshop landing retained")
     # A local damage-enabled check: the workshop return landing must be safe

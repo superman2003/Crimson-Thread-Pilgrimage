@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const POLICY := preload("res://scripts/sparring_policy.gd")
 var checks:=0
 var failures: Array[String]=[]
@@ -21,7 +22,7 @@ func run() -> void:
     var bout: Dictionary=bouts[0];var source:=POLICY.sources(bout)
     for wave in bout.waves:
         for id in wave:main.story_flags["journal_enemy_"+String(source.actors[id].kind)]=true
-    for child in main.get_children():
+    for child in LEVEL_HOST.children(main):
         if child is Area2D and child.get_meta("kind","")=="save_point":main.player.global_position=child.global_position;break
     await physics_frame;await physics_frame;await process_frame
     main._toggle_build();await process_frame

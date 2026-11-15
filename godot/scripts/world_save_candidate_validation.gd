@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Complete synchronous checkpoint candidates; no fixture touches authored files.
 const WORLD := preload("res://scripts/world_state.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -260,7 +261,7 @@ func _runtime() -> void:
 
 func _paid_transaction() -> void:
     var shrine: Area2D
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("kind", "")) == "save_point":
             shrine = child
             break

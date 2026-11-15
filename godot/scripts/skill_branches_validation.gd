@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## C04 / E04 / U02: a skill is practised on its rack with real casts, then one of
 ## two exclusive 校习 directions is bought from a real artisan for currency and
 ## that region's material, and the chosen direction changes the actual cast.
@@ -43,7 +44,7 @@ func travel(region: String, at: Vector2) -> void:
 
 ## Stand left of the skill's rack, facing it, on the workshop floor.
 func face_rack(skill_id: String, gap: float) -> Node:
-	var rack: Node = scene.get_node_or_null("seal_training_" + skill_id)
+	var rack: Node = LEVEL_HOST.find(scene, "seal_training_" + skill_id)
 	check(rack != null, skill_id + " practice rack exists")
 	player.global_position = Vector2(rack.global_position.x - gap, rack.global_position.y + 10.0)
 	player.set("velocity", Vector2.ZERO)
@@ -81,7 +82,7 @@ func equip_skill(skill_id: String) -> void:
 	await tick(2)
 
 func artisan_node(npc_id: String) -> Node:
-	for child in scene.get_children():
+	for child in LEVEL_HOST.children(scene):
 		if child is Area2D and String(child.get_meta("npc_id", child.name)) == npc_id:
 			return child
 	return null
@@ -181,7 +182,7 @@ func run() -> void:
 	var wave_stagger := -1.0
 	for frame in 40:
 		await tick(1)
-		for node in scene.get_children():
+		for node in LEVEL_HOST.children(scene):
 			if node.get_script() != null and String(node.get_script().resource_path).ends_with("player_tool_effect.gd") and String(node.payload.get("kind", "")) == "wave":
 				wave_stagger = float(node.payload.get("stagger", 0.0))
 		if wave_stagger >= 0.0:

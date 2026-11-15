@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Production World, camera and actors; positioned fixtures, not a natural clear.
 const AUDIO := preload("res://scripts/audio_retirement.gd")
 const PATH := "res://data/demo_ch05_obsidian_pilgrim_road.json"
@@ -151,7 +152,7 @@ func room_views() -> void:
     for encounter in [["E07", Vector2(510, 1870)], ["E07", Vector2(190, 1870)], ["E13", Vector2(4150, 578)], ["E10", Vector2(3350, 650)], ["E12", Vector2(230, 1352)]]:
         var actor: Area2D = null
         for candidate in get_nodes_in_group("enemy"):
-            if candidate.get_parent() == world and candidate.spawn_id == encounter[0]: actor = candidate
+            if LEVEL_HOST.owns(world, candidate) and candidate.spawn_id == encounter[0]: actor = candidate
         check(actor != null, String(encounter[0]) + " production actor exists")
         if actor == null: continue
         world.player.global_position = encounter[1]

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Every F-interactable in each World region must win the real
 ## interaction_target() choice from some stretch of floor beside it. Two
 ## objects authored on (or within a few px of) the same spot leave one of them
@@ -123,7 +124,7 @@ func _migrations(world: Node) -> int:
             player.global_position = spot + Vector2(0, FEET)
             for frame in 12:
                 await physics_frame
-            var npc: Node = world.get_node_or_null(npc_id)
+            var npc: Node = LEVEL_HOST.find(world, npc_id)
             _check(npc != null, "%s is resident for its %s state" % [npc_id, state.get("id", "")])
             if npc != null:
                 world._apply_world_npc_state(npc)
@@ -143,7 +144,7 @@ func _migrations(world: Node) -> int:
 ## Walk passages change region by walking through and are not F targets.
 func _interactables(world: Node) -> Array:
     var rows: Array = []
-    for child in world.get_children():
+    for child in LEVEL_HOST.children(world):
         if not is_instance_valid(child) or not child is Area2D or not child.is_visible_in_tree():
             continue
         var kind := String(child.get_meta("kind", ""))

@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Reachability expands only physically walked/jumped edges. Restoring a search
 ## node is allowed only at a previously reached landing; every successful route
 ## is then replayed continuously from the shrine before it can be reported.
@@ -11,7 +12,7 @@ static func disable_ability_pickups(world: Node) -> void:
     # point cannot grant an ability or silently open its possession gate.
     if not world.child_entered_tree.is_connected(_discard_ability_pickup):
         world.child_entered_tree.connect(_discard_ability_pickup)
-    for child in world.get_children(): _discard_ability_pickup(child)
+    for child in LEVEL_HOST.children(world): _discard_ability_pickup(child)
 
 static func _discard_ability_pickup(node: Node) -> void:
     if node is Area2D and String(node.get_meta("item_id", "")) in ABILITY_ITEMS:

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## T03: region UI rebuilds must not shape text outside the tree (~4 ms per
 ## control). Deterministic: record each text control's text at the moment it
 ## enters the tree; production helpers and dialogs must still be blank then.
@@ -91,11 +92,11 @@ func run() -> void:
     # Region-owned dialogs and the pin toolbar, rebuilt by the real setup calls.
     world.child_entered_tree.connect(observe)
     for dialog_name in ["MapPurchaseDialog", "DeathRecallDialog"]:
-        var old: Node = world.get_node_or_null(dialog_name)
+        var old: Node = LEVEL_HOST.find(world, dialog_name)
         if old != null: old.free()
     preload("res://scripts/cartography_runtime.gd").setup(world)
     preload("res://scripts/death_recall.gd").setup(world)
-    var shop: AcceptDialog = world.get_node_or_null("MapPurchaseDialog")
+    var shop: AcceptDialog = LEVEL_HOST.find(world, "MapPurchaseDialog")
     check(shop != null and entry_for(shop).get("text", "x") == "" and not shop.dialog_text.is_empty(), "map seller dialog joins the tree before its texts")
     var recall: AcceptDialog = null
     for item in entered:
@@ -119,12 +120,12 @@ func run() -> void:
     var watch_captions := func(node: Node):
         if node is Label and node.get_parent() != null and node.get_parent().has_method("configure"): captions.append({"node": node, "text": node.text})
     node_added.connect(watch_captions)
-    var before_children := world.get_child_count()
+    var before_children := LEVEL_HOST.children(world).size()
     world._spawn_seal_practice_targets()
     world._spawn_tool_practice_targets()
     node_added.disconnect(watch_captions)
     check(captions.size() >= 2 and captions.all(func(item): return item.text == "" and not item.node.text.is_empty()), "practice target captions join the tree before their text (%d)" % captions.size())
-    for index in range(world.get_child_count() - 1, before_children - 1, -1): world.get_child(index).free()
+    for index in range(LEVEL_HOST.children(world).size() - 1, before_children - 1, -1): LEVEL_HOST.children(world)[index].free()
     world.queue_free()
     await process_frame
     for suffix in ["", ".tmp", ".bak"]: DirAccess.remove_absolute(ProjectSettings.globalize_path("user://ui_text_order_validation.json" + suffix))

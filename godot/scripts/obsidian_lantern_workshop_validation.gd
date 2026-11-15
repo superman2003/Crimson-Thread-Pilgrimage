@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Exercises the CH05 phase workshop with the production World, Player and
 ## collision surfaces. Portal entry and the newly acquired lantern ability are
 ## positioned fixtures; the gate action, tier climb and rewards use real input.
@@ -44,7 +45,7 @@ func run(tree: SceneTree, check_callback: Callable) -> void:
 	scene._sync_player_abilities()
 	_check(not scene.player.double_jump_unlocked and not scene.player.wall_grip_unlocked, "Workshop route has no double jump or wall-climb assistance")
 	_check(not scene.player.debug_invulnerable, "Workshop keeps normal damage enabled")
-	var entrance: Node = scene.get_node_or_null("upgrade_lantern_phase_3_access_a")
+	var entrance: Node = LEVEL_HOST.find(scene, "upgrade_lantern_phase_3_access_a")
 	_check(entrance is Area2D, "Workshop has its authored paired entry portal")
 	if not entrance is Area2D:
 		await _dispose(tree)
@@ -97,7 +98,7 @@ func run(tree: SceneTree, check_callback: Callable) -> void:
 	_check(_numbers_match(exit_data.get("position", []), [7500, 530]) and _numbers_match(exit_data.get("target_spawn", []), [240, 1870]), "Workshop exit keeps its room-to-camp boundary contract")
 
 	_check(await _walk_to(Vector2(7500, 570), false), "Player can drop from the gallery and return to the foyer")
-	var exit_portal: Node = scene.get_node_or_null("upgrade_lantern_phase_3_access_b")
+	var exit_portal: Node = LEVEL_HOST.find(scene, "upgrade_lantern_phase_3_access_b")
 	_check(exit_portal is Area2D, "Workshop retains its supported return portal")
 	if exit_portal is Area2D:
 		await _pulse("interact", 1)
@@ -112,7 +113,7 @@ func run(tree: SceneTree, check_callback: Callable) -> void:
 	await _settle_transition(tree)
 	_check(scene.player.global_position.distance_to(Vector2(7500, 530)) < 85, "Interact input revisits the optional workshop from camp")
 	_check(not scene.locked_gate_bodies.has(ROOM + "_action_gate"), "Revisited workshop keeps the phase latch open")
-	_check(scene.get_node_or_null(evidence) == null and scene.get_node_or_null(resin) == null, "Collected gallery rewards do not respawn on revisit")
+	_check(LEVEL_HOST.find(scene, evidence) == null and LEVEL_HOST.find(scene, resin) == null, "Collected gallery rewards do not respawn on revisit")
 	_check(scene.inventory_counts.get(ROOM + "_record", 0) == record_before + 1 and scene.currency_count == currency_before + 70, "Revisit cannot duplicate the record or currency")
 	_check(await _walk_to(Vector2(7500, 570), false), "Revisited foyer retains its physical exit landing")
 	await _pulse("interact", 1)

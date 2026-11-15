@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Real-scene regression for death/overlay interactions and persistent boss rewards.
 const SAVE := "user://world_interaction_safety_validation.json"
 var checks := 0
@@ -108,7 +109,7 @@ func _run() -> void:
     _finish()
 
 func _find_kind(kind: String) -> Area2D:
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("kind", "")) == kind:
             return child
     return null

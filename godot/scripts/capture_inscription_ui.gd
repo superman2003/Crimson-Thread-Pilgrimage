@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Captures real UI with an isolated save; never reads the player's world save.
 var destination := ""
 var world: Node
@@ -57,7 +58,7 @@ func capture() -> void:
     world.player.hp=1
     await shot("02_low_health")
     world.player.hp=world.player.max_hp
-    for child in world.get_children():
+    for child in LEVEL_HOST.children(world):
         if child is Area2D and String(child.get_meta("kind",""))=="save_point":
             world.player.global_position=child.global_position
             break

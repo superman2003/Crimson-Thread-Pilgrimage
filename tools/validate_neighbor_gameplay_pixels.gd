@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Paused canonical arrival art parity, not natural gameplay acceptance.
 const COORD := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -12,12 +13,12 @@ func capture() -> Image:
     await RenderingServer.frame_post_draw
     return root.get_texture().get_image()
 func live(key: String, data: Dictionary) -> Area2D:
-    if not key.begins_with("enemy:"): return scene.get_node_or_null(NodePath(String(data.id)))
-    for child in scene.get_children():
+    if not key.begins_with("enemy:"): return LEVEL_HOST.find(scene, NodePath(String(data.id)))
+    for child in LEVEL_HOST.children(scene):
         if child.get_script() == scene.ENEMY_ACTOR_SCRIPT and child.spawn_id == String(data.id): return child
     return null
 func stage(records: Dictionary) -> int:
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is CanvasItem or child is CanvasLayer: child.visible = false
     scene.player.get_node("Camera2D").enabled = false
     root.canvas_transform = Transform2D.IDENTITY

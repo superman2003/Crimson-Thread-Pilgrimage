@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## W04: each planned hidden room shows a light-leak clue in the room that leads
 ## to it, the clue is noticed once in the live world and dims after the room is
 ## found, and the optional reward sits on a real floor inside the hidden room.
@@ -87,7 +88,7 @@ func run() -> void:
 		var hidden_rect := room_rect(hidden)
 		var gap := Vector2(maxf(0.0, maxf(hidden_rect.position.x - clue_at.x, clue_at.x - hidden_rect.end.x)), maxf(0.0, maxf(hidden_rect.position.y - clue_at.y, clue_at.y - hidden_rect.end.y)))
 		check(gap.length() <= 140.0, id + " clue is at the hidden room's edge, not elsewhere in the room")
-		var clue: Node2D = scene.get_node_or_null("HiddenClue_" + id)
+		var clue: Node2D = LEVEL_HOST.find(scene, "HiddenClue_" + id)
 		check(clue != null and not clue.found, id + " clue is drawn in the live region and not yet found")
 		# Noticed once when the player comes near. "Away" steps back from the
 		# hidden room so the probe never wanders into it.
@@ -144,7 +145,7 @@ func run() -> void:
 	await tick(10)
 	scene._travel_world(ROUTES.config_path(String(first.region_id)), scene._vec2(first.clue.position))
 	await tick(12)
-	var rebuilt: Node2D = scene.get_node_or_null("HiddenClue_" + String(first.id))
+	var rebuilt: Node2D = LEVEL_HOST.find(scene, "HiddenClue_" + String(first.id))
 	check(rebuilt != null and rebuilt.found, "a found clue stays dim after leaving and returning")
 	# A save from before the clues: the hidden room is visited but has no found flag.
 	scene.story_flags.erase("hidden_found_" + String(first.id))
@@ -163,7 +164,7 @@ func run() -> void:
 	if String(scene.config.get("id", "")) != String(first.region_id):
 		scene._travel_world(ROUTES.config_path(String(first.region_id)), scene._vec2(first.clue.position))
 		await tick(12)
-	var migrated: Node2D = scene.get_node_or_null("HiddenClue_" + String(first.id))
+	var migrated: Node2D = LEVEL_HOST.find(scene, "HiddenClue_" + String(first.id))
 	check(migrated != null and migrated.found and bool(scene.story_flags.get("hidden_found_" + String(first.id), false)), "a hidden room visited in an old save loads as found")
 	print("HIDDEN_ROUTES checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)

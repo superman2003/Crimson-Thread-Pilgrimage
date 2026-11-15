@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Deliberate saturation fixtures, not natural combat or comfort acceptance.
 const POLICY := preload("res://scripts/combat_visual_policy.gd")
 const EFFECT := preload("res://scripts/player_tool_effect.gd")
@@ -107,11 +108,11 @@ func run(tree: SceneTree) -> int:
     player._reset_traversal_state()
     check(ghosts.all(func(item): return not is_instance_valid(item) or item.is_queued_for_deletion()), "traversal reset retires player-owned sibling ghosts")
     check(count_units(tree, &"motion") == 1, "reset leaves the other player's live accent intact")
-    var initial_world_children := world.get_child_count()
+    var initial_world_children := LEVEL_HOST.children(world).size()
     for attempt in 30:
         world._spawn_pickup_effect(Vector2(20,20))
         world._spawn_route_open_effect(Vector2(40,20))
-    check(world.get_child_count()-initial_world_children <= 8 and count_units(tree,&"environment") == 8, "real pickup and route effects share eight environment units")
+    check(LEVEL_HOST.children(world).size()-initial_world_children <= 8 and count_units(tree,&"environment") == 8, "real pickup and route effects share eight environment units")
     var shrine := Area2D.new()
     var marker := Sprite2D.new();marker.name="SavePointSprite";shrine.add_child(marker)
     var ring := Line2D.new();ring.name="SavePointHalo";shrine.add_child(ring)

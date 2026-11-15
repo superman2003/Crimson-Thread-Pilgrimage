@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
 const ART := preload("res://scripts/hand_drawn_assets.gd")
@@ -177,7 +178,7 @@ func _validate_chapter(config_path: String) -> void:
     _assert(int(state.get("av_runtime_event_total", 0)) >= 2, config_id + " AV runtime manifest loaded")
 
     var first_npc_id := String((npcs[0] as Dictionary).get("id", ""))
-    var first_npc: Area2D = scene.get_node_or_null(first_npc_id)
+    var first_npc: Area2D = LEVEL_HOST.find(scene, first_npc_id)
     _assert(first_npc != null, config_id + " first NPC exists")
     _assert(first_npc.get_meta("dialogue", []).size() >= 2, config_id + " first NPC has dialogue")
     scene.player.global_position = first_npc.global_position
@@ -202,7 +203,7 @@ func _validate_chapter(config_path: String) -> void:
         _assert(float(enemy_state.get("max_attack_range", 0.0)) >= 60.0, config_id + " enemy can actively threaten range: " + String(enemy_state.get("id", "")))
 
     var first_save_point := save_points[0] as Dictionary
-    var save_node: Area2D = scene.get_node_or_null(String(first_save_point.get("id", "")))
+    var save_node: Area2D = LEVEL_HOST.find(scene, String(first_save_point.get("id", "")))
     _assert(save_node != null, config_id + " first save point exists")
     _assert(save_node.has_node("SavePointSprite"), config_id + " save point uses open Kenney sprite")
     _assert(save_node.has_node("SavePointHalo"), config_id + " save point has animated halo")
@@ -220,7 +221,7 @@ func _validate_chapter(config_path: String) -> void:
 
     scene._debug_clear_combat_route()
     var lever := _interactive_by_kind(interactives, "lever")
-    var lever_node: Area2D = scene.get_node_or_null(String(lever.get("id", "")))
+    var lever_node: Area2D = LEVEL_HOST.find(scene, String(lever.get("id", "")))
     _assert(lever_node != null, config_id + " shortcut lever exists")
     scene.player.global_position = lever_node.global_position
     scene.player.global_position = lever_node.global_position
@@ -230,7 +231,7 @@ func _validate_chapter(config_path: String) -> void:
     _assert(state.get("boss_unlocked") == true, config_id + " combat clear unlocks boss")
 
     var boss_gate := _interactive_by_kind(interactives, "boss_gate")
-    var boss_gate_node: Area2D = scene.get_node_or_null(String(boss_gate.get("id", "")))
+    var boss_gate_node: Area2D = LEVEL_HOST.find(scene, String(boss_gate.get("id", "")))
     _assert(boss_gate_node != null, config_id + " boss gate exists")
     scene.player.global_position = boss_gate_node.global_position
     scene.player.global_position = boss_gate_node.global_position
@@ -256,11 +257,11 @@ func _validate_chapter(config_path: String) -> void:
     _assert(state.get("demo_complete") == true, config_id + " completes")
     _assert(state.get("boss_arena_locked") == false, config_id + " boss room unlocks after boss death")
     _assert(bool(state.get("post_boss_route_open", false)), config_id + " post-boss route opens")
-    _assert(scene.get_node_or_null("boss_back_wall") == null, config_id + " post-boss blocker is removed")
+    _assert(LEVEL_HOST.find(scene, "boss_back_wall") == null, config_id + " post-boss blocker is removed")
     _assert(reward_item.is_empty() or scene.inventory_counts.has(reward_item), config_id + " boss reward granted")
     _assert(String(scene.win_label.text).contains(String(boss.get("name", ""))), config_id + " completion text uses boss name")
     var exit_data := _interactive_exit(interactives)
-    var exit_node: Area2D = scene.get_node_or_null(String(exit_data.get("id", "")))
+    var exit_node: Area2D = LEVEL_HOST.find(scene, String(exit_data.get("id", "")))
     _assert(exit_node != null, config_id + " post-boss chapter exit exists")
     if String(exit_data.get("kind", "")) == "chapter_exit":
         var next_runtime_id := String(exit_data.get("next_runtime_config_id", ""))

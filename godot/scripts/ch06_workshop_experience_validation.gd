@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Production World camera, action seal, reward and return smoke test for CH06.
 ## Positioning at authored portals is a fixture; door and ability inputs use the
 ## real World, Player, physics bodies and save state.
@@ -88,7 +89,7 @@ func run() -> void:
 		if not String(room.id).begins_with("upgrade_"): main_rooms.append(room)
 	check(main_rooms.size() == 15 and main_rooms.all(func(room): return room.get("camera_bounds", []).size() == 4), "All 15 CH06 main rooms provide camera bounds")
 	check(world.player.room_camera.current.id == target.source_room_id, "Production camera starts in the authored source room")
-	world._activate_world_portal(world.get_node(String(target.entry_portal_id)))
+	world._activate_world_portal(LEVEL_HOST.find(world, String(target.entry_portal_id)))
 	var landing := Vector2(entry.target_spawn[0], entry.target_spawn[1])
 	check(await settle_region(region, landing), "World loader completes the paired portal transition")
 	check(world.player.position.distance_to(landing) < 90, "Paired portal enters the live workshop at its authored landing")
@@ -108,7 +109,7 @@ func run() -> void:
 	var currency_before: int = world.currency_count
 	var rewards_exist := true
 	for reward_id in target.reward_ids:
-		rewards_exist = rewards_exist and world.get_node_or_null(String(reward_id)) != null
+		rewards_exist = rewards_exist and LEVEL_HOST.find(world, String(reward_id)) != null
 	check(rewards_exist, "Workshop evidence and currency rewards remain behind the closed seal")
 	var authored_room: Dictionary = {}
 	for room in world.config.map_rooms:
@@ -122,7 +123,7 @@ func run() -> void:
 	check(await walk_x(landing.x), "Opened seal allows return to the workshop exit")
 	var exit_id := String(entry.target_portal_id)
 	world._close_overlays()
-	world._activate_world_portal(world.get_node(exit_id))
+	world._activate_world_portal(LEVEL_HOST.find(world, exit_id))
 	check(await settle_region(region, source), "World loader completes the live return transition")
 	check(world.config.id == region and world.player.position.distance_to(source) < 90, "Live return portal lands back at the original CH06 platform")
 	check(world.player.room_camera.current.id == target.source_room_id, "Returning restores the source-room camera")

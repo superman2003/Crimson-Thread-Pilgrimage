@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const MARKET := preload("res://scripts/material_exchange.gd")
 var checks:=0
 var failures: Array[String]=[]
@@ -13,7 +14,7 @@ func run() -> void:
     var main: Node=load("res://scenes/World.tscn").instantiate();main.world_resume=false;main.world_save_path="user://material_exchange_world.json";root.add_child(main)
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(main)
     main.set_process(false);main.player.set_physics_process(false)
-    for child in main.get_children():
+    for child in LEVEL_HOST.children(main):
         if child is Area2D and child.get_meta("kind","")=="save_point":main.player.global_position=child.global_position;break
     await physics_frame;await physics_frame;await process_frame
     main._toggle_build();await process_frame

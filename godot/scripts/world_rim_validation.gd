@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const GEOMETRY := preload("res://scripts/cave_rim_geometry.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
@@ -194,7 +195,7 @@ func run() -> void:
         var platform_count := 0
         for data in scene.config.platforms:
             if data.has("terrain_id"): continue
-            var platform: Node = scene.get_node_or_null(String(data.id))
+            var platform: Node = LEVEL_HOST.find(scene, String(data.id))
             if platform==null: continue
             if platform.has_node("AuthoredFloor"):
                 platform_count += 1

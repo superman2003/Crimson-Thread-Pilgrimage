@@ -16,7 +16,7 @@ func _run() -> void:
         scene._add_inventory_item(ability, 1, false)
         scene._refresh_ability_gates()
         _assert(scene.locked_gate_bodies.has(String(entry.gate_id)), id + ": possession alone leaves the real seal closed")
-        var portal: Node = scene.get_node_or_null(String(entry.entry_portal_id))
+        var portal: Node = LEVEL_HOST.find(scene, String(entry.entry_portal_id))
         _assert(portal != null, id + ": opening-side portal is resident at its real approach")
         if portal == null: continue
         scene._activate_world_portal(portal)
@@ -37,7 +37,7 @@ func _run() -> void:
                         " visible=", ring.is_visible_in_tree(), " clear=", preload("res://scripts/grapple_path.gd").clear(scene.player, ring))
             continue
         _assert(bool(scene.story_flags.get("world_shortcut_" + id, false)), id + ": actual input releases its paired route latch")
-        scene._activate_world_portal(scene.get_node(String(entry.entry_portal_id)))
+        scene._activate_world_portal(LEVEL_HOST.find(scene, String(entry.entry_portal_id)))
         await _tick(8)
         _assert(scene.player.position.distance_to(arrival) < 85, id + ": production loader arrives on the return-side floor")
         _assert(scene._save_world(), id + ": real World checkpoint completes")
@@ -55,7 +55,7 @@ func _run() -> void:
         current_scene = scene
         await _tick(5)
         _assert(String(scene.config.id) == region, id + ": fresh World resumes the saved region")
-        var back: Node = scene.get_node_or_null(String(entry.return_portal_id))
+        var back: Node = LEVEL_HOST.find(scene, String(entry.return_portal_id))
         _assert(back != null and ROUTES.access(reverse, scene.inventory_counts, scene.story_flags).open, id + ": reverse route is resident and open after disk restart")
         if back != null:
             scene._activate_world_portal(back)

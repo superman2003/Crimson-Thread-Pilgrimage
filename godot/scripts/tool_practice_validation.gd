@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## E02: every primary tool has a practice puppet its effect visibly acts on, free
 ## practice use that carries nothing away, and one real encounter it suits.
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -71,7 +72,7 @@ func visit(tool_id: String) -> Area2D:
 	await tick(12)
 	scene.player.debug_invulnerable = true
 	check(String(scene.config.get("id", "")) == region, tool_id + " fixture reaches " + region)
-	var puppet: Area2D = scene.get_node_or_null(String(entry.training_id))
+	var puppet: Area2D = LEVEL_HOST.find(scene, String(entry.training_id))
 	check(puppet != null and puppet.has_meta("tool_training_target"), tool_id + " practice puppet exists")
 	if puppet == null:
 		return null

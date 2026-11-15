@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Actual GL captures at fixture positions; no claim of natural progression.
 var scene: Node
 var probes: Array = []
@@ -21,7 +22,7 @@ func _run() -> void:
     current_scene = scene
     await process_frame
     scene.process_mode = Node.PROCESS_MODE_DISABLED
-    scene.player.global_position = scene.get_node("moss_rain_pipe").global_position
+    scene.player.global_position = LEVEL_HOST.find(scene, "moss_rain_pipe").global_position
     if not scene.world_passage.begin("moss_rain_pipe"):
         push_error("Pipe capture cannot enter")
         quit(1)

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Explicit landing-cache fixtures, not continuous crossing or natural play.
 const GEOMETRY := preload("res://scripts/world_collision_geometry.gd")
 const PREFETCH := preload("res://scripts/world_prefetch.gd")
@@ -120,12 +121,12 @@ func _region(id: String, landing: Vector2 = Vector2.INF) -> void:
     var pref := _seed(id, entry)
     var flags: Dictionary = scene.story_flags.duplicate(true)
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
-    var tree_count := scene.get_child_count()
+    var tree_count := LEVEL_HOST.children(scene).size()
     await _warm(pref)
     var summary: Dictionary = pref.snapshot()
     _check(summary.rock_chunks > 0 and summary.terrain_polygons > 0, id + " landing has both rock and terrain caches")
     _check(summary.rock_chunks <= 6 and summary.terrain_polygons <= 6 and summary.entity_bodies <= 24, id + " category and regional limits")
-    _check(scene.get_child_count() == tree_count and scene.story_flags == flags and scene.inventory_counts == inventory, id + " no neighbor gameplay or progression changes")
+    _check(LEVEL_HOST.children(scene).size() == tree_count and scene.story_flags == flags and scene.inventory_counts == inventory, id + " no neighbor gameplay or progression changes")
     var records: Dictionary = pref.entities[id].collisions.duplicate()
     for key in records:
         var record: Dictionary = records[key]

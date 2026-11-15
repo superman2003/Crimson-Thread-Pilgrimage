@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Production World and actors; positioned fixtures, not a natural clear.
 ## Covers the crown's encounter pass: no enemy engages from an NPC or lamp, the
 ## relocated enemies still engage on their own platforms, and the boss-door
@@ -180,7 +181,7 @@ func warm_at(world: Node, point: Vector2) -> void:
 func world_enemies(world: Node) -> Array:
     var result := []
     for candidate in get_nodes_in_group("enemy"):
-        if candidate.get_parent() == world and not bool(candidate.get("is_boss")): result.append(candidate)
+        if LEVEL_HOST.owns(world, candidate) and not bool(candidate.get("is_boss")): result.append(candidate)
     return result
 
 func find_enemy(world: Node, eid: String) -> Area2D:

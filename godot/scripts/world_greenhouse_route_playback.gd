@@ -45,7 +45,7 @@ func _run() -> void:
     var wallet: int=scene.currency_count
     _check(not JOURNAL.owned(scene.story_flags,String(scene.config.id)),"greenhouse map has not been granted")
     await _world_interact()
-    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, "MapPurchaseDialog")
     _check(dialog.visible and dialog.get_ok_button().has_focus(),"normal F opens the greenhouse map shop")
     if not dialog.visible:await _finish();return
     await _key(KEY_ENTER,dialog)

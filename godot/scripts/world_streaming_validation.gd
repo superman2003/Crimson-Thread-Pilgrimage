@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Graphics/configuration fixtures. Collisions stay fully resident by contract.
 const TERRAIN := preload("res://scripts/chapter_terrain.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -125,12 +126,12 @@ func _prefetch_checks() -> void:
     var player_id: int = scene.player.get_instance_id()
     var prefetch_id: int = scene.world_prefetch.get_instance_id()
     var source := String(scene.config.id)
-    var rain: Node2D = scene.get_node("moss_rain_pipe")
-    var archive: Node2D = scene.get_node("moss_archive_return")
+    var rain: Node2D = LEVEL_HOST.find(scene, "moss_rain_pipe")
+    var archive: Node2D = LEVEL_HOST.find(scene, "moss_archive_return")
     scene.player.global_position = (rain.global_position + archive.global_position) * 0.5
     var journal: Dictionary = scene.story_flags.duplicate(true)
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
-    var nodes := scene.get_child_count()
+    var nodes := LEVEL_HOST.children(scene).size()
     var max_reads := 0
     var deadline := Time.get_ticks_msec() + PREFETCH_READY_MSEC
     while Time.get_ticks_msec() < deadline:
@@ -144,7 +145,7 @@ func _prefetch_checks() -> void:
     var status: Dictionary = scene.world_prefetch.snapshot()
     _check(status.regions == 2 and status.textures == 10 and status.failures == 0, "two neighboring themes warmed successfully")
     _check(status.jobs <= 2 and status.max_jobs <= 2 and max_reads <= 1, "bounded worker jobs and config reads")
-    _check(scene.get_child_count() == nodes and String(scene.config.id) == source, "prefetch does not attach neighbor nodes to active tree")
+    _check(LEVEL_HOST.children(scene).size() == nodes and String(scene.config.id) == source, "prefetch does not attach neighbor nodes to active tree")
     _check(scene.story_flags == journal and scene.inventory_counts == inventory, "prefetch cannot grant maps, journals or abilities")
     var original_portals: Array = scene.config.interactives.duplicate(true)
     scene.config.interactives.append({"kind": "world_portal", "target_config_id": "unknown_prefetch_region", "position": [scene.player.position.x, scene.player.position.y]})
