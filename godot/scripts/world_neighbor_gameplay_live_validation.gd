@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## The initial source checkpoint is a fixture. Both pipe crossings, approach,
 ## combat and shrine/NPC interactions use live input and normal damage.
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -114,8 +115,8 @@ func walk(target: Vector2, label: String, limit: int = 700) -> bool:
 
 func actor(kind: String, data: Dictionary) -> Area2D:
     if kind != "enemy":
-        return scene.get_node_or_null(NodePath(String(data.id)))
-    for child in scene.get_children():
+        return LEVEL_HOST.find(scene, NodePath(String(data.id)))
+    for child in LEVEL_HOST.children(scene):
         if child.get_script() == scene.ENEMY_ACTOR_SCRIPT and child.spawn_id == String(data.id):
             return child
     return null
@@ -224,8 +225,8 @@ func fight(records: Dictionary) -> void:
     combat = {"actor_id":instance_id,"hp_before":hp_before,"hp_after_hit":hp_after_hit,"killed":killed,"reward_delta":scene.currency_count-wallet,"direct_damage_calls":false}
 
 func interactions(records: Dictionary) -> void:
-    var shrine: Area2D = scene.get_node_or_null("save_first_bell")
-    var npc: Area2D = scene.get_node_or_null("npc_threadsmith_apprentice")
+    var shrine: Area2D = LEVEL_HOST.find(scene, "save_first_bell")
+    var npc: Area2D = LEVEL_HOST.find(scene, "npc_threadsmith_apprentice")
     check(records.has("save_point:save_first_bell") and records.has("npc:npc_threadsmith_apprentice"),"return naturally prebuilds authored shrine and NPC")
     if shrine == null or npc == null: return
     var prior_hp: int = scene.player.hp

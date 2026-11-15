@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const STATE=preload("res://scripts/world_state.gd")
 const RECALL=preload("res://scripts/death_recall.gd")
 const AUDIO=preload("res://scripts/audio_director.gd")
@@ -61,14 +62,14 @@ func run() -> void:
     var cache: Dictionary={"region_id":String(scene.config.id),"position":[scene.player.position.x,scene.player.position.y],"currency":99}
     scene.world_state.capture_global({"death_cache":cache});scene._spawn_death_cache();scene._save_world()
     var shrine: Area2D
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and child.get_meta("kind","")=="save_point":shrine=child;break
     check(is_instance_valid(shrine),"real World supplies an actual shrine")
     scene.player.position=shrine.global_position+Vector2(2000,0)
     check(not RECALL.offer(scene),"recall offer cannot be opened away from a shrine")
     scene.player.position=shrine.global_position
     check(RECALL.offer(scene),"three guardians and actual shrine admit explicit recall")
-    var dialog: ConfirmationDialog=scene.get_node(RECALL.DIALOG)
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, RECALL.DIALOG)
     check(dialog.get_cancel_button().has_focus() and scene.ui_shell.has_modal_window(),"walking back is default and native modal blocks polled shortcuts")
     state.writes=0;scene.currency_count+=1;before=snapshot(scene)
     dialog.confirmed.emit()

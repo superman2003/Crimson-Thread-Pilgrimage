@@ -83,7 +83,7 @@ func _run() -> void:
     for frame in 140:
         await _tick()
         if frame%5==0:
-            for child in scene.get_children():
+            for child in LEVEL_HOST.children(scene):
                 if child.get_script()==preload("res://scripts/player_tool_effect.gd"):
                     observed.append({"frame":frame,"position":[child.position.x,child.position.y],"elapsed":child.elapsed,"landed":child.landed,"warning":child.warning_timer,"target":str(target.position) if is_instance_valid(target) else "defeated"})
     print("T04_OVERFLOW_POT ",JSON.stringify({"ammo_before":ammo,"ammo_after":scene.build_system.state.tool_counts.shard,"hp_before":hp_before,"hp_after":scene.player.hp,"energy_before":energy_before,"energy_after":scene.player.energy,"enemy_hp_before":target_hp,"enemy_hp_after":target.hp if is_instance_valid(target) else 0,"samples":observed}))

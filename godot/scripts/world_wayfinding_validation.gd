@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const MARKER := preload("res://scripts/world_wayfinding.gd")
 var checks := 0
 var failures := 0
@@ -21,7 +22,7 @@ func run() -> void:
     for enemy in get_nodes_in_group("enemy"):
         enemy.set_physics_process(false)
     var rests: Array = []
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("kind", "")) == "save_point":
             rests.append(child)
     check(not rests.is_empty(), "authored rest points exist")
@@ -48,7 +49,7 @@ func run() -> void:
         scene.active_overlay = ""
     var saved := preload("res://scripts/world_state.gd").new()
     check(saved.read(scene.world_save_path) and bool(saved.data.story_flags.get("tutorial_interaction_seen_save_point", false)), "seen tutorial persists in save")
-    var portal: Node = scene.get_node("moss_rain_pipe")
+    var portal: Node = LEVEL_HOST.find(scene, "moss_rain_pipe")
     var sign: Node = portal.get_node("Wayfinding")
     check(sign.physical_sign and sign.symbol == "forge" and sign.direction == Vector2.RIGHT, "pipe mouth points to foundry using emblem and arrow")
     scene.player.global_position = portal.global_position
@@ -68,7 +69,7 @@ func run() -> void:
     InputMap.action_erase_events("interact")
     for binding in bindings:
         InputMap.action_add_event("interact", binding)
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and child.has_meta("map_seller_region"):
             scene.player.global_position = child.global_position
             var marker: Node = child.get_node("Wayfinding")

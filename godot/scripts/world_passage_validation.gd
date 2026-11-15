@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Real Player input along the full connector, with fixture endpoint placement.
 ## The tube has no encounters; this is not six-region combat acceptance.
 const SAVE := "user://world_passage_validation.json"
@@ -26,7 +27,7 @@ func _run() -> void:
     var player_id: int = scene.player.get_instance_id()
     var build_id: int = scene.build_system.get_instance_id()
     var origin_id: String = scene.config.id
-    var portal: Node = scene.get_node("moss_rain_pipe")
+    var portal: Node = LEVEL_HOST.find(scene, "moss_rain_pipe")
     if not await _jump_past_mouth(portal, passage):
         scene.free()
         await _frames(3)
@@ -72,7 +73,7 @@ func _run() -> void:
     await _walk(-1, false)
     _check(String(scene.config.id) == origin_id and not passage.active, "walking backwards exits into source")
     for portal_id in ["moss_rain_pipe", "rain_moss_pipe"]:
-        portal = scene.get_node_or_null(portal_id)
+        portal = LEVEL_HOST.find(scene, portal_id)
         if portal == null:
             _check(false, "expected portal exists " + portal_id)
             quit(1)
@@ -113,7 +114,7 @@ func _run() -> void:
         _check(saved.read(SAVE) and saved.data.current_region == target, "completed target is restartable")
         _check(scene.player_world_position().distance_to(start) > 8500, "world distance is traversed rather than paired teleport")
     # Gate fixtures exercise the live source descriptor, not just the registry.
-    portal = scene.get_node("moss_rain_pipe")
+    portal = LEVEL_HOST.find(scene, "moss_rain_pipe")
     scene.player.global_position = portal.global_position
     for descriptor in scene.config.interactives:
         if String(descriptor.get("id", "")) != "moss_rain_pipe":

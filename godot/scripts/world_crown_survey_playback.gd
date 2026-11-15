@@ -25,12 +25,12 @@ func _run() -> void:
     _check(scene.player.hp==6,"normal F rest fills the earned sixth heart")
     if not await _leap(Vector2(2220,3040),999,"cross the authored throne clapper in air"):await _finish();return
     if not await _walk_without_jump(Vector2(2220,3040)):await _finish();return
-    var seller: Area2D=scene.get_node("npc_six_mark_keeper")
+    var seller: Area2D=LEVEL_HOST.find(scene, "npc_six_mark_keeper")
     var price: int=preload("res://scripts/cartography_runtime.gd").seller_price(seller.get_meta("map_seller_data",{}))
     var wallet: int=scene.currency_count
     print("CROWN_ACTUAL_MAP_QUOTE ",JSON.stringify({"wallet":wallet,"price":price,"position":str(scene.player.position)}))
     await _world_interact()
-    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, "MapPurchaseDialog")
     _check(dialog.visible and not dialog.get_ok_button().disabled,"actual F opens affordable sixth-map shop")
     if not dialog.visible:await _finish();return
     await _key(KEY_ENTER,dialog);await _tick(4)

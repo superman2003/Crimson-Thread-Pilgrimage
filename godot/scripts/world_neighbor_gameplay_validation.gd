@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Explicit landing/state fixtures, not seamless crossing or natural combat.
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
@@ -128,8 +129,8 @@ func warm(pref: RefCounted, label: String = "cache_churn") -> void:
         "prefetch": prefetch_progress(pref)}))
     check(false, "warming finishes before fixture deadline")
 func live(kind: String, data: Dictionary) -> Area2D:
-    if kind != "enemy": return scene.get_node_or_null(NodePath(String(data.id)))
-    for child in scene.get_children():
+    if kind != "enemy": return LEVEL_HOST.find(scene, NodePath(String(data.id)))
+    for child in LEVEL_HOST.children(scene):
         if child.get_script() == scene.ENEMY_ACTOR_SCRIPT and child.spawn_id == String(data.id): return child
     return null
 func signature(actor: Area2D) -> Array:
@@ -235,11 +236,11 @@ func landing(id: String, entry: Vector2) -> void:
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
     var wallet: int = scene.currency_count
     var enemy_count := get_nodes_in_group("enemy").size()
-    var node_count: int = scene.get_child_count()
+    var node_count: int = LEVEL_HOST.children(scene).size()
     stage(label + ":warm")
     await warm(pref, label)
     stage(label + ":warm_checks")
-    check(scene.story_flags == state and scene.inventory_counts == inventory and scene.currency_count == wallet and get_nodes_in_group("enemy").size() == enemy_count and scene.get_child_count() == node_count, "prebuild leaves active progression/inventory/groups/tree unchanged")
+    check(scene.story_flags == state and scene.inventory_counts == inventory and scene.currency_count == wallet and get_nodes_in_group("enemy").size() == enemy_count and LEVEL_HOST.children(scene).size() == node_count, "prebuild leaves active progression/inventory/groups/tree unchanged")
     var records: Dictionary = pref.gameplay.regions[id].actors.duplicate()
     check(records.size() <= GAMEPLAY.MAX_PER_REGION, "per-region actor limit")
     var before_hits: int = pref.gameplay.hits
@@ -278,7 +279,7 @@ func landing(id: String, entry: Vector2) -> void:
     for key in records:
         var record: Dictionary = records[key]
         var actor := live(String(key).get_slice(":",0),record.data)
-        check(actor != null and actor == record.actor and actor.get_parent() == scene, "arrival adopts exact gameplay instance")
+        check(actor != null and actor == record.actor and LEVEL_HOST.owns(scene, actor), "arrival adopts exact gameplay instance")
         if actor == null: continue
         warm_signatures[key] = signature(actor)
         if String(key).begins_with("enemy:"):
@@ -360,7 +361,7 @@ func two_neighbors() -> void:
     var pref: RefCounted = scene.world_prefetch
     pref.selection_elapsed = 1
     pref.generation = -1
-    scene.player.position = (scene.get_node("moss_rain_pipe").position + scene.get_node("moss_archive_return").position) * 0.5
+    scene.player.position = (LEVEL_HOST.find(scene, "moss_rain_pipe").position + LEVEL_HOST.find(scene, "moss_archive_return").position) * 0.5
     stage("two_neighbors:warm")
     await warm(pref, "two_neighbors")
     check(pref.desired.size() == 2 and pref.gameplay.regions.size() == 2, "two natural neighboring entrance caches prepared")
@@ -426,12 +427,12 @@ func cache_churn() -> void:
     pref.shutdown()
     pref.generation = scene.world_loader.generation
     pref.selection_elapsed = -1000
-    var baseline_nodes := scene.get_child_count()
+    var baseline_nodes := LEVEL_HOST.children(scene).size()
     var baseline_enemies := get_nodes_in_group("enemy").size()
     var baseline_state: Dictionary = scene.story_flags.duplicate(true)
     var source_position: Vector2 = scene.player.position
     var source_portals: Array = scene.config.interactives.duplicate(true)
-    var focus: Vector2 = (scene.get_node("moss_rain_pipe").position + scene.get_node("moss_archive_return").position) * 0.5
+    var focus: Vector2 = (LEVEL_HOST.find(scene, "moss_rain_pipe").position + LEVEL_HOST.find(scene, "moss_archive_return").position) * 0.5
     var old_actors: Array = []
     var before_builds: int = pref.gameplay.builds
     var before_releases: int = pref.gameplay.releases
@@ -483,7 +484,7 @@ func cache_churn() -> void:
     var sfx_settle_frames := 0
     var previous_sfx_process_modes: Dictionary = {}
     while sfx_settle_frames < 180:
-        var active_sfx := scene.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
+        var active_sfx := LEVEL_HOST.children(scene).filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
         var pending_players: Array = []
         for pending_value in scene.pending_sfx_players.values():
             var pending: Dictionary = pending_value
@@ -499,7 +500,7 @@ func cache_churn() -> void:
             break
         await frames(1)
         sfx_settle_frames += 1
-    var remaining_sfx := scene.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
+    var remaining_sfx := LEVEL_HOST.children(scene).filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
     var sfx_restore_candidates: Array = remaining_sfx.duplicate()
     for pending_value in scene.pending_sfx_players.values():
         var pending: Dictionary = pending_value
@@ -513,7 +514,7 @@ func cache_churn() -> void:
     check(remaining_sfx.is_empty() and scene.pending_sfx_players.is_empty(), "one-shot SFX retire after cache churn")
     check(old_actors.all(func(x): return not is_instance_valid(x)) and pref.gameplay.owned() == 0 and pref.snapshot().owned_bodies == 0, "churn teardown releases all detached objects")
     check(pref.gameplay.builds - before_builds == pref.gameplay.releases - before_releases, "every churn-built gameplay actor retired exactly once")
-    check(scene.get_child_count() == baseline_nodes and get_nodes_in_group("enemy").size() == baseline_enemies and scene.story_flags == baseline_state, "80 cache cycles leave source tree groups and progress untouched")
+    check(LEVEL_HOST.children(scene).size() == baseline_nodes and get_nodes_in_group("enemy").size() == baseline_enemies and scene.story_flags == baseline_state, "80 cache cycles leave source tree groups and progress untouched")
     check(pref.config_reads - before_config_reads == 32 and pref.config_entry_rechecks - before_entry_rechecks == 128, "80 cycles reload only after 16 leave-range batches and recheck other entrances")
     runtime_probe.capture("settled", scene)
     check(runtime_probe.samples.size() == 82, "trend records baseline, all 80 cycles and settled retirement")

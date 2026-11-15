@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Actual World render of the E04 craft page at the rain smith: a capacity
 ## upgrade previewed with its pattern, the same upgrade once made, and the
 ## travel clasp waiting on its pattern.
@@ -63,7 +64,7 @@ func capture() -> void:
 	await frames(24)
 	world.player.debug_invulnerable = true
 	var smith: Node = null
-	for child in world.get_children():
+	for child in LEVEL_HOST.children(world):
 		if child is Area2D and String(child.get_meta("npc_id", "")) == "npc_rain_smith_liu":
 			smith = child
 	for offset in [Vector2(-110, 0), Vector2(110, 0), Vector2(-80, -40), Vector2(80, -40), Vector2(-60, 0), Vector2(60, 0)]:

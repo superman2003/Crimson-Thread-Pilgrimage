@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Redesigned UI rendered in the real World with isolated showcase progress.
 ## Graphical engine: --script res://scripts/capture_seal_world.gd -- --capture-output=DIR
 var destination := ""
@@ -94,7 +95,7 @@ func capture() -> void:
     await shot("inventory_ultrawide")
     root.size=Vector2i(1280,720)
     world._close_overlays()
-    var target := world.get_node("seal_training_cleave")
+    var target := LEVEL_HOST.find(world, "seal_training_cleave")
     world.player.global_position = Vector2(target.global_position.x - 80, target.global_position.y + 23)
     var camera: Camera2D = world.player.get_node("Camera2D")
     camera.reset_smoothing()

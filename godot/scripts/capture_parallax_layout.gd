@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Actual GL frames for the V03 parallax layout: per region, the camera at the
 ## far right of its limit rect (where the old backdrop showed its mirror join),
 ## once as the normal frame and once with only the parallax layers drawn.
@@ -62,7 +63,7 @@ func capture() -> void:
 			quit(1)
 			return
 		var hidden: Array = []
-		for child in level.get_children():
+		for child in LEVEL_HOST.children(level):
 			if child is CanvasItem and child != level.flat_map_art and child.visible:
 				child.visible = false
 				hidden.append(child)

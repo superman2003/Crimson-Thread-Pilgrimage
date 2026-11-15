@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Real-GL review captures: the map seller offering the quill and compass, and
 ## the region map before and after equipping the compass. Fixture: sets the
 ## wallet and map ownership directly; not a natural run.
@@ -28,7 +29,7 @@ func run() -> void:
     world.set_process(false)
     world.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)
-    var stall: Area2D = world.get_node("npc_gear_cartographer")
+    var stall: Area2D = LEVEL_HOST.find(world, "npc_gear_cartographer")
     world.player.global_position = stall.global_position
     world.currency_count = 60
     RUNTIME.open_shop(world, stall)

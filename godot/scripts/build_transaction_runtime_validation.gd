@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Exercises real World actions and a failed disk commit without mutating user saves.
 const WORLD_SCENE := preload("res://scenes/World.tscn")
 const SAVE_PATH := "user://build_transaction_runtime_validation.json"
@@ -192,7 +193,7 @@ func _run() -> void:
 	_finish()
 
 func _find_area(kind: String, id: String) -> Area2D:
-	for child in scene.get_children():
+	for child in LEVEL_HOST.children(scene):
 		if not child is Area2D or String(child.get_meta("kind", "")) != kind:
 			continue
 		if id.is_empty() or String(child.get_meta("npc_id", child.name)) == id:
@@ -209,7 +210,7 @@ func _total(values: Variant) -> int:
 
 func _tool_effect_count() -> int:
 	var total := 0
-	for child in scene.get_children():
+	for child in LEVEL_HOST.children(scene):
 		if child is Node2D and child.get_script() != null and child.get_script().resource_path == "res://scripts/player_tool_effect.gd":
 			total += 1
 	return total

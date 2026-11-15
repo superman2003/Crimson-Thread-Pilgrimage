@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## W04: the bell-marrow cell (moss bell court) is closed on every side until
 ## the thorn downstrike is owned. Production World host and real Player input:
 ## without the ability the shaft-side opening is a wall and nothing leaves the
@@ -105,7 +106,7 @@ func _run() -> void:
 
     # The workshop portal inside the cell is within reach of the shaft step as
     # the crow flies; the wall must keep it out of reach, even mid-jump.
-    var portal := scene.get_node_or_null(PORTAL) as Area2D
+    var portal := LEVEL_HOST.find(scene, PORTAL) as Area2D
     _check(portal != null and String(portal.get_meta("kind", "")) == "world_portal", "the cell holds the bell-guard workshop portal")
     await _place(SHAFT_LOW_STEP)
     var grabbed := false
@@ -134,7 +135,7 @@ func _run() -> void:
     # The workshop can also be reached from its neighbours' open edges; its
     # return portal leads into the closed cell and must stay shut as well.
     await _place(WORKSHOP_ENTRY)
-    var back := scene.get_node_or_null(RETURN_PORTAL) as Area2D
+    var back := LEVEL_HOST.find(scene, RETURN_PORTAL) as Area2D
     _check(back != null and player.global_position.distance_to(back.global_position) <= scene.INTERACTION_REACH, "fixture stands at the workshop's return portal")
     _check(scene._room_sealed_by_gates("bell_marrow_cell") and not scene._room_sealed_by_gates("belfry_mid") and not scene._room_sealed_by_gates("salt_corridor"), "only the cell counts as sealed by its gates")
     _check(scene._nearest_interactable(scene.INTERACTION_REACH) != back, "the return portal into the closed cell cannot be used")

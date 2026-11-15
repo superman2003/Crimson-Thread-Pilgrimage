@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Positioned reward instances exercise the real World pickup/save path. This
 ## fixture does not claim those rewards were reached by natural exploration.
 const RETIREMENT := preload("res://scripts/audio_retirement.gd")
@@ -44,7 +45,7 @@ func pickup(item_id: String) -> void:
     var point: Vector2 = scene.player.global_position + Vector2(0,-40)
     scene._collectible({"id":"test_capacity_"+item_id,"kind":"item","item_id":item_id,"position":[point.x,point.y],"amount":1,"label":"capacity regression"})
     await frames(5)
-    check(scene.get_node_or_null("test_capacity_"+item_id) == null, item_id + " enters through real Area2D body contact")
+    check(LEVEL_HOST.find(scene, "test_capacity_"+item_id) == null, item_id + " enters through real Area2D body contact")
 func finish() -> void:
     RETIREMENT.retire_tree(scene); scene.queue_free(); await frames(5)
     AUDIO._stream_cache.clear(); AUDIO._npc_voice_cache.clear()

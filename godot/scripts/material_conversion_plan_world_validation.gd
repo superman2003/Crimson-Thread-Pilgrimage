@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const READY:=preload("res://scripts/world_ready_validation_helper.gd")
 const RETIRE:=preload("res://scripts/audio_retirement.gd")
 const SOURCE:=preload("res://scripts/material_conversion_plan_source.gd")
@@ -55,7 +56,7 @@ func run() -> void:
     world.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"):
         enemy.set_physics_process(false)
-    for child in world.get_children():
+    for child in LEVEL_HOST.children(world):
         if child is Area2D and child.get_meta("kind","")=="save_point":
             world.player.global_position=child.global_position
             break

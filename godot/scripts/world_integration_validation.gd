@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Stateful runtime regression, not a physical route or reachability test.
 ## Portal activation reloads region content; positioning is deliberate test setup.
 const PATH := "user://world_integration_validation.json"
@@ -32,9 +33,9 @@ func _resident_npc(scene: Node, npc_id: String) -> Area2D:
     var npc: Area2D
     for frame in range(120):
         await process_frame
-        npc = scene.get_node_or_null(NodePath(npc_id)) as Area2D
+        npc = LEVEL_HOST.find(scene, NodePath(npc_id)) as Area2D
         var snapshot: Dictionary = scene.world_gameplay_residency.snapshot()
-        if is_instance_valid(npc) and npc.is_inside_tree() and npc.get_parent() == scene and String(npc.get_meta("npc_id", "")) == npc_id and scene.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
+        if is_instance_valid(npc) and npc.is_inside_tree() and LEVEL_HOST.owns(scene, npc) and String(npc.get_meta("npc_id", "")) == npc_id and scene.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
             scene.player.set_physics_process(prior_physics)
             scene.process_mode = prior_mode
             for paused in paused_enemies:
@@ -66,7 +67,7 @@ func _run() -> void:
     var first_instance := scene.get_instance_id()
     var first_player: int = scene.player.get_instance_id()
     var pickup: Area2D
-    for candidate in scene.get_children():
+    for candidate in LEVEL_HOST.children(scene):
         if candidate is Area2D and candidate.has_meta("item_id"):
             pickup = candidate
             break
@@ -96,7 +97,7 @@ func _run() -> void:
     var boss_reward_count := int(scene.inventory_counts.get(boss_reward_id, 0))
     scene.player.hp = 3
     scene.player.energy = 41
-    _check(scene.get_node_or_null("npc_gate_pilgrim") == null, "remote ordinary pilgrim outside the arrival window stays deferred")
+    _check(LEVEL_HOST.find(scene, "npc_gate_pilgrim") == null, "remote ordinary pilgrim outside the arrival window stays deferred")
     var apprentice: Area2D = await _resident_npc(scene, "npc_threadsmith_apprentice")
     _check(apprentice != null, "quest apprentice is resident after the fixture approaches")
     if apprentice != null:
@@ -109,7 +110,7 @@ func _run() -> void:
         _hear_round(scene, apprentice, 2)
         _check(scene.story_flags.get("quest_bring_names_started", false), "complete first conversation starts quest")
         scene._close_overlays()
-    var portal: Area2D = scene.get_node_or_null("moss_rain_pipe")
+    var portal: Area2D = LEVEL_HOST.find(scene, "moss_rain_pipe")
     _check(portal != null, "outbound paired portal exists")
     if portal == null:
         _finish()
@@ -132,14 +133,14 @@ func _run() -> void:
         _hear_round(scene, child)
         _check(scene.story_flags.get("quest_bring_names_canal_heard", false), "canal round commits witness")
         scene._close_overlays()
-    var riser: Area2D = scene.get_node_or_null("rain_archive_riser")
+    var riser: Area2D = LEVEL_HOST.find(scene, "rain_archive_riser")
     _check(riser != null, "archive capability portal exists")
     if riser == null:
         _finish()
         return
     scene._activate_world_portal(riser)
     _check(not scene.chapter_transitioning, "archive riser rejects missing wall grip")
-    var grip: Area2D = scene.get_node_or_null("col_silk_wall_grip")
+    var grip: Area2D = LEVEL_HOST.find(scene, "col_silk_wall_grip")
     _check(grip != null, "rain has actual wall grip pickup")
     if grip == null:
         _finish()
@@ -159,7 +160,7 @@ func _run() -> void:
         _hear_round(scene, scribe)
         _check(not scene.story_flags.get("quest_bring_names_archive_heard", false), "scribe without physical evidence cannot certify names")
         scene._close_overlays()
-    var evidence: Area2D = scene.get_node_or_null("col_testimony_03")
+    var evidence: Area2D = LEVEL_HOST.find(scene, "col_testimony_03")
     _check(evidence != null, "archive testimony exists")
     if evidence == null:
         _finish()
@@ -169,13 +170,13 @@ func _run() -> void:
     _hear_round(scene, scribe)
     _check(scene.story_flags.get("quest_bring_names_archive_heard", false), "evidence plus entire scribe round certifies names")
     scene._close_overlays()
-    var jump: Area2D = scene.get_node_or_null("world_col_double_thread_jump")
+    var jump: Area2D = LEVEL_HOST.find(scene, "world_col_double_thread_jump")
     _check(jump != null, "archive new jump ability exists")
     if jump != null:
         scene.player.global_position=jump.global_position # Explicit collection-reach fixture.
         scene._on_collectible_body_entered(scene.player, jump)
         _check(scene.player.double_jump_unlocked, "archive jump pickup updates actual player")
-    var archive_return: Area2D = scene.get_node_or_null("archive_rain_riser")
+    var archive_return: Area2D = LEVEL_HOST.find(scene, "archive_rain_riser")
     _check(archive_return != null, "archive can return to rain without lock")
     if archive_return == null:
         _finish()
@@ -186,8 +187,8 @@ func _run() -> void:
     await _frames()
     scene = current_scene
     _check(String(scene.config.id) == "demo_ch02_rain_foundry_canal", "C returns to B")
-    _check(scene.get_node_or_null("col_silk_wall_grip") == null, "rain wall grip does not duplicate after archive visit")
-    var return_portal: Area2D = scene.get_node_or_null("rain_moss_pipe")
+    _check(LEVEL_HOST.find(scene, "col_silk_wall_grip") == null, "rain wall grip does not duplicate after archive visit")
+    var return_portal: Area2D = LEVEL_HOST.find(scene, "rain_moss_pipe")
     _check(return_portal != null, "return paired portal exists")
     if return_portal == null:
         _finish()
@@ -197,7 +198,7 @@ func _run() -> void:
     await _frames()
     scene = current_scene
     _check(String(scene.config.id) == first_id, "B returns to A")
-    _check(scene.get_node_or_null(pickup_id) == null, "collected pickup does not respawn on return")
+    _check(LEVEL_HOST.find(scene, pickup_id) == null, "collected pickup does not respawn on return")
     _check(scene._is_shortcut_open(shortcut_id), "shortcut restores on return")
     _check(scene.demo_complete and scene.post_boss_route_open, "dead boss and exit route restore")
     _check(scene.inventory_counts.get(boss_reward_id, 0) == boss_reward_count, "boss reward does not duplicate on return")
@@ -228,7 +229,7 @@ func _run() -> void:
     await _frames()
     scene = _spawn(true, true)
     await _frames()
-    _check(scene.world_collected_ids.has(pickup_id) and scene.get_node_or_null(pickup_id) == null, "fresh runtime resumes pickup state")
+    _check(scene.world_collected_ids.has(pickup_id) and LEVEL_HOST.find(scene, pickup_id) == null, "fresh runtime resumes pickup state")
     _check(scene.inventory_counts == persistent_inventory, "fresh runtime resumes complete inventory")
     _check(scene.demo_complete and scene._is_shortcut_open(shortcut_id), "fresh runtime resumes boss and shortcut")
     _check(scene.player.hp == 3 and scene.player.energy == 41, "restart preserves resources")
@@ -243,7 +244,7 @@ func _run() -> void:
     await _frames()
     scene = current_scene
     _check(String(scene.config.id) == first_id and not scene.demo_complete, "new journey resets region and boss")
-    _check(not scene.world_collected_ids.has(pickup_id) and scene.get_node_or_null(pickup_id) != null, "new journey resets collected objects")
+    _check(not scene.world_collected_ids.has(pickup_id) and LEVEL_HOST.find(scene, pickup_id) != null, "new journey resets collected objects")
     _check(not scene.story_flags.get("quest_bring_names_complete", false), "new journey resets quest")
     _check(scene.player.hp == 5 and scene.player.energy == 100, "new journey resets resources")
     var clean_disk := WORLD.new()

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Detached landing geometry fixtures. Not continuous crossing or natural play.
 const ROUTES := preload("res://scripts/world_routes.gd")
 const BODY := preload("res://scripts/world_platform_body.gd")
@@ -34,8 +35,8 @@ func _run() -> void:
     var source := String(scene.config.id)
     var flags: Dictionary = scene.story_flags.duplicate(true)
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
-    var nodes := scene.get_child_count()
-    scene.player.global_position = (scene.get_node("moss_rain_pipe").global_position + scene.get_node("moss_archive_return").global_position) * 0.5
+    var nodes := LEVEL_HOST.children(scene).size()
+    scene.player.global_position = (LEVEL_HOST.find(scene, "moss_rain_pipe").global_position + LEVEL_HOST.find(scene, "moss_archive_return").global_position) * 0.5
     await _warm(pref, "initial_two_neighbors")
     var before: Dictionary = pref.snapshot()
     _check(before.entity_regions == 2 and before.entity_bodies > 0, "two landing caches contain real detached bodies")
@@ -54,9 +55,9 @@ func _run() -> void:
             var ray := PhysicsRayQueryParameters2D.create(point - Vector2(0, 500), point + Vector2(0, 500), MASK)
             _check(root.get_world_2d().direct_space_state.intersect_ray(ray).is_empty(), "detached collider absent from source physics space")
             body.collision_layer = 1
-    _check(scene.get_child_count() == nodes and scene.story_flags == flags and scene.inventory_counts == inventory and String(scene.config.id) == source, "warming leaves active tree and progression intact")
+    _check(LEVEL_HOST.children(scene).size() == nodes and scene.story_flags == flags and scene.inventory_counts == inventory and String(scene.config.id) == source, "warming leaves active tree and progression intact")
     var target := "demo_ch03_saltwhite_archive"
-    var archive: Node2D = scene.get_node("moss_archive_return")
+    var archive: Node2D = LEVEL_HOST.find(scene, "moss_archive_return")
     scene._activate_world_portal(archive)
     _check(String(scene.config.id) == source and not scene.chapter_transitioning, "prebuilt geometry cannot bypass far-side latch")
     var portal: Dictionary = archive.get_meta("world_portal_data")
@@ -81,7 +82,7 @@ func _run() -> void:
         if scene.world_platforms.resident.has(id):
             var body: StaticBody2D = scene.world_platforms.resident[id]
             _check(body.get_instance_id() == ids[id], "real arrival adopts exact prefetched body instance")
-            _check(body.get_parent() == scene and body.get_children().any(func(node): return node is CanvasItem and not node is CollisionShape2D), "adopted geometry receives normal target visuals")
+            _check(LEVEL_HOST.owns(scene, body) and body.get_children().any(func(node): return node is CanvasItem and not node is CollisionShape2D), "adopted geometry receives normal target visuals")
             adopted += 1
     _check(adopted > 0 and pref.entity_hits - hits == adopted, "arrival uses cache rather than constructing duplicate geometry")
     scene.player.global_position = Vector2(-100000, -100000)
@@ -90,11 +91,11 @@ func _run() -> void:
     await _retire(pref)
     for body in refs:
         if is_instance_valid(body):
-            _check(body.is_inside_tree() and body.get_parent() == scene, "only transferred bodies survive old cache retirement")
+            _check(body.is_inside_tree() and LEVEL_HOST.owns(scene, body), "only transferred bodies survive old cache retirement")
     # Reload a source neighbor cache, invalidate its recorded timestamp.
     scene._travel_world(ROUTES.config_path(source), Vector2(120, 500))
     await _frames(2)
-    scene.player.global_position = scene.get_node("moss_rain_pipe").global_position
+    scene.player.global_position = LEVEL_HOST.find(scene, "moss_rain_pipe").global_position
     await _warm(pref, "reload_source_neighbor")
     var region: String = pref.entities.keys()[0]
     var item: Dictionary = pref.entities[region].bodies.values()[0]

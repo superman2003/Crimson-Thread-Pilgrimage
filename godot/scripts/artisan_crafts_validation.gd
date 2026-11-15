@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## E04: artisans make tool capacity upgrades and the 行旅承力扣 from an optional
 ## challenge's evidence (shown as a pattern, never consumed), shards and a
 ## regional material. Only the named artisan makes each piece; a refused or
@@ -32,7 +33,7 @@ func check(ok: bool, label: String) -> void:
 		print("PASS " + label)
 
 func artisan_node(npc_id: String) -> Node:
-	for child in scene.get_children():
+	for child in LEVEL_HOST.children(scene):
 		if child is Area2D and String(child.get_meta("npc_id", child.name)) == npc_id:
 			return child
 	return null

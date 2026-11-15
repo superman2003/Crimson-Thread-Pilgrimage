@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Reusable component assertion plus focused knowledge-policy regression.
 const KNOWLEDGE := preload("res://scripts/survey_map_knowledge.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
@@ -12,7 +13,7 @@ static func marker_assertions(host: Node, kind: String, region_id: String, marke
 	var prefix := "Survey" if kind == "local" else "World"
 	var name := prefix + ("Hazard_" if marker_id.begins_with("hazard:") else "Gate_")
 	var id := marker_id.trim_prefix("hazard:").trim_prefix("gate:")
-	var node := host.get_node_or_null(NodePath(name + ("" if kind == "local" else region_id + "_") + id))
+	var node := LEVEL_HOST.find(host, NodePath(name + ("" if kind == "local" else region_id + "_") + id))
 	var errors: Array[String] = []
 	if expected != (node != null): errors.append("%s expected=%s actual=%s" % [name + id, expected, node != null])
 	return errors

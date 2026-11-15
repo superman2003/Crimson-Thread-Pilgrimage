@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## W00 stage 0 (docs/W00_SEAMLESS_RESIDENCY_PLAN.md): inventory, no behaviour
 ## change. Checks that the host field list is fully classified, that region
 ## travel leaves nothing outside the host's region-owned children, and records
@@ -73,7 +74,7 @@ func measure(host: Node, window: Rect2 = Rect2()) -> Dictionary:
 	var out := {"top_level": 0, "nodes": 0, "bodies": 0, "areas": 0, "shapes": 0, "canvas_items": 0, "textures": 0, "texture_bytes": 0}
 	var textures: Dictionary = {}
 	var stack: Array = []
-	for child in host.get_children():
+	for child in LEVEL_HOST.children(host):
 		if child == host.player or child == host.world_passage:
 			continue
 		out.top_level += 1
@@ -145,7 +146,7 @@ func run() -> void:
 		for group in ["enemy", "boss"]:
 			for node in get_nodes_in_group(group):
 				var owner_child: Node = node
-				while owner_child != null and owner_child.get_parent() != scene:
+				while owner_child != null and not LEVEL_HOST.owns(scene, owner_child):
 					owner_child = owner_child.get_parent()
 				check(owner_child != null and owner_child != scene.player and owner_child != scene.world_passage,
 					"%s %s %s lives under a region-owned host child" % [id, group, node.name])

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Input + actual camera scroll, arena events and persistent World transitions.
 const FOCUS := preload("res://scripts/camera_focus.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -203,7 +204,7 @@ func _world_integration() -> void:
         _check(world.player.camera_focus.get_instance_id() == focus_id and camera.get_instance_id() == camera_id, String(id) + " preserves player-owned focus and camera")
         _check(not world.player.camera_focus.locks.has("boss_arena") and world.player.camera_focus.region_bounds.end.x == world.world_width + 80, String(id) + " has fresh region and no previous event lock")
         for enemy in get_nodes_in_group("enemy"):
-            if enemy.get_parent() == world: enemy.set_physics_process(false)
+            if LEVEL_HOST.owns(world, enemy): enemy.set_physics_process(false)
         var boss: Dictionary = world.config.boss
         var point := Vector2(boss.position[0], boss.position[1])
         world.player.global_position = point

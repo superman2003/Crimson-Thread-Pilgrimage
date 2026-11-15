@@ -1,11 +1,12 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## All-chapters demo checks: rooms, positions, floors, late-route gaps, exits, multi-level layout and platform or enemy overlap between chapters.
 ## Moved out of all_chapters_demo_validation.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
 
 static func normal_enemy_kinds(suite: SceneTree, scene: Node) -> Array:
     var kinds: Array = []
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child.is_in_group("enemy") and not child.is_boss:
             kinds.append(child.kind)
     return kinds

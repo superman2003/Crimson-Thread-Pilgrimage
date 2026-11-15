@@ -4,6 +4,7 @@ on:
     paths:
       - 'godot/scripts/combat_visual_policy.gd'
       - 'godot/tests/reliability_visual_ownership.gd'
+      - 'godot/scripts/level_host.gd'
       - '.github/contracts/reliability-visual_ownership.yml'
   workflow_dispatch:
 permissions:
@@ -26,7 +27,7 @@ jobs:
           mkdir -p "$stage"
           printf 'config_version=5\n[application]\nconfig/name="Isolated reliability"\n' > "$stage/project.godot"
           cd godot
-          cp --parents scripts/combat_visual_policy.gd tests/reliability_visual_ownership.gd "$stage/"
+          cp --parents scripts/combat_visual_policy.gd scripts/level_host.gd tests/reliability_visual_ownership.gd "$stage/"
           "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --headless --path "$stage" --script res://tests/reliability_visual_ownership.gd 2>&1 | tee "$RUNNER_TEMP/result.log"
           ! grep -E '^(SCRIPT ERROR|ERROR|USER ERROR):' "$RUNNER_TEMP/result.log"
           grep -E 'RELIABILITY_.*checks=[0-9]+ failures=0' "$RUNNER_TEMP/result.log"

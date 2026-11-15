@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const STATE=preload("res://scripts/world_state.gd")
 const SHOP=preload("res://scripts/cartography_runtime.gd")
 const JOURNAL=preload("res://scripts/pilgrimage_cartography.gd")
@@ -25,7 +26,7 @@ func run() -> void:
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     scene.set_process(false);scene.player.set_physics_process(false);scene.player.hp=3;scene.player.energy=43;scene.currency_count=100
     var merchant: Area2D
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and child.has_meta("map_seller_region"):merchant=child;break
     check(is_instance_valid(merchant),"actual authored cartographer supplies all three goods")
     scene.player.global_position=merchant.global_position
@@ -49,7 +50,7 @@ func run() -> void:
     merchant.set_meta("map_seller_data",seller)
     check(not SHOP.purchase_tool(scene,merchant,"invalid").ok,"unknown tool cannot use compass fallback pricing")
     SHOP.open_shop(scene,merchant)
-    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, "MapPurchaseDialog")
     check(dialog.visible and dialog.get_cancel_button().has_focus() and scene.ui_shell.has_modal_window(),"real seller focuses cancellation and isolates native modal input")
     scene.currency_count=99;dialog.confirmed.emit()
     check(dialog.visible and state.writes==0 and dialog.dialog_text.contains("已变化") and scene.currency_count==99,"wallet changes require renewed explicit confirmation")

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## All registered connectors: real player physics, fixture placement only at mouths.
 const PASSAGE := preload("res://scripts/world_passage.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -93,7 +94,7 @@ func _run() -> void:
         for side in ["a","b"]:
             var mouth: Dictionary=route[side]
             var other: Dictionary=route["b" if side=="a" else "a"]
-            var area: Node=scene.get_node(String(mouth.portal))
+            var area: Node=LEVEL_HOST.find(scene, String(mouth.portal))
             scene.player.global_position=area.global_position
             scene.player.velocity=Vector2.ZERO
             scene.world_platforms.warm(scene,area.global_position)

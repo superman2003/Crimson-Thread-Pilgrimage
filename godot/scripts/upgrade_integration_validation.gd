@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const STATE := preload("res://scripts/world_state.gd")
 const SAVE_PATH := "user://upgrade_integration.json"
 var scene: Node
@@ -30,7 +31,7 @@ func _run() -> void:
     scene._add_inventory_item("bell_guard", 1, false)
     scene._refresh_ability_gates()
     var shrine: Area2D
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and child.get_meta("kind", "") == "save_point":
             shrine = child
             break

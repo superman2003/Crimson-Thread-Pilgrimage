@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Real-scene persistence regression. Uses only its own save path, never player slots.
 ## godot --headless --path godot --script res://scripts/world_resume_regression_validation.gd
 const WORLD := preload("res://scripts/world_state.gd")
@@ -89,7 +90,7 @@ func _test_ending_restore() -> void:
     _check(scene.ending_gates_spawned, "completed final region restores ending gates")
     _check(_ending_count() == 3, "all three ending choices survive restart")
     var arena := Vector2(float(config.boss.position[0]), float(config.boss.position[1]))
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("kind", "")) == "ending_gate":
             _check(absf(child.position.y - arena.y) < 1.0 and absf(child.position.x - arena.x) <= 230.0, "restored ending remains in boss arena")
     scene._spawn_ending_gates()
@@ -160,7 +161,7 @@ func _spawn() -> void:
 
 func _ending_count() -> int:
     var total := 0
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("kind", "")) == "ending_gate":
             total += 1
     return total

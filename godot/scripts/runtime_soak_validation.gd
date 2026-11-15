@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Production lifecycle stress with explicit travel/focus/damage fixtures.
 ## Never a natural playthrough, economy or difficulty acceptance certificate.
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -107,7 +108,7 @@ func visit(region_id: String) -> void:
         ui_opens+=1
         scene._close_overlays()
     check(not scene.player.ui_input_locked,"overlay closure releases player input")
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("kind",""))=="npc":
             scene._show_dialogue(child,"巡礼压力验证：同一段未读完的文字。".repeat(8))
             await settle(0.15)

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 var failures := 0
 var moves_tested := 0
@@ -39,7 +40,7 @@ func _run() -> void:
         check(scene.flat_map_art.ready_for_platforms(),id+" platform art loaded")
         await slope_walk(scene,id)
         await snap(id)
-        var npc: Area2D=scene.get_node(String(scene.config.npcs[0].id))
+        var npc: Area2D=LEVEL_HOST.find(scene, String(scene.config.npcs[0].id))
         scene.player.global_position=npc.global_position
         scene._try_interact()
         check(scene.active_overlay=="dialogue",id+" F opens dialogue")
@@ -58,7 +59,7 @@ func _run() -> void:
         for data in scene.config.npcs:
             var quest: Dictionary=data.get("dialogue_topics",{}).get("quest",{})
             if quest.is_empty():continue
-            var quest_npc: Area2D=scene.get_node(String(data.id))
+            var quest_npc: Area2D=LEVEL_HOST.find(scene, String(data.id))
             scene._add_inventory_item(String(quest.item),1,false)
             scene._talk_to_npc(quest_npc)
             scene.ui_shell._topic("wish")
@@ -77,7 +78,7 @@ func _run() -> void:
         scene._spawn_boss()
         for i in range(2): await process_frame
         for actor in get_nodes_in_group("enemy"):
-            if actor.get_parent()!=scene: continue
+            if not LEVEL_HOST.owns(scene, actor): continue
             if kinds_seen.has(actor.kind): continue
             kinds_seen[actor.kind]=true
             check(actor.original_visual,actor.kind+" redraw installed")
@@ -107,7 +108,7 @@ func _run() -> void:
         scene.player.ui_input_locked=false
         scene.player.debug_invulnerable=true
         for effect in get_nodes_in_group("hostile_attack"):
-            if effect.get_parent()==scene:
+            if LEVEL_HOST.owns(scene, effect):
                 effect._physics_process(.05)
                 effect._physics_process(.8)
         scene.player.ui_input_locked=true

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 var failures := 0
 
@@ -19,8 +20,8 @@ func _run() -> void:
     _assert(scene.config.has("world_story"), "world story data still exists")
     _assert(int(scene.config.get("npcs", []).size()) >= 5, "five story npcs configured")
     _assert(int(scene.config.get("guides", []).size()) == 0, "guide arrows are removed from config")
-    _assert(scene.get_node_or_null("npc_gear_cartographer") != null, "cartographer npc spawned")
-    _assert(scene.get_node_or_null("guide_map") == null, "guide arrow nodes are not spawned")
+    _assert(LEVEL_HOST.find(scene, "npc_gear_cartographer") != null, "cartographer npc spawned")
+    _assert(LEVEL_HOST.find(scene, "guide_map") == null, "guide arrow nodes are not spawned")
     _assert(scene.dialogue_panel != null, "dialogue overlay exists")
 
     scene._refresh_hud()
@@ -37,7 +38,7 @@ func _run() -> void:
     _assert(String(scene.map_text.text).contains("路线"), "map next route is shown")
 
     scene._close_overlays()
-    var npc: Area2D = scene.get_node_or_null("npc_gate_pilgrim")
+    var npc: Area2D = LEVEL_HOST.find(scene, "npc_gate_pilgrim")
     _assert(npc != null, "gate pilgrim npc spawned")
     scene._on_interactable_entered(scene.player, npc)
     _assert(npc.has_node("Wayfinding"), "NPC uses proximity pictogram")

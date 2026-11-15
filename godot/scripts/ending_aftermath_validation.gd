@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## N05: the main line is traceable in the journal before any choice, and the
 ## chosen ending visibly changes every region's main shrine. Chosen through the
 ## real ending gate; each scene stands on walkable floor, is noticed once, is
@@ -57,7 +58,7 @@ func travel(region: String) -> void:
 	scene.player.debug_invulnerable = true
 
 func aftermath() -> Node2D:
-	var node: Node = scene.get_node_or_null("EndingAftermath")
+	var node: Node = LEVEL_HOST.find(scene, "EndingAftermath")
 	return node if node is Node2D else null
 
 func main_step(index: int) -> Dictionary:
@@ -101,7 +102,7 @@ func run() -> void:
 	scene._spawn_ending_gates()
 	await tick(2)
 	var gate: Area2D = null
-	for child in scene.get_children():
+	for child in LEVEL_HOST.children(scene):
 		if child is Area2D and String(child.get_meta("kind", "")) == "ending_gate" and String(child.get_meta("ending", "")) == "ending_b":
 			gate = child
 	check(gate != null, "the 断冠 gate stands behind the crown")

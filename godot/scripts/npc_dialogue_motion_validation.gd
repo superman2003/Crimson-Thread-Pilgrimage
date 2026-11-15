@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Actual NPC factory, native animation clocks and production dialogue lifecycle.
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const LEVEL := preload("res://scripts/main_level.gd")
@@ -135,7 +136,7 @@ func actual_dialogue() -> void:
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(level)
     await frames(2)
     level.player.set_physics_process(false)
-    var npc: Area2D = level.get_node("npc_gate_pilgrim")
+    var npc: Area2D = LEVEL_HOST.find(level, "npc_gate_pilgrim")
     var sprite := npc.get_node("FriendlyFamilySprite") as AnimatedSprite2D
     var probe := PhysicsRayQueryParameters2D.create(npc.global_position+Vector2(-160,-60),npc.global_position+Vector2(-160,240),1)
     var ground: Dictionary = level.get_world_2d().direct_space_state.intersect_ray(probe)
@@ -170,7 +171,7 @@ func actual_dialogue() -> void:
     var voiced: bool = bool(sprite.get("speech_active"))
     check(sprite.animation==(&"talk" if voiced else &"idle"),"normal interface follows actual speech instead of looping talk in silence")
     await capture("talking" if voiced else "listening",sprite)
-    var shrine := level.get_node_or_null("save_first_bell") as Area2D
+    var shrine := LEVEL_HOST.find(level, "save_first_bell") as Area2D
     var bindings := LIVE.arrival_bindings(level,npc,shrine)
     callback_contract.exact=bindings.gameplay and bindings.components
     check(callback_contract.exact,"real NPC and shrine have exact gameplay and greeting callbacks")

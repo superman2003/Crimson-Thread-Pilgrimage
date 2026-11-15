@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 var failures:=0
 func _initialize() -> void:call_deferred("run")
 func check(value: bool,message: String) -> void:
@@ -28,7 +29,7 @@ func run() -> void:
     for enemy in get_nodes_in_group("enemy"):enemy.set_physics_process(false)
     var ui: Control=main.ui_shell
     var shrine: Area2D
-    for child in main.get_children():
+    for child in LEVEL_HOST.children(main):
         if child is Area2D and String(child.get_meta("kind",""))=="save_point":
             shrine=child
             break

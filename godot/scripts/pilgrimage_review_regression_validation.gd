@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const ENEMY := preload("res://scripts/enemy_actor.gd")
@@ -133,7 +134,7 @@ func _validate_generated_art(scene: Node) -> void:
         for data in config.get("npcs",[]):
             var id:=String(data.get("id",""))
             scene._npc(data)
-            var area: Area2D=scene.get_node(id)
+            var area: Area2D=LEVEL_HOST.find(scene, id)
             var sprite:=area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
             _check(sprite!=null and sprite.sprite_frames.get_frame_count("idle")>0, "generated NPC visible: "+id)
             _check(ART.portrait(id)!=null and String(area.get_meta("npc_id"))==id, "generated portrait preserves dialogue id: "+id)

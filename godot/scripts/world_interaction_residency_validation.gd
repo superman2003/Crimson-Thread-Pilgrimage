@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Active interaction residency regression. Region starts, focus jumps, and save
 ## flags are explicit fixtures; this does not represent natural six-region play.
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -140,7 +141,7 @@ func check_six_windows() -> void:
 		check(int(state.window_resident) == expected_in_window.size() and resident_in_window == expected_in_window.size(), id + " every current window interaction resident")
 		for key in expected_in_window:
 			var actor: Area2D = service.resident.get(key)
-			check(actor != null and is_instance_valid(actor) and actor.is_inside_tree() and actor.get_parent() == scene, id + " window actor is genuinely tree resident " + key)
+			check(actor != null and is_instance_valid(actor) and actor.is_inside_tree() and LEVEL_HOST.owns(scene, actor), id + " window actor is genuinely tree resident " + key)
 		for key in resident_keys:
 			if expected.has(key) and key in expected_in_window: continue
 			var is_pin: bool = key == "save_point:" + String(scene.active_save_point_id)
@@ -151,7 +152,7 @@ func check_six_windows() -> void:
 			var interaction_held: bool = is_instance_valid(actor) and scene.nearby_interactable == actor
 			var in_keep_window: bool = service.records.has(key) and keep_window.has_point(service.records[key].position)
 			check(is_pin or in_keep_window or near_player or dialogue_held or interaction_held, id + " distant resident is explained by keep-window/checkpoint/interaction hold " + String(key) + " actor_valid=" + str(is_instance_valid(actor_value)) + " actor=" + str(actor_value) + " parent=" + str(actor.get_parent() if is_instance_valid(actor) else null) + " actor_global=" + str(actor.global_position if is_instance_valid(actor) else Vector2.INF) + " record=" + str(service.records.get(key, {})) + " keep_contains=" + str(in_keep_window) + " player=" + str(scene.player.global_position) + " active_checkpoint=" + str(scene.active_save_point_id) + " nearby=" + str(scene.nearby_interactable) + " dialogue_area=" + str(scene.ui_shell.dialogue_area) + " pending_release=" + str(state.pending_release) + " generation=" + str(state.generation))
-		region_metrics.append({"region": id, "candidates": expected.size(), "window_expected": expected_in_window.size(), "window_actual": str(state.window), "window_eligible_actual": state.window_eligible, "window_resident_actual": state.window_resident, "resident": resident_keys.size(), "active_tree_children": scene.get_child_count(), "service_generation": state.generation, "loader_generation": scene.world_loader.generation, "builds": state.builds, "releases": state.releases})
+		region_metrics.append({"region": id, "candidates": expected.size(), "window_expected": expected_in_window.size(), "window_actual": str(state.window), "window_eligible_actual": state.window_eligible, "window_resident_actual": state.window_resident, "resident": resident_keys.size(), "active_tree_children": LEVEL_HOST.children(scene).size(), "service_generation": state.generation, "loader_generation": scene.world_loader.generation, "builds": state.builds, "releases": state.releases})
 
 func actual_release_and_rebuild() -> void:
 	var service: RefCounted = scene.world_gameplay_residency
@@ -298,7 +299,7 @@ func verify_dialogue_hold_and_checkpoint_pin() -> void:
 		check(not should_defer, "active checkpoint is pinned even before its node exists")
 		if not should_defer:
 			scene._save_point({"id": scene.active_save_point_id, "position": [shrine_position.x, shrine_position.y], "label": "Save Point"})
-			var pinned: Area2D = scene.get_node_or_null(NodePath(scene.active_save_point_id))
+			var pinned: Area2D = LEVEL_HOST.find(scene, NodePath(scene.active_save_point_id))
 			check(is_instance_valid(pinned) and pinned.is_inside_tree(), "active checkpoint is constructed despite remote focus")
 		scene.active_save_point_id = original_checkpoint
 		scene.active_spawn = original_spawn
@@ -370,7 +371,7 @@ func verify_lever_state() -> void:
 	await settle_residency(point)
 	var rebuilt: Area2D = scene.world_gameplay_residency.resident.get(key)
 	check(scene.metsys_bridge != null and scene.metsys_bridge.metsys.save_data.stored_objects.get(stored_key, false), "rebuilt lever remains on the same MetSys marker")
-	check(scene.get_node_or_null(NodePath(id)) == rebuilt, "only one active actor owns the rebuilt lever id")
+	check(LEVEL_HOST.find(scene, NodePath(id)) == rebuilt, "only one active actor owns the rebuilt lever id")
 	var rebuilt_sprite: Sprite2D = rebuilt.get_node_or_null("LeverSprite") if is_instance_valid(rebuilt) else null
 	var rebuilt_pixels: PackedByteArray = rebuilt_sprite.texture.get_image().get_data() if rebuilt_sprite != null and rebuilt_sprite.texture != null else PackedByteArray()
 	check(is_instance_valid(rebuilt) and rebuilt_pixels == opened_pixels, "reconstructed lever preserves open-art contract")

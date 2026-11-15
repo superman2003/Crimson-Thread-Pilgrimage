@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const STATE=preload("res://scripts/world_state.gd")
 const RETIRE=preload("res://scripts/audio_retirement.gd")
 const AUDIO=preload("res://scripts/audio_director.gd")
@@ -23,7 +24,7 @@ func snapshot() -> Dictionary:
 func spawn(id: String,item: String,amount: Variant=1,kind: String="item") -> Area2D:
     var point: Vector2=scene.player.global_position+Vector2(0,-40)
     scene._collectible({"id":id,"kind":kind,"item_id":item,"amount":amount,"position":[point.x,point.y],"label":"拾取事务诊断"})
-    return scene.get_node_or_null(id) as Area2D
+    return LEVEL_HOST.find(scene, id) as Area2D
 func collect(area: Area2D) -> void:scene._on_collectible_body_entered(scene.player,area)
 func press_interact() -> void:
     Input.action_press("interact")
@@ -111,7 +112,7 @@ func run() -> void:
     check(snapshot()==before and state.writes==0,"a different body cannot collect for the player")
     fake_player.free();area.free()
     var lease_count: int=scene.world_pickup_leases.size();scene._collectible({"id":"pickup_txn_dash","kind":"item","item_id":"thread_dash","position":[0,0]})
-    check(scene.get_node_or_null("pickup_txn_dash")==null and scene.world_pickup_leases.size()==lease_count,"already-collected identity is not spawned or leased again")
+    check(LEVEL_HOST.find(scene, "pickup_txn_dash")==null and scene.world_pickup_leases.size()==lease_count,"already-collected identity is not spawned or leased again")
     RETIRE.retire_tree(scene);scene.free();await process_frame;AUDIO._stream_cache.clear();AUDIO._npc_voice_cache.clear()
     check(await RETIRE.drain(self),"pickup fixture releases actual audio ownership")
     print("PICKUP_LEDGER checks=%d failures=%d" % [checks,failures]);quit(1 if failures else 0)

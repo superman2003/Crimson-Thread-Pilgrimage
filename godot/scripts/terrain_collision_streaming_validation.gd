@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Polygon/physics fixtures, not natural play or a performance benchmark.
 const TERRAIN := preload("res://scripts/chapter_terrain.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -142,7 +143,7 @@ func _host() -> void:
         var terrain: Node2D = scene.chapter_terrain
         var snapshot: Dictionary = terrain.collision_snapshot()
         _check(snapshot.enabled and snapshot.resident <= snapshot.authored, id + " actual host enables polygon residency")
-        for actor in scene.get_children():
+        for actor in LEVEL_HOST.children(scene):
             if actor.has_meta("platform_id"):
                 var support := String(actor.get_meta("platform_id"))
                 if terrain.support_rects.has(support):

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## S02 ending-doors beat: the final Boss defeat raises the three ending doors
 ## with the generated ending-doors chord once; reloading a completed region
 ## restores the doors silently. Production ch06 level with a probe that records
@@ -23,7 +24,7 @@ func _check(ok: bool, label: String) -> void:
         failures.append(label)
 
 func _gates(level: Node) -> Array:
-    return level.get_children().filter(func(child): return child is Area2D and String(child.get_meta("kind", "")) == "ending_gate")
+    return LEVEL_HOST.children(level).filter(func(child): return child is Area2D and String(child.get_meta("kind", "")) == "ending_gate")
 
 func _level() -> Node:
     var level := (load("res://scenes/Main.tscn") as PackedScene).instantiate()

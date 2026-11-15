@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Damage-enabled input playback: earned map/quill, shrine charting and returns.
 ## No grants, position writes, damage suppression or state repair. Not a human playtest.
 const SAVE := "user://test_world_damage_route.json"
@@ -360,7 +361,7 @@ func _buy_map_and_quill() -> void:
     var before: int=scene.currency_count
     _check(before>=40 and not CARTOGRAPHY.owned(scene.story_flags,String(scene.config.id)) and not CARTOGRAPHY.has_quill(scene.story_flags),"earned route income funds the previously missed map and quill")
     await _world_interact()
-    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, "MapPurchaseDialog")
     _check(dialog.visible and dialog.get_ok_button().has_focus(),"F opens seller with an affordable map selected")
     await _key(KEY_ENTER,dialog)
     await _tick(4)
