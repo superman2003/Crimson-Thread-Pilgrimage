@@ -117,12 +117,13 @@ for k,l in enumerate(helper):
     if m and ret.get(m.group(3)) not in (None,'void','Variant'):
         helper[k]=f'{m.group(1)}var {m.group(2)}: {ret[m.group(3)]} = {PARAM}.{m.group(3)}({m.group(4)})'
 # Constants used as types cannot be read through a parameter: copy the preload.
-body='\n'.join(helper); typed=sorted(set(re.findall(r'(?:->|:|\bas|\bis)\s*'+PARAM+r'\.([A-Z_][A-Z0-9_]*)\b',body)))
+body='\n'.join(helper); TYPE_AT=r'(->\s*|\bvar\s+\w+\s*:\s*|\bas\s+|\bis\s+)'
+typed=sorted(set(m.group(2) for m in re.finditer(TYPE_AT+PARAM+r'\.([A-Z_][A-Z0-9_]*)\b',body)))
 consts=[]
 for n in typed:
     m=re.search(r'^const '+n+r'\s*:?=\s*preload\([^)]*\)\s*$',text,re.M)
     if not m: raise SystemExit('type constant is not a preload: '+n)
-    consts.append(m.group(0)); body=re.sub(r'((?:->|:)\s*|\bas |\bis )'+PARAM+r'\.'+n+r'\b',r'\1'+n,body)
+    consts.append(m.group(0)); body=re.sub(TYPE_AT+PARAM+r'\.'+n+r'\b',r'\1'+n,body)
 # Calls through a preload constant (`level.POLICY.f([a, b])`) lose static
 # typing, so typed-array arguments arrive untyped: read those constants directly.
 for n in sorted(set(re.findall(r'\b'+PARAM+r'\.([A-Z][A-Z0-9_]*)\.',body))):

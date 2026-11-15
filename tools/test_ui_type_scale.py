@@ -20,7 +20,7 @@ LABEL = re.compile(r'_label\([^\n]*?,\s*(\d+)\s*,\s*[A-Z][A-Z_]*\)')
 # 1px: progress bars and inscription placeholders that draw no text.
 NO_TEXT = {1}
 WORLD_SPACE = {
-    'main_level.gd': {13: 'practice-target and tool captions drawn above world props'},
+    'level_region_build.gd': {13: 'practice-target and tool captions drawn above world props'},
     'cave_lift.gd': {15: 'lift basket prompt and floor labels drawn in the world'},
 }
 
