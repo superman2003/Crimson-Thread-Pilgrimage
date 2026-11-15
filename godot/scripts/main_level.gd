@@ -1240,7 +1240,8 @@ func _add_currency(amount: int) -> void:
 func _build_metsys_bridge() -> void:
     metsys_bridge = METSYS_BRIDGE_SCRIPT.new()
     metsys_bridge.name = "MetSysBridge"
-    add_child(metsys_bridge)
+    metsys_bridge.deferred = world_loader != null and world_loader.staging_building()
+    LEVEL_HOST.region_parent(self).add_child(metsys_bridge)
     metsys_bridge.configure(config, world_width, world_height)
 
 

@@ -20,7 +20,9 @@ static func owns(level: Node, node: Node) -> bool:
 	var parent := node.get_parent()
 	if parent == null or level == null:
 		return false
-	return parent == level or (parent.has_meta(META) and parent.get_meta(META) == level)
+	# The current container only: a destination being built hidden (W00 stage 3)
+	# sits in a second container that is not the level's region until handover.
+	return parent == level or parent == container(level)
 
 
 static func container(level: Node) -> Node:

@@ -63,39 +63,50 @@ static func fields() -> Array[String]:
 	return out
 
 
+## Every host field that travel resets: the region's own set plus progress,
+## shared data and loader flags. A destination built while the source region is
+## still resident (W00 stage 3) switches all of them, so the source's values
+## are untouched until handover.
+static func travel_fields() -> Array[String]:
+	var out: Array[String] = []
+	for group in GROUPS:
+		out.append_array(GROUPS[group])
+	return out
+
+
 ## The host's current region set. Values are handed over as they are (no
 ## copies): the caller owns the set until it is applied again.
-static func capture(host: Node) -> Dictionary:
+static func capture(host: Node, names: Array[String] = fields()) -> Dictionary:
 	var state := {}
-	for field in fields():
+	for field in names:
 		state[field] = host.get(field)
 	return state
 
 
-static func apply(host: Node, state: Dictionary) -> void:
-	for field in fields():
+static func apply(host: Node, state: Dictionary, names: Array[String] = fields()) -> void:
+	for field in names:
 		host.set(field, state[field])
 
 
 ## A set holding the script defaults, as a region has before it is built.
-static func fresh(host: Node) -> Dictionary:
+static func fresh(host: Node, names: Array[String] = fields()) -> Dictionary:
 	var defaults: Node = host.get_script().new()
-	var state := fresh_from(defaults)
+	var state := fresh_from(defaults, names)
 	defaults.free()
 	return state
 
 
 ## The same, read from a detached host instance the caller already made.
-static func fresh_from(defaults: Node) -> Dictionary:
+static func fresh_from(defaults: Node, names: Array[String] = fields()) -> Dictionary:
 	var state := {}
-	for field in fields():
+	for field in names:
 		var value: Variant = defaults.get(field)
 		state[field] = value.duplicate(true) if value is Array or value is Dictionary else value
 	return state
 
 
 ## Puts `state` on the host and returns the set it replaced.
-static func switch_to(host: Node, state: Dictionary) -> Dictionary:
-	var previous := capture(host)
-	apply(host, state)
+static func switch_to(host: Node, state: Dictionary, names: Array[String] = fields()) -> Dictionary:
+	var previous := capture(host, names)
+	apply(host, state, names)
 	return previous

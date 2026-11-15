@@ -153,7 +153,7 @@ class CompletionContractTests(unittest.TestCase):
         # Keep the original 186-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
         # reject a missing base suite, an unknown addition or invalid completion.
-        self.assertEqual(len(all_suites), 187 + len(set(all_suites) & combat_additions))
+        self.assertEqual(len(all_suites), 188 + len(set(all_suites) & combat_additions))
         self.assertIn("ai_music_pack", DEFAULT_SUITES)
         self.assertIn("enemy_combat_continuity", DEFAULT_SUITES)
         self.assertIn("boss_combat_identity", DEFAULT_SUITES)
