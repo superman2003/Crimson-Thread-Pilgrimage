@@ -1,4 +1,5 @@
 extends RefCounted
+const REGION_STATE := preload("res://scripts/region_state.gd")
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Region state for the loader: snapshots, preflight and config validation, synchronous region replacement, batch measurement, catalogue staging, texture polling and prepare metrics.
 ## Moved out of world_region_loader.gd unchanged in behaviour; it keeps one-line
@@ -106,9 +107,13 @@ static func reset_region_fields(loader: RefCounted, host: Node) -> void:
     # Get typed defaults from a detached controller, without running _ready.
     # New region fields therefore cannot accidentally inherit the previous zone.
     var defaults: Node = host.get_script().new()
+    # The region's own set first (W00 stage 2), then the host-level fields that
+    # travel also resets (progress restored from WorldState, loader flags).
+    var region_fields: Array[String] = REGION_STATE.fields()
+    REGION_STATE.apply(host, REGION_STATE.fresh_from(defaults))
     for property in defaults.get_property_list():
         var name := String(property.name)
-        if (int(property.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE) == 0 or name in loader.SESSION_FIELDS:
+        if (int(property.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE) == 0 or name in loader.SESSION_FIELDS or name in region_fields:
             continue
         var value: Variant = defaults.get(name)
         host.set(name, value.duplicate(true) if value is Array or value is Dictionary else value)
