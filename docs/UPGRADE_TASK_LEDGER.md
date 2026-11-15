@@ -53,6 +53,14 @@
 | T04 | 第二新档已从原J前钟龛字节正常返程取得王冠共鸣，实际付费R接通工房、取得奖励与独立恢复通过；正式零死，校准与反向失败保留（[11-06共鸣报告](report/20261106_t04_crown_resonance_return.md)）；原西环校准1次死亡仍保留；尚未完成六区全流程 | 最终Boss与结局；当前版本完整双顺序、不同构筑与陌生玩家记录 |
 | T05 | 已有 Windows/Linux 打包、ZIP 校验、独立启动和读档写回门禁保留；发布引擎／模板增加官方 SHA512 校验重试与完整安装回执，17 项 HTTP／TLS／归档测试及摘要反向验证通过；入口场景与许可文件由 `build_release` 校验，说明里的键位与游戏默认绑定一致（`test_player_guide_bindings`）；玩家启动时先显示标题卡（继续旅途／新旅途／退出），期间世界暂停（`title_card`，11-13）；实验性 macOS 候选包（通用架构，未公证，CI 任务允许失败，11-13） | 两平台实际新 CI、最终候选包重新构建与人工实机验收；结局说明待三结局人工验收后补写 |
 
+## 2026-11-15：全章节验证脚本拆分（T03 代码整理）
+
+`all_chapters_demo_validation.gd` 1013 → 448 行。章节差异、视觉与首领清单检查搬到 `chapter_uniqueness_checks.gd`，房间、落点、地面、出口与多层布局检查搬到 `chapter_route_checks.gd`。原脚本保留同名转发方法和每章主流程 `_validate_chapter`。
+
+拆分前后各跑一次 `all_chapters_demo`：2190 条检查结果逐行相同，无失败。
+
+`world_second_order_playback.gd`（969 行）不拆：`verify_second_order_crown.py` 会冻结它的源码快照，用来核对既有证据。
+
 ## 2026-11-14：main_level.gd 拆到 2519 行（T03 代码整理，拆分第七步）
 
 接第六步，把 `main_level.gd` 余下的职责搬到 22 个新脚本，行为不变：5634 → 2519 行。拆分开始前它有 8632 行。
