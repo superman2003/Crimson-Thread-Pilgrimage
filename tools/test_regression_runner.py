@@ -18,6 +18,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class CompletionContractTests(unittest.TestCase):
     """Static suite contracts apply on every host, including Windows."""
+    def test_unimported_assets_are_reported(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            root = Path(scratch)
+            (root / 'art').mkdir(); (root / 'skip').mkdir(); (root / '.godot').mkdir()
+            (root / 'art' / 'done.png').write_bytes(b''); (root / 'art' / 'done.png.import').write_text('')
+            (root / 'art' / 'fresh.png').write_bytes(b''); (root / 'art' / 'notes.json').write_text('{}')
+            (root / 'skip' / '.gdignore').write_text(''); (root / 'skip' / 'raw.png').write_bytes(b'')
+            (root / '.godot' / 'cache.png').write_bytes(b'')
+            self.assertEqual(runner.unimported_assets(root), ['art/fresh.png'])
+
     def test_native_utf8_log_is_preserved_on_windows(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

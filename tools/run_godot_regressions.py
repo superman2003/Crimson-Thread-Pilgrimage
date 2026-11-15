@@ -85,6 +85,24 @@ def select_shard(suites, index, count):
     return suites[index - 1::count]
 
 
+IMPORTED_SUFFIXES = {'.png', '.jpg', '.jpeg', '.webp', '.svg', '.ogg', '.wav', '.mp3', '.ttf', '.otf'}
+
+
+def unimported_assets(godot_root: Path) -> list[str]:
+    """Assets Godot has never imported: suites that load them fail in ways
+    that look like code faults (a region transition rolls back, say)."""
+    missing = []
+    for dirpath, dirnames, filenames in os.walk(godot_root):
+        if '.gdignore' in filenames:
+            dirnames.clear(); continue
+        dirnames[:] = [d for d in dirnames if not d.startswith('.')]
+        for name in filenames:
+            path = Path(dirpath) / name
+            if path.suffix.lower() in IMPORTED_SUFFIXES and not path.with_name(name + '.import').exists():
+                missing.append(path.relative_to(godot_root).as_posix())
+    return sorted(missing)
+
+
 def main():
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')
@@ -114,6 +132,10 @@ def main():
     except ValueError as error:
         parser.error(str(error))
     print(f'GODOT_SHARD index={args.shard_index} count={args.shard_count} suites={len(suites)}', flush=True)
+    stale = unimported_assets(ROOT / 'godot')
+    if stale:
+        print(f'WARNING: {len(stale)} asset(s) were never imported, e.g. {", ".join(stale[:3])}; '
+              'suites that load them will fail. Run tools/run_godot_import.py first.', flush=True)
     # Reject the whole request before running any suite or creating log files.
     try:
         for suite in suites:
