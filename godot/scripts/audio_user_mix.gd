@@ -11,7 +11,7 @@ static func set_user_volume(director: Node, which: String, percent: float) -> vo
     director.volume_preferences_revision += 1
     director.volume_preferences_dirty = true
     director._apply_user_volume(which)
-    director._save_user_volumes()
+    save_user_volumes(director)
 
 
 static func get_user_volume(director: Node, which: String) -> float:
@@ -20,7 +20,7 @@ static func get_user_volume(director: Node, which: String) -> float:
 
 static func apply_user_volume(director: Node, which: String) -> void:
     var bus_name := String(director.USER_VOLUME_BUS.get(which, "Master"))
-    var target: float = director._bus_base_db(which)
+    var target: float = bus_base_db(director, which)
     if which == "music":
         target = director._music_rest_db()
         # User volume updates the baseline without losing other transient leases.
@@ -33,11 +33,11 @@ static func apply_user_volume(director: Node, which: String) -> void:
         envelope.kill()
     director.bus_tweens.erase(bus_name)
     director._set_bus_db(bus_name, target)
-    director._set_user_mute(bus_name, director.get_user_volume(which) <= 0.0)
+    set_user_mute(director, bus_name, director.get_user_volume(which) <= 0.0)
     if which == "sfx":
         # Heartbeats stay dry (send -> Master), but still obey the SFX slider.
-        director._set_bus_db("SFXDry", director._user_db("sfx"))
-        director._set_user_mute("SFXDry", director.get_user_volume("sfx") <= 0.0)
+        director._set_bus_db("SFXDry", user_db(director, "sfx"))
+        set_user_mute(director, "SFXDry", director.get_user_volume("sfx") <= 0.0)
 
 
 static func set_user_mute(director: Node, bus_name: String, muted: bool) -> void:
@@ -87,7 +87,7 @@ static func user_volume_save_status(director: Node) -> Dictionary:
 static func retry_user_volume_save(director: Node) -> Dictionary:
     if director.is_queued_for_deletion() or (is_instance_valid(director.instance) and director.instance != director):
         return {"persisted":false,"error":ERR_UNAVAILABLE,"reason":"当前声音设置页已失效。"}
-    if director.volume_preferences_dirty:director._save_user_volumes()
+    if director.volume_preferences_dirty:save_user_volumes(director)
     return director.user_volume_save_status()
 
 
@@ -100,15 +100,15 @@ static func user_db(director: Node, which: String) -> float:
 
 static func bus_base_db(director: Node, which: String) -> float:
     var bus_name := String(director.USER_VOLUME_BUS.get(which, "Master"))
-    return float(director.BUS_DEFAULT_DB.get(bus_name, 0.0)) + director._user_db(which)
+    return float(director.BUS_DEFAULT_DB.get(bus_name, 0.0)) + user_db(director, which)
 
 
 static func music_rest_db(director: Node) -> float:
-    return director._bus_base_db("music") + (director.DIALOGUE_MUSIC_DUCK_DB if director.dialogue_open else 0.0)
+    return bus_base_db(director, "music") + (director.DIALOGUE_MUSIC_DUCK_DB if director.dialogue_open else 0.0)
 
 
 static func ambience_rest_db(director: Node) -> float:
-    return director._bus_base_db("ambience") + (director.DIALOGUE_AMBIENCE_DUCK_DB if director.dialogue_open else 0.0)
+    return bus_base_db(director, "ambience") + (director.DIALOGUE_AMBIENCE_DUCK_DB if director.dialogue_open else 0.0)
 
 
 static func set_bus_db(director: Node, bus_name: String, value: float) -> void:

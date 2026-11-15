@@ -114,7 +114,6 @@ func _seal_heal_completed() -> void:
     PLAYER_SEALS.seal_heal_completed(self)
 
 
-
 const SFX := {
     "attack": "res://assets/audio/sfx/player_attack.ogg",
     "hook": "res://assets/audio/sfx/player_hook.ogg",
@@ -417,7 +416,7 @@ func _ready() -> void:
     add_to_group("player")
     spawn_position = global_position
     _ensure_input_actions()
-    _load_sprite_frames()
+    PLAYER_SPRITES.load_sprite_frames(self)
     sprite.frame_changed.connect(_sync_sprite_pose_anchor)
     sprite.animation_changed.connect(_sync_sprite_pose_anchor)
     _sync_sprite_pose_anchor()
@@ -456,7 +455,7 @@ func _physics_process(delta: float) -> void:
         if flash_material != null and not bool(_accessibility().get("flash_enabled", true)):
             flash_material.set_shader_parameter("flash_amount", 0.0)
         return
-    _update_respawn_reveal(delta)
+    PLAYER_DAMAGE.update_respawn_reveal(self, delta)
     arrival_guard_timer = maxf(0.0, arrival_guard_timer - delta)
     if build_system != null and build_system.has_method("tick"):
         build_system.tick(delta)
@@ -527,7 +526,7 @@ func _physics_process(delta: float) -> void:
 
     # silk_wall_grip (ch2 能力)：解锁后贴墙减速下滑；未解锁时行为与旧版完全一致。
     wall_sliding = false
-    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and _can_grip_current_wall() and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and velocity.y > 0.0:
+    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and PLAYER_TRAVERSAL.can_grip_current_wall(self) and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and velocity.y > 0.0:
         var slide_wall_dir := signi(-get_wall_normal().x)
         if input_axis != 0.0 and signi(input_axis) == slide_wall_dir:
             wall_sliding = true
@@ -542,15 +541,15 @@ func _physics_process(delta: float) -> void:
         grapple_recovery_timer = 0.0
     var recovery_open := attack_timer <= 0.0 or _attack_recovery_cancelable()
     if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
-        _cancel_attack_recovery()
+        PLAYER_INPUT_BUFFER.cancel_attack_recovery(self)
         velocity.y = jump_velocity
         coyote_timer = 0.0
         jump_buffer_timer = 0.0
         _play(&"jump_start")
         _play_sfx("jump", -6.0)
-    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and _can_grip_current_wall() and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
+    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and PLAYER_TRAVERSAL.can_grip_current_wall(self) and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
         # 蹬墙跳：离墙水平 420 / 垂直 -640，播 wall_slide 帧。
-        _cancel_attack_recovery()
+        PLAYER_INPUT_BUFFER.cancel_attack_recovery(self)
         var jump_wall_dir := signi(-get_wall_normal().x)
         wall_jump_lock = 0.16
         ability_action.emit("silk_wall_grip", global_position, Vector2(-jump_wall_dir, -1))
@@ -567,7 +566,7 @@ func _physics_process(delta: float) -> void:
         MOVEMENT_ART.wall_jump(self, jump_wall_dir)
 
     elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
-        _cancel_attack_recovery()
+        PLAYER_INPUT_BUFFER.cancel_attack_recovery(self)
         ability_action.emit("double_thread_jump", global_position, Vector2.UP)
         air_jump_available = false
         velocity.y = double_jump_velocity
@@ -581,7 +580,7 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
 
-    _consume_action_input(&"dash")
+    PLAYER_INPUT_BUFFER.consume_action_input(self, &"dash")
 
     if Input.is_action_just_pressed("bell_guard"):
         _try_guard()
@@ -590,7 +589,7 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_pressed("heal"):
         _try_heal()
 
-    if _consume_action_input(&"attack") or _consume_action_input(&"hook"):
+    if PLAYER_INPUT_BUFFER.consume_action_input(self, &"attack") or PLAYER_INPUT_BUFFER.consume_action_input(self, &"hook"):
         pass
     elif Input.is_action_just_pressed("skill_1") and _can_start_action() and attack_cancel_lock <= 0.0:
         _try_skill_burst()
@@ -619,7 +618,7 @@ func _physics_process(delta: float) -> void:
     var fall_speed := velocity.y
     var platform_motion := get_platform_velocity() * delta if was_on_floor else Vector2.ZERO
     move_and_slide()
-    _update_ground_motion(delta, platform_motion)
+    PLAYER_ANIMATION.update_ground_motion(self, delta, platform_motion)
     if not was_on_floor and is_on_floor():
         land_timer = 0.14
         pogo_chain = 0
@@ -630,15 +629,12 @@ func _physics_process(delta: float) -> void:
     _update_wall_slide_audio()
     MOVEMENT_ART.wall_state(self)
     _update_footsteps(delta)
-    _update_camera(delta)
+    PLAYER_TRAVERSAL.update_camera(self, delta)
     _update_animation(input_axis)
-
 
 
 ## Anchors are explicit world fixtures, never arbitrary scenery or enemies.
 ## K/X still performs the original combat hook when no reachable anchor is in aim.
-func _can_grip_current_wall() -> bool:
-    return PLAYER_TRAVERSAL.can_grip_current_wall(self)
 
 func _try_start_grapple() -> bool:
     return PLAYER_TRAVERSAL.try_start_grapple(self)
@@ -683,18 +679,10 @@ func _sample_action_input(delta: float) -> void:
     PLAYER_INPUT_BUFFER.sample_action_input(self, delta)
 
 
-func _consume_action_input(action: StringName) -> bool:
-    return PLAYER_INPUT_BUFFER.consume_action_input(self, action)
-
-
 ## A nail swing or hook throw (not a thread art) commits through its wind-up
 ## and active frames; only its recovery may be cut.
 func _attack_recovery_cancelable() -> bool:
     return PLAYER_INPUT_BUFFER.attack_recovery_cancelable(self)
-
-
-func _cancel_attack_recovery() -> void:
-    PLAYER_INPUT_BUFFER.cancel_attack_recovery(self)
 
 
 func _start_dash() -> void:
@@ -760,20 +748,8 @@ func _update_phase(delta: float) -> void:
     PLAYER_TRAVERSAL.update_phase(self, delta)
 
 
-func _sync_phase_gates() -> void:
-    PLAYER_TRAVERSAL.sync_phase_gates(self)
-
-
-func _phase_position_clear() -> bool:
-    return PLAYER_TRAVERSAL.phase_position_clear(self)
-
-
 func _stop_phase() -> void:
     PLAYER_TRAVERSAL.stop_phase(self)
-
-
-func _update_camera(delta: float) -> void:
-    PLAYER_TRAVERSAL.update_camera(self, delta)
 
 
 func configure_camera_focus(bounds: Rect2) -> void:
@@ -794,7 +770,6 @@ func remove_camera_lock(id: String) -> void:
 
 func _apply_special_skill() -> void:
     PLAYER_ABILITIES.apply_special_skill(self)
-
 
 
 func cast_tool(payload: Dictionary) -> bool:
@@ -822,13 +797,9 @@ func _try_gate_strike(attack_rect: Rect2) -> void:
 
 ## A downslash that meets static spikes bounces like an enemy hit, but awards no
 ## thread and no hit feedback. Terrain between the player and spikes blocks it.
-func _try_hazard_pogo(attack_rect: Rect2) -> void:
-    PLAYER_ATTACK.try_hazard_pogo(self, attack_rect)
 
 
 ## 命中反馈分档（规格 §2.1/§2.2）：hitstop + trauma + 击杀闪帧。
-func _trigger_hit_feedback(killed: bool) -> void:
-    PLAYER_ATTACK.trigger_hit_feedback(self, killed)
 
 
 func _sync_attack_hitbox() -> void:
@@ -847,13 +818,8 @@ func _move_axis() -> float:
 func _attack_size() -> Vector2:
     return PLAYER_ATTACK.attack_size(self)
 
-
 func _attack_center_offset() -> Vector2:
     return PLAYER_ATTACK.attack_center_offset(self)
-
-
-func _attack_hit_direction() -> int:
-    return PLAYER_ATTACK.attack_hit_direction(self)
 
 
 func _apply_downslash_bounce(_target_position: Vector2) -> void:
@@ -861,8 +827,6 @@ func _apply_downslash_bounce(_target_position: Vector2) -> void:
 
 
 ## pogo 压缩–弹射形变（规格 §2.2）：压缩 → 拉伸 → 弹性回正。
-func _play_pogo_squash() -> void:
-    PLAYER_ATTACK.play_pogo_squash(self)
 
 
 func gain_energy(amount: int, practice_gain: bool = false) -> void:
@@ -871,14 +835,6 @@ func gain_energy(amount: int, practice_gain: bool = false) -> void:
 
 func _apply_thread_balance(next_energy: int, next_practice: int) -> void:
     PLAYER_INPUT_BUFFER.apply_thread_balance(self, next_energy, next_practice)
-
-
-func _update_ground_motion(delta: float, platform_motion: Vector2 = Vector2.ZERO) -> void:
-    PLAYER_ANIMATION.update_ground_motion(self, delta, platform_motion)
-
-
-func _pose_ground_run() -> void:
-    PLAYER_ANIMATION.pose_ground_run(self)
 
 
 func _sync_sprite_pose_anchor() -> void:
@@ -1037,10 +993,6 @@ func _spawn_heal_effect() -> void:
     PLAYER_EFFECTS.spawn_heal_effect(self)
 
 
-func _add_heal_ring(radius: float, delay: float) -> void:
-    PLAYER_EFFECTS.add_heal_ring(self, radius, delay)
-
-
 func _spawn_attack_vfx(animation: StringName) -> void:
     PLAYER_EFFECTS.spawn_attack_vfx(self, animation)
 
@@ -1102,28 +1054,12 @@ func _set_death_visibility(amount: float) -> void:
     PLAYER_DAMAGE.set_death_visibility(self, amount)
 
 
-func _update_respawn_reveal(delta: float) -> void:
-    PLAYER_DAMAGE.update_respawn_reveal(self, delta)
-
-
 func _hard_respawn() -> void:
     PLAYER_DAMAGE.hard_respawn(self)
 
 
 func restore_at_save_point() -> void:
     PLAYER_DAMAGE.restore_at_save_point(self)
-
-
-func _load_sprite_frames() -> void:
-    PLAYER_SPRITES.load_sprite_frames(self)
-
-
-func _load_generated_hero_frames(data: Dictionary) -> SpriteFrames:
-    return PLAYER_SPRITES.load_generated_hero_frames(self, data)
-
-
-func _res_path_from_manifest(path: String) -> String:
-    return PLAYER_SPRITES.res_path_from_manifest(self, path)
 
 
 func get_player_debug_state() -> Dictionary:

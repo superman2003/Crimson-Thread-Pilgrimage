@@ -32,7 +32,7 @@ static func move_boss_tactical(actor: Node, delta: float, target: CharacterBody2
                 move_multiplier = float(actor.ai_profile.get("reposition_speed_multiplier", 1.04))
             actor.last_ai_decision = "tactic:reposition"
         "space":
-            movement_direction = actor._boss_spacing_direction(distance, dx)
+            movement_direction = boss_spacing_direction(actor, distance, dx)
             move_multiplier = float(actor.ai_profile.get("spacing_speed_multiplier", 0.72))
             actor.boss_press_timer = maxf(0.0, actor.boss_press_timer - delta)
             actor.last_ai_decision = "tactic:space"
@@ -62,8 +62,8 @@ static func prepare_boss_tactic(actor: Node, target: CharacterBody2D, distance: 
     var measured_distance := distance
     if measured_distance < 0.0:
         measured_distance = absf(target.global_position.x - actor.global_position.x)
-    if actor.boss_tactic_timer <= 0.0 or actor._boss_tactic_finished(target, measured_distance):
-        actor._choose_boss_tactic(target, measured_distance)
+    if actor.boss_tactic_timer <= 0.0 or boss_tactic_finished(actor, target, measured_distance):
+        choose_boss_tactic(actor, target, measured_distance)
 
 
 static func boss_tactic_finished(actor: Node, target: CharacterBody2D, distance: float) -> bool:
@@ -72,7 +72,7 @@ static func boss_tactic_finished(actor: Node, target: CharacterBody2D, distance:
     if actor.boss_tactic == "press":
         return distance <= preferred * 0.92 or actor.boss_press_timer >= float(actor.ai_profile.get("max_press_time", 1.25))
     if actor.boss_tactic == "evade":
-        return distance >= preferred * 1.22 or actor._boss_at_arena_edge()
+        return distance >= preferred * 1.22 or boss_at_arena_edge(actor)
     if actor.boss_tactic == "reposition":
         return absf(actor.global_position.x - actor.boss_reposition_target_x) <= 10.0
     if actor.boss_tactic == "space":
@@ -87,31 +87,31 @@ static func choose_boss_tactic(actor: Node, target: CharacterBody2D, distance: f
     var close_range := float(actor.ai_profile.get("close_range", maxf(56.0, preferred * 0.62)))
     var pressure: float = actor._player_command_pressure(actor.last_player_command)
     var threshold: float = actor._attack_desire_threshold()
-    if distance <= close_range or actor._boss_should_evade_player_command(pressure):
-        actor._set_boss_tactic("evade", actor._boss_tactic_duration("evade", 0.42), target)
+    if distance <= close_range or boss_should_evade_player_command(actor, pressure):
+        set_boss_tactic(actor, "evade", actor._boss_tactic_duration("evade", 0.42), target)
         return
     if actor.last_player_command == "heal" or actor.last_player_command == "run_away":
-        actor._set_boss_tactic("press", actor._boss_tactic_duration("press", 0.72), target)
+        set_boss_tactic(actor, "press", actor._boss_tactic_duration("press", 0.72), target)
         return
     if actor.boss_press_timer >= float(actor.ai_profile.get("max_press_time", 1.25)):
-        actor._set_boss_tactic("reposition", actor._boss_tactic_duration("reposition", 0.82), target)
+        set_boss_tactic(actor, "reposition", actor._boss_tactic_duration("reposition", 0.82), target)
         return
     if ready_range > 0.0 and distance > ready_range * 0.92:
-        actor._set_boss_tactic("press", actor._boss_tactic_duration("press", 0.86), target)
+        set_boss_tactic(actor, "press", actor._boss_tactic_duration("press", 0.86), target)
         return
     if attack_range > 0.0 and distance > attack_range * 0.82:
-        actor._set_boss_tactic("press", actor._boss_tactic_duration("press", 0.70), target)
+        set_boss_tactic(actor, "press", actor._boss_tactic_duration("press", 0.70), target)
         return
-    if actor._boss_should_reposition(target, distance):
-        actor._set_boss_tactic("reposition", actor._boss_tactic_duration("reposition", 0.78), target)
+    if boss_should_reposition(actor, target, distance):
+        set_boss_tactic(actor, "reposition", actor._boss_tactic_duration("reposition", 0.78), target)
         return
     if actor.attack_desire < threshold * 0.66:
-        actor._set_boss_tactic("observe", actor._boss_tactic_duration("observe", 0.34), target)
+        set_boss_tactic(actor, "observe", actor._boss_tactic_duration("observe", 0.34), target)
         return
     if distance < preferred * 0.92 or distance > preferred * 1.22:
-        actor._set_boss_tactic("space", actor._boss_tactic_duration("space", 0.48), target)
+        set_boss_tactic(actor, "space", actor._boss_tactic_duration("space", 0.48), target)
         return
-    actor._set_boss_tactic("guard", actor._boss_tactic_duration("guard", 0.36), target)
+    set_boss_tactic(actor, "guard", actor._boss_tactic_duration("guard", 0.36), target)
 
 
 static func set_boss_tactic(actor: Node, next_tactic: String, duration: float, target: CharacterBody2D) -> void:
@@ -133,10 +133,10 @@ static func boss_should_evade_player_command(actor: Node, pressure: float) -> bo
 
 
 static func boss_should_reposition(actor: Node, target: CharacterBody2D, distance: float) -> bool:
-    if not actor._boss_has_arena_bounds():
+    if not boss_has_arena_bounds(actor):
         return false
     var edge_margin := float(actor.ai_profile.get("arena_edge_margin", 150.0))
-    if actor.global_position.x - actor._boss_min_x() < edge_margin or actor._boss_max_x() - actor.global_position.x < edge_margin:
+    if actor.global_position.x - boss_min_x(actor) < edge_margin or boss_max_x(actor) - actor.global_position.x < edge_margin:
         return true
     var preferred := float(actor.ai_profile.get("preferred_range", 118.0))
     return distance < preferred * 1.05 and actor.attack_desire >= actor._attack_desire_threshold() * 0.82 and actor.boss_tactic == "guard"
@@ -152,8 +152,8 @@ static func boss_spacing_direction(actor: Node, distance: float, dx: float) -> f
 
 
 static func boss_reposition_x(actor: Node, target: CharacterBody2D) -> float:
-    var min_x: float = actor._boss_min_x()
-    var max_x: float = actor._boss_max_x()
+    var min_x: float = boss_min_x(actor)
+    var max_x: float = boss_max_x(actor)
     var margin := float(actor.ai_profile.get("arena_edge_margin", 150.0))
     if min_x >= max_x:
         return actor.spawn_position.x
@@ -165,7 +165,7 @@ static func boss_reposition_x(actor: Node, target: CharacterBody2D) -> float:
 
 
 static func boss_has_arena_bounds(actor: Node) -> bool:
-    return actor._boss_min_x() < actor._boss_max_x()
+    return boss_min_x(actor) < boss_max_x(actor)
 
 
 static func boss_min_x(actor: Node) -> float:
@@ -185,7 +185,7 @@ static func boss_max_x(actor: Node) -> float:
 
 
 static func boss_at_arena_edge(actor: Node) -> bool:
-    if not actor._boss_has_arena_bounds():
+    if not boss_has_arena_bounds(actor):
         return false
     var edge_margin := float(actor.ai_profile.get("arena_edge_margin", 150.0)) * 0.55
-    return actor.global_position.x - actor._boss_min_x() <= edge_margin or actor._boss_max_x() - actor.global_position.x <= edge_margin
+    return actor.global_position.x - boss_min_x(actor) <= edge_margin or boss_max_x(actor) - actor.global_position.x <= edge_margin

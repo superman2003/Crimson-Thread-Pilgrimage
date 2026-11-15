@@ -72,7 +72,7 @@ static func room_for_position(level: Node, world_position: Vector2) -> Dictionar
             best_area = area
     # A nested corridor or reward pocket takes precedence over its enclosing
     # hall. Only legacy rooms without authored 2D bounds may use x fallback.
-    return best_room if not best_room.is_empty() else level._room_for_x(world_position.x, true)
+    return best_room if not best_room.is_empty() else room_for_x(level, world_position.x, true)
 
 
 static func room_layout_rect(level: Node, room_data: Dictionary) -> Rect2:

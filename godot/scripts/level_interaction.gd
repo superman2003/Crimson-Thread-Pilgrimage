@@ -127,12 +127,12 @@ static func nearest_interactable(level: Node, radius: float) -> Area2D:
             continue
         if kind=="history" and not area.accessible_from(level.player):
             continue
-        if kind=="world_portal" and level._behind_locked_gate(area):
+        if kind=="world_portal" and behind_locked_gate(level, area):
             continue
-        if kind in ["chapter_exit", "ending_exit"] and level._chapter_exit_can_open(area) and level._better_interaction_target(area, distance, preferred_best, preferred_distance):
+        if kind in ["chapter_exit", "ending_exit"] and level._chapter_exit_can_open(area) and better_interaction_target(level, area, distance, preferred_best, preferred_distance):
             preferred_best = area
             preferred_distance = distance
-        if level._better_interaction_target(area, distance, best, best_distance):
+        if better_interaction_target(level, area, distance, best, best_distance):
             best = area
             best_distance = distance
     return preferred_best if preferred_best != null else best
@@ -149,7 +149,7 @@ static func behind_locked_gate(level: Node, portal: Area2D) -> bool:
             if level._room_sealed_by_gates(destination):
                 return true
     var room_id := String(data.get("room_id", ""))
-    if room_id.is_empty() or not level._room_has_standing_gate(room_id):
+    if room_id.is_empty() or not room_has_standing_gate(level, room_id):
         return false
     var query = PhysicsRayQueryParameters2D.create(level.player.global_position - Vector2(0, 42), portal.global_position, 1, [level.player.get_rid()])
     return not level.player.get_world_2d().direct_space_state.intersect_ray(query).is_empty()

@@ -164,15 +164,15 @@ static func update_phase(player: Node, delta: float) -> void:
         if drain > 0:
             player.phase_energy_fraction -= drain
             player.gain_energy(-drain)
-        player._sync_phase_gates()
-        if player._phase_position_clear():
+        sync_phase_gates(player)
+        if phase_position_clear(player):
             player.phase_safe_position = player.global_position
     elif player.lantern_phase_unlocked and Input.is_action_pressed("lantern_phase") and player._can_start_action() and player.energy >= 8:
         player.gain_energy(-8)
         player.phase_active = true
         player.phase_energy_fraction = 0.0
         player.phase_safe_position = player.global_position
-        player._sync_phase_gates()
+        sync_phase_gates(player)
         player.ability_action.emit("lantern_phase", player.global_position, Vector2(player.facing, 0))
         ABILITY_ART.phase_enter(player)
         player._play_sfx("phase_enter", -8.0)
@@ -202,7 +202,7 @@ static func phase_position_clear(player: Node) -> bool:
 
 static func stop_phase(player: Node) -> void:
     ABILITY_ART.phase_stop(player)
-    if player.phase_active and player.is_inside_tree() and not player._phase_position_clear():
+    if player.phase_active and player.is_inside_tree() and not phase_position_clear(player):
         player.global_position = player.phase_safe_position
         player.velocity = Vector2.ZERO
     for gate in player.phase_exceptions:

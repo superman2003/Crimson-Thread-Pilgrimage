@@ -20,7 +20,7 @@ static func load_sprite_frames(player: Node) -> void:
     player.use_grounded_run = String(data.get("run_presentation", "")) == "thread_doll_v1"
 
     if data.has("frames"):
-        player.sprite.sprite_frames = player._load_generated_hero_frames(data)
+        player.sprite.sprite_frames = load_generated_hero_frames(player, data)
         player._play(&"idle")
         return
 
@@ -72,7 +72,7 @@ static func load_generated_hero_frames(player: Node, data: Dictionary) -> Sprite
         frames.set_animation_speed(animation_name, float(spec.get("fps", 8.0)))
         frames.set_animation_loop(animation_name, bool(spec.get("loop", true)))
         for key in spec.get("frames", []):
-            var texture: Texture2D = player._load_texture_resource(player._res_path_from_manifest(String(source_frames.get(String(key), ""))))
+            var texture: Texture2D = player._load_texture_resource(res_path_from_manifest(player, String(source_frames.get(String(key), ""))))
             if texture != null:
                 frames.add_frame(animation_name, texture)
         if frames.get_frame_count(animation_name) == 0 and frames.has_animation("idle") and frames.get_frame_count("idle") > 0:

@@ -73,7 +73,7 @@ static func configure(actor: Node, data: Dictionary, sprite_path: String, boss_f
     actor.ai_profile["lure_eligible"] = bool(data.get("lure_eligible", actor.ai_profile.get("lure_eligible", not actor.is_boss and actor.locomotion != "stationary")))
     actor.is_elite = bool(data.get("elite", false)) and not actor.is_boss and actor.ai_profile.get("elite") is Dictionary
     if actor.is_elite:
-        actor._apply_elite_profile(actor.ai_profile.elite)
+        apply_elite_profile(actor, actor.ai_profile.elite)
     actor.ai_commands = actor.ai_profile.get("attacks", [])
     for command in actor.ai_commands:
         actor.cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
@@ -117,7 +117,7 @@ static func react_to_hit(actor: Node, hit_direction: int) -> void:
         actor.last_seen_position = target.global_position
         actor.memory_timer = actor.TARGET_MEMORY_SECONDS
     actor.attack_desire += 0.25
-    if actor._hit_is_armored():
+    if hit_is_armored(actor):
         actor.knockback_velocity *= 0.35
         return
     actor._cancel_unarmed_attack_effects()
@@ -192,7 +192,7 @@ static func fit_hurtbox_to_art(actor: Node) -> void:
     var core := Rect2()
     var measured := 0
     for index in count:
-        var drawn: Rect2 = actor._drawn_body_rect(animation, index)
+        var drawn: Rect2 = drawn_body_rect(actor, animation, index)
         if drawn.has_area():
             width += drawn.size.x
             height += drawn.size.y
@@ -277,7 +277,7 @@ static func tick_timers(actor: Node, delta: float) -> void:
     actor.poise_cooldown = maxf(0.0, actor.poise_cooldown - delta)
     actor.backstep_cooldown = maxf(0.0, actor.backstep_cooldown - delta)
     actor.patrol_pause_timer = maxf(0.0, actor.patrol_pause_timer - delta)
-    actor._tick_hit_flash(delta)
+    tick_hit_flash(actor, delta)
     if absf(actor.knockback_velocity) > 0.0:
         var decay = exp(-maxf(0.0,delta)/actor.KNOCKBACK_TAU)
         var start = actor.global_position
@@ -323,7 +323,7 @@ static func clamp_to_arena(actor: Node) -> void:
 
 
 static func clamp_movement_bounds(actor: Node) -> void:
-    actor._clamp_to_arena()
+    clamp_to_arena(actor)
     if actor.is_boss:
         return
     var min_x := -INF

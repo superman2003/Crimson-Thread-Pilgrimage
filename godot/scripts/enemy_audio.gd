@@ -23,7 +23,7 @@ static func sfx_listener(actor: Node) -> CollisionObject2D:
 
 
 static func sfx_occluded(actor: Node) -> bool:
-    var listener: CollisionObject2D = actor._sfx_listener()
+    var listener: CollisionObject2D = sfx_listener(actor)
     return listener != null and not actor._has_line_of_sight(listener)
 
 

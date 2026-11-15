@@ -131,7 +131,7 @@ static func discard_catalog_lookahead(loader: RefCounted, read_ahead: Dictionary
 
 
 static func discard_catalog_staging(loader: RefCounted, host: Variant, read_ahead: Dictionary = {}) -> void:
-    loader._discard_catalog_lookahead(read_ahead)
+    discard_catalog_lookahead(loader, read_ahead)
     if is_instance_valid(host):
         host.world_catalog_prepare_staging = {}
 

@@ -15,7 +15,7 @@ static func loadout_name_error(system: RefCounted, value: Variant) -> String:
 
 static func preview_loadout_management(system: RefCounted, source: String, target: Variant, copy: bool, at_bell: bool) -> Dictionary:
     if not system.state.loadouts.has(source):return system._fail("原方案不存在")
-    var error: String = system._loadout_name_error(target)
+    var error: String = loadout_name_error(system, target)
     if not error.is_empty():return system._fail(error)
     var name: String=target.strip_edges()
     if name==source:return system._fail("请输入不同的新名称")
@@ -49,7 +49,7 @@ static func copy_loadout(system: RefCounted, source: String, target: Variant, at
 
 static func save_loadout(system: RefCounted, name: String, at_bell: bool) -> Dictionary:
     if not at_bell: return system._fail("请在钟龛保存构筑方案")
-    var error: String = system._loadout_name_error(name)
+    var error: String = loadout_name_error(system, name)
     if not error.is_empty():return system._fail(error)
     name = name.strip_edges()
     if system.state.loadouts.size() >= 8 and not system.state.loadouts.has(name): return system._fail("最多保存8个构筑方案")
@@ -79,7 +79,7 @@ static func preview_loadout(system: RefCounted, name: String, at_bell: bool) -> 
     var result: Dictionary = candidate.restore_loadout(name, true)
     if not bool(result.get("ok", false)): return result
     return system._ok({"can_restore": at_bell, "reason": "" if at_bell else "请在钟龛恢复构筑",
-        "profile": candidate.profile(), "current_profile": system.profile(), "changes": system._loadout_changes(candidate), "equipped_families": candidate.state.equipped_families.duplicate(true),
+        "profile": candidate.profile(), "current_profile": system.profile(), "changes": loadout_changes(system, candidate), "equipped_families": candidate.state.equipped_families.duplicate(true),
         "currency_cost": 0, "refills_resources": false})
 
 
@@ -137,9 +137,9 @@ static func validate_loadout(system: RefCounted, build: Dictionary) -> String:
     var tools: Array = families.tool
     var active_skill := int(build.active_skill_slot)
     var active_tool := int(build.active_tool_slot)
-    if not system._active_slot_valid("thread_skill", active_skill, skills, String(build.crest)):
+    if not active_slot_valid(system, "thread_skill", active_skill, skills, String(build.crest)):
         return "活动线技槽位无效"
-    if not system._active_slot_valid("tool", active_tool, tools, String(build.crest)):
+    if not active_slot_valid(system, "tool", active_tool, tools, String(build.crest)):
         return "活动战具槽位无效"
     var expected_passives: Array = system._active_accessories(families, String(build.crest))
     if build.get("skills") != skills or build.get("tools") != tools or build.get("passives") != expected_passives:

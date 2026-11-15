@@ -66,10 +66,8 @@ func request_manifest_refresh(host: Node) -> void:
     if ROUTES.cache_is_current():
         return
     manifest_refresh_running = true
-    _run_background_manifest_refresh(host)
+    LOADER_STARTUP.run_background_manifest_refresh(self, host)
 
-func _run_background_manifest_refresh(host: Node) -> void:
-    await LOADER_STARTUP.run_background_manifest_refresh(self, host)
 
 ## Scene `_ready` must be fire-and-forget; this token gives the startup
 ## coroutine an owner that survives until success or host teardown.
@@ -83,11 +81,9 @@ func request_startup_region(host: Node, previous_mode: int) -> RefCounted:
     phase = "startup"
     last_transition["startup_requested_frame"] = Engine.get_process_frames()
     last_transition["startup_requested_usec"] = Time.get_ticks_usec()
-    _run_owned_startup(token, host, previous_mode)
+    LOADER_STARTUP.run_owned_startup(self, token, host, previous_mode)
     return token
 
-func _run_owned_startup(token: RefCounted, host: Node, previous_mode: int) -> void:
-    await LOADER_STARTUP.run_owned_startup(self, token, host, previous_mode)
 
 ## Initial world boot uses the same bounded preparation/build/finish plan as
 ## travel. The synchronous initializer remains available to explicit fixtures.
@@ -111,7 +107,6 @@ func _startup_config_read_ahead_source_valid(host: Node, tree: SceneTree) -> boo
 
 func _prepare_startup_config(host: Node, tree: SceneTree) -> Dictionary:
     return await LOADER_STARTUP.prepare_startup_config(self, host, tree)
-
 
 
 func _show_startup_error(host: Node) -> void:
@@ -214,14 +209,11 @@ func _evict_budgeted(host: Node) -> bool:
     return await LOADER_BUDGETED_PREPARE.evict_budgeted(self, host)
 
 
-
 ## Sequential cold-catalog reads share the loader's single ticket service.
 ## Parsed region trees are worker-owned; only catalog entries survive handoff.
 func _catalog_context_valid(host: Variant, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool) -> bool:
     return _alive(host) and (phase != "startup" or not last_transition.has("startup_config_lease") or _startup_config_context_valid(host, tree, last_transition.startup_config_lease)) and host.get_tree() == tree and generation == expected_generation and route_generation >= 0 and ROUTES.cached_generation() == route_generation and (not cancellable or not cancel_requested)
 
-func _discard_catalog_lookahead(read_ahead: Dictionary) -> void:
-    LOADER_REGION_STATE.discard_catalog_lookahead(self, read_ahead)
 
 func _discard_catalog_staging(host: Variant, read_ahead: Dictionary = {}) -> void:
     LOADER_REGION_STATE.discard_catalog_staging(self, host, read_ahead)
@@ -306,11 +298,8 @@ func request_passage_transition(host: Node, path: String, entry: Vector2, rollba
     var token = TRANSITION_TOKEN.new()
     token.serial = transition_serial
     transition_token = token
-    _run_owned_passage_transition(token, host, path, entry, rollback_entry)
+    LOADER_TRANSITIONS.run_owned_passage_transition(self, token, host, path, entry, rollback_entry)
     return token
-
-func _run_owned_passage_transition(token: RefCounted, host: Node, path: String, entry: Vector2, rollback_entry: Vector2) -> void:
-    await LOADER_TRANSITIONS.run_owned_passage_transition(self, token, host, path, entry, rollback_entry)
 
 
 func start_region_transition(host: Node, path: String, entry: Vector2) -> void:
@@ -332,8 +321,6 @@ func request_region_transition(host: Node, path: String, entry: Vector2, publish
     var token = TRANSITION_TOKEN.new()
     token.serial = transition_serial
     transition_token = token
-    _run_owned_transition(token, host, path, entry, publish_flags)
+    LOADER_TRANSITIONS.run_owned_transition(self, token, host, path, entry, publish_flags)
     return token
 
-func _run_owned_transition(token: RefCounted, host: Node, path: String, entry: Vector2, publish_flags: Dictionary) -> void:
-    await LOADER_TRANSITIONS.run_owned_transition(self, token, host, path, entry, publish_flags)

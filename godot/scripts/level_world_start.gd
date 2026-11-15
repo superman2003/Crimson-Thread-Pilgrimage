@@ -28,7 +28,7 @@ static func prepare_world_start(level: Node) -> void:
             level.entry_spawn_override_enabled = true
             level.entry_spawn_override = level.world_state.resume_local_position()
         elif level.world_resume and level.world_state.last_error != "missing":
-            level.world_initial_error = level._damaged_save_message()
+            level.world_initial_error = damaged_save_message(level)
         # A journey that could not be read keeps its recorded time untouched.
         level.journey_clock = preload("res://scripts/journey_progress.gd").new()
         level.journey_clock.attach(level.world_save_path, level.world_resume)
@@ -230,7 +230,7 @@ static func first_interaction_type(level: Node, area: Area2D) -> String:
 
 
 static func show_first_interaction_hint(level: Node, area: Area2D) -> void:
-    var kind: String = level._first_interaction_type(area)
+    var kind: String = first_interaction_type(level, area)
     var flag = "tutorial_interaction_seen_" + kind
     if bool(level.story_flags.get(flag, false)):
         return
@@ -269,12 +269,12 @@ static func update_first_journey_hint(level: Node) -> void:
         lesson = "attack"
         text = "按 %s 挥刃，命中敌人可回充绯线。" % level.ui_shell._short_binding("attack")
     elif level.player.hp < level.player.max_hp and level.player.energy >= level.player.heal_energy_cost and absf(level.player._move_axis()) < 0.1 and not bool(level.story_flags.get("tutorial_action_seen_heal", false)):
-        if not level._first_journey_heal_safe():
+        if not first_journey_heal_safe(level):
             return
         lesson = "heal"
         text = "站稳后按 %s 缝补；移动或受击会打断。" % level.ui_shell._short_binding("heal")
     elif level.current_room_id == "court_hub" and level.player.hp == level.player.max_hp and not bool(level.story_flags.get("tutorial_action_seen_thread", false)):
-        if not level._first_journey_heal_safe():
+        if not first_journey_heal_safe(level):
             return
         lesson = "thread"
         text = "挥刃命中会回充绯线；留一些给缝补和战技。"
@@ -283,7 +283,7 @@ static func update_first_journey_hint(level: Node) -> void:
         text = "按 %s 冲刺越过缺口；空中也能使用。" % level.ui_shell._short_binding("dash")
     elif level.current_room_id in ["first_bell_shrine", "maze_respite", "pre_boss_shrine"] and level.player.hp == level.player.max_hp and level.build_system != null and not bool(level.story_flags.get("tutorial_action_seen_tool", false)):
         var tool_id := String(level.build_system.state.get("tool", ""))
-        if tool_id.is_empty() or int(level.build_system.state.get("tool_counts", {}).get(tool_id, 0)) <= 0 or not level._first_journey_heal_safe():
+        if tool_id.is_empty() or int(level.build_system.state.get("tool_counts", {}).get(tool_id, 0)) <= 0 or not first_journey_heal_safe(level):
             return
         lesson = "tool"
         text = "按 %s 使用战具；在钟龛休息可补满次数。" % level.ui_shell._short_binding("tool_cast")

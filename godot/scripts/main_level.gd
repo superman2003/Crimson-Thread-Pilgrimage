@@ -635,18 +635,10 @@ func _initialize_region(prepared_config: Dictionary = {}) -> void:
     LEVEL_REGION_PIPELINE.initialize_region(self, prepared_config)
 
 
-func _prepare_region(prepared_config: Dictionary = {}) -> void:
-    LEVEL_REGION_PIPELINE.prepare_region(self, prepared_config)
-
-
 ## Ordered preparation contract shared by synchronous startup and async World travel.
 ## Planning enumerates chapter filenames only; content reads, parsing and deep copies stay in jobs.
 func _region_prepare_jobs(prepared_config: Dictionary = {}) -> Array:
     return LEVEL_REGION_PIPELINE.region_prepare_jobs(self, prepared_config)
-
-
-func _chapter_metadata_paths() -> Array:
-    return LEVEL_REGION_PIPELINE.chapter_metadata_paths(self)
 
 
 func _prepare_config_and_route(prepared_config: Dictionary) -> void:
@@ -733,10 +725,6 @@ func _prepare_platform_and_gameplay_residency() -> void:
     LEVEL_REGION_PIPELINE.prepare_platform_and_gameplay_residency(self)
 
 
-func _finish_region() -> void:
-    LEVEL_REGION_PIPELINE.finish_region(self)
-
-
 func _region_finish_jobs() -> Array:
     return LEVEL_REGION_PIPELINE.region_finish_jobs(self)
 
@@ -755,10 +743,6 @@ func _setup_cartography() -> void:
 
 func _publish_region() -> void:
     LEVEL_REGION_PIPELINE.publish_region(self)
-
-
-func _restore_saved_build() -> void:
-    LEVEL_REGION_PIPELINE.restore_saved_build(self)
 
 
 func _apply_cmdline_config_override() -> void:
@@ -823,10 +807,10 @@ func _process(_delta: float) -> void:
     if active_overlay == "dialogue" and dialogue_text_label != null:
         subtitle_elapsed += _delta
         dialogue_text_label.visible_characters = mini(dialogue_text_label.text.length(), int(dialogue_text_label.text.length() * subtitle_elapsed / maxf(0.1, subtitle_seconds)))
-    _tick_lore_banner(_delta)
+    LEVEL_HUD.tick_lore_banner(self, _delta)
     if pending_enemy_respawn:
         pending_enemy_respawn = false
-        _spawn_normal_enemies()
+        LEVEL_RESIDENTS.spawn_normal_enemies(self)
         # World encounters start at the manual bell gate, including after death.
         if not world_mode and boss_unlocked and not demo_complete and not boss_spawned:
             _spawn_boss()
@@ -876,8 +860,8 @@ func _process(_delta: float) -> void:
     if player != null and is_instance_valid(player):
         _update_safe_ground()
         _update_room_visit()
-        _notice_hidden_route_clues()
-        _notice_ending_aftermath()
+        LEVEL_REGION_BUILD.notice_hidden_route_clues(self)
+        ENDING_GATES.notice_ending_aftermath(self)
         _update_first_journey_hint()
         if active_overlay == "map":
             _refresh_map_overlay()
@@ -909,8 +893,6 @@ func _prepare_world_start() -> void:
 
 ## T02: the damaged file stays untouched; tell the player whether its backup can
 ## bring the journey back, and where.
-func _damaged_save_message() -> String:
-    return LEVEL_WORLD_START.damaged_save_message(self)
 
 func _resolve_world_start_route() -> bool:
     return LEVEL_WORLD_START.resolve_world_start_route(self)
@@ -974,8 +956,6 @@ func _save_world() -> bool:
 
 const WAYFINDING := preload("res://scripts/world_wayfinding.gd")
 
-func _first_interaction_type(area: Area2D) -> String:
-    return LEVEL_WORLD_START.first_interaction_type(self, area)
 
 func _show_first_interaction_hint(area: Area2D) -> void:
     LEVEL_WORLD_START.show_first_interaction_hint(self, area)
@@ -984,9 +964,6 @@ func _show_first_interaction_hint(area: Area2D) -> void:
 func _update_first_journey_hint() -> void:
     LEVEL_WORLD_START.update_first_journey_hint(self)
 
-
-func _first_journey_heal_safe() -> bool:
-    return LEVEL_WORLD_START.first_journey_heal_safe(self)
 
 func _add_wayfinding(area: Area2D) -> void:
     LEVEL_WORLD_TRAVEL.add_wayfinding(self, area)
@@ -1005,10 +982,6 @@ func _apply_world_npc_state(area: Area2D) -> void:
 
 func _world_grapple_anchor(data: Dictionary) -> void:
     LEVEL_WORLD_TRAVEL.world_grapple_anchor(self, data)
-
-
-func _world_portal_missing(data: Dictionary) -> String:
-    return LEVEL_WORLD_TRAVEL.world_portal_missing(self, data)
 
 
 func _refresh_world_portals() -> void:
@@ -1114,9 +1087,6 @@ func _enemy_death_sfx_key() -> String:
     return LEVEL_CATALOGUE.enemy_death_sfx_key(self)
 
 
-func _original_map_art() -> Dictionary:
-    return LEVEL_CATALOGUE.original_map_art(self)
-
 func _is_rain_foundry_theme() -> bool:
     return LEVEL_CATALOGUE.is_rain_foundry_theme(self)
 
@@ -1180,8 +1150,6 @@ func _init_inventory_state() -> void:
 # 分类簿记与 testimony 链 flag 刷新一致；合并发生在 _spawn_player →
 # _refresh_ability_gates → _sync_player_abilities 之前，因此"ch2 拿
 # silk_wall_grip → 回 ch1 开 gate_wall_mossgrip"的数据链路直接成立。
-func _merge_carried_inventory() -> void:
-    LEVEL_CATALOGUE.merge_carried_inventory(self)
 
 
 func _item_data(item_id: String) -> Dictionary:
@@ -1340,14 +1308,6 @@ func _start_low_hp_heartbeat() -> void:
     LEVEL_AUDIO.start_low_hp_heartbeat(self)
 
 
-func _first_existing_bus(bus_names: Array) -> String:
-    return LEVEL_AUDIO.first_existing_bus(self, bus_names)
-
-
-func _stop_low_hp_heartbeat() -> void:
-    LEVEL_AUDIO.stop_low_hp_heartbeat(self)
-
-
 func _should_autoplay_audio() -> bool:
     return LEVEL_AUDIO.should_autoplay_audio(self)
 
@@ -1357,10 +1317,6 @@ func _should_autoplay_audio() -> bool:
 ## 因此下方 stream 同一性比较的"同曲去重"再次生效（不重头重播）。
 func _switch_bgm(audio_key: String) -> void:
     LEVEL_AUDIO.switch_bgm(self, audio_key)
-
-
-func _ensure_bgm_player() -> void:
-    LEVEL_AUDIO.ensure_bgm_player(self)
 
 
 func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
@@ -1378,10 +1334,6 @@ func _cancel_pending_sfx() -> void:
 ## UI 音走 UI 总线（干声），世界音走 SFXWorld 子总线（send→SFX 吃章节混响）。
 func _sfx_bus_for_key(audio_key: String) -> String:
     return LEVEL_AUDIO.sfx_bus_for_key(self, audio_key)
-
-
-func _load_audio_stream(audio_key: String) -> AudioStream:
-    return LEVEL_AUDIO.load_audio_stream(self, audio_key)
 
 
 ## 场景切换不截断的一次性音（章节切换线音）：播放器挂 tree root，播完自毁。
@@ -1509,10 +1461,6 @@ func _inventory_ids_for_category(category: String) -> Array[String]:
     return LEVEL_OVERLAYS.inventory_ids_for_category(self, category)
 
 
-func _selection_marker(item_id: String) -> String:
-    return LEVEL_OVERLAYS.selection_marker(self, item_id)
-
-
 func _backpack_selection_clamped() -> int:
     return LEVEL_OVERLAYS.backpack_selection_clamped(self)
 
@@ -1526,10 +1474,6 @@ func _refresh_backpack_detail() -> void:
     LEVEL_OVERLAYS.refresh_backpack_detail(self)
 
 
-func _inventory_line_for_category(category: String) -> String:
-    return LEVEL_OVERLAYS.inventory_line_for_category(self, category)
-
-
 func _update_room_visit() -> void:
     LEVEL_ROOMS.update_room_visit(self)
 
@@ -1538,10 +1482,6 @@ func _update_room_visit() -> void:
 ## chapter's low bell phrase. `visited_rooms` is saved, so a revisit stays quiet.
 func _play_echo_room_beat(room: Dictionary) -> bool:
     return LEVEL_ROOMS.play_echo_room_beat(self, room)
-
-
-func _room_for_x(world_x: float, legacy_only: bool = false) -> Dictionary:
-    return LEVEL_ROOMS.room_for_x(self, world_x, legacy_only)
 
 
 func _room_for_position(world_position: Vector2) -> Dictionary:
@@ -1651,17 +1591,11 @@ func _spawn_hidden_route_clues() -> void:
 func _spawn_ending_aftermath() -> void:
     ENDING_GATES.spawn_ending_aftermath(self)
 
-func _notice_ending_aftermath() -> void:
-    ENDING_GATES.notice_ending_aftermath(self)
 
 ## Saves from before these clues already record visits to the hidden rooms;
 ## a room the player has been in counts as found.
 func _sync_hidden_route_clues_with_visits() -> void:
     LEVEL_REGION_BUILD.sync_hidden_route_clues_with_visits(self)
-
-
-func _notice_hidden_route_clues() -> void:
-    LEVEL_REGION_BUILD.notice_hidden_route_clues(self)
 
 
 ## Rooms the hidden route plan reaches through an environmental clue.
@@ -1769,32 +1703,12 @@ func _void_respawn() -> void:
     LEVEL_PLAYER_FRAME.void_respawn(self)
 
 
-func _theme_background_color() -> Color:
-    return LEVEL_SCENERY.theme_background_color(self)
-
-
 func _background_layer(node_name: String, sprite_key: String, z_value: int, tint: Color = Color.WHITE) -> void:
     LEVEL_SCENERY.background_layer(self, node_name, sprite_key, z_value, tint)
 
 
 func _platform(node_name: String, rect: Rect2, color: Color, material: String = "moss_stone", collision_role: String = "", warmed: StaticBody2D = null) -> StaticBody2D:
     return LEVEL_SCENERY.platform(self, node_name, rect, color, material, collision_role, warmed)
-
-
-func _add_platform_readability_base(parent: Node, size_value: Vector2, material: String, fallback_color: Color) -> void:
-    LEVEL_SCENERY.add_platform_readability_base(self, parent, size_value, material, fallback_color)
-
-
-func _platform_body_color(material: String, fallback_color: Color) -> Color:
-    return LEVEL_SCENERY.platform_body_color(self, material, fallback_color)
-
-
-func _platform_edge_color(material: String) -> Color:
-    return LEVEL_SCENERY.platform_edge_color(self, material)
-
-
-func _add_platform_plate(parent: Node, local_center: Vector2, plate_size: Vector2, plate_color: Color, z_value: int) -> Polygon2D:
-    return LEVEL_SCENERY.add_platform_plate(self, parent, local_center, plate_size, plate_color, z_value)
 
 
 func _hazard(_data: Dictionary) -> void:
@@ -1836,10 +1750,6 @@ func _make_save_point(data: Dictionary) -> Area2D:
 
 func _save_point(data: Dictionary) -> void:
     LEVEL_PROPS.save_point(self, data)
-
-
-func _animate_save_point(area: Area2D, marker: Sprite2D, ring: Line2D) -> Array:
-    return LEVEL_PROPS.animate_save_point(self, area, marker, ring)
 
 
 func _play_save_point_activation(area: Area2D) -> void:
@@ -1894,9 +1804,6 @@ func _enemy_walk_obstacles(sweep: Rect2, floor_y: float, floor_platform_id: Stri
 
 func _enemy_walk_clear(position_value: Vector2, half_width: float, visual_height: float, obstacles: Dictionary) -> bool:
     return LEVEL_RESIDENTS.enemy_walk_clear(self, position_value, half_width, visual_height, obstacles)
-
-func _spawn_normal_enemies() -> void:
-    LEVEL_RESIDENTS.spawn_normal_enemies(self)
 
 
 func _take_gameplay_prefab(kind: String, data: Dictionary, profile: Dictionary = {}) -> Area2D:
@@ -2004,16 +1911,8 @@ func _lock_boss_camera() -> void:
     LEVEL_BOSS.lock_boss_camera(self)
 
 
-func _boss_arena_lock_rect() -> Rect2:
-    return LEVEL_BOSS.boss_arena_lock_rect(self)
-
-
 func _boss_gate_position() -> Vector2:
     return LEVEL_BOSS.boss_gate_position(self)
-
-
-func _floor_top_near_x(world_x: float) -> float:
-    return LEVEL_BOSS.floor_top_near_x(self, world_x)
 
 
 func _on_hazard_body_entered(_body: Node, _area: Area2D) -> void:
@@ -2022,20 +1921,12 @@ func _on_hazard_body_entered(_body: Node, _area: Area2D) -> void:
 func _forget_world_pickup(instance_id: int) -> void:
     LEVEL_PICKUPS.forget_world_pickup(self, instance_id)
 
-func _pickup_retry(area: Area2D, item_id: String, reason: String) -> void:
-    LEVEL_PICKUPS.pickup_retry(self, area, item_id, reason)
 
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
     LEVEL_PICKUPS.on_collectible_body_entered(self, body, area)
 
 ## Workshop capacity fragments report their set progress, or the finished
 ## item when a set completes; any other pickup keeps its own label.
-func _capacity_fragment_message(item_id: String, fallback: String) -> String:
-    return LEVEL_PICKUPS.capacity_fragment_message(self, item_id, fallback)
-
-
-func _on_collectible_body_entered_legacy(body: Node, area: Area2D) -> void:
-    LEVEL_PICKUPS.on_collectible_body_entered_legacy(self, body, area)
 
 
 ## play_unlock_sfx 仅在"拾取能力当场开门"时为 true；章节加载/调试同步保持静音，
@@ -2085,22 +1976,12 @@ func _nearest_interactable(radius: float) -> Area2D:
 ## player (the room's own walls and floor count, not only the gate). A portal
 ## that leads into a room every way into which is a standing ability gate is
 ## closed outright, whichever side it is reached from.
-func _behind_locked_gate(portal: Area2D) -> bool:
-    return LEVEL_INTERACTION.behind_locked_gate(self, portal)
-
-
-func _room_has_standing_gate(room_id: String) -> bool:
-    return LEVEL_INTERACTION.room_has_standing_gate(self, room_id)
 
 
 ## True while a room can only be entered through ability gates and one of the
 ## gates leading into it from another room still stands.
 func _room_sealed_by_gates(room_id: String) -> bool:
     return LEVEL_INTERACTION.room_sealed_by_gates(self, room_id)
-
-
-func _better_interaction_target(area: Area2D, distance: float, current: Area2D, current_distance: float) -> bool:
-    return LEVEL_INTERACTION.better_interaction_target(self, area, distance, current, current_distance)
 
 
 func _activate_lever(area: Area2D) -> void:
@@ -2224,12 +2105,8 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
 const ELITE_FIRST_CURRENCY := 30
 const ELITE_FIRST_MATERIALS := 2
 
-func _spawn_is_elite(spawn_id: String) -> bool:
-    return LEVEL_ENCOUNTERS.spawn_is_elite(self, spawn_id)
 
 ## Returns the reward message ("" when no bonus) so a following toast can keep it.
-func _grant_elite_first_defeat(spawn_id: String, drop_item: String) -> String:
-    return LEVEL_ENCOUNTERS.grant_elite_first_defeat(self, spawn_id, drop_item)
 
 
 func _on_player_respawned() -> void:
@@ -2288,8 +2165,6 @@ func _show_lore_banner(text: String) -> void:
 
 
 # _process 驱动的横幅倒计时：不挂定时器/回调，headless 退出无残留。
-func _tick_lore_banner(delta: float) -> void:
-    LEVEL_HUD.tick_lore_banner(self, delta)
 
 
 func _spawn_pickup_effect(world_position: Vector2) -> void:
@@ -2366,9 +2241,6 @@ func _sync_player_build() -> void:
     LEVEL_BUILD.sync_player_build(self)
 
 
-func _sync_hazard_trigger_sizes() -> void:
-    LEVEL_BUILD.sync_hazard_trigger_sizes(self)
-
 func _bind_build_inputs() -> void:
     LEVEL_BUILD.bind_build_inputs(self)
 
@@ -2400,11 +2272,6 @@ func _build_wallet_snapshot() -> Dictionary:
 func _set_build_wallet(wallet: Dictionary) -> void:
     LEVEL_BUILD.set_build_wallet(self, wallet)
 
-func _rollback_build_transaction(build_before: Dictionary, wallet_before: Dictionary, materials_before: Dictionary) -> void:
-    LEVEL_BUILD.rollback_build_transaction(self, build_before, wallet_before, materials_before)
-
-func _finish_build_transaction(result: Dictionary, build_before: Dictionary, wallet_before: Dictionary, materials_before: Dictionary) -> Dictionary:
-    return LEVEL_BUILD.finish_build_transaction(self, result, build_before, wallet_before, materials_before)
 
 ## Read-only availability used by both the HUD and the actual tool transaction.
 func get_tool_readiness(id: String) -> Dictionary:
@@ -2465,10 +2332,6 @@ func restore_save_backup(index: int = 0) -> bool:
 ## floors can be opened later, so standing on them never moves the knot there.
 func _update_safe_ground() -> void:
     LEVEL_GROUND.update_safe_ground(self)
-
-
-func _standing_on_permanent_floor() -> bool:
-    return LEVEL_GROUND.standing_on_permanent_floor(self)
 
 
 func _ground_is_hazardous(_position_value: Vector2) -> bool:

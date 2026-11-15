@@ -203,13 +203,13 @@ static func finish_inventory_refresh(ui: Node) -> void:
         ui.bag_description.text=""
         ui.bag_pin.text="钉在旅记"
     else:
-        ui._show_inventory_detail(selected)
+        show_inventory_detail(ui, selected)
 
 
 static func show_inventory_detail(ui: Node, selected: String) -> void:
     ui.bag_icon.texture=ART.item(selected)
     ui.bag_name.text=ui.level._item_display_name(selected)
-    ui.bag_category_label.text=ui._category_name(String(ui.level._item_data(selected).get("category","Currency")))+"  ·  "+str(ui.level.currency_count if selected=="currency" else ui.level.inventory_counts.get(selected,0))
+    ui.bag_category_label.text=category_name(ui, String(ui.level._item_data(selected).get("category","Currency")))+"  ·  "+str(ui.level.currency_count if selected=="currency" else ui.level.inventory_counts.get(selected,0))
     ui.bag_description.text=ui.level._item_display_description(selected)
     if ui.bag_description.text.is_empty():ui.bag_description.text="一路拾得的松脂碎片，可用来兑换巡礼所需。"
     ui.bag_pin.text="取消旅记标记" if bool(ui.level.story_flags.get("ui_pin_"+selected,false)) else "钉在旅记"

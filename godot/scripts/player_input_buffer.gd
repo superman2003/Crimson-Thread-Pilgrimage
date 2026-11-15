@@ -71,7 +71,7 @@ static func consume_action_input(player: Node, action: StringName) -> bool:
         if not player._try_start_grapple():
             player._start_attack(&"hook_throw")
     else:
-        player._cancel_attack_recovery()
+        cancel_attack_recovery(player)
         player._start_dash()
     return true
 

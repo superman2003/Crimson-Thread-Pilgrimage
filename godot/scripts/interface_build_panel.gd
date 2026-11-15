@@ -60,8 +60,8 @@ static func build_build_panel(ui: Node) -> void:
     ui.build_panel.add_child(ui.equipment_compatible)
     ui.equipment_search.focus_neighbor_right=ui.equipment_search.get_path_to(ui.equipment_compatible)
     ui.equipment_compatible.focus_neighbor_left=ui.equipment_compatible.get_path_to(ui.equipment_search)
-    ui.equipment_search.text_changed.connect(func(_text: String):ui._equipment_filter_changed())
-    ui.equipment_compatible.toggled.connect(func(_enabled: bool):ui._equipment_filter_changed())
+    ui.equipment_search.text_changed.connect(func(_text: String):equipment_filter_changed(ui))
+    ui.equipment_compatible.toggled.connect(func(_enabled: bool):equipment_filter_changed(ui))
     ui.equipment_search.text_submitted.connect(func(_text: String):
         var first = ui.equipment_filter.first_enabled(ui.build_grid)
         if first!=null:first.grab_focus())
@@ -445,7 +445,7 @@ static func preview_tool_resupply(ui: Node) -> void:
         return
     ui.resupply_quote=quote.duplicate(true)
     ui.build_heading.text="战具补给报价"
-    ui.build_detail.text=ui._resupply_quote_text(ui.resupply_quote)
+    ui.build_detail.text=resupply_quote_text(ui, ui.resupply_quote)
     ui.build_detail.scroll_to_line(0)
     ui.resupply_confirm_button.disabled=not bool(ui.resupply_quote.get("ok",false))
 
@@ -459,7 +459,7 @@ static func resupply_quote_text(ui: Node, quote: Dictionary) -> String:
         for id in charges:
             var amount: Variant=charges[id]
             if amount is Dictionary:amount=amount.get("amount",amount.get("charges",0))
-            if int(amount)>0:lines.append("%s +%d" % [ui._resupply_tool_name(String(id)),int(amount)])
+            if int(amount)>0:lines.append("%s +%d" % [resupply_tool_name(ui, String(id)),int(amount)])
     var cost: Variant=quote.get("cost",{})
     if cost is Dictionary:
         if int(cost.get("currency",0))>0:lines.append("碎钱：%d" % int(cost.currency))
@@ -486,14 +486,14 @@ static func confirm_tool_resupply(ui: Node) -> void:
     if not current is Dictionary or not bool(current.get("ok",false)):
         ui.resupply_quote=current if current is Dictionary else {}
         ui.build_heading.text="战具补给报价"
-        ui.build_detail.text="先前报价已失效。\n\n"+ui._resupply_quote_text(ui.resupply_quote)
+        ui.build_detail.text="先前报价已失效。\n\n"+resupply_quote_text(ui, ui.resupply_quote)
         ui.build_detail.scroll_to_line(0)
         ui.resupply_confirm_button.disabled=true
         return
     if current.get("charges",{})!=ui.resupply_quote.get("charges",{}) or current.get("cost",{})!=ui.resupply_quote.get("cost",{}):
         ui.resupply_quote=current.duplicate(true)
         ui.build_heading.text="战具补给报价"
-        ui.build_detail.text="钱包或库存已变化，请复核最新报价后再次确认。\n\n"+ui._resupply_quote_text(ui.resupply_quote)
+        ui.build_detail.text="钱包或库存已变化，请复核最新报价后再次确认。\n\n"+resupply_quote_text(ui, ui.resupply_quote)
         ui.build_detail.scroll_to_line(0)
         ui.resupply_confirm_button.disabled=false
         return

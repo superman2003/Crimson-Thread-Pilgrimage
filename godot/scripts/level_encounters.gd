@@ -54,7 +54,7 @@ static func on_enemy_died(level: Node, spawn_id: String, is_boss: bool, kind: St
             if level.player != null:
                 level.player.gain_energy(20)
         level._toast("试炼之敌倒下" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
-        var elite_message = "" if challenge_spawn else level._grant_elite_first_defeat(spawn_id, drop_item)
+        var elite_message = "" if challenge_spawn else grant_elite_first_defeat(level, spawn_id, drop_item)
         if challenge_spawn:
             level._on_challenge_enemy_died(spawn_id)
         elif level._combat_progression_enabled() and level._combat_goal_met():
@@ -74,7 +74,7 @@ static func spawn_is_elite(level: Node, spawn_id: String) -> bool:
 
 
 static func grant_elite_first_defeat(level: Node, spawn_id: String, drop_item: String) -> String:
-    if not level.world_mode or not level._spawn_is_elite(spawn_id):
+    if not level.world_mode or not spawn_is_elite(level, spawn_id):
         return ""
     var flag = "elite_first_%s_%s" % [String(level.config.get("id", "")), spawn_id]
     if bool(level.story_flags.get(flag, false)):

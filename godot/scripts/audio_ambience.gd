@@ -19,7 +19,7 @@ static func start_ambience(director: Node) -> void:
             director.ambience_bed_player.play()
     if is_instance_valid(director.room_ambience_mix):
         director.room_ambience_mix.bind_player(director.ambience_bed_player)
-    director.oneshot_variant_count = director._probe_oneshot_variant_count()
+    director.oneshot_variant_count = probe_oneshot_variant_count(director)
     if director.oneshot_timer == null or not is_instance_valid(director.oneshot_timer):
         director.oneshot_timer = Timer.new()
         director.oneshot_timer.name = "AmbienceOneShotTimer"

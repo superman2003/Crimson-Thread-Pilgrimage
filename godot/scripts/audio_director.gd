@@ -491,14 +491,8 @@ func _process(delta: float) -> void:
     AUDIO_GAME_STATE.process(self, delta)
 
 
-func _runtime_enemies() -> Array:
-    return AUDIO_GAME_STATE.runtime_enemies(self)
-
-
 ## 摇篮曲距离机：走远（>150px）收场；仍坐龛中且摇篮曲被 Boss 战打断过，
 ## Boss 收尾后在此自然重触发（修 Boss×摇篮曲互斥后的恢复路径）。
-func _tick_shrine_lullaby() -> void:
-    AUDIO_GAME_STATE.tick_shrine_lullaby(self)
 
 
 ## 战斗层轮询：0.25s 一拍读取敌人 combat_engaged()（巡逻、回位、蛰伏、守点之外
@@ -509,8 +503,6 @@ func _tick_combat_layer(tick: float, enemies: Array) -> void:
 
 ## 终 Boss 三乐章钩子：enemy_actor 无血量相变系统，按 hp/max_hp 阈值（2/3、1/3）
 ## 驱动 set_boss_phase；非终 Boss 由 set_boss_phase 侧忽略换曲。
-func _tick_boss_phase(enemies: Array) -> void:
-    AUDIO_GAME_STATE.tick_boss_phase(self, enemies)
 
 
 # ---- 章节选曲 ----
@@ -603,9 +595,6 @@ func _bus_or(bus_name: String, fallback: String) -> String:
 
 # ---- 探索曲淡入淡出工具（Boss 进出 / 摇篮曲交叉淡化共用）----
 
-func _kill_explore_tween() -> void:
-    AUDIO_MUSIC.kill_explore_tween(self)
-
 
 ## 淡出至暂停（非硬停）：seconds 秒滑到静音后 stream_paused，音量复位基准备用。
 func _fade_explore_to_pause(seconds: float) -> void:
@@ -620,9 +609,6 @@ func _finish_explore_pause() -> void:
 func _fade_explore_resume(seconds: float) -> void:
     AUDIO_MUSIC.fade_explore_resume(self, seconds)
 
-func _resume_region_music(seconds: float) -> void:
-    AUDIO_MUSIC.resume_region_music(self, seconds)
-
 
 # ---- 探索/战斗音乐层（规格 §2.2）----
 
@@ -635,8 +621,6 @@ func exit_combat() -> void:
 
 
 ## Boss 进场收战斗层：0.3s 快速淡出后停（原为硬停）。
-func _fade_out_combat_layer() -> void:
-    AUDIO_MUSIC.fade_out_combat_layer(self)
 
 
 # ---- Boss 曲（规格 §3；终 Boss 三乐章）----
@@ -659,10 +643,6 @@ func set_boss_phase(p: int) -> void:
 
 func stop_boss_music() -> void:
     AUDIO_MUSIC.stop_boss_music(self)
-
-
-func _kill_boss_tween() -> void:
-    AUDIO_MUSIC.kill_boss_tween(self)
 
 
 func _finish_boss_stop() -> void:
@@ -694,8 +674,6 @@ func _start_ambience() -> void:
 
 
 ## one-shot 变体数按实际文件探测（当前各章 8 个；增删文件无需改码）。
-func _probe_oneshot_variant_count() -> int:
-    return AUDIO_AMBIENCE.probe_oneshot_variant_count(self)
 
 
 func _on_oneshot_timer() -> void:
@@ -820,16 +798,9 @@ func _apply_user_volume(which: String) -> void:
     AUDIO_USER_MIX.apply_user_volume(self, which)
 
 
-func _set_user_mute(bus_name: String, muted: bool) -> void:
-    AUDIO_USER_MIX.set_user_mute(self, bus_name, muted)
-
-
 func _load_user_volumes() -> void:
     AUDIO_USER_MIX.load_user_volumes(self)
 
-
-func _save_user_volumes() -> void:
-    AUDIO_USER_MIX.save_user_volumes(self)
 
 func user_volume_save_status() -> Dictionary:
     return AUDIO_USER_MIX.user_volume_save_status(self)
@@ -839,13 +810,6 @@ func retry_user_volume_save() -> Dictionary:
 
 
 # ---- 电平/混响工具 ----
-
-func _user_db(which: String) -> float:
-    return AUDIO_USER_MIX.user_db(self, which)
-
-
-func _bus_base_db(which: String) -> float:
-    return AUDIO_USER_MIX.bus_base_db(self, which)
 
 
 func _music_rest_db() -> float:
@@ -890,15 +854,10 @@ func _bus_reverb(bus_name: String) -> AudioEffectReverb:
     return AudioServer.get_bus_effect(bus_index, effect_index) as AudioEffectReverb
 
 
-
 ## Original insect phrases have character-specific timbre and natural pauses.
 ## One channel replaces the previous phrase; subtitles retain their own reading clock.
 func play_npc_voice(npc_id: String, line: String, profile: String = "warm", speaker: Node = null, allow_voice: bool = true) -> bool:
     return AUDIO_NPC_VOICES.play_npc_voice(self, npc_id, line, profile, speaker, allow_voice)
-
-
-func _end_npc_speaker() -> void:
-    AUDIO_NPC_VOICES.end_npc_speaker(self)
 
 
 func _npc_voice_finished() -> void:
@@ -946,8 +905,6 @@ func play_enemy_alert(kind: String, source: Node2D = null) -> bool:
 func set_npc_landmarks(enabled: bool) -> void:
     AUDIO_NPC_VOICES.set_npc_landmarks(self, enabled)
 
-func _landmarks_allowed() -> bool:
-    return AUDIO_NPC_VOICES.landmarks_allowed(self)
 
 func _tick_npc_landmarks() -> void:
     AUDIO_NPC_VOICES.tick_npc_landmarks(self)

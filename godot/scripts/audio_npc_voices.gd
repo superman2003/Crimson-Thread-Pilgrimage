@@ -58,12 +58,12 @@ static func end_npc_speaker(director: Node) -> void:
 
 static func npc_voice_finished(director: Node) -> void:
     if is_instance_valid(director._npc_voice_player) and director._npc_voice_player.playing: return
-    director._end_npc_speaker()
+    end_npc_speaker(director)
     director._npc_voice_ticket = 0
 
 
 static func stop_npc_voice(director: Node, clear_line: bool = true) -> void:
-    director._end_npc_speaker()
+    end_npc_speaker(director)
     if is_instance_valid(director._npc_voice_player):
         preload("res://scripts/audio_retirement.gd").watch_player(director._npc_voice_player)
         director._npc_voice_player.stop()
@@ -126,7 +126,7 @@ static func landmarks_allowed(director: Node) -> bool:
 
 
 static func tick_npc_landmarks(director: Node) -> void:
-    if not director._landmarks_allowed():director._stop_npc_landmarks();return
+    if not landmarks_allowed(director):director._stop_npc_landmarks();return
     var now := Time.get_ticks_msec()
     if now < director.landmark_next_ms:return
     var rows: Array=[]
@@ -145,7 +145,7 @@ static func tick_npc_landmarks(director: Node) -> void:
 
 
 static func play_npc_landmark(director: Node, source: Node2D) -> bool:
-    if not director._landmarks_allowed() or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() or not source.is_visible_in_tree():return false
+    if not landmarks_allowed(director) or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() or not source.is_visible_in_tree():return false
     if source.get_world_2d() != director.runtime_player.get_world_2d() or not source.global_position.is_finite() or source.global_position.distance_squared_to(director.runtime_player.global_position) > 650.0 * 650.0:return false
     if String(source.get_meta("kind","")) != "npc":return false
     var id := String(source.get_meta("npc_id",""))

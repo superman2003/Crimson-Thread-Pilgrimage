@@ -360,12 +360,6 @@ func finish_inventory_refresh() -> void:
     INTERFACE_BAG.finish_inventory_refresh(self)
 
 
-func _show_inventory_detail(selected: String) -> void:
-    INTERFACE_BAG.show_inventory_detail(self, selected)
-
-func _category_name(category: String) -> String:
-    return INTERFACE_BAG.category_name(self, category)
-
 func _pin_item() -> void:
     INTERFACE_BAG.pin_item(self)
 
@@ -375,8 +369,6 @@ func _build_dialogue() -> void:
 func show_speaker(area: Area2D) -> void:
     INTERFACE_DIALOGUE.show_speaker(self, area)
 
-func _speaker_motion(area, talking: bool) -> void:
-    INTERFACE_DIALOGUE.speaker_motion(self, area, talking)
 
 func _open_narrative_inquiries() -> void:
     INTERFACE_DIALOGUE.open_narrative_inquiries(self)
@@ -387,8 +379,6 @@ func _topic(key: String) -> void:
 func _commit_wish_topic(quest: Dictionary, area: Area2D) -> bool:
     return INTERFACE_DIALOGUE.commit_wish_topic(self, quest, area)
 
-func _dialogue_reading_key(area: Area2D,line: String) -> String:
-    return INTERFACE_DIALOGUE.dialogue_reading_key(self, area, line)
 
 func dialogue_reading_state(area: Area2D,line: String) -> Dictionary:
     return INTERFACE_DIALOGUE.dialogue_reading_state(self, area, line)
@@ -402,8 +392,6 @@ func _restore_dialogue_scroll(key: String,value: int) -> void:
 func _apply_dialogue_scroll(key: String,value: int,request_generation: int) -> void:
     INTERFACE_DIALOGUE.apply_dialogue_scroll(self, key, value, request_generation)
 
-func _remember_dialogue_reading() -> void:
-    INTERFACE_DIALOGUE.remember_dialogue_reading(self)
 
 func close_dialogue() -> void:
     INTERFACE_DIALOGUE.close_dialogue(self)
@@ -453,8 +441,6 @@ func _build_settings_controls() -> void:
 func _finish_settings() -> void:
     INTERFACE_SETTINGS.finish_settings(self)
 
-func _accessibility_slider(key: String, title: String, point: Vector2, minimum: float, maximum: float, increment: float) -> void:
-    INTERFACE_SETTINGS.accessibility_slider(self, key, title, point, minimum, maximum, increment)
 
 func _accessibility_toggle(key: String, title: String, point: Vector2) -> void:
     INTERFACE_SETTINGS.accessibility_toggle(self, key, title, point)
@@ -480,11 +466,6 @@ func _remember_gui_focus(_focused: Control) -> void:
 func _is_navigable_focus(control: Control) -> bool:
     return INTERFACE_SETTINGS.is_navigable_focus(self, control)
 
-func _overlay_controls(overlay: String) -> Array[Control]:
-    return INTERFACE_SETTINGS.overlay_controls(self, overlay)
-
-func _collect_navigable(node: Node, result: Array[Control]) -> void:
-    INTERFACE_SETTINGS.collect_navigable(self, node, result)
 
 func _focus_overlay(overlay: String, restore: bool=true) -> void:
     INTERFACE_SETTINGS.focus_overlay(self, overlay, restore)
@@ -504,11 +485,6 @@ func _refresh_settings_save_notice() -> void:
 func _retry_accessibility_save() -> void:
     INTERFACE_SETTINGS.retry_accessibility_save(self)
 
-func _apply_controller_deadzone() -> void:
-    INTERFACE_SETTINGS.apply_controller_deadzone(self)
-
-func _sync_accessibility_controls() -> void:
-    INTERFACE_SETTINGS.sync_accessibility_controls(self)
 
 func _open_controller_comfort() -> void:
     INTERFACE_SETTINGS.open_controller_comfort(self)
@@ -521,8 +497,6 @@ func _ready() -> void:
 func _apply_accessibility() -> void:
     INTERFACE_SETTINGS.apply_accessibility(self)
 
-func _record_default_bindings() -> void:
-    INTERFACE_SETTINGS.record_default_bindings(self)
 
 ## U06: one press puts every remappable action back to the shipped bindings.
 func _reset_bindings() -> void:
@@ -531,15 +505,13 @@ func _reset_bindings() -> void:
 func _begin_remap(action: String) -> void:
     INTERFACE_SETTINGS.begin_remap(self, action)
 
-func _cancel_remap(reason: String) -> void:
-    INTERFACE_SETTINGS.cancel_remap(self, reason)
 
 func _remap_visibility_changed() -> void:
     INTERFACE_SETTINGS.remap_visibility_changed(self)
 
 func _notification(what: int) -> void:
     if what==NOTIFICATION_APPLICATION_FOCUS_OUT:
-        _cancel_remap("窗口已失去焦点，重映射已取消；原绑定保留。")
+        INTERFACE_SETTINGS.cancel_remap(self, "窗口已失去焦点，重映射已取消；原绑定保留。")
         if is_instance_valid(build_shortcut):build_shortcut.clear()
 
 func _refresh_remap_labels() -> void:
@@ -560,8 +532,6 @@ func _request_build_toggle() -> void:
 func _wire_equipment_result_focus() -> void:
     INTERFACE_BUILD_PANEL.wire_equipment_result_focus(self)
 
-func _equipment_filter_changed() -> void:
-    INTERFACE_BUILD_PANEL.equipment_filter_changed(self)
 
 func _sync_equipment_filter(at_workstation: bool) -> void:
     INTERFACE_BUILD_PANEL.sync_equipment_filter(self, at_workstation)
@@ -636,11 +606,6 @@ func _open_resupply_planner() -> void:
 func _preview_tool_resupply() -> void:
     INTERFACE_BUILD_PANEL.preview_tool_resupply(self)
 
-func _resupply_quote_text(quote: Dictionary) -> String:
-    return INTERFACE_BUILD_PANEL.resupply_quote_text(self, quote)
-
-func _resupply_tool_name(item_id: String) -> String:
-    return INTERFACE_BUILD_PANEL.resupply_tool_name(self, item_id)
 
 func _confirm_tool_resupply() -> void:
     INTERFACE_BUILD_PANEL.confirm_tool_resupply(self)
@@ -667,17 +632,7 @@ func _confirm_loadout_change() -> void:
     INTERFACE_BUILD_REFRESH.confirm_loadout_change(self)
 
 ## The snapshot stores catalog ids; players only ever see the authored name.
-func _build_entry_name(system: Variant, family: String, id: String) -> String:
-    return INTERFACE_BUILD_REFRESH.build_entry_name(self, system, family, id)
 
-func _entry_equipped_slots(snapshot: Dictionary, id: String) -> String:
-    return INTERFACE_BUILD_REFRESH.entry_equipped_slots(self, snapshot, id)
-
-func _loadout_quote(name: String) -> Dictionary:
-    return INTERFACE_BUILD_REFRESH.loadout_quote(self, name)
-
-func _loadout_preview(build: Dictionary, system: RefCounted) -> String:
-    return INTERFACE_BUILD_REFRESH.loadout_preview(self, build, system)
 
 func _show_build_detail(entry: Dictionary) -> void:
     INTERFACE_BUILD_REFRESH.show_build_detail(self, entry)
@@ -688,8 +643,6 @@ func _open_craft_cart() -> void:
 func _perform_build_action(action: String, id: String, extra: Variant = -1) -> void:
     INTERFACE_BUILD_REFRESH.perform_build_action(self, action, id, extra)
 
-func _open_save_desk(slot: int, action: String) -> void:
-    INTERFACE_BUILD_REFRESH.open_save_desk(self, slot, action)
 
 func _select_save_slot(slot: int) -> void:
     INTERFACE_BUILD_REFRESH.select_save_slot(self, slot)
@@ -706,8 +659,6 @@ func _journey_history_closed() -> void:
 func is_browsing_journey_history() -> bool:
     return INTERFACE_BUILD_REFRESH.is_browsing_journey_history(self)
 
-func _refresh_save_slots() -> void:
-    INTERFACE_BUILD_REFRESH.refresh_save_slots(self)
 
 func _process(delta: float) -> void:
     if level==null or not construction_complete:return
@@ -735,7 +686,7 @@ func _process(delta: float) -> void:
             refresh_build()
             _focus_overlay(last_overlay)
         elif last_overlay=="settings":
-            _refresh_save_slots()
+            INTERFACE_BUILD_REFRESH.refresh_save_slots(self)
             _focus_overlay(last_overlay)
         elif last_overlay in ["backpack","map","dialogue","build"]:_focus_overlay(last_overlay)
         elif last_overlay=="":
@@ -763,9 +714,9 @@ func _process(delta: float) -> void:
         thread_bar.max_value=player.max_energy
         thread_bar.value=player.energy
         energy_status.text="%d / %d" % [int(player.energy),int(player.max_energy)]
-        _refresh_thread_thresholds(player)
+        INTERFACE_HUD.refresh_thread_thresholds(self, player)
         _refresh_combat_status(player)
-        _refresh_hud_occlusion(delta)
+        INTERFACE_HUD.refresh_hud_occlusion(self, delta)
     tutorial_hint.visible=bool(accessibility.get("tutorial_hints",true)) and level.active_overlay==""
     if tutorial_hint.visible:
         tutorial_hint.text="%s 跳跃   /   %s 普攻   /   %s 治疗" % [_short_binding("jump"),_short_binding("attack"),_short_binding("heal")]
@@ -894,11 +845,6 @@ func has_modal_window() -> bool:
 func is_text_entry_focused() -> bool:
     return INTERFACE_JOURNAL.is_text_entry_focused(self)
 
-func _journal_tools_focused() -> bool:
-    return INTERFACE_JOURNAL.journal_tools_focused(self)
-
-func _refresh_journal_actions() -> void:
-    INTERFACE_JOURNAL.refresh_journal_actions(self)
 
 func _journal_preference_result(result: Dictionary) -> void:
     INTERFACE_JOURNAL.journal_preference_result(self, result)
@@ -944,13 +890,9 @@ func _hud_groups() -> Dictionary:
 
 ## The player, enemies and their attacks take priority over HUD chrome: a group
 ## with any of them behind it on screen fades until the space is clear again.
-func _refresh_hud_occlusion(delta: float) -> void:
-    INTERFACE_HUD.refresh_hud_occlusion(self, delta)
 
 ## U03: the thread meter itself says whether a heal and the active thread art
 ## are affordable. Dormant or empty active skill slots draw no cost mark.
-func _refresh_thread_thresholds(player: Node) -> void:
-    INTERFACE_HUD.refresh_thread_thresholds(self, player)
 
 
 func _skill_readiness(item: Dictionary, remaining: float, active: bool) -> Dictionary:
@@ -994,4 +936,4 @@ func _exit_tree() -> void:
     if get_tree().node_added.is_connected(_bridge_dialog_focus):get_tree().node_added.disconnect(_bridge_dialog_focus)
     # Snapshot reading numbers only; never commit a conversation or grant rewards.
     _remember_journal_scroll(true)
-    _remember_dialogue_reading()
+    INTERFACE_DIALOGUE.remember_dialogue_reading(self)

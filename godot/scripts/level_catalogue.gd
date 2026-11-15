@@ -82,7 +82,7 @@ static func theme_map_title(level: Node) -> String:
 
 
 static func theme_map_background_texture(level: Node) -> String:
-    return String(level._original_map_art().get("map", ""))
+    return String(original_map_art(level).get("map", ""))
 
 
 static func theme_asset_source(level: Node) -> String:
@@ -175,7 +175,7 @@ static func init_inventory_state(level: Node) -> void:
     for item_id in inventory_config.get("starting_relics", []):
         level._add_inventory_item(String(item_id), 1, false)
     if level.carried_inventory_enabled:
-        level._merge_carried_inventory()
+        merge_carried_inventory(level)
 
 
 static func merge_carried_inventory(level: Node) -> void:

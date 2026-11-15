@@ -100,7 +100,7 @@ static func update_animation(player: Node, _input_axis: float) -> void:
         player._pose_progress(&"turn", 1.0 - player.ground_turn_time / player.GROUND_TURN_DURATION)
         player.sprite.flip_h = player.ground_turn_from < 0
     elif player.ground_motion_speed > player.GROUND_MOTION_EPSILON:
-        player._pose_ground_run()
+        pose_ground_run(player)
     elif player.land_timer > 0.0:
         player._pose_progress(&"land", 1.0 - player.land_timer / 0.14)
     else:

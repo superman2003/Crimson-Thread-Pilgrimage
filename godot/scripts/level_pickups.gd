@@ -21,7 +21,7 @@ static func pickup_retry(level: Node, area: Area2D, item_id: String, reason: Str
 
 static func on_collectible_body_entered(level: Node, body: Node, area: Area2D) -> void:
     if not is_instance_valid(area) or area.is_queued_for_deletion() or level.world_loading or body!=level.player:return
-    if not level.world_mode:level._on_collectible_body_entered_legacy(body,area);return
+    if not level.world_mode:on_collectible_body_entered_legacy(level, body,area);return
     if String(area.get_meta("kind",""))=="death_cache":level._recover_death_cache(area);return
     if level.player==null or level.player.hp<=0 or level.chapter_transitioning or not area.is_inside_tree():return
     var source: Dictionary=level.world_pickup_leases.get(area.get_instance_id(),{})
@@ -30,7 +30,7 @@ static func on_collectible_body_entered(level: Node, body: Node, area: Area2D) -
     if area.global_position.distance_to(level.player.global_position)>level.INTERACTION_REACH:return
     if bool(level.world_collected_ids.get(String(source.id),false)):area.queue_free();return
     if not WORLD_STATE_SCRIPT._whole(source.amount) or int(source.amount)<=0:
-        level._pickup_retry(area,String(source.item),"这份物品记录无效，尚未收取。")
+        pickup_retry(level, area,String(source.item),"这份物品记录无效，尚未收取。")
         return
     var currency_pickup: bool=String(source.kind)=="currency"
     var flags = level.story_flags.duplicate(true)
@@ -44,7 +44,7 @@ static func on_collectible_body_entered(level: Node, body: Node, area: Area2D) -
     var items: Dictionary={}
     if not currency_pickup:items[String(source.item)]=int(source.amount)
     var plan: Dictionary = level._prepare_inventory_progress(items,flags,level.currency_count+(int(source.amount) if currency_pickup else 0))
-    if not plan.ok:level._pickup_retry(area,String(source.item),"物品记录尚未写入，留在原地可重试收取。");return
+    if not plan.ok:pickup_retry(level, area,String(source.item),"物品记录尚未写入，留在原地可重试收取。");return
     # Story/whisper completion used to settle the wish board through nested
     # _set_story_flag saves. Include any earned claim in this same candidate.
     for wish in level._wish_board_entries():
@@ -57,7 +57,7 @@ static func on_collectible_body_entered(level: Node, body: Node, area: Area2D) -
     var next_bells = level.bell_count+(0 if currency_pickup else 1)
     var result = level._persist_world_change({"inventory_counts":plan.counts,"story_flags":plan.flags,"currency":plan.currency,"build_state":plan.build},
         {"collected_ids":collected,"bell_count":next_bells})
-    if not result.ok:level._pickup_retry(area,String(source.item),"拾取记录未写入；物件、能力与资源保持原状，按交互键重试。");return
+    if not result.ok:pickup_retry(level, area,String(source.item),"拾取记录未写入；物件、能力与资源保持原状，按交互键重试。");return
     level._publish_inventory_progress(plan,result.candidate)
     level.world_collected_ids=collected;level.bell_count=next_bells
     if testimony_completed:level._play_sfx("ui_testimony_complete",-4.0)
@@ -70,7 +70,7 @@ static func on_collectible_body_entered(level: Node, body: Node, area: Area2D) -
         level._announce_lore_pickup(String(source.item));level._play_sfx("pickup_cloth",-12.0)
     level._play_sfx("pickup")
     if level.metsys_bridge!=null:level.metsys_bridge.store_object(area)
-    level._toast(level._capacity_fragment_message(String(source.item),String(source.message)));level._spawn_pickup_effect(area.global_position)
+    level._toast(capacity_fragment_message(level, String(source.item),String(source.message)));level._spawn_pickup_effect(area.global_position)
     area.queue_free();level._refresh_hud();level._refresh_wish_board_overlay()
     if level.active_overlay=="backpack":level._refresh_backpack_overlay()
 

@@ -49,7 +49,7 @@ static func make_world_portal(level: Node, data: Dictionary) -> Area2D:
     # duplicates it and makes each old connection look like a magic portal.
     arch.visible = false
     arch.width = 5.0
-    arch.default_color = Color(0.40, 0.80, 0.88) if level._world_portal_missing(data).is_empty() else Color(0.93, 0.67, 0.30)
+    arch.default_color = Color(0.40, 0.80, 0.88) if world_portal_missing(level, data).is_empty() else Color(0.93, 0.67, 0.30)
     for index in range(17):
         var angle := PI + PI * index / 16.0
         arch.add_point(Vector2(cos(angle) * 29.0, sin(angle) * 46.0))
@@ -62,7 +62,7 @@ static func world_portal(level: Node, data: Dictionary) -> void:
     var area: Area2D = level._take_gameplay_prefab("world_portal", data)
     if area == null: area = level._make_world_portal(data)
     var arch: Line2D = area.get_node("WorldPortalArch")
-    arch.default_color = Color(0.40, 0.80, 0.88) if level._world_portal_missing(data).is_empty() else Color(0.93, 0.67, 0.30)
+    arch.default_color = Color(0.40, 0.80, 0.88) if world_portal_missing(level, data).is_empty() else Color(0.93, 0.67, 0.30)
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
@@ -139,7 +139,7 @@ static func activate_world_portal(level: Node, area: Area2D) -> void:
     if not WORLD_PASSAGE.endpoint(String(level.config.id), String(data.get("id", ""))).is_empty():
         level.world_passage.begin(String(data.id))
         return
-    var missing: String = level._world_portal_missing(data)
+    var missing: String = world_portal_missing(level, data)
     if not missing.is_empty():
         level._toast(missing)
         return
@@ -300,7 +300,7 @@ static func add_world_portal_map_pins(level: Node, bounds: Rect2, draw_size: Vec
         var room: Dictionary = level._room_for_position(position_value)
         if not level._room_is_visited(String(room.get("id", ""))):
             continue
-        var color := Color(0.35, 0.83, 1.0) if level._world_portal_missing(data).is_empty() else Color(1.0, 0.68, 0.24)
+        var color := Color(0.35, 0.83, 1.0) if world_portal_missing(level, data).is_empty() else Color(1.0, 0.68, 0.24)
         level._add_map_pin(position_value, draw_width, base_y, depth_step, color, Vector2(13, 13), bounds, draw_size)
 
 

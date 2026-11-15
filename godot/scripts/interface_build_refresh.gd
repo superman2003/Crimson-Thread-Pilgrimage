@@ -35,8 +35,8 @@ static func refresh_build(ui: Node) -> void:
         ui.resupply_planner_button.hide()
         ui.build_summary.text="巡行配置 · 碎钱 %d" % int(ui.level.currency_count)
         ui.build_detail.text="在钟龛调整装备；校习找织线学徒、雨铸匠或蜂蜡商人。"
-        var current_skill: String = ui._build_entry_name(system,"skills",String(snapshot.get("skill","")))
-        var current_tool: String = ui._build_entry_name(system,"tools",String(snapshot.get("tool","")))
+        var current_skill: String = build_entry_name(ui, system,"skills",String(snapshot.get("skill","")))
+        var current_tool: String = build_entry_name(ui, system,"tools",String(snapshot.get("tool","")))
         var cycle_skill: Button = ui._button(ui.build_grid,"切换技能 · 当前 %s" % current_skill,Vector2.ZERO,Vector2(563,58),func():ui._perform_build_action("cycle_skill",""))
         cycle_skill.custom_minimum_size=Vector2(563,64)
         cycle_skill.focus_mode=Control.FOCUS_ALL
@@ -126,7 +126,7 @@ static func refresh_build(ui: Node) -> void:
         var text:=String(entry.get("name",id))
         if not bool(entry.get("unlocked",true)):text="◇ "+text+" · 未解锁"
         elif bool(entry.get("selected",false)):text="◆ "+text+" · 已装备"
-        var equipped_slots: String = ui._entry_equipped_slots(snapshot,id)
+        var equipped_slots: String = entry_equipped_slots(ui, snapshot,id)
         if not equipped_slots.is_empty():text+=" · 位置 "+equipped_slots
         if entry.has("cost"):text+=" · 容量 %d" % int(entry.cost)
         if entry.has("count"):
@@ -191,7 +191,7 @@ static func refresh_build(ui: Node) -> void:
         if first==null or id==ui.build_selection:first=button
         if ui.build_category=="构筑":
             var name_value:=id
-            var preview: Dictionary = ui._loadout_quote(id)
+            var preview: Dictionary = loadout_quote(ui, id)
             button.disabled=not bool(preview.get("can_restore",false))
             button.tooltip_text=String(preview.get("reason","可在钟龛恢复"))
             var save: Button = ui._button(ui.build_grid,("覆盖" if bool(entry.get("exists",false)) else "保存为")+"「%s」" % id,Vector2.ZERO,Vector2(563,36),func():ui._request_loadout_change("save_loadout",name_value))
@@ -420,11 +420,11 @@ static func show_build_detail(ui: Node, entry: Dictionary) -> void:
                 lines.append("容量比较：当前 %d / %d · 替换后 %d / %d" % [used,total,projected,total])
     if ui.build_category=="构筑":
         var system: Variant=ui.level.call("get_build_system")
-        lines.append("\n当前整体配置\n"+ui._loadout_preview(system.state,system))
+        lines.append("\n当前整体配置\n"+loadout_preview(ui, system.state,system))
         var saved_value: Variant=system.state.loadouts.get(String(entry.get("id","")),{})
         var saved_build: Dictionary=saved_value if saved_value is Dictionary else {}
-        if not saved_build.is_empty():lines.append("\n已保存配置\n"+ui._loadout_preview(saved_build,system))
-        var preview: Dictionary = ui._loadout_quote(String(entry.get("id","")))
+        if not saved_build.is_empty():lines.append("\n已保存配置\n"+loadout_preview(ui, saved_build,system))
+        var preview: Dictionary = loadout_quote(ui, String(entry.get("id","")))
         lines.append("\n恢复条件："+("可以恢复 · 不花碎钱或材料" if bool(preview.get("can_restore",false)) else String(preview.get("reason","当前不可恢复"))))
         if bool(preview.get("ok",false)):lines.append("\n实际变化\n"+"\n".join(ui._loadout_difference_text(preview,system)))
         var projected: Dictionary=preview.get("profile",{})
@@ -507,7 +507,7 @@ static func open_save_desk(ui: Node, slot: int, action: String) -> void:
 
 
 static func select_save_slot(ui: Node, slot: int) -> void:
-    if ui.level.has_method("quote_save_operation"):ui._open_save_desk(slot,"switch");return
+    if ui.level.has_method("quote_save_operation"):open_save_desk(ui, slot,"switch");return
     if not ui.level.has_method("select_save_slot"):
         ui.remap_status.text="当前入口尚未支持多存档。"
         return
@@ -516,7 +516,7 @@ static func select_save_slot(ui: Node, slot: int) -> void:
 
 
 static func restore_save_backup(ui: Node) -> void:
-    if ui.level.has_method("quote_save_operation"):ui._open_save_desk(ui.level.world_slot,"recover");return
+    if ui.level.has_method("quote_save_operation"):open_save_desk(ui, ui.level.world_slot,"recover");return
     if not ui.level.has_method("restore_save_backup"):
         ui.remap_status.text="当前入口尚未支持备份恢复。"
         return

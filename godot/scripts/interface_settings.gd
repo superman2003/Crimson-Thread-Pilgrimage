@@ -61,12 +61,12 @@ static func build_settings_audio(ui: Node) -> void:
 
 static func build_settings_accessibility(ui: Node) -> void:
     ui._label(ui.settings,"阅读、画面与手柄",Vector2(512,100),Vector2(440,26),20,ui.GOLD)
-    ui._accessibility_slider("subtitle_size","字幕字号",Vector2(512,136),17,26,1)
-    ui._accessibility_slider("subtitle_speed","字幕速度",Vector2(512,170),0.5,2.0,0.25)
-    ui._accessibility_slider("camera_shake","镜头震动",Vector2(512,204),0,1,0.25)
-    ui._accessibility_slider("camera_lookahead","镜头前瞻",Vector2(512,238),0,1,0.25)
+    accessibility_slider(ui, "subtitle_size","字幕字号",Vector2(512,136),17,26,1)
+    accessibility_slider(ui, "subtitle_speed","字幕速度",Vector2(512,170),0.5,2.0,0.25)
+    accessibility_slider(ui, "camera_shake","镜头震动",Vector2(512,204),0,1,0.25)
+    accessibility_slider(ui, "camera_lookahead","镜头前瞻",Vector2(512,238),0,1,0.25)
     preload("res://scripts/camera_observation_dialog.gd").install(ui)
-    ui._accessibility_slider("vibration_strength","手柄力度",Vector2(512,272),0,1,0.25)
+    accessibility_slider(ui, "vibration_strength","手柄力度",Vector2(512,272),0,1,0.25)
     ui._accessibility_toggle("flash_enabled","受击闪光",Vector2(512,305))
     ui._accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,305))
     ui._accessibility_toggle("tutorial_hints","探索提示",Vector2(512,339))
@@ -131,7 +131,7 @@ static func get_accessibility(ui: Node, key: String, fallback: Variant=null) -> 
 
 static func load_accessibility(ui: Node) -> void:
     # Before any saved preference applies, even when there is no preference file yet.
-    ui._record_default_bindings()
+    record_default_bindings(ui)
     # Recover an interrupted replacement before treating a missing file as defaults.
     if ui.settings_persistence.recover(ui.accessibility_path)!=OK:return
     var config:=ConfigFile.new()
@@ -159,7 +159,7 @@ static func load_accessibility(ui: Node) -> void:
         if not result.bindings.has(action):continue
         InputMap.action_erase_events(action)
         for event in result.bindings[action]:InputMap.action_add_event(action,event)
-    ui._apply_controller_deadzone()
+    apply_controller_deadzone(ui)
     ui.binding_recovery_notice="部分输入设置无效或冲突，已保留对应设备的可用绑定。" if result.rejected>0 else ""
     if ui.remap_status!=null:
         ui.remap_status.text=ui.binding_recovery_notice if not ui.binding_recovery_notice.is_empty() else "确认键改键  ·  Esc／手柄 B 取消"
@@ -181,7 +181,7 @@ static func remember_gui_focus(ui: Node, _focused: Control) -> void:
     var focused = ui.get_viewport().gui_get_focus_owner()
     if not ui._is_navigable_focus(focused):return
     for overlay in ["settings","backpack","map","dialogue","build"]:
-        var controls: Array[Control] = ui._overlay_controls(overlay)
+        var controls: Array[Control] = overlay_controls(ui, overlay)
         for control in controls:
             if control==focused or control.is_ancestor_of(focused):
                 ui.overlay_focus_memory[overlay]=weakref(focused)
@@ -206,7 +206,7 @@ static func overlay_controls(ui: Node, overlay: String) -> Array[Control]:
         "dialogue":root=ui.dialogue
         "build":root=ui.build_panel
     var result: Array[Control]=[]
-    if root is Control and is_instance_valid(root):ui._collect_navigable(root,result)
+    if root is Control and is_instance_valid(root):collect_navigable(ui, root,result)
     return result
 
 
@@ -215,11 +215,11 @@ static func collect_navigable(ui: Node, node: Node, result: Array[Control]) -> v
         if child is Control:
             var control:=child as Control
             if ui._is_navigable_focus(control):result.append(control)
-        ui._collect_navigable(child,result)
+        collect_navigable(ui, child,result)
 
 
 static func focus_overlay(ui: Node, overlay: String, restore: bool=true) -> void:
-    var controls: Array[Control] = ui._overlay_controls(overlay)
+    var controls: Array[Control] = overlay_controls(ui, overlay)
     if controls.is_empty():return
     if restore and ui.overlay_focus_memory.has(overlay):
         var reference: Variant=ui.overlay_focus_memory[overlay]
@@ -307,8 +307,8 @@ static func apply_accessibility(ui: Node) -> void:
     if ui.settings_persistence.pending:
         ui.settings_persistence.reconcile(ui._accessibility_config(),ui.accessibility_path)
         ui._refresh_settings_save_notice()
-    ui._apply_controller_deadzone()
-    ui._sync_accessibility_controls()
+    apply_controller_deadzone(ui)
+    sync_accessibility_controls(ui)
     if ui.level!=null and is_instance_valid(ui.level.get("audio_director")) and ui.level.audio_director.has_method("set_npc_landmarks"):ui.level.audio_director.set_npc_landmarks(bool(ui.accessibility.get("npc_landmarks",true)))
     var feel = ui.get_node_or_null("/root/FeelKit")
     if feel != null and feel.has_method("set_accessibility"):
@@ -339,7 +339,7 @@ static func reset_bindings(ui: Node) -> void:
     for action in ui.default_bindings:
         InputMap.action_erase_events(action)
         for event in ui.default_bindings[action]:InputMap.action_add_event(action,event.duplicate())
-    ui._apply_controller_deadzone()
+    apply_controller_deadzone(ui)
     ui._save_accessibility()
     ui._refresh_remap_labels()
     ui.remap_status.text="已恢复全部默认按键；声音、字幕与画面设置不变。"
@@ -360,7 +360,7 @@ static func cancel_remap(ui: Node, reason: String) -> void:
 
 
 static func remap_visibility_changed(ui: Node) -> void:
-    if not ui.settings.is_visible_in_tree():ui._cancel_remap("已离开设置，重映射已取消。")
+    if not ui.settings.is_visible_in_tree():cancel_remap(ui, "已离开设置，重映射已取消。")
 
 
 static func refresh_remap_labels(ui: Node) -> void:
@@ -413,7 +413,7 @@ static func input(ui: Node, event: InputEvent) -> void:
             InputMap.action_add_event(action,accepted)
             if action=="build_menu" and is_instance_valid(ui.build_shortcut):ui.build_shortcut.suppress_capture(event)
             ui.remap_target=""
-            ui._apply_controller_deadzone()
+            apply_controller_deadzone(ui)
             ui._save_accessibility()
             ui._refresh_remap_labels()
             ui.remap_status.text="已保存「%s」的新输入；其余设备的绑定继续可用。" % ui.REMAPPABLE_ACTIONS[action]
