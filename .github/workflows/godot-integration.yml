@@ -95,7 +95,7 @@ jobs:
           npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs" --shard-index "${{ matrix.shard }}" --shard-count 3
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: godot-regression-runtime-logs-${{ matrix.shard }}
           path: ${{ runner.temp }}/regression-logs
@@ -171,7 +171,7 @@ jobs:
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/region-commit-gpu" --script ../tools/validate_region_commit_pixels.gd --success-marker 'REGION_COMMIT_PIXELS probes=10 failures=0' --summary-path artifacts/region_commit/gpu_ui.json
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: godot-regression-visual-logs
           path: ${{ runner.temp }}/regression-logs

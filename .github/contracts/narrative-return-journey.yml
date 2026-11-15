@@ -160,7 +160,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/scene-history"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: narrative-return-journey-logs
           path: ${{ runner.temp }}/narrative-return-journey-logs

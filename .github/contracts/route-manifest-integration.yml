@@ -126,7 +126,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/route-manifest-logs/passages"
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: route-manifest-integration-logs
           path: |

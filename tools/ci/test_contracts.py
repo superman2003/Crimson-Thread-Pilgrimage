@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import contracts as c  # noqa: E402
 
 GODOT_SETUP = """
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: false
@@ -74,7 +74,7 @@ class Parsing(unittest.TestCase):
           python3 tools/check_a.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64"
       - name: Keep logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: logs
           path: ${{ runner.temp }}/logs

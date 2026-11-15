@@ -63,7 +63,7 @@ jobs:
           PY
       - name: Preserve diagnostics
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: map-group-framing-logs
           path: ${{ runner.temp }}/map-group-logs

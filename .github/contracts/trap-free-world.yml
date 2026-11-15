@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           lfs: false
       - name: Install validation engine and resource dependencies
@@ -101,7 +101,7 @@ jobs:
             --suite trap_free_world --suite quiet_sole_traps --suite spike_pogo --suite hazard_readability \
             --suite legacy_travel_rewards --suite build_slots_ui --suite player_contact_art \
             --suite demo --suite ch02_demo --suite death_cache_placement --timeout 240 --log-dir "$RUNNER_TEMP/native"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: trap-free-world

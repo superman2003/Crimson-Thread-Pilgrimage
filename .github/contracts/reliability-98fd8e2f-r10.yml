@@ -28,7 +28,7 @@ jobs:
   native:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           lfs: false
       - name: Install pinned Godot
@@ -37,7 +37,7 @@ jobs:
           unzip -q /tmp/godot.zip -d /tmp/godot-bin
       - name: Native production regression
         run: python tools/run_reliability_98fd8e2f_r10.py --engine /tmp/godot-bin/Godot_v4.6.1-stable_linux.x86_64 --log-dir artifacts/reliability_98fd8e2f_r10
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: reliability_98fd8e2f_r10

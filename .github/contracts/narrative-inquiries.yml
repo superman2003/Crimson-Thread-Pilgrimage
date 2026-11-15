@@ -55,7 +55,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/inquiries/runtime"
       - name: Preserve logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: narrative-inquiries
           path: ${{ runner.temp }}/inquiries

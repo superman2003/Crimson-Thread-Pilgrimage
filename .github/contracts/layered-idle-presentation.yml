@@ -71,7 +71,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/layered-idle-presentation-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: layered-idle-presentation-logs
           path: |

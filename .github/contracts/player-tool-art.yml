@@ -62,7 +62,7 @@ jobs:
             --suite artisan_crafts --suite seal_acceptance --log-dir "$RUNNER_TEMP/player-tool-logs"
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: player-tool-art-logs
           path: ${{ runner.temp }}/player-tool-logs

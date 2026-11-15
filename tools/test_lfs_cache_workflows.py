@@ -14,9 +14,9 @@ class CachedHydrationWorkflows(unittest.TestCase):
     def test_restore_hydrate_save_order_and_failure_behavior(self):
         action = yaml.safe_load((ROOT / '.github/actions/hydrate-lfs/action.yml').read_text(encoding='utf-8'))
         steps = action['runs']['steps']
-        restore, = [s for s in steps if s.get('uses') == 'actions/cache/restore@v4']
+        restore, = [s for s in steps if s.get('uses') == 'actions/cache/restore@v5']
         hydrate, = [s for s in steps if 'tools/hydrate_runtime_assets.py' in s.get('run', '')]
-        save, = [s for s in steps if s.get('uses') == 'actions/cache/save@v4']
+        save, = [s for s in steps if s.get('uses') == 'actions/cache/save@v5']
         self.assertLess(steps.index(restore), steps.index(hydrate))
         self.assertLess(steps.index(hydrate), steps.index(save))
         self.assertNotIn('if', hydrate)  # Exact cache hits still hydrate the current pointers.

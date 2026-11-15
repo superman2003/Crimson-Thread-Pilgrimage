@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: false
@@ -36,7 +36,7 @@ jobs:
           ! grep -E '^(SCRIPT ERROR|ERROR|USER ERROR):' "$RUNNER_TEMP/logs/specialized.log"
           grep -E '^UPGRADE_G08 checks=[1-9][0-9]* failures=0$' "$RUNNER_TEMP/logs/specialized.log"
           python3 tools/run_godot_regressions.py --engine "$engine" --suite ui_build_accessibility --log-dir "$RUNNER_TEMP/logs/existing"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: upgrade-g08-logs

@@ -73,7 +73,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/room-camera-stability-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: room-camera-stability-logs
           path: |

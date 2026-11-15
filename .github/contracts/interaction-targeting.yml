@@ -88,7 +88,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/interaction-targeting-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: interaction-targeting-logs
           path: ${{ runner.temp }}/interaction-targeting-logs

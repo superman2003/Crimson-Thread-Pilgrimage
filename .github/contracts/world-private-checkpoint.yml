@@ -108,7 +108,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/world-private-checkpoint-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: world-private-checkpoint-logs
           path: |

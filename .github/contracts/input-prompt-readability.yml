@@ -67,7 +67,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/prompt-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: input-prompt-readability-logs
           path: ${{ runner.temp }}/prompt-logs
