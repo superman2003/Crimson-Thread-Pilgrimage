@@ -53,6 +53,18 @@
 | T04 | 第二新档已从原J前钟龛字节正常返程取得王冠共鸣，实际付费R接通工房、取得奖励与独立恢复通过；正式零死，校准与反向失败保留（[11-06共鸣报告](report/20261106_t04_crown_resonance_return.md)）；原西环校准1次死亡仍保留；尚未完成六区全流程 | 最终Boss与结局；当前版本完整双顺序、不同构筑与陌生玩家记录 |
 | T05 | 已有 Windows/Linux 打包、ZIP 校验、独立启动和读档写回门禁保留；发布引擎／模板增加官方 SHA512 校验重试与完整安装回执，17 项 HTTP／TLS／归档测试及摘要反向验证通过；入口场景与许可文件由 `build_release` 校验，说明里的键位与游戏默认绑定一致（`test_player_guide_bindings`）；玩家启动时先显示标题卡（继续旅途／新旅途／退出），期间世界暂停（`title_card`，11-13）；实验性 macOS 候选包（通用架构，未公证，CI 任务允许失败，11-13） | 两平台实际新 CI、最终候选包重新构建与人工实机验收；结局说明待三结局人工验收后补写 |
 
+## 2026-11-14：main_level.gd 拆到 2519 行（T03 代码整理，拆分第七步）
+
+接第六步，把 `main_level.gd` 余下的职责搬到 22 个新脚本，行为不变：5634 → 2519 行。拆分开始前它有 8632 行。
+
+- 世界：`level_world_start`（开局与续玩、存档、首次旅途提示）、`level_world_travel`（指路、传送门、切区、区域补间与延迟调用、对话提交）、`level_region_pipeline`（区域准备与完成作业、发布、恢复构筑）、`level_region_build`（按配置搭区域、练习靶、历史物件、隐藏路线线索、生成玩家）、`level_journey_data`（新旅途与 JSON 读取）。
+- 查询：`level_catalogue`（主题、物品、NPC、章节、近道、加物品和货币）、`level_rooms`（房间归属与到访）、`level_route_state`（拉杆近道、房间边界、开路）。
+- 玩法：`level_boss`、`level_pickups`、`level_interaction`、`level_activation`、`level_dialogue`、`level_encounters`、`level_residents`、`level_ground`、`level_player_frame`、`level_build`、`level_save_slots`。
+- 界面：`level_hud_build`、`level_hud`；验证读取的状态快照和调试捷径：`level_demo_state`。
+- 留在原处：`_ready`、`_process`、`_physics_process`、`_exit_tree`、章节混响、协程 `_travel_world_async`、全部常量和成员变量，以及每个搬出方法的一行转发。
+- 读源码的检查同步：`validate_generated_godot_runtime.py` 连同拆出脚本一起检查运行时约定；`test_player_guide_bindings.py` 从 `level_build.gd` 读构筑按键；`test_ui_type_scale.py` 的世界内字号豁免移到 `level_region_build.gd`。
+- 拆分工具：只有声明位置（`var x: T`、`->`、`as`、`is`）的常量才当作类型复制，`if 条件:level.常量` 这种紧凑写法不再误判。
+
 ## 2026-11-14：五个大脚本按职责拆分（T03 代码整理，拆分第六步）
 
 把剩下最大的五个运行时脚本按职责拆到 28 个新脚本里，行为不变。原脚本保留同名的一行转发方法，调用方、信号连接和验证子类都不用改。
