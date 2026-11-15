@@ -436,6 +436,8 @@ func _passage_preflight_check() -> void:
 	if pipe == null: _check(false, "passage cancellation source endpoint exists"); return
 	scene.player.global_position = pipe.global_position
 	var checkpoint: Vector2 = scene.active_spawn
+	# The terminal fallback preflight (used when no hidden build is available).
+	passage.staging_enabled = false
 	_check(passage.begin("moss_rain_pipe"), "passage enters source before terminal preflight")
 	var passage_save_bytes := _save_bytes()
 	var passage_save_mtime := FileAccess.get_modified_time(ProjectSettings.globalize_path(SAVE))
