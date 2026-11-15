@@ -44,8 +44,9 @@ var last_result: Dictionary = {}
 var landing_support_key := ""
 var arrival_token: RefCounted
 var arrival_previous_player_mode: ProcessMode = Node.PROCESS_MODE_INHERIT
-## Passages whose destination is built while walking (W00 stage 4 pilot).
-const STAGED_PASSAGES := ["moss_rain_drainpipe"]
+## Passages whose destination is built while walking: all five (W00 stage 5).
+const STAGED_PASSAGES := ["moss_rain_drainpipe", "rain_archive_conduit", "archive_obsidian_gallery",
+    "obsidian_crown_causeway", "greenhouse_crown_roots"]
 ## Fixtures that test the terminal fallback load turn the hidden build off.
 var staging_enabled := true
 var staged := false
