@@ -61,6 +61,25 @@
 
 `world_second_order_playback.gd`（969 行）不拆：`verify_second_order_crown.py` 会冻结它的源码快照，用来核对既有证据。
 
+## 2026-11-15：七个运行时脚本继续拆分，区域加载协程也搬出（T03 代码整理，拆分第八步）
+
+接第七步，再拆出 17 个脚本，行为不变。原脚本保留同名一行转发方法。
+
+| 原脚本 | 第七步后 → 现在（行） | 新脚本 |
+|---|---|---|
+| `world_region_loader.gd` | 1845 → 339 | `loader_startup`、`loader_startup_support`、`loader_region_state`、`loader_budgeted_prepare`、`loader_transitions` |
+| `build_system.gd` | 1214 → 706 | `build_loadouts`、`build_transactions`、`build_persistence` |
+| `pilgrimage_interface.gd` | 1625 → 997 | `interface_hud`、`interface_bag`、`interface_theme` |
+| `audio_director.gd` | 1188 → 965 | `audio_game_state` |
+| `enemy_actor.gd` | 1602 → 1213 | `enemy_lifecycle`、`enemy_commands` |
+| `player_controller.gd` | 1548 → 1268 | `player_damage`、`player_input_buffer` |
+| `main_level.gd` | 2519 → 2509 | `level_travel_async` |
+
+- **协程也能搬了**：区域加载的协程（启动、预检、按帧预算准备、换区、关闭）搬到静态函数里，转发方法用 `await` 等它结束，调用方等待与否的行为都不变。仍然留下的只有调用 `super` 的方法。
+- 新脚本里的函数签名去掉默认值：转发方法总会传齐所有实参，而默认值可能引用成员（如 `global_position`、`IVORY`），静态函数里取不到。
+- 拆分工具新增 `--param-type`（`build_system`、`world_region_loader` 继承 RefCounted）和 `--coroutines`；参数名与局部变量重名时直接报错；`for x: T in` 的循环变量也算局部变量；Control 自带的属性和方法补进已知列表。
+- 把脚本复制进临时工程的四个构筑契约（旅途对照、材料兑换上限、R07、补给预算）补上新的构筑脚本。
+
 ## 2026-11-14：main_level.gd 拆到 2519 行（T03 代码整理，拆分第七步）
 
 接第六步，把 `main_level.gd` 余下的职责搬到 22 个新脚本，行为不变：5634 → 2519 行。拆分开始前它有 8632 行。
