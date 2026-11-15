@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Enemy platforms and walk obstacles, gameplay prefabs, resident NPC interactions and creating enemies.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -80,7 +81,7 @@ static func build_resident_interaction(level: Node, kind: String, data: Dictiona
         "npc": level._npc(data)
         "save_point": level._save_point(data)
         "lever": level._lever(data)
-    return level.get_node_or_null(NodePath(String(data.get("id", "")))) as Area2D
+    return LEVEL_HOST.find(level, NodePath(String(data.get("id", "")))) as Area2D
 
 
 static func release_resident_interaction(level: Node, kind: String, id: String, area: Area2D) -> bool:
@@ -106,7 +107,7 @@ static func release_resident_interaction(level: Node, kind: String, id: String, 
                 if tween.is_valid(): tween.kill()
                 level.region_tweens.erase(tween)
         area.remove_meta("residency_tweens")
-    if area.get_parent() == level:
+    if LEVEL_HOST.owns(level, area):
         level.remove_child(area)
     area.free()
     return true

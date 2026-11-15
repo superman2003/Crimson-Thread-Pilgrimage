@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Authored attack identities share collision primitives, not identical patterns.
 static var catalog: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/boss_combat_styles.json"))
 
@@ -23,7 +24,7 @@ static func remember(actor: Node, delta: float, target: Node2D) -> void:
     while actor.boss_target_history.size()>9:actor.boss_target_history.pop_front()
 
 static func floor_point(actor: Node2D, x: float, fallback_y: float) -> Vector2:
-    var terrain: Node=actor.get_parent().get("chapter_terrain")
+    var terrain: Node=LEVEL_HOST.of(actor).get("chapter_terrain")
     if terrain!=null:
         var floor_y: float=terrain.floor_height(x,fallback_y,210)
         if is_finite(floor_y):fallback_y=floor_y

@@ -1,4 +1,5 @@
 extends Node2D
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const SWEEP := preload("res://scripts/attack_sweep.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
@@ -109,20 +110,20 @@ func _physics_process(delta: float) -> void:
         position += velocity*delta
         travelled += global_position.distance_to(previous)
         if effect_kind == "wave":
-            var level := get_parent()
+            var level := LEVEL_HOST.of(self)
             var terrain: Node = level.get("chapter_terrain")
             if terrain != null:
                 var floor_y: float = terrain.floor_height(global_position.x,global_position.y+18,150)
                 if is_finite(floor_y):
                     global_position.y=floor_y-18
         else:
-            if get_parent().has_method("_ensure_collision_segment"):
-                get_parent()._ensure_collision_segment(previous, global_position)
+            if LEVEL_HOST.of(self).has_method("_ensure_collision_segment"):
+                LEVEL_HOST.of(self)._ensure_collision_segment(previous, global_position)
             var query := PhysicsRayQueryParameters2D.create(previous,global_position,1)
             query.collide_with_areas=false
             var wall := get_world_2d().direct_space_state.intersect_ray(query)
-            if get_parent().has_method("_rock_ray_hit"):
-                var rock: Dictionary = get_parent()._rock_ray_hit(previous, global_position)
+            if LEVEL_HOST.of(self).has_method("_rock_ray_hit"):
+                var rock: Dictionary = LEVEL_HOST.of(self)._rock_ray_hit(previous, global_position)
                 if not rock.is_empty() and (wall.is_empty() or previous.distance_squared_to(rock.position) < previous.distance_squared_to(wall.position)):
                     wall = rock
             if not wall.is_empty() and (bool(wall.get("authored_rock",false)) or bool(wall.get("authored_static",false)) or wall.get("collider") is StaticBody2D):terrain_hit=wall
@@ -327,7 +328,7 @@ func _terrain_impact(hit: Dictionary) -> void:
 func _launch_blocked(from: Vector2, to: Vector2) -> Dictionary:
     if from.distance_squared_to(to) < 0.01:
         return {}
-    var level := get_parent()
+    var level := LEVEL_HOST.of(self)
     if level.has_method("_ensure_collision_segment"): level._ensure_collision_segment(from, to)
     var query := PhysicsRayQueryParameters2D.create(from, to, 1)
     query.collide_with_areas = false
@@ -394,7 +395,7 @@ func _advance_wave(delta: float, target: Node2D) -> void:
             var start := global_position
             velocity.y += gravity * step
             var finish := start + velocity * step
-            var terrain: Node = get_parent().get("chapter_terrain")
+            var terrain: Node = LEVEL_HOST.of(self).get("chapter_terrain")
             if is_instance_valid(terrain):
                 var floor_y: float = terrain.floor_height(finish.x, finish.y + 18, 150)
                 if is_finite(floor_y): finish.y = floor_y - 18
@@ -431,7 +432,7 @@ static func player_bodies(tree: SceneTree) -> Array[RID]:
     return bodies
 
 func _wave_wall(start: Vector2, finish: Vector2) -> Dictionary:
-    var level := get_parent()
+    var level := LEVEL_HOST.of(self)
     if level.has_method("_ensure_collision_segment"): level._ensure_collision_segment(start, finish)
     var ray := PhysicsRayQueryParameters2D.create(start, finish, 1)
     ray.collide_with_areas = false

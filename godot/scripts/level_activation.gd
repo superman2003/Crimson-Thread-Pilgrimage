@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Activating levers and shortcuts, save points, chapter exits and boss gates, and moving to the next chapter.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -40,7 +41,7 @@ static func open_shortcut(level: Node, shortcut_id: String = "") -> void:
             shortcut_id = String(ids[0])
     if not shortcut_id.is_empty():
         level.opened_shortcuts[shortcut_id] = true
-    for child in level.get_children():
+    for child in LEVEL_HOST.children(level):
         if child is Area2D and String(child.get_meta("kind",""))=="lever" and level._shortcut_id_for_area(child)==shortcut_id:
             var sprite := child.get_node_or_null("LeverSprite") as Sprite2D
             if sprite!=null:level._apply_original_prop(sprite,"lever_open",52)

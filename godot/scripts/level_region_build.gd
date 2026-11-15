@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Building a region from its config: geometry jobs, lifts, platforms and gates, practice targets, history props, hidden-route clues and spawning the player.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -330,7 +331,7 @@ static func get_skill_practice_progress(level: Node, skill_id: String) -> Dictio
 
 static func on_skill_practice_hit(level: Node, skill_id: String, target: Area2D=null, serial: int=0, contact_kind: String="skill") -> void:
     if not level.world_mode or level.world_loading or level.player==null or level.build_system==null or level.player.hp<=0 or level.player.ui_input_locked:return
-    if not is_instance_valid(target) or target.get_parent()!=level or not target.is_inside_tree() or not target.get_meta("seal_training_target",false):return
+    if not is_instance_valid(target) or not LEVEL_HOST.owns(level, target) or not target.is_inside_tree() or not target.get_meta("seal_training_target",false):return
     if String(target.get_meta("practice_skill_id",""))!=skill_id or skill_id not in level.build_system.state.unlocked_skills:return
     if (skill_id=="ward" and contact_kind!="guard") or (skill_id!="ward" and contact_kind!="skill"):return
     if String(level.player.last_skill_cast)!=skill_id or serial<=0 or serial!=level.player.last_skill_cast_serial:return

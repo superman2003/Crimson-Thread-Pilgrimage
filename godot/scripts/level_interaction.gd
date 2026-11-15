@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Choosing what the interact key acts on: nearby interactables, locked gates and sealed rooms.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -112,7 +113,7 @@ static func nearest_interactable(level: Node, radius: float) -> Area2D:
     var best_distance := radius * radius
     var preferred_best: Area2D = null
     var preferred_distance := best_distance
-    for child in level.get_children():
+    for child in LEVEL_HOST.children(level):
         var area := child as Area2D
         if area == null or not is_instance_valid(area) or area.is_queued_for_deletion() or not area.is_visible_in_tree():
             continue

@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Wayfinding, world portals and grapple anchors, travelling between regions, region-owned tweens and deferred calls, and committing world dialogue.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -115,7 +116,7 @@ static func refresh_world_portals(level: Node) -> void:
     for data in level.config.get("interactives", []):
         if String(data.get("kind", "")) != "world_portal":
             continue
-        var area = level.get_node_or_null(NodePath(String(data.get("id", ""))))
+        var area = LEVEL_HOST.find(level, NodePath(String(data.get("id", ""))))
         if area == null:
             continue
         var status: Dictionary = WORLD_ROUTES_SCRIPT.access(data, level.inventory_counts, level.story_flags)

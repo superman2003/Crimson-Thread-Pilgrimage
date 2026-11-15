@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Optional challenges: shrines, hunt tracks, the locked arena, and first-clear rewards.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -323,7 +324,7 @@ static func challenge_pending_flag(level: Node, challenge: Dictionary) -> String
 
 static func refresh_challenge_claim_label(level: Node, challenge: Dictionary, pending: bool) -> void:
     var shrine: Dictionary=challenge.get("shrine",{})
-    var area:=level.get_node_or_null(NodePath(String(shrine.get("id",""))))
+    var area:=LEVEL_HOST.find(level, NodePath(String(shrine.get("id",""))))
     if area==null:return
     var label:="%s · %s" % [String(challenge.get("name","可选挑战")),"胜利待记录" if pending else "已清"]
     area.set_meta("label",label);area.set_meta("interaction_label",label+(" · 领取首清" if pending else " · 回访"))
@@ -397,7 +398,7 @@ static func grant_optional_challenge_reward_legacy(level: Node, challenge: Dicti
     level._toast(message)
     var shrine: Dictionary = challenge.get("shrine", {})
     var shrine_id := String(shrine.get("id", "challenge_shrine_%s" % String(challenge.get("id", ""))))
-    var area: Node = level.get_node_or_null(NodePath(shrine_id))
+    var area: Node = LEVEL_HOST.find(level, NodePath(shrine_id))
     if area != null and is_instance_valid(area):
         area.set_meta("label", "%s · 已清" % String(challenge.get("name", "可选挑战")))
         area.set_meta("interaction_label", String(area.get_meta("label")) + " · 回访")

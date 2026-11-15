@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Numeric-only lifecycle measurements; retains no live object or resource.
 var intervals: Array[int] = []
 var samples: Array[Dictionary] = []
@@ -20,8 +21,8 @@ func capture(label: String, host: Node) -> void:
         "nodes": int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)),
         "resources": int(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)),
         "orphan_nodes": int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)),
-        "host_children": host.get_child_count(), "pending_sfx": host.pending_sfx_players.size(),
-        "active_sfx": host.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_")).size()}
+        "host_children": LEVEL_HOST.children(host).size(), "pending_sfx": host.pending_sfx_players.size(),
+        "active_sfx": LEVEL_HOST.children(host).filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_")).size()}
     peak_memory = maxi(peak_memory, int(sample.memory_bytes))
     samples.append(sample)
 

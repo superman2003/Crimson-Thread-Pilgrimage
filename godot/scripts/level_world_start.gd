@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Starting or resuming the world: the start route and options, restoring inventory, player, routes and discovery, saving, and the first-journey hints.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -298,7 +299,7 @@ static func first_journey_heal_safe(level: Node) -> bool:
     if is_instance_valid(level.boss_arena_lock_body):
         return false
     for enemy in level.get_tree().get_nodes_in_group("enemy"):
-        if not is_instance_valid(enemy) or enemy.get_parent() != level or enemy.dying or not enemy.world_residency_active():
+        if not is_instance_valid(enemy) or not LEVEL_HOST.owns(level, enemy) or enemy.dying or not enemy.world_residency_active():
             continue
         var distance: Vector2 = enemy.global_position - level.player.global_position
         if absf(distance.y) < 150 and absf(distance.x) < 320:

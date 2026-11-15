@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Targeting, line of sight, patrol and aggro, alarms, ally support and spacing while in combat.
 ## Moved out of enemy_actor.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -37,9 +38,9 @@ static func face_target(actor: Node, target: Node2D) -> void:
 static func has_line_of_sight(actor: Node, target: CollisionObject2D) -> bool:
     if target == null or not is_instance_valid(target) or not actor.is_inside_tree():
         return false
-    if actor.get_parent().has_method("_ensure_collision_segment"):
-        actor.get_parent()._ensure_collision_segment(actor.global_position + Vector2(0, -24), target.global_position + Vector2(0, -42))
-    if actor.get_parent().has_method("_rock_ray_hit") and not actor.get_parent()._rock_ray_hit(actor.global_position + Vector2(0, -24), target.global_position + Vector2(0, -42)).is_empty():
+    if LEVEL_HOST.of(actor).has_method("_ensure_collision_segment"):
+        LEVEL_HOST.of(actor)._ensure_collision_segment(actor.global_position + Vector2(0, -24), target.global_position + Vector2(0, -42))
+    if LEVEL_HOST.of(actor).has_method("_rock_ray_hit") and not LEVEL_HOST.of(actor)._rock_ray_hit(actor.global_position + Vector2(0, -24), target.global_position + Vector2(0, -42)).is_empty():
         return false
     # Terrain occupies layer 1; player/enemy hurtboxes must not occlude sight.
     var query = PhysicsRayQueryParameters2D.create(actor.global_position + Vector2(0, -24), target.global_position + Vector2(0, -42), 1)

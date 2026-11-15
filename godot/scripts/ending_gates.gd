@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Ending gates: placing them after the final gatekeeper, what each still needs, choosing one, and the aftermath.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -199,7 +200,7 @@ static func activate_ending_gate(level: Node, area: Area2D) -> void:
     if not evaluated.is_empty():
         area.set_meta("message", String(evaluated.get("message", area.get_meta("message", ""))))
     level._spawn_ending_aftermath()
-    for child in level.get_children():
+    for child in LEVEL_HOST.children(level):
         if child is Area2D and String(child.get_meta("kind", "")) == "npc":
             level._apply_world_npc_state(child)
     level._refresh_wish_board_overlay()

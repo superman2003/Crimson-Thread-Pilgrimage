@@ -1,4 +1,5 @@
 extends Area2D
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Small in-world artifacts extend the existing copper/ink linework props.
 ## Fixed authored population; no particle nodes, colliders or navigation pins.
 const INK := Color("322e2b")
@@ -38,8 +39,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
     if String(entry.get("role",""))=="witness":
-        visible=String(get_parent().get("current_room_id"))==String(entry.get("room_id",""))
-    var host:=get_parent()
+        visible=String(LEVEL_HOST.of(self).get("current_room_id"))==String(entry.get("room_id",""))
+    var host:=LEVEL_HOST.of(self)
     var overlay: Variant=host.get("active_overlay")
     var focused: bool=visible and host.has_method("interaction_target") and (overlay==null or overlay=="") and host.interaction_target(self)==self
     if focused!=inspection_focused:

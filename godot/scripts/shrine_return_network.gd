@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## A return network over actual visited regions and their latest authored shrine.
 ## No discovery, currency, HP, energy, equipment, or route flags are granted.
 const ROUTES:=preload("res://scripts/world_routes.gd")
@@ -93,7 +94,7 @@ static func source_station(level: Node, preflight: bool=false) -> Dictionary:
     var row:=station(String(level.config.get("id","")),{"checkpoint_id":level.active_save_point_id,"checkpoint":level.active_spawn},level.config)
     if row.is_empty() or level.player.global_position.distance_to(row.position)>REACH:return {}
     # A saved coordinate alone cannot impersonate the currently installed shrine.
-    var area:=level.get_node_or_null(NodePath(String(row.id))) as Area2D
+    var area:=LEVEL_HOST.find(level, NodePath(String(row.id))) as Area2D
     if area==null or area.is_queued_for_deletion() or not area.is_visible_in_tree() or String(area.get_meta("kind",""))!="save_point":return {}
     if area.global_position.distance_to(row.position)>0.5:return {}
     return row

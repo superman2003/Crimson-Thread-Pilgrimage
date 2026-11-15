@@ -1,4 +1,5 @@
 extends Area2D
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const SOUND_FILTER := preload("res://scripts/enemy_sound_filter.gd")
 const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
@@ -414,8 +415,8 @@ func _step_enemy(delta: float) -> void:
         _set_enemy_animation("phase", true)
         _fit_animation_duration(phase_pause)
         BOSS_SKILL_ART.spawn_phase(self)
-        if get_parent().has_method("_toast"):
-            get_parent()._toast(String(ai_profile.get("phase_name","第二阶段")))
+        if LEVEL_HOST.of(self).has_method("_toast"):
+            LEVEL_HOST.of(self)._toast(String(ai_profile.get("phase_name","第二阶段")))
     if phase_pause>0:
         ENEMY_LIFECYCLE.tick_hit_flash(self, delta)
         phase_pause-=delta

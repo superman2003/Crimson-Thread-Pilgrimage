@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Budgeted region preparation: async preflight, catalogue region preparation, construction, eviction and finishing within the frame budget.
 ## Moved out of world_region_loader.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -206,7 +207,7 @@ static func preflight_async(loader: RefCounted, path: String, entry: Vector2, pr
 static func evict_budgeted(loader: RefCounted, host: Node) -> bool:
     # Snapshot only the nodes that belong to this generation. Freed entries may
     # be invalidated by another node's exit callback; never dereference them.
-    var children: Array = host.get_children()
+    var children: Array = LEVEL_HOST.children(host)
     var cursor := 0
     while cursor < children.size():
         var started := Time.get_ticks_usec()
@@ -216,9 +217,9 @@ static func evict_budgeted(loader: RefCounted, host: Node) -> bool:
                 break
             var child: Variant = children[cursor]
             cursor += 1
-            if not is_instance_valid(child) or child == host.player or child == host.world_passage or child.get_parent() != host:
+            if not is_instance_valid(child) or child == host.player or child == host.world_passage or not LEVEL_HOST.owns(host, child):
                 continue
-            host.remove_child(child)
+            child.get_parent().remove_child(child)
             child.free()
             loader.unloaded_nodes += 1
             operations += 1

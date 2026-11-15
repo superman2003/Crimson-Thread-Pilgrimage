@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Effects of the player's commands on an enemy: lures, trips, locomotion while commanded, and the command effects spawned.
 ## Moved out of enemy_actor.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -20,9 +21,9 @@ static func investigate_lure(actor: Node, point: Vector2, seconds: float) -> voi
     if bool(actor.combat_resistance.get("lure_immune", actor.is_boss)) or not bool(actor.ai_profile.get("lure_eligible", not actor.is_boss)) or actor.dying or actor.state in ["windup", "active"]:
         return
     if actor.is_inside_tree():
-        if actor.get_parent().has_method("_ensure_collision_segment"):
-            actor.get_parent()._ensure_collision_segment(actor.global_position + Vector2(0, -24), point)
-        if actor.get_parent().has_method("_rock_ray_hit") and not actor.get_parent()._rock_ray_hit(actor.global_position + Vector2(0, -24), point).is_empty():
+        if LEVEL_HOST.of(actor).has_method("_ensure_collision_segment"):
+            LEVEL_HOST.of(actor)._ensure_collision_segment(actor.global_position + Vector2(0, -24), point)
+        if LEVEL_HOST.of(actor).has_method("_rock_ray_hit") and not LEVEL_HOST.of(actor)._rock_ray_hit(actor.global_position + Vector2(0, -24), point).is_empty():
             return
         var lure_ray = PhysicsRayQueryParameters2D.create(actor.global_position + Vector2(0,-24), point, 1)
         lure_ray.collide_with_areas = false
@@ -53,13 +54,13 @@ static func update_locomotion(actor: Node, delta: float, target: CharacterBody2D
         if should_track_target and actor.state not in ["windup","active"]:
             desired=clampf(target.global_position.y-90,actor.spawn_position.y-65,actor.spawn_position.y+75)+sin(actor.flight_clock*3)*8
         var candidate := Vector2(actor.global_position.x,move_toward(actor.global_position.y,desired,85*delta))
-        var level = actor.get_parent()
+        var level = LEVEL_HOST.of(actor)
         if not level.has_method("_enemy_spawn_rect_clear") or level._enemy_spawn_rect_clear(candidate,24,float(actor.get_meta("spawn_visual_height",60)),String(actor.get_meta("platform_id",""))):
             actor.global_position=candidate
         return
     if actor.state=="active" and String(actor.active_attack.get("type",""))=="vault":
         return
-    var terrain: Node = actor.get_parent().get("chapter_terrain")
+    var terrain: Node = LEVEL_HOST.of(actor).get("chapter_terrain")
     if terrain!=null:
         var floor_y: float = terrain.floor_height(actor.global_position.x,actor.spawn_position.y+40,210)
         if is_finite(floor_y):
