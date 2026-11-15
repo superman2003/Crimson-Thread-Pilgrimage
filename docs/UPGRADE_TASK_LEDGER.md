@@ -53,6 +53,17 @@
 | T04 | 第二新档已从原J前钟龛字节正常返程取得王冠共鸣，实际付费R接通工房、取得奖励与独立恢复通过；正式零死，校准与反向失败保留（[11-06共鸣报告](report/20261106_t04_crown_resonance_return.md)）；原西环校准1次死亡仍保留；尚未完成六区全流程 | 最终Boss与结局；当前版本完整双顺序、不同构筑与陌生玩家记录 |
 | T05 | 已有 Windows/Linux 打包、ZIP 校验、独立启动和读档写回门禁保留；发布引擎／模板增加官方 SHA512 校验重试与完整安装回执，17 项 HTTP／TLS／归档测试及摘要反向验证通过；入口场景与许可文件由 `build_release` 校验，说明里的键位与游戏默认绑定一致（`test_player_guide_bindings`）；玩家启动时先显示标题卡（继续旅途／新旅途／退出），期间世界暂停（`title_card`，11-13）；实验性 macOS 候选包（通用架构，未公证，CI 任务允许失败，11-13） | 两平台实际新 CI、最终候选包重新构建与人工实机验收；结局说明待三结局人工验收后补写 |
 
+## 2026-11-15：敌人落点查询共用平台缓存，ch01/ch02 生成敌人的尖峰降到约 15ms（T03）
+
+逐项计时换区构建作业后发现，最重的尖峰是生成敌人（`_enemy`）：ch01 52.5ms、ch02 81.9ms，其他四区约 10–16ms。新建敌人本身不慢，慢在找落点。
+
+ch01、ch02 分别有 145、174 块平台，而一个敌人的落点要扫全部平台十来遍：找出生点、每个候选位置检查有没有空位（最多 8 个候选）、找脚下平台、算巡逻范围。每遍都要重新读平台字典，并经由关卡把矩形重新解析一次。
+
+- `enemy_placement.gd` 新增 `platform_entries`：每份平台列表只解析一次，存成编号、矩形、能否站敌人、是否已被地形取代四项，挂在关卡上。平台列表换成另一份，或者长度变了（验证会往里追加挡板），就重建。
+- 找出生点、备用落点、空位检查、巡逻范围、脚下平台、行走障碍这六处遍历都改读缓存，遍历顺序和取舍规则不变。验证子类重写的空位检查和找落点函数仍经由关卡调用。
+- 同机两次测量：生成敌人的最大单次作业 ch01 52.5 → 15.8／14.3ms；ch02 已不是本区最重的作业（81.9ms → 全区最重作业 23.4／15.7ms）。本机测量有波动。
+- 出生点搜索的对照验证（以优化前冻结的原算法为准，含 e04 用例）1406 项全部一致；`world_async_loading`、`chapter_route_regression`、`world_enemy_residency`、`all_chapters_demo`、`enemy_tactical_roles`、`pilgrimage_merge_regression` 通过。
+
 ## 2026-11-15：全章节验证脚本拆分（T03 代码整理）
 
 `all_chapters_demo_validation.gd` 1013 → 448 行。章节差异、视觉与首领清单检查搬到 `chapter_uniqueness_checks.gd`，房间、落点、地面、出口与多层布局检查搬到 `chapter_route_checks.gd`。原脚本保留同名转发方法和每章主流程 `_validate_chapter`。
@@ -60,6 +71,25 @@
 拆分前后各跑一次 `all_chapters_demo`：2190 条检查结果逐行相同，无失败。
 
 `world_second_order_playback.gd`（969 行）不拆：`verify_second_order_crown.py` 会冻结它的源码快照，用来核对既有证据。
+
+## 2026-11-15：七个运行时脚本继续拆分，区域加载协程也搬出（T03 代码整理，拆分第八步）
+
+接第七步，再拆出 17 个脚本，行为不变。原脚本保留同名一行转发方法。
+
+| 原脚本 | 第七步后 → 现在（行） | 新脚本 |
+|---|---|---|
+| `world_region_loader.gd` | 1845 → 339 | `loader_startup`、`loader_startup_support`、`loader_region_state`、`loader_budgeted_prepare`、`loader_transitions` |
+| `build_system.gd` | 1214 → 706 | `build_loadouts`、`build_transactions`、`build_persistence` |
+| `pilgrimage_interface.gd` | 1625 → 997 | `interface_hud`、`interface_bag`、`interface_theme` |
+| `audio_director.gd` | 1188 → 965 | `audio_game_state` |
+| `enemy_actor.gd` | 1602 → 1213 | `enemy_lifecycle`、`enemy_commands` |
+| `player_controller.gd` | 1548 → 1268 | `player_damage`、`player_input_buffer` |
+| `main_level.gd` | 2519 → 2509 | `level_travel_async` |
+
+- **协程也能搬了**：区域加载的协程（启动、预检、按帧预算准备、换区、关闭）搬到静态函数里，转发方法用 `await` 等它结束，调用方等待与否的行为都不变。仍然留下的只有调用 `super` 的方法。
+- 新脚本里的函数签名去掉默认值：转发方法总会传齐所有实参，而默认值可能引用成员（如 `global_position`、`IVORY`），静态函数里取不到。
+- 拆分工具新增 `--param-type`（`build_system`、`world_region_loader` 继承 RefCounted）和 `--coroutines`；参数名与局部变量重名时直接报错；`for x: T in` 的循环变量也算局部变量；Control 自带的属性和方法补进已知列表。
+- 把脚本复制进临时工程的四个构筑契约（旅途对照、材料兑换上限、R07、补给预算）补上新的构筑脚本。
 
 ## 2026-11-14：main_level.gd 拆到 2519 行（T03 代码整理，拆分第七步）
 
