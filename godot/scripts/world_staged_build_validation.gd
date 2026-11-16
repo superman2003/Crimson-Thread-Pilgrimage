@@ -178,6 +178,14 @@ func _slowest_jobs(metric: Dictionary) -> Array:
 	return out
 
 
+func _handover_steps(metric: Dictionary) -> Dictionary:
+	var out := {}
+	var steps: Dictionary = metric.get("handover_step_usec", {})
+	for key in steps:
+		out[key] = snappedf(float(steps[key]) / 1000.0, 0.1)
+	return out
+
+
 func _containers() -> Array[String]:
 	var names: Array[String] = []
 	for child in scene.get_children():
@@ -291,8 +299,10 @@ func _run() -> void:
 			"max_batch_ms": snappedf(float(staged_metric.get("max_batch_usec", 0)) / 1000.0, 0.1),
 			"max_commit_batch_ms": snappedf(float(staged_metric.get("max_commit_batch_usec", 0)) / 1000.0, 0.1),
 			"handover_switch_ms": snappedf(float(handed_metric.get("handover_switch_usec", 0)) / 1000.0, 0.1),
+			"handover_frames": int(handed_metric.get("handover_frames", 0)),
+			"max_handover_frame_ms": snappedf(float(handed_metric.get("max_handover_frame_usec", 0)) / 1000.0, 0.1),
 			"held_jobs": staged_metric.get("commit_jobs", 0), "peak_nodes": peak_nodes,
-			"slowest_jobs": _slowest_jobs(staged_metric)})
+			"slowest_jobs": _slowest_jobs(staged_metric), "handover_steps_ms": _handover_steps(handed_metric)})
 	print("WORLD_STAGED_BUILD_METRICS ", JSON.stringify(metrics))
 	scene.free()
 	await process_frame

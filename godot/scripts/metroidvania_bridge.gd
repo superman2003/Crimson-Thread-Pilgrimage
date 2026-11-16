@@ -38,37 +38,48 @@ var deferred_calls: Array = []
 
 
 func configure(level_config: Dictionary, world_width: float, world_height: float) -> void:
-    if deferred:
-        deferred_calls.append({"method": "configure", "args": [level_config, world_width, world_height]})
+    for step in range(CONFIGURE_STEPS):
+        if deferred:
+            # Recorded as separate steps, so the replay can spread them (T03).
+            deferred_calls.append({"method": "_configure_step", "args": [step, level_config, world_width, world_height]})
+        else:
+            _configure_step(step, level_config, world_width, world_height)
+
+
+const CONFIGURE_STEPS := 6
+
+
+func _configure_step(step: int, level_config: Dictionary, world_width: float, world_height: float) -> void:
+    if step == 0:
+        metsys = get_node_or_null("/root/MetSys")
+        bridge_ready = false
+        if metsys == null:
+            push_warning("MetSys autoload is not available.")
+            return
+        metsys.reset_state()
+        metsys.set_save_data()
+        _clear_runtime_map_data()
+        metsys.settings.in_game_cell_size = Vector2(maxf(1.0, world_width / max(1, level_config.get("map_rooms", []).size())), world_height)
+        metsys.current_layer = 0
+        room_coords.clear()
+        connector_cells.clear()
+        route_edges.clear()
+        locked_edges.clear()
+        wall_decisions.clear()
+        registered_ids.clear()
+        stored_ids.clear()
+        current_coords = Vector3i.MAX
         return
-    metsys = get_node_or_null("/root/MetSys")
     if metsys == null:
-        push_warning("MetSys autoload is not available.")
         return
-
-    metsys.reset_state()
-    metsys.set_save_data()
-    _clear_runtime_map_data()
-    metsys.settings.in_game_cell_size = Vector2(maxf(1.0, world_width / max(1, level_config.get("map_rooms", []).size())), world_height)
-    metsys.current_layer = 0
-
-    bridge_ready = false
-    room_coords.clear()
-    connector_cells.clear()
-    route_edges.clear()
-    locked_edges.clear()
-    wall_decisions.clear()
-    registered_ids.clear()
-    stored_ids.clear()
-    current_coords = Vector3i.MAX
-
-    _build_room_cells(level_config)
-    _connect_main_route(level_config)
-    _mark_special_passages(level_config)
-    _classify_static_walls(level_config)
-    _recount_borders()
-
-    bridge_ready = true
+    match step:
+        1: _build_room_cells(level_config)
+        2: _connect_main_route(level_config)
+        3: _mark_special_passages(level_config)
+        4: _classify_static_walls(level_config)
+        5:
+            _recount_borders()
+            bridge_ready = true
 
 
 func _clear_runtime_map_data() -> void:
@@ -310,19 +321,32 @@ func update_player_position(global_position: Vector2, room_id: String) -> void:
 
 
 func complete_deferred() -> void:
+    while not replay_deferred(0):
+        pass
+
+
+## Replays recorded calls in order until `budget_usec` has passed (0: all of
+## them). Returns true once nothing is left; the bridge is live from then on.
+func replay_deferred(budget_usec: int) -> bool:
     if not deferred:
-        return
-    deferred = false
-    var calls := deferred_calls
-    deferred_calls = []
-    for call in calls:
+        return true
+    var started := Time.get_ticks_usec()
+    while not deferred_calls.is_empty():
+        if budget_usec > 0 and Time.get_ticks_usec() - started >= budget_usec:
+            return false
+        var call: Dictionary = deferred_calls.pop_front()
         # Objects registered during the hidden build may have been retired since.
         var live := true
         for value in call.args:
             if value is Object and not is_instance_valid(value):
                 live = false
         if live:
+            # Each call is made live, the way it was first requested.
+            deferred = false
             callv(call.method, call.args)
+            deferred = true
+    deferred = false
+    return true
 
 
 func register_object(object: Object, object_id: String, room_id: String = "") -> void:
