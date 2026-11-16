@@ -205,15 +205,46 @@ static func handover_async(loader: RefCounted, host: Node, arrival: Vector2 = Ve
         if is_instance_valid(layer):
             layer.visible = true
     loader.phase = "committing"
-    host._apply_chapter_reverb(String(host.config.get("id", "")))
+    var step_usec := {"switch": Time.get_ticks_usec() - switch_started}
+    # The rest acts on the destination only; the host stays disabled, so it is
+    # spread over frames under the loader's usual budget (T03).
+    var steps: Array = [{"name": "reverb", "call": func(): host._apply_chapter_reverb(String(host.config.get("id", "")))}]
     if is_instance_valid(host.metsys_bridge):
-        host.metsys_bridge.complete_deferred()
+        steps.append({"name": "map_replay", "call": func(): return host.metsys_bridge.replay_deferred(loader.FRAME_BUDGET_USEC), "repeat": true})
     for job in staging.held_jobs:
-        host.callv(job.method, job.args)
+        steps.append({"name": String(job.method), "call": func(): host.callv(job.method, job.args)})
     if host.world_mode:
-        LEVEL_HUD_BUILD.bind_journey_workbench(host)
+        steps.append({"name": "workbench", "call": func(): LEVEL_HUD_BUILD.bind_journey_workbench(host)})
+    var tree := host.get_tree()
+    var frames := 0
+    var frame_started := Time.get_ticks_usec()
+    var cursor := 0
+    while cursor < steps.size():
+        var step: Dictionary = steps[cursor]
+        if Time.get_ticks_usec() - frame_started >= loader.FRAME_BUDGET_USEC:
+            loader.last_transition["max_handover_frame_usec"] = maxi(int(loader.last_transition.get("max_handover_frame_usec", 0)), Time.get_ticks_usec() - frame_started)
+            await loader._frame_signal(tree)
+            frames += 1
+            if not loader._alive(host):
+                return false
+            frame_started = Time.get_ticks_usec()
+        var step_started := Time.get_ticks_usec()
+        var result: Variant = step.call.call()
+        step_usec[step.name] = int(step_usec.get(step.name, 0)) + Time.get_ticks_usec() - step_started
+        # A repeating step stays current until it reports that it is done.
+        if not bool(step.get("repeat", false)) or result == true:
+            cursor += 1
+    loader.last_transition["max_handover_frame_usec"] = maxi(int(loader.last_transition.get("max_handover_frame_usec", 0)), Time.get_ticks_usec() - frame_started)
+    await loader._frame_signal(tree)
+    frames += 1
+    if not loader._alive(host):
+        return false
+    loader.last_transition["handover_frames"] = frames
     loader.phase = "publishing"
+    var publish_started := Time.get_ticks_usec()
     host._publish_region()
+    step_usec["publish"] = Time.get_ticks_usec() - publish_started
+    loader.last_transition["handover_step_usec"] = step_usec
     # The destination's residency was configured for the generation after the
     # one current when its build began; the source's departure added one more.
     if host.world_gameplay_residency != null:
@@ -222,5 +253,7 @@ static func handover_async(loader: RefCounted, host: Node, arrival: Vector2 = Ve
     host.chapter_transitioning = false
     host.process_mode = previous_mode
     loader.phase = "idle"
-    loader.last_transition["handover_switch_usec"] = Time.get_ticks_usec() - switch_started
+    # The one step that cannot yield (fields, container); the rest is per frame.
+    loader.last_transition["handover_switch_usec"] = int(step_usec.get("switch", 0))
+    loader.last_transition["handover_wall_usec"] = Time.get_ticks_usec() - switch_started
     return true
