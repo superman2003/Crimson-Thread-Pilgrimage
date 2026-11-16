@@ -759,6 +759,10 @@ func _setup_cartography() -> void:
     LEVEL_REGION_PIPELINE.setup_cartography(self)
 
 
+func _setup_cartography_part(part: int) -> void:
+    LEVEL_REGION_PIPELINE.setup_cartography_part(self, part)
+
+
 func _publish_region() -> void:
     LEVEL_REGION_PIPELINE.publish_region(self)
 
@@ -1668,6 +1672,10 @@ func _build_hud_labels() -> void:
 
 func _finish_hud() -> void:
     LEVEL_HUD_BUILD.finish_hud(self)
+
+
+func _complete_hud() -> void:
+    LEVEL_HUD_BUILD.complete_hud(self)
 
 func _build_dialogue_overlay() -> void:
     LEVEL_HUD_BUILD.build_dialogue_overlay(self)

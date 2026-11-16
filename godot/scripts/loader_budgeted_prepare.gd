@@ -559,6 +559,10 @@ static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionar
                 loader.last_transition["max_build_job_usec"] = job_usec
                 loader.last_transition["max_build_job"] = String(job.method)
             loader._record_background_job(loader.last_transition, String(job.method), job_usec)
+            # Slowest instance per build method, so each stall can be named.
+            var build_timings: Dictionary = loader.last_transition.get("build_operation_usec", {})
+            build_timings[String(job.method)] = maxi(int(build_timings.get(String(job.method), 0)), job_usec)
+            loader.last_transition["build_operation_usec"] = build_timings
             cursor += 1
             operations += 1
         loader._measure_batch(operations, started, "max_build_operations")
@@ -597,7 +601,9 @@ static func finish_budgeted(loader: RefCounted, host: Node, cancellable: bool) -
             if String(job.method) == "_finish_region_spawn" and is_instance_valid(host.get("player")):
                 loader.player_art_resources.clear()
             var job_usec := Time.get_ticks_usec() - job_started
-            var key: String = job.method if job.args.is_empty() else String(job.args[0])
+            var key: String = job.method if job.args.is_empty() else (String(job.args[0]) if job.args[0] is String else "%s:%s" % [job.method, str(job.args[0])])
+            if key == "install_desk":
+                key += ":%d" % int(job.args[1][0])
             var timings: Dictionary = loader.last_transition.get("commit_operation_usec", {})
             timings[key] = maxi(int(timings.get(key, 0)), job_usec)
             loader.last_transition["commit_operation_usec"] = timings

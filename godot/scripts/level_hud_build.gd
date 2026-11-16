@@ -32,6 +32,9 @@ static func hud_build_jobs(level: Node) -> Array:
         {"method": "_build_dialogue_overlay", "args": []},
         {"method": "_build_settings_overlay", "args": []},
         {"method": "_finish_hud", "args": []}])
+    for index in range(PILGRIMAGE_UI_SCRIPT.DESKS.size()):
+        jobs.append({"method": "_build_interface_step", "args": ["install_desk", [index]]})
+    jobs.append({"method": "_complete_hud", "args": []})
     return jobs
 
 
@@ -71,7 +74,13 @@ static func build_hud_labels(level: Node) -> void:
 
 static func finish_hud(level: Node) -> void:
     level.ui_shell.frame(level.map_panel)
-    level.ui_shell.finish_bind()
+    level.ui_shell.finish_bind(true)
+
+
+## Last HUD job, after the desks: the interface opens to input only now, and
+## the workbench entry is added after the desks' controls, as in a direct build.
+static func complete_hud(level: Node) -> void:
+    level.ui_shell.complete_bind()
     # The workbench is one shared entry bound to the current region's interface;
     # a destination built hidden binds it at handover instead (W00 stage 3).
     if level.world_mode and (level.world_loader == null or not level.world_loader.staging_building()):

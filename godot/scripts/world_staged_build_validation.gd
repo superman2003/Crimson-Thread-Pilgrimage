@@ -162,6 +162,22 @@ func _explain(staged: Variant, ordinary: Variant) -> String:
 	return "%s / %s" % [str(staged).left(200), str(ordinary).left(200)]
 
 
+## The slowest single jobs of a hidden build: they run while the player walks.
+func _slowest_jobs(metric: Dictionary) -> Array:
+	var jobs: Array = []
+	for key in metric.get("prepare_operation_usec", {}):
+		jobs.append(["prepare " + String(key).get_slice(":", 1), int(metric.prepare_operation_usec[key])])
+	for key in metric.get("commit_operation_usec", {}):
+		jobs.append(["commit " + String(key), int(metric.commit_operation_usec[key])])
+	for key in metric.get("build_operation_usec", {}):
+		jobs.append(["build " + String(key), int(metric.build_operation_usec[key])])
+	jobs.sort_custom(func(a, b): return a[1] > b[1])
+	var out: Array = []
+	for job in jobs.slice(0, 8):
+		out.append("%s %.1fms" % [job[0], float(job[1]) / 1000.0])
+	return out
+
+
 func _containers() -> Array[String]:
 	var names: Array[String] = []
 	for child in scene.get_children():
@@ -275,7 +291,8 @@ func _run() -> void:
 			"max_batch_ms": snappedf(float(staged_metric.get("max_batch_usec", 0)) / 1000.0, 0.1),
 			"max_commit_batch_ms": snappedf(float(staged_metric.get("max_commit_batch_usec", 0)) / 1000.0, 0.1),
 			"handover_switch_ms": snappedf(float(handed_metric.get("handover_switch_usec", 0)) / 1000.0, 0.1),
-			"held_jobs": staged_metric.get("commit_jobs", 0), "peak_nodes": peak_nodes})
+			"held_jobs": staged_metric.get("commit_jobs", 0), "peak_nodes": peak_nodes,
+			"slowest_jobs": _slowest_jobs(staged_metric)})
 	print("WORLD_STAGED_BUILD_METRICS ", JSON.stringify(metrics))
 	scene.free()
 	await process_frame
