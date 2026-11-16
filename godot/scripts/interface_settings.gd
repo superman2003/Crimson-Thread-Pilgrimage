@@ -11,8 +11,13 @@ static func build_settings(ui: Node) -> void:
     ui._begin_settings()
     ui._build_settings_audio()
     ui._build_settings_accessibility()
+    ui._build_settings_accessibility_tail()
     ui._build_settings_controls()
+    ui._build_settings_controls_tail()
     ui._finish_settings()
+    ui._install_settings_dialogs_a()
+    ui._install_settings_dialogs_b()
+    ui._finish_settings_refresh()
 
 
 static func begin_settings(ui: Node) -> void:
@@ -66,6 +71,9 @@ static func build_settings_accessibility(ui: Node) -> void:
     accessibility_slider(ui, "camera_shake","镜头震动",Vector2(512,204),0,1,0.25)
     accessibility_slider(ui, "camera_lookahead","镜头前瞻",Vector2(512,238),0,1,0.25)
     preload("res://scripts/camera_observation_dialog.gd").install(ui)
+
+
+static func build_settings_accessibility_tail(ui: Node) -> void:
     accessibility_slider(ui, "vibration_strength","手柄力度",Vector2(512,272),0,1,0.25)
     ui._accessibility_toggle("flash_enabled","受击闪光",Vector2(512,305))
     ui._accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,305))
@@ -82,10 +90,19 @@ static func finish_settings(ui: Node) -> void:
     ui._button(ui.settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),ui._restore_save_backup).add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.journey_history_button=ui._button(ui.settings,"浏览旧旅途",Vector2(838,573),Vector2(134,30),ui._show_journey_history)
     ui.journey_history_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
-    preload("res://scripts/audio_output_dialog.gd").install(ui)
-    preload("res://scripts/display_dialog.gd").install(ui)
-    preload("res://scripts/difficulty_dialog.gd").install(ui)
-    preload("res://scripts/achievements_dialog.gd").install(ui)
+
+
+## The settings dialogs, two per job, in their original order.
+static func install_settings_dialogs(ui: Node, half: int) -> void:
+    if half == 0:
+        preload("res://scripts/audio_output_dialog.gd").install(ui)
+        preload("res://scripts/display_dialog.gd").install(ui)
+    else:
+        preload("res://scripts/difficulty_dialog.gd").install(ui)
+        preload("res://scripts/achievements_dialog.gd").install(ui)
+
+
+static func finish_settings_refresh(ui: Node) -> void:
     ui.legacy_settings=ui._label(ui.settings,"",Vector2.ZERO,Vector2.ZERO)
     ui.legacy_settings.visible=false
     ui.refresh_settings_selection()
