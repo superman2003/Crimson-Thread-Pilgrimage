@@ -217,9 +217,11 @@ func bind(runtime: Node) -> void:
     finish_bind()
 
 static func build_steps() -> Array[String]:
-    return ["_build_hud", "_build_bag_frame", "_build_bag_journal_tools", "_build_bag_detail", "_build_dialogue", "_begin_settings",
-        "_build_settings_audio", "_build_settings_accessibility", "_build_settings_controls",
-        "_finish_settings", "_build_build_panel"]
+    return ["_build_hud", "_build_bag_frame", "_build_bag_list", "_build_bag_journal_tools", "_build_bag_detail", "_build_dialogue", "_begin_settings",
+        "_build_settings_audio", "_build_settings_accessibility", "_build_settings_accessibility_tail",
+        "_build_settings_controls", "_build_settings_controls_tail",
+        "_finish_settings", "_install_settings_dialogs_a", "_install_settings_dialogs_b", "_finish_settings_refresh",
+        "_build_build_panel"]
 
 ## Inscribed title artwork is 1-2 MB per image. Each region rebuilds the UI
 ## shell, and freeing the old one released these textures, so every transition
@@ -369,6 +371,9 @@ func _build_bag() -> void:
 func _build_bag_frame() -> void:
     INTERFACE_BAG.build_bag_frame(self)
 
+func _build_bag_list() -> void:
+    INTERFACE_BAG.build_bag_list(self)
+
 func _build_bag_journal_tools() -> void:
     INTERFACE_BAG.build_bag_journal_tools(self)
 
@@ -439,6 +444,9 @@ func _build_settings_audio() -> void:
 func _build_settings_accessibility() -> void:
     INTERFACE_SETTINGS.build_settings_accessibility(self)
 
+func _build_settings_accessibility_tail() -> void:
+    INTERFACE_SETTINGS.build_settings_accessibility_tail(self)
+
 func _build_settings_controls() -> void:
     var remap_title:=_label(settings,"按键重映射",Vector2(34,384),Vector2(420,28),17,GOLD)
     remap_title.tooltip_text="选择动作后按键、鼠标按钮或推动扳机；方向键 / 手柄十字键选择。"
@@ -458,19 +466,39 @@ func _build_settings_controls() -> void:
     remap_grid.add_theme_constant_override("h_separation",6)
     remap_grid.add_theme_constant_override("v_separation",1)
     remap_scroll.add_child(remap_grid)
-    for action in REMAPPABLE_ACTIONS:
-        var action_id:=String(action)
-        var button:=_button(remap_grid,"",Vector2.ZERO,Vector2(224,26),func():_begin_remap(action_id))
-        button.custom_minimum_size=Vector2(224,26)
-        button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-        button.add_theme_font_size_override("font_size",12)
-        remap_buttons[action_id]=button
+    _remap_grid=remap_grid
+    _add_remap_buttons(0, int(REMAPPABLE_ACTIONS.size() / 2.0))
+
+## Second half of the remap buttons and the status line (T03: one job each).
+func _build_settings_controls_tail() -> void:
+    _add_remap_buttons(int(REMAPPABLE_ACTIONS.size() / 2.0), REMAPPABLE_ACTIONS.size())
     remap_status=_label(settings,"确认键改键  ·  Esc／手柄 B 取消",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 
+var _remap_grid: GridContainer
+
+func _add_remap_buttons(from: int, to: int) -> void:
+    var actions: Array = REMAPPABLE_ACTIONS.keys()
+    for index in range(from, to):
+        var action_id:=String(actions[index])
+        var button:=_button(_remap_grid,"",Vector2.ZERO,Vector2(224,26),func():_begin_remap(action_id))
+        button.custom_minimum_size=Vector2(224,26)
+        button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+        button.add_theme_font_size_override("font_size",12)
+        remap_buttons[action_id]=button
+
 func _finish_settings() -> void:
     INTERFACE_SETTINGS.finish_settings(self)
+
+func _install_settings_dialogs_a() -> void:
+    INTERFACE_SETTINGS.install_settings_dialogs(self, 0)
+
+func _install_settings_dialogs_b() -> void:
+    INTERFACE_SETTINGS.install_settings_dialogs(self, 1)
+
+func _finish_settings_refresh() -> void:
+    INTERFACE_SETTINGS.finish_settings_refresh(self)
 
 
 func _accessibility_toggle(key: String, title: String, point: Vector2) -> void:

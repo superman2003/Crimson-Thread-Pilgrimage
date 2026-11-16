@@ -9,11 +9,12 @@ const TYPE := preload("res://scripts/ui_type_scale.gd")
 
 static func build_bag(ui: Node) -> void:
     build_bag_frame(ui)
+    build_bag_list(ui)
     build_bag_journal_tools(ui)
     build_bag_detail(ui)
 
 
-## Panel, category tabs, list scroll and journal filters.
+## Panel, wells and category tabs.
 static func build_bag_frame(ui: Node) -> void:
     ui.bag=ui._panel(ui,"巡礼行囊",Vector2(85,54),Vector2(1110,600))
     ui.bag.name="BackpackOverlay"
@@ -31,6 +32,11 @@ static func build_bag_frame(ui: Node) -> void:
         ui.bag_tabs.append(button)
         button.set_meta("inscription_tab",true)
         button.add_theme_font_size_override("font_size",20)
+
+
+
+## List scroll and the journal filter row.
+static func build_bag_list(ui: Node) -> void:
     var scroll:=ScrollContainer.new()
     scroll.position=Vector2(34,194)
     scroll.size=Vector2(645,337)
