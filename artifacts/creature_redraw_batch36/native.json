@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "engine": "4.6.1.stable.official.14d19694e",
+  "mode": "Headless existing production validation suite, isolated project with four complete creature folders and required Beehave/VFX dependencies. No rendering-quality or full-project claim.",
+  "results": [
+    {
+      "step": "import",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "step": "character_motion_v8",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    }
+  ],
+  "marker": "CHARACTER_MOTION_V8 checks=2897 failures=0 characters=4 old_poses=377 new_poses=754",
+  "production_script_sha256": {
+    "enemy_actor.gd": "72e1ac613b9e37b73d04a2620b21ca95579c251cfb41ab4de14304d2d848cdfc",
+    "hand_drawn_assets.gd": "339c5c4853ecc4026c4c46a4e1be31e9f978ca1d5f57f2290e96262480b0e8da",
+    "character_motion_v8_validation.gd": "7fc1dbf6574696fd8f823a7da32707b70e3009fa57bd7ad69f1dd4291a93e4f7",
+    "background_resource_job.gd": "06acba9c5502a82728a530ee8d879189ec3b2d17e705ad1804c7121d5bdc562c",
+    "enemy_motion_transitions.gd": "b5e7e5ca243571273fd86369e349648b64d77b129fa48dc1414197787632690e",
+    "enemy_animation_timing.gd": "a31b2623a6dd40b038b2250681e84fd479ae9b135f09a6d31959b4728bd277e7"
+  },
+  "creatures": {
+    "valve_crawler": {
+      "manifest": "motion_redraw_manifest.json",
+      "manifest_sha256": "f16560c1ebf6cfd0f9f343f8ad0db0ee566ebafe38bb44ec56788644317ee47e",
+      "atlas_sha256": "4e8f1fd617e87403aec3e0229a0c35ac11570c2d974b82ce349bd67e79b6a20f",
+      "frame_fit_sha256": "566f8f2376801f3296ed443631020c692dfdbcad14dfe188361e3c96f57b5691"
+    },
+    "thorn_sentinel": {
+      "manifest": "motion_redraw_manifest.json",
+      "manifest_sha256": "37105200d0f98e764c0e2984bced24a8971e96349f4ef6c0a484b5be4a839c7b",
+      "atlas_sha256": "dad15fedd29b43a0d7707822c635b7a3ca777647376ca73249bb86abada91a8f",
+      "frame_fit_sha256": "4556b7233905bc5d8867ac6127090a2fa0ad1a99948a480ce9788f7030f34369"
+    },
+    "echo_thorn_sentinel": {
+      "manifest": "motion_redraw_manifest.json",
+      "manifest_sha256": "cf9a78e0519da08482a7aa75c08d7284d3f5047f37a6327ffa9bfc9a8443dc86",
+      "atlas_sha256": "e31fdc88013b3c874ba1a1f68e6c3686368a44f1cf59add1f6b04ecdab5cc4a5",
+      "frame_fit_sha256": "47d2a86cc8b5ed789c7c18231616887e041ec13c0a7682e5b33b58f10d6d89a1"
+    },
+    "silent_bugbler": {
+      "manifest": "motion_redraw_manifest.json",
+      "manifest_sha256": "239c2ae112253044a927ff324c310dcaf700e40561915f51c5bc18c1aff7387b",
+      "atlas_sha256": "50cb2037b0383dd78933de44693717fb5f7ffc74165d01e8b8995114a09c7cad",
+      "frame_fit_sha256": "018ec872bc4743cb5fec62e40e1095a6eba810751cac4c6a0536fee4add6ccba"
+    }
+  },
+  "frozen_reference_rebuilds": {
+    "valve_crawler": "90a88f55f659a79cdad863bc6a0b02ebcedc7fad252b797e19dd8837f9f0b211",
+    "thorn_sentinel": "99b7e5579df2772ce6e70a7255101129092eec3b79abf4b42a56682f605b199f",
+    "echo_thorn_sentinel": "9a15e599d6641679864ba49a78484cb4b8b5a4e35723e308dc9fd5f75331b13e",
+    "silent_bugbler": "da21b59301b336c9034cfed8d6fe1e1e30212aab9ccd72362d50f7550dd5d041"
+  }
+}

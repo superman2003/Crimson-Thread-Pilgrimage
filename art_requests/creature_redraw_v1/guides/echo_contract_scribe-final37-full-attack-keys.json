@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "kind": "echo_contract_scribe",
+  "baseline": "godot/assets/sprites/original_creatures/echo_contract_scribe/motion_v8_manifest.json",
+  "baseline_sha256": "c2e82f86aeff728fd08295218548b20314058dcdac9591b7b919c4f170f08d27",
+  "canvas": [
+    480,
+    271
+  ],
+  "grid": [
+    2,
+    2
+  ],
+  "frame_fit_reference_sha256": "3289923e6afd62971b0a1626c4dd87825c2aaef6fbfecd5d289c99cbb2d9f5c5",
+  "explanation": "Four frozen key poses, reference ONLY. Input to image_gen for a separate full24cel animation; never final or synthesized runtime artwork.",
+  "atlas_sha256": {
+    "res://../art_requests/creature_redraw_v1/guides/support/echo_contract_scribe-attack-00.png": "4f21ebde5b840dccb487796c21e20f995a9bd7a48e356415c0237024268d21ab",
+    "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png": "2d3ba583e7ba06acd606bfcf716903f131bfdbcd95b77bb2a6e139ecc2f90e31",
+    "res://../art_requests/creature_redraw_v1/guides/support/echo_contract_scribe-recover-00.png": "22d1eec58a0c3dd6abbca8965e4c4284c9c1e772a8d943cbf46cfa8c0532614a"
+  },
+  "entries": [
+    {
+      "clip": "attack",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/echo_contract_scribe-attack-00.png",
+        "region": [
+          0,
+          0,
+          343,
+          155
+        ],
+        "margin": [
+          129,
+          87,
+          137,
+          116
+        ]
+      },
+      "reference_fit": [
+        1.0,
+        0,
+        0
+      ],
+      "endpoint_reference": {
+        "clip": "attack",
+        "frame": 0
+      }
+    },
+    {
+      "clip": "attack",
+      "frame": 8,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+        "region": [
+          1820,
+          215,
+          290,
+          168
+        ],
+        "margin": [
+          145,
+          74,
+          190,
+          103
+        ]
+      },
+      "reference_fit": [
+        1.0,
+        0,
+        0
+      ]
+    },
+    {
+      "clip": "attack",
+      "frame": 16,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+        "region": [
+          2806,
+          215,
+          332,
+          165
+        ],
+        "margin": [
+          110,
+          77,
+          148,
+          106
+        ]
+      },
+      "reference_fit": [
+        0.932,
+        17.2,
+        34.8
+      ]
+    },
+    {
+      "clip": "attack",
+      "frame": 23,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/echo_contract_scribe-recover-00.png",
+        "region": [
+          0,
+          0,
+          211,
+          189
+        ],
+        "margin": [
+          139,
+          53,
+          269,
+          82
+        ]
+      },
+      "reference_fit": [
+        1.057,
+        5.3,
+        22.7
+      ],
+      "endpoint_reference": {
+        "clip": "recover",
+        "frame": 0
+      }
+    }
+  ],
+  "targets": {
+    "attack": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ]
+  },
+  "original_frame_counts": {
+    "attack": 24
+  },
+  "reference_height": 160.5,
+  "reference_sha256": "5c245f37c6e09da5a45c05f515f4f11737204cf227a4743d26cdcae6bee7157d",
+  "keyframe_indices": [
+    0,
+    8,
+    16,
+    23
+  ]
+}

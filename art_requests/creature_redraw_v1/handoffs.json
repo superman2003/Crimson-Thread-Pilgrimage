@@ -248,6 +248,336 @@
         "target": "idle",
         "target_frame": 0
       }
+    ],
+    "waterwheel_knight": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      }
+    ],
+    "valve_crawler": [
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      }
+    ],
+    "silent_bugbler": [
+      {
+        "source": "bugle_pulse_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "bugle_pulse_recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      }
+    ],
+    "phase_censor": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      }
+    ],
+    "thorn_bloom_mote": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "bloom_seeds_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "bloom_seeds_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "bloom_seeds_windup",
+        "source_frame": -1,
+        "target": "bloom_seeds",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "bloom_seeds",
+        "source_frame": -1,
+        "target": "bloom_seeds_recover",
+        "target_frame": 0
+      }
+    ],
+    "rain_censer_mote": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "censer_cloud_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "censer_cloud_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "censer_cloud_windup",
+        "source_frame": -1,
+        "target": "censer_cloud",
+        "target_frame": 0
+      },
+      {
+        "source": "censer_cloud_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "censer_cloud_recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      }
+    ],
+    "echo_contract_scribe": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "echo_scribe_seals_windup",
+        "source_frame": -1,
+        "target": "echo_scribe_seals",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      }
+    ],
+    "isotope_lumen": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "lumen_focus_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "lumen_focus_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "lumen_focus_windup",
+        "source_frame": -1,
+        "target": "lumen_focus",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      },
+      {
+        "source": "lumen_focus",
+        "source_frame": -1,
+        "target": "lumen_focus_recover",
+        "target_frame": 0
+      }
+    ],
+    "falling_clapper": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "clapper_wave_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "clapper_wave_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "clapper_wave_windup",
+        "source_frame": -1,
+        "target": "clapper_wave",
+        "target_frame": 0
+      }
+    ],
+    "delayed_shadow": [
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "shadow_echo_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "shadow_echo_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "shadow_echo_windup",
+        "source_frame": -1,
+        "target": "shadow_echo",
+        "target_frame": 0
+      },
+      {
+        "source": "shadow_echo_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "shadow_echo_recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      }
+    ],
+    "echo_pilgrim_commander_minor": [
+      {
+        "source": "minor_banner_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "minor_banner_recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      }
+    ]
+  },
+  "unchanged_entry_kinds": {
+    "thorn_bloom_mote": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      }
+    ],
+    "echo_contract_scribe": [
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      }
+    ],
+    "echo_pilgrim_commander_minor": [
+      {
+        "source": "minor_banner_windup",
+        "source_frame": -1,
+        "target": "minor_banner",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      }
     ]
   }
 }

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Release gates must fail closed even when the engine returns zero."""
 import fnmatch
+from contextlib import redirect_stderr
 import hashlib
+import io
 import json
 from pathlib import Path
 import re
@@ -267,11 +269,32 @@ class ReleaseBuilderTests(unittest.TestCase):
                 self.assertFalse((self.root / 'unpacked').exists())
 
     def test_invalid_timeout_rejected_before_source_scan(self):
-        for value in ['nan', 'inf', '0', '-1']:
-            with self.subTest(value=value), patch.object(sys, 'argv', ['build_release.py', '--timeout', value]):
-                with self.assertRaises(SystemExit) as error:
-                    release.main()
-                self.assertEqual(2, error.exception.code)
+        for option in ('--timeout', '--import-timeout'):
+            for value in ['nan', 'inf', '0', '-1']:
+                with self.subTest(option=option,value=value), patch.object(sys, 'argv', ['build_release.py', option, value]):
+                    with self.assertRaises(SystemExit) as error:
+                        release.main()
+                    self.assertEqual(2, error.exception.code)
+
+    def test_cold_import_has_its_own_budget_without_extending_export(self):
+        for extra, expected in (([],900),(['--import-timeout','73'],73)):
+            with self.subTest(import_options=extra):
+                calls=[]
+                def engine(command,log,*,timeout,cwd,env=None):
+                    if '--version' in command:return '4.6.1.stable.fixture'
+                    calls.append((log.name,timeout))
+                    if '--export-release' in command:raise RuntimeError('stop after recording export budget')
+                    return ''
+                argv=['build_release.py','--target','linux','--engine',sys.executable,
+                      '--output',str(self.root/'output'),'--timeout','17',*extra]
+                with patch.object(release,'ROOT',self.root),patch.object(release.sys,'platform','linux'), \
+                        patch.object(release.sys,'argv',argv),patch.object(release,'validate_source',return_value=[]), \
+                        patch.object(release.shutil,'which',return_value=sys.executable), \
+                        patch.object(release.subprocess,'check_output',side_effect=['fixture-commit\n','']), \
+                        patch.object(release,'stage_project'),patch.object(release,'run_checked',side_effect=engine), \
+                        redirect_stderr(io.StringIO()):
+                    self.assertEqual(release.main(),1)
+                self.assertEqual(calls,[('import.log',expected),('export.log',17)])
 
 
 class ReleaseWorkflowTests(unittest.TestCase):

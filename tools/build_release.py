@@ -237,9 +237,13 @@ def main() -> int:
     parser.add_argument('--output', type=Path, default=ROOT / 'dist/releases')
     parser.add_argument('--check', action='store_true', help='Check source inputs only; no build or gameplay claim.')
     parser.add_argument('--timeout', type=float, default=600)
+    parser.add_argument('--import-timeout', type=float, default=900,
+                        help='Serial cold resource import budget; other build/player phases use --timeout.')
     args = parser.parse_args()
     if not math.isfinite(args.timeout) or args.timeout <= 0:
         parser.error('--timeout must be finite and positive')
+    if not math.isfinite(args.import_timeout) or args.import_timeout <= 0:
+        parser.error('--import-timeout must be finite and positive')
     try:
         files = validate_source(ROOT)
         print(f'RELEASE_INPUTS_PASS files={len(files)}', flush=True)
@@ -270,7 +274,7 @@ def main() -> int:
             stage_project(ROOT, project, files)
             env = dict(os.environ, GODOT_SILENCE_ROOT_WARNING='1')
             run_checked([engine, '--headless', '--path', str(project), '--editor', '--import', '--quit'],
-                        logs / 'import.log', timeout=args.timeout, cwd=work, env=env)
+                        logs / 'import.log', timeout=args.import_timeout, cwd=work, env=env)
             payload = work / name
             payload.mkdir()
             binary = payload / executable

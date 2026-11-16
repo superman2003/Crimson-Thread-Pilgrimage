@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "checks": {
+    "registered_creatures_rebuilt": 46,
+    "registered_clips_rebuilt": 261,
+    "redraw_guard_tests": 34,
+    "handoff_tests": 16,
+    "frame_fit_tests": 3,
+    "production_handoffs": 617,
+    "changed_endpoint_handoffs": 222,
+    "fresh_frame_fit_creatures": 46,
+    "scale_frame_refs": 10892,
+    "scale_outliers": 0,
+    "runtime_dependency_errors": 0,
+    "partial_repair_clips": 183,
+    "listed_partial_repairs": 333,
+    "unrepaired_listed_partial_frames": 0,
+    "complete_batch_size_repairs": 63,
+    "reference_recipes_rebuilt": 32,
+    "preview_blobs_checked": 586,
+    "contract_lint_errors": 0,
+    "ledger_format_passed": true,
+    "native_headless_checks": 6863,
+    "native_headless_failures": 0
+  },
+  "scope": "All final38clipped/complete redraws plus existing original checklist. Headless native subset is distinct from full-project/GL CI.",
+  "local_limitations": [
+    "Windows contract-runner selftests:5 of16 fail because symbolic links require an unavailable Windows privilege; the11 other tests and lint pass. Linux CI verifies the complete runner."
+  ],
+  "binary_budget": {
+    "against": "origin/main",
+    "source": "staged Git blobs, LFS pointers excluded; hydrated worktree master sizes are recorded separately",
+    "non_lfs_files": 158,
+    "non_lfs_mib": 31.88,
+    "max_non_lfs_mib": 2.217,
+    "lfs_files": 32,
+    "lfs_master_mib": 67.575,
+    "errors": []
+  }
+}

@@ -29,6 +29,10 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: false
+      - name: Restore and hydrate creature motion assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/assets/sprites/original_creatures/**,art_requests/motion_onion/**
       - name: Install image dependencies
         run: python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
       - name: Onion pipeline round trip, committed layers, and generated in-between scale gate

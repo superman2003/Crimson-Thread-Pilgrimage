@@ -1,8 +1,9 @@
 """Regression cases for hidden anchor jumps and hydrated LFS preview pointers."""
 import io
+from copy import deepcopy
 import unittest
 from PIL import Image
-from audit_creature_redraw_handoffs import measure, production_edges
+from audit_creature_redraw_handoffs import measure, production_edges, unchanged_entry_edges
 from check_redraw_preview_blobs import validate_image
 from motion_onion import pack
 
@@ -18,6 +19,52 @@ class HandoffContracts(unittest.TestCase):
         edges = production_edges(data, [dict(source='windup', source_frame=-1, target='attack', target_frame=0)])
         self.assertEqual(len(edges), 3)
         self.assertEqual({e['source'] for e in edges if e['target']=='windup'}, {'idle','walk'})
+
+    def partial_tail(self):
+        original = self.manifest(dict(idle=[(5,5)], walk=[(5,5)], windup=[(5,5),(5,5)], attack=[(5,5)]))
+        data = deepcopy(original)
+        data['animations'][2]['frames'][1]['margin'][0] = 6
+        data['redraw_record'] = dict(clips=dict(windup=dict(target_frames=[1])))
+        return original, data, [dict(source='windup', source_frame=-1, target='attack', target_frame=0)]
+
+    def test_partial_tail_can_check_its_changed_exit_with_frozen_original_entry(self):
+        original, data, edges = self.partial_tail()
+        self.assertEqual(unchanged_entry_edges(data, original, edges), edges)
+        rows = measure(data, edges, lambda _: Image.new('L', (20,20),255))
+        self.assertEqual(len(rows),1)
+        self.assertLess(rows[0]['change'],.5)
+
+    def test_new_entry_cannot_use_the_partial_tail_scope(self):
+        for record in (dict(target_frames=[0,1]), dict(frames=2), dict(target_frames=[])):
+            original, data, edges = self.partial_tail()
+            data['redraw_record']['clips']['windup'] = record
+            with self.assertRaisesRegex(ValueError,'partial windup tail'):
+                unchanged_entry_edges(data,original,edges)
+
+    def test_unchanged_entry_claim_is_verified_against_actual_baseline_frame(self):
+        original, data, edges = self.partial_tail()
+        data['animations'][2]['frames'][0]['margin'][0] += 1
+        with self.assertRaisesRegex(ValueError,'differs from the frozen baseline'):
+            unchanged_entry_edges(data,original,edges)
+
+    def test_partial_tail_scope_cannot_redirect_or_skip_the_new_exit(self):
+        for change in (dict(target='idle'),dict(source_frame=0),dict(target_frame=1)):
+            original, data, edges = self.partial_tail()
+            edges[0].update(change)
+            with self.assertRaisesRegex(ValueError,'partial windup tail'):
+                unchanged_entry_edges(data,original,edges)
+
+    def test_non_tail_repair_cannot_claim_a_changed_exit(self):
+        original, data, edges = self.partial_tail()
+        data['animations'][2]['frames'].append(dict(margin=[5,5,0,0]))
+        with self.assertRaisesRegex(ValueError,'partial windup tail'):
+            unchanged_entry_edges(data,original,edges)
+
+    def test_unchanged_windup_exit_can_be_checked_when_active_entry_was_redrawn(self):
+        original, data, edges = self.partial_tail()
+        data['animations'][2]['frames'].append(dict(margin=[5,5,0,0]))
+        data['redraw_record']['clips']['attack'] = dict(frames=1)
+        self.assertEqual(unchanged_entry_edges(data,original,edges),edges)
 
     def test_taller_cel_on_partial_row_does_not_crop_already_packed_cels(self):
         drawings = {(0, i): (Image.new('RGBA', size, (20+i, 40, 60, 255)), (0, 0))
