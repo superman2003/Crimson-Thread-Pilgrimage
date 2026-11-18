@@ -518,6 +518,7 @@ var backpack_selection := 0
 var map_panel: ColorRect
 var map_text: Label
 var map_draw_root: Control
+var map_rendered_state: Array = []
 var survey_map_view: Control
 var gate_body: StaticBody2D
 var locked_gate_bodies: Dictionary = {}
@@ -953,6 +954,8 @@ func _publish_region() -> void:
     if world_mode:
         if not world_initial_error.is_empty():
             _toast(world_initial_error)
+            if world_save_blocked:
+                world_write_error_shown = true
         _save_world()
         world_loader.register_region(self)
     if boss_trial_mode:
@@ -1104,7 +1107,7 @@ func _process(_delta: float) -> void:
         _notice_hidden_route_clues()
         _notice_ending_aftermath()
         _update_first_journey_hint()
-        if active_overlay == "map":
+        if active_overlay == "map" and _map_display_state() != map_rendered_state:
             _refresh_map_overlay()
 
 
@@ -1178,15 +1181,20 @@ func _prepare_world_start() -> void:
             world_start_region_id = String(world_state.data.current_region)
             entry_spawn_override_enabled = true
             entry_spawn_override = world_state.resume_local_position()
-        elif world_resume and world_state.last_error != "missing":
+        elif world_resume and (world_state.last_error != "missing" or FileAccess.file_exists(world_save_path + ".bak")):
+            world_save_blocked = true
             world_initial_error = _damaged_save_message()
 
 ## T02: the damaged file stays untouched; tell the player whether its backup can
 ## bring the journey back, and where.
 func _damaged_save_message() -> String:
+    var missing: bool = world_state.last_error == "missing"
     var backup = WORLD_STATE_SCRIPT.new()
     if backup.read(world_save_path + ".bak"):
-        return "归途记录损坏，原文件已保留，本次进度不会写入。找到可用备份（%d 区 · %d 碎钱）：在设置里选“恢复当前槽备份”即可接着走。" % [backup.data.regions.size(), int(backup.data.currency)]
+        var reason := "归途主档缺失" if missing else "归途记录损坏，原文件已保留"
+        return "%s，自动保存已暂停。找到可用备份（%d 区 · %d 碎钱），在设置里选“恢复当前槽备份”即可接着走。" % [reason, backup.data.regions.size(), int(backup.data.currency)]
+    if missing:
+        return "归途主档缺失，备份也无法读取。自动保存已暂停，开始新旅途时会另存这份备份。"
     return "归途记录损坏，备份也无法读取；原文件已保留，本次进度不会写入。"
 
 func _resolve_world_start_route() -> bool:
@@ -1828,7 +1836,9 @@ func _build_new_journey_dialog() -> void:
 
 
 func _preserve_previous_journey() -> bool:
-    if not FileAccess.file_exists(world_save_path):
+    var has_primary := FileAccess.file_exists(world_save_path)
+    var source := world_save_path if has_primary else world_save_path + ".bak"
+    if not FileAccess.file_exists(source):
         return true
     var absolute := ProjectSettings.globalize_path(world_save_path)
     if DirAccess.dir_exists_absolute(absolute + ".previous"):
@@ -1837,9 +1847,9 @@ func _preserve_previous_journey() -> bool:
     # to its own name first instead of being overwritten.
     if FileAccess.file_exists(world_save_path + ".previous") and WORLD_STATE_SCRIPT.preserve_copy(world_save_path + ".previous", "earlier").is_empty():
         return false
-    if DirAccess.copy_absolute(absolute, absolute + ".previous") != OK:
+    if DirAccess.copy_absolute(ProjectSettings.globalize_path(source), absolute + ".previous") != OK:
         return false
-    return DirAccess.remove_absolute(absolute) == OK
+    return not has_primary or DirAccess.remove_absolute(absolute) == OK
 
 
 func _start_new_journey() -> void:
@@ -1851,7 +1861,7 @@ func _start_new_journey() -> void:
     # Keep the old scene's shared snapshot valid until it has left the tree.
     AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
     world_loading = true
-    _replace_with_save_slot(world_slot, world_save_path)
+    _replace_with_save_slot(world_slot, world_save_path, false)
 
 
 func _load_json(path: String) -> Dictionary:
@@ -3266,9 +3276,22 @@ func _room_is_visited(room_id: String) -> bool:
     return bool(visited_rooms.get(room_id, false))
 
 
+## While the map owns input, keep the room controls alive for focus and hover.
+## Hash mutable journals so edits at a fixed player position still refresh the map.
+func _map_display_state() -> Array:
+    if not is_instance_valid(map_draw_root) or not is_instance_valid(player):
+        return []
+    return [world_map_view, config.get("id", ""), map_draw_root.size, player.global_position, current_room_id,
+        visited_rooms.hash(), opened_shortcuts.hash(), story_flags.hash(), inventory_counts.hash(),
+        active_save_point_id, bell_count, shortcut_open, boss_unlocked, demo_complete,
+        CARTOGRAPHY_UI.shows_position(self), world_save_blocked,
+        world_state.data.regions.hash() if world_state != null else 0,
+        world_state.data.death_cache.hash() if world_state != null else 0]
+
 func _refresh_map_overlay() -> void:
     if map_draw_root == null or map_text == null:
         return
+    map_rendered_state = _map_display_state()
     if survey_map_view != null: survey_map_view.set_view(1 if world_map_view else 0)
     var title: Label = map_panel.get_node_or_null("SurveyMapTitle")
     if title != null:
@@ -8315,7 +8338,7 @@ func quote_save_operation(action: String, index: int) -> Dictionary:
     if action=="switch":
         if index==world_slot:result.ok=false;result["reason"]="已经在当前存档槽。"
         elif world_save_blocked:result.ok=false;result["reason"]="当前记录暂不可保存，请先处理当前槽的恢复提示。"
-        elif primary.exists and not primary.valid:result.ok=false;result["reason"]="目标主档无法读取，请先选择恢复该槽备份。"
+        elif not primary.valid and (primary.exists or backup.valid):result.ok=false;result["reason"]="目标主档无法读取，请先选择恢复该槽备份。"
     elif not backup.valid:result.ok=false;result["reason"]="该槽没有可读取的备份。"
     elif index!=world_slot and world_save_blocked:result.ok=false;result["reason"]="离开前必须先处理当前记录的恢复提示。"
     result["fingerprint"]=var_to_str([action,index,path,primary,backup,world_save_path,_build_wallet_snapshot(),story_flags,build_system.serialize(),player.hp,player.energy]).sha256_text()
@@ -8344,7 +8367,7 @@ func select_save_slot(index: int) -> bool:
     if path == world_save_path:
         return true
     var candidate = WORLD_STATE_SCRIPT.new()
-    if FileAccess.file_exists(path) and not candidate.read(path):
+    if not candidate.read(path) and (candidate.last_error != "missing" or candidate.read(path + ".bak")):
         _toast("该旅途记录无法读取，已保留原文件；请先恢复该槽备份。")
         return false
     if not _save_world():
@@ -8354,10 +8377,11 @@ func select_save_slot(index: int) -> bool:
     _defer_region_call("_replace_with_save_slot", [index])
     return true
 
-func _replace_with_save_slot(index: int, path_override: String = "") -> void:
+func _replace_with_save_slot(index: int, path_override: String = "", resume: bool = true) -> void:
     var parent_node := get_parent()
     var scene: Node = load("res://scenes/World.tscn").instantiate()
     scene.world_slot = index
+    scene.world_resume = resume
     scene.world_startup_options_enabled = false
     scene.world_save_path = path_override if not path_override.is_empty() else WORLD_STATE_SCRIPT.slot_path(index)
     var was_current := get_tree().current_scene == self
