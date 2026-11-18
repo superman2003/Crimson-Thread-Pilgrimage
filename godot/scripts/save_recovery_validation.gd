@@ -236,4 +236,9 @@ func new_journeys() -> void:
 	check(subject._preserve_previous_journey() and FileAccess.get_file_as_string(SAVE + ".previous") == "journey B", "the second keeps the latest as .previous")
 	var earlier := preserved("previous.earlier")
 	check(earlier.size() == 1 and FileAccess.get_file_as_string(earlier[0]) == "journey A", "and the first abandoned journey is kept, not overwritten")
+	write_raw("surviving backup", SAVE + ".bak")
+	check(subject._preserve_previous_journey() and FileAccess.get_file_as_string(SAVE + ".previous") == "surviving backup",
+		"starting over when only the backup survives archives that journey")
+	check(FileAccess.get_file_as_string(SAVE + ".bak") == "surviving backup" and preserved("previous.earlier").size() == 2,
+		"archiving the backup also retains the earlier journeys")
 	subject.free()
