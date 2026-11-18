@@ -31,7 +31,7 @@ const GROUPS := {
 		"pending_sfx_players", "audio_director"],
 	"progress": ["unlocked_abilities", "inventory_counts", "inventory_tools", "inventory_relics",
 		"inventory_materials", "currency_count", "visited_rooms", "story_flags", "carried_inventory_enabled",
-		"carried_inventory_counts", "carried_currency", "world_collected_ids", "journey_clock", "achievements"],
+		"carried_inventory_counts", "carried_currency", "world_collected_ids", "achievements"],
 	"static_data": ["campaign", "chapter_file_configs", "audio_visual_manifest"],
 	"transition": ["chapter_transitioning", "world_portal_request_pending", "entry_spawn_override_enabled",
 		"entry_spawn_override", "entered_from_config_id", "transition_entry_message", "world_loading",

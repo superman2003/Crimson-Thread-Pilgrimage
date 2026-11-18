@@ -70,10 +70,11 @@ static func select_save_slot(level: Node, index: int) -> bool:
     return true
 
 
-static func replace_with_save_slot(level: Node, index: int, path_override: String = "") -> void:
+static func replace_with_save_slot(level: Node, index: int, path_override: String = "", resume: bool = true) -> void:
     var parent_node = level.get_parent()
     var scene: Node = load("res://scenes/World.tscn").instantiate()
     scene.world_slot = index
+    scene.world_resume = resume
     scene.world_startup_options_enabled = false
     scene.world_save_path = path_override if not path_override.is_empty() else WORLD_STATE_SCRIPT.slot_path(index)
     var was_current = level.get_tree().current_scene == level

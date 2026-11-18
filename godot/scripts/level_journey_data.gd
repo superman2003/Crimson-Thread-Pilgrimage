@@ -21,18 +21,21 @@ static func build_new_journey_dialog(level: Node) -> void:
 
 
 static func preserve_previous_journey(level: Node) -> bool:
-    if not FileAccess.file_exists(level.world_save_path):
-        return true
-    var absolute = ProjectSettings.globalize_path(level.world_save_path)
+    var absolute := ProjectSettings.globalize_path(level.world_save_path)
+    var source := absolute
+    if not FileAccess.file_exists(source):
+        source = absolute + ".bak"
+        if not FileAccess.file_exists(source):
+            return true
     if DirAccess.dir_exists_absolute(absolute + ".previous"):
         return false
     # T02: `.previous` holds the latest abandoned journey; an earlier one moves
     # to its own name first instead of being overwritten.
     if FileAccess.file_exists(level.world_save_path + ".previous") and WORLD_STATE_SCRIPT.preserve_copy(level.world_save_path + ".previous", "earlier").is_empty():
         return false
-    if DirAccess.copy_absolute(absolute, absolute + ".previous") != OK:
+    if DirAccess.copy_absolute(source, absolute + ".previous") != OK or not WORLD_STATE_SCRIPT._files_identical(source, absolute + ".previous"):
         return false
-    return DirAccess.remove_absolute(absolute) == OK
+    return source != absolute or DirAccess.remove_absolute(absolute) == OK
 
 
 static func start_new_journey(level: Node) -> void:
@@ -44,7 +47,7 @@ static func start_new_journey(level: Node) -> void:
     # Keep the old scene's shared snapshot valid until it has left the tree.
     AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
     level.world_loading = true
-    level._replace_with_save_slot(level.world_slot, level.world_save_path)
+    level._replace_with_save_slot(level.world_slot, level.world_save_path, false)
 
 
 static func load_json(level: Node, path: String) -> Dictionary:

@@ -2348,8 +2348,8 @@ func get_journey_history() -> Dictionary:
 func select_save_slot(index: int) -> bool:
     return LEVEL_SAVE_SLOTS.select_save_slot(self, index)
 
-func _replace_with_save_slot(index: int, path_override: String = "") -> void:
-    LEVEL_SAVE_SLOTS.replace_with_save_slot(self, index, path_override)
+func _replace_with_save_slot(index: int, path_override: String = "", resume: bool = true) -> void:
+    LEVEL_SAVE_SLOTS.replace_with_save_slot(self, index, path_override, resume)
 
 func restore_save_backup(index: int = 0) -> bool:
     return LEVEL_SAVE_SLOTS.restore_save_backup(self, index)

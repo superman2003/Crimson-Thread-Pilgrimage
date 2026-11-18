@@ -74,7 +74,10 @@ static func replace_region(loader: RefCounted, host: Node, path: String, entry: 
     host.player.prepare_region_handoff()
     # A build may refund part of an interrupted heal. Capture its settled
     # resource amount, rather than restoring the pre-cancellation snapshot.
-    host._save_world()
+    if not loader.checkpoint_departure(host):
+        host.process_mode = previous_mode
+        loader.phase = "idle"
+        return false
     host.world_loading = true
     host._stop_region_tweens()
     host._release_region_audio()
