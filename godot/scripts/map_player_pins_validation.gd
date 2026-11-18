@@ -376,7 +376,13 @@ func _popup_with_live_refresh(second: Vector2) -> void:
         await _pin_menu_tap(controller, false)
         var marker_id: int = level.map_draw_root.get_node("PlayerMapPin_1").get_instance_id()
         await _frames(3)
-        _check(level.is_processing() and marker_id != level.map_draw_root.get_node("PlayerMapPin_1").get_instance_id(), source + ": normal Main frames really redraw pin markers while the popup is open")
+        _check(level.is_processing() and marker_id == level.map_draw_root.get_node("PlayerMapPin_1").get_instance_id(), source + ": a stationary map keeps its pin controls while the popup is open")
+        var previous_position: Vector2 = level.player.global_position
+        level.player.global_position += Vector2(1, 0)
+        await _frames(2)
+        _check(marker_id != level.map_draw_root.get_node("PlayerMapPin_1").get_instance_id(), source + ": relocating the player refreshes the map while the popup owns input")
+        level.player.global_position = previous_position
+        await _frames()
         _check(popup.visible and popup.get_focused_item() == 1 and list.get_selected_id() == 0 and delete_button.disabled, source + ": first down focus survives redraw without committing a pin")
         await _pin_menu_tap(controller, false)
         _check(popup.visible and popup.get_focused_item() == 2 and list.get_selected_id() == 0, source + ": a second down reaches the next pin across real redraw frames")
