@@ -9,6 +9,7 @@ class FailedRecovery extends "res://scripts/world_state.gd":
 
     func _install_candidate(_temporary: String, absolute: String) -> Error:
         primary_at_install = FileAccess.get_file_as_bytes(absolute)
+        DirAccess.remove_absolute(absolute) # Windows rename can fail after removing its destination.
         return ERR_CANT_CREATE
 
 func _initialize() -> void:
@@ -58,7 +59,7 @@ func _initialize() -> void:
     var previous_bytes := FileAccess.get_file_as_bytes(PATH + ".bak")
     _check(not failed.restore_backup(PATH), "recovery reports a failed replacement")
     _check(failed.primary_at_install == "{broken".to_utf8_buffer() and FileAccess.get_file_as_string(PATH) == "{broken",
-        "the original remains in its slot throughout a failed recovery")
+        "a replacement that removes its destination before failing restores the original bytes")
     _check(FileAccess.get_file_as_bytes(PATH + ".bak") == previous_bytes and not FileAccess.file_exists(PATH + ".restore"),
         "a failed recovery retains the backup and retires its temporary file")
     var unsupported := WORLD.fresh_data()

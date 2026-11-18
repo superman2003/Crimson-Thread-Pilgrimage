@@ -400,15 +400,19 @@ func _restore_backup_locked(path: String) -> bool:
     if candidate == null:
         DirAccess.remove_absolute(temporary_absolute)
         return _fail("copied backup failed validation")
+    var preserved := ""
     if FileAccess.file_exists(path):
-        var preserved := _unique_copy_path(absolute, "before_restore")
-        if DirAccess.copy_absolute(absolute, preserved) != OK:
+        preserved = _unique_copy_path(absolute, "before_restore")
+        if DirAccess.copy_absolute(absolute, preserved) != OK or not _files_identical(absolute, preserved):
             DirAccess.remove_absolute(temporary_absolute)
             return _fail("cannot preserve original save")
-    # Use the same single replacement as an ordinary save. Removing the
-    # primary first would let an interrupted recovery look like an empty slot.
+    # POSIX replaces in place. Godot 4.6.1 on Windows may have removed the
+    # primary even when rename reports failure.
     if _install_candidate(temporary_absolute, absolute) != OK:
         DirAccess.remove_absolute(temporary_absolute)
+        if not preserved.is_empty() and not FileAccess.file_exists(absolute):
+            if DirAccess.copy_absolute(preserved, absolute) != OK:
+                return _fail("cannot install recovered save or roll back original")
         return _fail("cannot install recovered save")
     data = candidate.duplicate(true)
     _remember_source(path,_validated_source_hash)

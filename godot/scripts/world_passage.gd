@@ -186,6 +186,7 @@ func begin(portal_id: String) -> bool:
         # deliberate step instead of repeating failed writes while held.
         failed_departure_action = "move_right" if direction > 0 else "move_left"
         host.player.velocity = speed
+        host._toast(host.world_loader.last_error)
         return false
     failed_departure_action = ""
     original_layer = host.player.collision_layer

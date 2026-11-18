@@ -89,6 +89,8 @@ func run() -> void:
 	clean()
 	await damaged_without_backup()
 	clean()
+	await missing_primary_with_backup()
+	clean()
 	await unknown_build_entries()
 	clean()
 	await removed_region()
@@ -129,6 +131,19 @@ func damaged_without_backup() -> void:
 	check(FileAccess.get_file_as_string(SAVE) == "not json" and FileAccess.get_file_as_string(SAVE + ".bak") == "also not json",
 		"memory-only checkpoints preserve both damaged files")
 	await retire(scene)
+
+func missing_primary_with_backup() -> void:
+	var backup := JSON.stringify(journey(91))
+	write_raw(backup, SAVE + ".bak")
+	var scene := await boot()
+	check(scene.world_save_blocked and String(scene.world_initial_error).contains("主档缺失"), "an interrupted replacement does not open as an empty slot")
+	check(not FileAccess.file_exists(SAVE) and FileAccess.get_file_as_string(SAVE + ".bak") == backup, "startup preserves the only surviving checkpoint")
+	check(scene.restore_save_backup(), "the surviving backup can be explicitly restored")
+	await tick(2)
+	var restored: Node = current_scene
+	await READY.wait_for(restored)
+	check(not restored.world_save_blocked and restored.currency_count == 91, "the restored slot resumes with its saved progress")
+	await retire(restored)
 
 func unknown_build_entries() -> void:
 	var data := journey()

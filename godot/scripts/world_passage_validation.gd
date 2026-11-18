@@ -40,12 +40,15 @@ func _run() -> void:
     scene.player.global_position = portal.global_position
     var checkpoint_bytes := FileAccess.get_file_as_bytes(SAVE)
     var clock: RefCounted = scene.journey_clock
+    scene.world_write_error_shown = true # An earlier autosave already warned the player.
     scene.world_save_failure_injected_for_validation = true
     var entered: bool = passage.begin("moss_rain_pipe")
     _check(not entered and not passage.active and not scene.world_loading and scene.world_loader.phase == "idle",
         "failed departure checkpoint leaves the player at the mouth")
     _check(scene.currency_count == 97 and FileAccess.get_file_as_bytes(SAVE) == checkpoint_bytes,
         "failed departure retains earned currency and the last durable checkpoint")
+    _check(scene.toast_label.text == scene.world_loader.last_error and not scene.toast_label.text.is_empty(),
+        "a deliberate failed entry explains how to retry even after an earlier write error")
     if entered:
         scene.free()
         quit(1)

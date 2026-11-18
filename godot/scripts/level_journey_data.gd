@@ -44,7 +44,7 @@ static func start_new_journey(level: Node) -> void:
     # Keep the old scene's shared snapshot valid until it has left the tree.
     AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
     level.world_loading = true
-    level._replace_with_save_slot(level.world_slot, level.world_save_path)
+    level._replace_with_save_slot(level.world_slot, level.world_save_path, false)
 
 
 static func load_json(level: Node, path: String) -> Dictionary:

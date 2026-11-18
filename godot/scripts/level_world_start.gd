@@ -28,7 +28,7 @@ static func prepare_world_start(level: Node) -> void:
             level.world_start_region_id = String(level.world_state.data.current_region)
             level.entry_spawn_override_enabled = true
             level.entry_spawn_override = level.world_state.resume_local_position()
-        elif level.world_resume and level.world_state.last_error != "missing":
+        elif level.world_resume and (level.world_state.last_error != "missing" or FileAccess.file_exists(level.world_save_path + ".bak")):
             level.world_save_blocked = true
             level.world_initial_error = damaged_save_message(level)
         # A journey that could not be read keeps its recorded time untouched.
@@ -38,9 +38,10 @@ static func prepare_world_start(level: Node) -> void:
 
 static func damaged_save_message(level: Node) -> String:
     var backup = WORLD_STATE_SCRIPT.new()
+    var reason := "归途记录损坏，原文件已保留" if FileAccess.file_exists(level.world_save_path) else "归途主档缺失"
     if backup.read(level.world_save_path + ".bak"):
-        return "归途记录损坏，原文件已保留，本次进度不会写入。找到可用备份（%d 区 · %d 碎钱）：在设置里选“恢复当前槽备份”即可接着走。" % [backup.data.regions.size(), int(backup.data.currency)]
-    return "归途记录损坏，备份也无法读取；原文件已保留，本次进度不会写入。"
+        return "%s，本次进度不会写入。找到可用备份（%d 区 · %d 碎钱）：在设置里选“恢复当前槽备份”即可接着走。" % [reason, backup.data.regions.size(), int(backup.data.currency)]
+    return reason + "，备份也无法读取。本次进度不会写入。"
 
 
 static func resolve_world_start_route(level: Node) -> bool:
