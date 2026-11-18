@@ -41,6 +41,10 @@ func run() -> void:
     var area: Node = LEVEL_HOST.find(scene, "moss_archive_return")
     scene._refresh_world_portals()
     check(area.get_node("Wayfinding").gate_state=="far_side","closed near-side entry visibly identifies distant latch")
+    var lesson := "tutorial_interaction_seen_" + preload("res://scripts/level_world_start.gd").first_interaction_type(scene, area)
+    scene.story_flags.erase(lesson)
+    scene._show_first_interaction_hint(area)
+    check(not scene.story_flags.has(lesson), "a locked passage does not consume the first usable passage lesson")
     scene.story_flags["world_shortcut_archive_return"]=true
     scene._refresh_world_portals()
     check(area.get_node("Wayfinding").gate_state=="ability","opening latch updates feedback to remaining ability")
@@ -51,6 +55,8 @@ func run() -> void:
     scene._refresh_ability_gates()
     check(area.get_node("Wayfinding").gate_state=="open","ability pickup refreshes entry without scene reload")
     check(area.get_meta("route_status").open,"live feedback uses same condition as traversal")
+    scene._show_first_interaction_hint(area)
+    check(bool(scene.story_flags.get(lesson,false)), "the first traversal lesson appears once the passage can be used")
     scene.story_flags.erase("world_shortcut_archive_return")
     var journal = preload("res://scripts/pilgrimage_cartography.gd")
     journal.region(scene.story_flags,String(scene.config.id)).owned=true

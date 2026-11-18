@@ -27,6 +27,8 @@ var _camera: Camera2D = null
 var _noise_x := FastNoiseLite.new()
 var _noise_y := FastNoiseLite.new()
 var _noise_time := 0.0
+const DEFAULT_HITSTOP_DURATION := preload("res://scripts/controller_preferences.gd").DEFAULT_HITSTOP_DURATION
+var _hitstop_duration := DEFAULT_HITSTOP_DURATION
 var _flash_enabled := true
 var _shake_enabled := true
 var _overlay_layer: CanvasLayer
@@ -91,6 +93,13 @@ func register_camera(camera: Camera2D) -> void:
 
 
 func set_accessibility(preferences: Dictionary) -> void:
+    var duration: Variant = preferences.get("hitstop_duration", DEFAULT_HITSTOP_DURATION)
+    var factor := DEFAULT_HITSTOP_DURATION
+    if (duration is float or duration is int) and is_finite(float(duration)):
+        factor = clampf(float(duration), 0.0, 1.0)
+    if factor != _hitstop_duration:
+        cancel_hitstop()
+        _hitstop_duration = factor
     _flash_enabled = bool(preferences.get("flash_enabled", true))
     _vibration_enabled = bool(preferences.get("vibration_enabled", true))
     var requested_strength := float(preferences.get("vibration_strength", 1.0))
@@ -115,11 +124,11 @@ func _clear_camera_shake() -> void:
 
 ## 冻结世界 ms 毫秒（真实时间）。不叠加：与剩余冻结取较大者，单次上限 250ms。
 func hitstop(ms: float, time_scale: float = 0.05) -> void:
-    if _is_headless():
+    if _is_headless() or _hitstop_duration <= 0.0:
         return
     if not is_finite(ms) or ms <= 0.0 or not is_finite(time_scale) or time_scale <= 0.0 or time_scale > 1.0 or get_tree().paused:
         return
-    var seconds := minf(ms / 1000.0, HITSTOP_MAX_SECONDS)
+    var seconds := minf(ms / 1000.0, HITSTOP_MAX_SECONDS) * _hitstop_duration
     var now := _now_usec()
     var deadline := now + int(seconds * 1000000.0)
     if _hitstop_deadline_usec > 0 and (now >= _hitstop_deadline_usec or not is_equal_approx(Engine.time_scale, _hitstop_applied_scale)):

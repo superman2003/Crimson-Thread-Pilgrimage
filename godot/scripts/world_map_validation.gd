@@ -42,7 +42,9 @@ func _run() -> void:
     _check(scene.active_overlay == "map" and scene.player.ui_input_locked, "map locks player movement")
     _check(scene.map_draw_root.get_node_or_null("WorldRegion_demo_ch01_moss_bell_court") == null, "local map remains initial view")
     scene.world_map_view = true
+    var loaded_regions := ATLAS.configurations.keys()
     scene._refresh_map_overlay()
+    _check(ATLAS.configurations.keys() == loaded_regions, "a new journey opens the atlas without loading unowned regional drawing data")
     _check(scene.map_panel.get_node("SurveyMapTitle").text == "世界地图", "world atlas has a concise title")
     var panels := 0
     var edges := 0

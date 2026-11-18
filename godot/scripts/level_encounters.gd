@@ -23,7 +23,7 @@ static func on_enemy_died(level: Node, spawn_id: String, is_boss: bool, kind: St
         # Boss 战收尾：停 Boss 曲、恢复本章探索循环。
         if level.audio_director != null:
             level.audio_director.stop_boss_music()
-        level.win_label.text = String(level.config.get("completion_message", "DEMO COMPLETE: " + boss_name + " defeated"))
+        level.win_label.text = String(level.config.get("completion_message", boss_name + "已被击败"))
         level.win_label.visible = true
         level._add_currency(30)
         level._add_inventory_item(reward_item, 1, false)
@@ -38,10 +38,9 @@ static func on_enemy_died(level: Node, spawn_id: String, is_boss: bool, kind: St
             level.player.gain_energy(30)
         level._open_post_boss_route()
         level._spawn_ending_gates(true)
-        level._toast(String(level.config.get("completion_toast", "Demo complete: " + boss_name + " defeated.")))
         var transition: Dictionary = level.config.get("chapter_transition", {})
-        if not transition.is_empty():
-            level._toast("前往下一片土地 · " + String(transition.get("entry_hint", level._next_campaign_chapter_name())))
+        var route_hint := String(transition.get("entry_hint", ""))
+        level._toast(route_hint if not route_hint.is_empty() else String(level.config.get("completion_toast", level.win_label.text)))
     else:
         var drop_item := String(level.config.get("enemy_drop_item", "moss_chitin"))
         var challenge_spawn: bool = level._is_optional_challenge_spawn(spawn_id)

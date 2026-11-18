@@ -23,7 +23,7 @@ static func on_interactable_exited(level: Node, body: Node, area: Area2D) -> voi
         return
     if level.nearby_interactable == area:
         level.nearby_interactable = null
-    if String(area.get_meta("kind", "")) in ["npc","history"] and level.dialogue_panel != null and level.dialogue_panel.visible:
+    if is_instance_valid(level.ui_shell) and level.ui_shell.dialogue_area == area and level.dialogue_panel.visible:
         level._close_overlays()
 
 

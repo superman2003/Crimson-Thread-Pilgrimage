@@ -34,6 +34,16 @@ func run() -> void:
     await process_frame
     await process_frame
     check(host.dialog.visible and scene.ui_shell.has_modal_window(), "native workbench participates in real modal input lock")
+    for observer in ["caseboard", "chronicle", "input_diagnostics", "supplies", "trajectory"]:
+        check(host.features.has(observer), "live feature observes the first journey: " + observer)
+    var expected_paths := {}
+    for file in DirAccess.get_files_at(host.FEATURE_PATH):
+        var name := String(file).trim_suffix(".remap")
+        if name.ends_with(".gd"): expected_paths[name] = true
+    var deadline := Time.get_ticks_msec() + 15000
+    while host.features.size() < expected_paths.size() and Time.get_ticks_msec() < deadline:
+        await process_frame
+    check(host.features.size() == expected_paths.size(), "every discovered desk becomes available without reopening the workbench")
     check(scene.ui_shell.settings.get_rect().encloses(host.entry.get_rect()), "settings entry stays inside actual panel")
     var directory := OS.get_environment("JOURNEY_CAPTURE_DIR")
     for id in host.features:

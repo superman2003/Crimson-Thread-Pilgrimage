@@ -62,9 +62,8 @@ static func make_world_portal(level: Node, data: Dictionary) -> Area2D:
 static func world_portal(level: Node, data: Dictionary) -> void:
     var area: Area2D = level._take_gameplay_prefab("world_portal", data)
     if area == null: area = level._make_world_portal(data)
-    var arch: Line2D = area.get_node("WorldPortalArch")
-    arch.default_color = Color(0.40, 0.80, 0.88) if world_portal_missing(level, data).is_empty() else Color(0.93, 0.67, 0.30)
     level._add_wayfinding(area)
+    update_portal_sign(level, area, data)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
     area.body_exited.connect(level._on_interactable_exited.bind(area))
     LEVEL_HOST.region_parent(level).add_child(area)
@@ -119,18 +118,21 @@ static func refresh_world_portals(level: Node) -> void:
         var area = LEVEL_HOST.find(level, NodePath(String(data.get("id", ""))))
         if area == null:
             continue
-        var status: Dictionary = WORLD_ROUTES_SCRIPT.access(data, level.inventory_counts, level.story_flags)
-        area.set_meta("route_status", status.duplicate(true))
-        var arch = area.get_node_or_null("WorldPortalArch") as Line2D
-        if arch != null:
-            arch.default_color = Color(0.40, 0.80, 0.88) if status.open else Color(0.93, 0.67, 0.30)
-        var marker = area.get_node_or_null("Wayfinding")
-        if marker != null:
-            marker.gate_state = String(status.kind)
-            marker.queue_redraw()
-        var walk_glyph: String = WORLD_PASSAGE.glyph(String(level.config.id), String(data.get("id", "")))
-        var prompt := " · 向右步行进入" if walk_glyph == "→" else " · 向左步行进入" if walk_glyph == "←" else " · F 通行"
-        area.set_meta("interaction_label", String(data.get("label", "旧通路")) + (prompt if status.open else " · " + String(status.label)))
+        update_portal_sign(level, area, data)
+
+static func update_portal_sign(level: Node, area: Area2D, data: Dictionary) -> void:
+    var status: Dictionary = WORLD_ROUTES_SCRIPT.access(data, level.inventory_counts, level.story_flags)
+    area.set_meta("route_status", status.duplicate(true))
+    var arch = area.get_node_or_null("WorldPortalArch") as Line2D
+    if arch != null:
+        arch.default_color = Color(0.40, 0.80, 0.88) if status.open else Color(0.93, 0.67, 0.30)
+    var marker = area.get_node_or_null("Wayfinding")
+    if marker != null:
+        marker.gate_state = String(status.kind)
+        marker.queue_redraw()
+    var walk_glyph: String = WORLD_PASSAGE.glyph(String(level.config.id), String(data.get("id", "")))
+    var prompt := " · 向右步行进入" if walk_glyph == "→" else " · 向左步行进入" if walk_glyph == "←" else " · F 通行"
+    area.set_meta("interaction_label", String(data.get("label", "旧通路")) + (prompt if status.open else " · " + String(status.label)))
 
 
 static func activate_world_portal(level: Node, area: Area2D) -> void:

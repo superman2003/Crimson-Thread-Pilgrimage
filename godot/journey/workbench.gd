@@ -4,6 +4,13 @@ const CONTEXT := preload("res://journey/core/context.gd")
 const UI := preload("res://journey/core/ui.gd")
 # export-discovery: res://journey/features/*.gd
 const FEATURE_PATH := "res://journey/features"
+# These record live input or world state from the first observation tick.
+const OBSERVERS := [preload("res://journey/features/caseboard.gd"),
+    preload("res://journey/features/chronicle.gd"), preload("res://journey/features/input_diagnostics.gd"),
+    preload("res://journey/features/supplies.gd"), preload("res://journey/features/trajectory.gd")]
+var feature_scripts: Dictionary = {}
+var pending_paths: Array[String] = []
+var requested_path := ""
 var context: RefCounted
 var features: Dictionary = {}
 var selected := "chronicle"
@@ -32,6 +39,8 @@ func _discover_world() -> void:
     for node in get_tree().root.get_children():
         if node.get_script() != null and node.get_script().resource_path == "res://scripts/main_level.gd" and bool(node.get("world_mode")):
             owner_ref = weakref(node)
+            if feature_scripts.is_empty():
+                _discover_features()
             return
 
 func _owner() -> Node:
@@ -40,6 +49,8 @@ func _owner() -> Node:
 
 func _process(delta: float) -> void:
     elapsed += delta
+    if not pending_paths.is_empty() or not requested_path.is_empty():
+        _warm_feature()
     # Region arrival can replace the UI shell; rebind the entry on the next
     # frame rather than the next 0.1 s observation tick.
     _rebind_ui()
@@ -79,9 +90,54 @@ func bind_region_ui(owner: Node) -> void:
     if _owner() != owner:
         _retire()
         owner_ref = weakref(owner)
+    if feature_scripts.is_empty():
+        _discover_features()
     if not is_instance_valid(entry) or bound_ui_ref == null or bound_ui_ref.get_ref() != owner.ui_shell:
         _retire_ui()
         _attach_ui(owner)
+
+func _discover_features() -> void:
+    for script: Script in OBSERVERS:
+        feature_scripts[script.resource_path] = script
+    var files := DirAccess.get_files_at(FEATURE_PATH)
+    files.sort()
+    for file in files:
+        var name := String(file).trim_suffix(".remap")
+        var path := FEATURE_PATH.path_join(name)
+        if name.ends_with(".gd") and not feature_scripts.has(path) and not pending_paths.has(path):
+            pending_paths.append(path)
+
+func _warm_feature() -> void:
+    var script: Script
+    if not requested_path.is_empty():
+        var state := ResourceLoader.load_threaded_get_status(requested_path)
+        if state == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+            return
+        if state == ResourceLoader.THREAD_LOAD_LOADED:
+            script = ResourceLoader.load_threaded_get(requested_path) as Script
+        requested_path = ""
+    elif not pending_paths.is_empty():
+        var path: String = pending_paths.pop_front()
+        if DisplayServer.get_name() != "headless" and ResourceLoader.load_threaded_request(path, "GDScript") == OK:
+            requested_path = path
+            return
+        # Keep render dependencies on the main thread with the headless dummy renderer.
+        script = load(path) as Script
+    if script != null:
+        feature_scripts[script.resource_path] = script
+        if context != null:
+            _install_feature(script)
+    if pending_paths.is_empty() and requested_path.is_empty() and is_instance_valid(dialog) and dialog.visible:
+        _refresh_menu()
+
+func _install_feature(script: Script) -> void:
+    var feature: RefCounted = script.new()
+    if not feature.has_method("descriptor") or not feature.has_method("setup"):
+        return
+    var id := String(feature.descriptor().get("id", ""))
+    if not id.is_empty() and not features.has(id):
+        feature.setup(context)
+        features[id] = feature
 
 func _attach(owner: Node) -> void:
     context = CONTEXT.new()
@@ -90,23 +146,8 @@ func _attach(owner: Node) -> void:
     context.message_requested.connect(_message)
     context.close_requested.connect(close)
     features.clear()
-    var files := DirAccess.get_files_at(FEATURE_PATH)
-    files.sort()
-    for file in files:
-        var name := String(file).trim_suffix(".remap")
-        if not name.ends_with(".gd"):
-            continue
-        var script: Script = load(FEATURE_PATH.path_join(name))
-        if script == null:
-            continue
-        var feature: RefCounted = script.new()
-        if not feature.has_method("descriptor") or not feature.has_method("setup"):
-            continue
-        var id := String(feature.descriptor().get("id", ""))
-        if id.is_empty() or features.has(id):
-            continue
-        feature.setup(context)
-        features[id] = feature
+    for script: Script in feature_scripts.values():
+        _install_feature(script)
     bind_region_ui(owner)
 
 func _attach_ui(owner: Node) -> void:
@@ -189,8 +230,17 @@ func _refresh_now() -> void:
     refreshing = false
     if not is_instance_valid(content) or context == null:
         return
-    UI.clear(menu)
+    _refresh_menu()
     UI.clear(content)
+    if features.has(selected):
+        features[selected].draw(content)
+    else:
+        UI.hint(content, "尚无可用的工作台模块。")
+
+func _refresh_menu() -> void:
+    var focus := menu.get_viewport().gui_get_focus_owner()
+    var focused_id := String(focus.get_meta("feature_id", "")) if is_instance_valid(focus) and focus.get_parent() == menu else ""
+    UI.clear(menu)
     var keys := features.keys()
     keys.sort()
     if not features.has(selected) and not keys.is_empty():
@@ -198,12 +248,10 @@ func _refresh_now() -> void:
     for id in keys:
         var feature: RefCounted = features[id]
         var button := UI.button(menu, String(feature.descriptor().name), _select.bind(String(id)))
+        button.set_meta("feature_id", id)
         button.tooltip_text = String(feature.descriptor().get("summary", ""))
         button.button_pressed = id == selected
-    if features.has(selected):
-        features[selected].draw(content)
-    else:
-        UI.hint(content, "尚无可用的工作台模块。")
+        if id == focused_id: button.grab_focus()
 
 func _select(id: String) -> void:
     if features.has(selected):
@@ -245,4 +293,7 @@ func _retire() -> void:
     context = null
 
 func _exit_tree() -> void:
+    if not requested_path.is_empty():
+        ResourceLoader.load_threaded_get(requested_path)
+        requested_path = ""
     _retire()
