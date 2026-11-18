@@ -162,7 +162,6 @@ static func activate_world_portal(level: Node, area: Area2D) -> void:
 static func travel_world(level: Node, next_path: String, entry: Vector2) -> void:
     if level.world_loader != null and level.world_loader.phase != "idle":
         return
-    level._save_world()
     if level.world_loader == null or not level.world_loader.replace_region(level, next_path, entry):
         level.chapter_transitioning = false
         if is_instance_valid(level.audio_director):

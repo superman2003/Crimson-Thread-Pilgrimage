@@ -241,6 +241,22 @@ func _runtime() -> void:
     var path := ROUTES.cached_config_path(TARGET)
     var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
     var entry := Vector2(raw.player_start[0], raw.player_start[1])
+    scene.world_save_failure_injected_for_validation = true
+    scene.currency_count += 17
+    var source_root: Node = scene.region_root
+    var source_currency: int = scene.world_state.data.currency
+    var source_mode: int = scene.process_mode
+    var collision_mask: int = scene.player.collision_mask
+    var collision_layer: int = scene.player.collision_layer
+    _check(not scene.world_loader.replace_region(scene, path, entry), "synchronous travel refuses a failed departure checkpoint")
+    _check(not await scene.world_loader.replace_region_async(scene, path, entry), "asynchronous travel refuses a failed departure checkpoint")
+    _check(scene.region_root == source_root and scene.config.id == REGION and scene.world_loader.phase == "idle" and not scene.world_loading,
+        "both failed departures leave the source region ready to retry")
+    _check(scene.currency_count == 117 and scene.world_state.data.currency == source_currency and scene.process_mode == source_mode and
+        scene.player.collision_mask == collision_mask and scene.player.collision_layer == collision_layer,
+        "unsaved live rewards and player controls survive the rejected transition")
+    scene.world_save_failure_injected_for_validation = false
+    scene.currency_count -= 17
     var injected := {"done": false}
     var cancel := func():
         if scene.world_loader.phase == "loading" and not injected.done:

@@ -51,18 +51,18 @@ func capture_region(region_id: String, snapshot: Dictionary) -> bool:
     return true
 
 func capture_global(snapshot: Dictionary) -> bool:
-    var candidate := data.duplicate(true)
+    var candidate := data.duplicate(false)
     for key in snapshot:
         if key == "version" or key == "regions" or not candidate.has(key):
             return _fail("unknown or reserved global field: %s" % key)
         candidate[key] = _position(snapshot[key]) if key == "entry" else snapshot[key]
     # A local checkpoint is the existing save contract. Derive its campaign
     # position atomically; never allow one frame to update only half the pair.
-    if not snapshot.has("world_location") and _point(candidate.entry):
+    if not snapshot.has("world_location") and candidate.current_region is String and _point(candidate.entry):
         candidate.world_location = COORDINATES.location(String(candidate.current_region), Vector2(candidate.entry[0], candidate.entry[1]))
     if not _valid_data(candidate):
         return _fail("invalid global snapshot")
-    data = candidate
+    data = candidate.duplicate(true)
     last_error = ""
     return true
 
@@ -400,27 +400,16 @@ func _restore_backup_locked(path: String) -> bool:
     if candidate == null:
         DirAccess.remove_absolute(temporary_absolute)
         return _fail("copied backup failed validation")
-    var preserved := ""
     if FileAccess.file_exists(path):
-        preserved = _unique_copy_path(absolute, "before_restore")
+        var preserved := _unique_copy_path(absolute, "before_restore")
         if DirAccess.copy_absolute(absolute, preserved) != OK:
-            DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
-            return _fail("cannot preserve original save")
-        # Keep the original's path free for the install. The preserved copy is
-        # independent, so a failed rename can be rolled back without relying on
-        # a successful rename of the original.
-        if DirAccess.remove_absolute(absolute) != OK:
             DirAccess.remove_absolute(temporary_absolute)
-            return _fail("cannot replace original save; preserved copy retained")
-    if DirAccess.rename_absolute(temporary_absolute, absolute) != OK:
-        if not preserved.is_empty():
-            # If installation failed after removing the original, restore its
-            # bytes from the preservation copy. Leave that copy intact either way.
-            if DirAccess.copy_absolute(preserved, absolute) != OK:
-                DirAccess.remove_absolute(temporary_absolute)
-                return _fail("cannot install recovered save or roll back original")
+            return _fail("cannot preserve original save")
+    # Use the same single replacement as an ordinary save. Removing the
+    # primary first would let an interrupted recovery look like an empty slot.
+    if _install_candidate(temporary_absolute, absolute) != OK:
         DirAccess.remove_absolute(temporary_absolute)
-        return _fail("cannot install recovered save; original restored")
+        return _fail("cannot install recovered save")
     data = candidate.duplicate(true)
     _remember_source(path,_validated_source_hash)
     last_error = ""

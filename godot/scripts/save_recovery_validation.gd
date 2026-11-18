@@ -123,6 +123,11 @@ func damaged_without_backup() -> void:
 	write_raw("also not json", SAVE + ".bak")
 	var scene := await boot()
 	check(String(scene.world_initial_error).contains("备份也无法读取") and FileAccess.get_file_as_string(SAVE) == "not json", "with no usable backup the message says so and the file stays")
+	scene.currency_count = 73
+	check(scene.world_save_blocked and not scene._save_world() and scene.world_state.data.currency == 73,
+		"a damaged primary keeps the live checkpoint available for travel")
+	check(FileAccess.get_file_as_string(SAVE) == "not json" and FileAccess.get_file_as_string(SAVE + ".bak") == "also not json",
+		"memory-only checkpoints preserve both damaged files")
 	await retire(scene)
 
 func unknown_build_entries() -> void:

@@ -4,9 +4,21 @@ const WORLD := preload("res://scripts/world_state.gd")
 const PATH := "user://world_state_validation.json"
 var failures: Array[String] = []
 
+class FailedRecovery extends "res://scripts/world_state.gd":
+    var primary_at_install: PackedByteArray
+
+    func _install_candidate(_temporary: String, absolute: String) -> Error:
+        primary_at_install = FileAccess.get_file_as_bytes(absolute)
+        return ERR_CANT_CREATE
+
 func _initialize() -> void:
     _clean()
     var world := WORLD.new()
+    var flags := {"ending": {"seen": ["a"]}}
+    _check(world.capture_global({"story_flags": flags}), "capture nested global values")
+    flags.ending.seen.clear()
+    _check(world.data.story_flags.ending.seen == ["a"], "global checkpoint owns its captured values")
+    _check(not world.capture_global({"current_region": {}}), "invalid region type is rejected before coordinate conversion")
     _check(not world.read(PATH) and world.last_error == "missing", "missing save starts fresh")
     _check(world.capture_global({"inventory_counts": {"silk_wall_grip": 1, "double_jump": 1}, "currency": 47,
         "story_flags": {"npc_name_returned": true, "ending_chosen": "release"},
@@ -42,6 +54,13 @@ func _initialize() -> void:
     _check(not restart.write(PATH) and FileAccess.get_file_as_string(PATH) == "{broken", "damaged save is not overwritten")
     var preserved_backup := WORLD.new()
     _check(preserved_backup.read(PATH + ".bak") and preserved_backup.data.currency == 47, "damaged save cannot replace good backup")
+    var failed := FailedRecovery.new()
+    var previous_bytes := FileAccess.get_file_as_bytes(PATH + ".bak")
+    _check(not failed.restore_backup(PATH), "recovery reports a failed replacement")
+    _check(failed.primary_at_install == "{broken".to_utf8_buffer() and FileAccess.get_file_as_string(PATH) == "{broken",
+        "the original remains in its slot throughout a failed recovery")
+    _check(FileAccess.get_file_as_bytes(PATH + ".bak") == previous_bytes and not FileAccess.file_exists(PATH + ".restore"),
+        "a failed recovery retains the backup and retires its temporary file")
     var unsupported := WORLD.fresh_data()
     unsupported.version = 999
     _put(JSON.stringify(unsupported))
@@ -77,6 +96,10 @@ func _put(contents: String) -> void:
     file.close()
 
 func _clean() -> void:
+    var directory := DirAccess.open(PATH.get_base_dir())
+    for name in directory.get_files():
+        if name.begins_with(PATH.get_file() + ".before_restore_"):
+            directory.remove(name)
     for suffix in ["", ".tmp", ".bak"]:
         if FileAccess.file_exists(PATH + suffix):
             DirAccess.remove_absolute(ProjectSettings.globalize_path(PATH + suffix))

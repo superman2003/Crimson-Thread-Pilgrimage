@@ -207,12 +207,20 @@ static func replace_region_async(loader: RefCounted, host: Node, path: String, e
             loader.phase="idle"
             loader.cancel_requested=false
             return false
+    host.player.prepare_region_handoff()
+    # A physical passage already checkpointed at its mouth. Its terminal
+    # position is in transit space and must never replace the source save.
+    var at_passage_terminal: bool = is_instance_valid(host.world_passage) and host.world_passage.active and host.world_passage.settling
+    if shrine_request.is_empty() and not at_passage_terminal and not loader.checkpoint_departure(host):
+        host.process_mode = previous_mode
+        loader._clear_loading_canvas()
+        loader.phase = "idle"
+        loader.cancel_requested = false
+        return false
     var player_layer: int = host.player.collision_layer
     var player_mask: int = host.player.collision_mask
     host.player.collision_layer = 0
     host.player.collision_mask = 0
-    host.player.prepare_region_handoff()
-    if shrine_request.is_empty():host._save_world()
     var source_state: Dictionary = host.world_state.data.duplicate(true)
     var source_build: Dictionary = host.build_system.serialize()
     var source_id := String(source_config.id)

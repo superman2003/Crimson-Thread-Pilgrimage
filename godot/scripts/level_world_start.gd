@@ -29,10 +29,11 @@ static func prepare_world_start(level: Node) -> void:
             level.entry_spawn_override_enabled = true
             level.entry_spawn_override = level.world_state.resume_local_position()
         elif level.world_resume and level.world_state.last_error != "missing":
+            level.world_save_blocked = true
             level.world_initial_error = damaged_save_message(level)
         # A journey that could not be read keeps its recorded time untouched.
         level.journey_clock = preload("res://scripts/journey_progress.gd").new()
-        level.journey_clock.attach(level.world_save_path, level.world_resume)
+        level.journey_clock.attach(level.world_save_path, level.world_resumed_journey)
 
 
 static func damaged_save_message(level: Node) -> String:

@@ -21,6 +21,7 @@ static var connection_generation := -1
 var active := false
 var settling := false
 var retry_blocked := false
+var failed_departure_action := ""
 var host: Node
 var source_id := ""
 var source_point := Vector2.ZERO
@@ -109,6 +110,10 @@ func try_walk_entry() -> void:
     # same-frame jump intent rather than admitting a still-grounded body first.
     if Input.is_action_pressed("jump"):
         return
+    if not failed_departure_action.is_empty():
+        if Input.is_action_pressed(failed_departure_action):
+            return
+        failed_departure_action = ""
     if not ROUTES.cache_is_current():
         host.world_loader.request_manifest_refresh(host)
         return
@@ -176,7 +181,13 @@ func begin(portal_id: String) -> bool:
     var speed: Vector2 = host.player.velocity
     host.player.prepare_region_handoff()
     host._close_overlays()
-    host._save_world()
+    if not host.world_loader.checkpoint_departure(host):
+        # Walking tests the mouth every physics frame. Retry on the next
+        # deliberate step instead of repeating failed writes while held.
+        failed_departure_action = "move_right" if direction > 0 else "move_left"
+        host.player.velocity = speed
+        return false
+    failed_departure_action = ""
     original_layer = host.player.collision_layer
     original_mask = host.player.collision_mask
     host.player.collision_layer = TRANSIT_LAYER
