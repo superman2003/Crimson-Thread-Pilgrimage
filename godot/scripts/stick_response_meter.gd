@@ -20,7 +20,7 @@ func _draw() -> void:
     var width:=maxf(80.0,size.x-285.0)
     for index in 4:
         var y:=20.0+index*27.0
-        draw_string(font,Vector2(0,y+4),NAMES[index],HORIZONTAL_ALIGNMENT_LEFT,-1,14)
+        draw_string(font,Vector2(0,y+4),tr(NAMES[index]),HORIZONTAL_ALIGNMENT_LEFT,-1,14)
         var center:=start+width*0.5
         draw_rect(Rect2(center-width*threshold*0.5,y-6,width*threshold,12),Color(0.3,0.33,0.37,0.8))
         draw_line(Vector2(start,y),Vector2(start+width,y),Color(0.55,0.55,0.55),1.0)
@@ -31,4 +31,4 @@ func _draw() -> void:
         var output:=response(raw,threshold)
         draw_circle(Vector2(start+(raw+1.0)*width*0.5,y-4),3.0,Color(0.94,0.91,0.85))
         draw_circle(Vector2(start+(output+1.0)*width*0.5,y+4),3.0,Color(0.86,0.69,0.36))
-        draw_string(font,Vector2(start+width+12,y+4),"原始 %+.2f → 预估 %+.2f" % [raw,output],HORIZONTAL_ALIGNMENT_LEFT,-1,14)
+        draw_string(font,Vector2(start+width+12,y+4),tr("原始 %+.2f → 预估 %+.2f") % [raw,output],HORIZONTAL_ALIGNMENT_LEFT,-1,14)

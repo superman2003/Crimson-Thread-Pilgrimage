@@ -199,12 +199,12 @@ func _draw() -> void:
     _layout()
     var font := get_theme_default_font()
     draw_string(
-        font, Vector2(10, 23), "材料 / 图样", HORIZONTAL_ALIGNMENT_LEFT, 200, 15, RECIPE_TEXT
+        font, Vector2(10, 23), atr("材料 / 图样"), HORIZONTAL_ALIGNMENT_LEFT, 200, 15, RECIPE_TEXT
     )
     draw_string(
         font,
         Vector2(size.x * 0.57, 23),
-        "已选改制方案",
+        atr("已选改制方案"),
         HORIZONTAL_ALIGNMENT_LEFT,
         220,
         15,
@@ -245,7 +245,7 @@ func _draw() -> void:
             draw_string(
                 font,
                 rect.position + Vector2(7, 19),
-                String(item.name),
+                atr(String(item.name)),
                 HORIZONTAL_ALIGNMENT_LEFT,
                 rect.size.x - 14,
                 13,
@@ -256,7 +256,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 12),
-        "分别滚动两列 · 方向键查看依赖 · P切换图样线 · 金色图样不消耗",
+        atr("分别滚动两列 · 方向键查看依赖 · P切换图样线 · 金色图样不消耗"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -264,3 +264,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

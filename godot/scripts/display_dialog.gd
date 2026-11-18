@@ -27,7 +27,10 @@ static func install(shell: Control) -> void:
 
 func setup(shell: Control, preferences: RefCounted) -> void:
     ui=shell;model=preferences
-    if language==null:language=preload("res://scripts/ui_language.gd").new();language.initialize()
+    if language == null:
+        var startup := shell.get_node_or_null("/root/GameLanguageSettings")
+        language = startup.preferences if startup != null else preload("res://scripts/ui_language.gd").new()
+        language.initialize()
     # The header and rows 298/332 are full; sit beside the remap reset button.
     var launcher: Button=ui._button(ui.settings,"显示",Vector2(688,381),Vector2(104,28),open)
     launcher.name="DisplaySettingsButton";launcher.add_theme_font_size_override("font_size",TYPE.CONTROL)

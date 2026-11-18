@@ -210,7 +210,7 @@ func _draw() -> void:
             draw_string(
                 font,
                 point + Vector2(15, 4),
-                _name(String(id)),
+                atr(_name(String(id))),
                 HORIZONTAL_ALIGNMENT_LEFT,
                 180,
                 14,
@@ -221,9 +221,14 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 12),
-        "已知关系图 · 方向箭头 · 滚轮缩放 · Home复位",
+        atr("已知关系图 · 方向箭头 · 滚轮缩放 · Home复位"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         13,
         MUTED_TEXT
     )
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

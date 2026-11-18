@@ -221,7 +221,7 @@ static func run_region_deferred(level: Node, generation: int, method: StringName
 static func commit_world_dialogue(level: Node) -> void:
     if not level.world_mode or level.active_overlay != "dialogue" or level.ui_shell == null or level.dialogue_text_label == null:
         return
-    if level.dialogue_text_label.visible_characters >= 0 and level.dialogue_text_label.visible_characters < level.dialogue_text_label.text.length():
+    if level.dialogue_text_label.visible_characters >= 0 and level.dialogue_text_label.visible_characters < level.dialogue_text_label.get_total_character_count():
         return
     var area: Area2D = level.ui_shell.dialogue_area
     if not is_instance_valid(area):

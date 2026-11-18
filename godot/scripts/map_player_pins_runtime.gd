@@ -314,13 +314,24 @@ static func _text_width(label: Label) -> float:
 ## Main redraws the map every frame. Clearing an unchanged OptionButton also
 ## clears its open PopupMenu's uncommitted keyboard/controller focus.
 static func _refresh_list(list: OptionButton, known: Array[Dictionary], configs: Dictionary) -> void:
-    var labels: Array[String] = ["图钉 %d / %d" % [known.size(), PINS.LIMIT]]
+    # Pin labels belong to the player. Translate the kind and map location
+    # before inserting their name, even when it matches a catalogue entry.
+    list.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+    list.get_popup().auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+    var labels: Array[String] = [String(TranslationServer.translate("图钉 %d / %d")) % [known.size(), PINS.LIMIT]]
     # Reserve zero for the prompt; stored pin IDs are always positive.
     var ids: Array[int] = [0]
     for record in known:
         var room: Dictionary = PINS.owner(configs[record.region_id], Vector2(record.position[0], record.position[1]))
-        var title := String(configs[record.region_id].get("chapter_name", record.region_id)) + " · " + String(room.get("name", room.id))
-        labels.append(PINS.NAMES[PINS.KINDS.find(record.kind)] + str(record.id) + (" · " + String(record.get("label", "")) if not String(record.get("label", "")).is_empty() else "") + " · " + title)
+        var region_name := String(TranslationServer.translate(String(configs[record.region_id].get("chapter_name", record.region_id))))
+        var room_name := String(TranslationServer.translate(String(room.get("name", room.id))))
+        var kind := String(PINS.NAMES[PINS.KINDS.find(record.kind)])
+        var parts := PackedStringArray([String(TranslationServer.translate(kind + "%d")) % int(record.id)])
+        if not String(record.get("label", "")).is_empty():
+            parts.append(record.label)
+        parts.append(region_name)
+        parts.append(room_name)
+        labels.append(" · ".join(parts))
         ids.append(int(record.id))
     var unchanged := list.item_count == ids.size()
     if unchanged:

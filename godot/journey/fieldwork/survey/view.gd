@@ -196,7 +196,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 10),
-        "已知矩形采样 · 深色为留白 · Shift点击/空格临时标注%d格" % marks.size(),
+        atr("已知矩形采样 · 深色为留白 · Shift点击/空格临时标注%d格" % marks.size()),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -204,3 +204,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

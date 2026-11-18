@@ -40,7 +40,7 @@ static func try_interact(level: Node) -> void:
         return
     # Continue the visible speaker only while it is valid and in range.
     if level.active_overlay == "dialogue":
-        if level.world_mode and level.dialogue_text_label != null and level.dialogue_text_label.visible_characters >= 0 and level.dialogue_text_label.visible_characters < level.dialogue_text_label.text.length():
+        if level.world_mode and level.dialogue_text_label != null and level.dialogue_text_label.visible_characters >= 0 and level.dialogue_text_label.visible_characters < level.dialogue_text_label.get_total_character_count():
             level.subtitle_elapsed = level.subtitle_seconds
             level.dialogue_text_label.visible_characters = -1
             return

@@ -36,4 +36,11 @@ func run() -> void:
     ui.open("原方案",func(name,copy):return build.preview_loadout_management("原方案",name,copy),func(_name,_copy):return {"ok":false,"reason":"写入失败"})
     ui.target_input.text="失败方案";ui._refresh_quote();ui._confirm_action()
     check(ui.visible and ui.error_label.text=="写入失败" and not ui.pending,"failed writer preserves review and permits retry")
+    ui.open("回声针",func(_name,_copy):return {},func(_name,_copy):return {})
+    ui.target_input.text="地图";ui._refresh_quote()
+    var language:=preload("res://scripts/ui_language.gd")
+    language.apply("en");await process_frame
+    check(ui.destination_detail.text=="“回声针” → “地图” · Rename in place" and ui.explanation.text.begins_with("Original loadout: “回声针”"),"translated rename review preserves both player-chosen names")
+    language.apply("zh_CN");await process_frame
+    check(ui.destination_detail.text=="「回声针」 → 「地图」 · 保留原排序并更名" and ui.target_input.text=="地图","the open review returns to Chinese without changing input")
     ui.free();await process_frame;finish()

@@ -57,7 +57,11 @@ func _load(data: Variant) -> void:
         while profiles.size() > MAX_PROFILES:profiles.erase(profiles.keys()[0])
 
 func document(key: String, title: String, category: String, text: String) -> Dictionary:
-    return {"key": key, "title": title, "text": text, "fingerprint": (title + "\n" + category + "\n" + text).sha256_text()}
+    # Keep existing read marks across language changes. Search, sorting and
+    # in-page find use the same disclosed words the player can actually read.
+    return {"key": key, "title": String(TranslationServer.translate(title)),
+        "text": String(TranslationServer.translate(text)),
+        "fingerprint": (title + "\n" + category + "\n" + text).sha256_text()}
 
 func is_read(doc: Dictionary) -> bool:
     return profiles.get(scope, {}).get("read", {}).get(doc.get("key", ""), "") == doc.get("fingerprint", "missing")

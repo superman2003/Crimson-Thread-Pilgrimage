@@ -4,6 +4,10 @@ on:
     paths:
       - 'godot/scripts/display_*.gd'
       - 'godot/scripts/ui_language.gd'
+      - 'godot/scripts/game_translation.gd'
+      - 'godot/scripts/game_language_settings.gd'
+      - 'godot/data/ui_en_*.json'
+      - 'tools/ui_translation_sources.py'
       - 'godot/data/ui_translations.json'
       - 'tools/audit_ui_translations.py'
       - 'godot/scripts/colour_assist*.gd'
@@ -40,6 +44,10 @@ jobs:
             /godot/scripts/display_preferences.gd
             /godot/scripts/display_dialog.gd
             /godot/scripts/ui_language.gd
+            /godot/scripts/game_translation.gd
+            /godot/scripts/game_language_settings.gd
+            /godot/data/ui_en_*.json
+            /tools/ui_translation_sources.py
             /godot/data/ui_translations.json
             /tools/audit_ui_translations.py
             /godot/scripts/colour_assist.gd

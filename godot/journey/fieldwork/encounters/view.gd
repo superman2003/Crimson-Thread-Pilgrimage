@@ -110,7 +110,7 @@ func _draw() -> void:
         draw_string(
             font,
             Vector2(x + 2, 20),
-            "%.1fs" % time,
+            atr("%.1fs" % time),
             HORIZONTAL_ALIGNMENT_LEFT,
             70,
             11,
@@ -124,7 +124,7 @@ func _draw() -> void:
         draw_string(
             font,
             Vector2(7, y + 15),
-            String(row.name),
+            atr(String(row.name)),
             HORIZONTAL_ALIGNMENT_LEFT,
             LEFT - 12,
             12,
@@ -141,7 +141,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 10),
-        "金：前摇 · 红：判定 · 绿：收势 · 竖线：个人准备间隔假设",
+        atr("金：前摇 · 红：判定 · 绿：收势 · 竖线：个人准备间隔假设"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -149,3 +149,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

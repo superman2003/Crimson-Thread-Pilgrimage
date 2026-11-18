@@ -95,10 +95,10 @@ static func show_dialogue(level: Node, area: Area2D, line: String) -> void:
     if level.dialogue_text_label != null:
         level.dialogue_text_label.text = line
         if level.world_mode:
-            level.subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(line) / (float(level.ui_shell.get_accessibility("subtitle_speed")) if level.ui_shell != null and level.ui_shell.has_method("get_accessibility") else 1.0)
+            level.subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(level.dialogue_text_label.atr(line)) / (float(level.ui_shell.get_accessibility("subtitle_speed")) if level.ui_shell != null and level.ui_shell.has_method("get_accessibility") else 1.0)
             var reading: Dictionary = level.ui_shell.dialogue_reading_state(area, line) if level.ui_shell != null and level.ui_shell.has_method("dialogue_reading_state") else {}
             level.subtitle_elapsed = level.subtitle_seconds * float(reading.get("progress", 0.0))
-            level.dialogue_text_label.visible_characters = int(reading.get("characters", 0))
+            level.dialogue_text_label.visible_ratio = float(reading.get("progress", 0.0))
             voice_requested = reading.is_empty()
         else:
             level.dialogue_text_label.visible_characters = -1

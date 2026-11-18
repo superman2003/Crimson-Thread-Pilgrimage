@@ -11,7 +11,11 @@ static func refresh_journal(ui: Node) -> void:
     ui.bag_category_label.text="旅途记录"
     ui.bag_icon.texture=ART.item("moss_lens")
     if ui.journal_reading_key.is_empty():ui.bag_description.text="选择分类查看已知记录。"
-    for filter_id in ui.journal_filter_buttons:ui.journal_filter_buttons[filter_id].add_theme_stylebox_override("normal",ui._tab_style(filter_id==ui.journal_filter))
+    for filter_id in ui.journal_filter_buttons:
+        var frame: StyleBox = ui._tab_style(filter_id==ui.journal_filter)
+        frame.set_content_margin(SIDE_LEFT,4)
+        frame.set_content_margin(SIDE_RIGHT,4)
+        ui.journal_filter_buttons[filter_id].add_theme_stylebox_override("normal",frame)
     for tab in ui.bag_tabs:tab.add_theme_stylebox_override("normal",ui._tab_style(tab.text==ui.bag_category))
     if not bool(ui.level.get("world_mode")):
         ui.bag_description.text="完整互联世界旅途中会记录跨区委托与六区证词。"
@@ -126,11 +130,11 @@ static func refresh_journal(ui: Node) -> void:
         elif entry.record_kind=="people":status="已确认交谈 · %d处重逢" % entry.get("places",[]).size()
         elif entry.record_kind=="enemy":status="已击败"
         elif entry.record_kind=="ending":status=ui._ending_status_label(entry)
-        var public: Dictionary = ui._journal_presentation(entry)
-        var doc = ui.journal_catalog.document(String(entry.record_kind)+":"+String(entry.get("id","")),title,String(public.category),String(public.text))
+        var doc: Dictionary = visible[record_index]
         status=("★ " if ui.journal_catalog.is_starred(String(doc.key)) else "")+("未读 · " if not ui.journal_catalog.is_read(doc) else "")+status
         var button: Button = ui._button(ui.bag_grid,title+"\n"+status,Vector2.ZERO,Vector2(309,74),func():ui._show_journal_record(entry))
         button.custom_minimum_size=Vector2(309,74)
+        button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
         button.tooltip_text=title+" · "+status
         var record_key:=String(entry.record_kind)+":"+String(entry.get("id",""))
         button.set_meta("journal_key",record_key)
@@ -234,9 +238,9 @@ static func show_journal_record(ui: Node, entry: Dictionary) -> void:
     ui.bag_name.text=String(entry.get("title",entry.get("id","")))
     var presentation: Dictionary = ui._journal_presentation(entry)
     ui.bag_category_label.text=String(presentation.category)
-    var text:=String(presentation.text)
     var key:=String(entry.get("record_kind",""))+":"+String(entry.get("id",""))
-    ui.journal_current_document=ui.journal_catalog.document(key,ui.bag_name.text,ui.bag_category_label.text,text)
+    ui.journal_current_document=ui.journal_catalog.document(key,ui.bag_name.text,ui.bag_category_label.text,String(presentation.text))
+    var text:=String(ui.journal_current_document.text)
     refresh_journal_actions(ui)
     if ui.journal_reading_key==key and ui.bag_description.text==text:return
     ui.bag_description.text=text

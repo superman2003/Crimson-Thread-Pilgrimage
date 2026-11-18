@@ -70,7 +70,7 @@ func _draw() -> void:
     if hover_index >= 0 and hover_index < primary_points.size():
         draw_circle(primary_points[hover_index], 6, Color("f2e0c2"), false, 2.0, true)
     var font := get_theme_default_font()
-    draw_string(font, Vector2(8, size.y - 10), "金：当前记录 · 蓝：比较记录 · 轨迹按各自起点对齐", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, LEGEND_TEXT)
+    draw_string(font, Vector2(8, size.y - 10), atr("金：当前记录 · 蓝：比较记录 · 轨迹按各自起点对齐"), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, LEGEND_TEXT)
 
 func _gui_input(event: InputEvent) -> void:
     if not event is InputEventMouseMotion:
@@ -89,4 +89,9 @@ func _gui_input(event: InputEvent) -> void:
             tooltip_text = "%.2f秒 · 位置 %.1f,%.1f · 速度 %.1f · 生命%d · 绯线%d" % [sample.t, sample.p[0], sample.p[1], V.point(sample.v).length(), sample.hp, sample.energy]
         else:
             tooltip_text = "悬停折线可查看实际采样值。"
+        queue_redraw()
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
         queue_redraw()

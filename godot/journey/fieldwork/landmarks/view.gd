@@ -179,7 +179,7 @@ func _rings(center: Vector2, length: float, font: Font) -> void:
         draw_string(
             font,
             point + Vector2(-7, 5),
-            names[i],
+            atr(names[i]),
             HORIZONTAL_ALIGNMENT_LEFT,
             30,
             14,
@@ -212,7 +212,7 @@ func _draw() -> void:
             draw_string(
                 font,
                 point + Vector2(9, -7),
-                String(marker.name),
+                atr(String(marker.name)),
                 HORIZONTAL_ALIGNMENT_LEFT,
                 200,
                 14,
@@ -222,7 +222,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, 19),
-        "图面参考朝向 %.0f° · 半径 %.0f" % [heading, radius],
+        atr("图面参考朝向 %.0f° · 半径 %.0f" % [heading, radius]),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         13,
@@ -231,7 +231,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 11),
-        "Shift拖动旋转 · 滚轮调半径 · ↑选择朝向地标 · Home复位；换页清空预览",
+        atr("Shift拖动旋转 · 滚轮调半径 · ↑选择朝向地标 · Home复位；换页清空预览"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -239,3 +239,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

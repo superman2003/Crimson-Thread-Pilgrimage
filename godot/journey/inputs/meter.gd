@@ -41,7 +41,7 @@ func _draw() -> void:
     draw_rect(Rect2(Vector2.ZERO, size), Color("0e2026"))
     var font := get_theme_default_font()
     if history.is_empty():
-        draw_string(font, Vector2(20, 40), "没有当前设备的轴样本。", HORIZONTAL_ALIGNMENT_LEFT, -1, 17, EMPTY_TEXT)
+        draw_string(font, Vector2(20, 40), atr("没有当前设备的轴样本。"), HORIZONTAL_ALIGNMENT_LEFT, -1, 17, EMPTY_TEXT)
         return
     var latest: Array = history[-1]
     for stick in 2:
@@ -63,7 +63,12 @@ func _draw() -> void:
         points.append(Vector2(20 + float(index) / 59 * maxf(1, size.x - 40), 205 - absf(float(history[index][0])) * 35))
     if points.size() > 1:
         draw_polyline(points, Color("d6b078"), 1.5, true)
-    draw_string(font, Vector2(20, 224), "左摇杆X绝对值 · 最近约6秒 · 死区仅展示当前动作阈值", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, HELP_TEXT)
+    draw_string(font, Vector2(20, 224), atr("左摇杆X绝对值 · 最近约6秒 · 死区仅展示当前动作阈值"), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, HELP_TEXT)
 
 static func trigger_value(value: float, negative_rest: bool) -> float:
     return clampf((value + 1.0) * 0.5 if negative_rest else value, 0, 1)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

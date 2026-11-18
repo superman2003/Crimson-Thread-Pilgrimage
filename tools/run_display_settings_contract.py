@@ -4,6 +4,8 @@ import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEPS = ['scripts/ui_type_scale.gd', 'scripts/display_preferences.gd', 'scripts/display_dialog.gd', 'scripts/ui_language.gd', 'data/ui_translations.json', 'scripts/colour_assist.gd', 'shaders/colour_assist.gdshader', 'scripts/colour_assist_validation.gd', 'scripts/settings_dialog_layout.gd', 'scripts/journey_window_layout.gd', 'scripts/journey_desk_store.gd', 'scripts/display_settings_validation.gd']
+DEPS += ['scripts/game_translation.gd', 'scripts/game_language_settings.gd',
+         'data/ui_en_game.json', 'data/ui_en_story.json', 'data/ui_en_journal.json', 'data/ui_en_hints.json']
 MARKER = '^DISPLAY_SETTINGS checks=[1-9][0-9]* failures=0$'
 
 def main():
@@ -16,7 +18,10 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-reliability-') as temporary:
         base = Path(temporary)
         project = base / 'project'; project.mkdir()
-        (project/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Reliability fixtures"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
+        (project/'project.godot').write_text(
+            'config_version=5\n[application]\nconfig/name="Reliability fixtures"\n'
+            '[autoload]\nGameLanguageSettings="*res://scripts/game_language_settings.gd"\n'
+            '[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
         for name in DEPS:
             target = project/name;target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT/'godot'/name, target)
@@ -27,7 +32,7 @@ def main():
         if imported.returncode or re.search(r'^\s*(?:SCRIPT ERROR|ERROR):', imported.stdout+imported.stderr,re.M):
             print(imported.stdout+imported.stderr);return 1
         try:
-            result = subprocess.run(command, env=env, capture_output=True, text=True, timeout=120)
+            result = subprocess.run(command + ['--', '--prepare-language-restart'], env=env, capture_output=True, text=True, timeout=120)
             output = result.stdout+result.stderr
             good = result.returncode == 0
         except subprocess.TimeoutExpired as exc:
@@ -36,6 +41,14 @@ def main():
         print(output, end='')
         good = good and re.search(MARKER, output, re.M) is not None
         good = good and re.search(r'(?:^\s*(?:SCRIPT ERROR|ERROR|USER ERROR):|ObjectDB instances leaked|Resources still in use)', output, re.M) is None
+        if good:
+            restarted = subprocess.run(command + ['--', '--verify-language-restart'], env=env,
+                                       capture_output=True, text=True, timeout=120)
+            boot = restarted.stdout + restarted.stderr
+            (args.log_dir/'restart.log').write_text(boot)
+            print(boot, end='')
+            good = (restarted.returncode == 0 and re.search(r'^LANGUAGE_RESTART failures=0$', boot, re.M) is not None
+                    and re.search(r'^\s*(?:SCRIPT ERROR|ERROR|USER ERROR):', boot, re.M) is None)
         if good and args.gl:
             # The filter reads the screen: only a real renderer can show its effect.
             picture = [args.engine, '--display-driver', 'x11', '--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy',

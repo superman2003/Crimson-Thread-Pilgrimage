@@ -166,7 +166,7 @@ static func wish_offering_available(level: Node, item_id: String) -> bool:
 static func wish_dialogue_candidate(level: Node, area: Area2D, flags: Dictionary, wallet: int) -> Dictionary:
     if not is_instance_valid(area) or level.active_overlay != "dialogue" or level.dialogue_text_label == null or bool(area.get_meta("world_line_committed", false)):
         return {"flags":flags,"currency":wallet}
-    if level.dialogue_text_label.visible_characters >= 0 and level.dialogue_text_label.visible_characters < level.dialogue_text_label.text.length():
+    if level.dialogue_text_label.visible_characters >= 0 and level.dialogue_text_label.visible_characters < level.dialogue_text_label.get_total_character_count():
         return {"flags":flags,"currency":wallet}
     var state := String(area.get_meta("dialogue_state", "repeat"))
     var indices: Dictionary = area.get_meta("dialogue_state_indices", {}).duplicate(true)

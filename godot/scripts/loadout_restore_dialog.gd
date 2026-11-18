@@ -1,4 +1,5 @@
 extends ConfirmationDialog
+const NAMED_TEXT := preload("res://scripts/user_named_text.gd")
 var query: Callable
 var apply_action: Callable
 var name_key := ""
@@ -43,7 +44,7 @@ func open(name: String, quote_action: Callable, action: Callable, formatter: Cal
 func refresh_quote() -> void:
     var response: Variant=query.call(name_key) if query.is_valid() else {}
     quote=response.duplicate(true) if response is Dictionary else {}
-    var lines: Array[String]=["方案「%s」" % name_key,""]
+    var lines: Array[String]=[]
     if quote.get("ok",false) and quote.get("can_restore",false):
         if format_changes.is_valid():
             var formatted: Variant=format_changes.call(quote)
@@ -58,7 +59,7 @@ func refresh_quote() -> void:
         lines.append("战具沿用现有库存，切换后仍须付费补给；保存失败将回滚装备。")
         status.text="核对差异后确认；也可以取消，继续使用当前构筑。"
     else:status.text=String(quote.get("reason","恢复预览暂不可用。"))
-    changes.text="\n".join(lines)
+    NAMED_TEXT.bind(changes, "方案「%s」%s", [name_key, "\n\n" + "\n".join(lines)], [1])
     changes.scroll_to_line(0)
     get_ok_button().disabled=pending or not quote.get("ok",false) or not quote.get("can_restore",false) or String(quote.get("fingerprint","")).is_empty()
 

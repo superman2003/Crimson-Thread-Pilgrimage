@@ -194,7 +194,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(LEFT, 18),
-        "假设余额路径 · 金色虚线为个人储备 · 红点低于储备",
+        atr("假设余额路径 · 金色虚线为个人储备 · 红点低于储备"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
@@ -203,7 +203,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 10),
-        "横轴为个人预算段，不是游戏日期；方向键或点击查看逐段计算",
+        atr("横轴为个人预算段，不是游戏日期；方向键或点击查看逐段计算"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -211,3 +211,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

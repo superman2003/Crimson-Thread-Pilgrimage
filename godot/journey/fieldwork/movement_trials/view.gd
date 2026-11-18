@@ -177,7 +177,7 @@ func _draw() -> void:
         draw_string(
             font,
             center - Vector2(120, 0),
-            "返回旅途完成观察后显示分段轨迹。",
+            atr("返回旅途完成观察后显示分段轨迹。"),
             HORIZONTAL_ALIGNMENT_LEFT,
             300,
             15,
@@ -186,7 +186,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, 20),
-        "区间半径 %.0f · 样本%d · 只连同一活动分段" % [radius, samples.size()],
+        atr("区间半径 %.0f · 样本%d · 只连同一活动分段" % [radius, samples.size()]),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -195,7 +195,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 10),
-        "方向键查看样本 · 滚轮缩放 · Shift拖动 · Home复位",
+        atr("方向键查看样本 · 滚轮缩放 · Shift拖动 · Home复位"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -203,3 +203,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()
