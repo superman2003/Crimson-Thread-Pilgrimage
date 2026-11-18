@@ -38,6 +38,22 @@ func _run() -> void:
     scene.currency_count = 97
     scene.player.dash_cooldown = 1.1
     scene.player.global_position = portal.global_position
+    var checkpoint_bytes := FileAccess.get_file_as_bytes(SAVE)
+    var clock: RefCounted = scene.journey_clock
+    scene.world_write_error_shown = true # An earlier autosave already warned the player.
+    scene.world_save_failure_injected_for_validation = true
+    var entered: bool = passage.begin("moss_rain_pipe")
+    _check(not entered and not passage.active and not scene.world_loading and scene.world_loader.phase == "idle",
+        "failed departure checkpoint leaves the player at the mouth")
+    _check(scene.currency_count == 97 and FileAccess.get_file_as_bytes(SAVE) == checkpoint_bytes,
+        "failed departure retains earned currency and the last durable checkpoint")
+    _check(scene.toast_label.text == scene.world_loader.last_error and not scene.toast_label.text.is_empty(),
+        "a deliberate failed entry explains how to retry even after an earlier write error")
+    if entered:
+        scene.free()
+        quit(1)
+        return
+    scene.world_save_failure_injected_for_validation = false
     var enemy_visibility_before := {}
     for enemy in get_nodes_in_group("enemy"):
         if LEVEL_HOST.owns(scene, enemy): enemy_visibility_before[enemy.get_instance_id()] = enemy.visible
@@ -129,6 +145,7 @@ func _run() -> void:
         _check(not bool(passage.last_result.get("staged", false)) and walk_loading_frames > 0, "stale-manifest hidden build falls back to the terminal load")
         print("PASSAGE_STAGED_FALLBACK direction=%d terminal_wait_frames=%d staging_wall_ms=%.1f handover_switch_ms=%.1f" % [direction, int(passage.last_result.get("terminal_wait_frames", -1)), float(scene.world_loader.last_transition.get("staging_wall_usec", 0)) / 1000.0, float(scene.world_loader.last_transition.get("handover_switch_usec", 0)) / 1000.0])
         _check(scene.get_instance_id() == host_id and scene.player.get_instance_id() == player_id and scene.build_system.get_instance_id() == build_id, "host player build identities survive terminal loading")
+        _check(clock != null and scene.journey_clock == clock, "the same journey keeps counting play time after staged arrival")
         _check(scene.player.hp == 3 and scene.player.energy == 41 and scene.currency_count == 97, "full walk preserves HP energy currency")
         _check(scene.player.collision_layer == 1 and scene.player.collision_mask != 64 and passage.get_child_count() == 0, "arrival clears tube physics and restores mask")
         _check(scene.player_world_position().distance_to(passage.last_result.get("world_position", Vector2.INF)) < 0.1, "terminal rebase preserves world position")

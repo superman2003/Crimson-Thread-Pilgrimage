@@ -296,7 +296,7 @@ static func publish_region(level: Node) -> void:
     if level.demo_complete:
         level._spawn_ending_gates()
     if level.world_save_blocked and level.world_initial_error.is_empty():
-        level.world_initial_error = "原构筑记录已保留，自动保存仍暂停；请恢复备份或开始新旅途。"
+        level.world_initial_error = "原归途记录已保留，自动保存仍暂停。请恢复备份或开始新旅途。"
     level._show_chapter_entry_message()
     level.world_loading = false
     level.initial_region_ready = true

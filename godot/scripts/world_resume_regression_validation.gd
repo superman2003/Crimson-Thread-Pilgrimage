@@ -49,7 +49,10 @@ func _test_persistent_session_guards() -> void:
     var loader := LOADER.new()
     subject.world_save_blocked = true
     subject.world_startup_options_enabled = false
+    var clock := preload("res://scripts/journey_progress.gd").new()
+    subject.journey_clock = clock
     loader._reset_region_fields(subject)
+    _check(subject.journey_clock == clock, "ordinary region travel retains the journey clock")
     _check(subject.world_save_blocked, "persistent host reset retains incompatible-save protection")
     _check(not subject.world_startup_options_enabled, "persistent host reset retains consumed launch options")
     subject.free()
@@ -140,11 +143,16 @@ func _test_incompatible_build() -> void:
     await scene._travel_world_async(scene.config_path, scene.active_spawn)
     _check(scene.world_save_blocked and scene.currency_count == 102, "async host travel retains save protection and live progress")
     _check(FileAccess.get_file_as_string(SAVE) == before, "async publication never overwrites incompatible disk progress")
+    var clock := preload("res://scripts/journey_progress.gd").new()
+    clock.attach(SAVE, false)
+    clock.seconds = 3600.0
+    clock.flush()
     scene._start_new_journey()
     scene = current_scene
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     await _frames()
     _check(not scene.world_save_blocked, "explicit new journey clears incompatible-build protection")
+    _check(scene.journey_clock != null and scene.journey_clock.seconds < 60.0, "starting over in the current slot resets the previous journey's clock")
     _check(FileAccess.get_file_as_string(SAVE + ".previous") == before, "explicit new journey archives incompatible original")
     var fresh := WORLD.new()
     _check(fresh.read(SAVE) and fresh.data.currency == 0, "explicit new journey writes valid fresh progress")

@@ -31,7 +31,7 @@ const LOADER_TRANSITIONS := preload("res://scripts/loader_transitions.gd")
 const LOADER_STAGING := preload("res://scripts/loader_staging.gd")
 const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_path",
     "world_startup_options_enabled", "world_save_blocked",
-    "world_state", "world_slot", "world_loader", "build_system", "applied_build_profile",
+    "world_state", "world_slot", "world_loader", "journey_clock", "build_system", "applied_build_profile",
     "world_catalog", "world_narrative", "world_write_error_shown", "world_prefetch", "world_passage",
     "world_shared_metadata_cache", "world_shared_metadata_reads", "world_shared_metadata_probes",
     "world_shared_metadata_bytes", "world_shared_metadata_parses", "world_shared_metadata_failures",
@@ -142,6 +142,16 @@ func _finite_tuple(value: Variant, length: int) -> bool:
 
 func replace_region(host: Node, path: String, entry: Vector2) -> bool:
     return LOADER_REGION_STATE.replace_region(self, host, path, entry)
+
+
+## A protected save can travel on the complete in-memory checkpoint. Other
+## write failures retain the last published checkpoint, which cannot be used
+## to rebuild the player's current inventory and progress in the destination.
+func checkpoint_departure(host: Node) -> bool:
+    if host._save_world() or (host.world_save_blocked and host.world_save_capture_ok):
+        return true
+    last_error = "出发记录未能保存，请在原地重试。"
+    return false
 
 
 func _reset_region_fields(host: Node) -> void:

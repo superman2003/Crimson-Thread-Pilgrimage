@@ -85,11 +85,11 @@ func retire(scene: Node) -> void:
 
 func run() -> void:
 	clean()
-	await missing_primary_with_backup()
-	clean()
 	await damaged_with_backup()
 	clean()
 	await damaged_without_backup()
+	clean()
+	await missing_primary_with_backup()
 	clean()
 	await unknown_build_entries()
 	clean()
@@ -102,24 +102,6 @@ func run() -> void:
 	check(await AUDIO.drain(self), "the fixture releases playback")
 	print("SAVE_RECOVERY checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
-
-func missing_primary_with_backup() -> void:
-	var original := JSON.stringify(journey(173))
-	write_raw(original, SAVE + ".bak")
-	var scene := await boot()
-	check(scene.world_save_blocked and String(scene.world_initial_error).contains("173 碎钱"), "a backup-only slot shows the saved journey on startup")
-	check(not scene._save_world() and not FileAccess.file_exists(SAVE) and FileAccess.get_file_as_string(SAVE + ".bak") == original, "startup and repeated autosaves preserve the only copy")
-	check(scene.restore_save_backup(), "the settings restore action accepts a backup-only slot")
-	await tick(2)
-	var restored: Node = current_scene
-	await READY.wait_for(restored)
-	check(restored.currency_count == 173 and restored.world_state.get_region(RAIN).boss_defeated, "restoring the only copy returns both currency and regional progress")
-	restored._start_new_journey()
-	await tick(2)
-	var fresh: Node = current_scene
-	await READY.wait_for(fresh)
-	check(not fresh.world_save_blocked and fresh._save_world() and fresh.currency_count == 0, "a deliberately restarted journey can save with the old backup present")
-	await retire(fresh)
 
 func damaged_with_backup() -> void:
 	write_raw(JSON.stringify(journey()), SAVE + ".bak")
@@ -143,7 +125,30 @@ func damaged_without_backup() -> void:
 	write_raw("also not json", SAVE + ".bak")
 	var scene := await boot()
 	check(String(scene.world_initial_error).contains("备份也无法读取") and FileAccess.get_file_as_string(SAVE) == "not json", "with no usable backup the message says so and the file stays")
+	scene.currency_count = 73
+	check(scene.world_save_blocked and not scene._save_world() and scene.world_state.data.currency == 73,
+		"a damaged primary keeps the live checkpoint available for travel")
+	check(FileAccess.get_file_as_string(SAVE) == "not json" and FileAccess.get_file_as_string(SAVE + ".bak") == "also not json",
+		"memory-only checkpoints preserve both damaged files")
 	await retire(scene)
+
+func missing_primary_with_backup() -> void:
+	var backup := JSON.stringify(journey(173))
+	write_raw(backup, SAVE + ".bak")
+	var scene := await boot()
+	check(scene.world_save_blocked and String(scene.world_initial_error).contains("主档缺失") and String(scene.world_initial_error).contains("173 碎钱"), "an interrupted replacement does not open as an empty slot")
+	check(not scene._save_world() and not FileAccess.file_exists(SAVE) and FileAccess.get_file_as_string(SAVE + ".bak") == backup, "startup preserves the only surviving checkpoint")
+	check(scene.restore_save_backup(), "the surviving backup can be explicitly restored")
+	await tick(2)
+	var restored: Node = current_scene
+	await READY.wait_for(restored)
+	check(not restored.world_save_blocked and restored.currency_count == 173 and restored.world_state.get_region(RAIN).boss_defeated, "the restored slot resumes with its saved progress")
+	restored._start_new_journey()
+	await tick(2)
+	var fresh: Node = current_scene
+	await READY.wait_for(fresh)
+	check(not fresh.world_save_blocked and fresh._save_world() and fresh.currency_count == 0, "a deliberately restarted journey can save with the old backup present")
+	await retire(fresh)
 
 func unknown_build_entries() -> void:
 	var data := journey()
@@ -236,6 +241,9 @@ func new_journeys() -> void:
 	check(subject._preserve_previous_journey() and FileAccess.get_file_as_string(SAVE + ".previous") == "journey B", "the second keeps the latest as .previous")
 	var earlier := preserved("previous.earlier")
 	check(earlier.size() == 1 and FileAccess.get_file_as_string(earlier[0]) == "journey A", "and the first abandoned journey is kept, not overwritten")
-	write_raw("only backup", SAVE + ".bak")
-	check(subject._preserve_previous_journey() and FileAccess.get_file_as_string(SAVE + ".previous") == "only backup", "restarting a backup-only slot archives its remaining journey")
+	write_raw("surviving backup", SAVE + ".bak")
+	check(subject._preserve_previous_journey() and FileAccess.get_file_as_string(SAVE + ".previous") == "surviving backup",
+		"starting over when only the backup survives archives that journey")
+	check(FileAccess.get_file_as_string(SAVE + ".bak") == "surviving backup" and preserved("previous.earlier").size() == 2,
+		"archiving the backup also retains the earlier journeys")
 	subject.free()

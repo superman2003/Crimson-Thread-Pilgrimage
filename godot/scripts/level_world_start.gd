@@ -33,18 +33,15 @@ static func prepare_world_start(level: Node) -> void:
             level.world_initial_error = damaged_save_message(level)
         # A journey that could not be read keeps its recorded time untouched.
         level.journey_clock = preload("res://scripts/journey_progress.gd").new()
-        level.journey_clock.attach(level.world_save_path, level.world_resume)
+        level.journey_clock.attach(level.world_save_path, level.world_resumed_journey)
 
 
 static func damaged_save_message(level: Node) -> String:
-    var missing: bool = level.world_state.last_error == "missing"
     var backup = WORLD_STATE_SCRIPT.new()
+    var reason := "归途记录损坏，原文件已保留" if FileAccess.file_exists(level.world_save_path) else "归途主档缺失"
     if backup.read(level.world_save_path + ".bak"):
-        var reason := "归途主档缺失" if missing else "归途记录损坏，原文件已保留"
-        return "%s，自动保存已暂停。找到可用备份（%d 区 · %d 碎钱），在设置里选“恢复当前槽备份”即可接着走。" % [reason, backup.data.regions.size(), int(backup.data.currency)]
-    if missing:
-        return "归途主档缺失，备份也无法读取。自动保存已暂停，开始新旅途时会另存这份备份。"
-    return "归途记录损坏，备份也无法读取；原文件已保留，本次进度不会写入。"
+        return "%s，本次进度不会写入。找到可用备份（%d 区 · %d 碎钱）：在设置里选“恢复当前槽备份”即可接着走。" % [reason, backup.data.regions.size(), int(backup.data.currency)]
+    return reason + "，备份也无法读取。本次进度不会写入。"
 
 
 static func resolve_world_start_route(level: Node) -> bool:
