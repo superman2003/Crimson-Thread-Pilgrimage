@@ -197,5 +197,11 @@ func run() -> void:
     check(hunter.last_ai_decision == "patrol", "search gives up after the memory window")
 
     await preload("res://scripts/spatial_enemy_alert_validation.gd").new().run(self, check)
+    var audio := preload("res://scripts/audio_retirement.gd")
+    audio.retire_tree(stage)
+    stage.queue_free()
+    await process_frame
+    await process_frame
+    check(await audio.drain(self), "enemy AI fixture releases its scene before exit")
     print("ENEMY_AI_BEHAVIOR checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)

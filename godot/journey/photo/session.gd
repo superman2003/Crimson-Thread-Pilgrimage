@@ -63,7 +63,7 @@ func begin(owner: Node, snapshot: Dictionary) -> Dictionary:
     filter_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     filter_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
     var material := ShaderMaterial.new()
-    material.shader = preload("res://journey/photo/filter.gdshader")
+    material.shader = load("res://journey/photo/filter.gdshader") as Shader
     filter_rect.material = material
     layer.add_child(filter_rect)
     guides = GUIDES.new()

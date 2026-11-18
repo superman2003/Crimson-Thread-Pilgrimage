@@ -1,7 +1,7 @@
 extends RefCounted
 ## A caller owns one plain Thread and its immutable resource result until take
 ## or whole-owner shutdown. No WorkerThreadPool LoadToken is used on Godot 4.6.1.
-## Current consumers use imported images. Procedural GPU resources may call
+## Callers load imported images or warm workbench scripts. Procedural GPU resources may call
 ## back into the main render thread and cannot be joined during owner teardown.
 var _thread: Thread
 ## Headless result held under the same single-owner contract as a Thread.

@@ -212,16 +212,23 @@ static func render(level: Node) -> void:
             badge.add_theme_color_override("font_color", SURFACE.GOLD)
             badge.tooltip_text = preload("res://scripts/atlas_route_cue.gd").state(forward,reverse)+"\n正向：%s\n反向：%s" % [forward.label, reverse.label]
             host.add_child(badge)
+    var links_by_room: Dictionary = {}
+    for route in host.get_children():
+        if not route is Line2D or bool(route.get_meta("physical_passage")):
+            continue
+        for room_key in [
+            String(route.get_meta("source_region")) + ":" + String(route.get_meta("source_room")),
+            String(route.get_meta("target_region")) + ":" + String(route.get_meta("target_room"))
+        ]:
+            if not links_by_room.has(room_key):
+                links_by_room[room_key] = []
+            links_by_room[room_key].append(route)
     # Old portal links are a hover detail, rather than a web of diagonals
     # across every region. The solid physical passage remains always visible.
     for child in host.get_children():
         if not String(child.name).begins_with("WorldSurvey_"): continue
-        var links: Array[Line2D] = []
-        for route in host.get_children():
-            if not route is Line2D or bool(route.get_meta("physical_passage")): continue
-            var source: bool = route.get_meta("source_region") == child.get_meta("region_id") and route.get_meta("source_room") == child.get_meta("room_id")
-            var target: bool = route.get_meta("target_region") == child.get_meta("region_id") and route.get_meta("target_room") == child.get_meta("room_id")
-            if source or target: links.append(route)
+        var room_key := String(child.get_meta("region_id")) + ":" + String(child.get_meta("room_id"))
+        var links: Array = links_by_room.get(room_key, [])
         var room_ref: WeakRef=weakref(child)
         var update_links:=func():
             for route in links:

@@ -10,7 +10,8 @@ const OBSERVERS := [preload("res://journey/features/caseboard.gd"),
     preload("res://journey/features/supplies.gd"), preload("res://journey/features/trajectory.gd")]
 var feature_scripts: Dictionary = {}
 var pending_paths: Array[String] = []
-var requested_path := ""
+var feature_job := preload("res://scripts/background_resource_job.gd").new()
+var loading_feature := false
 var context: RefCounted
 var features: Dictionary = {}
 var selected := "chronicle"
@@ -49,7 +50,7 @@ func _owner() -> Node:
 
 func _process(delta: float) -> void:
     elapsed += delta
-    if not pending_paths.is_empty() or not requested_path.is_empty():
+    if not pending_paths.is_empty() or loading_feature:
         _warm_feature()
     # Region arrival can replace the UI shell; rebind the entry on the next
     # frame rather than the next 0.1 s observation tick.
@@ -109,25 +110,22 @@ func _discover_features() -> void:
 
 func _warm_feature() -> void:
     var script: Script
-    if not requested_path.is_empty():
-        var state := ResourceLoader.load_threaded_get_status(requested_path)
-        if state == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+    if loading_feature:
+        if not feature_job.ready():
             return
-        if state == ResourceLoader.THREAD_LOAD_LOADED:
-            script = ResourceLoader.load_threaded_get(requested_path) as Script
-        requested_path = ""
+        script = feature_job.take().get("resource") as Script
+        loading_feature = false
     elif not pending_paths.is_empty():
         var path: String = pending_paths.pop_front()
-        if DisplayServer.get_name() != "headless" and ResourceLoader.load_threaded_request(path, "GDScript") == OK:
-            requested_path = path
+        if feature_job.start(path, "GDScript") == OK:
+            loading_feature = true
             return
-        # Keep render dependencies on the main thread with the headless dummy renderer.
         script = load(path) as Script
     if script != null:
         feature_scripts[script.resource_path] = script
-        if context != null:
+        if context != null and context.level() != null:
             _install_feature(script)
-    if pending_paths.is_empty() and requested_path.is_empty() and is_instance_valid(dialog) and dialog.visible:
+    if pending_paths.is_empty() and not loading_feature and is_instance_valid(dialog) and dialog.visible:
         _refresh_menu()
 
 func _install_feature(script: Script) -> void:
@@ -293,7 +291,5 @@ func _retire() -> void:
     context = null
 
 func _exit_tree() -> void:
-    if not requested_path.is_empty():
-        ResourceLoader.load_threaded_get(requested_path)
-        requested_path = ""
+    feature_job.shutdown()
     _retire()
