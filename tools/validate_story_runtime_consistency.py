@@ -54,6 +54,10 @@ def main() -> None:
         assert_true(chapter["index"] == av_chapter["chapter_index"], f"{chapter_id}: AV index mismatch")
         assert_true(chapter["name"] == av_chapter["chapter_name"], f"{chapter_id}: AV name mismatch")
         assert_true(chapter.get("vfx_audio") == [beat.get("campaign_beat") for beat in av_chapter.get("beats", [])], f"{chapter_id}: AV beats must mirror campaign beats")
+        encounter = load_json(CAMPAIGN.parent / f"{chapter['runtime_config_id']}.json")
+        boss_name = encounter.get("boss", {}).get("name")
+        assert_true(bool(boss_name) and chapter.get("boss", {}).get("name") == boss_name,
+                    f"{chapter_id}: campaign boss name differs from the playable encounter")
 
         if chapter_id == "ch01_moss_bell_court":
             assert_true(chapter.get("runtime_config_id") == "demo_ch01_moss_bell_court", "CH01 must bind to current playable config")
@@ -65,7 +69,7 @@ def main() -> None:
         assert_true(detail.get("main_goal") == chapter.get("objective"), f"{chapter_id}: detail main_goal mismatch")
         assert_true(len(detail.get("npcs", [])) == len(chapter.get("npcs", [])), f"{chapter_id}: NPC count mismatch")
         assert_true(len(detail.get("enemy_points", [])) >= 5, f"{chapter_id}: detailed enemy points incomplete")
-        assert_true(detail.get("boss", {}).get("name") == chapter.get("boss", {}).get("name"), f"{chapter_id}: boss name mismatch")
+        assert_true(detail.get("boss", {}).get("name") == boss_name, f"{chapter_id}: chapter boss name differs from the playable encounter")
         assert_true(chapter.get("chapter_file") == f"res://data/chapters/{chapter_id}.json", f"{chapter_id}: chapter_file path mismatch")
         detailed_total_npcs += len(detail.get("npcs", []))
         detailed_total_enemy_points += len(detail.get("enemy_points", []))
