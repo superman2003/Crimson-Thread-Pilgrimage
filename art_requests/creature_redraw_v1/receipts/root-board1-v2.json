@@ -1,0 +1,13 @@
+{
+  "kind": "root_cage_hunter",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Source alpha and rig passed; attack max_change0.6018, cage_pounce max_change0.6572/body0.913, recover body0.940 fail unchanged acceptance guards. Replace all3clips with complete24-cel original drawings.",
+  "source_sha256": "8284574394d5921497664c7f3d176978086bbf11deb68a30dc0af58725e88896",
+  "prompt_sha256": "5b9f0513d0204d5e3559be63734d52c9523abfe49670039bc568e1989a5c3be3",
+  "reference_sha256": "dbec1a0973c8be4d988be4a59eba283f2cdaba71dcfc2c26881cd371963c330e",
+  "actual_prompt": "Use case: background-extraction ONLY. Keep this exact8column x4row sheet with30distinct brown-root/green-leaf wicker cage hunter sprites in the first30cells and final2cells empty. Remove ALL white/gray background, hazy matte and diffuse shadows from every pixel outside the creatures' actual painted silhouettes. Every gutter, blank space between antlers/claws/legs and last2cells MUST have alpha exactly0. Preserve opaque pale cream mask/eyes, leaf colors/veins, wicker lattice torso, bark and full thin curved twig antennae/claws. Keep ALL30sprites' exact size, original poses, locations, silhouettes, cel order and details; no movement, re-layout, resizing, clipping, duplicated cels, added objects or repainting anatomy. Isolate game-ready complete character cutouts on TRUE transparent RGBA, no matte, white floor, shadow, glow, text/checkerboard or detached speckles. Preserve pale parts INSIDE contours opaque, don't punch holes through mask or leaves.",
+  "reference_recipe": "Render frozen30cel actions01 source_frame/reference_fit entries; original frozen22cel actions02 guide supports identity/detail only. image_gen background extraction of exec-9775f0d8-1ba2-49e6-9b31-560dc06d4fd8.png retaining30poses; predecessor SHA/actualprompt in root-board1-bg-v1 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/root_cage_hunter-actions-01.json",
+  "guide_sha256": "001f2b2d61585f4c4c6e709eec1e54417837448b33c680d3f0c270b2c1cc133a"
+}

@@ -21,14 +21,13 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
-          lfs: true
-          sparse-checkout: |
-            godot
-            tools
-            .github
-          sparse-checkout-cone-mode: true
+          lfs: false
+      - name: Restore and hydrate only project assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/**
       - name: Strict runner negative and workflow tests
         run: python3 tools/test_material_conversion_plan_runner.py
       - name: Install pinned Godot 4.6.1
@@ -47,7 +46,7 @@ jobs:
         run: python3 tools/run_material_conversion_plan_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/conversion-world"
       - name: Original trade, contract and actual UI regressions
         run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite material_exchange --suite field_contracts --suite ui_world_integration --log-dir "$RUNNER_TEMP/conversion-existing"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: material-conversion-planner-logs
@@ -56,9 +55,9 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
-          lfs: true
+          lfs: false
       - name: Full existing static and campaign gates
         run: |
           npm test

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Configuration/ownership fixtures; not natural exploration or FPS evidence.
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
@@ -212,7 +213,7 @@ func _validating() -> void:
     _check(false, "fixture reaches incremental validation")
 
 func _node_ids() -> Array:
-    return scene.get_children().map(func(child): return child.get_instance_id())
+    return LEVEL_HOST.children(scene).map(func(child): return child.get_instance_id())
 
 func _clean() -> void:
     for path in [SAVE, SAVE + ".bak", SAVE + ".tmp", SAVE + ".previous", BAD, MISSING]:

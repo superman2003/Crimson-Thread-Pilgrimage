@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## End-to-end fixtures use real World, UI buttons, player and enemy damage code.
 const BUILD := preload("res://scripts/build_system.gd")
 const ENEMY := preload("res://scripts/enemy_actor.gd")
@@ -71,7 +72,7 @@ func _run() -> void:
     scene._refresh_ability_gates()
     var player: CharacterBody2D = scene.player
     var shrine: Area2D
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and child.get_meta("kind", "") == "save_point":
             shrine = child
             break

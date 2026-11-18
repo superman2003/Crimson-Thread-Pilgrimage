@@ -5,7 +5,25 @@ on:
       - 'godot/scripts/camera_observation*.gd'
       - 'godot/scripts/camera_focus.gd'
       - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/player_damage.gd'
+      - 'godot/scripts/player_input_buffer.gd'
+      - 'godot/scripts/player_abilities.gd'
+      - 'godot/scripts/player_animation.gd'
+      - 'godot/scripts/player_attack.gd'
+      - 'godot/scripts/player_audio.gd'
+      - 'godot/scripts/player_effects.gd'
+      - 'godot/scripts/player_seals.gd'
+      - 'godot/scripts/player_sprites.gd'
+      - 'godot/scripts/player_traversal.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
       - 'tools/run_camera_observation_contract.py'
       - 'tools/test_camera_observation_runner.py'
       - '.github/contracts/camera-observation.yml'
@@ -21,7 +39,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           lfs: true
       - name: Runner failure propagation
@@ -38,7 +56,7 @@ jobs:
         run: python3 tools/run_camera_observation_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/comparison-world"
       - name: Original camera, settings and profile contracts
         run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite camera_focus --suite room_camera_stability --suite settings_remap --suite controller_comfort --suite settings_profiles --suite ui_world_integration --log-dir "$RUNNER_TEMP/comparison-existing"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: camera-observation-logs

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Isolated input/combat and real first-court views. Not a natural campaign clear.
 const FOCUS := preload("res://scripts/camera_focus.gd")
 const ROOMS := preload("res://scripts/room_camera.gd")
@@ -234,7 +235,7 @@ func _first_court() -> void:
         await frames(20)
         check(absf(camera.get_screen_center_position().y-world.player.global_position.y)<270,String(view[0])+" player footing stays in view")
         if String(view[0]) == "entry":
-            for child in world.get_children():
+            for child in LEVEL_HOST.children(world):
                 if child.has_node("WorldPortalArch"):
                     check(not child.get_node("WorldPortalArch").visible,"Legacy route has no luminous doorway overlay")
                     check(child.get_node("Wayfinding").scale.x < 0.8,"Route sign remains compact beside the first landing")

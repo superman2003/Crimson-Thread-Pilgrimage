@@ -1,0 +1,13 @@
+{
+  "kind": "root_cage_hunter",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Raw source corners/gutters have actual alpha32-87, diffuse white matte above8 threshold. Reject before runtime registration; use image_gen background extraction only preserving30poses and pale mask.",
+  "source_sha256": "8637f4f96ab0ad27110ce7ad8c4ed24021d80962eb6cf16718bab132dc6bb2f8",
+  "prompt_sha256": "a7c5254abe4b0c6c90f0df9a21c5e80d5d94b1e3029463055cb9afcae3610d9e",
+  "reference_sha256": "dbec1a0973c8be4d988be4a59eba283f2cdaba71dcfc2c26881cd371963c330e",
+  "actual_prompt": "Use case: stylized-concept2Dgame sprite repair. Repaint this frozen30cel ROOT CAGE HUNTER action sheet, EXACT8equal columns x4equal rows, first30occupied rowmajor, final2cells row4columns7-8 truly transparent empty. Reference1authoritative ALL mapped gestures, silhouette size, center/foot height, air height, leaf/claw positions and cel order. Reference2same original hunter other poses is identity detail only. Cells0-8=attack14-22;9-18=cage_pounce14-23;19-29=recover0,1,2,4,5,6,7,8,9,22,23. Match each specific upright/far-reaching claw strike, tucked jumping/crouched pounce then landing and recovery EXACTLY, with distinct intermediate articulated gestures rather than repeating neutral pose. Faithful small plant/insect creature facing right: brown twisted root limbs, hunched wicker lattice cage torso, moss/olive green overlapping leaf mantle/skirt, pale seed/mask oval eye, multiple long swept-back curved twig antennae, TWO hooked green/brown scythe-claw forearms attached to torso, rootlike bent hind legs. Preserve original anatomy, leaf mass, long thin antenna and claw shapes in every pose, no extra weapons/limbs/human faces/new effects. Refine tactile bark/woven lattice/leaf veins in crisp hand-painted game art, muted warm brown and mossolive palette. Each complete sprite centered/anchored as its original guide cell, consistent scale/body volume throughout, all antenna/claw tips inside their equal cells with minimum24px clear margins. TRUE transparent RGBA cutouts, all gutters and blankcells alpha-zero, no matte, white backdrop, floor shadows, glow/particles, detached dots, colored fringe, checkerboard/grid, labels or text.",
+  "reference_recipe": "Render frozen30cel actions01 source_frame/reference_fit entries; original frozen22cel actions02 guide supports identity/detail only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/root_cage_hunter-actions-01.json",
+  "guide_sha256": "001f2b2d61585f4c4c6e709eec1e54417837448b33c680d3f0c270b2c1cc133a"
+}

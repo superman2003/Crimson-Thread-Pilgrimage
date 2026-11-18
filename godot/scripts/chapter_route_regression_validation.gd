@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
 const MAIN_SCRIPT := preload("res://scripts/main_level.gd")
@@ -80,7 +81,7 @@ func _validate_chapter(config_path: String) -> void:
     var lever: Area2D = null
     for interactive in config.get("interactives", []):
         if String(interactive.get("kind", "")) == "lever":
-            lever = scene.get_node_or_null(String(interactive.get("id", "")))
+            lever = LEVEL_HOST.find(scene, String(interactive.get("id", "")))
             break
     _assert(lever != null, config_id + " has a shortcut lever")
     var shortcut_id := String(lever.get_meta("shortcut_id", ""))
@@ -138,7 +139,7 @@ func _validate_chapter(config_path: String) -> void:
     blocker.add_child(collision)
     scene.add_child(blocker)
     scene.config["platforms"].append({"id": blocker_id, "rect": [0, 0, 40, 270]})
-    _assert(scene.get_node_or_null(blocker_id) != null, config_id + " legacy blocker exists before boss death")
+    _assert(LEVEL_HOST.find(scene, blocker_id) != null, config_id + " legacy blocker exists before boss death")
     _assert(not scene._is_post_boss_blocker("boss_arena_lock_wall"), config_id + " ordinary arena walls are not post-boss blockers")
     scene.player.global_position = scene._boss_gate_position()
     scene._activate_boss_gate()
@@ -169,14 +170,14 @@ func _validate_chapter(config_path: String) -> void:
     scene._debug_kill_boss()
     await process_frame
     _assert(scene.demo_complete and scene.post_boss_route_open, config_id + " boss death opens the exit route")
-    _assert(scene.get_node_or_null(blocker_id) == null, config_id + " boss death removes the prefixed legacy wall")
+    _assert(LEVEL_HOST.find(scene, blocker_id) == null, config_id + " boss death removes the prefixed legacy wall")
     _assert(is_instance_valid(floor_body) and not floor_body.is_queued_for_deletion() and _floor_has_collision(floor_body), config_id + " boss floor survives route opening")
     _assert(scene.boss_arena_lock_body == null, config_id + " boss death releases the arena lock")
     await _validate_deliveries(scene, config_id)
 
     for interactive in config.get("interactives", []):
         if String(interactive.get("kind", "")) in ["chapter_exit", "ending_exit"]:
-            var exit_area: Area2D = scene.get_node_or_null(String(interactive.get("id", "")))
+            var exit_area: Area2D = LEVEL_HOST.find(scene, String(interactive.get("id", "")))
             _assert(scene._chapter_exit_can_open(exit_area), config_id + " configured exit is usable after boss death")
             if String(interactive.get("kind", "")) == "chapter_exit":
                 await _validate_transition(scene, String(interactive.get("next_config_path", "")))
@@ -187,8 +188,8 @@ func _validate_chapter(config_path: String) -> void:
 
 
 func _validate_close_interactions(scene: Node, save_id: String, npc_id: String) -> void:
-    var save: Area2D = scene.get_node(save_id)
-    var npc: Area2D = scene.get_node(npc_id)
+    var save: Area2D = LEVEL_HOST.find(scene, save_id)
+    var npc: Area2D = LEVEL_HOST.find(scene, npc_id)
     var dialogue_index := int(npc.get_meta("dialogue_index", 0))
     scene.player.global_position = npc.global_position
     scene.nearby_interactable = save
@@ -281,7 +282,7 @@ func _floor_body(scene: Node, platform_id: String) -> Node:
             var terrain_id := String(platform.get("terrain_id", ""))
             if not terrain_id.is_empty() and scene.chapter_terrain != null:
                 return scene.chapter_terrain.get_node_or_null(terrain_id)
-    return scene.get_node_or_null(platform_id)
+    return LEVEL_HOST.find(scene, platform_id)
 
 
 func _floor_has_collision(body: Node) -> bool:
@@ -312,7 +313,7 @@ func _validate_one_way_anchors(scene: Node, config_id: String) -> void:
 
 func _validate_manual_pickup(scene: Node, config_id: String) -> void:
     var pickup: Area2D = null
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and bool(child.get_meta("manual_pickup", false)):
             pickup = child
             break
@@ -340,7 +341,7 @@ func _validate_deliveries(scene: Node, config_id: String) -> void:
             var pickup: Area2D = null
             for collectible in scene.config.get("collectibles", []):
                 if String(collectible.get("item_id", "")) == item_id:
-                    pickup = scene.get_node_or_null(String(collectible.get("id", "")))
+                    pickup = LEVEL_HOST.find(scene, String(collectible.get("id", "")))
                     break
             _assert(pickup != null, config_id + " quest has an obtainable pickup for " + item_id)
             if pickup == null:
@@ -352,7 +353,7 @@ func _validate_deliveries(scene: Node, config_id: String) -> void:
             else:
                 scene._on_collectible_body_entered(scene.player, pickup)
             await process_frame
-        var npc: Area2D = scene.get_node_or_null(String(npc_data.get("id", "")))
+        var npc: Area2D = LEVEL_HOST.find(scene, String(npc_data.get("id", "")))
         var reward := String(quest.get("reward", ""))
         var reward_before := int(scene.inventory_counts.get(reward, 0))
         scene._close_overlays()

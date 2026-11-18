@@ -4,8 +4,45 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/level_travel_async.gd'
+      - 'godot/scripts/level_activation.gd'
+      - 'godot/scripts/level_boss.gd'
+      - 'godot/scripts/level_build.gd'
+      - 'godot/scripts/level_catalogue.gd'
+      - 'godot/scripts/level_demo_state.gd'
+      - 'godot/scripts/level_dialogue.gd'
+      - 'godot/scripts/level_encounters.gd'
+      - 'godot/scripts/level_ground.gd'
+      - 'godot/scripts/level_hud.gd'
+      - 'godot/scripts/level_hud_build.gd'
+      - 'godot/scripts/level_interaction.gd'
+      - 'godot/scripts/level_journey_data.gd'
+      - 'godot/scripts/level_pickups.gd'
+      - 'godot/scripts/level_player_frame.gd'
+      - 'godot/scripts/level_region_build.gd'
+      - 'godot/scripts/level_region_pipeline.gd'
+      - 'godot/scripts/level_residents.gd'
+      - 'godot/scripts/level_rooms.gd'
+      - 'godot/scripts/level_route_state.gd'
+      - 'godot/scripts/level_save_slots.gd'
+      - 'godot/scripts/level_world_start.gd'
+      - 'godot/scripts/level_world_travel.gd'
+      - 'godot/scripts/ending_gates.gd'
+      - 'godot/scripts/enemy_placement.gd'
+      - 'godot/scripts/level_audio.gd'
+      - 'godot/scripts/level_overlays.gd'
+      - 'godot/scripts/level_props.gd'
+      - 'godot/scripts/level_scenery.gd'
+      - 'godot/scripts/map_overlay.gd'
+      - 'godot/scripts/optional_challenges.gd'
+      - 'godot/scripts/wish_topics.gd'
       - 'godot/scripts/world_routes.gd'
       - 'godot/scripts/world_region_loader.gd'
+      - 'godot/scripts/loader_budgeted_prepare.gd'
+      - 'godot/scripts/loader_region_state.gd'
+      - 'godot/scripts/loader_startup.gd'
+      - 'godot/scripts/loader_startup_support.gd'
+      - 'godot/scripts/loader_transitions.gd'
       - 'godot/scripts/world_transition_token.gd'
       - 'godot/scripts/world_prefetch.gd'
       - 'godot/scripts/world_atlas.gd'
@@ -89,7 +126,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/route-manifest-logs/passages"
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: route-manifest-integration-logs
           path: |

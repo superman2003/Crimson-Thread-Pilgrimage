@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/journey_desk_window.gd', 'scripts/journey_window_layout.gd', 'scripts/journey_window_layout_validation.gd']
+DEPS = ['scripts/ui_spacing_scale.gd', 'scripts/journey_desk_window.gd', 'scripts/journey_window_layout.gd', 'scripts/journey_window_layout_validation.gd']
 MARKER = '^JOURNEY_WINDOW_LAYOUT checks=[1-9][0-9]* failures=0$'
 
 def invoke(command, env, log, marker):

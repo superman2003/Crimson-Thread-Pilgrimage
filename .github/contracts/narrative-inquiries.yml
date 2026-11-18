@@ -7,6 +7,14 @@ on:
       - 'godot/data/world_narrative.json'
       - 'godot/scripts/narrative_inquir*.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
       - 'tools/*narrative_inquiries.py'
       - '.github/contracts/narrative-inquiries.yml'
 permissions:
@@ -47,7 +55,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/inquiries/runtime"
       - name: Preserve logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: narrative-inquiries
           path: ${{ runner.temp }}/inquiries

@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install report image dependencies
         run: python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
       - name: Verify safe cleanup, freshness and production routing

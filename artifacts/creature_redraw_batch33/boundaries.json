@@ -1,0 +1,45 @@
+{
+  "pipe_thrower": {
+    "changed_endpoints": [],
+    "unchanged_endpoints": "All other action first/last frames are retained pixel-and-position equal; see repairs.json."
+  },
+  "pollen_lutist": {
+    "changed_endpoints": [
+      {
+        "clip": "windup",
+        "frame": 23
+      }
+    ],
+    "unchanged_endpoints": "All other action first/last frames are retained pixel-and-position equal; see repairs.json.",
+    "changed_handoffs": [
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.48656419329868406
+      }
+    ],
+    "existing_unchanged_entry": {
+      "before": [
+        {
+          "source": "walk",
+          "source_frame": 6,
+          "target": "windup",
+          "target_frame": 0,
+          "change": 0.508673469387755
+        }
+      ],
+      "after": [
+        {
+          "source": "walk",
+          "source_frame": 6,
+          "target": "windup",
+          "target_frame": 0,
+          "change": 0.508673469387755
+        }
+      ],
+      "note": "Walk was redrawn in batch05 and windup0 is retained. Existing0.508673 entry is reported, not counted as a newly passing handoff."
+    }
+  }
+}

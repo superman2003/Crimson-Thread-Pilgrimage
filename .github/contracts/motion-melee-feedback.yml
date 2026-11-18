@@ -4,10 +4,28 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/player_damage.gd'
+      - 'godot/scripts/player_input_buffer.gd'
+      - 'godot/scripts/player_abilities.gd'
+      - 'godot/scripts/player_animation.gd'
+      - 'godot/scripts/player_attack.gd'
+      - 'godot/scripts/player_audio.gd'
+      - 'godot/scripts/player_effects.gd'
+      - 'godot/scripts/player_seals.gd'
+      - 'godot/scripts/player_sprites.gd'
+      - 'godot/scripts/player_traversal.gd'
       - 'godot/shaders/hit_flash.gdshader'
       - 'godot/scripts/player_layered_idle*.gd'
       - 'godot/scripts/world_death_cache_flush_validation.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
       - 'godot/scripts/player_motion_continuity_validation.gd'
       - 'godot/scripts/player_melee_feedback*.gd'
       - 'godot/scripts/feel_kit.gd'
@@ -72,7 +90,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/motion-melee-feedback-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: motion-melee-feedback-logs
           path: |

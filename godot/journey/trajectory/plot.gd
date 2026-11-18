@@ -1,4 +1,7 @@
 extends Control
+
+const LEGEND_TEXT := Color("b4c8bd")
+
 const V := preload("res://journey/core/values.gd")
 var primary: Dictionary = {}
 var comparison: Dictionary = {}
@@ -67,7 +70,7 @@ func _draw() -> void:
     if hover_index >= 0 and hover_index < primary_points.size():
         draw_circle(primary_points[hover_index], 6, Color("f2e0c2"), false, 2.0, true)
     var font := get_theme_default_font()
-    draw_string(font, Vector2(8, size.y - 10), "金：当前记录 · 蓝：比较记录 · 轨迹按各自起点对齐", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("b4c8bd"))
+    draw_string(font, Vector2(8, size.y - 10), "金：当前记录 · 蓝：比较记录 · 轨迹按各自起点对齐", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, LEGEND_TEXT)
 
 func _gui_input(event: InputEvent) -> void:
     if not event is InputEventMouseMotion:

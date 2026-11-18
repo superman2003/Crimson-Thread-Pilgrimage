@@ -1,0 +1,13 @@
+{
+  "kind": "pollen_lutist",
+  "clip": "actions_windup_handoff",
+  "status": "rejected",
+  "reason": "Second extraction still retained haze and oversaturated markings; rejected.",
+  "source_sha256": "81b02e14e30c542e4a03ddb3236c89a39f5e7a5a772cf58136e31e6558446892",
+  "prompt_sha256": "dec1ff0853f65b5b04758dded1b31c9b5986933e4def2789c86d1c6dd8e9c4c6",
+  "reference_sha256": "5fdfcd96ddafc8a1aa8e60d1f578191ac18f539a0a5d266ccdbccbe71911dbb3",
+  "actual_prompt": "Remove the background completely from this sprite sheet. Delete ALL the dark black and yellow-green blurry background, ALL halos and soft shadows around the figures. Keep ONLY the six sharply outlined grasshopper characters, their instruments, antennae and clothes. Everything outside the actual hard character outlines must be fully transparent, alpha 0. Do not preserve any of the yellow-green glow. Preserve the character colors, shapes and six positions. Output a clean transparent PNG cutout atlas.",
+  "reference_recipe": "Frozen six original poses controls frame order and handoff endpoint; accepted walk supplies character identity. Six new drawings via builtinimage_gen. Whole-source registration only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/pollen_lutist-windup-six.json",
+  "guide_sha256": "408020b04e0d5d6c59ad327179c3c1aa0f016a4de9dbe6748ce52c7d8db75446"
+}

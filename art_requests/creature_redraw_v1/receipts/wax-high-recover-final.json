@@ -1,0 +1,13 @@
+{
+  "kind": "wax_lancer",
+  "clip": "actions_wax_high_recover_full",
+  "status": "rejected",
+  "reason": "firstraisedlance exceeds frozenrig by21.8px",
+  "source_sha256": "88cfbc002e9d1896ca0e3d757520396877d78aadbae473c097efd630433cf681",
+  "prompt_sha256": "6eeb4c89c4949a6b1ec1cf7edcf1fcf87183decb822435718dadcad119a41a5d",
+  "reference_sha256": "3b4206e7d7051195cc722fc21357ae2fa48921f0ac5900c866a05cca2c1afc0c",
+  "actual_prompt": "Edit the FIRST FOUR and LAST EIGHT drawings of this exact24-cel4-column x6-row HIGH RECOVERY sheet. Keep middle cels4-15 visually unchanged. Input2 LEFT shows accepted HIGH RELEASE final pose, FAR RIGHT accepted IDLE; use them as pose targets only, never copy the board. In cel0, tilt the ivory mask upward and lift the holding elbow so the lance is nearly vertical and the posture matches the LEFT release-ending pose. Cel1-3 gradually lower the elbow/eye to join unchangedcel4. In lastcels16-23, gradually lower the upward-tilted head into a normal horizontal right-facing gaze, relax forearms and gather the back wings so cel23 closely matches accepted IDLE at FAR RIGHT: calm upright torso, narrow folded wing silhouette, vertical front-held wax lance. Keep current toe baseline and whole body root fixed; articulate knees/shoulders/head naturally, do not resize or translate the figure. Constant head, armor and limb sizes; full lance length retained, tip remains belowlocaly34 in every256pxcell with generous clear margins. Same amber drip armor, dark eye, brown antennae, burgundy scarf, dark boots and ONE attached ivory-core amber waxlance. Exact4equalcols x6equalrows portrait2:3,24unique chronology. TRUE transparent RGBA alpha0background/gutters, keep crisp painted edges. No extra anatomy, firehalo, effects/particles, matte/haze, blur, floor/shadows, text/labels/grid/checkerboard.",
+  "reference_recipe": "Frozenfull24highrecoveryguide, acceptedhighrelease finalpose andoriginalidle0 provideendpoints. Allfinalpixelsbuiltinimage_gen, onewhole-sourcegroundregistration. Builtinimage_gen final endpoint-pose refinement using accepted fixedcanvas QA board; earlier common source registration could not satisfy both endpoints, all final drawings remain image-generated. Whole-source ground registration uses accepted torso anchor205.5 and planted sole236; one shared scale/translation for every cel.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/wax_lancer-actions-wax_high_recover-full-roomy.json",
+  "guide_sha256": "cdc1b490399406977a2e760f3a2f83874b401b0d88072ba32ece9f264480c499"
+}

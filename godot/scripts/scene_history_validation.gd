@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const HISTORY := preload("res://scripts/scene_history.gd")
 const STATE := preload("res://scripts/world_state.gd")
 const RETIRE := preload("res://scripts/audio_retirement.gd")
@@ -25,7 +26,7 @@ func freeze_actors() -> void:
     scene.player.set_physics_process(false)
     scene.player.collision_layer=0
     scene.player.debug_invulnerable=true
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.name).begins_with("col_"):child.monitoring=false
     for enemy in get_nodes_in_group("enemy"):enemy.set_physics_process(false)
 
@@ -105,7 +106,7 @@ func run() -> void:
         await frames()
         freeze_actors()
         for entry in HISTORY.region_entries(String(region)):
-            var prop: Area2D=scene.get_node_or_null(NodePath("History_"+String(entry.id)))
+            var prop: Area2D=LEVEL_HOST.find(scene, NodePath("History_"+String(entry.id)))
             check(prop!=null,"production region jobs create the authored artifact")
             if prop==null:continue
             check(not prop.has_meta("object_id") and prop.collision_layer==0,"observation is absent from map pins and does not block movement")
@@ -117,7 +118,7 @@ func run() -> void:
                 check(prop.visible==(String(scene.current_room_id)==String(entry.room_id)),"witness visibility follows the entered room rather than unseen neighboring rooms")
             await focus(prop)
             if entry.role=="witness":
-                var proof: Area2D=scene.get_node_or_null(NodePath("col_"+String(entry.evidence_id)))
+                var proof: Area2D=LEVEL_HOST.find(scene, NodePath("col_"+String(entry.evidence_id)))
                 check(proof!=null,"linked original testimony still exists as its own pickup")
                 if proof!=null:
                     scene.player.global_position=proof.global_position
@@ -185,7 +186,7 @@ func run() -> void:
     var first_config: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/"+String(first.region_id)+".json"))
     scene._travel_world("res://data/"+String(first.region_id)+".json",Vector2(first_config.player_start[0],first_config.player_start[1]))
     await frames();freeze_actors()
-    var returned: Area2D=scene.get_node("History_"+String(first.id))
+    var returned: Area2D=LEVEL_HOST.find(scene, "History_"+String(first.id))
     check(returned.seen,"revisiting rebuilds the recorded object's visible notch from saved flags")
     await focus(returned)
     await read(returned)

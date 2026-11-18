@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 var failures := 0
 var checks := 0
@@ -39,12 +40,12 @@ func _run() -> void:
         await snap(scene,String(id)+"_entry")
         # Clear incidental combat while traversing geometry.
         for actor in get_nodes_in_group("enemy"):
-            if actor.get_parent()==scene:actor.set_physics_process(false)
+            if LEVEL_HOST.owns(scene, actor):actor.set_physics_process(false)
         scene.player.set_physics_process(false)
         scene.player.debug_invulnerable=true
         for interactive in scene.config.interactives:
             if String(interactive.kind)=="lever":
-                scene._activate_lever(scene.get_node(String(interactive.id)))
+                scene._activate_lever(LEVEL_HOST.find(scene, String(interactive.id)))
                 break
         check(scene.boss_unlocked and scene.enemy_defeated==0,String(id)+" exploration lever opens boss route without a kill quota")
         scene.player.velocity=Vector2.ZERO

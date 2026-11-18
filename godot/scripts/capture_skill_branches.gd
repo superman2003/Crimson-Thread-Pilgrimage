@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Actual World render of the C04 artisan page: one 校习 direction compared with
 ## the other, before and after buying it.
 ## Graphical engine: --script res://scripts/capture_skill_branches.gd -- --capture-output=DIR
@@ -42,7 +43,7 @@ func capture() -> void:
 	world.currency_count = 260
 	world.inventory_counts["moss_chitin"] = 4
 	var apprentice: Node = null
-	for child in world.get_children():
+	for child in LEVEL_HOST.children(world):
 		if child is Area2D and String(child.get_meta("npc_id", "")) == "npc_threadsmith_apprentice":
 			apprentice = child
 	for offset in [Vector2(-110, 0), Vector2(110, 0), Vector2(-80, -40), Vector2(80, -40)]:

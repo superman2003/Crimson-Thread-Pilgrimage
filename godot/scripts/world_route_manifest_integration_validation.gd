@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const SURVEY_UI := preload("res://scripts/cartography_runtime.gd")
 ## Bounded component fixtures for the repaired manifest on modern main.
 ## Fault injection changes only cache generations, isolated saves and detached
@@ -67,7 +68,7 @@ func _escape(pressed: bool) -> void:
 func _node_ids() -> Array:
     # An actionable error toast may legitimately attach/retire a one-shot SFX
     # player. Every region/gameplay owner must otherwise remain identical.
-    return scene.get_children().filter(func(node): return not (node is AudioStreamPlayer and String(node.name).begins_with("Sfx_"))).map(func(node): return node.get_instance_id())
+    return LEVEL_HOST.children(scene).filter(func(node): return not (node is AudioStreamPlayer and String(node.name).begins_with("Sfx_"))).map(func(node): return node.get_instance_id())
 
 func _at_boundary(loader: RefCounted, boundary: String) -> bool:
     var metric: Dictionary = loader.last_transition
@@ -427,7 +428,7 @@ func _passage_recovery_and_exit() -> Dictionary:
     # Start at the current CH06 root-pipe mouth. This fixture positions the
     # terminal to reach rollback promptly; no full-walk claim is made here.
     var passage: Node = scene.world_passage
-    var mouth: Node = scene.get_node("upgrade_greenhouse_crown_branch_b")
+    var mouth: Node = LEVEL_HOST.find(scene, "upgrade_greenhouse_crown_branch_b")
     scene.player.global_position = mouth.global_position
     scene.player.velocity = Vector2.ZERO
     _check(passage.begin(String(mouth.name)), "modern root-pipe component admits its ungated reverse mouth")
@@ -462,7 +463,7 @@ func _passage_recovery_and_exit() -> Dictionary:
     # Gate fixture only for testing source exit/re-entry, not campaign rewards.
     scene._add_inventory_item("lantern_phase", 1, false)
     scene._sync_player_abilities()
-    mouth = scene.get_node("upgrade_greenhouse_crown_branch_a")
+    mouth = LEVEL_HOST.find(scene, "upgrade_greenhouse_crown_branch_a")
     scene.player.global_position = mouth.global_position
     scene.player.velocity = Vector2.ZERO
     _check(passage.begin(String(mouth.name)), "root-pipe component re-enters with its explicit ability-gate fixture")
@@ -488,6 +489,15 @@ func _passage_recovery_and_exit() -> Dictionary:
     _check(not passage.active and not bool(passage.last_result.get("cancelled", true)) and not bool(passage.last_result.get("arrived", true)) and String(scene.config.id) == SOURCE, "real reverse input leaves the modern mouth into source without destination publication")
     scene.player.global_position = mouth.global_position # Teardown component setup only.
     scene.player.velocity = Vector2.ZERO
+    # Walking back cancels the destination being built during the walk; it
+    # unwinds at its next frame boundary before the mouth admits a new walk.
+    var unwind_frames := 0
+    while scene.world_loader.phase != "idle" and unwind_frames < 30:
+        await process_frame
+        unwind_frames += 1
+    _check(scene.world_loader.phase == "idle" and unwind_frames <= 3, "cancelled hidden build unwinds within a few frames (%d)" % unwind_frames)
+    # The teardown fixture below exercises the terminal fallback load.
+    passage.staging_enabled = false
     _check(passage.begin(String(mouth.name)), "modern connector is reusable after physical reversal")
     ROUTES._cached_stamp = -1
     scene.player.global_position = passage.destination_point + Vector2(0, 40) # Teardown-only terminal fixture.

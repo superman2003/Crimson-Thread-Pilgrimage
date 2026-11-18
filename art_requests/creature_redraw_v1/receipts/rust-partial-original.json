@@ -1,0 +1,13 @@
+{
+  "kind": "rust_diver",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "nontransparent cellgutter inactual3x3output",
+  "source_sha256": "0c709de258f1482122becb5f342870006691d9a7d21ca65dc6ed424461722477",
+  "prompt_sha256": "edfea7e06f7abe96a1f1adb1067954c3ede15a1dc79947680e464ceb265f34d5",
+  "reference_sha256": "7b4c9c5a396e8304b6ccc30ceeb6b9d1773d142a0c94b680fcb1708471cc69e0",
+  "actual_prompt": "Paint NINE freshly drawn selected action cels of the SAME squat beetle Rust Diver, following frozen9-pose guide(input1) and accepted walk identity(input2). EXACT4equalcols x3equalrows on a wide3:1 landscape canvas: first9 cells occupied row-major, final3empty. Cels0-2 normalwindup15-17 hold the raised-back knife/forearm pose; cels3-5 splashwindup7-9 move through the guide's crouched preparation; cels6-8 splash release19-21 hold/retract the low-forward knife as guide. These fix body-size outliers: keep same bronze diving-bell helmet diameter, torso/armor mass, knife length and limb proportions in all9, preserve matching guide pose and toe anchors so they join kept neighbors. Exact worn bronze round helmet with one large grilled green front porthole, side fitting/bolts and rope over top; dark slate/iron plated squat beetle body, green algae fronds at seams/back shell, thick rope bindings, pale neck cloth, dark violet/brown armored gloves/boots, ONE short flat iron knife attached to hands. Same right-facing inked handpainted2D materials, distinct small intentional movement percel, common horizontal torsoanchor and planted toe line88percent cellheight. Full helmet/algae/knife/boots inside each spacious cell with clear gutters, no clipping/overlap, no duplicated stamps or growing helmet. TRUE transparent RGBA alpha0 background/gutters and final3emptycells; no extra limbs/weapon, particles, glow/haze/matte, floor/shadows, text, labels, grid or checkerboard.",
+  "reference_recipe": "Frozen9 selected windup/splash poses provide exact target frame order and anchors; accepted rust_diver walk supplies identity. All new pixels from built-in image_gen. Actual output layout is3x3; all9drawing cells retained chronological, same frozen source frames. Ref visual was original4x3, SHA recorded by ref; sibling recipe remaps only grid while preserving all targets and referenceframes. Whole-source ground registration uses accepted torso anchor246.5 and planted sole230; one shared scale/translation for every cel.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/rust_diver-actions-01-3x3.json",
+  "guide_sha256": "21363e650443cfd8e5dc18f25ed22d47a22a9f4eb5acebb97b9a25e262ea0b3e"
+}

@@ -15,11 +15,55 @@ const MARGIN := 96.0
 const QUANTUM := 128.0
 const RIM_CHUNK := 512.0
 
+## Rim edges, trimmed bodies and rim chunks depend only on the region's rock
+## rects. A region is rebuilt on every arrival, so the result is kept: a revisit
+## reuses it instead of recomputing 10-30 ms of geometry in one build frame.
+## Entries are read-only and shared between instances.
+const GEOMETRY_CACHE_LIMIT := 24
+static var _geometry_cache: Dictionary = {}
+var _pending_rects: Array[Rect2] = []
+
 func configure(rects: Array[Rect2], rock_material: ShaderMaterial, theme: String = "moss_cavern") -> void:
+    prepare(rects, rock_material, theme)
+    finish()
+
+## First half of configure: the exposed rim edges. The loader runs finish() as
+## its own build job so a first visit spreads the geometry over two frames.
+func prepare(rects: Array[Rect2], rock_material: ShaderMaterial, theme: String = "moss_cavern") -> void:
     solid_rects = rects
     material = rock_material
     rim_theme = theme
+    _pending_rects = rects
+    var cached: Dictionary = _geometry_cache.get(hash(rects), {})
+    if cached.has("rects") and cached.rects == rects:
+        rim_descriptors = cached.rim_descriptors
+        body_rects = cached.body_rects
+        rim_chunks = cached.rim_chunks
+        return
     rim_descriptors = RIMS.exposed(rects)
+    body_rects = []
+    rim_chunks = {}
+
+func geometry_ready() -> bool:
+    return _pending_rects.is_empty()
+
+func finish() -> void:
+    if _pending_rects.is_empty():
+        return
+    var rects := _pending_rects
+    _pending_rects = []
+    if rim_chunks.is_empty() and body_rects.is_empty():
+        _build_bodies_and_chunks(rects)
+        if _geometry_cache.size() >= GEOMETRY_CACHE_LIMIT:
+            _geometry_cache.erase(_geometry_cache.keys()[0])
+        _geometry_cache[hash(rects)] = {"rects": rects.duplicate(),
+            "rim_descriptors": rim_descriptors, "body_rects": body_rects, "rim_chunks": rim_chunks}
+    # A frame may have passed since prepare(); the view must be clipped again
+    # now that the bodies exist.
+    view_bounds = Rect2()
+    _refresh_view()
+
+func _build_bodies_and_chunks(rects: Array[Rect2]) -> void:
     # Each rect is trimmed by the rim cuts in edge order, independently of the
     # others, so trimming per rect against only the cuts near it gives the same
     # pieces in the same order as trimming the whole list once per edge (that
@@ -52,7 +96,6 @@ func configure(rects: Array[Rect2], rock_material: ShaderMaterial, theme: String
             var right := Vector2(finish,edge.left.y)
             rim_chunks[key] = {"left":left,"right":right,"ceiling":edge.ceiling,"depth":edge.depth,"bounds":Rect2(left-Vector2(0,edge.depth if edge.ceiling else 12),Vector2(finish-cursor,edge.depth+12))}
             cursor = finish
-    _refresh_view()
 
 func _process(_delta: float) -> void:
     _refresh_view()

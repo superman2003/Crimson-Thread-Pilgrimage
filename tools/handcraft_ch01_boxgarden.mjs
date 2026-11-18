@@ -18,6 +18,9 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { median, mainRouteOrdered, rhythmTokens, sizeTokens, duplicateWindows, repeatRatio } from "./boxgarden_uniqueness.mjs";
+import { NPC_STORY, WHISPERS } from "./handcraft_ch01_story.mjs";
+import { ROOMS } from "./handcraft_ch01_rooms.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE_PATH = join(ROOT, "godot/data/demo_ch01_moss_bell_court.json");
@@ -46,183 +49,6 @@ function reachable(a, b, useDash = true) {
 // ---- room metadata ---------------------------------------------------------
 // zoneA entry cliffs / zoneB hub / zoneC tower / zoneD cistern / zoneE maze /
 // zoneF boss wing / zoneG east upper ring
-const ROOMS = {
-  // A ------------------------------------------------------------------------
-  entry_bell: { name: "朝圣断阶", kind: "entry", depth: 3,
-    objective: "沿断阶东行，寻找进入钟庭的路。", guide: "西侧封死的朝圣阶通往黑曜巡礼路，机关在对侧。",
-    danger: "落点干净，但苔藓机关和敌人前摇仍会要命。", next: "苔落走廊", setpiece: "塌半边的朝圣旧阶",
-    traversal_focus: "安全试跳", pacing_role: "explore_and_loop" },
-  moss_descent: { name: "苔落走廊", kind: "corridor", depth: 3,
-    objective: "下行练习下劈反弹，脚下的裂口通向西苔脉。", guide: "西侧裂口是单向下坠——想好再跳。",
-    danger: "湿苔打滑，坠口无回头路。", next: "初鸣钟龛", setpiece: "断钟舌吊在走廊尽头",
-    traversal_focus: "下劈教学", pacing_role: "explore_and_loop" },
-  first_bell_shrine: { name: "初鸣钟龛", kind: "save", depth: 3,
-    objective: "点亮第一座苔灯钟龛。", guide: "钟龛会记录你的归处。",
-    danger: "安全屋，稍作歇息。", next: "窄苔缝", setpiece: "第一座苔灯",
-    traversal_focus: "存档教学", pacing_role: "respite" },
-  crawl_gate: { name: "窄苔缝", kind: "corridor", depth: 3,
-    objective: "贴顶匍匐挤过窄缝。", guide: "压低身形，前方有光。",
-    danger: "低顶通道，无法起跳。", next: "中央钟庭", setpiece: "一线天苔缝",
-    traversal_focus: "压缩通道", pacing_role: "tension" },
-  // B ------------------------------------------------------------------------
-  court_hub: { name: "中央钟庭", kind: "hub", depth: 3,
-    objective: "以钟庭为枢纽：上攀钟塔、下探水窖、西寻苔脉、东讨守母。", guide: "记住这里；所有环路都会绕回钟庭。",
-    danger: "开阔中庭利于机动，也利于敌人合围。", next: "四方", setpiece: "倒悬巨钟的空腔",
-    traversal_focus: "垂直枢纽分流", pacing_role: "hub" },
-  bellbone_station: { name: "钟骨长梯站厅", kind: "transit", depth: 3,
-    objective: "参观封存的钟骨长梯站厅。", guide: "贯穿世界的长梯尚未通行，记住它的位置。",
-    danger: "站厅安静得过分。", next: "中央钟庭", setpiece: "青铜长梯剪影",
-    traversal_focus: "世界纵轴锚点", pacing_role: "respite" },
-  hub_gallery: { name: "环庭回廊", kind: "corridor", depth: 2,
-    objective: "沿回廊横越钟庭上层。", guide: "东端通向露台环带。",
-    danger: "回廊悬空，铜蛾游弋。", next: "东庭露台 / 钟塔", setpiece: "环庭悬廊",
-    traversal_focus: "高空横越", pacing_role: "explore_and_loop" },
-  threadmakers_cache: { name: "织线暗室", kind: "secret", depth: 3,
-    objective: "冲过钟隙取回织线者的遗物。", guide: "需要绯线冲刺。",
-    danger: "隙风削骨。", next: "中央钟庭", setpiece: "织线者的断机",
-    traversal_focus: "冲刺门", pacing_role: "reward" },
-  // C ------------------------------------------------------------------------
-  bell_ascent: { name: "钟骨折梯", kind: "shaft", depth: 1,
-    objective: "沿之字踏板垂直攀上钟塔。", guide: "踏板交错向上，注意坠锤。",
-    danger: "坠落很深，短跳稳住节奏。", next: "半钟平台", setpiece: "垂直钟绳井",
-    traversal_focus: "纵向攀爬", pacing_role: "explore_and_loop" },
-  belfry_mid: { name: "半钟平台", kind: "arena", depth: 1,
-    objective: "清理半钟平台的伏击。", guide: "东角地面空洞——将来能劈开。",
-    danger: "孢钟匠自高处泼洒孢云。", next: "顶阁", setpiece: "半悬的破钟",
-    traversal_focus: "立体战斗", pacing_role: "pressure" },
-  bell_marrow_cell: { name: "钟髓密室", kind: "gate", depth: 1,
-    objective: "劈开脆钟地板，取回钟髓中的证词线索。", guide: "需要棘线下劈（断弦温室）。",
-    danger: "密室封存的东西不愿被读。", next: "半钟平台", setpiece: "钟髓结晶",
-    traversal_focus: "回访门", pacing_role: "reward" },
-  belfry_top: { name: "顶阁", kind: "treasure", depth: 0,
-    objective: "登顶钟塔，俯瞰整座苔钟庭。", guide: "西沿是钟冠悬廊的起点。",
-    danger: "顶阁边缘狭窄，风势不稳。", next: "钟冠悬廊", setpiece: "顶阁观景台",
-    traversal_focus: "登顶释放", pacing_role: "respite" },
-  hidden_attic: { name: "顶阁暗格", kind: "secret", depth: 0,
-    objective: "找到暗格里的隐苔存档点。", guide: "暗格藏在半钟平台东上方。",
-    danger: "暗格无声。", next: "盐风走廊", setpiece: "隐苔龛",
-    traversal_focus: "隐藏探索", pacing_role: "reward" },
-  salt_corridor: { name: "盐风走廊", kind: "gate", depth: 0,
-    objective: "仰望盐白档案馆的风口。", guide: "需要双线跃（盐白档案馆）才能跃上风口。",
-    danger: "盐风割面。", next: "盐白档案馆（回访）", setpiece: "盐渍风口",
-    traversal_focus: "回访门", pacing_role: "foreshadow" },
-  crown_walk: { name: "钟冠悬廊", kind: "corridor", depth: 0,
-    objective: "沿钟冠向西横越，从裂缝一跃坠回钟庭。", guide: "尽头是直落枢纽的单向坠道。",
-    danger: "高空悬廊风大，落点狭窄。", next: "中央钟庭", setpiece: "横越钟冠悬廊",
-    traversal_focus: "高空回环", pacing_role: "explore_and_loop" },
-  crown_splinter_nook: { name: "冠裂隙", kind: "secret", depth: 0,
-    objective: "冲过冠隙取回地图残页。", guide: "需要绯线冲刺。",
-    danger: "隙底即深渊。", next: "钟冠悬廊", setpiece: "嵌着残页的裂缝",
-    traversal_focus: "冲刺门", pacing_role: "reward" },
-  // G ------------------------------------------------------------------------
-  east_balcony: { name: "东庭露台", kind: "corridor", depth: 2,
-    objective: "从回廊踏上东庭露台环带。", guide: "环带一路向东，最终俯瞰铸雨渠。",
-    danger: "露台年久失修。", next: "铜蛾栖廊", setpiece: "苔蚀露台",
-    traversal_focus: "环带横越", pacing_role: "explore_and_loop" },
-  moth_roost: { name: "铜蛾栖廊", kind: "arena", depth: 2,
-    objective: "穿过铜蛾的栖廊。", guide: "蛾群怕光也怕刃。",
-    danger: "空战廊道，脚下是空的。", next: "雨眺台", setpiece: "垂挂的蛾茧",
-    traversal_focus: "空中战斗", pacing_role: "pressure" },
-  rain_overlook: { name: "雨眺台", kind: "vista", depth: 2,
-    objective: "眺望下方的铸雨渠。", guide: "东端钟隙对岸就是锈冠殿顶。",
-    danger: "眺台风雨欲来。", next: "钟隙渡口", setpiece: "远处的铸雨渠灯火",
-    traversal_focus: "前瞻释放", pacing_role: "foreshadow" },
-  bell_gap_crossing: { name: "钟隙渡口", kind: "gate", depth: 2,
-    objective: "冲过钟隙，打开通往锈冠殿顶的捷径。", guide: "需要绯线冲刺；渡过后可直落冠后宝库。",
-    danger: "钟隙深不见底。", next: "冠后宝库", setpiece: "断裂的渡口横梁",
-    traversal_focus: "冲刺门捷径", pacing_role: "reward" },
-  // D ------------------------------------------------------------------------
-  cistern_shaft: { name: "根须竖井", kind: "shaft", depth: 5,
-    objective: "从钟庭地缝降入根须水窖。", guide: "这是单向坠道——回程走后门升梯。",
-    danger: "井壁湿滑，无法攀回。", next: "水窖环廊", setpiece: "垂根缠绕的竖井",
-    traversal_focus: "纵向下探", pacing_role: "explore_and_loop" },
-  cistern_ring: { name: "水窖环廊", kind: "corridor", depth: 5,
-    objective: "沿双层环廊探索水窖。", guide: "上层苔面有一段颜色不对。",
-    danger: "假苔地板一踩就塌。", next: "暗河走道", setpiece: "绕柱双层环廊",
-    traversal_focus: "环形探索", pacing_role: "explore_and_loop" },
-  fake_moss_grotto: { name: "假苔穴", kind: "secret", depth: 6,
-    objective: "从塌落的苔板下探出隐藏石穴。", guide: "塌方不是终点，是入口。",
-    danger: "穴壁渗水，回声很远。", next: "暗河走道", setpiece: "苔板塌出的石穴",
-    traversal_focus: "平台间转移", pacing_role: "reward" },
-  underway: { name: "暗河走道", kind: "corridor", depth: 6,
-    objective: "沿暗河西行，寻找闸厅。", guide: "东侧深廊被钟隙封住。",
-    danger: "低照度，孢虫巢就在头顶。", next: "闸厅", setpiece: "半沉的暗河栈道",
-    traversal_focus: "低视野推进", pacing_role: "pressure" },
-  cistern_deep_gallery: { name: "水窖深廊", kind: "secret", depth: 6,
-    objective: "冲过钟隙进入深廊。", guide: "需要绯线冲刺。",
-    danger: "深廊水声不对劲。", next: "假苔穴", setpiece: "沉在水下的钟",
-    traversal_focus: "冲刺门", pacing_role: "reward" },
-  sluice_hall: { name: "闸厅", kind: "corridor", depth: 7,
-    objective: "拉下闸杆，接通回钟庭的后门升梯。", guide: "升梯打通后长期有效。",
-    danger: "拉杆时留意残敌。", next: "后门升梯井", setpiece: "锈死的水闸",
-    traversal_focus: "捷径解锁", pacing_role: "reward" },
-  bell_stair_well: { name: "后门升梯井", kind: "shaft", depth: 5,
-    objective: "沿升梯一路爬回钟骨站厅。", guide: "这是水窖与迷园唯一的回程。",
-    danger: "升梯很长，别在中途松手。", next: "钟骨长梯站厅", setpiece: "贯穿三层的升梯井",
-    traversal_focus: "纵向回环", pacing_role: "explore_and_loop" },
-  root_vault: { name: "根须库房", kind: "treasure", depth: 7,
-    objective: "搜刮库房，听织线学徒的姐姐讲深井的事。", guide: "库房再往东就是井喉。",
-    danger: "孢箱会炸。", next: "井喉", setpiece: "堆满松脂罐的库房",
-    traversal_focus: "奖励与叙事", pacing_role: "respite" },
-  well_throat: { name: "井喉", kind: "gate", depth: 8,
-    objective: "抵达被王冠纹章封死的井喉。", guide: "需要王冠共鸣（寂冠核心）；门后是深井黑潮与第一份证词。",
-    danger: "井下传来潮声，像很多人同时呼吸。", next: "深井黑潮（终局）", setpiece: "封铃井盖",
-    traversal_focus: "终局门", pacing_role: "foreshadow" },
-  // E ------------------------------------------------------------------------
-  overgrowth_gate: { name: "苔脉门厅", kind: "corridor", depth: 4,
-    objective: "从走廊裂口坠入西苔脉。", guide: "这条支脉通向迷园深处。",
-    danger: "落地后无法原路爬回。", next: "缠根迷径", setpiece: "根须撕开的门洞",
-    traversal_focus: "单向下探", pacing_role: "explore_and_loop" },
-  tangle_maze: { name: "缠根迷径", kind: "corridor", depth: 4,
-    objective: "在缠根间穿行，路越走越窄。", guide: "顶上的根越来越低——快到了。",
-    danger: "窄径难以腾挪。", next: "垂藤井", setpiece: "缠根压顶的窄径",
-    traversal_focus: "压缩通道", pacing_role: "tension" },
-  vine_well: { name: "垂藤井", kind: "shaft", depth: 5,
-    objective: "沿垂藤逐级坠入井底。", guide: "东壁的竖井要墙跳才能上去。",
-    danger: "藤条只接得住一次。", next: "迷园歇脚", setpiece: "垂藤单向井",
-    traversal_focus: "纵向下探", pacing_role: "tension" },
-  mossgrip_shaft: { name: "苔壁竖井", kind: "gate", depth: 4,
-    objective: "沿可攀苔壁跳上竖井。", guide: "需要丝壁攀附（铸雨渠）。",
-    danger: "苔壁湿滑。", next: "垂藤井", setpiece: "两面对峙的苔壁",
-    traversal_focus: "回访门", pacing_role: "reward" },
-  maze_respite: { name: "迷园歇脚", kind: "save", depth: 6,
-    objective: "在祭坛前最后一次点灯。", guide: "下面就是断枝祭坛——准备好再跳。",
-    danger: "安全屋，但下方传来钟声。", next: "断枝祭坛", setpiece: "根须间的苔灯",
-    traversal_focus: "战前存档", pacing_role: "respite" },
-  broken_branch_altar: { name: "断枝祭坛", kind: "arena", depth: 7,
-    objective: "击败苔脉守卫，取回绯线冲刺。", guide: "拿到冲刺后，全庭的钟隙都为你打开。",
-    danger: "守卫的巢就在祭坛正中。", next: "闸厅（东出）", setpiece: "巨窟中的断枝祭坛",
-    traversal_focus: "精英战与能力获取", pacing_role: "climax" },
-  moss_veins: { name: "苔脉裂缝", kind: "gate", depth: 7,
-    objective: "查看透出灯影的黑曜裂缝。", guide: "需要灯影相位（黑曜巡礼路）。",
-    danger: "裂缝里的灯影在动。", next: "黑曜巡礼路（回访）", setpiece: "透光的黑曜裂缝",
-    traversal_focus: "回访门", pacing_role: "foreshadow" },
-  // F ------------------------------------------------------------------------
-  rust_approach: { name: "锈冠前庭", kind: "corridor", depth: 4,
-    objective: "突破重怪把守的前庭。", guide: "走廊重怪硬吃不亏——绕背打。",
-    danger: "前庭敌人密集。", next: "齿轮平台", setpiece: "锈蚀的仪仗残骸",
-    traversal_focus: "重压走廊", pacing_role: "pressure" },
-  gear_terrace: { name: "齿轮平台", kind: "arena", depth: 4,
-    objective: "清掉齿轮哨卫，登上殿前台地。", guide: "上层齿架可以借力。",
-    danger: "哨卫合围很快。", next: "殿前钟龛", setpiece: "半埋的巨齿轮",
-    traversal_focus: "立体战斗", pacing_role: "pressure" },
-  pre_boss_shrine: { name: "殿前钟龛", kind: "save", depth: 4,
-    objective: "点亮殿前苔灯，准备面对守母。", guide: "死亡回跑很短。",
-    danger: "门后就是守母的领域。", next: "锈冠殿", setpiece: "殿前苔灯",
-    traversal_focus: "战前存档", pacing_role: "tension" },
-  rust_crown_hall: { name: "锈冠殿", kind: "boss", depth: 4,
-    objective: "击败苔钟守母，取回王冠裂片。", guide: "入口会在战斗时封闭。",
-    danger: "守母的震地与冲撞覆盖全场。", next: "冠后宝库", setpiece: "守母钟殿",
-    traversal_focus: "首领战", pacing_role: "boss" },
-  crown_treasury: { name: "冠后宝库", kind: "treasure", depth: 4,
-    objective: "清点守母守了一生的东西。", guide: "头顶的裂口通向钟隙渡口。",
-    danger: "战后余震。", next: "排水钟管", setpiece: "王冠祭器堆",
-    traversal_focus: "战后奖励", pacing_role: "denouement" },
-  drain_bellpipe: { name: "排水钟管", kind: "exit", depth: 4,
-    objective: "钻入排水钟管，前往铸雨渠。", guide: "出口通往第二章。",
-    danger: "管内潮湿铁声隆隆。", next: "第二章：铸雨渠", setpiece: "巨大的排水钟管",
-    traversal_focus: "章节收束", pacing_role: "denouement" },
-};
 const ROOM_ORDER = Object.keys(ROOMS);
 
 // ---- platform layout -------------------------------------------------------
@@ -347,6 +173,10 @@ const GATES = [
   { id: "gate_wall_mossgrip",  rect: [1990, 4360, 42, 320], ability: "silk_wall_grip",    name: "丝壁攀附", rooms: ["vine_well", "mossgrip_shaft"] },
   { id: "gate_jump_salt",      rect: [5080,  430, 42, 300], ability: "double_thread_jump", name: "双线跃",   rooms: ["salt_corridor", "salt_corridor"] },
   { id: "gate_break_marrow",   rect: [4020,  952, 140, 26], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["belfry_mid", "bell_marrow_cell"] },
+  // The cell is also open to the shaft step (west) and the lift shaft (east);
+  // both sides carry the same condition as the floor.
+  { id: "gate_marrow_side",    rect: [3972, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_ascent", "bell_marrow_cell"] },
+  { id: "gate_marrow_lift",    rect: [4178, 1026, 42, 184], ability: "thorn_downstrike",  name: "棘线下劈", rooms: ["bell_marrow_cell", "bell_marrow_cell"] },
   { id: "gate_shadow_veins",   rect: [ 440, 5270, 42, 300], ability: "lantern_phase",     name: "灯影相位", rooms: ["moss_veins", "moss_veins"] },
   { id: "gate_crown_well",     rect: [3990, 5800, 42, 240], ability: "crown_resonance",   name: "王冠共鸣", rooms: ["well_throat", "well_throat"] },
 ];
@@ -359,233 +189,8 @@ const centerX = (p) => p.x + p.w / 2;
 // Lines are copied verbatim. `dialogue` keeps the 3-line legacy fallback
 // (= first three first_meet lines); `story_dialogue` carries the six-state
 // machine consumed by main_level.gd `_resolve_npc_lines`.
-const NPC_STORY = [
-  {
-    id: "npc_threadsmith_apprentice", name: "织线学徒", role: "threadsmith",
-    platform: "shrine_floor", dx: -90,
-    dialogue: [
-      "左键斩击，右键缝回一口气；绯线救命，也会把贪心的人勒住。",
-      "E 能让线猛地收紧，打出爆裂；F 能交谈、拉机关、敲醒旧钟门。",
-      "别把苔钟庭当终点，六座失声之城都在等你把名字听回来。",
-    ],
-    story_dialogue: {
-      first_meet: [
-        "左键斩击，右键缝回一口气；绯线救命，也会把贪心的人勒住。",
-        "E 能让线猛地收紧，打出爆裂；F 能交谈、拉机关、敲醒旧钟门。",
-        "别把苔钟庭当终点，六座失声之城都在等你把名字听回来。",
-        "我的手艺只剩这三句；剩下的，你得自己往前缝。——收好线。",
-      ],
-      repeat: [
-        "线要省着用，话也是；我这残影多说一个字，就淡一分。",
-        "姐姐说过，断线不可怕，可怕的是不敢打结的人。——别贪线。",
-        "你的绯线比我的亮；亮的线，该往黑的地方走。",
-      ],
-      after_ability: [
-        "你把线握成了冲刺——好手艺；线一绷直，人就追上了自己的影子。",
-        "断枝祭坛肯把冲刺给你，说明它认你的手；别拿它去追不该追的近路。——稳住线。",
-      ],
-      after_boss: [
-        "守母倒下时，庭里的苔安静了半拍；那半拍，是它替全城松的一口气。",
-        "印记在响雨声，去下面吧；线往下坠的时候，记得你还有手。",
-      ],
-      late_game: [
-        "井喉的证词你也听了？那口井压着的不是水，是没寄出去的话。",
-        "我是残影，记不全自己的名字；可你手里那条线记得。——替我攥紧。",
-      ],
-      true_ending_branch: [
-        "姐姐还活着，还在修长梯？那我这点线，总算没白留在门口。",
-        "去改契约吧；把我的名字缝回去的时候，轻一点，那里破了很多年。",
-      ],
-    },
-    dialogue_meta: {
-      ability_ref: "thread_dash", testimony_ref: "testimony_01", quest_flag: "",
-      leave: { condition: "ending_c_done", effect: "残影淡去；教学三句由 npc_bellway_weaver 缝入 bellbone_station 钟绳（环境交互）" },
-    },
-    identity: "年轻织线匠的残影，守在入庭钟门，确认新巡礼者是否还能感知绯线。",
-    motive: "不想看见后来者在第一座庭院就被王冠消耗掉。",
-    help: "教学：左键斩击、右键缝补、E绯线爆裂、F交互；说明六城巡礼目标。",
-  },
-  {
-    id: "npc_gate_pilgrim", name: "守门朝圣者", role: "pilgrim",
-    platform: "hub_floor_e", dx: 140,
-    dialogue: [
-      "正门被锈钟封死，别从正面硬闯；钟不怕勇敢，只怕清净——把庭里的敌群清了，它自会松口。",
-      "三处敌群守在起步桥、下层外庭和上层钟廊；清完再回来，门闩会自己记得你。",
-      "迷路就看苔光镜，亮起的房间会记住你的脚步。",
-    ],
-    story_dialogue: {
-      first_meet: [
-        "正门被锈钟封死，别从正面硬闯；钟不怕勇敢，只怕清净——把庭里的敌群清了，它自会松口。",
-        "三处敌群守在起步桥、下层外庭和上层钟廊；清完再回来，门闩会自己记得你。",
-        "迷路就看苔光镜，亮起的房间会记住你的脚步。",
-      ],
-      repeat: [
-        "别催门，门比你有耐心；它已经等了一个王朝。",
-        "我在这门前站老了，站成了半根门柱；至少门柱不会再犯错。",
-        "别学我当年，仗着腿快就往钟口里钻；钟咽下过比我体面的人。",
-      ],
-      after_ability: [
-        "你冲过了当年绊倒我的那道裂缝？别得意——裂缝还在，只是这次它没吃到人。",
-        "别把冲刺当翅膀，它只是一根绷直的线；线会断，地不会。",
-      ],
-      after_boss: [
-        "守母倒了，正门开了条缝；别问我为什么不进去——门开了，我反而不知道该迈哪只脚。",
-        "你从殿里出来时的脚步声，和当年进去没出来的那些人不一样；轻一些，也重一些。",
-      ],
-      late_game: [
-        "井喉的话你听见了？别转述给我，我这把年纪，扛不动别人没喊完的救命。",
-        "原来门后压着的从来不是路，是话；难怪我叩了半辈子，它一声不应。",
-      ],
-      true_ending_branch: [
-        "别替我改什么命；我只求改完契约那天，这扇门开着，风能进来。",
-        "若钟再响，我就迈脚；左脚进门，右脚还留在外面替你们守着。",
-      ],
-    },
-    dialogue_meta: { ability_ref: "thread_dash", testimony_ref: "testimony_01", quest_flag: "", leave: null },
-    identity: "被困在正门前的老巡礼者，曾经试图硬闯锈钟门失败。",
-    motive: "不想再看见后来者重复自己的错误。",
-    help: "指明三处敌群目标；提示绕行路线和地图使用。",
-  },
-  {
-    id: "npc_gear_cartographer", name: "升台绘图师", role: "cartographer",
-    platform: "ro_floor", dx: -40,
-    dialogue: [
-      "青色竖条是你，金色点是敌群，琥珀点是机关，红色门后有不讲理的东西。",
-      "地图不替你战斗，但它会告诉你哪里还没走过、哪里还能回来。",
-      "上层钟廊能绕回后门，别在下庭把自己绕成一团苔。",
-    ],
-    story_dialogue: {
-      first_meet: [
-        "青色竖条是你，金色点是敌群，琥珀点是机关，红色门后有不讲理的东西。",
-        "地图不替你战斗，但它会告诉你哪里还没走过、哪里还能回来。",
-        "上层钟廊能绕回后门，别在下庭把自己绕成一团苔。",
-      ],
-      repeat: [
-        "我的手摇不动升台了，只摇得动笔；你多走一间房，我就多活一格。",
-        "西迷园我留了空白——不是没画，是画了会被苔吃掉；那种房间，得用脚记。",
-        "北边、上头、再往上；这张图的尽头是一顶冠，我这辈子只画到它的边。",
-      ],
-      after_ability: [
-        "你会冲刺了？好——把钟隙渡口那道红斜线替我改成绿的，我等这一笔等了十年。",
-        "冠裂隙里有我最后一页残图；取回来，这张庭院图才算合得上。",
-      ],
-      after_boss: [
-        "殿里的红门我可以涂掉了；涂掉一扇红门，比画十间新房还痛快。——标好了。",
-        "排水钟管往下是铸雨渠，我只画到管口；管口以下，纸会被雨说服。",
-      ],
-      late_game: [
-        "残页合上了，四十二间，一间不缺；我这只手，可以停在最后一格里了。",
-        "别把我的图折角；图角一折，就有一间房永远背对着你。——都标好了。",
-      ],
-      true_ending_branch: [
-        "若契约改成，替我在图角落画一枚小钟；不用像，响就行。",
-        "六张区图拼起来是一口钟的剖面——我早看出来了，只是不敢先说。",
-      ],
-    },
-    dialogue_meta: {
-      ability_ref: "thread_dash", testimony_ref: "testimony_01", quest_flag: "item_map_fragment_returned",
-      leave: { condition: "late_game 台词播毕", effect: "长眠；原位替换为「完整庭院图」拾取点（全图揭示，兑现地图残页描述效果）" },
-    },
-    identity: "维护旧庭院升台图例的绘图师，身体半嵌进齿轮升降机。",
-    motive: "希望自己的最后一版地图不再白画。",
-    help: "解释地图图例、战斗标记标记、机关标记和 Boss 门标记。",
-  },
-  {
-    id: "npc_backdoor_sacristan", name: "后门司铃人", role: "sacristan",
-    platform: "sl_floor", dx: -130,
-    dialogue: [
-      "钟法有三：鸣是唤醒，叩是询问，息是告别；巡礼者，您今天用哪一种？",
-      "闸厅的拉杆连着后门升梯；清净了水窖就来拉它——升梯一响，死回来的路会短一半。",
-      "记住，王冠不是戴在谁头上的金属，它是一口倒扣在城上的钟。——钟记得。",
-    ],
-    story_dialogue: {
-      first_meet: [
-        "钟法有三：鸣是唤醒，叩是询问，息是告别；巡礼者，您今天用哪一种？",
-        "闸厅的拉杆连着后门升梯；清净了水窖就来拉它——升梯一响，死回来的路会短一半。",
-        "记住，王冠不是戴在谁头上的金属，它是一口倒扣在城上的钟。——钟记得。",
-      ],
-      repeat: [
-        "别小看捷径；捷径是庭院给肯回头的人留的礼数。",
-        "我守的不是后门，是「还愿意回来」这件事。——钟记得。",
-      ],
-      after_ability: [
-        "有了冲刺，升梯之外您又多一条回家的线；路多了，人才敢走远。",
-        "叩门用指节，冲刺用命；两样都别用错地方。",
-      ],
-      after_boss: [
-        "守母息了。听清楚——是「息」，不是「死」；守了这么多年的东西，配一个体面的钟法。",
-        "排水钟管已经替您敲过三声「鸣」；下面的雨，会接住你。——钟记得。",
-      ],
-      late_game: [
-        "井喉那口封铃井盖，是我师父的师父封的；他们封时用的是「息」，您若开，请用「叩」。",
-        "证词这种东西，钟龛存不下，只有人心存得下；您既然听了，就别弄丢。",
-      ],
-      true_ending_branch: [
-        "改契约那天，替我摇一次「鸣」；这口庭院的钟，欠全城一个早晨。",
-        "六城的钟龛我都点过名，只差冠里那一座；替我去，替我听。——钟记得。",
-      ],
-    },
-    dialogue_meta: { ability_ref: "thread_dash", testimony_ref: "testimony_01", quest_flag: "", leave: null },
-    identity: "驻守闸厅的后门司铃人，以钟礼三法「鸣、叩、息」归类庭院里的一切动作。",
-    motive: "守的不是后门，是「还愿意回来」这件事；等一个替全城摇响「鸣」的人。",
-    help: "提示闸厅拉杆接通后门升梯：清净水窖后拉杆，死亡回跑缩短一半。",
-  },
-  {
-    id: "npc_runback_scout", name: "回廊斥候", role: "scout",
-    platform: "pbs_floor", dx: 120,
-    dialogue: [
-      "记下：殿前那盏亮着的灯是诱饵，真正的歇处在你身后的钟龛。",
-      "记下：守母没有法术，只有冲撞、钟舌横扫和一顶太重的冠；前摇亮琥珀色，就滚。",
-      "记下：留一口能量给缝补；贪刀的人，会被震地接成一段旧传说。",
-    ],
-    story_dialogue: {
-      first_meet: [
-        "记下：殿前那盏亮着的灯是诱饵，真正的歇处在你身后的钟龛。",
-        "记下：守母没有法术，只有冲撞、钟舌横扫和一顶太重的冠；前摇亮琥珀色，就滚。",
-        "记下：留一口能量给缝补；贪刀的人，会被震地接成一段旧传说。",
-      ],
-      repeat: [
-        "我的前任记了三页就进殿了，尸体比笔记先落地；所以我记满三十页才敢站在这儿。",
-        "观武要诀只有一条：它抬冠，你退；它垂冠，你上。别的都是注脚。",
-      ],
-      after_ability: [
-        "记下：冲刺能穿过守母的横扫，穿不过它的落点；躲招躲的是「下一招」。",
-        "你有冲刺，比我当年多一条命；把这条命用在第二阶段。",
-      ],
-      after_boss: [
-        "打赢了？让我看看印记——好，温的。三十页笔记今天全部作废，作废得漂亮。",
-        "我的任务完了。我去黑曜路，那里还有一支没人记录的军队。——记下：我们两清了。",
-      ],
-      late_game: [
-        "（观武录末页）记下：读到这页的人若已拿到井喉证词，请把本册烧掉——观武的时代结束了，听证的时代开始。",
-        "（观武录夹页）黑曜路，战冢，第三排；若我没回来，那里会多一杆插反的枪。",
-      ],
-      true_ending_branch: [
-        "记下：斥候戊字第七号，改行了；现在记录的不是招式，是名字。",
-        "你要改契约？这份军报我署名作证——这是我头一回敢在报告上写自己的名字。",
-      ],
-    },
-    dialogue_meta: {
-      ability_ref: "thread_dash", testimony_ref: "testimony_05", quest_flag: "",
-      leave: { condition: "after_boss 播毕", effect: "离场；原位留《守母观武录》拾取点（late_game 两条即笔记文本）；ch5 war_graves 重逢后播 true_ending_branch" },
-    },
-    identity: "殿前钟龛旁的回廊斥候，记满三十页观武录才敢站在守母门前。",
-    motive: "用观武录赎罪；守母倒下之日笔记作废，转赴黑曜路改记名字。",
-    help: "战报：守母只有冲撞、钟舌横扫和震地，前摇亮琥珀色就躲；留能量给缝补。",
-  },
-];
 
 // ---- one-shot ambient whispers (绯线低语, doc §13.1) ------------------------
-const WHISPERS = [
-  { id: "w_ch01_hub", trigger: "enter_room", room_id: "court_hub", line: "……抬头。整座城，都住在一口钟的里面。" },
-  { id: "w_ch01_station", trigger: "enter_room", room_id: "bellbone_station", line: "封存的站厅。这道竖井贯穿世界——线在往上指，也在往下指。" },
-  { id: "w_ch01_crownwalk", trigger: "enter_room", room_id: "crown_walk", line: "风从冠上来。跳下去吧，线会接住你——它记得这条路。" },
-  { id: "w_ch01_vista", trigger: "enter_room", room_id: "rain_overlook", line: "脚下的雨声没有停过。有一座城，在下面淋着。" },
-  { id: "w_ch01_well", trigger: "enter_room", room_id: "well_throat", line: "井盖下有话在翻身。线绷紧了——它不想靠近，又不肯离开。" },
-  { id: "w_ch01_grotto", trigger: "enter_room", room_id: "fake_moss_grotto", line: "地板说了谎。但谎言下面，藏着庭院真正的记性。" },
-  { id: "w_ch01_bossdoor", trigger: "enter_room", room_id: "rust_crown_hall", line: "殿里的锈味很旧，旧得像一句守了太久的诺言。" },
-  { id: "w_ch01_dash", trigger: "pickup_item", item_id: "thread_dash", line: "线绷直了。从今往后，「够不着」要重新丈量。" },
-];
 
 function build() {
   const base = JSON.parse(readFileSync(BASE_PATH, "utf8"));
@@ -654,7 +259,10 @@ function build() {
 
   const map_rooms = ROOM_ORDER.map((id) => {
     const meta = ROOMS[id], b = rb[id], c = cells[id];
-    const layout_rect = [round(b.minx - 40), round(b.miny - 150), round(b.maxx - b.minx + 80), round(b.maxy - b.miny + 210)];
+    // layout_rect pins a room's bounds where the default platform margin is
+    // wrong: a closed room must own its ability gates (map markers) without
+    // reaching the footholds outside them (room visits).
+    const layout_rect = meta.layout_rect ?? [round(b.minx - 40), round(b.miny - 150), round(b.maxx - b.minx + 80), round(b.maxy - b.miny + 210)];
     return {
       id, name: meta.name, range: [round(b.minx - 40), round(b.maxx + 40)], depth: meta.depth, kind: meta.kind,
       archetype: meta.kind, layout_rect, map_rect: [c.col * 280, c.row * 210, 236, 168],
@@ -686,6 +294,7 @@ function build() {
     edge("court_hub", "bell_ascent", "passage", "climb"),
     edge("bell_ascent", "belfry_mid", "passage", "walk_jump"),
     edge("belfry_mid", "bell_marrow_cell", "ability_gate", "downstrike", "", false, "thorn_downstrike"),
+    edge("bell_ascent", "bell_marrow_cell", "ability_gate", "downstrike", "", true, "thorn_downstrike"),
     edge("belfry_mid", "hidden_attic", "passage", "walk_jump"),
     edge("hidden_attic", "salt_corridor", "passage", "walk_jump"),
     edge("belfry_mid", "belfry_top", "passage", "walk_jump"),
@@ -945,45 +554,6 @@ function wallSlots(platforms) {
 }
 
 // ---- uniqueness mirror (tools/audit_map_uniqueness.py) ---------------------
-const median = (arr) => { const s = [...arr].sort((a, b) => a - b); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
-function mainRouteOrdered(design) {
-  return design.filter((p) => p.route_role === "main").sort((a, b) => a.route_order - b.route_order);
-}
-function rhythmTokens(route) {
-  if (route.length < 2) return [];
-  const centers = route.map((p) => [p.x + p.w / 2, p.y + p.h / 2]);
-  const dists = centers.slice(1).map((c, i) => Math.hypot(c[0] - centers[i][0], c[1] - centers[i][1]));
-  const nz = dists.filter((d) => d > 1e-6);
-  const dScale = nz.length ? median(nz) : 1;
-  const wScale = median(route.map((p) => p.w).filter((w) => w > 0)) || 1;
-  const toks = [];
-  for (let i = 0; i + 1 < centers.length; i++) {
-    const dx = centers[i + 1][0] - centers[i][0], dy = centers[i + 1][1] - centers[i][1];
-    const a = ((Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) % 8) + 8) % 8;
-    const d = Math.min(12, Math.max(0, Math.round((dists[i] / dScale) * 4)));
-    const w = Math.round((route[i + 1].w / wScale) * 4);
-    toks.push(`a${a}:d${d}:w${w}`);
-  }
-  return toks;
-}
-function sizeTokens(route) {
-  if (!route.length) return [];
-  const scale = median(route.map((p) => Math.sqrt(Math.max(1, p.w * p.h))));
-  return route.map((p) => `w${Math.round((p.w / scale) * 4)}:h${Math.round((p.h / scale) * 4)}`);
-}
-function duplicateWindows(values, size) {
-  const seen = new Map(); const dups = [];
-  for (let i = 0; i + size <= values.length; i++) {
-    const key = values.slice(i, i + size).join("|");
-    if (seen.has(key)) dups.push({ first: seen.get(key), pos: i });
-    else seen.set(key, i);
-  }
-  return dups;
-}
-function repeatRatio(values, size) {
-  const total = Math.max(1, values.length - size + 1);
-  return duplicateWindows(values, size).length / total;
-}
 function physicsOk(r) {
   const reachNoDash = bfsReach(r.design, "start_ground", false);
   if (r.design.some((p) => p.route_role === "main" && !reachNoDash.has(p.id))) return false;

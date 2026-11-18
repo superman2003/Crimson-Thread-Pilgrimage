@@ -1,0 +1,13 @@
+{
+  "kind": "ash_banner_imp",
+  "clip": "actions_attack-recover",
+  "status": "rejected",
+  "reason": "Both body sizes/alpha/rig passed, but full clip joins attack0.5700/recover0.5918 exceed0.5. Reject both partial repairs; repaint each complete24cel clip.",
+  "source_sha256": "d6373c65c6f0a3a99a593c04beda1ef9832267863ca54253710fd958f427a630",
+  "prompt_sha256": "d70c0e1dae0d357dfcda7fc91671a885f321b74e7dde53f593b72c022d9d3333",
+  "reference_sha256": "8172a965570db14a800ebb42b12973f45d3333785b1740d7aa880aed01cef8ee",
+  "actual_prompt": "Repaint EXACT16mapped ASH BANNER IMP repair cels,4equal columns x4equal rows, all16occupied row-major. Image1 is AUTHORITATIVE for each distinct pose, complete silhouette/bodyarea, anchor/feet, staff/flag angles and celorder for joining untouched original frames. First8cells attackframes2,3,4,5,20,21,22,23; last8cells recoverframes1,2,3,4,5,6,7,8. Preserve mapped forward staff thrust/crouch, then recover the attached flag into upright behindshoulder guard, exactly as each frozenpose; refine gesture detail without shifting anchors or changingbody/clothmass. Image2accepted retreat windup source identity/material only. Small insect imp, elongated ivory horned mask black eyeholes and swept-up curves, ashgray layered wing armor, darkslender limbs/boots, exactly ONE long goldbrown STAFF with attached broad ragged SCARLET-and-CHARCOAL PENNANT. Staff and cloth move together, no detached neck cape or bare spear, no extraflags/weapons/limbs/humanface/effects. Crisp refined painted plates/clothfolds/pole, opaquecleancontours, mutedredblackivory. Each cel unique with exact original intermediate anatomy, consistent apparentbodymass; no repeated neutralposes or resizing to simulate motion. Entire pole/flag/horns/boots compact inside own equalcell with min35pxclearmargins, no overlap/clippedtips. TRUE transparent RGBA cutouts, allguttersalpha0, no matte/haze/background/floor/shadows/glow/particles/detacheddots/coloredfringe/checkerboard/grid/text.",
+  "reference_recipe": "Frozen16cel combined attack-recover guide from original actions03/04 source_frame/reference_fit entries; accepted actions_01 full24cel windup source SHA256 a7f8735a96e118b477295b0e569e78ab3a8a3eff5b885b82b22268eb8832b219 supports identity/detail only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/ash_banner_imp-actions-attack-recover.json",
+  "guide_sha256": "1eb42e2dd00310ff4f9c4ded6c50ff9a5d84494c852363e8bbb9dc65bacc9c88"
+}

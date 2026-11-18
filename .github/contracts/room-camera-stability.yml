@@ -4,6 +4,16 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/player_damage.gd'
+      - 'godot/scripts/player_input_buffer.gd'
+      - 'godot/scripts/player_abilities.gd'
+      - 'godot/scripts/player_animation.gd'
+      - 'godot/scripts/player_attack.gd'
+      - 'godot/scripts/player_audio.gd'
+      - 'godot/scripts/player_effects.gd'
+      - 'godot/scripts/player_seals.gd'
+      - 'godot/scripts/player_sprites.gd'
+      - 'godot/scripts/player_traversal.gd'
       - 'godot/scripts/camera_focus.gd'
       - 'godot/scripts/room_camera*.gd'
       - 'godot/scripts/camera_focus_validation.gd'
@@ -63,7 +73,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/room-camera-stability-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: room-camera-stability-logs
           path: |

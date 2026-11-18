@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
 
@@ -14,7 +15,7 @@ func _run() -> void:
     await process_frame
     await process_frame
 
-    var start_ground := scene.get_node_or_null("start_ground")
+    var start_ground := LEVEL_HOST.find(scene, "start_ground")
     _assert(start_ground != null, "start platform exists")
     _assert(start_ground.get_child_count() >= 6, "platform has layered visual plates")
 

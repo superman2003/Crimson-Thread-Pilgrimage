@@ -1,0 +1,13 @@
+{
+  "kind": "bellroot_acolyte",
+  "clip": "actions_root_bell_wave_recover_full",
+  "status": "rejected",
+  "reason": "new painting guard detects lost original warm accent colours",
+  "source_sha256": "073fb8e98397fcd75db9114232aab27b4118158f4744103358666372e42aec2c",
+  "prompt_sha256": "523c0569a08d3d331c0f3127159dfd6936478d5a8cab66ce4a40447594efd313",
+  "reference_sha256": "279e1f0589fd6883b2609b01317d0a336642a8aabf2cb4dcbe6f78e7e1fbcfae",
+  "actual_prompt": "Edit ONLY the LAST12 CELLS (cels12-23) of the exact8x3,24-cel recovery sheet input1. Preserve cels0-11 visually unchanged, including poses, head/body size, placement, plantedtoes and cloak detail. Input2 is the exact ACCEPTED IDLE0 silhouette to join at the finalcel23, on the original rig. The current last12 drawings finish too tall/straight and too far forward. Repaint cels12-23 with gradually bending mantid knees and a gently hunched forward spine, so the torso/beaked head settle LOWER toward the idle pose, hips weight slightly rearward, while both toe contacts keep their SAME cell baseline. Bycel23 match input2's bent knees, lower/slouched shoulder height, compact bent forearm and narrow draped leaf robe. This is actual articulated posture, not a scaled or translated copy: head/limb lengths stay the SAME, no shrinking body, no sliding toes. Gradual2px-like pose increments across12-23, no pop at11->12; gather/overlap leaf panels around hips/knees so no robe tip goes below the toes. Keep the one bell attached behindhead and natural small sway. Same thin acolyte identity, ivory beaked mask/blackeye, backward branchcrown, brass bell, ivory jointed arms/brown hooked forelimb, olive/sage/tan root-fiber leaf panels and brown insect legs. Exact8equalcols x3equalrows, all24unique, ample clear margins, no clipping/overlap. TRUE transparent RGBA alpha0background/gutters; preserve natural sprite edges, no matte/haze, shadows/floor, glow, effects/particles, labels/text, grid or checkerboard.",
+  "reference_recipe": "Built-in image_gen correction of full recovery exec-42a4258c-5d6f-46a0-9aee-e7ffaf586fb6.png: late12 tall poses failed old idle handoff0.5788. Repaint knees/hips/spine into actual accepted idle0 posture while preserving cels0-11 and toe anchors; no procedural per-frame transformation. Whole-source ground registration uses accepted torso anchor303 and planted sole290; one shared scale/translation for every cel. Whole-source ending anchor offset-11.008px aligns with accepted idle0 body centroid; same translation for every drawing, feet unchanged.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/bellroot_acolyte-actions-root_bell_wave_recover-full.json",
+  "guide_sha256": "382d3f8bd21bd0d3bd8076d3609a7d9788196293bd201243b51078a3d17eb1bf"
+}

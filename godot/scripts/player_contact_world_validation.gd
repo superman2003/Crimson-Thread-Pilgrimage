@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Exact public camp, normal Input whiff then paid cleave versus the real bellwheel.
 ## No player/enemy position, HP, ability, damage suppression or cooldown writes.
 const SAVE:="user://test_v04_contact_world_20261024.json"
@@ -42,7 +43,7 @@ func run() -> void:
     await capture("world_measured_blade");await frames(35)
     var enemy:Node2D
     for node in get_nodes_in_group("enemy"):
-        if node.get_parent()==scene and node.spawn_id=="E07":enemy=node;break
+        if LEVEL_HOST.owns(scene, node) and node.spawn_id=="E07":enemy=node;break
     check(enemy!=null,"actual authored bellwheel is resident")
     if enemy==null:await finish();return
     var hp_before:int=enemy.hp;var paid:=false;var hit:=false

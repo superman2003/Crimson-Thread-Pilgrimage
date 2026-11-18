@@ -62,7 +62,7 @@ jobs:
             --suite optional_challenges --log-dir "$RUNNER_TEMP/beam-logs"
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: beam-art-logs
           path: ${{ runner.temp }}/beam-logs

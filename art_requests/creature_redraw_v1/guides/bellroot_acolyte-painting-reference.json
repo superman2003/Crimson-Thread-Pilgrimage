@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "kind": "bellroot_acolyte",
+  "baseline": "godot/assets/sprites/original_creatures/bellroot_acolyte/motion_v8_manifest.json",
+  "baseline_sha256": "c15885f540c01b8b5d58b1b032550880d886590c2e2966b39802dafd1de915c5",
+  "canvas": [
+    568,
+    310
+  ],
+  "entries": [
+    {
+      "clip": "root_bell_wave_windup",
+      "frame": 12,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+        "region": [
+          699,
+          771,
+          158,
+          244
+        ],
+        "margin": [
+          217,
+          46,
+          410,
+          66
+        ]
+      }
+    },
+    {
+      "clip": "root_bell_wave",
+      "frame": 12,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+        "region": [
+          3007,
+          771,
+          194,
+          175
+        ],
+        "margin": [
+          180,
+          115,
+          374,
+          135
+        ]
+      }
+    },
+    {
+      "clip": "root_bell_wave_recover",
+      "frame": 12,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png",
+        "region": [
+          1390,
+          1030,
+          187,
+          229
+        ],
+        "margin": [
+          203,
+          61,
+          381,
+          81
+        ]
+      }
+    }
+  ],
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/bellroot_acolyte/combat_motion_v7.png": "49ce12da55a20349c8e77e997ccc7527ada6935cf3514f3c8e7efe6f8807beeb"
+  },
+  "actual_color_board_sha256": "6c783424cfe26486e3893d594e46c33280e3b7a1970968f45a061cb3930394e9",
+  "thumbnail": "art_requests/creature_redraw_v1/receipts/bellroot-original-wave-colors.png",
+  "explanation": "Original wave frame12 in each of three clips placed at frozen margin on the original rig, displayed over neutral(32,33,41). Used only as color reference. First restoration sources are rejected receipts; final palettes selected by builtin image_gen, no scripted colour edits."
+}

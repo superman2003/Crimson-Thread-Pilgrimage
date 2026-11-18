@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const Main = preload("res://scripts/main_level.gd")
 var failures := 0
 func _initialize() -> void:
@@ -32,9 +33,9 @@ func resident_npc(main: Node, npc_id: String) -> Area2D:
     main.player.global_position = main.to_global(point)
     for frame in range(120):
         await process_frame
-        var npc := main.get_node_or_null(NodePath(npc_id)) as Area2D
+        var npc := LEVEL_HOST.find(main, NodePath(npc_id)) as Area2D
         var snapshot: Dictionary = main.world_gameplay_residency.snapshot()
-        if is_instance_valid(npc) and npc.is_inside_tree() and npc.get_parent() == main and String(npc.get_meta("npc_id", "")) == npc_id and main.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
+        if is_instance_valid(npc) and npc.is_inside_tree() and LEVEL_HOST.owns(main, npc) and String(npc.get_meta("npc_id", "")) == npc_id and main.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
             main.player.set_physics_process(prior_physics)
             main.process_mode = prior_mode
             for paused in paused_enemies:
@@ -71,7 +72,7 @@ func run() -> void:
     main.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"):
         enemy.set_physics_process(false)
-    check(main.get_node_or_null("npc_gate_pilgrim") == null, "remote ordinary pilgrim remains deferred outside the arrival window")
+    check(LEVEL_HOST.find(main, "npc_gate_pilgrim") == null, "remote ordinary pilgrim remains deferred outside the arrival window")
     var npc: Area2D = await resident_npc(main, "npc_threadsmith_apprentice")
     if not is_instance_valid(npc):
         main.free()

@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "kind": "bell_mote",
+  "source_commit": "f01d18e6ac0f75eb95d8338bd3c22fb3e1e9966c",
+  "canvas": [
+    406,
+    183
+  ],
+  "entries": [
+    {
+      "clip": "idle",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_redraw_00.png",
+        "region": [
+          2,
+          2,
+          161,
+          142
+        ],
+        "margin": [
+          150,
+          27,
+          245,
+          41
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_redraw_00.png",
+        "region": [
+          1329,
+          2,
+          180,
+          147
+        ],
+        "margin": [
+          92,
+          23,
+          226,
+          36
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 8,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_redraw_00.png",
+        "region": [
+          904,
+          164,
+          180,
+          147
+        ],
+        "margin": [
+          92,
+          24,
+          226,
+          36
+        ]
+      }
+    }
+  ],
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/bell_mote/motion_redraw_00.png": "ef6d6973d0c4f4afc36330ebc4091d96011d93e02bc8f24ea1764b3e30d9d456"
+  },
+  "supporting_board_sha256": "3afbad008b3978ed30999445239c79be0706d4744aa80225dad1c546237652aa",
+  "supporting_board_thumbnail": "art_requests/creature_redraw_v1/receipts/bell_mote-entry-reference.png",
+  "explanation": "Fixed idle/walk poses used for the accepted entry repaint, on the original canvas without fitting or recentering. Supporting-board thumbnail records candidate context; rejected candidates remain receipts only. New final cels painted by built-in image_gen."
+}

@@ -7,6 +7,14 @@ on:
       - 'godot/scripts/input_prompt_bindings.gd'
       - 'godot/scripts/input_prompt_validation.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
       - 'godot/scripts/world_wayfinding.gd'
       - 'tools/run_godot_regressions.py'
       - 'tools/godot_suite_success_markers.json'
@@ -59,7 +67,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/prompt-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: input-prompt-readability-logs
           path: ${{ runner.temp }}/prompt-logs

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
 
@@ -26,7 +27,7 @@ func _run() -> void:
     _assert(_animation_bottom(player_sprite, "run") == _animation_bottom(player_sprite, "idle"), "idle and run share the same foot baseline")
     _assert(player_sprite.scale.x <= 0.70 and player_sprite.scale.y <= 0.70, "192px hero frames are scaled for platform readability")
 
-    var start_ground := scene.get_node_or_null("start_ground")
+    var start_ground := LEVEL_HOST.find(scene, "start_ground")
     _assert(start_ground != null, "start platform exists")
     _assert(_has_texture_node(start_ground, "Material"), "platform uses public CH01 tile")
     _assert(_count_textured_sprites(start_ground) >= 4, "wide platform repeats public CH01 tile sprites")

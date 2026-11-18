@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## All registered connectors: real player physics, fixture placement only at mouths.
 const PASSAGE := preload("res://scripts/world_passage.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -41,6 +42,8 @@ func spawn_region(region: String, point: Vector2) -> void:
     current_scene=scene
     scene.process_mode=Node.PROCESS_MODE_DISABLED
 
+var walk_loading_frames := 0
+
 func walk(direction: int) -> bool:
     release()
     Input.action_press("move_right" if direction>0 else "move_left")
@@ -49,8 +52,10 @@ func walk(direction: int) -> bool:
     var max_step := 0.0
     var movement_frames := 0
     var loading_deadline := 0
+    walk_loading_frames = 0
     while movement_frames < 4200:
         await frames()
+        if scene.world_loader.loading_canvas != null: walk_loading_frames += 1
         if not scene.world_passage.settling:
             movement_frames += 1
             scene.world_passage.step()
@@ -93,7 +98,7 @@ func _run() -> void:
         for side in ["a","b"]:
             var mouth: Dictionary=route[side]
             var other: Dictionary=route["b" if side=="a" else "a"]
-            var area: Node=scene.get_node(String(mouth.portal))
+            var area: Node=LEVEL_HOST.find(scene, String(mouth.portal))
             scene.player.global_position=area.global_position
             scene.player.velocity=Vector2.ZERO
             scene.world_platforms.warm(scene,area.global_position)
@@ -144,7 +149,12 @@ func _run() -> void:
             var state := STATE.new()
             check(state.read(SAVE) and state.data.current_region==other.region,"Completed destination is persisted")
             check(scene.player_world_position().distance_to(passage.last_result.world_position)<0.1,"Terminal coordinate rebase stays continuous")
-            print("PASSAGE_NETWORK route=",route.id," side=",side," distance=",passage.last_result.distance)
+            # W00 stages 4-5: every passage builds its destination during the walk
+            # and hands over at the terminal with no loading screen.
+            if String(route.id) in passage.STAGED_PASSAGES:
+                check(bool(passage.last_result.get("staged",false)),String(route.id)+" "+side+": destination built during the walk and handed over")
+                check(walk_loading_frames==0,String(route.id)+" "+side+": no loading screen at any frame (%d)" % walk_loading_frames)
+            print("PASSAGE_NETWORK route=",route.id," side=",side," distance=",passage.last_result.distance," staged=",passage.last_result.get("staged",false)," loading_frames=",walk_loading_frames," terminal_wait_frames=",passage.last_result.get("terminal_wait_frames",-1))
         roundtrips+=1
     scene.free()
     scene=null

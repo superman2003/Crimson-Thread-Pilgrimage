@@ -76,7 +76,7 @@ jobs:
             --summary-path artifacts/neighbor_gameplay/gpu_gameplay.json
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: world-gameplay-plan-logs
           path: |

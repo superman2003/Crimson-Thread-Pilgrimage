@@ -1,4 +1,9 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const RECIPE_TEXT := Color("d5ba86")
+const PRIMARY_TEXT := Color("eadcc6")
+
 var data: Dictionary = {}
 var selected := ""
 var hovered := ""
@@ -194,7 +199,7 @@ func _draw() -> void:
     _layout()
     var font := get_theme_default_font()
     draw_string(
-        font, Vector2(10, 23), "材料 / 图样", HORIZONTAL_ALIGNMENT_LEFT, 200, 15, Color("d5ba86")
+        font, Vector2(10, 23), "材料 / 图样", HORIZONTAL_ALIGNMENT_LEFT, 200, 15, RECIPE_TEXT
     )
     draw_string(
         font,
@@ -203,7 +208,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         220,
         15,
-        Color("d5ba86")
+        RECIPE_TEXT
     )
     for link in data.get("links", []):
         if not points.has(link.from) or not points.has(link.to):
@@ -227,7 +232,7 @@ func _draw() -> void:
                 HORIZONTAL_ALIGNMENT_LEFT,
                 45,
                 13,
-                Color("eadcc6")
+                PRIMARY_TEXT
             )
     for side in 2:
         for item in _items(side):
@@ -244,7 +249,7 @@ func _draw() -> void:
                 HORIZONTAL_ALIGNMENT_LEFT,
                 rect.size.x - 14,
                 13,
-                Color("eadcc6")
+                PRIMARY_TEXT
             )
             if side == 0 and item.proof:
                 draw_circle(rect.end - Vector2(8, 8), 3, Color("c4a56e"))
@@ -255,7 +260,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

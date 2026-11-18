@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Exercises the authored CH06 bell-tongue vault from a real physics fixture.
 ## Only the starting position is placed by the test; entry, NPC interaction,
 ## pickup, and the eastward return use ordinary movement/interaction input.
@@ -89,7 +90,7 @@ func run() -> void:
 	if not entered:
 		finish()
 		return
-	var npc: Area2D = scene.get_node_or_null("npc_crown_tongue")
+	var npc: Area2D = LEVEL_HOST.find(scene, "npc_crown_tongue")
 	check(npc != null, "authored old-king tongue NPC is present")
 	if npc == null or not await walk_to_x(2540.0, "old-king tongue"):
 		finish()
@@ -104,7 +105,7 @@ func run() -> void:
 	if await walk_to_x(2710.0, "optional crown echo shard"):
 		await tick(8)
 		check(int(scene.inventory_counts.get(SHARD, 0)) == initial_shards + 5, "live contact grants the optional shard amount once")
-		check(bool(scene.world_collected_ids.get(PICKUP, false)) and scene.get_node_or_null(PICKUP) == null, "pickup is latched and removed from the active region")
+		check(bool(scene.world_collected_ids.get(PICKUP, false)) and LEVEL_HOST.find(scene, PICKUP) == null, "pickup is latched and removed from the active region")
 		var saved := STATE.new()
 		check(saved.read(SAVE) and bool(saved.get_region(REGION).collected_ids.get(PICKUP, false)) and int(saved.data.inventory_counts.get(SHARD, 0)) == initial_shards + 5, "world save records the unique reward and inventory")
 	if await walk_to_x(3000.0, "east return to the throne approach"):
@@ -123,10 +124,10 @@ func run() -> void:
 	await tick(4)
 	scene.player.debug_invulnerable = true
 	check(String(scene.config.id) == REGION and int(scene.inventory_counts.get(SHARD, 0)) == initial_shards + 5, "reload restores the region and optional reward count")
-	check(scene.get_node_or_null(PICKUP) == null and bool(scene.world_collected_ids.get(PICKUP, false)), "collected shard stays absent after reload")
+	check(LEVEL_HOST.find(scene, PICKUP) == null and bool(scene.world_collected_ids.get(PICKUP, false)), "collected shard stays absent after reload")
 	if await walk_to_x(2710.0, "previous pickup after reload"):
 		await tick(8)
-		check(scene.get_node_or_null(PICKUP) == null and int(scene.inventory_counts.get(SHARD, 0)) == initial_shards + 5, "returning to the pickup after reload cannot grant it twice")
+		check(LEVEL_HOST.find(scene, PICKUP) == null and int(scene.inventory_counts.get(SHARD, 0)) == initial_shards + 5, "returning to the pickup after reload cannot grant it twice")
 	finish()
 
 func finish() -> void:

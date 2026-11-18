@@ -1,4 +1,9 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const DETAIL_TEXT := Color("c3baa0")
+const SUMMARY_TEXT := Color("d3b983")
+
 var matches: Array = []
 var tolerance := 150.0
 var selected := 0
@@ -115,7 +120,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             50,
             11,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     var line := PackedVector2Array()
     for i in matches.size():
@@ -136,7 +141,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
-        Color("d3b983")
+        SUMMARY_TEXT
     )
     draw_string(
         font,
@@ -145,7 +150,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if matches.is_empty():
         draw_string(
@@ -155,7 +160,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             size.x - LEFT - 40,
             16,
-            Color("c3baa0")
+            DETAIL_TEXT
         )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Real Player input along the full connector, with fixture endpoint placement.
 ## The tube has no encounters; this is not six-region combat acceptance.
 const SAVE := "user://world_passage_validation.json"
@@ -26,7 +27,7 @@ func _run() -> void:
     var player_id: int = scene.player.get_instance_id()
     var build_id: int = scene.build_system.get_instance_id()
     var origin_id: String = scene.config.id
-    var portal: Node = scene.get_node("moss_rain_pipe")
+    var portal: Node = LEVEL_HOST.find(scene, "moss_rain_pipe")
     if not await _jump_past_mouth(portal, passage):
         scene.free()
         await _frames(3)
@@ -37,12 +38,25 @@ func _run() -> void:
     scene.currency_count = 97
     scene.player.dash_cooldown = 1.1
     scene.player.global_position = portal.global_position
+    var enemy_visibility_before := {}
+    for enemy in get_nodes_in_group("enemy"):
+        if LEVEL_HOST.owns(scene, enemy): enemy_visibility_before[enemy.get_instance_id()] = enemy.visible
     _check(passage.begin("moss_rain_pipe"), "physical pipe enters at authored endpoint")
     _check(scene.player_world_position() == COORD.to_world(origin_id, portal.global_position), "entry does not teleport")
     _check(not passage.begin("moss_rain_pipe"), "double entry rejected")
     _check(scene.player.hp == 3 and scene.player.energy == 41 and scene.player.dash_cooldown == 1.1, "entry preserves resources and cooldown")
     _check(not scene.player._can_start_action(), "source actors cannot be attacked while frozen")
     _check(not scene.ui_canvas.visible, "source UI hidden in pipe")
+    # W00 stage 6: the room stays on screen at the mouth; it only stops.
+    _check(scene.chapter_terrain.visible and scene.cave_world.visible and scene.chapter_terrain.process_mode == Node.PROCESS_MODE_DISABLED and scene.cave_world.process_mode == Node.PROCESS_MODE_DISABLED, "source terrain stays visible but stopped in the pipe")
+    var shown_enemies := 0
+    var region_enemies := 0
+    for enemy in get_nodes_in_group("enemy"):
+        if LEVEL_HOST.owns(scene, enemy):
+            region_enemies += 1
+            if enemy.is_visible_in_tree(): shown_enemies += 1
+    _check(region_enemies > 0 and shown_enemies == 0, "frozen source enemies are hidden in the pipe (%d of %d shown)" % [shown_enemies, region_enemies])
+    _check(passage.get_index() > scene.region_root.get_index() and passage.get_index() < scene.player.get_index(), "tube draws above the frozen room and below the player")
     var before := FileAccess.get_file_as_string(SAVE)
     scene._save_world()
     _check(FileAccess.get_file_as_string(SAVE) == before, "pipe position is not written as checkpoint")
@@ -66,13 +80,17 @@ func _run() -> void:
     await _frames(3)
     _check(not passage.active and scene.player.global_position == portal.global_position, "cancel returns to source endpoint")
     _check(scene.ui_canvas.visible and scene.player.collision_layer == 1, "cancel restores UI and collision")
+    var changed_after := 0
+    for enemy in get_nodes_in_group("enemy"):
+        if LEVEL_HOST.owns(scene, enemy) and enemy_visibility_before.get(enemy.get_instance_id(), enemy.visible) != enemy.visible: changed_after += 1
+    _check(changed_after == 0 and scene.chapter_terrain.process_mode != Node.PROCESS_MODE_DISABLED and scene.cave_world.process_mode != Node.PROCESS_MODE_DISABLED, "cancel restores every enemy's visibility and resumes the room (%d changed)" % changed_after)
     _check(scene.player._can_start_action(), "cancel restores combat input")
     # Walk back over the mouth rather than teleporting: real collision/input.
     _check(passage.begin("moss_rain_pipe"), "reenter for physical reversal")
     await _walk(-1, false)
     _check(String(scene.config.id) == origin_id and not passage.active, "walking backwards exits into source")
     for portal_id in ["moss_rain_pipe", "rain_moss_pipe"]:
-        portal = scene.get_node_or_null(portal_id)
+        portal = LEVEL_HOST.find(scene, portal_id)
         if portal == null:
             _check(false, "expected portal exists " + portal_id)
             quit(1)
@@ -105,15 +123,30 @@ func _run() -> void:
         var target := "demo_ch02_rain_foundry_canal" if direction > 0 else origin_id
         _check(String(scene.config.id) == target, "full walk reaches " + target)
         _check(bool(passage.last_result.get("arrived", false)) and float(passage.last_result.get("distance", 0)) >= 8500, "full 8540px connector traversed by physics")
+        # This walk invalidates the route manifest after admission, so the hidden
+        # build cannot validate its destination: the terminal falls back to the
+        # ordinary budgeted load. (world_passage_network covers the hidden build.)
+        _check(not bool(passage.last_result.get("staged", false)) and walk_loading_frames > 0, "stale-manifest hidden build falls back to the terminal load")
+        print("PASSAGE_STAGED_FALLBACK direction=%d terminal_wait_frames=%d staging_wall_ms=%.1f handover_switch_ms=%.1f" % [direction, int(passage.last_result.get("terminal_wait_frames", -1)), float(scene.world_loader.last_transition.get("staging_wall_usec", 0)) / 1000.0, float(scene.world_loader.last_transition.get("handover_switch_usec", 0)) / 1000.0])
         _check(scene.get_instance_id() == host_id and scene.player.get_instance_id() == player_id and scene.build_system.get_instance_id() == build_id, "host player build identities survive terminal loading")
         _check(scene.player.hp == 3 and scene.player.energy == 41 and scene.currency_count == 97, "full walk preserves HP energy currency")
         _check(scene.player.collision_layer == 1 and scene.player.collision_mask != 64 and passage.get_child_count() == 0, "arrival clears tube physics and restores mask")
         _check(scene.player_world_position().distance_to(passage.last_result.get("world_position", Vector2.INF)) < 0.1, "terminal rebase preserves world position")
+        # W00 stage 1c: the region container is persistent. Arrival must leave it
+        # live and visible, with the destination's nodes inside it and unfrozen.
+        var region: Node2D = scene.region_root
+        _check(region != null and region.get_parent() == scene and region.visible and region.process_mode == Node.PROCESS_MODE_INHERIT, "region container stays live and visible after arrival")
+        # Only enemies suspended by distance may be disabled; a node left over from
+        # the passage freeze would be a disabled non-enemy.
+        var frozen_after: Array[String] = []
+        for node in region.get_children():
+            if node.process_mode == Node.PROCESS_MODE_DISABLED and not node.is_in_group("enemy"): frozen_after.append(String(node.name))
+        _check(region.get_child_count() > 20 and frozen_after.is_empty(), "destination nodes live in the container and none stays frozen (%s of %d)" % [",".join(frozen_after), region.get_child_count()])
         var saved := STATE.new()
         _check(saved.read(SAVE) and saved.data.current_region == target, "completed target is restartable")
         _check(scene.player_world_position().distance_to(start) > 8500, "world distance is traversed rather than paired teleport")
     # Gate fixtures exercise the live source descriptor, not just the registry.
-    portal = scene.get_node("moss_rain_pipe")
+    portal = LEVEL_HOST.find(scene, "moss_rain_pipe")
     scene.player.global_position = portal.global_position
     for descriptor in scene.config.interactives:
         if String(descriptor.get("id", "")) != "moss_rain_pipe":
@@ -125,6 +158,8 @@ func _run() -> void:
         _check(not passage.begin("moss_rain_pipe") and not passage.active, "physical entry respects far-side latch")
         descriptor.erase("requires_shortcut")
     var source_checkpoint: Vector2 = scene.active_spawn
+    # The terminal fallback load (used when no hidden build is available).
+    passage.staging_enabled = false
     _check(passage.begin("moss_rain_pipe"), "enter for terminal cancellation fixture")
     # Fixture positioning at the terminal only tests rollback; not travel evidence.
     scene.player.global_position = passage.destination_point + Vector2(0, 40)
@@ -185,6 +220,8 @@ func _jump_past_mouth(portal: Node2D, passage: Node) -> bool:
     scene.process_mode = Node.PROCESS_MODE_DISABLED
     return failures.is_empty()
 
+var walk_loading_frames := 0
+
 func _walk(direction: int, arrival: bool) -> void:
     Input.action_release("move_left")
     Input.action_release("move_right")
@@ -193,8 +230,11 @@ func _walk(direction: int, arrival: bool) -> void:
     scene.player.process_mode = Node.PROCESS_MODE_ALWAYS
     var previous: Vector2 = scene.player_world_position()
     var max_step := 0.0
+    walk_loading_frames = 0
     for frame in range(3600):
         await _frames()
+        if scene.world_loader.loading_canvas != null:
+            walk_loading_frames += 1
         if not scene.world_passage.settling:
             scene.world_passage.step()
         if scene.world_passage.settling:

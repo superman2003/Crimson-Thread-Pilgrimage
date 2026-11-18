@@ -1,4 +1,8 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const SUMMARY_TEXT := Color("d0b582")
+
 var rows: Array = []
 var initial := 0.0
 var reserve := 0.0
@@ -135,7 +139,7 @@ func _grid(font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             LEFT - 5,
             11,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     for i in range(rows.size() + 1):
         var x := _x(i)
@@ -147,7 +151,7 @@ func _grid(font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             30,
             12,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     draw_rect(area, Color("61755d"), false, 1)
     if minimum <= 0 and maximum >= 0:
@@ -194,7 +198,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
-        Color("d0b582")
+        SUMMARY_TEXT
     )
     draw_string(
         font,
@@ -203,7 +207,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

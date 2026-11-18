@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
 var failures := 0
@@ -40,7 +41,7 @@ func _run() -> void:
     _assert(String(state.get("current_room_id", "")) == "bell_stair_well", "room tracking moves to Bell Stair Well")
     _assert(int(state.get("metsys_discovered_cells", 0)) >= 2, "MetSys discovers traveled rooms")
 
-    var save_point: Area2D = scene.get_node_or_null("save_hidden_upper_respite")
+    var save_point: Area2D = LEVEL_HOST.find(scene, "save_hidden_upper_respite")
     _assert(save_point != null, "save point object exists for MetSys storage")
     scene.player.global_position = save_point.global_position
     scene._try_interact()

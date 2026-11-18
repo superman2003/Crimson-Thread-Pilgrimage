@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 const RUNTIME := preload("res://scripts/cartography_runtime.gd")
 const STATE := preload("res://scripts/world_state.gd")
@@ -45,7 +46,7 @@ func run() -> void:
     scene.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)
     var id:=String(scene.config.id)
-    var stall: Area2D=scene.get_node("npc_gear_cartographer")
+    var stall: Area2D=LEVEL_HOST.find(scene, "npc_gear_cartographer")
     scene._toggle_map()
     check(scene.map_draw_root.get_node_or_null("MapNotPurchased")!=null,"M map with no purchase shows no room routes")
     check(scene.map_draw_root.get_node_or_null("SurveyRoom_entry_bell")==null,"unowned room geometry hidden")
@@ -53,7 +54,7 @@ func run() -> void:
     scene.player.position=stall.position
     scene.currency_count=0
     scene._try_interact()
-    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, "MapPurchaseDialog")
     check(dialog.theme.default_font!=null,"map shop explicitly inherits Chinese UI font")
     check(dialog.visible and scene.player.ui_input_locked,"real F opens purchase confirmation and locks gameplay")
     check(dialog.get_ok_button().disabled,"insufficient game currency disables purchase button")
@@ -90,7 +91,7 @@ func run() -> void:
     check(scene.map_draw_root.get_node_or_null("SurveyRoom_hidden_attic")==null,"secret outline not exposed by base map")
     check(scene.map_draw_root.get_node_or_null("SurveyPin_moss_archive_return")==null,"entry details wait for bell shrine")
     scene._close_overlays()
-    var shrine: Area2D=scene.get_node("save_first_bell")
+    var shrine: Area2D=LEVEL_HOST.find(scene, "save_first_bell")
     scene._activate_save_point(shrine)
     check(not JOURNAL.charted(scene.story_flags,id,"entry_bell") and scene.toast_label.text.contains("盐墨绘针"),"a rest without the quill keeps notes and says why")
     # Buy the quill and compass through the live seller dialog.
@@ -162,7 +163,7 @@ func run() -> void:
     scene._toggle_map()
     check(scene.map_draw_root.get_node_or_null("SurveyRoom_hidden_attic")==null,"restart keeps pending secret uncharted")
     scene._close_overlays()
-    scene._activate_save_point(scene.get_node("save_first_bell"))
+    scene._activate_save_point(LEVEL_HOST.find(scene, "save_first_bell"))
     scene._toggle_map()
     check(scene.map_draw_root.get_node_or_null("SurveyRoom_hidden_attic")!=null,"rest after restart commits pending secret")
     scene.queue_free()
@@ -178,7 +179,7 @@ func run() -> void:
         test_scene.set_process(false)
         test_scene.player.set_physics_process(false)
         for enemy in get_nodes_in_group("enemy"):enemy.set_physics_process(false)
-        var npc: Node=test_scene.get_node_or_null(NodePath(String(sellers[region_id].npc_id)))
+        var npc: Node=LEVEL_HOST.find(test_scene, NodePath(String(sellers[region_id].npc_id)))
         check(npc!=null and npc.has_meta("map_seller_region"),String(region_id)+": authored map NPC registered")
         check(npc!=null and npc.get_meta("kind","")=="npc",String(region_id)+": purchase belongs to a character, not a stall")
         test_scene._toggle_map()

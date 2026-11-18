@@ -1,0 +1,3001 @@
+{
+  "phase_censor": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censor_blink_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censor_blink_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censor_blink",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censor_blink",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censor_blink_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censor_blink_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censor_blink_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censor_blink_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.45633437951477107
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3957779515246286
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3886961093585699
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.44143316490583373
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.4433880284209988
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.476914693351828
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.44705412023387137
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.39303637022091154
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.30173932188463237
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3255394700901393
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.34084844524315194
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3807553575217484
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.4024370860927152
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.39236568777350134
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3672328304673489
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3238568803372608
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3323771379086382
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.30739448140473336
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.29757709251101316
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2907641561297416
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2477737328479418
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2760387964289651
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.30424308787298115
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3110590287240421
+      },
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.31599042916051523
+      }
+    ],
+    "edges": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      }
+    ],
+    "max_change": 0.476914693351828
+  },
+  "thorn_bloom_mote": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bloom_seeds_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "bloom_seeds_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "bloom_seeds",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "bloom_seeds",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "bloom_seeds_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "bloom_seeds_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bloom_seeds_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bloom_seeds_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.3252075605016781
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.33426892377861595
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.33445229681978794
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.32955244878220347
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.329023746701847
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.3293155023755059
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.32805449880562687
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.32583178889771425
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.40369923602734215
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.4025086435635603
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.42240624253523373
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.4288089958821666
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.4321279445363586
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.41493277848911647
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.4117647058823529
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.3978016649155419
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.382779827798278
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.3753501400560224
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.37223273804625134
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.3622635247261865
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.35116609546100475
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.35991343432661893
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.38119953863898504
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "bloom_seeds_windup",
+        "target_frame": 0,
+        "change": 0.3912865449185161
+      },
+      {
+        "source": "bloom_seeds_windup",
+        "source_frame": 23,
+        "target": "bloom_seeds",
+        "target_frame": 0,
+        "change": 0.4674310635903207
+      },
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.24426789323297793
+      },
+      {
+        "source": "attack",
+        "source_frame": 23,
+        "target": "recover",
+        "target_frame": 0,
+        "change": 0.22803393581704168
+      },
+      {
+        "source": "bloom_seeds",
+        "source_frame": 23,
+        "target": "bloom_seeds_recover",
+        "target_frame": 0,
+        "change": 0.4667686780653316
+      }
+    ],
+    "edges": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "bloom_seeds_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "bloom_seeds_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "bloom_seeds_windup",
+        "source_frame": -1,
+        "target": "bloom_seeds",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "bloom_seeds",
+        "source_frame": -1,
+        "target": "bloom_seeds_recover",
+        "target_frame": 0
+      }
+    ],
+    "max_change": 0.4674310635903207
+  },
+  "rain_censer_mote": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censer_cloud_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "censer_cloud_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "censer_cloud",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censer_cloud",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censer_cloud_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "censer_cloud_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.28623566214807095
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.28410780068506436
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2824155153402088
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2856494096276113
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2809771986970684
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.27947227483508585
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2782426778242678
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.28641687698181584
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.24537182303106375
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2552460654509118
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2794189453125
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.28212765957446806
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2732615083251714
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.26214675260287557
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.254821194532859
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.24142505211294296
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2163622330846411
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2156761634652572
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2256565786926502
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.22661523625843782
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.23825460162183032
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.23457745116998652
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.2237460562745477
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "censer_cloud_windup",
+        "target_frame": 0,
+        "change": 0.21887913223140498
+      },
+      {
+        "source": "censer_cloud_windup",
+        "source_frame": 23,
+        "target": "censer_cloud",
+        "target_frame": 0,
+        "change": 0.2859406423304284
+      },
+      {
+        "source": "censer_cloud_recover",
+        "source_frame": 23,
+        "target": "idle",
+        "target_frame": 0,
+        "change": 0.4478550102142371
+      },
+      {
+        "source": "censer_cloud_recover",
+        "source_frame": 23,
+        "target": "walk",
+        "target_frame": 0,
+        "change": 0.4073282442748092
+      },
+      {
+        "source": "recover",
+        "source_frame": 23,
+        "target": "idle",
+        "target_frame": 0,
+        "change": 0.3792597607763485
+      },
+      {
+        "source": "recover",
+        "source_frame": 23,
+        "target": "walk",
+        "target_frame": 0,
+        "change": 0.3379819524200164
+      }
+    ],
+    "edges": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "censer_cloud_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "censer_cloud_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "censer_cloud_windup",
+        "source_frame": -1,
+        "target": "censer_cloud",
+        "target_frame": 0
+      },
+      {
+        "source": "censer_cloud_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "censer_cloud_recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      }
+    ],
+    "max_change": 0.4478550102142371
+  },
+  "echo_contract_scribe": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_scribe_seals_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "echo_scribe_seals_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "echo_scribe_seals",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_scribe_seals",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_scribe_seals_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "echo_scribe_seals_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.4640300434221335
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.43775625408521
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.43156831283056996
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.4293973892829469
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.4802586007850381
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.4067687254384421
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.3824259569308931
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.2916798481493198
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.29070681419674704
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.3476450231685143
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.40427111288756923
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.4429169495360942
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.4855100787313641
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.4666591953378908
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.4130014774406182
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.36493551760195186
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.2986997351312304
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.29022692889561275
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.2829888712241654
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.26899827288428324
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.2353674499781836
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.24844797616091385
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.28652981902101304
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0,
+        "change": 0.3008945188209161
+      },
+      {
+        "source": "echo_scribe_seals_windup",
+        "source_frame": 23,
+        "target": "echo_scribe_seals",
+        "target_frame": 0,
+        "change": 0.47530630971015275
+      },
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.4154834697896155
+      },
+      {
+        "source": "attack",
+        "source_frame": 23,
+        "target": "recover",
+        "target_frame": 0,
+        "change": 0.39989685404847863
+      }
+    ],
+    "edges": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "echo_scribe_seals_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "echo_scribe_seals_windup",
+        "source_frame": -1,
+        "target": "echo_scribe_seals",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      }
+    ],
+    "max_change": 0.4855100787313641
+  },
+  "isotope_lumen": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "lumen_focus_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "lumen_focus_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "lumen_focus",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "lumen_focus",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "lumen_focus_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "lumen_focus_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.36583629893238434
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3665754138964933
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.37090861482063364
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.365
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.36817010309278353
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.36308052556263826
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.36185627570001955
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.35879160400183085
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2573120531523073
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2552774755168662
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.27239343317972353
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.28487455197132616
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2863714778608396
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.30202774813233724
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3315782083684359
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.338628411476557
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3210067491563554
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3094291394490202
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.3009743261503449
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2699913394919169
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.25732141559479693
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.24591479428071195
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.24405716785766374
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "windup",
+        "target_frame": 0,
+        "change": 0.2498548621190131
+      },
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.42447446715114856
+      },
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4075623127790652
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.3933964972724663
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.37824438611840183
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4066912390133258
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.40837371802096245
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4225454953942934
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.41083380601247876
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.41437464629315224
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.47399300462597316
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4761850952031188
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4692565838120698
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4586012861736335
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4623915416882147
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.45089647194910354
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4285966668629645
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.41517060991558674
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.43971589916749143
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.45076218628644293
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4543672528106082
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4748454426861778
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4758343248909287
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4789304450837705
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.47775835823419965
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "lumen_focus_windup",
+        "target_frame": 0,
+        "change": 0.4784737464122911
+      },
+      {
+        "source": "lumen_focus_windup",
+        "source_frame": 23,
+        "target": "lumen_focus",
+        "target_frame": 0,
+        "change": 0.47989998076553186
+      },
+      {
+        "source": "attack",
+        "source_frame": 23,
+        "target": "recover",
+        "target_frame": 0,
+        "change": 0.42607526881720426
+      },
+      {
+        "source": "recover",
+        "source_frame": 23,
+        "target": "idle",
+        "target_frame": 0,
+        "change": 0.42125919869174167
+      },
+      {
+        "source": "recover",
+        "source_frame": 23,
+        "target": "walk",
+        "target_frame": 0,
+        "change": 0.4173631246801979
+      },
+      {
+        "source": "lumen_focus",
+        "source_frame": 23,
+        "target": "lumen_focus_recover",
+        "target_frame": 0,
+        "change": 0.38369820172009383
+      }
+    ],
+    "edges": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "windup",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "lumen_focus_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "lumen_focus_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "lumen_focus_windup",
+        "source_frame": -1,
+        "target": "lumen_focus",
+        "target_frame": 0
+      },
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      },
+      {
+        "source": "lumen_focus",
+        "source_frame": -1,
+        "target": "lumen_focus_recover",
+        "target_frame": 0
+      }
+    ],
+    "max_change": 0.47989998076553186
+  },
+  "obsidian_bellwheel": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "travel",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "travel",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bellwheel_waves_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bellwheel_waves_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bellwheel_waves",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bellwheel_waves",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bellwheel_waves_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bellwheel_waves_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bellwheel_waves_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "bellwheel_waves_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [],
+    "edges": [],
+    "max_change": 0
+  },
+  "falling_clapper": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "travel",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "travel",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "clapper_wave_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "clapper_wave_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "clapper_wave",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "clapper_wave",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "clapper_wave_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "clapper_wave_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "clapper_wave_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "clapper_wave_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.40990264973244794
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.3779184804115552
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.42913941259458765
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.38003220611916266
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.421098054836354
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.4154695397712157
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.48521385962685615
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.3875715998401492
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.42098429578335606
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.4265434742703298
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.44474637681159424
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.458878616880778
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.43661713447073935
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.4254204916517774
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.41520395550061806
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.40705267740531126
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.3943493581676315
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.3728053312828399
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.3594184168012924
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.349323573622639
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.36476891298734826
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.3712505620142591
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.3898852905760821
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "clapper_wave_windup",
+        "target_frame": 0,
+        "change": 0.3887690355329949
+      },
+      {
+        "source": "clapper_wave_windup",
+        "source_frame": 23,
+        "target": "clapper_wave",
+        "target_frame": 0,
+        "change": 0.32493051515739124
+      }
+    ],
+    "edges": [
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "clapper_wave_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "clapper_wave_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "clapper_wave_windup",
+        "source_frame": -1,
+        "target": "clapper_wave",
+        "target_frame": 0
+      }
+    ],
+    "max_change": 0.48521385962685615
+  },
+  "delayed_shadow": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "shadow_echo_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "shadow_echo_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "shadow_echo",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "shadow_echo",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "shadow_echo_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "shadow_echo_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "attack",
+        "source_frame": 23,
+        "target": "recover",
+        "target_frame": 0,
+        "change": 0.4764705882352941
+      },
+      {
+        "source": "recover",
+        "source_frame": 23,
+        "target": "idle",
+        "target_frame": 0,
+        "change": 0.4766120108640982
+      },
+      {
+        "source": "recover",
+        "source_frame": 23,
+        "target": "walk",
+        "target_frame": 0,
+        "change": 0.3862120886212088
+      },
+      {
+        "source": "idle",
+        "source_frame": 0,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.4555196636414911
+      },
+      {
+        "source": "idle",
+        "source_frame": 1,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.4518568394882685
+      },
+      {
+        "source": "idle",
+        "source_frame": 2,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.4649277772004572
+      },
+      {
+        "source": "idle",
+        "source_frame": 3,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.45400134152004545
+      },
+      {
+        "source": "idle",
+        "source_frame": 4,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.462309501892196
+      },
+      {
+        "source": "idle",
+        "source_frame": 5,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.46521068859198356
+      },
+      {
+        "source": "idle",
+        "source_frame": 6,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.4572529417890243
+      },
+      {
+        "source": "idle",
+        "source_frame": 7,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.45357623434427075
+      },
+      {
+        "source": "walk",
+        "source_frame": 0,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.2608391608391608
+      },
+      {
+        "source": "walk",
+        "source_frame": 1,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.2145494159656237
+      },
+      {
+        "source": "walk",
+        "source_frame": 2,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.1937807881773399
+      },
+      {
+        "source": "walk",
+        "source_frame": 3,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.1778372991154853
+      },
+      {
+        "source": "walk",
+        "source_frame": 4,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.19123481279444587
+      },
+      {
+        "source": "walk",
+        "source_frame": 5,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.21679888572639738
+      },
+      {
+        "source": "walk",
+        "source_frame": 6,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.26410437235543016
+      },
+      {
+        "source": "walk",
+        "source_frame": 7,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.2737087831922965
+      },
+      {
+        "source": "walk",
+        "source_frame": 8,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.29606135747650075
+      },
+      {
+        "source": "walk",
+        "source_frame": 9,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.29846703550023057
+      },
+      {
+        "source": "walk",
+        "source_frame": 10,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.31388730791121233
+      },
+      {
+        "source": "walk",
+        "source_frame": 11,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.32458626161868054
+      },
+      {
+        "source": "walk",
+        "source_frame": 12,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.3208286038592508
+      },
+      {
+        "source": "walk",
+        "source_frame": 13,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.31489532090149863
+      },
+      {
+        "source": "walk",
+        "source_frame": 14,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.3061694290976059
+      },
+      {
+        "source": "walk",
+        "source_frame": 15,
+        "target": "shadow_echo_windup",
+        "target_frame": 0,
+        "change": 0.26432184448888363
+      },
+      {
+        "source": "shadow_echo_windup",
+        "source_frame": 23,
+        "target": "shadow_echo",
+        "target_frame": 0,
+        "change": 0.4206955472911851
+      },
+      {
+        "source": "shadow_echo_recover",
+        "source_frame": 23,
+        "target": "idle",
+        "target_frame": 0,
+        "change": 0.4152308752584425
+      },
+      {
+        "source": "shadow_echo_recover",
+        "source_frame": 23,
+        "target": "walk",
+        "target_frame": 0,
+        "change": 0.3852770048064761
+      }
+    ],
+    "edges": [
+      {
+        "source": "attack",
+        "source_frame": -1,
+        "target": "recover",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      },
+      {
+        "source": "idle",
+        "source_frame": "all",
+        "target": "shadow_echo_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "walk",
+        "source_frame": "all",
+        "target": "shadow_echo_windup",
+        "target_frame": 0
+      },
+      {
+        "source": "shadow_echo_windup",
+        "source_frame": -1,
+        "target": "shadow_echo",
+        "target_frame": 0
+      },
+      {
+        "source": "shadow_echo_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "shadow_echo_recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      }
+    ],
+    "max_change": 0.4766120108640982
+  },
+  "echo_pilgrim_commander_minor": {
+    "endpoints": [
+      {
+        "clip": "idle",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "idle",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "walk",
+        "frame": 15,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "attack",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "attack",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "hurt",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "death",
+        "frame": 7,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_banner_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_banner_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "minor_banner",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_banner",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_banner_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_banner_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": false
+      },
+      {
+        "clip": "minor_banner_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_banner_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_elite_rally_windup",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_elite_rally_windup",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_elite_rally",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_elite_rally",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_elite_rally_recover",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_elite_rally_recover",
+        "frame": 23,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_elite_rally_charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "minor_elite_rally_charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 0,
+        "unchanged_pixels_and_position": true
+      },
+      {
+        "clip": "charge",
+        "frame": 3,
+        "unchanged_pixels_and_position": true
+      }
+    ],
+    "changed_production_handoffs": [
+      {
+        "source": "minor_banner_recover",
+        "source_frame": 23,
+        "target": "idle",
+        "target_frame": 0,
+        "change": 0.3841611479028697
+      },
+      {
+        "source": "minor_banner_recover",
+        "source_frame": 23,
+        "target": "walk",
+        "target_frame": 0,
+        "change": 0.4639528147875086
+      },
+      {
+        "source": "minor_banner_windup",
+        "source_frame": 23,
+        "target": "minor_banner",
+        "target_frame": 0,
+        "change": 0.3525803128219537
+      },
+      {
+        "source": "windup",
+        "source_frame": 23,
+        "target": "attack",
+        "target_frame": 0,
+        "change": 0.4612973854806165
+      }
+    ],
+    "edges": [
+      {
+        "source": "minor_banner_recover",
+        "source_frame": -1,
+        "target": "idle",
+        "target_frame": 0
+      },
+      {
+        "source": "minor_banner_recover",
+        "source_frame": -1,
+        "target": "walk",
+        "target_frame": 0
+      },
+      {
+        "source": "minor_banner_windup",
+        "source_frame": -1,
+        "target": "minor_banner",
+        "target_frame": 0
+      },
+      {
+        "source": "windup",
+        "source_frame": -1,
+        "target": "attack",
+        "target_frame": 0
+      }
+    ],
+    "max_change": 0.4639528147875086
+  }
+}

@@ -1,4 +1,5 @@
 extends "res://scripts/player_dash_art_validation.gd"
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Explicit positioned real Player/EnemyActor component fixtures; all casts use Input.
 ## Direct receiver calls below are labeled event boundaries, not natural World combat.
 const CONTACT:=preload("res://scripts/player_contact_art.gd")
@@ -153,7 +154,7 @@ func run() -> void:
     await prepare();await pulse("jump",3);await frames(3)
     var level:Node2D=load("res://scripts/main_level.gd").new();level.player=player;level.world_loading=false
     level._hazard({"id":"contact_pogo_probe","kind":"spikes","rect":[440,326,80,20],"damage":1,"message":"component"})
-    check(level.get_child_count()==0,"retired level spikes cannot recreate contact receivers")
+    check(LEVEL_HOST.children(level).size()==0,"retired level spikes cannot recreate contact receivers")
     Input.action_press("aim_down");await pulse("attack");Input.action_release("aim_down");await frames(20)
     check(player.pogo_chain==0 and marks().is_empty(),"an empty former spike location creates no phantom pogo or contact effect")
     level.free()

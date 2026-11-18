@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Explicit station/permission fixtures exercise production World and loader;
 ## this is not a claim of naturally earned exploration or a full playthrough.
 const NETWORK:=preload("res://scripts/shrine_return_network.gd")
@@ -32,7 +33,7 @@ func run() -> void:
     var source: Dictionary=scene.config.save_points[0]
     scene.player.position=NETWORK.point(source.position)
     await frames(12)
-    var area:=scene.get_node_or_null(NodePath(String(source.id))) as Area2D
+    var area:=LEVEL_HOST.find(scene, NodePath(String(source.id))) as Area2D
     check(area!=null,"source shrine is an installed production Area2D")
     if area==null:
         scene.queue_free();await frames(5);quit(1);return

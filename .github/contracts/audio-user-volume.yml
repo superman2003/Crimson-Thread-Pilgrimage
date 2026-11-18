@@ -5,6 +5,11 @@ on:
     paths:
       - '.github/contracts/audio-user-volume.yml'
       - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/audio_game_state.gd'
+      - 'godot/scripts/audio_ambience.gd'
+      - 'godot/scripts/audio_music.gd'
+      - 'godot/scripts/audio_npc_voices.gd'
+      - 'godot/scripts/audio_user_mix.gd'
       - 'godot/scripts/audio_retirement_validation.gd'
       - 'godot/scripts/audio_user_volume_validation.gd'
       - 'godot/default_bus_layout.tres'
@@ -56,7 +61,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/audio-volume-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: audio-user-volume-logs
           path: ${{ runner.temp }}/audio-volume-logs

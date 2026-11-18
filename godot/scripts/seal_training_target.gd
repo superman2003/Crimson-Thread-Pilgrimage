@@ -51,20 +51,20 @@ func take_hit(amount: int, _hit_direction: int) -> void:
 func report_skill_contact(owner_player: Node, skill_id: String, serial: int) -> void:
     if not contact_ready or contact_frame!=Engine.get_physics_frames():return
     contact_ready=false
-    var level:=get_parent()
+    var level:=LEVEL_HOST.of(self)
     if level==null or level.get("player")!=owner_player:return
     level._on_skill_practice_hit(skill_id,self,serial,"skill")
     _refresh_practice_caption()
 
 func _report_guard_practice(owner_player: Node) -> void:
-    var level:=get_parent()
+    var level:=LEVEL_HOST.of(self)
     if level==null or level.get("player")!=owner_player:return
     level._on_skill_practice_hit("ward",self,int(owner_player.last_skill_cast_serial),"guard")
     _refresh_practice_caption()
 
 func _refresh_practice_caption() -> void:
     var label:=get_node_or_null("PracticeCaption") as Label
-    var level:=get_parent()
+    var level:=LEVEL_HOST.of(self)
     if label==null or level==null or not level.has_method("get_skill_practice_progress"):return
     var skill_id:=String(get_meta("practice_skill_id",""))
     var progress: Dictionary=level.get_skill_practice_progress(skill_id)

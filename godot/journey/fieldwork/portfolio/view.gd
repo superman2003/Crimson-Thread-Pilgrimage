@@ -1,4 +1,9 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const DETAIL_TEXT := Color("b7bdab")
+const SUMMARY_TEXT := Color("d1b784")
+
 var points: Array = []
 var selected := 0
 var hovered := -1
@@ -123,7 +128,7 @@ func _grid(font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             50,
             11,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
         draw_string(
             font,
@@ -132,7 +137,7 @@ func _grid(font: Font) -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             45,
             11,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     draw_line(
         Vector2(area.position.x, area.end.y),
@@ -193,7 +198,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         13,
-        Color("d1b784")
+        SUMMARY_TEXT
     )
     if points.size() < 2:
         draw_string(
@@ -203,7 +208,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_CENTER,
             250,
             16,
-            Color("b7bdab")
+            DETAIL_TEXT
         )
     draw_string(
         font,
@@ -212,7 +217,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

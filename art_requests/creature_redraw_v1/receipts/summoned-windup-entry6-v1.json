@@ -1,0 +1,13 @@
+{
+  "kind": "summoned_page",
+  "clip": "actions_windup_full",
+  "status": "rejected",
+  "reason": "first wing pose still fails several flight-loop handoffs",
+  "source_sha256": "130f9eefcb014687d59bd682a5476b17e4499bf2c1d5d799c4534b4e51de6294",
+  "prompt_sha256": "04d29b9bddfe4026aaeaac48d07076a1d72762e77407fdb88d9342e38fe414ca",
+  "reference_sha256": "e9fc4a592022d0a19e01bbfb5a47192d868f816004bb3983888716d0e3c390b3",
+  "actual_prompt": "Edit ONLY the first SIX chronological drawings (cels0-5) of this exact8x3 complete24-cel parchment moth WINDUP sheet. Keep cels6-23 visually unchanged. Input2 TOP ROW gives the accepted idle/walk size and body root on the fixed game canvas; use this as the opening-pose reference, never copy its layout/labels. Current cel0 starts too large and too far forward to join that flight loop. Repaint cel0 as a more compact three-quarter flight pose like those accepted poses: the entire visible sprite about72percent the current cel0 linear size, centered at local cell coordinate (118,132), with red waxseal about(153,143), eye about(170,125), upper paper wing swept25degrees upward left, compact trailing papers. In cel1-5 make small smooth increases/folding/forward preparation that join the existing cel6 naturally: approximately78%,84%,89%,94%,98% of existing figure size and gradual waxseal x153->178. Keep head/mask identity and parchment anatomy coherent; controlled drawn anticipation, not duplicated scaled copies. All six must be freshly repainted unique in-between poses with the same ivory beaked mask, ONE rubyeye, brown antennae, ONE redwaxseal and inked cream/charcoal/crimson parchment. Do not touch other18 drawings. Common equal256px cells in exact8cols x3rows; all drawing pixels between local y74 and180, clear transparent margins. TRUE transparent RGBA alpha0 background/gutters, no haze, soft shadows, matte, fog, whitewash, background color, grids, words, particles or checkerboard. Preserve actual transparent sprite edges.",
+  "reference_recipe": "Built-in image_gen redraw of entry5 opening six cels using accepted idle/walk flight size and body-root references. Rejected common registration trial would break attack/recovery, so final full-sheet registration remains frozen at cell center; no per-cel procedural transforms.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/summoned_page-actions-windup-full.json",
+  "guide_sha256": "b9bd0febcca8116303d883cf64aaf8eb818b291b1e6f879f13254898afd3ea55"
+}

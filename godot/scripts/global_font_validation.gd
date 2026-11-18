@@ -26,6 +26,16 @@ func run() -> void:
     root.add_child(plain)
     check(plain.get_theme_font("font").get_font_name()==FONT.get_font_name(),"New controls inherit the project-wide font without manual overrides")
     plain.free()
+    # T03: text shaped outside the root theme must not reach the engine font,
+    # whose system-font search for CJK costs several ms per label.
+    check(ThemeDB.get_default_theme().default_font==FONT,"The engine default theme uses the global font")
+    var detached:=Window.new()
+    detached.theme=Theme.new()
+    root.add_child(detached)
+    var detached_label:=Label.new()
+    detached.add_child(detached_label)
+    check(detached_label.get_theme_font("font").get_font_name()==FONT.get_font_name(),"A window with its own empty theme still gets the global font")
+    detached.free()
     check(not FONT.allow_system_fallback,"Bundled fonts cover all game text without borrowing installed fonts")
     check(FONT.get_supported_chars().length()>=44780,"The font retains the full upstream Unicode repertoire")
     for text in ["创墟迥旌沫笛龘靐齉麤爨灪籲鸞繁體简体↩⊣🔒"]:

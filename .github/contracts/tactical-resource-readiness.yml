@@ -4,6 +4,14 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
       - 'godot/scripts/tactical_readiness_validation.gd'
       - 'godot/scripts/ui_build_accessibility_validation.gd'
       - 'docs/TACTICAL_RESOURCE_READINESS.md'
@@ -55,7 +63,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/tactical-resource-readiness-logs"
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: tactical-resource-readiness-logs
           path: ${{ runner.temp }}/tactical-resource-readiness-logs

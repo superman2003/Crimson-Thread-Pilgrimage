@@ -9,12 +9,14 @@ static func setup(level: Node) -> void:
         caption=Label.new()
         caption.name="MapRoomContext"
         caption.position=Vector2(34,55)
-        caption.size=Vector2(1108,20)
         caption.mouse_filter=Control.MOUSE_FILTER_IGNORE
         caption.clip_text=true
         caption.add_theme_font_size_override("font_size",TYPE.CAPTION)
         level.map_panel.add_child(caption)
     caption.text="选择房间查看邻室"
+    # Apply the fixed band after the caption font and inherited theme resolve.
+    # Sizing an empty Label first retains the larger default-font minimum.
+    caption.size=Vector2(1108,20)
     caption.tooltip_text="悬停／方向键选择房间：查看上下层邻室；邻接不表示道路已开放。"
 
 static func bind_room(level: Node, outline: Control, config: Dictionary, region: String, room: String) -> void:

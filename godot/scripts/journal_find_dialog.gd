@@ -1,4 +1,5 @@
 extends AcceptDialog
+const SPACING := preload("res://scripts/ui_spacing_scale.gd")
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 const FIND:=preload("res://scripts/journal_literal_find.gd")
 var host_ref: WeakRef
@@ -38,7 +39,7 @@ func _ready() -> void:
 ## ~30 ms of that frame although it is rarely opened. Build it on first open.
 func ensure_built() -> void:
     if is_instance_valid(editor):return
-    var column:=VBoxContainer.new();column.custom_minimum_size.x=860;column.add_theme_constant_override("separation",9);add_child(column)
+    var column:=VBoxContainer.new();column.custom_minimum_size.x=860;column.add_theme_constant_override("separation",SPACING.ROW);add_child(column)
     var intro:=Label.new();intro.text="只读查看当前已知正文；按字面查找，不使用跨记录筛选语法。回车到下一处，Shift+回车到上一处。";intro.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;intro.custom_minimum_size.x=860;column.add_child(intro)
     var tools:=HBoxContainer.new();tools.add_theme_constant_override("separation",8);column.add_child(tools)
     query=LineEdit.new();query.placeholder_text="本条正文中的文字";query.custom_minimum_size=Vector2(310,34);query.size_flags_horizontal=Control.SIZE_EXPAND_FILL;tools.add_child(query)

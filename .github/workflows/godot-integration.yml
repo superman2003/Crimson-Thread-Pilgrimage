@@ -28,7 +28,7 @@ jobs:
     # lossless textures) slowed software-GL decoding on the runner.
     timeout-minutes: 60
     steps:
-      - name: Check out the exact commit and hydrate runtime assets
+      - name: Check out the exact commit without LFS downloads
         env:
           VALIDATION_SHA: ${{ github.sha }}
         run: |
@@ -36,8 +36,10 @@ jobs:
           git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
-          git lfs install --skip-smudge
-          python3 tools/hydrate_runtime_assets.py --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**,art_requests/hero_motion_v9/**'
+      - name: Restore and hydrate runtime assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**,art_requests/hero_motion_v9/**
       - name: Install Godot 4.6.1
         run: |
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
@@ -78,8 +80,9 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           # Resource hydration only: editor-plugin behavior is not validated.
           # Runtime suites below run normally, without recovery mode.
-          # A cold checkout imports thousands of assets; retain a bounded 10m budget.
-          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/regression-logs/import"
+          # Serial cold imports measured 589s on CI; match the shared contracts'
+          # bounded 15m import budget while retaining both strict import passes.
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 900 --log-dir "$RUNNER_TEMP/regression-logs/import"
       - name: Install software GL dependencies
         if: ${{ !cancelled() }}
         run: |
@@ -93,7 +96,7 @@ jobs:
           npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs" --shard-index "${{ matrix.shard }}" --shard-count 3
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: godot-regression-runtime-logs-${{ matrix.shard }}
           path: ${{ runner.temp }}/regression-logs
@@ -105,7 +108,7 @@ jobs:
     # full-suite tail. Every original command and strict marker is retained.
     timeout-minutes: 45
     steps:
-      - name: Check out the exact commit and hydrate runtime assets
+      - name: Check out the exact commit without LFS downloads
         env:
           VALIDATION_SHA: ${{ github.sha }}
         run: |
@@ -113,8 +116,10 @@ jobs:
           git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
-          git lfs install --skip-smudge
-          python3 tools/hydrate_runtime_assets.py --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**,art_requests/hero_motion_v9/**'
+      - name: Restore and hydrate runtime assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**,art_requests/hero_motion_v9/**
       - name: Install Godot 4.6.1
         run: |
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
@@ -125,8 +130,9 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           # Resource hydration only: editor-plugin behavior is not validated.
           # Runtime suites below run normally, without recovery mode.
-          # A cold checkout imports thousands of assets; retain a bounded 10m budget.
-          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/regression-logs/import"
+          # Serial cold imports measured 589s on CI; match the shared contracts'
+          # bounded 15m import budget while retaining both strict import passes.
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 900 --log-dir "$RUNNER_TEMP/regression-logs/import"
       - name: Validate real GL rock boundaries
         if: ${{ !cancelled() }}
         run: |
@@ -167,7 +173,7 @@ jobs:
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/region-commit-gpu" --script ../tools/validate_region_commit_pixels.gd --success-marker 'REGION_COMMIT_PIXELS probes=10 failures=0' --summary-path artifacts/region_commit/gpu_ui.json
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: godot-regression-visual-logs
           path: ${{ runner.temp }}/regression-logs

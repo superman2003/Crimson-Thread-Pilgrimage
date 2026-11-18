@@ -1,0 +1,45 @@
+{
+  "kind": "rain_censer_mote",
+  "clip": "actions_01",
+  "status": "rejected",
+  "reason": "Large diffuse colored background wash, not transparent gutters. Not registered.",
+  "source_sha256": "61c3d029176aa2a7b2203c236c768b38adcb8079a89772e25c6febaeedd312e4",
+  "prompt_sha256": "00b707c4ce0c993902f31a1e1739962620cc0075d924667a59a1d9b506939f87",
+  "reference_sha256": "fd35b0fda982ab7728d78d2bec3122264d16d9b5a91ffd78522f686eb0d61724",
+  "actual_prompt": "Paint TWENTY TWO NEW selected animation cels of the SAME creature. Image1 frozen pose guide controls EXACT cel order, posture, tilt and cell anchor. Image2 accepted walk supplies identity, saturated original colors, crisp ink edges. Character: a compact floating bronze masked censer moth, ornate bronze horn crest and dark face, round perforated bronze incense vessel abdomen, two pale slate-blue veined wings, small brass bell feet, intrinsic compact blue-grey vapor ONLY behind the abdomen. FIRST9drawings cloudwindup0,1,7-13: close guide-matching compact hovering poses, varied wing fold and body tilt without large body/wing spread jumps. NEXT5 cloudrecovery11-13,22,23, NEXT5 normalrecovery17-19,22,23, FINAL3 normalwindup12-14. Preserve the exact ordered wing/body/censer postures and body anchors from frozen guide. EXACT atlas layout 6equalcolumns x4equalrows, first22cells occupied row-major, last2 cells empty. Every figure is a distinct handpainted2D drawing, right-facing orthographic. Constant torso/head/wing mass and anatomy across all drawings. All complete wings/antennae/censer and limbs inside cells,10percent real transparent margins; no cell overlap or clipping. Preserve guide relative hovering heights; never collapse them onto a ground line. CRITICAL: TRUE transparent RGBA alpha0background and gutters and empty cells; NO added matte or haze, no glow, floor/shadow, emittedprojectiles/particles, text/labels/grids/checkerboard. No atmospheric background; clean sprite cutouts.",
+  "targets": {
+    "censer_cloud_windup": [
+      0,
+      1,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "censer_cloud_recover": [
+      11,
+      12,
+      13,
+      22,
+      23
+    ],
+    "recover": [
+      17,
+      18,
+      19,
+      22,
+      23
+    ],
+    "windup": [
+      12,
+      13,
+      14
+    ]
+  },
+  "reference_recipe": "Frozen selected original poses define frameorder, commonriganchors and unchangedneighbor boundaries. Accepted walk supplies identity. All finalnewpixels builtinimage_gen; sourcewide registration only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/rain_censer_mote-actions-01-6x4.json",
+  "guide_sha256": "ab18082fbafc5942d2b507e189daba98b355711c21387ad145726dc83b37ef66"
+}

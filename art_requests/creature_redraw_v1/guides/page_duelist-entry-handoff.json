@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "kind": "page_duelist",
+  "source_commit": "f01d18e6ac0f75eb95d8338bd3c22fb3e1e9966c",
+  "canvas": [
+    416,
+    245
+  ],
+  "entries": [
+    {
+      "clip": "idle",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png",
+        "region": [
+          0,
+          0,
+          196,
+          224
+        ],
+        "margin": [
+          127,
+          13,
+          220,
+          21
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+        "region": [
+          2,
+          2,
+          177,
+          194
+        ],
+        "margin": [
+          130,
+          43,
+          239,
+          51
+        ]
+      }
+    },
+    {
+      "clip": "walk",
+      "frame": 8,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png",
+        "region": [
+          1452,
+          2,
+          178,
+          193
+        ],
+        "margin": [
+          129,
+          44,
+          238,
+          52
+        ]
+      }
+    }
+  ],
+  "atlas_sha256": {
+    "res://assets/sprites/original_creatures/page_duelist/combat_motion_v7.png": "efcf266053c592cbca37e8472cae80f5731efd2f633e229a4a141a32927f4d6d",
+    "res://assets/sprites/original_creatures/page_duelist/motion_redraw_00.png": "0e47796373586959fe78b4bc1e950d17b8a6b90af50cf47e9fcbd2ce7926dab6"
+  },
+  "supporting_board_sha256": "5fc06668e784270d4ee256559cf99ce9a5310a7874e60f405be589f58f6deff8",
+  "supporting_board_thumbnail": "art_requests/creature_redraw_v1/receipts/page_duelist-entry-reference.png",
+  "explanation": "Fixed idle/walk poses used for the accepted entry repaint, on the original canvas without fitting or recentering. Supporting-board thumbnail records candidate context; rejected candidates remain receipts only. New final cels painted by built-in image_gen."
+}

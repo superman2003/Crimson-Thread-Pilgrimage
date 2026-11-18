@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Real production camera/actors with positioned fixtures; not a natural chapter clear.
 const PATH := "res://data/demo_ch03_saltwhite_archive.json"
 const SAVE_PATH := "user://salt_archive_experience.json"
@@ -131,7 +132,7 @@ func room_views() -> void:
     for encounter in [["E06", Vector2(2030, 1752)], ["E12", Vector2(4795, 2640)], ["E12", Vector2(5180, 2606)]]:
         var actor: Area2D = null
         for candidate in get_nodes_in_group("enemy"):
-            if candidate.get_parent() == world and candidate.spawn_id == encounter[0]:
+            if LEVEL_HOST.owns(world, candidate) and candidate.spawn_id == encounter[0]:
                 actor = candidate
         check(actor != null, String(encounter[0]) + " production actor exists")
         if actor == null: continue

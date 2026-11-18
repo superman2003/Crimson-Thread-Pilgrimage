@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Runtime action/door/reward regression. Known source positions and breakable
 ## floor approach are test fixtures. Door actions and room walking use real input.
 ## Enemies are removed: this is not a complete damage-enabled six-region run.
@@ -271,11 +272,11 @@ func _verify_late_branch(region: String, portal_id: String, ability: String = ""
     var source := Vector2(float(entry.position[0]), float(entry.position[1]))
     await _spawn(region, source)
     if not ability.is_empty():
-        scene._activate_world_portal(scene.get_node(portal_id))
+        scene._activate_world_portal(LEVEL_HOST.find(scene, portal_id))
         _assert(not scene.chapter_transitioning, portal_id + ": ability lock rejects fresh traveler")
         scene._add_inventory_item(ability, 1, false)
         scene._sync_player_abilities()
-    scene._activate_world_portal(scene.get_node(portal_id))
+    scene._activate_world_portal(LEVEL_HOST.find(scene, portal_id))
     _assert(await preload("res://scripts/world_passage_terminal_fixture.gd").finish(scene), portal_id + ": terminal state fixture settles")
     await _tick(10)
     var arrival := Vector2(float(entry.target_spawn[0]), float(entry.target_spawn[1]))
@@ -285,7 +286,7 @@ func _verify_late_branch(region: String, portal_id: String, ability: String = ""
         _assert(int(scene.inventory_counts.get(ability, 0)) > 0, portal_id + ": branch preserves acquired ability")
     if not String(entry.get("unlock_shortcut_id", "")).is_empty():
         _assert(bool(scene.story_flags.get("world_shortcut_" + String(entry.unlock_shortcut_id), false)), portal_id + ": far-side service latch persists")
-    scene._activate_world_portal(scene.get_node(String(entry.target_portal_id)))
+    scene._activate_world_portal(LEVEL_HOST.find(scene, String(entry.target_portal_id)))
     _assert(await preload("res://scripts/world_passage_terminal_fixture.gd").finish(scene), portal_id + ": terminal state fixture settles")
     await _tick(10)
     _assert(String(scene.config.id) == region and scene.player.position.distance_to(source) < 85, portal_id + ": branch can return without boss-clear dependency")
@@ -326,14 +327,14 @@ func _verify_workshop_restart(target: Dictionary, entry: Dictionary, source: Vec
     # walk from the saved shrine through the entire original region.
     scene.player.global_position=source
     scene.player.velocity=Vector2.ZERO
-    scene._activate_world_portal(scene.get_node(String(target.entry_portal_id)))
+    scene._activate_world_portal(LEVEL_HOST.find(scene, String(target.entry_portal_id)))
     await _tick(10)
     phase_started = _trace_workshop_phase(String(target.room_id)+":disk_revisit_entry",phase_started)
     _assert(not scene.locked_gate_bodies.has(String(target.gate_id)),String(target.room_id)+": disk-resumed revisit keeps latch physically open")
     for reward in target.reward_ids:
-        _assert(scene.get_node_or_null(String(reward))==null,String(target.room_id)+": disk-resumed room does not respawn reward "+String(reward))
+        _assert(LEVEL_HOST.find(scene, String(reward))==null,String(target.room_id)+": disk-resumed room does not respawn reward "+String(reward))
     _assert(scene.currency_count==wallet and int(scene.inventory_counts.get(record_id,0))==records,String(target.room_id)+": revisit cannot duplicate resources")
-    scene._activate_world_portal(scene.get_node(String(entry.target_portal_id)))
+    scene._activate_world_portal(LEVEL_HOST.find(scene, String(entry.target_portal_id)))
     await _tick(10)
     _trace_workshop_phase(String(target.room_id)+":disk_revisit_exit",phase_started)
     _assert(scene.player.position.distance_to(source)<85,String(target.room_id)+": resumed room still has its actual exit")
@@ -373,7 +374,7 @@ func _verify_ability_pickups(data: Dictionary) -> void:
             current_scene=scene
             await _tick(5)
             _assert(int(scene.inventory_counts.get(ability,0))==1 and bool(scene.player.get(fields[ability])),ability+": disk restart restores capability exactly once")
-            _assert(scene.get_node_or_null(String(item.id))==null,ability+": acquired source does not respawn after disk restart")
+            _assert(LEVEL_HOST.find(scene, String(item.id))==null,ability+": acquired source does not respawn after disk restart")
             # Visit an existing old-area target with the acquired inventory.
             var target: Dictionary={}
             for value in data.ability_backtracks:
@@ -401,7 +402,7 @@ func _verify_workshop_targets(data: Dictionary, targets: Array, restart_from_dis
         phase_started = _trace_workshop_phase(String(target.room_id)+":fresh_boot",phase_started)
         var entry: Dictionary = ROUTES.portal(region, String(target.entry_portal_id))
         var arrival := Vector2(float(entry.target_spawn[0]), float(entry.target_spawn[1]))
-        scene._activate_world_portal(scene.get_node(String(target.entry_portal_id)))
+        scene._activate_world_portal(LEVEL_HOST.find(scene, String(target.entry_portal_id)))
         await _tick(10)
         _assert(scene.player.position.distance_to(arrival) < 85, gate_id + ": paired route arrives at workshop foyer")
         scene._close_overlays()
@@ -421,7 +422,7 @@ func _verify_workshop_targets(data: Dictionary, targets: Array, restart_from_dis
         var currency_before: int = scene.currency_count
         var reward_positions: Dictionary = {}
         for reward_id in target.reward_ids:
-            var reward: Node = scene.get_node_or_null(String(reward_id))
+            var reward: Node = LEVEL_HOST.find(scene, String(reward_id))
             _assert(reward != null, gate_id + ": reward node instantiated before opening")
             if reward != null:
                 reward_positions[String(reward_id)] = reward.position
@@ -468,16 +469,16 @@ func _verify_workshop_targets(data: Dictionary, targets: Array, restart_from_dis
             var bottom_id := String(target.room_id) + "_well_lift_b"
             var bottom: Dictionary = ROUTES.portal(region, bottom_id)
             _assert(await _walk_x(float(bottom.position[0])), gate_id + ": collapsed well has supported return access")
-            scene._activate_world_portal(scene.get_node(bottom_id))
+            scene._activate_world_portal(LEVEL_HOST.find(scene, bottom_id))
             await _tick(10)
             _assert(bool(scene.story_flags.get("world_shortcut_" + String(bottom.unlock_shortcut_id), false)), gate_id + ": far-side return lift opens permanently")
         _assert(await _walk_x(arrival.x), gate_id + ": safely walk back to foyer")
-        scene._activate_world_portal(scene.get_node(String(entry.target_portal_id)))
+        scene._activate_world_portal(LEVEL_HOST.find(scene, String(entry.target_portal_id)))
         await _tick(10)
         _assert(scene.player.position.distance_to(source) < 85, gate_id + ": workshop returns to actual original platform")
         _assert(not scene.locked_gate_bodies.has(gate_id), gate_id + ": action gate remains open after real scene replacement")
         for reward_id in target.reward_ids:
-            _assert(scene.get_node_or_null(String(reward_id)) == null, gate_id + ": collected reward does not respawn")
+            _assert(LEVEL_HOST.find(scene, String(reward_id)) == null, gate_id + ": collected reward does not respawn")
         phase_started = _trace_workshop_phase(String(target.room_id)+":initial_return",phase_started)
         if restart_from_disk and authored_room.get("layout_group","") in ["movement_group_one","movement_group_two"]:
             await _verify_workshop_restart(target,entry,source)
@@ -541,7 +542,7 @@ func _run() -> void:
     await _verify_late_branch("demo_ch04_broken_string_greenhouse", "upgrade_greenhouse_crown_branch_a", "lantern_phase")
     var near_entry: Dictionary = ROUTES.portal("demo_ch02_rain_foundry_canal", "upgrade_obsidian_rain_return_b")
     await _spawn("demo_ch02_rain_foundry_canal", Vector2(float(near_entry.position[0]), float(near_entry.position[1])))
-    scene._activate_world_portal(scene.get_node("upgrade_obsidian_rain_return_b"))
+    scene._activate_world_portal(LEVEL_HOST.find(scene, "upgrade_obsidian_rain_return_b"))
     _assert(not scene.chapter_transitioning, "old service line cannot open from the near side")
     await _verify_late_branch("demo_ch05_obsidian_pilgrim_road", "upgrade_obsidian_rain_return_a")
     var targets: Array = data.get("ability_backtracks", [])

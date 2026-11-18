@@ -29,7 +29,7 @@ func permutations_check(prefix: Array, remaining: Array, narrative: RefCounted) 
         permutations_check(prefix + [id], tail, narrative)
 
 func gate_for(id: String) -> Area2D:
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and child.get_meta("kind", "") == "ending_gate" and child.get_meta("ending", "") == id:
             return child
     return null
@@ -126,7 +126,7 @@ func run_checks() -> void:
     scene.player.global_position = gate.global_position
     scene.player.velocity = Vector2.ZERO
     scene._try_interact()
-    var desk = scene.get_node_or_null(DESK.NAME)
+    var desk = LEVEL_HOST.find(scene, DESK.NAME)
     check(is_instance_valid(desk) and desk.visible and desk.phase == "preview", "interacting opens the preview instead of committing")
     check(scene.player.ui_input_locked and scene.active_overlay == "ending_story", "story reader locks gameplay input")
     check(not scene.story_flags.has("ending_chosen") and desk.reader.text.contains("黑潮") and desk.reader.text.contains("承担什么"), "choice costs are explained before a save")

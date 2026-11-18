@@ -1,7 +1,10 @@
 extends Node2D
 ## Registered physical connector network. World-coordinate endpoints remain
-## fixed; destination gameplay is still loaded at the terminal, not seamless.
+## fixed. The destination is built hidden while the player walks (W00 stage 4)
+## and takes over at the terminal without a loading screen; if that build is
+## unavailable the terminal falls back to the ordinary budgeted region load.
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
 const ROCK := preload("res://scripts/world_rock_material.gd")
@@ -41,6 +44,14 @@ var last_result: Dictionary = {}
 var landing_support_key := ""
 var arrival_token: RefCounted
 var arrival_previous_player_mode: ProcessMode = Node.PROCESS_MODE_INHERIT
+## Passages whose destination is built while walking: all five (W00 stage 5).
+const STAGED_PASSAGES := ["moss_rain_drainpipe", "rain_archive_conduit", "archive_obsidian_gallery",
+    "obsidian_crown_causeway", "greenhouse_crown_roots"]
+## Fixtures that test the terminal fallback load turn the hidden build off.
+var staging_enabled := true
+var staged := false
+var staged_wait_frames := 0
+var staged_wait_started := 0
 
 static func routes() -> Array:
     if definitions.is_empty():
@@ -171,20 +182,17 @@ func begin(portal_id: String) -> bool:
     host.player.collision_layer = TRANSIT_LAYER
     host.player.collision_mask = TRANSIT_LAYER
     host.player.velocity = speed
-    frozen.clear()
-    for node in host.get_children():
-        if node == host.player or node == self:
-            continue
-        var record := {"node": node, "mode": node.process_mode}
-        node.process_mode = Node.PROCESS_MODE_DISABLED
-        if node is CanvasItem or node is CanvasLayer:
-            record["visible"] = node.visible
-            node.visible = false
-        frozen.append(record)
+    _freeze_current_region()
+    _draw_above_region()
     _build_tube()
     retry_blocked = false
     active = true
     host.world_loading = true # source Area signals and saves remain inert
+    staged = staging_enabled and String(route.get("id", "")) in STAGED_PASSAGES and host.world_loader.phase == "idle"
+    staged_wait_frames = 0
+    if staged:
+        # Runs across the frames of the walk; the terminal checks its phase.
+        host.world_loader.stage_region_async(host, destination_config_path, entry)
     sync_until = Engine.get_physics_frames() + 1
     previous_position = host.player.global_position
     travelled = 0
@@ -399,6 +407,10 @@ func _arrive() -> void:
     var world_point := COORDINATES.to_world(source_id, host.player.global_position)
     terminal_world_point = world_point
     var entry := COORDINATES.to_local(destination_id, world_point)
+    if staged and host.world_loader.phase in ["staging", "staged"]:
+        _arrive_staged(entry)
+        return
+    staged = false
     # Keep the tube until target construction commits. The source remains the
     # saved checkpoint on cancellation/error; no half-built destination is saved.
     # Keep the player on TRANSIT collision and the host input gate closed while
@@ -416,6 +428,61 @@ func _arrive() -> void:
     # A synchronous signal preserves the loader's atomic publishing boundary,
     # even while the host is disabled. No scene-owned coroutine retains token.
     arrival_token.completed.connect(_finish_arrival, CONNECT_ONE_SHOT)
+
+## The hidden destination takes over. Until its build has finished the player
+## stands at the terminal; the wait is counted so it can be measured.
+func _arrive_staged(entry: Vector2) -> void:
+    host.world_loading = true
+    arrival_previous_player_mode = host.player.process_mode
+    host.player.process_mode = Node.PROCESS_MODE_DISABLED
+    staged_wait_started = Time.get_ticks_usec()
+    _await_staged(weakref(self), host.world_loader, entry)
+
+
+## Static so no coroutine is owned by the passage node: a freed passage or host
+## simply ends the wait. Loader frames are woken by its shutdown.
+static func _await_staged(passage_ref: WeakRef, loader: RefCounted, entry: Vector2) -> void:
+    var tree: SceneTree = Engine.get_main_loop()
+    while loader.phase == "staging" and not loader.shutting_down:
+        var waiting: Variant = passage_ref.get_ref()
+        if waiting == null:
+            return
+        waiting.staged_wait_frames += 1
+        await loader._frame_signal(tree)
+    var passage: Variant = passage_ref.get_ref()
+    if passage == null or loader.shutting_down or not is_instance_valid(passage.host) or not passage.host.is_inside_tree():
+        return
+    passage._handover_staged(entry)
+
+
+func _handover_staged(entry: Vector2) -> void:
+    var loader: RefCounted = host.world_loader
+    var waited_usec := Time.get_ticks_usec() - staged_wait_started
+    if loader.phase != "staged":
+        # The hidden build failed: load the destination the ordinary way.
+        staged = false
+        host.player.process_mode = arrival_previous_player_mode
+        _arrive()
+        return
+    var ok: bool = await loader.handover_staged_async(host, entry)
+    if not is_instance_valid(host) or not host.is_inside_tree():
+        return
+    loader.last_transition["terminal_wait_frames"] = staged_wait_frames
+    loader.last_transition["terminal_wait_usec"] = waited_usec
+    host.player.process_mode = arrival_previous_player_mode
+    if not ok:
+        staged = false
+        _arrive()
+        return
+    var world_point := terminal_world_point
+    last_result = {"arrived": true, "distance": travelled, "world_position": world_point, "landing_support": landing_support_key,
+        "staged": true, "terminal_wait_frames": staged_wait_frames}
+    host.player.collision_layer = original_layer
+    host.player.collision_mask = original_mask
+    _clear()
+    host._configure_player_camera()
+    host.player.reset_camera_after_arrival()
+
 
 func _finish_arrival() -> void:
     var ok: bool = arrival_token != null and arrival_token.succeeded
@@ -455,27 +522,48 @@ func _finish_arrival() -> void:
         _camera_bounds()
         host.player.reset_camera_after_arrival()
 
+## The source region stops simulating but stays on screen behind the tube, so
+## walking into a mouth keeps the room in view (W00 stage 6). Only what would
+## read as wrong when frozen is hidden: the HUD/dialog layers and enemies.
 func _freeze_current_region() -> void:
     frozen.clear()
-    for node in host.get_children():
+    # Region nodes one by one: the persistent container itself is never frozen,
+    # so the destination built into it starts live, as fresh host children did.
+    for node in LEVEL_HOST.children(host):
         if node == self or node == host.player:
             continue
         var record := {"node": node, "mode": node.process_mode}
         node.process_mode = Node.PROCESS_MODE_DISABLED
-        if node is CanvasItem or node is CanvasLayer:
+        if node is CanvasLayer or ((node is CanvasItem) and _hidden_in_transit(node)):
             record["visible"] = node.visible
             node.visible = false
         frozen.append(record)
 
+
+static func _hidden_in_transit(node: Node) -> bool:
+    return node.is_in_group("enemy") or node.is_in_group("boss") or node.is_in_group("hostile_attack") or node.is_in_group("player_combat_effect") or node.is_in_group("player_snare_field")
+
+
+## The tube draws over the frozen room at its mouth, and under the player.
+func _draw_above_region() -> void:
+    var region: Node = host.region_root
+    if is_instance_valid(region) and get_index() < region.get_index():
+        host.move_child(self, region.get_index())
+
 func _return_to_source(cancelled: bool) -> void:
     host.player.prepare_region_handoff()
+    var unwinding := false
+    if staged:
+        staged = false
+        unwinding = host.world_loader.phase == "staging"
+        host.world_loader.cancel_staging()
     if cancelled:
         host.player.global_position = source_point
     for record in frozen:
         var node: Variant = record.node
         if is_instance_valid(node):
             node.process_mode = record.mode
-            if node is CanvasItem or node is CanvasLayer:
+            if record.has("visible"):
                 node.visible = bool(record.visible)
     host.player.collision_layer = original_layer
     host.player.collision_mask = original_mask
@@ -485,7 +573,21 @@ func _return_to_source(cancelled: bool) -> void:
     host._configure_player_camera()
     host.player.reset_camera_after_arrival()
     host.nearby_interactable = null
-    host._save_world()
+    if unwinding:
+        _save_after_unwind(weakref(self), host.world_loader)
+    else:
+        host._save_world()
+
+
+## A cancelled hidden build restores what it may have changed when it unwinds,
+## so the return checkpoint is written after it has. Static: see _await_staged.
+static func _save_after_unwind(passage_ref: WeakRef, loader: RefCounted) -> void:
+    var tree: SceneTree = Engine.get_main_loop()
+    while loader.phase == "staging" and not loader.shutting_down:
+        await loader._frame_signal(tree)
+    var passage: Variant = passage_ref.get_ref()
+    if passage != null and not loader.shutting_down and is_instance_valid(passage.host) and passage.host.is_inside_tree() and not passage.active:
+        passage.host._save_world()
 
 func _clear() -> void:
     _release_arrival_token()

@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/archive_page_view.gd', 'scripts/build_system.gd', 'scripts/journey_archive_detail.gd', 'scripts/journey_history.gd', 'scripts/journey_history_browser.gd', 'scripts/narrative_journey.gd', 'scripts/resupply_budget.gd', 'scripts/world_coordinates.gd', 'scripts/world_narrative.gd', 'scripts/world_state.gd', 'scripts/reliability_98fd8e2f_r07_validation.gd']
+DEPS = ['scripts/archive_page_view.gd', 'scripts/build_system.gd', 'scripts/build_loadouts.gd', 'scripts/build_persistence.gd', 'scripts/build_transactions.gd', 'scripts/journey_archive_detail.gd', 'scripts/journey_history.gd', 'scripts/journey_history_browser.gd', 'scripts/narrative_journey.gd', 'scripts/resupply_budget.gd', 'scripts/world_coordinates.gd', 'scripts/world_narrative.gd', 'scripts/world_state.gd', 'scripts/reliability_98fd8e2f_r07_validation.gd']
 MARKER = '^RELIABILITY_R07 checks=[1-9][0-9]* failures=0$'
 
 def main():

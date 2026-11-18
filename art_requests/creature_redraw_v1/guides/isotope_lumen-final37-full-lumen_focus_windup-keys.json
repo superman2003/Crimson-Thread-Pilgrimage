@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "kind": "isotope_lumen",
+  "baseline": "godot/assets/sprites/original_creatures/isotope_lumen/motion_v8_manifest.json",
+  "baseline_sha256": "e7ed612993dedb0b5df45516e150f51b298a0e92fbbac94a9363df246b418bee",
+  "canvas": [
+    362,
+    263
+  ],
+  "grid": [
+    2,
+    2
+  ],
+  "frame_fit_reference_sha256": "9381b1a6a9a35a2c196f177aa426a9a6eb9b20fb6e42ea11bef16866ea719bd4",
+  "explanation": "Four frozen key poses, reference ONLY. Input to image_gen for a separate full24cel animation; never final or synthesized runtime artwork.",
+  "atlas_sha256": {
+    "res://../art_requests/creature_redraw_v1/guides/support/isotope_lumen-walk-00.png": "e6f8941dc5ca96b9c59f13cfecaf62f230a319e6270491c63b7ca5ed9663119b",
+    "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png": "2c4621dae6e1d906d05b025bd1f1fb795e4d68fd2fbd0d6784ae407a1b23b0a4",
+    "res://../art_requests/creature_redraw_v1/guides/support/isotope_lumen-lumen_focus-00.png": "7cf59a137ee551dab565369e1b5bc4e1e602803cc92d934de20c36c0ec5e8ffb"
+  },
+  "entries": [
+    {
+      "clip": "lumen_focus_windup",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/isotope_lumen-walk-00.png",
+        "region": [
+          0,
+          0,
+          167,
+          147
+        ],
+        "margin": [
+          106,
+          96,
+          195,
+          116
+        ]
+      },
+      "reference_fit": [
+        1,
+        0,
+        0
+      ],
+      "endpoint_reference": {
+        "clip": "walk",
+        "frame": 0
+      }
+    },
+    {
+      "clip": "lumen_focus_windup",
+      "frame": 8,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+        "region": [
+          192,
+          622,
+          195,
+          174
+        ],
+        "margin": [
+          92,
+          81,
+          167,
+          89
+        ]
+      },
+      "reference_fit": [
+        0.965,
+        11.0,
+        32.5
+      ]
+    },
+    {
+      "clip": "lumen_focus_windup",
+      "frame": 16,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/isotope_lumen/combat_motion_v7.png",
+        "region": [
+          925,
+          622,
+          175,
+          168
+        ],
+        "margin": [
+          108,
+          87,
+          187,
+          95
+        ]
+      },
+      "reference_fit": [
+        0.956,
+        12.3,
+        39.7
+      ]
+    },
+    {
+      "clip": "lumen_focus_windup",
+      "frame": 23,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/isotope_lumen-lumen_focus-00.png",
+        "region": [
+          0,
+          0,
+          178,
+          204
+        ],
+        "margin": [
+          102,
+          51,
+          184,
+          59
+        ]
+      },
+      "reference_fit": [
+        1.0,
+        0,
+        0
+      ],
+      "endpoint_reference": {
+        "clip": "lumen_focus",
+        "frame": 0
+      }
+    }
+  ],
+  "targets": {
+    "lumen_focus_windup": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ]
+  },
+  "original_frame_counts": {
+    "lumen_focus_windup": 24
+  },
+  "reference_height": 157.5,
+  "reference_sha256": "2bedb5ebbb09e2f6849d6875d5edde4f6a780e067b32c17b0246dd471053fbe8",
+  "keyframe_indices": [
+    0,
+    8,
+    16,
+    23
+  ]
+}

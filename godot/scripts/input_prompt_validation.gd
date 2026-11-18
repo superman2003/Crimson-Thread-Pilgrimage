@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const PROMPTS := preload("res://scripts/input_prompt_bindings.gd")
 const UI := preload("res://scripts/pilgrimage_interface.gd")
@@ -42,7 +43,7 @@ func _run() -> void:
     _check(ui._dialogue_binding_hint() == "手柄 Back 继续\n手柄 B 离开", "dialogue uses real interact and close-overlay bindings")
 
     var rest: Area2D
-    for child in world.get_children():
+    for child in LEVEL_HOST.children(world):
         if child is Area2D and String(child.get_meta("kind", "")) == "save_point":
             rest = child
             break

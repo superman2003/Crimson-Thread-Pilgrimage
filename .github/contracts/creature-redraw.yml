@@ -3,9 +3,19 @@ name: Reviewed creature redraws
 on:
   pull_request:
     paths:
+      - '.gitattributes'
       - 'godot/assets/sprites/original_creatures/**'
       - 'art_requests/enemy_transitions_v1/**'
       - 'godot/scripts/enemy_actor.gd'
+      - 'godot/scripts/enemy_commands.gd'
+      - 'godot/scripts/enemy_lifecycle.gd'
+      - 'godot/scripts/enemy_attack_choice.gd'
+      - 'godot/scripts/enemy_attack_phases.gd'
+      - 'godot/scripts/enemy_audio.gd'
+      - 'godot/scripts/enemy_boss_tactics.gd'
+      - 'godot/scripts/enemy_effects.gd'
+      - 'godot/scripts/enemy_engagement.gd'
+      - 'godot/scripts/enemy_presentation.gd'
       - 'godot/scripts/enemy_motion_transitions*.gd'
       - 'godot/scripts/hand_drawn_assets.gd'
       - 'godot/scripts/character_motion_v8_validation.gd'
@@ -29,6 +39,10 @@ on:
       - '.github/contracts/creature-redraw.yml'
       - 'tools/creature_redraw_art.py'
       - 'tools/test_creature_redraw_art.py'
+      - 'tools/audit_creature_redraw_handoffs.py'
+      - 'tools/test_creature_redraw_handoffs.py'
+      - 'tools/check_redraw_preview_blobs.py'
+      - 'artifacts/creature_redraw_batch*/**'
       - 'tools/creature_redraw_guides.py'
       - 'art_requests/creature_redraw_v1/**'
       - 'godot/scripts/combat_motion_v7_validation.gd'
@@ -46,7 +60,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Hydrate production assets
         run: git lfs pull --include='godot/assets/**,art_requests/creature_redraw_v1/**'
       - name: Install Godot and validation dependencies
@@ -59,6 +73,9 @@ jobs:
       - name: Verify measurement inputs and base anchoring
         run: |
           python3 tools/test_creature_redraw_art.py
+          python3 tools/test_creature_redraw_handoffs.py
+          python3 tools/audit_creature_redraw_handoffs.py
+          python3 tools/check_redraw_preview_blobs.py
           python3 tools/creature_redraw_art.py --all --check
           python3 tools/build_creature_frame_fit.py --self-test
           python3 tools/test_creature_frame_fit.py
@@ -70,7 +87,7 @@ jobs:
       - name: Verify real playback, interruptions and frozen combat clocks
         run: |
           python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite boss_behavior --suite character_motion_v8 --suite combat_motion_v7 --suite expanded_character_motion --suite enemy_frame_fit --suite enemy_wing_flap --suite enemy_motion_transitions --suite enemy_hit_feedback --log-dir "$RUNNER_TEMP/transition-logs/runtime"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: creature-redraw-logs

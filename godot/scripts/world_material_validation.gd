@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Verify every region uses one continuous stone material, without touching collision.
 const ROCK := preload("res://scripts/world_rock_material.gd")
 const MAP_ART := preload("res://scripts/flat_map_art.gd")
@@ -67,7 +68,7 @@ func run() -> void:
         var flips := {}
         for data in scene.config.platforms:
             if data.has("terrain_id"): continue
-            var platform: Node = scene.get_node(String(data.id))
+            var platform: Node = LEVEL_HOST.find(scene, String(data.id))
             var chosen := int(platform.get_meta("platform_art_variant",-1))
             var art: Dictionary = data.get("art",{})
             var again: Dictionary = MAP_ART.platform_choice(theme,String(data.id),String(data.get("material","moss_stone")),art)

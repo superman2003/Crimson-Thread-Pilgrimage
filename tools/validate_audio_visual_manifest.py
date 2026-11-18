@@ -53,7 +53,7 @@ def walk_audio_entries(value: Any, pointer: str = "$") -> Iterable[tuple[str, di
     future_free_candidate 仍允许无 path。"""
     if isinstance(value, dict):
         status = value.get("status")
-        if status in {"wired", "asset_ready", "local_audio", "future_free_candidate"}:
+        if status in {"wired", "asset_ready", "retired", "local_audio", "future_free_candidate"}:
             yield pointer, value
         for key, child in value.items():
             yield from walk_audio_entries(child, f"{pointer}.{key}")
@@ -130,6 +130,13 @@ def validate_audio_entry(pointer: str, entry: dict[str, Any]) -> str:
         assert_true(bool(entry.get("recorded_source")), f"{pointer} local audio missing recorded_source")
         assert_true(bool(entry.get("license")), f"{pointer} local audio missing license")
         return "local"
+    if status == "retired":
+        # 已被别的声音取代、不会再接线的素材：必须写明原因，文件仍在，运行时不得再引用。
+        assert_true(bool(str(entry.get("retired_reason", "")).strip()), f"{pointer} {key} is retired without retired_reason")
+        assert_true("wiring_note" not in entry and "implemented_in" not in entry and "reserved_in" not in entry,
+                    f"{pointer} {key} is retired but still carries wiring fields")
+        assert_true(res_to_path(str(entry.get("path", ""))).exists(), f"{pointer} retired audio missing: {entry.get('path')}")
+        return "retired"
     if status in {"wired", "asset_ready"}:
         path = str(entry.get("path", ""))
         assert_true(
@@ -203,13 +210,16 @@ def main() -> None:
     validate_runtime_events(manifest)
     validate_chapter_beats(manifest, campaign)
 
-    counts = {"local": 0, "wired": 0, "asset_ready": 0, "future": 0}
+    counts = {"local": 0, "wired": 0, "asset_ready": 0, "retired": 0, "future": 0}
     runtime = runtime_source_text()
     for pointer, entry in walk_audio_entries(manifest):
         kind = validate_audio_entry(pointer, entry)
         counts[kind] += 1
         if kind == "asset_ready":
             validate_asset_ready_unreferenced(pointer, entry, runtime)
+        if kind == "retired":
+            assert_true(str(entry.get("path", "")) not in runtime,
+                        f"{pointer} {entry.get('key')} is retired but runtime code still uses {entry.get('path')}")
 
     implemented_count = 0
     for pointer, implemented_in in walk_implemented_in(manifest):
@@ -222,7 +232,7 @@ def main() -> None:
     print(
         "AUDIO_VISUAL_MANIFEST_VALIDATION_PASS "
         f"runtime_keys={len(REQUIRED_RUNTIME_KEYS)} chapters=6 "
-        f"wired={counts['wired']} asset_ready={counts['asset_ready']} local_audio={counts['local']} "
+        f"wired={counts['wired']} asset_ready={counts['asset_ready']} retired={counts['retired']} local_audio={counts['local']} "
         f"future_free_candidate={counts['future']} implemented_in={implemented_count}"
     )
 

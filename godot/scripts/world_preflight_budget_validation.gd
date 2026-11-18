@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Acceptance for the incremental target preflight contract. The suite checks
 ## parity against fixed legacy error messages, bounded admission, and the
 ## source-isolation boundary before the loader starts a handoff.
@@ -380,7 +381,7 @@ func _pending_gap_check() -> void:
 	if scene == null: return
 	var passage: Node = scene.world_passage
 	var pipe_id := "moss_rain_pipe"
-	var portal: Node = scene.get_node_or_null(pipe_id)
+	var portal: Node = LEVEL_HOST.find(scene, pipe_id)
 	if portal == null:
 		_check(false, "real passage endpoint exists for queue-gap proof")
 		return
@@ -431,10 +432,12 @@ func _passage_preflight_check() -> void:
 	scene = await _new_scene()
 	if scene == null: return
 	var passage: Node = scene.world_passage
-	var pipe: Node = scene.get_node_or_null("moss_rain_pipe")
+	var pipe: Node = LEVEL_HOST.find(scene, "moss_rain_pipe")
 	if pipe == null: _check(false, "passage cancellation source endpoint exists"); return
 	scene.player.global_position = pipe.global_position
 	var checkpoint: Vector2 = scene.active_spawn
+	# The terminal fallback preflight (used when no hidden build is available).
+	passage.staging_enabled = false
 	_check(passage.begin("moss_rain_pipe"), "passage enters source before terminal preflight")
 	var passage_save_bytes := _save_bytes()
 	var passage_save_mtime := FileAccess.get_modified_time(ProjectSettings.globalize_path(SAVE))
@@ -527,7 +530,7 @@ func _new_scene() -> Node:
 
 func _node_ids(host: Node) -> Array[int]:
 	var ids: Array[int] = []
-	for child in host.get_children(): ids.append(child.get_instance_id())
+	for child in LEVEL_HOST.children(host): ids.append(child.get_instance_id())
 	return ids
 
 func _source_snapshot(host: Node) -> Dictionary:

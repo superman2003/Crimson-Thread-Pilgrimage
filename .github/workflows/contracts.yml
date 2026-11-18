@@ -31,7 +31,7 @@ jobs:
       shards: ${{ steps.select.outputs.shards }}
       count: ${{ steps.select.outputs.count }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ env.CONTRACT_SHA }}
           lfs: false
@@ -67,7 +67,7 @@ jobs:
           python3 tools/ci/contracts.py select --files "$RUNNER_TEMP/changed.txt" \
             --event "${EVENT:-${{ github.event_name }}}" --max-shards 12 --out "$RUNNER_TEMP/plan.json"
           python3 -c "import json,sys; d=json.load(open(sys.argv[1])); [print(s['index'], s['estimate_minutes'], ' '.join(s['contracts'])) for s in d['shards']]" "$RUNNER_TEMP/plan.json"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: contract-plan
           path: ${{ runner.temp }}/plan.json
@@ -82,11 +82,11 @@ jobs:
       matrix:
         shard: ${{ fromJSON(needs.plan.outputs.shards) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ env.CONTRACT_SHA }}
           lfs: false
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: contract-plan
           path: ${{ runner.temp }}
@@ -98,28 +98,14 @@ jobs:
           cat "$RUNNER_TEMP/needs.json"
           include=$(python3 -c "import json,sys; print(','.join(json.load(open(sys.argv[1]))['lfs']))" "$RUNNER_TEMP/needs.json")
           echo "lfs=$include" >> "$GITHUB_OUTPUT"
-          if [ -n "$include" ]; then
-            echo "lfs_key=lfs-v1-$(git lfs ls-files -l -I "$include" | sha256sum | cut -c1-32)" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Restore LFS objects
+      - name: Restore and hydrate LFS assets once for the shard
         if: steps.needs.outputs.lfs != ''
-        uses: actions/cache/restore@v4
+        uses: ./.github/actions/hydrate-lfs
         with:
-          path: .git/lfs/objects
-          key: ${{ steps.needs.outputs.lfs_key }}
-          restore-keys: lfs-v1-
-      - name: Hydrate LFS assets once for the shard
-        if: steps.needs.outputs.lfs != ''
-        run: python3 tools/hydrate_runtime_assets.py --include='${{ steps.needs.outputs.lfs }}'
-      - name: Save LFS objects (main only)
-        if: steps.needs.outputs.lfs != '' && github.event_name == 'push'
-        uses: actions/cache/save@v4
-        with:
-          path: .git/lfs/objects
-          key: ${{ steps.needs.outputs.lfs_key }}
+          include: ${{ steps.needs.outputs.lfs }}
       - name: Cache Godot
         id: godot-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ runner.temp }}/godot-cache
           key: godot-4.6.1-stable-linux-v1
@@ -151,7 +137,7 @@ jobs:
             --godot-zip "$RUNNER_TEMP/godot-cache/$GODOT_ZIP"
       - name: Keep contract logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: contract-logs-${{ matrix.shard }}
           path: |

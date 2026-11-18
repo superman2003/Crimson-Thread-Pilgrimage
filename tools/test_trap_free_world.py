@@ -46,6 +46,10 @@ class TrapFreeWorld(unittest.TestCase):
                 script=f"handcraft_ch{number:02d}_boxgarden.mjs"
                 data=f"demo_ch{number:02d}_{slug}.json"
                 shutil.copyfile(ROOT/"tools"/script,base/"tools"/script)
+                # The generators import their room, story and token modules.
+                for module in (ROOT/"tools").glob("*.mjs"):
+                    if module.name.startswith((f"handcraft_ch{number:02d}_","boxgarden_")) and not (base/"tools"/module.name).exists():
+                        shutil.copyfile(module,base/"tools"/module.name)
                 shutil.copyfile(ROOT/"godot/data"/data,base/"godot/data"/data)
                 result=subprocess.run(["node",str(base/"tools"/script),"--write"],cwd=base,
                                       capture_output=True,text=True,encoding="utf-8",timeout=60)

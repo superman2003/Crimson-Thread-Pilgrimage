@@ -1,4 +1,5 @@
 extends RefCounted
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## G02 late-game remote recovery. After REQUIRED_BOSSES region guardians fall,
 ## resting at any shrine offers to draw the return knot (dropped currency)
 ## back from wherever it lies, keeping only KEEP_RATIO of it. Walking to the
@@ -25,7 +26,7 @@ static func quote(level: Node) -> Dictionary:
     return {"ok": true, "amount": amount, "kept": int(floor(amount * KEEP_RATIO)), "region_id": String(cache.get("region_id", "")),"fingerprint":var_to_str([cache,level.currency_count]).sha256_text()}
 
 static func setup(level: Node) -> void:
-    if not level.world_mode or level.get_node_or_null(DIALOG) != null: return
+    if not level.world_mode or LEVEL_HOST.find(level, DIALOG) != null: return
     var dialog := ConfirmationDialog.new()
     dialog.name = DIALOG
     dialog.theme = level.ui_shell.theme.duplicate()
@@ -33,7 +34,7 @@ static func setup(level: Node) -> void:
     dialog.get_label().autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     dialog.get_label().custom_minimum_size = Vector2(430, 90)
     # Join the tree before any text: shaping outside it costs ~4 ms per string.
-    level.add_child(dialog)
+    LEVEL_HOST.region_parent(level).add_child(dialog)
     dialog.dialog_hide_on_ok=false
     if level.ui_shell.has_method("register_text_entry_window"):level.ui_shell.register_text_entry_window(dialog)
     dialog.title = "钟龛 · 召回归途结"
@@ -56,7 +57,7 @@ static func setup(level: Node) -> void:
 
 static func offer(level: Node) -> bool:
     var quoted := quote(level)
-    var dialog: ConfirmationDialog = level.get_node_or_null(DIALOG)
+    var dialog: ConfirmationDialog = LEVEL_HOST.find(level, DIALOG)
     if not quoted.ok or dialog == null or level.world_save_blocked or not level.is_near_shrine():return false
     dialog.set_meta("knot_fingerprint",quoted.fingerprint)
     dialog.get_ok_button().disabled=false

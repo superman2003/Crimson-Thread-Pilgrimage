@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
 const AUDIO_DIRECTOR_PATH := "res://scripts/audio_director.gd"
@@ -48,7 +49,7 @@ func _run() -> void:
     await process_frame
     await process_frame
 
-    var bgm := scene.get_node_or_null("BgmPlayer") as AudioStreamPlayer
+    var bgm := LEVEL_HOST.find(scene, "BgmPlayer") as AudioStreamPlayer
     _assert(bgm != null and bgm.stream != null, "background music player is active")
 
     # P0 音频基建断言（音频规格 §5.1/§6.1）：五总线、BGM 归位、区域混响、duck、濒死低通。
@@ -138,12 +139,12 @@ func _run() -> void:
             p0_missing += 1
     _assert(p0_variant_paths.size() >= 40 and p0_missing == 0, "all %d P0 keys have at least one landed variant" % p0_variant_paths.size())
 
-    var start_ground := scene.get_node_or_null("start_ground")
+    var start_ground := LEVEL_HOST.find(scene, "start_ground")
     _assert(start_ground != null, "start platform exists")
     _assert(_sprite_uses_original_map(start_ground.get_node_or_null("Material") as Sprite2D), "CH01 platform uses original map material")
 
     # ch1 箱庭重做后旧 vista_bridge 已移除，改用中央钟庭枢纽地板做同口径断言。
-    var hub_floor := scene.get_node_or_null("hub_floor_w")
+    var hub_floor := LEVEL_HOST.find(scene, "hub_floor_w")
     _assert(hub_floor != null, "hub platform exists")
     if hub_floor != null:
         var hub_material := hub_floor.get_node_or_null("Material") as Sprite2D

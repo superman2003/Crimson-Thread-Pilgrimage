@@ -1,0 +1,13 @@
+{
+  "kind": "summoned_page",
+  "clip": "actions_windup_full",
+  "status": "rejected",
+  "reason": "flight entry mismatches; common registration trial breaks attack recovery",
+  "source_sha256": "0d0ce7ca502d1066244039f210dd2eb93ca30d5161c6121e51a7ed287531a198",
+  "prompt_sha256": "40bbf4fbf75e95e185edc919fc5fa6516bbb2e6fdcd0b229ff0e2d2c3dfade61",
+  "reference_sha256": "e9fc4a592022d0a19e01bbfb5a47192d868f816004bb3983888716d0e3c390b3",
+  "actual_prompt": "BACKGROUND REMOVAL ONLY. Input image is a 24-cel parchment moth sprite sheet, exact 8equal columns by3equal rows, image2048x768. Preserve EVERY sprite exactly: same cel poses, scale, placement, paper outlines, antennae, rubyeyes, waxseals and artwork colors. Remove ALL background, the pale creamy fog, brown haze, soft surrounding shadows and color washes around and between sprites. Replace every background and gutter pixel by FULLY TRANSPARENT alpha=0. Do not paint a white, gray, checkerboard or colored matte. Keep crisp clean natural sprite edges and genuine transparent RGBA background with zero-alpha empty gutters. Do not redraw anatomy, do not move/resize any sprite or recenter individual cels, do not change the steepness of first two wings, do not add text, grids, particles or effects. Output only the same exact24 sprites at the same layout on fully transparent RGBA.",
+  "reference_recipe": "Built-in image_gen background extraction of entry4 candidate, which failed the strict zero-alpha gutter check. Sprite poses and registration preserved; no scripted pixel editing. Earlier entry3 rejected for rig bounds.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/summoned_page-actions-windup-full.json",
+  "guide_sha256": "b9bd0febcca8116303d883cf64aaf8eb818b291b1e6f879f13254898afd3ea55"
+}

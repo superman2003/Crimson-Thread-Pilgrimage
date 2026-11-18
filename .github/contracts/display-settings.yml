@@ -1,0 +1,66 @@
+name: Display settings (fullscreen, vsync, frame cap)
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/display_*.gd'
+      - 'godot/scripts/ui_language.gd'
+      - 'godot/data/ui_translations.json'
+      - 'tools/audit_ui_translations.py'
+      - 'godot/scripts/colour_assist*.gd'
+      - 'godot/shaders/colour_assist.gdshader'
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
+      - 'tools/run_display_settings_contract.py'
+      - '.github/contracts/display-settings.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: display-settings-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-display:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          lfs: false
+          sparse-checkout: |
+            /godot/scripts/ui_type_scale.gd
+            /godot/scripts/display_preferences.gd
+            /godot/scripts/display_dialog.gd
+            /godot/scripts/ui_language.gd
+            /godot/data/ui_translations.json
+            /tools/audit_ui_translations.py
+            /godot/scripts/colour_assist.gd
+            /godot/scripts/colour_assist_validation.gd
+            /godot/shaders/colour_assist.gdshader
+            /godot/scripts/settings_dialog_layout.gd
+            /godot/scripts/journey_window_layout.gd
+            /godot/scripts/journey_desk_store.gd
+            /godot/scripts/display_settings_validation.gd
+            /tools/run_display_settings_contract.py
+          sparse-checkout-cone-mode: false
+      - name: Install Godot 4.6.1
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Native apply, persistence and dialog contracts
+        run: python3 tools/audit_ui_translations.py --self-test && xvfb-run -a python3 tools/run_display_settings_contract.py --gl --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/display-logs"
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: display-settings-logs
+          path: ${{ runner.temp }}/display-logs

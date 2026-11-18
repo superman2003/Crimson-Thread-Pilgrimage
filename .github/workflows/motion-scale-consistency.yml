@@ -25,10 +25,14 @@ jobs:
     env:
       GIT_LFS_SKIP_SMUDGE: "1"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: false
+      - name: Restore and hydrate creature motion assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/assets/sprites/original_creatures/**,art_requests/motion_onion/**
       - name: Install image dependencies
         run: python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
       - name: Onion pipeline round trip, committed layers, and generated in-between scale gate
@@ -38,7 +42,7 @@ jobs:
           python3 tools/audit_motion_scale_consistency.py --report "$RUNNER_TEMP/motion-scale.json"
       - name: Keep the outlier report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: motion-scale-report
           path: ${{ runner.temp }}/motion-scale.json

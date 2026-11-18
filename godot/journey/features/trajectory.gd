@@ -1,6 +1,8 @@
 extends "res://journey/core/feature.gd"
 const MODEL := preload("res://journey/trajectory/model.gd")
 const PLOT := preload("res://journey/trajectory/plot.gd")
+## Text of the on-screen path overlay, drawn over the game world.
+const OVERLAY_INK := Color("dec6a0")
 var active: Dictionary = {}
 var pending: Dictionary = {}
 var mode := "path"
@@ -49,7 +51,7 @@ func _overlay(snapshot: Dictionary) -> void:
         overlay_label.size = Vector2(340, 30)
         overlay_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
         overlay_label.add_theme_font_size_override("font_size", 15)
-        overlay_label.add_theme_color_override("font_color", Color("dec6a0"))
+        overlay_label.add_theme_color_override("font_color", OVERLAY_INK)
         overlay.add_child(overlay_label)
     overlay.visible = true
     overlay_label.text = "轨迹记录 %.1f秒 · %d/%d样本" % [active.duration, active.samples.size(), MODEL.MAX_SAMPLES]

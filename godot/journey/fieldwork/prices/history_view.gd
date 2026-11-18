@@ -1,4 +1,9 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const HEADER_TEXT := Color("c7b58b")
+const SUMMARY_TEXT := Color("d0b584")
+
 var samples: Array = []
 var selected := 0
 var hovered := -1
@@ -142,7 +147,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             LEFT - 6,
             11,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     draw_rect(area, Color("61755d"), false, 1)
     _series(false, Color("7fb09a"))
@@ -162,7 +167,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             area.size.x - 40,
             15,
-            Color("c7b58b")
+            HEADER_TEXT
         )
     draw_string(
         font,
@@ -171,7 +176,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
-        Color("d0b584")
+        SUMMARY_TEXT
     )
     draw_string(
         font,
@@ -180,7 +185,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

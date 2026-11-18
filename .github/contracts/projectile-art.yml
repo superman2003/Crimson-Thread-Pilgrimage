@@ -61,7 +61,7 @@ jobs:
             --suite character_art_prewarm --log-dir "$RUNNER_TEMP/projectile-logs"
       - name: Preserve validation logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: projectile-art-logs
           path: ${{ runner.temp }}/projectile-logs

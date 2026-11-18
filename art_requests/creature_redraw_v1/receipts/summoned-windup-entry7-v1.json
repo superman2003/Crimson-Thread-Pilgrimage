@@ -1,0 +1,13 @@
+{
+  "kind": "summoned_page",
+  "clip": "actions_windup_full",
+  "status": "rejected",
+  "reason": "first-cel size correction1.14 exceeds repair limit despite passing handoffs",
+  "source_sha256": "ffe55f4f769f1d1354f65e9f9e7687836b69f8cd9935b80b211e6417f4a20220",
+  "prompt_sha256": "e269c7cdf8b3ce3b7bcc153707e2136aefc41324ccb221d880b4bc1170b02a4d",
+  "reference_sha256": "e9fc4a592022d0a19e01bbfb5a47192d868f816004bb3983888716d0e3c390b3",
+  "actual_prompt": "Edit ONLY the upper paper wings in cels0,1,2 of the exact8-column x3-row24-cel windup sprite sheet input1. Keep ALL body sizes, head/rubyeye/waxseal positions, lower paper tails, alpha margins and all other21 drawings unchanged. Cel0 already has the correct compact body size; do not enlarge it. Raise ONLY its large triangular cream wing by an additional10degrees around the existing shoulder root, so its upper edge points35degrees UP-LEFT like the accepted WALK poses at the TOP of input2. Cel1 wing points28degrees up-left, cel2 wing20degrees; make small articulated folds so cel3 continues smoothly. Keep upper-wing length and ink curl exactly same, preserve total paper mass, no extra wings or anatomy. First-cell upperwing tip no higher than local y80 in each256px cell, no pixel touches cell gutter; head and redwaxseal absolutely anchored. Input2 is pose reference only, never reproduce its layout or labels. Same ivory mask, one rubyeye, brown antennae, inked cream/charcoal/crimson paper layers. TRUE transparent RGBA alpha0 background/gutters; preserve crisp natural edges, no colored matte, haze, fog, soft cloud, shadows, glow, effects, floor, grid, text, particles or checkerboard.",
+  "reference_recipe": "Built-in image_gen final wing-root articulation of entry6. Accepted idle/walk fixed-canvas board supplies upright flight shape. Entire source uses accepted idle anchor(188,90), one shared offset(-8,+5) from canvas center; no per-cel procedural transforms.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/summoned_page-actions-windup-full.json",
+  "guide_sha256": "b9bd0febcca8116303d883cf64aaf8eb818b291b1e6f879f13254898afd3ea55"
+}

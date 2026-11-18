@@ -33,14 +33,14 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Check out exact source and hydrate runtime assets
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: false
-      - name: Hydrate only runtime LFS assets
-        run: |
-          git lfs install --skip-smudge
-          git lfs pull --include='godot/assets/**'
+      - name: Restore and hydrate only runtime LFS assets
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/assets/**
       - name: Install target Godot and software GL
         run: |
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
@@ -59,7 +59,7 @@ jobs:
           python3 tools/run_runtime_soak.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --seconds "$SOAK_SECONDS" --log-dir "$RUNNER_TEMP/runtime-soak"
       - name: Preserve all evidence including failures
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: runtime-lifecycle-soak
           path: |

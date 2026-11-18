@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/danger_caption_surface.gd', 'scripts/danger_caption_groups.gd', 'scripts/reliability_98fd8e2f_r08_validation.gd']
+DEPS = ['scripts/danger_caption_surface.gd', 'scripts/level_host.gd', 'scripts/danger_caption_groups.gd', 'scripts/reliability_98fd8e2f_r08_validation.gd']
 MARKER = '^RELIABILITY_R08 checks=[1-9][0-9]* failures=0$'
 
 def main():

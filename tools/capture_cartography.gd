@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 const RUNTIME := preload("res://scripts/cartography_runtime.gd")
 var scene: Node
@@ -28,14 +29,14 @@ func run() -> void:
     scene._toggle_map()
     await capture("01_unpurchased")
     scene._close_overlays()
-    var stall: Area2D=scene.get_node("npc_gear_cartographer")
+    var stall: Area2D=LEVEL_HOST.find(scene, "npc_gear_cartographer")
     scene.player.position=stall.position
     scene.currency_count=40
     RUNTIME.open_shop(scene,stall)
     for tick in 3: await process_frame
     await RenderingServer.frame_post_draw
     root.get_texture().get_image().save_jpg(output+"/02_purchase.jpg",0.92)
-    scene.get_node("MapPurchaseDialog").confirmed.emit()
+    LEVEL_HOST.find(scene, "MapPurchaseDialog").confirmed.emit()
     scene.player.position=scene._vec2(scene.config.player_start)
     scene._update_room_visit()
     scene._toggle_map()
@@ -45,7 +46,7 @@ func run() -> void:
     JOURNAL.visit(scene.story_flags,String(scene.config.id),"hidden_attic")
     await capture("04_pending")
     scene._close_overlays()
-    scene._activate_save_point(scene.get_node("save_first_bell"))
+    scene._activate_save_point(LEVEL_HOST.find(scene, "save_first_bell"))
     scene._toggle_map()
     await capture("05_charted")
     scene.queue_free()

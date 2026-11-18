@@ -13,7 +13,65 @@ import creature_redraw_art as art
 art._real_extract = art.extract
 
 
+class PaintingStyle(unittest.TestCase):
+    """The silhouette checks cannot see a smeared outline or lost markings."""
+    @staticmethod
+    def moth(red=True, blur=0):
+        image = Image.new('RGBA', (160, 120))
+        draw = ImageDraw.Draw(image)
+        draw.ellipse((30, 30, 130, 90), fill=(150, 112, 94, 255))
+        if red:
+            draw.ellipse((40, 60, 80, 85), fill=(190, 40, 45, 255))
+        if blur:
+            from PIL import ImageFilter
+            image = image.filter(ImageFilter.GaussianBlur(blur))
+        return [(image, (0, 0))]
+
+    def test_matching_redraw_passes(self):
+        self.assertEqual(art.style_defects(self.moth(), self.moth()), [])
+
+    def test_smeared_outline_is_rejected(self):
+        found = art.style_defects(self.moth(), self.moth(blur=6))
+        self.assertTrue(any('blurred outline' in reason for reason in found), found)
+
+    def test_lost_markings_are_rejected_unless_the_pinned_sheet_is_waived(self):
+        found = art.style_defects(self.moth(), self.moth(red=False))
+        self.assertTrue(any('lost markings' in reason for reason in found), found)
+        self.assertEqual(art.style_defects(self.moth(), self.moth(red=False), accent_waived=True), [])
+
+    def test_creatures_without_accent_colour_are_not_judged_on_it(self):
+        self.assertEqual(art.style_defects(self.moth(red=False), self.moth(red=False)), [])
+
+    def test_waiver_never_excuses_a_smeared_outline(self):
+        self.assertTrue(art.style_defects(self.moth(), self.moth(blur=6), accent_waived=True))
+
+    def test_historical_exceptions_stay_pinned_to_their_registered_sheets(self):
+        self.assertEqual(len(art.LEGACY_ACCENT_SOURCES), 7)
+        for (kind, clip), digest in art.LEGACY_ACCENT_SOURCES.items():
+            jobs = art.read(art.REQUEST/'jobs'/(kind+'.json'))['jobs']
+            self.assertEqual([j['sha256'] for j in jobs if j['clip'] == clip], [digest], (kind, clip))
+
+
+    def test_repainted_summoned_windup_meets_the_original_painting_guard(self):
+        jobs = art.read(art.REQUEST/'jobs/summoned_page.json')['jobs']
+        job = next(j for j in jobs if j['clip'] == 'windup')
+        self.assertNotEqual(job['sha256'], '7cabfa1e7070d40b9b87888dd98cdb8c6c1645177263d414560cb739d30df3d7')
+        _, baseline = art.baseline('summoned_page')
+        clip = next(c for c in baseline['animations'] if c['name'] == 'windup')
+        drawings, _ = art.extract(job, baseline['canvas'], art.body_area(clip, baseline['canvas']))
+        before = [art.source_drawing(frame, {}) for frame in clip['frames']]
+        self.assertEqual(art.style_defects(before, drawings), [])
+        art.build('summoned_page', check=True)
+
+
 class DeliveryContracts(unittest.TestCase):
+    def test_partial_pollen_windup_keeps_its_active_attack_handoff(self):
+        from audit_creature_redraw_handoffs import MAX_CHANGE, measure
+        manifest = art.read(art.fit.CREATURES/'pollen_lutist'/art.LAYER)
+        edges = [dict(source='windup', source_frame=-1, target='attack', target_frame=0)]
+        rows = measure(manifest, edges, art.fit.Atlases().alpha)
+        self.assertLessEqual(rows[0]['change'], MAX_CHANGE, rows[0])
+
     def test_all_does_not_succeed_for_an_unhydrated_request_directory(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(art, 'REQUEST', Path(folder)):
             error = io.StringIO()
@@ -35,6 +93,13 @@ class DeliveryContracts(unittest.TestCase):
         def duplicate(spec): spec['jobs'] = [spec['jobs'][0], spec['jobs'][0]]
         with self.assertRaisesRegex(ValueError, 'Duplicate registered clip'):
             self.corrupted(duplicate)
+
+    def test_changed_supporting_handoff_reference_is_rejected(self):
+        def change(spec):
+            spec['jobs'][0].setdefault('reference', {})['supporting_guides'] = [dict(
+                path='art_requests/creature_redraw_v1/checklist.json', sha256='0'*64)]
+        with self.assertRaisesRegex(ValueError, 'Recorded handoff reference recipe changed'):
+            self.corrupted(change)
 
     def test_changed_frame_count_is_rejected_before_writing_an_atlas(self):
         def change(spec): spec['jobs'][0]['count'] += 1
@@ -189,11 +254,27 @@ class DeliveryContracts(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'body size differs'):
                 art.build('rust_crown_guardian',check=True)
 
+    def test_body_mass_uses_actual_pixels_before_display_rounding(self):
+        baseline = Image.new('RGBA', (100, 100), 'white')
+        near = Image.new('RGBA', (104, 100), 'white')
+        near.putpixel((0, 0), (255, 255, 255, 0)) # 10,399 solid pixels: +3.99%.
+        outside = Image.new('RGBA', (105, 100))
+        ImageDraw.Draw(outside).rectangle((0, 0, 103, 99), fill='white')
+        outside.putpixel((104, 0), (255, 255, 255, 255)) # 10,401: +4.01%.
+        def area(image):
+            return art.metrics([(image, (0, 0))], (110, 110), True)['body_area']
+        reference, inside, beyond = area(baseline), area(near), area(outside)
+        self.assertEqual(round(inside/reference, 3), round(beyond/reference, 3))
+        self.assertTrue(art.body_area_within_limit(inside, reference))
+        self.assertFalse(art.body_area_within_limit(beyond, reference))
+        self.assertTrue(art.body_area_within_limit(10400, 10000))
+        self.assertTrue(art.body_area_within_limit(9600, 10000))
+
     def test_every_registered_clip_keeps_the_replaced_body_area(self):
         for path in sorted((art.REQUEST/'jobs').glob('*.json')):
             record = art.read(art.fit.CREATURES/path.stem/art.LAYER)['redraw_record']['clips']
             for clip, measured in record.items():
-                self.assertLessEqual(abs(measured['body_area_ratio']-1),art.BODY_AREA_TOLERANCE,(path.stem,clip))
+                self.assertTrue(1-art.BODY_AREA_TOLERANCE <= measured['body_area_ratio'] <= 1+art.BODY_AREA_TOLERANCE,(path.stem,clip))
 
 
     def test_leg_change_separates_a_sliding_still_from_a_stride(self):

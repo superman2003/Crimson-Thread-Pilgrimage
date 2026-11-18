@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## B04: optional challenge rooms and optional bosses — bypassable, revisit-safe,
 ## one-time rewards tied to evidence / growth, never blocking the main combat clear.
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -80,7 +81,7 @@ func run_challenge_clear(challenge_id: String, evidence_id: String) -> void:
 	check(not clear_flag.is_empty(), challenge_id + " records a clear flag")
 	check(not bool(scene.story_flags.get(clear_flag, false)), challenge_id + " starts uncleared")
 	var shrine_id := String(data.get("shrine", {}).get("id", ""))
-	var shrine: Area2D = scene.get_node_or_null(shrine_id)
+	var shrine: Area2D = LEVEL_HOST.find(scene, shrine_id)
 	check(shrine != null, challenge_id + " shrine exists in the live region")
 	var before_currency: int = scene.currency_count
 	var drop := String(scene.config.get("enemy_drop_item", ""))
@@ -150,7 +151,7 @@ func run_tracking_hunt_gate(challenge_id: String, evidence_id: String) -> void:
 	var tracks: Array = data.get("tracks", [])
 	check(tracks.size() >= 2, challenge_id + " authors at least two tracks")
 	var shrine_id := String(data.get("shrine", {}).get("id", ""))
-	var shrine: Area2D = scene.get_node_or_null(shrine_id)
+	var shrine: Area2D = LEVEL_HOST.find(scene, shrine_id)
 	check(shrine != null, challenge_id + " quarry shrine exists")
 	# Before tracks: shrine must refuse to start.
 	scene._activate_challenge_shrine(shrine)
@@ -158,7 +159,7 @@ func run_tracking_hunt_gate(challenge_id: String, evidence_id: String) -> void:
 	check(scene.active_challenge_id.is_empty(), challenge_id + " refuses to start before tracks are found")
 	for track in tracks:
 		var track_id := String(track.get("id", ""))
-		var area: Area2D = scene.get_node_or_null(track_id)
+		var area: Area2D = LEVEL_HOST.find(scene, track_id)
 		check(area != null, challenge_id + " track " + track_id + " exists in the live region")
 		var flag := String(track.get("flag", ""))
 		check(not bool(scene.story_flags.get(flag, false)), challenge_id + " track " + track_id + " starts unread")
@@ -251,13 +252,13 @@ func run() -> void:
 	# Hunt tracks live across wish board / gauge gallery; travel near the quarry shrine.
 	await travel(CH02, Vector2(3200, 1740))
 	await tick(6)
-	var track_a: Area2D = scene.get_node_or_null("hunt_track_ch02_canal_a")
+	var track_a: Area2D = LEVEL_HOST.find(scene, "hunt_track_ch02_canal_a")
 	check(track_a != null, "canal hunt track A spawns at the wish board")
 	scene._activate_hunt_track(track_a)
 	await tick(2)
 	await travel(CH02, Vector2(3340, 2208))
 	await tick(6)
-	var track_b: Area2D = scene.get_node_or_null("hunt_track_ch02_canal_b")
+	var track_b: Area2D = LEVEL_HOST.find(scene, "hunt_track_ch02_canal_b")
 	check(track_b != null, "canal hunt track B spawns in the gauge gallery")
 	scene._activate_hunt_track(track_b)
 	await tick(2)
@@ -265,7 +266,7 @@ func run() -> void:
 	await tick(6)
 	var hunt := challenge("ch02_canal_shadow_hunt")
 	check(scene._challenge_tracks_ready(hunt), "canal hunt becomes ready after both tracks")
-	var shrine_hunt: Area2D = scene.get_node_or_null(String(hunt.get("shrine", {}).get("id", "")))
+	var shrine_hunt: Area2D = LEVEL_HOST.find(scene, String(hunt.get("shrine", {}).get("id", "")))
 	# Without tracks the shrine would refuse; with tracks, clear through the shared path.
 	# Re-clear gate: wipe track readiness check already passed; run full clear.
 	# Ensure shrine still refuses if we strip a track flag (anti-skip).
@@ -329,13 +330,13 @@ func run() -> void:
 	await tick(6)
 	check(String(scene.config.get("id", "")) == CH04, "fixture is in broken string greenhouse for hunt")
 	check(scene.config.get("optional_challenges", []).size() >= 2, "ch04 authors challenge room and tracking hunt")
-	var track_root_a: Area2D = scene.get_node_or_null("hunt_track_ch04_root_a")
+	var track_root_a: Area2D = LEVEL_HOST.find(scene, "hunt_track_ch04_root_a")
 	check(track_root_a != null, "root hunt track A spawns at the canopy overlook")
 	scene._activate_hunt_track(track_root_a)
 	await tick(2)
 	await travel(CH04, Vector2(1400, 1570))
 	await tick(6)
-	var track_root_b: Area2D = scene.get_node_or_null("hunt_track_ch04_root_b")
+	var track_root_b: Area2D = LEVEL_HOST.find(scene, "hunt_track_ch04_root_b")
 	check(track_root_b != null, "root hunt track B spawns on the west spoke")
 	scene._activate_hunt_track(track_root_b)
 	await tick(2)
@@ -343,7 +344,7 @@ func run() -> void:
 	await tick(6)
 	var root_hunt := challenge("ch04_root_cage_hunt")
 	check(scene._challenge_tracks_ready(root_hunt), "root hunt becomes ready after both tracks")
-	var shrine_root: Area2D = scene.get_node_or_null(String(root_hunt.get("shrine", {}).get("id", "")))
+	var shrine_root: Area2D = LEVEL_HOST.find(scene, String(root_hunt.get("shrine", {}).get("id", "")))
 	# Anti-skip: missing a track still refuses.
 	scene.story_flags["hunt_track_ch04_root_b"] = false
 	scene._activate_challenge_shrine(shrine_root)
@@ -424,13 +425,13 @@ func run() -> void:
 	await tick(6)
 	check(String(scene.config.get("id", "")) == CH05, "fixture is in obsidian pilgrim road for hunt")
 	check(scene.config.get("optional_challenges", []).size() >= 2, "ch05 authors challenge room and tracking hunt")
-	var track_ash_a: Area2D = scene.get_node_or_null("hunt_track_ch05_ash_a")
+	var track_ash_a: Area2D = LEVEL_HOST.find(scene, "hunt_track_ch05_ash_a")
 	check(track_ash_a != null, "ash hunt track A spawns on the base road")
 	scene._activate_hunt_track(track_ash_a)
 	await tick(2)
 	await travel(CH05, Vector2(700, 1870))
 	await tick(6)
-	var track_ash_b: Area2D = scene.get_node_or_null("hunt_track_ch05_ash_b")
+	var track_ash_b: Area2D = LEVEL_HOST.find(scene, "hunt_track_ch05_ash_b")
 	check(track_ash_b != null, "ash hunt track B spawns at the pilgrim camp")
 	scene._activate_hunt_track(track_ash_b)
 	await tick(2)
@@ -438,7 +439,7 @@ func run() -> void:
 	await tick(6)
 	var ash_hunt := challenge("ch05_ash_banner_hunt")
 	check(scene._challenge_tracks_ready(ash_hunt), "ash hunt becomes ready after both tracks")
-	var shrine_ash: Area2D = scene.get_node_or_null(String(ash_hunt.get("shrine", {}).get("id", "")))
+	var shrine_ash: Area2D = LEVEL_HOST.find(scene, String(ash_hunt.get("shrine", {}).get("id", "")))
 	scene.story_flags["hunt_track_ch05_ash_b"] = false
 	scene._activate_challenge_shrine(shrine_ash)
 	await tick(2)
@@ -498,7 +499,7 @@ func run() -> void:
 	check(bool(scene.story_flags.get("challenge_clear_ch01_crown_nook", false)), "reloaded save keeps the ch01 clear flag")
 	var data: Dictionary = challenge("ch01_crown_nook_trial")
 	var before: int = scene.currency_count
-	scene._activate_challenge_shrine(scene.get_node_or_null(String(data.get("shrine", {}).get("id", ""))))
+	scene._activate_challenge_shrine(LEVEL_HOST.find(scene, String(data.get("shrine", {}).get("id", ""))))
 	await tick(2)
 	check(scene.currency_count == before and scene.active_challenge_id.is_empty(), "reloaded clear still blocks farming")
 	# Main combat-clear total stays the authored enemy_spawns size (optional fights are extra).

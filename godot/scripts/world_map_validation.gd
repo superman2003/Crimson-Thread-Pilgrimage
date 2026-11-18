@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const ATLAS := preload("res://scripts/world_atlas.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
 const SURVEY := preload("res://scripts/cartography_runtime.gd")
@@ -165,7 +166,7 @@ func _run() -> void:
         reference.free()
     scene.story_flags = original_flags
     _check(scene.wish_panel == null or not scene.wish_panel.visible, "atlas does not overlap wish board")
-    var anchor: Node2D = scene.get_node("moss_viaduct_ring")
+    var anchor: Node2D = LEVEL_HOST.find(scene, "moss_viaduct_ring")
     _check(not bool(anchor.get_meta("grapple_enabled")), "real world anchor remains locked without hook")
     scene._add_inventory_item("echo_hook", 1, false)
     scene._sync_player_abilities()

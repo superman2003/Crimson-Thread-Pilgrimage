@@ -65,7 +65,7 @@ jobs:
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/six-region-passage-network-logs/pixels" --script ../tools/validate_passage_network_pixels.gd --success-marker 'PASSAGE_NETWORK_PIXELS probes=15 failures=0' --summary-path artifacts/passage_network/gpu_network.json
       - name: Preserve regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: six-region-passage-network-logs
           path: |

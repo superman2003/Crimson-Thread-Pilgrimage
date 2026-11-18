@@ -5,6 +5,8 @@ static func create(node_name: String, rect: Rect2, collision_role: String) -> St
     body.name = node_name
     body.position = rect.get_center()
     var role := collision_role.to_lower()
+    if role == "ungrippable_wall":
+        body.set_meta("wall_grip_disabled", true)
     var lower_name := node_name.to_lower()
     if role not in ["decorative", "no_collision"]:
         var shape := CollisionShape2D.new()

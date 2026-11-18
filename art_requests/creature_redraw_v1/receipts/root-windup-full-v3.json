@@ -1,0 +1,13 @@
+{
+  "kind": "root_cage_hunter",
+  "clip": "actions_windup_full",
+  "status": "rejected",
+  "reason": "After source-wide registration corrected containment, complete windup still has rowbreak7->8 max_change0.5058. Reject; earlier source candidate passes unchanged with one shared[0,4] registration offset, max_change0.4697/body0.998.",
+  "source_sha256": "a78df6f3dd02f2c36e26ab57ad6ce33001ec3969d38e82061424ff5d0d1c00fa",
+  "prompt_sha256": "df20475f85425de994a1bf557504501232e22046b012d86c6fd80a69badb92f5",
+  "reference_sha256": "81acafec092396029fbf02a73678baee2dfbf26edd00b7673dae14a8c4c331b0",
+  "actual_prompt": "Use case: precise-object-edit. Keep this exact8column x3row24cel root cage hunter windup sheet. Change ONLY the RAISED CLAW ARM posture in cels11-18 inclusive (row2columns4-8 and row3columns1-3). In these8cels fold each raised elbow inward and bring green hooked claw tips DOWN by about20pixels, curving inward beside the head/cream mask at compact high-guard height instead of stretching far above the antennae. Preserve complete full-length hooked claws and exactly two connected arms, no shortening/amputation; smoothly articulate the eight high-guard intermediate poses. Keep each cel's head/antennae, wicker torso, leaf mantle, hind feet, body size and anchor exactly the same. All other16cels unchanged. Do not uniformly shift whole sprites or scale/re-layout any cells. Preserve crisp brownroot/oliveleaf/wicker painted detail, TRUE transparent background with every gutter alpha0, no matte/haze/shadows/glow/dots/checkerboard/text. Same grid/order and24unique complete poses, unclipped connected claws.",
+  "reference_recipe": "Frozen full24cel windup guide rendered from original source_frame/reference_fit; original frozen actions02 board supports identity/detail only. image_gen compact raised-claw correction of cel15 of exec-39fc5765-4799-4a8d-93ca-b838857f8d73.png; predecessor SHA/prompt in root-windup-full-v1 receipt. image_gen compact inward high-guard redraw for cels11-18 of exec-75215724-55d5-402b-92d4-bacc1098968a.png; predecessor SHA/prompt in root-windup-full-v2 receipt.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/root_cage_hunter-actions-windup-full.json",
+  "guide_sha256": "ccfc273f3a4dc894250a1f2f6c02c93bc55724047a215a9d01755950ddcf51df"
+}

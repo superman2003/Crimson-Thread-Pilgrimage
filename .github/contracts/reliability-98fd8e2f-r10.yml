@@ -3,6 +3,11 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/audio_game_state.gd'
+      - 'godot/scripts/audio_ambience.gd'
+      - 'godot/scripts/audio_music.gd'
+      - 'godot/scripts/audio_npc_voices.gd'
+      - 'godot/scripts/audio_user_mix.gd'
       - 'godot/scripts/audio_retirement.gd'
       - 'godot/scripts/audio_volume_preferences.gd'
       - 'godot/scripts/duck_mix.gd'
@@ -23,7 +28,7 @@ jobs:
   native:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           lfs: false
       - name: Install pinned Godot
@@ -32,7 +37,7 @@ jobs:
           unzip -q /tmp/godot.zip -d /tmp/godot-bin
       - name: Native production regression
         run: python tools/run_reliability_98fd8e2f_r10.py --engine /tmp/godot-bin/Godot_v4.6.1-stable_linux.x86_64 --log-dir artifacts/reliability_98fd8e2f_r10
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: reliability_98fd8e2f_r10

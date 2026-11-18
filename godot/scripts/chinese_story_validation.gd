@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 var failures := 0
 
@@ -19,8 +20,8 @@ func _run() -> void:
     _assert(scene.config.has("world_story"), "world story data still exists")
     _assert(int(scene.config.get("npcs", []).size()) >= 5, "five story npcs configured")
     _assert(int(scene.config.get("guides", []).size()) == 0, "guide arrows are removed from config")
-    _assert(scene.get_node_or_null("npc_gear_cartographer") != null, "cartographer npc spawned")
-    _assert(scene.get_node_or_null("guide_map") == null, "guide arrow nodes are not spawned")
+    _assert(LEVEL_HOST.find(scene, "npc_gear_cartographer") != null, "cartographer npc spawned")
+    _assert(LEVEL_HOST.find(scene, "guide_map") == null, "guide arrow nodes are not spawned")
     _assert(scene.dialogue_panel != null, "dialogue overlay exists")
 
     scene._refresh_hud()
@@ -37,7 +38,7 @@ func _run() -> void:
     _assert(String(scene.map_text.text).contains("路线"), "map next route is shown")
 
     scene._close_overlays()
-    var npc: Area2D = scene.get_node_or_null("npc_gate_pilgrim")
+    var npc: Area2D = LEVEL_HOST.find(scene, "npc_gate_pilgrim")
     _assert(npc != null, "gate pilgrim npc spawned")
     scene._on_interactable_entered(scene.player, npc)
     _assert(npc.has_node("Wayfinding"), "NPC uses proximity pictogram")
@@ -59,7 +60,12 @@ func _run() -> void:
 
     # Fallback names and messages reach the screen when data carries none
     # (seven optional pickups have no label): none of them may be English.
+    # main_level.gd and the helpers its methods were moved into.
     var source := FileAccess.get_file_as_string("res://scripts/main_level.gd")
+    for file in DirAccess.get_files_at("res://scripts"):
+        if file.ends_with(".gd"):
+            var helper := FileAccess.get_file_as_string("res://scripts/" + file)
+            if helper.contains("## Moved out of main_level.gd"):source += "\n" + helper
     var english := RegEx.new()
     english.compile("_toast\\(\\s*\"[A-Za-z]|get\\(\"(label|name|message|ending_message)\",\\s*\"[A-Za-z]|get_meta\\(\"message\",\\s*\"[A-Za-z]")
     var hit := english.search(source)

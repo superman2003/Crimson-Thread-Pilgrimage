@@ -1,0 +1,34 @@
+{
+  "kind": "phase_censor",
+  "clip": "actions_windup_entry",
+  "status": "rejected",
+  "reason": "Upright entry candidate leaves frozen rig; whole-source up20pixels then fails retained-neighbor transition0.6089. Not registered.",
+  "source_sha256": "4488e10a9b1ad117ed482e586dfe39c2f850e3ce23ceab2a814cd47332d96372",
+  "prompt_sha256": "64ba09f94d9d93210881e7775202c0989cccf68c766e0db3d0c2c1db041e8056",
+  "reference_sha256": "00852de646eb074d0c51e6c00149415a12b6fa10dd65a85bd8ab269d4e21c58b",
+  "actual_prompt": "Edit ONLY FIRST FOUR figures (entire TOP ROW) in this exact13cel4x4atlas. They are earlywindup0-3 and must closely match the UPRIGHT hovering posture of image2 acceptedwalk. Make their torso slender and tall, head high, mothwing cloak longer draped left with same cream eyespots, knees only gently bent, slim feet dangling near same originaltipheight. Do NOT crouch or tuck into a short round wingball. Same upright masked moth as image2, head-to-body proportions and longwingcoverts match it. Hold same singlebronzechaincenser forward by bent rightarm, small gentle arm/head variations across these4drawings. Exactsame horizontalbodyroot and celpositions. Preserve allother9drawings in original positions, same13occupiedcells rowmajor, bottomrow3empty. Keep original lavender/grey/cream/gold and narrow ivory mask. OPAQUE crispinked figures with TRUE transparentalpha0background/gutters and last3cells. No stray coloredflecks or redfringe, particles, glow, fog/matte, floor/shadow, text/labels/grid/checkerboard.",
+  "targets": {
+    "windup": [
+      0,
+      1,
+      2,
+      3,
+      15,
+      16,
+      17
+    ],
+    "censor_blink": [
+      19,
+      20,
+      21
+    ],
+    "attack": [
+      1,
+      2,
+      3
+    ]
+  },
+  "reference_recipe": "Frozen selected original poses define frameorder, commonriganchors and unchangedneighbor boundaries. Accepted walk supplies identity. All finalnewpixels builtinimage_gen; sourcewide registration only. All selectedcells share one registration from originalselected medianbodycentroid andfootline: no independentceltranslationorresizing. Firstfour windupentries repainted builtinimage_gen aftereverywalk interruption exceeded0.5; acceptedwalksupplies uprightendpointshape. Other2clips remain on firstsource. All selectedcells share one registration from originalselected medianbodycentroid andfootline: no independentceltranslationorresizing.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/phase_censor-actions-01.json",
+  "guide_sha256": "16c0b1823e04ec2698029d942332357bc9086f0c56d25af3a2ae2435f47735e8"
+}

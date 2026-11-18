@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "kind": "delayed_shadow",
+  "baseline": "godot/assets/sprites/original_creatures/delayed_shadow/motion_v8_manifest.json",
+  "baseline_sha256": "12d073773b81b25137b0fe7d6422f63d334d8d24f41d134686760d14efa54ddb",
+  "canvas": [
+    424,
+    274
+  ],
+  "grid": [
+    2,
+    2
+  ],
+  "frame_fit_reference_sha256": "66788c9256e35f1f692293094b5c1fd38d0e81d216515e76be139ca1f63a74d5",
+  "explanation": "Actual production attack23 and walk0 endpoint poses, plus selected current recovery8/16. Reference only; final cels must be redrawn by image_gen.",
+  "atlas_sha256": {
+    "res://../art_requests/creature_redraw_v1/guides/support/delayed_shadow-attack-23.png": "c52b5628f161df6c50de52f8fd1480a7d1b5dd05892e269d9b14f7a2ab49f629",
+    "res://../art_requests/creature_redraw_v1/guides/support/delayed_shadow-recover-08.png": "bcb1f68bc4734513ce70c300bac06d7a93415edf7bad4ca0fb48626507dc2d54",
+    "res://../art_requests/creature_redraw_v1/guides/support/delayed_shadow-recover-16.png": "f9ad77152fce9db34a06a12a6e5d1ffd4bc4ec9e29c4bdde7c4913e02dd5b2d0",
+    "res://../art_requests/creature_redraw_v1/guides/support/delayed_shadow-walk-00.png": "ee1f20606e096cdebb2f65ad1a94c292af370b0f53f551c2020d960f3f424051"
+  },
+  "entries": [
+    {
+      "clip": "attack",
+      "frame": 23,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/delayed_shadow-attack-23.png",
+        "region": [
+          0,
+          0,
+          213,
+          205
+        ],
+        "margin": [
+          105,
+          63,
+          211,
+          69
+        ]
+      },
+      "reference_fit": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "clip": "recover",
+      "frame": 8,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/delayed_shadow-recover-08.png",
+        "region": [
+          0,
+          0,
+          174,
+          203
+        ],
+        "margin": [
+          129,
+          62,
+          250,
+          71
+        ]
+      },
+      "reference_fit": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "clip": "recover",
+      "frame": 16,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/delayed_shadow-recover-16.png",
+        "region": [
+          0,
+          0,
+          165,
+          233
+        ],
+        "margin": [
+          122,
+          31,
+          259,
+          41
+        ]
+      },
+      "reference_fit": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "clip": "walk",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/delayed_shadow-walk-00.png",
+        "region": [
+          0,
+          0,
+          180,
+          172
+        ],
+        "margin": [
+          121,
+          80,
+          244,
+          102
+        ]
+      },
+      "reference_fit": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "targets": {
+    "recover": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ]
+  },
+  "original_frame_counts": {
+    "recover": 24
+  },
+  "reference_height": 190.5,
+  "reference_sha256": "7599a3775c478040f289234f57de8df4c6f98b1fa5318a00f94652660a502fe0"
+}

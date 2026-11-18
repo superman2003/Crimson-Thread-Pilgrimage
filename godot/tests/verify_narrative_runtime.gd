@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Tests real NPC commits, reward persistence, migrations and ending gates.
 ## Inventory placement is deliberate fixture setup, not a physical route test.
 const SAVE := "user://verify_narrative_runtime.json"
@@ -43,9 +44,9 @@ func resident_npc(world: Node, npc_id: String) -> Area2D:
     world.player.global_position = world.to_global(point)
     for frame in range(120):
         await process_frame
-        var npc := world.get_node_or_null(NodePath(npc_id)) as Area2D
+        var npc := LEVEL_HOST.find(world, NodePath(npc_id)) as Area2D
         var snapshot: Dictionary = world.world_gameplay_residency.snapshot()
-        if is_instance_valid(npc) and npc.is_inside_tree() and npc.get_parent() == world and String(npc.get_meta("npc_id", "")) == npc_id and world.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
+        if is_instance_valid(npc) and npc.is_inside_tree() and LEVEL_HOST.owns(world, npc) and String(npc.get_meta("npc_id", "")) == npc_id and world.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
             world.player.set_physics_process(prior_physics)
             world.process_mode = prior_mode
             for paused in paused_enemies:
@@ -146,7 +147,7 @@ func run_checks() -> void:
     scene = await spawn("res://data/demo_ch06_silent_crown_core.json")
     await frames()
     scene._spawn_ending_gates()
-    var gate: Area2D = scene.get_node_or_null("ending_gate_rewrite")
+    var gate: Area2D = LEVEL_HOST.find(scene, "ending_gate_rewrite")
     check(gate != null, "Actual true-ending gate is built")
     scene._activate_ending_gate(gate)
     check(String(scene.story_flags.get("ending_chosen", "")).is_empty(), "Ending gate rejects before final boss completion")
@@ -161,7 +162,7 @@ func run_checks() -> void:
     check(bool(scene.story_flags.get("world_contract_rewritten", false)), "Gate persists concrete contract consequence")
     check(not scene.story_flags.get("ending_consequences", {}).is_empty(), "Gate saves NPC and environment aftermath details")
     check(String(scene.win_label.text).contains("世袭"), "Ending presents the actual causal consequence")
-    var alternative: Area2D = scene.get_node_or_null("ending_gate_resound")
+    var alternative: Area2D = LEVEL_HOST.find(scene, "ending_gate_resound")
     scene._activate_ending_gate(alternative)
     check(String(scene.story_flags.get("ending_chosen", "")) == "ending_c", "A committed choice cannot be overwritten")
     scene._save_world()

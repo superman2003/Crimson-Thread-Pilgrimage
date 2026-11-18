@@ -22,6 +22,143 @@
       "reference_height": 203,
       "center_x": 218.5,
       "ground_y": 222
+    },
+    {
+      "clip": "recover",
+      "count": 3,
+      "target_frames": [
+        13,
+        14,
+        15
+      ],
+      "original_frame_count": 24,
+      "cells": [
+        0,
+        1,
+        2
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/pipe_thrower/actions_01.png",
+      "sha256": "8d99b0fb5f5e4b78c04a6bce74371db30aa5db079e21c5b51b2830ecf703a487",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "3897c244696af2dbffe20b89646c5d69f75d5d64431cfbdad6b00512a19380b1",
+      "reference": {
+        "sha256": "8ab1c2e761b15a189693d6de653a990a5f117287c4af45a6458335fe081a2c8b",
+        "reconstruction": "Frozen selected guide defines target order and pose/anchors, accepted pipe_thrower walk supplies identity; all final cels from built-in image_gen. Whole-source registration only. Builtinimage_genalphaextraction of first10celraw afterbackgroundwashrejected; poses unchanged. All selectedcells share one registration from originalselected medianbodycentroid andfootline: no independentceltranslationorresizing."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/pipe_thrower-actions-01.json",
+      "guide_sha256": "7988fe116f2cdc01a3c4e11075d8da8f32e2c53df7bb61548943a1c96bbbcadc",
+      "reference_height": 162.0,
+      "registration": "cell_center",
+      "center_x": 207.204332,
+      "center_y": 128.715881
+    },
+    {
+      "clip": "pipe_mortar_recover",
+      "count": 3,
+      "target_frames": [
+        19,
+        20,
+        21
+      ],
+      "original_frame_count": 24,
+      "cells": [
+        3,
+        4,
+        5
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/pipe_thrower/actions_01.png",
+      "sha256": "8d99b0fb5f5e4b78c04a6bce74371db30aa5db079e21c5b51b2830ecf703a487",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "3897c244696af2dbffe20b89646c5d69f75d5d64431cfbdad6b00512a19380b1",
+      "reference": {
+        "sha256": "8ab1c2e761b15a189693d6de653a990a5f117287c4af45a6458335fe081a2c8b",
+        "reconstruction": "Frozen selected guide defines target order and pose/anchors, accepted pipe_thrower walk supplies identity; all final cels from built-in image_gen. Whole-source registration only. Builtinimage_genalphaextraction of first10celraw afterbackgroundwashrejected; poses unchanged. All selectedcells share one registration from originalselected medianbodycentroid andfootline: no independentceltranslationorresizing."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/pipe_thrower-actions-01.json",
+      "guide_sha256": "7988fe116f2cdc01a3c4e11075d8da8f32e2c53df7bb61548943a1c96bbbcadc",
+      "reference_height": 162.0,
+      "registration": "cell_center",
+      "center_x": 207.204332,
+      "center_y": 128.715881
+    },
+    {
+      "clip": "attack",
+      "count": 4,
+      "target_frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "original_frame_count": 24,
+      "cells": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/pipe_thrower/actions_attack_corrected.png",
+      "sha256": "14c41755420e2c41a1d0a0e3f1045e5055455f79a01b0a0fcf0d4fa8de46ef2e",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "09946203b560cf7c6ec64ce283d962af595236eff840d4ba5284402b9669b892",
+      "reference": {
+        "sha256": "8d99b0fb5f5e4b78c04a6bce74371db30aa5db079e21c5b51b2830ecf703a487",
+        "reconstruction": "Frozen selected guide defines target order and pose/anchors, accepted pipe_thrower walk supplies identity; all final cels from built-in image_gen. Whole-source registration only. Builtinimage_genalphaextraction of first10celraw afterbackgroundwashrejected; poses unchanged. Builtinimage_gen reduces onlyfourattackfigures aftercompleteclipbodymedianratio1.087; twoacceptedrecoveryclips remainonprevioussource. All selectedcells share one registration from originalselected medianbodycentroid andfootline: no independentceltranslationorresizing. Completeclips jointlyverifyone common source-wide horizontalregistration(+20px), everyselectedcel uses the same shift, ground unchanged; maximum0.480282."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/pipe_thrower-actions-01.json",
+      "guide_sha256": "7988fe116f2cdc01a3c4e11075d8da8f32e2c53df7bb61548943a1c96bbbcadc",
+      "reference_height": 162.0,
+      "registration": "cell_center",
+      "center_x": 226.531892,
+      "center_y": 129.378287
     }
   ]
 }

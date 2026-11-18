@@ -42,6 +42,138 @@
       "center_x": 246.5,
       "ground_y": 230,
       "stride_reviewed": true
+    },
+    {
+      "clip": "windup",
+      "count": 3,
+      "target_frames": [
+        15,
+        16,
+        17
+      ],
+      "original_frame_count": 24,
+      "cells": [
+        0,
+        1,
+        2
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "grid": [
+        3,
+        3
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/rust_diver/actions_01.png",
+      "sha256": "dab50910ce1b1e008dc9be0d4d66e13e6204aa74605533ecef39d19dcb4a168b",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "7e445e7d63c6e13629bfcd49db6c608ea64365bd18c7fdc2e78c153e84b5b5e7",
+      "reference": {
+        "sha256": "0c709de258f1482122becb5f342870006691d9a7d21ca65dc6ed424461722477",
+        "reconstruction": "Frozen9 selected windup/splash poses provide exact target frame order and anchors; accepted rust_diver walk supplies identity. All new pixels from built-in image_gen. Actual output layout is3x3; all9drawing cells retained chronological, same frozen source frames. Ref visual was original4x3, SHA recorded by ref; sibling recipe remaps only grid while preserving all targets and referenceframes. Builtinimage_gen respace of returned3x3source afterhelmet/bootpaintcrossedgutters; all9sameauthoredtargetframes, no scriptedpixelchanges. Whole-source ground registration uses accepted torso anchor246.5 and planted sole230; one shared scale/translation for every cel. Sharedsheetbodyanchor aligned -23.949px horizontally to median original selected-cell body centroids; one common translation for all9, groundunchanged. All9sourcecels share the originalselected medianfootline via commonsheet verticalcorrection-5px; no per-cel shifts."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/rust_diver-actions-01-3x3.json",
+      "guide_sha256": "21363e650443cfd8e5dc18f25ed22d47a22a9f4eb5acebb97b9a25e262ea0b3e",
+      "reference_height": 164,
+      "registration": "cell_center",
+      "center_x": 222.551,
+      "center_y": 140.249234
+    },
+    {
+      "clip": "diver_splash_windup",
+      "count": 3,
+      "target_frames": [
+        7,
+        8,
+        9
+      ],
+      "original_frame_count": 24,
+      "cells": [
+        3,
+        4,
+        5
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "grid": [
+        3,
+        3
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/rust_diver/actions_01.png",
+      "sha256": "dab50910ce1b1e008dc9be0d4d66e13e6204aa74605533ecef39d19dcb4a168b",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "7e445e7d63c6e13629bfcd49db6c608ea64365bd18c7fdc2e78c153e84b5b5e7",
+      "reference": {
+        "sha256": "0c709de258f1482122becb5f342870006691d9a7d21ca65dc6ed424461722477",
+        "reconstruction": "Frozen9 selected windup/splash poses provide exact target frame order and anchors; accepted rust_diver walk supplies identity. All new pixels from built-in image_gen. Actual output layout is3x3; all9drawing cells retained chronological, same frozen source frames. Ref visual was original4x3, SHA recorded by ref; sibling recipe remaps only grid while preserving all targets and referenceframes. Builtinimage_gen respace of returned3x3source afterhelmet/bootpaintcrossedgutters; all9sameauthoredtargetframes, no scriptedpixelchanges. Whole-source ground registration uses accepted torso anchor246.5 and planted sole230; one shared scale/translation for every cel. Sharedsheetbodyanchor aligned -23.949px horizontally to median original selected-cell body centroids; one common translation for all9, groundunchanged. All9sourcecels share the originalselected medianfootline via commonsheet verticalcorrection-5px; no per-cel shifts."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/rust_diver-actions-01-3x3.json",
+      "guide_sha256": "21363e650443cfd8e5dc18f25ed22d47a22a9f4eb5acebb97b9a25e262ea0b3e",
+      "reference_height": 164,
+      "registration": "cell_center",
+      "center_x": 222.551,
+      "center_y": 140.249234
+    },
+    {
+      "clip": "diver_splash",
+      "count": 3,
+      "target_frames": [
+        19,
+        20,
+        21
+      ],
+      "original_frame_count": 24,
+      "cells": [
+        6,
+        7,
+        8
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "grid": [
+        3,
+        3
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/rust_diver/actions_01.png",
+      "sha256": "dab50910ce1b1e008dc9be0d4d66e13e6204aa74605533ecef39d19dcb4a168b",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "7e445e7d63c6e13629bfcd49db6c608ea64365bd18c7fdc2e78c153e84b5b5e7",
+      "reference": {
+        "sha256": "0c709de258f1482122becb5f342870006691d9a7d21ca65dc6ed424461722477",
+        "reconstruction": "Frozen9 selected windup/splash poses provide exact target frame order and anchors; accepted rust_diver walk supplies identity. All new pixels from built-in image_gen. Actual output layout is3x3; all9drawing cells retained chronological, same frozen source frames. Ref visual was original4x3, SHA recorded by ref; sibling recipe remaps only grid while preserving all targets and referenceframes. Builtinimage_gen respace of returned3x3source afterhelmet/bootpaintcrossedgutters; all9sameauthoredtargetframes, no scriptedpixelchanges. Whole-source ground registration uses accepted torso anchor246.5 and planted sole230; one shared scale/translation for every cel. Sharedsheetbodyanchor aligned -23.949px horizontally to median original selected-cell body centroids; one common translation for all9, groundunchanged. All9sourcecels share the originalselected medianfootline via commonsheet verticalcorrection-5px; no per-cel shifts."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/rust_diver-actions-01-3x3.json",
+      "guide_sha256": "21363e650443cfd8e5dc18f25ed22d47a22a9f4eb5acebb97b9a25e262ea0b3e",
+      "reference_height": 164,
+      "registration": "cell_center",
+      "center_x": 222.551,
+      "center_y": 140.249234
     }
   ]
 }

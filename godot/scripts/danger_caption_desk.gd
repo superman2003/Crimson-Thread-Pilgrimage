@@ -26,7 +26,7 @@ func setup(shell: Control) -> void:
     if comfort!=null:
         comfort.focus_neighbor_right=comfort.get_path_to(button)
         button.focus_neighbor_left=button.get_path_to(comfort)
-    director=preload("res://scripts/danger_captions.gd").new();director.name="DangerCaptions";ui.level.add_child(director);director.setup(ui.level,ui)
+    director=preload("res://scripts/danger_captions.gd").new();director.name="DangerCaptions";preload("res://scripts/level_host.gd").region_parent(ui.level).add_child(director);director.setup(ui.level,ui)
 
 func _build() -> void:
     window=ConfirmationDialog.new();window.title="危险字幕辅助";window.min_size=Vector2i(720,390);window.dialog_hide_on_ok=false;ui.settings.add_child(window);ui.register_text_entry_window(window)

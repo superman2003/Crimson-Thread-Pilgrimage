@@ -6,6 +6,15 @@ on:
     paths:
       - '.github/contracts/enemy-warning-readability.yml'
       - 'godot/scripts/enemy_actor.gd'
+      - 'godot/scripts/enemy_commands.gd'
+      - 'godot/scripts/enemy_lifecycle.gd'
+      - 'godot/scripts/enemy_attack_choice.gd'
+      - 'godot/scripts/enemy_attack_phases.gd'
+      - 'godot/scripts/enemy_audio.gd'
+      - 'godot/scripts/enemy_boss_tactics.gd'
+      - 'godot/scripts/enemy_effects.gd'
+      - 'godot/scripts/enemy_engagement.gd'
+      - 'godot/scripts/enemy_presentation.gd'
       - 'godot/scripts/enemy_visibility_validation.gd'
       - 'docs/ENEMY_ATTACK_WARNING_READABILITY.md'
 
@@ -63,7 +72,7 @@ jobs:
             --log-dir "$RUNNER_TEMP/regression-logs"
       - name: Preserve focused regression logs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: enemy-warning-readability-regressions
           path: ${{ runner.temp }}/regression-logs

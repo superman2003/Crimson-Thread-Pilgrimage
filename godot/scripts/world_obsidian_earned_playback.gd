@@ -41,7 +41,7 @@ func _run() -> void:
     if not await _walk_without_jump(Vector2(505,2760)):await _finish();return
     var wallet: int=scene.currency_count
     await _world_interact()
-    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    var dialog: ConfirmationDialog=LEVEL_HOST.find(scene, "MapPurchaseDialog")
     _check(dialog.visible,"normal F opens obsidian map shop")
     if not dialog.visible:await _finish();return
     await _key(KEY_ENTER,dialog)

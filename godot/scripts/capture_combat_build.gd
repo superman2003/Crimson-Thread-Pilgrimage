@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Actual World render with isolated showcase progress, not a completion proof.
 ## Graphical engine: --script res://scripts/capture_combat_build.gd -- --capture-output=DIR
 var destination := ""
@@ -50,7 +51,7 @@ func capture() -> void:
     world.currency_count = 120
     world.inventory_counts["moss_chitin"] = 10
     world.inventory_counts["wet_chitin"] = 10
-    for child in world.get_children():
+    for child in LEVEL_HOST.children(world):
         if child is Area2D and String(child.get_meta("kind", "")) == "save_point":
             world.player.global_position = child.global_position
             break
@@ -79,7 +80,7 @@ func capture() -> void:
         if index == 2: world.ui_shell._preview_tool_resupply()
         await shot(names[index])
     world._close_overlays()
-    var target := world.get_node("seal_training_cleave")
+    var target := LEVEL_HOST.find(world, "seal_training_cleave")
     world.player.global_position = Vector2(target.global_position.x - 80, target.global_position.y + 23)
     var camera: Camera2D = world.player.get_node("Camera2D")
     camera.reset_smoothing()

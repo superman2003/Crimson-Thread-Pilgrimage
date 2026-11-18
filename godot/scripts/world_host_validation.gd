@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Stateful fixtures, not natural traversal or full combat acceptance.
 const STATE := preload("res://scripts/world_state.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -30,7 +31,7 @@ func _run() -> void:
     var build_id: int = scene.build_system.get_instance_id()
     var loader_id: int = scene.world_loader.get_instance_id()
     var first_region := String(scene.config.id)
-    var first_nodes := scene.get_child_count()
+    var first_nodes := LEVEL_HOST.children(scene).size()
     _check(scene.world_loader.generation == 1, "initial region registered once")
     for ability in scene.WORLD_ABILITIES:
         scene._add_inventory_item(ability, 1, false)
@@ -53,17 +54,17 @@ func _run() -> void:
     scene.build_system.cooldowns["cleave"] = 4.5
     scene._save_world()
     var journal: Dictionary = scene.story_flags[CARTO.KEY].duplicate(true)
-    var before_nodes := scene.get_child_count()
+    var before_nodes := LEVEL_HOST.children(scene).size()
     var before_state: Dictionary = scene.world_state.data.duplicate(true)
     var before_position: Vector2 = scene.player.global_position
     var generation: int = scene.world_loader.generation
     for invalid_entry in [Vector2.INF, Vector2(-500, -500)]:
         scene._travel_world(ROUTES.config_path(first_region), invalid_entry)
         _check(scene.world_loader.phase == "idle" and scene.world_loader.generation == generation, "invalid arrival leaves loader idle")
-        _check(scene.get_child_count() == before_nodes and scene.player.global_position == before_position, "failed preflight retains geometry and player")
+        _check(LEVEL_HOST.children(scene).size() == before_nodes and scene.player.global_position == before_position, "failed preflight retains geometry and player")
         _check(scene.world_state.data == before_state and not scene.chapter_transitioning, "failed preflight retains state and input")
     scene._travel_world("res://data/missing_world_region.json", Vector2.ZERO)
-    _check(scene.get_child_count() == before_nodes and scene.world_loader.generation == generation, "missing target cannot evict current region")
+    _check(LEVEL_HOST.children(scene).size() == before_nodes and scene.world_loader.generation == generation, "missing target cannot evict current region")
     var music_rest: float = scene.audio_director._music_rest_db()
     scene.audio_director.begin_chapter_transition()
     var transition: Tween = scene.audio_director.bus_tweens.get("BGM")
@@ -76,7 +77,7 @@ func _run() -> void:
         var corrupt: Dictionary = initial_config.duplicate(true)
         corrupt[field] = [1] if field == "map_rooms" else [] if field in ["world", "inventory"] else {}
         _check(scene.world_loader.validate_config(corrupt, ROUTES.config_path(first_region), before_position).is_empty(), "reject malformed " + field + " before overlay construction")
-        _check(scene.get_child_count() == before_nodes and scene.world_loader.generation == generation, "bad config cannot evict region " + field)
+        _check(LEVEL_HOST.children(scene).size() == before_nodes and scene.world_loader.generation == generation, "bad config cannot evict region " + field)
     scene.world_loader.phase = "loading"
     _check(not scene.world_loader.replace_region(scene, ROUTES.config_path(first_region), before_position), "reentrant replacement rejected")
     scene.world_loader.phase = "idle"
@@ -86,10 +87,10 @@ func _run() -> void:
     # Keep live references to the departing physics geometry to verify cleanup.
     var old_terrain: Node = scene.chapter_terrain
     var old_audio: Node = scene.audio_director
-    var old_seller: Node = scene.get_node("npc_gear_cartographer")
+    var old_seller: Node = LEVEL_HOST.find(scene, "npc_gear_cartographer")
     var anchor: Node2D = null
     var body: PhysicsBody2D = null
-    for node in scene.get_children():
+    for node in LEVEL_HOST.children(scene):
         if node is Node2D and node.is_in_group("grapple_anchor"):
             anchor = node
         if node is PhysicsBody2D:
@@ -159,13 +160,13 @@ func _run() -> void:
             _check(scene.player.hp_changed.get_connections().size() == 1 and scene.player.ability_action.get_connections().size() == 1, "signal bindings do not accumulate " + region_id)
             _check(AUDIO.instance == scene.audio_director and scene.audio_director.is_inside_tree(), "audio belongs to current chunk " + region_id)
             _check(scene.world_state.resume_local_position() == scene.active_spawn, "resume uses current bell " + region_id)
-            peak_nodes = maxi(peak_nodes, scene.get_child_count())
+            peak_nodes = maxi(peak_nodes, LEVEL_HOST.children(scene).size())
             if cycle == 0:
-                warmed_counts[region_id] = scene.get_child_count()
+                warmed_counts[region_id] = LEVEL_HOST.children(scene).size()
             else:
                 var child_names: Array[String] = []
-                for child in scene.get_children(): child_names.append(String(child.name))
-                _check(scene.get_child_count() == warmed_counts[region_id], "bounded region node count " + region_id + " expected=" + str(warmed_counts[region_id]) + " actual=" + str(scene.get_child_count()) + " residency=" + JSON.stringify(scene.world_gameplay_residency.snapshot()) + " children=" + ",".join(child_names))
+                for child in LEVEL_HOST.children(scene): child_names.append(String(child.name))
+                _check(LEVEL_HOST.children(scene).size() == warmed_counts[region_id], "bounded region node count " + region_id + " expected=" + str(warmed_counts[region_id]) + " actual=" + str(LEVEL_HOST.children(scene).size()) + " residency=" + JSON.stringify(scene.world_gameplay_residency.snapshot()) + " children=" + ",".join(child_names))
             if region_id == first_region:
                 _check(scene.world_collected_ids.has("host_validation_pickup") and scene.opened_shortcuts.has("host_validation_shortcut"), "home region remembers pickups and shortcuts")
     var reboot := STATE.new()
@@ -193,7 +194,7 @@ func _settle_region_runtime() -> bool:
     var settled := false
     for _frame in range(180):
         service.update(scene, scene.player.global_position, scene.player.velocity, 1.0 / 60.0)
-        var active_sfx := scene.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
+        var active_sfx := LEVEL_HOST.children(scene).filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
         var pending_sfx: Array = []
         for pending_value in scene.pending_sfx_players.values():
             var pending: Dictionary = pending_value
@@ -208,12 +209,12 @@ func _settle_region_runtime() -> bool:
             # Let queue_free finish before measuring the host's strict node count.
             await process_frame
             state = service.snapshot()
-            active_sfx = scene.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
+            active_sfx = LEVEL_HOST.children(scene).filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
             if state.pending_build == 0 and state.pending_release == 0 and bool(state.window_ready) and active_sfx.is_empty() and scene.pending_sfx_players.is_empty():
                 settled = true
                 break
         await process_frame
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         var instance_id: int = child.get_instance_id()
         if previous_sfx_modes.has(instance_id): child.process_mode = int(previous_sfx_modes[instance_id])
     for pending_value in scene.pending_sfx_players.values():

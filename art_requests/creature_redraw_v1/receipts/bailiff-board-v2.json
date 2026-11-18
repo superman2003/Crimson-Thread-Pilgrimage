@@ -1,0 +1,20 @@
+{
+  "kind": "erasure_bailiff",
+  "clip": "actions_01",
+  "status": "partially_rejected",
+  "reason": "attack frame4 still requires scale correction0.871; erase and elite recovery accepted",
+  "source_sha256": "79b5a7dccabb9581eac97cbb7b5c74f1260fdc831cb64a561747271b4455a3eb",
+  "prompt_sha256": "41a4c02edc98eba4133348faafe15a4755d67186bb98452e02ce2ced7ba79b0e",
+  "reference_sha256": "e8cb9bf306bd5b8d11cace89b45204ce7b5cb0ead7763d6763202352d2c348c1",
+  "actual_prompt": "Edit only five cells of this exact25-drawing Erasure Bailiff sprite sheet. Preserve exact8equal columns by4equal rows, same canvas/layout, first25 cells occupied and final7 empty. Cels7 and8 (row1col8 androw2col1): repaint bent legs/knees so BOTH boot soles plant at exactly90percent of their own cell height like all the neighboring cels; the current feet extend too low at94percent. Keep body/head/cleaver pose and mass coherent, do not shift the whole character or duplicate a neighboring drawing. Cels13,14,15 (row2cols6,7,8): compact the raised-cleaver arm by bending its elbow and leaning the SAME one cleaver a little farther left, so the highest blade/antenna tip never goes above16percent of each cell height; keep weapon length/head size/body mass constant, preserve a smooth unique sequence from cel12 to cel16. Other20 drawings stay visually unchanged in pose, size, registration and foot anchors. Same stocky hunched ivory-shell bug bailiff, black beaked mask, two curved bronze antennae, brass bindings, dark underbody, redwaxseal/paper tag, burgundy ragged cloak, short armored boots and ONE weathered rectangular steel cleaver attached to its hand. All complete inside equalcells with transparent margins, no clipping, extra anatomy or detached blades. TRUE transparent RGBA alpha0 background/gutters and empty final7 cells, preserve crisp natural transparent edges; no matte, fog, glow, shadows, floor, particles, motionblur, text, grid, labels or checkerboard.",
+  "reference_recipe": "Built-in image_gen edit of first25-cel candidate after its combined blade/boot vertical envelope exceeded the short frozen rig by8px. Compact raised cleavers and planted boots are freshly drawn; common source-wide vertical registration aligns all soles with accepted ground_y238. No per-frame scripted transforms. Final registration for the whole source uses one common planted-sole anchor238 derived from its median drawn sole line; no per-cel translations or resizing.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/erasure_bailiff-actions-01.json",
+  "guide_sha256": "cc8ac260524892a57942474c43bb7b7b575676521a4d4cdcceb017136ac9b39d",
+  "accepted_clips": [
+    "bailiff_erase",
+    "bailiff_elite_sweep_recover"
+  ],
+  "rejected_clips": [
+    "attack"
+  ]
+}

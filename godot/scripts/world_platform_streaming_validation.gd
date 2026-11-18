@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## State/physics fixtures; not natural combat or an FPS benchmark.
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
@@ -81,7 +82,7 @@ func _region(id: String) -> void:
         var body: StaticBody2D = scene._make_region_platform(data)
         body.disable_mode = CollisionObject2D.DISABLE_MODE_KEEP_ACTIVE
         body.collision_layer = REFERENCE_LAYER
-        scene.remove_child(body)
+        body.get_parent().remove_child(body)
         references.add_child(body)
         body.name = String(data.id)
         ref_by_id[String(data.id)] = body
@@ -135,7 +136,7 @@ func _region(id: String) -> void:
     await _frames(2)
     for platform in scene.config.platforms:
         if scene._is_post_boss_blocker(String(platform.id)):
-            _check(scene.get_node_or_null(String(platform.id)) == null, id + " opened post-boss wall absent")
+            _check(LEVEL_HOST.find(scene, String(platform.id)) == null, id + " opened post-boss wall absent")
     service.warm(scene, focus)
     var saved := STATE.new()
     _check(saved.read(PATH) and saved.data.current_region == id, id + " valid persistent location unaffected")

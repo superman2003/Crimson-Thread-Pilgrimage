@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## A paused, isolated rendering fixture for before/after settings comparison.
 const READY := preload("res://scripts/world_ready_validation_helper.gd")
 const RETIRE := preload("res://scripts/audio_retirement.gd")
@@ -63,7 +64,7 @@ func run() -> void:
     await READY.wait_for(world)
     current_scene = world
     print("SETTINGS CAPTURE ready=true render_loop=",RenderingServer.render_loop_enabled)
-    for child in world.get_children():
+    for child in LEVEL_HOST.children(world):
         if child is CanvasItem: child.visible = false
         elif child is CanvasLayer and child != world.ui_canvas: child.visible = false
     var ui: Control = world.ui_shell

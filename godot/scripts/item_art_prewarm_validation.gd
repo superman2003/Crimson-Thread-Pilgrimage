@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Cold atlas loading with actual collectible consumers; not a natural playthrough.
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const WARM := preload("res://scripts/character_art_warm_job.gd")
@@ -77,7 +78,7 @@ func run() -> void:
         level.world_mode = false
         for data in config.get("collectibles", []):
             level._collectible(data)
-            var area := level.get_child(level.get_child_count() - 1) as Area2D
+            var area := LEVEL_HOST.children(level)[-1] as Area2D
             var sprite: Sprite2D
             var sprite_count := 0
             if area != null:

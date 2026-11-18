@@ -1,4 +1,8 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const PRIMARY_TEXT := Color("eadcc6")
+
 var payload: Dictionary = {}
 var selected := ""
 var hovered := ""
@@ -210,7 +214,7 @@ func _draw() -> void:
                 HORIZONTAL_ALIGNMENT_LEFT,
                 180,
                 14,
-                Color("eadcc6")
+                PRIMARY_TEXT
             )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
@@ -221,5 +225,5 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         13,
-        Color("a3b3aa")
+        MUTED_TEXT
     )

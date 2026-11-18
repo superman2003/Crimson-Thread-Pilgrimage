@@ -45,6 +45,320 @@
       "ground_y": 266,
       "registration": "cell_center",
       "center_y": 155.5
+    },
+    {
+      "clip": "recover",
+      "count": 24,
+      "cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "grid": [
+        6,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/delayed_shadow/final37_full_recover-endpoints-v2.png",
+      "sha256": "89de73f372f3b6d9f9e61fb26ad410b8fd59e179ef778c808643eeaefa66bcd9",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "5d88d038a5eb6b1d604ae3789d10b1ea3bdad2b7cb1aa94f06f5d39c7392153e",
+      "reference": {
+        "sha256": "7599a3775c478040f289234f57de8df4c6f98b1fa5318a00f94652660a502fe0",
+        "reconstruction": "Frozen production poses and common rig; all final pixels authored by built-in image_gen. One whole-source scale and shared median body-centroid/footline registration, no individual cel transforms. Actual model input is the four frozen key poses; full24 pose recipe is the target clock/rig record. Every selected cel in this entire source uses one additional shared(3,-7)pixel registration, jointly checked against retained neighbors and real phase handoffs.",
+        "supporting_guides": [
+          {
+            "path": "art_requests/creature_redraw_v1/guides/delayed_shadow-final37-recover-endpoint-keys.json",
+            "sha256": "243bca7d6e4ad9b8149a25f86a221ca4dc0b471e624fbe953be4df43dab60d7a"
+          }
+        ]
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/delayed_shadow-final37-full-recover.json",
+      "guide_sha256": "30f2a633397ebd31fbd1ee08bb34cc97bf3a02ab7d73fe8167db288b8c1f06c7",
+      "reference_height": 190.5,
+      "registration": "cell_center",
+      "center_x": 231.004304,
+      "center_y": 143.588108
+    },
+    {
+      "clip": "attack",
+      "count": 6,
+      "cells": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "grid": [
+        6,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/delayed_shadow/final37_01.png",
+      "sha256": "cb99b98b405974cbb007f98f904404c3f2bf10cca6255ca70d6f11c4c6008fb3",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "3f5fa46cee5d30275c48748229f93a23bb043baf533ca31c263310ed67b5aff8",
+      "reference": {
+        "sha256": "6f2b525837d61986e4dc352050f776ee5df2ef5a50716d80be2e96949c2b0880",
+        "reconstruction": "Frozen production poses and common rig; all final pixels authored by built-in image_gen. One whole-source scale and shared median body-centroid/footline registration, no individual cel transforms. Every selected cel in this entire source uses one additional shared(-1,-17)pixel registration, jointly checked against retained neighbors and real phase handoffs."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/delayed_shadow-final37-01.json",
+      "guide_sha256": "1adef909827b3912af3c73323fd546a8a2e617a9b76afce7ca6f9b2152748668",
+      "reference_height": 196,
+      "registration": "cell_center",
+      "center_x": 219.210606,
+      "center_y": 131.019349,
+      "target_frames": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "original_frame_count": 24
+    },
+    {
+      "clip": "shadow_echo_windup",
+      "count": 24,
+      "cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "grid": [
+        6,
+        4
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/delayed_shadow/final37_full_shadow_echo_windup.png",
+      "sha256": "98e4552874a5038f132d505a91430a1c42fa6ff3a0c1533f06c12088d5b0d763",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "34ee33a661d478d382e551e84b29fea337399caa4508403935151c08d01af6e1",
+      "reference": {
+        "sha256": "ec01588967b6a3f6fd38ddd7d7bba1e5dcf9a04b93263dda7cf3f6f20e45214e",
+        "reconstruction": "Frozen production poses and common rig; all final pixels authored by built-in image_gen. One whole-source scale and shared median body-centroid/footline registration, no individual cel transforms. Actual model input is the four frozen key poses; full24 pose recipe is the target clock/rig record. Every selected cel in this entire source uses one additional shared(-6,-22)pixel registration, jointly checked against retained neighbors and real phase handoffs.",
+        "supporting_guides": [
+          {
+            "path": "art_requests/creature_redraw_v1/guides/delayed_shadow-final37-full-shadow_echo_windup-keys.json",
+            "sha256": "e6cf631543e1becdc554626a954b6bf6e6a302e1ebebf84f792aafae8b8579ec"
+          }
+        ]
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/delayed_shadow-final37-full-shadow_echo_windup.json",
+      "guide_sha256": "72af2f4c38ccdba920a60365b77867aad6691d509cef6825f9d7833d7cd664e4",
+      "reference_height": 204.0,
+      "registration": "cell_center",
+      "center_x": 214.901715,
+      "center_y": 152.694658
+    },
+    {
+      "clip": "shadow_echo_recover",
+      "count": 5,
+      "cells": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/delayed_shadow/final37_02.png",
+      "sha256": "526f726d12a1f22450509eb23202f562047a90e762ed6cedf41a8cc46843a1d8",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "4a979ca04851d00ccaea7e29f72b9aac8945e30233fa346534560164c118564d",
+      "reference": {
+        "sha256": "437f920d910922f37701b7c3e387acb9fda2a7910d78b136216886a6933dc809",
+        "reconstruction": "Frozen production poses and common rig; all final pixels authored by built-in image_gen. One whole-source scale and shared median body-centroid/footline registration, no individual cel transforms. Every selected cel in this entire source uses one additional shared(-5,-14)pixel registration, jointly checked against retained neighbors and real phase handoffs."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/delayed_shadow-final37-02.json",
+      "guide_sha256": "7d97967c2b713107883a93bdb81d468dc7464fefef292e476c8f8d53584b090e",
+      "reference_height": 168.0,
+      "registration": "cell_center",
+      "center_x": 205.724798,
+      "center_y": 123.138274,
+      "target_frames": [
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "original_frame_count": 24
+    },
+    {
+      "clip": "shadow_echo",
+      "count": 3,
+      "cells": [
+        5,
+        6,
+        7
+      ],
+      "scale_cells": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "source": "art_requests/creature_redraw_v1/sources/delayed_shadow/final37_02.png",
+      "sha256": "526f726d12a1f22450509eb23202f562047a90e762ed6cedf41a8cc46843a1d8",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "4a979ca04851d00ccaea7e29f72b9aac8945e30233fa346534560164c118564d",
+      "reference": {
+        "sha256": "437f920d910922f37701b7c3e387acb9fda2a7910d78b136216886a6933dc809",
+        "reconstruction": "Frozen production poses and common rig; all final pixels authored by built-in image_gen. One whole-source scale and shared median body-centroid/footline registration, no individual cel transforms. Every selected cel in this entire source uses one additional shared(-5,-14)pixel registration, jointly checked against retained neighbors and real phase handoffs."
+      },
+      "guide": "art_requests/creature_redraw_v1/guides/delayed_shadow-final37-02.json",
+      "guide_sha256": "7d97967c2b713107883a93bdb81d468dc7464fefef292e476c8f8d53584b090e",
+      "reference_height": 168.0,
+      "registration": "cell_center",
+      "center_x": 205.724798,
+      "center_y": 123.138274,
+      "target_frames": [
+        13,
+        14,
+        15
+      ],
+      "original_frame_count": 24
     }
   ]
 }

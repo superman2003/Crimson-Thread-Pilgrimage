@@ -46,6 +46,12 @@ common/physics_interpolation=true
 
 enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/MetroidvaniaSystem/plugin.cfg", "res://addons/MetroidvaniaSystem/EditorExtension/plugin.cfg")
 
+[editor]
+
+; Avoid threaded-import instability on the pinned Godot 4.6.1 CI runners.
+; Keep imports serial; run_godot_import.py still rejects either failed pass.
+import/use_multiple_threads=false
+
 [beehave]
 
 debugger/start_detached=false

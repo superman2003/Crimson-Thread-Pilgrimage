@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "kind": "echo_contract_scribe",
+  "baseline": "godot/assets/sprites/original_creatures/echo_contract_scribe/motion_v8_manifest.json",
+  "baseline_sha256": "c2e82f86aeff728fd08295218548b20314058dcdac9591b7b919c4f170f08d27",
+  "canvas": [
+    480,
+    271
+  ],
+  "grid": [
+    2,
+    2
+  ],
+  "frame_fit_reference_sha256": "3289923e6afd62971b0a1626c4dd87825c2aaef6fbfecd5d289c99cbb2d9f5c5",
+  "explanation": "Four frozen key poses, reference ONLY. Input to image_gen for a separate full24cel animation; never final or synthesized runtime artwork.",
+  "atlas_sha256": {
+    "res://../art_requests/creature_redraw_v1/guides/support/echo_contract_scribe-walk-00.png": "0e658a8b69abaaf3d9767b4db89f32e182a414ac065e645b81fffc3f563164a4",
+    "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png": "2d3ba583e7ba06acd606bfcf716903f131bfdbcd95b77bb2a6e139ecc2f90e31",
+    "res://../art_requests/creature_redraw_v1/guides/support/echo_contract_scribe-echo_scribe_seals-00.png": "39260eaa7bd56730e3e7fa5e02b9fb07e849dc211ac1fcc2060330dbaf515102"
+  },
+  "entries": [
+    {
+      "clip": "echo_scribe_seals_windup",
+      "frame": 0,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/echo_contract_scribe-walk-00.png",
+        "region": [
+          0,
+          0,
+          158,
+          187
+        ],
+        "margin": [
+          160,
+          48,
+          322,
+          84
+        ]
+      },
+      "reference_fit": [
+        1,
+        0,
+        0
+      ],
+      "endpoint_reference": {
+        "clip": "walk",
+        "frame": 0
+      }
+    },
+    {
+      "clip": "echo_scribe_seals_windup",
+      "frame": 8,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+        "region": [
+          1384,
+          625,
+          196,
+          188
+        ],
+        "margin": [
+          145,
+          54,
+          284,
+          83
+        ]
+      },
+      "reference_fit": [
+        0.964,
+        9.3,
+        21.3
+      ]
+    },
+    {
+      "clip": "echo_scribe_seals_windup",
+      "frame": 16,
+      "source_frame": {
+        "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+        "region": [
+          2186,
+          625,
+          172,
+          201
+        ],
+        "margin": [
+          160,
+          41,
+          308,
+          70
+        ]
+      },
+      "reference_fit": [
+        1.062,
+        8.7,
+        15.8
+      ]
+    },
+    {
+      "clip": "echo_scribe_seals_windup",
+      "frame": 23,
+      "source_frame": {
+        "atlas": "res://../art_requests/creature_redraw_v1/guides/support/echo_contract_scribe-echo_scribe_seals-00.png",
+        "region": [
+          0,
+          0,
+          228,
+          146
+        ],
+        "margin": [
+          138,
+          96,
+          252,
+          125
+        ]
+      },
+      "reference_fit": [
+        0.972,
+        11.5,
+        37.5
+      ],
+      "endpoint_reference": {
+        "clip": "echo_scribe_seals",
+        "frame": 0
+      }
+    }
+  ],
+  "targets": {
+    "echo_scribe_seals_windup": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ]
+  },
+  "original_frame_counts": {
+    "echo_scribe_seals_windup": 24
+  },
+  "reference_height": 197.0,
+  "reference_sha256": "859b05c3faee499d8dd89eb47936bdcda27a16532f84bcc3afabb1ddd0d26b38",
+  "keyframe_indices": [
+    0,
+    8,
+    16,
+    23
+  ]
+}

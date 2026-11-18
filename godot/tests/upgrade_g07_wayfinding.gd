@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 var checks := 0
 var failures := 0
 func _initialize() -> void:call_deferred("run")
@@ -41,7 +42,7 @@ func capture_world() -> void:
         return
     scene.set_process(false);scene.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"):enemy.set_physics_process(false)
-    for child in scene.get_children():
+    for child in LEVEL_HOST.children(scene):
         if child is Area2D and String(child.get_meta("kind",""))=="save_point":
             scene.player.global_position=child.global_position
             child.get_node("Wayfinding")._process(0.0)

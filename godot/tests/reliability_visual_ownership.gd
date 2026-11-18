@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const POLICY = preload("res://scripts/combat_visual_policy.gd")
 var checks := 0
 var failures: Array[String] = []
@@ -9,7 +10,7 @@ func _initialize() -> void:call_deferred("run")
 func run() -> void:
     var host := Node2D.new();root.add_child(host)
     var existing := Node2D.new();host.add_child(existing)
-    check(not POLICY.attach_contact(host, existing) and is_instance_valid(existing) and existing.get_parent() == host, "contact rejection preserves borrowed actor")
+    check(not POLICY.attach_contact(host, existing) and is_instance_valid(existing) and LEVEL_HOST.owns(host, existing), "contact rejection preserves borrowed actor")
     check(not POLICY.attach_action_trace(host, existing) and is_instance_valid(existing), "trace rejection preserves borrowed actor")
     check(not POLICY.attach_contact(host, null) and not POLICY.attach_action_trace(host, null), "null inputs do not crash")
     var detached_host := Node.new()

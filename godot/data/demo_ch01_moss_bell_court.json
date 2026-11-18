@@ -622,10 +622,10 @@
       "kind": "gate",
       "archetype": "gate",
       "layout_rect": [
-        3920,
-        1060,
-        340,
-        246
+        3972,
+        1026,
+        248,
+        280
       ],
       "map_rect": [
         1400,
@@ -642,10 +642,10 @@
       "pacing_role": "reward",
       "visit_rects": [
         [
-          3920,
-          1060,
-          340,
-          246
+          3972,
+          1026,
+          248,
+          280
         ]
       ],
       "camera_bounds": [
@@ -6404,6 +6404,38 @@
       "map_marker": "ability_gate"
     },
     {
+      "id": "gate_marrow_side",
+      "rect": [
+        3972,
+        1026,
+        42,
+        184
+      ],
+      "color": "5a2d2d",
+      "material": "bronze_bridge",
+      "required_ability": "thorn_downstrike",
+      "required_ability_name": "棘线下劈",
+      "from": "bell_ascent",
+      "to": "bell_marrow_cell",
+      "map_marker": "ability_gate"
+    },
+    {
+      "id": "gate_marrow_lift",
+      "rect": [
+        4178,
+        1026,
+        42,
+        184
+      ],
+      "color": "5a2d2d",
+      "material": "bronze_bridge",
+      "required_ability": "thorn_downstrike",
+      "required_ability_name": "棘线下劈",
+      "from": "bell_marrow_cell",
+      "to": "bell_marrow_cell",
+      "map_marker": "ability_gate"
+    },
+    {
       "id": "gate_shadow_veins",
       "rect": [
         440,
@@ -7731,11 +7763,12 @@
     {
       "from": "bell_ascent",
       "to": "bell_marrow_cell",
-      "type": "passage",
-      "edge_kind": "passage",
+      "type": "ability_gate",
+      "edge_kind": "ability_gate",
       "bidirectional": true,
-      "action": "walk_jump",
-      "shortcut_id": ""
+      "action": "downstrike",
+      "shortcut_id": "",
+      "required_ability": "thorn_downstrike"
     },
     {
       "from": "belfry_mid",

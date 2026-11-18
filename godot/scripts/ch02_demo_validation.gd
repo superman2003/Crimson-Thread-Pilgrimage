@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const CONFIG_PATH := "res://data/demo_ch02_rain_foundry_canal.json"
 const MAIN_SCENE := "res://scenes/Main.tscn"
@@ -86,7 +87,7 @@ func _run() -> void:
     _assert(not scene.locked_gate_bodies.has("gate_dash_wheel"), "CH02 dash gates open from chapter start (back-compat)")
     _assert(scene.locked_gate_bodies.has("gate_wall_standpipe"), "CH02 wall gate sealed before pickup")
     _assert(scene.locked_gate_bodies.has("gate_hook_chain"), "CH02 hook gate sealed before pickup")
-    var grip_pickup: Area2D = scene.get_node_or_null("col_silk_wall_grip")
+    var grip_pickup: Area2D = LEVEL_HOST.find(scene, "col_silk_wall_grip")
     _assert(grip_pickup != null, "CH02 silk_wall_grip pickup spawned in the trial cell")
     scene._on_collectible_body_entered(scene.player, grip_pickup)
     _assert(scene.player.wall_grip_unlocked == true, "CH02 silk_wall_grip pickup unlocks wall grip")
@@ -94,7 +95,7 @@ func _run() -> void:
     _assert(not scene.locked_gate_bodies.has("gate_wall_tower"), "CH02 all wall gates open after pickup")
     _assert(not scene.locked_gate_bodies.has("gate_wall_vault"), "CH02 vault wall gate opens after pickup")
     _assert(scene.locked_gate_bodies.has("gate_hook_chain"), "CH02 hook gates stay sealed until the boss reward")
-    var hook_pickup: Area2D = scene.get_node_or_null("col_echo_hook")
+    var hook_pickup: Area2D = LEVEL_HOST.find(scene, "col_echo_hook")
     _assert(hook_pickup != null, "CH02 echo_hook pickup spawned in the pendulum works")
     scene._on_collectible_body_entered(scene.player, hook_pickup)
     _assert(not scene.locked_gate_bodies.has("gate_hook_chain"), "CH02 hook gates open after echo_hook")
@@ -104,7 +105,7 @@ func _run() -> void:
     _assert(state.get("av_chapter_total") == 6, "AV manifest still covers all 6 chapters")
 
     for npc_id in ["npc_rain_smith_liu", "npc_canal_child", "npc_sluice_nun", "npc_drowned_foreman"]:
-        var npc: Area2D = scene.get_node_or_null(npc_id)
+        var npc: Area2D = LEVEL_HOST.find(scene, npc_id)
         _assert(npc != null, npc_id + " exists")
         _assert(String(npc.get_meta("kind", "")) == "npc", npc_id + " is an NPC interactable")
         _assert(npc.get_meta("dialogue", []).size() >= 2, npc_id + " has chapter dialogue")
@@ -124,13 +125,13 @@ func _run() -> void:
     for expected_kind in ["drain_leech", "pipe_thrower", "rust_diver", "bell_mote", "waterwheel_knight"]:
         _assert(enemy_kinds.has(expected_kind), "CH02 enemy kind exists: " + expected_kind)
 
-    var first_npc: Area2D = scene.get_node_or_null("npc_rain_smith_liu")
+    var first_npc: Area2D = LEVEL_HOST.find(scene, "npc_rain_smith_liu")
     scene.player.global_position = first_npc.global_position
     scene._try_interact()
     _assert(int(first_npc.get_meta("dialogue_index", 0)) == 1, "CH02 NPC dialogue advances")
 
     scene._debug_clear_combat_route()
-    var lever: Area2D = scene.get_node_or_null("waterwheel_shortcut_lever")
+    var lever: Area2D = LEVEL_HOST.find(scene, "waterwheel_shortcut_lever")
     _assert(lever != null, "CH02 shortcut lever exists")
     scene.player.global_position = lever.global_position
     scene._try_interact()
@@ -138,7 +139,7 @@ func _run() -> void:
     _assert(state.get("shortcut_open") == true, "CH02 combat clear opens boss route")
     _assert(state.get("boss_unlocked") == true, "CH02 combat clear unlocks boss gate")
 
-    var boss_gate: Area2D = scene.get_node_or_null("sunken_hammer_gate")
+    var boss_gate: Area2D = LEVEL_HOST.find(scene, "sunken_hammer_gate")
     _assert(boss_gate != null, "CH02 boss gate exists")
     scene.player.global_position = boss_gate.global_position
     scene._try_interact()
@@ -146,7 +147,7 @@ func _run() -> void:
     state = scene.get_demo_state()
     _assert(state.get("boss_spawned") == true, "CH02 boss gate spawns boss")
     _assert(state.get("boss_arena_locked") == true, "CH02 boss room locks after entry")
-    _assert(scene.get_node_or_null("boss_arena_lock_wall") != null, "CH02 boss lock wall exists")
+    _assert(LEVEL_HOST.find(scene, "boss_arena_lock_wall") != null, "CH02 boss lock wall exists")
     _assert(scene.boss_actor != null, "CH02 boss actor exists")
     _assert(scene.boss_actor.spawn_id == "C2_B01", "CH02 boss actor has stable spawn id")
     _assert(scene.boss_actor.kind == "sunken_hammer_smith", "CH02 boss actor uses CH02 kind")
@@ -207,7 +208,7 @@ func _run() -> void:
     _assert(state.get("boss_arena_locked") == false, "CH02 boss death unlocks boss room")
     _assert(scene.inventory_counts.has("smith_oath_plate"), "CH02 boss reward is granted")
     _assert(String(scene.win_label.text).contains("绯线执剪者"), "CH02 completion text is data-driven")
-    var chapter_exit: Area2D = scene.get_node_or_null("ch02_chapter_exit")
+    var chapter_exit: Area2D = LEVEL_HOST.find(scene, "ch02_chapter_exit")
     _assert(chapter_exit != null, "CH02 chapter exit exists")
     _assert(String(chapter_exit.get_meta("next_runtime_config_id", "")) == "demo_ch03_saltwhite_archive", "CH02 chapter exit points to CH03")
     scene.nearby_interactable = null

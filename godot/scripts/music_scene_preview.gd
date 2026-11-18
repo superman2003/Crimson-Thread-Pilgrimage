@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Development-only scene listening session. The launcher isolates APPDATA.
 var world: Node
 var preview_voice: AudioStreamPlayer
@@ -118,7 +119,7 @@ func start_at_shrine() -> bool:
     # Let the production residency/collision window bring this authored shrine
     # into the live scene before invoking its actual interaction.
     for frame in 240:
-        for child in world.get_children():
+        for child in LEVEL_HOST.children(world):
             if child is Area2D and String(child.name)==String(target.id) and String(child.get_meta("kind",""))=="save_point":
                 world._activate_save_point(child)
                 world.player.set_physics_process(true)

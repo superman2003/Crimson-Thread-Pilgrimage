@@ -1,7 +1,12 @@
 extends Control
+
+const MUTED_TEXT := Color("a3b3aa")
+const LEGEND_TEXT := Color("c8b890")
+const SUMMARY_TEXT := Color("d0b580")
+
 var points: Array = []
 var enabled: Dictionary = {"能力": true, "装备": true, "物资": true, "任务": true, "结局": true}
-var colors: Dictionary = {
+const CATEGORY_COLORS: Dictionary = {
     "能力": Color("c1ae73"),
     "装备": Color("7eae97"),
     "物资": Color("7e9bb5"),
@@ -40,7 +45,7 @@ func _ready() -> void:
         var toggle := CheckButton.new()
         toggle.text = key
         toggle.button_pressed = true
-        toggle.add_theme_color_override("font_color", colors[key])
+        toggle.add_theme_color_override("font_color", CATEGORY_COLORS[key])
         toggle.toggled.connect(
             func(value: bool):
                 enabled[key] = value
@@ -147,7 +152,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             45,
             11,
-            Color("a3b3aa")
+            MUTED_TEXT
         )
     for kind in enabled:
         if not enabled[kind]:
@@ -156,10 +161,10 @@ func _draw() -> void:
         for i in points.size():
             line.append(_position(i, kind))
         if line.size() > 1:
-            draw_polyline(line, colors[kind], 2, true)
+            draw_polyline(line, CATEGORY_COLORS[kind], 2, true)
         for index in [selected, hovered]:
             if index >= 0 and index < points.size():
-                draw_circle(_position(index, kind), 5, colors[kind])
+                draw_circle(_position(index, kind), 5, CATEGORY_COLORS[kind])
     draw_rect(area, Color("63765d"), false, 1)
     if points.is_empty():
         draw_string(
@@ -169,7 +174,7 @@ func _draw() -> void:
             HORIZONTAL_ALIGNMENT_LEFT,
             area.size.x - 40,
             16,
-            Color("c8b890")
+            LEGEND_TEXT
         )
     draw_string(
         font,
@@ -178,7 +183,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
-        Color("d0b580")
+        SUMMARY_TEXT
     )
     draw_string(
         font,
@@ -187,7 +192,7 @@ func _draw() -> void:
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
-        Color("a3b3aa")
+        MUTED_TEXT
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)

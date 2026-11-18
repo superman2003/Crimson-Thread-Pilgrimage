@@ -4,6 +4,14 @@ on:
     paths:
       - 'godot/scripts/journey_history_browser.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
       - 'godot/scripts/journey_archive_comparison.gd'
       - 'godot/data/item_lore.json'
       - 'godot/scripts/journey_comparison*.gd'
@@ -21,7 +29,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           lfs: true
       - name: Install Godot 4.6.1
@@ -38,7 +46,7 @@ jobs:
         run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/journey-comparison-import"
       - name: Actual settings history entry and unchanged gameplay bytes
         run: python3 tools/run_journey_comparison_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/journey-comparison-world"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: journey-comparison-logs

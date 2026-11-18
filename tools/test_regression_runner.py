@@ -18,6 +18,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class CompletionContractTests(unittest.TestCase):
     """Static suite contracts apply on every host, including Windows."""
+    def test_unimported_assets_are_reported(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            root = Path(scratch)
+            (root / 'art').mkdir(); (root / 'skip').mkdir(); (root / '.godot').mkdir()
+            (root / 'art' / 'done.png').write_bytes(b''); (root / 'art' / 'done.png.import').write_text('')
+            (root / 'art' / 'fresh.png').write_bytes(b''); (root / 'art' / 'notes.json').write_text('{}')
+            (root / 'skip' / '.gdignore').write_text(''); (root / 'skip' / 'raw.png').write_bytes(b'')
+            (root / '.godot' / 'cache.png').write_bytes(b'')
+            self.assertEqual(runner.unimported_assets(root), ['art/fresh.png'])
+
     def test_native_utf8_log_is_preserved_on_windows(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -130,6 +140,7 @@ class CompletionContractTests(unittest.TestCase):
             'rest_point_safety',
             'player_action_sfx_sync',
             'fragile_gate_crack',
+            'marrow_cell_entry',
             'hidden_drone',
             'hazard_readability', 'trap_free_world',
             'audio_construction',
@@ -142,7 +153,7 @@ class CompletionContractTests(unittest.TestCase):
         # Keep the original 186-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
         # reject a missing base suite, an unknown addition or invalid completion.
-        self.assertEqual(len(all_suites), 186 + len(set(all_suites) & combat_additions))
+        self.assertEqual(len(all_suites), 188 + len(set(all_suites) & combat_additions))
         self.assertIn("ai_music_pack", DEFAULT_SUITES)
         self.assertIn("enemy_combat_continuity", DEFAULT_SUITES)
         self.assertIn("boss_combat_identity", DEFAULT_SUITES)
@@ -212,7 +223,7 @@ class CompletionContractTests(unittest.TestCase):
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
         # Dedicated contracts run these suites only when their inputs change.
-        contract_suites = {'enemy_frame_fit', 'enemy_wing_flap', 'ability_ledges'}
+        contract_suites = {'enemy_frame_fit', 'enemy_wing_flap', 'ability_ledges', 'ability_routes', 'ability_routes_world', 'difficulty_tiers'}
         ledge_contract = (ROOT / '.github/contracts/ability-ledges.yml').read_text(encoding='utf-8')
         self.assertIn('--suite ability_ledges', ledge_contract)
         self.assertIn('godot/scripts/ability_ledges_validation.gd', ledge_contract)

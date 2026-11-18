@@ -61,7 +61,7 @@ static func setup(level: Node) -> void:
     status.position = Vector2(34, 583)
     status.size = Vector2(1108, 17)
     status.add_theme_font_size_override("font_size", 12)
-    status.add_theme_color_override("font_color", Color("e7ad7f"))
+    status.add_theme_color_override("font_color", preload("res://scripts/survey_map_surface.gd").ACCENT)
     level.map_panel.add_child(status)
     status.text = "右键标记图钉"
     status.tooltip_text="右键标记已补绘房间 · 上方按钮支持键盘/手柄 · 最多12个"
@@ -119,7 +119,7 @@ static func refresh(level: Node) -> void:
         var anchor := project(level, record.region_id, Vector2(record.position[0], record.position[1]))
         marker.position = anchor - LABEL_ORIGIN
         marker.add_theme_font_size_override("font_size", 18)
-        marker.add_theme_color_override("font_color", [Color("b35a38"), Color("9a342f"), Color("486f82")][PINS.KINDS.find(record.kind)])
+        marker.add_theme_color_override("font_color", preload("res://scripts/survey_map_surface.gd").PIN_KINDS[PINS.KINDS.find(record.kind)])
         marker.set_meta("pin_id", int(record.id))
         marker.set_meta("region_id", record.region_id)
         marker.set_meta("local_position", Vector2(record.position[0], record.position[1]))

@@ -1,0 +1,13 @@
+{
+  "kind": "root_cage_hunter",
+  "clip": "actions_attack_full",
+  "status": "rejected",
+  "reason": "Raw alpha clean but complete forward-claw cells1-4 have less than5px source-cell margin, including cross-cell tips. Reject before animation build; re-layout all24 equally smaller within own cells without clipping.",
+  "source_sha256": "5764b236b86705e876ae2088bac22f68ee063fb5becd302bef06a6ad89acdc89",
+  "prompt_sha256": "da1f359ea9d0cdf52bce46524f9afa96841bc3f658da786924d665d0ad48e522",
+  "reference_sha256": "ea58fb22c4b466ae87a2b7f767224b54bad3dc076645f76cdbe63b596c6a9f23",
+  "actual_prompt": "Use case: stylized-concept game animation. Repaint this complete24-cel ROOT CAGE HUNTER hooked-claw attack as EXACT8equal columns x3equal rows, all24sprites occupied chronological rowmajor, distinct drawn articulated poses. Reference1 is original choreography/body silhouette, center/foot anchor and timing: hooked leafy claw reaches forward0-3, smoothly curls back4-10, guards11-15, another forward scythe sweep16-21 then settles22-23. Replace abrupt alternation of upright/reach poses by continuous shoulder/elbow/claw intermediate drawing, maintain body mass/feet anchors and smooth transitions including rowbreak7->8/15->16. Reference2 original other-poses sheet is identity/detail only. Faithful small plant-insect with brown twisted root limbs, hunchback wicker lattice cage torso, layered moss/olive green leaf mantle/skirt, pale cream seed-like eye mask, long swept-back curved twig antennae, TWO hooked green-brown scythe forearms attached to shoulders and bent root hind legs. Keep limb count, claws/antennae dimensions, leaf mantle size and exact original anatomy, no added weapons/human face/new objects. Crisp refined hand-painted bark/woven lattice/leaf veins with opaque solid painted contours, warm muted browns/olive leaves. Consistent body volume all24, complete thin antenna/claw tips stay inside equal cells, transparent margins min24px; center and foot height match guide. TRUE transparent RGBA only, all gutters alpha-zero; no white/gray backdrop, haze/matte, floor shadow, glow/particles, detached speckles, colored fringe, checkerboard/grid, labels or text. Never repeated neutral copies or changing whole-sprite scale to imitate motion.",
+  "reference_recipe": "Frozen complete24cel attack guide rendered by tools/creature_redraw_guides.py from original source_frame/reference_fit; frozen actions02 original pose board supports identity/detail only.",
+  "guide_recipe": "art_requests/creature_redraw_v1/guides/root_cage_hunter-actions-attack-full.json",
+  "guide_sha256": "cb8d3f850666c7c8b5d89464052e888294f85e3558654b3030a633d33f24043f"
+}

@@ -634,10 +634,14 @@ def pack(kind, drawings, canvas):
     for key in sorted(drawings):
         image, (mx, my) = drawings[key]
         w, h = image.size
+        if w + 4 > 2048 or h + 4 > 2048:
+            raise ValueError('Drawing exceeds the atlas page')
         if x + w + 4 > 2048:
             x, y, row_h = 0, y + row_h + 4, 0
         if y + h + 4 > 2048:
-            pages.append(page.crop((0, 0, 2048, y)))
+            # A taller drawing can overflow while earlier drawings already
+            # occupy this row. Keep that row when closing the current page.
+            pages.append(page.crop((0, 0, 2048, min(2048, y + row_h))))
             page = Image.new("RGBA", (2048, 2048))
             x = y = row_h = 0
         page.alpha_composite(image, (x + 2, y + 2))

@@ -1,4 +1,5 @@
 extends SceneTree
+const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const SURFACE=preload("res://scripts/danger_caption_surface.gd")
 const GROUPS=preload("res://scripts/danger_caption_groups.gd")
 var checks:=0
@@ -14,7 +15,7 @@ func run() -> void:
     var style:=view.style
     for unused in 100:view.apply({"subtitle_size":21,"danger_caption_contrast":true})
     check(style==view.style,"steady frames retain one style")
-    check(view.install(host).panel==first.panel and host.get_child_count()==1,"same host install idempotent")
+    check(view.install(host).panel==first.panel and LEVEL_HOST.children(host).size()==1,"same host install idempotent")
     view.apply({"subtitle_size":26,"danger_caption_contrast":false})
     check(view.style==style and is_equal_approx(style.bg_color.a,.72),"contrast mutates cached style")
     check(view.labels[0].get_theme_font_size("font_size")==26,"font updates actual label")
@@ -22,7 +23,7 @@ func run() -> void:
     view.panel.show();view.hide()
     check(not view.panel.visible and view.labels[0].text.is_empty(),"disabled display clears stale tell")
     var other:=Control.new();root.add_child(other);view.install(other)
-    check(host.get_child_count()==0 and other.get_child_count()==1,"new host retires previous panel")
+    check(LEVEL_HOST.children(host).size()==0 and other.get_child_count()==1,"new host retires previous panel")
     other.free();view.clear();check(view.panel==null and view.labels.is_empty(),"freed UI safe cleanup")
     host.free();await process_frame
     print("RELIABILITY_R08 checks=%d failures=%d"%[checks,failures]);quit(0 if failures==0 else 1)
