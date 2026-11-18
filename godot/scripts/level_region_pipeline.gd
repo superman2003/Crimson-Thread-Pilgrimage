@@ -312,6 +312,7 @@ static func publish_region(level: Node) -> void:
         else:
             title.chosen.connect(func(action: String):
                 if action == "continue": level._save_world(), CONNECT_ONE_SHOT)
+        print_verbose("WORLD_REGION_READY ", level.config.get("id", ""))
     if level.boss_trial_mode:
         level._defer_region_call("_start_boss_trial")
 
