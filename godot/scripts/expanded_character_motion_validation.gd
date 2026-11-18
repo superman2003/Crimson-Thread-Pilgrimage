@@ -45,6 +45,9 @@ func run() -> void:
         for facing in [-1,1]:
             enemy._set_sprite_flip(facing < 0)
             check(enemy.animated_sprite.flip_h == (facing < 0), kind + " mirrored facing")
+        enemy._set_enemy_animation("recover", true)
+        _check_loop_entry(enemy.animated_sprite, path, &"idle", enemy._set_enemy_animation.bind("idle"))
+        _check_loop_entry(enemy.animated_sprite, path, &"walk", enemy._set_enemy_animation.bind("walk"))
         enemy.queue_free()
         await process_frame
     var world: Dictionary = ART.manifest("res://data/original_world_art_designs.json")
@@ -60,6 +63,9 @@ func run() -> void:
         check(sprite.sprite_frames == ART.frames(path), id + " production NPC factory uses expanded sequence")
         _check_frames(sprite.sprite_frames, ART.manifest(path), id)
         check(ART.portrait(id) != null, id + " original portrait retained")
+        sprite.begin_conversation()
+        _check_loop_entry(sprite, path, &"idle", Callable(sprite, "end_conversation"))
+        _check_loop_entry(sprite, path, &"talk", Callable(sprite, "_play_loop").bind(&"talk"))
         area.queue_free()
         await process_frame
     level.free()
@@ -75,6 +81,21 @@ func run() -> void:
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
     quit(0 if failures == 0 else 1)
+
+func _check_loop_entry(sprite: AnimatedSprite2D, path: String, action: StringName, enter_loop: Callable) -> void:
+    var source := sprite.animation
+    var count := sprite.sprite_frames.get_frame_count(source)
+    var entries: Array = ART.manifest(ART.LOOP_ENTRIES_PATH).get(path, {}).get(action, {}).get(source, [])
+    check(count > 0 and entries.size() == count, "%s has %s to %s entries" % [path, source, action])
+    if entries.size() != count or count == 0: return
+    for index in [0, count - 1]:
+        sprite.play(source)
+        sprite.set_frame_and_progress(index, 0.5)
+        enter_loop.call()
+        check(sprite.animation == action and sprite.frame == int(entries[index]), "%s enters %s from the visible pose" % [path, action])
+        sprite.set_frame_and_progress(sprite.frame, 0.4)
+        enter_loop.call()
+        check(is_equal_approx(sprite.frame_progress, 0.4), "%s repeated %s requests keep the drawing clock" % [path, action])
 
 func _check_phase_pacing(stage: Node2D) -> void:
     var designs: Dictionary = ART.manifest("res://data/original_creature_designs.json")
@@ -137,6 +158,7 @@ func _check_phase_pacing(stage: Node2D) -> void:
     a._pose_sprite("recover", {"id":"generic", "recover":1.4})
     check(a.animated_sprite.sprite_frames != shared and b.animated_sprite.sprite_frames == shared, "phase timing is owned by each actor")
     check(a.animated_sprite.sprite_frames.get_frame_duration("recover", 0) > 1.0, "slow recovery holds its first cel")
+    _check_loop_entry(a.animated_sprite, a.asset_path, &"idle", a._set_enemy_animation.bind("idle"))
     for index in shared.get_frame_count("recover"):
         check(is_equal_approx(shared.get_frame_duration("recover", index), 1.0), "actor A never changes actor B or the shared art cache")
     # Ground walking cadence is owned by _sync_walk_cadence (main, #570).

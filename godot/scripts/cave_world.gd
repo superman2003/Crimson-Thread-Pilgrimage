@@ -287,9 +287,13 @@ func rock_ray_hit(from: Vector2, to: Vector2) -> Dictionary:
     if not collision_streaming or not from.is_finite() or not to.is_finite():
         return {}
     var start := to_local(from)
-    var direction := to_local(to) - start
+    var finish := to_local(to)
+    var direction := finish - start
+    var ray_bounds := Rect2(start, Vector2.ZERO).expand(finish)
     var nearest := INF
     for rect in solid_rects:
+        if not ray_bounds.intersects(rect, true):
+            continue
         var low := 0.0
         var high := 1.0
         var intersects := true

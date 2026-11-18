@@ -162,6 +162,16 @@
     ],
     "greet": [
       {
+        "sheet": "greeting_inbetweens.png",
+        "region": [
+          0,
+          0,
+          396,
+          275
+        ],
+        "anchor_x": 198
+      },
+      {
         "sheet": "motion_expanded.png",
         "region": [
           68,
@@ -172,6 +182,16 @@
         "anchor_x": 110.0
       },
       {
+        "sheet": "greeting_inbetweens.png",
+        "region": [
+          396,
+          0,
+          396,
+          275
+        ],
+        "anchor_x": 198
+      },
+      {
         "sheet": "motion_expanded.png",
         "region": [
           447,
@@ -180,6 +200,16 @@
           227
         ],
         "anchor_x": 102.0
+      },
+      {
+        "sheet": "greeting_inbetweens.png",
+        "region": [
+          792,
+          0,
+          396,
+          275
+        ],
+        "anchor_x": 198
       }
     ],
     "rest": [
@@ -207,7 +237,44 @@
   },
   "qa": {
     "visual_inspected": true,
-    "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
+    "notes": "The original 16 drawings in motion_expanded.png retain their reviewed silhouettes, source palette, and transparent borders. Its two greeting poses anchor the three additional drawings in greeting_inbetweens.png.",
     "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  },
+  "greeting_inbetweens": {
+    "tool": "Built-in ImageGen",
+    "atlas": "greeting_inbetweens.png",
+    "authored_cels": [
+      {
+        "reference": "idle[0] to greet[0]",
+        "generated_sha256": "65f59c7e4e459f5d14ac163e70dbc0e50aefcc4956d83760b383d9cf47d12435",
+        "rgb_gain": [
+          0.875,
+          0.9255,
+          0.9286
+        ],
+        "prompt": "Use case: identity-preserve. Paint the single missing middle anatomical cel between these two existing production sprites. Output ONE complete full-body game sprite facing right, fixed feet and cane. This is a motion in-between. On the left the pilgrim stands with curved back and head up. On the right it bows very deeply: horizontal near-flat spine, very low beak, distinctive antlers tilting forward and to the right with the head, shoulder hood high. Draw a clear intermediate bow with spine sloped toward screen right about 35 degrees down from upright, head and beak hanging LOWER THAN THE SHOULDER LINE, halfway to the low bow. Curved mask beak points down and to the right, apex of antler slightly above backpack (like right source, but still halfway up); the long horn and brow keep the same shape and rotate forward. One hand keeps brass bell-topped walking stick upright and planted on screen right; opposite hand peeks out just past it, beginning to open politely towards the listener. The two-toed boots fixed exactly under the pelvis. Preserve reference hand-drawn watercolor-ink style, costume scale, long ivory bird-beak antler mask with hollow black eye, crimson tassel, olive cloak edged with chipped ochre embroidery and real cloth folds, cream sleeves and red front tabard, compact bulky backpack. Exact identity and number of props. Camera side view, same figure proportions. No cropping, generous blank transparent margins, authentic RGBA transparent background, no text, ground, shadow, transparency checker, guide, multiple figures or overlaid silhouettes. A genuinely lowered halfway-down posture is essential. Do not draw the almost upright pose on the left."
+      },
+      {
+        "reference": "greet[0] to greet[1]",
+        "generated_sha256": "bd487abafcf3a0e774a82d39b221605f03328afe604b21e1fe274ec6ba55a60e",
+        "rgb_gain": [
+          0.9231,
+          0.9674,
+          0.9224
+        ],
+        "prompt": "Use case: identity-preserve. Fill exactly ONE genuinely new in-between drawing for this ink game sprite. In the attached reference the left cel is deeply bowed and the right cel is upright waving. Paint just the middle pose with exactly the same character, scale, side-facing screen RIGHT camera, ink style and subdued colors. Body in a half bow (shoulders hunched forward, significantly lower than the figure at right), face halfway lifted and turned slightly toward viewer, beak points diagonally down-right about 37 degrees, antlers tilt forward. The NEAR BLACK GLOVED HAND with its wide CREAM SLEEVE must be clearly visible on the LEFT SIDE OF THE IMAGE overlapping the pack at UPPER-CHEST height, palm turned outward, elbow slightly outward, beginning to lift toward the wave in the right-hand source. The OTHER dark hand on SCREEN RIGHT grips the fluted brass bell-topped walking cane, straight and planted, same length as reference. Boots planted and unchanged, cloak still draped back over left foot, red cloth tabard visible. Match the reference itself including its stylized graphic, simple brushy lines and painted folds. Keep two ivory antler branches with the red tassel, the ivory bird-mask length, olive cloak emblem, and small backpack with tan rolled blanket. Compact, stocky proportions as the ORIGINAL, no changes in head to body ratio. Single entire full-body figure, absolutely everything inside canvas, ample fully transparent margins, transparent alpha background. No labels, shadows, backdrop, extra poses, checkerboard or ghosting. This must read very clearly as the body RISING FROM A BOW with PALM COMING UP ON SCREEN LEFT. Do not depict a hand extended in front to the right."
+      },
+      {
+        "reference": "greet[1] to talk[0]",
+        "generated_sha256": "ef7693fba2616473de31f199e8662bb2f6a3e44fbae23eed4106e43f06a828c4",
+        "rgb_gain": [
+          0.8889,
+          0.9263,
+          0.9464
+        ],
+        "prompt": "Use case: identity-preserve. A single in-between sprite drawing to smooth the end of a greeting. Two existing frames in attached reference: the same antler-masked pilgrim waving on left, calmly talking at right. Paint ONE new full-body frame where the wave settles. Planted boots, full long walking cane on screen right, staff tip on ground. Stable relative body size and the exact same long cloak. The free gloved hand has just moved forward from the high wave: its palm is at the collar, slightly below the chin, at centre of chest just LEFT of the beak, its wide cream sleeve still half raised. The wrist and elbow are bent and still visibly uncovered, as in the left reference. The beaked mask takes an intermediate lifted tilt, between the rightward horizontal beak in the waving cel and the more downward beak of the conversation cel. Show the other hand grasping the staff. Preserve identity and original clean ink and watercolor sprite finish, reference anatomy, quiet brown green cream ochre palette, long flowing chipped green hem trailing left, backpack and red thread tassels; small dark insect feet. Single, centered complete figure on genuine transparent alpha. Every horn tip and shoe visible. Faithful game asset in the source style, appropriately simple recognizable details even at 100 px tall. No reference panels, no ghosting, no text, no shadows or backdrop, no other drawings."
+      }
+    ],
+    "registration": "The three independently drawn cels use the same 396 x 275 rig as their references. Each was uniformly scaled and registered at the existing foot baseline, then matched to the neighbouring palettes with a single RGB gain. The packed image is the reviewed game-resolution source."
   }
 }

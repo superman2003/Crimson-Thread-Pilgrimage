@@ -2629,7 +2629,10 @@ func _set_enemy_animation(animation_name: String, restart: bool = false) -> void
             sprite.scale = sprite_base_scale
             pose_feedback_was_active = false
     if changed or resume_loop:
-        animated_sprite.play(next_animation)
+        if not restart and animation_name in ["idle", "walk"]:
+            ORIGINAL_ART.play_matched_loop(animated_sprite, next_animation)
+        else:
+            animated_sprite.play(next_animation)
 
 
 func _fit_animation_duration(duration: float, phase: String = "") -> void:

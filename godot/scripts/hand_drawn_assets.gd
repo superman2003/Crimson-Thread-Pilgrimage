@@ -1,5 +1,6 @@
 extends RefCounted
 const RESOURCE_JOB := preload("res://scripts/background_resource_job.gd")
+const LOOP_ENTRIES_PATH := "res://data/character_loop_entries.json"
 
 static var textures: Dictionary = {}
 static var frame_cache: Dictionary = {}
@@ -173,8 +174,32 @@ static func frames(path: String) -> SpriteFrames:
             var asset := frame(pose)
             if asset != null:
                 result.add_frame(name, asset)
+    if path.begins_with("res://assets/sprites/original_creatures/") or path.begins_with("res://assets/sprites/original_npcs/"):
+        var entries: Dictionary = manifest(LOOP_ENTRIES_PATH).get(path, {})
+        if not entries.is_empty():
+            result.set_meta(&"character_loop_entries", entries)
     frame_cache[path] = result
     return result
+
+## Enter a repeating stance on the drawing closest to the one on screen.
+## One-shot gestures and attack phases always play in their authored order.
+static func play_matched_loop(sprite: AnimatedSprite2D, action: StringName, clock := Vector2.ZERO) -> void:
+    if sprite.animation == action:
+        sprite.play(action)
+        return
+    var frames := sprite.sprite_frames
+    var entries: Dictionary = frames.get_meta(&"character_loop_entries", {})
+    var target: Dictionary = entries.get(action, {})
+    var matches: Array = target.get(sprite.animation, [])
+    var count := frames.get_frame_count(action)
+    var entry := clampi(int(clock.x), 0, maxi(0, count - 1))
+    if target.get("count", 0) == count and sprite.frame < matches.size() and matches.size() == frames.get_frame_count(sprite.animation):
+        var matched := int(matches[sprite.frame])
+        if matched >= 0 and matched < count:
+            entry = matched
+    sprite.play(action)
+    if count > 0:
+        sprite.set_frame_and_progress(entry, clock.y if entry == int(clock.x) else 0.0)
 
 ## Per-frame body size corrections measured by tools/build_creature_frame_fit.py:
 ## {animation: [[scale, pivot_x, pivot_y], ...]}. Empty when the file was measured

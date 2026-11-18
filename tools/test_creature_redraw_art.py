@@ -103,6 +103,28 @@ class DeliveryContracts(unittest.TestCase):
         self.assertEqual(base['animations'][0]['frames'][2],dict(id=2))
         self.assertEqual((result['animations'][0]['fps'],result['animations'][0]['loop']),(12,False))
 
+    def test_stamp_release_reaches_the_actual_first_strike_without_changing_its_clock(self):
+        kind = 'rust_crown_guardian'
+        release = art.read(art.REQUEST/'jobs'/f'{kind}.json')['windup_releases'][0]
+        strike = release['strike']
+        windup = strike + '_windup'
+        folder = art.fit.CREATURES / kind
+        _, base = art.baseline(kind)
+        clips = {clip['name']: clip for clip in base['animations']}
+        production = {clip['name']: clip for clip in art.read(folder/art.LAYER)['animations']}
+        first_active = art.source_drawing(production[strike]['frames'][0], {})
+        args = (clips, base['canvas'], {(strike, 0): first_active}, {})
+        packed, measured, _ = art.windup_release(kind, release, *args)
+        count = len(clips[windup]['frames'])
+        start = count - release['count']
+        self.assertEqual(set(packed), {(windup, i) for i in range(start, count)})
+        frames = clips[windup]['frames'][:start] + [packed[windup, i] for i in range(start, count)]
+        self.assertEqual(dict(clips[windup], frames=frames), production[windup])
+        self.assertLess(measured['new_seam_max'], measured['previous_seam_max'])
+        with self.assertRaisesRegex(ValueError, 'endpoints changed'):
+            art.windup_release(kind, release, clips, base['canvas'],
+                               {(strike, 0): (first_active[0], (0, 0))}, {})
+
     def test_jobs_sharing_a_sheet_use_the_same_uniform_scale(self):
         with tempfile.TemporaryDirectory() as folder:
             source=Path(folder)/'shared.png'

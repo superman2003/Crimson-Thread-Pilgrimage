@@ -116,13 +116,18 @@ func ray_hit(host: Node2D, from: Vector2, to: Vector2) -> Dictionary:
     if closed or not from.is_finite() or not to.is_finite():
         return {}
     var start := host.to_local(from)
-    var direction := host.to_local(to) - start
+    var finish := host.to_local(to)
+    var direction := finish - start
+    var ray_bounds := Rect2(start, Vector2.ZERO).expand(finish)
     var nearest := INF
     for id in records:
-        var role := String(records[id].data.get("collision_role", "")).to_lower()
+        var record: Dictionary = records[id]
+        var rect: Rect2 = record.bounds
+        if not ray_bounds.intersects(rect, true):
+            continue
+        var role := String(record.data.get("collision_role", "")).to_lower()
         if role in ["decorative", "no_collision"]:
             continue
-        var rect: Rect2 = records[id].bounds
         var low := 0.0
         var high := 1.0
         var intersects := true

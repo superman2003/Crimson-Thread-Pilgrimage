@@ -295,9 +295,13 @@ func terrain_ray_hit(from: Vector2, to: Vector2) -> Dictionary:
         return {}
     var start := to_local(from)
     var finish := to_local(to)
+    var ray_bounds := Rect2(start, Vector2.ZERO).expand(finish)
     var nearest := INF
     var hit := Vector2.ZERO
     for record in collision_regions:
+        # A horizontal sweep can touch a polygon exactly at its edge.
+        if not ray_bounds.intersects(record.bounds, true):
+            continue
         var polygon: PackedVector2Array = record.polygon
         # Physics ray queries exclude inside starts by default. Only edges count.
         if Geometry2D.is_point_in_polygon(start, polygon):

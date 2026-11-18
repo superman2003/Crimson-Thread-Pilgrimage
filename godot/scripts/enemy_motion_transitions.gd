@@ -1,6 +1,7 @@
 extends RefCounted
 ## Optional authored presentation gestures. Combat, displacement, collision and
 ## hit reactions retain their production clocks; only idle/walk may yield here.
+const ART := preload("res://scripts/hand_drawn_assets.gd")
 var active: StringName = &""
 var pending_loop: StringName = &"idle"
 var from_flip := false
@@ -102,7 +103,7 @@ func completed(actor) -> void:
     var sprite: AnimatedSprite2D = actor.animated_sprite
     var loop_name: StringName = pending_loop if sprite.sprite_frames.has_animation(pending_loop) else &"idle"
     sprite.speed_scale = 1.0
-    sprite.play(loop_name)
+    ART.play_matched_loop(sprite, loop_name)
     previous_texture = _texture(actor)
     previous_fit_scale = actor.frame_fit_scale
     previous_fit_pivot = actor.frame_fit_pivot
