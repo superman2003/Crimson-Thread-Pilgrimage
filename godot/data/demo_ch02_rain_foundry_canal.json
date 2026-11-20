@@ -1843,13 +1843,13 @@
         236,
         168
       ],
-      "objective": "沿吊架蹬位攀上钟摆车间。",
-      "guide": "锤声停了，吊架才肯静止。",
-      "danger": "攀升很长，别在中途松手。",
+      "objective": "乘升降笼上到钟摆车间。",
+      "guide": "F 呼叫升降笼。",
+      "danger": "井很深，别从台边失足。",
       "next": "钟摆车间",
       "setpiece": "静止的巨型钟摆",
-      "traversal_focus": "逐层跟随吊架落脚点，不以全井中心固定镜头",
-      "pacing_role": "vertical_hook_ascent",
+      "traversal_focus": "升降笼",
+      "pacing_role": "respite",
       "visit_rects": [
         [
           6140,
@@ -6007,446 +6007,6 @@
       }
     },
     {
-      "id": "pg01",
-      "rect": [
-        6180,
-        3686,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "pg02",
-      "rect": [
-        6400,
-        3592,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 7,
-        "flip_h": true,
-        "body_variants": [
-          7,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "pg03",
-      "rect": [
-        6180,
-        3498,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "pg04",
-      "rect": [
-        6400,
-        3404,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": true,
-        "body_variants": [
-          10,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "pg05",
-      "rect": [
-        6180,
-        3310,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          8,
-          8
-        ]
-      }
-    },
-    {
-      "id": "pg06",
-      "rect": [
-        6400,
-        3216,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 7,
-        "flip_h": true,
-        "body_variants": [
-          7,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "pg07",
-      "rect": [
-        6180,
-        3122,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": false,
-        "body_variants": [
-          8,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "pg08",
-      "rect": [
-        6400,
-        3028,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": true,
-        "body_variants": [
-          10,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "pg09",
-      "rect": [
-        6180,
-        2934,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": true,
-        "body_variants": [
-          6,
-          7,
-          7
-        ]
-      }
-    },
-    {
-      "id": "pg10",
-      "rect": [
-        6400,
-        2840,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 7,
-        "flip_h": true,
-        "body_variants": [
-          7,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "pg11",
-      "rect": [
-        6180,
-        2746,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "pg12",
-      "rect": [
-        6400,
-        2652,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": true,
-        "body_variants": [
-          10,
-          7,
-          7
-        ]
-      }
-    },
-    {
-      "id": "pg13",
-      "rect": [
-        6180,
-        2558,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          7,
-          7
-        ]
-      }
-    },
-    {
-      "id": "pg14",
-      "rect": [
-        6400,
-        2464,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 7,
-        "flip_h": false,
-        "body_variants": [
-          7,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "pg15",
-      "rect": [
-        6180,
-        2370,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          7,
-          7
-        ]
-      }
-    },
-    {
-      "id": "pg16",
-      "rect": [
-        6400,
-        2276,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          8,
-          8
-        ]
-      }
-    },
-    {
-      "id": "pg17",
-      "rect": [
-        6180,
-        2182,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": true,
-        "body_variants": [
-          6,
-          8,
-          8
-        ]
-      }
-    },
-    {
-      "id": "pg18",
-      "rect": [
-        6400,
-        2088,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 7,
-        "flip_h": false,
-        "body_variants": [
-          7,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "pg19",
-      "rect": [
-        6180,
-        1994,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": false,
-        "body_variants": [
-          8,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "pg20",
-      "rect": [
-        6400,
-        1900,
-        150,
-        24
-      ],
-      "color": "2c3540",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": true,
-        "body_variants": [
-          10,
-          8,
-          8
-        ]
-      }
-    },
-    {
       "id": "pw_floor",
       "rect": [
         6040,
@@ -8376,7 +7936,7 @@
       "type": "passage",
       "edge_kind": "passage",
       "bidirectional": true,
-      "action": "climb",
+      "action": "lift",
       "shortcut_id": ""
     },
     {
@@ -9431,7 +8991,7 @@
         "type": "passage",
         "edge_kind": "passage",
         "bidirectional": true,
-        "action": "climb",
+        "action": "lift",
         "shortcut_id": ""
       },
       {
@@ -10476,15 +10036,15 @@
           3780
         ],
         [
-          6400,
+          6556,
           3780
         ],
         [
-          6520,
+          6676,
           3820
         ],
         [
-          6556,
+          6712,
           3820
         ]
       ],
@@ -10531,6 +10091,14 @@
       "x": 844,
       "bottom_y": 3660,
       "top_y": 1540,
+      "speed": 300,
+      "label": "巡礼升降笼：F 呼叫 / 乘坐"
+    },
+    {
+      "id": "ch02_pendulum_lift",
+      "x": 6470,
+      "bottom_y": 3780,
+      "top_y": 1840,
       "speed": 300,
       "label": "巡礼升降笼：F 呼叫 / 乘坐"
     }

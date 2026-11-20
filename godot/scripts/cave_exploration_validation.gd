@@ -35,7 +35,7 @@ func _run() -> void:
         check(scene.cave_world!=null,String(id)+" cave installed")
         check(scene.cave_world.solid_rects.size()>80,String(id)+" solid rock envelope")
         check(not scene.cave_world.intersects_rect(Rect2(scene.player.global_position+Vector2(-17,-84),Vector2(34,84))),String(id)+" spawn not buried")
-        check(scene.cave_lifts.size()==1,String(id)+" physical lift installed")
+        check(scene.cave_lifts.size()>=1 and scene.cave_lifts.size()==scene.config.get("cave_lifts",[]).size(),String(id)+" every authored lift installed")
         check(not scene.cave_world.fog.visible,String(id)+" chapter entrance has normal visibility")
         await snap(scene,String(id)+"_entry")
         # Clear incidental combat while traversing geometry.
@@ -55,27 +55,29 @@ func _run() -> void:
                 scene.player.global_position=Vector2(float(p[0])+90,float(p[1]))
                 await snap(scene,String(id)+"_cave")
                 break
-        var lift: Node=scene.cave_lifts[0]
-        scene.player.global_position=Vector2(lift.x,lift.bottom_y)
-        scene.player.velocity=Vector2.ZERO
-        scene.player.set_physics_process(true)
-        for i in range(10):await physics_frame
-        check(scene.player.is_on_floor(),String(id)+" live player settles on basket before ascent")
-        check(lift.request(scene.player.global_position),String(id)+" lift accepts rider")
-        var rock_clear:=true
-        for i in range(ceili((lift.bottom_y-lift.top_y)/lift.speed*60)+8):
-            await physics_frame
-            rock_clear=rock_clear and not scene.cave_world.intersects_rect(Rect2(scene.player.global_position+Vector2(-17,-84),Vector2(34,83)))
-        check(not lift.moving,String(id)+" lift reaches upper landing")
-        check(absf(scene.player.global_position.y-lift.top_y)<4,String(id)+" rider reaches upper landing without teleport")
-        check(rock_clear,String(id)+" lift shaft keeps rider outside rock")
-        await snap(scene,String(id)+"_lift")
-        scene.player.set_physics_process(true)
-        check(lift.request(Vector2(lift.x,lift.bottom_y)),String(id)+" lower landing can call basket back")
-        for i in range(ceili((lift.bottom_y-lift.top_y)/lift.speed*60)+8):await physics_frame
-        check(absf(lift.basket.position.y-lift.bottom_y)<1,String(id)+" basket returns to lower landing")
-        check(absf(scene.player.global_position.y-lift.bottom_y)<12,String(id)+" live player physics rides down to the lower landing")
+        # Every lift, including those that replace former jump ladders (W02).
+        for lift: Node in scene.cave_lifts:
+            scene.player.global_position=Vector2(lift.x,lift.bottom_y)
+            scene.player.velocity=Vector2.ZERO
+            scene.player.set_physics_process(true)
+            for i in range(10):await physics_frame
+            check(scene.player.is_on_floor(),String(id)+" live player settles on basket before ascent")
+            check(lift.request(scene.player.global_position),String(id)+" lift accepts rider")
+            var rock_clear:=true
+            for i in range(ceili((lift.bottom_y-lift.top_y)/lift.speed*60)+8):
+                await physics_frame
+                rock_clear=rock_clear and not scene.cave_world.intersects_rect(Rect2(scene.player.global_position+Vector2(-17,-84),Vector2(34,83)))
+            check(not lift.moving,String(id)+" lift reaches upper landing")
+            check(absf(scene.player.global_position.y-lift.top_y)<4,String(id)+" rider reaches upper landing without teleport")
+            check(rock_clear,String(id)+" lift shaft keeps rider outside rock")
+            await snap(scene,String(id)+"_lift")
+            scene.player.set_physics_process(true)
+            check(lift.request(Vector2(lift.x,lift.bottom_y)),String(id)+" lower landing can call basket back")
+            for i in range(ceili((lift.bottom_y-lift.top_y)/lift.speed*60)+8):await physics_frame
+            check(absf(lift.basket.position.y-lift.bottom_y)<1,String(id)+" basket returns to lower landing")
+            check(absf(scene.player.global_position.y-lift.bottom_y)<12,String(id)+" live player physics rides down to the lower landing")
         scene.player.set_physics_process(false)
+        var lift: Node=scene.cave_lifts[0]
         check(not lift.request(Vector2.ZERO),String(id)+" remote lift activation rejected")
         # Exercise a newly joined route in both directions without jump input.
         var links: Array=[]

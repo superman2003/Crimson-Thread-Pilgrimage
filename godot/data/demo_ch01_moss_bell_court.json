@@ -541,13 +541,13 @@
         236,
         168
       ],
-      "objective": "沿之字踏板垂直攀上钟塔。",
-      "guide": "踏板交错向上，注意坠锤。",
-      "danger": "坠落很深，短跳稳住节奏。",
+      "objective": "乘升降笼上到钟塔。",
+      "guide": "F 呼叫升降笼。",
+      "danger": "井很深，别从台边失足。",
       "next": "半钟平台",
-      "setpiece": "垂直钟绳井",
-      "traversal_focus": "纵向攀爬",
-      "pacing_role": "explore_and_loop",
+      "setpiece": "钟绳升降井",
+      "traversal_focus": "升降笼",
+      "pacing_role": "respite",
       "visit_rects": [
         [
           3560,
@@ -3689,181 +3689,6 @@
       }
     },
     {
-      "id": "ba02",
-      "rect": [
-        3600,
-        1938,
-        150,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 34,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          8,
-          8
-        ]
-      }
-    },
-    {
-      "id": "ba03",
-      "rect": [
-        3820,
-        1844,
-        150,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 35,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 7,
-        "flip_h": true,
-        "body_variants": [
-          7,
-          8,
-          8
-        ]
-      }
-    },
-    {
-      "id": "ba04",
-      "rect": [
-        3600,
-        1750,
-        134,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 36,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 6,
-        "flip_h": true,
-        "body_variants": [
-          6,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "ba05",
-      "rect": [
-        3820,
-        1656,
-        150,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 37,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 8,
-        "flip_h": false,
-        "body_variants": [
-          8,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "ba06",
-      "rect": [
-        3600,
-        1562,
-        196,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 38,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 10,
-        "flip_h": true,
-        "body_variants": [
-          10,
-          8,
-          8
-        ]
-      }
-    },
-    {
-      "id": "ba07",
-      "rect": [
-        3820,
-        1468,
-        134,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 39,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 7,
-        "flip_h": true,
-        "body_variants": [
-          7,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "ba08",
-      "rect": [
-        3600,
-        1374,
-        134,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 40,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          10,
-          10
-        ]
-      }
-    },
-    {
       "id": "ba09",
       "rect": [
         3820,
@@ -3874,8 +3699,7 @@
       "color": "6d6645",
       "material": "bronze_bridge",
       "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 41,
+      "route_role": "branch",
       "safe_landing": true,
       "gameplay_clearance": 232,
       "art": {
@@ -3885,31 +3709,6 @@
           8,
           10,
           10
-        ]
-      }
-    },
-    {
-      "id": "ba10",
-      "rect": [
-        3600,
-        1186,
-        150,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 42,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          6,
-          6
         ]
       }
     },
@@ -7016,10 +6815,10 @@
       "id": "E04",
       "kind": "spore_bellmaker",
       "position": [
-        3887,
-        1428
+        3636,
+        958
       ],
-      "platform_id": "ba07",
+      "platform_id": "ba12",
       "sprite": "res://assets/sprites/original_creatures/spore_bellmaker/manifest.json",
       "visual_scale": 0.3157894736842105,
       "visual_offset": [
@@ -7566,32 +7365,6 @@
   },
   "parkour_segments": [
     {
-      "id": "ch01_bell_ascent_climb",
-      "room_id": "bell_ascent",
-      "technique": "zigzag one-way ascent",
-      "platforms": [
-        "hub_top_shelf",
-        "ba01",
-        "ba02",
-        "ba03",
-        "ba04",
-        "ba05",
-        "ba06",
-        "ba07",
-        "ba08",
-        "ba09",
-        "ba10",
-        "ba11",
-        "ba12",
-        "bm_floor"
-      ],
-      "safety_contract": {
-        "max_gap": 176,
-        "max_rise": 110,
-        "minimum_full_jump_clearance": 232
-      }
-    },
-    {
       "id": "ch01_vine_well_descent",
       "room_id": "vine_well",
       "technique": "one-way vine drop chain",
@@ -7737,7 +7510,7 @@
       "type": "passage",
       "edge_kind": "passage",
       "bidirectional": true,
-      "action": "climb",
+      "action": "lift",
       "shortcut_id": ""
     },
     {
@@ -8286,15 +8059,6 @@
       "ht05",
       "hub_top_shelf",
       "ba01",
-      "ba02",
-      "ba03",
-      "ba04",
-      "ba05",
-      "ba06",
-      "ba07",
-      "ba08",
-      "ba09",
-      "ba10",
       "ba11",
       "ba12",
       "bm_floor",
@@ -8350,15 +8114,6 @@
     ],
     "upper_loop": [
       "ba01",
-      "ba02",
-      "ba03",
-      "ba04",
-      "ba05",
-      "ba06",
-      "ba07",
-      "ba08",
-      "ba09",
-      "ba10",
       "ba11",
       "ba12",
       "bm_floor",
@@ -9037,7 +8792,7 @@
         "type": "passage",
         "edge_kind": "passage",
         "bidirectional": true,
-        "action": "climb",
+        "action": "lift",
         "shortcut_id": ""
       },
       {
