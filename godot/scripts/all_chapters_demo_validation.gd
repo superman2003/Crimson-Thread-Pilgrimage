@@ -260,6 +260,7 @@ func _validate_chapter(config_path: String) -> void:
     _assert(LEVEL_HOST.find(scene, "boss_back_wall") == null, config_id + " post-boss blocker is removed")
     _assert(reward_item.is_empty() or scene.inventory_counts.has(reward_item), config_id + " boss reward granted")
     _assert(String(scene.win_label.text).contains(String(boss.get("name", ""))), config_id + " completion text uses boss name")
+    _assert(String(scene.win_label.text).contains(scene._item_display_name(reward_item)) and not String(scene.win_label.text).contains("DEMO"), config_id + " victory banner names the reward granted to the player")
     var exit_data := _interactive_exit(interactives)
     var exit_node: Area2D = LEVEL_HOST.find(scene, String(exit_data.get("id", "")))
     _assert(exit_node != null, config_id + " post-boss chapter exit exists")

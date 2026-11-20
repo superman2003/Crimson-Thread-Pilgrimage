@@ -69,8 +69,8 @@ def run(args):
             proc = subprocess.Popen(command, cwd=ROOT, env=dict(os.environ, APPDATA=str(private), XDG_DATA_HOME=str(private)), stdout=output, stderr=subprocess.STDOUT)
             while proc.poll() is None and time.monotonic() - start < 180:
                 raw = (out / 'project.log').read_bytes()
-                # Existing production exploration toast; no injected fixture readiness.
-                if b' / Tab ' in raw and marker_time is None:
+                # The normal World published; localized text and remapped keys can vary.
+                if b'WORLD_REGION_READY demo_ch01_moss_bell_court' in raw and marker_time is None:
                     marker_time = time.monotonic()
                 if marker_time is not None and time.monotonic() - marker_time >= .1 and not posted:
                     windows = []
@@ -104,7 +104,8 @@ def run(args):
     retirements = [list(map(int, values)) for values in re.findall(r'AUDIO_RETIREMENT pending=0 elapsed_msec=(\d+) observed=(\d+) retired=(\d+)', log)]
     private_logs = [str(path.relative_to(private)) for path in private.rglob('godot.log')]
     result = dict(command=command, pid=None if proc is None else proc.pid, hwnd=hwnd, exit=None if proc is None else proc.returncode,
-        immediate_install=args.immediate_install, posted=posted, exploration_toast=marker_time is not None,
+        immediate_install=args.immediate_install, posted=posted, region_ready=marker_time is not None,
+        exploration_toast='盐风口暂不可通'.encode() in raw,
         private_appdata=str(private), private_engine_logs=private_logs, source_equal=before == after, source_count=len(before),
         retirements=retirements, errors=len(re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:)', log, re.M)),
         warnings=len(re.findall(r'^\s*WARNING:', log, re.M)), close_completions=log.count('APPLICATION_CLOSE drained=true pending=0'),

@@ -94,7 +94,8 @@ func clock_and_fallback(source: SpriteFrames) -> void:
     check(sprite.animation==&"idle" and not sprite.conversation_active,"approach greeting returns to idle when no conversation opens")
     sprite.begin_conversation(); sprite.speed_scale=0.5
     await frames(12)
-    check(sprite.animation==&"greet" and float(sprite.frame)+sprite.frame_progress>0.6 and float(sprite.frame)+sprite.frame_progress<1.0,"greeting follows native speed scale")
+    var greeting_fraction := (sprite.frame + sprite.frame_progress) / sprite.sprite_frames.get_frame_count(&"greet")
+    check(sprite.animation==&"greet" and greeting_fraction>0.3 and greeting_fraction<0.5,"greeting follows native speed scale")
     var before := phase(sprite)
     paused=true; await frames(8)
     check(phase(sprite)==before,"SceneTree pause freezes greeting without a separate timer")
@@ -113,6 +114,13 @@ func clock_and_fallback(source: SpriteFrames) -> void:
         sprite.begin_conversation()
         check(sprite.animation==&"idle" and sprite.presentation_state==&"listen","unusable greeting listens until a voice starts: "+mode)
         sprite.end_conversation()
+    sprite.sprite_frames = source.duplicate(false)
+    sprite.sprite_frames.remove_meta(&"character_loop_entries")
+    sprite.play(&"idle")
+    sprite.set_frame_and_progress(2, 0.375)
+    sprite.begin_conversation()
+    sprite.end_conversation()
+    check(phase(sprite) == Vector2(2, 0.375), "an unmeasured drawing set resumes its saved idle phase")
     sprite.free(); await process_frame
 
 func capture(name: String, sprite: AnimatedSprite2D) -> void:

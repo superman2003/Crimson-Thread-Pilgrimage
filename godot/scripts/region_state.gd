@@ -24,7 +24,7 @@ const GROUPS := {
 	"interface": ["ui_shell", "ui_canvas", "hud_label", "toast_label", "lore_banner_label", "lore_banner_time_left",
 		"item_lore", "win_label", "dialogue_panel", "dialogue_name_label", "dialogue_meta_label",
 		"dialogue_text_label", "dialogue_hint_label", "backpack_panel", "backpack_text", "backpack_detail_text",
-		"backpack_entry_ids", "backpack_selection", "map_panel", "map_text", "map_draw_root", "survey_map_view",
+		"backpack_entry_ids", "backpack_selection", "map_panel", "map_text", "map_draw_root", "survey_map_view", "map_rendered_state",
 		"active_overlay", "settings_panel", "settings_text", "settings_selection", "last_toast_sfx_ms",
 		"wish_panel", "wish_text", "new_journey_dialog", "subtitle_elapsed", "subtitle_seconds", "world_map_view"],
 	"audio": ["bgm_player", "bgm_duck_tween", "low_hp_audio_active", "low_hp_heartbeat_player",

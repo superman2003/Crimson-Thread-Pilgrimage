@@ -25,7 +25,7 @@ static func quote_save_operation(level: Node, action: String, index: int) -> Dic
     if action=="switch":
         if index==level.world_slot:result.ok=false;result["reason"]="已经在当前存档槽。"
         elif level.world_save_blocked:result.ok=false;result["reason"]="当前记录暂不可保存，请先处理当前槽的恢复提示。"
-        elif primary.exists and not primary.valid:result.ok=false;result["reason"]="目标主档无法读取，请先选择恢复该槽备份。"
+        elif not primary.valid and (primary.exists or backup.valid):result.ok=false;result["reason"]="目标主档无法读取，请先选择恢复该槽备份。"
     elif not backup.valid:result.ok=false;result["reason"]="该槽没有可读取的备份。"
     elif index!=level.world_slot and level.world_save_blocked:result.ok=false;result["reason"]="离开前必须先处理当前记录的恢复提示。"
     result["fingerprint"]=var_to_str([action,index,path,primary,backup,level.world_save_path,level._build_wallet_snapshot(),level.story_flags,level.build_system.serialize(),level.player.hp,level.player.energy]).sha256_text()
@@ -59,7 +59,7 @@ static func select_save_slot(level: Node, index: int) -> bool:
     if path == level.world_save_path:
         return true
     var candidate = WORLD_STATE_SCRIPT.new()
-    if FileAccess.file_exists(path) and not candidate.read(path):
+    if not candidate.read(path) and (candidate.last_error != "missing" or candidate.read(path + ".bak")):
         level._toast("该旅途记录无法读取，已保留原文件；请先恢复该槽备份。")
         return false
     if not level._save_world():

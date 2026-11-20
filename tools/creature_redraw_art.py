@@ -305,6 +305,58 @@ def metrics(drawings, canvas, loop):
                 leg_change_raw=mask_leg_change(masks, loop))
 
 
+def windup_release(kind, job, clips, canvas, prior, cache):
+    """Replace the last windup cels while keeping the first active drawing on its beat."""
+    strike = job['strike']
+    windup = strike + '_windup'
+    clip = clips[windup]
+    count = job['count']
+    start = len(clip['frames']) - count
+    if clip['loop'] or clips[strike]['loop'] or start < 1 or count < 1 or len(job['positions']) != count:
+        raise ValueError('Release strip needs a one-shot windup, an attack and one rig position per cel')
+    before = [source_drawing(frame, cache) for frame in clip['frames']]
+    first_active = prior.get((strike, 0)) or source_drawing(clips[strike]['frames'][0], cache)
+    # Pin the registered source poses on either side, including the current
+    # attack redraw. A changed rig/pose needs a fresh visual review.
+    digest = sha256()
+    for image, position in [before[start - 1], first_active]:
+        digest.update(str((image.size, tuple(position))).encode('ascii'))
+        digest.update(image.convert('RGBa').tobytes())
+    if digest.hexdigest() != job['endpoints_sha256']:
+        raise ValueError('Release strip endpoints changed: ' + strike)
+    prompt = (ROOT / job['source']).with_suffix('.prompt.txt').read_text(encoding='utf-8').rstrip('\n')
+    if sha256(prompt.encode()).hexdigest() != job['prompt_sha256']:
+        raise ValueError('Recorded generation prompt changed')
+    cels, scale = extract(job, canvas)
+    # One grade for the entire strip preserves the scene's lighting.
+    lut = [min(255, round(v * gain)) for gain in [*job['rgb_gain'], 1.0] for v in range(256)]
+    drawings = []
+    for (image, _), (x, y) in zip(cels, job['positions']):
+        if x < 0 or y < 0 or x + image.width > canvas[0] or y + image.height > canvas[1]:
+            raise ValueError('Release drawing leaves the fixed canvas')
+        drawings.append((image.point(lut), (x, y)))
+    previous_peak = metrics(before[start - 1:] + [first_active], canvas, False)['max_change']
+    new_peak = metrics([before[start - 1], *drawings, first_active], canvas, False)['max_change']
+    measured = metrics(before[:start] + drawings, canvas, False)
+    measured.pop('leg_change_raw')
+    measured['body_area_ratio'] = round(measured.pop('body_area') / body_area(clip, canvas), 3)
+    if (new_peak >= previous_peak or measured['unique'] != len(clip['frames'])
+            or abs(measured['body_area_ratio'] - 1) > BODY_AREA_TOLERANCE):
+        raise ValueError('Release drawings must smooth the old seam and retain distinct poses and body mass')
+    measured.update(frames=count, target_frames=list(range(start, start + count)), registration_scale=scale,
+                    release_to=strike, previous_seam_max=previous_peak, new_seam_max=new_peak)
+    replacement = {(windup, start + i): drawing for i, drawing in enumerate(drawings)}
+    pages, packed = onion.pack(kind, replacement, canvas)
+    if len(pages) != 1:
+        raise ValueError('Release strip exceeds a single atlas page')
+    name = strike + '_release.png'
+    for frame in packed.values():
+        frame['atlas'] = frame['atlas'].rsplit('/', 1)[0] + '/' + name
+    page = pages[0]
+    right = max(frame['region'][0] + frame['region'][2] for frame in packed.values()) + 2
+    return packed, measured, (fit.CREATURES / kind / name, page.crop((0, 0, right, page.height)))
+
+
 def leg_change(drawings, canvas):
     """Mean cyclic IoU change in the common lower 35% of the rig silhouette.
 
@@ -412,11 +464,20 @@ def build(kind, check=False):
             raise ValueError('Packed drawing differs from its source: '+str(key))
     for frame in packed.values():
         frame['atlas'] = frame['atlas'].replace('motion_onion_', 'motion_redraw_')
+    release_outputs = []
+    for release in spec.get('windup_releases', []):
+        windup = release['strike'] + '_windup'
+        if windup in summary:
+            raise ValueError('Overlapping windup redraw and release: ' + windup)
+        frames, summary[windup], output = windup_release(kind, release, clips, base['canvas'], drawings, atlas_cache)
+        packed.update(frames)
+        release_outputs.append(output)
     manifest = replace_frames(base, packed)
     manifest['redraw_record'] = dict(schema=1, baseline=path.name, baseline_sha256=spec['baseline_sha256'],
                                     spec=spec_path.relative_to(ROOT).as_posix(), clips=summary)
     outputs = [(fit.CREATURES/kind/LAYER, manifest)]
     outputs += [(fit.CREATURES/kind/f'motion_redraw_{i:02}.png', page) for i, page in enumerate(pages)]
+    outputs += release_outputs
     for target, value in outputs:
         if check:
             if isinstance(value, dict):

@@ -78,21 +78,25 @@ static func render(level: Node) -> void:
     var layout := frame(host.size)
     host.set_meta("world_atlas_frame", layout)
     var current := String(level.config.id)
+    var chapter_names := {}
+    for chapter in level.campaign.get("chapters", []):
+        chapter_names[chapter.runtime_config_id] = chapter.name
     for id_value in COORD.manifest().regions:
         var id := String(id_value)
-        var data := configuration(id)
+        var owned := JOURNAL.owned(flags, id)
+        var data := configuration(id) if owned or not chapter_names.has(id) else {}
         var bounds := COORD.region_bounds(id)
         var title := Label.new()
         title.name = "WorldRegion_" + id
         title.position = project(bounds.position, layout) - Vector2(0, 22)
         title.size = Vector2(bounds.size.x * layout.scale, 22)
-        title.text = String(data.get("chapter_name", data.get("name", id)))
+        title.text = String(data.get("chapter_name", data.get("name", chapter_names.get(id, id))))
         title.add_theme_font_size_override("font_size", 14)
         title.add_theme_color_override("font_color", SURFACE.ACCENT if id == current else SURFACE.INK)
         title.mouse_filter = Control.MOUSE_FILTER_PASS
-        title.tooltip_text = "未购本区地图" if not JOURNAL.owned(flags, id) else "已补绘 %d 室" % JOURNAL.charted_room_count(flags, id)
+        title.tooltip_text = "未购本区地图" if not owned else "已补绘 %d 室" % JOURNAL.charted_room_count(flags, id)
         host.add_child(title)
-        if not JOURNAL.owned(flags, id): continue
+        if not owned: continue
         var surface := SURFACE.new()
         surface.name = "WorldSilhouette_" + id
         surface.size = host.size
@@ -157,10 +161,10 @@ static func render(level: Node) -> void:
             marker.add_theme_color_override("font_color", SURFACE.GOLD if record.open else SURFACE.CLOSED)
             host.add_child(marker)
     var drawn: Dictionary = {}
+    var chapters := ROUTES.cached_chapters()
     for id_value in COORD.manifest().regions:
         var id := String(id_value)
-        var data := configuration(id)
-        for portal in data.get("interactives", []):
+        for portal in chapters.get(id, {}).get("portals", []):
             if String(portal.get("kind", "")) != "world_portal": continue
             var target := String(portal.get("target_config_id", ""))
             var peer := ROUTES.cached_portal(target, String(portal.get("target_portal_id", "")))
@@ -208,16 +212,23 @@ static func render(level: Node) -> void:
             badge.add_theme_color_override("font_color", SURFACE.GOLD)
             badge.tooltip_text = preload("res://scripts/atlas_route_cue.gd").state(forward,reverse)+"\n正向：%s\n反向：%s" % [forward.label, reverse.label]
             host.add_child(badge)
+    var links_by_room: Dictionary = {}
+    for route in host.get_children():
+        if not route is Line2D or bool(route.get_meta("physical_passage")):
+            continue
+        for room_key in [
+            String(route.get_meta("source_region")) + ":" + String(route.get_meta("source_room")),
+            String(route.get_meta("target_region")) + ":" + String(route.get_meta("target_room"))
+        ]:
+            if not links_by_room.has(room_key):
+                links_by_room[room_key] = []
+            links_by_room[room_key].append(route)
     # Old portal links are a hover detail, rather than a web of diagonals
     # across every region. The solid physical passage remains always visible.
     for child in host.get_children():
         if not String(child.name).begins_with("WorldSurvey_"): continue
-        var links: Array[Line2D] = []
-        for route in host.get_children():
-            if not route is Line2D or bool(route.get_meta("physical_passage")): continue
-            var source: bool = route.get_meta("source_region") == child.get_meta("region_id") and route.get_meta("source_room") == child.get_meta("room_id")
-            var target: bool = route.get_meta("target_region") == child.get_meta("region_id") and route.get_meta("target_room") == child.get_meta("room_id")
-            if source or target: links.append(route)
+        var room_key := String(child.get_meta("region_id")) + ":" + String(child.get_meta("room_id"))
+        var links: Array = links_by_room.get(room_key, [])
         var room_ref: WeakRef=weakref(child)
         var update_links:=func():
             for route in links:

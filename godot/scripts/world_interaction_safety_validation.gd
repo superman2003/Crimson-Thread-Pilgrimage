@@ -70,6 +70,11 @@ func _run() -> void:
     _check(scene.player.hp == scene.player.max_hp and scene.active_save_point_id == String(shrine.name), "alive player still rests normally")
     scene.player.global_position = npc.global_position
     scene._talk_to_npc(npc)
+    var old_source := Area2D.new()
+    old_source.set_meta("kind", "history")
+    scene._on_interactable_exited(scene.player, old_source)
+    _check(scene.active_overlay == "dialogue" and scene.ui_shell.dialogue_area == npc, "an exit signal from a previous object keeps the current speaker open")
+    old_source.free()
     _check(scene._can_interact_with_world(true) and not scene._can_interact_with_world(), "alive dialogue continuation remains allowed, other world actions do not")
     scene._try_interact()
     _check(scene.dialogue_text_label.visible_characters == -1, "F still reveals an alive speaker's subtitle")

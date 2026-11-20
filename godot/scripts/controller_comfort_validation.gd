@@ -75,6 +75,7 @@ func run() -> void:
     ui.controller_comfort_dialog.choose_preset("reading")
     check(ui.accessibility == before, "production settings remain unchanged while the dialog previews")
     ui.controller_comfort_dialog.deadzone.value = 0.43
+    ui.controller_comfort_dialog.hitstop.value = 0.25
     ui.controller_comfort_dialog._apply_candidate()
     check(ui.accessibility.subtitle_size == 26 and is_equal_approx(ui.accessibility.controller_deadzone,0.43), "production confirm commits both reading and controller choices")
     check(is_equal_approx(InputMap.action_get_deadzone("move_left"),0.43) and InputMap.action_get_events("jump") == binding_before, "actual runtime mapping consumes the new threshold without rewriting bindings")
@@ -82,6 +83,7 @@ func run() -> void:
     check(ui.accessibility.navigation_assist == before.navigation_assist and ui.accessibility.tutorial_hints == before.tutorial_hints, "presets do not silently change navigation or exploration assistance")
     var config := ConfigFile.new()
     check(config.load(ui.accessibility_path) == OK and is_equal_approx(config.get_value("accessibility","controller_deadzone"),0.43), "calibration is actually persisted with existing preferences")
+    check(config.get_value("accessibility","hitstop_duration",-1.0) == 0.25, "the confirmed hitstop duration is persisted")
     ui.accessibility.controller_deadzone = 0.2;ui._load_accessibility();ui._apply_accessibility()
     check(is_equal_approx(ui.accessibility.controller_deadzone,0.43) and is_equal_approx(InputMap.action_get_deadzone("move_left"),0.43), "preference reload re-applies controller calibration")
     ui._open_controller_comfort();ui.controller_comfort_dialog.choose_preset("comfort")

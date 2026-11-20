@@ -42,7 +42,9 @@ func _run() -> void:
     _check(scene.active_overlay == "map" and scene.player.ui_input_locked, "map locks player movement")
     _check(scene.map_draw_root.get_node_or_null("WorldRegion_demo_ch01_moss_bell_court") == null, "local map remains initial view")
     scene.world_map_view = true
+    var loaded_regions := ATLAS.configurations.keys()
     scene._refresh_map_overlay()
+    _check(ATLAS.configurations.keys() == loaded_regions, "a new journey opens the atlas without loading unowned regional drawing data")
     _check(scene.map_panel.get_node("SurveyMapTitle").text == "世界地图", "world atlas has a concise title")
     var panels := 0
     var edges := 0
@@ -117,6 +119,25 @@ func _run() -> void:
                 _check(child.visible, "hovering a portal room reveals its old link")
                 room.mouse_exited.emit()
                 _check(not child.visible, "old link disappears when leaving the room")
+    # The normal process loop runs while the map accepts keyboard/controller focus.
+    scene._process(0.0)
+    var focus_room: Control = scene.map_draw_root.get_node(NodePath(frames.keys()[0]))
+    focus_room.grab_focus()
+    for tick in 4:
+        scene._process(1.0 / 60.0)
+    _check(is_instance_valid(focus_room) and focus_room.has_focus(), "inspecting a stationary atlas keeps the focused room between frames")
+    var original_position: Vector2 = scene.player.global_position
+    var marker_before: Vector2 = scene.map_draw_root.get_node("WorldSurveyPlayer").position
+    scene.player.global_position += Vector2(24, 0)
+    scene._process(0.0)
+    _check(not scene.map_draw_root.get_node("WorldSurveyPlayer").position.is_equal_approx(marker_before), "the open atlas follows a player relocation")
+    scene.player.global_position = original_position
+    scene._process(0.0)
+    scene.ui_shell.accessibility["navigation_assist"] = false
+    scene._process(0.0)
+    _check(scene.map_draw_root.get_node_or_null("WorldSurveyPlayer") == null, "stationary map updates when the navigation aid changes")
+    scene.ui_shell.accessibility["navigation_assist"] = true
+    scene._process(0.0)
     var camera: Control = scene.survey_map_view
     _check(camera.clip_contents and scene.map_draw_root.get_parent() == camera, "camera clips drawing below the map header")
     var position_before: Vector2 = scene.map_draw_root.get_node("WorldSurveyPlayer").position

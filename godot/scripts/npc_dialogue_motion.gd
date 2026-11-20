@@ -1,5 +1,6 @@
 extends AnimatedSprite2D
 ## Keep authored greeting/talk clocks local to this NPC and its conversation.
+const ART := preload("res://scripts/hand_drawn_assets.gd")
 var conversation_active := false
 var speech_active := false
 var presentation_state: StringName = &"idle"
@@ -73,10 +74,7 @@ func _remember_clock() -> void:
 func _play_loop(action: StringName) -> void:
     if animation == action and is_playing(): return
     _remember_clock()
-    play(action)
-    if _clocks.has(action):
-        var clock: Vector2 = _clocks[action]
-        set_frame_and_progress(mini(int(clock.x), sprite_frames.get_frame_count(action)-1), clock.y)
+    ART.play_matched_loop(self, action, _clocks.get(action, Vector2.ZERO))
 
 func _start_greeting() -> bool:
     if not _usable(&"greet") or sprite_frames.get_animation_loop(&"greet"): return false

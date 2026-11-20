@@ -38,7 +38,8 @@
   "qa": {
     "visual_review": "16 full silhouettes visually reviewed; source costume and props retained; distinct articulated idle, talk, greeting and seated rest poses.",
     "geometry": "Each reviewed pose fully isolated by alpha<=24 horizontal and vertical separator lines; complete silhouette; four clear edges and no neighboring fragment.",
-    "ground_anchor": "Each frame origin uses center of lower 8% full visible silhouette (10th–90th percentile x), computed only from reviewed components where seeded; protects body position from gesture-width expansion. Long robes and seated/hovering poses visually reviewed. Source pixels unchanged."
+    "ground_anchor": "Each frame origin uses center of lower 8% full visible silhouette (10th–90th percentile x), computed only from reviewed components where seeded; protects body position from gesture-width expansion. Long robes and seated/hovering poses visually reviewed. Source pixels unchanged.",
+    "talk_foot_registration": "Second talk cel uses the same planted feet as both neighbours. The lower 44 rows of the registered canvas align at offsets of -36 and -35 atlas pixels respectively, after accounting for the two poses of the robe."
   },
   "runtime_frames": {
     "idle": [
@@ -73,6 +74,16 @@
         "anchor_x": 163.25
       },
       {
+        "sheet": "idle_wing_inbetweens.png",
+        "region": [
+          0,
+          0,
+          402,
+          330
+        ],
+        "anchor_x": 201
+      },
+      {
         "sheet": "motion_expanded.png",
         "region": [
           940,
@@ -81,6 +92,16 @@
           315
         ],
         "anchor_x": 187.5
+      },
+      {
+        "sheet": "idle_wing_inbetweens.png",
+        "region": [
+          402,
+          0,
+          402,
+          330
+        ],
+        "anchor_x": 201
       }
     ],
     "talk": [
@@ -102,7 +123,7 @@
           315,
           314
         ],
-        "anchor_x": 146.5
+        "anchor_x": 182.5
       },
       {
         "sheet": "motion_expanded.png",
@@ -209,5 +230,34 @@
         "anchor_x": 155.5
       }
     ]
+  },
+  "idle_wing_inbetweens": {
+    "tool": "Built-in ImageGen",
+    "atlas": "idle_wing_inbetweens.png",
+    "authored_cels": [
+      {
+        "reference": "idle[2] to idle[3]",
+        "generated_sha256": "e359346b989df581d627fa072b3775c8564afcc88d8f88eb9195d4b044abf391",
+        "selected": "single pose",
+        "rgb_gain": [
+          0.9791,
+          0.9972,
+          1.0455
+        ],
+        "prompt": "Use case: identity-preserve. Paint EXACTLY ONE precision in-between cel of the quiet standing moth librarian from the two tiny hand-inked game sprites shown. The FIRST reference is the main guide: stand at the same height in the same pose, amber spectacles, black eye, scholar book held close with both hands, red brooch, ivory face, long thin feathered antennae swept left, gold-veined pale insect wings, ivory and gold embroidered robe, planted twig-like brown feet. The second reference is the tip of a SMALL breeze which opens the robe. Draw a moment close to the FIRST reference, as the breeze first touches the wing and hem. IMPORTANT: keep the wing hanging LONG AND LOW, behind the back. The lowest translucent wingtip should reach almost the lower hem of the robe, JUST ABOVE THE ANKLES, at roughly 89 percent down the whole silhouette (boot soles are at 100 percent). At this moment the wingtip has risen by only about 4 percent of the body height from its resting position, between the two supplied drawings. The rear lower robe is gently curling back revealing a small glimpse of pale rose lining, only about a third less closed than first. The front robe, head, hand, book and BOTH boots look like source. Use exact muted colors and preserve delicate inky watercolor style. Natural measured action. Whole anatomy/foot spacing must stay proportional including a full yet slender wing, original book width and fine icing-gold pattern. Single full-body figure, right-facing, all extremities inside frame, clean transparent alpha, no shadows, captions, outlines of a cell, background, second character, accessory additions, or overlapping/ghost drawings. Produce only the completely finished in-between figure."
+      },
+      {
+        "reference": "idle[3] to idle[0]",
+        "generated_sha256": "7153f6a405c64b9e613fbbcfb151e4fa4309ebcb62361d1345dc7b3b3cf14c98",
+        "selected": "right pose",
+        "rgb_gain": [
+          0.9677,
+          0.9902,
+          1.0417
+        ],
+        "prompt": "Use case: identity-preserve. Two in-between cels for the SAME white moth librarian's idle animation in a hand-inked game. The reference contains 3 EXISTING full-body poses left to right: closed cape/wings, brief gust lifting their tip sideways, closed cape/wings. The output must consist of exactly TWO NEW full-body sprites in one horizontal row with generous space between, matching this exact character's face, eyes behind the dark amber circular round gold glasses, white insect head and feathered antennae pointing left, heavy gold-bound book pressed to chest, red wax-seal brooch, cream scholar's robe with gold leaves, thin brown talon toes and papery white gold-veined wings. RIGHT facing. The standing body stays perfectly STILL and identical to the reference in proportions, foot spacing, size and placement; both eyes open, both hands clasp the SAME book. Both new cels are intermediate drawings between the end and middle poses, NOT copies. New cel LEFT: the breeze is lifting the trailing golden-edged robe about half the distance from the left reference to the middle one, lower cloth folding back showing a little warm lining; the soft wingtip tilts outward and a little upward, about halfway. New cel RIGHT: the breeze is easing, the sleeve and coat tails trail it slightly as the wing folds down halfway between the middle and right reference. Subtle body/antenna follow-through. Camera, position, crisp dark outlines, delicate vintage watercolor colors and proportions absolutely match the existing character. Render at natural game-asset precision, with clean sharp silhouette and matching contrast. DO NOT redesign, zoom the camera, wave arms or add movement to the hands/book. Both full entire figures must be inside their individual equal-width cells, completely separate and with transparent top/bottom and wide horizontal gutters. Genuine transparent alpha. No floor, shadow, checkerboard, extra limbs, labels or text."
+      }
+    ],
+    "registration": "Both separately drawn poses were uniformly scaled to the existing 402 x 330 canvas and planted foot line. The packed game-resolution atlas is the reviewed source; the existing closed, blinking and lifted-wing poses supply the other four frames."
   }
 }

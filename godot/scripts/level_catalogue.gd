@@ -270,7 +270,7 @@ static func campaign_chapter_for_id(level: Node, chapter_id: String) -> Dictiona
 
 static func chapter_objective_text(level: Node) -> String:
     if level.world_mode:
-        return level._world_exploration_hint() + "  %s 地图 / %s 世界图 · F9 新旅途。" % [level.ui_shell._short_binding("map"), level.ui_shell._short_binding("inventory")]
+        return level._world_exploration_hint() + "  按 %s 打开地图，图内按 %s 切换世界图。" % [level.ui_shell._short_binding("map"), level.ui_shell._short_binding("inventory")]
     if bool(level.config.get("boss_route_via_exploration",false)):
         return "第%d章 %s：探索洞道，接通捷径，挑战守门者。%s 呼叫升降笼。" % [int(level.current_campaign_chapter.get("index",1)),String(level.config.get("chapter_name",level.config.get("name",""))),preload("res://scripts/input_prompt_bindings.gd").action_label("interact")]
     if level.current_campaign_chapter.is_empty():

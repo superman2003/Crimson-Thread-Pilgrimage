@@ -1,8 +1,9 @@
 extends RefCounted
 ## 0.2 is the gameplay stick threshold the Player binds; the default keeps
 ## today's feel until a player opts into a different value.
-const DEFAULTS := {"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"controller_deadzone": 0.2, "subtitle_size": 21, "subtitle_speed": 1.0, "flash_enabled": true, "vibration_enabled": true, "vibration_strength": 1.0, "camera_shake": 1.0, "camera_lookahead": 1.0}
-const LABELS := {"danger_captions":"危险字幕","danger_caption_limit":"危险字幕条数","danger_caption_contrast":"危险字幕高对比","controller_deadzone":"摇杆死区", "subtitle_size":"字幕字号", "subtitle_speed":"字幕速度", "flash_enabled":"受击闪光", "vibration_enabled":"手柄震动", "vibration_strength":"手柄力度", "camera_shake":"镜头震动", "camera_lookahead":"镜头前瞻"}
+const DEFAULT_HITSTOP_DURATION := 0.5
+const DEFAULTS := {"hitstop_duration":DEFAULT_HITSTOP_DURATION,"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"controller_deadzone": 0.2, "subtitle_size": 21, "subtitle_speed": 1.0, "flash_enabled": true, "vibration_enabled": true, "vibration_strength": 1.0, "camera_shake": 1.0, "camera_lookahead": 1.0}
+const LABELS := {"hitstop_duration":"命中停顿","danger_captions":"危险字幕","danger_caption_limit":"危险字幕条数","danger_caption_contrast":"危险字幕高对比","controller_deadzone":"摇杆死区", "subtitle_size":"字幕字号", "subtitle_speed":"字幕速度", "flash_enabled":"受击闪光", "vibration_enabled":"手柄震动", "vibration_strength":"手柄力度", "camera_shake":"镜头震动", "camera_lookahead":"镜头前瞻"}
 static var original_deadzones: Dictionary = {}
 static var modified: Array[String] = []
 
@@ -21,12 +22,12 @@ static func normalize(values: Dictionary) -> Dictionary:
 static func preset(current: Dictionary, id: String) -> Dictionary:
     var result := normalize(current)
     match id:
-        "comfort":result.merge({"flash_enabled":false,"camera_shake":0.25,"camera_lookahead":0.5,"vibration_strength":0.25},true)
+        "comfort":result.merge({"hitstop_duration":0.0,"flash_enabled":false,"camera_shake":0.25,"camera_lookahead":0.5,"vibration_strength":0.25},true)
         "reading":result.merge({"subtitle_size":26,"subtitle_speed":0.75,"flash_enabled":false,"camera_shake":0.0},true)
         "controller_default":
             for key in ["controller_deadzone","vibration_enabled","vibration_strength"]:result[key] = DEFAULTS[key]
         "visual_default":
-            for key in ["subtitle_size","subtitle_speed","flash_enabled","camera_shake","camera_lookahead","danger_captions","danger_caption_limit","danger_caption_contrast"]:result[key] = DEFAULTS[key]
+            for key in ["hitstop_duration","subtitle_size","subtitle_speed","flash_enabled","camera_shake","camera_lookahead","danger_captions","danger_caption_limit","danger_caption_contrast"]:result[key] = DEFAULTS[key]
     return result
 
 static func apply_deadzone(value: float) -> Array[String]:

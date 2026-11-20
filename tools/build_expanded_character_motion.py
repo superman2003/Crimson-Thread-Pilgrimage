@@ -208,9 +208,12 @@ def build(folder: Path, check=False, record_name="motion_generation.json", outpu
             _,_,w,h=pose["region"]
             frames.append({"atlas":"res://"+(folder/pose["sheet"]).relative_to(ROOT/"godot").as_posix(), "region":pose["region"], "margin":[int(round(half+pose["left"])),height-8-h,canvas[0]-w,height-h]})
         fps = FPS.get(name,12)
-        if name in ("idle", "walk"):
+        if name in ("idle", "walk") or (name == "greet" and name in source_animations):
             old = source_animations[name]
-            fps = len(entries) * float(old["fps"]) / len(old["frames"])
+            rate = len(entries) * float(old["fps"]) / len(old["frames"])
+            # Existing two-cel greetings use the integer rate in FPS.
+            if name != "greet" or rate != fps:
+                fps = rate
         animations.append({"name":name,"fps":fps,"loop":looping(name),"frames":frames})
     output = {k:v for k,v in source.items() if k not in ("animations","attack_integrity","atlas_size")}
     output.update({"source":"imagegen authored expanded poses; reviewed atlas regions; no interpolation", "version":2,"canvas":canvas,"visual_scale":scale,"visual_offset":offset,"animations":animations,"generation_record":record_name})

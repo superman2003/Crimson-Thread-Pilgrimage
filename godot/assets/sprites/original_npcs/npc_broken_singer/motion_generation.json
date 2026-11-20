@@ -45,7 +45,17 @@
           198,
           244
         ],
-        "anchor_x": 124.9
+        "anchor_x": 123.9
+      },
+      {
+        "sheet": "motion_idle_inbetweens.png",
+        "region": [
+          0,
+          0,
+          202,
+          249
+        ],
+        "anchor_x": 127.5
       },
       {
         "sheet": "motion_expanded.png",
@@ -58,6 +68,16 @@
         "anchor_x": 129.5
       },
       {
+        "sheet": "motion_idle_inbetweens.png",
+        "region": [
+          208,
+          0,
+          208,
+          250
+        ],
+        "anchor_x": 133.0
+      },
+      {
         "sheet": "motion_expanded.png",
         "region": [
           825,
@@ -65,7 +85,17 @@
           204,
           246
         ],
-        "anchor_x": 125.5
+        "anchor_x": 135.5
+      },
+      {
+        "sheet": "motion_idle_inbetweens.png",
+        "region": [
+          0,
+          250,
+          204,
+          247
+        ],
+        "anchor_x": 129.5
       },
       {
         "sheet": "motion_expanded.png",
@@ -75,7 +105,17 @@
           193,
           243
         ],
-        "anchor_x": 97.0
+        "anchor_x": 125.0
+      },
+      {
+        "sheet": "motion_idle_inbetweens.png",
+        "region": [
+          208,
+          250,
+          204,
+          246
+        ],
+        "anchor_x": 129.5
       }
     ],
     "talk": [
@@ -87,7 +127,7 @@
           256,
           246
         ],
-        "anchor_x": 131.0
+        "anchor_x": 137.0
       },
       {
         "sheet": "motion_expanded.png",
@@ -97,7 +137,7 @@
           255,
           247
         ],
-        "anchor_x": 125.5
+        "anchor_x": 141.5
       },
       {
         "sheet": "motion_expanded.png",
@@ -107,7 +147,7 @@
           223,
           249
         ],
-        "anchor_x": 109.5
+        "anchor_x": 142.5
       },
       {
         "sheet": "motion_expanded.png",
@@ -117,7 +157,7 @@
           262,
           243
         ],
-        "anchor_x": 126.5
+        "anchor_x": 142.5
       },
       {
         "sheet": "motion_expanded.png",
@@ -127,7 +167,7 @@
           221,
           236
         ],
-        "anchor_x": 88.5
+        "anchor_x": 139.5
       },
       {
         "sheet": "motion_expanded.png",
@@ -137,7 +177,7 @@
           218,
           231
         ],
-        "anchor_x": 104.1
+        "anchor_x": 132.1
       },
       {
         "sheet": "motion_expanded.png",
@@ -147,7 +187,7 @@
           221,
           232
         ],
-        "anchor_x": 109.5
+        "anchor_x": 149.5
       },
       {
         "sheet": "motion_expanded.png",
@@ -157,7 +197,7 @@
           258,
           230
         ],
-        "anchor_x": 123.0
+        "anchor_x": 142.0
       }
     ],
     "greet": [
@@ -169,7 +209,7 @@
           242,
           212
         ],
-        "anchor_x": 134.15
+        "anchor_x": 146.15
       },
       {
         "sheet": "motion_expanded.png",
@@ -179,7 +219,7 @@
           257,
           230
         ],
-        "anchor_x": 138.0
+        "anchor_x": 152.0
       }
     ],
     "rest": [
@@ -207,7 +247,16 @@
   },
   "qa": {
     "visual_inspected": true,
-    "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
-    "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+    "notes": "Reviewed all 20 distinct standing and resting drawings, including the 4 new idle in-betweens. Original painted regions retain their original RGBA. Idle, greet and talk share the planted boot landmark; rest retains its own seated origin.",
+    "ground_anchor": "Standing actions use the midpoint of the boot extents in the bottom 14 canvas pixels (alpha >128, components of at least 110 pixels reaching the bottom 2px). This excludes trailing scarf and robe tips. Target x=174 on the original 320px canvas. Each new cell is aligned at the same foot baseline as the originals."
+  },
+  "idle_inbetweens": {
+    "generator": "built-in image_gen",
+    "reference": "idle endpoints from motion_expanded.png in their original motion_manifest.json canvas positions",
+    "generated_sha256": "705a8ce8e8720b59872917bc38e49120f3433b760bbce10af45013b7addea71b",
+    "sheet": "motion_idle_inbetweens.png",
+    "prompt": "Four full-body drawings of the same right-facing broken singer, in the identical sepia ink and muted watercolor style of the four reference cels. In reading order draw the half-pose from A to B, B to C, C to D, and D back to A. Preserve the slender ivory moth, bell-tipped antenna, crimson scarf, folded wing, boots, and broken lute. Follow the neighboring blink, head, scarf and wing angles. Keep feet planted on a common baseline. Transparent two-by-two sheet with clear gutters.",
+    "packing": "Remove subvisible speckles more than 2 source pixels from alpha >24, crop each cell and uniformly scale to the mean height of its two neighboring drawings. Pack with a 3px clear border.",
+    "sequence": "Alternate each original drawing with its newly drawn successor. The four-pose 0.8s idle cycle becomes eight poses at 10fps."
   }
 }

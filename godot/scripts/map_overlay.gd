@@ -121,9 +121,22 @@ static func map_room_by_id(level: Node, room_id: String) -> Dictionary:
     return {}
 
 
+## Preserve focused room controls until the position, map knowledge or layout changes.
+static func display_state(level: Node) -> Array:
+    if not is_instance_valid(level.map_draw_root) or not is_instance_valid(level.player):
+        return []
+    return [level.world_map_view, level.config.get("id", ""), level.map_draw_root.size,
+        level.player.global_position, level.current_room_id, level.visited_rooms.hash(),
+        level.opened_shortcuts.hash(), level.story_flags.hash(), level.inventory_counts.hash(),
+        level.active_save_point_id, level.bell_count, level.shortcut_open, level.boss_unlocked,
+        level.demo_complete, CARTOGRAPHY_UI.shows_position(level), level.world_save_blocked,
+        level.world_state.data.regions.hash() if level.world_state != null else 0,
+        level.world_state.data.death_cache.hash() if level.world_state != null else 0]
+
 static func refresh_map_overlay(level: Node) -> void:
     if level.map_draw_root == null or level.map_text == null:
         return
+    level.map_rendered_state = display_state(level)
     if level.survey_map_view != null: level.survey_map_view.set_view(1 if level.world_map_view else 0)
     var title: Label = level.map_panel.get_node_or_null("SurveyMapTitle")
     if title != null:

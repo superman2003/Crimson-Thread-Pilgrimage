@@ -87,14 +87,14 @@ static func _dispatch(host_ref: WeakRef, toolbar_ref: WeakRef, view_ref: WeakRef
 static func _owns(level: Variant, toolbar: Control, view: Control) -> bool:
     return is_instance_valid(level) and level.is_inside_tree() and not level.is_queued_for_deletion() and is_instance_valid(toolbar) and toolbar.is_inside_tree() and not toolbar.is_queued_for_deletion() and is_instance_valid(view) and view.is_inside_tree() and not view.is_queued_for_deletion() and toolbar.get_parent() == level.map_panel and toolbar == level.map_panel.get_node_or_null("PlayerPinToolbar") and view.get_parent() == level.map_panel and view == level.survey_map_view
 
-static func configurations(level: Node) -> Dictionary:
+static func configurations(level: Node, for_world_click: bool = false) -> Dictionary:
     var configs := {String(level.config.id): level.config}
     var ids := {}
     var raw: Variant = level.story_flags.get(PINS.KEY, [])
     if raw is Array:
         for index in mini(raw.size(), PINS.MAX_SCAN):
             if raw[index] is Dictionary and raw[index].get("region_id") is String: ids[raw[index].region_id] = true
-    if level.world_map_view:
+    if for_world_click and level.world_map_view:
         for id in ROUTES.cached_chapters(): ids[String(id)] = true
     for id in ids:
         if configs.has(id) or ROUTES.cached_config_path(String(id)).is_empty(): continue
@@ -375,7 +375,7 @@ static func add_at_content(level: Node, content_point: Vector2) -> Dictionary:
     if not _editable(level): return {"ok": false, "reason": "地图已关闭或区域正在切换。"}
     if level.world_save_blocked: return _blocked(level)
     var point := unproject(level, content_point)
-    var configs := configurations(level)
+    var configs := configurations(level, true)
     var region := String(level.config.id)
     if level.world_map_view:
         region = ""

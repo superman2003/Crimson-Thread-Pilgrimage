@@ -3,6 +3,8 @@ const POLICY = preload("res://scripts/controller_preferences.gd")
 var baseline: Dictionary = {}
 var candidate: Dictionary = {}
 var apply_action: Callable
+var hitstop: HSlider
+var hitstop_label: Label
 var deadzone: HSlider
 var changes: Label
 var device_status: Label
@@ -27,7 +29,7 @@ func _ready() -> void:
     body.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
     add_child(body);body.add_child(column)
     var intro := Label.new()
-    intro.text = "只调整摇杆轴死区，不改变扳机、按键或声音。\n预设先列出变化；确认前原设置保持有效。"
+    intro.text = "调整摇杆死区和战斗命中时的停顿，确认后生效。"
     column.add_child(intro)
     device_picker=OptionButton.new();column.add_child(device_picker)
     device_picker.item_selected.connect(func(_index: int):_refresh_devices())
@@ -49,6 +51,15 @@ func _ready() -> void:
     deadzone = HSlider.new();deadzone.min_value = 0.1;deadzone.max_value = 0.6;deadzone.step = 0.01
     column.add_child(deadzone)
     deadzone.value_changed.connect(func(value: float):candidate.controller_deadzone = value;_refresh_changes())
+    hitstop_label = Label.new()
+    column.add_child(hitstop_label)
+    hitstop = HSlider.new()
+    hitstop.min_value = 0.0
+    hitstop.max_value = 1.0
+    hitstop.step = 0.25
+    hitstop.tooltip_text = "0% 关闭停顿，100% 使用完整时长。"
+    column.add_child(hitstop)
+    hitstop.value_changed.connect(func(value: float): candidate.hitstop_duration = value; _refresh_changes())
     var modes := HBoxContainer.new();column.add_child(modes)
     for row in [["comfort","低闪光与轻震动"],["reading","大字慢字幕"],["controller_default","手柄默认"],["visual_default","阅读画面默认"]]:
         var id: String = row[0]
@@ -81,6 +92,8 @@ func choose_preset(id: String) -> void:
     _refresh_changes()
 
 func _refresh_changes() -> void:
+    hitstop.set_value_no_signal(float(candidate.hitstop_duration))
+    hitstop_label.text = "命中停顿  %d%%" % roundi(candidate.hitstop_duration * 100.0)
     var lines: Array[String] = ["当前死区：%d%%" % int(round(float(candidate.controller_deadzone)*100))]
     for key in candidate:
         if baseline.get(key) == candidate[key]:continue

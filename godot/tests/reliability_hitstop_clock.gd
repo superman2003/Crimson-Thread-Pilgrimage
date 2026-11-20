@@ -12,6 +12,12 @@ func _initialize() -> void:call_deferred("run")
 func run() -> void:
     var feel := FakeFeel.new();root.add_child(feel);feel.set_process(false)
     Engine.time_scale = 1.0
+    feel.hitstop(110)
+    check(absi(feel._hitstop_deadline_usec - feel.now - 55000) <= 1, "default hurt accent lasts 55 milliseconds")
+    feel.set_accessibility({"hitstop_duration":0.0})
+    feel.hitstop(200)
+    check(Engine.time_scale == 1.0 and feel._hitstop_deadline_usec == 0, "disabling hitstop restores the clock and suppresses later accents")
+    feel.set_accessibility({"hitstop_duration":1.0})
     for duration in [NAN, INF, -1.0, 0.0]:feel.hitstop(duration)
     for scale in [NAN, INF, -1.0, 0.0, 2.0]:feel.hitstop(100, scale)
     check(Engine.time_scale == 1.0 and feel._hitstop_deadline_usec == 0, "invalid durations/scales never alter global clock")

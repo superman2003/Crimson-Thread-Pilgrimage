@@ -61,7 +61,7 @@ func check_region_state(scene: Node, id: String) -> void:
 	for field in FIELDS.PROGRESS_VALUES:
 		progress_before[field] = var_to_str(scene.get(field))
 	var state: Dictionary = FIELDS.capture(scene)
-	check(state.size() == names.size() and names.size() == 94, "%s region set holds every region field (%d)" % [id, state.size()])
+	check(state.size() == names.size() and names.size() == 95, "%s region set holds every region field (%d)" % [id, state.size()])
 	var defaults: Node = scene.get_script().new()
 	var previous: Dictionary = FIELDS.switch_to(scene, FIELDS.fresh(scene))
 	var not_default: Array[String] = []

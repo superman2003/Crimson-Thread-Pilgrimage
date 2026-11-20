@@ -233,6 +233,8 @@ static func first_interaction_type(level: Node, area: Area2D) -> String:
 
 
 static func show_first_interaction_hint(level: Node, area: Area2D) -> void:
+    if area.get_meta("kind", "") == "world_portal" and not area.get_meta("route_status", {}).get("open", true):
+        return
     var kind: String = first_interaction_type(level, area)
     var flag = "tutorial_interaction_seen_" + kind
     if bool(level.story_flags.get(flag, false)):

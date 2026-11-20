@@ -49,9 +49,37 @@ func run() -> void:
     node = enemy(stage, "lunge"); node._update_active(NAN); node._update_active(-1)
     check(node.position == Vector2.ZERO and node.state_timer == 1, "invalid motion leaves attack state intact")
     node.free(); stage.free()
+    _check_authored_ray_edges()
     _check_combo_manifests()
     print("ENEMY_ATTACK_MOTION checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
+
+func _check_authored_ray_edges() -> void:
+    var host := Node2D.new()
+    host.position = Vector2(80, -40)
+    root.add_child(host)
+    var rect := Rect2(10, 20, 32, 40)
+    var cave := preload("res://scripts/cave_world.gd").new()
+    host.add_child(cave)
+    cave.collision_streaming = true
+    cave.solid_rects.append(rect)
+    var terrain := preload("res://scripts/chapter_terrain.gd").new()
+    host.add_child(terrain)
+    terrain.collision_streaming = true
+    terrain.collision_regions.append({"bounds": rect, "polygon": PackedVector2Array([
+        rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)])})
+    var platforms := preload("res://scripts/world_platform_residency.gd").new()
+    platforms.records["fixture"] = {"bounds": rect, "data": {}}
+    var platform_ray := func(a: Vector2, b: Vector2) -> Dictionary: return platforms.ray_hit(host, a, b)
+    for ray: Callable in [cave.rock_ray_hit, terrain.terrain_ray_hit, platform_ray]:
+        # The end of a short, axis-aligned strike can land exactly on a wall.
+        for segment in [[Vector2(-10, 30), Vector2(10, 30)], [Vector2(20, 75), Vector2(20, 60)]]:
+            var end := host.to_global(segment[1])
+            var hit: Dictionary = ray.call(host.to_global(segment[0]), end)
+            check(not hit.is_empty() and end.is_equal_approx(hit.position), "sweep endpoint touches authored collision")
+        check(ray.call(host.to_global(Vector2(-10, 19)), host.to_global(Vector2(60, 19))).is_empty(),
+              "short sweep outside the authored bounds stays clear")
+    host.free()
 
 func _check_combo_manifests() -> void:
     var stage := MotionStage.new()

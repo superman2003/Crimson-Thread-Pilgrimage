@@ -23,19 +23,22 @@ def main():
     with tempfile.TemporaryDirectory(prefix='journey-test-') as data:
         for name in names:
             env = os.environ.copy()
-            env['XDG_DATA_HOME'] = str(Path(data) / name)
-            flags = ['--headless'] if args.backend == 'headless' else ['--display-driver', 'x11', '--rendering-method', 'gl_compatibility']
+            env['APPDATA'] = env['XDG_DATA_HOME'] = str(Path(data) / name)
+            flags = ['--headless']
+            if args.backend == 'gl':
+                display = ['--position', '-12000,-12000'] if os.name == 'nt' else ['--display-driver', 'x11']
+                flags = [*display, '--rendering-method', 'gl_compatibility']
             command = [args.engine, '--path', str(ROOT / 'godot'), '--audio-driver', 'Dummy', *flags, '--script', f'res://journey/tests/{name}.gd']
             try:
                 result = subprocess.run(command, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=90)
                 text = result.stdout.decode(errors='replace')
-                clean = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', text)
+                clean = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', text).replace('\r', '')
                 marker = f'JOURNEY_{name.upper()}'
                 good = result.returncode == 0 and not re.search(r'^\s*(SCRIPT ERROR|ERROR|USER ERROR):', clean, re.M) and re.search(rf'^{marker} checks=[1-9][0-9]* failures=0$', clean, re.M)
             except subprocess.TimeoutExpired as error:
                 text = (error.stdout or b'').decode(errors='replace') + '\nTEST PROCESS TIMEOUT\n'
                 good = False
-            (args.log_dir / f'{name}.log').write_text(text)
+            (args.log_dir / f'{name}.log').write_text(text, encoding='utf-8')
             failures += not good
             print(f'{name}: {"PASS" if good else "FAIL"}', flush=True)
     print(f'JOURNEY_RUNNER tests={len(names)} failures={failures}', flush=True)

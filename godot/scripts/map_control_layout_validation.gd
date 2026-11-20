@@ -24,6 +24,7 @@ class Runtime extends Node:
     var story_flags: Dictionary={}
     var notices: Array[String]=[]
     var config: Dictionary={}
+    var campaign: Dictionary={}
     var player: Node2D
     var world_state: RefCounted=STATE.new()
     var inventory_counts: Dictionary={}
@@ -236,6 +237,7 @@ func production_legend_checks() -> void:
     var world:=make_runtime()
     LAYOUT.apply(world)
     world.config=ATLAS.configuration("demo_ch01_moss_bell_court")
+    world.campaign=JSON.parse_string(FileAccess.get_file_as_string("res://data/campaign_chapters.json"))
     check(not world.config.is_empty(),"production map configuration and route cache are available")
     var id:=String(world.config.id)
     JOURNAL.region(world.story_flags,id).owned=true

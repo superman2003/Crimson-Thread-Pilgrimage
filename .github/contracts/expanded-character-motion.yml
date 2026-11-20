@@ -91,6 +91,8 @@ on:
       - 'tools/build_npc_insect_speech.py'
       - 'tools/test_npc_insect_speech.py'
       - 'godot/scripts/hand_drawn_assets.gd'
+      - 'godot/data/character_loop_entries.json'
+      - 'tools/build_character_loop_entries.py'
       - 'godot/scripts/character_art_*.gd'
       - 'godot/scripts/world_gameplay_prefetch.gd'
       - 'godot/scripts/world_region_loader.gd'
@@ -132,8 +134,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
-        with:
-          lfs: true
+      - name: Hydrate runtime art and motion source sheets
+        run: git lfs pull --include='godot/assets/**,art_requests/*motion*/**,art_requests/creature_attacks_v1/**,art_requests/protagonist_thread_doll_v1/**,art_requests/npc_insect_language_v1/**'
       - name: Install Godot and validation dependencies
         run: |
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
@@ -145,6 +147,7 @@ jobs:
         run: |
           npm run test:character-motion
           python3 tools/build_character_motion_v8.py --check
+          python3 tools/build_character_loop_entries.py --check
           python3 tools/validate_hero_v3.py
           npm test
       - name: Validate original NPC speech and provenance

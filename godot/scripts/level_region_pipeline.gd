@@ -303,9 +303,16 @@ static func publish_region(level: Node) -> void:
     if level.world_mode:
         if not level.world_initial_error.is_empty():
             level._toast(level.world_initial_error)
-        level._save_world()
+            if level.world_save_blocked:
+                level.world_write_error_shown = true
         level.world_loader.register_region(level)
-        preload("res://scripts/title_card.gd").present(level, level.world_resumed_journey)
+        var title := preload("res://scripts/title_card.gd").present(level, level.world_resumed_journey)
+        if title == null:
+            level._save_world()
+        else:
+            title.chosen.connect(func(action: String):
+                if action == "continue": level._save_world(), CONNECT_ONE_SHOT)
+        print_verbose("WORLD_REGION_READY ", level.config.get("id", ""))
     if level.boss_trial_mode:
         level._defer_region_call("_start_boss_trial")
 

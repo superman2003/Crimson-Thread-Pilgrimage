@@ -131,7 +131,7 @@ var settings_persistence:=preload("res://scripts/settings_persistence.gd").new()
 var settings_save_notice: Label
 var settings_save_retry: Button
 var accessibility_toggles: Dictionary={}
-var accessibility: Dictionary={"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"observation_mode":0,"observation_delay":0.35,"observation_distance":1.0,"tutorial_hints":false,"navigation_assist":false}
+var accessibility: Dictionary={"hitstop_duration":preload("res://scripts/controller_preferences.gd").DEFAULT_HITSTOP_DURATION,"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"observation_mode":0,"observation_delay":0.35,"observation_distance":1.0,"tutorial_hints":false,"navigation_assist":false}
 ## Fixture hook for the reading stick; NAN reads real connected pads.
 var reading_axis_override := NAN
 var remap_target := ""

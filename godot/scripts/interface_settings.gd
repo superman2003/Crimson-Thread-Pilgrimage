@@ -167,6 +167,7 @@ static func load_accessibility(ui: Node) -> void:
     for key in observation:observation[key]=config.get_value("accessibility",key,observation[key])
     observation=preload("res://scripts/camera_observation_preferences.gd").normalize(observation)
     for key in observation:ui.accessibility[key]=observation[key]
+    ui.accessibility["hitstop_duration"]=ui._finite_setting(config,"hitstop_duration",0,1)
     ui.accessibility["vibration_strength"]=ui._finite_setting(config,"vibration_strength",0,1)
     var saved := {}
     for action in ui.REMAPPABLE_ACTIONS:

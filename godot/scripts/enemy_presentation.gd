@@ -245,7 +245,10 @@ static func set_enemy_animation(actor: Node, animation_name: String, restart: bo
             actor.sprite.scale = actor.sprite_base_scale
             actor.pose_feedback_was_active = false
     if changed or resume_loop:
-        actor.animated_sprite.play(next_animation)
+        if not restart and animation_name in ["idle", "walk"]:
+            ORIGINAL_ART.play_matched_loop(actor.animated_sprite, next_animation)
+        else:
+            actor.animated_sprite.play(next_animation)
 
 
 static func fit_animation_duration(actor: Node, duration: float, phase: String = "") -> void:

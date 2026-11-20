@@ -446,6 +446,7 @@ var backpack_selection := 0
 var map_panel: ColorRect
 var map_text: Label
 var map_draw_root: Control
+var map_rendered_state: Array = []
 var survey_map_view: Control
 var gate_body: StaticBody2D
 var locked_gate_bodies: Dictionary = {}
@@ -885,7 +886,7 @@ func _process(_delta: float) -> void:
         LEVEL_REGION_BUILD.notice_hidden_route_clues(self)
         ENDING_GATES.notice_ending_aftermath(self)
         _update_first_journey_hint()
-        if active_overlay == "map":
+        if active_overlay == "map" and MAP_OVERLAY.display_state(self) != map_rendered_state:
             _refresh_map_overlay()
 
 

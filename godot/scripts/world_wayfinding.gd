@@ -18,13 +18,15 @@ var _last_state: Array = []
 var _prompt_box: StyleBoxFlat
 const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
 
-static func caption_for(kind: String, label: String, key: String, recorded: bool=false, service: String="") -> String:
+static func caption_for(kind: String, label: String, key: String, recorded: bool=false, service: String="", access: String="open") -> String:
     var clean:=""
     for character in label:
         var code:=character.unicode_at(0)
         if code>=32 and code!=127:clean+=character
     clean=clean.strip_edges()
     var action: String={"save_point":"安坐","lever":"操作","npc":"交谈","world_portal":"通行","boss_gate":"钟门","death_cache":"找回","challenge_shrine":"查看挑战","hunt_track":"观察踪迹","ending_gate":"查看"}.get(kind,"互动")
+    if kind == "world_portal" and access != "open":
+        action = "查看门闩" if access == "far_side" else "查看通行条件"
     if kind=="history":
         action="重读旧物" if recorded else "观察旧物"
         if not recorded:clean=""
@@ -70,7 +72,7 @@ func _process(_delta: float) -> void:
     key_hint = host.ui_shell._short_binding("interact") if nearby and is_instance_valid(host.ui_shell) else ""
     var recorded:=false
     if kind=="history" and area.get("seen") is bool:recorded=bool(area.get("seen"))
-    interaction_caption=caption_for(kind,String(area.get_meta("label","")),key_hint,recorded,symbol) if nearby and not key_hint.is_empty() else ""
+    interaction_caption=caption_for(kind,String(area.get_meta("label","")),key_hint,recorded,symbol,gate_state) if nearby and not key_hint.is_empty() else ""
     if nearby:
         host._show_first_interaction_hint(area)
     visible = physical_sign or nearby
