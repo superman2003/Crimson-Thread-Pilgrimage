@@ -48,11 +48,17 @@ static func apply(target: String) -> bool:
         var english := ENGLISH.new()
         english.configure(data.messages)
         next = english
+    var catalogue_changed := installed != null or next != null
     uninstall()
     installed = next
     if installed != null:
         TranslationServer.add_translation(installed)
-    TranslationServer.set_locale(target)
+    if TranslationServer.get_locale() != target:
+        TranslationServer.set_locale(target)
+    elif catalogue_changed:
+        var main_loop := Engine.get_main_loop()
+        if main_loop != null:
+            main_loop.notification(MainLoop.NOTIFICATION_TRANSLATION_CHANGED)
     return true
 
 ## Reads the saved choice. A fresh installation stays in Chinese whatever the

@@ -149,6 +149,7 @@ func run() -> void:
     if FileAccess.file_exists(tongue_store.path):DirAccess.remove_absolute(ProjectSettings.globalize_path(tongue_store.path))
     var catalogue:=LANGUAGE.catalogue()
     check(catalogue.get("locale")=="en" and catalogue.messages.size()>=30,"the catalogue loads")
+    TranslationServer.set_locale("en")
     var os_locale:=TranslationServer.get_locale()
     var tongue=LANGUAGE.new();tongue.initialize()
     check(tongue.locale=="zh_CN" and LANGUAGE.installed==null and TranslationServer.get_locale()==os_locale,"a fresh installation installs nothing and leaves the locale alone")
