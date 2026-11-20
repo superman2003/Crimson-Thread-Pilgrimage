@@ -1,4 +1,5 @@
 extends ConfirmationDialog
+const NAMED_TEXT := preload("res://scripts/user_named_text.gd")
 const SPACING := preload("res://scripts/ui_spacing_scale.gd")
 ## Naming never edits the active build. The parent supplies durable actions.
 var source := ""
@@ -68,7 +69,7 @@ func open(name: String, quote_action: Callable, action: Callable) -> void:
             if preview is Dictionary and preview.get("source_snapshot") is Dictionary:
                 source_preview=preview.source_snapshot.duplicate(true);break
     target_input.text = source
-    explanation.text = "原方案「%s」。重命名保留原位置；复制保留两份，最多8份。当前装备、材料、生命和战具次数均不会变化。" % source
+    NAMED_TEXT.bind(explanation, "原方案「%s」。重命名保留原位置；复制保留两份，最多8份。当前装备、材料、生命和战具次数均不会变化。", [source])
     choose_copy_mode(false)
     popup_centered()
     get_cancel_button().grab_focus()
@@ -85,7 +86,8 @@ func _refresh_quote() -> void:
     get_ok_button().disabled = pending or not bool(quote.get("ok", false)) or not bool(quote.get("can_apply", false))
     if quote.get("source_snapshot") is Dictionary:source_preview=quote.source_snapshot.duplicate(true)
     source_detail.text=describe_source(source_preview)
-    destination_detail.text="「%s」 → 「%s」 · %s" % [source,String(quote.get("target",target_input.text.strip_edges())),"保留原方案并新增副本" if copy_mode else "保留原排序并更名"]
+    NAMED_TEXT.bind(destination_detail, "「%s」 → 「%s」 · %s",
+        [source, String(quote.get("target",target_input.text.strip_edges())), "保留原方案并新增副本" if copy_mode else "保留原排序并更名"], [2])
     error_label.text = String(quote.get("reason", "操作不可用"))
     if not get_ok_button().disabled:error_label.text = "新名称可用。确认后仅%s保存方案。" % ("复制" if copy_mode else "重命名")
 

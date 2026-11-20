@@ -26,7 +26,14 @@ func _process(_delta: float) -> void:
 
 
 func caption() -> String:
-    return "需要 · " + ability_name if not ability_name.is_empty() else ""
+    if ability_name.is_empty():
+        return ""
+    return tr("需要 · %s") % tr(ability_name)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED and is_inside_tree():
+        queue_redraw()
 
 
 func _draw() -> void:

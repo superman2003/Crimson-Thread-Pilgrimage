@@ -118,6 +118,32 @@ func run() -> void:
     check(main.active_overlay == "backpack", "polled map shortcut cannot steal a typing journal")
     print("JOURNAL_DESK_IMMUTABLE wallet=",main._build_wallet_snapshot()==before_wallet," flags=",main.story_flags==before_flags," build=",main.build_system.serialize()==before_build)
     check(main._build_wallet_snapshot() == before_wallet and main.story_flags == before_flags and main.build_system.serialize() == before_build, "search reading favorites and typing leave all gameplay progress unchanged")
+    # Publish an earned note, mark it in Chinese, then switch while it is open.
+    main.story_flags[enemies.flag_for("moss_larva")] = true
+    ui.journal_filter_buttons.enemy.pressed.emit()
+    ui.journal_mark_button.pressed.emit()
+    var original_note: Dictionary = ui.journal_current_document.duplicate(true)
+    var find = ui.bag.get_node("JournalDocumentFind")
+    find.open()
+    var language := preload("res://scripts/ui_language.gd")
+    check(language.apply("en"), "English catalogue loads")
+    await process_frame
+    await process_frame
+    var english_note: Dictionary = ui.journal_current_document
+    check(english_note.key == original_note.key and english_note.fingerprint == original_note.fingerprint and ui.journal_catalog.is_read(english_note), "a language switch preserves entry identity and read marks")
+    check(ui.bag_description.text == english_note.text and english_note.text.contains("pounce") and not language.ENGLISH.contains_han(english_note.text), "the open earned entry displays English text")
+    check(ui.journal_filters.get_rect().end.x < ui.bag_name.position.x and ui.journal_tools.get_rect().end.x < ui.bag_name.position.x, "English filters and search controls fit beside the reading pane")
+    check(find.visible and find.editor.text == english_note.text, "the open find window follows the visible entry's language")
+    find.hide()
+    ui.journal_search.text = "pounce"
+    ui.journal_search.text_changed.emit("pounce")
+    check(ui.bag_grid.get_child_count() == 1, "search finds English words in the visible entry")
+    ui.journal_search.text = ""
+    ui.journal_search.text_changed.emit("")
+    check(language.apply("zh_CN"), "Chinese can be restored")
+    await process_frame
+    await process_frame
+    check(ui.bag_description.text == original_note.text and ui.journal_catalog.is_read(ui.journal_current_document), "returning to Chinese restores the authored page and keeps reading status")
     ui.bag_category = "材料";ui.refresh_inventory()
     check(not ui.journal_tools.visible and not ui.journal_mark_button.visible, "inventory categories retain their original layout without journal controls")
     var retirement:=preload("res://scripts/audio_retirement.gd")

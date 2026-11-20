@@ -54,6 +54,7 @@ func flags() -> Dictionary:
     return value
 func run() -> void:
     var maps:={A:config(),B:config()}
+    check_pin_list_language(maps)
     var original:=flags();var before:=original.duplicate(true)
     var expected: Dictionary=PINS.records(original,maps)[0]
     var result: Dictionary=PINS.relocate(original,maps,1,A,Vector2(400,400),expected)
@@ -120,3 +121,23 @@ func _native() -> void:
     level.map_panel.hide();await process_frame
     check(not is_instance_valid(popup) or not popup.visible,"closing the map retires its relocation confirmation")
     level.free();await process_frame
+func check_pin_list_language(maps: Dictionary) -> void:
+    var list := OptionButton.new()
+    root.add_child(list)
+    var pins := PINS.records(flags(), maps)
+    pins[0].label = "地图"
+    var english := Translation.new()
+    english.locale = "en"
+    english.add_message("地图", "Map")
+    english.add_message("回访%d", "Return %d")
+    var previous := TranslationServer.get_locale()
+    TranslationServer.add_translation(english)
+    TranslationServer.set_locale("en")
+    RUNTIME._refresh_list(list, pins, maps)
+    check(list.atr(list.get_item_text(1)).begins_with("Return 1 · 地图 · "), "pin menu translates its kind and preserves the player's name")
+    TranslationServer.remove_translation(english)
+    TranslationServer.set_locale("zh_CN")
+    RUNTIME._refresh_list(list, pins, maps)
+    check(list.get_item_text(1).begins_with("回访1 · 地图 · "), "the same pin list can switch back to Chinese")
+    TranslationServer.set_locale(previous)
+    list.free()

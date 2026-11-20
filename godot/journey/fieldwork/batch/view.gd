@@ -224,7 +224,7 @@ func _grid(font: Font) -> void:
         draw_string(
             font,
             Vector2(budget_x + 3, area.position.y + 14),
-            "可用资金",
+            atr("可用资金"),
             HORIZONTAL_ALIGNMENT_LEFT,
             100,
             11,
@@ -252,7 +252,7 @@ func _draw() -> void:
             draw_string(
                 font,
                 at + Vector2(9, -6),
-                String(point.get("name", "")),
+                atr(String(point.get("name", ""))),
                 HORIZONTAL_ALIGNMENT_LEFT,
                 240,
                 12,
@@ -261,7 +261,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(LEFT, 17),
-        "纵轴：" + y_label + " · 横轴：" + x_label,
+        atr("纵轴：" + y_label + " · 横轴：" + x_label),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
@@ -270,7 +270,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 9),
-        legend,
+        atr(legend),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -278,3 +278,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

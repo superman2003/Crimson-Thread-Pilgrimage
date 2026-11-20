@@ -569,6 +569,8 @@ func _remap_visibility_changed() -> void:
     INTERFACE_SETTINGS.remap_visibility_changed(self)
 
 func _notification(what: int) -> void:
+    if what==NOTIFICATION_TRANSLATION_CHANGED and bag_category=="旅记" and is_instance_valid(bag_description) and bag.is_visible_in_tree():
+        call_deferred("refresh_inventory")
     if what==NOTIFICATION_APPLICATION_FOCUS_OUT:
         INTERFACE_SETTINGS.cancel_remap(self, "窗口已失去焦点，重映射已取消；原绑定保留。")
         if is_instance_valid(build_shortcut):build_shortcut.clear()

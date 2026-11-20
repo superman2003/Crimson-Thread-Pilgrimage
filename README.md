@@ -2,6 +2,9 @@
 
 本仓库维护 Godot 原生游戏，工程入口为 `godot/project.godot`，主场景为 `godot/scenes/World.tscn`。
 
+游戏内默认按 **V**，在 **显示 → 语言** 中选择简体中文或 English。设置即时生效，下次启动会记住选择。
+To play in English, press **V**, open **显示** (Display), then select **English** under **语言** (Language).
+
 ## 默认主角：缄 · 缠线小偶（2026-11-08）
 
 主角已全面替换为旧契约布与绯线组成的小偶，32 个状态覆盖跑跳、方向攻击、技能、受击与死亡，短足跑动保持支撑脚点和身体起伏。胸口线结承载回响，治疗缝补自身，钩索从线结放出；移动与战斗规则保留。

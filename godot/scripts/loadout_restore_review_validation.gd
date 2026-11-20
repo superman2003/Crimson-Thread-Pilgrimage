@@ -179,6 +179,12 @@ func dialog_checks() -> void:
     check(dialog.get_ok_button().disabled,"malformed quote stays non-actionable without type errors")
     dialog.open("<custom plan>",query,action,formatter)
     check(dialog.get_ok_button().disabled and dialog.changes.text.contains("<custom plan>"),"custom names are literal, and unsaved names remain unavailable")
+    dialog.open("地图",query,action,formatter)
+    var language:=preload("res://scripts/ui_language.gd")
+    language.apply("en");await process_frame
+    check(dialog.changes.get_parsed_text().begins_with("Loadout “地图”"),"restore review translates its heading without translating the saved key")
+    language.apply("zh_CN");await process_frame
+    check(dialog.changes.get_parsed_text().begins_with("方案「地图」"),"open restore review follows language changes")
     dialog.free()
     world.free()
     await process_frame

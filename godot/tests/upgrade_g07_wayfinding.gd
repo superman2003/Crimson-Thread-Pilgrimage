@@ -16,6 +16,7 @@ func run() -> void:
     check(marker.caption_for("history","已读旧物","F",true).contains("重读旧物：已读旧物"),"read prop may show title")
     check(not marker.caption_for("lever","bad\nlabel\ttext","F").contains("\n"),"control characters removed")
     check(marker.caption_for("lever","很长".repeat(40),"F").length()<40,"long labels bounded")
+    check_localized_signs()
     var node:=marker.new();root.add_child(node)
     node.physical_sign=true;node.nearby=true;node.key_hint="F";node.interaction_caption="old"
     node._process(0.1)
@@ -26,6 +27,20 @@ func run() -> void:
     await capture_world()
     print("UPGRADE_G07 checks=%d failures=%d" % [checks,failures])
     quit(1 if failures else 0)
+
+func check_localized_signs() -> void:
+    const LANGUAGE = preload("res://scripts/ui_language.gd")
+    const MARKER = preload("res://scripts/world_wayfinding.gd")
+    var gate := preload("res://scripts/ability_gate_sign.gd").new()
+    root.add_child(gate)
+    gate.ability_name = "王冠共鸣"
+    check(LANGUAGE.apply("en"), "English catalogue available")
+    check(MARKER.caption_for("npc", "苔钟庭", "鼠标左键") == "Mouse 1 · Talk: Moss Bell Court", "in-world prompt translates the binding, action and name")
+    check(MARKER.caption_for("history", "未读秘密标题", "F") == "F · Examine relic", "changing language does not reveal an unread title")
+    check(gate.caption() == "Requires · Crown Resonance", "ability gate draws its localized requirement")
+    LANGUAGE.apply("zh_CN")
+    check(gate.caption() == "需要 · 王冠共鸣", "the same gate returns to Chinese")
+    gate.free()
 
 func capture_world() -> void:
     var directory:=OS.get_environment("UPGRADE_CAPTURE_DIR")

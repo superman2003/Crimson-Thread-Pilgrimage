@@ -70,7 +70,7 @@ func _draw() -> void:
         draw_circle(point, 9, tint)
         if id == selected or id == hovered:
             draw_arc(point, 13, 0, TAU, 24, Color("efdbbd"), 2.0, true)
-        var title := String(node.title).left(10)
+        var title := atr(String(node.title)).left(18)
         var width := font.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, 14).x
         draw_string(font, point + Vector2(-width * 0.5, 28), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, tint)
 
@@ -113,6 +113,8 @@ func _gui_input(event: InputEvent) -> void:
             accept_event()
 
 func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()
     if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
         dragging = ""
         displaced = false

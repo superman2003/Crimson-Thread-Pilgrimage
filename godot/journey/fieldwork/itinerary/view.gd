@@ -126,7 +126,7 @@ func _draw_grid(font: Font) -> void:
         draw_string(
             font,
             Vector2(x + 3, 20),
-            "%.0fs" % seconds,
+            atr("%.0fs" % seconds),
             HORIZONTAL_ALIGNMENT_LEFT,
             70,
             12,
@@ -141,7 +141,7 @@ func _draw_grid(font: Font) -> void:
         draw_string(
             font,
             Vector2(maxf(LEFT, boundary - 45), 36),
-            "预算",
+            atr("预算"),
             HORIZONTAL_ALIGNMENT_LEFT,
             70,
             12,
@@ -180,7 +180,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(28, legend_y + 2),
-        "规则距离估算",
+        atr("规则距离估算"),
         HORIZONTAL_ALIGNMENT_LEFT,
         150,
         12,
@@ -190,7 +190,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(198, legend_y + 2),
-        "个人停留假设",
+        atr("个人停留假设"),
         HORIZONTAL_ALIGNMENT_LEFT,
         150,
         12,
@@ -199,7 +199,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 8),
-        "方向键选择站点 · 滚轮缩放时间轴 · Home复位",
+        atr("方向键选择站点 · 滚轮缩放时间轴 · Home复位"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -207,3 +207,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

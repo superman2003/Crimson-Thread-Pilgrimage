@@ -176,7 +176,7 @@ func _time_grid(font: Font) -> void:
         draw_string(
             font,
             Vector2(x + 2, 19),
-            "%.1fs" % time,
+            atr("%.1fs" % time),
             HORIZONTAL_ALIGNMENT_LEFT,
             80,
             11,
@@ -196,7 +196,7 @@ func _step(index: int, font: Font) -> void:
         draw_rect(Rect2(2, y - 1, size.x - 4, ROW - 1), Color("3c4c3c"))
     var caption := "%d.%d %s" % [row["轮次"], row["步骤"], row["动作"]]
     draw_string(
-        font, Vector2(7, y + 16), caption, HORIZONTAL_ALIGNMENT_LEFT, LEFT - 13, 12, STEP_TITLE_TEXT
+        font, Vector2(7, y + 16), atr(caption), HORIZONTAL_ALIGNMENT_LEFT, LEFT - 13, 12, STEP_TITLE_TEXT
     )
     var a := clampf(_x(float(row["开始秒"])), LEFT, size.x - 15)
     var b := clampf(_x(float(row["结束秒"])), LEFT, size.x - 15)
@@ -212,7 +212,7 @@ func _step(index: int, font: Font) -> void:
         draw_string(
             font,
             Vector2(a + 4, y + 16),
-            String(row["按键"]),
+            atr(String(row["按键"])),
             HORIZONTAL_ALIGNMENT_LEFT,
             b - a - 8,
             11,
@@ -231,10 +231,10 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(8, size.y - 24),
-        (
+        atr((
             "%d—%d / %d步骤 · 绿色动作、灰金休息、红色假设资源不足"
             % [offset + 1, mini(rows.size(), offset + _count()), rows.size()]
-        ),
+        )),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 16,
         11,
@@ -243,7 +243,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(8, size.y - 8),
-        "滚轮翻步骤 · Ctrl滚轮缩放时间 · Shift滚轮平移时间 · 方向键选择",
+        atr("滚轮翻步骤 · Ctrl滚轮缩放时间 · Shift滚轮平移时间 · 方向键选择"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 16,
         11,
@@ -253,7 +253,7 @@ func _draw() -> void:
         draw_string(
             font,
             Vector2(20, TOP + 25),
-            "先在候选中添加已获动作。",
+            atr("先在候选中添加已获动作。"),
             HORIZONTAL_ALIGNMENT_LEFT,
             size.x - 40,
             16,
@@ -261,3 +261,8 @@ func _draw() -> void:
         )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

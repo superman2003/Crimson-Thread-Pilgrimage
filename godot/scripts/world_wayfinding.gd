@@ -23,15 +23,20 @@ static func caption_for(kind: String, label: String, key: String, recorded: bool
     for character in label:
         var code:=character.unicode_at(0)
         if code>=32 and code!=127:clean+=character
-    clean=clean.strip_edges().left(24)
+    clean=clean.strip_edges()
     var action: String={"save_point":"安坐","lever":"操作","npc":"交谈","world_portal":"通行","boss_gate":"钟门","death_cache":"找回","challenge_shrine":"查看挑战","hunt_track":"观察踪迹","ending_gate":"查看"}.get(kind,"互动")
     if kind=="history":
         action="重读旧物" if recorded else "观察旧物"
         if not recorded:clean=""
     if kind=="npc" and service in ["map","shop"]:action="查看报价"
-    var text:=key+" · "+action
-    if not clean.is_empty():text+="："+clean
-    return text
+    var binding := String(TranslationServer.translate(key))
+    var verb := String(TranslationServer.translate(action))
+    if clean.is_empty():
+        return "%s · %s" % [binding, verb]
+    # Look up the whole name before trimming it to the width of a sign.
+    var name_text := String(TranslationServer.translate(clean))
+    name_text = name_text.left(48 if name_text != clean else 24)
+    return String(TranslationServer.translate("%s · %s：%s")) % [binding, verb, name_text]
 
 static func region_symbol(region: String) -> String:
     for pair in [["ch01", "bell"], ["ch02", "forge"], ["ch03", "book"],

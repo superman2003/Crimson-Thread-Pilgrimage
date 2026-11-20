@@ -163,7 +163,7 @@ func _draw() -> void:
         draw_string(
             font,
             area.position + Vector2(20, 40),
-            "保存记录后显示同一方案的目录成本与个人假设。",
+            atr("保存记录后显示同一方案的目录成本与个人假设。"),
             HORIZONTAL_ALIGNMENT_LEFT,
             area.size.x - 40,
             15,
@@ -172,7 +172,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(LEFT, 20),
-        "绿色目录成本 · 金色个人假设 · 横轴为观察顺序",
+        atr("绿色目录成本 · 金色个人假设 · 横轴为观察顺序"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
@@ -181,7 +181,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 10),
-        "A切换个人假设线 · 方向键选择记录；这不是实时市场或价格预测。",
+        atr("A切换个人假设线 · 方向键选择记录；这不是实时市场或价格预测。"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -189,3 +189,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

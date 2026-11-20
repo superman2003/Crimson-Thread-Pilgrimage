@@ -194,7 +194,7 @@ static func remember_dialogue_reading(ui: Node) -> void:
     if not is_instance_valid(ui.dialogue_area) or not is_instance_valid(ui.dialogue_body) or not is_instance_valid(ui.dialogue_scroll):
         return
     var committed:=bool(ui.dialogue_area.get_meta("world_line_committed",false)) and int(ui.dialogue_area.get_meta("world_displayed_index",-1))>=0
-    ui.dialogue_reading.capture(ui.dialogue_reading_key,ui.dialogue_body.text.length(),ui.dialogue_body.visible_characters,ui.dialogue_scroll.scroll_vertical,committed)
+    ui.dialogue_reading.capture(ui.dialogue_reading_key,ui.dialogue_body.get_total_character_count(),ui.dialogue_body.visible_characters,ui.dialogue_scroll.scroll_vertical,committed)
 
 
 static func close_dialogue(ui: Node) -> void:

@@ -19,7 +19,18 @@ class Shell extends Control:
         var button:=Button.new();button.text=text;button.position=point;button.size=dimensions
         parent.add_child(button);button.pressed.connect(callback);return button
     func register_text_entry_window(_window: Window) -> void:pass
-func _initialize() -> void:call_deferred("run")
+func _initialize() -> void:
+    if "--verify-language-restart" in OS.get_cmdline_user_args():
+        call_deferred("verify_restart")
+    else:
+        call_deferred("run")
+
+func verify_restart() -> void:
+    var startup := root.get_node_or_null("GameLanguageSettings")
+    check(startup != null and startup.preferences.locale == "en" and TranslationServer.translate("继续旅途") == &"Continue",
+            "English is active on launch before building any settings UI")
+    print("LANGUAGE_RESTART failures=%d" % failures)
+    quit(1 if failures else 0)
 func check(ok: bool,label: String) -> void:
     checks+=1
     if not ok:failures+=1;push_error(label)
@@ -138,24 +149,51 @@ func run() -> void:
     if FileAccess.file_exists(tongue_store.path):DirAccess.remove_absolute(ProjectSettings.globalize_path(tongue_store.path))
     var catalogue:=LANGUAGE.catalogue()
     check(catalogue.get("locale")=="en" and catalogue.messages.size()>=30,"the catalogue loads")
+    TranslationServer.set_locale("en")
     var os_locale:=TranslationServer.get_locale()
     var tongue=LANGUAGE.new();tongue.initialize()
     check(tongue.locale=="zh_CN" and LANGUAGE.installed==null and TranslationServer.get_locale()==os_locale,"a fresh installation installs nothing and leaves the locale alone")
     var probe:=Button.new();probe.text="返回";shell.add_child(probe)
     check(probe.atr(probe.text)=="返回","authored text shows as written")
-    check(tongue.choose("en").ok and TranslationServer.get_locale().begins_with("en") and probe.atr(probe.text)=="Back","choosing English translates matching controls")
+    var dialogue:=Label.new()
+    dialogue.text="我数过。数到自己的年纪就不敢往下数了。"
+    shell.add_child(dialogue)
+    var journal:=RichTextLabel.new()
+    journal.bbcode_enabled=true
+    journal.text="[b]六区旅途记录[/b]\n苔钟庭"
+    shell.add_child(journal)
+    shell.settings.visible=true;desk.open();await process_frame
+    desk.tongue.select(1);desk.tongue.item_selected.emit(1);await process_frame
+    check(DESK.language.locale=="en" and probe.atr(probe.text)=="Back","selecting English through Display applies it immediately")
+    var line:=String(catalogue.messages[dialogue.text])
+    check(dialogue.atr(dialogue.text)==line and dialogue.get_total_character_count()==line.length(),"an open dialogue shapes the entire translated line")
+    check(journal.get_parsed_text()=="Journal of the Six Regions\nMoss Bell Court","open rich-text journal changes language and preserves markup")
     check(probe.text=="返回","the control's own text is never rewritten")
-    check(probe.atr("槽 1 · 42% · 3:25")=="槽 1 · 42% · 3:25","composed lines without an entry stay as authored")
+    check(probe.atr("槽 1 · 42% · 3:25")=="Slot 1 · 42% · 3:25","save slot keeps its number, percentage and play time")
+    check(probe.atr("拾获「苔钟庭」")=="Found “Moss Bell Court”","nested names in a pickup banner are localized")
+    check(probe.atr("按 Space 跳跃；提前松开可跳得更低。")=="Press Space to jump. Release early for a shorter jump.","live control bindings survive translation")
+    var composed=LANGUAGE.ENGLISH.new()
+    composed.configure({"记录 %d / %d":"Records %d / %d","攻击":"Attack","短刺；收针。":"Thrust, then withdraw.",
+            "用{hook}瞄准，再按{jump}。":"Press {jump} after aiming with {hook}."})
+    check(composed.resolve("○ 记录 11 / 22")=="○ Records 11 / 22","a journal status marker preserves the formatted line")
+    check(composed.resolve("攻击：短刺；收针。")=="Attack: Thrust, then withdraw.","a heading preserves punctuation inside an authored sentence")
+    check(composed.resolve("用LT瞄准，再按A。")=="Press A after aiming with LT.","named binding fields may change order")
     var again=LANGUAGE.new();again.initialize()
     check(again.locale=="en" and probe.atr("返回")=="Back","the choice is restored at launch")
-    check(not tongue.choose("tlh").ok and tongue.locale=="en","an unknown language is refused")
+    check(not DESK.language.choose("tlh").ok and DESK.language.locale=="en","an unknown language is refused")
     check(desk.tongue.item_count==2 and desk.tongue.get_item_text(0)=="简体中文" and desk.tongue.get_item_text(1)=="English","the window lists languages in their own names")
     check(desk.tongue.auto_translate_mode==Node.AUTO_TRANSLATE_MODE_DISABLED,"language names are never translated")
     shell.settings.visible=true;desk.open();await process_frame
     desk.tongue.select(0);desk.tongue.item_selected.emit(0);await process_frame
     check(DESK.language.locale=="zh_CN" and LANGUAGE.installed==null and probe.atr("返回")=="返回","switching back removes the catalogue")
+    check(dialogue.get_total_character_count()==dialogue.text.length() and journal.get_parsed_text()=="六区旅途记录\n苔钟庭","the same open dialogue and journal return to Chinese")
+    TranslationServer.set_locale("en_US")
+    var restarted=LANGUAGE.new();restarted.initialize()
+    check(restarted.locale=="zh_CN" and TranslationServer.get_locale().begins_with("zh"),"saved Chinese also restores native dialogs on an English system")
     DirAccess.remove_absolute(ProjectSettings.globalize_path(tongue_store.path))
     shell.queue_free();await process_frame
     clear()
+    if "--prepare-language-restart" in OS.get_cmdline_user_args():
+        check(restarted.choose("en").ok,"save English for a fresh game process")
     print("DISPLAY_SETTINGS checks=%d failures=%d" % [checks,failures])
     call_deferred("quit",1 if failures else 0)

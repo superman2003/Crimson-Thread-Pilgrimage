@@ -137,7 +137,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(LEFT, 19),
-        "纵轴毫秒：正值晚、负值早 · 横轴匹配序号",
+        atr("纵轴毫秒：正值晚、负值早 · 横轴匹配序号"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
@@ -146,7 +146,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 10),
-        "只显示容差内已匹配击拍；漏拍和多余击拍另列统计。",
+        atr("只显示容差内已匹配击拍；漏拍和多余击拍另列统计。"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -156,7 +156,7 @@ func _draw() -> void:
         draw_string(
             font,
             Vector2(LEFT + 20, size.y * 0.5),
-            "完成练习后显示匹配偏差。",
+            atr("完成练习后显示匹配偏差。"),
             HORIZONTAL_ALIGNMENT_LEFT,
             size.x - LEFT - 40,
             16,
@@ -164,3 +164,8 @@ func _draw() -> void:
         )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

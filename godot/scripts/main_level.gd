@@ -828,7 +828,7 @@ func _process(_delta: float) -> void:
         return
     if active_overlay == "dialogue" and dialogue_text_label != null:
         subtitle_elapsed += _delta
-        dialogue_text_label.visible_characters = mini(dialogue_text_label.text.length(), int(dialogue_text_label.text.length() * subtitle_elapsed / maxf(0.1, subtitle_seconds)))
+        dialogue_text_label.visible_ratio = clampf(subtitle_elapsed / maxf(0.1, subtitle_seconds), 0.0, 1.0)
     LEVEL_HUD.tick_lore_banner(self, _delta)
     if pending_enemy_respawn:
         pending_enemy_respawn = false

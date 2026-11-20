@@ -1,17 +1,33 @@
 #!/usr/bin/env python3
-"""Keep godot/data/ui_translations.json honest.
-
-Every source line must still be written somewhere in the game's scripts (a
-reworded label would otherwise silently fall back to Chinese), translations
-must be present, short enough for a button, and free of format placeholders:
-the engine only translates text that matches an entry exactly.
-"""
+"""Check English coverage, legacy button lengths and runtime substitutions."""
 import json
+import re
 import sys
+from collections import Counter
 from pathlib import Path
+
+from ui_translation_sources import HAN, inventory
 
 ROOT = Path(__file__).resolve().parents[1]
 PATH = ROOT / 'godot/data/ui_translations.json'
+FORMAT = re.compile(r'%(?:%|[+#0-]*\d*(?:\.\d+)?[sdifxXoc])')
+NAMED = re.compile(r'\{[a-zA-Z_][a-zA-Z_\d:]*\}')
+MARKUP = re.compile(r'\[/?(?:b|i|color|font_size|center|url)(?:=[^\]]+)?\]')
+
+
+def entry_errors(source, text):
+    if not isinstance(text, str) or not text.strip():
+        return ['missing translation']
+    errors = []
+    if HAN.search(text):
+        errors.append('English still contains Chinese')
+    if FORMAT.findall(source) != FORMAT.findall(text):
+        errors.append('format fields changed')
+    if Counter(NAMED.findall(source)) != Counter(NAMED.findall(text)):
+        errors.append('named fields changed')
+    if MARKUP.findall(source) != MARKUP.findall(text) or source.count('\n') != text.count('\n'):
+        errors.append('rich text or line breaks changed')
+    return errors
 
 
 def problems(data, sources):
@@ -43,15 +59,31 @@ def main():
         assert problems(dict(schema=1, locale='en', messages={'槽 %d': 'Slot %d'}), '"槽 %d"')
         assert problems(dict(schema=1, locale='en', messages={'返回': ''}), '"返回"') == ['missing translation: 返回']
         assert problems(dict(schema=2, locale='en', messages={}), '') == ['catalogue header is invalid']
+        assert not entry_errors('槽 %d · %.2f%%', 'Slot %d · %.2f%%')
+        assert entry_errors('松脂 %d', 'Resin')
+        assert entry_errors('按 {key:jump}', 'Press {key:dash}')
+        assert entry_errors('旅记', 'Journal 旅记')
         print('UI_TRANSLATIONS self-test OK')
         return 0
     data = json.loads(PATH.read_text(encoding='utf-8'))
-    sources = sorted((ROOT / 'godot/scripts').glob('*.gd')) + sorted((ROOT / 'godot/journey').rglob('*.gd'))
-    scripts = '\n'.join(p.read_text(encoding='utf-8') for p in sources if not p.name.endswith('_validation.gd'))
-    found = problems(data, scripts)
+    sources = dict(inventory())
+    authored = set().union(*sources.values())
+    found = problems(data, {f'"{s}"' for s in authored})
+    messages = dict(data['messages'])
+    for name in ('hints', 'journal', 'story', 'game'):
+        path = PATH.with_name(f'ui_en_{name}.json')
+        for source, text in json.loads(path.read_text(encoding='utf-8'))['messages'].items():
+            if source in messages:
+                found.append(f'{path.name}: duplicate source: {source}')
+            messages[source] = text
+            for error in entry_errors(source, text):
+                found.append(f'{path.name}: {error}: {source}')
+    for path, strings in sources.items():
+        for source in sorted(strings - messages.keys()):
+            found.append(f'{path.relative_to(ROOT)}: missing English: {source}')
     for line in found:
         print('UI_TRANSLATIONS', line)
-    print(f'UI_TRANSLATIONS entries={len(data["messages"])} problems={len(found)}')
+    print(f'UI_TRANSLATIONS entries={len(messages)} problems={len(found)}')
     return 1 if found else 0
 
 

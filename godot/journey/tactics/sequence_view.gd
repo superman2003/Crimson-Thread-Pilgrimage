@@ -26,7 +26,7 @@ func _draw() -> void:
     var index := 0
     for row in timeline.rows:
         var y := 18.0 + index * 48
-        draw_string(font, Vector2(16, y), String(row.name).left(28), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, EMPTY_TEXT)
+        draw_string(font, Vector2(16, y), atr(String(row.name)).left(28), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, EMPTY_TEXT)
         for phase in row.phases:
             var x := 16 + float(phase.start) / duration * width
             var length := (float(phase.finish) - float(phase.start)) / duration * width
@@ -34,7 +34,7 @@ func _draw() -> void:
         var box := Rect2(16 + float(row.begin) / duration * width, y + 4, maxf(10, (float(row.finish) - float(row.begin)) / duration * width), 20)
         hit_boxes.append({"rect":box, "key":row.key, "name":row.name, "begin":row.begin, "finish":row.finish})
         index += 1
-    draw_string(font, Vector2(16, size.y - 8), "总字段时长 %.2f秒 · 点击色条打开原动作" % duration, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, LEGEND_TEXT)
+    draw_string(font, Vector2(16, size.y - 8), atr("总字段时长 %.2f秒 · 点击色条打开原动作" % duration), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, LEGEND_TEXT)
 
 func _gui_input(event: InputEvent) -> void:
     if event is InputEventMouseMotion:
@@ -49,3 +49,8 @@ func _gui_input(event: InputEvent) -> void:
                 action_selected.emit(String(box.key))
                 accept_event()
                 break
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

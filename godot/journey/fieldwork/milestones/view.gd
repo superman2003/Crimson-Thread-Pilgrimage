@@ -170,7 +170,7 @@ func _draw() -> void:
         draw_string(
             font,
             area.position + Vector2(20, 40),
-            "保存观察后显示个人记录序列。",
+            atr("保存观察后显示个人记录序列。"),
             HORIZONTAL_ALIGNMENT_LEFT,
             area.size.x - 40,
             16,
@@ -179,7 +179,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(LEFT, TOP - 10),
-        "横轴：观察顺序；记录时间另见表格",
+        atr("横轴：观察顺序；记录时间另见表格"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         12,
@@ -188,7 +188,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 10),
-        "顶部选择类型 · 方向键逐份查看 · 不表示实际取得时间或全游戏完成率",
+        atr("顶部选择类型 · 方向键逐份查看 · 不表示实际取得时间或全游戏完成率"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -196,3 +196,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

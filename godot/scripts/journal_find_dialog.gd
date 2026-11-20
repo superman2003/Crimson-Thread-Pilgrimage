@@ -65,8 +65,14 @@ func _bound() -> bool:
     return _available(ui) and source_key==String(ui.journal_current_document.get("key","")) and source_hash==String(ui.journal_current_document.get("fingerprint","")) and source_scope==String(ui.level.world_save_path) and source_generation==int(ui.reading_session_generation)
 
 func refresh_launcher() -> void:
-    if is_instance_valid(launcher):launcher.disabled=not _available(_host())
+    var ui:=_host()
+    if is_instance_valid(launcher):launcher.disabled=not _available(ui)
     if visible and not _bound():hide()
+    elif visible and source!=String(ui.journal_current_document.text):
+        source=String(ui.journal_current_document.text)
+        title=String(ui.journal_current_document.title).left(100)+" · 本条查找"
+        editor.text=FIND.normalized(source) if source.length()<=FIND.MAX_TEXT else "本条内容过长，请返回原旅记阅读；不会截断正文后声称已查遍。"
+        rebuild()
 
 func open() -> void:
     var ui:=_host()

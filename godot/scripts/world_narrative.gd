@@ -407,6 +407,6 @@ func npc_world_state(npc_id: String, flags: Dictionary) -> Dictionary:
 ## Reading estimate for subtitle pacing; never auto-advances a conversation.
 static func subtitle_duration(line: String) -> float:
     var pauses := 0
-    for mark in ["，", "。", "？", "！", "；", "…"]:
+    for mark in ["，", "。", "？", "！", "；", "…", ",", ".", "?", "!", ";"]:
         pauses += line.count(mark)
     return clampf(float(line.length()) / 17.0 + float(pauses) * 0.16, 0.55, 5.0)

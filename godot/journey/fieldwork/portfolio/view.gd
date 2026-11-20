@@ -124,7 +124,7 @@ func _grid(font: Font) -> void:
         draw_string(
             font,
             Vector2(x - 12, area.end.y + 19),
-            "%.0f%%" % (portion * 100),
+            atr("%.0f%%" % (portion * 100)),
             HORIZONTAL_ALIGNMENT_LEFT,
             50,
             11,
@@ -133,7 +133,7 @@ func _grid(font: Font) -> void:
         draw_string(
             font,
             Vector2(4, y + 4),
-            "%.0f%%" % (portion * 100),
+            atr("%.0f%%" % (portion * 100)),
             HORIZONTAL_ALIGNMENT_LEFT,
             45,
             11,
@@ -194,7 +194,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(LEFT, 20),
-        "Gini %.3f · 按个人等价从小到大累计" % gini,
+        atr("Gini %.3f · 按个人等价从小到大累计" % gini),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - LEFT - 10,
         13,
@@ -204,7 +204,7 @@ func _draw() -> void:
         draw_string(
             font,
             _area().get_center(),
-            "尚无持有物资样本",
+            atr("尚无持有物资样本"),
             HORIZONTAL_ALIGNMENT_CENTER,
             250,
             16,
@@ -213,7 +213,7 @@ func _draw() -> void:
     draw_string(
         font,
         Vector2(10, size.y - 10),
-        "横轴累计条目占比 · 纵轴累计个人等价占比 · 方向键查看 · G切换差距线",
+        atr("横轴累计条目占比 · 纵轴累计个人等价占比 · 方向键查看 · G切换差距线"),
         HORIZONTAL_ALIGNMENT_LEFT,
         size.x - 20,
         12,
@@ -221,3 +221,8 @@ func _draw() -> void:
     )
     if has_focus():
         draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), Color("cfb484"), false, 2)
+
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_TRANSLATION_CHANGED:
+        queue_redraw()

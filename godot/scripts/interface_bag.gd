@@ -45,19 +45,24 @@ static func build_bag_list(ui: Node) -> void:
     ui.bag_scroll=scroll
     ui.journal_filters=HBoxContainer.new()
     ui.journal_filters.position=Vector2(34,189)
-    ui.journal_filters.add_theme_constant_override("separation",SPACING.ROW)
+    ui.journal_filters.size.x=645
+    ui.journal_filters.add_theme_constant_override("separation",SPACING.TIGHT)
     ui.journal_filters.visible=false
     ui.bag.add_child(ui.journal_filters)
     var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["ability","能力"],["people","人物"],["voice","自述"]]
-    var filter_width = floorf((645.0-(filters.size()-1)*float(SPACING.ROW))/filters.size())
     for pair in filters:
         var filter_id:=String(pair[0])
-        var filter_button = ui._button(ui.journal_filters,String(pair[1]),Vector2.ZERO,Vector2(filter_width,28),func():
+        var filter_button = ui._button(ui.journal_filters,String(pair[1]),Vector2.ZERO,Vector2(0,28),func():
             ui.journal_filter=filter_id
             ui.journal_selection=0
             ui.bag_scroll.scroll_vertical=0
             ui.refresh_inventory())
-        filter_button.custom_minimum_size=Vector2(filter_width,28)
+        filter_button.custom_minimum_size.y=28
+        filter_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+        for state in ["normal","hover","focus","pressed","disabled"]:
+            var frame: StyleBox = filter_button.get_theme_stylebox(state)
+            frame.set_content_margin(SIDE_LEFT,4)
+            frame.set_content_margin(SIDE_RIGHT,4)
         filter_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
         ui.journal_filter_buttons[filter_id]=filter_button
 
@@ -72,7 +77,8 @@ static func build_bag_journal_tools(ui: Node) -> void:
     # Enter the tree before setting text: shaping text on a detached control
     # costs several ms each (see the 10-21 UI rebuild report).
     ui.journal_search=LineEdit.new()
-    ui.journal_search.custom_minimum_size=Vector2(236,30)
+    ui.journal_search.custom_minimum_size=Vector2(100,30)
+    ui.journal_search.size_flags_horizontal=Control.SIZE_EXPAND_FILL
     ui.journal_search.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.journal_tools.add_child(ui.journal_search)
     ui.journal_search.placeholder_text="搜索已知记录 · Ctrl+F"
@@ -117,6 +123,7 @@ static func build_bag_detail(ui: Node) -> void:
     ui.bag_icon=ui._icon(ui.bag,null,Vector2(834,166),Vector2(95,95))
     ui.bag_name=ui._label(ui.bag,"",Vector2(734,273),Vector2(342,34),23)
     ui.bag_name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+    ui.bag_name.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
     ui.bag_category_label=ui._label(ui.bag,"",Vector2(734,314),Vector2(342,26),TYPE.BODY,ui.GOLD)
     ui.bag_category_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     ui.bag_description=RichTextLabel.new()

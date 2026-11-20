@@ -1,10 +1,13 @@
 extends RefCounted
+const NAMED_TEXT := preload("res://scripts/user_named_text.gd")
 ## Refreshing the build page, loadout restore and changes, entry details, craft cart and the save desk.
 ## Moved out of pilgrimage_interface.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
 
 static func refresh_build(ui: Node) -> void:
     if ui.build_grid==null:return
+    if is_instance_valid(ui.build_heading):
+        ui.build_heading.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_INHERIT
     var system: Variant=ui.level.call("get_build_system") if ui.level!=null and ui.level.has_method("get_build_system") else null
     var snapshot: Dictionary = ui._build_snapshot()
     ui.last_build_signature=JSON.stringify(snapshot)
@@ -204,10 +207,14 @@ static func refresh_build(ui: Node) -> void:
             if first==button and button.disabled:first=save
             button.text="恢复「%s」%s" % [id,"" if bool(entry.get("exists",false)) else " · 尚未保存"]
             if bool(entry.get("exists",false)):
+                NAMED_TEXT.bind(button, "恢复「%s」%s", [id, ""], [], button.tooltip_text)
+                NAMED_TEXT.bind(save, "覆盖「%s」", [id])
                 var remove: Button = ui._button(ui.build_grid,"删除「%s」" % id,Vector2.ZERO,Vector2(563,30),func():ui._request_loadout_change("delete_loadout",name_value))
+                NAMED_TEXT.bind(remove, "删除「%s」", [id])
                 remove.custom_minimum_size=Vector2(563,30)
                 remove.set_meta("loadout_delete",id)
                 var manage: Button = ui._button(ui.build_grid,"重命名 / 复制「%s」" % id,Vector2.ZERO,Vector2(563,30),func():ui._open_loadout_manager(name_value))
+                NAMED_TEXT.bind(manage, "重命名 / 复制「%s」", [id])
                 manage.custom_minimum_size=Vector2(563,30)
                 manage.set_meta("loadout_manage",id)
     ui._wire_equipment_result_focus()
@@ -303,7 +310,9 @@ static func request_loadout_change(ui: Node, action: String, name: String) -> vo
     ui.pending_loadout_action=action
     ui.pending_loadout_name=name
     ui.loadout_dialog.title="覆盖构筑方案" if action=="save_loadout" else "删除构筑方案"
-    ui.loadout_dialog.dialog_text=("用当前装备覆盖「%s」？旧方案将被替换。" if action=="save_loadout" else "删除「%s」？当前装备、资源和其它方案保留。") % name
+    var question := "用当前装备覆盖「%s」？旧方案将被替换。" if action=="save_loadout" else "删除「%s」？当前装备、资源和其它方案保留。"
+    ui.loadout_dialog.dialog_text = question % name
+    NAMED_TEXT.bind(ui.loadout_dialog.get_label(), question, [name])
     ui.loadout_dialog.get_ok_button().text="确认覆盖" if action=="save_loadout" else "确认删除"
     ui.loadout_dialog.get_cancel_button().text="保留原方案"
     ui.loadout_dialog.popup_centered(Vector2i(500,160))
@@ -386,6 +395,8 @@ static func show_build_detail(ui: Node, entry: Dictionary) -> void:
         ui.build_art.seal_id=String(entry.get("id","crimson"))
         ui.build_art.queue_redraw()
     var entry_name:=String(entry.get("name",entry.get("id","")))
+    var player_named: bool = ui.build_category == "构筑" and entry.get("exists", false) and not NAMED_TEXT.is_default_loadout(entry_name)
+    ui.build_heading.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED if player_named else Node.AUTO_TRANSLATE_MODE_INHERIT
     ui.build_heading.text=entry_name
     var icon_path:="res://assets/ui/seals/%s.svg" % String(entry.get("id",""))
     ui.build_emblem.texture=load(icon_path) if ResourceLoader.exists(icon_path) else null
