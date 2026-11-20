@@ -255,6 +255,18 @@ func _main_route_reachable_physics(config: Dictionary) -> bool:
             platforms.append(platform)
     if platforms.size() < 2:
         return false
+    # A cave lift carries the player between its landings: its basket is a
+    # standable 132 px floor at each end, and reaching one end reaches the other.
+    var lift_pairs: Dictionary = {}
+    for lift in config.get("cave_lifts", []):
+        if not lift is Dictionary:
+            continue
+        var x := float(lift.get("x", 0.0))
+        var lower := platforms.size()
+        platforms.append({"id": "%s_basket_bottom" % lift.get("id", ""), "rect": [x - 66.0, float(lift.get("bottom_y", 0.0)), 132.0, 22.0]})
+        platforms.append({"id": "%s_basket_top" % lift.get("id", ""), "rect": [x - 66.0, float(lift.get("top_y", 0.0)), 132.0, 22.0]})
+        lift_pairs[lower] = lower + 1
+        lift_pairs[lower + 1] = lower
     var start: Array = config.get("player_start", [])
     if start.size() < 2:
         return false
@@ -271,6 +283,9 @@ func _main_route_reachable_physics(config: Dictionary) -> bool:
         return false
     while not queue.is_empty():
         var current: int = queue.pop_front()
+        if lift_pairs.has(current) and not reached.has(lift_pairs[current]):
+            reached[lift_pairs[current]] = true
+            queue.append(lift_pairs[current])
         for next_index in range(platforms.size()):
             if reached.has(next_index):
                 continue
