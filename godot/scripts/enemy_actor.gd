@@ -24,6 +24,12 @@ const ENEMY_ATTACK_CHOICE := preload("res://scripts/enemy_attack_choice.gd")
 const ENEMY_ATTACK_PHASES := preload("res://scripts/enemy_attack_phases.gd")
 const ENEMY_LIFECYCLE := preload("res://scripts/enemy_lifecycle.gd")
 const ENEMY_COMMANDS := preload("res://scripts/enemy_commands.gd")
+const ENEMY_GROUND_BODY := preload("res://scripts/enemy_ground_body.gd")
+var ground_body: ENEMY_GROUND_BODY
+var ground_clearance := 40.0
+var ground_motion_planning := false
+var ground_target_speed := 0.0
+var ground_stop_x := INF
 var minor_skill_texture: Texture2D
 var locomotion := "ground"
 var flight_clock := 0.0
@@ -355,6 +361,11 @@ func _ready() -> void:
     monitorable = true
     body_entered.connect(_on_body_entered)
     prepare_presentation()
+    if locomotion == "ground" and not is_boss:
+        ground_body = ENEMY_GROUND_BODY.new()
+        ground_body.setup(body_size, ground_clearance)
+        add_child(ground_body)
+        ground_body.global_position = global_position + ground_body.feet_offset
     reset_physics_interpolation()
     _ensure_boss_brain()
 
@@ -400,6 +411,10 @@ func _step_enemy(delta: float) -> void:
     _set_combat_visuals_paused(ui_locked)
     if ui_locked:
         return
+    if ground_body != null and state == "patrol":
+        var level := LEVEL_HOST.of(self)
+        if level != null and level.has_method("_world_collision_ready") and not level._world_collision_ready():
+            return
     var movement_start:=global_position
     if is_boss and battle_phase == 1 and hp <= max_hp * float(ai_profile.get("phase_threshold",0.55)):
         if boss_brain != null:boss_brain.reset_plan()
@@ -422,6 +437,10 @@ func _step_enemy(delta: float) -> void:
         phase_pause-=delta
         return
     _tick_timers(delta)
+    var uses_ground_body := ground_body != null and delta > 0.0 and Engine.is_in_physics_frame()
+    ground_motion_planning = uses_ground_body and state == "patrol"
+    ground_target_speed = 0.0
+    ground_stop_x = INF
     var target := _target_player()
     BOSS_STYLE.remember(self,delta,target)
     if target != null and not _is_attack_state() and _is_aware_of(target):
@@ -442,9 +461,42 @@ func _step_enemy(delta: float) -> void:
         _update_recover(delta)
     else:
         _update_patrol_or_aggro(delta, target)
+    var walk_on_ground := ground_motion_planning and state == "patrol"
+    ground_motion_planning = false
     if not dying and not is_queued_for_deletion():
-        _update_locomotion(delta,target)
+        if walk_on_ground:
+            var before_walk := global_position
+            if trip_timer > 0.0 or absf(knockback_velocity) >= 0.1:
+                ground_target_speed = 0.0
+                ground_body.velocity.x = 0.0
+            ground_body.walk(self, player_node as PhysicsBody2D, speed, ground_target_speed, ground_stop_x, movement_limits(), delta)
+            var travel := global_position.x - before_walk.x
+            if absf(travel) >= 0.015:
+                direction = -1 if travel < 0.0 else 1
+                _set_sprite_flip(direction < 0)
+                _set_enemy_animation("walk")
+            else:
+                _set_enemy_animation("idle")
+        else:
+            if ground_body != null:
+                ground_body.velocity = Vector2.ZERO
+            # A grounded wind-up or guard keeps the contact point already
+            # found by move_and_slide. Authored attack travel still owns its path.
+            if not uses_ground_body or global_position != movement_start:
+                _update_locomotion(delta,target)
         _sync_walk_cadence(delta,movement_start)
+
+
+func walk_horizontally(target_speed: float, delta: float, stop_x: float) -> void:
+    if ground_motion_planning:
+        ground_target_speed = target_speed
+        ground_stop_x = stop_x
+    else:
+        position.x += target_speed * delta
+
+
+func movement_limits() -> Vector2:
+    return ENEMY_LIFECYCLE.movement_limits(self)
 
 
 func _update_animation_motion(delta: float, previous_position: Vector2, previous_state: String) -> void:
@@ -843,10 +895,15 @@ func _load_texture_resource(path: String) -> Texture2D:
 
 
 func _set_sprite_flip(flip_value: bool) -> void:
+    if ground_motion_planning and state == "patrol":
+        requested_sprite_flip = flip_value
+        return
     ENEMY_PRESENTATION.set_sprite_flip(self, flip_value)
 
 
 func _set_enemy_animation(animation_name: String, restart: bool = false) -> void:
+    if ground_motion_planning and state == "patrol" and not restart and animation_name in ["idle", "walk"]:
+        return
     ENEMY_PRESENTATION.set_enemy_animation(self, animation_name, restart)
 
 

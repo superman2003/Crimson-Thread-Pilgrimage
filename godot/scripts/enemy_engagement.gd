@@ -61,6 +61,9 @@ static func movement_speed(actor: Node) -> float:
 static func update_patrol_or_aggro(actor: Node, delta: float, target: CharacterBody2D) -> void:
     if actor.lure_timer > 0.0 and not actor.is_boss:
         var dx = actor.lure_position.x - actor.global_position.x
+        if actor.ground_motion_planning:
+            actor.walk_horizontally(signf(dx) * actor._movement_speed(), delta, actor.lure_position.x)
+            return
         var step = signf(dx) * minf(absf(dx), actor._movement_speed() * delta)
         var lure_ray = PhysicsRayQueryParameters2D.create(actor.global_position + Vector2(0,-24), actor.global_position + Vector2(step + signf(dx) * 24,-24), 1)
         lure_ray.collide_with_areas = false
@@ -144,7 +147,8 @@ static func return_to_post(actor: Node, delta: float, waiting_decision: String) 
     actor.last_ai_decision = "return_post"
     actor.direction = -1 if dx < 0.0 else 1
     actor._set_sprite_flip(actor.direction < 0)
-    actor.position.x += actor.direction * minf(absf(dx), actor._movement_speed() * 0.6 * delta)
+    var speed: float = minf(absf(dx) / delta, actor._movement_speed() * 0.6) if delta > 0.0 else 0.0
+    actor.walk_horizontally(actor.direction * speed, delta, actor.spawn_position.x)
     actor._clamp_movement_bounds()
     actor._set_enemy_animation("walk")
 
@@ -268,7 +272,7 @@ static func investigate(actor: Node, delta: float) -> void:
         return
     actor.direction = -1 if dx < 0.0 else 1
     actor._set_sprite_flip(actor.direction < 0)
-    actor.position.x += actor.direction * actor._movement_speed() * 0.85 * delta
+    actor.walk_horizontally(actor.direction * actor._movement_speed() * 0.85, delta, actor.last_seen_position.x)
     actor._clamp_movement_bounds()
     actor._set_enemy_animation("walk")
 
@@ -298,22 +302,19 @@ static func move_in_combat(actor: Node, delta: float, target: CharacterBody2D) -
     desired += ally_queue_offset(actor, target)
     var chase_speed: float = actor._movement_speed() * (float(actor.ai_profile.get("pressure_speed_multiplier", 1.18)) if pressured else 1.0)
     var movement_direction := 0.0
-    if attack_range > 0.0 and distance > attack_range - 10.0 and distance > desired + 14.0:
+    if distance > desired + 14.0:
         movement_direction = signf(dx)
-        actor.position.x += movement_direction * chase_speed * delta
+        var stop_x := target.global_position.x - movement_direction * (desired + 14.0)
+        actor.walk_horizontally(movement_direction * chase_speed, delta, stop_x)
         moved = true
-        actor.last_ai_decision = "press"
-    elif distance > desired + 14.0:
-        movement_direction = signf(dx)
-        actor.position.x += movement_direction * chase_speed * delta
-        moved = true
-        actor.last_ai_decision = "advance"
+        actor.last_ai_decision = "press" if attack_range > 0.0 and distance > attack_range - 10.0 else "advance"
     elif distance < desired - 18.0 and (not pressured or (not actor.is_boss and preferred >= 120.0)):
         # Ordinary profiles authored with a long preferred_range (ranged/air
         # roles) keep their standoff under pressure. Boss spacing remains on
         # its original pressure-forward rule.
         movement_direction = -signf(dx)
-        actor.position.x += movement_direction * actor._movement_speed() * 0.55 * delta
+        var stop_x := target.global_position.x + movement_direction * (desired - 18.0)
+        actor.walk_horizontally(movement_direction * actor._movement_speed() * 0.55, delta, stop_x)
         moved = true
         actor.last_ai_decision = "space"
     else:

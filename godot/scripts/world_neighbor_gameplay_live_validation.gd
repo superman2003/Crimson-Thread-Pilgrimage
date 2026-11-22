@@ -189,11 +189,22 @@ func fight(records: Dictionary) -> void:
     check(enemy != null,"arrival has a reused combat actor")
     if enemy == null: return
     var instance_id := enemy.get_instance_id()
+    var body := enemy.ground_body as CharacterBody2D
+    check(body != null and body.get_parent() == enemy,"adopted crawler owns its terrain body")
     var hp_before: int = scene.player.hp
     var reads_before: int = enemy.command_read_count
-    if not await walk(Vector2(620,812),"rain approach"): return
+    var grounded_walk_frames := [0]
+    var observe_walk := func() -> void:
+        if is_instance_valid(body) and is_instance_valid(enemy) and enemy.state == "patrol" \
+                and body.is_on_floor() and absf(body.get_position_delta().x) > 0.05 \
+                and body.global_position.is_equal_approx(enemy.global_position + body.feet_offset):
+            grounded_walk_frames[0] += 1
+    physics_frame.connect(observe_walk)
     # Continue beyond the tower roof before engaging on the aqueduct deck.
-    if not await walk(Vector2(960,880),"aqueduct combat deck"): return
+    var reached_deck := await walk(Vector2(620,812),"rain approach") and await walk(Vector2(960,880),"aqueduct combat deck")
+    physics_frame.disconnect(observe_walk)
+    if not reached_deck: return
+    check(grounded_walk_frames[0] > 0,"adopted enemy walks on solid terrain before combat")
     # Wait for an actual AI/contact hit; no direct take_damage/take_hit calls.
     for unused in 240:
         if scene.player.hp < hp_before: break
@@ -224,7 +235,7 @@ func fight(records: Dictionary) -> void:
     check(scene.enemy_defeated == defeated+1 and scene.currency_count == wallet+8,"adopted enemy death rewards once")
     var saved := STATE.new()
     check(saved.read(SAVE) and int(saved.data.currency) == scene.currency_count,"reused enemy reward persists")
-    combat = {"actor_id":instance_id,"hp_before":hp_before,"hp_after_hit":hp_after_hit,"killed":killed,"reward_delta":scene.currency_count-wallet,"direct_damage_calls":false}
+    combat = {"actor_id":instance_id,"grounded_walk_frames":grounded_walk_frames[0],"hp_before":hp_before,"hp_after_hit":hp_after_hit,"killed":killed,"reward_delta":scene.currency_count-wallet,"direct_damage_calls":false}
 
 func interactions(records: Dictionary) -> void:
     var shrine: Area2D = LEVEL_HOST.find(scene, "save_first_bell")

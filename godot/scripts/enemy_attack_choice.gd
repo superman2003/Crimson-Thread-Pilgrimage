@@ -26,7 +26,16 @@ static func patrol(actor: Node, delta: float) -> void:
         return
     actor.direction = actor.patrol_direction
     actor._set_sprite_flip(actor.direction < 0)
-    actor.position.x += actor.direction * actor._movement_speed() * 0.72 * delta
+    var turn_x: float = actor.start_x + actor.patrol_direction * walk_range
+    if actor.ground_motion_planning:
+        var limits: Vector2 = actor.movement_limits()
+        turn_x = clampf(turn_x, limits.x, limits.y)
+        var toward_wall: bool = actor.ground_body.is_on_wall() and actor.ground_body.get_wall_normal().x * actor.patrol_direction < 0.0
+        if (turn_x - actor.global_position.x) * actor.patrol_direction <= 0.5 or toward_wall:
+            actor.patrol_direction *= -1
+            actor.patrol_pause_timer = actor.ai_rng.randf_range(0.5, 1.3)
+            return
+    actor.walk_horizontally(actor.direction * actor._movement_speed() * 0.72, delta, turn_x)
     actor._set_enemy_animation("walk")
     var offset = actor.global_position.x - actor.start_x
     if absf(offset) > walk_range and signf(offset) == float(actor.patrol_direction):
@@ -61,14 +70,15 @@ static func should_return_to_spawn(actor: Node, target: CharacterBody2D, aggro_r
 static func return_to_spawn(actor: Node, delta: float) -> void:
     var dx = actor.spawn_position.x - actor.global_position.x
     if absf(dx) <= 5.0:
-        actor.global_position = actor.spawn_position
-        actor.reset_physics_interpolation()
+        if not actor.ground_motion_planning:
+            actor.global_position = actor.spawn_position
+            actor.reset_physics_interpolation()
         actor.direction = 1
         actor._set_sprite_flip(false)
         actor._set_enemy_animation("idle")
         return
     actor.direction = -1 if dx < 0.0 else 1
-    actor.position.x += actor.direction * actor._movement_speed() * delta
+    actor.walk_horizontally(actor.direction * actor._movement_speed(), delta, actor.spawn_position.x)
     actor._clamp_movement_bounds()
     actor._set_sprite_flip(actor.direction < 0)
     actor._set_enemy_animation("walk")

@@ -4,6 +4,7 @@ extends SceneTree
 const ENEMY := preload("res://scripts/enemy_actor.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const RETIRE := preload("res://scripts/audio_retirement.gd")
+const GROUND_MOTION := preload("res://scripts/character_ground_motion.gd")
 var checks := 0
 var failures := 0
 var seen := {}
@@ -41,6 +42,143 @@ func finish(actor) -> void:
     while not actor.motion_transitions.active.is_empty() and Time.get_ticks_msec()<deadline:
         await process_frame
     check(actor.motion_transitions.active.is_empty(),"real animation clock finishes gesture")
+
+
+func check_grounded_locomotion(stage: Node2D) -> void:
+    const GROUND_Y := 860.0
+    var terrain := StaticBody2D.new()
+    var ramp := CollisionPolygon2D.new()
+    ramp.polygon = PackedVector2Array([
+        Vector2(20, GROUND_Y), Vector2(300, GROUND_Y), Vector2(420, GROUND_Y - 60),
+        Vector2(720, GROUND_Y - 60), Vector2(720, GROUND_Y + 100), Vector2(20, GROUND_Y + 100),
+    ])
+    terrain.add_child(ramp)
+    stage.add_child(terrain)
+
+    var walker := ENEMY.new()
+    walker.configure({"id": "grounded_patrol", "kind": "moss_larva", "patrol": 185.0, "leash_radius": 1000.0,
+        "encounter_profile": {"move_speed": 120.0, "aggro_range": 400.0, "preferred_range": 80.0}}, "")
+    walker.position = Vector2(160, GROUND_Y - 40)
+    stage.add_child(walker)
+    var body: CharacterBody2D = walker.ground_body
+    check(body != null, "ordinary enemy uses a separate terrain body")
+    if body == null:
+        walker.queue_free()
+        terrain.queue_free()
+        return
+    check(body.collision_layer == 0 and walker is Area2D and walker.monitorable,
+        "terrain movement is separate from the enemy damage area")
+    var gait := walker.speed * 0.72
+    var rate_limit := walker.speed * GROUND_MOTION.ACCELERATION / Engine.physics_ticks_per_second
+    var previous_speed := 0.0
+    var max_change := 0.0
+    var max_x := walker.position.x
+    var startup_steps := 0
+    var braking_steps := 0
+    var grounded_on_ramp := 0
+    var saw_pause := false
+    var reversed := false
+    for tick in 300:
+        await physics_frame
+        var vx := body.velocity.x
+        max_change = maxf(max_change, absf(vx - previous_speed))
+        if not saw_pause and previous_speed < vx and vx < gait - 0.1:
+            startup_steps += 1
+        if not saw_pause and vx > 0.1 and vx < previous_speed:
+            braking_steps += 1
+        if body.global_position.x > 316.0 and body.global_position.x < 344.0 and body.is_on_floor():
+            grounded_on_ramp += 1
+        max_x = maxf(max_x, walker.position.x)
+        saw_pause = saw_pause or walker.patrol_pause_timer > 0.0
+        if saw_pause and vx < -0.1:
+            reversed = true
+            break
+        previous_speed = vx
+    check(startup_steps >= 3 and braking_steps >= 2 and max_change <= rate_limit + 0.7,
+        "live patrol accelerates, brakes and reverses on the shared speed curve")
+    check(grounded_on_ramp > 10 and walker.position.y <= GROUND_Y - 45.0,
+        "walking enemies use physical floor contact on the ramp")
+    check(reversed and max_x > 342.0 and max_x <= 345.15,
+        "ordinary patrol pauses at the turn and remains inside its authored range (x %.3f, peak %.3f, paused %s, turned %s)"
+            % [walker.position.x, max_x, saw_pause, reversed])
+
+    var wall := StaticBody2D.new()
+    var wall_shape := CollisionShape2D.new()
+    var box := RectangleShape2D.new()
+    box.size = Vector2(20, 240)
+    wall_shape.shape = box
+    wall.position = Vector2(510, GROUND_Y - 150)
+    wall.add_child(wall_shape)
+    stage.add_child(wall)
+    walker.patrol_distance = 12.0
+    walker.ai_commands = []
+    var player := CharacterBody2D.new()
+    player.position = Vector2(650, GROUND_Y - 60)
+    player.add_to_group("player")
+    var player_shape := CollisionShape2D.new()
+    var player_box := RectangleShape2D.new()
+    player_box.size = Vector2(34, 84)
+    player_shape.shape = player_box
+    player_shape.position.y = -42.0
+    player.add_child(player_shape)
+    stage.add_child(player)
+    walker.last_seen_position = Vector2(630, GROUND_Y - 100)
+    walker.memory_timer = 4.0
+    walker.ai_profile["aggro_range"] = 700.0
+    var blocked := false
+    for tick in 160:
+        await physics_frame
+        if body.is_on_wall():
+            blocked = true
+            break
+    await physics_frame
+    check(blocked and walker.position.x + walker.body_size.x * 0.5 <= 500.1,
+        "last-seen pursuit stops at a real wall")
+    check(walker.animated_sprite.animation != &"walk", "walking animation stops when the enemy is blocked")
+    wall.queue_free()
+    player.position = Vector2(673, GROUND_Y - 60)
+    for tick in 160:
+        await physics_frame
+        if walker.position.x > 541.0:
+            break
+    check(walker.position.x > 541.0 and walker.last_ai_decision in ["press", "advance"],
+        "a visible target resumes the pursuit once the path opens")
+    var chase_speed := body.velocity.x
+    walker.ai_profile["preferred_range"] = 124.0
+    player.position.x = walker.position.x + 42.0
+    var retreated := false
+    var reverse_change := 0.0
+    for tick in 55:
+        await physics_frame
+        var vx := body.velocity.x
+        reverse_change = maxf(reverse_change, absf(vx - chase_speed))
+        chase_speed = vx
+        if vx < -1.0 and walker.last_ai_decision == "space":
+            retreated = true
+            break
+    check(retreated and reverse_change <= rate_limit + 0.7,
+        "standoff AI eases out of a chase before retreating (last %s, peak speed change %.3f)"
+            % [walker.last_ai_decision, reverse_change])
+
+    # A wind-up can begin while a walker is moving. Patrol momentum must
+    # not carry damage or move the telegraphed origin.
+    var windup_position := walker.global_position
+    walker._begin_attack({"id": "grounded_windup", "type": "melee", "windup": 0.25, "active": 0.12})
+    for tick in 5:
+        await physics_frame
+    check(walker.state == "windup" and walker.global_position.is_equal_approx(windup_position)
+        and body.velocity.is_zero_approx(), "attack wind-up holds its origin and drops walk momentum")
+    walker.reset_for_respawn()
+    check(walker.global_position == walker.spawn_position and body.velocity.is_zero_approx(),
+        "respawn clears ground velocity and restores the original spawn")
+    print("ENEMY_GROUND_MOTION startup=%d braking=%d ramp=%d max_speed_change=%.3f"
+        % [startup_steps, braking_steps, grounded_on_ramp, max_change])
+    RETIRE.retire_tree(walker)
+    walker.queue_free()
+    player.queue_free()
+    terrain.queue_free()
+    await process_frame
+
 
 func run() -> void:
     for argument in OS.get_cmdline_user_args():
@@ -177,6 +315,7 @@ func run() -> void:
     face(twin,not twin.animated_sprite.flip_h)
     twin.take_hit(9999,1)
     check(twin.dying and twin.motion_transitions.active.is_empty() and twin.animated_sprite.animation==&"death","lethal hit immediately replaces the movement gesture with death")
+    await check_grounded_locomotion(stage)
     if not output.is_empty():
         DirAccess.make_dir_recursive_absolute(output)
         actor._set_flash_amount(0.0)
