@@ -67,7 +67,8 @@ static func _cross_region_exits(config: Dictionary, region: String, region_names
         var passage_name := String(physical.get("passage", {}).get("label", label))
         var access := ROUTES.access(portal, inventory, flags)
         var status := "已通" if access.open else "暂不可通 · %s" % String(access.label)
-        var instruction := "靠近入口后互动" if physical.is_empty() else "沿入口方向步行"
+        var interact := physical.is_empty() or bool(portal.get("interact_to_enter", false))
+        var instruction := "靠近入口后互动" if interact else "沿入口方向步行"
         var detail := "%s\n%s\n%s" % [String(room.get("name", room.id)), status, instruction]
         var item := _record("exit", id, region, config, room, point, detail)
         item.title = "%s → %s" % [passage_name, region_names[target]]

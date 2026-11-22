@@ -9,6 +9,7 @@ var area: Area2D
 var symbol := "rest"
 var direction := Vector2.RIGHT
 var physical_sign := false
+var interact_to_enter := false
 var nearby := false
 var gate_state := "open"
 var key_hint := ""
@@ -50,6 +51,7 @@ static func region_symbol(region: String) -> String:
 func configure_portal(data: Dictionary, region: String) -> void:
     symbol = region_symbol(String(data.get("target_config_id", "")))
     physical_sign = true
+    interact_to_enter = bool(data.get("interact_to_enter", false))
     mount = String(data.get("sign_mount", ["stone", "wall", "lantern"][posmod(String(data.get("id", "")).hash(), 3)]))
     var start := COORD.to_world(region, Vector2(data.position[0], data.position[1]))
     var spawn: Array = data.get("target_spawn", [0, 0])
@@ -128,11 +130,14 @@ func _draw() -> void:
         _housing(c,physical_sign)
         _icon(symbol,c+Vector2(-12,0) if physical_sign else c,0.78 if physical_sign else 0.9)
     if physical_sign:
-        var tail := c+Vector2(21,0)-direction*10
-        var tip := c+Vector2(21,0)+direction*10
-        draw_line(tail,tip,INK,2.5,true)
-        var normal := Vector2(-direction.y,direction.x)
-        draw_polyline(PackedVector2Array([tip-direction*6+normal*5,tip,tip-direction*6-normal*5]),INK,2.5,true)
+        if interact_to_enter:
+            _icon("passage", c+Vector2(21,0), 0.65)
+        else:
+            var tail := c+Vector2(21,0)-direction*10
+            var tip := c+Vector2(21,0)+direction*10
+            draw_line(tail,tip,INK,2.5,true)
+            var normal := Vector2(-direction.y,direction.x)
+            draw_polyline(PackedVector2Array([tip-direction*6+normal*5,tip,tip-direction*6-normal*5]),INK,2.5,true)
         if gate_state != "open":
             _icon("lock" if gate_state == "far_side" else "ability",c+Vector2(0,39),0.65)
     _caption_layer().queue_redraw()

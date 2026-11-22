@@ -8,6 +8,10 @@ on:
       - 'godot/data/scene_history.json'
       - 'godot/scripts/chapter_terrain.gd'
       - 'godot/scripts/cave_world.gd'
+      - 'godot/scripts/world_passage.gd'
+      - 'godot/scripts/world_wayfinding.gd'
+      - 'godot/scripts/level_world_start.gd'
+      - 'godot/scripts/level_world_travel.gd'
       - 'tools/audit_platform_geometry.py'
       - 'tools/test_map_audits.py'
       - 'godot/scripts/six_region_route_redesign_validation.gd'
@@ -54,7 +58,7 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
             --suite six_region_route_redesign --suite cave_route_walk --suite chapter_route_regression \
-            --suite world_passage_network --suite world_resume_regression --suite scene_history \
+            --suite world_passage_network --suite world_wayfinding --suite world_resume_regression --suite scene_history \
             --log-dir "$RUNNER_TEMP/route-logs/regressions"
       - name: Preserve Godot diagnostics
         if: always()

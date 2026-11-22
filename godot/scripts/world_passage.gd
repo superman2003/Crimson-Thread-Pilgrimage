@@ -123,7 +123,10 @@ func try_walk_entry() -> void:
             if String(data.region) != String(host.config.id):
                 continue
             var link := endpoint(String(data.region), String(data.portal))
-            var portal: Dictionary = link.source_portal
+            var portal: Dictionary = link.get("source_portal", {})
+            # A connector on a through route needs a deliberate turn at the sign.
+            if portal.is_empty() or bool(portal.get("interact_to_enter", false)):
+                continue
             var start := Vector2(portal.position[0], portal.position[1])
             var other: Dictionary = passage["b" if side == "a" else "a"]
             var target_portal: Dictionary = link.target_portal

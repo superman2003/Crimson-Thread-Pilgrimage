@@ -139,8 +139,10 @@ func crossing(target: String, direction: int) -> Dictionary:
     var energy: int = scene.player.energy
     var wallet: int = scene.currency_count
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
+    if target == RAIN:
+        await press("interact")
     axis(direction)
-    var entered := false
+    var entered: bool = scene.world_passage.active
     for unused in 3600:
         await tick()
         entered = entered or scene.world_passage.active
@@ -273,7 +275,7 @@ func run() -> void:
     scene.player.energy = 41
     scene.currency_count = 97
     await tick(8)
-    if await walk(Vector2(1735,3712),"source pipe approach"):
+    if await walk(Vector2(1790,3752),"source pipe approach"):
         var outward := await crossing(RAIN,1)
         if String(scene.config.id) == RAIN:
             await fight(outward)

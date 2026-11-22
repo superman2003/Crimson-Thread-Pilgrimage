@@ -108,12 +108,15 @@ func _run() -> void:
             await frames(12)
             var glyph: String=PASSAGE.glyph(String(mouth.region),String(mouth.portal))
             var direction := 1 if glyph=="→" else -1
-            Input.action_press("move_right" if direction>0 else "move_left")
-            for tick in 30:
-                passage.try_walk_entry()
-                if passage.active: break
-                await frames()
-            check(passage.active,String(route.id)+" "+side+": deliberate walking enters the correct mouth")
+            if bool(area.get_meta("world_portal_data", {}).get("interact_to_enter", false)):
+                scene._try_interact()
+            else:
+                Input.action_press("move_right" if direction>0 else "move_left")
+                for tick in 30:
+                    passage.try_walk_entry()
+                    if passage.active: break
+                    await frames()
+            check(passage.active,String(route.id)+" "+side+": the authored entry action enters the correct mouth")
             if not passage.active:
                 quit(1)
                 return

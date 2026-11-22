@@ -2933,7 +2933,7 @@
       "rect": [
         1960,
         3812,
-        420,
+        360,
         36
       ],
       "color": "1c2b1f",
@@ -2955,16 +2955,30 @@
       "terrain_id": "terrain_burrow_0_0",
       "terrain_flat_span": [
         1960,
-        2380
+        2320
       ]
+    },
+    {
+      "id": "crawl_court_grate",
+      "rect": [
+        2320,
+        3812,
+        140,
+        28
+      ],
+      "color": "6d6645",
+      "material": "bronze_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "terrain_id": "terrain_crawl_court_grate"
     },
     {
       "id": "crawl_roof",
       "rect": [
         1960,
-        3656,
+        3644,
         420,
-        36
+        48
       ],
       "color": "10130f",
       "material": "moss_stone",
@@ -9438,11 +9452,19 @@
       "kind": "tunnel",
       "surface": [
         [
+          1824,
+          3752
+        ],
+        [
+          1860,
+          3752
+        ],
+        [
           1960,
           3812
         ],
         [
-          2380,
+          2320,
           3812
         ]
       ],
@@ -9454,6 +9476,37 @@
       ],
       "platform_ids": [
         "crawl_floor"
+      ]
+    },
+    {
+      "id": "terrain_crawl_court_grate",
+      "kind": "bridge",
+      "surface": [
+        [
+          2304,
+          3812
+        ],
+        [
+          2320,
+          3812
+        ],
+        [
+          2460,
+          3892
+        ],
+        [
+          2490,
+          3892
+        ]
+      ],
+      "depth": 24,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "crawl_court_grate"
       ]
     },
     {
