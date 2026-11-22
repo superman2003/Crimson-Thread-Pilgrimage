@@ -1,6 +1,7 @@
 extends AcceptDialog
 const FLOORS = preload("res://scripts/map_floor_labels.gd")
 const INDEX = preload("res://scripts/map_directory.gd")
+const CHECKLIST := preload("res://scripts/map_known_checklist.gd")
 var rows: Array = []
 var visible_rows: Array = []
 var locate: Callable
@@ -24,7 +25,7 @@ var checklist_rows: ItemList
 var checklist_text: RichTextLabel
 var checklist_details: CheckButton
 var checklist_data: Dictionary={}
-const KINDS := ["all","room","gate","shortcut","hazard","pin","clue"]
+const KINDS := ["all","room","gate","shortcut","hazard","pin","clue","exit"]
 
 func _ready() -> void:
     title="已补绘地点目录"
@@ -41,7 +42,9 @@ func _ready() -> void:
     regions=OptionButton.new();regions.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scope.add_child(regions)
     regions.item_selected.connect(func(_index: int):_rebuild_floors();_refresh())
     kinds=OptionButton.new();scope.add_child(kinds)
-    for text in ["全部类型","房间","能力门","捷径","危险","图钉","入口线索"]:kinds.add_item(text)
+    kinds.add_item("全部类型")
+    for kind in KINDS.slice(1):
+        kinds.add_item(CHECKLIST.KINDS[kind])
     search.text_changed.connect(func(_value: String):_refresh())
     kinds.item_selected.connect(func(_index: int):
         if KINDS[kinds.selected]!="clue":clue_states.select(0)
@@ -110,6 +113,7 @@ func _refresh() -> void:
     var old_selection:=list.get_selected_items()
     if not old_selection.is_empty() and old_selection[0]<visible_rows.size():selected_key=String(visible_rows[old_selection[0]].key)
     visible_rows=INDEX.arrange(INDEX.search(rows,search.text,KINDS[kinds.selected],String(regions.get_selected_metadata()),String(clue_states.get_selected_metadata())),sort_order.selected)
+    clue_states.visible = KINDS[kinds.selected] != "exit"
     if floors.item_count > 0:
         visible_rows=FLOORS.filter_rows(visible_rows,String(floors.get_selected_metadata()))
     list.clear()
@@ -132,12 +136,15 @@ func _selection() -> void:
     cursor.text="%d / %d" % [index+1,visible_rows.size()]
     var summary: Array[String]=[]
     var totals:=INDEX.counts(visible_rows)
-    for kind in ["room","gate","shortcut","hazard","pin","clue"]:
-        if int(totals.get(kind,0))>0:summary.append({"room":"房间","gate":"能力门","shortcut":"捷径","hazard":"危险","pin":"图钉","clue":"入口线索"}[kind]+str(totals[kind]))
+    for kind in KINDS.slice(1):
+        if int(totals.get(kind, 0)) > 0:
+            summary.append(CHECKLIST.KINDS[kind] + str(totals[kind]))
     count.tooltip_text=" · ".join(summary)
     if selection.is_empty():detail.text="无符合筛选的已补绘地点。清空搜索或切换类型；未购/未补绘地点不会被列出。";return
     var row: Dictionary=visible_rows[selection[0]]
-    detail.text="层位："+FLOORS.caption(row)+"\n"+String(row.detail)+"\n仅移动地图视野；不会传送、购买地图或补绘，也不提供玩家定位。"
+    detail.text = "层位：" + FLOORS.caption(row) + "\n" + String(row.detail)
+    if row.kind != "exit":
+        detail.text += "\n仅移动地图视野；不会传送、购买地图或补绘，也不提供玩家定位。"
 
 func _frame_filtered() -> void:
     if not visible or not frame_group.is_valid():return
@@ -185,13 +192,13 @@ func open_checklist() -> void:
         var actions:=HBoxContainer.new();column.add_child(actions)
         var toggle:=Button.new();toggle.text="勾选 / 撤销所选";actions.add_child(toggle)
         toggle.pressed.connect(func():
-            preload("res://scripts/map_known_checklist.gd").toggle(checklist_data,checklist_rows.get_selected_items());_render_checklist())
+            CHECKLIST.toggle(checklist_data,checklist_rows.get_selected_items());_render_checklist())
         var reset:=Button.new();reset.text="重新生成当前筛选";actions.add_child(reset)
         reset.pressed.connect(_snapshot_checklist)
         checklist_details=CheckButton.new();checklist_details.text="附公开说明";actions.add_child(checklist_details)
         checklist_details.toggled.connect(func(_enabled: bool):_render_checklist())
         var copy:=Button.new();copy.text="复制清单文本";actions.add_child(copy)
-        copy.pressed.connect(func():DisplayServer.clipboard_set(preload("res://scripts/map_known_checklist.gd").document(checklist_data,checklist_details.button_pressed)))
+        copy.pressed.connect(func():DisplayServer.clipboard_set(CHECKLIST.document(checklist_data,checklist_details.button_pressed)))
         checklist_text=RichTextLabel.new();checklist_text.custom_minimum_size=Vector2(790,300)
         checklist_text.bbcode_enabled=false;checklist_text.focus_mode=Control.FOCUS_ALL;column.add_child(checklist_text)
         add_child(checklist)
@@ -204,7 +211,7 @@ func open_checklist() -> void:
     _snapshot_checklist();checklist.popup_centered();checklist_rows.grab_focus()
 
 func _snapshot_checklist() -> void:
-    checklist_data=preload("res://scripts/map_known_checklist.gd").snapshot(visible_rows)
+    checklist_data=CHECKLIST.snapshot(visible_rows)
     checklist_details.set_pressed_no_signal(false);_render_checklist()
 
 func _render_checklist() -> void:
@@ -214,4 +221,4 @@ func _render_checklist() -> void:
         var row: Dictionary=checklist_data.rows[index]
         checklist_rows.add_item(("✓ " if checklist_data.checked.has(index) else "○ ")+String(row.region_name)+" · "+String(row.floor_name)+" · "+String(row.title))
         if selected_indices.has(index):checklist_rows.select(index,false)
-    checklist_text.text=preload("res://scripts/map_known_checklist.gd").document(checklist_data,checklist_details.button_pressed)
+    checklist_text.text=CHECKLIST.document(checklist_data,checklist_details.button_pressed)

@@ -5,6 +5,10 @@ const JOURNAL = preload("res://scripts/pilgrimage_cartography.gd")
 const KNOWLEDGE = preload("res://scripts/survey_map_knowledge.gd")
 const ROUTES = preload("res://scripts/world_routes.gd")
 const ATLAS = preload("res://scripts/world_atlas.gd")
+const PASSAGE := preload("res://scripts/world_passage.gd")
+const PIN_VIEW := preload("res://scripts/map_player_pins_runtime.gd")
+const LANGUAGE := preload("res://scripts/ui_language.gd")
+const CHECKLIST := preload("res://scripts/map_known_checklist.gd")
 var checks := 0
 var failures: Array[String] = []
 func _initialize() -> void:call_deferred("run")
@@ -71,6 +75,8 @@ func run() -> void:
     var partial_rows: Array = INDEX.records({"large":{"chapter_name":"大房间","map_rooms":[hall]}},partial,{}, {})
     check(partial_rows.size() == 1 and sections[0].has_point(partial_rows[0].point), "large room lookup frames a charted section rather than its uncharted center")
 
+    check_partial_exit(hall, sections, partial)
+
     var main: Node=load("res://scenes/World.tscn").instantiate()
     main.world_resume=false;main.world_save_path="user://map_directory_world.json";root.add_child(main)
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(main)
@@ -113,6 +119,7 @@ func run() -> void:
     var old_callback: Callable=button.pressed.get_connections()[0].callable
     main._close_overlays()
     check(not dialog.visible, "closing the map also dismisses the directory popup")
+    await check_world_exits(main)
     var retirement:=preload("res://scripts/audio_retirement.gd")
     retirement.retire_tree(main);main.free();await process_frame
     preload("res://scripts/audio_director.gd")._stream_cache.clear();preload("res://scripts/audio_director.gd")._npc_voice_cache.clear()
@@ -123,3 +130,136 @@ func run() -> void:
     else:
         for item in failures:push_error(item)
     quit(0 if failures.is_empty() else 1)
+
+
+func check_partial_exit(hall: Dictionary, sections: Array[Rect2], flags: Dictionary) -> void:
+    var point := sections[-1].get_center()
+    var portal := {"id": "end", "kind": "world_portal", "position": [point.x, point.y],
+        "label": "古老通道", "target_config_id": "other", "target_portal_id": "undiscovered_mouth",
+        "required_ability": "silk_wall_grip", "required_ability_name": "丝壁攀附"}
+    var local_exit := portal.duplicate()
+    local_exit.merge({"id": "local", "target_config_id": "large"}, true)
+    var config := {"chapter_name": "大房间", "map_rooms": [hall], "interactives": [portal, local_exit]}
+    var configs := {"large": config}
+    var names := {"large": "大房间", "other": "铸雨渠"}
+    var rows := INDEX.records(configs, flags, {}, {}, names)
+    check(INDEX.search(rows, "", "exit").is_empty(), "another charted hall section cannot reveal the exit")
+    JOURNAL.region(flags, "large").charted[JOURNAL.segment_key("hall", sections.size() - 1)] = true
+    var before := flags.duplicate(true)
+    rows = INDEX.search(INDEX.records(configs, flags, {}, {}, names), "铸雨渠", "exit")
+    check(rows.size() == 1, "charted exit is searchable by its destination and omits local shortcuts")
+    if rows.size() == 1:
+        check(rows[0].point == point and rows[0].room_id == "hall", "exit resolves to the exact charted mouth")
+        check(rows[0].detail.contains("暂不可通 · 丝壁攀附"), "missing ability appears on the departure side")
+        check(rows[0].region == "large" and not str(rows[0]).contains("undiscovered_mouth"),
+            "display exposes source position with the public destination name only")
+    check(flags == before, "reading a charted exit leaves knowledge untouched")
+    JOURNAL.region(flags, "large").owned = false
+    check(INDEX.search(INDEX.records(configs, flags, {}, {}, names), "", "exit").is_empty(),
+        "a surviving chart note on an unowned map does not expose the exit")
+
+
+func check_world_exits(main: Node) -> void:
+    var source := String(main.config.id)
+    var rain := "demo_ch02_rain_foundry_canal"
+    var archive := "demo_ch03_saltwhite_archive"
+    var source_portal := ROUTES.cached_portal(source, "moss_rain_pipe")
+    var rain_portal := ROUTES.cached_portal(rain, "rain_archive_riser")
+    var archive_portal := ROUTES.cached_portal(archive, "archive_rain_riser")
+    var latch := ROUTES.cached_portal(rain, "upgrade_obsidian_rain_return_b")
+    main.story_flags = {}
+    main._toggle_map()
+    check(INDEX.search(RUNTIME.rows(main), "", "exit").is_empty(), "new journey directory has no exit rows")
+    for entry in [[source, source_portal], [rain, rain_portal], [archive, archive_portal], [rain, latch]]:
+        var journal := JOURNAL.region(main.story_flags, entry[0])
+        journal.owned = true
+        journal.charted[entry[1].room_id] = true
+    main._refresh_map_overlay()
+    var rain_key := "exit:" + rain + ":" + String(rain_portal.id)
+    var reverse_key := "exit:" + archive + ":" + String(archive_portal.id)
+    var latch_key := "exit:" + rain + ":" + String(latch.id)
+    var exits := INDEX.search(RUNTIME.rows(main), "", "exit")
+    var by_key := {}
+    for row in exits:
+        by_key[row.key] = row
+    check(exits.size() == 4 and by_key.has(rain_key) and by_key.has(reverse_key) and by_key.has(latch_key),
+        "charted production routes expose individual departure mouths")
+    if not by_key.has(rain_key) or not by_key.has(reverse_key) or not by_key.has(latch_key):
+        main._close_overlays()
+        return
+    check(by_key[rain_key].title.ends_with("盐白书库") and by_key[rain_key].detail.contains("丝壁攀附"),
+        "from Rain Foundry the Brine Riser lists its destination and required ability")
+    check(by_key[reverse_key].title.ends_with("铸雨渠") and by_key[reverse_key].detail.get_slice("\n", 1) == "已通",
+        "the reverse mouth uses its own open state")
+    check(by_key[latch_key].detail.contains("另一侧门闩"), "the cableway describes the far-side latch")
+    check(by_key[latch_key].detail.contains("靠近入口后互动") and by_key[rain_key].detail.contains("沿入口方向步行"),
+        "walking and interaction routes describe their actual entry methods")
+
+    var button: Button = main.map_panel.get_node("MapDirectoryButton")
+    button.pressed.emit()
+    var dialog: AcceptDialog = main.map_panel.get_node("MapDirectoryDialog")
+    for index in dialog.kinds.item_count:
+        if dialog.kinds.get_item_text(index) == "跨区出口":
+            dialog.kinds.select(index)
+            dialog.kinds.item_selected.emit(index)
+            break
+    await process_frame
+    check(dialog.visible and dialog.list.item_count == 4, "the actual exit filter shows just the four charted exits")
+    dialog.search.text = "盐白书库"
+    dialog.search.text_changed.emit(dialog.search.text)
+    for index in dialog.visible_rows.size():
+        if dialog.visible_rows[index].key == rain_key:
+            dialog.list.select(index)
+            dialog.list.item_selected.emit(index)
+            break
+    check(dialog.detail.text.contains("丝壁攀附"), "the selected known exit shows the locked condition in the live panel")
+    check(CHECKLIST.snapshot(dialog.visible_rows).rows.any(func(row): return row.kind == "跨区出口"),
+        "exits also appear when preparing the filtered travel checklist")
+    var flags_before: Dictionary = main.story_flags.duplicate(true)
+    var save_before := FileAccess.get_sha256(main.world_save_path)
+    var position_before: Vector2 = main.player.global_position
+    var save_state: Dictionary = main.world_state.data.duplicate(true)
+    dialog.locate_button.pressed.emit()
+    await process_frame
+    var marker: Panel = main.map_draw_root.get_node_or_null("MapDirectoryExitFocus")
+    var projected := PIN_VIEW.project(main, rain, by_key[rain_key].point)
+    check(not dialog.visible and main.world_map_view and marker != null, "local map opens world overview and highlights the selected remote mouth")
+    if marker != null:
+        check((marker.position + marker.size * 0.5).is_equal_approx(projected), "highlight centers on the authored entry point")
+    check(main.config.id == source and main.player.global_position == position_before
+        and main.story_flags == flags_before and main.world_state.data == save_state
+        and FileAccess.get_sha256(main.world_save_path) == save_before, "framing an exit is read-only even when saves are blocked")
+
+    main.inventory_counts["silk_wall_grip"] = 1
+    main.story_flags["world_shortcut_" + String(latch.requires_shortcut)] = true
+    var unlocked := {}
+    for row in INDEX.search(RUNTIME.rows(main), "", "exit"):
+        unlocked[row.key] = row
+    check(unlocked[rain_key].detail.get_slice("\n", 1) == "已通" and unlocked[latch_key].detail.get_slice("\n", 1) == "已通",
+        "newly learned ability and opened latch update the directory")
+    JOURNAL.region(main.story_flags, rain).charted.erase(rain_portal.room_id)
+    check(not RUNTIME.focus(main, by_key[rain_key]).ok, "a stale exit cannot be located once its chart note is gone")
+
+    for region in ROUTES.cached_chapters():
+        var chart := JOURNAL.region(main.story_flags, region)
+        chart.owned = true
+        for portal in ROUTES.cached_chapters()[region].portals:
+            if portal.get("kind") == "world_portal" and portal.get("target_config_id") != region:
+                chart.charted[portal.room_id] = true
+    var full := INDEX.search(RUNTIME.rows(main), "", "exit")
+    var physical := 0
+    for row in full:
+        var portal_id: String = row.key.get_slice(":", 2)
+        var link := PASSAGE.endpoint(row.region, portal_id)
+        if not link.is_empty():
+            physical += 1
+    check(full.size() == 18 and physical == 10, "the six-region campaign indexes 18 directions including all ten walkable mouths")
+
+    check(LANGUAGE.apply("en"), "English language catalogue can be applied")
+    var english := INDEX.search(full, "saltwhite archive", "exit", rain)
+    check(english.any(func(row): return row.key == rain_key), "English search matches a localized destination on the real map")
+    for row in full:
+        check(not preload("res://scripts/game_translation.gd").contains_han(LANGUAGE.text(row.title) + LANGUAGE.text(row.detail)),
+            "route title and conditions translate for " + String(row.key))
+    LANGUAGE.apply(LANGUAGE.SOURCE)
+    main._close_overlays()

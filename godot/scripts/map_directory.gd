@@ -5,8 +5,11 @@ const JOURNAL = preload("res://scripts/pilgrimage_cartography.gd")
 const KNOWLEDGE = preload("res://scripts/survey_map_knowledge.gd")
 const PINS = preload("res://scripts/map_player_pins.gd")
 const SURVEY = preload("res://scripts/cartography_runtime.gd")
+const ROUTES := preload("res://scripts/world_routes.gd")
+const PASSAGE := preload("res://scripts/world_passage.gd")
+const LANGUAGE := preload("res://scripts/ui_language.gd")
 
-static func records(configs: Dictionary, flags: Dictionary, inventory: Dictionary, opened: Dictionary) -> Array:
+static func records(configs: Dictionary, flags: Dictionary, inventory: Dictionary, opened: Dictionary, region_names: Dictionary = {}) -> Array:
     var result: Array = []
     var safe := flags.duplicate(true)
     for region in configs:
@@ -35,6 +38,8 @@ static func records(configs: Dictionary, flags: Dictionary, inventory: Dictionar
             var item := _record(String(marker.kind),String(marker.id),region,config,room,point,String(marker.tooltip))
             item.title = {"hazard":"已知危险","gate":"能力门","shortcut":"捷径"}.get(marker.kind,marker.kind) + " · " + String(room.get("name",room.id))
             result.append(item)
+        if not region_names.is_empty():
+            result.append_array(_cross_region_exits(config, region, region_names, safe, inventory))
     for pin in PINS.visible(safe,configs):
         var config: Dictionary = configs[pin.region_id]
         var point := Vector2(pin.position[0],pin.position[1])
@@ -42,8 +47,33 @@ static func records(configs: Dictionary, flags: Dictionary, inventory: Dictionar
         var item := _record("pin",str(pin.id),pin.region_id,config,room,point,"玩家自己的已知标记；查看不会移动角色。")
         item.title = "%s图钉 #%d · %s" % [PINS.NAMES[PINS.KINDS.find(pin.kind)],int(pin.id),String(room.get("name",room.id))]
         result.append(item)
-    result.append_array(preload("res://scripts/hidden_clue_notes.gd").map_records(preload("res://scripts/world_routes.gd").cached_hidden_clues(),configs,flags))
+    result.append_array(preload("res://scripts/hidden_clue_notes.gd").map_records(ROUTES.cached_hidden_clues(),configs,flags))
     return result
+
+static func _cross_region_exits(config: Dictionary, region: String, region_names: Dictionary,
+        flags: Dictionary, inventory: Dictionary) -> Array[Dictionary]:
+    var exits: Array[Dictionary] = []
+    for portal in config.get("interactives", []):
+        var target := String(portal.get("target_config_id", ""))
+        if portal.get("kind") != "world_portal" or target == region or not region_names.has(target):
+            continue
+        var id := String(portal.id)
+        var point := Vector2(portal.position[0], portal.position[1])
+        var room := PINS.owner(config, point)
+        if room.is_empty() or not JOURNAL.charted_at(flags, region, room, point):
+            continue
+        var physical := PASSAGE.endpoint(region, id)
+        var label := String(portal.get("label", "跨区出口")).get_slice(" → ", 0)
+        var passage_name := String(physical.get("passage", {}).get("label", label))
+        var access := ROUTES.access(portal, inventory, flags)
+        var status := "已通" if access.open else "暂不可通 · %s" % String(access.label)
+        var instruction := "靠近入口后互动" if physical.is_empty() else "沿入口方向步行"
+        var detail := "%s\n%s\n%s" % [String(room.get("name", room.id)), status, instruction]
+        var item := _record("exit", id, region, config, room, point, detail)
+        item.title = "%s → %s" % [passage_name, region_names[target]]
+        exits.append(item)
+    return exits
+
 
 static func _known_neighbors(config: Dictionary, known: Dictionary, id: String) -> String:
     var lines: Array[String]=["已补绘房间 · "+String(known[id].get("name",id))]
@@ -88,7 +118,12 @@ static func search(rows: Array, query: String, kind: String = "all", region: Str
         if not clue_state.is_empty() and (row.get("kind","")!="clue" or row.get("clue_state","")!=clue_state):continue
         if not region.is_empty() and row.region != region:continue
         if kind != "all" and row.kind != kind:continue
-        var text := (String(row.title)+" "+String(row.region_name)+" "+String(row.detail)+" "+String(row.get("floor_name",""))).to_lower()
+        var fields: Array[String] = [String(row.title), String(row.region_name),
+            String(row.detail), String(row.get("floor_name", ""))]
+        var text := " ".join(fields).to_lower()
+        if not tokens.is_empty() and row.kind == "exit" and TranslationServer.get_locale() == "en":
+            for field in fields:
+                text += " " + LANGUAGE.text(field).to_lower()
         var matches := true
         for token in tokens:
             if not text.contains(token):matches=false;break

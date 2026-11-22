@@ -1,5 +1,5 @@
 extends RefCounted
-const KINDS := {"room":"房间","gate":"能力门","shortcut":"捷径","hazard":"危险","pin":"图钉","clue":"入口线索"}
+const KINDS := {"room":"房间","gate":"能力门","shortcut":"捷径","hazard":"危险","pin":"图钉","clue":"入口线索","exit":"跨区出口"}
 const LIMIT := 1024
 
 static func clean(value: Variant, maximum: int=160) -> String:
