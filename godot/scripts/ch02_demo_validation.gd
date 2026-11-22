@@ -4,6 +4,8 @@ const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const CONFIG_PATH := "res://data/demo_ch02_rain_foundry_canal.json"
 const MAIN_SCENE := "res://scenes/Main.tscn"
 const ART := preload("res://scripts/hand_drawn_assets.gd")
+const AUDIO := preload("res://scripts/audio_director.gd")
+const RETIRE := preload("res://scripts/audio_retirement.gd")
 var failures := 0
 
 
@@ -213,10 +215,20 @@ func _run() -> void:
     _assert(String(chapter_exit.get_meta("next_runtime_config_id", "")) == "demo_ch03_saltwhite_archive", "CH02 chapter exit points to CH03")
     scene.nearby_interactable = null
     scene.player.global_position = chapter_exit.global_position + Vector2(-95.0, 0.0)
+    RETIRE.retire_tree(scene)
     scene._try_interact()
     await process_frame
     await process_frame
-    _assert(_find_runtime_scene("demo_ch03_saltwhite_archive") != null, "CH02 nearby F fallback enters CH03")
+    var archive := _find_runtime_scene("demo_ch03_saltwhite_archive")
+    _assert(archive != null, "CH02 nearby F fallback enters CH03")
+    RETIRE.retire_tree(root)
+    if is_instance_valid(archive):
+        archive.queue_free()
+    await process_frame
+    await process_frame
+    AUDIO._stream_cache.clear()
+    AUDIO._npc_voice_cache.clear()
+    _assert(await RETIRE.drain(self), "Chapter transfer releases its audio at exit")
 
     if failures == 0:
         print("CH02_DEMO_VALIDATION_PASS enemies=%s npcs=4 keys=0 boss=C2_B01 combat_clear=true complete=true" % state.get("normal_enemy_total"))

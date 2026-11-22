@@ -31,6 +31,7 @@ func run() -> void:
     root.size = Vector2i(1280, 720)
     await encounters()
     await room_views()
+    await aqueduct_route()
     for action in ["attack", "move_left", "move_right", "heal"]:
         Input.action_release(action)
     await frames()
@@ -193,7 +194,7 @@ func spillway_crossing(world: Node) -> void:
     check(player.is_on_floor(), "Spillway fixture starts on its actual lower return step")
     var hp: int = player.hp
     for point in [Vector2(4650,4018), Vector2(4575,3926), Vector2(4735,3800)]:
-        if not await spillway_jump(world, point):
+        if not await jump_to(world, point, "spillway"):
             pause_world(world)
             return
         if point.y == 3926:
@@ -210,11 +211,11 @@ func spillway_crossing(world: Node) -> void:
     await frames(3)
     check(absf(player.position.x-4535)<20 and absf(player.position.y-3800)<8, "One-way bridge supports normal walking below the hanging hammer")
     await spillway_capture(world, "bridge_walk")
-    await spillway_jump(world, Vector2(4535,3742))
+    await jump_to(world, Vector2(4535,3742), "spillway")
     check(player.hp == hp, "Ordinary spillway return and bridge walk avoid the unchanged traps")
     pause_world(world)
 
-func spillway_jump(world: Node, target: Vector2) -> bool:
+func jump_to(world: Node, target: Vector2, location: String) -> bool:
     Input.action_release("jump")
     Input.action_release("move_left")
     Input.action_release("move_right")
@@ -232,12 +233,12 @@ func spillway_jump(world: Node, target: Vector2) -> bool:
             Input.action_release("jump")
             Input.action_release("move_left")
             Input.action_release("move_right")
-            check(true, "Production single jump reaches spillway " + str(target))
+            check(true, "Production single jump reaches %s at %s" % [location, target])
             return true
     Input.action_release("jump")
     Input.action_release("move_left")
     Input.action_release("move_right")
-    check(false, "Production single jump blocked at %s toward %s" % [world.player.position,target])
+    check(false, "Production single jump to %s blocked at %s toward %s" % [location, world.player.position, target])
     return false
 
 func spillway_capture(world: Node, label: String) -> void:
@@ -246,3 +247,117 @@ func spillway_capture(world: Node, label: String) -> void:
     await RenderingServer.frame_post_draw
     DirAccess.make_dir_recursive_absolute("res://../artifacts/w02_spillway")
     root.get_texture().get_image().save_png("res://../artifacts/w02_spillway/" + label + ".png")
+
+
+## Practice the first aqueduct loop from the real chapter arrival. The player
+## keeps the starting move set until collecting the authored wall grip.
+func aqueduct_route() -> void:
+    var world: Node = load("res://scenes/World.tscn").instantiate()
+    world.world_resume = false
+    world.world_save_path = SAVE_PATH
+    world.config_path = PATH
+    root.add_child(world)
+    current_scene = world
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
+    var player: CharacterBody2D = world.player
+    player.debug_invulnerable = true
+    await frames(12)
+    check(player.is_on_floor() and absf(player.position.x - 200.0) < 5.0, "Aqueduct route begins on the normal arrival bank")
+    check(not player.dash_unlocked and not player.double_jump_unlocked and not player.wall_grip_unlocked,
+        "Aqueduct bank and tower lookout use the starting move set")
+    check(world.locked_gate_bodies.has("gate_wall_tower"), "The lower tower entrance is gated on initial arrival")
+    if await walk_aqueduct(world):
+        await climb_tower(world)
+    var retirement := preload("res://scripts/audio_retirement.gd")
+    retirement.retire_tree(world)
+    world.queue_free()
+    await frames(5)
+    check(await retirement.drain(self), "Aqueduct World releases its playback")
+    for suffix in ["", ".bak", ".tmp"]:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
+
+
+func walk_aqueduct(world: Node) -> bool:
+    if not await walk_to(world, Vector2(686, 804), "upper grate", 155):
+        return false
+    if not await jump_to(world, Vector2(690, 690), "tower lookout"):
+        return false
+    check(int(world.inventory_counts.get("heart_knot", 0)) == 1, "Tower lookout awards the actual heart knot")
+
+    if not await walk_to(world, Vector2(1350, 836), "archive pipe apron", 230):
+        return false
+    if not await walk_to(world, Vector2(1422, 848), "west crossing lip"):
+        return false
+    var camera: Camera2D = world.player.get_node("Camera2D")
+    var half_view := Vector2(root.size) / camera.zoom * 0.5
+    var view := Rect2(camera.get_screen_center_position() - half_view, half_view * 2)
+    check(view.has_point(Vector2(1542, 920)), "East landing is visible before leaping across the channel")
+
+    if not await walk_to(world, Vector2(1489, 942), "channel recovery sill"):
+        return false
+    if not await jump_to(world, Vector2(1569, 920), "recovery to rain deck"):
+        return false
+    if not await jump_to(world, Vector2(1426, 849), "west crossing return"):
+        return false
+    if not await walk_to(world, Vector2(1422, 848), "west takeoff"):
+        return false
+    if not await jump_to(world, Vector2(1569, 920), "east crossing"):
+        return false
+
+    if not await walk_to(world, Vector2(1745, 920), "wall-grip shelf"):
+        return false
+    check(world.player.wall_grip_unlocked, "Arrival to the rain deck picks up the actual wall-grip ability")
+    check(not world.locked_gate_bodies.has("gate_wall_tower"), "The earned ability opens the lower tower entrance")
+    if not await walk_to(world, Vector2(2988, 1240), "bell shrine", 330):
+        return false
+    Input.action_press("interact")
+    await frames(3)
+    Input.action_release("interact")
+    check(world.active_save_point_id == "save_ch02_aqueduct", "Walking to the bell shrine allows a normal rest")
+    if not await walk_to(world, Vector2(1772, 920), "return up the lock terraces", 330):
+        return false
+    if not await jump_to(world, Vector2(1772, 820), "gutter step"):
+        return false
+    if not await jump_to(world, Vector2(1778, 740), "optional dry gutter"):
+        return false
+    check(int(world.inventory_counts.get("worker_badge", 0)) == 1, "Upper dry gutter pays its original work badge")
+    return true
+
+
+func climb_tower(world: Node) -> void:
+    # Begin this local branch at its lower bank after the main route earned the
+    # wall grip. Each subsequent level is reached with standard jump input.
+    world.player.global_position = Vector2(975, 1498)
+    world.player.velocity = Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    await frames(12)
+    check(world.player.is_on_floor(), "Tower fixture settles on its lower bank")
+    var steps := [
+        Vector2(875, 1406), Vector2(775, 1312), Vector2(739, 1218),
+        Vector2(831, 1124), Vector2(736, 1028), Vector2(683, 914),
+        Vector2(683, 804)]
+    for step in steps:
+        if not await jump_to(world, step, "tower maintenance steps"):
+            return
+
+
+func walk_to(world: Node, target: Vector2, location: String, budget: int = 90) -> bool:
+    var player: CharacterBody2D = world.player
+    for frame in budget:
+        var dx := target.x - player.position.x
+        Input.action_release("move_left")
+        Input.action_release("move_right")
+        if absf(dx) > 10.0:
+            Input.action_press("move_right" if dx > 0.0 else "move_left")
+        await frames(1)
+        if absf(player.position.x - target.x) < 18 and absf(player.position.y - target.y) < 9 and player.is_on_floor():
+            Input.action_release("move_left")
+            Input.action_release("move_right")
+            check(true, "Walking reaches %s" % location)
+            return true
+    Input.action_release("move_left")
+    Input.action_release("move_right")
+    check(false, "Walking to %s blocked at %s toward %s" % [location, player.position, target])
+    return false

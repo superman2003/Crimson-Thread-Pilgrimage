@@ -207,13 +207,15 @@
       "landmark_art": {
         "motif": "wheel",
         "position": [
-          366,
-          569
+          278,
+          555
         ],
         "size": [
-          325,
-          230
-        ]
+          280,
+          214
+        ],
+        "variant": 1,
+        "opacity": 0.36
       },
       "camera_bounds": [
         80,
@@ -266,7 +268,19 @@
         420,
         720,
         680
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          1144,
+          640
+        ],
+        "size": [
+          165,
+          192
+        ],
+        "variant": 0,
+        "opacity": 0.32
+      }
     },
     {
       "id": "rain_deck",
@@ -312,7 +326,19 @@
         470,
         700,
         700
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          1802,
+          692
+        ],
+        "size": [
+          145,
+          235
+        ],
+        "variant": 3,
+        "opacity": 0.29
+      }
     },
     {
       "id": "gutter_interstice",
@@ -404,7 +430,19 @@
         630,
         680,
         720
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          2454,
+          905
+        ],
+        "size": [
+          230,
+          270
+        ],
+        "variant": 2,
+        "opacity": 0.4
+      }
     },
     {
       "id": "aqueduct_shrine",
@@ -449,12 +487,14 @@
         "motif": "wheel",
         "position": [
           2956,
-          1050
+          1002
         ],
         "size": [
-          190,
-          220
-        ]
+          192,
+          235
+        ],
+        "variant": 5,
+        "opacity": 0.39
       },
       "camera_bounds": [
         2780,
@@ -2541,7 +2581,7 @@
       "rect": [
         140,
         760,
-        340,
+        330,
         44
       ],
       "color": "17262b",
@@ -2563,16 +2603,16 @@
       "terrain_id": "terrain_canal_road_0_0",
       "terrain_flat_span": [
         140,
-        478.39
+        470
       ]
     },
     {
       "id": "us_step_a",
       "rect": [
-        560,
-        812,
-        150,
-        26
+        610,
+        804,
+        152,
+        22
       ],
       "color": "17262b",
       "material": "wet_metal",
@@ -2590,18 +2630,18 @@
           10
         ]
       },
-      "terrain_id": "terrain_canal_road_0_0",
+      "terrain_id": "terrain_canal_grate",
       "terrain_flat_span": [
-        561.61,
-        700.59
+        610,
+        762
       ]
     },
     {
       "id": "aq_deck",
       "rect": [
-        800,
+        930,
         880,
-        360,
+        230,
         40
       ],
       "color": "17262b",
@@ -2620,9 +2660,9 @@
           7
         ]
       },
-      "terrain_id": "terrain_canal_road_0_0",
+      "terrain_id": "terrain_aqueduct_deck",
       "terrain_flat_span": [
-        809.41,
+        930,
         1160
       ]
     },
@@ -2631,12 +2671,12 @@
       "rect": [
         1250,
         836,
-        170,
-        26
+        130,
+        32
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 3,
       "safe_landing": true,
@@ -2650,11 +2690,57 @@
           3
         ]
       },
-      "terrain_id": "terrain_canal_road_0_0",
+      "terrain_id": "terrain_aqueduct_lip",
       "terrain_flat_span": [
         1250,
-        1420
+        1380
       ]
+    },
+    {
+      "color": "17262b",
+      "material": "wet_metal",
+      "art": {
+        "variant": 11,
+        "flip_h": true,
+        "body_variants": [
+          11,
+          0,
+          3
+        ]
+      },
+      "id": "aq_recovery_sill",
+      "rect": [
+        1440,
+        942,
+        100,
+        22
+      ],
+      "collision_role": "floor",
+      "route_role": "branch",
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "color": "26333f",
+      "material": "sluice_bridge",
+      "art": {
+        "variant": 8,
+        "flip_h": true,
+        "body_variants": [
+          8,
+          10,
+          10
+        ]
+      },
+      "id": "aq_gutter_step",
+      "rect": [
+        1740,
+        820,
+        96,
+        22
+      ],
+      "collision_role": "one_way",
+      "route_role": "branch"
     },
     {
       "id": "gi_floor",
@@ -2662,11 +2748,11 @@
         1620,
         740,
         260,
-        32
+        22
       ],
       "color": "1c2126",
       "material": "wet_metal",
-      "collision_role": "floor",
+      "collision_role": "one_way",
       "route_role": "branch",
       "art": {
         "variant": 4,
@@ -2683,7 +2769,7 @@
       "rect": [
         1540,
         920,
-        320,
+        316,
         36
       ],
       "color": "17262b",
@@ -2705,20 +2791,20 @@
       "terrain_id": "terrain_drainage_descent_0_0",
       "terrain_flat_span": [
         1540,
-        1840.99
+        1856
       ]
     },
     {
       "id": "rd_step",
       "rect": [
-        1950,
+        1984,
         1000,
         160,
-        26
+        30
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 5,
       "safe_landing": true,
@@ -2734,16 +2820,16 @@
       },
       "terrain_id": "terrain_drainage_descent_0_0",
       "terrain_flat_span": [
-        1969.01,
-        2090.99
+        1984,
+        2144
       ]
     },
     {
       "id": "sl_lock_a",
       "rect": [
-        2200,
+        2296,
         1080,
-        240,
+        176,
         34
       ],
       "color": "17262b",
@@ -2764,16 +2850,16 @@
       },
       "terrain_id": "terrain_drainage_descent_0_0",
       "terrain_flat_span": [
-        2219.01,
-        2420.99
+        2296,
+        2472
       ]
     },
     {
       "id": "sl_lock_b",
       "rect": [
-        2530,
+        2632,
         1160,
-        220,
+        128,
         32
       ],
       "color": "17262b",
@@ -2794,16 +2880,16 @@
       },
       "terrain_id": "terrain_drainage_descent_0_0",
       "terrain_flat_span": [
-        2549.01,
-        2730.99
+        2632,
+        2760
       ]
     },
     {
       "id": "shrine_floor_a",
       "rect": [
-        2840,
+        2920,
         1240,
-        300,
+        220,
         40
       ],
       "color": "17262b",
@@ -2824,7 +2910,7 @@
       },
       "terrain_id": "terrain_drainage_descent_0_0",
       "terrain_flat_span": [
-        2859.01,
+        2920,
         3140
       ]
     },
@@ -4404,10 +4490,10 @@
     {
       "id": "tw01",
       "rect": [
-        620,
+        798,
         1406,
-        150,
-        24
+        102,
+        22
       ],
       "color": "26333f",
       "material": "sluice_bridge",
@@ -4426,9 +4512,9 @@
     {
       "id": "tw02",
       "rect": [
-        860,
+        652,
         1312,
-        150,
+        144,
         24
       ],
       "color": "26333f",
@@ -4448,7 +4534,7 @@
     {
       "id": "tw03",
       "rect": [
-        620,
+        630,
         1218,
         150,
         24
@@ -4470,9 +4556,9 @@
     {
       "id": "tw04",
       "rect": [
-        860,
+        800,
         1124,
-        150,
+        141,
         24
       ],
       "color": "26333f",
@@ -4492,9 +4578,9 @@
     {
       "id": "tw05",
       "rect": [
-        620,
-        1030,
-        150,
+        648,
+        1028,
+        156,
         24
       ],
       "color": "26333f",
@@ -4514,10 +4600,10 @@
     {
       "id": "tw06",
       "rect": [
-        860,
-        936,
-        150,
-        24
+        606,
+        914,
+        154,
+        22
       ],
       "color": "26333f",
       "material": "sluice_bridge",
@@ -4534,38 +4620,16 @@
       }
     },
     {
-      "id": "tw07",
-      "rect": [
-        620,
-        842,
-        150,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          8,
-          8
-        ]
-      }
-    },
-    {
       "id": "twr_top",
       "rect": [
-        600,
-        780,
-        300,
-        36
+        620,
+        690,
+        170,
+        20
       ],
       "color": "26333f",
       "material": "wet_metal",
-      "collision_role": "floor",
+      "collision_role": "one_way",
       "route_role": "branch",
       "art": {
         "variant": 0,
@@ -6371,7 +6435,7 @@
       "item_id": "heart_knot",
       "position": [
         690,
-        740
+        650
       ],
       "ability_name": "心结",
       "label": "心结",
@@ -6751,7 +6815,7 @@
       "id": "E02",
       "kind": "pipe_thrower",
       "position": [
-        2020,
+        2060,
         960
       ],
       "platform_id": "rd_step",
@@ -9426,35 +9490,11 @@
           760
         ],
         [
-          478.39,
+          470,
           760
-        ],
-        [
-          561.61,
-          812
-        ],
-        [
-          700.59,
-          812
-        ],
-        [
-          809.41,
-          880
-        ],
-        [
-          1160,
-          880
-        ],
-        [
-          1250,
-          836
-        ],
-        [
-          1420,
-          836
         ]
       ],
-      "depth": 104,
+      "depth": 66,
       "texture_variants": [
         0,
         3,
@@ -9462,9 +9502,94 @@
         2
       ],
       "platform_ids": [
-        "start_ground",
-        "us_step_a",
-        "aq_deck",
+        "start_ground"
+      ]
+    },
+    {
+      "id": "terrain_canal_grate",
+      "kind": "bridge",
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "depth": 18,
+      "surface": [
+        [
+          470,
+          760
+        ],
+        [
+          610,
+          804
+        ],
+        [
+          762,
+          804
+        ],
+        [
+          930,
+          880
+        ]
+      ],
+      "platform_ids": [
+        "us_step_a"
+      ]
+    },
+    {
+      "id": "terrain_aqueduct_deck",
+      "kind": "ruin",
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "depth": 62,
+      "surface": [
+        [
+          930,
+          880
+        ],
+        [
+          1160,
+          880
+        ]
+      ],
+      "platform_ids": [
+        "aq_deck"
+      ]
+    },
+    {
+      "id": "terrain_aqueduct_lip",
+      "kind": "ruin",
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "depth": 38,
+      "surface": [
+        [
+          1250,
+          836
+        ],
+        [
+          1380,
+          836
+        ],
+        [
+          1420,
+          856
+        ],
+        [
+          1440,
+          856
+        ]
+      ],
+      "platform_ids": [
         "aq_lip"
       ]
     },
@@ -9477,35 +9602,35 @@
           920
         ],
         [
-          1840.99,
+          1856,
           920
         ],
         [
-          1969.01,
+          1984,
           1000
         ],
         [
-          2090.99,
+          2144,
           1000
         ],
         [
-          2219.01,
+          2296,
           1080
         ],
         [
-          2420.99,
+          2472,
           1080
         ],
         [
-          2549.01,
+          2632,
           1160
         ],
         [
-          2730.99,
+          2760,
           1160
         ],
         [
-          2859.01,
+          2920,
           1240
         ],
         [
@@ -9513,7 +9638,7 @@
           1240
         ]
       ],
-      "depth": 104,
+      "depth": 86,
       "texture_variants": [
         4,
         2,
@@ -10241,8 +10366,14 @@
       [
         1120,
         928,
-        416,
+        320,
         32
+      ],
+      [
+        1440,
+        942,
+        96,
+        18
       ],
       [
         3232,
