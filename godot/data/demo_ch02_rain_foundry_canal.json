@@ -547,7 +547,19 @@
         830,
         800,
         940
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          3614,
+          1189
+        ],
+        "size": [
+          194,
+          239
+        ],
+        "variant": 2,
+        "opacity": 0.35
+      }
     },
     {
       "id": "pump_atrium",
@@ -650,7 +662,19 @@
         1260,
         400,
         576
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          3115,
+          1438
+        ],
+        "size": [
+          194,
+          282
+        ],
+        "variant": 0,
+        "opacity": 0.38
+      }
     },
     {
       "id": "gauge_gallery",
@@ -2969,10 +2993,10 @@
     {
       "id": "fc_d1",
       "rect": [
-        3750,
-        1480,
-        150,
-        26
+        3700,
+        1456,
+        195,
+        24
       ],
       "color": "17262b",
       "material": "wet_metal",
@@ -2994,10 +3018,10 @@
     {
       "id": "fc_d2",
       "rect": [
-        3600,
-        1620,
-        140,
-        26
+        3620,
+        1580,
+        186,
+        24
       ],
       "color": "17262b",
       "material": "wet_metal",
@@ -3069,10 +3093,10 @@
     {
       "id": "pt01",
       "rect": [
-        3250,
-        1794,
-        150,
-        24
+        3336,
+        1822,
+        105,
+        23
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
@@ -3094,9 +3118,9 @@
     {
       "id": "pt02",
       "rect": [
-        3030,
-        1888,
-        150,
+        3125,
+        1908,
+        182,
         24
       ],
       "color": "3f4a55",
@@ -3119,10 +3143,10 @@
     {
       "id": "pt03",
       "rect": [
-        3250,
-        1982,
-        150,
-        24
+        3278,
+        2003,
+        164,
+        23
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
@@ -4424,10 +4448,10 @@
     {
       "id": "sp22",
       "rect": [
-        1200,
-        1592,
-        150,
-        24
+        1157,
+        1658,
+        153,
+        22
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
@@ -5183,10 +5207,10 @@
     {
       "id": "dp_step",
       "rect": [
-        3560,
-        4640,
-        150,
-        26
+        3681,
+        4664,
+        90,
+        24
       ],
       "color": "1a2430",
       "material": "wet_metal",
@@ -6264,13 +6288,101 @@
       "rect": [
         914,
         1540,
-        626.0,
+        126,
         28
       ],
       "color": "17262b",
       "material": "wet_metal",
       "collision_role": "floor",
       "route_role": "branch"
+    },
+    {
+      "color": "3f4a55",
+      "material": "sluice_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          10,
+          10
+        ]
+      },
+      "id": "pump_service_grate",
+      "rect": [
+        3076,
+        3398,
+        96,
+        24
+      ]
+    },
+    {
+      "color": "17262b",
+      "material": "wet_metal",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 0,
+        "flip_h": true,
+        "body_variants": [
+          0,
+          4,
+          7
+        ]
+      },
+      "id": "flume_shrine_lip",
+      "rect": [
+        3150,
+        1282,
+        81,
+        22
+      ]
+    },
+    {
+      "color": "3f4a55",
+      "material": "sluice_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          10,
+          10
+        ]
+      },
+      "id": "riser_maintenance_grate",
+      "rect": [
+        1040,
+        1540,
+        300,
+        22
+      ]
+    },
+    {
+      "color": "3f4a55",
+      "material": "sluice_bridge",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          10,
+          10
+        ]
+      },
+      "id": "riser_east_dock",
+      "rect": [
+        1340,
+        1540,
+        60,
+        28
+      ]
     }
   ],
   "locked_gates": [
@@ -6788,7 +6900,7 @@
         "tactical_role": "patrol"
       },
       "position": [
-        980,
+        1000,
         840
       ],
       "platform_id": "aq_deck",
@@ -6899,7 +7011,7 @@
       "id": "E03",
       "kind": "valve_crawler",
       "position": [
-        2320,
+        2370,
         1040
       ],
       "platform_id": "sl_lock_a",

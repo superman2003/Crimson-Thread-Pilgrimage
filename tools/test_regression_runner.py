@@ -149,6 +149,7 @@ class CompletionContractTests(unittest.TestCase):
             'map_group_framing',
             'grounded_run',
             'interpolation_arrival',
+            'six_region_route_redesign',
         }
         # Keep the original 186-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still

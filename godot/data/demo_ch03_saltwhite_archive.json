@@ -219,7 +219,19 @@
         2090,
         1480,
         790
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          1250,
+          2180
+        ],
+        "size": [
+          340,
+          385
+        ],
+        "variant": 2,
+        "opacity": 0.32
+      }
     },
     {
       "id": "candle_mezzanine",
@@ -574,7 +586,19 @@
         550,
         370,
         1340
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          5500,
+          1122
+        ],
+        "size": [
+          224,
+          384
+        ],
+        "variant": 4,
+        "opacity": 0.34
+      }
     },
     {
       "id": "sealed_stacks",
@@ -1691,9 +1715,9 @@
     {
       "id": "atrium_shelf_a",
       "rect": [
-        2720,
+        2665,
         2032,
-        130,
+        201,
         22
       ],
       "color": "6b6144",
@@ -1718,7 +1742,7 @@
       "rect": [
         2500,
         1926,
-        155,
+        204,
         24
       ],
       "color": "6b6144",
@@ -1741,9 +1765,9 @@
     {
       "id": "atrium_f2_landing",
       "rect": [
-        2745,
+        2722,
         1812,
-        240,
+        258,
         30
       ],
       "color": "2b2820",
@@ -1863,9 +1887,9 @@
     {
       "id": "atrium_shelf_c",
       "rect": [
-        3035,
+        3010,
         1712,
-        205,
+        229,
         22
       ],
       "color": "6b6144",
@@ -1888,9 +1912,9 @@
     {
       "id": "atrium_shelf_d",
       "rect": [
-        3320,
+        3265,
         1622,
-        120,
+        176,
         24
       ],
       "color": "6b6144",
@@ -1913,9 +1937,9 @@
     {
       "id": "atrium_shelf_e",
       "rect": [
-        3080,
+        3070,
         1512,
-        165,
+        153,
         22
       ],
       "color": "6b6144",
@@ -1938,14 +1962,14 @@
     {
       "id": "atrium_f3_landing",
       "rect": [
-        3250,
+        3225,
         1400,
-        230,
+        255,
         30
       ],
       "color": "2b2820",
       "material": "salt_marble",
-      "collision_role": "floor",
+      "collision_role": "one_way",
       "route_role": "main",
       "route_order": 21,
       "safe_landing": true,
@@ -2149,9 +2173,9 @@
     {
       "id": "sky_rise_a",
       "rect": [
-        4920,
+        4800,
         1194,
-        130,
+        213,
         22
       ],
       "color": "6b6144",
@@ -2174,9 +2198,9 @@
     {
       "id": "sky_rise_b",
       "rect": [
-        4740,
+        4690,
         1088,
-        150,
+        162,
         24
       ],
       "color": "6b6144",
@@ -2199,9 +2223,9 @@
     {
       "id": "sky_rise_c",
       "rect": [
-        4945,
+        4865,
         982,
-        125,
+        201,
         22
       ],
       "color": "6b6144",
@@ -2281,7 +2305,7 @@
       "rect": [
         5480,
         986,
-        150,
+        146,
         24
       ],
       "color": "2b2820",
@@ -2304,9 +2328,9 @@
     {
       "id": "chute_fall_a",
       "rect": [
-        5510,
-        1300,
-        170,
+        5490,
+        1248,
+        172,
         26
       ],
       "color": "6b6144",
@@ -2327,12 +2351,34 @@
       }
     },
     {
+      "color": "6b6144",
+      "material": "vellum_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          8,
+          8
+        ]
+      },
+      "id": "chute_binding_beam",
+      "rect": [
+        5460,
+        1398,
+        161,
+        22
+      ]
+    },
+    {
       "id": "chute_fall_b",
       "rect": [
-        5470,
-        1618,
-        195,
-        28
+        5408,
+        1550,
+        178,
+        26
       ],
       "color": "6b6144",
       "material": "vellum_bridge",
@@ -3810,6 +3856,7 @@
       "platforms": [
         "chute_lip",
         "chute_fall_a",
+        "chute_binding_beam",
         "chute_fall_b",
         "stacks_shelf_a"
       ],
@@ -5092,6 +5139,35 @@
       ],
       "platform_ids": [],
       "cave_walk_link": true
+    },
+    {
+      "id": "terrain_archive_chute_lip",
+      "kind": "ruin",
+      "surface": [
+        [
+          5364,
+          922
+        ],
+        [
+          5390,
+          922
+        ],
+        [
+          5480,
+          986
+        ],
+        [
+          5508,
+          986
+        ]
+      ],
+      "depth": 32,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": []
     }
   ],
   "terrain_design": {

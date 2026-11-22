@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Audit collision data without confusing 2D rooms with legacy X ranges.
 
-This checks stored rectangles and recovery markers, not jump feasibility or a
-human playthrough. Strict mode also requires six campaign files in each scope.
+Checks recovery markers and standing room on authored collision geometry.
+Strict mode requires six campaign files in each scope.
 """
 from __future__ import annotations
 import argparse
@@ -42,6 +42,68 @@ def effective_config(path, data_root):
             items.extend(copy.deepcopy(overlay.get(key, [])))
     return config
 
+
+def solid_terrain(config, platforms):
+    """Yield solid x intervals with their sloping top and vertical thickness."""
+    by_terrain = {}
+    for platform in platforms:
+        terrain_id = platform.get('terrain_id')
+        if terrain_id:
+            by_terrain.setdefault(terrain_id, []).append(platform)
+    for landform in config.get('terrain', []):
+        supports = by_terrain.get(landform['id'], [])
+        one_way = []
+        for support in supports:
+            if support.get('collision_role') == 'one_way':
+                x, _, width, _ = support['rect']
+                one_way.append((x, x + width))
+        if supports and len(one_way) == len(supports):
+            continue
+        surface = landform['surface']
+        depth = landform.get('depth', 104)
+        for (x1, y1), (x2, y2) in zip(surface, surface[1:]):
+            if x1 >= x2:
+                continue
+            cuts = sorted({x1, x2} | {x for span in one_way for x in span if x1 < x < x2})
+            slope = (y2 - y1) / (x2 - x1)
+            # Match world_collision_geometry.gd: tags can make part of a
+            # mixed landform one-way, without making its solid neighbors so.
+            for left, right in zip(cuts, cuts[1:]):
+                mid = (left + right) / 2
+                if not any(start <= mid <= end for start, end in one_way):
+                    yield left, right, y1 + (left - x1) * slope, slope, depth
+
+
+def standing_span(rect, walls, terrain):
+    x, feet, width, _ = rect
+    half = PLAYER_WIDTH / 2
+    first, last = x + half, x + width - half
+    head, sole = feet - PLAYER_HEIGHT, feet - 1
+    blocked = [(left, left + size) for left, top, size, depth in walls
+               if left < x + width and left + size > x and top < sole and top + depth > head]
+    for left, right, top, slope, depth in terrain:
+        if left >= x + width or right <= x:
+            continue
+        if slope == 0:
+            if top < sole and top + depth > head:
+                blocked.append((left, right))
+            continue
+        # Intersect the slope with the standing body's vertical band. The
+        # blocker starts where its underside enters that band.
+        a = left + (head - depth - top) / slope
+        b = left + (sole - top) / slope
+        lo, hi = max(left, min(a, b)), min(right, max(a, b))
+        if lo < hi:
+            blocked.append((lo, hi))
+    cursor, widest = first, 0.0
+    for left, right in sorted(blocked):
+        if left - half >= last:
+            break
+        widest = max(widest, left - half - cursor)
+        cursor = max(cursor, right + half)
+    return max(widest, last - cursor)
+
+
 def audit(config):
     errors, checks = [], 0
     def check(condition, label):
@@ -63,6 +125,13 @@ def audit(config):
             if p.get('safe_landing'):
                 check(r[2] >= PLAYER_WIDTH, f"{p['id']}: safe landing narrower than player")
                 check(p.get('gameplay_clearance', PLAYER_HEIGHT) >= PLAYER_HEIGHT, f"{p['id']}: stated headroom smaller than player")
+    walls = list(config.get('cave_world', {}).get('solid_rects', []))
+    walls.extend(p['rect'] for p in valid if p.get('collision_role') != 'one_way' and not p.get('terrain_id'))
+    terrain = list(solid_terrain(config, valid))
+    for platform in valid:
+        if platform.get('collision_role') == 'one_way' and not platform.get('terrain_id'):
+            check(standing_span(platform['rect'], walls, terrain) > 0.01,
+                  f"{platform['id']}: no standing room above one-way platform")
     for field in ('player_start', 'boss_checkpoint'):
         check(finite_vector(config.get(field), 2), f'{field}: missing or non-finite recovery point')
     markers = [(field, config.get(field)) for field in ('player_start', 'boss_checkpoint')]

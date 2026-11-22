@@ -22,6 +22,14 @@ class AuditTests(unittest.TestCase):
     def test_missing_support_fails(self):
         self.data['player_start'] = [600, 0]
         self.assertTrue(any('no landing' in e for e in geometry(self.data)[1]))
+    def test_one_way_landing_requires_clearance_from_rock_and_slopes(self):
+        self.data['platforms'].append({'id': 'step', 'rect': [180, 400, 120, 24], 'collision_role': 'one_way'})
+        self.data['cave_world'] = {'solid_rects': [[175, 300, 68, 86]]}
+        self.assertFalse(any('standing room' in e for e in geometry(self.data)[1]))
+        self.data['terrain'] = [{'id': 'ramp', 'surface': [[225, 335], [320, 350]], 'depth': 36}]
+        self.assertTrue(any('step: no standing room' in e for e in geometry(self.data)[1]))
+        self.data['platforms'].append({'id': 'ramp_deck', 'rect': [225, 335, 95, 24], 'collision_role': 'one_way', 'terrain_id': 'ramp'})
+        self.assertFalse(any('standing room' in e for e in geometry(self.data)[1]))
     def test_invalid_rect_and_duplicate_platform_fail(self):
         self.data['platforms'].append({'id': 'floor', 'rect': [0, 140, -1, 10]})
         errors = geometry(self.data)[1]

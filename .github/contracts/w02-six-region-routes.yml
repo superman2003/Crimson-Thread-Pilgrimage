@@ -1,0 +1,65 @@
+name: W02 Six-region routes
+
+on:
+  pull_request:
+    paths:
+      - 'godot/data/demo_ch0[1-6]_*.json'
+      - 'godot/data/world_routes.json'
+      - 'godot/data/scene_history.json'
+      - 'godot/scripts/chapter_terrain.gd'
+      - 'godot/scripts/cave_world.gd'
+      - 'tools/audit_platform_geometry.py'
+      - 'tools/test_map_audits.py'
+      - 'godot/scripts/six_region_route_redesign_validation.gd'
+      - 'tools/run_godot_regressions.py'
+      - 'tools/godot_suite_success_markers.json'
+      - '.github/contracts/w02-six-region-routes.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: w02-six-region-routes-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  routes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact PR head
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          lfs: false
+      - name: Install pinned Godot and hydrate assets
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Audit standing clearance in all six active regions
+        run: |
+          python3 tools/test_map_audits.py
+          python3 tools/audit_platform_geometry.py --scope active --strict
+          python3 tools/validate_scene_history.py
+      - name: Import project
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/route-logs/import"
+      - name: Traverse redesigned routes and check world connections
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite six_region_route_redesign --suite cave_route_walk --suite chapter_route_regression \
+            --suite world_passage_network --suite world_resume_regression --suite scene_history \
+            --log-dir "$RUNNER_TEMP/route-logs/regressions"
+      - name: Preserve Godot diagnostics
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: w02-six-region-routes
+          path: ${{ runner.temp }}/route-logs
+          if-no-files-found: ignore
