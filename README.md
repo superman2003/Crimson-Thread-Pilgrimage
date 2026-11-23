@@ -7,11 +7,38 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 
 ## 默认主角：缄 · 缠线小偶（2026-11-08）
 
-主角已全面替换为旧契约布与绯线组成的小偶，32 个状态覆盖跑跳、方向攻击、技能、受击与死亡，短足跑动保持支撑脚点和身体起伏。胸口线结承载回响，治疗缝补自身，钩索从线结放出；移动与战斗规则保留。
+缄由旧契约布与绯线组成，32 个动作状态覆盖跑跳、方向攻击、技能、受击与死亡。胸口线结承载回响，治疗缝补自身，钩索从线结放出。
 
-![缠线小偶第一章原生实机](artifacts/thread_doll_v1/gameplay.png)
+![缠线小偶在苔钟庭起点的原生实机](artifacts/readme_current_20261123/world_hud.webp)
 
-[第一章实机录像](artifacts/thread_doll_v1/gameplay-review.mp4) · [32 状态动作预览](artifacts/thread_doll_v1/actions-review.mp4) · [实装与验证](docs/THREAD_DOLL_PROTAGONIST.md)。以下 11 月 7 日的界面图保留为当时版本记录，其中的人形主角不代表当前外观。
+[第一章实机录像](artifacts/thread_doll_v1/gameplay-review.mp4) · [32 状态动作预览](artifacts/thread_doll_v1/actions-review.mp4) · [实装与验证](docs/THREAD_DOLL_PROTAGONIST.md)
+
+## 当前版本实机（2026-11-23）
+
+截图取自 Godot 4.6.1 的正式 `World.tscn`，分辨率 1280 × 720。界面和六区起点取自独立展示档，路线图在关卡回归经过的落点布置取景。
+
+![中央钟庭的实体石坡与升降笼前落台](artifacts/readme_current_20261123/central_court.webp)
+
+![铸雨渠检修缝与泵房之间的两段坡道](artifacts/readme_current_20261123/rain_service_ramp.webp)
+
+![水窖深廊内侧的铜踏板与返程箭头](artifacts/readme_current_20261123/cistern_return.webp)
+
+<details>
+<summary>行囊、契印、旅记、区域地图和练习工房</summary>
+
+![分类行囊](artifacts/readme_current_20261123/inventory.webp)
+
+![契印与构筑](artifacts/readme_current_20261123/seal.webp)
+
+![旅记](artifacts/readme_current_20261123/journal.webp)
+
+![区域地图](artifacts/readme_current_20261123/map.webp)
+
+![能力练习工房](artifacts/readme_current_20261123/practice.webp)
+
+</details>
+
+[查看 23 张实机图及复现方式](docs/gallery/20261123_current_world.md) · [11 月 7 日实机记录](docs/gallery/20261107_current_main.md)
 
 ## 升级进度（2026-11-07）
 
@@ -25,29 +52,11 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 
 [进度图说明](docs/gallery/20261024_upgrade_progress.md) · [升级进度](docs/UPGRADE_PROGRESS.md)
 
-## 当前版本实机画面（2026-11-07）
-
-以下图片在 main `1b6cf34` 加上画面文字精简第一批（#565）后，重新运行 Godot 4.6.1 / `World.tscn` 截取，1280 × 720。截图使用隔离的展示存档，装备、材料和进度由夹具授予；用于展示当前界面，不代表自然流程获得或六区带伤通关。
-
-![2026-11-07 World 场景与 HUD](artifacts/readme_current_20261107/world_hud.webp)
-
-![2026-11-07 分类行囊](artifacts/readme_current_20261107/inventory.webp)
-
-![2026-11-07 契印与构筑](artifacts/readme_current_20261107/seal.webp)
-
-![2026-11-07 旅记](artifacts/readme_current_20261107/journal.webp)
-
-![2026-11-07 区域地图](artifacts/readme_current_20261107/map.webp)
-
-![2026-11-07 能力练习工房](artifacts/readme_current_20261107/practice.webp)
-
-[查看本次全部 20 张实机界面、与 10-15 的差异和复现方式](docs/gallery/20261107_current_main.md)
-
-## 怪物素材与完整地图（2026-11-07 重新渲染）
+## 怪物素材与完整地图（2026-11-23）
 
 40 种小怪与 6 位 Boss 的当前素材在下方直接展示；[完整图册](docs/gallery/20261011_current_assets.md)提供各章高清地图、小怪分章图册、实机画面，以及全部 46 类敌人的原始动画图集链接。
 
-地图总览由当前章节配置按世界坐标比例生成，展示完整布局及关键对象位置，属于布局图。表中“实机”是 2026-11-07 在各区起点截取的画面。
+地图总览按当前章节 JSON 的世界坐标绘制地形和关键位置。表中的实机图拍摄于各区起点。
 
 ![40 种小怪素材总览](artifacts/current_gallery/monsters_all.jpg)
 
@@ -57,12 +66,12 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 
 | 章节 | 完整地图 | 小怪图册 | 实机画面 |
 | --- | --- | --- | --- |
-| 第 1 章 · 苔钟庭 | [查看全图](artifacts/current_gallery/demo_ch01_moss_bell_court_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch01_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch01_moss_bell_court.webp) |
-| 第 2 章 · 铸雨渠 | [查看全图](artifacts/current_gallery/demo_ch02_rain_foundry_canal_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch02_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch02_rain_foundry_canal.webp) |
-| 第 3 章 · 盐白书库 | [查看全图](artifacts/current_gallery/demo_ch03_saltwhite_archive_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch03_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch03_saltwhite_archive.webp) |
-| 第 4 章 · 断弦温室 | [查看全图](artifacts/current_gallery/demo_ch04_broken_string_greenhouse_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch04_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch04_broken_string_greenhouse.webp) |
-| 第 5 章 · 黑曜巡礼道 | [查看全图](artifacts/current_gallery/demo_ch05_obsidian_pilgrim_road_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch05_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch05_obsidian_pilgrim_road.webp) |
-| 第 6 章 · 无声王冠 | [查看全图](artifacts/current_gallery/demo_ch06_silent_crown_core_full_map.jpg) | [8 种小怪](artifacts/current_gallery/ch06_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch06_silent_crown_core.webp) |
+| 第 1 章 · 苔钟庭 | [查看全图](artifacts/current_gallery/demo_ch01_moss_bell_court_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch01_enemies.jpg) | [实机](artifacts/readme_current_20261123/region_ch01_moss_bell_court.webp) |
+| 第 2 章 · 铸雨渠 | [查看全图](artifacts/current_gallery/demo_ch02_rain_foundry_canal_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch02_enemies.jpg) | [实机](artifacts/readme_current_20261123/region_ch02_rain_foundry_canal.webp) |
+| 第 3 章 · 盐白书库 | [查看全图](artifacts/current_gallery/demo_ch03_saltwhite_archive_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch03_enemies.jpg) | [实机](artifacts/readme_current_20261123/region_ch03_saltwhite_archive.webp) |
+| 第 4 章 · 断弦温室 | [查看全图](artifacts/current_gallery/demo_ch04_broken_string_greenhouse_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch04_enemies.jpg) | [实机](artifacts/readme_current_20261123/region_ch04_broken_string_greenhouse.webp) |
+| 第 5 章 · 黑曜巡礼道 | [查看全图](artifacts/current_gallery/demo_ch05_obsidian_pilgrim_road_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch05_enemies.jpg) | [实机](artifacts/readme_current_20261123/region_ch05_obsidian_pilgrim_road.webp) |
+| 第 6 章 · 无声王冠 | [查看全图](artifacts/current_gallery/demo_ch06_silent_crown_core_full_map.jpg) | [8 种小怪](artifacts/current_gallery/ch06_enemies.jpg) | [实机](artifacts/readme_current_20261123/region_ch06_silent_crown_core.webp) |
 
 <details>
 <summary>历史升级记录与旧版截图（2026-10-11～15）</summary>
@@ -323,6 +332,8 @@ npm run test:campaign
 项目代码使用 MIT License。第三方素材、插件、音频和字体等按各自许可证使用，详见 `THIRD_PARTY_NOTICES.md` 和各素材目录下的 NOTICE/LICENSE 文件。
 
 ## 逐批关卡升级
+
+[中央钟庭与铸雨渠实体坡道](docs/ledger/entries/2026-11-23-2033-w02-solid-court-and-flume.md) · [水窖与早期落差的回程](docs/ledger/entries/2026-11-23-1925-w04-physical-returns.md) · [当前实机图册](docs/gallery/20261123_current_world.md)
 
 [W02 第一批：苔钟庭五间原房间重构](docs/CH01_ROOM_RECONSTRUCTION.md) · [实机前后对比](docs/gallery/20261011_ch01_rooms.md)。全清单仍分批推进，验收范围见文档。
 

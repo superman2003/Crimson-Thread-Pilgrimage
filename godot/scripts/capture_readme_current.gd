@@ -1,5 +1,14 @@
 extends SceneTree
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
+const ROUTE_VIEWS := {
+    "demo_ch01_moss_bell_court": {
+        "central_court": Vector2(3694, 2126),
+        "cistern_return": Vector2(3780, 5420),
+    },
+    "demo_ch02_rain_foundry_canal": {
+        "rain_service_ramp": Vector2(3845, 1490),
+    },
+}
 ## Actual World render with isolated showcase progress, not a completion proof.
 ## Graphical engine: --script res://scripts/capture_readme_current.gd -- --capture-output=DIR
 var destination := ""
@@ -159,10 +168,20 @@ func capture() -> void:
         world.player.get_node("Camera2D").reset_smoothing()
         await frames(90)
         await shot("region_" + region_id.trim_prefix("demo_"))
+        var route_views: Dictionary = ROUTE_VIEWS.get(region_id, {})
+        for filename in route_views:
+            world.player.global_position = route_views[filename] + Vector2(0, -8)
+            world.player.velocity = Vector2.ZERO
+            world._warm_arrival_cave()
+            world._warm_arrival_terrain()
+            world._warm_arrival_platforms()
+            world.player.reset_camera_after_arrival()
+            await frames(30)
+            await shot(filename)
     world.queue_free()
     world = null
     # Let deferred frees, render commands and retiring audio complete before exit.
     await frames(10)
     await create_timer(0.5).timeout
-    print("README_CURRENT_CAPTURE_PASS screenshots=20 isolated_showcase_progress=true")
+    print("README_CURRENT_CAPTURE_PASS screenshots=23 isolated_showcase_progress=true")
     quit()
