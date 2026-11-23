@@ -1,4 +1,6 @@
 extends CharacterBody2D
+
+const GROUND_MOTION := preload("res://scripts/character_ground_motion.gd")
 const PLAYER_SEALS := preload("res://scripts/player_seals.gd")
 const PLAYER_AUDIO := preload("res://scripts/player_audio.gd")
 const PLAYER_EFFECTS := preload("res://scripts/player_effects.gd")
@@ -279,7 +281,7 @@ const THREAD_T3_GLOW := Color(0.902, 0.224, 0.314, 0.35)
 
 @export var speed: float = 285.0
 @export var jump_velocity: float = -710.0
-@export var gravity: float = 1850.0
+@export var gravity: float = GROUND_MOTION.GRAVITY
 @export var dash_speed: float = 780.0
 @export var coyote_time: float = 0.12
 @export var jump_buffer_time: float = 0.12
@@ -436,8 +438,7 @@ func _ready() -> void:
         "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost,
         "heal_amount": heal_amount, "heal_duration": heal_duration}
     phase_safe_position = global_position
-    floor_snap_length=18.0
-    floor_constant_speed=true
+    GROUND_MOTION.configure_floor(self)
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
 
@@ -609,7 +610,7 @@ func _physics_process(delta: float) -> void:
             _spawn_dash_trail()
     elif attack_timer <= 0.0 and wall_jump_lock <= 0.0 and hurt_timer <= 0.0:
         var movement_speed := speed * (1.12 if heal_speed_timer > 0.0 and is_on_floor() else 1.0) * (0.58 if snare_timer > 0.0 else 1.0)
-        velocity.x = move_toward(velocity.x, input_axis * movement_speed, speed * 9.5 * delta)
+        velocity.x = GROUND_MOTION.approach_speed(velocity.x, input_axis * movement_speed, speed, delta)
     elif wall_jump_lock <= 0.0 and hurt_timer <= 0.0:
         var movement_speed := speed * (1.12 if heal_speed_timer > 0.0 and is_on_floor() else 1.0) * (0.58 if snare_timer > 0.0 else 1.0)
         velocity.x = move_toward(velocity.x, input_axis * movement_speed * 0.45, speed * 5.0 * delta)

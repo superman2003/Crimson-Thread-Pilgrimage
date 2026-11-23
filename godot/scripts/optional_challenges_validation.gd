@@ -386,6 +386,8 @@ func run() -> void:
 	var spear_fighter := challenge_enemy("CH05_N1")
 	check(flag_bearer != null and spear_fighter != null and flag_bearer.tactical_role == "support", "the World challenge builds its flag bearer with the support role")
 	if flag_bearer != null and spear_fighter != null:
+		check(flag_bearer.get_meta("platform_id", "") == "graves_floor" and spear_fighter.get_meta("platform_id", "") == "graves_floor",
+			"both grave trial enemies spawn on the arena floor after the exit steps move")
 		spear_fighter.take_hit(1, spear_fighter.direction)
 		var hurt_hp: int = spear_fighter.hp
 		var money_before_mend: int = scene.currency_count

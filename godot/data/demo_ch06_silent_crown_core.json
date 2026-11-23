@@ -219,7 +219,19 @@
         662,
         946,
         502
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          3910,
+          680
+        ],
+        "size": [
+          294,
+          300
+        ],
+        "variant": 3,
+        "opacity": 0.35
+      }
     },
     {
       "id": "echo_rain",
@@ -403,7 +415,19 @@
         1906,
         506,
         848
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          2920,
+          2130
+        ],
+        "size": [
+          248,
+          422
+        ],
+        "variant": 2,
+        "opacity": 0.28
+      }
     },
     {
       "id": "bell_tongue_vault",
@@ -1846,10 +1870,10 @@
     {
       "id": "core_fall_a",
       "rect": [
-        2760,
-        2080,
-        190,
-        26
+        2800,
+        2078,
+        195,
+        22
       ],
       "color": "3c3f5c",
       "material": "void_bridge",
@@ -1869,12 +1893,34 @@
       }
     },
     {
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 10,
+        "flip_h": true,
+        "body_variants": [
+          10,
+          6,
+          6
+        ]
+      },
+      "id": "core_upper_rib",
+      "rect": [
+        2740,
+        2212,
+        180,
+        22
+      ]
+    },
+    {
       "id": "core_fall_b",
       "rect": [
-        2900,
-        2360,
-        210,
-        28
+        2890,
+        2350,
+        181,
+        24
       ],
       "color": "3c3f5c",
       "material": "void_bridge",
@@ -1894,12 +1940,34 @@
       }
     },
     {
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          10,
+          10
+        ]
+      },
+      "id": "core_lower_rib",
+      "rect": [
+        2755,
+        2506,
+        137,
+        22
+      ]
+    },
+    {
       "id": "core_fall_c",
       "rect": [
-        2740,
-        2640,
-        230,
-        30
+        2868,
+        2660,
+        115,
+        25
       ],
       "color": "3c3f5c",
       "material": "void_bridge",
@@ -2308,9 +2376,9 @@
     {
       "id": "rib_r1",
       "rect": [
-        2380,
+        2360,
         1388,
-        130,
+        182,
         22
       ],
       "color": "3c3f5c",
@@ -2333,9 +2401,9 @@
     {
       "id": "rib_r2",
       "rect": [
-        2230,
+        2217,
         1278,
-        150,
+        169,
         22
       ],
       "color": "3c3f5c",
@@ -2358,9 +2426,9 @@
     {
       "id": "rib_r3",
       "rect": [
-        2400,
+        2372,
         1170,
-        120,
+        163,
         22
       ],
       "color": "3c3f5c",
@@ -2383,9 +2451,9 @@
     {
       "id": "rib_r4",
       "rect": [
-        2240,
+        2218,
         1062,
-        165,
+        198,
         22
       ],
       "color": "3c3f5c",
@@ -2408,9 +2476,9 @@
     {
       "id": "rib_r5",
       "rect": [
-        2420,
+        2384,
         952,
-        135,
+        158,
         22
       ],
       "color": "3c3f5c",
@@ -2433,9 +2501,9 @@
     {
       "id": "rib_r6",
       "rect": [
-        2260,
+        2230,
         846,
-        145,
+        196,
         22
       ],
       "color": "3c3f5c",
@@ -2459,8 +2527,8 @@
       "id": "rib_r7",
       "rect": [
         2430,
-        740,
-        155,
+        828,
+        146,
         22
       ],
       "color": "3c3f5c",
@@ -2713,8 +2781,30 @@
       ],
       "color": "232637",
       "material": "crown_bone",
-      "collision_role": "floor",
+      "collision_role": "one_way",
       "route_role": "branch"
+    },
+    {
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 10,
+        "flip_h": true,
+        "body_variants": [
+          10,
+          6,
+          6
+        ]
+      },
+      "id": "sewn_shoulder_catch",
+      "rect": [
+        4110,
+        1060,
+        126,
+        20
+      ]
     }
   ],
   "locked_gates": [],
@@ -3637,7 +3727,9 @@
       "platforms": [
         "ringE_lip",
         "core_fall_a",
+        "core_upper_rib",
         "core_fall_b",
+        "core_lower_rib",
         "core_fall_c",
         "vault_floor"
       ],
@@ -5199,9 +5291,15 @@
       ],
       [
         2624,
-        1056,
+        1066,
         1536,
-        32
+        22
+      ],
+      [
+        2624,
+        1056,
+        1474,
+        10
       ],
       [
         -256,

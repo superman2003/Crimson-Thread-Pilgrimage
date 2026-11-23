@@ -113,20 +113,23 @@ func _run() -> void:
             return
         scene.player.global_position = portal.global_position # fixture placement
         var start: Vector2 = scene.player_world_position()
-        # Test the normal directional mouth path instead of F/calling begin.
+        # Use the authored entry action at each side.
         scene.world_platforms.warm(scene, scene.player.global_position)
         scene.cave_world.warm_collision_focus(scene.player.global_position)
         scene.chapter_terrain.warm_focus(scene.player.global_position)
         scene.player.process_mode = Node.PROCESS_MODE_ALWAYS
         await _frames(12)
         var direction := 1 if portal_id == "moss_rain_pipe" else -1
-        Input.action_press("move_right" if direction > 0 else "move_left")
-        for frame in range(30):
-            passage.try_walk_entry()
-            if passage.active:
-                break
-            await _frames()
-        _check(passage.active, "directional step enters " + portal_id)
+        if bool(portal.get_meta("world_portal_data", {}).get("interact_to_enter", false)):
+            scene._try_interact()
+        else:
+            Input.action_press("move_right" if direction > 0 else "move_left")
+            for frame in range(30):
+                passage.try_walk_entry()
+                if passage.active:
+                    break
+                await _frames()
+        _check(passage.active, "authored entry admits " + portal_id)
         scene.player.process_mode = Node.PROCESS_MODE_INHERIT
         # Invalidate after admission while ordinary prefetch is suspended.
         var route_generation := ROUTES._cache_generation

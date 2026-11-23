@@ -86,8 +86,8 @@ func _walk_route(route: Dictionary, side: String) -> bool:
     var area: Node = LEVEL_HOST.find(scene, String(mouth.portal))
     _check(is_instance_valid(area), label + ": authored mouth exists")
     if not is_instance_valid(area): return false
-    # The same mouth-only setup and input/collision stepping as the unchanged
-    # world_passage_network suite. No position assignment occurs after entry.
+    # Mouth-only setup as in world_passage_network. No position assignment
+    # occurs after entry.
     scene.player.global_position = area.global_position
     scene.player.velocity = Vector2.ZERO
     scene.world_platforms.warm(scene, area.global_position)
@@ -97,15 +97,19 @@ func _walk_route(route: Dictionary, side: String) -> bool:
     await _frames(12)
     var direction := 1 if PASSAGE.glyph(String(mouth.region), String(mouth.portal)) == "→" else -1
     var key := "move_right" if direction > 0 else "move_left"
-    Input.action_press(key)
-    for unused in 30:
-        passage.try_walk_entry()
-        if passage.active: break
-        await _frames()
-    _check(passage.active and String(passage.route.get("id", "")) == String(route.id), label + ": real directional input admits the expected connector")
+    if bool(area.get_meta("world_portal_data", {}).get("interact_to_enter", false)):
+        scene._try_interact()
+    else:
+        Input.action_press(key)
+        for unused in 30:
+            passage.try_walk_entry()
+            if passage.active: break
+            await _frames()
+    _check(passage.active and String(passage.route.get("id", "")) == String(route.id), label + ": authored entry admits the expected connector")
     if not passage.active:
         _release()
         return false
+    Input.action_press(key)
     var admitted_path: String = passage.destination_config_path
     var old_generation := ROUTES.cached_generation()
     var identities := [scene.get_instance_id(), scene.player.get_instance_id(), scene.build_system.get_instance_id(), scene.world_state.get_instance_id()]

@@ -9,6 +9,7 @@ const ENEMY := preload("res://scripts/enemy_actor.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const PROFILE_PATH := "res://data/original_creature_combat.json"
 const AUDIO_DIRECTOR := preload("res://scripts/audio_director.gd")
+const RETIRE := preload("res://scripts/audio_retirement.gd")
 const REGIONS := ["demo_ch01_moss_bell_court", "demo_ch02_rain_foundry_canal", "demo_ch03_saltwhite_archive", "demo_ch04_broken_string_greenhouse", "demo_ch05_obsidian_pilgrim_road", "demo_ch06_silent_crown_core"]
 const AMBUSH_ENTRANCE_CLEARANCE := 240.0
 var checks := 0
@@ -64,6 +65,7 @@ func wall(x: float) -> StaticBody2D:
     return body
 
 func clear_stage() -> void:
+    RETIRE.retire_tree(stage)
     for child in stage.get_children():
         if child != target: child.free()
     await physics_frame
@@ -85,6 +87,8 @@ func run() -> void:
     await _role_cues()
     await _sfx_occlusion()
     _ambush_placement()
+    AUDIO_DIRECTOR._stream_cache.clear()
+    check(await RETIRE.drain(self), "role cue audio retires before exit")
     print("ENEMY_TACTICAL_ROLES checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
 
@@ -312,7 +316,9 @@ func _sfx_occlusion() -> void:
     larva._play_sfx("enemy_attack", -10.0)
     var open_attack := sfx_node(larva, "enemy_attack")
     check(open_attack != null and is_equal_approx(open_attack.volume_db, -10.0), "with a clear line an enemy sound keeps its authored volume")
-    if open_attack != null: open_attack.free()
+    if open_attack != null:
+        RETIRE.retire_tree(open_attack)
+        open_attack.free()
     var screen := wall(375)
     await physics_frame
     await physics_frame
@@ -333,8 +339,6 @@ func _sfx_occlusion() -> void:
     await physics_frame
     await physics_frame
     check(not larva._sfx_occluded(), "removing the terrain restores the clear line")
-    for child in larva.get_children():
-        if child is AudioStreamPlayer2D: child.stop()
     await clear_stage()
 
 func cue_rings(enemy: Node, ring_name: String) -> int:

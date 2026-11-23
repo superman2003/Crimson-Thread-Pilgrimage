@@ -228,6 +228,9 @@ static func first_interaction_type(level: Node, area: Area2D) -> String:
     if kind == "npc":
         return "map_shop" if area.has_meta("map_seller_region") else "talk"
     if kind == "world_portal":
+        var portal: Dictionary = area.get_meta("world_portal_data", {})
+        if bool(portal.get("interact_to_enter", false)):
+            return "portal"
         return "walk_passage" if not WORLD_PASSAGE.endpoint(String(level.config.id), String(area.name)).is_empty() else "portal"
     return kind
 

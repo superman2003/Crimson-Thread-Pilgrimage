@@ -373,7 +373,19 @@
         1390,
         2310,
         1480
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          1504,
+          1965
+        ],
+        "size": [
+          334,
+          319
+        ],
+        "variant": 3,
+        "opacity": 0.28
+      }
     },
     {
       "id": "pilgrim_camp",
@@ -522,7 +534,19 @@
         150,
         820,
         1440
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          3275,
+          727
+        ],
+        "size": [
+          205,
+          371
+        ],
+        "variant": 2,
+        "opacity": 0.38
+      }
     },
     {
       "id": "banner_bridge",
@@ -785,7 +809,19 @@
         240,
         720,
         2670
-      ]
+      ],
+      "landmark_art": {
+        "position": [
+          5818,
+          1450
+        ],
+        "size": [
+          180,
+          445
+        ],
+        "variant": 5,
+        "opacity": 0.29
+      }
     },
     {
       "id": "silent_gate",
@@ -2315,9 +2351,9 @@
     {
       "id": "step_t1",
       "rect": [
-        3280,
+        3212,
         1122,
-        140,
+        196,
         22
       ],
       "color": "5c3a30",
@@ -2340,9 +2376,9 @@
     {
       "id": "step_t2",
       "rect": [
-        3130,
+        3094,
         1014,
-        125,
+        168,
         22
       ],
       "color": "5c3a30",
@@ -2365,9 +2401,9 @@
     {
       "id": "step_t3",
       "rect": [
-        3300,
+        3250,
         906,
-        150,
+        186,
         22
       ],
       "color": "5c3a30",
@@ -2390,9 +2426,9 @@
     {
       "id": "step_t4",
       "rect": [
-        3140,
-        798,
-        130,
+        3205,
+        810,
+        111,
         22
       ],
       "color": "5c3a30",
@@ -2616,9 +2652,9 @@
     {
       "id": "graves_rise",
       "rect": [
-        200,
-        1498,
-        150,
+        248,
+        1514,
+        146,
         24
       ],
       "color": "5c3a30",
@@ -2782,7 +2818,7 @@
       "rect": [
         5480,
         850,
-        190,
+        218,
         26
       ],
       "color": "5c3a30",
@@ -2805,9 +2841,9 @@
     {
       "id": "cable_c2",
       "rect": [
-        5680,
-        1140,
-        210,
+        5628,
+        1130,
+        222,
         28
       ],
       "color": "5c3a30",
@@ -2830,9 +2866,9 @@
     {
       "id": "cable_c3",
       "rect": [
-        5470,
-        1440,
-        230,
+        5510,
+        1420,
+        206,
         30
       ],
       "color": "5c3a30",
@@ -2855,9 +2891,9 @@
     {
       "id": "cable_c4",
       "rect": [
-        5690,
-        1745,
-        250,
+        5660,
+        1715,
+        206,
         30
       ],
       "color": "5c3a30",
@@ -2880,9 +2916,9 @@
     {
       "id": "cable_c5",
       "rect": [
-        5480,
-        2050,
-        270,
+        5510,
+        2010,
+        261,
         32
       ],
       "color": "5c3a30",
@@ -2905,9 +2941,9 @@
     {
       "id": "cable_c6",
       "rect": [
-        5700,
-        2355,
-        240,
+        5680,
+        2290,
+        235,
         32
       ],
       "color": "5c3a30",
@@ -3057,6 +3093,50 @@
       "material": "ember_bridge",
       "collision_role": "one_way",
       "route_role": "branch"
+    },
+    {
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          10,
+          10
+        ]
+      },
+      "id": "lower_switchback_rest",
+      "rect": [
+        1966,
+        2442,
+        112,
+        24
+      ]
+    },
+    {
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 10,
+        "flip_h": true,
+        "body_variants": [
+          10,
+          6,
+          6
+        ]
+      },
+      "id": "cable_recovery",
+      "rect": [
+        5748,
+        2522,
+        130,
+        24
+      ]
     }
   ],
   "locked_gates": [],
@@ -4094,6 +4174,7 @@
         "cable_c4",
         "cable_c5",
         "cable_c6",
+        "cable_recovery",
         "cable_base"
       ],
       "safety_contract": {
@@ -7868,9 +7949,10 @@
           "id": "CH05_N2",
           "kind": "ash_banner_imp",
           "position": [
-            280,
+            244,
             1352
           ],
+          "platform_id": "graves_floor",
           "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
           "visual_scale": 0.24024024024024024,
           "visual_offset": [

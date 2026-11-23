@@ -148,11 +148,11 @@ func run() -> void:
                 scene._try_interact()
                 check(scene.active_overlay.is_empty() and prop.seen,"the same confirmation can retry and commit after write recovery")
                 check(scene.inventory_counts==first_inventory and scene.currency_count==first_wallet,"failed and retried observation grants no inventory or currency")
-                scene.player.global_position=prop.global_position+Vector2(35,0)
+                scene.player.global_position=prop.global_position+Vector2(20,0)
                 check(scene.interaction_target()==prop,"unobstructed observation is selectable before wall counterexample")
                 var wall := StaticBody2D.new()
                 wall.collision_layer=1
-                wall.position=prop.position+Vector2(17,0)
+                wall.position=prop.position+Vector2(10,0)
                 var shape := CollisionShape2D.new()
                 var rect := RectangleShape2D.new();rect.size=Vector2(8,80);shape.shape=rect;wall.add_child(shape)
                 scene.add_child(wall)

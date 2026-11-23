@@ -26,6 +26,7 @@ static func configure(actor: Node, data: Dictionary, sprite_path: String, boss_f
     actor.visual_scale = float(data.get("visual_scale", 0.0))
     actor.visual_offset = actor._vec2(data.get("visual_offset", [0, 0]))
     actor.body_size = actor._vec2_or(data.get("body_size", []), Vector2(132, 128) if actor.is_boss else Vector2(50, 46))
+    actor.ground_clearance = float(data.get("clearance", 40.0))
     actor.hurtbox_size = actor._vec2_or(data.get("hurtbox_size", []), Vector2(142, 144) if actor.is_boss else Vector2(58, 56))
     actor.hurtbox_offset = actor._vec2_or(data.get("hurtbox_offset", []), Vector2(0, -40) if actor.is_boss else Vector2(0, -18))
     actor.sprite_faces_left = bool(data.get("sprite_faces_left", false))
@@ -326,23 +327,28 @@ static func clamp_movement_bounds(actor: Node) -> void:
     clamp_to_arena(actor)
     if actor.is_boss:
         return
-    var min_x := -INF
-    var max_x := INF
-    if actor.leash_radius > 0.0:
-        min_x = actor.spawn_position.x - actor.leash_radius
-        max_x = actor.spawn_position.x + actor.leash_radius
-    if actor.platform_min_x < actor.platform_max_x:
-        min_x = maxf(min_x, actor.platform_min_x)
-        max_x = minf(max_x, actor.platform_max_x)
-    if min_x >= max_x:
+    var limits := movement_limits(actor)
+    if limits.x >= limits.y:
         return
-    var clamped_x := clampf(actor.global_position.x, min_x, max_x)
+    var clamped_x := clampf(actor.global_position.x, limits.x, limits.y)
     if not is_equal_approx(clamped_x, actor.global_position.x):
         var next_position = actor.global_position
         next_position.x = clamped_x
         actor.global_position = next_position
         actor.direction *= -1
         actor._set_sprite_flip(actor.direction < 0)
+
+
+static func movement_limits(actor: Node) -> Vector2:
+    var min_x: float = actor.arena_min_x if actor.arena_min_x < actor.arena_max_x else -INF
+    var max_x: float = actor.arena_max_x if actor.arena_min_x < actor.arena_max_x else INF
+    if actor.leash_radius > 0.0:
+        min_x = maxf(min_x, actor.spawn_position.x - actor.leash_radius)
+        max_x = minf(max_x, actor.spawn_position.x + actor.leash_radius)
+    if actor.platform_min_x < actor.platform_max_x:
+        min_x = maxf(min_x, actor.platform_min_x)
+        max_x = minf(max_x, actor.platform_max_x)
+    return Vector2(min_x, max_x)
 
 
 static func set_platform_movement_bounds(actor: Node, min_x: float, max_x: float) -> void:
@@ -382,6 +388,8 @@ static func reset_for_respawn(actor: Node) -> void:
         actor.cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
     actor.hp = actor.max_hp
     actor.knockback_velocity = 0.0
+    if actor.ground_body != null:
+        actor.ground_body.velocity = Vector2.ZERO
     actor._set_flash_amount(0.0)
     actor.global_position = actor.spawn_position
     actor.reset_physics_interpolation()

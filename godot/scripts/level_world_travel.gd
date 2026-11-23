@@ -132,6 +132,9 @@ static func update_portal_sign(level: Node, area: Area2D, data: Dictionary) -> v
         marker.queue_redraw()
     var walk_glyph: String = WORLD_PASSAGE.glyph(String(level.config.id), String(data.get("id", "")))
     var prompt := " · 向右步行进入" if walk_glyph == "→" else " · 向左步行进入" if walk_glyph == "←" else " · F 通行"
+    if bool(data.get("interact_to_enter", false)):
+        var key: String = level.ui_shell._short_binding("interact") if is_instance_valid(level.ui_shell) else "F"
+        prompt = " · %s 通行" % key
     area.set_meta("interaction_label", String(data.get("label", "旧通路")) + (prompt if status.open else " · " + String(status.label)))
 
 

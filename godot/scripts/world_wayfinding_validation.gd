@@ -51,7 +51,7 @@ func run() -> void:
     check(saved.read(scene.world_save_path) and bool(saved.data.story_flags.get("tutorial_interaction_seen_save_point", false)), "seen tutorial persists in save")
     var portal: Node = LEVEL_HOST.find(scene, "moss_rain_pipe")
     var sign: Node = portal.get_node("Wayfinding")
-    check(sign.physical_sign and sign.symbol == "forge" and sign.direction == Vector2.RIGHT, "pipe mouth points to foundry using emblem and arrow")
+    check(sign.physical_sign and sign.symbol == "forge" and sign.interact_to_enter, "junction sign marks the foundry as an interactable entrance")
     scene.player.global_position = portal.global_position
     sign._process(0)
     var bindings := InputMap.action_get_events("interact")

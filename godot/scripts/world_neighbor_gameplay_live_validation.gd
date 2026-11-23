@@ -139,8 +139,10 @@ func crossing(target: String, direction: int) -> Dictionary:
     var energy: int = scene.player.energy
     var wallet: int = scene.currency_count
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
+    if target == RAIN:
+        await press("interact")
     axis(direction)
-    var entered := false
+    var entered: bool = scene.world_passage.active
     for unused in 3600:
         await tick()
         entered = entered or scene.world_passage.active
@@ -187,11 +189,22 @@ func fight(records: Dictionary) -> void:
     check(enemy != null,"arrival has a reused combat actor")
     if enemy == null: return
     var instance_id := enemy.get_instance_id()
+    var body := enemy.ground_body as CharacterBody2D
+    check(body != null and body.get_parent() == enemy,"adopted crawler owns its terrain body")
     var hp_before: int = scene.player.hp
     var reads_before: int = enemy.command_read_count
-    if not await walk(Vector2(620,812),"rain approach"): return
+    var grounded_walk_frames := [0]
+    var observe_walk := func() -> void:
+        if is_instance_valid(body) and is_instance_valid(enemy) and enemy.state == "patrol" \
+                and body.is_on_floor() and absf(body.get_position_delta().x) > 0.05 \
+                and body.global_position.is_equal_approx(enemy.global_position + body.feet_offset):
+            grounded_walk_frames[0] += 1
+    physics_frame.connect(observe_walk)
     # Continue beyond the tower roof before engaging on the aqueduct deck.
-    if not await walk(Vector2(960,880),"aqueduct combat deck"): return
+    var reached_deck := await walk(Vector2(620,812),"rain approach") and await walk(Vector2(960,880),"aqueduct combat deck")
+    physics_frame.disconnect(observe_walk)
+    if not reached_deck: return
+    check(grounded_walk_frames[0] > 0,"adopted enemy walks on solid terrain before combat")
     # Wait for an actual AI/contact hit; no direct take_damage/take_hit calls.
     for unused in 240:
         if scene.player.hp < hp_before: break
@@ -206,23 +219,44 @@ func fight(records: Dictionary) -> void:
     var wallet: int = scene.currency_count
     var defeated: int = scene.enemy_defeated
     var hp_after_hit: int = scene.player.hp
+    var enemy_hp_before: int = enemy.hp
+    var swings := 0
     var killed := false
-    for frame in 480:
+    for unused in 480:
         if not is_instance_valid(enemy) or enemy.dying:
             killed = true
             break
         if scene.player.hp <= 0: break
-        var dx: float = enemy.position.x-scene.player.position.x
-        axis(signf(dx) if absf(dx) > 45 or scene.player.facing != int(signf(dx)) else 0)
-        if frame % 24 == 0 and absf(dx) < 90 and scene.player._can_start_action():
+        var offset: Vector2 = enemy.global_position - scene.player.global_position
+        var distance := absf(offset.x)
+        var toward := signf(offset.x)
+        # Stop steering through the enemy during a swing. Choose each opening
+        # from the actual physics state instead of sampling it every 24 frames.
+        if scene.player.attack_timer > 0.0 or scene.player.hurt_timer > 0.0:
+            axis(0)
+        elif distance > 90.0:
+            axis(toward)
+        elif distance < 46.0:
+            axis(-toward if toward != 0.0 else -scene.player.facing)
+        elif scene.player.facing != int(toward):
+            axis(toward)
+        elif scene.player.is_on_floor() and absf(offset.y + 40.0) < 30.0 and scene.player._can_start_action():
+            axis(0)
             await press("attack")
+            swings += 1
+        else:
+            axis(0)
         await tick()
+    release_input()
     killed = killed or (is_instance_valid(enemy) and enemy.dying)
     check(killed and scene.player.hp > 0,"normal attack input defeats reused enemy")
     check(scene.enemy_defeated == defeated+1 and scene.currency_count == wallet+8,"adopted enemy death rewards once")
     var saved := STATE.new()
     check(saved.read(SAVE) and int(saved.data.currency) == scene.currency_count,"reused enemy reward persists")
-    combat = {"actor_id":instance_id,"hp_before":hp_before,"hp_after_hit":hp_after_hit,"killed":killed,"reward_delta":scene.currency_count-wallet,"direct_damage_calls":false}
+    combat = {"actor_id":instance_id, "grounded_walk_frames":grounded_walk_frames[0],
+        "hp_before":hp_before, "hp_after_hit":hp_after_hit, "hp_after_fight":scene.player.hp,
+        "enemy_hp_before":enemy_hp_before, "enemy_hp_after":int(enemy.hp) if is_instance_valid(enemy) else 0,
+        "swings":swings, "killed":killed, "reward_delta":scene.currency_count-wallet, "direct_damage_calls":false}
 
 func interactions(records: Dictionary) -> void:
     var shrine: Area2D = LEVEL_HOST.find(scene, "save_first_bell")
@@ -273,7 +307,7 @@ func run() -> void:
     scene.player.energy = 41
     scene.currency_count = 97
     await tick(8)
-    if await walk(Vector2(1735,3712),"source pipe approach"):
+    if await walk(Vector2(1790,3752),"source pipe approach"):
         var outward := await crossing(RAIN,1)
         if String(scene.config.id) == RAIN:
             await fight(outward)

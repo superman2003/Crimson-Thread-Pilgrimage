@@ -1,0 +1,57 @@
+name: W02 Rain Foundry aqueduct
+on:
+  pull_request:
+    paths:
+      - 'godot/data/demo_ch02_rain_foundry_canal.json'
+      - 'godot/scripts/chapter_terrain.gd'
+      - 'godot/scripts/ch02_demo_validation.gd'
+      - 'godot/scripts/rain_foundry_experience_validation.gd'
+      - '.github/contracts/w02-rain-aqueduct.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: w02-rain-aqueduct-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  focused-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Import resources
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/aqueduct-import"
+      - name: Verify aqueduct traversal and chapter connections
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite rain_foundry_experience --suite ch02_demo --suite cave_route_walk --suite world_route_walk \
+            --log-dir "$RUNNER_TEMP/aqueduct-checks"
+      - name: Preserve Godot logs
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: w02-rain-aqueduct
+          path: |
+            ${{ runner.temp }}/aqueduct-import
+            ${{ runner.temp }}/aqueduct-checks
+          if-no-files-found: ignore

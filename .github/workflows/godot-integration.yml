@@ -44,6 +44,9 @@ jobs:
         run: |
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Install artwork validation dependencies
+        if: ${{ !cancelled() }}
+        run: python3 -m pip install -r tools/requirements-hero.txt
       - name: Validate JavaScript and chapter structure
         if: ${{ !cancelled() }}
         run: |
@@ -53,7 +56,6 @@ jobs:
           npm test
           python3 tools/test_music_library_server.py
           npm run test:campaign
-          python3 -m pip install -r tools/requirements-hero.txt
           python3 tools/test_repack_enemy_attack_frames.py
           python3 tools/validate_hero_v3.py
           python3 tools/test_hero_pose_extraction.py
@@ -165,7 +167,7 @@ jobs:
         if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-live-gpu" --script res://scripts/world_neighbor_gameplay_live_validation.gd --success-marker 'WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=52 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_live.json --timeout 300
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-live-gpu" --script res://scripts/world_neighbor_gameplay_live_validation.gd --success-marker 'WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=54 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_live.json --timeout 300
       - name: Validate budgeted arrival UI against synchronous rendering
         if: ${{ !cancelled() }}
         run: |

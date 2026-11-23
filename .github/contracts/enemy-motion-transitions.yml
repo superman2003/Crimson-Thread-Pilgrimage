@@ -7,6 +7,8 @@ on:
       - 'art_requests/enemy_transitions_v1/**'
       - 'godot/scripts/enemy_actor.gd'
       - 'godot/scripts/enemy_commands.gd'
+      - 'godot/scripts/enemy_ground_body.gd'
+      - 'godot/scripts/character_ground_motion.gd'
       - 'godot/scripts/enemy_lifecycle.gd'
       - 'godot/scripts/enemy_attack_choice.gd'
       - 'godot/scripts/enemy_attack_phases.gd'
@@ -16,6 +18,7 @@ on:
       - 'godot/scripts/enemy_engagement.gd'
       - 'godot/scripts/enemy_presentation.gd'
       - 'godot/scripts/enemy_motion_transitions*.gd'
+      - 'godot/scripts/enemy_tactical_roles_validation.gd'
       - 'godot/scripts/hand_drawn_assets.gd'
       - 'godot/scripts/character_motion_v8_validation.gd'
       - 'tools/enemy_transition_art.py'
@@ -65,7 +68,7 @@ jobs:
           python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/transition-logs/import"
       - name: Verify real playback, interruptions and frozen combat clocks
         run: |
-          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite enemy_motion_transitions --suite character_motion_v8 --suite enemy_ai_behavior --suite enemy_hit_feedback --suite enemy_combat_continuity --log-dir "$RUNNER_TEMP/transition-logs/runtime"
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl --suite enemy_motion_transitions --suite character_motion_v8 --suite enemy_ai_behavior --suite enemy_tactical_roles --suite enemy_hit_feedback --suite enemy_combat_continuity --log-dir "$RUNNER_TEMP/transition-logs/runtime"
       - uses: actions/upload-artifact@v6
         if: always()
         with:
