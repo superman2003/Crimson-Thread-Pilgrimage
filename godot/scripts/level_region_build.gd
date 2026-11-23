@@ -103,6 +103,10 @@ static func region_gate(level: Node, data: Dictionary) -> void:
         sign.name = "AbilityGateSign"
         sign.ability = ability
         sign.ability_name = String(data.get("required_ability_name", ""))
+        var return_hint: Variant = data.get("return_hint", {})
+        if return_hint is Dictionary:
+            sign.return_room = String(return_hint.get("room", ""))
+            sign.return_side = signi(int(return_hint.get("side", 0)))
         sign.host = level
         # Eye height above the gate's floor end (tall walls) or centred (short ledges).
         var size = level._rect2(data.get("rect", [])).size

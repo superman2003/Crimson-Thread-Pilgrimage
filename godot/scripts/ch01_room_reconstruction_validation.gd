@@ -112,7 +112,7 @@ func run() -> void:
     await jump_to(Vector2(3850,5420),Vector2(3990,5356),"Sunken bell plinth")
     await tick(2)
     check(int(world.inventory_counts.get("energy_spindle",0))==1,"Actual plinth reward obtained through normal pickup")
-    await jump_to(Vector2(3990,5356),Vector2(3830,5420),"Cistern return landing")
+    await jump_to(Vector2(3990,5356),Vector2(3830,5324),"Cistern first return tread")
     await walk(Vector2(1470,5120),Vector2(1690,5120),"Maze shelter safe floor")
     await jump_to(Vector2(1480,5120),Vector2(1401,5064),"Root bench")
     await walk(Vector2(5280,3920),Vector2(5568,3920),"Boss shrine unobstructed retry")

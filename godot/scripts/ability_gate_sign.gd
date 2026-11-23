@@ -5,14 +5,18 @@ extends Node2D
 ## child of the gate body, so opening the gate removes it with the wall.
 const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
 const AMBER := Color(0.93, 0.67, 0.30)
+const RETURN_TINT := Color(0.69, 0.87, 0.68)
 const PLATE := Color(0.06, 0.07, 0.07, 0.86)
 const NEAR := 180.0
 const GLYPHS := ["thread_dash", "silk_wall_grip", "double_thread_jump", "thorn_downstrike", "lantern_phase", "crown_resonance", "echo_hook"]
 
 var ability := ""
 var ability_name := ""
+var return_room := ""
+var return_side := 0
 var host: Node
 var nearby := false
+var showing_return := false
 
 
 func _process(_delta: float) -> void:
@@ -20,12 +24,17 @@ func _process(_delta: float) -> void:
         return
     var player: Variant = host.get("player")
     var close: bool = player is Node2D and is_instance_valid(player) and (player as Node2D).global_position.distance_to(global_position) <= NEAR
-    if close != nearby:
+    var on_return_side: bool = close and return_side != 0 and not return_room.is_empty() \
+        and (player.global_position.x - global_position.x) * return_side > 0.0
+    if close != nearby or on_return_side != showing_return:
         nearby = close
+        showing_return = on_return_side
         queue_redraw()
 
 
 func caption() -> String:
+    if showing_return:
+        return "↑ " + tr(return_room)
     if ability_name.is_empty():
         return ""
     return tr("需要 · %s") % tr(ability_name)
@@ -37,15 +46,21 @@ func _notification(what: int) -> void:
 
 
 func _draw() -> void:
+    var tint := RETURN_TINT if showing_return else AMBER
     draw_circle(Vector2.ZERO, 17.0, PLATE)
-    draw_arc(Vector2.ZERO, 17.0, 0.0, TAU, 32, AMBER, 2.0, true)
-    _glyph(ability)
-    if nearby and not caption().is_empty():
-        var size := FONT.get_string_size(caption(), HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
+    draw_arc(Vector2.ZERO, 17.0, 0.0, TAU, 32, tint, 2.0, true)
+    if showing_return:
+        draw_line(Vector2(0, -8), Vector2(0, 8), tint, 2.0, true)
+        draw_polyline(PackedVector2Array([Vector2(-6, -2), Vector2(0, -8), Vector2(6, -2)]), tint, 2.0, true)
+    else:
+        _glyph(ability)
+    var label := caption()
+    if nearby and not label.is_empty():
+        var size := FONT.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
         var box := Rect2(Vector2(-size.x * 0.5 - 8.0, -52.0), Vector2(size.x + 16.0, 24.0))
         draw_rect(box, PLATE)
-        draw_rect(box, AMBER, false, 1.0)
-        draw_string(FONT, Vector2(-size.x * 0.5, -35.0), caption(), HORIZONTAL_ALIGNMENT_LEFT, -1, 14, AMBER)
+        draw_rect(box, tint, false, 1.0)
+        draw_string(FONT, Vector2(-size.x * 0.5, -35.0), label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, tint)
 
 
 ## One stroke pictogram per ability, readable at gameplay zoom.
