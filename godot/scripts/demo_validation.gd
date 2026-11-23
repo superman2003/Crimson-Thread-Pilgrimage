@@ -246,8 +246,7 @@ func _world_is_expanded(world: Dictionary) -> bool:
     return width >= 5200.0 and height >= 2400.0 and width * height >= 14000000.0
 
 
-# Mirrors tools/audit_platform_geometry.py: conservative ballistic reachability
-# via BFS over every standable platform, starting from the player start supports.
+# Reach every main platform by conservative jumps, continuous terrain or lifts.
 func _main_route_reachable_physics(config: Dictionary) -> bool:
     var platforms: Array = []
     for platform in config.get("platforms", []):
@@ -255,6 +254,16 @@ func _main_route_reachable_physics(config: Dictionary) -> bool:
             platforms.append(platform)
     if platforms.size() < 2:
         return false
+    var walkable_spans := _walkable_terrain_spans(config.get("terrain", []))
+    var ground_paths := {}
+    for index in platforms.size():
+        var terrain_id := String(platforms[index].get("terrain_id", ""))
+        if not walkable_spans.has(terrain_id):
+            continue
+        var span: Vector2 = walkable_spans[terrain_id]
+        var rect := _rect_of(platforms[index])
+        if rect.position.x >= span.x and rect.end.x <= span.y:
+            ground_paths[index] = terrain_id
     # A cave lift carries the player between its landings: its basket is a
     # standable 132 px floor at each end, and reaching one end reaches the other.
     var lift_pairs: Dictionary = {}
@@ -286,16 +295,37 @@ func _main_route_reachable_physics(config: Dictionary) -> bool:
         if lift_pairs.has(current) and not reached.has(lift_pairs[current]):
             reached[lift_pairs[current]] = true
             queue.append(lift_pairs[current])
+        var ground_path := String(ground_paths.get(current, ""))
         for next_index in range(platforms.size()):
             if reached.has(next_index):
                 continue
-            if _jump_reachable(_rect_of(platforms[current]), _rect_of(platforms[next_index])):
+            if (not ground_path.is_empty() and ground_paths.get(next_index, "") == ground_path) \
+                    or _jump_reachable(_rect_of(platforms[current]), _rect_of(platforms[next_index])):
                 reached[next_index] = true
                 queue.append(next_index)
     for index in range(platforms.size()):
         if String((platforms[index] as Dictionary).get("route_role", "")) == "main" and not reached.has(index):
             return false
     return true
+
+
+func _walkable_terrain_spans(terrain: Array) -> Dictionary:
+    var result := {}
+    for landform in terrain:
+        var surface: Array = landform.get("surface", [])
+        if surface.size() < 2:
+            continue
+        var walkable := true
+        for index in range(1, surface.size()):
+            var run := float(surface[index][0]) - float(surface[index - 1][0])
+            var rise := absf(float(surface[index][1]) - float(surface[index - 1][1]))
+            # CharacterBody2D uses a 45 degree floor limit.
+            if run <= 0.0 or rise > run:
+                walkable = false
+                break
+        if walkable:
+            result[String(landform.id)] = Vector2(surface[0][0], surface[-1][0])
+    return result
 
 
 func _is_standable(platform: Dictionary) -> bool:

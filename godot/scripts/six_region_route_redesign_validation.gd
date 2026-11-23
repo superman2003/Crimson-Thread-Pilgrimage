@@ -38,7 +38,7 @@ const CIRCUITS := [
         ["stairwell rises through the court grate", Vector2(2434, 3912), [
             [JUMP, Vector2(2434, 3820)]]],
         ["central court to the bell lift and back", Vector2(2585, 3892), [
-            [WALK_GROUNDED, Vector2(2654, 3892)], [JUMP, Vector2(2755, 3772)], [WALK_GROUNDED, Vector2(3074, 3608)],
+            [WALK_GROUNDED, Vector2(2654, 3892)], [JUMP, Vector2(2766, 3784)], [WALK_GROUNDED, Vector2(3074, 3608)],
             [JUMP, Vector2(2916, 3508)], [WALK_GROUNDED, Vector2(2630, 3299)],
             [JUMP, Vector2(2810, 3201)], [WALK_GROUNDED, Vector2(3185, 3020)],
             [JUMP, Vector2(3029, 2924)], [WALK_GROUNDED, Vector2(2597, 2868)],
@@ -53,7 +53,7 @@ const CIRCUITS := [
             [WALK, Vector2(2597, 2868)], [WALK_GROUNDED, Vector2(3029, 2924)],
             [WALK, Vector2(3185, 3020)], [WALK_GROUNDED, Vector2(2810, 3201)],
             [WALK, Vector2(2630, 3299)], [WALK_GROUNDED, Vector2(2916, 3508)],
-            [WALK, Vector2(3074, 3608)], [WALK_GROUNDED, Vector2(2755, 3772)],
+            [WALK, Vector2(3074, 3608)], [WALK_GROUNDED, Vector2(2766, 3784)],
             [WALK, Vector2(2630, 3892)]], true],
         ["attic lookout approach", Vector2(4200, 910), [
             [JUMP, Vector2(4300, 846)], [JUMP, Vector2(4390, 716)]]],
@@ -272,18 +272,30 @@ func reach(kind: int, landing: Vector2, require_headroom: bool = false) -> bool:
             Input.action_press("move_right" if direction > 0.0 else "move_left")
         await frames(1)
         if require_headroom and player.is_on_ceiling():
+            print("ROUTE_CEILING_CONTACT at=%s target=%s" % [player.position, landing])
             break
         if kind == WALK_GROUNDED:
             if world.world_passage.active:
                 break
-            airborne = 0 if player.is_on_floor() else airborne + 1
+            airborne = 0 if can_snap_to_route_floor() else airborne + 1
             if airborne > 3:
+                print("ROUTE_LOST_FLOOR at=%s target=%s" % [player.position, landing])
                 break
         if (kind != JUMP or tick >= 8) and landed(landing):
             release_input()
             return true
     release_input()
     return false
+
+
+func can_snap_to_route_floor() -> bool:
+    if player.is_on_floor():
+        return true
+    # At a slope-to-flat join, Godot can clear the floor flag before the next snap.
+    var contact := KinematicCollision2D.new()
+    var snap := -player.up_direction * player.floor_snap_length
+    return player.test_move(player.global_transform, snap, contact) \
+        and contact.get_normal().dot(player.up_direction) >= cos(player.floor_max_angle)
 
 
 func landed(point: Vector2) -> bool:
