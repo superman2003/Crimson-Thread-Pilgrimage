@@ -553,6 +553,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])
+        self.assertEqual(render_loop_args(True, 'six_region_route_redesign'), ['--disable-render-loop'])
         self.assertEqual(render_loop_args(True, 'world_upgrade'), ['--disable-render-loop'])
         self.assertEqual(render_loop_args(True, 'world_streaming'), ['--disable-render-loop'])
         self.assertEqual(render_loop_args(False, 'world_streaming'), [])

@@ -219,23 +219,44 @@ func fight(records: Dictionary) -> void:
     var wallet: int = scene.currency_count
     var defeated: int = scene.enemy_defeated
     var hp_after_hit: int = scene.player.hp
+    var enemy_hp_before: int = enemy.hp
+    var swings := 0
     var killed := false
-    for frame in 480:
+    for unused in 480:
         if not is_instance_valid(enemy) or enemy.dying:
             killed = true
             break
         if scene.player.hp <= 0: break
-        var dx: float = enemy.position.x-scene.player.position.x
-        axis(signf(dx) if absf(dx) > 45 or scene.player.facing != int(signf(dx)) else 0)
-        if frame % 24 == 0 and absf(dx) < 90 and scene.player._can_start_action():
+        var offset: Vector2 = enemy.global_position - scene.player.global_position
+        var distance := absf(offset.x)
+        var toward := signf(offset.x)
+        # Stop steering through the enemy during a swing. Choose each opening
+        # from the actual physics state instead of sampling it every 24 frames.
+        if scene.player.attack_timer > 0.0 or scene.player.hurt_timer > 0.0:
+            axis(0)
+        elif distance > 90.0:
+            axis(toward)
+        elif distance < 46.0:
+            axis(-toward if toward != 0.0 else -scene.player.facing)
+        elif scene.player.facing != int(toward):
+            axis(toward)
+        elif scene.player.is_on_floor() and absf(offset.y + 40.0) < 30.0 and scene.player._can_start_action():
+            axis(0)
             await press("attack")
+            swings += 1
+        else:
+            axis(0)
         await tick()
+    release_input()
     killed = killed or (is_instance_valid(enemy) and enemy.dying)
     check(killed and scene.player.hp > 0,"normal attack input defeats reused enemy")
     check(scene.enemy_defeated == defeated+1 and scene.currency_count == wallet+8,"adopted enemy death rewards once")
     var saved := STATE.new()
     check(saved.read(SAVE) and int(saved.data.currency) == scene.currency_count,"reused enemy reward persists")
-    combat = {"actor_id":instance_id,"grounded_walk_frames":grounded_walk_frames[0],"hp_before":hp_before,"hp_after_hit":hp_after_hit,"killed":killed,"reward_delta":scene.currency_count-wallet,"direct_damage_calls":false}
+    combat = {"actor_id":instance_id, "grounded_walk_frames":grounded_walk_frames[0],
+        "hp_before":hp_before, "hp_after_hit":hp_after_hit, "hp_after_fight":scene.player.hp,
+        "enemy_hp_before":enemy_hp_before, "enemy_hp_after":int(enemy.hp) if is_instance_valid(enemy) else 0,
+        "swings":swings, "killed":killed, "reward_delta":scene.currency_count-wallet, "direct_damage_calls":false}
 
 func interactions(records: Dictionary) -> void:
     var shrine: Area2D = LEVEL_HOST.find(scene, "save_first_bell")

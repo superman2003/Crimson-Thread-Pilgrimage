@@ -43,7 +43,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-map-floor-') as scratch:
         project = Path(scratch) / 'godot'
         project.mkdir()
-        for directory in ('scripts', 'addons/beehave', 'data'):
+        for directory in ('scripts', 'shaders', 'addons/beehave', 'data'):
             shutil.copytree(ROOT / 'godot' / directory, project / directory)
         destination = project / 'assets/fonts/GlobalTypeface.otf'
         destination.parent.mkdir(parents=True)

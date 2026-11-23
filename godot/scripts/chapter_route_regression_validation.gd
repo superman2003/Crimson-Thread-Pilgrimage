@@ -302,12 +302,22 @@ func _validate_one_way_anchors(scene: Node, config_id: String) -> void:
             continue
         var body := _floor_body(scene, String(platform.get("id", "")))
         var rect: Array = platform.get("rect", [])
-        var point := Vector2(float(rect[0]) + float(rect[2]) * 0.5, float(rect[1]) + 1.0)
+        var center_x := float(rect[0]) + float(rect[2]) * 0.5
         var preserved := false
         if body != null:
+            var surface: Array = body.get_meta("terrain_surface", [])
+            var point := Vector2.INF
+            for i in range(surface.size() - 1):
+                var left := Vector2(surface[i][0], surface[i][1])
+                var right := Vector2(surface[i + 1][0], surface[i + 1][1])
+                if left.x <= center_x and center_x <= right.x and left.x < right.x:
+                    point = Vector2(center_x, lerpf(left.y, right.y, inverse_lerp(left.x, right.x, center_x)) + 1.0)
+                    break
             for child in body.get_children():
-                if child is CollisionPolygon2D and child.one_way_collision and Geometry2D.is_point_in_polygon(point, child.polygon):
+                if point.is_finite() and child is CollisionPolygon2D and not child.disabled and child.one_way_collision \
+                        and Geometry2D.is_point_in_polygon(child.to_local(body.to_global(point)), child.polygon):
                     preserved = true
+                    break
         _assert(preserved, config_id + " converted terrain preserves one-way anchor " + String(platform.get("id", "")))
 
 

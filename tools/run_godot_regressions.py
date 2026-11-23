@@ -57,7 +57,7 @@ def render_loop_args(real_gl, suite):
     # world_streaming inspects authored polygons, residency and worker state;
     # rasterizing its paused World can starve the unchanged 8s prefetch window.
     # Dedicated GL pixel and live gameplay suites keep the render loop enabled.
-    if real_gl and suite in ['world_staged_build', 'world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network', 'boss_move_matrix', 'boss_move_matrix_late', 'boss_heal_windows', 'boss_heal_windows_late', 'enemy_move_matrix', 'enemy_move_matrix_mid', 'enemy_move_matrix_late', 'parallax_layout', 'interaction_reach', 'world_streaming', 'rest_point_safety', 'player_action_sfx_sync', 'hidden_drone', 'enemy_projectile_launch']:
+    if real_gl and suite in ['world_staged_build', 'world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network', 'six_region_route_redesign', 'boss_move_matrix', 'boss_move_matrix_late', 'boss_heal_windows', 'boss_heal_windows_late', 'enemy_move_matrix', 'enemy_move_matrix_mid', 'enemy_move_matrix_late', 'parallax_layout', 'interaction_reach', 'world_streaming', 'rest_point_safety', 'player_action_sfx_sync', 'hidden_drone', 'enemy_projectile_launch']:
         return ['--disable-render-loop']
     return []
 
