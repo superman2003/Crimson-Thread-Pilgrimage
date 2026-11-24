@@ -150,9 +150,7 @@ func archive_obsidian_camp() -> void:
             if not await order_walk_only(Vector2(1650,2708)):return
     for point in [Vector2(3470,2652),Vector2(3280,2544),Vector2(3470,2436),Vector2(3280,2328),Vector2(3470,2220),Vector2(3280,2112),Vector2(3460,2004)]:
         if not await order_leap(point,999 if point.y==2004.0 else 20,"original free shaft ascent"):return
-    if not await order_leap(Vector2(3530, 1900), 999, "free shaft side dock") \
-        or not await order_leap(Vector2(3380, 1868), 999, "free shaft upper gallery"):
-        return
+    if not await order_leap(Vector2(3220,1868),999,"free shaft upper dock"):return
     if not await order_walk_only(Vector2(2800,1868)):return
     if not await order_walk_only(Vector2(2510,2608)):return
     for point in [Vector2(2150,2496),Vector2(1800,2390),Vector2(1510,2286),Vector2(1300,2178),Vector2(900,2072),Vector2(640,1978),Vector2(300,1910)]:
