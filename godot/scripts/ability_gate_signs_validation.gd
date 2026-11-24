@@ -29,6 +29,9 @@ func _run() -> void:
         scene.set("config_path", path)
         root.add_child(scene)
         await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+        # The sign samples fixed positions while each rendered frame advances.
+        scene.player.set_physics_process(false)
+        scene.player.debug_invulnerable = true
         await _frames(4)
         for data: Dictionary in scene.config.get("locked_gates", []):
             await _check_gate(scene, data, path.get_file())

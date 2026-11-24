@@ -23,6 +23,8 @@ Repeated collision silhouettes are visible review warnings. Different names alon
 
 ## Evidence and limits
 
+The `six_region_route_redesign` suite uses normal movement input in `World.tscn` for selected routes. It checks the central court and Rain Foundry round trips for ceiling contact, queries solid undersides with the real player collision shape, and replays the Deep Cistern escape and spindle pickup. Run it with `python tools/run_godot_regressions.py --engine /path/to/godot --suite six_region_route_redesign`. [Current gameplay captures](gallery/20261123_current_world.md)
+
 - Static map checks establish consistent data and valid recovery geometry. They do not establish jump feasibility or complete traversal.
 - Runtime route suites that inject scene positions, suppress damage or disable enemies verify the indicated route segment or state transition. Their output is not a damage-enabled campaign completion.
 - Enemy visibility validation uses real static-body physics to block sight and damage through a wall, then removes the wall and verifies that damage resumes. It also checks warning Tween cancellation, status expiry, cooldown timing and respawn cleanup.

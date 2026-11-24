@@ -462,7 +462,7 @@
         168
       ],
       "objective": "沿回廊横越钟庭上层。",
-      "guide": "东端通向露台环带。",
+      "guide": "西端石坡通向钟骨升降笼，东端回廊通向露台。",
       "danger": "回廊悬空，铜蛾游弋。",
       "next": "东庭露台 / 钟塔",
       "setpiece": "环庭悬廊",
@@ -1212,8 +1212,8 @@
         168
       ],
       "objective": "沿双层环廊探索水窖。",
-      "guide": "上层苔面有一段颜色不对。",
-      "danger": "假苔地板一踩就塌。",
+      "guide": "西边的踏板连接两层环廊，东边的铜栅桥接住深廊回程。",
+      "danger": "环廊西缘通向下层。",
       "next": "暗河走道",
       "setpiece": "绕柱双层环廊",
       "traversal_focus": "环形探索",
@@ -1257,8 +1257,8 @@
         236,
         168
       ],
-      "objective": "从塌落的苔板下探出隐藏石穴。",
-      "guide": "塌方不是终点，是入口。",
+      "objective": "从环廊西缘下探，找到隐藏石穴。",
+      "guide": "沿脚下缓坡向西走，可接上暗河走道。",
       "danger": "穴内没有灯火，只有身边近处可见；离开假苔穴后恢复正常视野。",
       "next": "暗河走道",
       "setpiece": "苔板塌出的石穴",
@@ -1352,9 +1352,9 @@
         168
       ],
       "objective": "越过冲刺门，登上沉钟基座取回能量纺锤。",
-      "guide": "门内先落在西侧宽台；跳上右侧基座拾取，再原路退回假苔穴。",
-      "danger": "入口钟隙仍需绯线冲刺；基座下没有强制落井。",
-      "next": "假苔穴",
+      "guide": "沿左侧铜踏板向上，穿过顶端栅桥回到水窖环廊。",
+      "danger": "西侧钟隙需绯线冲刺。",
+      "next": "水窖环廊",
       "setpiece": "沉钟基座上的遗留纺锤",
       "traversal_focus": "门后安全落脚，短跳取宝",
       "pacing_role": "reward",
@@ -1383,7 +1383,10 @@
         "catastrophe": "水窖淹没旧钟，只剩基座与遗留纺锤。",
         "landing_platform_ids": [
           "cdg_floor",
-          "cdg_bell_plinth"
+          "cdg_bell_plinth",
+          "cdg_return_lower",
+          "cdg_return_upper",
+          "cdg_return_grate"
         ],
         "enemy_ids": [],
         "reward_ids": [
@@ -3082,177 +3085,122 @@
     {
       "id": "hw01",
       "rect": [
-        2496,
-        3800,
-        203,
-        24
+        2730,
+        3784,
+        72,
+        28
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 10,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 7,
-        "flip_h": true,
-        "body_variants": [
-          7,
-          6,
-          6
-        ]
-      }
+      "terrain_id": "terrain_court_ground_ramp",
+      "terrain_flat_span": [
+        2730,
+        2802
+      ]
     },
     {
       "id": "hw02",
       "rect": [
-        2710,
-        3708,
-        194,
-        24
+        3002,
+        3608,
+        116,
+        28
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 11,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 6,
-        "flip_h": true,
-        "body_variants": [
-          6,
-          7,
-          7
-        ]
-      }
+      "terrain_id": "terrain_court_ground_ramp",
+      "terrain_flat_span": [
+        3002,
+        3118
+      ]
     },
     {
       "id": "hw03",
       "rect": [
-        2498,
-        3616,
-        190,
-        24
+        2876,
+        3508,
+        72,
+        30
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 12,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          7,
-          7
-        ]
-      }
+      "terrain_id": "terrain_court_station_ramp",
+      "terrain_flat_span": [
+        2876,
+        2948
+      ]
     },
     {
       "id": "hw04",
       "rect": [
-        2648,
-        3518,
-        238,
-        24
+        2518,
+        3299,
+        136,
+        30
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 13,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          6,
-          6
-        ]
-      }
+      "terrain_id": "terrain_court_station_ramp",
+      "terrain_flat_span": [
+        2518,
+        2654
+      ]
     },
     {
       "id": "hw05",
       "rect": [
-        2500,
-        3432,
-        194,
-        24
+        2770,
+        3201,
+        80,
+        28
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 14,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 7,
-        "flip_h": true,
-        "body_variants": [
-          7,
-          8,
-          8
-        ]
-      }
+      "terrain_id": "terrain_court_middle_ramp",
+      "terrain_flat_span": [
+        2770,
+        2850
+      ]
     },
     {
       "id": "hw06",
       "rect": [
-        2660,
-        3340,
-        220,
-        24
+        3150,
+        3020,
+        86,
+        28
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 15,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          7,
-          7
-        ]
-      }
-    },
-    {
-      "id": "hw07",
-      "rect": [
-        2455,
-        3248,
-        215,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 16,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          6,
-          6
-        ]
-      }
+      "terrain_id": "terrain_court_middle_ramp",
+      "terrain_flat_span": [
+        3150,
+        3236
+      ]
     },
     {
       "id": "station_floor",
@@ -3282,77 +3230,42 @@
     {
       "id": "hx01",
       "rect": [
-        2500,
-        3066,
-        167,
-        24
+        2940,
+        2924,
+        126,
+        26
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 18,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 8,
-        "flip_h": false,
-        "body_variants": [
-          8,
-          10,
-          10
-        ]
-      }
+      "terrain_id": "terrain_court_gallery_approach",
+      "terrain_flat_span": [
+        2940,
+        3066
+      ]
     },
     {
       "id": "hx02",
       "rect": [
-        2676,
-        2972,
-        204,
-        24
+        2548,
+        2868,
+        78,
+        26
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 19,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 7,
-        "flip_h": false,
-        "body_variants": [
-          7,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "hx03",
-      "rect": [
-        2558,
-        2878,
-        153,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 20,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 6,
-        "flip_h": true,
-        "body_variants": [
-          6,
-          7,
-          7
-        ]
-      }
+      "terrain_id": "terrain_court_gallery_approach",
+      "terrain_flat_span": [
+        2548,
+        2626
+      ]
     },
     {
       "id": "hx04",
@@ -3363,10 +3276,15 @@
         24
       ],
       "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 21,
+      "terrain_id": "terrain_bell_viaduct_0_0",
+      "terrain_flat_span": [
+        2730,
+        2928
+      ],
       "safe_landing": true,
       "gameplay_clearance": 232,
       "art": {
@@ -3382,14 +3300,14 @@
     {
       "id": "hg_w",
       "rect": [
-        2980,
+        3018,
         2730,
-        190,
+        152,
         28
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 22,
       "safe_landing": true,
@@ -3405,7 +3323,7 @@
       },
       "terrain_id": "terrain_bell_viaduct_0_0",
       "terrain_flat_span": [
-        2980,
+        3018,
         3170
       ]
     },
@@ -3419,7 +3337,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 23,
       "safe_landing": true,
@@ -3449,7 +3367,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 24,
       "safe_landing": true,
@@ -3479,7 +3397,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 25,
       "safe_landing": true,
@@ -3509,7 +3427,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 26,
       "safe_landing": true,
@@ -3532,135 +3450,70 @@
     {
       "id": "ht01",
       "rect": [
-        3320,
-        2596,
-        173,
-        24
+        2855,
+        2630,
+        89,
+        30
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 27,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 7,
-        "flip_h": true,
-        "body_variants": [
-          7,
-          8,
-          8
-        ]
-      }
+      "terrain_id": "terrain_court_lower_ramp",
+      "terrain_flat_span": [
+        2855,
+        2944
+      ]
     },
     {
       "id": "ht02",
       "rect": [
-        3484,
-        2502,
-        199,
-        24
+        2430,
+        2472,
+        120,
+        30
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 28,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          7,
-          7
-        ]
-      }
+      "terrain_id": "terrain_court_lower_ramp",
+      "terrain_flat_span": [
+        2430,
+        2550
+      ]
     },
     {
       "id": "ht03",
       "rect": [
-        3300,
-        2408,
-        160,
-        24
+        2630,
+        2372,
+        134,
+        34
       ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 29,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 6,
-        "flip_h": true,
-        "body_variants": [
-          6,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "ht04",
-      "rect": [
-        3470,
-        2314,
-        220,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 30,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 10,
-        "flip_h": true,
-        "body_variants": [
-          10,
-          7,
-          7
-        ]
-      }
-    },
-    {
-      "id": "ht05",
-      "rect": [
-        3290,
-        2232,
-        137,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 31,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 7,
-        "flip_h": false,
-        "body_variants": [
-          7,
-          8,
-          8
-        ]
-      }
+      "terrain_id": "terrain_court_upper_ramp",
+      "terrain_flat_span": [
+        2630,
+        2764
+      ]
     },
     {
       "id": "hub_top_shelf",
       "rect": [
-        3430,
+        3256,
         2126,
-        320,
-        36
+        472,
+        34
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
@@ -3668,16 +3521,11 @@
       "route_role": "main",
       "route_order": 32,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 2,
-        "flip_h": false,
-        "body_variants": [
-          2,
-          3,
-          6
-        ]
-      }
+      "terrain_id": "terrain_court_upper_ramp",
+      "terrain_flat_span": [
+        3256,
+        3728
+      ]
     },
     {
       "id": "cache_floor",
@@ -3704,14 +3552,14 @@
     {
       "id": "ba01",
       "rect": [
-        3820,
+        3790,
         2032,
-        119,
-        24
+        117,
+        28
       ],
       "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "material": "moss_stone",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 33,
       "safe_landing": true,
@@ -4407,9 +4255,9 @@
     {
       "id": "cr_w_step",
       "rect": [
-        2820,
-        4980,
-        150,
+        2780,
+        5024,
+        202,
         26
       ],
       "color": "1c2b1f",
@@ -4434,7 +4282,7 @@
       "rect": [
         2960,
         5120,
-        820,
+        730,
         46
       ],
       "color": "1c2b1f",
@@ -4455,11 +4303,25 @@
       }
     },
     {
+      "id": "cr_w_return",
+      "rect": [
+        2826,
+        4926,
+        130,
+        24
+      ],
+      "color": "8d7857",
+      "material": "bronze_bridge",
+      "collision_role": "one_way",
+      "route_role": "return",
+      "safe_landing": true
+    },
+    {
       "id": "fg_floor",
       "rect": [
-        3160,
+        3164,
         5420,
-        420,
+        556,
         42
       ],
       "color": "1c2b1f",
@@ -4469,6 +4331,11 @@
       "route_order": 65,
       "safe_landing": true,
       "gameplay_clearance": 232,
+      "terrain_id": "terrain_well_bank_0_0",
+      "terrain_flat_span": [
+        3164,
+        3720
+      ],
       "art": {
         "variant": 2,
         "flip_h": false,
@@ -4542,9 +4409,9 @@
     {
       "id": "cdg_floor",
       "rect": [
-        3760,
+        3720,
         5420,
-        320,
+        408,
         38
       ],
       "color": "1f3226",
@@ -4772,7 +4639,7 @@
       "rect": [
         2120,
         4832,
-        150,
+        310,
         24
       ],
       "color": "6d6645",
@@ -4792,9 +4659,9 @@
     {
       "id": "sw10",
       "rect": [
-        2290,
+        2352,
         4740,
-        150,
+        138,
         24
       ],
       "color": "6d6645",
@@ -4948,7 +4815,7 @@
       "rect": [
         2120,
         4096,
-        150,
+        308,
         24
       ],
       "color": "6d6645",
@@ -4968,9 +4835,9 @@
     {
       "id": "sw18",
       "rect": [
-        2290,
+        2352,
         4004,
-        150,
+        126,
         24
       ],
       "color": "6d6645",
@@ -6079,6 +5946,48 @@
       }
     },
     {
+      "id": "cdg_return_lower",
+      "rect": [
+        3738,
+        5324,
+        122,
+        22
+      ],
+      "color": "9a8462",
+      "material": "bronze_bridge",
+      "collision_role": "one_way",
+      "route_role": "return",
+      "safe_landing": true
+    },
+    {
+      "id": "cdg_return_upper",
+      "rect": [
+        3756,
+        5222,
+        126,
+        22
+      ],
+      "color": "9a8462",
+      "material": "bronze_bridge",
+      "collision_role": "one_way",
+      "route_role": "return",
+      "safe_landing": true
+    },
+    {
+      "id": "cdg_return_grate",
+      "rect": [
+        3690,
+        5120,
+        152,
+        22
+      ],
+      "color": "9a8462",
+      "material": "bronze_bridge",
+      "collision_role": "one_way",
+      "route_role": "return",
+      "safe_landing": true
+    },
+    {
       "id": "mr_root_bench",
       "rect": [
         1354,
@@ -6166,7 +6075,7 @@
         3680,
         5240,
         42,
-        300
+        182
       ],
       "color": "5a2d2d",
       "material": "bronze_bridge",
@@ -6174,6 +6083,10 @@
       "required_ability_name": "绯线冲刺",
       "from": "fake_moss_grotto",
       "to": "cistern_deep_gallery",
+      "return_hint": {
+        "side": 1,
+        "room": "水窖环廊"
+      },
       "map_marker": "ability_gate"
     },
     {
@@ -6344,7 +6257,7 @@
       ],
       "ability_name": "能量纺锤",
       "label": "能量纺锤",
-      "note": "水窖深廊冲刺门后；单跳登上沉钟基座，原路安全返回。"
+      "note": "水窖深廊冲刺门后。取走纺锤后可沿铜踏板返回水窖环廊。"
     },
     {
       "id": "col_map_fragment",
@@ -7728,6 +7641,15 @@
       "required_ability": "thread_dash"
     },
     {
+      "from": "cistern_deep_gallery",
+      "to": "cistern_ring",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": false,
+      "action": "climb",
+      "shortcut_id": ""
+    },
+    {
       "from": "underway",
       "to": "sluice_hall",
       "type": "passage",
@@ -8079,11 +8001,8 @@
       "hw04",
       "hw05",
       "hw06",
-      "hw07",
-      "station_floor",
       "hx01",
       "hx02",
-      "hx03",
       "hx04",
       "hg_w",
       "hg_c1",
@@ -8093,8 +8012,6 @@
       "ht01",
       "ht02",
       "ht03",
-      "ht04",
-      "ht05",
       "hub_top_shelf",
       "ba01",
       "ba11",
@@ -9000,6 +8917,15 @@
         "required_ability": "thread_dash"
       },
       {
+        "from": "cistern_deep_gallery",
+        "to": "cistern_ring",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": false,
+        "action": "climb",
+        "shortcut_id": ""
+      },
+      {
         "from": "underway",
         "to": "sluice_hall",
         "type": "passage",
@@ -9558,11 +9484,147 @@
       ]
     },
     {
+      "id": "terrain_court_ground_ramp",
+      "kind": "ruin",
+      "surface": [
+        [
+          2730,
+          3784
+        ],
+        [
+          2802,
+          3784
+        ],
+        [
+          3002,
+          3608
+        ],
+        [
+          3118,
+          3608
+        ]
+      ],
+      "depth": 28,
+      "texture_variants": [
+        2,
+        3,
+        6
+      ],
+      "platform_ids": [
+        "hw01",
+        "hw02"
+      ]
+    },
+    {
+      "id": "terrain_court_station_ramp",
+      "kind": "ruin",
+      "surface": [
+        [
+          2518,
+          3299
+        ],
+        [
+          2654,
+          3299
+        ],
+        [
+          2876,
+          3508
+        ],
+        [
+          2948,
+          3508
+        ]
+      ],
+      "depth": 30,
+      "texture_variants": [
+        2,
+        3,
+        6
+      ],
+      "platform_ids": [
+        "hw03",
+        "hw04"
+      ]
+    },
+    {
+      "id": "terrain_court_middle_ramp",
+      "kind": "ruin",
+      "surface": [
+        [
+          2770,
+          3201
+        ],
+        [
+          2850,
+          3201
+        ],
+        [
+          3150,
+          3020
+        ],
+        [
+          3236,
+          3020
+        ]
+      ],
+      "depth": 28,
+      "texture_variants": [
+        2,
+        3,
+        6
+      ],
+      "platform_ids": [
+        "hw05",
+        "hw06"
+      ]
+    },
+    {
+      "id": "terrain_court_gallery_approach",
+      "kind": "ruin",
+      "surface": [
+        [
+          2548,
+          2868
+        ],
+        [
+          2626,
+          2868
+        ],
+        [
+          2710,
+          2924
+        ],
+        [
+          3066,
+          2924
+        ]
+      ],
+      "depth": 26,
+      "texture_variants": [
+        2,
+        3,
+        6
+      ],
+      "platform_ids": [
+        "hx01",
+        "hx02"
+      ]
+    },
+    {
       "id": "terrain_bell_viaduct_0_0",
       "kind": "bridge",
       "surface": [
         [
-          2980,
+          2730,
+          2784
+        ],
+        [
+          2928,
+          2784
+        ],
+        [
+          3018,
           2730
         ],
         [
@@ -9602,18 +9664,83 @@
           2740
         ]
       ],
-      "depth": 72,
+      "depth": 40,
       "texture_variants": [
         4,
         2,
         1
       ],
       "platform_ids": [
+        "hx04",
         "hg_w",
         "hg_c1",
         "hg_c2",
         "hg_c3",
         "hub_balcony_e"
+      ]
+    },
+    {
+      "id": "terrain_court_lower_ramp",
+      "kind": "ruin",
+      "surface": [
+        [
+          2430,
+          2472
+        ],
+        [
+          2550,
+          2472
+        ],
+        [
+          2855,
+          2630
+        ],
+        [
+          2944,
+          2630
+        ]
+      ],
+      "depth": 30,
+      "texture_variants": [
+        2,
+        6,
+        4
+      ],
+      "platform_ids": [
+        "ht01",
+        "ht02"
+      ]
+    },
+    {
+      "id": "terrain_court_upper_ramp",
+      "kind": "ruin",
+      "surface": [
+        [
+          2630,
+          2372
+        ],
+        [
+          2764,
+          2372
+        ],
+        [
+          3256,
+          2126
+        ],
+        [
+          3728,
+          2126
+        ]
+      ],
+      "depth": 34,
+      "texture_variants": [
+        2,
+        3,
+        6
+      ],
+      "platform_ids": [
+        "ht03",
+        "hub_top_shelf"
       ]
     },
     {
@@ -9740,6 +9867,14 @@
         [
           3040,
           5500
+        ],
+        [
+          3164,
+          5420
+        ],
+        [
+          3720,
+          5420
         ]
       ],
       "depth": 104,
@@ -9751,7 +9886,8 @@
       ],
       "platform_ids": [
         "uw_b",
-        "uw_a"
+        "uw_a",
+        "fg_floor"
       ]
     },
     {

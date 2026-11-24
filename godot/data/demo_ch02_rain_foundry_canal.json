@@ -527,9 +527,9 @@
         236,
         168
       ],
-      "objective": "贴顶匍匐挤过渡槽底部的检修缝。",
-      "guide": "雨水从格栅缝里砸头顶——忍住，前方有光。",
-      "danger": "低顶通道，无法起跳。",
+      "objective": "沿检修坡道下到泵房。",
+      "guide": "回渡槽钟龛时，在坡顶向左跳回检修缝。",
+      "danger": "低顶段适合步行。",
       "next": "泵房中庭",
       "setpiece": "格栅漏雨的一线缝",
       "traversal_focus": "压缩通道",
@@ -2943,7 +2943,7 @@
       "rect": [
         3284,
         1320,
-        376,
+        306,
         36
       ],
       "color": "17262b",
@@ -2965,7 +2965,7 @@
       "terrain_id": "terrain_pipe_tunnel_0_0",
       "terrain_flat_span": [
         3284,
-        3660
+        3590
       ]
     },
     {
@@ -2993,60 +2993,50 @@
     {
       "id": "fc_d1",
       "rect": [
-        3700,
-        1456,
-        195,
-        24
+        3698,
+        1378,
+        70,
+        36
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 10,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 0,
-        "flip_h": true,
-        "body_variants": [
-          0,
-          4,
-          7
-        ]
-      }
+      "terrain_id": "terrain_pipe_tunnel_0_0",
+      "terrain_flat_span": [
+        3698,
+        3768
+      ]
     },
     {
       "id": "fc_d2",
       "rect": [
-        3620,
-        1580,
-        186,
-        24
+        3815,
+        1490,
+        73,
+        34
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 11,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 4,
-        "flip_h": false,
-        "body_variants": [
-          4,
-          0,
-          3
-        ]
-      }
+      "terrain_id": "terrain_flume_return",
+      "terrain_flat_span": [
+        3815,
+        3888
+      ]
     },
     {
       "id": "hub_top_shelf",
       "rect": [
         3440,
         1700,
-        320,
-        36
+        102,
+        34
       ],
       "color": "17262b",
       "material": "wet_metal",
@@ -3054,16 +3044,11 @@
       "route_role": "main",
       "route_order": 12,
       "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 5,
-        "flip_h": true,
-        "body_variants": [
-          5,
-          10,
-          1
-        ]
-      }
+      "terrain_id": "terrain_flume_return",
+      "terrain_flat_span": [
+        3440,
+        3542
+      ]
     },
     {
       "id": "wb_floor",
@@ -4915,9 +4900,9 @@
     {
       "id": "td_out",
       "rect": [
-        1400,
+        1420,
         4860,
-        140,
+        236,
         26
       ],
       "color": "121a24",
@@ -7667,7 +7652,7 @@
     {
       "id": "ch02_flume_atrium_drop",
       "room_id": "flume_crawl",
-      "technique": "crawl then one-way drop into the hub",
+      "technique": "walk the upper and lower slopes with a side jump on the return",
       "platforms": [
         "cf",
         "fc_d1",
@@ -7794,10 +7779,10 @@
     {
       "from": "flume_crawl",
       "to": "pump_atrium",
-      "type": "one_way_drop",
-      "edge_kind": "one_way_drop",
-      "bidirectional": false,
-      "action": "one_way_drop",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
       "shortcut_id": ""
     },
     {
@@ -8849,10 +8834,10 @@
       {
         "from": "flume_crawl",
         "to": "pump_atrium",
-        "type": "one_way_drop",
-        "edge_kind": "one_way_drop",
-        "bidirectional": false,
-        "action": "one_way_drop",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
         "shortcut_id": ""
       },
       {
@@ -9759,18 +9744,59 @@
           1320
         ],
         [
-          3660,
+          3590,
           1320
+        ],
+        [
+          3698,
+          1378
+        ],
+        [
+          3768,
+          1378
         ]
       ],
-      "depth": 104,
+      "depth": 36,
       "texture_variants": [
         3,
         1,
         5
       ],
       "platform_ids": [
-        "cf"
+        "cf",
+        "fc_d1"
+      ]
+    },
+    {
+      "id": "terrain_flume_return",
+      "kind": "tunnel",
+      "surface": [
+        [
+          3440,
+          1700
+        ],
+        [
+          3542,
+          1700
+        ],
+        [
+          3815,
+          1490
+        ],
+        [
+          3888,
+          1490
+        ]
+      ],
+      "depth": 34,
+      "texture_variants": [
+        3,
+        1,
+        5
+      ],
+      "platform_ids": [
+        "fc_d2",
+        "hub_top_shelf"
       ]
     },
     {

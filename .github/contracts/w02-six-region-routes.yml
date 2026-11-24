@@ -8,6 +8,8 @@ on:
       - 'godot/data/scene_history.json'
       - 'godot/scripts/chapter_terrain.gd'
       - 'godot/scripts/cave_world.gd'
+      - 'godot/scripts/level_region_build.gd'
+      - 'godot/scripts/ability_gate_sign*.gd'
       - 'godot/scripts/world_passage.gd'
       - 'godot/scripts/world_wayfinding.gd'
       - 'godot/scripts/level_world_start.gd'
@@ -15,6 +17,8 @@ on:
       - 'tools/audit_platform_geometry.py'
       - 'tools/test_map_audits.py'
       - 'godot/scripts/six_region_route_redesign_validation.gd'
+      - 'godot/scripts/ch01_room_reconstruction_validation.gd'
+      - 'godot/scripts/shrine_exit_routes_validation.gd'
       - 'tools/run_godot_regressions.py'
       - 'tools/godot_suite_success_markers.json'
       - '.github/contracts/w02-six-region-routes.yml'
@@ -58,6 +62,7 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
             --suite six_region_route_redesign --suite cave_route_walk --suite chapter_route_regression \
+            --suite ch01_room_reconstruction --suite shrine_exit_routes --suite ability_gate_signs \
             --suite world_passage_network --suite world_wayfinding --suite world_resume_regression --suite scene_history \
             --log-dir "$RUNNER_TEMP/route-logs/regressions"
       - name: Preserve Godot diagnostics
