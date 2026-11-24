@@ -13,19 +13,30 @@ const REGIONS := [
     "demo_ch05_obsidian_pilgrim_road",
     "demo_ch06_silent_crown_core",
 ]
+const SOLID_TREADS := ["sw07", "sp10", "atrium_shelf_d", "vine_v8", "step_t2", "core_fall_a"]
 const WALK := 0
 const JUMP := 1
 const WALK_GROUNDED := 2
+const LINE_UP := 3
 const CISTERN_TO_FIRST_SHRINE := [
-    [WALK, Vector2(2880, 5500)], [WALK_GROUNDED, Vector2(2450, 5560)],
-    [WALK, Vector2(2220, 5660)], [JUMP, Vector2(2195, 5568)], [JUMP, Vector2(2365, 5476)],
-    [JUMP, Vector2(2195, 5384)], [JUMP, Vector2(2365, 5292)], [JUMP, Vector2(2195, 5200)],
-    [JUMP, Vector2(2365, 5108)], [JUMP, Vector2(2195, 5016)], [JUMP, Vector2(2365, 4924)],
-    [JUMP, Vector2(2275, 4832)], [WALK_GROUNDED, Vector2(2375, 4832)], [JUMP, Vector2(2421, 4740)],
-    [JUMP, Vector2(2400, 4648)], [JUMP, Vector2(2365, 4556)], [JUMP, Vector2(2195, 4464)],
-    [JUMP, Vector2(2365, 4372)], [JUMP, Vector2(2195, 4280)], [JUMP, Vector2(2365, 4188)],
-    [JUMP, Vector2(2274, 4096)], [WALK_GROUNDED, Vector2(2375, 4096)], [JUMP, Vector2(2415, 4004)],
-    [JUMP, Vector2(2426, 3862)], [WALK_GROUNDED, Vector2(2280, 3812)],
+    [WALK, Vector2(2880, 5500)], [WALK_GROUNDED, Vector2(2450, 5588)],
+    [WALK_GROUNDED, Vector2(2294, 5660)], [JUMP, Vector2(2245, 5568)], [LINE_UP, Vector2(2252, 5568)],
+    [JUMP, Vector2(2305, 5476)], [LINE_UP, Vector2(2298, 5476)],
+    [JUMP, Vector2(2245, 5384)], [LINE_UP, Vector2(2252, 5384)],
+    [JUMP, Vector2(2305, 5292)], [LINE_UP, Vector2(2298, 5292)],
+    [JUMP, Vector2(2245, 5200)], [LINE_UP, Vector2(2252, 5200)],
+    [JUMP, Vector2(2305, 5108)], [LINE_UP, Vector2(2298, 5108)],
+    [JUMP, Vector2(2245, 5016)], [LINE_UP, Vector2(2252, 5016)], [JUMP, Vector2(2305, 4924)],
+    [JUMP, Vector2(2232, 4832)], [LINE_UP, Vector2(2243, 4832)],
+    [JUMP, Vector2(2335, 4740)], [LINE_UP, Vector2(2329, 4740)], [JUMP, Vector2(2236, 4620)],
+    [LINE_UP, Vector2(2245, 4620)], [JUMP, Vector2(2355, 4540)], [LINE_UP, Vector2(2343, 4540)],
+    [JUMP, Vector2(2234, 4452)],
+    [LINE_UP, Vector2(2238, 4452)],
+    [JUMP, Vector2(2370, 4372)], [LINE_UP, Vector2(2361, 4372)], [JUMP, Vector2(2225, 4280)],
+    [LINE_UP, Vector2(2235, 4280)], [JUMP, Vector2(2368, 4188)], [LINE_UP, Vector2(2361, 4188)],
+    [JUMP, Vector2(2230, 4096)], [LINE_UP, Vector2(2242, 4096)],
+    [JUMP, Vector2(2365, 3975)], [LINE_UP, Vector2(2363, 3975)],
+    [JUMP, Vector2(2314, 3850)], [JUMP, Vector2(2248, 3812)],
     [WALK_GROUNDED, Vector2(1670, 3752)],
 ]
 const CIRCUITS := [
@@ -33,10 +44,12 @@ const CIRCUITS := [
         ["shrine approach and return", Vector2(1170, 3612), [
             [WALK, Vector2(1420, 3692)], [WALK, Vector2(1685, 3752)],
             [WALK, Vector2(1420, 3692)], [WALK, Vector2(1160, 3612)]]],
-        ["shrine and court connect past the pipe junction", Vector2(1670, 3752), [
-            [WALK_GROUNDED, Vector2(2630, 3892)], [WALK_GROUNDED, Vector2(1680, 3752)]]],
-        ["stairwell rises through the court grate", Vector2(2434, 3912), [
-            [JUMP, Vector2(2434, 3820)]]],
+        ["shrine and court connect beside the stairwell opening", Vector2(1670, 3752), [
+            [WALK, Vector2(2315, 3850)], [JUMP, Vector2(2444, 3866)],
+            [WALK_GROUNDED, Vector2(2630, 3892)], [WALK_GROUNDED, Vector2(2444, 3866)],
+            [JUMP, Vector2(2252, 3812)], [WALK_GROUNDED, Vector2(1680, 3752)]]],
+        ["stairwell reaches the court by its open side", Vector2(2314, 3850), [
+            [JUMP, Vector2(2444, 3866)], [WALK_GROUNDED, Vector2(2560, 3892)]]],
         ["central court to the bell lift and back", Vector2(2585, 3892), [
             [WALK_GROUNDED, Vector2(2654, 3892)], [JUMP, Vector2(2766, 3784)], [WALK_GROUNDED, Vector2(3074, 3608)],
             [JUMP, Vector2(2916, 3508)], [WALK_GROUNDED, Vector2(2630, 3299)],
@@ -58,13 +71,13 @@ const CIRCUITS := [
         ["attic lookout approach", Vector2(4200, 910), [
             [JUMP, Vector2(4300, 846)], [JUMP, Vector2(4390, 716)]]],
         ["two levels of the cistern ring", Vector2(3140, 5120), [
-            [WALK_GROUNDED, Vector2(3018, 5120)], [JUMP, Vector2(2927, 5024)],
-            [JUMP, Vector2(2894, 4926)], [JUMP, Vector2(3040, 4830)]]],
+            [WALK_GROUNDED, Vector2(2980, 5120)], [JUMP, Vector2(2882, 5024)],
+            [LINE_UP, Vector2(2802, 5024)], [JUMP, Vector2(2745, 4926)], [JUMP, Vector2(2874, 4830)]]],
         ["cistern ring, moss hollow and sluice loop", Vector2(3650, 5120), [
             [WALK, Vector2(2880, 5500)], [WALK_GROUNDED, Vector2(3550, 5420)],
             [WALK_GROUNDED, Vector2(3280, 5420)], [WALK_GROUNDED, Vector2(2970, 5500)],
-            [WALK_GROUNDED, Vector2(2450, 5560)], [WALK, Vector2(2220, 5660)],
-            [WALK_GROUNDED, Vector2(2310, 5660)], [JUMP, Vector2(2420, 5560)],
+            [WALK_GROUNDED, Vector2(2450, 5588)], [WALK_GROUNDED, Vector2(2295, 5660)],
+            [WALK_GROUNDED, Vector2(2420, 5588)],
             [WALK_GROUNDED, Vector2(2970, 5500)], [WALK_GROUNDED, Vector2(3550, 5420)]]],
     ],
     [
@@ -76,18 +89,20 @@ const CIRCUITS := [
             [WALK_GROUNDED, Vector2(3848, 1490)], [JUMP, Vector2(3733, 1378)],
             [WALK_GROUNDED, Vector2(2986, 1240)]], true],
         ["tide shrine back to the undercanal", Vector2(1710, 4950), [
-            [WALK_GROUNDED, Vector2(1649, 4950)], [JUMP, Vector2(1583, 4860)],
+            [WALK_GROUNDED, Vector2(1654, 4950)], [JUMP, Vector2(1568, 4860)],
             [JUMP, Vector2(1750, 4760)], [WALK, Vector2(2047, 4800)]]],
         ["lower pump catch and exit", Vector2(2960, 3320), [
             [WALK, Vector2(3124, 3398)], [JUMP, Vector2(3250, 3320)]]],
         ["standpipe top dock", Vector2(1105, 1686), [
-            [JUMP, Vector2(1243, 1658)], [JUMP, Vector2(1266, 1540)]]],
+            [JUMP, Vector2(1230, 1658)], [LINE_UP, Vector2(1230, 1658)],
+            [JUMP, Vector2(1304, 1540)]]],
     ],
     [
-        ["atrium floor to upper gallery", Vector2(2585, 2130), [
-            [JUMP, Vector2(2702, 2032)], [JUMP, Vector2(2645, 1926)], [JUMP, Vector2(2770, 1812)],
+        ["atrium floor to upper gallery", Vector2(2645, 2130), [
+            [JUMP, Vector2(2710, 2032)], [JUMP, Vector2(2632, 1926)], [LINE_UP, Vector2(2641, 1926)],
+            [JUMP, Vector2(2755, 1812)],
             [WALK, Vector2(2950, 1812)], [JUMP, Vector2(3080, 1712)], [WALK, Vector2(3200, 1712)],
-            [JUMP, Vector2(3295, 1622)], [JUMP, Vector2(3201, 1512)], [JUMP, Vector2(3300, 1400)]]],
+            [JUMP, Vector2(3295, 1622)], [JUMP, Vector2(3201, 1512)], [JUMP, Vector2(3330, 1400)]]],
         ["chute upper landing", Vector2(5300, 922), [
             [WALK, Vector2(5540, 986)], [WALK, Vector2(5660, 1248)]]],
     ],
@@ -96,22 +111,22 @@ const CIRCUITS := [
             [WALK, Vector2(1560, 2474)], [WALK, Vector2(2360, 2458)], [WALK, Vector2(2800, 2422)],
             [WALK, Vector2(3400, 2484)], [WALK, Vector2(3800, 2452)], [WALK, Vector2(4450, 2432)],
             [WALK, Vector2(3800, 2452)], [WALK, Vector2(2800, 2422)], [WALK, Vector2(990, 2420)]]],
-        ["vine ledges above the dock", Vector2(5288, 2300), [
-            [JUMP, Vector2(5401, 2202)], [JUMP, Vector2(5455, 2128)],
-            [JUMP, Vector2(5384, 2072)], [JUMP, Vector2(5520, 2000)]]],
+        ["vine ledges above the dock", Vector2(5255, 2300), [
+            [JUMP, Vector2(5365, 2202)], [LINE_UP, Vector2(5401, 2202)], [JUMP, Vector2(5460, 2124)],
+            [JUMP, Vector2(5358, 2040)], [JUMP, Vector2(5502, 2000)]]],
     ],
     [
         ["lower road rest and climb", Vector2(2120, 2496), [
             [JUMP, Vector2(2025, 2442)], [JUMP, Vector2(1935, 2390)], [WALK, Vector2(1530, 2286)]]],
         ["watch tower steps", Vector2(3170, 1224), [
-            [JUMP, Vector2(3265, 1122)], [JUMP, Vector2(3225, 1014)], [JUMP, Vector2(3300, 906)],
-            [JUMP, Vector2(3243, 810)], [JUMP, Vector2(3325, 690)]]],
+            [JUMP, Vector2(3265, 1122)], [JUMP, Vector2(3200, 1014)], [LINE_UP, Vector2(3207, 1014)],
+            [JUMP, Vector2(3298, 906)], [JUMP, Vector2(3215, 796)], [JUMP, Vector2(3325, 690)]]],
         ["grave terrace approach", Vector2(335, 1514), [
             [JUMP, Vector2(264, 1392)]]],
     ],
     [
-        ["forecourt rib and return", Vector2(2348, 846), [
-            [JUMP, Vector2(2496, 828)], [JUMP, Vector2(2475, 700)]]],
+        ["forecourt rib and return", Vector2(2358, 846), [
+            [JUMP, Vector2(2457, 802)], [JUMP, Vector2(2548, 700)]]],
         ["east shoulder recovery", Vector2(4028, 940), [
             [WALK, Vector2(4168, 1060)], [JUMP, Vector2(4270, 1052)]]],
         ["core drop to bell vault", Vector2(3100, 1930), [
@@ -144,6 +159,7 @@ func run() -> void:
         player.debug_invulnerable = true
         check(world.config.id == id and not player.dash_unlocked and not player.double_jump_unlocked,
             "%s starts with ordinary movement" % id)
+        await check_tread_underside(SOLID_TREADS[index])
 
         for route in CIRCUITS[index]:
             if not await place(route[1]):
@@ -188,6 +204,26 @@ func check_solid_underside(feet: Vector2, terrain_id: String) -> void:
         "%s physically blocks an upward body sweep through the stone" % terrain_id)
 
 
+func check_tread_underside(tread_id: String) -> void:
+    var record: Dictionary = world.world_platforms.records.get(tread_id, {})
+    check(not record.is_empty(), "%s is registered as a standalone world platform" % tread_id)
+    if record.is_empty():
+        return
+    var rect: Rect2 = record.bounds
+    var feet := Vector2(rect.get_center().x, rect.end.y + 96.0)
+    player.global_position = feet
+    player.velocity = Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_platforms()
+    world._warm_arrival_terrain()
+    await physics_frame
+    var body: StaticBody2D = world.world_platforms.resident.get(tread_id)
+    var collision := KinematicCollision2D.new()
+    var hit := player.test_move(Transform2D(0.0, feet), Vector2.UP * 30.0, collision)
+    check(body != null and hit and collision.get_collider() == body and collision.get_normal().y > 0.5,
+        "%s blocks a jump straight up through its underside" % tread_id)
+
+
 func check_cistern_gate() -> void:
     const GATE := "gate_dash_deep"
     var gate: StaticBody2D = world.locked_gate_bodies.get(GATE)
@@ -196,11 +232,8 @@ func check_cistern_gate() -> void:
         return
     var sign: Node2D = gate.get_node_or_null("AbilityGateSign")
     check(await place(Vector2(3560, 5120)), "the upper approach settles on the cistern ring")
-    Input.action_press("move_right")
-    await frames(105)
-    release_input()
-    check(player.is_on_floor() and player.position.x >= 3810.0 and absf(player.position.y - 5120.0) < 2.0,
-        "walking against the end of the ring stays on the grate instead of dropping behind the gate: %s" % player.position)
+    check(await reach(WALK_GROUNDED, Vector2(3734, 5120)),
+        "the ring connects to the landing beside the return opening")
 
     check(await place(Vector2(3550, 5420)), "the dash gate has a safe approach from the hollow")
     Input.action_press("move_right")
@@ -211,17 +244,19 @@ func check_cistern_gate() -> void:
 
     # Simulate a player who reached the old pocket before the grate existed.
     check(await place(Vector2(3780, 5420)), "the old gate-side landing remains solid")
-    check(sign.showing_return and sign.caption() == "↑ " + world.tr("水窖环廊"),
-        "the inside face points up to the return route")
-    for landing in [Vector2(3776, 5324), Vector2(3798, 5222), Vector2(3810, 5120)]:
+    for landing in [Vector2(3737, 5312), Vector2(3817, 5218), Vector2(3734, 5120)]:
         var reached := await reach(JUMP, landing)
         check(reached, "the old landing can reach %s with a normal jump: %s" % [landing, player.position])
         if not reached:
             break
+        if landing.y == 5312:
+            check(await reach(LINE_UP, Vector2(3755, 5312)), "line up at the open end of the first tread")
+        elif landing.y == 5218:
+            check(await reach(LINE_UP, Vector2(3815, 5218)), "line up in the opening beside the upper tread")
     check(await reach(WALK_GROUNDED, Vector2(3650, 5120)) and not player.dash_unlocked,
         "the return grate reconnects to the cistern ring without the ability")
     for step in CISTERN_TO_FIRST_SHRINE:
-        var reached := await reach(step[0], step[1])
+        var reached := await reach(step[0], step[1], true)
         check(reached, "the uninterrupted way from the cistern back to the first shrine reaches %s: %s"
             % [step[1], player.position])
         if not reached:
@@ -242,6 +277,7 @@ func check(ok: bool, label: String) -> void:
     checks += 1
     if not ok:
         failures.append(label)
+        print("ROUTE_FAILURE " + label)
 
 
 func place(landing: Vector2) -> bool:
@@ -274,14 +310,15 @@ func reach(kind: int, landing: Vector2, require_headroom: bool = false) -> bool:
         if require_headroom and player.is_on_ceiling():
             print("ROUTE_CEILING_CONTACT at=%s target=%s" % [player.position, landing])
             break
-        if kind == WALK_GROUNDED:
+        if kind == WALK_GROUNDED or kind == LINE_UP:
             if world.world_passage.active:
                 break
             airborne = 0 if can_snap_to_route_floor() else airborne + 1
             if airborne > 3:
                 print("ROUTE_LOST_FLOOR at=%s target=%s" % [player.position, landing])
                 break
-        if (kind != JUMP or tick >= 8) and landed(landing):
+        var x_margin := 9.0 if kind == LINE_UP else 19.0
+        if (kind != JUMP or tick >= 8) and landed(landing, x_margin):
             release_input()
             return true
     release_input()
@@ -298,8 +335,8 @@ func can_snap_to_route_floor() -> bool:
         and contact.get_normal().dot(player.up_direction) >= cos(player.floor_max_angle)
 
 
-func landed(point: Vector2) -> bool:
-    return player.is_on_floor() and absf(player.position.x - point.x) < 19.0 and absf(player.position.y - point.y) < 9.0
+func landed(point: Vector2, x_margin: float = 19.0) -> bool:
+    return player.is_on_floor() and absf(player.position.x - point.x) < x_margin and absf(player.position.y - point.y) < 9.0
 
 
 func release_input() -> void:
