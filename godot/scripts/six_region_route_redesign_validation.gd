@@ -48,8 +48,19 @@ const CIRCUITS := [
             [WALK, Vector2(2315, 3850)], [JUMP, Vector2(2444, 3866)],
             [WALK_GROUNDED, Vector2(2630, 3892)], [WALK_GROUNDED, Vector2(2444, 3866)],
             [JUMP, Vector2(2252, 3812)], [WALK_GROUNDED, Vector2(1680, 3752)]]],
-        ["stairwell reaches the court by its open side", Vector2(2314, 3850), [
-            [JUMP, Vector2(2444, 3866)], [WALK_GROUNDED, Vector2(2560, 3892)]]],
+        ["court stairwell to the sealed station and back", Vector2(2314, 3850), [
+            [JUMP, Vector2(2444, 3866)], [LINE_UP, Vector2(2421, 3856)],
+            [JUMP, Vector2(2480, 3728)], [LINE_UP, Vector2(2470, 3728)],
+            [JUMP, Vector2(2418, 3596)], [LINE_UP, Vector2(2305, 3596)],
+            [JUMP, Vector2(2240, 3544)], [LINE_UP, Vector2(2250, 3544)],
+            [JUMP, Vector2(2350, 3452)], [LINE_UP, Vector2(2338, 3452)],
+            [JUMP, Vector2(2243, 3348)], [LINE_UP, Vector2(2250, 3348)],
+            [JUMP, Vector2(2361, 3268)], [LINE_UP, Vector2(2355, 3268)],
+            [JUMP, Vector2(2225, 3160)],
+            [WALK, Vector2(2370, 3268)], [WALK, Vector2(2238, 3348)],
+            [WALK, Vector2(2354, 3452)], [WALK, Vector2(2238, 3544)],
+            [WALK, Vector2(2314, 3596)], [WALK, Vector2(2488, 3728)],
+            [WALK, Vector2(2425, 3856)], [JUMP, Vector2(2314, 3850)]], true],
         ["central court to the bell lift and back", Vector2(2585, 3892), [
             [WALK_GROUNDED, Vector2(2654, 3892)], [JUMP, Vector2(2766, 3784)], [WALK_GROUNDED, Vector2(3074, 3608)],
             [JUMP, Vector2(2916, 3508)], [WALK_GROUNDED, Vector2(2630, 3299)],
@@ -172,6 +183,7 @@ func run() -> void:
                     break
                 check(true, "")
         if index == 0:
+            await check_tread_underside("sw21")
             await check_solid_underside(Vector2(2920, 3636), "terrain_court_station_ramp")
             await check_solid_underside(Vector2(3550, 2252), "terrain_court_upper_ramp")
             await check_cistern_gate()
@@ -220,6 +232,26 @@ func check_tread_underside(tread_id: String) -> void:
     var body: StaticBody2D = world.world_platforms.resident.get(tread_id)
     var collision := KinematicCollision2D.new()
     var hit := player.test_move(Transform2D(0.0, feet), Vector2.UP * 30.0, collision)
+    if body == null or not hit or collision.get_collider() != body or collision.get_normal().y <= 0.5:
+        var shapes: Array = []
+        if body != null:
+            for child in body.get_children():
+                if child is CollisionShape2D:
+                    shapes.append({"disabled": child.disabled, "one_way": child.one_way_collision,
+                        "one_way_margin": child.one_way_collision_margin,
+                        "position": child.position, "shape_size": child.shape.size if child.shape is RectangleShape2D else Vector2.ZERO})
+        print("TREAD_UNDERSIDE id=%s body=%s hit=%s collider=%s normal=%s feet=%s" % [
+            tread_id, body, hit, collision.get_collider(), collision.get_normal(), feet])
+        print("TREAD_GEOMETRY body_inside=%s body_global=%s body_layer=%d body_mask=%d player_global=%s player_transform=%s player_layer=%d player_mask=%d shapes=%s"
+            % [body.is_inside_tree(), body.global_position, body.collision_layer, body.collision_mask,
+                player.global_position, player.global_transform, player.collision_layer, player.collision_mask, shapes])
+        var probe := PhysicsShapeQueryParameters2D.new()
+        var probe_shape := RectangleShape2D.new()
+        probe_shape.size = Vector2(34, 84)
+        probe.shape = probe_shape
+        probe.transform = Transform2D(0.0, feet + Vector2(0, -42))
+        probe.collision_mask = 1
+        print("TREAD_OVERLAP hits=%s" % [world.get_world_2d().direct_space_state.intersect_shape(probe, 8)])
     check(body != null and hit and collision.get_collider() == body and collision.get_normal().y > 0.5,
         "%s blocks a jump straight up through its underside" % tread_id)
 

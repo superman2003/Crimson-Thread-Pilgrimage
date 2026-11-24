@@ -31,7 +31,8 @@ func _run() -> void:
     scene.cave_world.warm_collision_focus(scene.player.position)
     await _tick(20)
     trace_ceiling=true
-    if await _leap(Vector2(3220,1868),999,"ordinary free shaft top exit"):
+    if await _leap(Vector2(3530,1900),999,"ordinary free shaft side dock") \
+        and await _leap(Vector2(3380,1868),999,"ordinary free shaft top exit"):
         _check(absf(scene.player.position.y-1868)<4,"upper gallery actual ground reached with ordinary jump")
     print("OBSIDIAN_DOCK_CLEARANCE failures=",failures)
     _release()

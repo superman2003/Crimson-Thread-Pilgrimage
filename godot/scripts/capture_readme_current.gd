@@ -3,10 +3,12 @@ const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const ROUTE_VIEWS := {
     "demo_ch01_moss_bell_court": {
         "central_court": Vector2(3694, 2126),
-        "cistern_return": Vector2(3780, 5420),
+        "cistern_return": Vector2(3817, 5218),
+        "court_stairwell": Vector2(2480, 3728),
     },
     "demo_ch02_rain_foundry_canal": {
         "rain_service_ramp": Vector2(3845, 1490),
+        "rain_spillway": Vector2(4687, 3834),
     },
 }
 ## Actual World render with isolated showcase progress, not a completion proof.
@@ -183,5 +185,5 @@ func capture() -> void:
     # Let deferred frees, render commands and retiring audio complete before exit.
     await frames(10)
     await create_timer(0.5).timeout
-    print("README_CURRENT_CAPTURE_PASS screenshots=23 isolated_showcase_progress=true")
+    print("README_CURRENT_CAPTURE_PASS screenshots=25 isolated_showcase_progress=true")
     quit()

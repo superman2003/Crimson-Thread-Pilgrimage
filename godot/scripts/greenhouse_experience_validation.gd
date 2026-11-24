@@ -213,7 +213,7 @@ func vine_exit_jumps(world: Node) -> void:
     pause_world(world)
     var player: CharacterBody2D=world.player
     check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Vine exit fixture uses ordinary jumps without extra climbing abilities")
-    player.global_position=Vector2(5480,1360)
+    player.global_position=Vector2(5605,1360)
     player.velocity=Vector2.ZERO
     world._warm_arrival_cave()
     world._warm_arrival_terrain()
@@ -225,7 +225,7 @@ func vine_exit_jumps(world: Node) -> void:
     await frames(12)
     check(player.is_on_floor(),"Vine exit fixture stands on the actual ninth vine")
     var hp: int=player.hp
-    for point in [Vector2(5350,1252),Vector2(5360,1186)]:
+    for point in [Vector2(5658,1260),Vector2(5550,1186)]:
         if not await vine_exit_jump(world,point):
             pause_world(world)
             return
@@ -317,7 +317,7 @@ func crown_return_jumps(world: Node) -> void:
     pause_world(world)
     var player: CharacterBody2D=world.player
     check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Crown return fixture uses ordinary jumps without extra climbing abilities")
-    player.global_position=Vector2(3660,1054)
+    player.global_position=Vector2(3650,1054)
     player.velocity=Vector2.ZERO
     world._warm_arrival_cave()
     world._warm_arrival_terrain()
@@ -329,7 +329,7 @@ func crown_return_jumps(world: Node) -> void:
     await frames(12)
     check(player.is_on_floor(),"Crown return fixture stands on the actual fifth rising vine")
     var hp: int=player.hp
-    for target in [Vector2(3770,948),Vector2(3770,882)]:
+    for target in [Vector2(3616,948),Vector2(3728,882)]:
         if not await vine_exit_jump(world,target,"crown return"):
             pause_world(world)
             return

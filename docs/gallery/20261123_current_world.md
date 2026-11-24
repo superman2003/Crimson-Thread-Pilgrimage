@@ -1,6 +1,6 @@
-# 当前正式关卡实机（2026-11-23）
+# 当前正式关卡实机（2026-11-24）
 
-23 张截图由 Godot 4.6.1 的 Compatibility 渲染器在正式 `World.tscn` 中生成，画面为 1280 × 720。截图脚本用独立展示档打开界面和装备，用关卡回归的落点布置三处路线取景。连续输入走测与能力条件由 `six_region_route_redesign` 回归验证。
+25 张截图取自 Godot 4.6.1 的正式 `World.tscn`，使用 Compatibility 渲染器和 1280 × 720 的独立展示档。11 月 24 日更新了后门升梯井、水窖深廊、溢洪道和铸雨渠起点。五处路线取景均使用经过关卡回归的落点。
 
 ## 路线
 
@@ -8,7 +8,11 @@
 
 ![铸雨渠从检修缝到泵房的两段坡](../../artifacts/readme_current_20261123/rain_service_ramp.webp)
 
-![水窖深廊的回程栅桥与方向提示](../../artifacts/readme_current_20261123/cistern_return.webp)
+![后门升梯井左右错开的实体踏台](../../artifacts/readme_current_20261123/court_stairwell.webp)
+
+![水窖深廊的侧跳回程与冲刺门](../../artifacts/readme_current_20261123/cistern_return.webp)
+
+![铸雨渠溢洪道两侧的实体落台](../../artifacts/readme_current_20261123/rain_spillway.webp)
 
 ## 界面和工房
 

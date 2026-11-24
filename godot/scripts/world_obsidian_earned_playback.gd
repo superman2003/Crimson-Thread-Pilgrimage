@@ -56,7 +56,10 @@ func _run() -> void:
     for point in [Vector2(3470,2652),Vector2(3280,2544),Vector2(3470,2436),Vector2(3280,2328),Vector2(3470,2220),Vector2(3280,2112),Vector2(3460,2004)]:
         if not await _leap(point,999 if point.y==2004 else 20,"normal free shaft ascent"):await _finish();return
     trace_ceiling=true
-    if not await _leap(Vector2(3220,1868),999,"free shaft actual upper dock"):await _finish();return
+    if not await _leap(Vector2(3530, 1900), 999, "free shaft side dock") \
+        or not await _leap(Vector2(3380, 1868), 999, "free shaft upper gallery"):
+        await _finish()
+        return
     trace_ceiling=false
     _check(absf(scene.player.position.y-1868)<4,"actual upper gallery floor reached")
     if not await _walk_without_jump(Vector2(2800,1868)):await _finish();return

@@ -13,15 +13,19 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 
 [第一章实机录像](artifacts/thread_doll_v1/gameplay-review.mp4) · [32 状态动作预览](artifacts/thread_doll_v1/actions-review.mp4) · [实装与验证](docs/THREAD_DOLL_PROTAGONIST.md)
 
-## 当前版本实机（2026-11-23）
+## 当前版本实机（2026-11-24 更新）
 
-截图取自 Godot 4.6.1 的正式 `World.tscn`，分辨率 1280 × 720。界面和六区起点取自独立展示档，路线图在关卡回归经过的落点布置取景。
+截图取自 Godot 4.6.1 的正式 `World.tscn`，分辨率 1280 × 720。界面和六区起点取自独立展示档，五处路线取景落点均通过实际关卡验证。
 
 ![中央钟庭的实体石坡与升降笼前落台](artifacts/readme_current_20261123/central_court.webp)
 
 ![铸雨渠检修缝与泵房之间的两段坡道](artifacts/readme_current_20261123/rain_service_ramp.webp)
 
-![水窖深廊内侧的铜踏板与返程箭头](artifacts/readme_current_20261123/cistern_return.webp)
+![后门升梯井左右错开的实体踏台](artifacts/readme_current_20261123/court_stairwell.webp)
+
+![水窖深廊的侧跳回程与冲刺门](artifacts/readme_current_20261123/cistern_return.webp)
+
+![铸雨渠溢洪道两侧的实体落台](artifacts/readme_current_20261123/rain_spillway.webp)
 
 <details>
 <summary>行囊、契印、旅记、区域地图和练习工房</summary>
@@ -38,7 +42,7 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 
 </details>
 
-[查看 23 张实机图及复现方式](docs/gallery/20261123_current_world.md) · [11 月 7 日实机记录](docs/gallery/20261107_current_main.md)
+[查看 25 张实机图及复现方式](docs/gallery/20261123_current_world.md) · [11 月 7 日实机记录](docs/gallery/20261107_current_main.md)
 
 ## 升级进度（2026-11-07）
 
@@ -52,7 +56,7 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 
 [进度图说明](docs/gallery/20261024_upgrade_progress.md) · [升级进度](docs/UPGRADE_PROGRESS.md)
 
-## 怪物素材与完整地图（2026-11-23）
+## 怪物素材与完整地图（2026-11-24 更新）
 
 40 种小怪与 6 位 Boss 的当前素材在下方直接展示；[完整图册](docs/gallery/20261011_current_assets.md)提供各章高清地图、小怪分章图册、实机画面，以及全部 46 类敌人的原始动画图集链接。
 
