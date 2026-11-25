@@ -192,7 +192,7 @@ func check_world_exits(main: Node) -> void:
     check(by_key[reverse_key].title.ends_with("铸雨渠") and by_key[reverse_key].detail.get_slice("\n", 1) == "已通",
         "the reverse mouth uses its own open state")
     check(by_key[latch_key].detail.contains("另一侧门闩"), "the cableway describes the far-side latch")
-    check(by_key[latch_key].detail.contains("靠近入口后互动") and by_key[rain_key].detail.contains("沿入口方向步行"),
+    check(by_key[latch_key].detail.contains("靠近入口后互动") and by_key[rain_key].detail.contains("靠近入口后互动"),
         "walking and interaction routes describe their actual entry methods")
 
     var button: Button = main.map_panel.get_node("MapDirectoryButton")
