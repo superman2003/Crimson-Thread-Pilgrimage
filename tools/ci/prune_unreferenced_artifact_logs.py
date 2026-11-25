@@ -15,6 +15,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import re
 import subprocess
 from pathlib import Path
@@ -28,8 +29,8 @@ TEXT_SUFFIXES = {".md", ".json", ".py", ".gd", ".yml", ".yaml", ".mjs", ".js", "
 VERIFIER_PREFIXES = ("verify_", "test_", "check_")
 
 
-def _is_ci_or_verifier(path: Path) -> bool:
-    rel = path.relative_to(ROOT).as_posix()
+def _is_ci_or_verifier(path: Path, root: Path = ROOT) -> bool:
+    rel = path.relative_to(root).as_posix()
     if rel.startswith(".github/"):
         return True
     if rel.startswith("tools/") and path.suffix == ".py" and path.name.startswith(VERIFIER_PREFIXES):
@@ -37,18 +38,20 @@ def _is_ci_or_verifier(path: Path) -> bool:
     return False
 
 
-def find_unreferenced() -> tuple[list[str], set[str]]:
+def find_unreferenced(root: Path = ROOT, tracked_paths: list[str] | None = None) -> tuple[list[str], set[str]]:
     ref_paths: set[str] = set()
     ref_prefixes: set[str] = set()
     protected_top_dirs: set[str] = set()
     ref_basenames: set[str] = set()
+    dynamic_patterns: set[str] = set()
 
-    pat_path = re.compile(r"artifacts/[A-Za-z0-9_./\-]+")
+    pat_path = re.compile(r"artifacts/[A-Za-z0-9_./{}$%*:+\-]+")
+    pat_dynamic = re.compile(r"\{[^{}]+\}|%[a-zA-Z]|\$[A-Za-z_][A-Za-z_0-9]*")
     pat_base = re.compile(r"[A-Za-z0-9_\-]+\.(?:gz|log)")
     pat_dir_token = re.compile(r"artifacts/([A-Za-z0-9_\-]+)")
 
     for rel_root in ("README.md", "docs", "tools", "godot", ".github"):
-        base = ROOT / rel_root
+        base = root / rel_root
         paths = [base] if base.is_file() else [
             p for p in base.rglob("*") if p.is_file() and p.suffix.lower() in TEXT_SUFFIXES
         ]
@@ -57,10 +60,13 @@ def find_unreferenced() -> tuple[list[str], set[str]]:
                 txt = p.read_text(encoding="utf-8", errors="ignore")
             except OSError:
                 continue
-            ci_or_verifier = _is_ci_or_verifier(p)
+            ci_or_verifier = _is_ci_or_verifier(p, root)
             for m in pat_path.findall(txt):
                 cleaned = m.rstrip('.,;:)"\'`')
-                ref_paths.add(cleaned)
+                if pat_dynamic.search(cleaned):
+                    dynamic_patterns.add(pat_dynamic.sub("*", cleaned))
+                else:
+                    ref_paths.add(cleaned)
                 trimmed = cleaned.rstrip("/")
                 if trimmed != "artifacts" and (cleaned.endswith("/") or "." not in Path(trimmed).name):
                     ref_prefixes.add(trimmed + "/")
@@ -71,8 +77,10 @@ def find_unreferenced() -> tuple[list[str], set[str]]:
                 for m in pat_base.findall(txt):
                     ref_basenames.add(m)
 
-    tracked = subprocess.check_output(["git", "ls-files", "artifacts/"], cwd=ROOT, text=True).splitlines()
-    candidates = [f for f in tracked if f.endswith(TARGET_EXTS)]
+    tracked = tracked_paths
+    if tracked is None:
+        tracked = subprocess.check_output(["git", "ls-files", "artifacts/"], cwd=root, text=True).splitlines()
+    candidates = [f for f in tracked if f.startswith("artifacts/") and f.endswith(TARGET_EXTS)]
 
     unreferenced: list[str] = []
     for f in candidates:
@@ -83,20 +91,24 @@ def find_unreferenced() -> tuple[list[str], set[str]]:
             continue
         if any(f.startswith(prefix) for prefix in ref_prefixes):
             continue
+        if any(fnmatch.fnmatchcase(f, pattern) for pattern in dynamic_patterns):
+            continue
         unreferenced.append(f)
 
     return unreferenced, protected_top_dirs
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--execute", action="store_true", help="Untrack unreferenced files with git rm")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
-    unreferenced, protected_top_dirs = find_unreferenced()
+    unreferenced, protected_top_dirs = find_unreferenced(ROOT)
     total_mb = sum((ROOT / f).stat().st_size for f in unreferenced if (ROOT / f).exists()) / (1024 * 1024)
     print(f"Protected CI/verifier artifact directories: {len(protected_top_dirs)}")
     print(f"Unreferenced diagnostic log/gz files in artifacts/: {len(unreferenced)} ({total_mb:.2f} MB)")
+    for path in unreferenced:
+        print(f"Candidate: {path}")
 
     if not args.execute or not unreferenced:
         if unreferenced:
