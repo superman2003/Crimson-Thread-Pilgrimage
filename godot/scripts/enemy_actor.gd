@@ -415,26 +415,11 @@ func _step_enemy(delta: float) -> void:
         var level := LEVEL_HOST.of(self)
         if level != null and level.has_method("_world_collision_ready") and not level._world_collision_ready():
             return
-    var movement_start:=global_position
-    if is_boss and battle_phase == 1 and hp <= max_hp * float(ai_profile.get("phase_threshold",0.55)):
-        if boss_brain != null:boss_brain.reset_plan()
-        battle_phase = 2
-        phase_pause = 0.9
-        _cancel_attack_effects()
-        _clear_telegraph()
-        state = "patrol"
-        active_attack = {}
-        attack_recovery=false
-        recovery_velocity_x=0.0
-        pose_loop_animation = ""
-        _set_enemy_animation("phase", true)
-        _fit_animation_duration(phase_pause)
-        BOSS_SKILL_ART.spawn_phase(self)
-        if LEVEL_HOST.of(self).has_method("_toast"):
-            LEVEL_HOST.of(self)._toast(String(ai_profile.get("phase_name","第二阶段")))
-    if phase_pause>0:
+    var movement_start := global_position
+    _check_boss_phase_transition()
+    if phase_pause > 0:
         ENEMY_LIFECYCLE.tick_hit_flash(self, delta)
-        phase_pause-=delta
+        phase_pause -= delta
         return
     _tick_timers(delta)
     var uses_ground_body := ground_body != null and delta > 0.0 and Engine.is_in_physics_frame()
@@ -442,15 +427,41 @@ func _step_enemy(delta: float) -> void:
     ground_target_speed = 0.0
     ground_stop_x = INF
     var target := _target_player()
-    BOSS_STYLE.remember(self,delta,target)
+    BOSS_STYLE.remember(self, delta, target)
     if target != null and not _is_attack_state() and _is_aware_of(target):
         _face_target(target)
-    if target != null:
-        last_player_command = _read_player_command(target)
-    else:
-        last_player_command = "none"
+    last_player_command = _read_player_command(target) if target != null else "none"
+    _dispatch_ai_state(delta, target)
+    var walk_on_ground := ground_motion_planning and state == "patrol"
+    ground_motion_planning = false
+    if not dying and not is_queued_for_deletion():
+        _apply_step_locomotion(delta, player_node, target, movement_start, uses_ground_body, walk_on_ground)
 
-    if boss_brain != null and _boss_behavior_enabled():boss_brain.observe(delta,target)
+
+func _check_boss_phase_transition() -> void:
+    if not (is_boss and battle_phase == 1 and hp <= max_hp * float(ai_profile.get("phase_threshold", 0.55))):
+        return
+    if boss_brain != null:
+        boss_brain.reset_plan()
+    battle_phase = 2
+    phase_pause = 0.9
+    _cancel_attack_effects()
+    _clear_telegraph()
+    state = "patrol"
+    active_attack = {}
+    attack_recovery = false
+    recovery_velocity_x = 0.0
+    pose_loop_animation = ""
+    _set_enemy_animation("phase", true)
+    _fit_animation_duration(phase_pause)
+    BOSS_SKILL_ART.spawn_phase(self)
+    if LEVEL_HOST.of(self).has_method("_toast"):
+        LEVEL_HOST.of(self)._toast(String(ai_profile.get("phase_name", "第二阶段")))
+
+
+func _dispatch_ai_state(delta: float, target: Node) -> void:
+    if boss_brain != null and _boss_behavior_enabled():
+        boss_brain.observe(delta, target)
     if state == "support":
         _update_support(delta, target)
     elif state == "windup":
@@ -461,30 +472,30 @@ func _step_enemy(delta: float) -> void:
         _update_recover(delta)
     else:
         _update_patrol_or_aggro(delta, target)
-    var walk_on_ground := ground_motion_planning and state == "patrol"
-    ground_motion_planning = false
-    if not dying and not is_queued_for_deletion():
-        if walk_on_ground:
-            var before_walk := global_position
-            if trip_timer > 0.0 or absf(knockback_velocity) >= 0.1:
-                ground_target_speed = 0.0
-                ground_body.velocity.x = 0.0
-            ground_body.walk(self, player_node as PhysicsBody2D, speed, ground_target_speed, ground_stop_x, movement_limits(), delta)
-            var travel := global_position.x - before_walk.x
-            if absf(travel) >= 0.015:
-                direction = -1 if travel < 0.0 else 1
-                _set_sprite_flip(direction < 0)
-                _set_enemy_animation("walk")
-            else:
-                _set_enemy_animation("idle")
+
+
+func _apply_step_locomotion(delta: float, player_node: Node, target: Node, movement_start: Vector2, uses_ground_body: bool, walk_on_ground: bool) -> void:
+    if walk_on_ground:
+        var before_walk := global_position
+        if trip_timer > 0.0 or absf(knockback_velocity) >= 0.1:
+            ground_target_speed = 0.0
+            ground_body.velocity.x = 0.0
+        ground_body.walk(self, player_node as PhysicsBody2D, speed, ground_target_speed, ground_stop_x, movement_limits(), delta)
+        var travel := global_position.x - before_walk.x
+        if absf(travel) >= 0.015:
+            direction = -1 if travel < 0.0 else 1
+            _set_sprite_flip(direction < 0)
+            _set_enemy_animation("walk")
         else:
-            if ground_body != null:
-                ground_body.velocity = Vector2.ZERO
-            # A grounded wind-up or guard keeps the contact point already
-            # found by move_and_slide. Authored attack travel still owns its path.
-            if not uses_ground_body or global_position != movement_start:
-                _update_locomotion(delta,target)
-        _sync_walk_cadence(delta,movement_start)
+            _set_enemy_animation("idle")
+    else:
+        if ground_body != null:
+            ground_body.velocity = Vector2.ZERO
+        # A grounded wind-up or guard keeps the contact point already
+        # found by move_and_slide. Authored attack travel still owns its path.
+        if not uses_ground_body or global_position != movement_start:
+            _update_locomotion(delta, target)
+    _sync_walk_cadence(delta, movement_start)
 
 
 func walk_horizontally(target_speed: float, delta: float, stop_x: float) -> void:
