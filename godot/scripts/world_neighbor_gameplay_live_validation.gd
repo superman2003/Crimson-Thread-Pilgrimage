@@ -200,8 +200,8 @@ func fight(records: Dictionary) -> void:
                 and body.global_position.is_equal_approx(enemy.global_position + body.feet_offset):
             grounded_walk_frames[0] += 1
     physics_frame.connect(observe_walk)
-    # Continue beyond the tower roof before engaging on the aqueduct deck.
-    var reached_deck := await walk(Vector2(620,812),"rain approach") and await walk(Vector2(960,880),"aqueduct combat deck")
+    # Reach the broad aqueduct deck before engaging the crawler.
+    var reached_deck := await walk(Vector2(620,812),"rain approach") and await walk(Vector2(1100,880),"aqueduct combat deck")
     physics_frame.disconnect(observe_walk)
     if not reached_deck: return
     check(grounded_walk_frames[0] > 0,"adopted enemy walks on solid terrain before combat")

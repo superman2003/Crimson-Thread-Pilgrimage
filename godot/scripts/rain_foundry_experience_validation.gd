@@ -263,9 +263,8 @@ func aqueduct_route() -> void:
     check(player.is_on_floor() and absf(player.position.x - 200.0) < 5.0, "Aqueduct route begins on the normal arrival bank")
     check(not player.dash_unlocked and not player.double_jump_unlocked and not player.wall_grip_unlocked,
         "Aqueduct bank and tower lookout use the starting move set")
-    check(world.locked_gate_bodies.has("gate_wall_tower"), "The lower tower entrance is gated on initial arrival")
-    if await walk_aqueduct(world):
-        await climb_tower(world)
+    check(world.locked_gate_bodies.has("gate_wall_tower"), "The tower service door is closed on initial arrival")
+    await walk_aqueduct(world)
     var retirement := preload("res://scripts/audio_retirement.gd")
     retirement.retire_tree(world)
     world.queue_free()
@@ -276,40 +275,82 @@ func aqueduct_route() -> void:
 
 
 func walk_aqueduct(world: Node) -> bool:
-    if not await walk_to(world, Vector2(512, 770), "lookout takeoff", 155, 8):
+    if not await walk_to(world, Vector2(910, 871), "canal-grate takeoff", 300, 8):
         return false
-    if not await jump_to(world, Vector2(580, 660), "tower lookout"):
+    if not await jump_to(world, Vector2(1100, 880), "aqueduct deck"):
         return false
-    check(int(world.inventory_counts.get("heart_knot", 0)) == 1, "Tower lookout awards the actual heart knot")
-
-    if not await walk_to(world, Vector2(733, 804), "west edge of the upper grate", 140, 8):
+    if not await walk_to(world, Vector2(1148, 880), "east edge of the aqueduct deck", 60, 8):
         return false
-    if not await jump_to(world, Vector2(914, 858), "east edge of the upper grate"):
+    if not await jump_to(world, Vector2(1315, 836), "aqueduct overlook lip"):
         return false
-    if not await walk_to(world, Vector2(1350, 836), "archive pipe apron", 230):
+    if not await walk_to(world, Vector2(1412, 853), "aqueduct lip takeoff"):
         return false
-    if not await walk_to(world, Vector2(1422, 848), "west crossing lip"):
+    if not await jump_to(world, Vector2(1560, 780), "tower side step"):
+        return false
+    if not await jump_to(world, Vector2(1750, 740), "high water tower overlook"):
+        return false
+    if not await walk_to(world, Vector2(1790, 740), "the dry gutter work badge", 90, 8):
+        return false
+    await frames(3)
+    check(int(world.inventory_counts.get("worker_badge", 0)) == 1,
+        "The aqueduct side tread leads to the dry gutter and its original work badge")
+    var gate: StaticBody2D = world.locked_gate_bodies.get("gate_wall_tower")
+    check(is_instance_valid(gate), "The tower service door is present on the overlook")
+    if not is_instance_valid(gate):
+        return false
+    Input.action_press("move_right")
+    await frames(55)
+    Input.action_release("move_right")
+    check(world.player.is_on_floor() and world.player.position.x < gate.position.x
+        and int(world.inventory_counts.get("heart_knot", 0)) == 0,
+        "The closed service door physically blocks the heart-knot approach")
+    if not await walk_to(world, Vector2(1560, 780), "return to the tower side step"):
+        return false
+    if not await walk_to(world, Vector2(1480, 881), "walk down the aqueduct recovery ramp"):
         return false
     var camera: Camera2D = world.player.get_node("Camera2D")
     var half_view := Vector2(root.size) / camera.zoom * 0.5
     var view := Rect2(camera.get_screen_center_position() - half_view, half_view * 2)
-    check(view.has_point(Vector2(1542, 920)), "East landing is visible before leaping across the channel")
+    check(view.has_point(Vector2(1542, 920)), "The rain deck is visible from the return ramp")
 
-    if not await walk_to(world, Vector2(1489, 942), "channel recovery sill"):
+    if not await walk_to(world, Vector2(1569, 920), "recovery to rain deck"):
         return false
-    if not await jump_to(world, Vector2(1569, 920), "recovery to rain deck"):
+    if not await walk_to(world, Vector2(1480, 881), "return to the recovery ramp"):
         return false
-    if not await jump_to(world, Vector2(1426, 849), "west crossing return"):
+    if not await walk_to(world, Vector2(1360, 836), "return route reaches the aqueduct lip"):
         return false
-    if not await walk_to(world, Vector2(1422, 848), "west takeoff"):
-        return false
-    if not await jump_to(world, Vector2(1569, 920), "east crossing"):
-        return false
-
-    if not await walk_to(world, Vector2(1745, 920), "wall-grip shelf"):
+    if not await walk_to(world, Vector2(1725, 920), "wall-grip shelf", 90, 24):
         return false
     check(world.player.wall_grip_unlocked, "Arrival to the rain deck picks up the actual wall-grip ability")
-    check(not world.locked_gate_bodies.has("gate_wall_tower"), "The earned ability opens the lower tower entrance")
+    check(not world.locked_gate_bodies.has("gate_wall_tower"), "The earned ability opens the tower service door")
+    if not await walk_to(world, Vector2(1480, 881), "return on the aqueduct ramp"):
+        return false
+    if not await walk_to(world, Vector2(1380, 836), "return to the aqueduct lip"):
+        return false
+    if not await walk_to(world, Vector2(1412, 853), "tower side-tread approach", 90, 8):
+        return false
+    check(not world.world_passage.active and String(world.config.id) == "demo_ch02_rain_foundry_canal",
+        "Walking past the unlocked archive entrance keeps the player on the aqueduct")
+    if not await jump_to(world, Vector2(1560, 780), "open tower side step"):
+        return false
+    if not await walk_to(world, Vector2(1570, 780), "tower tread takeoff", 90, 8):
+        return false
+    if not await jump_to(world, Vector2(1750, 740), "open tower overlook"):
+        return false
+    if not await walk_to(world, Vector2(1800, 740), "west side of the open gate", 90, 8):
+        return false
+    if not await walk_to(world, Vector2(1890, 740), "cross the open tower gate", 90, 8):
+        return false
+    check(int(world.inventory_counts.get("heart_knot", 0)) == 1,
+        "silk wall grip opens the heart-knot return ledge")
+    if not await walk_to(world, Vector2(1750, 740), "return to the aqueduct overlook"):
+        return false
+    if not await walk_to(world, Vector2(1560, 780), "step down to the tower side tread"):
+        return false
+    if not await walk_to(world, Vector2(1480, 881), "drop onto the return ramp"):
+        return false
+    if not await walk_to(world, Vector2(1569, 920), "leave the overlook for the rain deck", 90, 8):
+        return false
     if not await walk_to(world, Vector2(2988, 1240), "bell shrine", 330):
         return false
     Input.action_press("interact")
@@ -318,39 +359,7 @@ func walk_aqueduct(world: Node) -> bool:
     check(world.active_save_point_id == "save_ch02_aqueduct", "Walking to the bell shrine allows a normal rest")
     if not await walk_to(world, Vector2(1838, 920), "return up the lock terraces", 330, 8):
         return false
-    if not await jump_to(world, Vector2(1908, 810), "gutter step"):
-        return false
-    if not await jump_to(world, Vector2(1792, 740), "optional dry gutter"):
-        return false
-    if not await walk_to(world, Vector2(1778, 740), "work badge"):
-        return false
-    check(int(world.inventory_counts.get("worker_badge", 0)) == 1, "Upper dry gutter pays its original work badge")
     return true
-
-
-func climb_tower(world: Node) -> void:
-    # Begin this local branch at its lower bank after the main route earned the
-    # wall grip. Each subsequent level is reached with standard jump input.
-    world.player.global_position = Vector2(975, 1498)
-    world.player.velocity = Vector2.ZERO
-    world._warm_arrival_cave()
-    world._warm_arrival_terrain()
-    world._warm_arrival_platforms()
-    await frames(12)
-    check(world.player.is_on_floor(), "Tower fixture settles on its lower bank")
-    var steps := [
-        [Vector2(870, 1406), Vector2(813, 1406)],
-        [Vector2(766, 1312), Vector2(789, 1312)],
-        [Vector2(855, 1218), Vector2(831, 1218)],
-        [Vector2(758, 1134), Vector2(776, 1134)],
-        [Vector2(864, 1014), Vector2(854, 1014)],
-        [Vector2(783, 895), Vector2(788, 895)],
-        [Vector2(914, 858), Vector2(914, 858)],
-    ]
-    for step in steps:
-        if not await jump_to(world, step[0], "tower maintenance step") \
-            or not await walk_to(world, step[1], "open side of the tower steps", 90, 8):
-            return
 
 
 func walk_to(world: Node, target: Vector2, location: String, budget: int = 90, margin: float = 18.0) -> bool:

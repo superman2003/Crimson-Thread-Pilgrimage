@@ -30,6 +30,15 @@ class AuditTests(unittest.TestCase):
         self.assertTrue(any('step: no standing room' in e for e in geometry(self.data)[1]))
         self.data['platforms'].append({'id': 'ramp_deck', 'rect': [225, 335, 95, 24], 'collision_role': 'one_way', 'terrain_id': 'ramp'})
         self.assertFalse(any('standing room' in e for e in geometry(self.data)[1]))
+    def test_terrain_owned_support_has_continuous_player_width_collision(self):
+        self.data['terrain'] = [
+            {'id': 'ramp_a', 'surface': [[100, 130], [150, 140]], 'depth': 36},
+            {'id': 'ramp_b', 'surface': [[190, 140], [250, 150]], 'depth': 36},
+        ]
+        self.data['platforms'].append({'id': 'edge_deck', 'rect': [100, 130, 150, 20], 'terrain_id': 'ramp_a'})
+        self.assertTrue(any('terrain support' in e for e in geometry(self.data)[1]))
+        self.data['terrain'][1]['surface'] = [[150, 140], [250, 150]]
+        self.assertFalse(any('terrain support' in e for e in geometry(self.data)[1]))
     def test_invalid_rect_and_duplicate_platform_fail(self):
         self.data['platforms'].append({'id': 'floor', 'rect': [0, 140, -1, 10]})
         errors = geometry(self.data)[1]

@@ -13,9 +13,9 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 
 [第一章实机录像](artifacts/thread_doll_v1/gameplay-review.mp4) · [32 状态动作预览](artifacts/thread_doll_v1/actions-review.mp4) · [实装与验证](docs/THREAD_DOLL_PROTAGONIST.md)
 
-## 当前版本实机（2026-11-24 更新）
+## 当前版本实机（2026-11-25 更新）
 
-截图取自 Godot 4.6.1 的正式 `World.tscn`，分辨率 1280 × 720。界面和六区起点取自独立展示档，五处路线取景落点均通过实际关卡验证。
+截图取自 Godot 4.6.1 的正式 `World.tscn`，分辨率 1280 × 720。界面和六区起点取自独立展示档，六处路线取景落点均通过实际关卡验证。
 
 ![中央钟庭的实体石坡与升降笼前落台](artifacts/readme_current_20261123/central_court.webp)
 
@@ -26,6 +26,8 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 ![水窖深廊的侧跳回程与冲刺门](artifacts/readme_current_20261123/cistern_return.webp)
 
 ![铸雨渠溢洪道两侧的实体落台](artifacts/readme_current_20261123/rain_spillway.webp)
+
+![高位水塔侧踏台、观景廊与门后落点](artifacts/readme_current_20261123/high_water_tower.webp)
 
 <details>
 <summary>行囊、契印、旅记、区域地图和练习工房</summary>
@@ -42,7 +44,7 @@ To play in English, press **V**, open **显示** (Display), then select **Englis
 
 </details>
 
-[查看 25 张实机图及复现方式](docs/gallery/20261123_current_world.md) · [11 月 7 日实机记录](docs/gallery/20261107_current_main.md)
+[查看 26 张实机图及复现方式](docs/gallery/20261123_current_world.md) · [11 月 7 日实机记录](docs/gallery/20261107_current_main.md)
 
 ## 升级进度（2026-11-07）
 

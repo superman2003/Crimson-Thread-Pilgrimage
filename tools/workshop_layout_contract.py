@@ -19,9 +19,7 @@ def _has_platform_collision(platform):
             not in ('decorative', 'no_collision'))
 
 def _one_way(platform):
-    # Keep the same legacy name fallback as world_platform_body.gd.
-    return (str(platform.get('collision_role', '')).lower() == 'one_way'
-            or str(platform.get('id', '')).lower().startswith(('bridge_', 'step_', 'shaft_bridge_')))
+    return str(platform.get('collision_role', '')).lower() == 'one_way'
 
 def _overlaps(a, b):
     return (a[0] < b[0]+b[2] and a[0]+a[2] > b[0]

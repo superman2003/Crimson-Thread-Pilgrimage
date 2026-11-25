@@ -162,17 +162,17 @@ class LayoutContracts(unittest.TestCase):
         chapter['platforms'].append(dict(id=layout['room_id']+'_terrain_visual',
                                          rect=[x-17,y-84,34,84],collision_role='wall',terrain_id='some_terrain'))
         self.assertFalse(any(not ok for ok,_ in contracts(self.data)))
-    def test_legacy_one_way_names_do_not_block_upper_body(self):
+    def test_stair_names_do_not_override_solid_role(self):
         layout = self.selected()
         chapter = self.data['chapters'][layout['region_id']]
         room = next(r for r in chapter['map_rooms'] if r['id']==layout['room_id'])
         x, y = room['route_steps'][0]['position']
-        ledge = dict(rect=[x-17,y-50,34,18],collision_role='floor')
+        ledge = dict(rect=[x-17,y-50,34,18],collision_role='')
         chapter['platforms'].append(ledge)
         for name in ['bridge_extra','step_extra','shaft_bridge_extra','BRIDGE_EXTRA']:
             with self.subTest(id=name):
                 ledge['id'] = name
-                self.assertFalse(any(not ok for ok,_ in contracts(self.data)))
+                self.assertTrue(any(not ok for ok,_ in contracts(self.data)))
     def test_regeneration_preserves_complete_modern_overlay_twice(self):
         # Run against isolated copies: a contract test never edits production
         # data, and equality includes unrelated portals/overrides and CH05's

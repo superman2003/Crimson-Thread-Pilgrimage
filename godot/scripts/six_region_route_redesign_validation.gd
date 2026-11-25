@@ -4,6 +4,7 @@ const READY := preload("res://scripts/world_ready_validation_helper.gd")
 const RETIRE := preload("res://scripts/audio_retirement.gd")
 const AUDIO := preload("res://scripts/audio_director.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
+const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
 
 const REGIONS := [
     "demo_ch01_moss_bell_court",
@@ -13,7 +14,6 @@ const REGIONS := [
     "demo_ch05_obsidian_pilgrim_road",
     "demo_ch06_silent_crown_core",
 ]
-const SOLID_TREADS := ["sw07", "sp10", "atrium_shelf_d", "vine_v8", "step_t2", "core_fall_a"]
 const WALK := 0
 const JUMP := 1
 const WALK_GROUNDED := 2
@@ -102,6 +102,10 @@ const CIRCUITS := [
         ["tide shrine back to the undercanal", Vector2(1710, 4950), [
             [WALK_GROUNDED, Vector2(1654, 4950)], [JUMP, Vector2(1568, 4860)],
             [JUMP, Vector2(1750, 4760)], [WALK, Vector2(2047, 4800)]]],
+        ["aqueduct to the sealed high-water-tower overlook", Vector2(1350, 836), [
+            [WALK_GROUNDED, Vector2(1412, 853)], [JUMP, Vector2(1560, 780)], [JUMP, Vector2(1750, 740)],
+            [LINE_UP, Vector2(1780, 740)], [WALK, Vector2(1750, 740)], [WALK, Vector2(1560, 780)],
+            [WALK, Vector2(1480, 881)], [WALK, Vector2(1360, 836)], [WALK, Vector2(1350, 836)]]],
         ["lower pump catch and exit", Vector2(2960, 3320), [
             [WALK, Vector2(3124, 3398)], [JUMP, Vector2(3250, 3320)]]],
         ["standpipe top dock", Vector2(1105, 1686), [
@@ -157,6 +161,7 @@ func _initialize() -> void:
 
 
 func run() -> void:
+    check_legacy_tread_collision_default()
     for index in REGIONS.size():
         var id: String = REGIONS[index]
         world = load("res://scenes/World.tscn").instantiate()
@@ -170,7 +175,7 @@ func run() -> void:
         player.debug_invulnerable = true
         check(world.config.id == id and not player.dash_unlocked and not player.double_jump_unlocked,
             "%s starts with ordinary movement" % id)
-        await check_tread_underside(SOLID_TREADS[index])
+        await check_all_tread_undersides()
 
         for route in CIRCUITS[index]:
             if not await place(route[1]):
@@ -188,6 +193,7 @@ func run() -> void:
             await check_solid_underside(Vector2(3550, 2252), "terrain_court_upper_ramp")
             await check_cistern_gate()
         elif index == 1:
+            await check_solid_underside(Vector2(1480, 1027), "terrain_aqueduct_return_ramp")
             await check_solid_underside(Vector2(3846, 1622), "terrain_flume_return")
         release_input()
         RETIRE.retire_tree(world)
@@ -205,15 +211,94 @@ func run() -> void:
 
 
 func check_solid_underside(feet: Vector2, terrain_id: String) -> void:
+    const TEST_LAYER := 1 << 30
     player.global_position = feet
     player.velocity = Vector2.ZERO
     world._warm_arrival_terrain()
+    var body: StaticBody2D = world.chapter_terrain.get_node_or_null(terrain_id)
+    check(body != null, "%s has a terrain collision body" % terrain_id)
+    if body == null:
+        return
+    var previous_mask := player.collision_mask
+    var previous_layer := body.collision_layer
+    player.collision_mask = TEST_LAYER
+    body.collision_layer = TEST_LAYER
     await physics_frame
     var collision := KinematicCollision2D.new()
     var hit := player.test_move(Transform2D(0.0, feet), Vector2.UP * 42.0, collision)
-    var body: Node = world.chapter_terrain.get_node_or_null(terrain_id)
-    check(body != null and hit and collision.get_collider() == body and collision.get_normal().y > 0.5,
+    check(hit and collision.get_collider() == body and collision.get_normal().y > 0.5,
         "%s physically blocks an upward body sweep through the stone" % terrain_id)
+    body.collision_layer = previous_layer
+    player.collision_mask = previous_mask
+
+
+func check_legacy_tread_collision_default() -> void:
+    var body: StaticBody2D = PLATFORM_BODY.create("step_legacy", Rect2(0, 0, 150, 26), "")
+    var has_shape := false
+    var one_way := false
+    for child in body.get_children():
+        if child is CollisionShape2D:
+            has_shape = true
+            one_way = one_way or child.one_way_collision
+    check(has_shape and not one_way,
+        "a legacy stair name without a collision role defaults to a solid underside")
+    body.free()
+
+
+func check_all_tread_undersides() -> void:
+    const TEST_LAYER := 1 << 30
+    var candidates: Array[Dictionary] = []
+    for platform in world.config.get("platforms", []):
+        var rect: Array = platform.get("rect", [])
+        var platform_id := String(platform.get("id", ""))
+        var role := String(platform.get("collision_role", "")).to_lower()
+        if rect.size() != 4:
+            continue
+        if role == "one_way":
+            var lower_id := platform_id.to_lower()
+            check(not lower_id.contains("step") and not lower_id.contains("stair"),
+                "%s ordinary stair is not authored as one-way in %s" % [platform_id, world.config.id])
+            continue
+        if platform.has("terrain_id") or role in ["decorative", "no_collision"] \
+                or float(rect[2]) > 280.0 or float(rect[3]) > 48.0 or world._is_post_boss_blocker(platform_id):
+            continue
+        var record: Dictionary = world.world_platforms.records.get(platform_id, {})
+        check(not record.is_empty(), "%s is registered for the all-tread collision check" % platform_id)
+        if record.is_empty():
+            continue
+        world.world_platforms.hold(world, platform_id)
+        candidates.append(platform)
+
+    var previous_mask: int = player.collision_mask
+    player.collision_mask = TEST_LAYER
+    for platform in candidates:
+        var platform_id := String(platform.id)
+        var body: StaticBody2D = world.world_platforms.resident.get(platform_id)
+        if body == null:
+            check(false, "%s has a resident body for the underside check" % platform_id)
+            continue
+        var previous_layer: int = body.collision_layer
+        body.collision_layer = TEST_LAYER
+        var rect: Array = platform.rect
+        var feet := Vector2(float(rect[0]) + float(rect[2]) * 0.5, float(rect[1]) + float(rect[3]) + 96.0)
+        player.global_position = feet
+        player.velocity = Vector2.ZERO
+        await physics_frame
+
+        var collision := KinematicCollision2D.new()
+        var hit := player.test_move(Transform2D(0.0, feet), Vector2.UP * 30.0, collision)
+        var has_shape := false
+        var one_way := false
+        for child in body.get_children():
+            if child is CollisionShape2D:
+                has_shape = true
+                one_way = one_way or child.one_way_collision
+        check(has_shape and not one_way,
+            "%s has a solid runtime collision shape" % platform_id)
+        check(hit and collision.get_collider() == body and collision.get_normal().y > 0.5,
+            "%s blocks an upward jump through its underside" % platform_id)
+        body.collision_layer = previous_layer
+    player.collision_mask = previous_mask
 
 
 func check_tread_underside(tread_id: String) -> void:

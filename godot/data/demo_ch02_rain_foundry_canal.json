@@ -977,7 +977,7 @@
         168
       ],
       "objective": "沿湿墙一路蹬墙攀上立管井。",
-      "guide": "需要丝壁攀附；井顶通向水塔。",
+      "guide": "借丝壁攀附登上井顶钟龛。",
       "danger": "1800px 落差，别在中途松手。",
       "next": "立管钟龛",
       "setpiece": "垂直立管与检修蹬位",
@@ -1025,7 +1025,7 @@
       "objective": "在立管井顶点灯。",
       "guide": "东沿可以一路坠回水线站厅。",
       "danger": "安全屋，风雨在外。",
-      "next": "高位水塔",
+      "next": "水线站厅",
       "setpiece": "井顶的苔灯",
       "traversal_focus": "高位存档",
       "pacing_role": "respite",
@@ -1061,17 +1061,17 @@
       "floor_id": "upper",
       "floor_name": "高位渡槽",
       "range": [
-        560,
-        1240
+        1370,
+        2100
       ],
       "depth": 0,
       "kind": "gate",
       "archetype": "gate",
       "layout_rect": [
-        560,
-        630,
-        680,
-        962
+        1370,
+        520,
+        730,
+        430
       ],
       "map_rect": [
         280,
@@ -1080,25 +1080,25 @@
         168
       ],
       "objective": "攀上水塔，仰望通往盐白档案馆的雨溢立管。",
-      "guide": "立管口封存；需要丝壁攀附与回声钩索才能回访。",
-      "danger": "塔顶风大。",
+      "guide": "从渡槽侧面跃上高位观景台。检修门需要丝壁攀附。",
+      "danger": "门后保存着心结。",
       "next": "盐白档案馆（回访）",
-      "setpiece": "封存的雨溢立管口",
-      "traversal_focus": "跨章回访门",
+      "setpiece": "跨渠高位观景台",
+      "traversal_focus": "渡槽侧跃、门后取宝",
       "pacing_role": "foreshadow",
       "visit_rects": [
         [
-          560,
-          630,
-          680,
-          962
+          1370,
+          520,
+          730,
+          430
         ]
       ],
       "camera_bounds": [
-        520,
-        340,
-        760,
-        1360
+        1330,
+        500,
+        810,
+        480
       ]
     },
     {
@@ -2635,7 +2635,7 @@
       "rect": [
         610,
         804,
-        138,
+        152,
         22
       ],
       "color": "17262b",
@@ -2734,45 +2734,28 @@
       },
       "id": "aq_recovery_sill",
       "rect": [
-        1440,
-        942,
-        100,
-        22
+        1380,
+        836,
+        160,
+        84
       ],
       "collision_role": "floor",
       "route_role": "branch",
       "safe_landing": true,
-      "gameplay_clearance": 232
-    },
-    {
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          10,
-          10
-        ]
-      },
-      "id": "aq_gutter_step",
-      "rect": [
-        1886,
-        810,
-        108,
-        22
-      ],
-      "collision_role": "floor",
-      "route_role": "branch"
+      "gameplay_clearance": 232,
+      "terrain_id": "terrain_aqueduct_return_ramp",
+      "terrain_flat_span": [
+        1380,
+        1540
+      ]
     },
     {
       "id": "gi_floor",
       "rect": [
         1620,
         740,
-        190,
-        22
+        260,
+        32
       ],
       "color": "1c2126",
       "material": "wet_metal",
@@ -4475,182 +4458,6 @@
       }
     },
     {
-      "id": "tw_base",
-      "rect": [
-        960,
-        1500,
-        240,
-        32
-      ],
-      "color": "26333f",
-      "material": "wet_metal",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 9,
-        "flip_h": true,
-        "body_variants": [
-          9,
-          11,
-          2
-        ]
-      }
-    },
-    {
-      "id": "tw01",
-      "rect": [
-        798,
-        1406,
-        102,
-        22
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          7,
-          7
-        ]
-      }
-    },
-    {
-      "id": "tw02",
-      "rect": [
-        650,
-        1312,
-        142,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "tw03",
-      "rect": [
-        838,
-        1218,
-        96,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "tw04",
-      "rect": [
-        642,
-        1134,
-        128,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 7,
-        "flip_h": false,
-        "body_variants": [
-          7,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "tw05",
-      "rect": [
-        828,
-        1014,
-        112,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "tw06",
-      "rect": [
-        750,
-        895,
-        48,
-        22
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          8,
-          8
-        ]
-      }
-    },
-    {
-      "id": "twr_top",
-      "rect": [
-        550,
-        660,
-        124,
-        20
-      ],
-      "color": "26333f",
-      "material": "wet_metal",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 0,
-        "flip_h": false,
-        "body_variants": [
-          0,
-          4,
-          7
-        ]
-      }
-    },
-    {
       "id": "wbd1",
       "rect": [
         3060,
@@ -6299,6 +6106,52 @@
         60,
         28
       ]
+    },
+    {
+      "id": "tower_side_step",
+      "rect": [
+        1520,
+        780,
+        100,
+        20
+      ],
+      "color": "26333f",
+      "material": "sluice_bridge",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          4,
+          7
+        ]
+      }
+    },
+    {
+      "id": "tower_reward_ledge",
+      "rect": [
+        1880,
+        740,
+        120,
+        22
+      ],
+      "color": "26333f",
+      "material": "wet_metal",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          4,
+          7
+        ]
+      }
     }
   ],
   "locked_gates": [
@@ -6353,18 +6206,22 @@
     {
       "id": "gate_wall_tower",
       "rect": [
-        900,
-        1240,
+        1830,
+        580,
         42,
-        330
+        180
       ],
       "color": "5a3a2d",
       "material": "sluice_bridge",
       "required_ability": "silk_wall_grip",
       "required_ability_name": "丝壁攀附",
-      "from": "riser_shrine",
+      "from": "aqueduct_gate",
       "to": "high_water_tower",
-      "map_marker": "ability_gate"
+      "map_marker": "ability_gate",
+      "return_hint": {
+        "room": "高位水塔",
+        "side": 1
+      }
     },
     {
       "id": "gate_wall_vault",
@@ -6462,12 +6319,12 @@
       "room_id": "high_water_tower",
       "item_id": "heart_knot",
       "position": [
-        580,
-        620
+        1890,
+        700
       ],
       "ability_name": "心结",
       "label": "心结",
-      "note": "高位水塔顶，湿墙门后。"
+      "note": "高位水塔检修门后。"
     },
     {
       "id": "col_energy_spindle",
@@ -6816,7 +6673,7 @@
         "tactical_role": "patrol"
       },
       "position": [
-        1000,
+        1100,
         840
       ],
       "platform_id": "aq_deck",
@@ -7840,12 +7697,12 @@
       "shortcut_id": ""
     },
     {
-      "from": "riser_shrine",
+      "from": "aqueduct_gate",
       "to": "high_water_tower",
       "type": "ability_gate",
       "edge_kind": "ability_gate",
       "bidirectional": true,
-      "action": "wall_jump",
+      "action": "walk_jump",
       "shortcut_id": "",
       "required_ability": "silk_wall_grip"
     },
@@ -8893,12 +8750,12 @@
         "shortcut_id": ""
       },
       {
-        "from": "riser_shrine",
+        "from": "aqueduct_gate",
         "to": "high_water_tower",
         "type": "ability_gate",
         "edge_kind": "ability_gate",
         "bidirectional": true,
-        "action": "wall_jump",
+        "action": "walk_jump",
         "shortcut_id": "",
         "required_ability": "silk_wall_grip"
       },
@@ -9161,8 +9018,6 @@
       "grip_trial_cell",
       "standpipe_shaft",
       "riser_shrine",
-      "high_water_tower",
-      "riser_shrine",
       "bellbone_wl_station",
       "pump_atrium",
       "preboss_causeway",
@@ -9173,7 +9028,9 @@
       "pendulum_works",
       "hook_gallery",
       "valve_overlook",
-      "echo_outfall"
+      "echo_outfall",
+      "aqueduct_gate",
+      "high_water_tower"
     ],
     "graph_fingerprint": {
       "vertices": 38,
@@ -9551,32 +9408,17 @@
           804
         ],
         [
-          748,
+          762,
           804
-        ]
-      ],
-      "platform_ids": [
-        "us_step_a"
-      ]
-    },
-    {
-      "id": "terrain_canal_grate_east",
-      "kind": "bridge",
-      "texture_variants": [
-        2
-      ],
-      "depth": 18,
-      "surface": [
-        [
-          900,
-          858
         ],
         [
           930,
           880
         ]
       ],
-      "platform_ids": []
+      "platform_ids": [
+        "us_step_a"
+      ]
     },
     {
       "id": "terrain_aqueduct_deck",
@@ -9620,18 +9462,32 @@
         [
           1380,
           836
-        ],
-        [
-          1420,
-          856
-        ],
-        [
-          1440,
-          856
         ]
       ],
       "platform_ids": [
         "aq_lip"
+      ]
+    },
+    {
+      "id": "terrain_aqueduct_return_ramp",
+      "kind": "bridge",
+      "texture_variants": [
+        0,
+        2
+      ],
+      "depth": 38,
+      "surface": [
+        [
+          1380,
+          836
+        ],
+        [
+          1540,
+          920
+        ]
+      ],
+      "platform_ids": [
+        "aq_recovery_sill"
       ]
     },
     {

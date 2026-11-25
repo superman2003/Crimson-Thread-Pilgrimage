@@ -65,9 +65,10 @@ const zig = (prefix, room, x1, x2, y0, dy, n, opts = {}) => {
 
 // A ─ aqueduct band (upper) --------------------------------------------------
 add("start_ground",    140,  760, 340, 44, "upper_sluice", {});
-add("us_step_a",       560,  812, 150, 26, "upper_sluice", { oneway: true });
-add("aq_deck",         800,  880, 360, 40, "aqueduct_gate", {});
-add("aq_lip",         1250,  836, 170, 26, "aqueduct_gate", { oneway: true });
+add("us_step_a",       610,  804, 152, 22, "upper_sluice", {});
+add("aq_deck",         930,  880, 230, 40, "aqueduct_gate", {});
+add("aq_lip",         1250,  836, 130, 32, "aqueduct_gate", {});
+add("aq_recovery_sill", 1380,  836, 160, 84, "rain_deck", { role: "branch", color: "17262b", terrain_id: "terrain_aqueduct_return_ramp" });
 add("gi_floor",       1620,  740, 260, 32, "gutter_interstice", { role: "branch", color: "1c2126" });
 add("rd_run",         1540,  920, 320, 36, "rain_deck", {});
 add("rd_step",        1950, 1000, 160, 26, "rain_deck", { oneway: true });
@@ -111,9 +112,8 @@ add("wa_step",        1290, 3520, 150, 26, "well_a", { oneway: true });
 add("gtc_floor",       960, 3660, 420, 44, "grip_trial_cell", {});
 zig("sp", "standpipe_shaft", 980, 1200, 3660, -94, 22, { role: "branch", color: "2b3a45" });
 add("rs_floor",       1400, 1540, 280, 36, "riser_shrine", { role: "branch", color: "2b3a45" });
-add("tw_base",         960, 1500, 240, 32, "high_water_tower", { role: "branch", color: "26333f" });
-zig("tw", "high_water_tower", 620, 860, 1500, -94, 7, { role: "branch", color: "26333f" });
-add("twr_top",         600,  780, 300, 36, "high_water_tower", { role: "branch", color: "26333f" });
+add("tower_side_step", 1520,  780, 100, 20, "high_water_tower", { role: "branch", color: "26333f" });
+add("tower_reward_ledge", 1880, 740, 120, 22, "high_water_tower", { role: "branch", color: "26333f" });
 
 // E ─ sunken canal layer -----------------------------------------------------
 add("wbd1",           3060, 3560, 140, 26, "well_b", { oneway: true });
@@ -179,7 +179,7 @@ const GATES = [
   { id: "gate_dash_wheel",     rect: [5400, 4180, 42, 340], ability: "thread_dash",    name: "绯线冲刺", rooms: ["wheel_shaft", "wheel_interior"] },
   { id: "gate_dash_archive",   rect: [3820, 4300, 42, 340], ability: "thread_dash",    name: "绯线冲刺", rooms: ["silt_vault", "drowned_archive_pod"] },
   { id: "gate_wall_standpipe", rect: [ 950, 3510, 290, 30], ability: "silk_wall_grip", name: "丝壁攀附", rooms: ["grip_trial_cell", "standpipe_shaft"] },
-  { id: "gate_wall_tower",     rect: [ 900, 1240, 42, 330], ability: "silk_wall_grip", name: "丝壁攀附", rooms: ["riser_shrine", "high_water_tower"] },
+  { id: "gate_wall_tower",     rect: [1830, 580, 42, 180], ability: "silk_wall_grip", name: "丝壁攀附", rooms: ["aqueduct_gate", "high_water_tower"] },
   { id: "gate_wall_vault",     rect: [1900, 2020, 42, 300], ability: "silk_wall_grip", name: "丝壁攀附", rooms: ["pump_atrium", "atrium_west_vault"] },
   { id: "gate_hook_chain",     rect: [6520, 1600, 42, 300], ability: "echo_hook",      name: "回声钩索", rooms: ["pendulum_works", "pendulum_vault"] },
   { id: "gate_hook_skylight",  rect: [5440, 1380, 42, 280], ability: "echo_hook",      name: "回声钩索", rooms: ["hook_gallery", "hook_gallery"] },
@@ -198,6 +198,7 @@ function build() {
       id, x, y, w, h, room,
       mat: o.mat || "wet_metal", color: o.color || "17262b",
       oneway: !!o.oneway, ceiling: !!o.ceiling,
+      terrain_id: o.terrain_id || "",
       route_role: role === "main" ? "main" : "branch",
       route_order: role === "main" ? order++ : undefined, role,
     };
@@ -207,6 +208,7 @@ function build() {
   const platforms = design.map((p) => {
     const e = { id: p.id, rect: [round(p.x), round(p.y), round(p.w), round(p.h)], color: p.color, material: p.mat,
       collision_role: p.ceiling ? "ceiling" : p.oneway ? "one_way" : "floor" };
+    if (p.terrain_id) e.terrain_id = p.terrain_id;
     if (p.route_role === "main") { e.route_role = "main"; e.route_order = p.route_order; e.safe_landing = true; e.gameplay_clearance = 232; }
     else { e.route_role = "branch"; }
     return e;
@@ -293,7 +295,7 @@ function build() {
     edge("well_a", "grip_trial_cell", "one_way_drop", "one_way_drop", "", false),
     edge("grip_trial_cell", "standpipe_shaft", "ability_gate", "wall_jump", "", true, "silk_wall_grip"),
     edge("standpipe_shaft", "riser_shrine", "passage", "wall_jump"),
-    edge("riser_shrine", "high_water_tower", "ability_gate", "wall_jump", "", true, "silk_wall_grip"),
+    edge("aqueduct_gate", "high_water_tower", "ability_gate", "walk_jump", "", true, "silk_wall_grip"),
     edge("riser_shrine", "bellbone_wl_station", "one_way_drop", "one_way_drop", "", false),
     // E
     edge("pump_atrium", "well_b", "one_way_drop", "one_way_drop", "", false),
@@ -337,9 +339,9 @@ function build() {
       "upper_sluice","aqueduct_gate","rain_deck","sluice_locks","aqueduct_shrine","flume_crawl","pump_atrium",
       "wish_board_landing","pump_atrium","gauge_gallery","valve_overlook","forge_shrine","preboss_causeway","pump_atrium",
       "well_b","overflow_court","undercanal","tide_listening_cell","undercanal","overflow_court","silt_vault","wheel_shaft",
-      "spillway_ladder","pump_atrium","well_a","grip_trial_cell","standpipe_shaft","riser_shrine","high_water_tower",
-      "riser_shrine","bellbone_wl_station","pump_atrium","preboss_causeway","forge_shrine","smith_arena","echo_outfall",
-      "pendulum_gantry","pendulum_works","hook_gallery","valve_overlook","echo_outfall",
+      "spillway_ladder","pump_atrium","well_a","grip_trial_cell","standpipe_shaft","riser_shrine",
+      "bellbone_wl_station","pump_atrium","preboss_causeway","forge_shrine","smith_arena","echo_outfall",
+      "pendulum_gantry","pendulum_works","hook_gallery","valve_overlook","echo_outfall","aqueduct_gate","high_water_tower",
     ],
     graph_fingerprint: { vertices: nodes.length, edges: connections.length, cycle_rank: connections.length - nodes.length + 1, maximum_degree: Math.max(...degSeq), degree_sequence: degSeq },
     forbidden_motifs: ["horizontal_36_platform_chain", "shared_upper_loop_recovery_loop", "single_hub_star_without_ring"],
@@ -369,7 +371,7 @@ function build() {
     { id: "col_silk_wall_grip", kind: "item", room_id: "grip_trial_cell", item_id: "silk_wall_grip", position: onPlat("gtc_floor", 130), ability_name: "丝壁攀附", label: "丝壁攀附", note: "湿墙试炼间守卫身后；解锁蹬墙跳与全部湿墙门。" },
     { id: "col_echo_hook", kind: "item", room_id: "pendulum_works", item_id: "echo_hook", position: onPlat("pw_floor", -60), ability_name: "回声钩索", label: "回声钩索", note: "钟摆车间，执剪者倒下后开启；解锁钩环门。" },
     { id: "col_testimony_02", kind: "item", room_id: "drowned_archive_pod", item_id: "testimony_02", position: onPlat("dap_floor", -80), ability_name: "证词其二", label: "证词·其二", note: "沉没档案舱冲刺门后，真结局收集品。" },
-    { id: "col_heart_knot", kind: "item", room_id: "high_water_tower", item_id: "heart_knot", position: onPlat("twr_top", -60), ability_name: "心结", label: "心结", note: "高位水塔顶，湿墙门后。" },
+    { id: "col_heart_knot", kind: "item", room_id: "high_water_tower", item_id: "heart_knot", position: [1890, 700], ability_name: "心结", label: "心结", note: "高位水塔检修门后。" },
     { id: "col_energy_spindle", kind: "item", room_id: "atrium_west_vault", item_id: "energy_spindle", position: onPlat("vault_floor"), ability_name: "能量纺锤", label: "能量纺锤", note: "西高台暗室，湿墙门后。" },
     { id: "col_damp_knot", kind: "item", room_id: "wheel_interior", item_id: "damp_knot", position: onPlat("wi_floor", 60), ability_name: "防潮线结", label: "护符·防潮线结", note: "水轮内部，冲刺门后。" },
     { id: "col_map_fragment_02", kind: "item", room_id: "counterweight_niche", item_id: "map_fragment_02", position: onPlat("cw_niche"), ability_name: "地图残页", label: "地图残页·其二", note: "配重暗格，水轮内部上方。" },
@@ -590,7 +592,7 @@ function build() {
     lb("立管井口：铁匠柳在此", "wa_floor", -70, "c8e6f0"),
     lb("湿墙试炼：丝壁攀附", "gtc_floor", -66, "ff9d8a"),
     lb("立管井：蹬墙直上", "sp04", -56, "ff9d8a"),
-    lb("高位水塔：雨溢立管（回访盐白档案馆）", "twr_top", -70, "e8e3c8"),
+    lb("高位水塔：雨溢立管（回访盐白档案馆）", "gi_floor", -70, "e8e3c8"),
     lb("沉没档案舱：证词其二", "dap_floor", -66, "9a86b8"),
     lb("炉底：铸渣滑道（封）→ 黑曜巡礼路", "ff_floor", -70, "b8a086"),
     lb("沉炉大厅 →", "fs_floor", -80, "f2b873"),
@@ -600,7 +602,7 @@ function build() {
 
   const envBase = base.environment_blocks[0];
   const mass = (id, rect, color, z) => ({ id, rect: rect.map(round), color, z_index: z, visual_source: envBase.visual_source, asset_root: envBase.asset_root, ownership: envBase.ownership });
-  const hubW = byId["hub_floor_w"], wheel = byId["ws_base"], tide = byId["tide_floor"], furnace = byId["ff_floor"], tower = byId["twr_top"];
+  const hubW = byId["hub_floor_w"], wheel = byId["ws_base"], tide = byId["tide_floor"], furnace = byId["ff_floor"], tower = byId["gi_floor"];
   const environment_blocks = [
     mass("ch02_back_wall", [0, worldTop, worldWidth, worldHeight], "0d141c", -95),
     mass("ch02_atrium_shaft_mass", [hubW.x - 80, 1650, 1500, 1900], "101a24", -90),
@@ -662,6 +664,9 @@ function build() {
   out.fall_y = fallY;
   out.map_rooms = map_rooms;
   out.platforms = platforms;
+  out.terrain = (base.terrain || []).filter((landform) => landform.id !== "terrain_aqueduct_return_ramp");
+  out.terrain.push({ id: "terrain_aqueduct_return_ramp", kind: "bridge", depth: 38,
+    surface: [[1380, 836], [1540, 920]], texture_variants: [0, 2], platform_ids: ["aq_recovery_sill"] });
   out.environment_blocks = environment_blocks;
   out.hazards = hazards;
   out.collectibles = collectibles;
@@ -738,8 +743,13 @@ function wallSlots(platforms) {
 // ---- uniqueness mirror -----------------------------------------------------
 function physicsOk(r) {
   const reachNoDash = bfsReach(r.design, "start_ground", false);
-  if (r.design.some((p) => p.route_role === "main" && !reachNoDash.has(p.id))) return false;
-  if (headBumps(r.platforms).length || wallSlots(r.platforms).length) return false;
+  const unreachable = r.design.filter((p) => p.route_role === "main" && !reachNoDash.has(p.id)).map((p) => p.id);
+  const heads = headBumps(r.platforms);
+  const slots = wallSlots(r.platforms);
+  if (unreachable.length || heads.length || slots.length) {
+    console.log("physics audit:", JSON.stringify({ unreachable, headBumps: heads, wallSlots: slots }));
+    return false;
+  }
   for (const e of r.out.enemy_spawns) {
     const p = r.byId[e.platform_id];
     if (!p || p.w < 86 || p.h > 90) return false;

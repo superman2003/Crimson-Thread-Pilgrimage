@@ -6,6 +6,7 @@ Outputs are diagrams/contact sheets, not captured gameplay frames.
 import hashlib
 import json
 import math
+import argparse
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -134,7 +135,36 @@ def full_map(config, number):
     return save(im, config['id'] + '_full_map.jpg')
 
 
+def render_maps_only():
+    OUT.mkdir(parents=True, exist_ok=True)
+    index_path = OUT / 'index.json'
+    index = json.loads(index_path.read_text(encoding='utf-8'))
+    overview = Image.new('RGB', (2400, 1590), BG)
+    chapters = index['chapters']
+    for position, (stem, theme) in enumerate(zip(STEMS, THEMES)):
+        config_path = ROOT / 'godot/data' / (stem + '.json')
+        config = json.loads(config_path.read_text(encoding='utf-8'))
+        map_file = full_map(config, position + 1)
+        with Image.open(OUT / map_file) as source:
+            thumb = source.copy()
+            thumb.thumbnail((790, 780), Image.Resampling.LANCZOS)
+            overview.paste(thumb, ((position % 3) * 800 + (800 - thumb.width) // 2,
+                                   (position // 3) * 790))
+        chapters[position]['name'] = config.get('chapter_name', config['name'])
+        chapters[position]['config_sha256'] = hashlib.sha256(config_path.read_bytes()).hexdigest()
+    save(overview, 'map_overview.jpg')
+    index_path.write_text(json.dumps(index, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print('Rendered six chapter maps and the overview.')
+
+
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--maps-only', action='store_true',
+                        help='Regenerate chapter maps without rewriting creature sheets.')
+    args = parser.parse_args()
+    if args.maps_only:
+        render_maps_only()
+        return
     OUT.mkdir(parents=True, exist_ok=True)
     designs = json.loads((ROOT / 'godot/data/original_creature_designs.json').read_text())['designs']
     monsters = [d for d in designs if not d['boss']]
