@@ -132,7 +132,7 @@ def extract_member(archive, member, target):
     with tempfile.NamedTemporaryFile(prefix=target.name+'.', suffix='.part', dir=target.parent, delete=False) as handle:
         pending = Path(handle.name)
     try:
-        with zipfile.ZipFile(archive) as source, source.open(member, encoding="utf-8") as binary, pending.open('wb') as output:
+        with zipfile.ZipFile(archive) as source, source.open(member) as binary, pending.open('wb') as output:
             shutil.copyfileobj(binary, output)
         pending.chmod(0o755)
         pending.replace(target)

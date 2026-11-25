@@ -33,7 +33,7 @@ def _text_call(call: ast.Call, path: Path) -> bool:
         receiver_root = receiver.split(".", 1)[0]
         if receiver_root in SKIP_MODULES:
             return False
-        if path.name == "build_release.py" and receiver == "source":
+        if path.name in {"build_release.py", "download_godot_release.py"} and receiver == "source":
             return False
         if receiver == "archive":
             return False
@@ -92,6 +92,7 @@ def self_test() -> None:
     assert not missing_text_encoding('open("x", "rb")', path)
     assert not missing_text_encoding('Image.open("x.png")', path)
     assert not missing_text_encoding('archive.open("x.bin")', path)
+    assert not missing_text_encoding('with zipfile.ZipFile("x.zip") as source:\n    source.open("x.bin")', Path("tools/download_godot_release.py"))
 
 
 def main() -> int:
