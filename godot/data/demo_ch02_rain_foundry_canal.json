@@ -977,7 +977,7 @@
         168
       ],
       "objective": "沿湿墙一路蹬墙攀上立管井。",
-      "guide": "需要丝壁攀附；井顶通向水塔。",
+      "guide": "借丝壁攀附登上井顶钟龛。",
       "danger": "1800px 落差，别在中途松手。",
       "next": "立管钟龛",
       "setpiece": "垂直立管与检修蹬位",
@@ -1025,7 +1025,7 @@
       "objective": "在立管井顶点灯。",
       "guide": "东沿可以一路坠回水线站厅。",
       "danger": "安全屋，风雨在外。",
-      "next": "高位水塔",
+      "next": "水线站厅",
       "setpiece": "井顶的苔灯",
       "traversal_focus": "高位存档",
       "pacing_role": "respite",
@@ -1061,17 +1061,17 @@
       "floor_id": "upper",
       "floor_name": "高位渡槽",
       "range": [
-        560,
-        1240
+        1370,
+        2100
       ],
       "depth": 0,
       "kind": "gate",
       "archetype": "gate",
       "layout_rect": [
-        560,
-        630,
-        680,
-        962
+        1370,
+        520,
+        730,
+        430
       ],
       "map_rect": [
         280,
@@ -1080,25 +1080,25 @@
         168
       ],
       "objective": "攀上水塔，仰望通往盐白档案馆的雨溢立管。",
-      "guide": "立管口封存；需要丝壁攀附与回声钩索才能回访。",
-      "danger": "塔顶风大。",
+      "guide": "从渡槽侧面跃上高位观景台。检修门需要丝壁攀附。",
+      "danger": "门后保存着心结。",
       "next": "盐白档案馆（回访）",
-      "setpiece": "封存的雨溢立管口",
-      "traversal_focus": "跨章回访门",
+      "setpiece": "跨渠高位观景台",
+      "traversal_focus": "渡槽侧跃、门后取宝",
       "pacing_role": "foreshadow",
       "visit_rects": [
         [
-          560,
-          630,
-          680,
-          962
+          1370,
+          520,
+          730,
+          430
         ]
       ],
       "camera_bounds": [
-        520,
-        340,
-        760,
-        1360
+        1330,
+        500,
+        810,
+        480
       ]
     },
     {
@@ -2640,7 +2640,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 1,
       "safe_landing": true,
@@ -2734,37 +2734,20 @@
       },
       "id": "aq_recovery_sill",
       "rect": [
-        1440,
-        942,
-        100,
-        22
+        1380,
+        836,
+        160,
+        84
       ],
       "collision_role": "floor",
       "route_role": "branch",
       "safe_landing": true,
-      "gameplay_clearance": 232
-    },
-    {
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          10,
-          10
-        ]
-      },
-      "id": "aq_gutter_step",
-      "rect": [
-        1740,
-        820,
-        96,
-        22
-      ],
-      "collision_role": "one_way",
-      "route_role": "branch"
+      "gameplay_clearance": 232,
+      "terrain_id": "terrain_aqueduct_return_ramp",
+      "terrain_flat_span": [
+        1380,
+        1540
+      ]
     },
     {
       "id": "gi_floor",
@@ -2772,11 +2755,11 @@
         1620,
         740,
         260,
-        22
+        32
       ],
       "color": "1c2126",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 4,
@@ -3085,7 +3068,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 14,
       "safe_landing": true,
@@ -3110,7 +3093,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 15,
       "safe_landing": true,
@@ -3135,7 +3118,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 16,
       "safe_landing": true,
@@ -3160,7 +3143,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 17,
       "safe_landing": true,
@@ -3185,7 +3168,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 18,
       "safe_landing": true,
@@ -3210,7 +3193,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 19,
       "safe_landing": true,
@@ -3240,7 +3223,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 20,
       "safe_landing": true,
@@ -3270,7 +3253,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 21,
       "safe_landing": true,
@@ -3300,7 +3283,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 22,
       "safe_landing": true,
@@ -3355,7 +3338,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 24,
       "safe_landing": true,
@@ -3380,7 +3363,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 25,
       "safe_landing": true,
@@ -3405,7 +3388,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 26,
       "safe_landing": true,
@@ -3430,7 +3413,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 27,
       "safe_landing": true,
@@ -3455,7 +3438,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 28,
       "safe_landing": true,
@@ -3480,7 +3463,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 29,
       "safe_landing": true,
@@ -3565,7 +3548,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 32,
       "safe_landing": true,
@@ -3590,7 +3573,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 33,
       "safe_landing": true,
@@ -3615,7 +3598,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 34,
       "safe_landing": true,
@@ -3640,7 +3623,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 35,
       "safe_landing": true,
@@ -3665,7 +3648,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 36,
       "safe_landing": true,
@@ -3690,7 +3673,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 37,
       "safe_landing": true,
@@ -3715,7 +3698,7 @@
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 38,
       "safe_landing": true,
@@ -3787,7 +3770,7 @@
       ],
       "color": "3f4a55",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 1,
@@ -3809,7 +3792,7 @@
       ],
       "color": "3f4a55",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 5,
@@ -3831,7 +3814,7 @@
       ],
       "color": "3f4a55",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 9,
@@ -3853,7 +3836,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 40,
       "safe_landing": true,
@@ -3878,7 +3861,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 41,
       "safe_landing": true,
@@ -3928,7 +3911,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 43,
       "safe_landing": true,
@@ -3978,7 +3961,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4000,7 +3983,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4022,7 +4005,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4044,7 +4027,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4066,7 +4049,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4088,7 +4071,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4110,7 +4093,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4132,7 +4115,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4154,7 +4137,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4176,7 +4159,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4198,7 +4181,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4220,7 +4203,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4242,7 +4225,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4264,7 +4247,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4286,7 +4269,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4308,7 +4291,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4330,7 +4313,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4352,7 +4335,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4374,7 +4357,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4396,7 +4379,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4418,7 +4401,7 @@
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4433,14 +4416,14 @@
     {
       "id": "sp22",
       "rect": [
-        1157,
+        1150,
         1658,
-        153,
+        158,
         22
       ],
       "color": "2b3a45",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4475,182 +4458,6 @@
       }
     },
     {
-      "id": "tw_base",
-      "rect": [
-        960,
-        1500,
-        240,
-        32
-      ],
-      "color": "26333f",
-      "material": "wet_metal",
-      "collision_role": "floor",
-      "route_role": "branch",
-      "art": {
-        "variant": 9,
-        "flip_h": true,
-        "body_variants": [
-          9,
-          11,
-          2
-        ]
-      }
-    },
-    {
-      "id": "tw01",
-      "rect": [
-        798,
-        1406,
-        102,
-        22
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          7,
-          7
-        ]
-      }
-    },
-    {
-      "id": "tw02",
-      "rect": [
-        652,
-        1312,
-        144,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "tw03",
-      "rect": [
-        630,
-        1218,
-        150,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "tw04",
-      "rect": [
-        800,
-        1124,
-        141,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 7,
-        "flip_h": false,
-        "body_variants": [
-          7,
-          6,
-          6
-        ]
-      }
-    },
-    {
-      "id": "tw05",
-      "rect": [
-        648,
-        1028,
-        156,
-        24
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 8,
-        "flip_h": true,
-        "body_variants": [
-          8,
-          10,
-          10
-        ]
-      }
-    },
-    {
-      "id": "tw06",
-      "rect": [
-        606,
-        914,
-        154,
-        22
-      ],
-      "color": "26333f",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          8,
-          8
-        ]
-      }
-    },
-    {
-      "id": "twr_top",
-      "rect": [
-        620,
-        690,
-        170,
-        20
-      ],
-      "color": "26333f",
-      "material": "wet_metal",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 0,
-        "flip_h": false,
-        "body_variants": [
-          0,
-          4,
-          7
-        ]
-      }
-    },
-    {
       "id": "wbd1",
       "rect": [
         3060,
@@ -4660,7 +4467,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 45,
       "safe_landing": true,
@@ -4685,7 +4492,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 46,
       "safe_landing": true,
@@ -4710,7 +4517,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 47,
       "safe_landing": true,
@@ -4760,7 +4567,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 49,
       "safe_landing": true,
@@ -4900,14 +4707,14 @@
     {
       "id": "td_out",
       "rect": [
-        1420,
+        1408,
         4860,
-        236,
+        214,
         26
       ],
       "color": "121a24",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 4,
@@ -4929,7 +4736,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4951,7 +4758,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4973,7 +4780,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4995,7 +4802,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -5017,7 +4824,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -5039,7 +4846,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -5061,7 +4868,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -5083,7 +4890,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -5105,7 +4912,7 @@
       ],
       "color": "1b2833",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -5152,7 +4959,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 11,
@@ -5199,7 +5006,7 @@
       ],
       "color": "1a2430",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -5221,7 +5028,7 @@
       ],
       "color": "1a2430",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 2,
@@ -5290,7 +5097,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 3,
@@ -5312,7 +5119,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 5,
@@ -5334,7 +5141,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 9,
@@ -5378,7 +5185,7 @@
       ],
       "color": "202c38",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 2,
@@ -5394,13 +5201,13 @@
       "id": "wi_out",
       "rect": [
         5450,
-        4560,
+        4530,
         150,
         26
       ],
       "color": "202c38",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 0,
@@ -5444,7 +5251,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 57,
       "safe_landing": true,
@@ -5469,7 +5276,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 58,
       "safe_landing": true,
@@ -5512,14 +5319,14 @@
     {
       "id": "sw201",
       "rect": [
-        4500,
-        4478,
-        150,
-        24
+        4670,
+        4420,
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -5532,38 +5339,16 @@
       }
     },
     {
-      "id": "sw202",
-      "rect": [
-        4660,
-        4386,
-        150,
-        24
-      ],
-      "color": "3f4a55",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": true,
-        "body_variants": [
-          6,
-          8,
-          8
-        ]
-      }
-    },
-    {
       "id": "sw203",
       "rect": [
         4500,
         4294,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -5578,14 +5363,14 @@
     {
       "id": "sw204",
       "rect": [
-        4660,
+        4670,
         4202,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -5602,12 +5387,12 @@
       "rect": [
         4500,
         4110,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -5622,14 +5407,14 @@
     {
       "id": "sw206",
       "rect": [
-        4660,
+        4670,
         4018,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -5646,12 +5431,12 @@
       "rect": [
         4500,
         3926,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -5666,14 +5451,14 @@
     {
       "id": "sw208",
       "rect": [
-        4660,
+        4670,
         3834,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -5690,12 +5475,12 @@
       "rect": [
         4500,
         3742,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -5710,14 +5495,14 @@
     {
       "id": "sw210",
       "rect": [
-        4660,
+        4670,
         3650,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -5734,12 +5519,12 @@
       "rect": [
         4500,
         3558,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -5754,14 +5539,14 @@
     {
       "id": "sw212",
       "rect": [
-        4660,
+        4670,
         3466,
-        150,
-        24
+        130,
+        20
       ],
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -5783,7 +5568,7 @@
       ],
       "color": "3f4a55",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 5,
@@ -5805,7 +5590,7 @@
       ],
       "color": "3f4a55",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 0,
@@ -5827,7 +5612,7 @@
       ],
       "color": "3f4a55",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 3,
@@ -5842,14 +5627,14 @@
     {
       "id": "pr_lip",
       "rect": [
-        3830,
+        3774,
         3400,
-        140,
+        106,
         26
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 60,
       "safe_landing": true,
@@ -5874,7 +5659,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 61,
       "safe_landing": true,
@@ -5899,7 +5684,7 @@
       ],
       "color": "17262b",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 62,
       "safe_landing": true,
@@ -5943,31 +5728,6 @@
         4060,
         4400
       ]
-    },
-    {
-      "id": "ra_b",
-      "rect": [
-        4500,
-        3800,
-        260,
-        38
-      ],
-      "color": "17262b",
-      "material": "sluice_bridge",
-      "collision_role": "one_way",
-      "route_role": "main",
-      "route_order": 64,
-      "safe_landing": true,
-      "gameplay_clearance": 232,
-      "art": {
-        "variant": 0,
-        "flip_h": true,
-        "body_variants": [
-          0,
-          10,
-          2
-        ]
-      }
     },
     {
       "id": "fs_floor",
@@ -6133,7 +5893,7 @@
       ],
       "color": "2c3540",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 3,
@@ -6199,7 +5959,7 @@
       ],
       "color": "2c3540",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -6221,7 +5981,7 @@
       ],
       "color": "2c3540",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 9,
@@ -6243,7 +6003,7 @@
       ],
       "color": "2c3540",
       "material": "wet_metal",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 5,
@@ -6284,7 +6044,7 @@
     {
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -6306,7 +6066,7 @@
     {
       "color": "3f4a55",
       "material": "sluice_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -6319,9 +6079,9 @@
       },
       "id": "riser_maintenance_grate",
       "rect": [
-        1040,
+        1260,
         1540,
-        300,
+        80,
         22
       ]
     },
@@ -6346,6 +6106,52 @@
         60,
         28
       ]
+    },
+    {
+      "id": "tower_side_step",
+      "rect": [
+        1520,
+        780,
+        100,
+        20
+      ],
+      "color": "26333f",
+      "material": "sluice_bridge",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          4,
+          7
+        ]
+      }
+    },
+    {
+      "id": "tower_reward_ledge",
+      "rect": [
+        1880,
+        740,
+        120,
+        22
+      ],
+      "color": "26333f",
+      "material": "wet_metal",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          4,
+          7
+        ]
+      }
     }
   ],
   "locked_gates": [
@@ -6400,18 +6206,22 @@
     {
       "id": "gate_wall_tower",
       "rect": [
-        900,
-        1240,
+        1830,
+        580,
         42,
-        330
+        180
       ],
       "color": "5a3a2d",
       "material": "sluice_bridge",
       "required_ability": "silk_wall_grip",
       "required_ability_name": "丝壁攀附",
-      "from": "riser_shrine",
+      "from": "aqueduct_gate",
       "to": "high_water_tower",
-      "map_marker": "ability_gate"
+      "map_marker": "ability_gate",
+      "return_hint": {
+        "room": "高位水塔",
+        "side": 1
+      }
     },
     {
       "id": "gate_wall_vault",
@@ -6509,12 +6319,12 @@
       "room_id": "high_water_tower",
       "item_id": "heart_knot",
       "position": [
-        690,
-        650
+        1890,
+        700
       ],
       "ability_name": "心结",
       "label": "心结",
-      "note": "高位水塔顶，湿墙门后。"
+      "note": "高位水塔检修门后。"
     },
     {
       "id": "col_energy_spindle",
@@ -6863,7 +6673,7 @@
         "tactical_role": "patrol"
       },
       "position": [
-        1000,
+        1100,
         840
       ],
       "platform_id": "aq_deck",
@@ -7887,12 +7697,12 @@
       "shortcut_id": ""
     },
     {
-      "from": "riser_shrine",
+      "from": "aqueduct_gate",
       "to": "high_water_tower",
       "type": "ability_gate",
       "edge_kind": "ability_gate",
       "bidirectional": true,
-      "action": "wall_jump",
+      "action": "walk_jump",
       "shortcut_id": "",
       "required_ability": "silk_wall_grip"
     },
@@ -8228,7 +8038,6 @@
       "pc_step1",
       "pc_step2",
       "ra_a",
-      "ra_b",
       "fs_floor",
       "boss_floor",
       "eo_floor",
@@ -8269,7 +8078,6 @@
       "ws_up2",
       "ws_up3",
       "sw201",
-      "sw202",
       "sw203",
       "sw204",
       "sw205",
@@ -8942,12 +8750,12 @@
         "shortcut_id": ""
       },
       {
-        "from": "riser_shrine",
+        "from": "aqueduct_gate",
         "to": "high_water_tower",
         "type": "ability_gate",
         "edge_kind": "ability_gate",
         "bidirectional": true,
-        "action": "wall_jump",
+        "action": "walk_jump",
         "shortcut_id": "",
         "required_ability": "silk_wall_grip"
       },
@@ -9210,8 +9018,6 @@
       "grip_trial_cell",
       "standpipe_shaft",
       "riser_shrine",
-      "high_water_tower",
-      "riser_shrine",
       "bellbone_wl_station",
       "pump_atrium",
       "preboss_causeway",
@@ -9222,7 +9028,9 @@
       "pendulum_works",
       "hook_gallery",
       "valve_overlook",
-      "echo_outfall"
+      "echo_outfall",
+      "aqueduct_gate",
+      "high_water_tower"
     ],
     "graph_fingerprint": {
       "vertices": 38,
@@ -9654,18 +9462,32 @@
         [
           1380,
           836
-        ],
-        [
-          1420,
-          856
-        ],
-        [
-          1440,
-          856
         ]
       ],
       "platform_ids": [
         "aq_lip"
+      ]
+    },
+    {
+      "id": "terrain_aqueduct_return_ramp",
+      "kind": "bridge",
+      "texture_variants": [
+        0,
+        2
+      ],
+      "depth": 38,
+      "surface": [
+        [
+          1380,
+          836
+        ],
+        [
+          1540,
+          920
+        ]
+      ],
+      "platform_ids": [
+        "aq_recovery_sill"
       ]
     },
     {

@@ -125,6 +125,31 @@ def audit(config):
             if p.get('safe_landing'):
                 check(r[2] >= PLAYER_WIDTH, f"{p['id']}: safe landing narrower than player")
                 check(p.get('gameplay_clearance', PLAYER_HEIGHT) >= PLAYER_HEIGHT, f"{p['id']}: stated headroom smaller than player")
+    terrain_intervals = []
+    for landform in config.get('terrain', []):
+        surface = [point for point in landform.get('surface', []) if finite_vector(point, 2)]
+        terrain_intervals.extend(
+            (left[0], right[0])
+            for left, right in zip(surface, surface[1:])
+            if left[0] < right[0])
+    terrain_intervals.sort()
+    for platform in valid:
+        if not platform.get('terrain_id'):
+            continue
+        x, _, width, _ = platform['rect']
+        margin = min(PLAYER_WIDTH / 2, width / 2)
+        support_left, support_right = x + margin, x + width - margin
+        covered_to = support_left
+        for left, right in terrain_intervals:
+            if right < covered_to:
+                continue
+            if left > covered_to + 0.01:
+                break
+            covered_to = max(covered_to, right)
+            if covered_to >= support_right:
+                break
+        check(covered_to >= support_right,
+              f"{platform['id']}: player-width terrain support x={support_left:g}..{support_right:g} has a collision gap")
     walls = list(config.get('cave_world', {}).get('solid_rects', []))
     walls.extend(p['rect'] for p in valid if p.get('collision_role') != 'one_way' and not p.get('terrain_id'))
     terrain = list(solid_terrain(config, valid))

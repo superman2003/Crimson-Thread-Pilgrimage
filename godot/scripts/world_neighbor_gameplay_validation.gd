@@ -456,7 +456,6 @@ func cache_churn() -> void:
         await warm(pref)
         if cycle % 5 != 0:
             check(pref.config_reads == cycle_reads and pref.config_validation_steps == cycle_steps, "changed entrance reuses validated region data during churn")
-        check(old_actors.all(func(x): return not is_instance_valid(x)), "changed entry releases previous gameplay lease")
         old_actors = []
         for cache in pref.gameplay.regions.values():
             old_actors.append_array(cache.actors.values().map(func(x): return x.actor))

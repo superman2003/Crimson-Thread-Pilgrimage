@@ -7,13 +7,12 @@ static func create(node_name: String, rect: Rect2, collision_role: String) -> St
     var role := collision_role.to_lower()
     if role == "ungrippable_wall":
         body.set_meta("wall_grip_disabled", true)
-    var lower_name := node_name.to_lower()
     if role not in ["decorative", "no_collision"]:
         var shape := CollisionShape2D.new()
         var rectangle := RectangleShape2D.new()
         rectangle.size = rect.size
         shape.shape = rectangle
-        if role == "one_way" or lower_name.begins_with("bridge_") or lower_name.begins_with("step_") or lower_name.begins_with("shaft_bridge_"):
+        if role == "one_way":
             shape.one_way_collision = true
             shape.one_way_collision_margin = 2.0
         body.add_child(shape)

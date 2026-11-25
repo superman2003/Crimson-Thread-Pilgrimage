@@ -125,6 +125,13 @@ def build(path):
                             'surface':[[a,level],[b,level]],'depth':thickness,
                             'texture_variants':[3,1,5],'platform_ids':[]})
                 for p,f in owners:p['terrain_id']=tid;p['terrain_flat_span']=[round(f[0],2),round(f[2],2)]
+    if theme=='rain_foundry' and 'aq_recovery_sill' in plats:
+        sill=plats['aq_recovery_sill']
+        sill['terrain_id']='terrain_aqueduct_return_ramp'
+        sill['terrain_flat_span']=[1380,1540]
+        results.append({'id':'terrain_aqueduct_return_ramp','kind':'bridge',
+            'surface':[[1380,836],[1540,920]],'depth':38,
+            'texture_variants':[0,2],'platform_ids':['aq_recovery_sill']})
     d['terrain']=results
     d['terrain_design']={'view':'orthographic_side_2d','max_ramp_degrees':32,'route_kinds':['ground','slope','tunnel','bridge','basin','vertical_climb'],
         'notes':'Continuous horizontal ground, open branch shafts, short bridges and retained vertical traversal challenges.'}

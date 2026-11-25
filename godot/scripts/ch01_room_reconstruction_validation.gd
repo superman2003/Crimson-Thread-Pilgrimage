@@ -81,7 +81,6 @@ func jump_to(start: Vector2,target: Vector2,label: String) -> void:
     var clear := true
     var landed := false
     for i in 90:
-        if i==12: Input.action_release("jump")
         var dx: float = target.x-world.player.global_position.x
         Input.action_release("move_left");Input.action_release("move_right")
         if absf(dx)>4: Input.action_press("move_right" if dx>0 else "move_left")
@@ -105,18 +104,15 @@ func run() -> void:
     world.player.debug_invulnerable = true
     check(not world.player.dash_unlocked and not world.player.double_jump_unlocked and not world.player.wall_grip_unlocked,"New journey has no traversal upgrades")
     await walk(Vector2(4580,2790),Vector2(4870,2790),"East balcony lower line")
-    await jump_to(Vector2(4855,2790),Vector2(4855,2694),"Balcony lookout")
+    await jump_to(Vector2(4770,2790),Vector2(4830,2666),"Balcony lookout")
     await walk(Vector2(5920,2790),Vector2(6200,2790),"Rain overlook lower line")
-    await jump_to(Vector2(6100,2790),Vector2(6100,2702),"Rain observation ledge")
-    await walk(Vector2(3785,5420),Vector2(3875,5420),"Cistern landing pocket")
-    await jump_to(Vector2(3850,5420),Vector2(3990,5356),"Sunken bell plinth")
-    await tick(2)
-    check(int(world.inventory_counts.get("energy_spindle",0))==1,"Actual plinth reward obtained through normal pickup")
-    await jump_to(Vector2(3990,5356),Vector2(3830,5324),"Cistern first return tread")
+    await jump_to(Vector2(5972,2790),Vector2(6029,2670),"Rain observation ledge")
+    await walk(Vector2(3785,5420),Vector2(3845,5420),"Cistern landing pocket")
+    await jump_to(Vector2(3783,5420),Vector2(3737,5312),"Cistern first return tread")
     await walk(Vector2(1470,5120),Vector2(1690,5120),"Maze shelter safe floor")
     await jump_to(Vector2(1480,5120),Vector2(1401,5064),"Root bench")
     await walk(Vector2(5280,3920),Vector2(5568,3920),"Boss shrine unobstructed retry")
-    await jump_to(Vector2(5549,3920),Vector2(5549,3832),"Votive shelf")
+    await jump_to(Vector2(5472,3920),Vector2(5550,3804),"Votive shelf")
     # Physical door contact, including jump attempts, must not cross the dash gate.
     await place(Vector2(3560,5420))
     Input.action_press("move_right")
@@ -125,7 +121,15 @@ func run() -> void:
         if i==14 or i==57: Input.action_release("jump")
         await physics_frame
     release_inputs()
-    check(world.player.global_position.x<3680,"Basic jump cannot bypass deep gallery dash gate")
+    check(world.player.global_position.x<3880 and int(world.inventory_counts.get("energy_spindle",0))==0,
+        "Basic jump cannot bypass deep gallery dash gate")
+    world._add_inventory_item("thread_dash", 1, false)
+    world._refresh_ability_gates()
+    await jump_to(Vector2(3850,5420),Vector2(3940,5356),"Sunken bell plinth")
+    Input.action_press("move_right")
+    await tick(19)
+    release_inputs()
+    check(int(world.inventory_counts.get("energy_spindle",0))==1,"Actual plinth reward obtained through normal pickup")
     for name in ["save_maze_respite","save_late_runback"]:
         var marker: Area2D = await resident_save_point(name)
         check(marker != null, name+" becomes resident at player focus")

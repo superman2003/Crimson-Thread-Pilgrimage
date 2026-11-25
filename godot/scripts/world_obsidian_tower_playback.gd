@@ -52,7 +52,10 @@ func _run() -> void:
     if not await _leap(Vector2(3330,2760),20,"normal return onto free shaft"):await _finish();return
     for point in [Vector2(3470,2652),Vector2(3280,2544),Vector2(3470,2436),Vector2(3280,2328),Vector2(3470,2220),Vector2(3280,2112),Vector2(3460,2004)]:
         if not await _leap(point,999 if point.y==2004 else 20,"earned free shaft return"):await _finish();return
-    if not await _leap(Vector2(3220,1868),999,"ordinary final dock jump"):await _finish();return
+    if not await _leap(Vector2(3530, 1900), 999, "ordinary jump to the side dock") \
+        or not await _leap(Vector2(3380, 1868), 999, "ordinary jump to the upper gallery"):
+        await _finish()
+        return
     if not await _walk_without_jump(Vector2(2800,1868)):await _finish();return
     if not await _walk_without_jump(Vector2(2510,2608)):await _finish();return
     for point in [Vector2(2150,2496),Vector2(1800,2390),Vector2(1510,2286),Vector2(1300,2178),Vector2(900,2072),Vector2(640,1978),Vector2(300,1910)]:

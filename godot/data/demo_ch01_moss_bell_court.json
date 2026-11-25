@@ -1352,8 +1352,8 @@
         168
       ],
       "objective": "越过冲刺门，登上沉钟基座取回能量纺锤。",
-      "guide": "沿左侧铜踏板向上，穿过顶端栅桥回到水窖环廊。",
-      "danger": "西侧钟隙需绯线冲刺。",
+      "guide": "在冲刺门前沿铜踏板左右侧跳，可从顶部缺口返回水窖环廊。",
+      "danger": "沉钟基座由绯线冲刺门封锁。",
       "next": "水窖环廊",
       "setpiece": "沉钟基座上的遗留纺锤",
       "traversal_focus": "门后安全落脚，短跳取宝",
@@ -2769,7 +2769,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 1,
       "safe_landing": true,
@@ -2799,7 +2799,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 2,
       "safe_landing": true,
@@ -2829,7 +2829,7 @@
       ],
       "color": "233a28",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 9,
@@ -2881,7 +2881,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 4,
       "safe_landing": true,
@@ -2936,7 +2936,7 @@
       "rect": [
         1960,
         3812,
-        360,
+        326,
         36
       ],
       "color": "1c2b1f",
@@ -2964,14 +2964,14 @@
     {
       "id": "crawl_court_grate",
       "rect": [
-        2320,
-        3812,
-        140,
-        28
+        2408,
+        3852,
+        52,
+        24
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "terrain_id": "terrain_crawl_court_grate"
     },
@@ -2980,7 +2980,7 @@
       "rect": [
         1960,
         3644,
-        420,
+        250,
         48
       ],
       "color": "10130f",
@@ -3067,7 +3067,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 9,
       "safe_landing": true,
@@ -3207,7 +3207,7 @@
       "rect": [
         2060,
         3160,
-        340,
+        176,
         40
       ],
       "color": "1c2b1f",
@@ -3584,7 +3584,7 @@
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "safe_landing": true,
       "gameplay_clearance": 232,
@@ -3608,7 +3608,7 @@
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 43,
       "safe_landing": true,
@@ -3633,7 +3633,7 @@
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 44,
       "safe_landing": true,
@@ -3705,7 +3705,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 46,
       "safe_landing": true,
@@ -3730,7 +3730,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 47,
       "safe_landing": true,
@@ -3780,7 +3780,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 49,
       "safe_landing": true,
@@ -3805,7 +3805,7 @@
       ],
       "color": "233a28",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -3827,7 +3827,7 @@
       ],
       "color": "233a28",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 4,
@@ -3871,7 +3871,7 @@
       ],
       "color": "3a3f38",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -3893,7 +3893,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 50,
       "safe_landing": true,
@@ -3918,7 +3918,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 51,
       "safe_landing": true,
@@ -4015,7 +4015,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 54,
       "safe_landing": true,
@@ -4040,7 +4040,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 55,
       "safe_landing": true,
@@ -4065,7 +4065,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 56,
       "safe_landing": true,
@@ -4162,7 +4162,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 59,
       "safe_landing": true,
@@ -4187,7 +4187,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 60,
       "safe_landing": true,
@@ -4212,7 +4212,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 61,
       "safe_landing": true,
@@ -4230,9 +4230,9 @@
     {
       "id": "cr_upper",
       "rect": [
-        3000,
+        2860,
         4830,
-        780,
+        920,
         40
       ],
       "color": "1c2b1f",
@@ -4255,14 +4255,14 @@
     {
       "id": "cr_w_step",
       "rect": [
-        2780,
+        2770,
         5024,
-        202,
+        140,
         26
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 63,
       "safe_landing": true,
@@ -4305,14 +4305,14 @@
     {
       "id": "cr_w_return",
       "rect": [
-        2826,
+        2650,
         4926,
-        130,
+        120,
         24
       ],
       "color": "8d7857",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "return",
       "safe_landing": true
     },
@@ -4379,9 +4379,9 @@
     {
       "id": "uw_b",
       "rect": [
-        2360,
-        5560,
-        240,
+        2416,
+        5588,
+        184,
         34
       ],
       "color": "1c2b1f",
@@ -4463,12 +4463,12 @@
       "rect": [
         2120,
         5568,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4483,14 +4483,14 @@
     {
       "id": "sw02",
       "rect": [
-        2290,
+        2300,
         5476,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4507,12 +4507,12 @@
       "rect": [
         2120,
         5384,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4527,14 +4527,14 @@
     {
       "id": "sw04",
       "rect": [
-        2290,
+        2300,
         5292,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4551,12 +4551,12 @@
       "rect": [
         2120,
         5200,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4571,14 +4571,14 @@
     {
       "id": "sw06",
       "rect": [
-        2290,
+        2300,
         5108,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4595,12 +4595,12 @@
       "rect": [
         2120,
         5016,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4615,14 +4615,14 @@
     {
       "id": "sw08",
       "rect": [
-        2290,
+        2300,
         4924,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4639,12 +4639,12 @@
       "rect": [
         2120,
         4832,
-        310,
-        24
+        126,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4659,14 +4659,14 @@
     {
       "id": "sw10",
       "rect": [
-        2352,
+        2326,
         4740,
-        138,
-        24
+        158,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4679,38 +4679,16 @@
       }
     },
     {
-      "id": "sw11",
-      "rect": [
-        2340,
-        4648,
-        120,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 10,
-        "flip_h": false,
-        "body_variants": [
-          10,
-          7,
-          7
-        ]
-      }
-    },
-    {
       "id": "sw12",
       "rect": [
-        2290,
-        4556,
-        150,
+        2336,
+        4540,
+        134,
         24
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4726,13 +4704,13 @@
       "id": "sw13",
       "rect": [
         2120,
-        4464,
-        150,
-        24
+        4452,
+        118,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4747,14 +4725,14 @@
     {
       "id": "sw14",
       "rect": [
-        2290,
+        2366,
         4372,
-        150,
-        24
+        116,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4771,12 +4749,12 @@
       "rect": [
         2120,
         4280,
-        150,
-        24
+        110,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4791,14 +4769,14 @@
     {
       "id": "sw16",
       "rect": [
-        2290,
+        2366,
         4188,
-        150,
-        24
+        116,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4815,12 +4793,12 @@
       "rect": [
         2120,
         4096,
-        308,
-        24
+        118,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4835,14 +4813,14 @@
     {
       "id": "sw18",
       "rect": [
-        2352,
-        4004,
-        126,
-        24
+        2348,
+        3975,
+        140,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4857,14 +4835,14 @@
     {
       "id": "sw19",
       "rect": [
-        2396,
-        3912,
-        67,
-        24
+        2288,
+        3850,
+        52,
+        16
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4877,38 +4855,16 @@
       }
     },
     {
-      "id": "sw20",
-      "rect": [
-        2420,
-        3820,
-        120,
-        24
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge",
-      "collision_role": "one_way",
-      "route_role": "branch",
-      "art": {
-        "variant": 6,
-        "flip_h": false,
-        "body_variants": [
-          6,
-          7,
-          7
-        ]
-      }
-    },
-    {
       "id": "sw21",
       "rect": [
-        2415,
+        2468,
         3728,
-        127,
+        108,
         24
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -4923,14 +4879,14 @@
     {
       "id": "sw22",
       "rect": [
-        2290,
-        3636,
-        150,
-        24
+        2300,
+        3596,
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -4947,12 +4903,12 @@
       "rect": [
         2120,
         3544,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 10,
@@ -4967,14 +4923,14 @@
     {
       "id": "sw24",
       "rect": [
-        2290,
+        2340,
         3452,
-        150,
-        24
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -4990,13 +4946,13 @@
       "id": "sw25",
       "rect": [
         2120,
-        3360,
-        150,
-        24
+        3348,
+        130,
+        20
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -5011,14 +4967,14 @@
     {
       "id": "sw_top",
       "rect": [
-        2360,
+        2350,
         3268,
-        150,
+        140,
         26
       ],
       "color": "6d6645",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 8,
@@ -5040,7 +4996,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 69,
       "safe_landing": true,
@@ -5090,7 +5046,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 71,
       "safe_landing": true,
@@ -5162,7 +5118,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 73,
       "safe_landing": true,
@@ -5187,7 +5143,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 74,
       "safe_landing": true,
@@ -5212,7 +5168,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 75,
       "safe_landing": true,
@@ -5344,7 +5300,7 @@
       ],
       "color": "22331f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 79,
       "safe_landing": true,
@@ -5369,7 +5325,7 @@
       ],
       "color": "22331f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 80,
       "safe_landing": true,
@@ -5394,7 +5350,7 @@
       ],
       "color": "22331f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 81,
       "safe_landing": true,
@@ -5419,7 +5375,7 @@
       ],
       "color": "22331f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 82,
       "safe_landing": true,
@@ -5444,7 +5400,7 @@
       ],
       "color": "22331f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 83,
       "safe_landing": true,
@@ -5464,7 +5420,7 @@
       "rect": [
         2070,
         4620,
-        260,
+        178,
         34
       ],
       "color": "2b4633",
@@ -5541,7 +5497,7 @@
       ],
       "color": "402a2a",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 0,
@@ -5563,7 +5519,7 @@
       ],
       "color": "1c2b1f",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "main",
       "route_order": 86,
       "safe_landing": true,
@@ -5703,7 +5659,7 @@
       ],
       "color": "6d6645",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 6,
@@ -5725,7 +5681,7 @@
       ],
       "color": "6d6645",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "art": {
         "variant": 7,
@@ -5876,14 +5832,14 @@
     {
       "id": "eb_signal_shelf",
       "rect": [
-        4800,
-        2694,
-        110,
+        4812,
+        2666,
+        68,
         22
       ],
       "color": "786747",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "safe_landing": true,
       "gameplay_clearance": 232,
@@ -5901,13 +5857,13 @@
       "id": "rain_observation_ledge",
       "rect": [
         6010,
-        2702,
+        2670,
         180,
         22
       ],
       "color": "344b3d",
       "material": "moss_stone",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "safe_landing": true,
       "gameplay_clearance": 232,
@@ -5948,28 +5904,28 @@
     {
       "id": "cdg_return_lower",
       "rect": [
-        3738,
-        5324,
-        122,
-        22
+        3650,
+        5312,
+        110,
+        20
       ],
       "color": "9a8462",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "return",
       "safe_landing": true
     },
     {
       "id": "cdg_return_upper",
       "rect": [
-        3756,
-        5222,
-        126,
+        3808,
+        5218,
+        65,
         22
       ],
       "color": "9a8462",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "return",
       "safe_landing": true
     },
@@ -5978,12 +5934,12 @@
       "rect": [
         3690,
         5120,
-        152,
-        22
+        60,
+        24
       ],
       "color": "9a8462",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "return",
       "safe_landing": true
     },
@@ -6015,13 +5971,13 @@
       "id": "pbs_votive_shelf",
       "rect": [
         5510,
-        3832,
+        3804,
         78,
         22
       ],
       "color": "786747",
       "material": "bronze_bridge",
-      "collision_role": "one_way",
+      "collision_role": "floor",
       "route_role": "branch",
       "safe_landing": true,
       "gameplay_clearance": 232,
@@ -6072,10 +6028,10 @@
     {
       "id": "gate_dash_deep",
       "rect": [
-        3680,
-        5240,
+        3880,
+        5120,
         42,
-        182
+        302
       ],
       "color": "5a2d2d",
       "material": "bronze_bridge",
@@ -7344,7 +7300,7 @@
         "sw05",
         "sw10",
         "sw15",
-        "sw20",
+        "sw19",
         "sw25",
         "sw_top",
         "station_floor"
@@ -8101,7 +8057,7 @@
       "sw08",
       "sw09",
       "sw10",
-      "sw11",
+      "msf_floor",
       "sw12",
       "sw13",
       "sw14",
@@ -8110,7 +8066,7 @@
       "sw17",
       "sw18",
       "sw19",
-      "sw20",
+      "crawl_court_grate",
       "sw21",
       "sw22",
       "sw23",
@@ -9390,11 +9346,11 @@
           3812
         ],
         [
-          2320,
+          2286,
           3812
         ]
       ],
-      "depth": 104,
+      "depth": 64,
       "texture_variants": [
         3,
         1,
@@ -9409,12 +9365,8 @@
       "kind": "bridge",
       "surface": [
         [
-          2304,
-          3812
-        ],
-        [
-          2320,
-          3812
+          2408,
+          3852
         ],
         [
           2460,
@@ -9428,8 +9380,7 @@
       "depth": 24,
       "texture_variants": [
         4,
-        2,
-        1
+        2
       ],
       "platform_ids": [
         "crawl_court_grate"
@@ -9853,12 +9804,16 @@
       "kind": "soil",
       "surface": [
         [
-          2360,
-          5560
+          2310,
+          5660
+        ],
+        [
+          2416,
+          5588
         ],
         [
           2600,
-          5560
+          5588
         ],
         [
           2740,

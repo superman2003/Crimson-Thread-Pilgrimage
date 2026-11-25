@@ -210,7 +210,7 @@ func crest_climb(world: Node) -> void:
     pause_world(world)
     var player: CharacterBody2D=world.player
     check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Crest fixture has no extra climbing abilities")
-    player.global_position=Vector2(4815,1088)
+    player.global_position=Vector2(4852,1088)
     player.velocity=Vector2.ZERO
     world._warm_arrival_cave()
     world._warm_arrival_terrain()
@@ -221,7 +221,7 @@ func crest_climb(world: Node) -> void:
     await frames(12)
     check(player.is_on_floor(),"Crest fixture starts on the actual second stair")
     var hp: int=player.hp
-    for point in [Vector2(5007,982),Vector2(4830,880)]:
+    for point in [Vector2(4973,982),Vector2(4825,880)]:
         if not await crest_jump(world,point):
             pause_world(world)
             return
@@ -232,7 +232,7 @@ func crest_climb(world: Node) -> void:
         await frames(1)
     Input.action_release("move_left")
     await frames(3)
-    check(player.is_on_floor() and absf(player.position.x-4700)<20 and absf(player.position.y-880)<8,"Thin crest crossing supports walking to the unchanged shrine")
+    check(player.is_on_floor() and absf(player.position.x-4700)<20 and absf(player.position.y-880)<8,"Solid crest deck leads to the salt lamp shrine")
     check(player.hp==hp,"Normal crest ascent and shrine approach preserve health")
     await crest_capture(world,"crest_shrine")
     pause_world(world)
