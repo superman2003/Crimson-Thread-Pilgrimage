@@ -71,7 +71,9 @@ static func void_respawn(level: Node) -> void:
         level.player._interrupt_heal()
         level.player.guard_timer = 0.0
         level.player.hurt_timer = 0.0
+        var hp_before_fall: int = int(level.player.hp)
         level.player.take_damage(1, level.player.global_position + Vector2(50, 0), false)
+        var fall_damage: int = maxi(0, hp_before_fall - level.player.hp)
         level.player._reset_traversal_state()
         level.player.global_position = level.active_spawn
         level.player.velocity = Vector2.ZERO
@@ -83,7 +85,7 @@ static func void_respawn(level: Node) -> void:
             level.world_platforms.warm(level, level.active_spawn)
         level.player.reset_camera_after_arrival()
         level._save_world()
-        level._toast("坠落 · 生命 -1")
+        level._toast("坠落 · 生命 -%d" % fall_damage if fall_damage > 0 else "坠落 · 未失生命")
         level._refresh_hud()
         return
     if level.player.has_method("restore_at_save_point"):

@@ -84,10 +84,18 @@ func _process(delta: float) -> void:
     if elapsed>=300:finish(false,"五分钟练习时限已到");return
     label.text="%s · 第 %d/%d 轮 · 余敌 %d · %.1f 秒\n生命 %d/%d · 绯线 %d · 本场零掉落，旅途资源不变" % [String(bout.title),wave,bout.waves.size(),alive.size(),elapsed,player.hp,player.max_hp,player.energy]
     if Input.is_action_just_pressed("tool_cast"):
-        var result: Dictionary=build.use_tool()
-        if result.ok:player.cast_tool(result)
+        _use_tool()
     elif Input.is_action_just_pressed("tool_cycle"):build.cycle_tool()
     elif Input.is_action_just_pressed("skill_cycle"):build.cycle_skill();player.selected_skill=build.selected_skill()
+
+func _use_tool() -> bool:
+    var result: Dictionary = build.use_tool()
+    if not result.ok:
+        return false
+    if player.cast_tool(result):
+        return true
+    build.refund_tool(String(result.get("id", "")))
+    return false
 
 func _unhandled_key_input(event: InputEvent) -> void:
     if event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_ESCAPE:close();get_viewport().set_input_as_handled()

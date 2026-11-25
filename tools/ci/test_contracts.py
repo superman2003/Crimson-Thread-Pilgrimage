@@ -182,7 +182,7 @@ class Running(unittest.TestCase):
         self.tmp = Path(tempfile.mkdtemp())
         self.engine = self.tmp / "engine/Godot_v4.6.1-stable_linux.x86_64"
         self.engine.parent.mkdir(parents=True)
-        self.engine.write_text("#!/bin/sh\necho engine $*\n")
+        self.engine.write_text("#!/bin/sh\necho engine $*\n", encoding="utf-8")
         self.engine.chmod(self.engine.stat().st_mode | stat.S_IEXEC)
 
     def contract(self, steps, **kw):
@@ -198,9 +198,9 @@ class Running(unittest.TestCase):
                    env={"WHO": "$GREETING-there"}),
         ])
         failed, log = c.run_contract(contract, self.engine, self.tmp / "work")
-        self.assertIsNone(failed, log.read_text())
-        self.assertIn("engine --version", log.read_text())
-        self.assertEqual((self.tmp / "work/demo/who").read_text().strip(), "hi-there")
+        self.assertIsNone(failed, log.read_text(encoding="utf-8"))
+        self.assertIn("engine --version", log.read_text(encoding="utf-8"))
+        self.assertEqual((self.tmp / "work/demo/who").read_text(encoding="utf-8").strip(), "hi-there")
 
     def test_failure_skips_rest_but_always_steps_run(self):
         contract = self.contract([
@@ -225,25 +225,25 @@ class Running(unittest.TestCase):
         bin_dir.mkdir()
         counter = self.tmp / "count"
         fake = bin_dir / "npm"
-        fake.write_text(f'#!/bin/sh\necho x >> "{counter}"\n')
+        fake.write_text(f'#!/bin/sh\necho x >> "{counter}"\n', encoding="utf-8")
         fake.chmod(0o755)
         saved = os.environ["PATH"]
         os.environ["PATH"] = f"{bin_dir}{os.pathsep}{saved}"
         try:
             for name in ("first", "second"):
                 failed, log = c.run_contract(self.contract([c.Step("npm", "npm test")], id=name), self.engine, self.tmp / "work")
-                self.assertIsNone(failed, log.read_text())
+                self.assertIsNone(failed, log.read_text(encoding="utf-8"))
         finally:
             os.environ["PATH"] = saved
-        self.assertEqual(len(counter.read_text().split()), 1)
-        self.assertIn("[ci_once] reusing exit 0", (self.tmp / "work/second/contract.log").read_text())
+        self.assertEqual(len(counter.read_text(encoding="utf-8").split()), 1)
+        self.assertIn("[ci_once] reusing exit 0", (self.tmp / "work/second/contract.log").read_text(encoding="utf-8"))
 
     def test_godot_zip_link_and_restored_tracked_files(self):
         repo = self.tmp / "repo"
         repo.mkdir()
         for args in (["init", "-q"], ["config", "user.email", "t@t"], ["config", "user.name", "t"]):
             subprocess.run(["git", *args], cwd=repo, check=True)
-        (repo / "artifact.json").write_text("committed\n")
+        (repo / "artifact.json").write_text("committed\n", encoding="utf-8")
         subprocess.run(["git", "add", "."], cwd=repo, check=True)
         subprocess.run(["git", "commit", "-qm", "x"], cwd=repo, check=True)
         zip_file = self.tmp / "godot.zip"
@@ -261,13 +261,13 @@ class Running(unittest.TestCase):
                 os.environ.pop("CONTRACT_GODOT_ZIP", None)
             else:
                 os.environ["CONTRACT_GODOT_ZIP"] = saved_zip
-        self.assertIsNone(failed, log.read_text())
-        self.assertEqual((repo / "artifact.json").read_text(), "committed\n", "the next contract sees the commit")
-        self.assertIn("restored tracked files", log.read_text())
+        self.assertIsNone(failed, log.read_text(encoding="utf-8"))
+        self.assertEqual((repo / "artifact.json").read_text(encoding="utf-8"), "committed\n", "the next contract sees the commit")
+        self.assertIn("restored tracked files", log.read_text(encoding="utf-8"))
 
     def test_github_env_heredoc(self):
         path = self.tmp / "env"
-        path.write_text("A=1\nB<<EOF\nline1\nline2\nEOF\nC=x=y\n")
+        path.write_text("A=1\nB<<EOF\nline1\nline2\nEOF\nC=x=y\n", encoding="utf-8")
         self.assertEqual(c.read_github_file(path), {"A": "1", "B": "line1\nline2", "C": "x=y"})
 
 

@@ -220,6 +220,12 @@ func _run() -> void:
 			var other: String = regions[(regions.find(id) + 1) % regions.size()]
 			await loader.replace_region_async(scene, ROUTES.config_path(other), _entry(other))
 			await _frames(2)
+		var target_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))
+		var first_save: Dictionary = target_config.get("save_points", [])[0]
+		var checkpoint: Vector2 = Vector2(first_save.position[0], first_save.position[1])
+		var checkpoint_id := String(first_save.id)
+		_check(scene.world_state.capture_region(id, {"checkpoint": [checkpoint.x, checkpoint.y], "checkpoint_id": checkpoint_id}),
+			id + " fixture installs a prior destination shrine checkpoint")
 		var source := String(scene.config.id)
 		var label := "%s -> %s" % [source.get_slice("_", 1), id.get_slice("_", 1)]
 		_hold_source()
@@ -274,10 +280,12 @@ func _run() -> void:
 		var staged_root_id: int = loader.staging.root.get_instance_id()
 		# 3. Handover: the source is retired, the destination becomes current.
 		scene.player.set_physics_process(true)
-		var handed: bool = await loader.handover_staged_async(scene)
+		var handed: bool = await loader.handover_staged_async(scene, _entry(id))
 		_check(handed and loader.phase == "idle" and loader.staging.is_empty(), label + " handover completes")
 		_check(scene.world_gameplay_residency.generation == loader.generation, label + " residency follows the published generation")
 		_check(String(scene.world_state.data.get("current_region", "")) == id, label + " arrival saved the destination")
+		_check(scene.active_spawn.distance_to(checkpoint) < 1.0 and scene.active_save_point_id == checkpoint_id,
+			label + " physical entry does not replace the destination checkpoint")
 		_check(scene.player.global_position.distance_to(_entry(id)) < 1.0, label + " player placed at the destination entry")
 		await _frames(5)
 		var arrived := _region_signature()

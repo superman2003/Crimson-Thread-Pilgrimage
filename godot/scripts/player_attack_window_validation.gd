@@ -38,6 +38,14 @@ func run() -> void:
         check(node.effect_calls == 1 and node.hit_calls == 0, "special cast fires once across skipped active interval")
         check(node.stages == ["active", "recovery"], "presentation transitions remain chronological")
         node.free()
+    for kind in ["ranged", "tool", "resonance", "defense"]:
+        var skill_player := player()
+        skill_player.active_skill = {"kind": kind}
+        skill_player._update_attack(1.0)
+        check(skill_player.active_skill.is_empty(), kind + " active-skill state ends with its recovery window")
+        skill_player.dash_timer = 0.2
+        check(skill_player.can_ignore_enemy_contact(Vector2.ZERO), kind + " cannot disable the next dash contact guard")
+        skill_player.free()
     var node := player(); node._update_attack(0.05)
     check(node.hit_calls == 0, "windup remains inactive")
     node._update_attack(0.06)

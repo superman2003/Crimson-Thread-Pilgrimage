@@ -35,7 +35,16 @@ static func preserve_previous_journey(level: Node) -> bool:
         return false
     if DirAccess.copy_absolute(source, absolute + ".previous") != OK or not WORLD_STATE_SCRIPT._files_identical(source, absolute + ".previous"):
         return false
-    return source != absolute or DirAccess.remove_absolute(absolute) == OK
+    if source == absolute and DirAccess.remove_absolute(absolute) != OK:
+        return false
+    var backup := absolute + ".bak"
+    if FileAccess.file_exists(backup):
+        var archived_backup := WORLD_STATE_SCRIPT.preserve_copy(backup, "previous_backup")
+        if archived_backup.is_empty() or not WORLD_STATE_SCRIPT._files_identical(backup, archived_backup):
+            return false
+        if DirAccess.remove_absolute(backup) != OK:
+            return false
+    return true
 
 
 static func start_new_journey(level: Node) -> void:

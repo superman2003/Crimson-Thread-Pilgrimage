@@ -51,7 +51,7 @@ def main():
     if display is None:
         raise RuntimeError('No free X display port')
     with tempfile.TemporaryDirectory(prefix='rock-gpu-') as scratch:
-        with (args.log_dir / 'xvfb.log').open('w') as log:
+        with (args.log_dir / 'xvfb.log').open('w', encoding="utf-8") as log:
             server = subprocess.Popen(['Xvfb', f':{display}', '-screen', '0', '1280x720x24', '-ac', '-nolisten', 'unix', '-nolisten', 'local', '-listen', 'tcp'], stdout=log, stderr=log)
             try:
                 deadline = time.monotonic() + 10
@@ -74,11 +74,11 @@ def main():
                         output = output.decode(errors='replace')
                     timeout_message = f'ERROR: Godot validation timed out after {args.timeout:g} seconds'
                     log_output = output + ('' if output.endswith('\n') or not output else '\n') + timeout_message + '\n'
-                    (args.log_dir / 'gpu.log').write_text(log_output)
+                    (args.log_dir / 'gpu.log').write_text(log_output, encoding="utf-8")
                     print(output, end='')
                     print(timeout_message, file=sys.stderr)
                     raise SystemExit(124) from exc
-                (args.log_dir / 'gpu.log').write_text(result.stdout)
+                (args.log_dir / 'gpu.log').write_text(result.stdout, encoding="utf-8")
                 print(result.stdout, end='')
                 if validation_failed(result.stdout, result.returncode, args.success_marker):
                     raise SystemExit(1)

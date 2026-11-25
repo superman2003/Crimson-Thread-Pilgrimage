@@ -162,8 +162,8 @@ def package():
                 'Melee and area-wave skills share family poses; distinct runtime effects and phases remain.',
                 'Low source clearance remains an art-review warning, distinct from opaque canvas-edge contact.',
                 'Hook throw uses four isolated versioned source poses; the original sheet is retained.']}
-    (OUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
-    (OUT / 'crop_audit.json').write_text(json.dumps(audit, indent=2) + '\n')
+    (OUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding="utf-8")
+    (OUT / 'crop_audit.json').write_text(json.dumps(audit, indent=2) + '\n', encoding="utf-8")
     print(json.dumps({'animations': len(specs), 'frames': len(audit), 'source_clearance_warnings': sum(v['source_edge_contact'] for v in audit), 'opaque_source_canvas_edges': sum(v['opaque_source_canvas_edge'] for v in audit), 'ambiguous_poses': sum(v['ambiguous_connected_pose'] for v in audit), 'output_clipped': sum(v['output_clipped'] for v in audit)}))
 
 if __name__ == '__main__':

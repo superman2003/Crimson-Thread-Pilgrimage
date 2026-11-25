@@ -13,7 +13,11 @@ static func constrain(actor: Area2D, start: Vector2, finish: Vector2) -> Vector2
     var query := PhysicsShapeQueryParameters2D.new()
     query.shape = shape; query.transform = Transform2D(0, start + offset)
     query.motion = motion; query.collision_mask = 1
-    query.collide_with_areas = false; query.exclude = [actor.get_rid()]
+    query.collide_with_areas = false
+    query.exclude = [actor.get_rid()]
+    var player := actor.get_tree().get_first_node_in_group("player") as CharacterBody2D
+    if is_instance_valid(player):
+        query.exclude.append(player.get_rid())
     query.margin = 0.5
     var fractions := actor.get_world_2d().direct_space_state.cast_motion(query)
     var fraction := float(fractions[0]) if fractions.size() == 2 else 0.0

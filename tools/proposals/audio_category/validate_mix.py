@@ -31,7 +31,7 @@ def repeated(item, count):
 
 
 def main():
-    text = (DOC / 'catalog.js').read_text()
+    text = (DOC / 'catalog.js').read_text(encoding="utf-8")
     data = json.loads(text.removeprefix('window.AUDIO_CATALOG = ').rstrip(';\n'))
     items = data['items']; results = []; count = SR * 8
     for profile in data['mix_profiles']['profiles']:
@@ -56,7 +56,7 @@ def main():
             results.append(record)
             assert record['finite'] and record['not_clipped'], record
     report = {'scope': '24 deterministic 8-second preview mix scenarios; conservative gain allowances, not the WebAudio convolution waveform, perceptual masking, human listening, or Godot mixing acceptance', 'sample_rate': SR, 'master_gain': 0.7, 'scenario_count': len(results), 'all_pass': True, 'cases': results}
-    (DOC / 'mix_validation.json').write_text(json.dumps(report, indent=2) + '\n')
+    (DOC / 'mix_validation.json').write_text(json.dumps(report, indent=2) + '\n', encoding="utf-8")
     print(json.dumps({'scenarios': len(results), 'worst_true_peak_dbtp': max(x['estimated_4x_true_peak_dbtp'] for x in results), 'pass': True}))
 
 

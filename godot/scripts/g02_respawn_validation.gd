@@ -11,6 +11,13 @@ func _run() -> void:
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene=scene
     await _tick(15)
+    var protected_hp: int=scene.player.hp
+    scene.player.arrival_guard_timer=0.5
+    scene.player.global_position.y=scene.fall_y+1.0
+    scene._void_respawn()
+    _check(scene.player.hp==protected_hp and scene.toast_label.text=="坠落 · 未失生命",
+        "a protected fall reports no life loss when damage is rejected")
+    scene.player.arrival_guard_timer=0.0
     _check(scene.boss_unlocked and not scene.boss_spawned,"earned World unlock is not a fight")
     await _fixture_ground(Vector2(1960,1562))
     await _fixture_death()

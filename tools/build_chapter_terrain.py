@@ -58,7 +58,7 @@ def intersects_gate(a,b,gate,depth):
     return False
 
 def build(path):
-    d=json.loads(path.read_text());theme=d.get('art',{}).get('theme',d.get('art_theme',''))
+    d=json.loads(path.read_text(encoding="utf-8"));theme=d.get('art',{}).get('theme',d.get('art_theme',''))
     if not theme: theme=d.get('art_theme', 'moss_cavern')
     # Main runtime uses art_theme directly.
     theme=d.get('art_theme',theme)
@@ -135,16 +135,16 @@ def build(path):
     d['terrain']=results
     d['terrain_design']={'view':'orthographic_side_2d','max_ramp_degrees':32,'route_kinds':['ground','slope','tunnel','bridge','basin','vertical_climb'],
         'notes':'Continuous horizontal ground, open branch shafts, short bridges and retained vertical traversal challenges.'}
-    path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+    path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print(path.name,len(results),'landforms,',sum(len(x['platform_ids']) for x in results),'converted anchors')
 
 def main():
     for theme in GROUPS:
         folder=ROOT/'godot/assets/sprites/flat_maps'/theme
-        manifest=json.loads((folder/'manifest.json').read_text())
+        manifest=json.loads((folder/'manifest.json').read_text(encoding="utf-8"))
         rects,size=atlas_frames(folder/'terrain_atlas.png',3,2)
         manifest['terrain_regions']=rects;manifest['terrain_atlas']='terrain_atlas.png'
-        (folder/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+        (folder/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     for p in sorted((ROOT/'godot/data').glob('demo_ch0*.json')):
         if 'boss_trial' not in p.name: build(p)
 

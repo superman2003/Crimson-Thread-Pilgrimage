@@ -13,7 +13,7 @@ static func target_player(actor: Node) -> CharacterBody2D:
         return null
     if actor.interference_timer > 0.0:
         for command in actor.ai_commands:
-            if String(command.get("type", "")) in ["projectile", "beam", "throw"]:
+            if String(command.get("type", "")) in ["projectile", "fan", "beam", "throw"]:
                 return null
     var nearest: CharacterBody2D = null
     var nearest_distance := INF

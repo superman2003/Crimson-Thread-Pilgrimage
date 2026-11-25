@@ -63,9 +63,9 @@ def build_creature(design):
                     'margin':[x-round((i%4)*sz[0]/4),canvas[1]-h-2,canvas[0]-w,canvas[1]-h]})
             animations.append({'name':name+'_windup','fps':6,'loop':False,'frames':poses[:2]})
             animations.append({'name':name,'fps':9,'loop':False,'frames':poses[2:]})
-    (directory/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+    (directory/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     for p in sorted((GODOT/'data').rglob('demo*.json')):
-        data=json.loads(p.read_text()); changed=False
+        data=json.loads(p.read_text(encoding="utf-8")); changed=False
         for actor in data.get('enemy_spawns',[])+([data['boss']] if isinstance(data.get('boss'),dict) else []):
             if actor.get('kind')!=kind: continue
             actor['sprite']=f'res://assets/sprites/original_creatures/{kind}/manifest.json'
@@ -77,11 +77,11 @@ def build_creature(design):
             actor.pop('source_sprite_region',None)
             actor.pop('sprite_parts',None);actor.pop('sprite_region',None);actor.pop('sprite_regions',None)
             changed=True
-        if changed: p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+        if changed: p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     return True
 
 def main():
-    designs=json.loads((GODOT/'data/original_creature_designs.json').read_text())['designs']
+    designs=json.loads((GODOT/'data/original_creature_designs.json').read_text(encoding="utf-8"))['designs']
     done=sum(build_creature(d) for d in designs)
     print(f'Creature animation atlases installed: {done}/{len(designs)}')
 

@@ -192,7 +192,6 @@ static func handover_async(loader: RefCounted, host: Node, arrival: Vector2 = Ve
     REGION_STATE.apply(host, staging.state, staging.fields)
     if arrival.is_finite():
         host.entry_spawn_override = arrival
-        host.active_spawn = arrival
     host.region_root = staging.root
     loader.staging = {}
     if is_instance_valid(old_root):
