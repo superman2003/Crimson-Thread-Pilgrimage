@@ -61,8 +61,9 @@ def find_unreferenced() -> tuple[list[str], set[str]]:
             for m in pat_path.findall(txt):
                 cleaned = m.rstrip('.,;:)"\'`')
                 ref_paths.add(cleaned)
-                if cleaned.endswith("/") or "." not in Path(cleaned).name:
-                    ref_prefixes.add(cleaned.rstrip("/") + "/")
+                trimmed = cleaned.rstrip("/")
+                if trimmed != "artifacts" and (cleaned.endswith("/") or "." not in Path(trimmed).name):
+                    ref_prefixes.add(trimmed + "/")
             if ci_or_verifier:
                 for top_dir in pat_dir_token.findall(txt):
                     protected_top_dirs.add(top_dir)
