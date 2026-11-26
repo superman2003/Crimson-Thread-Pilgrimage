@@ -46,7 +46,7 @@ func _run() -> void:
     _assert(config.get("save_points", []).any(func(item): return item is Dictionary and bool(item.get("hidden", false))), "CH02 has a hidden save point")
     _assert(config.get("boss", {}).get("id") == "C2_B01", "CH02 boss id is stable")
     _assert(config.get("boss", {}).get("name") == "绯线执剪者", "CH02 boss name is readable")
-    _assert(String(config.get("boss", {}).get("sprite", "")).contains("original_creatures/sunken_hammer_smith/manifest.json"), "CH02 boss uses its original production atlas")
+    _assert(String(config.get("boss", {}).get("sprite", "")).contains("original_creatures/sunken_hammer_smith/motion_redraw_manifest.json"), "CH02 boss uses its original production atlas")
     _assert(config.get("boss", {}).has("arena_min_x") and config.get("boss", {}).has("arena_max_x"), "CH02 boss has arena clamp")
     _assert(_visual_region_has_sprite(config.get("boss", {}), "boss"), "CH02 boss region is not blue placeholder")
     for enemy in config.get("enemy_spawns", []):
