@@ -63,11 +63,23 @@ static func consume_world_startup_options(level: Node, arguments: PackedStringAr
     if not level.world_startup_options_enabled:
         return false
     level.world_startup_options_enabled = false
+    var explicit_slot := false
     for argument in arguments:
         if argument.begins_with("--save-slot="):
+            explicit_slot = true
             level.world_slot = clampi(int(argument.trim_prefix("--save-slot=")), 1, 3)
             level.world_save_path = WORLD_STATE_SCRIPT.slot_path(level.world_slot)
+    if not explicit_slot and DisplayServer.get_name() != "headless" and level.world_save_path == WORLD_STATE_SCRIPT.DEFAULT_PATH:
+        apply_remembered_slot(level)
     return arguments.has("--new-game")
+
+
+static func apply_remembered_slot(level: Node) -> int:
+    var remembered: int = preload("res://scripts/level_save_slots.gd").read_last_slot()
+    if remembered >= 1 and remembered <= 3:
+        level.world_slot = remembered
+        level.world_save_path = WORLD_STATE_SCRIPT.slot_path(remembered)
+    return remembered
 
 
 static func restore_world_inventory_and_region(level: Node) -> void:

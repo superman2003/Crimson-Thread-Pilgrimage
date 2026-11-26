@@ -14,6 +14,7 @@ signal finished(result: Dictionary)
 var stages: Array[String] = STAGES
 var store := preload("res://scripts/journey_desk_store.gd").new()
 var label: Label
+var quit_hint: Label
 var stage := -1
 var scene: Node
 var fighting := false
@@ -61,6 +62,12 @@ func begin(world: Node) -> void:
     label.offset_left=-220;label.offset_right=220;label.offset_top=96;label.offset_bottom=124
     label.add_theme_font_size_override("font_size",TYPE.TITLE);label.mouse_filter=Control.MOUSE_FILTER_IGNORE
     add_child(label)
+    quit_hint=Label.new();quit_hint.name="QuitHint";quit_hint.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+    quit_hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+    quit_hint.offset_left=-220;quit_hint.offset_right=220;quit_hint.offset_top=126;quit_hint.offset_bottom=148
+    quit_hint.add_theme_font_size_override("font_size",TYPE.CAPTION);quit_hint.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    quit_hint.text="长按 Esc / Back 退出连战"
+    add_child(quit_hint)
     var host:=world.get_parent()
     host.add_child(self)
     _swap(world,null)
@@ -82,9 +89,15 @@ func _next() -> void:
     _swap(scene,make_stage.call(stages[stage]))
     _refresh()
 
+func _any_joy_back_pressed() -> bool:
+    for device in Input.get_connected_joypads():
+        if Input.is_joy_button_pressed(device,JOY_BUTTON_BACK):
+            return true
+    return false
+
 func _process(delta: float) -> void:
     if done:return
-    var esc:=Input.is_physical_key_pressed(KEY_ESCAPE) or Input.is_joy_button_pressed(0,JOY_BUTTON_BACK)
+    var esc:=Input.is_physical_key_pressed(KEY_ESCAPE) or _any_joy_back_pressed()
     quit_held=quit_held+delta if esc else 0.0
     if quit_held>=QUIT_HOLD:
         _finish(false);return
@@ -102,6 +115,12 @@ func _process(delta: float) -> void:
 func _refresh() -> void:
     if label==null:return
     label.text="%d / %d · %s" % [mini(stage+1,stages.size()),stages.size(),clock_text(elapsed)]
+    if quit_hint!=null:
+        if quit_held>0.05:
+            var pct:=clampi(int(round(quit_held/QUIT_HOLD*100.0)),1,100)
+            quit_hint.text="继续按住退出连战… %d%%" % pct
+        else:
+            quit_hint.text="长按 Esc / Back 退出连战"
 
 func _finish(cleared: bool) -> void:
     done=true;fighting=false
@@ -112,6 +131,7 @@ func _finish(cleared: bool) -> void:
     var result:={"cleared":cleared,"seconds":elapsed,"splits":splits.duplicate(),"best":elapsed if record else previous,"record":record}
     _swap(scene,make_world.call())
     label.visible=false
+    if quit_hint!=null:quit_hint.visible=false
     var window:=AcceptDialog.new();window.name="Result";window.title="首领连战"
     window.process_mode=Node.PROCESS_MODE_ALWAYS
     window.dialog_text=("用时 %s%s" % [clock_text(elapsed),"　新纪录" if record else ("　未能保存纪录。"+store.error if unsaved else ("　最佳 "+clock_text(previous) if previous>0.0 else ""))]) if cleared else "已退出连战。"

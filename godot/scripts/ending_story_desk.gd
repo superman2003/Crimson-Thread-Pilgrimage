@@ -2,6 +2,7 @@ extends ConfirmationDialog
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## The interact path previews a choice; only an explicit second action commits it.
 const JOURNEY := preload("res://scripts/narrative_journey.gd")
+const PROGRESS := preload("res://scripts/journey_progress.gd")
 const NAME := "EndingStoryDesk"
 var host_ref: WeakRef
 var gate_ref: WeakRef
@@ -12,6 +13,7 @@ var phase := "preview"
 var pages: Array = []
 var page := 0
 var reader: RichTextLabel
+var credits_button: Button
 
 func _ready() -> void:
     dialog_hide_on_ok = false
@@ -22,6 +24,9 @@ func _ready() -> void:
     reader.bbcode_enabled = false
     reader.scroll_active = true
     add_child(reader)
+    credits_button = add_button("来源与许可", false, "credits")
+    credits_button.visible = false
+    custom_action.connect(_custom_action)
     confirmed.connect(_confirm)
     canceled.connect(hide)
     close_requested.connect(hide)
@@ -91,6 +96,8 @@ func _show_preview(level: Node, notice: String = "") -> void:
     get_ok_button().text = "确认承担这一结果"
     get_ok_button().disabled = not bool(quote.get("available", false))
     get_cancel_button().text = "继续探索"
+    if is_instance_valid(credits_button):
+        credits_button.visible = false
 
 func _show_epilogue(level: Node) -> void:
     phase = "epilogue"
@@ -98,17 +105,48 @@ func _show_epilogue(level: Node) -> void:
     page = 0
     _show_page()
 
+func _journey_summary() -> String:
+    var level = host_ref.get_ref() if host_ref != null else null
+    if not is_instance_valid(level) or level.world_state == null:
+        return ""
+    var data: Dictionary = level.world_state.data
+    var pct := PROGRESS.completion(data)
+    var secs := int(level.journey_clock.seconds) if level.journey_clock != null else PROGRESS.recorded(String(level.world_save_path))
+    var bosses := 0
+    for region_data in data.get("regions", {}).values():
+        if region_data is Dictionary and bool(region_data.get("boss_defeated", false)):
+            bosses += 1
+    return "\n\n──────────\n本段巡礼结语 · 完成度 %d%% · 用时 %s · 击败守门者 %d / 6" % [pct, PROGRESS.clock_text(secs), mini(bosses, 6)]
+
 func _show_page() -> void:
     if pages.is_empty():
         hide()
         return
     var scene: Dictionary = pages[page]
     title = "尾声 · %s（%d / %d）" % [String(scene.title), page + 1, pages.size()]
-    reader.text = String(scene.text) + "\n\n巡礼者 · " + String(scene.response)
+    var body := String(scene.text) + "\n\n巡礼者 · " + String(scene.response)
+    var is_last := page + 1 >= pages.size()
+    if is_last:
+        body += _journey_summary()
+    reader.text = body
     reader.scroll_to_line(0)
     get_ok_button().disabled = false
-    get_ok_button().text = "下一幕" if page + 1 < pages.size() else "回到六城"
+    get_ok_button().text = "下一幕" if not is_last else "回到六城"
     get_cancel_button().text = "回到六城"
+    if is_instance_valid(credits_button):
+        credits_button.visible = is_last
+
+func _custom_action(action: StringName) -> void:
+    if String(action) != "credits":
+        return
+    var level = host_ref.get_ref() if host_ref != null else null
+    hide()
+    if not is_instance_valid(level) or level.ui_shell == null:
+        return
+    level._toggle_audio_settings()
+    var reader_desk: Node = level.ui_shell.get_node_or_null("CreditsReader")
+    if reader_desk != null and reader_desk.has_method("open"):
+        reader_desk.call_deferred("open")
 
 func _confirm() -> void:
     var level = host_ref.get_ref() if host_ref != null else null

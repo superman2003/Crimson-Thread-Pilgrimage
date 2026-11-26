@@ -82,6 +82,20 @@ static func build_settings_accessibility_tail(ui: Node) -> void:
 
 
 static func finish_settings(ui: Node) -> void:
+    var new_journey_btn: Button = ui._button(ui.settings,"新旅途",Vector2(180,381),Vector2(124,28),func():
+        if ui.level!=null and is_instance_valid(ui.level):
+            var dialog: Variant = ui.level.get("new_journey_dialog")
+            if dialog is ConfirmationDialog and is_instance_valid(dialog):
+                ui.level._close_overlays()
+                dialog.popup_centered()
+                ui.level.active_overlay="new_journey"
+                ui.level._sync_ui_input_lock())
+    new_journey_btn.name="NewJourneyButton";new_journey_btn.add_theme_font_size_override("font_size",TYPE.CONTROL)
+    var pause_btn: Button = ui._button(ui.settings,"暂停 / 退出",Vector2(314,381),Vector2(138,28),func():
+        if ui.level!=null and is_instance_valid(ui.level) and ui.level.has_method("_open_pause_menu"):
+            ui.level._close_overlays()
+            ui.level._open_pause_menu())
+    pause_btn.name="PauseMenuButton";pause_btn.add_theme_font_size_override("font_size",TYPE.CONTROL)
     for slot_index in 3:
         var slot:=slot_index+1
         ui.save_slot_buttons[slot]=ui._button(ui.settings,"存档槽 %d" % slot,Vector2(34+slot_index*219,573),Vector2(206,30),func():ui._select_save_slot(slot))
