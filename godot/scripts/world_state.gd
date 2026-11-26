@@ -357,9 +357,9 @@ static func _valid_data(value: Variant) -> bool:
     var cur_val: Variant = value.get("currency")
     if not _whole(cur_val) or int(cur_val) > MAX_CURRENCY:
         return false
-    if not _whole(hp_val) or int(hp_val) > MAX_HP:
+    if not _number(hp_val, true) or float(hp_val) > float(MAX_HP):
         return false
-    if not _whole(en_val) or int(en_val) > MAX_ENERGY:
+    if not _number(en_val, true) or float(en_val) > float(MAX_ENERGY):
         return false
     return _json_value(value)
 
