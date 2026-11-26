@@ -71,7 +71,13 @@ static func update_animation(player: Node, _input_axis: float) -> void:
     if player.hurt_timer > 0.0:
         player._play(&"hurt")
     elif player.heal_timer > 0.0:
-        player._pose_progress(&"heal", 1.0 - player.heal_timer / maxf(player.heal_duration, 0.01))
+        var heal_anim: StringName = &"heal"
+        var crest_id := String(player._crest())
+        if not player.is_on_floor() and player._has_pose(StringName("%s_air_heal" % crest_id)):
+            heal_anim = StringName("%s_air_heal" % crest_id)
+        elif player._has_pose(StringName("%s_heal" % crest_id)):
+            heal_anim = StringName("%s_heal" % crest_id)
+        player._pose_progress(heal_anim, 1.0 - player.heal_timer / maxf(player.heal_duration, 0.01))
     elif player.guard_timer > 0.0:
         player._pose_progress(&"guard", 1.0 - player.guard_timer / maxf(player.guard_initial_duration, 0.01))
     elif player.attack_timer > 0.0:
@@ -149,6 +155,13 @@ static func update_attack_pose(player: Node) -> void:
             animation = &"up_attack" if player.attack_started_grounded or not player._has_pose(&"air_up_attack") else &"air_up_attack"
         elif not player.is_on_floor(): animation = &"air_attack"
         elif player.run_attack_pose and player.current_attack == &"attack_1": animation = &"run_attack"
+        if animation in [&"attack_1", &"attack_2", &"down_attack", &"ground_down_attack"]:
+            var crest_id := String(player._crest())
+            var seal_anim := StringName("%s_%s" % [crest_id, String(animation)])
+            if player._has_pose(seal_anim):
+                animation = seal_anim
+            elif animation == &"ground_down_attack" and player._has_pose(StringName("%s_down_attack" % crest_id)):
+                animation = StringName("%s_down_attack" % crest_id)
     var elapsed = player.attack_duration - player.attack_timer
     var progress := 0.0
     if kind == "tool":
