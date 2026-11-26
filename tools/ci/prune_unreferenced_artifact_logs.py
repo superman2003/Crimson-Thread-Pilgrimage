@@ -77,9 +77,26 @@ def find_unreferenced(root: Path = ROOT, tracked_paths: list[str] | None = None)
                 for m in pat_base.findall(txt):
                     ref_basenames.add(m)
 
+    # Protect logs explicitly cited by retained JSON manifests/reports under artifacts/.
+    artifacts_dir = root / "artifacts"
+    if artifacts_dir.is_dir():
+        for manifest in artifacts_dir.rglob("*.json"):
+            try:
+                txt = manifest.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
+                continue
+            for m in pat_path.findall(txt):
+                cleaned = m.rstrip('.,;:)"\'`')
+                if pat_dynamic.search(cleaned):
+                    dynamic_patterns.add(pat_dynamic.sub("*", cleaned))
+                else:
+                    ref_paths.add(cleaned)
+
     tracked = tracked_paths
     if tracked is None:
-        tracked = subprocess.check_output(["git", "ls-files", "artifacts/"], cwd=root, text=True).splitlines()
+        tracked = subprocess.check_output(
+            ["git", "ls-files", "artifacts/"], cwd=root, text=True, encoding="utf-8"
+        ).splitlines()
     candidates = [f for f in tracked if f.startswith("artifacts/") and f.endswith(TARGET_EXTS)]
 
     unreferenced: list[str] = []

@@ -34,12 +34,17 @@ class ArtifactPrunerTests(unittest.TestCase):
         (self.root / "tools/read_legacy.py").write_text(
             'open("shared.log")\n', encoding="utf-8"
         )
+        (self.root / "artifacts/retained").mkdir(parents=True, exist_ok=True)
+        (self.root / "artifacts/retained/verification.json").write_text(
+            '{"log": "artifacts/retained/diagnostics/run.log.gz"}\n', encoding="utf-8"
+        )
 
         self.tracked = [
             "artifacts/exact/keep.log",
             "artifacts/ci_used/contract.log",
             "artifacts/ch01/dynamic.log",
             "artifacts/archive/shared.log",
+            "artifacts/retained/diagnostics/run.log.gz",
             "artifacts/unreferenced/run.log",
             "artifacts/unreferenced/image.png",
             "docs/unrelated.log",
