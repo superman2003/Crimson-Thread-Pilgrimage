@@ -59,6 +59,8 @@ static func apply(target: String) -> bool:
         var main_loop := Engine.get_main_loop()
         if main_loop != null:
             main_loop.notification(MainLoop.NOTIFICATION_TRANSLATION_CHANGED)
+    if DisplayServer.get_name() != "headless":
+        DisplayServer.window_set_title("Crimson Thread Pilgrimage" if target == "en" else "绯线巡礼 - 互联世界")
     return true
 
 ## Reads the saved choice. A fresh installation stays in Chinese whatever the

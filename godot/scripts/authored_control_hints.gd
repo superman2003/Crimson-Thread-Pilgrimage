@@ -12,7 +12,7 @@ static func template(text: String) -> String:
             var expression:=RegEx.new()
             expression.compile("按 "+key+"(?![A-Za-z0-9_])")
             patterns[key]=expression
-        var hold:=RegEx.new();hold.compile("长按 E(?![A-Za-z0-9_])")
+        var hold:=RegEx.new();hold.compile("长按 E" + "(?![A-Za-z0-9_])")
         patterns["hold"]=hold
     var result: String=patterns.hold.sub(text,"按住 {key:lantern_phase}",true)
     for key in LEGACY:result=patterns[key].sub(result,"按 {key:"+String(LEGACY[key])+"}",true)

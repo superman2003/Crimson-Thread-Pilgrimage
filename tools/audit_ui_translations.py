@@ -13,6 +13,18 @@ PATH = ROOT / 'godot/data/ui_translations.json'
 FORMAT = re.compile(r'%(?:%|[+#0-]*\d*(?:\.\d+)?[sdifxXoc])')
 NAMED = re.compile(r'\{[a-zA-Z_][a-zA-Z_\d:]*\}')
 MARKUP = re.compile(r'\[/?(?:b|i|color|font_size|center|url)(?:=[^\]]+)?\]')
+CJK_PUNCT = re.compile(r'[，。！？；：（）【】《》、]')
+FORBIDDEN_MT = (
+    (re.compile(r'\binvincible group\b', re.I), 'mistranslation: "无敌群" means no enemy horde, not invincible group'),
+    (re.compile(r'\b(?:spork master|candle caster)\b', re.I), 'mistranslation: "孢钟匠" must be Spore Bellmaker'),
+    (re.compile(r'\bbell fingers\b', re.I), 'mistranslation: "钟舌" must be bell clapper'),
+    (re.compile(r'\bslow subtitles for large characters\b', re.I), 'mistranslation: "大字慢字幕" means large text & slow subtitles'),
+    (re.compile(r'\b(?:clockboard|clock hands|clock moths|sleepless clock|clock tide|clock path)\b', re.I), 'mistranslation: bell term rendered as clock'),
+    (re.compile(r'\b(?:rainforge|rain cast)\b', re.I), 'terminology drift: use Rain Foundry'),
+    (re.compile(r'\bsalt white\b'), 'terminology drift: use Saltwhite'),
+    (re.compile(r'\b(?:bell niche|chime shrine)\b', re.I), 'terminology drift: use Bell Shrine'),
+    (re.compile(r'\bweapon slot\b', re.I), 'terminology drift: use Tool slot'),
+)
 
 
 def entry_errors(source, text):
@@ -21,6 +33,13 @@ def entry_errors(source, text):
     errors = []
     if HAN.search(text):
         errors.append('English still contains Chinese')
+    if CJK_PUNCT.search(text):
+        errors.append('English contains fullwidth CJK punctuation')
+    if '不推定为空槽' in source and 'likely an empty slot' in text.lower():
+        errors.append('inverted warning meaning for empty slot')
+    for pattern, reason in FORBIDDEN_MT:
+        if pattern.search(text):
+            errors.append(reason)
     if FORMAT.findall(source) != FORMAT.findall(text):
         errors.append('format fields changed')
     if Counter(NAMED.findall(source)) != Counter(NAMED.findall(text)):
@@ -63,6 +82,12 @@ def main():
         assert entry_errors('松脂 %d', 'Resin')
         assert entry_errors('按 {key:jump}', 'Press {key:dash}')
         assert entry_errors('旅记', 'Journal 旅记')
+        assert entry_errors('安全工房无敌群', 'Invincible group in the safety workshop')
+        assert entry_errors('旧记录未说明；不推定为空槽', 'Old records are not specified; likely an empty slot')
+        assert entry_errors('孢钟匠', 'Candle Caster')
+        assert entry_errors('钟龛', 'bell niche')
+        assert entry_errors('雨铸匠', 'Rainforge Smith')
+        assert entry_errors('说明', 'Note，with CJK comma')
         print('UI_TRANSLATIONS self-test OK')
         return 0
     data = json.loads(PATH.read_text(encoding='utf-8'))

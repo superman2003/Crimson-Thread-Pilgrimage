@@ -233,6 +233,7 @@ func finish(note: String = "") -> String:
     if not note.is_empty():
         paragraph(note)
     var final_height := clampf(maxf(height, cursor + 35), 200, 10000)
+    var svg_title := preload("res://scripts/ui_language.gd").text("巡礼工作台辅助报告")
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" width="'
         + n(width)
@@ -242,7 +243,9 @@ func finish(note: String = "") -> String:
         + n(width)
         + " "
         + n(final_height)
-        + '" role="img"><title>巡礼工作台辅助报告</title><rect width="100%" height="100%" fill="#102323"/><g font-family="Noto Serif CJK SC, Microsoft YaHei, sans-serif">'
+        + '" role="img"><title>'
+        + svg_title
+        + '</title><rect width="100%" height="100%" fill="#102323"/><g font-family="Noto Serif CJK SC, Microsoft YaHei, sans-serif">'
         + "\n".join(commands)
         + "</g></svg>"
     )

@@ -5,6 +5,10 @@ extends RefCounted
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 static func on_hp_changed(level: Node, value: int) -> void:
+    var prev_hp := int(level.get_meta("_echo_prev_hp", value))
+    if String(level.config.get("id", "")) == "demo_ch06_silent_crown_core" and value < prev_hp and String(level.current_room_id).begins_with("echo_"):
+        level.set_meta("_echo_room_damaged", true)
+    level.set_meta("_echo_prev_hp", value)
     # 濒死混音态（规格 §5.5）：HP==1 挂低通，回升或死亡即摘除。
     level._set_low_hp_audio(value == 1)
     if value <= 0:

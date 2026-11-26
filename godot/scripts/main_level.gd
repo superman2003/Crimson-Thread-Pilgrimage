@@ -119,7 +119,7 @@ const ROOM_MAP_COPY := {
     "boss_chamber": {
         "objective": "Ring the boss gate and defeat the Rust Crown Guardian.",
         "guide": "All boss attacks are body-range charges, slams, or stomps.",
-        "danger": "Keep 60 energy ready for a right-click heal.",
+        "danger": "Keep enough thread ready to mend wounds with Right Click.",
         "next": "Route to Chapter 2."
     }
 }
@@ -145,8 +145,8 @@ const NPC_DISPLAY_NAMES := {
 
 const NPC_DIALOGUE := {
     "threadsmith": [
-        "Left click slashes. Right click spends 60 energy to mend 1 HP.",
-        "E spends 30 energy for Thread Burst. F talks, pulls levers, and rings gates.",
+        "Left click slashes. Right click spends thread to mend wounds according to your equipped seal.",
+        "Cast your equipped Thread Skill when thread is charged. F talks, pulls levers, and rings gates.",
         "Moss Bell Court is only the first lost mark on the pilgrimage."
     ],
     "pilgrim": [
@@ -167,7 +167,7 @@ const NPC_DIALOGUE := {
     "scout": [
         "The lamp ahead is false. Your real safety is the checkpoint behind you.",
         "The Rust Crown has no ranged spells, only charges, body checks, and stomps.",
-        "Keep 60 energy for a right-click heal. Greedy attacks get punished."
+        "Keep enough thread ready for a right-click mend. Greedy attacks get punished."
     ]
 }
 

@@ -41,7 +41,7 @@ export const NPC_STORY = [
     },
     dialogue_meta: {
       ability_ref: "thread_dash", testimony_ref: "testimony_01", quest_flag: "",
-      leave: { condition: "ending_c_done", effect: "残影淡去；教学三句由 npc_bellway_weaver 缝入 bellbone_station 钟绳（环境交互）" },
+      leave: { condition: "ending_c_done", effect: "残影淡去；教学三句缝入钟骨旧站的垂绳（环境交互）" },
     },
     identity: "年轻织线匠的残影，守在入庭钟门，确认新巡礼者是否还能感知绯线。",
     motive: "不想看见后来者在第一座庭院就被王冠消耗掉。",

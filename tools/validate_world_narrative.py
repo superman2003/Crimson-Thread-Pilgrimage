@@ -79,6 +79,28 @@ def validate() -> None:
         assert set(scene['endings']) == set(data['endings']), f"{scene['region']}: every ending changes this region"
         for ending_id, variant in scene['endings'].items():
             assert variant['look'] in {'bells', 'barrier', 'names'} and variant['line'] and variant['text'], f"{scene['region']}/{ending_id}: incomplete aftermath"
+    # G-08 content polish invariants: no "试玩章" in shipped region names, no
+    # dangling npc_bellway_weaver reference, and every wish_board target_flag
+    # must have a live setter in world_narrative.json or godot/scripts/.
+    script_corpus = '\n'.join(p.read_text(encoding='utf-8', errors='ignore') for p in (ROOT / 'godot/scripts').glob('*.gd'))
+    narrative_grant_flags = {
+        flag
+        for npc in data['npcs'].values()
+        for state in npc.get('states', [])
+        for flag in state.get('grant_flags', [])
+    }
+    for chapter in configs:
+        assert '试玩章' not in str(chapter.get('name', '')), f"{chapter['id']}: region name still contains 试玩章"
+        assert 'npc_bellway_weaver' not in json.dumps(chapter, ensure_ascii=False), f"{chapter['id']}: dangling npc_bellway_weaver reference"
+        for wish in chapter.get('wish_board', []):
+            target_flag = str(wish.get('target_flag', ''))
+            assert target_flag and (target_flag in narrative_grant_flags or f'"{target_flag}"' in script_corpus), (
+                f"{chapter['id']}: wish_board entry {wish.get('id')} target_flag {target_flag!r} has no runtime setter"
+            )
+    routes = json.loads((ROOT / 'godot/data/world_routes.json').read_text(encoding='utf-8'))
+    for region_id, overlay in routes.get('chapters', {}).items():
+        for portal in overlay.get('portals', []):
+            assert '试玩章' not in str(portal.get('label', '')), f"{region_id}/{portal.get('id')}: portal label still contains 试玩章"
     print(f'WORLD_NARRATIVE_DATA_PASS npcs={len(data["npcs"])} states={count} evidence=6 rewards={len(reward_flags)} aftermath={len(scenes)}')
 
 
