@@ -14,16 +14,18 @@ static func build_audio(level: Node) -> void:
 static func begin_audio(level: Node) -> void:
     if level.config.is_empty():
         return
-    level._ensure_audio_buses()
-    # The reverb is a setting of the shared buses: a destination built while the
-    # source region is still audible applies it at handover (W00 stage 3).
-    if level.world_loader == null or not level.world_loader.staging_building():
+    # The buses and reverb are shared global audio state: a destination built
+    # hidden while the source region is still audible takes ownership at handover.
+    var staging_hidden: bool = level.world_loader != null and level.world_loader.staging_building()
+    if not staging_hidden:
+        level._ensure_audio_buses()
         level._apply_chapter_reverb(String(level.config.get("id", "")))
     # AudioDirector 一期：不注册 autoload，由本函数实例化挂树（headless 验证脚本
     # 不跑主场景时 instance 保持 null，各薄封装回退旧行为）。
     level.audio_director = AUDIO_DIRECTOR_SCRIPT.new()
     level.audio_director.name = "AudioDirector"
     level.audio_director.autoplay_enabled = level._should_autoplay_audio()
+    level.audio_director.claim_singleton = not staging_hidden
     LEVEL_HOST.region_parent(level).add_child(level.audio_director)
     if level._should_autoplay_audio():
         # 探索播放器仍叫 BgmPlayer、挂本节点、bus=BGM（audio_visual_validation 口径）。

@@ -231,23 +231,37 @@ func _run() -> void:
 		_hold_source()
 		await _frames(2)
 		var before := _source_fingerprint()
+		var src_audio: Node = scene.audio_director
+		var audio_script := preload("res://scripts/audio_director.gd")
+		_check(audio_script.instance == src_audio, label + " source AudioDirector holds singleton before staging")
 		# 1. A hidden build cancelled part-way leaves nothing behind.
 		loader.stage_region_async(scene, ROUTES.config_path(id), _entry(id))
 		var frames := 0
 		var touched := ""
+		var audio_stolen := false
 		while loader.phase == "staging" and int(loader.last_transition.get("build_cursor", 0)) < 6 and frames < 4000:
 			await process_frame
 			frames += 1
+			if audio_script.instance != src_audio:
+				audio_stolen = true
 			if touched.is_empty():
 				touched = _differences(before, _source_fingerprint())
 		_check(loader.phase == "staging" and not loader.staging.is_empty(), label + " hidden build reaches its build jobs")
+		_check(not audio_stolen and audio_script.instance == src_audio, label + " hidden build never steals AudioDirector singleton")
 		_check(touched.is_empty(), label + " source untouched while the build runs (" + touched + ")")
 		loader.cancel_staging()
+		var saved_currency := int(scene.world_state.data.get("currency", 0))
+		scene.world_state.data["currency"] = saved_currency + 17
 		frames = 0
 		while (loader.phase != "idle" or loader.staging_retiring > 0) and frames < 4000:
 			await process_frame
 			frames += 1
+		var post_cancel_currency := int(scene.world_state.data.get("currency", 0))
+		scene.world_state.data["currency"] = saved_currency
+		_check(post_cancel_currency == saved_currency + 17, label + " cancel unwind does not clobber live world_state edits")
 		_check(loader.phase == "idle" and loader.staging.is_empty() and loader.staging_retiring == 0, label + " cancelled build unwinds")
+		_check(loader._startup_frame_tree == null, label + " idle loader disconnects startup frame listener")
+		_check(is_instance_valid(src_audio) and audio_script.instance == src_audio, label + " cancelled build preserves source AudioDirector singleton")
 		_check(_containers() == ["Region"], label + " cancelled build leaves no container (" + ",".join(_containers()) + ")")
 		var after_cancel := _differences(before, _source_fingerprint())
 		_check(after_cancel.is_empty(), label + " source identical after a cancelled build (" + after_cancel + ")")
@@ -282,6 +296,7 @@ func _run() -> void:
 		scene.player.set_physics_process(true)
 		var handed: bool = await loader.handover_staged_async(scene, _entry(id))
 		_check(handed and loader.phase == "idle" and loader.staging.is_empty(), label + " handover completes")
+		_check(audio_script.instance == scene.audio_director and loader._startup_frame_tree == null, label + " handover activates destination AudioDirector singleton and disconnects frame listener")
 		_check(scene.world_gameplay_residency.generation == loader.generation, label + " residency follows the published generation")
 		_check(String(scene.world_state.data.get("current_region", "")) == id, label + " arrival saved the destination")
 		_check(scene.active_spawn.distance_to(checkpoint) < 1.0 and scene.active_save_point_id == checkpoint_id,

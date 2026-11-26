@@ -15,9 +15,11 @@ static func constrain(actor: Area2D, start: Vector2, finish: Vector2) -> Vector2
     query.motion = motion; query.collision_mask = 1
     query.collide_with_areas = false
     query.exclude = [actor.get_rid()]
-    var player := actor.get_tree().get_first_node_in_group("player") as CharacterBody2D
-    if is_instance_valid(player):
-        query.exclude.append(player.get_rid())
+    var tree := actor.get_tree()
+    if tree != null:
+        for node in tree.get_nodes_in_group("player"):
+            if node is CollisionObject2D and is_instance_valid(node):
+                query.exclude.append((node as CollisionObject2D).get_rid())
     query.margin = 0.5
     var fractions := actor.get_world_2d().direct_space_state.cast_motion(query)
     var fraction := float(fractions[0]) if fractions.size() == 2 else 0.0

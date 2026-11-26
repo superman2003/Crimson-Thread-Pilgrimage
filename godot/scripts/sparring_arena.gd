@@ -18,6 +18,7 @@ var finished:=false
 var closing:=false
 var elapsed:=0.0
 var hits:=0
+var last_hp:=0
 var record: Dictionary={}
 var on_return: Callable
 
@@ -38,7 +39,8 @@ func begin(real_level: Node,plan: Dictionary,callback: Callable) -> void:
     player.build_system=build;player.apply_build_stats(build.profile());player.selected_skill=build.selected_skill()
     for property in ["dash_unlocked","wall_grip_unlocked","double_jump_unlocked","thread_grapple_unlocked","bell_guard_unlocked","thorn_downstrike_unlocked","lantern_phase_unlocked","crown_resonance_unlocked"]:player.set(property,level.player.get(property))
     player.hp=player.max_hp;player.energy=player.max_energy;player.set_spawn(player.position)
-    player.hp_changed.connect(func(_hp: int):hits+=1)
+    last_hp=int(player.hp)
+    player.hp_changed.connect(_on_player_hp_changed)
     player.player_respawned.connect(func():finish(false,"练习角色倒下"))
     var camera: Camera2D=player.get_node("Camera2D");camera.position_smoothing_enabled=false;camera.make_current()
     var canvas:=CanvasLayer.new();canvas.layer=100;add_child(canvas)
@@ -70,6 +72,10 @@ func _next_wave() -> void:
         actor.position=ORIGIN+Vector2(140+index*180,0);actor.set_meta("sparring_actor",true);add_child(actor)
         alive.append(actor);actors.append(actor)
         actor.died.connect(func(_id: String,_boss: bool,_kind: String):_defeated(actor))
+
+func _on_player_hp_changed(new_hp: int) -> void:
+    if new_hp<last_hp:hits+=1
+    last_hp=new_hp
 
 func _defeated(actor: Area2D) -> void:
     if finished or not alive.has(actor):return

@@ -15,7 +15,14 @@ NAMED = re.compile(r'\{[a-zA-Z_][a-zA-Z_\d:]*\}')
 MARKUP = re.compile(r'\[/?(?:b|i|color|font_size|center|url)(?:=[^\]]+)?\]')
 SEMANTIC_GUARDS = {
     '装备': 'Equipment',
+    '绯线攀壁': 'Crimson Wall Climb',
+    '荆棘下刺': 'Thorn Downstrike',
+    '线技费用倍率': 'Thread Art Cost Multiplier',
     '入口会在战斗时封闭。': 'The entrance closes during combat.',
+    '击败苔脉守卫，取回绯线冲刺。': 'Defeat the Moss Vein Guardian and claim Crimson Dash.',
+    '击败苔钟守母，取回王冠裂片。': 'Defeat the Moss Bell Matriarch and claim the Crown Shard.',
+    '假苔地板一踩就塌。': 'The false moss floor collapses as soon as you step on it.',
+    '巡礼战车沿古道往返。': 'Pilgrim war chariots patrol back and forth along the old road.',
     '用已取得能力、已获装备、已知任务和持有物资建立成长观察快照，比较两次观察间的变化。个人目标只引用已知条目，不授予成长或自动跟踪未知目标。':
         'Create a growth snapshot from acquired abilities, equipment, known quests, and carried supplies, then compare two observations. Personal goals reference known entries only. They grant no growth and do not track unknown goals.',
 }

@@ -135,6 +135,23 @@ class Parsing(unittest.TestCase):
         install = contract.steps[0].script
         self.assertIn('ln -sf "$CONTRACT_GODOT_ZIP" "$RUNNER_TEMP/godot.zip"', install)
 
+    def test_bare_hydrate_runtime_assets_uses_runtime_includes(self):
+        bare = textwrap.dedent("""\
+name: Hydrate default
+"on":
+  pull_request:
+    paths: ['godot/**']
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          python3 tools/hydrate_runtime_assets.py
+          echo ok
+""")
+        contract = self.load(bare)
+        self.assertEqual(contract.lfs_includes, {"godot/assets/**", "godot/addons/MetroidvaniaSystem/**"})
+
 
 class Selection(unittest.TestCase):
     def test_github_glob_semantics(self):
@@ -177,6 +194,7 @@ class Selection(unittest.TestCase):
         self.assertEqual(len(c.plan(contracts, ["godot/a.gd"], "pull_request", 2, timings=timings)["shards"]), 2)
 
 
+@unittest.skipIf(os.name != "posix", "contract execution relies on Ubuntu bash and POSIX symlinks")
 class Running(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())

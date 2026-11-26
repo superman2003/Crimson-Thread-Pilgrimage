@@ -73,6 +73,20 @@ func run() -> void:
     var legacy_keys: Dictionary=desk.model.quote("夜间阅读",ui,3)
     check(legacy_keys.ok and desk.model.apply("夜间阅读",ui,3,legacy_keys.snapshot).ok and ui.accessibility.subtitle_size==19,
         "legacy input-only application succeeds without changing accessibility settings")
+    desk.selected="夜间阅读"
+    desk.scope.select(0)
+    desk.ask("apply")
+    desk._confirm()
+    check(ui.accessibility.subtitle_size==17 and CODEC.capture({"build_menu":"Build"}).build_menu==build_binding,
+        "legacy profile applies through the UI desk confirm flow while preserving current build binding")
+    var f9:=InputEventKey.new();f9.physical_keycode=KEY_F9;f9.keycode=KEY_F9;f9.pressed=true
+    Input.parse_input_event(f9)
+    main._process(0.016)
+    var f9_up: InputEventKey=f9.duplicate();f9_up.pressed=false
+    Input.parse_input_event(f9_up)
+    main.world_new_key_held=false
+    check(main.active_overlay=="settings" and (main.new_journey_dialog==null or not main.new_journey_dialog.visible),
+        "F9 new-journey shortcut is blocked while another overlay is active")
     ui.accessibility.subtitle_size=17
     var conflicting:=custom.duplicate(true)
     var attack_events: Array=InputMap.action_get_events("attack")

@@ -108,7 +108,12 @@ class CreditsCatalogTests(unittest.TestCase):
         source = self.root / 'real-license'
         source.write_text('MIT\n', encoding="utf-8")
         (self.root / 'LICENSE').unlink()
-        (self.root / 'LICENSE').symlink_to(source)
+        try:
+            (self.root / 'LICENSE').symlink_to(source)
+        except OSError as error:
+            if getattr(error, 'winerror', None) == 1314:
+                self.skipTest('symlink creation requires elevated privilege or Developer Mode on Windows')
+            raise
         with self.assertRaises(ValueError):build(self.root)
         (self.root / 'LICENSE').unlink()
         (self.root / 'LICENSE').write_text('MIT\n', encoding="utf-8")

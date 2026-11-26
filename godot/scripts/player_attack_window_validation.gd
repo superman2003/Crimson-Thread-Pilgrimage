@@ -56,5 +56,52 @@ func run() -> void:
     check(not WINDOW.intersects(0.2, 0.3, 0.1, 0.1), "end boundary cannot reopen window")
     check(WINDOW.intersects(0.0, 0.1, 0.1, 0.1), "begin boundary is inclusive")
     check(not WINDOW.intersects(0.0, 1.0, 0.1, 0.0), "zero active tool windup never becomes a hit")
+    # Regression checks for cleave horizontal direction, shockwave additive stagger, and resonance damage.
+    for action_name in ["move_left", "move_right", "aim_up", "aim_down"]:
+        if not InputMap.has_action(action_name):
+            InputMap.add_action(action_name)
+    var floor_body := StaticBody2D.new()
+    var floor_shape := CollisionShape2D.new()
+    var floor_rect := RectangleShape2D.new()
+    floor_rect.size = Vector2(400, 20)
+    floor_shape.shape = floor_rect
+    floor_body.position = Vector2(0, 20)
+    floor_body.add_child(floor_shape)
+    root.add_child(floor_body)
+    var ability_player := player()
+    var body_shape := CollisionShape2D.new()
+    var body_rect := RectangleShape2D.new()
+    body_rect.size = Vector2(20, 20)
+    body_shape.shape = body_rect
+    ability_player.add_child(body_shape)
+    ability_player.position = Vector2(0, 0)
+    ability_player.energy = 100
+    ability_player.max_energy = 100
+    ability_player.attack_timer = 0.0
+    ability_player.facing = -1
+    ability_player.current_attack_direction = Vector2.DOWN
+    ability_player.selected_skill = {"id": "cleave", "kind": "melee", "energy_cost": 10, "damage": 2, "range": 120.0, "windup": 0.1, "active": 0.1, "recovery": 0.1, "cooldown": 0.1}
+    check(ability_player.cast_selected_skill() and ability_player.current_attack_direction == Vector2(-1, 0),
+        "cleave forces horizontal attack direction rather than vertical aim")
+    ability_player.attack_timer = 0.0
+    ability_player.skill_cooldown = 0.0
+    ability_player.velocity = Vector2(0, 120)
+    await physics_frame
+    ability_player.move_and_slide()
+    ability_player.build_profile = {"crest_id": "bell", "mechanism_unlocked": true}
+    ability_player.bell_pressure = 2
+    ability_player.selected_skill = {"id": "shockwave", "kind": "shockwave", "energy_cost": 10, "damage": 2, "stagger": 0.4, "range": 140.0, "windup": 0.1, "active": 0.1, "recovery": 0.1, "cooldown": 0.1}
+    check(ability_player.is_on_floor() and ability_player.cast_selected_skill() and is_equal_approx(float(ability_player.active_skill.get("stagger", 0.0)), 1.0),
+        "shockwave bell pressure adds to base stagger instead of overwriting Branch B stagger")
+    ability_player.attack_timer = 0.0
+    ability_player.skill_cooldown = 0.0
+    ability_player.resonance_cooldown = 0.0
+    ability_player.crown_resonance_unlocked = true
+    ability_player.attack_damage = 5
+    ability_player.bell_pressure = 2
+    check(ability_player._try_resonance() and ability_player.attack_damage == 1,
+        "crown resonance uses its own damage instead of inheriting attack_2 damage")
+    ability_player.free()
+    floor_body.free()
     print("PLAYER_ATTACK_WINDOW checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)

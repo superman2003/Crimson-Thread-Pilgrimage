@@ -37,6 +37,12 @@ func run() -> void:
 	(arena.player as PracticePlayer).accept_cast = true
 	check(arena._use_tool() and int(arena.build.state.tool_counts.shard) == 0,
 		"an accepted practice cast consumes exactly one cloned charge")
+	arena.last_hp = 5
+	arena.hits = 0
+	arena._on_player_hp_changed(4)
+	check(arena.hits == 1, "taking damage increments sparring hit counter")
+	arena._on_player_hp_changed(5)
+	check(arena.hits == 1, "healing upward does not increment sparring hit counter")
 	arena.build = null
 	arena.free()
 	await process_frame

@@ -567,10 +567,8 @@ func _draw_above_region() -> void:
 
 func _return_to_source(cancelled: bool) -> void:
     host.player.prepare_region_handoff()
-    var unwinding := false
     if staged:
         staged = false
-        unwinding = host.world_loader.phase == "staging"
         host.world_loader.cancel_staging()
     if cancelled:
         host.player.global_position = source_point
@@ -588,10 +586,7 @@ func _return_to_source(cancelled: bool) -> void:
     host._configure_player_camera()
     host.player.reset_camera_after_arrival()
     host.nearby_interactable = null
-    if unwinding:
-        _save_after_unwind(weakref(self), host.world_loader)
-    else:
-        host._save_world()
+    host._save_world()
 
 
 ## A cancelled hidden build restores what it may have changed when it unwinds,

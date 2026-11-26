@@ -214,10 +214,17 @@ var shrine_anchor := Vector2.ZERO
 var shrine_engaged := false
 # A retired preparation must never reacquire playback before eviction completes.
 var region_audio_released := false
+var claim_singleton := true
 
 
 func _ready() -> void:
     landmark_next_ms = Time.get_ticks_msec() + 1200
+    if claim_singleton:
+        activate_singleton()
+
+
+func activate_singleton() -> void:
+    claim_singleton = true
     instance = self
     ensure_sub_buses()
     _load_user_volumes()

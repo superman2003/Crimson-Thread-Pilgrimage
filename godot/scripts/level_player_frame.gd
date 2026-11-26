@@ -12,7 +12,8 @@ static func release_region_audio(level: Node) -> void:
     # Snapshot weak playback/stream handles before stopping and detaching any
     # owned players. AudioServer can retain a completed Ogg voice until its next
     # mix tick, so the shutdown probe drains these exact objects afterward.
-    AUDIO_RETIREMENT_SCRIPT.retire_tree(level)
+    var staging_only: bool = is_instance_valid(level.region_root) and level.region_root.name == "RegionStaging"
+    AUDIO_RETIREMENT_SCRIPT.retire_tree(level.region_root if staging_only else level)
     if level.bgm_player != null:
         level.bgm_player.stop()
         level.bgm_player.stream = null

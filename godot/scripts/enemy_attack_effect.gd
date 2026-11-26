@@ -121,6 +121,7 @@ func _physics_process(delta: float) -> void:
                 LEVEL_HOST.of(self)._ensure_collision_segment(previous, global_position)
             var query := PhysicsRayQueryParameters2D.create(previous,global_position,1)
             query.collide_with_areas=false
+            query.exclude=player_bodies(get_tree())
             var wall := get_world_2d().direct_space_state.intersect_ray(query)
             if LEVEL_HOST.of(self).has_method("_rock_ray_hit"):
                 var rock: Dictionary = LEVEL_HOST.of(self)._rock_ray_hit(previous, global_position)
