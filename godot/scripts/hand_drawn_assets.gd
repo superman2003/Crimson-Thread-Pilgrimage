@@ -32,9 +32,12 @@ static func character_manifests(kind: String, data: Dictionary) -> Array[String]
         # Portraits deliberately keep their original art and original atlas.
         result.append("res://assets/sprites/original_npcs/" + id + "/manifest.json")
     elif kind == "enemy":
-        var path := character_manifest("original_creatures", String(data.get("kind", "moss_larva")))
+        var enemy_kind := String(data.get("kind", "moss_larva"))
+        var path := character_manifest("original_creatures", enemy_kind)
         if not FileAccess.file_exists(path): path = String(data.get("sprite", ""))
         if not path.is_empty(): result.append(path)
+        var role_manifest := "res://assets/sprites/original_creatures/" + enemy_kind + "/role_manifest.json"
+        if FileAccess.file_exists(role_manifest): result.append(role_manifest)
         var skill_manifest := "res://assets/vfx/minor_enemy_skills/manifest.json"
         if FileAccess.file_exists(skill_manifest):
             var skill_path := String(manifest(skill_manifest).get("creatures", {}).get(String(data.get("kind", "")), {}).get("texture", ""))
@@ -174,6 +177,20 @@ static func frames(path: String) -> SpriteFrames:
             var asset := frame(pose)
             if asset != null:
                 result.add_frame(name, asset)
+    if path.begins_with("res://assets/sprites/original_creatures/") and not path.ends_with("/role_manifest.json"):
+        var role_path := path.get_base_dir() + "/role_manifest.json"
+        if FileAccess.file_exists(role_path):
+            for rval in manifest(role_path).get("animations", []):
+                var rname := String(rval.get("name", ""))
+                if rname.is_empty() or result.has_animation(rname):
+                    continue
+                result.add_animation(rname)
+                result.set_animation_speed(rname, float(rval.get("fps", 8)))
+                result.set_animation_loop(rname, bool(rval.get("loop", false)))
+                for rpose in rval.get("frames", []):
+                    var rasset := frame(rpose)
+                    if rasset != null:
+                        result.add_frame(rname, rasset)
     if path.begins_with("res://assets/sprites/original_creatures/") or path.begins_with("res://assets/sprites/original_npcs/"):
         var entries: Dictionary = manifest(LOOP_ENTRIES_PATH).get(path, {})
         if not entries.is_empty():

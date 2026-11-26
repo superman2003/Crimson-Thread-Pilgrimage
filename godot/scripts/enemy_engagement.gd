@@ -98,7 +98,8 @@ static func update_patrol_or_aggro(actor: Node, delta: float, target: CharacterB
             # The reveal itself is the tell: face the player, then act.
             actor.last_ai_decision = "ambush:reveal"
             actor._face_target(target)
-            actor._set_enemy_animation("idle")
+            var rev_anim := "ambush_reveal" if actor.sprite != null and actor.sprite.sprite_frames != null and actor.sprite.sprite_frames.has_animation(&"ambush_reveal") else "idle"
+            actor._set_enemy_animation(rev_anim)
             return
         if actor._boss_behavior_enabled():
             actor._ensure_boss_brain()
@@ -142,7 +143,8 @@ static func return_to_post(actor: Node, delta: float, waiting_decision: String) 
     var dx = actor.spawn_position.x - actor.global_position.x
     if actor.locomotion == "stationary" or absf(dx) <= 6.0:
         actor.last_ai_decision = waiting_decision
-        actor._set_enemy_animation("idle")
+        var wait_anim := "ambush_lurk" if waiting_decision == "lurk" and actor.sprite != null and actor.sprite.sprite_frames != null and actor.sprite.sprite_frames.has_animation(&"ambush_lurk") else "idle"
+        actor._set_enemy_animation(wait_anim)
         return
     actor.last_ai_decision = "return_post"
     actor.direction = -1 if dx < 0.0 else 1
@@ -157,6 +159,8 @@ static func raise_alarm(actor: Node, target: CharacterBody2D) -> void:
     actor.alarm_cooldown = actor.ALARM_COOLDOWN
     actor.alarm_alerted = 0
     actor._role_cue("alarm_call")
+    if actor.sprite != null and actor.sprite.sprite_frames != null and actor.sprite.sprite_frames.has_animation(&"alarm_call"):
+        actor._set_enemy_animation("alarm_call", true)
     for node in actor.get_tree().get_nodes_in_group("enemy"):
         if node == actor or not is_instance_valid(node) or node.is_queued_for_deletion() or not node.has_method("hear_alarm"):
             continue
@@ -215,7 +219,8 @@ static func try_start_support(actor: Node) -> bool:
     # Directional clips read attack_direction while channeling; face the ally.
     actor._face_target(chosen)
     actor.attack_direction = actor.direction
-    actor._set_enemy_animation("attack", true)
+    var sup_anim := "support_channel" if actor.sprite != null and actor.sprite.sprite_frames != null and actor.sprite.sprite_frames.has_animation(&"support_channel") else "attack"
+    actor._set_enemy_animation(sup_anim, true)
     actor._pose_sprite("windup")
     actor._fit_animation_duration(actor.SUPPORT_WINDUP)
     actor._role_cue("support_mend")
