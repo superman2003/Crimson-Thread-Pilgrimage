@@ -2,6 +2,7 @@ extends Node
 ## Own only the final OS close boundary; ordinary region/scene retirement is unchanged.
 const RETIREMENT := preload("res://scripts/audio_retirement.gd")
 const AUDIO := preload("res://scripts/audio_director.gd")
+const HAND_DRAWN_ASSETS := preload("res://scripts/hand_drawn_assets.gd")
 const OWNER_NAME := "PilgrimageApplicationClose"
 var closing := false
 
@@ -40,6 +41,7 @@ func _close_requested() -> void:
     await tree.process_frame
     AUDIO._stream_cache.clear()
     AUDIO._npc_voice_cache.clear()
+    HAND_DRAWN_ASSETS.clear_caches()
     var drained := await RETIREMENT.drain(tree)
     if OS.is_stdout_verbose():
         print("APPLICATION_CLOSE drained=%s pending=%d" % [str(drained), RETIREMENT.pending.size()])

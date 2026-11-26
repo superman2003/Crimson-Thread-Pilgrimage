@@ -85,4 +85,4 @@ Only the files actually used are vendored; each subdirectory carries the pack's 
 - Kenney RPG Audio
   - Source: https://kenney.nl/assets/rpg-audio
   - Local path: `godot/assets/audio/sfx/kenney/rpg` (5 of 50 files)
-  - Project usage: texture layers over existing events — lever metal latch, shortcut door open, coin-handle layer for currency pickups, cloth layer for item pickups (existing Bread Adventure OGGs are kept, layered not replaced).
+  - Project usage: texture layers over existing events — lever metal latch, shortcut door open, coin-handle layer for currency pickups, cloth layer for item pickups (layered over the project-generated CC0 core SFX OGGs that replaced the earlier Bread Adventure OGGs on 2026-07-26).

@@ -8,7 +8,8 @@ This project uses third-party assets and plugins under their own licenses. The g
 |---|---|---|---|
 | Kenney assets | `godot/assets/third_party/kenney_*`, `godot/assets/sprites/ui/kenney` | CC0 1.0 | UI, platform tiles, props |
 | GothicVania Cemetery / Ansimuz | `godot/assets/third_party/gothicvania_cemetery`, `godot/assets/sprites/gothicvania` | Public Domain / commercial-friendly local record | CH01 redistributable art, cemetery backgrounds, player/demo sprites |
-| Dark Fantasy Platformer Bestiary | `godot/assets/third_party/dark_fantasy_bestiary` | Creative Commons Attribution; see local NOTICE and original OpenGameArt page | Enemy and boss runtime keyframes |
+| Dark Fantasy Platformer Bestiary | `godot/assets/third_party/dark_fantasy_bestiary` | Creative Commons Attribution; see local NOTICE and original OpenGameArt page | Historical enemy reference keyframes (excluded from desktop release `.pck` exports after original hand-drawn creature art replaced them) |
+| Bread Adventure (texture-derived materials) | See `godot/assets/NOTICE.md` | Apache License 2.0 | Historical texture-derived platform materials; all 13 audio files originally from this pack were replaced on 2026-07-26 by project-generated CC0 synthesis |
 | Godot Platformer 2D | `godot/assets/third_party/godot_platformer_2d` | MIT | Chapter 6 background elements |
 | Metroidvania System | `godot/addons/MetroidvaniaSystem` | MIT | Map/metroidvania plugin |
 
@@ -122,3 +123,19 @@ provenance are `boss_behavior_v1.png/json` beside each Boss. A derived manifest
 adds these clips while retaining the original combat atlas and pose timing.
 No Hollow Knight/Silksong or Phantom Blade Zero code, sprites or audio are
 included. Their disclosed or observed behavior is a design reference only.
+
+## Project-authored & AI-assisted visual and voice packs
+
+The following original character, NPC, item, environment, VFX and voice packs are
+shipped in the desktop release payload and maintained separately from the third-party
+packs above:
+
+- `godot/assets/sprites/original_creatures/`, `godot/assets/sprites/original_npcs/`,
+  `godot/assets/sprites/original_items/`, `godot/assets/sprites/player/`,
+  `godot/assets/sprites/original_map/`, `godot/assets/sprites/flat_maps/`,
+  `godot/assets/vfx/`: project-authored and `image_gen`-assisted hand-drawn sprite
+  sheets, frame-fit metadata and world artwork generated strictly from project-owned
+  designs and prompts (provenance under `art_requests/`). Superseded legacy atlases
+  and draft sources are excluded from desktop release `.pck` exports.
+- `godot/assets/audio/sfx/npc_voices/` (where generated via `tools/generate_npc_insect_voices.py` /
+  `scripts/npc_insect_language.gd`): project-synthesized phonetic NPC speech stems (CC0).

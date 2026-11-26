@@ -8,6 +8,7 @@ const LEVEL_HOST := preload("res://scripts/level_host.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
 const FIELDS := preload("res://scripts/region_state.gd")
+const HAND_DRAWN_ASSETS := preload("res://scripts/hand_drawn_assets.gd")
 const LOADER := preload("res://scripts/world_region_loader.gd")
 const PASSAGE := preload("res://scripts/world_passage.gd")
 ## Same reach as the neighbour prefetch trigger and the camera half extents.
@@ -131,12 +132,28 @@ func measure(host: Node, window: Rect2 = Rect2()) -> Dictionary:
 		for property in ["texture", "normal_map"]:
 			if property in node:
 				texture = node.get(property)
+				if texture is AtlasTexture and texture.atlas != null:
+					texture = texture.atlas
 				if texture is Texture2D and not textures.has(texture.get_rid()):
 					textures[texture.get_rid()] = true
 					out.textures += 1
 					out.texture_bytes += texture.get_width() * texture.get_height() * 4
+		if node is AnimatedSprite2D and node.sprite_frames != null:
+			var frames: SpriteFrames = node.sprite_frames
+			for anim_name in frames.get_animation_names():
+				for frame_index in frames.get_frame_count(anim_name):
+					var frame_tex: Texture2D = frames.get_frame_texture(anim_name, frame_index)
+					if frame_tex is AtlasTexture and frame_tex.atlas != null:
+						frame_tex = frame_tex.atlas
+					if frame_tex is Texture2D and not textures.has(frame_tex.get_rid()):
+						textures[frame_tex.get_rid()] = true
+						out.textures += 1
+						out.texture_bytes += frame_tex.get_width() * frame_tex.get_height() * 4
 	if window.has_area():
 		return {"window_shapes": out.shapes}
+	var art_cache := HAND_DRAWN_ASSETS.cache_stats()
+	out["cached_art_textures"] = int(art_cache.textures)
+	out["cached_art_bytes"] = int(art_cache.texture_bytes)
 	return out
 
 
@@ -224,8 +241,12 @@ func run() -> void:
 				window.merge({"region": id, "passage": String(passage.id), "share_of_region_shapes": snappedf(float(window.window_shapes) / maxf(1.0, float(metrics.shapes)), 0.01)})
 				exits.append(window)
 	check(exits.size() == PASSAGE.routes().size() * 2, "every passage mouth measured (%d)" % exits.size())
+	var final_art_cache := HAND_DRAWN_ASSETS.cache_stats()
+	check(int(final_art_cache.textures) <= 75 and int(final_art_cache.texture_bytes) < 750 * 1024 * 1024,
+		"character art cache evicts departed regions instead of accumulating all six (textures=%d bytes=%d)" % [int(final_art_cache.textures), int(final_art_cache.texture_bytes)])
 	print("WORLD_RESIDENCY_REGIONS ", JSON.stringify(regions))
 	print("WORLD_RESIDENCY_EXITS ", JSON.stringify(exits))
+	HAND_DRAWN_ASSETS.clear_caches()
 	scene.free()
 	await process_frame
 	print("WORLD_RESIDENCY_INVENTORY checks=%d failures=%d" % [checks, failures])

@@ -26,6 +26,20 @@ TEXT_RESOURCES = {'.gd', '.tscn', '.tres', '.json', '.gdshader', '.gdshaderinc',
 # Built paths for code or scenes cannot be followed statically; assets and data
 # built from region ids are shipped wholesale by the include filter.
 DYNAMIC = re.compile(r'"res://(?:scripts|scenes)/[^"]*(?:%s|%d)[^"]*"|load\(\s*"res://(?:scripts|scenes)/[^"]*"\s*\+')
+DEAD_ASSET_PREFIXES = (
+    'res://assets/sprites/bosses/',
+    'res://assets/third_party/dark_fantasy_bestiary/',
+    'res://assets/sprites/generated_supplements_20261017/',
+    'res://assets/audio/bgm/generated/',
+    'res://assets/sprites/lumen/',
+    'res://data/generated/',
+)
+SUPERSEDED_CREATURE_ATLASES = frozenset({
+    'atlas.png', 'motion_expanded.png', 'motion_runtime.png', 'hurt_death.png',
+    'attacks.png', 'motion_repair.png', 'special_motion_expanded.png',
+    'attack_0_isolated.png', 'attack_1_isolated.png', 'motion_attack_expanded.png',
+    'motion_recover.png', 'motion_supplement.png', 'motion_sparse.png',
+})
 
 
 def discovered_scripts(godot: Path, text: str) -> list[str]:
@@ -152,7 +166,19 @@ def audit(root: Path) -> dict:
         report['errors'].append(f'invalid audit configuration: {error}')
         return report
     candidates = sorted('res://' + path.relative_to(godot).as_posix() for path in godot.rglob('*')
-                        if path.suffix in ('.gd', '.tscn') and '.godot' not in path.parts and ('addons' not in path.parts or 'beehave' in path.parts))
+                        if path.suffix in ('.gd', '.tscn') and '.godot' not in path.parts
+                        and ('addons' not in path.parts or 'beehave' in path.parts or 'MetroidvaniaSystem' in path.parts))
+    dead_assets = sorted(
+        'res://' + path.relative_to(godot).as_posix()
+        for path in godot.rglob('*')
+        if path.is_file() and '.godot' not in path.parts and (
+            ('res://' + path.relative_to(godot).as_posix()).startswith(DEAD_ASSET_PREFIXES)
+            or (
+                ('res://' + path.relative_to(godot).as_posix()).startswith('res://assets/sprites/original_creatures/')
+                and path.name in SUPERSEDED_CREATURE_ATLASES
+            )
+        )
+    )
     errors = [f'missing runtime reference: {item}' for item in missing]
     errors.extend(f'script or scene path is built dynamically, review export by hand: {item}' for item in dynamic)
     report.update(reachable=sorted(item for item in seen if item in candidates),
@@ -162,9 +188,15 @@ def audit(root: Path) -> dict:
             return filter_matches(item, patterns)
         broken = sorted(item for item in seen if excluded(item))
         shipped = [item for item in candidates if item not in seen and not excluded(item)]
+        shipped_dead = [item for item in dead_assets if item not in seen and not excluded(item)]
         errors.extend(f'{name}: runtime file excluded from export: {item}' for item in broken)
         errors.extend(f'{name}: development-only file shipped: {item}' for item in shipped)
-        report['presets'][name] = {'excluded_runtime': broken, 'shipped_unreachable': shipped}
+        errors.extend(f'{name}: dead or superseded asset shipped: {item}' for item in shipped_dead)
+        report['presets'][name] = {
+            'excluded_runtime': broken,
+            'shipped_unreachable': shipped,
+            'shipped_dead_assets': shipped_dead,
+        }
     report['errors'] = errors
     return report
 

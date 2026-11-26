@@ -87,6 +87,14 @@ class ReleaseBuilderTests(unittest.TestCase):
                 'MapData.txt', 'addons/MetroidvaniaSystem/Scripts/MetSys.gd']
         excluded = ['scripts/world_validation.gd', 'scripts/world_capture.gd.uid',
                     'scripts/capture_world.gd', 'scripts/preview_world.gd.uid',
+                    'scripts/route_playback.gd.uid', 'scripts/world_probe.gd',
+                    'assets/sprites/bosses/legacy/atlas.png',
+                    'assets/third_party/dark_fantasy_bestiary/sheet.png',
+                    'assets/sprites/original_creatures/moss_larva/atlas.png',
+                    'assets/sprites/original_creatures/moss_larva/sources/prompt.txt',
+                    'assets/sprites/original_npcs/npc_a/greet_rest.png',
+                    'assets/audio/bgm/generated/old.ogg',
+                    'data/generated/ch01.generated.json',
                     'tests/verify_world.gd', '.godot/imported/image.ctex', 'tools/debug.gd']
         for path in kept + excluded:
             self.write(path)
@@ -204,6 +212,10 @@ class ReleaseBuilderTests(unittest.TestCase):
         self.write('assets/audio/sfx/kenney/License.txt', 'CC0')
         self.write('addons/MetroidvaniaSystem/LICENSE.txt', 'plugin license')
         self.assertEqual(5, len(release.notice_files(self.root)))
+        self.write('assets/fonts/OFL-NotoSerifCJK.txt', 'CJK serif font license')
+        collected = [p.relative_to(self.root).as_posix() for p in release.notice_files(self.root)]
+        self.assertIn('godot/assets/fonts/OFL-NotoSerifCJK.txt', collected)
+        self.assertEqual(6, len(collected))
         payload = self.root / 'candidate'
         payload.mkdir()
         binary = payload / 'game'

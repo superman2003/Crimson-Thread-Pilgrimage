@@ -113,6 +113,96 @@ static func shutdown_texture_requests() -> void:
     texture_requests.clear()
 
 
+static func _collect_enemy_dicts(node: Variant, out: Array) -> void:
+    if node is Array:
+        for item in node:
+            _collect_enemy_dicts(item, out)
+    elif node is Dictionary:
+        if node.has("kind") and node["kind"] is String and not String(node["kind"]).is_empty():
+            out.append(node)
+        for key in ["enemy_spawns", "enemies", "spawns", "waves", "wave_enemies", "encounters", "ambushes", "gauntlets", "arenas", "optional_challenges"]:
+            if node.has(key):
+                _collect_enemy_dicts(node[key], out)
+
+
+static func collect_region_assets(config: Dictionary) -> Dictionary:
+    var manifests: Dictionary = {}
+    var keep_textures: Dictionary = {}
+    if config.is_empty():
+        return {"manifests": manifests, "textures": keep_textures}
+    var enemy_entries: Array = []
+    _collect_enemy_dicts(config.get("enemy_spawns", []), enemy_entries)
+    var boss: Variant = config.get("boss", {})
+    if boss is Dictionary and not boss.is_empty():
+        enemy_entries.append(boss)
+    for key in ["encounters", "waves", "ambushes", "gauntlets", "arenas", "optional_challenges"]:
+        if config.has(key):
+            _collect_enemy_dicts(config[key], enemy_entries)
+    for enemy in enemy_entries:
+        for mpath in character_manifests("enemy", enemy):
+            manifests[mpath] = true
+            for apath in atlas_paths(mpath):
+                keep_textures[apath] = true
+    for npc in config.get("npcs", []):
+        if not npc is Dictionary:
+            continue
+        for mpath in character_manifests("npc", npc):
+            manifests[mpath] = true
+            for apath in atlas_paths(mpath):
+                keep_textures[apath] = true
+    return {"manifests": manifests, "textures": keep_textures}
+
+
+static func evict_unused_region_assets(configs: Array) -> Dictionary:
+    var keep_manifests: Dictionary = {}
+    var keep_textures: Dictionary = {}
+    for entry in configs:
+        if entry is Dictionary and not entry.is_empty():
+            var assets := collect_region_assets(entry)
+            for mpath in assets.manifests:
+                keep_manifests[mpath] = true
+            for apath in assets.textures:
+                keep_textures[apath] = true
+    var evicted_frames := 0
+    for key in frame_cache.keys():
+        var path := String(key)
+        if not path.begins_with("res://assets/sprites/original_creatures/") and not path.begins_with("res://assets/sprites/original_npcs/"):
+            continue
+        if not keep_manifests.has(path):
+            frame_cache.erase(key)
+            evicted_frames += 1
+    var evicted_textures := 0
+    for key in textures.keys():
+        var path := String(key)
+        if not path.begins_with("res://assets/sprites/original_creatures/") and not path.begins_with("res://assets/sprites/original_npcs/") and not path.begins_with("res://assets/vfx/minor_enemy_skills/"):
+            continue
+        if not keep_textures.has(path) and not texture_requests.has(path):
+            textures.erase(key)
+            evicted_textures += 1
+    return {"evicted_textures": evicted_textures, "evicted_frames": evicted_frames,
+        "retained_textures": textures.size(), "retained_frames": frame_cache.size()}
+
+
+static func cache_stats() -> Dictionary:
+    var seen_rids: Dictionary = {}
+    var total_bytes := 0
+    for value in textures.values():
+        if value is Texture2D:
+            var rid: RID = value.get_rid()
+            if not seen_rids.has(rid):
+                seen_rids[rid] = true
+                total_bytes += value.get_width() * value.get_height() * 4
+    return {"textures": textures.size(), "frames": frame_cache.size(), "texture_bytes": total_bytes}
+
+
+static func clear_caches() -> void:
+    shutdown_texture_requests()
+    textures.clear()
+    frame_cache.clear()
+    manifest_cache.clear()
+    texture_failures.clear()
+
+
 static func manifest(path: String) -> Dictionary:
     if manifest_cache.has(path):
         return manifest_cache[path]

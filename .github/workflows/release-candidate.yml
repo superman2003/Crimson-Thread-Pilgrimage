@@ -128,8 +128,12 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
-      - name: Check the macOS builder and preset
-        run: python tools/test_build_macos_candidate.py
+      - name: Check the macOS builder, save contract and export audit
+        run: |
+          python tools/test_build_macos_candidate.py
+          python tools/test_release_save_contract.py
+          python tools/test_export_audit.py
+          python tools/audit_export_contents.py
       - name: Hydrate project assets, including addon themes
         run: git lfs pull --include='godot/**'
       - name: Export the app and boot it from its archive

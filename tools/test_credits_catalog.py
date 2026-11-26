@@ -108,7 +108,10 @@ class CreditsCatalogTests(unittest.TestCase):
         source = self.root / 'real-license'
         source.write_text('MIT\n')
         (self.root / 'LICENSE').unlink()
-        (self.root / 'LICENSE').symlink_to(source)
+        try:
+            (self.root / 'LICENSE').symlink_to(source)
+        except OSError:
+            self.skipTest('symlinks unavailable without privileges on this OS')
         with self.assertRaises(ValueError):build(self.root)
         (self.root / 'LICENSE').unlink()
         (self.root / 'LICENSE').write_text('MIT\n')

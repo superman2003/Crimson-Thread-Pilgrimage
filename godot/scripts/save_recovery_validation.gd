@@ -99,6 +99,8 @@ func run() -> void:
 	clean()
 	new_journeys()
 	clean()
+	install_failure_rollback()
+	clean()
 	check(await AUDIO.drain(self), "the fixture releases playback")
 	print("SAVE_RECOVERY checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
@@ -247,3 +249,26 @@ func new_journeys() -> void:
 	check(FileAccess.get_file_as_string(SAVE + ".bak") == "surviving backup" and preserved("previous.earlier").size() == 2,
 		"archiving the backup also retains the earlier journeys")
 	subject.free()
+
+class PartialInstallFailureWorld extends WORLD:
+	func _install_candidate(temporary: String, absolute: String) -> Error:
+		if temporary.ends_with(".tmp") and not temporary.ends_with(".rollback.tmp"):
+			DirAccess.remove_absolute(absolute)
+			return ERR_FILE_CANT_WRITE
+		return super._install_candidate(temporary, absolute)
+
+func install_failure_rollback() -> void:
+	var original_data := journey(215)
+	var original_text := JSON.stringify(original_data)
+	write_raw(original_text)
+	var writer := PartialInstallFailureWorld.new()
+	check(writer.read(SAVE), "rollback fixture reads original primary save")
+	var updated_data := journey(340)
+	check(not writer.write_candidate(updated_data, SAVE), "simulated partial rename failure reports write failure")
+	check(writer.last_error.contains("cannot install save"), "simulated failure explains install error")
+	check(FileAccess.file_exists(SAVE) and FileAccess.get_file_as_string(SAVE) == original_text,
+		"failed primary install restores original save byte for byte from verified backup")
+	check(FileAccess.file_exists(SAVE + ".bak") and FileAccess.get_file_as_string(SAVE + ".bak") == original_text,
+		"verified backup stays intact after primary rollback")
+	check(not FileAccess.file_exists(SAVE + ".tmp") and not FileAccess.file_exists(SAVE + ".rollback.tmp"),
+		"temporary and rollback staging files are cleaned up after failure")
