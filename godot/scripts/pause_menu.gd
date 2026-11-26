@@ -102,7 +102,8 @@ func setup(world: Node) -> void:
     status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     status_label.add_theme_font_size_override("font_size", TYPE.CAPTION)
-    status_label.add_theme_color_override("font_color", Color(0.96, 0.56, 0.46))
+    if shell is Control and is_instance_valid(shell) and shell.get("RED") is Color:
+        status_label.add_theme_color_override("font_color", shell.get("RED"))
     column.add_child(status_label)
     var discard_btn := Button.new()
     discard_btn.name = "DiscardLeaveButton"
