@@ -49,6 +49,25 @@ static func cached_hidden_clues() -> Array:
     if not cache_is_current():return []
     return _cached_data.get("hidden_route_plan",[]).duplicate(true)
 
+static func cached_region_list(key: String, region_id: String) -> Array:
+    if not cache_is_current() or region_id.is_empty():
+        return []
+    var result: Array = []
+    for entry in _cached_data.get(key, []):
+        if entry is Dictionary and String(entry.get("region_id", "")) == region_id:
+            result.append(entry.duplicate(true))
+    return result
+
+static func has_hidden_room(region_id: String, room_id: String) -> bool:
+    if region_id.is_empty() or room_id.is_empty():
+        return false
+    if not cache_is_current():
+        _ensure_manifest_cache()
+    for entry in _cached_data.get("hidden_route_plan", []):
+        if entry is Dictionary and String(entry.get("region_id", "")) == region_id and String(entry.get("hidden_room_id", "")) == room_id:
+            return true
+    return false
+
 static func cached_config_path(region_id: String) -> String:
     if not cache_is_current():
         return ""

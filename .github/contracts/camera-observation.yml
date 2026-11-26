@@ -41,7 +41,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          lfs: true
+          lfs: false
+      - name: Hydrate runtime assets
+        run: git lfs pull --include='godot/assets/**'
       - name: Runner failure propagation
         run: python3 tools/test_camera_observation_runner.py
       - name: Install pinned Godot 4.6.1

@@ -316,10 +316,29 @@ static func _valid_region(value: Variant) -> bool:
             return false
     return _whole(value.get("bell_count")) and int(value.bell_count) <= 1000000 and _point(value.get("checkpoint")) and value.get("checkpoint_id") is String
 
+const MAX_HP := 100
+const MAX_ENERGY := 1000
+const MAX_CURRENCY := 9999999
+
+static func _valid_region_id(value: Variant, allow_empty: bool = false) -> bool:
+    if not value is String:
+        return false
+    var text := String(value)
+    if text.is_empty():
+        return allow_empty
+    if text.length() > 64:
+        return false
+    for idx in text.length():
+        var code := text.unicode_at(idx)
+        var ok := (code >= 97 and code <= 122) or (code >= 48 and code <= 57) or code == 95
+        if not ok:
+            return false
+    return true
+
 static func _valid_data(value: Variant) -> bool:
     if not value is Dictionary or not _whole(value.get("version")) or int(value.version) != VERSION:
         return false
-    if not value.get("current_region") is String or not _point(value.get("entry")):
+    if not _valid_region_id(value.get("current_region"), true) or not _point(value.get("entry")):
         return false
     if not COORDINATES.valid_location(value.get("world_location"), value.current_region, Vector2(value.entry[0], value.entry[1])):
         return false
@@ -331,9 +350,18 @@ static func _valid_data(value: Variant) -> bool:
         if not key is String or key.is_empty() or not _whole(value.inventory_counts[key]):
             return false
     for key in value.regions:
-        if not key is String or key.is_empty() or not _valid_region(value.regions[key]):
+        if not _valid_region_id(key) or not _valid_region(value.regions[key]):
             return false
-    return _whole(value.get("currency")) and _number(value.get("hp"), true) and _number(value.get("energy"), true) and value.get("current_region") is String and _point(value.get("entry")) and _json_value(value)
+    var hp_val: Variant = value.get("hp")
+    var en_val: Variant = value.get("energy")
+    var cur_val: Variant = value.get("currency")
+    if not _whole(cur_val) or int(cur_val) > MAX_CURRENCY:
+        return false
+    if not _whole(hp_val) or int(hp_val) > MAX_HP:
+        return false
+    if not _whole(en_val) or int(en_val) > MAX_ENERGY:
+        return false
+    return _json_value(value)
 
 func _fail(message: String) -> bool:
     last_error = message
