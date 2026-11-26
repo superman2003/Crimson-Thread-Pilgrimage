@@ -39,6 +39,21 @@ LEGAL_REQUIRED = (
 )
 
 
+def zip_member_names(archive: Path) -> list[str]:
+    """Read ZIP member names as UTF-8 even when macOS ditto omits flag bit 0x800."""
+    with zipfile.ZipFile(archive) as bundle:
+        names = []
+        for info in bundle.infolist():
+            name = info.filename
+            if not (info.flag_bits & 0x800):
+                try:
+                    name = name.encode('cp437').decode('utf-8')
+                except (UnicodeEncodeError, UnicodeDecodeError):
+                    pass
+            names.append(name)
+        return names
+
+
 def bundle_name(names: list[str]) -> str:
     """The one top-level .app in a ZIP's member list (named after the project)."""
     tops = sorted({name.split('/', 1)[0] for name in names if name})
@@ -160,8 +175,7 @@ def main() -> int:
                                 logs / 'export.log', timeout=args.timeout, cwd=work)
             if not raw_archive.is_file():
                 raise ValueError('Exporter did not produce the app archive')
-            with zipfile.ZipFile(raw_archive) as raw_bundle:
-                app = bundle_name(raw_bundle.namelist())
+            app = bundle_name(zip_member_names(raw_archive))
             license_project = work / 'engine-licenses'
             license_project.mkdir()
             (license_project / 'project.godot').write_text('config_version=5\n', encoding='utf-8')
@@ -182,10 +196,10 @@ def main() -> int:
             populate_legal_bundle(staged_bundle / app, ROOT, engine_licenses, manifest)
             subprocess.run(['codesign', '--force', '--deep', '--sign', '-', str(staged_bundle / app)], check=True)
             archive = work / f'{name}.zip'
-            subprocess.run(['ditto', '-c', '-k', '--sequesterRsrc', '--keepParent', str(staged_bundle / app), str(archive)], check=True)
-            with zipfile.ZipFile(archive) as bundle:
-                app = bundle_name(bundle.namelist())
-                problems = bundle_problems(bundle.namelist())
+            subprocess.run(['ditto', '-c', '-k', '--keepParent', str(staged_bundle / app), str(archive)], check=True)
+            names = zip_member_names(archive)
+            app = bundle_name(names)
+            problems = bundle_problems(names)
             if problems:
                 raise ValueError('Exported archive is not a complete app: ' + '; '.join(problems))
             # Only the archive survives: the staged project and raw bundle cannot stand in for missing data.

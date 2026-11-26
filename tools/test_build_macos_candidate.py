@@ -4,6 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+import zipfile
 
 import build_macos_candidate as mac
 
@@ -47,6 +48,30 @@ class Bundle(unittest.TestCase):
             self.assertTrue((legal / 'licenses/godot/assets/fonts/OFL-NotoSerifCJK.txt').is_file())
             self.assertTrue((legal / 'README.md').is_file())
             self.assertTrue((legal / 'BUILD_MANIFEST.json').is_file())
+
+    def test_zip_member_names_recovers_utf8_when_ditto_omits_utf8_flag(self):
+        with tempfile.TemporaryDirectory() as folder:
+            archive = Path(folder) / 'ditto-like.zip'
+            with zipfile.ZipFile(archive, 'w') as zf:
+                for member in GOOD:
+                    info = zipfile.ZipInfo(member)
+                    zf.writestr(info, b'x')
+            # Strip ZIP UTF-8 general purpose bit (0x800) in both local and central headers like macOS ditto.
+            raw = bytearray(archive.read_bytes())
+            for sig in (b'PK\x03\x04', b'PK\x01\x02'):
+                idx = 0
+                flag_off = 6 if sig == b'PK\x03\x04' else 8
+                while True:
+                    idx = raw.find(sig, idx)
+                    if idx < 0:
+                        break
+                    flags = int.from_bytes(raw[idx + flag_off:idx + flag_off + 2], 'little') & ~0x800
+                    raw[idx + flag_off:idx + flag_off + 2] = flags.to_bytes(2, 'little')
+                    idx += 4
+            archive.write_bytes(bytes(raw))
+            names = mac.zip_member_names(archive)
+            self.assertEqual(mac.bundle_name(names), APP)
+            self.assertEqual(mac.bundle_problems(names), [])
 
     def test_the_bundle_takes_the_project_name_and_must_stand_alone(self):
         self.assertEqual(mac.bundle_name(GOOD), APP)
