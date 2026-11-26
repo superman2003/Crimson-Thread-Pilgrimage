@@ -4,11 +4,13 @@ extends CanvasLayer
 ## active heal channel freezes cleanly instead of cancelling and wasting energy.
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 const TITLE_CARD := preload("res://scripts/title_card.gd")
-const APPLICATION_CLOSE := preload("res://scripts/application_close.gd")
+const CLOSE_OWNER_NAME := "PilgrimageApplicationClose"
 const NODE_NAME := "PauseMenu"
 signal closed(action: String)
 var level: Node
 var buttons: Dictionary = {}
+var status_label: Label
+var pending_discard_action := ""
 var kept_audio_mode := Node.PROCESS_MODE_INHERIT
 var opened_frame := -1
 
@@ -94,6 +96,22 @@ func setup(world: Node) -> void:
         button.pressed.connect(func(): choose(action))
         column.add_child(button)
         buttons[action] = button
+    status_label = Label.new()
+    status_label.name = "SaveStatus"
+    status_label.visible = false
+    status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    status_label.add_theme_font_size_override("font_size", TYPE.CAPTION)
+    status_label.add_theme_color_override("font_color", Color(0.96, 0.56, 0.46))
+    column.add_child(status_label)
+    var discard_btn := Button.new()
+    discard_btn.name = "DiscardLeaveButton"
+    discard_btn.visible = false
+    discard_btn.custom_minimum_size = Vector2(280, 38)
+    discard_btn.add_theme_font_size_override("font_size", TYPE.CONTROL)
+    discard_btn.pressed.connect(func(): choose("discard_leave"))
+    column.add_child(discard_btn)
+    buttons["discard_leave"] = discard_btn
     var hint := Label.new()
     hint.text = "Esc / 手柄 B 继续"
     hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -125,34 +143,55 @@ func _input(event: InputEvent) -> void:
         get_viewport().set_input_as_handled()
         choose("resume")
 
-func _save_if_ready() -> void:
+func _save_if_ready() -> bool:
     if not is_instance_valid(level):
-        return
+        return true
     if level.has_method("_save_world") and level.get("world_mode") == true and level.get("initial_region_ready") == true and level.get("world_loading") != true and level.get("chapter_transitioning") != true:
-        level._save_world()
+        return level._save_world() == true
+    return true
 
-func choose(action: String) -> void:
-    if is_queued_for_deletion():
-        return
+func _show_save_failure(action: String) -> void:
+    pending_discard_action = action
+    if is_instance_valid(status_label):
+        status_label.text = "保存失败，未退出。请检查磁盘空间或权限后重试。" if action == "quit" else "保存失败，未返回标题。请检查磁盘空间或权限后重试。"
+        status_label.visible = true
+    if buttons.has("discard_leave") and is_instance_valid(buttons["discard_leave"]):
+        var btn: Button = buttons["discard_leave"]
+        btn.text = "不保存直接退出" if action == "quit" else "不保存返回标题"
+        btn.visible = true
+        btn.grab_focus()
+
+func _leave_world(action: String) -> void:
     if action == "quit":
-        _save_if_ready()
         release()
         closed.emit(action)
         queue_free()
         var tree := get_tree()
         if tree != null:
-            if tree.root.get_node_or_null(NodePath(APPLICATION_CLOSE.OWNER_NAME)) != null:
+            if tree.root.get_node_or_null(NodePath(CLOSE_OWNER_NAME)) != null:
                 tree.root.close_requested.emit()
             else:
                 tree.quit()
         return
     if action == "title":
-        _save_if_ready()
         release()
         closed.emit(action)
         queue_free()
         if is_instance_valid(level):
             TITLE_CARD.open(level, true)
+
+func choose(action: String) -> void:
+    if is_queued_for_deletion():
+        return
+    if action == "discard_leave":
+        if pending_discard_action == "quit" or pending_discard_action == "title":
+            _leave_world(pending_discard_action)
+        return
+    if action == "quit" or action == "title":
+        if not _save_if_ready():
+            _show_save_failure(action)
+            return
+        _leave_world(action)
         return
     release()
     if action == "settings" and is_instance_valid(level) and level.has_method("_toggle_audio_settings"):

@@ -12,6 +12,7 @@ var feature_scripts: Dictionary = {}
 var pending_paths: Array[String] = []
 var feature_job := preload("res://scripts/background_resource_job.gd").new()
 var loading_feature := false
+var discard_loading_feature := false
 var context: RefCounted
 var features: Dictionary = {}
 var selected := "chronicle"
@@ -82,12 +83,18 @@ func _process(delta: float) -> void:
             _retire_ui()
             _discover_world()
         return
-    elapsed += delta
-    if not pending_paths.is_empty() or loading_feature:
-        _warm_feature()
     # Region arrival can replace the UI shell; rebind the entry on the next
     # frame rather than the next 0.1 s observation tick.
     _rebind_ui()
+    var dialog_open: bool = is_instance_valid(dialog) and dialog.visible
+    if dialog_open:
+        if not pending_paths.is_empty() or loading_feature:
+            _warm_feature()
+    elif loading_feature and feature_job.ready():
+        feature_job.take()
+        loading_feature = false
+        discard_loading_feature = false
+    elapsed += delta
     if elapsed < 0.1:
         return
     var step := elapsed
@@ -149,6 +156,9 @@ func _warm_feature() -> void:
             return
         script = feature_job.take().get("resource") as Script
         loading_feature = false
+        if discard_loading_feature:
+            discard_loading_feature = false
+            return
     elif not pending_paths.is_empty():
         var path: String = pending_paths.pop_front()
         if feature_job.start(path, "GDScript") == OK:
@@ -201,8 +211,8 @@ func open() -> void:
     if owner == null or owner.active_overlay != "settings":
         return
     activated = true
-    if feature_scripts.is_empty():
-        _discover_features()
+    discard_loading_feature = false
+    _discover_features()
     # The entry is bound during HUD construction; the context otherwise waits
     # for the next observation tick, so an early press would do nothing.
     if context == null and bool(owner.get("initial_region_ready")):
@@ -301,6 +311,14 @@ func _message(message: String) -> void:
         status.text = message
 
 func close() -> void:
+    pending_paths.clear()
+    if loading_feature:
+        if feature_job.ready():
+            feature_job.take()
+            loading_feature = false
+            discard_loading_feature = false
+        else:
+            discard_loading_feature = true
     if is_instance_valid(dialog):
         dialog.hide()
     for feature in features.values():
@@ -325,6 +343,7 @@ func _retire() -> void:
     _retire_ui()
     activated = false
     pending_paths.clear()
+    discard_loading_feature = false
     for feature in features.values():
         feature.shutdown()
     features.clear()

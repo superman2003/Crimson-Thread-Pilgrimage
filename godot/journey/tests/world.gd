@@ -30,6 +30,14 @@ func run() -> void:
     var before_build: Dictionary = scene.build_system.state.duplicate(true)
     scene._toggle_audio_settings()
     await process_frame
+    # Closing immediately after opening must cancel queued lazy-loading instead of warming modules in the background.
+    host.open()
+    host.close()
+    var scripts_after_close: int = host.feature_scripts.size()
+    check(host.pending_paths.is_empty() and not host.loading_feature, "closing workbench clears queued lazy feature preloads")
+    for unused in 6:
+        await process_frame
+    check(host.feature_scripts.size() == scripts_after_close and host.pending_paths.is_empty(), "closed workbench loads no queued modules in background")
     host.open()
     await process_frame
     await process_frame
