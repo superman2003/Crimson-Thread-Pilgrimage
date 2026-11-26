@@ -237,7 +237,7 @@ static func visual_has_runtime_keyframes(suite: SceneTree, data: Dictionary) -> 
 
 
 static func validate_high_fidelity_boss_manifest(suite: SceneTree, config: Dictionary, boss: Dictionary) -> void:
-    var path := "res://assets/sprites/original_creatures/"+String(boss.kind)+"/manifest.json"
+    var path := ART.character_manifest("original_creatures", String(boss.kind))
     suite._assert(String(boss.sprite)==path,String(config.id)+" uses its original boss atlas")
     suite._assert(String(boss.visual_source)=="original_hand_drawn",String(config.id)+" original art provenance")
     for animation in ["heavy", "cast", "phase", "heavy_windup", "cast_windup", "phase_windup"]:
@@ -309,6 +309,6 @@ static func validate_ai_profiles(suite: SceneTree, config: Dictionary, config_id
 
 static func validate_boss_ai_animation(suite: SceneTree, config_id: String, attack_data: Dictionary) -> int:
     var config: Dictionary = suite._load_json("res://data/"+config_id+".json")
-    var path = "res://assets/sprites/original_creatures/"+String(config.boss.kind)+"/manifest.json"
+    var path := ART.character_manifest("original_creatures", String(config.boss.kind))
     suite._assert(suite._manifest_has_directional_animation(path,String(attack_data.get("animation","attack"))),config_id+" attack maps to a real animation")
     return 1

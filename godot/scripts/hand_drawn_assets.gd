@@ -5,6 +5,11 @@ const LOOP_ENTRIES_PATH := "res://data/character_loop_entries.json"
 static var textures: Dictionary = {}
 static var frame_cache: Dictionary = {}
 static var manifest_cache: Dictionary = {}
+# Keep at most the active region and one recently departed region warm so
+# border backtracking (A <-> B) does not thrash texture decodes while six-region
+# traversal remains strictly bounded.
+const MAX_RETAINED_REGIONS := 2
+static var recent_region_assets: Array = []
 # Immutable artwork is shared across region leases. At most two background
 # texture requests survive cancellation; no caller waits on an unfinished get.
 const MAX_TEXTURE_REQUESTS := 2
@@ -156,13 +161,29 @@ static func collect_region_assets(config: Dictionary) -> Dictionary:
 static func evict_unused_region_assets(configs: Array) -> Dictionary:
     var keep_manifests: Dictionary = {}
     var keep_textures: Dictionary = {}
+    var recorded_primary := false
     for entry in configs:
         if entry is Dictionary and not entry.is_empty():
             var assets := collect_region_assets(entry)
+            if not recorded_primary:
+                recorded_primary = true
+                var region_id := String(entry.get("id", ""))
+                if not region_id.is_empty():
+                    for idx in range(recent_region_assets.size() - 1, -1, -1):
+                        if String(recent_region_assets[idx].get("id", "")) == region_id:
+                            recent_region_assets.remove_at(idx)
+                    recent_region_assets.append({"id": region_id, "manifests": assets.manifests, "textures": assets.textures})
+                    while recent_region_assets.size() > MAX_RETAINED_REGIONS:
+                        recent_region_assets.pop_front()
             for mpath in assets.manifests:
                 keep_manifests[mpath] = true
             for apath in assets.textures:
                 keep_textures[apath] = true
+    for retained in recent_region_assets:
+        for mpath in retained.get("manifests", {}):
+            keep_manifests[mpath] = true
+        for apath in retained.get("textures", {}):
+            keep_textures[apath] = true
     var evicted_frames := 0
     for key in frame_cache.keys():
         var path := String(key)
@@ -212,6 +233,7 @@ static func clear_caches() -> void:
     frame_cache.clear()
     manifest_cache.clear()
     texture_failures.clear()
+    recent_region_assets.clear()
 
 
 static func manifest(path: String) -> Dictionary:
