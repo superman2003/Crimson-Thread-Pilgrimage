@@ -102,8 +102,11 @@ static func spawn_command_effects(actor: Node, command: Dictionary, warning: boo
     elif type=="blink":
         BOSS_SKILL_ART.spawn_departure(actor,command)
         MINOR_SKILL_ART.spawn_departure(actor,command)
-        var x = actor.attack_target.x-actor.attack_direction*float(command.get("blink_offset",115))
-        actor.global_position.x=clampf(x,actor.platform_min_x,actor.platform_max_x)
+        var x = clampf(actor.attack_target.x-actor.attack_direction*float(command.get("blink_offset",115)),actor.platform_min_x,actor.platform_max_x)
+        var target_pos := Vector2(x, actor.global_position.y)
+        if actor.is_inside_tree():
+            target_pos = preload("res://scripts/enemy_motion_sweep.gd").constrain(actor, actor.global_position, target_pos)
+        actor.global_position.x = clampf(target_pos.x, actor.platform_min_x, actor.platform_max_x)
         actor.reset_physics_interpolation()
         var target: CharacterBody2D = actor._target_player()
         if target!=null:actor._face_target(target)

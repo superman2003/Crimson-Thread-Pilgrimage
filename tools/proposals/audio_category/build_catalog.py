@@ -84,10 +84,10 @@ def collect(root: Path = ROOT, partial: bool = False) -> dict:
         manifest_path = root / 'assets/proposals' / pack / 'manifest.json'
         if partial and not manifest_path.exists():
             continue
-        manifest = json.loads(local_file(root, str(manifest_path.relative_to(root))).read_text())
+        manifest = json.loads(local_file(root, str(manifest_path.relative_to(root))).read_text(encoding="utf-8"))
         for source in manifest['items']:
             items.append(normalize_item(root, pack, manifest['kind'], source))
-    legacy = json.loads(local_file(root, 'docs/proposals/reverse_audio/manifest.json').read_text())
+    legacy = json.loads(local_file(root, 'docs/proposals/reverse_audio/manifest.json').read_text(encoding="utf-8"))
     for source in legacy['assets']:
         path = local_file(root, source['path'])
         with wave.open(str(path)) as w:
@@ -98,7 +98,7 @@ def collect(root: Path = ROOT, partial: bool = False) -> dict:
     if len(keys) != len(set(keys)):
         raise ValueError('Duplicate catalog key')
     profile_path = root / 'assets/proposals/audio_category_ambience/mix_profiles.json'
-    profiles = {} if partial and not profile_path.exists() else json.loads(local_file(root, str(profile_path.relative_to(root))).read_text())
+    profiles = {} if partial and not profile_path.exists() else json.loads(local_file(root, str(profile_path.relative_to(root))).read_text(encoding="utf-8"))
     if profiles:
         validate_profiles(profiles, items)
     return {'schema_version': 1, 'scope': 'independent resource and mix review; not runtime wiring or human listening acceptance', 'regions': REGIONS, 'items': items, 'mix_profiles': profiles}
@@ -132,9 +132,9 @@ def main():
     args = parser.parse_args()
     catalog = collect(partial=args.partial)
     DOC.mkdir(parents=True, exist_ok=True)
-    (DOC / 'catalog.js').write_text('window.AUDIO_CATALOG = ' + json.dumps(catalog, ensure_ascii=False, separators=(',', ':')) + ';\n')
+    (DOC / 'catalog.js').write_text('window.AUDIO_CATALOG = ' + json.dumps(catalog, ensure_ascii=False, separators=(',', ':')) + ';\n', encoding="utf-8")
     report = {'asset_count': len(catalog['items']), 'partial': args.partial, 'total_bytes': sum(x['bytes'] for x in catalog['items']), 'files': [{k: x[k] for k in ['key', 'source_path', 'sha256', 'bytes', 'sample_rate', 'channels']} for x in catalog['items']]}
-    (DOC / 'catalog_validation.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+    (DOC / 'catalog_validation.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding="utf-8")
     print(json.dumps({k: v for k, v in report.items() if k != 'files'}))
 
 

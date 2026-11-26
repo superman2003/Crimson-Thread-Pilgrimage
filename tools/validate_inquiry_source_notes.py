@@ -26,13 +26,13 @@ def errors(entries, speakers, histories):
 
 
 def validate():
-    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text())
+    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text(encoding="utf-8"))
     speakers = {key: row['display_name'] for key, row in story['npcs'].items()}
-    histories = {row['id'] for row in json.loads((ROOT / 'godot/data/scene_history.json').read_text())['entries']}
+    histories = {row['id'] for row in json.loads((ROOT / 'godot/data/scene_history.json').read_text(encoding="utf-8"))['entries']}
     entries = []
     for folder in ['inquiries', 'inquiry_archive']:
         for file in sorted((ROOT / 'godot/data' / folder).glob('*.json')):
-            entries.extend(json.loads(file.read_text())['entries'])
+            entries.extend(json.loads(file.read_text(encoding="utf-8"))['entries'])
     assert not errors(entries, speakers, histories), errors(entries, speakers, histories)
     for fault in ['speaker', 'history', 'proof', 'kind', 'bound']:
         bad = copy.deepcopy(entries)

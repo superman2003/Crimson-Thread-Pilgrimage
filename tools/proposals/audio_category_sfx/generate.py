@@ -7,7 +7,7 @@ RATE=48000
 SOURCE='Original procedural synthesis; tools/proposals/audio_category_sfx/generate.py; no samples, recordings, speech, or model output.'
 
 def specs():
-    catalog=json.loads((ROOT/'godot/data/build_catalog.json').read_text())
+    catalog=json.loads((ROOT/'godot/data/build_catalog.json').read_text(encoding="utf-8"))
     out=[]
     def add(id,title,role,duration,mode,freq,event,timing,description,region='global',status='proposed_hook',priority=1):
         out.append(dict(id=id,title=title,region_id=region,role=role,file='wav/'+id+'.wav',loop=False,duration_seconds=duration,sample_rate=RATE,channels=1,recommended_playback_gain_db=-10 if role!='npc_greeting' else -15,description=description,source=SOURCE,license='CC0-1.0',human_listening_review='pending',runtime_mapping=dict(identifier=event,status=status),event_timing=timing,priority=priority,max_voices=1 if role in ['healing','npc_greeting','feedback'] else 2,min_interval_seconds=.45 if role=='npc_greeting' else .08,synthesis=dict(mode=mode,frequency_hz=freq,seed=int.from_bytes(hashlib.sha256(id.encode()).digest()[:8],'big'),fade_in_ms=5,fade_out_ms=25)))
@@ -27,7 +27,7 @@ def specs():
         add('player_'+key,title,'movement' if key not in ['death_cocoon','respawn_weave'] else 'death_recovery',dur,mode,freq,key,'沿用player_controller.gd:_play_sfx对应调用；仅状态跃迁播放。','全地区共享；轻重落地分别保留，钩索挂接与收卷独立。',status='existing_audio_key',priority=0 if key in ['death_cocoon','respawn_weave'] else 1)
     feedback=[('purchase','购买成功',.35,'metal',780,'cartography_runtime.gd:purchase result.ok; main_level.gd:perform_build_action transact result.ok','持久化成功后一次，地图与构筑交易共享。','proposed_hook'),('reject','购买/操作拒绝',.20,'double',210,'cartography_runtime.gd:purchase !result.ok; main_level.gd:perform_build_action !result.ok','只有主动提交失败时播；禁用按钮悬停与自动刷新不播。','proposed_hook'),('quest','任务/证词完成',.68,'rise',640,'ui_testimony_complete','证词链集齐既有key；其他任务首次完成需新增hook，不能当作已存在事件。','existing_audio_key'),('shrine_wrap','钟龛安坐',.40,'thread',280,'shrine_wrap','安坐交互接受时一次；不代替回血成功。','existing_audio_key'),('shrine_rest','钟龛恢复',.75,'bell',390,'shrine_rest_ch01..shrine_rest_ch06','完整恢复后一次；六区共享，地区个性由环境层负责。','existing_audio_key'),('pickup','拾取收纳',.23,'glass',980,'pickup','物品收入背包后一次；钱币/布料保留现有变体。','existing_audio_key')]
     for key,title,dur,mode,freq,event,timing,status in feedback:add('feedback_'+key,title,'feedback',dur,mode,freq,event,timing,'共享交互语法；不包含UI移动/展开音，避免与S03重叠。',status=status)
-    sellers=json.loads((ROOT/'godot/data/cartography_sellers.json').read_text())
+    sellers=json.loads((ROOT/'godot/data/cartography_sellers.json').read_text(encoding="utf-8"))
     profiles=[('rattle',355,'齿轮短点、谨慎停顿'),('glass',710,'明亮上扬、两颗水滴'),('glass',920,'干盐页擦、克制三点'),('thread',240,'低木弦拨、缓慢回落'),('low',165,'低沉石质两拍、沉稳'),('bell',465,'空心细钟、长短间隔')]
     for (chapter,seller),(mode,freq,desc) in zip(sellers.items(),profiles):
         region=chapter.split('_')[1]
@@ -72,7 +72,7 @@ def generate(dest):
     for item in items:
         with wave.open(str(dest/item['file']),'wb') as w:w.setparams((1,2,RATE,0,'NONE','not compressed')); w.writeframes(synth(item))
     manifest=dict(schema_version=1,pack_id='audio_category_sfx',kind='sfx',status='proposal_only_not_runtime_integrated',items=items)
-    (dest/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+    (dest/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print(json.dumps({'items':len(items),'wav_bytes':sum(p.stat().st_size for p in (dest/'wav').glob('*.wav'))}))
 if __name__=='__main__':
     a=argparse.ArgumentParser(); a.add_argument('--output',type=Path,default=ROOT/'assets/proposals/audio_category_sfx'); generate(a.parse_args().output)

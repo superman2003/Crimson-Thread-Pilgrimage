@@ -131,7 +131,7 @@ def build():
     write_preview(OUT/'audition/reverse_ch06_to_ch01.ogg',np.concatenate(reels))
     manifest={'version':1,'license':'CC0-1.0 (new synthesized audio only)','sample_rate_hz':SR,'runtime_modified':False,
       'audition_normalization':'none; PCM stems summed at unity before Vorbis q5 encoding; lossy audition codec can change peaks','cue_sheet':cue,'assets':rows}
-    (DOC/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+    (DOC/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     cards=[]
     for c in cue:
         ch=c['chapter']; links=' '.join(f'<p>{r} <audio controls preload="none" src="../../../assets/proposals/reverse_audio/stems/ch{ch:02d}_{r}.wav"></audio></p>' for r in DUR)
@@ -139,7 +139,7 @@ def build():
     (DOC/'audition.html').write_text('''<!doctype html><meta charset="utf-8"><title>绯线巡礼 · 六章战斗音候选</title><style>body{background:#111821;color:#e6dcc8;font:17px system-ui;max-width:950px;margin:40px auto;padding:24px}h1{color:#dc8170}section{background:#1e2731;padding:20px;border-radius:12px;margin:18px 0}audio{width:100%;margin:12px 0}summary{cursor:pointer;color:#d3b882}</style><h1>从寂冠核心倒推六区 · 原创战斗音候选</h1><p>48 kHz / mono / PCM16 · 24 个独立素材 · 未接运行时</p><p>每章：0.25s 预警 → 1.50s 主体 → 2.75s 材质 → 4.00s 同步叠加 → 5.50s 受击。试听保留原增益，无自动响度统一。先降低播放音量。</p><p>总试听按 CH06→CH01，每章 8 秒。</p><audio controls preload="none" src="../../../assets/proposals/reverse_audio/audition/reverse_ch06_to_ch01.ogg"></audio>'''+''.join(cards)+'<p>客观指标通过不等于混音或玩家识别实听验收。请参阅 README.md。</p>',encoding='utf8')
 
 def verify():
-    manifest=json.loads((DOC/'manifest.json').read_text()); results={}; failures=[]
+    manifest=json.loads((DOC/'manifest.json').read_text(encoding="utf-8")); results={}; failures=[]
     expected_paths={str(ROOT/r['path']) for r in manifest['assets']}
     expected_paths.update(str(ROOT/c['preview']) for c in manifest['cue_sheet'])
     expected_paths.add(str(OUT/'audition/reverse_ch06_to_ch01.ogg'))
@@ -161,7 +161,7 @@ def verify():
       'loop_policy':'All 24 are one-shots. loop=false; no loop seam acceptance claimed.',
       'metrics_note':'Integrated LUFS on short transients is descriptive, not a perceptual loudness target. 4x resampling true peak is an estimate; ffmpeg loudnorm also measures dBTP. Silence measured at -60dBFS, exact zero percentage separately. No listening acceptance performed. OGG auditions are decoded to PCM16 for RMS/silence checks and directly measured by ffmpeg loudnorm for LUFS/true peak.',
       'failures':failures,'tool_versions':{'numpy':np.__version__,'scipy':scipy.__version__,'ffmpeg':subprocess.check_output(['ffmpeg','-version'],text=True).splitlines()[0]},'measurements':results}
-    (DOC/'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    (DOC/'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print(json.dumps({k:report[k] for k in ('passed','files_checked','deterministic_stems_checked','failures')}))
     if failures: raise SystemExit(1)
 

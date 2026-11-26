@@ -237,7 +237,7 @@ def render(path,png):
 
 def main():
  OUT.mkdir(parents=True,exist_ok=True);DOC.mkdir(parents=True,exist_ok=True)
- (OUT/'.gitattributes').write_text('* -filter\n*.png -diff -merge -text\n*.svg text eol=lf diff\n*.json text eol=lf diff\n.gitattributes text diff\n')
+ (OUT/'.gitattributes').write_text('* -filter\n*.png -diff -merge -text\n*.svg text eol=lf diff\n*.json text eol=lf diff\n.gitattributes text diff\n', encoding="utf-8")
  manifest={'schema_version':1,'pack_id':'reverse_scenery_v2','title':'绯线巡礼 V03 · 六区设施景深','kind':'scenery','seed':SEED,'baseline_commit':'6544cceff5e812b5295b97204d7c55a4b8933de9','items':[]}
  report=[]
  with tempfile.TemporaryDirectory() as td:
@@ -245,7 +245,7 @@ def main():
    idx=int(cid[-2:]);layers=[];imgs=[]
    for li,(name,cn,fn,para,z) in enumerate([('far','远景',far,.15,-30),('mid','中景设施',mid,.4,-20),('front','边角前景',front,.75,20)]):
     file=f'{cid}_{name}.svg';src=svg(fn(idx,C,random.Random(SEED+idx*101+li)),C,title+' · '+cn)
-    (OUT/file).write_text(src)
+    (OUT/file).write_text(src, encoding="utf-8")
     im=render(OUT/file,Path(td)/f'{cid}_{name}.png');imgs.append(im)
     a=np.asarray(im);safe=a[100:490,160:800,3]
     if name=='front':assert not safe.any(),f'{cid} foreground intersects action safe rect'
@@ -262,7 +262,7 @@ def main():
    # Statistics describe rendered artwork only, not actual-game readability.
    lum=np.asarray(combined.convert('RGB'))@np.array([.2126,.7152,.0722])/255
    report.append({'region':cid,'preview_bytes':(OUT/preview).stat().st_size,'rendered_luma_p05_p50_p95':[round(float(x),4) for x in np.quantile(lum,[.05,.5,.95])],'foreground_safe_rect_alpha_max':0})
- (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
- (DOC/'render_report.json').write_text(json.dumps({'seed':SEED,'resolution':[W,H],'checks':report,'total_pack_bytes':sum(x.stat().st_size for x in OUT.iterdir() if x.is_file())},ensure_ascii=False,indent=2)+'\n')
+ (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
+ (DOC/'render_report.json').write_text(json.dumps({'seed':SEED,'resolution':[W,H],'checks':report,'total_pack_bytes':sum(x.stat().st_size for x in OUT.iterdir() if x.is_file())},ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
  print(json.dumps({'svg_count':18,'preview_count':6,'total_pack_bytes':sum(x.stat().st_size for x in OUT.iterdir() if x.is_file()),'reports':report},ensure_ascii=False))
 if __name__=='__main__':main()

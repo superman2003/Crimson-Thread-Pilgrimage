@@ -87,7 +87,7 @@ func ask(command: String) -> void:
     if selected.is_empty():window.status.text="请选择一套方案。";return
     var quote: Dictionary=model.quote(selected,ui,scope.selected)
     if command=="apply" and not quote.ok:window.status.text=String(quote.reason);return
-    pending={"command":command,"name":selected,"scope":scope.selected,"snapshot":model.profiles.get(selected,{}).duplicate(true),"baseline":model.capture(ui)}
+    pending={"command":command,"name":selected,"scope":scope.selected,"snapshot":model.profiles.get(selected,{}).duplicate(true),"apply_snapshot":quote.get("snapshot",model.profiles.get(selected,{})).duplicate(true),"baseline":model.capture(ui)}
     confirm.dialog_text=("应用以下变化？\n"+"\n".join(quote.get("lines",[]))) if command=="apply" else ("删除" if command=="delete" else "用当前设置覆盖")+"方案「"+selected+"」？"
     confirm.dialog_text=confirm.dialog_text.left(1000)
     confirm.popup_centered();confirm.get_cancel_button().grab_focus()
@@ -97,7 +97,7 @@ func _confirm() -> void:
     var request:=pending.duplicate(true);pending={}
     var result: Dictionary
     if model.profiles.get(request.name,{})!=request.snapshot or model.capture(ui)!=request.baseline:result={"ok":false,"reason":"方案或当前设置已变化，请重新核对。"}
-    elif request.command=="apply":result=model.apply(String(request.name),ui,int(request.scope),request.snapshot)
+    elif request.command=="apply":result=model.apply(String(request.name),ui,int(request.scope),request.get("apply_snapshot",request.snapshot))
     else:result=model.manage(String(request.command),String(request.name),"",model.capture(ui))
     refresh();window.status.text=String(result.reason)
 

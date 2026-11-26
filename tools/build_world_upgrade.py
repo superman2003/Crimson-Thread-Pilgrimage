@@ -83,14 +83,14 @@ EVIDENCE = {
 
 
 def build():
-    routes = json.loads(PATH.read_text())
+    routes = json.loads(PATH.read_text(encoding="utf-8"))
     chapters = routes['chapters']
     previous_rooms = {(region, room['id']): deepcopy(room)
                       for region, overlay in chapters.items() for room in overlay.get('map_rooms', [])}
     practices = {(item['region_id'], item['room_id']): item for item in routes.get('seal_practice_plan', [])}
     room_layouts = {(item['region_id'], item['room_id']): item
                     for item in routes.get('workshop_layouts', [])}
-    bases = {r: json.loads((DATA / f'{r}.json').read_text()) for r in REGIONS}
+    bases = {r: json.loads((DATA / f'{r}.json').read_text(encoding="utf-8")) for r in REGIONS}
     for overlay in chapters.values():
         for key in ['portals', 'platforms', 'locked_gates', 'collectibles', 'map_rooms', 'grapple_anchors', 'save_points', 'map_room_overrides']:
             overlay[key] = [v for v in overlay.get(key, []) if not v.get('id', '').startswith(PREFIX)
@@ -312,7 +312,7 @@ def build():
         design_note='六区互联：书库分赴温室/黑曜，根须影管与冠脊索道在王冠汇合。三条旧补给/运书线由远侧开启；八能力各有两间安全、动作驱动、有物资和反证奖励的旧区检修工房。',
         ability_backtracks=backtracks,
         acquisition_plan={k: dict(region_id=REGIONS[v[0] - 1], room_id=v[1], collectible_id=PREFIX + 'obtain_' + k) for k, v in obtains.items()})
-    PATH.write_text(json.dumps(routes, ensure_ascii=False, indent=2) + '\n')
+    PATH.write_text(json.dumps(routes, ensure_ascii=False, indent=2) + '\n', encoding="utf-8")
     # Reapply the ordinary-world shelves and action-operated return lines too;
     # their hints may share an override with a regenerated workshop entrance.
     from build_ability_places import build as build_ability_places

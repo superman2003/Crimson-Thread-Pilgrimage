@@ -15,7 +15,7 @@ const LIST := [
     {"id": "ending_a", "name": "重鸣", "goal": "见证结局·重鸣"},
     {"id": "ending_b", "name": "断线", "goal": "见证结局·断线"},
     {"id": "ending_c", "name": "改写", "goal": "见证结局·改写"},
-    {"id": "all_endings", "name": "三途尽览", "goal": "在同一段旅途见证三种结局"},
+    {"id": "all_endings", "name": "三途尽览", "goal": "跨段旅途见证三种结局"},
     {"id": "completionist", "name": "巡礼圆满", "goal": "完成度达到 100%"},
 ]
 var store := preload("res://scripts/journey_desk_store.gd").new()
@@ -78,6 +78,11 @@ func sync(data: Dictionary, now: int) -> Array[String]:
     self.load()
     var fresh: Array[String]=[]
     var have:=earned(data)
+    for id in ["ending_a", "ending_b", "ending_c"]:
+        if unlocked.has(id) and not have.has(id):
+            have.append(id)
+    if ["ending_a", "ending_b", "ending_c"].all(func(id: String): return have.has(id)) and not have.has("all_endings"):
+        have.append("all_endings")
     for entry in LIST:
         if have.has(entry.id) and not unlocked.has(entry.id):
             unlocked[entry.id]=now;fresh.append(String(entry.name))

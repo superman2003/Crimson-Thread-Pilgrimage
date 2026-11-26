@@ -18,6 +18,7 @@ var finished:=false
 var closing:=false
 var elapsed:=0.0
 var hits:=0
+var last_hp:=0
 var record: Dictionary={}
 var on_return: Callable
 
@@ -38,7 +39,8 @@ func begin(real_level: Node,plan: Dictionary,callback: Callable) -> void:
     player.build_system=build;player.apply_build_stats(build.profile());player.selected_skill=build.selected_skill()
     for property in ["dash_unlocked","wall_grip_unlocked","double_jump_unlocked","thread_grapple_unlocked","bell_guard_unlocked","thorn_downstrike_unlocked","lantern_phase_unlocked","crown_resonance_unlocked"]:player.set(property,level.player.get(property))
     player.hp=player.max_hp;player.energy=player.max_energy;player.set_spawn(player.position)
-    player.hp_changed.connect(func(_hp: int):hits+=1)
+    last_hp=int(player.hp)
+    player.hp_changed.connect(_on_player_hp_changed)
     player.player_respawned.connect(func():finish(false,"练习角色倒下"))
     var camera: Camera2D=player.get_node("Camera2D");camera.position_smoothing_enabled=false;camera.make_current()
     var canvas:=CanvasLayer.new();canvas.layer=100;add_child(canvas)
@@ -71,6 +73,10 @@ func _next_wave() -> void:
         alive.append(actor);actors.append(actor)
         actor.died.connect(func(_id: String,_boss: bool,_kind: String):_defeated(actor))
 
+func _on_player_hp_changed(new_hp: int) -> void:
+    if new_hp<last_hp:hits+=1
+    last_hp=new_hp
+
 func _defeated(actor: Area2D) -> void:
     if finished or not alive.has(actor):return
     alive.erase(actor)
@@ -84,10 +90,18 @@ func _process(delta: float) -> void:
     if elapsed>=300:finish(false,"五分钟练习时限已到");return
     label.text="%s · 第 %d/%d 轮 · 余敌 %d · %.1f 秒\n生命 %d/%d · 绯线 %d · 本场零掉落，旅途资源不变" % [String(bout.title),wave,bout.waves.size(),alive.size(),elapsed,player.hp,player.max_hp,player.energy]
     if Input.is_action_just_pressed("tool_cast"):
-        var result: Dictionary=build.use_tool()
-        if result.ok:player.cast_tool(result)
+        _use_tool()
     elif Input.is_action_just_pressed("tool_cycle"):build.cycle_tool()
     elif Input.is_action_just_pressed("skill_cycle"):build.cycle_skill();player.selected_skill=build.selected_skill()
+
+func _use_tool() -> bool:
+    var result: Dictionary = build.use_tool()
+    if not result.ok:
+        return false
+    if player.cast_tool(result):
+        return true
+    build.refund_tool(String(result.get("id", "")))
+    return false
 
 func _unhandled_key_input(event: InputEvent) -> void:
     if event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_ESCAPE:close();get_viewport().set_input_as_handled()

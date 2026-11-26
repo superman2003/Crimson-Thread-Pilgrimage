@@ -29,9 +29,21 @@ def platform_map(config: dict) -> dict[str, dict]:
 
 def export_value(source: str, name: str) -> float:
     match = re.search(rf"@export var {re.escape(name)}: float = (-?\d+(?:\.\d+)?)", source)
-    if match is None:
-        raise AssertionError(f"missing exported player value: {name}")
-    return float(match.group(1))
+    if match is not None:
+        return float(match.group(1))
+    ref = re.search(rf"@export var {re.escape(name)}: float = ([A-Z_][A-Z0-9_]*)\.([A-Z_][A-Z0-9_]*)", source)
+    if ref is not None:
+        alias, const_name = ref.group(1), ref.group(2)
+        preload = re.search(rf'const\s+{re.escape(alias)}\s*:?=\s*preload\("res://([^"]+)"\)', source)
+        if preload is not None:
+            const_source = (ROOT / "godot" / preload.group(1)).read_text(encoding="utf-8")
+            const_match = re.search(
+                rf"const\s+{re.escape(const_name)}(?:\s*:\s*float)?\s*:?=\s*(-?\d+(?:\.\d+)?)",
+                const_source,
+            )
+            if const_match is not None:
+                return float(const_match.group(1))
+    raise AssertionError(f"missing exported player value: {name}")
 
 
 def assert_step(platforms: dict[str, dict], from_id: str, to_id: str, max_jump_height: float) -> None:

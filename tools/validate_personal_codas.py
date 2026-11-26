@@ -54,14 +54,14 @@ def errors(story):
 
 
 def validate():
-    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text())
+    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text(encoding="utf-8"))
     found = errors(story)
     assert not found, '\n'.join(found)
-    source = (ROOT / 'godot/scripts/npc_recollections.gd').read_text()
+    source = (ROOT / 'godot/scripts/npc_recollections.gd').read_text(encoding="utf-8")
     capacity = int(re.search(r'^const MAX_STATES := (\d+)', source, re.M)[1])
     for npc_id in NPCS:
         npc = story['npcs'][npc_id]
-        chapter = json.loads((ROOT / ('godot/data/demo_' + npc['region'] + '.json')).read_text())
+        chapter = json.loads((ROOT / ('godot/data/demo_' + npc['region'] + '.json')).read_text(encoding="utf-8"))
         local = next(row for row in chapter['npcs'] if row['id'] == npc_id)
         count = len(npc['states']) + 1 + len(local.get('story_dialogue', {}))
         assert count <= capacity, f'{npc_id}: new codas would truncate existing local recollections'

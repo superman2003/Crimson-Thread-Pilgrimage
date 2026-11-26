@@ -93,7 +93,7 @@ def measure(cel: np.ndarray) -> dict:
 
 
 def existing_poses(kind: str) -> dict:
-    manifest = json.loads((CREATURES / kind / "motion_manifest.json").read_text())
+    manifest = json.loads((CREATURES / kind / "motion_manifest.json").read_text(encoding="utf-8"))
     half = manifest["canvas"][0] / 2.0
     atlases, poses = {}, {}
     for animation in manifest["animations"]:
@@ -140,7 +140,7 @@ def calibrate(role: str, plan: list, cels: list, poses: dict) -> tuple[float, li
 def register(kind: str, sheets: list, check: bool) -> dict:
     folder = CREATURES / kind
     record_path = folder / "motion_generation.json"
-    record = json.loads(record_path.read_text())
+    record = json.loads(record_path.read_text(encoding="utf-8"))
     runtime = record["runtime_frames"]
     previous = record.get(RECORD_KEY, {})
     for name in previous.get("animations", []):
@@ -179,10 +179,10 @@ def register(kind: str, sheets: list, check: bool) -> dict:
                           "animations": added, "sheets": sources}
     encoded = json.dumps(record, ensure_ascii=False, indent=2) + "\n"
     if check:
-        if record_path.read_text() != encoded:
+        if record_path.read_text(encoding="utf-8") != encoded:
             raise ValueError(f"{kind}: attack registration differs; rebuild")
     else:
-        record_path.write_text(encoded)
+        record_path.write_text(encoded, encoding="utf-8")
     return {"kind": kind, "animations": added, "frames": sum(len(runtime[n]) for n in added),
             "scales": {s["image"]: s["scale"] for s in sources}}
 
@@ -194,7 +194,7 @@ def main():
     args = parser.parse_args()
     by_kind: dict[str, list] = {}
     for path in sorted(INCOMING.glob("*.json")):
-        data = json.loads(path.read_text())
+        data = json.loads(path.read_text(encoding="utf-8"))
         if data.get("schema") != "creature-attack-source-v1":
             continue
         by_kind.setdefault(data["kind"], []).append(data)

@@ -74,6 +74,8 @@ static func manifest_refresh_cancelled(loader: RefCounted, background: bool) -> 
     if loader.phase == "startup" and loader.startup_token != null and loader.startup_token.cancelled:
         loader.last_error = "初始区域加载已取消。"
         return true
+    if loader.phase == "staging":
+        return loader.cancel_requested
     if loader.phase != "preflight":
         return false
     loader._cancel_input()

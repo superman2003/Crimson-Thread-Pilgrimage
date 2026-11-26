@@ -821,7 +821,8 @@ func _process(_delta: float) -> void:
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
-    if world_mode and new_requested and new_journey_dialog != null and not new_journey_dialog.visible:
+    var new_modal_open: bool = ui_shell != null and ui_shell.has_method("has_modal_window") and ui_shell.has_modal_window()
+    if world_mode and new_requested and active_overlay.is_empty() and not world_loading and not chapter_transitioning and not world_portal_request_pending and not new_modal_open and new_journey_dialog != null and not new_journey_dialog.visible:
         new_journey_dialog.popup_centered()
         active_overlay = "new_journey"
         _sync_ui_input_lock()
