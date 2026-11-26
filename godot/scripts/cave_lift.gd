@@ -14,6 +14,9 @@ var last_request_text := ""
 var prompt: Label
 var landing_prompts: Array[Label]=[]
 const PROMPTS=preload("res://scripts/input_prompt_bindings.gd")
+const LIFT_CAGE_TEX := preload("res://assets/sprites/art05/interactables/lift_cage.png")
+const LIFT_PULLEY_TEX := preload("res://assets/sprites/art05/interactables/lift_pulley.png")
+const LIFT_CHAIN_TEX := preload("res://assets/sprites/art05/interactables/lift_chain.png")
 
 func configure(data: Dictionary, owner_scene: Node2D) -> void:
     name = String(data.id)
@@ -40,7 +43,14 @@ func configure(data: Dictionary, owner_scene: Node2D) -> void:
     var rim:=Line2D.new()
     rim.points=PackedVector2Array([Vector2(-61,-62),Vector2(-61,0),Vector2(61,0),Vector2(61,-62)])
     rim.width=5;rim.default_color=Color("9ba47e")
+    rim.visible=false
     basket.add_child(rim)
+    var cage_sprite:=Sprite2D.new()
+    cage_sprite.name="LiftCageSprite"
+    cage_sprite.texture=LIFT_CAGE_TEX
+    cage_sprite.position=Vector2(0,-56)
+    cage_sprite.scale=Vector2(0.9,0.9)
+    basket.add_child(cage_sprite)
     add_child(basket)
     prompt=Label.new()
     prompt.add_theme_font_override("font",load("res://assets/fonts/GlobalTypeface.otf"))
@@ -55,8 +65,13 @@ func configure(data: Dictionary, owner_scene: Node2D) -> void:
     queue_redraw()
 
 func _draw() -> void:
-    draw_line(Vector2(x-50,top_y-110),Vector2(x-50,bottom_y+25),Color(.22,.30,.29),3)
-    draw_line(Vector2(x+50,top_y-110),Vector2(x+50,bottom_y+25),Color(.22,.30,.29),3)
+    var chain_y := top_y - 110.0
+    while chain_y < bottom_y + 20.0:
+        var seg_h := minf(64.0, (bottom_y + 25.0) - chain_y)
+        draw_texture_rect(LIFT_CHAIN_TEX, Rect2(x - 58.0, chain_y, 16.0, seg_h), false)
+        draw_texture_rect(LIFT_CHAIN_TEX, Rect2(x + 42.0, chain_y, 16.0, seg_h), false)
+        chain_y += 64.0
+    draw_texture_rect(LIFT_PULLEY_TEX, Rect2(x - 28.0, top_y - 146.0, 56.0, 56.0), false)
     for y in [top_y,bottom_y]:
         draw_circle(Vector2(x+95,y-45),12,Color("a1b288"))
         draw_line(Vector2(x+95,y-62),Vector2(x+95,y-28),Color("dce4c5"),3)

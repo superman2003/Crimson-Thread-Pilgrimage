@@ -9,6 +9,16 @@ const RETURN_TINT := Color(0.69, 0.87, 0.68)
 const PLATE := Color(0.06, 0.07, 0.07, 0.86)
 const NEAR := 180.0
 const GLYPHS := ["thread_dash", "silk_wall_grip", "double_thread_jump", "thorn_downstrike", "lantern_phase", "crown_resonance", "echo_hook"]
+const SIGN_TEXTURES := {
+    "thread_dash": preload("res://assets/sprites/art05/ability_signs/thread_dash.png"),
+    "silk_wall_grip": preload("res://assets/sprites/art05/ability_signs/silk_wall_grip.png"),
+    "double_thread_jump": preload("res://assets/sprites/art05/ability_signs/double_thread_jump.png"),
+    "thorn_downstrike": preload("res://assets/sprites/art05/ability_signs/thorn_downstrike.png"),
+    "lantern_phase": preload("res://assets/sprites/art05/ability_signs/lantern_phase.png"),
+    "crown_resonance": preload("res://assets/sprites/art05/ability_signs/crown_resonance.png"),
+    "echo_hook": preload("res://assets/sprites/art05/ability_signs/echo_hook.png"),
+    "return_arrow": preload("res://assets/sprites/art05/ability_signs/return_arrow.png"),
+}
 
 var ability := ""
 var ability_name := ""
@@ -47,13 +57,18 @@ func _notification(what: int) -> void:
 
 func _draw() -> void:
     var tint := RETURN_TINT if showing_return else AMBER
-    draw_circle(Vector2.ZERO, 17.0, PLATE)
-    draw_arc(Vector2.ZERO, 17.0, 0.0, TAU, 32, tint, 2.0, true)
-    if showing_return:
-        draw_line(Vector2(0, -8), Vector2(0, 8), tint, 2.0, true)
-        draw_polyline(PackedVector2Array([Vector2(-6, -2), Vector2(0, -8), Vector2(6, -2)]), tint, 2.0, true)
+    var sign_key := "return_arrow" if showing_return else ability
+    var sign_tex: Texture2D = SIGN_TEXTURES.get(sign_key)
+    if sign_tex != null:
+        draw_texture_rect(sign_tex, Rect2(-20.0, -20.0, 40.0, 40.0), false)
     else:
-        _glyph(ability)
+        draw_circle(Vector2.ZERO, 17.0, PLATE)
+        draw_arc(Vector2.ZERO, 17.0, 0.0, TAU, 32, tint, 2.0, true)
+        if showing_return:
+            draw_line(Vector2(0, -8), Vector2(0, 8), tint, 2.0, true)
+            draw_polyline(PackedVector2Array([Vector2(-6, -2), Vector2(0, -8), Vector2(6, -2)]), tint, 2.0, true)
+        else:
+            _glyph(ability)
     var label := caption()
     if nearby and not label.is_empty():
         var size := FONT.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 14)

@@ -1,5 +1,8 @@
 extends RefCounted
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
+const HOOK_RING_TEX := preload("res://assets/sprites/art05/interactables/hook_ring.png")
+const RETURN_KNOT_IDLE_TEX := preload("res://assets/sprites/art05/interactables/return_knot_idle.png")
+const RETURN_KNOT_ACTIVE_TEX := preload("res://assets/sprites/art05/interactables/return_knot_active.png")
 ## Wayfinding, world portals and grapple anchors, travelling between regions, region-owned tweens and deferred calls, and committing world dialogue.
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -102,6 +105,14 @@ static func world_grapple_anchor(level: Node, data: Dictionary) -> void:
     chain.add_point(Vector2(0, -45))
     chain.add_point(Vector2(0, -13))
     anchor.add_child(chain)
+    ring.visible = false
+    chain.visible = false
+    var hook_sprite := Sprite2D.new()
+    hook_sprite.name = "HookRingSprite"
+    hook_sprite.texture = HOOK_RING_TEX
+    hook_sprite.position = Vector2(0, -18)
+    hook_sprite.scale = Vector2(0.55, 0.55)
+    anchor.add_child(hook_sprite)
     LEVEL_HOST.region_parent(level).add_child(anchor)
 
 

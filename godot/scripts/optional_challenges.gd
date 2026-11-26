@@ -1,5 +1,9 @@
 extends RefCounted
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
+const CHALLENGE_BELL_IDLE := preload("res://assets/sprites/art05/interactables/challenge_bell_idle.png")
+const CHALLENGE_BELL_CLEARED := preload("res://assets/sprites/art05/interactables/challenge_bell_cleared.png")
+const HUNT_TRACK_IDLE := preload("res://assets/sprites/art05/interactables/hunt_track_idle.png")
+const HUNT_TRACK_LOGGED := preload("res://assets/sprites/art05/interactables/hunt_track_logged.png")
 ## Optional challenges: shrines, hunt tracks, the locked arena, and first-clear rewards.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -44,10 +48,9 @@ static func challenge_shrine(level: Node, challenge: Dictionary) -> void:
     shape.shape = rectangle
     area.add_child(shape)
     var sprite := Sprite2D.new()
-    sprite.texture = load(level.SPRITES["lever"])
-    sprite.scale = Vector2(0.48, 0.48)
+    sprite.texture = CHALLENGE_BELL_CLEARED if cleared else CHALLENGE_BELL_IDLE
+    sprite.scale = Vector2(0.62, 0.62)
     sprite.name = "ChallengeShrineSprite"
-    level._apply_original_prop(sprite, "lever_closed" if not cleared else "lever_open", 78 if not cleared else 52)
     area.add_child(sprite)
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
@@ -106,10 +109,9 @@ static func hunt_track(level: Node, challenge: Dictionary, track: Dictionary) ->
     shape.shape = rectangle
     area.add_child(shape)
     var sprite := Sprite2D.new()
-    sprite.texture = load(level.SPRITES["lever"])
-    sprite.scale = Vector2(0.36, 0.36)
+    sprite.texture = HUNT_TRACK_LOGGED if found else HUNT_TRACK_IDLE
+    sprite.scale = Vector2(0.5, 0.5)
     sprite.name = "HuntTrackSprite"
-    level._apply_original_prop(sprite, "lever_open" if found else "lever_closed", 52 if found else 64)
     area.add_child(sprite)
     level._add_wayfinding(area)
     area.body_entered.connect(level._on_interactable_entered.bind(area))
@@ -139,7 +141,8 @@ static func activate_hunt_track(level: Node, area: Area2D) -> void:
     area.set_meta("interaction_label", String(area.get_meta("label")) + " · 回看")
     var sprite := area.get_node_or_null("HuntTrackSprite") as Sprite2D
     if sprite != null:
-        level._apply_original_prop(sprite, "lever_open", 52)
+        sprite.texture = HUNT_TRACK_LOGGED
+        sprite.scale = Vector2(0.5, 0.5)
     if already:
         level._toast(hint if not hint.is_empty() else "残迹已循过。")
     else:
@@ -329,7 +332,7 @@ static func refresh_challenge_claim_label(level: Node, challenge: Dictionary, pe
     var label:="%s · %s" % [String(challenge.get("name","可选挑战")),"胜利待记录" if pending else "已清"]
     area.set_meta("label",label);area.set_meta("interaction_label",label+(" · 领取首清" if pending else " · 回访"))
     var sprite:=area.get_node_or_null("ChallengeShrineSprite") as Sprite2D
-    if sprite!=null:level._apply_original_prop(sprite,"lever_open",52)
+    if sprite!=null:sprite.texture=CHALLENGE_BELL_CLEARED;sprite.scale=Vector2(0.62,0.62)
 
 
 static func grant_optional_challenge_reward(level: Node, challenge: Dictionary) -> void:
@@ -404,5 +407,6 @@ static func grant_optional_challenge_reward_legacy(level: Node, challenge: Dicti
         area.set_meta("interaction_label", String(area.get_meta("label")) + " · 回访")
         var sprite: Sprite2D = area.get_node_or_null("ChallengeShrineSprite") as Sprite2D
         if sprite != null:
-            level._apply_original_prop(sprite, "lever_open", 52)
+            sprite.texture = CHALLENGE_BELL_CLEARED
+            sprite.scale = Vector2(0.62, 0.62)
     level._save_world()

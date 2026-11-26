@@ -1,5 +1,10 @@
 extends RefCounted
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
+const GATE_TEXTURES := {
+    "ending_a": preload("res://assets/sprites/art05/ending_gates/ending_a.png"),
+    "ending_b": preload("res://assets/sprites/art05/ending_gates/ending_b.png"),
+    "ending_c": preload("res://assets/sprites/art05/ending_gates/ending_c.png"),
+}
 ## Ending gates: placing them after the final gatekeeper, what each still needs, choosing one, and the aftermath.
 ## Moved out of main_level.gd unchanged in behaviour; the level keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
@@ -87,9 +92,15 @@ static func spawn_ending_gates(level: Node, announce: bool = false) -> void:
         var tint: Color = level.ENDING_GATE_TINTS.get(ending, Color(0.82, 0.90, 1.0, 0.90))
         var sprite := Sprite2D.new()
         sprite.name = "EndingGateSprite"
-        sprite.texture = load(level.SPRITES["boss_gate"])
-        sprite.scale = Vector2(0.66, 0.66)
-        sprite.modulate = tint
+        var custom_gate: Texture2D = GATE_TEXTURES.get(ending)
+        if custom_gate != null:
+            sprite.texture = custom_gate
+            sprite.scale = Vector2(0.56, 0.56)
+            sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
+        else:
+            sprite.texture = load(level.SPRITES["boss_gate"])
+            sprite.scale = Vector2(0.66, 0.66)
+            sprite.modulate = tint
         sprite.z_index = 7
         area.add_child(sprite)
 

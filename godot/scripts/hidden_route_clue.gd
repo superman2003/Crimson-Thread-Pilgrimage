@@ -3,6 +3,8 @@ extends Node2D
 ## room, so the secret is something the player sees in the world rather than a
 ## line on the map. It dims once the hidden room has been found.
 const LIGHT := Color("f3d9a0")
+const CLUE_UNFOUND := preload("res://assets/sprites/art05/interactables/hidden_clue_unfound.png")
+const CLUE_FOUND := preload("res://assets/sprites/art05/interactables/hidden_clue_found.png")
 var clue_id := ""
 var found := false:
     set(value):
@@ -30,7 +32,11 @@ func _process(delta: float) -> void:
 func _draw() -> void:
     var style:=material_style()
     var light: Color=style.tint
-    _draw_material(String(style.kind),light)
+    var tex: Texture2D = CLUE_FOUND if found else CLUE_UNFOUND
+    if tex != null:
+        draw_texture_rect(tex, Rect2(-28.0, -38.0, 56.0, 76.0), false, Color(1.0, 1.0, 1.0, 0.78 if found else 0.96))
+    else:
+        _draw_material(String(style.kind),light)
     var strength := 0.35 if found else 0.75 + 0.25 * sin(elapsed * 2.2)
     for ring in 4:
         draw_circle(Vector2.ZERO, 46.0 - ring * 10.0, Color(light, 0.05 * strength * (ring + 1)))

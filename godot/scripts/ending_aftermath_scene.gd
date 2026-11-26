@@ -3,6 +3,11 @@ extends Node2D
 ## the player rests at, so the change is seen in the world, not only read in
 ## the journal. Colours follow the ending gates.
 const LOOKS := {"bells": Color("f6d27a"), "barrier": Color("e8746f"), "names": Color("84e8f2")}
+const AFTERMATH_TEXTURES := {
+	"bells": preload("res://assets/sprites/art05/ending_aftermath/bells.png"),
+	"barrier": preload("res://assets/sprites/art05/ending_aftermath/barrier.png"),
+	"names": preload("res://assets/sprites/art05/ending_aftermath/names.png"),
+}
 var look := "bells"
 var elapsed := 0.0
 var motion:=preload("res://scripts/decorative_motion.gd").new()
@@ -18,6 +23,15 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	var tint: Color = LOOKS.get(look, LOOKS.bells)
+	var prop_tex: Texture2D = AFTERMATH_TEXTURES.get(look)
+	if prop_tex != null:
+		var pulse := 0.92 + 0.08 * sin(elapsed * 2.0)
+		draw_texture_rect(prop_tex, Rect2(-56.0, -126.0, 112.0, 126.0), false, Color(pulse, pulse, pulse, 1.0))
+		if look == "bells":
+			for ring in 2:
+				var t := fmod(elapsed * 0.5 + ring * 0.5, 1.0)
+				draw_arc(Vector2(0, -86), 18.0 + t * 56.0, PI * 1.1, PI * 1.9, 24, Color(tint, 0.42 * (1.0 - t)), 2.0)
+		return
 	match look:
 		"bells":
 			# A small bell swinging on its frame, its sound rings widening.

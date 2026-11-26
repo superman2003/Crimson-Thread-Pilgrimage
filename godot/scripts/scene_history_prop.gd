@@ -6,6 +6,20 @@ const INK := Color("322e2b")
 const COPPER := Color("a78155")
 const PAPER := Color("d8c9aa")
 const PALE := Color("8caaa1")
+const PROP_TEXTURES := {
+    "bell_mold": preload("res://assets/sprites/art05/history_props/bell_mold.png"),
+    "pump_manifold": preload("res://assets/sprites/art05/history_props/pump_manifold.png"),
+    "book_press": preload("res://assets/sprites/art05/history_props/book_press.png"),
+    "graft_bench": preload("res://assets/sprites/art05/history_props/graft_bench.png"),
+    "name_spool": preload("res://assets/sprites/art05/history_props/name_spool.png"),
+    "lock_comb": preload("res://assets/sprites/art05/history_props/lock_comb.png"),
+    "pledge_scar": preload("res://assets/sprites/art05/history_props/pledge_scar.png"),
+    "reversed_badges": preload("res://assets/sprites/art05/history_props/reversed_badges.png"),
+    "scraped_page": preload("res://assets/sprites/art05/history_props/scraped_page.png"),
+    "grafted_collar": preload("res://assets/sprites/art05/history_props/grafted_collar.png"),
+    "rewritten_muster": preload("res://assets/sprites/art05/history_props/rewritten_muster.png"),
+    "swallowed_key": preload("res://assets/sprites/art05/history_props/swallowed_key.png"),
+}
 var entry: Dictionary = {}
 var seen := false
 var elapsed := 0.0
@@ -84,6 +98,10 @@ func _draw() -> void:
     draw_rect(Rect2(-44,25,88,7),INK)
     stroke([Vector2(-44,25),Vector2(-29,23),Vector2(18,25),Vector2(44,24)],COPPER)
     var look := String(entry.get("look",""))
+    var prop_tex: Texture2D = PROP_TEXTURES.get(look)
+    if prop_tex != null:
+        draw_texture_rect(prop_tex, Rect2(-48.0, -64.0, 96.0, 96.0), false)
+        return
     match look:
         "bell_mold":
             for side in [-1,1]:
