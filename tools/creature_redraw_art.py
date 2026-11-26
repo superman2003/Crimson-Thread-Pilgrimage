@@ -61,15 +61,7 @@ ACCENT_FLOOR = 0.55             # share of saturated solid pixels, new / replace
 ACCENT_MIN_SHARE = 0.05         # creatures with fewer accent pixels are not judged on them
 # Deliveries merged before this check that already lost accent colour. Each is
 # pinned to its source sheet: a new drawing pass for the clip is judged again.
-LEGACY_ACCENT_SOURCES = {
-    ('bronze_moth', 'moth_dust'): 'b056b313d65d7461c97effad9aef231a00daa80f3cd0a71fed226a89387d3499',
-    ('bronze_moth', 'moth_dust_recover'): '686aa4ce38da02cf2fa82b5c2cb2cd0a7df85287cf831b2e53a34b8c0638325e',
-    ('bronze_moth', 'moth_dust_windup'): 'c888232b2eb93cdb09a8d62eddfebdbeca048c1d492515d79258a16c7e235e9d',
-    ('bronze_moth', 'windup'): 'ef60efaa989a03632119a73ff4f8f26c94e9b6ae3b927320624b36e0173c15fa',
-    ('corridor_heavy', 'heavy_stamp'): 'e41032cefbc54756428d8475effdef666b58a1db90e9cef6b3934069cf9a35e3',
-    ('index_scribe', 'attack'): '797afc62e4ed7d043c3eaf6136754585edb594db8028d955eada18dae65d6516',
-    ('saltwhite_contract_judge', 'windup'): '5efa67075624690cffedc7a2a6000764838488a163e9e997cbb0b28764a214a3',
-}
+LEGACY_ACCENT_SOURCES = {}
 
 
 
