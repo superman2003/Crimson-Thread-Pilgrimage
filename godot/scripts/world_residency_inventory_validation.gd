@@ -153,7 +153,9 @@ func measure(host: Node, window: Rect2 = Rect2()) -> Dictionary:
 		return {"window_shapes": out.shapes}
 	var art_cache := HAND_DRAWN_ASSETS.cache_stats()
 	out["cached_art_textures"] = int(art_cache.textures)
-	out["cached_art_bytes"] = int(art_cache.texture_bytes)
+	out["cached_art_estimated_rgba_bytes"] = int(art_cache.estimated_rgba_bytes)
+	out["rendering_texture_mem_bytes"] = int(art_cache.rendering_texture_mem_bytes)
+	out["gpu_metric_available"] = bool(art_cache.gpu_metric_available)
 	return out
 
 
@@ -242,8 +244,8 @@ func run() -> void:
 				exits.append(window)
 	check(exits.size() == PASSAGE.routes().size() * 2, "every passage mouth measured (%d)" % exits.size())
 	var final_art_cache := HAND_DRAWN_ASSETS.cache_stats()
-	check(int(final_art_cache.textures) <= 75 and int(final_art_cache.texture_bytes) < 750 * 1024 * 1024,
-		"character art cache evicts departed regions instead of accumulating all six (textures=%d bytes=%d)" % [int(final_art_cache.textures), int(final_art_cache.texture_bytes)])
+	check(int(final_art_cache.textures) <= 75 and int(final_art_cache.estimated_rgba_bytes) < 750 * 1024 * 1024,
+		"character art cache evicts departed regions instead of accumulating all six (textures=%d estimated_rgba_bytes=%d rendering_texture_mem_bytes=%d)" % [int(final_art_cache.textures), int(final_art_cache.estimated_rgba_bytes), int(final_art_cache.rendering_texture_mem_bytes)])
 	print("WORLD_RESIDENCY_REGIONS ", JSON.stringify(regions))
 	print("WORLD_RESIDENCY_EXITS ", JSON.stringify(exits))
 	HAND_DRAWN_ASSETS.clear_caches()

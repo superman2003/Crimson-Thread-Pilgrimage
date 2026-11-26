@@ -183,16 +183,27 @@ static func evict_unused_region_assets(configs: Array) -> Dictionary:
         "retained_textures": textures.size(), "retained_frames": frame_cache.size()}
 
 
+## Report cached texture/frame counts, an uncompressed RGBA8 pixel-footprint
+## estimate (`estimated_rgba_bytes = w * h * 4`, not compressed GPU VRAM), and
+## Godot's RenderingServer texture memory counter (`rendering_texture_mem_bytes`,
+## which is 0 under the headless Dummy renderer and non-zero only on a real GPU backend).
 static func cache_stats() -> Dictionary:
     var seen_rids: Dictionary = {}
-    var total_bytes := 0
+    var estimated_rgba_bytes := 0
     for value in textures.values():
         if value is Texture2D:
             var rid: RID = value.get_rid()
             if not seen_rids.has(rid):
                 seen_rids[rid] = true
-                total_bytes += value.get_width() * value.get_height() * 4
-    return {"textures": textures.size(), "frames": frame_cache.size(), "texture_bytes": total_bytes}
+                estimated_rgba_bytes += value.get_width() * value.get_height() * 4
+    var rendering_texture_mem_bytes := int(RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED))
+    return {
+        "textures": textures.size(),
+        "frames": frame_cache.size(),
+        "estimated_rgba_bytes": estimated_rgba_bytes,
+        "rendering_texture_mem_bytes": rendering_texture_mem_bytes,
+        "gpu_metric_available": rendering_texture_mem_bytes > 0,
+    }
 
 
 static func clear_caches() -> void:
