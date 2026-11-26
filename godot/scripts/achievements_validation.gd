@@ -109,7 +109,7 @@ func run() -> void:
     check(card.buttons.keys()==["continue","new","achievements","quit"],"title card offers the achievement list")
     card.buttons["achievements"].pressed.emit();await process_frame
     var window:=card.get_node_or_null("Achievements") as AcceptDialog
-    var list:=window.get_node("List") as ItemList if window!=null else null
+    var list:=window.find_child("List",true,false) as ItemList if window!=null else null
     check(window!=null and window.visible and paused and is_instance_valid(card),"the list opens over the card; the world stays held")
     check(list!=null and list.item_count==MODEL.LIST.size() and list.get_item_text(0).begins_with("● 第一缕线") and list.get_item_text(1).begins_with("○ ") and list.is_item_disabled(1),"earned and unearned entries are told apart")
     window.hide();card.choose("continue");await process_frame

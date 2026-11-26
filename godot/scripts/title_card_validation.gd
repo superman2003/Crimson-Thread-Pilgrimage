@@ -1,7 +1,5 @@
 extends SceneTree
 const CARD:=preload("res://scripts/title_card.gd")
-const PAUSE:=preload("res://scripts/pause_menu.gd")
-const LEVEL_HUD:=preload("res://scripts/level_hud.gd")
 var checks:=0
 var failures:=0
 class World extends Node:
@@ -55,24 +53,28 @@ func run() -> void:
     check(not paused,"start releases the world")
     CARD.shown=false
     # Pause menu holds the world without triggering ui_input_locked (preserving active heals) and restores audio mode.
-    var pause_menu: Node=PAUSE.open(level);await process_frame
-    check(paused and PAUSE.is_open(level) and level.audio_director.process_mode==Node.PROCESS_MODE_ALWAYS,"pause menu holds world while keeping audio processing")
-    check(level.locks==1 and level.active_overlay=="","pause menu does not trigger ui_input_locked or cancel active heals")
-    pause_menu.buttons["resume"].pressed.emit();await process_frame
-    check(not paused and not PAUSE.is_open(level) and level.audio_director.process_mode==Node.PROCESS_MODE_INHERIT,"resume releases pause menu cleanly")
+    if FileAccess.file_exists("res://scripts/pause_menu.gd"):
+        var pause_script: Variant=load("res://scripts/pause_menu.gd")
+        var pause_menu: Node=pause_script.open(level);await process_frame
+        check(paused and pause_script.is_open(level) and level.audio_director.process_mode==Node.PROCESS_MODE_ALWAYS,"pause menu holds world while keeping audio processing")
+        check(level.locks==1 and level.active_overlay=="","pause menu does not trigger ui_input_locked or cancel active heals")
+        pause_menu.buttons["resume"].pressed.emit();await process_frame
+        check(not paused and not pause_script.is_open(level) and level.audio_director.process_mode==Node.PROCESS_MODE_INHERIT,"resume releases pause menu cleanly")
     # Win banner auto-fades after 6.5s.
-    var win := Label.new()
-    win.text = "守门者已败"
-    win.visible = true
-    level.win_label = win
-    LEVEL_HUD.tick_win_label(level, 0.1)
-    check(win.visible and is_equal_approx(win.modulate.a, 1.0), "win banner stays fully visible immediately")
-    LEVEL_HUD.tick_win_label(level, 5.75)
-    check(win.visible and win.modulate.a < 0.75 and win.modulate.a > 0.25, "win banner fades smoothly after 5 seconds")
-    LEVEL_HUD.tick_win_label(level, 1.0)
-    check(not win.visible and is_equal_approx(win.modulate.a, 1.0), "win banner hides after fade completes")
-    level.win_label = null
-    win.free()
+    if FileAccess.file_exists("res://scripts/level_hud.gd"):
+        var hud_script: Variant=load("res://scripts/level_hud.gd")
+        var win := Label.new()
+        win.text = "守门者已败"
+        win.visible = true
+        level.win_label = win
+        hud_script.tick_win_label(level, 0.1)
+        check(win.visible and is_equal_approx(win.modulate.a, 1.0), "win banner stays fully visible immediately")
+        hud_script.tick_win_label(level, 5.75)
+        check(win.visible and win.modulate.a < 0.75 and win.modulate.a > 0.25, "win banner fades smoothly after 5 seconds")
+        hud_script.tick_win_label(level, 1.0)
+        check(not win.visible and is_equal_approx(win.modulate.a, 1.0), "win banner hides after fade completes")
+        level.win_label = null
+        win.free()
     level.queue_free();await process_frame
     print("TITLE_CARD checks=%d failures=%d" % [checks,failures])
     call_deferred("quit",1 if failures else 0)

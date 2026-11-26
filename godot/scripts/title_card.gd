@@ -4,8 +4,7 @@ extends CanvasLayer
 ## themselves, and a headless run has nobody to press a button.
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 const PROGRESS := preload("res://scripts/journey_progress.gd")
-const INSPECTOR := preload("res://scripts/save_inspector.gd")
-const APPLICATION_CLOSE := preload("res://scripts/application_close.gd")
+const CLOSE_OWNER_NAME := "PilgrimageApplicationClose"
 static var shown := false
 signal chosen(action: String)
 var level: Node
@@ -89,14 +88,22 @@ func _slot_summary(row: Dictionary, is_current: bool) -> String:
         return prefix + "\n尚无记录"
     if not bool(row.get("valid",false)):
         return prefix + "\n记录需恢复"
-    var region:=INSPECTOR.describe(row)
+    var region:=String(row.get("current_region",""))
+    if FileAccess.file_exists("res://scripts/save_inspector.gd"):
+        var inspector_script: Variant=load("res://scripts/save_inspector.gd")
+        if inspector_script!=null:
+            region=String(inspector_script.describe(row))
     var path:=String(row.get("path",""))
     var secs:=PROGRESS.recorded(path) if not path.is_empty() else 0
     return "%s\n%s · %s" % [prefix,region,PROGRESS.clock_text(secs)]
 
 func _language_button_label() -> String:
     var startup := get_node_or_null("/root/GameLanguageSettings")
-    var prefs: Variant = startup.preferences if startup != null else preload("res://scripts/display_dialog.gd").language
+    var prefs: Variant = startup.preferences if startup != null else null
+    if prefs == null and FileAccess.file_exists("res://scripts/display_dialog.gd"):
+        var display_script: Variant = load("res://scripts/display_dialog.gd")
+        if display_script != null:
+            prefs = display_script.language
     if prefs != null and String(prefs.locale) == "en":
         return "Language: EN"
     return "语言：中文"
@@ -105,10 +112,18 @@ func _choose_utility(action: String) -> void:
     if is_queued_for_deletion():return
     if action=="language":
         var startup := get_node_or_null("/root/GameLanguageSettings")
-        var prefs: Variant = startup.preferences if startup != null else preload("res://scripts/display_dialog.gd").language
+        var prefs: Variant = startup.preferences if startup != null else null
+        if prefs == null and FileAccess.file_exists("res://scripts/display_dialog.gd"):
+            var display_script: Variant = load("res://scripts/display_dialog.gd")
+            if display_script != null:
+                prefs = display_script.language
+        if prefs == null and FileAccess.file_exists("res://scripts/ui_language.gd"):
+            var lang_script: Variant = load("res://scripts/ui_language.gd")
+            if lang_script != null:
+                prefs = lang_script.new()
+                prefs.initialize()
         if prefs == null:
-            prefs = preload("res://scripts/ui_language.gd").new()
-            prefs.initialize()
+            return
         var next_locale := "en" if String(prefs.locale) != "en" else "zh_CN"
         prefs.choose(next_locale)
         if utility_buttons.has("language"):
@@ -162,7 +177,7 @@ func choose(action: String) -> void:
     if action=="quit":
         chosen.emit(action)
         var tree:=get_tree()
-        if tree!=null and tree.root.get_node_or_null(NodePath(APPLICATION_CLOSE.OWNER_NAME))!=null:
+        if tree!=null and tree.root.get_node_or_null(NodePath(CLOSE_OWNER_NAME))!=null:
             tree.root.close_requested.emit()
         elif tree!=null:
             tree.quit()
@@ -194,7 +209,10 @@ func show_achievements() -> void:
         add_child(window)
         var column:=VBoxContainer.new();window.add_child(column)
         var list:=ItemList.new();list.name="List";list.custom_minimum_size=Vector2(420,340);column.add_child(list)
-        preload("res://scripts/settings_dialog_layout.gd").install(window,column,Vector2i(460,420))
+        if FileAccess.file_exists("res://scripts/settings_dialog_layout.gd"):
+            var layout_script: Variant=load("res://scripts/settings_dialog_layout.gd")
+            if layout_script!=null:
+                layout_script.install(window,column,Vector2i(460,420))
         window.visibility_changed.connect(func():
             if not window.visible and buttons.has("achievements"):buttons["achievements"].grab_focus())
     var list:=window.find_child("List",true,false) as ItemList
