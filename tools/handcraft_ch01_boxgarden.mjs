@@ -617,7 +617,7 @@ function main() {
   const slots = wallSlots(r.platforms);
   const orders = r.platforms.filter((p) => p.route_role === "main").map((p) => p.route_order);
   const dupOrders = orders.filter((o, i) => orders.indexOf(o) !== i);
-  // dynamic thirds band coverage (mirrors tmp_check_contracts.mjs)
+  // dynamic thirds band coverage
   const floors = r.platforms.filter((p) => p.collision_role !== "ceiling");
   const ys = floors.map((p) => p.rect[1]);
   const yMin = Math.min(...ys), yMax = Math.max(...ys), span = yMax - yMin;

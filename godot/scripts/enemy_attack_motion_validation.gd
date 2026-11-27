@@ -25,12 +25,22 @@ func enemy(stage: Node, kind: String) -> Enemy:
 func run() -> void:
     var stage := Node2D.new(); root.add_child(stage)
     var target := Target.new(); stage.add_child(target); target.position = Vector2(150, 0); target.add_to_group("player")
+    var player_shape := CollisionShape2D.new()
+    var player_box := RectangleShape2D.new(); player_box.size = Vector2(28, 64)
+    player_shape.shape = player_box; target.add_child(player_shape)
     for kind in ["lunge", "dive", "combo"]:
         var node := enemy(stage, kind); target.hits = 0; node._update_active(0.7)
         check(target.hits == 1, kind + " sweeps target between endpoints")
         node._update_active(0.1)
         check(target.hits == 1, kind + " retains single accepted contact")
         node.free()
+    target.position = Vector2(45, 0)
+    target.hits = 0
+    var through_player := enemy(stage, "lunge"); through_player._update_active(0.7)
+    check(through_player.position.x > 80 and target.hits == 1,
+        "the player is a valid attack target, not a terrain obstacle to enemy movement")
+    through_player.free()
+    target.position = Vector2(150, 0)
     var node := enemy(stage, "lunge"); node.state_timer = 0.1; node._update_active(1)
     check(is_equal_approx(node.position.x, 100), "movement cannot borrow recovery duration")
     node.free()
@@ -51,8 +61,31 @@ func run() -> void:
     node.free(); stage.free()
     _check_authored_ray_edges()
     _check_combo_manifests()
+    _check_reflected_projectile_keeps_its_heading()
     print("ENEMY_ATTACK_MOTION checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
+
+func _check_reflected_projectile_keeps_its_heading() -> void:
+    var arena := Node2D.new()
+    root.add_child(arena)
+    var player := CharacterBody2D.new()
+    player.add_to_group("player")
+    player.position = Vector2(0, 420)
+    arena.add_child(player)
+    var projectile := preload("res://scripts/enemy_attack_effect.gd").new()
+    projectile.effect_kind = "projectile"
+    projectile.velocity = Vector2(240, 0)
+    projectile.steering = 900.0
+    projectile.reflected = true
+    projectile.duration = 2.0
+    projectile.add_to_group("hostile_attack")
+    arena.add_child(projectile)
+    projectile.set_physics_process(false)
+    projectile._physics_process(0.1)
+    check(projectile.velocity.x > 239.0 and is_zero_approx(projectile.velocity.y),
+        "a reflected homing projectile no longer turns back toward the player")
+    projectile.free()
+    arena.free()
 
 func _check_authored_ray_edges() -> void:
     var host := Node2D.new()

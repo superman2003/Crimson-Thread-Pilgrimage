@@ -1,0 +1,2237 @@
+{
+  "schema_version": 1,
+  "generated_date": "2026-11-26",
+  "baseline_branch": "origin/main",
+  "scope": "Full hand-painted art & animation production backlog (excluding code-only fixes already covered by PR #702-#705 and audio-only tasks).",
+  "summary_counts": {
+    "work_packages": 9,
+    "art01_legacy_accent_waivers": 7,
+    "art02_player_seals": 3,
+    "art03_b01_role_species_primary": 8,
+    "art03_b01_guard_optional": 4,
+    "art04_short_hurt_species": 7,
+    "art04_short_death_species": 8,
+    "art05_ability_gate_icons": 8,
+    "art05_ending_gates_and_aftermath_looks": 6,
+    "art05_world_interactables_and_props": 42,
+    "art06_creatures_missing_turn_brake": 45,
+    "art06_breakdown": {
+      "bosses_ground": 6,
+      "mobs_ground": 20,
+      "mobs_flight": 11,
+      "mobs_stationary_optional_turn_only": 8
+    },
+    "art06_legacy_stride_waivers": 11,
+    "art07_npcs_total": 25,
+    "art08_biomes": 6
+  },
+  "art01_legacy_accent_waivers": [
+    {
+      "kind": "bronze_moth",
+      "name": "铜翼蛾",
+      "clip": "moth_dust",
+      "source_sha256": "b056b313d65d7461c97effad9aef231a00daa80f3cd0a71fed226a89387d3499"
+    },
+    {
+      "kind": "bronze_moth",
+      "name": "铜翼蛾",
+      "clip": "moth_dust_recover",
+      "source_sha256": "686aa4ce38da02cf2fa82b5c2cb2cd0a7df85287cf831b2e53a34b8c0638325e"
+    },
+    {
+      "kind": "bronze_moth",
+      "name": "铜翼蛾",
+      "clip": "moth_dust_windup",
+      "source_sha256": "c888232b2eb93cdb09a8d62eddfebdbeca048c1d492515d79258a16c7e235e9d"
+    },
+    {
+      "kind": "bronze_moth",
+      "name": "铜翼蛾",
+      "clip": "windup",
+      "source_sha256": "ef60efaa989a03632119a73ff4f8f26c94e9b6ae3b927320624b36e0173c15fa"
+    },
+    {
+      "kind": "corridor_heavy",
+      "name": "钟壳重卫",
+      "clip": "heavy_stamp",
+      "source_sha256": "e41032cefbc54756428d8475effdef666b58a1db90e9cef6b3934069cf9a35e3"
+    },
+    {
+      "kind": "index_scribe",
+      "name": "索引书吏",
+      "clip": "attack",
+      "source_sha256": "797afc62e4ed7d043c3eaf6136754585edb594db8028d955eada18dae65d6516"
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "name": "灰冠螳将",
+      "clip": "windup",
+      "source_sha256": "5efa67075624690cffedc7a2a6000764838488a163e9e997cbb0b28764a214a3"
+    }
+  ],
+  "art02_player_three_seals": [
+    {
+      "id": "crimson",
+      "name": "缝名契印",
+      "heal_amount": 1,
+      "heal_cost": 60,
+      "heal_duration": 0.55,
+      "heal_airborne": true,
+      "required_clips": [
+        "attack_1",
+        "attack_2",
+        "down_attack",
+        "ground_down_attack",
+        "heal",
+        "air_heal"
+      ],
+      "visual_direction": "轻快缝针直刺、疾速上挑/斜斩，快缝疗伤支持空中收束红线（0.55s）",
+      "frame_size": [
+        384,
+        384
+      ],
+      "foot_baseline": 280,
+      "sprite_scale": 0.66
+    },
+    {
+      "id": "bell",
+      "name": "司铸契印",
+      "heal_amount": 2,
+      "heal_cost": 80,
+      "heal_duration": 1.15,
+      "heal_airborne": false,
+      "required_clips": [
+        "attack_1",
+        "attack_2",
+        "down_attack",
+        "ground_down_attack",
+        "heal"
+      ],
+      "visual_direction": "厚重铜钟锤势大弧挥击与沉坠下劈，承力缝落地双膝稳架厚光环（1.15s，回 2 格）",
+      "frame_size": [
+        384,
+        384
+      ],
+      "foot_baseline": 280,
+      "sprite_scale": 0.66
+    },
+    {
+      "id": "salt",
+      "name": "校录契印",
+      "heal_amount": 1,
+      "heal_cost": 50,
+      "heal_duration": 0.9,
+      "heal_airborne": false,
+      "required_clips": [
+        "attack_1",
+        "attack_2",
+        "down_attack",
+        "ground_down_attack",
+        "heal"
+      ],
+      "visual_direction": "精准校录刻笔式点刺与标线斜劈，校录缝落地展卷定印（0.90s，低耗 50 绯线）",
+      "frame_size": [
+        384,
+        384
+      ],
+      "foot_baseline": 280,
+      "sprite_scale": 0.66
+    }
+  ],
+  "art03_b01_tactical_roles": {
+    "ambush": [
+      {
+        "kind": "drain_leech",
+        "name": "渠底蛭",
+        "chapters": [
+          "CH02"
+        ],
+        "canvas": [
+          516,
+          233
+        ],
+        "display_height": 66,
+        "clips": [
+          "ambush_lurk",
+          "ambush_reveal"
+        ]
+      },
+      {
+        "kind": "echo_moss_larva",
+        "name": "回声苔虫",
+        "chapters": [
+          "CH06"
+        ],
+        "canvas": [
+          412,
+          257
+        ],
+        "display_height": 72,
+        "clips": [
+          "ambush_lurk",
+          "ambush_reveal"
+        ]
+      },
+      {
+        "kind": "salt_bookmite",
+        "name": "盐页螨",
+        "chapters": [
+          "CH03"
+        ],
+        "canvas": [
+          320,
+          191
+        ],
+        "display_height": 68,
+        "clips": [
+          "ambush_lurk",
+          "ambush_reveal"
+        ]
+      },
+      {
+        "kind": "vine_crawler",
+        "name": "藤蔓爬虫",
+        "chapters": [
+          "CH04"
+        ],
+        "canvas": [
+          340,
+          214
+        ],
+        "display_height": 72,
+        "clips": [
+          "ambush_lurk",
+          "ambush_reveal"
+        ]
+      }
+    ],
+    "alarm": [
+      {
+        "kind": "echo_pilgrim_commander_minor",
+        "name": "回声巡礼副统",
+        "chapters": [
+          "CH06"
+        ],
+        "canvas": [
+          398,
+          320
+        ],
+        "display_height": 118,
+        "clips": [
+          "alarm_call"
+        ]
+      },
+      {
+        "kind": "silent_bugbler",
+        "name": "无声号手",
+        "chapters": [
+          "CH05"
+        ],
+        "canvas": [
+          362,
+          194
+        ],
+        "display_height": 100,
+        "clips": [
+          "alarm_call"
+        ]
+      },
+      {
+        "kind": "spore_bellmaker",
+        "name": "孢铃匠",
+        "chapters": [
+          "CH01"
+        ],
+        "canvas": [
+          334,
+          244
+        ],
+        "display_height": 96,
+        "clips": [
+          "alarm_call"
+        ]
+      }
+    ],
+    "support": [
+      {
+        "kind": "ash_banner_imp",
+        "name": "灰旗小鬼",
+        "chapters": [
+          "CH05"
+        ],
+        "canvas": [
+          416,
+          282
+        ],
+        "display_height": 80,
+        "clips": [
+          "support_channel"
+        ]
+      }
+    ],
+    "guard_optional": [
+      {
+        "kind": "echo_thorn_sentinel",
+        "name": "回声荆棘哨卫",
+        "chapters": [
+          "CH06"
+        ],
+        "canvas": [
+          386,
+          234
+        ],
+        "display_height": 108,
+        "clips": [
+          "guard_stance"
+        ]
+      },
+      {
+        "kind": "echo_waterwheel_knight",
+        "name": "回声水轮骑士",
+        "chapters": [
+          "CH06"
+        ],
+        "canvas": [
+          304,
+          230
+        ],
+        "display_height": 110,
+        "clips": [
+          "guard_stance"
+        ]
+      },
+      {
+        "kind": "gear_sentinel",
+        "name": "齿轮哨卫",
+        "chapters": [
+          "CH01"
+        ],
+        "canvas": [
+          492,
+          226
+        ],
+        "display_height": 102,
+        "clips": [
+          "guard_stance"
+        ]
+      },
+      {
+        "kind": "thorn_sentinel",
+        "name": "荆棘哨卫",
+        "chapters": [
+          "CH04"
+        ],
+        "canvas": [
+          394,
+          233
+        ],
+        "display_height": 104,
+        "clips": [
+          "guard_stance"
+        ]
+      }
+    ]
+  },
+  "art04_short_hurt_and_death": {
+    "short_hurt": [
+      {
+        "kind": "drain_leech",
+        "name": "渠底蛭",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "current_unique": 4,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "echo_thorn_sentinel",
+        "name": "回声荆棘哨卫",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "current_unique": 4,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "rust_crown_guardian",
+        "name": "苔钟守母",
+        "is_boss": true,
+        "chapters": [
+          "CH01"
+        ],
+        "current_unique": 4,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "rust_diver",
+        "name": "锈潜者",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "current_unique": 4,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "silent_pilgrim_commander",
+        "name": "镜池新娘",
+        "is_boss": true,
+        "chapters": [
+          "CH05"
+        ],
+        "current_unique": 4,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "spore_bellmaker",
+        "name": "孢铃匠",
+        "is_boss": false,
+        "chapters": [
+          "CH01"
+        ],
+        "current_unique": 4,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "sunken_hammer_smith",
+        "name": "绯线执剪者",
+        "is_boss": true,
+        "chapters": [
+          "CH02"
+        ],
+        "current_unique": 4,
+        "target_unique": "6-8"
+      }
+    ],
+    "short_death": [
+      {
+        "kind": "ash_banner_imp",
+        "name": "灰旗小鬼",
+        "chapters": [
+          "CH05"
+        ],
+        "current_frames": 6,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "drain_leech",
+        "name": "渠底蛭",
+        "chapters": [
+          "CH02"
+        ],
+        "current_frames": 6,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "echo_thorn_sentinel",
+        "name": "回声荆棘哨卫",
+        "chapters": [
+          "CH06"
+        ],
+        "current_frames": 6,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "erasure_bailiff",
+        "name": "删页执行官",
+        "chapters": [
+          "CH03"
+        ],
+        "current_frames": 6,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "gear_sentinel",
+        "name": "齿轮哨卫",
+        "chapters": [
+          "CH01"
+        ],
+        "current_frames": 6,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "rust_diver",
+        "name": "锈潜者",
+        "chapters": [
+          "CH02"
+        ],
+        "current_frames": 6,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "salt_bookmite",
+        "name": "盐页螨",
+        "chapters": [
+          "CH03"
+        ],
+        "current_frames": 6,
+        "target_unique": "6-8"
+      },
+      {
+        "kind": "silent_bugbler",
+        "name": "无声号手",
+        "chapters": [
+          "CH05"
+        ],
+        "current_frames": 6,
+        "target_unique": "6-8"
+      }
+    ]
+  },
+  "art05_props_and_gates": {
+    "ability_gate_signs": [
+      {
+        "id": "thread_dash",
+        "name": "绯线冲刺",
+        "script": "godot/scripts/ability_gate_sign.gd"
+      },
+      {
+        "id": "silk_wall_grip",
+        "name": "丝爪攀壁",
+        "script": "godot/scripts/ability_gate_sign.gd"
+      },
+      {
+        "id": "double_thread_jump",
+        "name": "二段悬跳",
+        "script": "godot/scripts/ability_gate_sign.gd"
+      },
+      {
+        "id": "thorn_downstrike",
+        "name": "棘线下劈",
+        "script": "godot/scripts/ability_gate_sign.gd"
+      },
+      {
+        "id": "lantern_phase",
+        "name": "灯影相位",
+        "script": "godot/scripts/ability_gate_sign.gd"
+      },
+      {
+        "id": "crown_resonance",
+        "name": "冠鸣共震",
+        "script": "godot/scripts/ability_gate_sign.gd"
+      },
+      {
+        "id": "echo_hook",
+        "name": "回响钩索",
+        "script": "godot/scripts/ability_gate_sign.gd"
+      },
+      {
+        "id": "return_arrow",
+        "name": "归途返程标志",
+        "script": "godot/scripts/ability_gate_sign.gd"
+      }
+    ],
+    "ending_gates": [
+      {
+        "id": "ending_a",
+        "name": "重鸣之门（金钟）",
+        "script": "godot/scripts/ending_gates.gd",
+        "aftermath_look": "bells"
+      },
+      {
+        "id": "ending_b",
+        "name": "断冠之门（绯裂）",
+        "script": "godot/scripts/ending_gates.gd",
+        "aftermath_look": "barrier"
+      },
+      {
+        "id": "ending_c",
+        "name": "改写之门（苍名）",
+        "script": "godot/scripts/ending_gates.gd",
+        "aftermath_look": "names"
+      }
+    ],
+    "interactable_replacements": [
+      {
+        "id": "challenge_shrine",
+        "count_in_world": 9,
+        "states": [
+          "active",
+          "cleared"
+        ],
+        "current_fallback": "lever_closed/lever_open",
+        "script": "godot/scripts/optional_challenges.gd"
+      },
+      {
+        "id": "hunt_track",
+        "count_in_world": 6,
+        "states": [
+          "unfound",
+          "found"
+        ],
+        "current_fallback": "lever_closed/lever_open",
+        "script": "godot/scripts/optional_challenges.gd"
+      },
+      {
+        "id": "cave_lift",
+        "count_in_world": 7,
+        "parts": [
+          "basket",
+          "pulley_wheel",
+          "cable_tile",
+          "landing_stop"
+        ],
+        "current_fallback": "code _draw()",
+        "script": "godot/scripts/cave_lift.gd"
+      },
+      {
+        "id": "return_knot_and_grapple_ring",
+        "count_in_world": 12,
+        "parts": [
+          "return_knot",
+          "grapple_ring",
+          "chain_link"
+        ],
+        "current_fallback": "code _draw()",
+        "script": "godot/scripts/level_ground.gd / level_world_travel.gd"
+      },
+      {
+        "id": "scene_history_props",
+        "count_in_world": 12,
+        "variants": [
+          "bell_mold",
+          "pump_manifold",
+          "book_press",
+          "graft_bench",
+          "name_spool",
+          "lock_comb",
+          "pledge_scar",
+          "reversed_badges",
+          "scraped_page",
+          "grafted_collar",
+          "rewritten_muster",
+          "swallowed_key"
+        ],
+        "current_fallback": "code _draw()",
+        "script": "godot/scripts/scene_history_prop.gd"
+      },
+      {
+        "id": "hidden_route_clue",
+        "count_in_world": 8,
+        "states": [
+          "undiscovered_glow",
+          "discovered_dim"
+        ],
+        "current_fallback": "code _draw()",
+        "script": "godot/scripts/hidden_route_clue.gd"
+      }
+    ]
+  },
+  "art06_turn_brake_45_creatures": {
+    "template_completed": {
+      "kind": "moss_larva",
+      "name": "苔钟幼虫",
+      "turn_frames": 7,
+      "brake_frames": 7,
+      "manifest": "godot/assets/sprites/original_creatures/moss_larva/motion_redraw_manifest.json"
+    },
+    "bosses_ground": [
+      {
+        "kind": "broken_string_gardener",
+        "name": "铜根主教",
+        "is_boss": true,
+        "chapters": [
+          "CH04"
+        ],
+        "motion": "ground",
+        "tactical_role": "boss",
+        "canvas": [
+          356,
+          248
+        ],
+        "display_height": 228,
+        "manifest": "godot/assets/sprites/original_creatures/broken_string_gardener/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "rust_crown_guardian",
+        "name": "苔钟守母",
+        "is_boss": true,
+        "chapters": [
+          "CH01"
+        ],
+        "motion": "ground",
+        "tactical_role": "boss",
+        "canvas": [
+          616,
+          293
+        ],
+        "display_height": 224,
+        "manifest": "godot/assets/sprites/original_creatures/rust_crown_guardian/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 4,
+        "hurt_unique": 4,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "saltwhite_contract_judge",
+        "name": "灰冠螳将",
+        "is_boss": true,
+        "chapters": [
+          "CH03"
+        ],
+        "motion": "ground",
+        "tactical_role": "boss",
+        "canvas": [
+          530,
+          238
+        ],
+        "display_height": 226,
+        "manifest": "godot/assets/sprites/original_creatures/saltwhite_contract_judge/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "silent_crown_core",
+        "name": "百钥守门人",
+        "is_boss": true,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "ground",
+        "tactical_role": "boss",
+        "canvas": [
+          522,
+          278
+        ],
+        "display_height": 232,
+        "manifest": "godot/assets/sprites/original_creatures/silent_crown_core/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 6,
+        "hurt_unique": 6,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "silent_pilgrim_commander",
+        "name": "镜池新娘",
+        "is_boss": true,
+        "chapters": [
+          "CH05"
+        ],
+        "motion": "ground",
+        "tactical_role": "boss",
+        "canvas": [
+          476,
+          272
+        ],
+        "display_height": 226,
+        "manifest": "godot/assets/sprites/original_creatures/silent_pilgrim_commander/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 4,
+        "hurt_unique": 4,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "sunken_hammer_smith",
+        "name": "绯线执剪者",
+        "is_boss": true,
+        "chapters": [
+          "CH02"
+        ],
+        "motion": "ground",
+        "tactical_role": "boss",
+        "canvas": [
+          422,
+          317
+        ],
+        "display_height": 228,
+        "manifest": "godot/assets/sprites/original_creatures/sunken_hammer_smith/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 4,
+        "hurt_unique": 4,
+        "death_frames": 8,
+        "death_unique": 8
+      }
+    ],
+    "mobs_ground": [
+      {
+        "kind": "ash_banner_imp",
+        "name": "灰旗小鬼",
+        "is_boss": false,
+        "chapters": [
+          "CH05"
+        ],
+        "motion": "ground",
+        "tactical_role": "support",
+        "canvas": [
+          416,
+          282
+        ],
+        "display_height": 80,
+        "manifest": "godot/assets/sprites/original_creatures/ash_banner_imp/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 6,
+        "hurt_unique": 6,
+        "death_frames": 6,
+        "death_unique": 6
+      },
+      {
+        "kind": "bellroot_acolyte",
+        "name": "铃根侍徒",
+        "is_boss": false,
+        "chapters": [
+          "CH01"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          568,
+          310
+        ],
+        "display_height": 96,
+        "manifest": "godot/assets/sprites/original_creatures/bellroot_acolyte/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "corridor_heavy",
+        "name": "钟壳重卫",
+        "is_boss": false,
+        "chapters": [
+          "CH01"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          336,
+          294
+        ],
+        "display_height": 118,
+        "manifest": "godot/assets/sprites/original_creatures/corridor_heavy/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "drain_leech",
+        "name": "渠底蛭",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "motion": "ground",
+        "tactical_role": "ambush",
+        "canvas": [
+          516,
+          233
+        ],
+        "display_height": 66,
+        "manifest": "godot/assets/sprites/original_creatures/drain_leech/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 4,
+        "hurt_unique": 4,
+        "death_frames": 6,
+        "death_unique": 6
+      },
+      {
+        "kind": "echo_moss_larva",
+        "name": "回声苔虫",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "ground",
+        "tactical_role": "ambush",
+        "canvas": [
+          412,
+          257
+        ],
+        "display_height": 72,
+        "manifest": "godot/assets/sprites/original_creatures/echo_moss_larva/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "echo_pilgrim_commander_minor",
+        "name": "回声巡礼副统",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "ground",
+        "tactical_role": "alarm",
+        "canvas": [
+          398,
+          320
+        ],
+        "display_height": 118,
+        "manifest": "godot/assets/sprites/original_creatures/echo_pilgrim_commander_minor/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "echo_waterwheel_knight",
+        "name": "回声水轮骑士",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "ground",
+        "tactical_role": "guard",
+        "canvas": [
+          304,
+          230
+        ],
+        "display_height": 110,
+        "manifest": "godot/assets/sprites/original_creatures/echo_waterwheel_knight/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "erasure_bailiff",
+        "name": "删页执行官",
+        "is_boss": false,
+        "chapters": [
+          "CH03"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          360,
+          246
+        ],
+        "display_height": 114,
+        "manifest": "godot/assets/sprites/original_creatures/erasure_bailiff/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 6,
+        "death_unique": 6
+      },
+      {
+        "kind": "gear_sentinel",
+        "name": "齿轮哨卫",
+        "is_boss": false,
+        "chapters": [
+          "CH01"
+        ],
+        "motion": "ground",
+        "tactical_role": "guard",
+        "canvas": [
+          492,
+          226
+        ],
+        "display_height": 102,
+        "manifest": "godot/assets/sprites/original_creatures/gear_sentinel/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 10,
+        "hurt_unique": 10,
+        "death_frames": 6,
+        "death_unique": 6
+      },
+      {
+        "kind": "obsidian_bellwheel",
+        "name": "黑曜钟轮",
+        "is_boss": false,
+        "chapters": [
+          "CH05"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          384,
+          244
+        ],
+        "display_height": 96,
+        "manifest": "godot/assets/sprites/original_creatures/obsidian_bellwheel/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "obsidian_spearman",
+        "name": "黑曜枪兵",
+        "is_boss": false,
+        "chapters": [
+          "CH05"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          498,
+          306
+        ],
+        "display_height": 106,
+        "manifest": "godot/assets/sprites/original_creatures/obsidian_spearman/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "page_duelist",
+        "name": "页刃斗士",
+        "is_boss": false,
+        "chapters": [
+          "CH03"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          416,
+          245
+        ],
+        "display_height": 98,
+        "manifest": "godot/assets/sprites/original_creatures/page_duelist/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 6,
+        "hurt_unique": 6,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "pilgrim_chariot",
+        "name": "巡礼战车",
+        "is_boss": false,
+        "chapters": [
+          "CH05"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          360,
+          219
+        ],
+        "display_height": 116,
+        "manifest": "godot/assets/sprites/original_creatures/pilgrim_chariot/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "root_cage_hunter",
+        "name": "根笼猎手",
+        "is_boss": false,
+        "chapters": [
+          "CH04"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          390,
+          246
+        ],
+        "display_height": 104,
+        "manifest": "godot/assets/sprites/original_creatures/root_cage_hunter/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "rust_diver",
+        "name": "锈潜者",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          474,
+          238
+        ],
+        "display_height": 102,
+        "manifest": "godot/assets/sprites/original_creatures/rust_diver/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 4,
+        "hurt_unique": 4,
+        "death_frames": 6,
+        "death_unique": 6
+      },
+      {
+        "kind": "salt_bookmite",
+        "name": "盐页螨",
+        "is_boss": false,
+        "chapters": [
+          "CH03"
+        ],
+        "motion": "ground",
+        "tactical_role": "ambush",
+        "canvas": [
+          320,
+          191
+        ],
+        "display_height": 68,
+        "manifest": "godot/assets/sprites/original_creatures/salt_bookmite/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 6,
+        "hurt_unique": 6,
+        "death_frames": 6,
+        "death_unique": 6
+      },
+      {
+        "kind": "valve_crawler",
+        "name": "阀壳爬虫",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          368,
+          166
+        ],
+        "display_height": 74,
+        "manifest": "godot/assets/sprites/original_creatures/valve_crawler/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "vine_crawler",
+        "name": "藤蔓爬虫",
+        "is_boss": false,
+        "chapters": [
+          "CH04"
+        ],
+        "motion": "ground",
+        "tactical_role": "ambush",
+        "canvas": [
+          340,
+          214
+        ],
+        "display_height": 72,
+        "manifest": "godot/assets/sprites/original_creatures/vine_crawler/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "waterwheel_knight",
+        "name": "水轮骑士",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          376,
+          230
+        ],
+        "display_height": 108,
+        "manifest": "godot/assets/sprites/original_creatures/waterwheel_knight/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "wax_lancer",
+        "name": "蜡枪卫",
+        "is_boss": false,
+        "chapters": [
+          "CH03"
+        ],
+        "motion": "ground",
+        "tactical_role": "patrol",
+        "canvas": [
+          450,
+          245
+        ],
+        "display_height": 106,
+        "manifest": "godot/assets/sprites/original_creatures/wax_lancer/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 6,
+        "hurt_unique": 6,
+        "death_frames": 8,
+        "death_unique": 8
+      }
+    ],
+    "mobs_flight": [
+      {
+        "kind": "bell_mote",
+        "name": "铃光蛾",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          406,
+          183
+        ],
+        "display_height": 68,
+        "manifest": "godot/assets/sprites/original_creatures/bell_mote/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "bronze_moth",
+        "name": "铜翼蛾",
+        "is_boss": false,
+        "chapters": [
+          "CH01"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          366,
+          293
+        ],
+        "display_height": 86,
+        "manifest": "godot/assets/sprites/original_creatures/bronze_moth/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "delayed_shadow",
+        "name": "迟影",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          424,
+          274
+        ],
+        "display_height": 100,
+        "manifest": "godot/assets/sprites/original_creatures/delayed_shadow/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "echo_contract_scribe",
+        "name": "回声契约书吏",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          480,
+          271
+        ],
+        "display_height": 98,
+        "manifest": "godot/assets/sprites/original_creatures/echo_contract_scribe/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "falling_clapper",
+        "name": "坠落钟舌",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          398,
+          226
+        ],
+        "display_height": 86,
+        "manifest": "godot/assets/sprites/original_creatures/falling_clapper/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "isotope_lumen",
+        "name": "微光异体",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          362,
+          263
+        ],
+        "display_height": 78,
+        "manifest": "godot/assets/sprites/original_creatures/isotope_lumen/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "phase_censor",
+        "name": "灯影审察者",
+        "is_boss": false,
+        "chapters": [
+          "CH05"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          346,
+          245
+        ],
+        "display_height": 98,
+        "manifest": "godot/assets/sprites/original_creatures/phase_censor/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "rain_censer_mote",
+        "name": "雨香灰灵",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          408,
+          219
+        ],
+        "display_height": 74,
+        "manifest": "godot/assets/sprites/original_creatures/rain_censer_mote/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "summoned_page",
+        "name": "召唤书页",
+        "is_boss": false,
+        "chapters": [
+          "CH03"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          392,
+          170
+        ],
+        "display_height": 74,
+        "manifest": "godot/assets/sprites/original_creatures/summoned_page/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 6,
+        "hurt_unique": 6,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "thorn_bloom_mote",
+        "name": "刺花微灵",
+        "is_boss": false,
+        "chapters": [
+          "CH04"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          418,
+          190
+        ],
+        "display_height": 76,
+        "manifest": "godot/assets/sprites/original_creatures/thorn_bloom_mote/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "wax_bee",
+        "name": "蜡蜂",
+        "is_boss": false,
+        "chapters": [
+          "CH04"
+        ],
+        "motion": "flight",
+        "tactical_role": "aerial",
+        "canvas": [
+          348,
+          241
+        ],
+        "display_height": 80,
+        "manifest": "godot/assets/sprites/original_creatures/wax_bee/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      }
+    ],
+    "mobs_stationary": [
+      {
+        "kind": "echo_thorn_sentinel",
+        "name": "回声荆棘哨卫",
+        "is_boss": false,
+        "chapters": [
+          "CH06"
+        ],
+        "motion": "stationary",
+        "tactical_role": "guard",
+        "canvas": [
+          386,
+          234
+        ],
+        "display_height": 108,
+        "manifest": "godot/assets/sprites/original_creatures/echo_thorn_sentinel/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 4,
+        "hurt_unique": 4,
+        "death_frames": 6,
+        "death_unique": 6
+      },
+      {
+        "kind": "index_scribe",
+        "name": "索引书吏",
+        "is_boss": false,
+        "chapters": [
+          "CH03"
+        ],
+        "motion": "stationary",
+        "tactical_role": "ranged",
+        "canvas": [
+          380,
+          277
+        ],
+        "display_height": 96,
+        "manifest": "godot/assets/sprites/original_creatures/index_scribe/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "kneeling_crossbowman",
+        "name": "跪弩手",
+        "is_boss": false,
+        "chapters": [
+          "CH05"
+        ],
+        "motion": "stationary",
+        "tactical_role": "ranged",
+        "canvas": [
+          332,
+          229
+        ],
+        "display_height": 92,
+        "manifest": "godot/assets/sprites/original_creatures/kneeling_crossbowman/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "pipe_thrower",
+        "name": "管弹投手",
+        "is_boss": false,
+        "chapters": [
+          "CH02"
+        ],
+        "motion": "stationary",
+        "tactical_role": "ranged",
+        "canvas": [
+          392,
+          230
+        ],
+        "display_height": 96,
+        "manifest": "godot/assets/sprites/original_creatures/pipe_thrower/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 6,
+        "hurt_unique": 6,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "pollen_lutist",
+        "name": "花粉琴师",
+        "is_boss": false,
+        "chapters": [
+          "CH04"
+        ],
+        "motion": "stationary",
+        "tactical_role": "ranged",
+        "canvas": [
+          320,
+          232
+        ],
+        "display_height": 96,
+        "manifest": "godot/assets/sprites/original_creatures/pollen_lutist/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "silent_bugbler",
+        "name": "无声号手",
+        "is_boss": false,
+        "chapters": [
+          "CH05"
+        ],
+        "motion": "stationary",
+        "tactical_role": "alarm",
+        "canvas": [
+          362,
+          194
+        ],
+        "display_height": 100,
+        "manifest": "godot/assets/sprites/original_creatures/silent_bugbler/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 6,
+        "hurt_unique": 6,
+        "death_frames": 6,
+        "death_unique": 6
+      },
+      {
+        "kind": "spore_bellmaker",
+        "name": "孢铃匠",
+        "is_boss": false,
+        "chapters": [
+          "CH01"
+        ],
+        "motion": "stationary",
+        "tactical_role": "alarm",
+        "canvas": [
+          334,
+          244
+        ],
+        "display_height": 96,
+        "manifest": "godot/assets/sprites/original_creatures/spore_bellmaker/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 4,
+        "hurt_unique": 4,
+        "death_frames": 8,
+        "death_unique": 8
+      },
+      {
+        "kind": "thorn_sentinel",
+        "name": "荆棘哨卫",
+        "is_boss": false,
+        "chapters": [
+          "CH04"
+        ],
+        "motion": "stationary",
+        "tactical_role": "guard",
+        "canvas": [
+          394,
+          233
+        ],
+        "display_height": 104,
+        "manifest": "godot/assets/sprites/original_creatures/thorn_sentinel/motion_redraw_manifest.json",
+        "has_turn": false,
+        "has_brake": false,
+        "hurt_frames": 8,
+        "hurt_unique": 8,
+        "death_frames": 8,
+        "death_unique": 8
+      }
+    ],
+    "legacy_stride_waivers": [
+      {
+        "kind": "corridor_heavy",
+        "name": "钟壳重卫",
+        "clip": "walk",
+        "source_sha256": "d93dbb520a5dcc9612859455e98f8508ad2aef91ea0d5e512673c6594012fbc6"
+      },
+      {
+        "kind": "drain_leech",
+        "name": "渠底蛭",
+        "clip": "walk",
+        "source_sha256": "040e35bfeb97a865948628d95510495b0a8facd1b085dac1b0a0c48b7c411658"
+      },
+      {
+        "kind": "echo_moss_larva",
+        "name": "回声苔虫",
+        "clip": "walk",
+        "source_sha256": "dc69307bc6bf5704c643bc757fdae13ac89fc3adee8391761a508d4d2c5648c8"
+      },
+      {
+        "kind": "erasure_bailiff",
+        "name": "删页执行官",
+        "clip": "walk",
+        "source_sha256": "194e8c8a1c6979c62ba46a8eac754a7f94557b4cfd4bd73d425b77f880afbeeb"
+      },
+      {
+        "kind": "moss_larva",
+        "name": "苔钟幼虫",
+        "clip": "walk",
+        "source_sha256": "f8f2807e361d9cc3a44da24a478fb0f033694003e4a684e181dc39ec41098b40"
+      },
+      {
+        "kind": "pilgrim_chariot",
+        "name": "巡礼战车",
+        "clip": "walk",
+        "source_sha256": "d7038e1d0a8e4bc0637400ee0502998acba7d2369b34c35d54bb05fec4e83c32"
+      },
+      {
+        "kind": "rust_crown_guardian",
+        "name": "苔钟守母",
+        "clip": "walk",
+        "source_sha256": "8322b4dc1d578d4159148fc0bd39af1eb0e4817ec4c06e44606d683ba89babf2"
+      },
+      {
+        "kind": "rust_diver",
+        "name": "锈潜者",
+        "clip": "walk",
+        "source_sha256": "b9189c17149746d221e31278607bb14da579c439b1fb7d95a366ef11d1b320f5"
+      },
+      {
+        "kind": "saltwhite_contract_judge",
+        "name": "灰冠螳将",
+        "clip": "walk",
+        "source_sha256": "978f1df0f1081d58f11c0b532e485257f6cccf38dd0eb8b60c0cd6a8be7e558c"
+      },
+      {
+        "kind": "silent_crown_core",
+        "name": "百钥守门人",
+        "clip": "walk",
+        "source_sha256": "18d7c7c81fc58dccc37a096874191603692a14d71dbdd37c595e6a0071e3f569"
+      },
+      {
+        "kind": "vine_crawler",
+        "name": "藤蔓爬虫",
+        "clip": "walk",
+        "source_sha256": "dc302920c71e42dce4663fbcf0ef270eee9dc8704d67117e30e46d5f35f05740"
+      }
+    ]
+  },
+  "art07_npcs_25": [
+    {
+      "id": "npc_backdoor_sacristan",
+      "name": "后门司铃人",
+      "chapters": [
+        "CH01"
+      ],
+      "role": "sacristan",
+      "canvas": [
+        334,
+        320
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "教学/指引手势",
+      "proposed_actions": "摇小铃示意与侧身让道（ring_bell / step_aside）"
+    },
+    {
+      "id": "npc_beeswax_vendor",
+      "name": "蜂蜡商人蜜岚",
+      "chapters": [
+        "CH04"
+      ],
+      "role": "vendor_sidequest",
+      "canvas": [
+        294,
+        274
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "服务/工坊交互",
+      "proposed_actions": "检视蜂蜡与交易递物（trade_inspect / hand_item）"
+    },
+    {
+      "id": "npc_black_tide_child",
+      "name": "黑潮童声",
+      "chapters": [
+        "CH06"
+      ],
+      "role": "hidden_temptation",
+      "canvas": [
+        364,
+        328
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "结局/核心见证",
+      "proposed_actions": "侧首低语与黑潮牵引（whisper_tilt / beckon_tide）"
+    },
+    {
+      "id": "npc_blind_bell_knight",
+      "name": "盲钟骑士",
+      "chapters": [
+        "CH05"
+      ],
+      "role": "combat_mark_witness",
+      "canvas": [
+        260,
+        293
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "拄剑聆听与持剑致敬（sword_listen / knight_salute）"
+    },
+    {
+      "id": "npc_broken_singer",
+      "name": "断弦歌者",
+      "chapters": [
+        "CH04"
+      ],
+      "role": "keeper_truth",
+      "canvas": [
+        320,
+        265
+      ],
+      "current_animations": {
+        "idle": 8,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "抚弦轻吟与停手凝视（pluck_string / hush_pause）"
+    },
+    {
+      "id": "npc_canal_child",
+      "name": "管渠童子",
+      "chapters": [
+        "CH02"
+      ],
+      "role": "canal_child",
+      "canvas": [
+        286,
+        258
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "蹲身观水与惊奇招手（crouch_watch / eager_wave）"
+    },
+    {
+      "id": "npc_crown_tongue",
+      "name": "旧王钟舌",
+      "chapters": [
+        "CH06"
+      ],
+      "role": "world_warning",
+      "canvas": [
+        368,
+        286
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "结局/核心见证",
+      "proposed_actions": "低沉示警与震颤共鸣（solemn_warn / resonance_tremor）"
+    },
+    {
+      "id": "npc_deserter_flagbearer",
+      "name": "逃旗手",
+      "chapters": [
+        "CH05"
+      ],
+      "role": "sidequest_moral_choice",
+      "canvas": [
+        316,
+        261
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "收拢残旗与低头抉择（furl_banner / bow_conflict）"
+    },
+    {
+      "id": "npc_drowned_foreman",
+      "name": "半沉工头",
+      "chapters": [
+        "CH02"
+      ],
+      "role": "half_drowned_foreman",
+      "canvas": [
+        262,
+        202
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "扶膝喘息与指向水渠（lean_weary / point_canal）"
+    },
+    {
+      "id": "npc_first_pilgrim_echo",
+      "name": "初代巡礼者回声",
+      "chapters": [
+        "CH06"
+      ],
+      "role": "true_ending_core",
+      "canvas": [
+        352,
+        272
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "结局/核心见证",
+      "proposed_actions": "残影显现与伸手交托（echo_manifest / entrust_gesture）"
+    },
+    {
+      "id": "npc_fugitive_scribe",
+      "name": "逃亡书记",
+      "chapters": [
+        "CH03"
+      ],
+      "role": "true_ending_clue",
+      "canvas": [
+        422,
+        272
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "护卷回望与急切递信（guard_scroll / pass_note）"
+    },
+    {
+      "id": "npc_gate_pilgrim",
+      "name": "守门朝圣者",
+      "chapters": [
+        "CH01"
+      ],
+      "role": "pilgrim",
+      "canvas": [
+        396,
+        275
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 5,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "行礼致意与望向钟门（pilgrim_bow / gaze_gate）"
+    },
+    {
+      "id": "npc_gear_cartographer",
+      "name": "升台绘图师",
+      "chapters": [
+        "CH01"
+      ],
+      "role": "cartographer",
+      "canvas": [
+        372,
+        254
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "服务/工坊交互",
+      "proposed_actions": "展开海图与标注路线（map_unroll / point_route）"
+    },
+    {
+      "id": "npc_lantern_sister",
+      "name": "灯影修女",
+      "chapters": [
+        "CH05"
+      ],
+      "role": "ability_teacher",
+      "canvas": [
+        412,
+        330
+      ],
+      "current_animations": {
+        "idle": 6,
+        "talk": 6,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "教学/指引手势",
+      "proposed_actions": "提灯照路与传授灯影姿态（raise_lantern / teach_gesture）"
+    },
+    {
+      "id": "npc_obsidian_guide",
+      "name": "黑曜引路人",
+      "chapters": [
+        "CH05"
+      ],
+      "role": "route_hint",
+      "canvas": [
+        416,
+        330
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "教学/指引手势",
+      "proposed_actions": "举杖指路与警戒停顿（point_way / warn_halt）"
+    },
+    {
+      "id": "npc_old_gardener",
+      "name": "老园丁弦伯",
+      "chapters": [
+        "CH04"
+      ],
+      "role": "main_witness",
+      "canvas": [
+        332,
+        334
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "修剪枯枝与叹息抬头（prune_vine / sigh_look）"
+    },
+    {
+      "id": "npc_quiet_reader",
+      "name": "沉默读者",
+      "chapters": [
+        "CH03"
+      ],
+      "role": "mechanic_teacher",
+      "canvas": [
+        558,
+        284
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "教学/指引手势",
+      "proposed_actions": "翻卷示范与点头回应（turn_page / nod_confirm）"
+    },
+    {
+      "id": "npc_rain_smith_liu",
+      "name": "失聪铁匠柳",
+      "chapters": [
+        "CH02"
+      ],
+      "role": "rain_smith",
+      "canvas": [
+        380,
+        289
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "服务/工坊交互",
+      "proposed_actions": "锻造/改制敲击与递出工具（craft_work / hand_item）"
+    },
+    {
+      "id": "npc_root_prisoner",
+      "name": "根笼囚徒",
+      "chapters": [
+        "CH04"
+      ],
+      "role": "gate_hint",
+      "canvas": [
+        366,
+        333
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "剧情/见证反应",
+      "proposed_actions": "靠笼抬头与伸手示意（grip_bars / reach_hint）"
+    },
+    {
+      "id": "npc_runback_scout",
+      "name": "回廊斥候",
+      "chapters": [
+        "CH01"
+      ],
+      "role": "scout",
+      "canvas": [
+        388,
+        338
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "教学/指引手势",
+      "proposed_actions": "侦察挥手与标出捷径（beckon_shortcut / scout_watch）"
+    },
+    {
+      "id": "npc_salt_librarian_ye",
+      "name": "盐页管理员叶",
+      "chapters": [
+        "CH03"
+      ],
+      "role": "unreliable_guide",
+      "canvas": [
+        402,
+        330
+      ],
+      "current_animations": {
+        "idle": 6,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "教学/指引手势",
+      "proposed_actions": "拂去盐尘与指点书架（brush_salt / point_way）"
+    },
+    {
+      "id": "npc_sealed_archivist",
+      "name": "封蜡档案员",
+      "chapters": [
+        "CH03"
+      ],
+      "role": "vendor_guard_hint",
+      "canvas": [
+        388,
+        327
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "服务/工坊交互",
+      "proposed_actions": "启封蜡印与取卷交付（unseal_scroll / hand_item）"
+    },
+    {
+      "id": "npc_six_mark_keeper",
+      "name": "六印守望者",
+      "chapters": [
+        "CH06"
+      ],
+      "role": "ending_checker",
+      "canvas": [
+        396,
+        325
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "结局/核心见证",
+      "proposed_actions": "核验六印与展开终门仪态（inspect_seals / solemn_open）"
+    },
+    {
+      "id": "npc_sluice_nun",
+      "name": "锈泵修女",
+      "chapters": [
+        "CH02"
+      ],
+      "role": "sluice_nun",
+      "canvas": [
+        420,
+        330
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "教学/指引手势",
+      "proposed_actions": "合十祈祷与指向闸口（pray_idle / point_sluice）"
+    },
+    {
+      "id": "npc_threadsmith_apprentice",
+      "name": "织线学徒",
+      "chapters": [
+        "CH01"
+      ],
+      "role": "threadsmith",
+      "canvas": [
+        450,
+        331
+      ],
+      "current_animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "interaction_group": "服务/工坊交互",
+      "proposed_actions": "穿针接线与交付铭饰（craft_work / hand_item）"
+    }
+  ],
+  "art08_scene_biomes": [
+    {
+      "id": "moss_cavern",
+      "chapter": "CH01",
+      "name": "苔钟庭",
+      "dir": "godot/assets/sprites/flat_maps/moss_cavern"
+    },
+    {
+      "id": "rain_foundry",
+      "chapter": "CH02",
+      "name": "雨铸渠",
+      "dir": "godot/assets/sprites/flat_maps/rain_foundry"
+    },
+    {
+      "id": "salt_archive",
+      "chapter": "CH03",
+      "name": "盐白档案库",
+      "dir": "godot/assets/sprites/flat_maps/salt_archive"
+    },
+    {
+      "id": "string_greenhouse",
+      "chapter": "CH04",
+      "name": "断弦温室",
+      "dir": "godot/assets/sprites/flat_maps/string_greenhouse"
+    },
+    {
+      "id": "obsidian_pilgrim",
+      "chapter": "CH05",
+      "name": "黑曜巡礼道",
+      "dir": "godot/assets/sprites/flat_maps/obsidian_pilgrim"
+    },
+    {
+      "id": "silent_crown",
+      "chapter": "CH06",
+      "name": "沉冠核心",
+      "dir": "godot/assets/sprites/flat_maps/silent_crown"
+    }
+  ]
+}

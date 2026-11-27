@@ -722,89 +722,116 @@ func is_browsing_journey_history() -> bool:
 
 
 func _process(delta: float) -> void:
-    if level==null or not construction_complete:return
+    if level == null or not construction_complete:
+        return
     _sync_reading_session()
     if not String(level.active_overlay).is_empty() or has_modal_window():
-        var reading_axis: float=reading_axis_override if is_finite(reading_axis_override) else READING_SCROLL.stick_axis(float(accessibility.get("controller_deadzone",0.2)))
-        if reading_axis!=0.0:READING_SCROLL.scroll(self,reading_axis*READING_SCROLL.SPEED*delta)
+        var reading_axis: float = reading_axis_override if is_finite(reading_axis_override) else READING_SCROLL.stick_axis(float(accessibility.get("controller_deadzone", 0.2)))
+        if reading_axis != 0.0:
+            READING_SCROLL.scroll(self, reading_axis * READING_SCROLL.SPEED * delta)
     _refresh_quick_action_bindings()
     if dialogue.visible:
-        dialogue_hint.text=_dialogue_binding_hint()
-        dialogue_hint.tooltip_text=dialogue_hint.text
-    modal_shade.visible=not String(level.active_overlay).is_empty()
-    hud_card.visible=not modal_shade.visible
-    location_rule.visible=not modal_shade.visible
-    location.visible=not modal_shade.visible
-    currency.visible=not modal_shade.visible
-    currency_emblem.visible=not modal_shade.visible
-    mechanism_status.visible=not modal_shade.visible
-    for card in tactical_cards:card.visible=not modal_shade.visible
-    for button in quick_actions:button.visible=not modal_shade.visible
-    if applied_player!=level.player:_apply_accessibility()
-    if last_overlay!=String(level.active_overlay):
-        last_overlay=String(level.active_overlay)
-        if last_overlay=="build":
+        dialogue_hint.text = _dialogue_binding_hint()
+        dialogue_hint.tooltip_text = dialogue_hint.text
+    _sync_overlay_visibility_and_focus(delta)
+    _refresh_player_vitals_hud(delta)
+    _refresh_location_and_toast(delta)
+    _refresh_boss_and_pinned_hud()
+
+
+func _sync_overlay_visibility_and_focus(delta: float) -> void:
+    modal_shade.visible = not String(level.active_overlay).is_empty()
+    var hud_visible := not modal_shade.visible
+    hud_card.visible = hud_visible
+    location_rule.visible = hud_visible
+    location.visible = hud_visible
+    currency.visible = hud_visible
+    currency_emblem.visible = hud_visible
+    mechanism_status.visible = hud_visible
+    for card in tactical_cards:
+        card.visible = hud_visible
+    for button in quick_actions:
+        button.visible = hud_visible
+    if applied_player != level.player:
+        _apply_accessibility()
+    if last_overlay != String(level.active_overlay):
+        last_overlay = String(level.active_overlay)
+        if last_overlay == "build":
             refresh_build()
             _focus_overlay(last_overlay)
-        elif last_overlay=="settings":
+        elif last_overlay == "settings":
             INTERFACE_BUILD_REFRESH.refresh_save_slots(self)
             _focus_overlay(last_overlay)
-        elif last_overlay in ["backpack","map","dialogue","build"]:_focus_overlay(last_overlay)
-        elif last_overlay=="":
-            var focused:=get_viewport().gui_get_focus_owner()
-            if focused!=null:focused.release_focus()
-    if build_panel.visible and last_overlay!="build":build_panel.visible=false
-    build_refresh_elapsed+=delta
-    if build_panel.visible and build_refresh_elapsed>=0.4:
-        build_refresh_elapsed=0.0
-        if JSON.stringify(_build_snapshot())!=last_build_signature:refresh_build()
+        elif last_overlay in ["backpack", "map", "dialogue"]:
+            _focus_overlay(last_overlay)
+        elif last_overlay == "":
+            var focused := get_viewport().gui_get_focus_owner()
+            if focused != null:
+                focused.release_focus()
+    if build_panel.visible and last_overlay != "build":
+        build_panel.visible = false
+    build_refresh_elapsed += delta
+    if build_panel.visible and build_refresh_elapsed >= 0.4:
+        build_refresh_elapsed = 0.0
+        if JSON.stringify(_build_snapshot()) != last_build_signature:
+            refresh_build()
     if settings.visible:
         refresh_settings_selection()
-    if settings.visible and level.audio_director!=null:
+    if settings.visible and level.audio_director != null:
         for key in settings_sliders:
             settings_sliders[key].set_value_no_signal(level.audio_director.get_user_volume(key))
-    var player: Node=level.player
-    if player!=null:
-        var hp: int=int(player.hp)
-        hearts.text="%d / %d" % [hp,int(player.max_hp)]
-        if health_glyphs.hp!=maxi(0,hp) or health_glyphs.maximum!=maxi(1,int(player.max_hp)):
-            health_glyphs.hp=maxi(0,hp)
-            health_glyphs.maximum=maxi(1,int(player.max_hp))
-            health_glyphs.queue_redraw()
-        hearts.modulate=RED if hp<=1 else IVORY
-        thread_bar.max_value=player.max_energy
-        thread_bar.value=player.energy
-        energy_status.text="%d / %d" % [int(player.energy),int(player.max_energy)]
-        INTERFACE_HUD.refresh_thread_thresholds(self, player)
-        _refresh_combat_status(player)
-        INTERFACE_HUD.refresh_hud_occlusion(self, delta)
-    tutorial_hint.visible=bool(accessibility.get("tutorial_hints",true)) and level.active_overlay==""
+
+
+func _refresh_player_vitals_hud(delta: float) -> void:
+    var player: Node = level.player
+    if player == null:
+        return
+    var hp: int = int(player.hp)
+    hearts.text = "%d / %d" % [hp, int(player.max_hp)]
+    if health_glyphs.hp != maxi(0, hp) or health_glyphs.maximum != maxi(1, int(player.max_hp)):
+        health_glyphs.hp = maxi(0, hp)
+        health_glyphs.maximum = maxi(1, int(player.max_hp))
+        health_glyphs.queue_redraw()
+    hearts.modulate = RED if hp <= 1 else IVORY
+    thread_bar.max_value = player.max_energy
+    thread_bar.value = player.energy
+    energy_status.text = "%d / %d" % [int(player.energy), int(player.max_energy)]
+    INTERFACE_HUD.refresh_thread_thresholds(self, player)
+    _refresh_combat_status(player)
+    INTERFACE_HUD.refresh_hud_occlusion(self, delta)
+
+
+func _refresh_location_and_toast(delta: float) -> void:
+    tutorial_hint.visible = bool(accessibility.get("tutorial_hints", true)) and level.active_overlay == ""
     if tutorial_hint.visible:
-        tutorial_hint.text="%s 跳跃   /   %s 普攻   /   %s 治疗" % [_short_binding("jump"),_short_binding("attack"),_short_binding("heal")]
-    currency.text=str(level.currency_count)
-    var room: Dictionary=level._map_room_by_id(level.current_room_id)
-    location.text=String(room.get("name",room.get("label",level.config.get("chapter_name","绯线巡礼"))))
-    toast_age+=delta
-    if toast.text!=last_toast:
-        last_toast=toast.text
-        toast_age=0
-    toast.visible=not toast.text.is_empty()
-    toast.modulate.a=clampf(5.5-toast_age,0,1)
+        tutorial_hint.text = "%s 跳跃   /   %s 普攻   /   %s 治疗" % [_short_binding("jump"), _short_binding("attack"), _short_binding("heal")]
+    currency.text = str(level.currency_count)
+    var room: Dictionary = level._map_room_by_id(level.current_room_id)
+    location.text = String(room.get("name", room.get("label", level.config.get("chapter_name", "绯线巡礼"))))
+    toast_age += delta
+    if toast.text != last_toast:
+        last_toast = toast.text
+        toast_age = 0
+    toast.visible = not toast.text.is_empty()
+    toast.modulate.a = clampf(5.5 - toast_age, 0, 1)
     # Interaction is shown at the object by WorldWayfinding.
-    prompt.visible=false
-    prompt.text=""
-    var actor: Node=level.boss_actor if is_instance_valid(level.boss_actor) else null
-    var show_boss: bool = actor!=null and is_instance_valid(actor) and not level.demo_complete and level.active_overlay==""
-    boss_name.visible=show_boss
-    boss_bar.visible=show_boss
+    prompt.visible = false
+    prompt.text = ""
+
+
+func _refresh_boss_and_pinned_hud() -> void:
+    var actor: Node = level.boss_actor if is_instance_valid(level.boss_actor) else null
+    var show_boss: bool = actor != null and is_instance_valid(actor) and not level.demo_complete and level.active_overlay == ""
+    boss_name.visible = show_boss
+    boss_bar.visible = show_boss
     if show_boss:
-        boss_name.text=level._boss_display_name(level.config.get("boss",{}))+"  ·  "+("第二乐章" if int(actor.battle_phase)==2 else "第一乐章")
-        boss_bar.max_value=actor.max_hp
-        boss_bar.value=actor.hp
-    pinned.text=""
+        boss_name.text = level._boss_display_name(level.config.get("boss", {})) + "  ·  " + ("第二乐章" if int(actor.battle_phase) == 2 else "第一乐章")
+        boss_bar.max_value = actor.max_hp
+        boss_bar.value = actor.hp
+    pinned.text = ""
     for key in level.story_flags.keys():
         if String(key).begins_with("ui_pin_") and bool(level.story_flags[key]):
-            pinned.text="旅记 · "+level._item_display_name(String(key).trim_prefix("ui_pin_"))
+            pinned.text = "旅记 · " + level._item_display_name(String(key).trim_prefix("ui_pin_"))
             break
 
 func _visible_inventory_ids() -> Array[String]:

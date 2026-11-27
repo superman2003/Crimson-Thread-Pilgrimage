@@ -9,7 +9,7 @@ DOCS=ROOT/'docs/proposals/audio_category_ambience'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def db(v):return round(float(20*np.log10(max(float(v),1e-12))),3)
 def main():
- manifest=json.loads((ASSETS/'manifest.json').read_text());rows=[]
+ manifest=json.loads((ASSETS/'manifest.json').read_text(encoding="utf-8"));rows=[]
  assert manifest['schema_version']==1 and manifest['pack_id']=='audio_category_ambience'
  assert manifest['kind']=='ambience' and len(manifest['items'])==24
  assert len({i['id'] for i in manifest['items']})==24
@@ -19,7 +19,7 @@ def main():
  for i in manifest['items']:
   assert i['human_listening_review']=='pending' and i['license']=='CC0-1.0'
   assert not i['loop'] or (i['loop_start_sample']==0 and i['loop_end_sample']==round(i['duration_seconds']*48000))
- profiles=json.loads((ASSETS/'mix_profiles.json').read_text())['profiles']
+ profiles=json.loads((ASSETS/'mix_profiles.json').read_text(encoding="utf-8"))['profiles']
  assert len(profiles)==6
  cue_ids={i['id'] for i in manifest['items']}
  for p in profiles:
@@ -42,7 +42,7 @@ def main():
   second=pathlib.Path(td);subprocess.run(['python',str(ROOT/'tools/proposals/audio_category_ambience/build.py'),'--out',td],check=True)
   proof=[dict(file=p.name,build_a_sha256=sha(p),build_b_sha256=sha(second/p.name),identical=sha(p)==sha(second/p.name)) for p in sorted(ASSETS.iterdir()) if p.suffix in ['.ogg','.json']]
  report=dict(schema_version=1,status='machine_validation_only_human_listening_pending',measurement='decoded ffmpeg float32; sample peak, scipy resample_poly 4x estimated true peak; ffmpeg EBU R128 integrated LUFS; seam compares last sample to first; edge maximum first/last 5ms',encoder=subprocess.check_output(['ffmpeg','-version'],text=True).splitlines()[0],numpy_version=np.__version__,items=rows,total_ogg_bytes=sum(r['bytes'] for r in rows),reproducibility=proof,all_checks_pass=all(all(r['checks'].values()) for r in rows) and all(p['identical'] for p in proof))
- DOCS.mkdir(parents=True,exist_ok=True);(DOCS/'validation.json').write_text(json.dumps(report,indent=2)+'\n')
+ DOCS.mkdir(parents=True,exist_ok=True);(DOCS/'validation.json').write_text(json.dumps(report,indent=2)+'\n', encoding="utf-8")
  print(json.dumps({'pass':report['all_checks_pass'],'bytes':report['total_ogg_bytes'],'failed':[{r['id']:r['checks']} for r in rows if not all(r['checks'].values())],'reproducible':all(p['identical'] for p in proof)},indent=2))
  assert report['all_checks_pass']
 if __name__=='__main__':main()

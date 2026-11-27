@@ -5,7 +5,7 @@ from validate_world_passages import ROOT, validate
 
 class Contracts(unittest.TestCase):
     def setUp(self):
-        self.data,self.routes,self.layout=(json.loads((ROOT/'godot/data'/p).read_text()) for p in ('world_passages.json','world_routes.json','world_layout.json'))
+        self.data,self.routes,self.layout=(json.loads((ROOT/'godot/data'/p).read_text(encoding="utf-8")) for p in ('world_passages.json','world_routes.json','world_layout.json'))
     def errors(self):return validate(self.data,self.routes,self.layout)
     def test_real_network(self):self.assertEqual(self.errors(),[])
     def test_duplicate_id(self):

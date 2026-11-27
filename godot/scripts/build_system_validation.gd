@@ -89,6 +89,11 @@ func _initialize() -> void:
         _check(stats.max_hp == 5 and stats.max_energy == 100 and stats.heal_amount == crest.heal_amount and stats.heal_cost == crest.heal_cost and stats.heal_duration == crest.heal_duration and stats.heal_airborne == bool(crest.get("heal_airborne", false)), "seal heal comes from its own catalog row " + id)
         _check(build.state.tool_counts == before.tool_counts and build.cooldowns == before.cooldowns, "switch does not refresh stock/cooldown " + id)
     _check(build.equip_passives(["shell", "stride"]).ok, "capacity valid")
+    _check(build.equip_passives(["shell", "mender"]).ok, "same-family passives equip together when separate compatible slots are available")
+    var combat_slots: Array = build.state.equipped_families.combat_accessory
+    _check(combat_slots.count("shell") == 1 and combat_slots.count("mender") == 1 and combat_slots.find("shell") != combat_slots.find("mender"),
+        "equipping a second combat passive does not replace the first occupied slot")
+    _check(build.equip_passives(["shell", "stride"]).ok, "restore the cross-family pair for the existing profile checks")
     var stats := build.profile()
     _check(stats.max_hp == 5 and stats.max_energy == 100 and is_equal_approx(stats.move_mult, 1.08) and is_equal_approx(stats.heal_duration, float(build.catalog.crests[build.state.crest].heal_duration) * 1.15) and stats.knockback_mult < 1, "charm benefit and drawback")
     _check(build.profile() == stats and build.profile() == stats, "profile idempotent")
@@ -124,6 +129,14 @@ func _initialize() -> void:
     before = build.serialize()
     _check(not build.transact("refill_shard", wallet).ok and build.serialize() == before, "refill is not a crafting recipe")
     _check(build.equip_passives(["needlecase"]).ok and build.state.tool_counts.shard == 0, "capacity increase never adds stock")
+    var accessories := BUILD.new()
+    accessories.unlock_event("repair_crimson")
+    accessories.unlock_event("charm_stride_found")
+    accessories.unlock_event("charm_needlecase_found")
+    var accessory_result := accessories.equip_passives(["stride", "needlecase"])
+    _check(accessory_result.ok, "two compatible travel accessories can equip together")
+    _check(accessories.state.equipped_families.travel_accessory.slice(0, 2) == ["stride", "needlecase"],
+        "same-family accessories occupy distinct empty slots without replacing one another")
     var broke := {"currency": 3, "inventory_counts": {"moss_chitin": 1}}
     var broke_before := build.serialize()
     var broke_quote := build.quote_resupply(broke)

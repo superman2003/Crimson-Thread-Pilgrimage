@@ -30,7 +30,7 @@ def rectangle(values):
 
 
 def build(path, number):
-    d = json.loads(path.read_text())
+    d = json.loads(path.read_text(encoding="utf-8"))
     d['terrain'] = [t for t in d['terrain'] if not t['id'].startswith('cave_link_')]
     d['platforms'] = [p for p in d['platforms'] if not p['id'].startswith('cave_dock_')]
     plats = {p['id']: p for p in d['platforms']}
@@ -196,7 +196,7 @@ def build(path, number):
         route=topics.get('route','')
         if isinstance(route,str) and d['exploration_hint'] not in route:
             topics['route']=route+' '+d['exploration_hint']
-    path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+    path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print(path.name,'rock bodies',len(merged),'new walk links',len(links),'lift',sx,flush=True)
 
 

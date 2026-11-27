@@ -25,7 +25,7 @@ class FontSwitchTests(unittest.TestCase):
         backup=(self.root/'tmp/font_switch_backups/latest.json').read_bytes()
         self.assertEqual(switch.apply(self.root,self.font),0)
         self.assertEqual((self.root/'tmp/font_switch_backups/latest.json').read_bytes(),backup)
-        project=(self.root/'godot/project.godot').read_text()
+        project=(self.root/'godot/project.godot').read_text(encoding="utf-8")
         self.assertEqual(project.count('[gui]'),1)
         self.assertIn('theme/default_font_multichannel_signed_distance_field=true',project)
         self.assertEqual(project.count('GlobalTypography='),1)
@@ -41,9 +41,9 @@ class FontSwitchTests(unittest.TestCase):
     def test_restore_does_not_overwrite_later_edits_or_partially_restore(self):
         switch.apply(self.root,self.font)
         edited=self.root/'godot/scripts/ui.gd'
-        edited.write_text(edited.read_text()+'# later gameplay edit\n')
+        edited.write_text(edited.read_text(encoding="utf-8")+'# later gameplay edit\n', encoding="utf-8")
         self.assertEqual(switch.restore(self.root),1)
-        self.assertIn('# later gameplay edit',edited.read_text())
+        self.assertIn('# later gameplay edit',edited.read_text(encoding="utf-8"))
         self.assertTrue((self.root/'godot/assets/fonts/GlobalTypeface.otf').exists())
         self.assertEqual(switch.check(self.root),0)
     def test_check_finds_new_font_bypasses(self):
@@ -51,7 +51,7 @@ class FontSwitchTests(unittest.TestCase):
         self.write('godot/scripts/new_label.gd','var font=preload("res://assets/fonts/OtherFont.ttf")\n')
         self.assertEqual(switch.check(self.root),1)
         self.assertEqual(switch.apply(self.root,self.font),0)
-        self.assertIn(switch.GLOBAL,(self.root/'godot/scripts/new_label.gd').read_text())
+        self.assertIn(switch.GLOBAL,(self.root/'godot/scripts/new_label.gd').read_text(encoding="utf-8"))
     def test_png_is_not_accepted_as_a_font(self):
         self.font.write_bytes(b'\x89PNG\r\n')
         with self.assertRaises(ValueError):switch.apply(self.root,self.font)
@@ -79,10 +79,10 @@ class FontSwitchTests(unittest.TestCase):
     def test_switching_again_cannot_hide_later_manual_edits(self):
         switch.apply(self.root,self.font)
         edited=self.root/'godot/scripts/ui.gd'
-        edited.write_text(edited.read_text()+'# later gameplay edit\n')
+        edited.write_text(edited.read_text(encoding="utf-8")+'# later gameplay edit\n', encoding="utf-8")
         self.font.write_bytes(b'OTTOsecond-font')
         with self.assertRaises(ValueError):switch.apply(self.root,self.font)
-        self.assertIn('# later gameplay edit',edited.read_text())
+        self.assertIn('# later gameplay edit',edited.read_text(encoding="utf-8"))
     def test_backup_path_cannot_escape_workspace(self):
         with self.assertRaises(ValueError):switch.local(self.root,'../outside.gd')
 

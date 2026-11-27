@@ -47,7 +47,7 @@ class RockGPUValidationTests(unittest.TestCase):
         output = '\x1b[31mSCRIPT ERROR: fixture failure\x1b[0m\n' + MARKER + '\n'
         self.assertEqual(self.run_main(output), 1)
         self.copyfile.assert_not_called()
-        self.assertEqual((self.logs / 'gpu.log').read_text(), output)
+        self.assertEqual((self.logs / 'gpu.log').read_text(encoding="utf-8"), output)
         self.server.terminate.assert_called_once()
 
     def test_colored_engine_error_with_marker_fails(self):
@@ -65,7 +65,7 @@ class RockGPUValidationTests(unittest.TestCase):
         output = '\x1b[32mROCK_SEAMS\x1b[0m probes=20 failures=0\n'
         self.assertEqual(self.run_main(output), 0)
         self.copyfile.assert_called_once()
-        self.assertEqual((self.logs / 'gpu.log').read_text(), output)
+        self.assertEqual((self.logs / 'gpu.log').read_text(encoding="utf-8"), output)
 
     def test_plain_marker_and_warning_succeed(self):
         self.assertEqual(self.run_main('WARNING: fixture warning\n' + MARKER + '\n'), 0)
@@ -105,7 +105,7 @@ class RockGPUValidationTests(unittest.TestCase):
                                                         output=(MARKER + '\n').encode())
         self.assertEqual(self.run_main('', extra_args=('--timeout', '0.25')), 124)
         self.assertEqual(self.engine_run.call_args.kwargs['timeout'], 0.25)
-        log = (self.logs / 'gpu.log').read_text()
+        log = (self.logs / 'gpu.log').read_text(encoding="utf-8")
         self.assertIn(MARKER, log)
         self.assertIn('ERROR: Godot validation timed out after 0.25 seconds', log)
         self.copyfile.assert_not_called()

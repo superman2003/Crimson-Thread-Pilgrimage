@@ -8,11 +8,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 def validate(routes_path, data_root):
-    routes = json.loads(routes_path.read_text())
+    routes = json.loads(routes_path.read_text(encoding="utf-8"))
     chapters = routes['chapters']
     errors = []
     checks = 0
-    configs = {key: json.loads((data_root / (key + '.json')).read_text()) for key in chapters}
+    configs = {key: json.loads((data_root / (key + '.json')).read_text(encoding="utf-8")) for key in chapters}
     for key, overlay in chapters.items():
         for override in overlay.get('terrain_overrides', []):
             for terrain in configs[key].get('terrain', []):

@@ -20,7 +20,7 @@ def build():
         anchor = (64,96) if wave else (96,272)
         stem = SOURCES / f'FX_{kind}_{family}'
         raw, prompt = stem.with_suffix('.png').read_bytes(), stem.with_suffix('.txt').read_bytes()
-        meta = json.loads(stem.with_suffix('.json').read_text())
+        meta = json.loads(stem.with_suffix('.json').read_text(encoding="utf-8"))
         if digest(raw) != meta['image_sha256'] or digest(prompt) != meta['prompt_sha256']:
             raise ValueError(f'{family}: delivered source checksum differs')
         image = Image.open(io.BytesIO(raw)).convert('RGBA'); frames = meta['frames']

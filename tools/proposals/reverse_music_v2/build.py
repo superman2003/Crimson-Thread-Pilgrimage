@@ -246,9 +246,9 @@ def main():
                 print(ident,expected/SR,m['bytes'],m['integrated_lufs'],m['true_peak_4x_dbtp'],m['technical_pass'],flush=True)
     manifest=dict(schema_version=1,pack_id='reverse_music_v2',title='六城回声 · 六区探索与 Boss 原创循环提案',kind='music',items=items)
     report=dict(schema_version=1,pack_id='reverse_music_v2',method='Decoded OGG checks; FFmpeg EBU R128 loudnorm input measurements; 4x scipy resample_poly true-peak estimate; no listening approval',environment=dict(numpy=np.__version__,scipy=scipy.__version__,ffmpeg=run(['ffmpeg','-version']).stdout.decode().splitlines()[0]),total_bytes=sum(x['bytes'] for x in metrics),all_technical_checks_pass=all(x['technical_pass'] for x in metrics),tracks=metrics)
-    (PACK/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    (DOC/'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-    (DOC/'score_events.json').write_text(json.dumps(scores,ensure_ascii=False,indent=2)+'\n')
+    (PACK/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
+    (DOC/'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
+    (DOC/'score_events.json').write_text(json.dumps(scores,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     assert report['total_bytes']<4000000,report['total_bytes']
     assert report['all_technical_checks_pass'], 'See validation.json; technical checks failed'
 

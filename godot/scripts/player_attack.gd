@@ -83,6 +83,8 @@ static func attack_line_clear(player: Node, target: Vector2) -> bool:
 static func update_attack(player: Node, delta: float) -> void:
     if player.attack_timer <= 0.0:
         player.attack_shape.disabled = true
+        player.active_skill.clear()
+        player.skill_effect_started = false
         return
 
     if not is_finite(delta) or delta <= 0.0: return
@@ -120,6 +122,9 @@ static func update_attack(player: Node, delta: float) -> void:
     if not player.active_skill.is_empty() and elapsed >= player.attack_windup + player.attack_active_time and not player.seal_recovery_shown:
         player.seal_recovery_shown = true
         player._seal_present(String(player.active_skill.get("id", "cleave")), "recovery")
+    if player.attack_timer <= 0.0:
+        player.active_skill.clear()
+        player.skill_effect_started = false
 
 
 static func apply_attack_hits(player: Node) -> void:

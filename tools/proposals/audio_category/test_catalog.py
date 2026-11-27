@@ -47,7 +47,7 @@ class CatalogTests(unittest.TestCase):
         with self.assertRaises(ValueError): self.normalize(file='link.wav')
 
     def test_pointer_rejected(self):
-        self.path.write_text('version https://git-lfs.github.com/spec/v1\noid sha256:abc\n')
+        self.path.write_text('version https://git-lfs.github.com/spec/v1\noid sha256:abc\n', encoding="utf-8")
         with self.assertRaises(ValueError): self.normalize()
 
     def test_declared_duration_rejected(self):

@@ -52,7 +52,7 @@ def main():
             log = (args.log_dir / f'{suite}.log').read_text(encoding='utf-8', errors='replace')
             errors = len(re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:)', log, re.M))
             warnings = len(re.findall(r'^\s*WARNING:', log, re.M))
-            marker = json.loads((ROOT / 'tools/godot_suite_success_markers.json').read_text())[suite]
+            marker = json.loads((ROOT / 'tools/godot_suite_success_markers.json').read_text(encoding="utf-8"))[suite]
             completed = re.search(marker, log, re.M) is not None
             result = dict(suite=suite, command=command, exit=code, timeout=timeout, errors=errors, warnings=warnings, completed=completed, seconds=round(time.monotonic()-started, 3))
             results.append(result)
