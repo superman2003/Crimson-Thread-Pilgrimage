@@ -9,14 +9,7 @@ const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const VARIANT_COPY_JOB := preload("res://scripts/world_variant_copy_job.gd")
 
-static func preflight_async(loader: RefCounted, path: String, entry: Vector2, prefetch: RefCounted, host: Node) -> Dictionary:
-    loader.last_error = ""
-    # Foreground travel owns the shared reader from here. A discarded neighbor
-    # read may still run; the existing frame loop waits for it before request.
-    if prefetch != null:
-        prefetch.cancel_config()
-    var wall_started := Time.get_ticks_usec()
-    var json_started := Time.get_ticks_usec()
+static func _init_preflight_metrics(loader: RefCounted) -> void:
     loader.last_transition["preflight_cursor"] = 0
     loader.last_transition["preflight_batches"] = 0
     loader.last_transition["preflight_work_usec"] = 0
@@ -39,120 +32,102 @@ static func preflight_async(loader: RefCounted, path: String, entry: Vector2, pr
     loader.last_transition["preflight_copy_batch_edges"] = []
     loader.last_transition["preflight_copy_batch_work_usec"] = []
     loader.last_transition["preflight_copy_batch_wall_usec"] = []
-    var parsed: Variant = null
     loader.last_transition["json_background"] = false
     loader.last_transition["json_wait_frames"] = 0
     loader.last_transition["json_worker_is_main"] = true
     loader.last_transition["json_worker_usec"] = 0
     loader.last_transition["json_bytes"] = 0
-    if not entry.is_finite() or not FileAccess.file_exists(path):
-        loader.last_error = "目标位置或区域文件无效。"
-    else:
-        # Foreground preflight owns the same sole reader used by neighbor
-        # requests. Refresh a cold/stale route manifest before config parsing
-        # or the cache-only validator starts; background staging observes the
-        # foreground phase and drops its unpublished result.
-        if not ROUTES.cache_is_current():
-            if not await loader._prepare_routes_manifest(host, host.get_tree()):
-                if loader.last_error.is_empty():
-                    loader.last_error = "区域路线清单尚未准备好。"
-                loader.last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
-                return {}
-        if not ROUTES.cache_is_current():
-            loader.last_error = "区域路线清单在预检开始前已失效。"
+
+
+static func _copy_borrowed_config_async(loader: RefCounted, borrowed: Variant, host: Node) -> Dictionary:
+    var copy_job = VARIANT_COPY_JOB.new()
+    copy_job.begin(borrowed)
+    var copy_wall_started := Time.get_ticks_usec()
+    while not copy_job.done:
+        var batch_started := Time.get_ticks_usec()
+        var steps := 0
+        var batch_edges := 0
+        var batch_work_usec := 0
+        while not copy_job.done and steps < loader.MAX_OPERATIONS_PER_FRAME:
+            if steps > 0 and Time.get_ticks_usec() - batch_started >= loader.FRAME_BUDGET_USEC:
+                break
+            var copy_step_started := Time.get_ticks_usec()
+            var copied := copy_job.step(512)
+            var copy_step_usec := Time.get_ticks_usec() - copy_step_started
+            if copied <= 0:
+                break
+            steps += 1
+            loader.last_transition["preflight_copy_steps"] = int(loader.last_transition["preflight_copy_steps"]) + 1
+            loader.last_transition["preflight_copy_edges"] = int(loader.last_transition["preflight_copy_edges"]) + copied
+            loader.last_transition["preflight_copy_work_usec"] = int(loader.last_transition["preflight_copy_work_usec"]) + copy_step_usec
+            loader.last_transition["preflight_copy_max_step_edges"] = maxi(int(loader.last_transition["preflight_copy_max_step_edges"]), copied)
+            batch_edges += copied
+            batch_work_usec += copy_step_usec
+        var batch_wall_usec := Time.get_ticks_usec() - batch_started
+        loader.last_transition["preflight_copy_max_batch_usec"] = maxi(int(loader.last_transition["preflight_copy_max_batch_usec"]), batch_wall_usec)
+        var batch_steps_list: Array = loader.last_transition["preflight_copy_batch_steps"]
+        batch_steps_list.append(steps)
+        loader.last_transition["preflight_copy_batch_steps"] = batch_steps_list
+        var batch_edges_list: Array = loader.last_transition["preflight_copy_batch_edges"]
+        batch_edges_list.append(batch_edges)
+        loader.last_transition["preflight_copy_batch_edges"] = batch_edges_list
+        var batch_work_list: Array = loader.last_transition["preflight_copy_batch_work_usec"]
+        batch_work_list.append(batch_work_usec)
+        loader.last_transition["preflight_copy_batch_work_usec"] = batch_work_list
+        var batch_wall_list: Array = loader.last_transition["preflight_copy_batch_wall_usec"]
+        batch_wall_list.append(batch_wall_usec)
+        loader.last_transition["preflight_copy_batch_wall_usec"] = batch_wall_list
+        loader.last_transition["preflight_copy_batches"] = int(loader.last_transition["preflight_copy_batches"]) + 1
+        await loader._next_process_frame(host.get_tree())
+        loader.last_transition["preflight_copy_wall_usec"] = Time.get_ticks_usec() - copy_wall_started
+        if not loader._alive(host):
+            loader.last_transition["preflight_cancelled"] = true
+            return {"cancelled": true, "result": null}
+        loader._cancel_input()
+        if loader.cancel_requested:
+            loader.last_transition["preflight_cancelled"] = true
+            return {"cancelled": true, "result": null}
+    return {"cancelled": false, "result": copy_job.result}
+
+
+static func _read_config_background_async(loader: RefCounted, path: String, host: Node, json_started: int, wall_started: int) -> Dictionary:
+    # A cancelled read still owns its thread until completion. Wait in
+    # frames before admitting the next one, never queue unbounded work.
+    var ticket := 0
+    while true:
+        if ticket == 0 and not loader.config_read_job.busy() and not loader.config_read_job.has_pending_ticket():
+            ticket = loader.config_read_job.request(path)
+            if ticket == 0:
+                loader.last_error = "无法启动区域后台读取。"
+                break
+        loader.last_transition["json_background"] = true
+        # Yield even when a tiny file has already completed: the caller
+        # always gets a cancellation window before validator/handoff.
+        await loader._next_process_frame(host.get_tree())
+        loader.last_transition["json_wait_frames"] += 1
+        if not loader._alive(host):
+            loader.config_read_job.discard(ticket)
+            return {"cancelled": true, "raw": null}
+        loader._cancel_input()
+        if loader.cancel_requested:
+            loader.config_read_job.discard(ticket)
+            loader.last_transition["preflight_cancelled"] = true
+            loader.last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
             loader.last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
-            return {}
-        loader.last_transition["preflight_route_generation"] = ROUTES.cached_generation()
-        var borrowed: Variant = prefetch._cached_raw_borrow(path) if prefetch != null else null
-        if borrowed != null:
-            var copy_job = VARIANT_COPY_JOB.new()
-            copy_job.begin(borrowed)
-            var copy_wall_started := Time.get_ticks_usec()
-            while not copy_job.done:
-                var batch_started := Time.get_ticks_usec()
-                var steps := 0
-                var batch_edges := 0
-                var batch_work_usec := 0
-                while not copy_job.done and steps < loader.MAX_OPERATIONS_PER_FRAME:
-                    if steps > 0 and Time.get_ticks_usec() - batch_started >= loader.FRAME_BUDGET_USEC:
-                        break
-                    var copy_step_started := Time.get_ticks_usec()
-                    var copied := copy_job.step(512)
-                    var copy_step_usec := Time.get_ticks_usec() - copy_step_started
-                    if copied <= 0:
-                        break
-                    steps += 1
-                    loader.last_transition["preflight_copy_steps"] = int(loader.last_transition["preflight_copy_steps"]) + 1
-                    loader.last_transition["preflight_copy_edges"] = int(loader.last_transition["preflight_copy_edges"]) + copied
-                    loader.last_transition["preflight_copy_work_usec"] = int(loader.last_transition["preflight_copy_work_usec"]) + copy_step_usec
-                    loader.last_transition["preflight_copy_max_step_edges"] = maxi(int(loader.last_transition["preflight_copy_max_step_edges"]), copied)
-                    batch_edges += copied
-                    batch_work_usec += copy_step_usec
-                var batch_wall_usec := Time.get_ticks_usec() - batch_started
-                loader.last_transition["preflight_copy_max_batch_usec"] = maxi(int(loader.last_transition["preflight_copy_max_batch_usec"]), batch_wall_usec)
-                var batch_steps_list: Array = loader.last_transition["preflight_copy_batch_steps"]
-                batch_steps_list.append(steps)
-                loader.last_transition["preflight_copy_batch_steps"] = batch_steps_list
-                var batch_edges_list: Array = loader.last_transition["preflight_copy_batch_edges"]
-                batch_edges_list.append(batch_edges)
-                loader.last_transition["preflight_copy_batch_edges"] = batch_edges_list
-                var batch_work_list: Array = loader.last_transition["preflight_copy_batch_work_usec"]
-                batch_work_list.append(batch_work_usec)
-                loader.last_transition["preflight_copy_batch_work_usec"] = batch_work_list
-                var batch_wall_list: Array = loader.last_transition["preflight_copy_batch_wall_usec"]
-                batch_wall_list.append(batch_wall_usec)
-                loader.last_transition["preflight_copy_batch_wall_usec"] = batch_wall_list
-                loader.last_transition["preflight_copy_batches"] = int(loader.last_transition["preflight_copy_batches"]) + 1
-                await loader._next_process_frame(host.get_tree())
-                loader.last_transition["preflight_copy_wall_usec"] = Time.get_ticks_usec() - copy_wall_started
-                if not loader._alive(host):
-                    loader.last_transition["preflight_cancelled"] = true
-                    return {}
-                loader._cancel_input()
-                if loader.cancel_requested:
-                    loader.last_transition["preflight_cancelled"] = true
-                    return {}
-            parsed = copy_job.result
-        else:
-            parsed = null
-        if parsed == null:
-            # A cancelled read still owns its thread until completion. Wait in
-            # frames before admitting the next one, never queue unbounded work.
-            var ticket := 0
-            while true:
-                if ticket == 0 and not loader.config_read_job.busy() and not loader.config_read_job.has_pending_ticket():
-                    ticket = loader.config_read_job.request(path)
-                    if ticket == 0:
-                        loader.last_error = "无法启动区域后台读取。"
-                        break
-                loader.last_transition["json_background"] = true
-                # Yield even when a tiny file has already completed: the caller
-                # always gets a cancellation window before validator/handoff.
-                await loader._next_process_frame(host.get_tree())
-                loader.last_transition["json_wait_frames"] += 1
-                if not loader._alive(host):
-                    loader.config_read_job.discard(ticket)
-                    return {}
-                loader._cancel_input()
-                if loader.cancel_requested:
-                    loader.config_read_job.discard(ticket)
-                    loader.last_transition["preflight_cancelled"] = true
-                    loader.last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
-                    loader.last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
-                    return {}
-                if ticket != 0 and not loader.config_read_job.busy():
-                    break
-            if ticket != 0:
-                var read: Dictionary = loader.config_read_job.take(ticket)
-                loader.last_error = String(read.get("error", "目标区域后台读取已失效。"))
-                parsed = read.get("raw")
-                loader.last_transition["json_worker_usec"] = int(read.get("worker_usec", 0))
-                loader.last_transition["json_bytes"] = int(read.get("bytes", 0))
-                loader.last_transition["json_worker_is_main"] = read.get("worker_is_main", true)
-    loader.last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
-    if not loader.last_error.is_empty():
-        loader.last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
-        return {}
+            return {"cancelled": true, "raw": null}
+        if ticket != 0 and not loader.config_read_job.busy():
+            break
+    if ticket == 0:
+        return {"cancelled": false, "raw": null}
+    var read: Dictionary = loader.config_read_job.take(ticket)
+    loader.last_error = String(read.get("error", "目标区域后台读取已失效。"))
+    loader.last_transition["json_worker_usec"] = int(read.get("worker_usec", 0))
+    loader.last_transition["json_bytes"] = int(read.get("bytes", 0))
+    loader.last_transition["json_worker_is_main"] = read.get("worker_is_main", true)
+    return {"cancelled": false, "raw": read.get("raw")}
+
+
+static func _validate_config_budgeted_async(loader: RefCounted, parsed: Variant, path: String, entry: Vector2, host: Node, wall_started: int) -> Dictionary:
     var validator = CONFIG_VALIDATOR.new()
     validator.begin(parsed, path, entry)
     while not validator.done:
@@ -205,6 +180,52 @@ static func preflight_async(loader: RefCounted, path: String, entry: Vector2, pr
     return validator.result
 
 
+static func preflight_async(loader: RefCounted, path: String, entry: Vector2, prefetch: RefCounted, host: Node) -> Dictionary:
+    loader.last_error = ""
+    # Foreground travel owns the shared reader from here. A discarded neighbor
+    # read may still run; the existing frame loop waits for it before request.
+    if prefetch != null:
+        prefetch.cancel_config()
+    var wall_started := Time.get_ticks_usec()
+    var json_started := Time.get_ticks_usec()
+    _init_preflight_metrics(loader)
+    var parsed: Variant = null
+    if not entry.is_finite() or not FileAccess.file_exists(path):
+        loader.last_error = "目标位置或区域文件无效。"
+    else:
+        # Foreground preflight owns the same sole reader used by neighbor
+        # requests. Refresh a cold/stale route manifest before config parsing
+        # or the cache-only validator starts; background staging observes the
+        # foreground phase and drops its unpublished result.
+        if not ROUTES.cache_is_current():
+            if not await loader._prepare_routes_manifest(host, host.get_tree()):
+                if loader.last_error.is_empty():
+                    loader.last_error = "区域路线清单尚未准备好。"
+                loader.last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
+                return {}
+        if not ROUTES.cache_is_current():
+            loader.last_error = "区域路线清单在预检开始前已失效。"
+            loader.last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
+            return {}
+        loader.last_transition["preflight_route_generation"] = ROUTES.cached_generation()
+        var borrowed: Variant = prefetch._cached_raw_borrow(path) if prefetch != null else null
+        if borrowed != null:
+            var copied := await _copy_borrowed_config_async(loader, borrowed, host)
+            if bool(copied.get("cancelled", false)):
+                return {}
+            parsed = copied.get("result")
+        if parsed == null:
+            var bg := await _read_config_background_async(loader, path, host, json_started, wall_started)
+            if bool(bg.get("cancelled", false)):
+                return {}
+            parsed = bg.get("raw")
+    loader.last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
+    if not loader.last_error.is_empty():
+        loader.last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
+        return {}
+    return await _validate_config_budgeted_async(loader, parsed, path, entry, host, wall_started)
+
+
 static func evict_budgeted(loader: RefCounted, host: Node) -> bool:
     # Snapshot only the nodes that belong to this generation. Freed entries may
     # be invalidated by another node's exit callback; never dereference them.
@@ -235,9 +256,7 @@ static func evict_budgeted(loader: RefCounted, host: Node) -> bool:
     return true
 
 
-static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_id: String, route_catalog: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, source_path: String = "", read_ahead: Dictionary = {}, next_region_id: String = "") -> bool:
-    var path := source_path if not source_path.is_empty() else "res://data/%s.json" % region_id
-    var wall_started := Time.get_ticks_usec()
+static func _acquire_catalog_ticket_async(loader: RefCounted, host: Node, region_id: String, path: String, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, read_ahead: Dictionary) -> Dictionary:
     var wait_frames := 0
     var ticket := 0
     var overlap_frames := 0
@@ -247,7 +266,7 @@ static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_
         if not loader._catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or String(read_ahead.path) != path or String(read_ahead.region_id) != region_id or int(read_ahead.host_id) != host.get_instance_id() or int(read_ahead.tree_id) != tree.get_instance_id() or int(read_ahead.generation) != expected_generation or int(read_ahead.route_generation) != route_generation or int(read_ahead.yield_frames) < 1:
             loader.last_error = "物品目录预读归属已失效。"
             loader._discard_catalog_staging(host, read_ahead)
-            return false
+            return {"ok": false}
         ticket = int(read_ahead.ticket)
         overlap_frames = int(read_ahead.yield_frames)
         wait_frames = overlap_frames
@@ -255,11 +274,11 @@ static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_
     while ticket == 0:
         if not loader._catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
             loader._discard_catalog_staging(host, read_ahead)
-            return false
+            return {"ok": false}
         if loader.config_read_job.closed:
             loader.last_error = "物品目录后台读取服务已关闭。"
             loader._discard_catalog_staging(host, read_ahead)
-            return false
+            return {"ok": false}
         # A completed ticket still belongs to its current owner. Wait for
         # take/discard just as the modern manifest path does; never steal it.
         if not loader.config_read_job.busy() and not loader.config_read_job.has_pending_ticket():
@@ -267,7 +286,7 @@ static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_
             if ticket == 0:
                 loader.last_error = "无法启动物品目录后台读取。"
                 loader._discard_catalog_staging(host, read_ahead)
-                return false
+                return {"ok": false}
         # Even a tiny completed read must offer a cancellation window.
         await loader._next_process_frame(tree)
         wait_frames += 1
@@ -275,7 +294,7 @@ static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_
         if not loader._catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
             loader.config_read_job.discard(ticket)
             loader._discard_catalog_staging(host, read_ahead)
-            return false
+            return {"ok": false}
     while loader.config_read_job.busy():
         await loader._next_process_frame(tree)
         wait_frames += 1
@@ -283,44 +302,11 @@ static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_
         if not loader._catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
             loader.config_read_job.discard(ticket)
             loader._discard_catalog_staging(host, read_ahead)
-            return false
-    var read: Dictionary = loader.config_read_job.take(ticket)
-    var raw: Variant = read.get("raw")
-    if not String(read.get("error", "物品目录读取票据已失效。")).is_empty() or not raw is Dictionary:
-        loader.last_error = String(read.get("error", "物品目录读取票据已失效。"))
-        if loader.last_error.is_empty(): loader.last_error = "物品目录记录无法读取。"
-        loader._discard_catalog_staging(host, read_ahead)
-        return false
-    var stamp := int(read.get("stamp", -1))
-    var record := {"region_id": region_id, "path": path, "stamp": stamp, "bytes": read.get("bytes", 0),
-        "worker_is_main": read.get("worker_is_main", true), "worker_usec": read.get("worker_usec", 0),
-        "generation": expected_generation, "route_generation": route_generation, "merged_entries": 0, "merge_work_usec": 0, "max_merge_step_usec": 0, "merge_batches": 0, "max_merge_edges": 0, "wait_frames": wait_frames, "read_overlap_frames": overlap_frames, "wall_usec": 0}
-    var reads: Array = loader.last_transition.get("catalog_reads", [])
-    reads.append(record)
-    loader.last_transition["catalog_reads"] = reads
-    var inventory: Variant = raw.get("inventory", {})
-    var catalog: Variant = inventory.get("catalog", {}) if inventory is Dictionary else null
-    if not catalog is Dictionary:
-        loader.last_error = "物品目录格式无效。"
-        loader._discard_catalog_staging(host, read_ahead)
-        return false
-    if not loader._catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
-        loader.last_error = "物品目录在预读交接前发生变化。"
-        loader._discard_catalog_staging(host, read_ahead)
-        return false
-    var merge_batch_started := Time.get_ticks_usec()
-    if not next_region_id.is_empty():
-        # The current result has been taken; the sole reader is free. Keep the
-        # next raw result private while this source merges in authored order.
-        var next_path := "res://data/%s.json" % next_region_id
-        var next_ticket: int = loader.config_read_job.request(next_path)
-        if next_ticket == 0:
-            loader.last_error = "无法启动下一物品目录后台读取。"
-            loader._discard_catalog_staging(host, read_ahead)
-            return false
-        read_ahead.merge({"ticket": next_ticket, "path": next_path, "region_id": next_region_id,
-            "host_id": host.get_instance_id(), "tree_id": tree.get_instance_id(),
-            "generation": expected_generation, "route_generation": route_generation, "yield_frames": 0})
+            return {"ok": false}
+    return {"ok": true, "ticket": ticket, "wait_frames": wait_frames, "overlap_frames": overlap_frames}
+
+
+static func _merge_catalog_sources_budgeted_async(loader: RefCounted, host: Node, path: String, stamp: int, route_catalog: Dictionary, catalog: Dictionary, record: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, read_ahead: Dictionary, merge_batch_started: int) -> bool:
     # Avoid cloning the whole region. Region and route dictionaries already
     # have private ownership; route entries overwrite local entries, then the
     # first route in authored order wins the global key.
@@ -370,6 +356,54 @@ static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_
         if not read_ahead.is_empty(): read_ahead.yield_frames += 1
         loader._cancel_input()
         merge_batch_started = Time.get_ticks_usec()
+    return true
+
+
+static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_id: String, route_catalog: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, source_path: String = "", read_ahead: Dictionary = {}, next_region_id: String = "") -> bool:
+    var path := source_path if not source_path.is_empty() else "res://data/%s.json" % region_id
+    var wall_started := Time.get_ticks_usec()
+    var acquired := await _acquire_catalog_ticket_async(loader, host, region_id, path, tree, expected_generation, route_generation, cancellable, read_ahead)
+    if not bool(acquired.get("ok", false)):
+        return false
+    var read: Dictionary = loader.config_read_job.take(int(acquired.ticket))
+    var raw: Variant = read.get("raw")
+    if not String(read.get("error", "物品目录读取票据已失效。")).is_empty() or not raw is Dictionary:
+        loader.last_error = String(read.get("error", "物品目录读取票据已失效。"))
+        if loader.last_error.is_empty(): loader.last_error = "物品目录记录无法读取。"
+        loader._discard_catalog_staging(host, read_ahead)
+        return false
+    var stamp := int(read.get("stamp", -1))
+    var record := {"region_id": region_id, "path": path, "stamp": stamp, "bytes": read.get("bytes", 0),
+        "worker_is_main": read.get("worker_is_main", true), "worker_usec": read.get("worker_usec", 0),
+        "generation": expected_generation, "route_generation": route_generation, "merged_entries": 0, "merge_work_usec": 0, "max_merge_step_usec": 0, "merge_batches": 0, "max_merge_edges": 0, "wait_frames": int(acquired.wait_frames), "read_overlap_frames": int(acquired.overlap_frames), "wall_usec": 0}
+    var reads: Array = loader.last_transition.get("catalog_reads", [])
+    reads.append(record)
+    loader.last_transition["catalog_reads"] = reads
+    var inventory: Variant = raw.get("inventory", {})
+    var catalog: Variant = inventory.get("catalog", {}) if inventory is Dictionary else null
+    if not catalog is Dictionary:
+        loader.last_error = "物品目录格式无效。"
+        loader._discard_catalog_staging(host, read_ahead)
+        return false
+    if not loader._catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
+        loader.last_error = "物品目录在预读交接前发生变化。"
+        loader._discard_catalog_staging(host, read_ahead)
+        return false
+    var merge_batch_started := Time.get_ticks_usec()
+    if not next_region_id.is_empty():
+        # The current result has been taken; the sole reader is free. Keep the
+        # next raw result private while this source merges in authored order.
+        var next_path := "res://data/%s.json" % next_region_id
+        var next_ticket: int = loader.config_read_job.request(next_path)
+        if next_ticket == 0:
+            loader.last_error = "无法启动下一物品目录后台读取。"
+            loader._discard_catalog_staging(host, read_ahead)
+            return false
+        read_ahead.merge({"ticket": next_ticket, "path": next_path, "region_id": next_region_id,
+            "host_id": host.get_instance_id(), "tree_id": tree.get_instance_id(),
+            "generation": expected_generation, "route_generation": route_generation, "yield_frames": 0})
+    if not await _merge_catalog_sources_budgeted_async(loader, host, path, stamp, route_catalog, catalog, record, tree, expected_generation, route_generation, cancellable, read_ahead, merge_batch_started):
+        return false
     if not loader._catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
         loader._discard_catalog_staging(host, read_ahead)
         return false
@@ -377,15 +411,8 @@ static func prepare_catalog_region_async(loader: RefCounted, host: Node, region_
     return true
 
 
-static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionary, cancellable: bool) -> bool:
+static func _run_prepare_jobs_budgeted_async(loader: RefCounted, host: Node, target: Dictionary, prepare_tree: SceneTree, prepare_generation: int, prepare_route_generation: int, cancellable: bool, catalog_read_ahead: Dictionary) -> bool:
     var prepare_wall_started := Time.get_ticks_usec()
-    var prepare_tree := host.get_tree()
-    var prepare_generation = loader.generation
-    var prepare_route_generation = ROUTES.cached_generation()
-    loader.last_transition["catalog_reads"] = []
-    # One optional next-read ticket is owned by this invocation, never a
-    # shared cache or a second reader. Every failure path drains its ownership.
-    var catalog_read_ahead := {}
     var prepare_jobs: Array = LOADER_STAGING.hold_back(loader, host._region_prepare_jobs(target))
     loader.last_transition["prepare_plan_usec"] = Time.get_ticks_usec() - prepare_wall_started
     var prepare_role := "target" if cancellable else "rollback"
@@ -501,6 +528,10 @@ static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionar
         loader.last_error = "物品目录预读未完成交接。"
         loader._discard_catalog_staging(host, catalog_read_ahead)
         return false
+    return true
+
+
+static func _warm_character_art_budgeted_async(loader: RefCounted, host: Node, prepare_tree: SceneTree, prepare_generation: int, prepare_route_generation: int, cancellable: bool) -> bool:
     # Cover the entire target region, including NPCs outside the landing
     # top-k and original portrait atlases, before any actor can be published.
     # Collectibles and held inventory use the same bounded resource owners;
@@ -535,8 +566,10 @@ static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionar
     if not String(art_job.error).is_empty():
         loader.last_error = String(art_job.error)
         return false
-    if not await loader._warm_region_textures(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
-        return false
+    return true
+
+
+static func _run_build_jobs_budgeted_async(loader: RefCounted, host: Node, prepare_tree: SceneTree, prepare_generation: int, prepare_route_generation: int, cancellable: bool, catalog_read_ahead: Dictionary) -> bool:
     var jobs: Array = LOADER_STAGING.hold_back(loader, host._region_build_jobs())
     var cursor := 0
     loader.last_transition["jobs"] = jobs.size()
@@ -575,6 +608,25 @@ static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionar
             loader._discard_catalog_staging(host, catalog_read_ahead)
             return false
         loader._cancel_input()
+    return true
+
+
+static func construct_budgeted(loader: RefCounted, host: Node, target: Dictionary, cancellable: bool) -> bool:
+    var prepare_tree := host.get_tree()
+    var prepare_generation = loader.generation
+    var prepare_route_generation = ROUTES.cached_generation()
+    loader.last_transition["catalog_reads"] = []
+    # One optional next-read ticket is owned by this invocation, never a
+    # shared cache or a second reader. Every failure path drains its ownership.
+    var catalog_read_ahead := {}
+    if not await _run_prepare_jobs_budgeted_async(loader, host, target, prepare_tree, prepare_generation, prepare_route_generation, cancellable, catalog_read_ahead):
+        return false
+    if not await _warm_character_art_budgeted_async(loader, host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+        return false
+    if not await loader._warm_region_textures(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+        return false
+    if not await _run_build_jobs_budgeted_async(loader, host, prepare_tree, prepare_generation, prepare_route_generation, cancellable, catalog_read_ahead):
+        return false
     if not await loader._await_player_art(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
         return false
     return not (cancellable and loader.cancel_requested)

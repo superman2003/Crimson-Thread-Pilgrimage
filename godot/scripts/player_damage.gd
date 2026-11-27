@@ -9,11 +9,15 @@ const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const HOOK_ART := preload("res://scripts/player_hook_art.gd")
 const HURT_ART := preload("res://scripts/player_hurt_art.gd")
 
+static func _is_debug_invulnerable(player: Node) -> bool:
+    return OS.is_debug_build() and player.debug_invulnerable
+
+
 static func practice_guard_contact(player: Node, source_position: Vector2) -> bool:
     # A practice contact is eligible only while already guarding the correct side.
     # It cannot damage, begin a guard, heal, or exceed the real prepaid guard refund.
     var source_side = signf(source_position.x - player.global_position.x)
-    if player.guard_timer <= 0.0 or player.hurt_timer > 0.0 or player.death_timer > 0.0 or player.debug_invulnerable or player.arrival_guard_timer > 0.0 or (source_side != 0.0 and int(source_side) != player.facing):
+    if player.guard_timer <= 0.0 or player.hurt_timer > 0.0 or player.death_timer > 0.0 or _is_debug_invulnerable(player) or player.arrival_guard_timer > 0.0 or (source_side != 0.0 and int(source_side) != player.facing):
         return false
     player.take_damage(1, source_position, true)
     return player.guard_timer <= 0.0
@@ -22,7 +26,7 @@ static func practice_guard_contact(player: Node, source_position: Vector2) -> bo
 static func take_damage(player: Node, amount: int, source_position: Vector2, blockable: bool) -> bool:
     if player.arrival_guard_timer > 0.0:
         return false
-    if player.debug_invulnerable:
+    if _is_debug_invulnerable(player):
         return false
     if player.hurt_timer > 0.0 or player.death_timer > 0.0 or player.mercy_timer > 0.0:
         return false

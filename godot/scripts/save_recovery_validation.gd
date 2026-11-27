@@ -101,6 +101,8 @@ func run() -> void:
 	clean()
 	install_failure_rollback()
 	clean()
+	tampered_bounds()
+	clean()
 	check(await AUDIO.drain(self), "the fixture releases playback")
 	print("SAVE_RECOVERY checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
@@ -289,3 +291,18 @@ func install_failure_rollback() -> void:
 		"verified backup stays intact after primary rollback")
 	check(not FileAccess.file_exists(SAVE + ".tmp") and not FileAccess.file_exists(SAVE + ".rollback.tmp"),
 		"temporary and rollback staging files are cleaned up after failure")
+
+func tampered_bounds() -> void:
+	for case_data in [
+		["extreme_hp", func(d: Dictionary): d.hp = 1e308],
+		["huge_hp", func(d: Dictionary): d.hp = 9999],
+		["negative_energy", func(d: Dictionary): d.energy = -50],
+		["huge_energy", func(d: Dictionary): d.energy = 50000],
+		["huge_currency", func(d: Dictionary): d.currency = 100000000],
+		["traversal_region", func(d: Dictionary): d.current_region = "../escape"; d.world_location = {}],
+	]:
+		var mutated: Dictionary = journey().duplicate(true)
+		(case_data[1] as Callable).call(mutated)
+		write_raw(JSON.stringify(mutated))
+		var reader := WORLD.new()
+		check(not reader.read(SAVE), "tampered save rejected: " + String(case_data[0]))

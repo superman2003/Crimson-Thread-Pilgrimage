@@ -72,6 +72,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
+          lfs: false
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -85,7 +86,9 @@ jobs:
           python tools/test_export_audit.py
           python tools/audit_export_contents.py
       - name: Hydrate project assets, including addon themes
-        run: git lfs pull --include='godot/**'
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/**
       - name: Install verified Godot editor and matching release template
         env:
           EDITOR_FILE: ${{ matrix.editor }}
@@ -125,6 +128,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
+          lfs: false
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
@@ -135,7 +139,9 @@ jobs:
           python tools/test_export_audit.py
           python tools/audit_export_contents.py
       - name: Hydrate project assets, including addon themes
-        run: git lfs pull --include='godot/**'
+        uses: ./.github/actions/hydrate-lfs
+        with:
+          include: godot/**
       - name: Export the app and boot it from its archive
         env:
           GH_TOKEN: ${{ github.token }}

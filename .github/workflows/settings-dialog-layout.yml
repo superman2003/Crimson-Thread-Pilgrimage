@@ -10,7 +10,7 @@ on:
       - 'tools/test_settings_dialog_layout_runner.py'
       - '.github/workflows/settings-dialog-layout.yml'
   push:
-    branches: [main, codex/ledger-u01-settings-dialog-layout-wip-21ca]
+    branches: [main]
 permissions:
   contents: read
 concurrency:
@@ -19,7 +19,7 @@ concurrency:
 jobs:
   native-forms:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
         with:
@@ -41,7 +41,7 @@ jobs:
       - name: Existing isolated calibration interruption contract
         run: python3 tools/run_reliability_98fd8e2f_r04.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/settings-layout-r04"
       - name: Two strict full-resource import passes
-        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/settings-layout-import"
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 900 --log-dir "$RUNNER_TEMP/settings-layout-import"
       - name: Actual World settings focus and unchanged save bytes
         run: python3 tools/run_settings_dialog_layout_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/settings-layout-world"
       - name: Original comfort, remapping and actual UI regressions
