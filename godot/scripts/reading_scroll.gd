@@ -56,8 +56,8 @@ static func _visible_dialogs(shell: Control) -> Array:
     var level = shell.get("level")
     var scope: Node = level if level is Node and is_instance_valid(level) and level.is_ancestor_of(shell) else shell
     var out: Array = []
-    for dialog in scope.find_children("*", "AcceptDialog", true, false):
-        if _shown(dialog):
+    for dialog in scope.find_children("*", "Window", true, false):
+        if (dialog is AcceptDialog or String(dialog.name) == "JourneyWorkbenchWindow") and _shown(dialog):
             out.append(dialog)
     return out
 

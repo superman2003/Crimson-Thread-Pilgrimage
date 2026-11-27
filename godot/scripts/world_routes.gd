@@ -38,7 +38,11 @@ static func manifest_generation() -> int:
 ## Production World code uses these cache-only calls after the shared loader has
 ## published a complete worker result. They never parse or repair the cache.
 static func cache_is_current() -> bool:
-    return _cached_stamp >= 0 and _cached_stamp == FileAccess.get_modified_time(ROUTES_PATH)
+    if _cached_stamp < 0:
+        return false
+    if OS.has_feature("standalone") and ROUTES_PATH.begins_with("res://"):
+        return true
+    return _cached_stamp == FileAccess.get_modified_time(ROUTES_PATH)
 
 static func cached_generation() -> int:
     return _cache_generation if cache_is_current() else -1

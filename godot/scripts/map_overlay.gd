@@ -115,10 +115,22 @@ static func room_map_rect(level: Node, room_data: Dictionary) -> Rect2:
 
 
 static func map_room_by_id(level: Node, room_id: String) -> Dictionary:
-    for room_value in level.config.get("map_rooms", []):
-        if room_value is Dictionary and String(room_value.get("id", "")) == room_id:
-            return room_value
-    return {}
+    var rooms: Array = level.config.get("map_rooms", [])
+    var cfg_id := String(level.config.get("id", ""))
+    var cache_key := "%s:%d" % [cfg_id, rooms.size()]
+    var index: Dictionary
+    if level.has_meta("_map_room_index") and String(level.get_meta("_map_room_index_key", "")) == cache_key:
+        index = level.get_meta("_map_room_index")
+    else:
+        index = {}
+        for room_value in rooms:
+            if room_value is Dictionary:
+                var rid := String(room_value.get("id", ""))
+                if not rid.is_empty():
+                    index[rid] = room_value
+        level.set_meta("_map_room_index_key", cache_key)
+        level.set_meta("_map_room_index", index)
+    return index.get(room_id, {})
 
 
 ## Preserve focused room controls until the position, map knowledge or layout changes.

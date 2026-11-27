@@ -140,6 +140,7 @@ func step(host: Node, delta: float) -> void:
             return
     if Time.get_ticks_usec() - started >= BUDGET_US:
         return
+    var configs_before := configs.size()
     _step_config(host, started)
     # Admission budget, not a guarantee that one engine operation takes <2ms.
     if not queue.is_empty() and jobs.size() < MAX_JOBS and Time.get_ticks_usec() - started < BUDGET_US:
@@ -162,9 +163,15 @@ func step(host: Node, delta: float) -> void:
             else:
                 failures += 1
     if Time.get_ticks_usec() - started < BUDGET_US:
-        gameplay.synchronize(desired, configs, generation)
+        if configs.size() != configs_before:
+            gameplay.synchronize(desired, configs, generation)
         var built := _warm_entities(host, started)
         gameplay.warm(host, started, 2 - built)
+
+func _path_stamp_matches(path: String, stamp: int) -> bool:
+    if OS.has_feature("standalone") and path.begins_with("res://"):
+        return true
+    return stamp == FileAccess.get_modified_time(path)
 
 func _invalidate_configs() -> void:
     for region_id in configs.keys():
@@ -172,7 +179,7 @@ func _invalidate_configs() -> void:
         if current:
             var candidate: Dictionary = desired[region_id]
             var record: Dictionary = configs[region_id]
-            current = record.stamp == FileAccess.get_modified_time(candidate.path) and record.get("path", candidate.path) == candidate.path
+            current = _path_stamp_matches(candidate.path, int(record.stamp)) and record.get("path", candidate.path) == candidate.path
             if current and record.get("entry", candidate.entry) != candidate.entry:
                 # Keep a fully validated region configuration across entrance
                 # changes. Detached geometry/gameplay have their own entry
@@ -195,7 +202,7 @@ func _config_task_current() -> bool:
     if config_task.is_empty() or config_task.generation != generation or not desired.has(config_task.region):
         return false
     var candidate: Dictionary = desired[config_task.region]
-    return candidate.path == config_task.path and candidate.entry == config_task.entry and config_task.stamp == FileAccess.get_modified_time(config_task.path)
+    return candidate.path == config_task.path and candidate.entry == config_task.entry and _path_stamp_matches(config_task.path, int(config_task.stamp))
 
 func cancel_config() -> void:
     if not config_task.is_empty():

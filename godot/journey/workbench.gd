@@ -27,6 +27,7 @@ var elapsed := 0.0
 var refreshing := false
 var activated := false
 var background_recording := false
+var attached_save_path := ""
 
 func _ready() -> void:
     process_mode = Node.PROCESS_MODE_ALWAYS
@@ -106,7 +107,7 @@ func _process(delta: float) -> void:
         return
     if not bool(owner.get("initial_region_ready")) or not is_instance_valid(owner.get("ui_shell")):
         return
-    if context != null and context.store.scope != String(owner.world_save_path).sha256_text():
+    if context != null and attached_save_path != String(owner.world_save_path):
         _retire()
         return
     if not _should_tick_observers():
@@ -184,6 +185,7 @@ func _install_feature(script: Script) -> void:
 func _attach(owner: Node) -> void:
     context = CONTEXT.new()
     context.bind(owner)
+    attached_save_path = String(owner.world_save_path)
     context.refresh_requested.connect(refresh)
     context.message_requested.connect(_message)
     context.close_requested.connect(close)
@@ -291,13 +293,19 @@ func _refresh_menu() -> void:
     keys.sort()
     if not features.has(selected) and not keys.is_empty():
         selected = String(keys[0])
+    var fallback_button: Button = null
     for id in keys:
         var feature: RefCounted = features[id]
         var button := UI.button(menu, String(feature.descriptor().name), _select.bind(String(id)))
         button.set_meta("feature_id", id)
         button.tooltip_text = String(feature.descriptor().get("summary", ""))
         button.button_pressed = id == selected
-        if id == focused_id: button.grab_focus()
+        if id == selected:
+            fallback_button = button
+        if id == focused_id:
+            button.grab_focus()
+    if focused_id.is_empty() and is_instance_valid(dialog) and dialog.visible and dialog.gui_get_focus_owner() == null and fallback_button != null:
+        fallback_button.call_deferred("grab_focus")
 
 func _select(id: String) -> void:
     if features.has(selected):

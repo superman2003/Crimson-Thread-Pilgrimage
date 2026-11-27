@@ -153,8 +153,10 @@ func _update_enemy_residency(host: Node) -> void:
 			if not bool(entry.active): activate.append(id)
 		elif bool(entry.active) and not keep_window.has_point(actor.position) and _enemy_can_suspend(actor):
 			deactivate.append(id)
-	activate.sort_custom(func(a, b): return enemy_actors[a].actor.position.distance_squared_to(last_window.get_center()) < enemy_actors[b].actor.position.distance_squared_to(last_window.get_center()))
-	deactivate.sort_custom(func(a, b): return enemy_actors[b].actor.position.distance_squared_to(last_window.get_center()) < enemy_actors[a].actor.position.distance_squared_to(last_window.get_center()))
+	if activate.size() > 1:
+		activate.sort_custom(func(a, b): return enemy_actors[a].actor.position.distance_squared_to(last_window.get_center()) < enemy_actors[b].actor.position.distance_squared_to(last_window.get_center()))
+	if deactivate.size() > 1:
+		deactivate.sort_custom(func(a, b): return enemy_actors[b].actor.position.distance_squared_to(last_window.get_center()) < enemy_actors[a].actor.position.distance_squared_to(last_window.get_center()))
 	for id in activate.slice(0, MAX_ENEMY_ACTIVATIONS_PER_FRAME):
 		_set_enemy_active(id, true)
 		enemy_builds_this_frame += 1
@@ -269,9 +271,12 @@ func _refresh_queues(host: Node, focus: Vector2) -> void:
 			pending_build.append(key)
 		elif not keep.has_point(local_point) and actor != null and is_instance_valid(actor) and not _must_hold(host, key, actor):
 			pending_release.append(key)
-	var local_focus: Vector2 = host.to_local(focus)
-	pending_build.sort_custom(func(a, b): return records[a].position.distance_squared_to(local_focus) < records[b].position.distance_squared_to(local_focus))
-	pending_release.sort_custom(func(a, b): return records[b].position.distance_squared_to(local_focus) < records[a].position.distance_squared_to(local_focus))
+	if pending_build.size() > 1 or pending_release.size() > 1:
+		var local_focus: Vector2 = host.to_local(focus)
+		if pending_build.size() > 1:
+			pending_build.sort_custom(func(a, b): return records[a].position.distance_squared_to(local_focus) < records[b].position.distance_squared_to(local_focus))
+		if pending_release.size() > 1:
+			pending_release.sort_custom(func(a, b): return records[b].position.distance_squared_to(local_focus) < records[a].position.distance_squared_to(local_focus))
 
 func _must_hold(host: Node, key: String, actor: Area2D) -> bool:
 	if actor == host.nearby_interactable: return true

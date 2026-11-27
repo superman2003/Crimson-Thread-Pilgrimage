@@ -3,6 +3,17 @@ extends Node2D
 ## room, so the secret is something the player sees in the world rather than a
 ## line on the map. It dims once the hidden room has been found.
 const LIGHT := Color("f3d9a0")
+const MATERIAL_STYLES := {
+    "ch01": {"kind": "moss", "tint": Color("c1d5a2")},
+    "ch02": {"kind": "steam", "tint": Color("e7b58c")},
+    "ch03": {"kind": "paper", "tint": Color("e5d5af")},
+    "ch04": {"kind": "root", "tint": Color("b7d5a3")},
+    "ch05": {"kind": "ash", "tint": Color("b7b8d3")},
+    "ch06": {"kind": "thread", "tint": Color("d9bfda")},
+}
+const DEFAULT_STYLE := {"kind": "thread", "tint": LIGHT}
+var _cached_style: Dictionary = {}
+var _cached_region := ""
 var clue_id := ""
 var found := false:
     set(value):
@@ -25,6 +36,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
     if not is_finite(delta) or delta<0:return
     elapsed = fposmod(elapsed+delta,3600.0)
+    var viewport := get_viewport()
+    if viewport != null:
+        var screen_pos: Vector2 = viewport.get_canvas_transform() * global_position
+        var view_rect := Rect2(Vector2.ZERO, viewport.get_visible_rect().size).grow(160.0)
+        if not view_rect.has_point(screen_pos):
+            return
     queue_redraw()
 
 func _draw() -> void:
@@ -49,16 +66,15 @@ func _notification(what: int) -> void:
 func material_style() -> Dictionary:
     var data: Variant=get_meta("hidden_route",{})
     var region:=String(data.get("region_id","")) if data is Dictionary else ""
-    var styles:={
-        "ch01":{"kind":"moss","tint":Color("c1d5a2")},
-        "ch02":{"kind":"steam","tint":Color("e7b58c")},
-        "ch03":{"kind":"paper","tint":Color("e5d5af")},
-        "ch04":{"kind":"root","tint":Color("b7d5a3")},
-        "ch05":{"kind":"ash","tint":Color("b7b8d3")},
-        "ch06":{"kind":"thread","tint":Color("d9bfda")}}
-    for key in styles:
-        if region.contains(key):return styles[key]
-    return {"kind":"thread","tint":LIGHT}
+    if not _cached_style.is_empty() and region == _cached_region:
+        return _cached_style
+    _cached_region = region
+    for key in MATERIAL_STYLES:
+        if region.contains(key):
+            _cached_style = MATERIAL_STYLES[key]
+            return _cached_style
+    _cached_style = DEFAULT_STYLE
+    return _cached_style
 
 func _draw_material(kind: String,tint: Color) -> void:
     var ink:=Color(tint,0.38 if found else 0.78)

@@ -167,9 +167,11 @@ func _process(delta: float) -> void:
     if scan_timer>0:return
     scan_timer = .08
     var space := get_world_2d().direct_space_state
+    var query := PhysicsRayQueryParameters2D.create(origin, origin, 16)
     for i in range(ray_count):
         var target := origin+Vector2.RIGHT.rotated(TAU*float(i)/ray_count)*radius
-        var query := PhysicsRayQueryParameters2D.create(origin,target,16)
+        query.from = origin
+        query.to = target
         var hit := space.intersect_ray(query)
         ray_lengths[i] = radius if hit.is_empty() else origin.distance_to(hit.position)
     shader_material.set_shader_parameter("ray_lengths",ray_lengths)

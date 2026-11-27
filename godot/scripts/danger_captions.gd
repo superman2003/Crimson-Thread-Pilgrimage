@@ -71,4 +71,8 @@ func refresh(candidates: Array) -> void:
     panel.visible=not rows.is_empty()
 
 func _process(_delta: float) -> void:
+    if not is_instance_valid(ui) or ui.is_queued_for_deletion() or ui.get_accessibility("danger_captions", false) != true:
+        if is_instance_valid(panel) and panel.visible:
+            surface.hide()
+        return
     refresh(get_tree().get_nodes_in_group("enemy"))

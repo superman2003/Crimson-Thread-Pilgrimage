@@ -828,11 +828,13 @@ func _refresh_boss_and_pinned_hud() -> void:
         boss_name.text = level._boss_display_name(level.config.get("boss", {})) + "  ·  " + ("第二乐章" if int(actor.battle_phase) == 2 else "第一乐章")
         boss_bar.max_value = actor.max_hp
         boss_bar.value = actor.hp
-    pinned.text = ""
+    var next_pinned := ""
     for key in level.story_flags.keys():
         if String(key).begins_with("ui_pin_") and bool(level.story_flags[key]):
-            pinned.text = "旅记 · " + level._item_display_name(String(key).trim_prefix("ui_pin_"))
+            next_pinned = "旅记 · " + level._item_display_name(String(key).trim_prefix("ui_pin_"))
             break
+    if pinned.text != next_pinned:
+        pinned.text = next_pinned
 
 func _visible_inventory_ids() -> Array[String]:
     return INTERFACE_BAG.visible_inventory_ids(self)
@@ -868,9 +870,16 @@ func refresh_settings_selection() -> void:
         var key := String(rows[i][0])
         if not settings_labels.has(key):continue
         var selected: bool = i==level._settings_selection_clamped()
-        settings_labels[key].text=("▶ " if selected else "  ")+String(rows[i][1]).split(" ")[0]+(" *" if not saved.get("persisted",true) else "")
-        settings_labels[key].tooltip_text=String(saved.get("reason",""))
-        settings_labels[key].add_theme_color_override("font_color",GOLD if selected else IVORY)
+        var label_node: Label = settings_labels[key]
+        var next_label := ("▶ " if selected else "  ")+String(rows[i][1]).split(" ")[0]+(" *" if not saved.get("persisted",true) else "")
+        if label_node.text != next_label:
+            label_node.text = next_label
+        var next_tip := String(saved.get("reason",""))
+        if label_node.tooltip_text != next_tip:
+            label_node.tooltip_text = next_tip
+        var next_color: Color = GOLD if selected else IVORY
+        if label_node.get_theme_color("font_color") != next_color:
+            label_node.add_theme_color_override("font_color", next_color)
 
 func _binding_name(event: InputEvent) -> String:
     return PROMPT_BINDINGS.binding_label(event)
