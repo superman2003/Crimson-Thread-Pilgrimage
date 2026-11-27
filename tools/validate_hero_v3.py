@@ -14,8 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / 'godot/assets/sprites/player/generated_hero_v3'
 
 def main():
-    manifest = json.loads((PACK / 'manifest.json').read_text())
-    audit = json.loads((PACK / 'crop_audit.json').read_text())
+    manifest = json.loads((PACK / 'manifest.json').read_text(encoding="utf-8"))
+    audit = json.loads((PACK / 'crop_audit.json').read_text(encoding="utf-8"))
     paths = {path for animation in manifest['animations'] for path in animation['frames']}
     audited_paths = {f"res://assets/sprites/player/generated_hero_v3/frames/{entry['action']}_{entry['frame']:02d}.png" for entry in audit}
     assert len(audited_paths) == len(audit) == 80

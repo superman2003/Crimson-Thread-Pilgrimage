@@ -83,6 +83,7 @@ static func stage_region_async(loader: RefCounted, host: Node, path: String, ent
             loader.last_error = "区域路线清单在目标预检后已变化，请重试。"
         loader.phase = "idle"
         loader.cancel_requested = false
+        loader._disconnect_startup_frames_if_idle()
         return false
     var root := Node2D.new()
     root.name = "RegionStaging"
@@ -112,9 +113,11 @@ static func stage_region_async(loader: RefCounted, host: Node, path: String, ent
         _drop(loader)
         loader.phase = "idle"
         loader.cancel_requested = false
+        loader._disconnect_startup_frames_if_idle()
         return false
     loader.last_transition["staging_wall_usec"] = Time.get_ticks_usec() - started
     loader.phase = "staged"
+    loader._disconnect_startup_frames_if_idle()
     return true
 
 
@@ -122,9 +125,13 @@ static func stage_region_async(loader: RefCounted, host: Node, path: String, ent
 static func cancel(loader: RefCounted) -> void:
     if loader.phase == "staging":
         loader.cancel_requested = true
+        # Restore pre-staging world/build state synchronously before live
+        # gameplay resumes so async unwind cannot overwrite later edits.
+        _drop(loader)
     elif loader.phase == "staged":
         _drop(loader)
         loader.phase = "idle"
+        loader._disconnect_startup_frames_if_idle()
 
 
 static func _drop(loader: RefCounted) -> void:
@@ -168,6 +175,7 @@ static func _retire(loader: RefCounted, root: Node) -> void:
     if is_instance_valid(root):
         root.free()
     loader.staging_retiring -= 1
+    loader._disconnect_startup_frames_if_idle()
 
 
 ## Retires the source region and makes the hidden destination current. The
@@ -193,7 +201,6 @@ static func handover_async(loader: RefCounted, host: Node, arrival: Vector2 = Ve
     REGION_STATE.apply(host, staging.state, staging.fields)
     if arrival.is_finite():
         host.entry_spawn_override = arrival
-        host.active_spawn = arrival
     host.region_root = staging.root
     loader.staging = {}
     if is_instance_valid(old_root):
@@ -202,6 +209,9 @@ static func handover_async(loader: RefCounted, host: Node, arrival: Vector2 = Ve
     staging.root.name = "Region"
     staging.root.process_mode = Node.PROCESS_MODE_INHERIT
     staging.root.visible = true
+    host._ensure_audio_buses()
+    if is_instance_valid(host.audio_director) and host.audio_director.has_method("activate_singleton"):
+        host.audio_director.activate_singleton()
     for layer in staging.hidden_layers:
         if is_instance_valid(layer):
             layer.visible = true
@@ -256,6 +266,7 @@ static func handover_async(loader: RefCounted, host: Node, arrival: Vector2 = Ve
     host.chapter_transitioning = false
     host.process_mode = previous_mode
     loader.phase = "idle"
+    loader._disconnect_startup_frames_if_idle()
     # The one step that cannot yield (fields, container); the rest is per frame.
     loader.last_transition["handover_switch_usec"] = int(step_usec.get("switch", 0))
     loader.last_transition["handover_wall_usec"] = Time.get_ticks_usec() - switch_started

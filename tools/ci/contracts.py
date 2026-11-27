@@ -171,8 +171,11 @@ def classify(script: str, contract: Contract) -> str:
             elif "lfs" in bare or "hydrate_runtime_assets" in bare:
                 for match in re.findall(r"--include[= ]['\"]?([^'\" ]+)", bare):
                     contract.lfs_includes.update(p for p in match.split(",") if p)
-                if "--include" not in bare and ("lfs pull" in bare or "hydrate_runtime_assets" in bare):
-                    contract.lfs_includes.add("**")
+                if "--include" not in bare:
+                    if "hydrate_runtime_assets" in bare:
+                        contract.lfs_includes.update(("godot/assets/**", "godot/addons/MetroidvaniaSystem/**"))
+                    elif "lfs pull" in bare:
+                        contract.lfs_includes.add("**")
             elif "run_godot_import" in bare:
                 contract.imports = True
             elif bare.startswith("unzip"):
@@ -218,7 +221,7 @@ def load(path: Path) -> Contract:
             raise Unsupported(f"{where}: job {key}")
     if not str(job.get("runs-on", "")).startswith("ubuntu"):
         raise Unsupported(f"{where}: runs-on {job.get('runs-on')}")
-    contract = Contract(id=path.stem, name=document.get("name", path.stem), source=path.resolve().relative_to(ROOT).as_posix(),
+    contract = Contract(id=path.stem, name=document.get("name", path.stem), source=path.resolve().relative_to(ROOT.resolve()).as_posix(),
                         pr_paths=pr.get("paths"), pr_ignore=pr.get("paths-ignore"), push_paths=push.get("paths"),
                         on_push="push" in on, steps=[], timeout=int(job.get("timeout-minutes", DEFAULT_TIMEOUT)))
     for scope in (document.get("env") or {}, job.get("env") or {}):

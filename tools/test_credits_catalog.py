@@ -14,8 +14,8 @@ class CreditsCatalogTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
         (self.root / 'godot').mkdir()
-        (self.root / 'LICENSE').write_text('MIT\nCopyright preserved\n')
-        (self.root / 'THIRD_PARTY_NOTICES.md').write_text('# 来源\n中文说明与 [链接] 原文\n')
+        (self.root / 'LICENSE').write_text('MIT\nCopyright preserved\n', encoding="utf-8")
+        (self.root / 'THIRD_PARTY_NOTICES.md').write_text('# 来源\n中文说明与 [链接] 原文\n', encoding="utf-8")
 
     def test_exact_sources_and_stable_index(self):
         self.assertTrue(synchronize(self.root, False))
@@ -31,7 +31,7 @@ class CreditsCatalogTests(unittest.TestCase):
 
     def test_new_source_changes_payload_and_rejects_stale_text(self):
         synchronize(self.root, False)
-        (self.root / 'LICENSE').write_text('MIT\nNew copyright\n')
+        (self.root / 'LICENSE').write_text('MIT\nNew copyright\n', encoding="utf-8")
         errors = synchronize(self.root, True)
         self.assertGreaterEqual(len(errors), 2)
         synchronize(self.root, False)
@@ -54,7 +54,7 @@ class CreditsCatalogTests(unittest.TestCase):
         for folder in ['assets/fonts', 'addons/Plugin', 'tools', '.godot']:
             path = self.root / 'godot' / folder
             path.mkdir(parents=True)
-            (path / 'OFL.txt').write_text('Font terms\n')
+            (path / 'OFL.txt').write_text('Font terms\n', encoding="utf-8")
         index = json.loads(build(self.root)[OUTPUT / 'index.json'])
         sources = [entry['source'] for entry in index['entries']]
         self.assertIn('godot/assets/fonts/OFL.txt', sources)
@@ -65,7 +65,7 @@ class CreditsCatalogTests(unittest.TestCase):
     def test_unexpected_payload_is_reported_and_removed_only_when_building(self):
         synchronize(self.root, False)
         extra = self.root / OUTPUT / 'orphan.txt'
-        extra.write_text('obsolete source')
+        extra.write_text('obsolete source', encoding="utf-8")
         self.assertTrue(any('unexpected' in error for error in synchronize(self.root, True)))
         self.assertTrue(extra.exists())
         synchronize(self.root, False)
@@ -106,21 +106,23 @@ class CreditsCatalogTests(unittest.TestCase):
 
     def test_symlink_sources_and_outputs_are_never_replaced(self):
         source = self.root / 'real-license'
-        source.write_text('MIT\n')
+        source.write_text('MIT\n', encoding="utf-8")
         (self.root / 'LICENSE').unlink()
         try:
             (self.root / 'LICENSE').symlink_to(source)
-        except OSError:
-            self.skipTest('symlinks unavailable without privileges on this OS')
+        except OSError as error:
+            if getattr(error, 'winerror', None) == 1314:
+                self.skipTest('symlink creation requires elevated privilege or Developer Mode on Windows')
+            raise
         with self.assertRaises(ValueError):build(self.root)
         (self.root / 'LICENSE').unlink()
-        (self.root / 'LICENSE').write_text('MIT\n')
+        (self.root / 'LICENSE').write_text('MIT\n', encoding="utf-8")
         expected = build(self.root)
         target = next(path for path in expected if path.suffix == '.txt')
         (self.root / target).parent.mkdir(parents=True)
         (self.root / target).symlink_to(source)
         with self.assertRaises(ValueError):synchronize(self.root, False)
-        self.assertEqual(source.read_text(), 'MIT\n')
+        self.assertEqual(source.read_text(encoding="utf-8"), 'MIT\n')
 
 
 if __name__ == '__main__':unittest.main()

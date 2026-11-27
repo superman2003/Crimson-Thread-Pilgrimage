@@ -40,10 +40,10 @@ class ImportTests(unittest.TestCase):
             + f'with Path({str(self.marker)!r}).open("a") as marker: marker.write("x")\n'
             'print("Imported resources")\n')
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertEqual(self.marker.read_text(), 'xx')
+        self.assertEqual(self.marker.read_text(encoding="utf-8"), 'xx')
         self.assertIn('GODOT_IMPORT passes=2 failures=0', result.stdout)
         for number in (1, 2):
-            self.assertIn('Imported resources', (self.logs / f'import-{number}.log').read_text())
+            self.assertIn('Imported resources', (self.logs / f'import-{number}.log').read_text(encoding="utf-8"))
 
     def test_nonzero_exit_fails(self):
         result = self.run_engine('raise SystemExit(7)\n')
@@ -84,14 +84,14 @@ class ImportTests(unittest.TestCase):
         result = self.run_engine('import time\nprint("before timeout", flush=True)\ntime.sleep(2)\n', timeout='0.5')
         self.assertEqual(result.returncode, 1)
         self.assertIn('timeout after', result.stdout)
-        self.assertIn('before timeout', (self.logs / 'import-1.log').read_text())
+        self.assertIn('before timeout', (self.logs / 'import-1.log').read_text(encoding="utf-8"))
 
     def test_invalid_timeout_does_not_launch_engine(self):
         for timeout in ('nan', 'inf', '-inf', '0', '-1'):
             with self.subTest(timeout=timeout):
                 # Equals syntax allows argparse to recognize negative infinity.
                 self.engine.write_text('#!' + sys.executable + '\n'
-                                       + f'open({str(self.marker)!r}, "w").close()\n')
+                                       + f'open({str(self.marker)!r}, "w").close()\n', encoding="utf-8")
                 self.engine.chmod(0o755)
                 result = subprocess.run(
                     [sys.executable, str(ROOT / 'tools/run_godot_import.py'),
@@ -111,7 +111,7 @@ class ImportTests(unittest.TestCase):
         self.assertIn('Godot executable not found', result.stderr)
 
     def test_engine_launch_error_fails_without_traceback(self):
-        self.engine.write_text('#!/missing-import-fixture-interpreter\n')
+        self.engine.write_text('#!/missing-import-fixture-interpreter\n', encoding="utf-8")
         self.engine.chmod(0o755)
         result = self.run_import()
         self.assertEqual(result.returncode, 1)

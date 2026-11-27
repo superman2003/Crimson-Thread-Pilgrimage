@@ -25,7 +25,7 @@ def main():
     p.add_argument('--output',type=Path,default=ROOT/'artifacts/thread_doll_v1/native')
     a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=True)
-    markers=json.loads((ROOT/'tools/godot_suite_success_markers.json').read_text())
+    markers=json.loads((ROOT/'tools/godot_suite_success_markers.json').read_text(encoding="utf-8"))
     records=[]
     with tempfile.TemporaryDirectory(prefix='doll-native-',dir=a.output) as scratch:
         for suite in a.suite or SUITES:

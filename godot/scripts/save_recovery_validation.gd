@@ -235,6 +235,7 @@ func old_versions() -> void:
 	await retire(scene)
 
 func new_journeys() -> void:
+	clean()
 	var subject := MAIN.new()
 	subject.world_save_path = SAVE
 	write_raw("journey A")
@@ -243,11 +244,27 @@ func new_journeys() -> void:
 	check(subject._preserve_previous_journey() and FileAccess.get_file_as_string(SAVE + ".previous") == "journey B", "the second keeps the latest as .previous")
 	var earlier := preserved("previous.earlier")
 	check(earlier.size() == 1 and FileAccess.get_file_as_string(earlier[0]) == "journey A", "and the first abandoned journey is kept, not overwritten")
+	write_raw("journey C")
+	write_raw("stale backup", SAVE + ".bak")
+	check(subject._preserve_previous_journey() and FileAccess.get_file_as_string(SAVE + ".previous") == "journey C",
+		"the primary journey is archived before beginning again")
+	var stale_backups := preserved("bak.previous_backup")
+	check(not FileAccess.file_exists(SAVE + ".bak") and stale_backups.size() == 1
+		and FileAccess.get_file_as_string(stale_backups[0]) == "stale backup",
+		"the old recovery backup is archived and cannot seed the new journey")
 	write_raw("surviving backup", SAVE + ".bak")
 	check(subject._preserve_previous_journey() and FileAccess.get_file_as_string(SAVE + ".previous") == "surviving backup",
 		"starting over when only the backup survives archives that journey")
-	check(FileAccess.get_file_as_string(SAVE + ".bak") == "surviving backup" and preserved("previous.earlier").size() == 2,
-		"archiving the backup also retains the earlier journeys")
+	var archived_backups := preserved("bak.previous_backup")
+	var archived_backup_contents: Array[String] = []
+	for path in archived_backups:
+		archived_backup_contents.append(FileAccess.get_file_as_string(path))
+	archived_backup_contents.sort()
+	check(not FileAccess.file_exists(SAVE + ".bak") and archived_backup_contents == ["stale backup", "surviving backup"]
+		and preserved("previous.earlier").size() == 3,
+		"new journey removes the stale recovery path after archiving old backup and journey history")
+	var fresh := WORLD.new()
+	check(not fresh.read(SAVE) and fresh.last_error == "missing", "the next journey cannot recover an old slot backup")
 	subject.free()
 
 class PartialInstallFailureWorld extends WORLD:

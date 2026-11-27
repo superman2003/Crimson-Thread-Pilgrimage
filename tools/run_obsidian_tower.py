@@ -25,9 +25,9 @@ started=time.monotonic();primary,text=run(c,'runtime.log',r'^WORLD_C05_TOWER ste
 if primary['passed']:
  matches=re.findall(r'^TOWER_RESTART_PROOF (.+)$',text,re.M)
  if matches:
-  proof=json.loads(matches[-1]);(a.log_dir/'restart-proof.json').write_text(json.dumps(proof,indent=2)+'\n');restart,_=run(c+['--','--tower-restart-proof='+json.dumps(proof,separators=(',',':'))],'restart.log',r'^WORLD_C05_TOWER_RESTART failures=0 pid_changed=true$')
+  proof=json.loads(matches[-1]);(a.log_dir/'restart-proof.json').write_text(json.dumps(proof,indent=2)+'\n', encoding="utf-8");restart,_=run(c+['--','--tower-restart-proof='+json.dumps(proof,separators=(',',':'))],'restart.log',r'^WORLD_C05_TOWER_RESTART failures=0 pid_changed=true$')
   if restart['passed']:
    path=re.findall(r'^TOWER_EARNED_SEED (.+)$',text,re.M)[-1].strip();shutil.copyfile(path,a.log_dir/'earned_mirror_seed.json')
 after=sources()
 for label,data in [('before',before),('after',after)]:(a.log_dir/f'source-{label}.json.gz').write_bytes(gzip.compress(json.dumps(data,indent=2).encode(),mtime=0))
-v={'primary':primary,'restart':restart,'seconds':round(time.monotonic()-started,2),'source_files':len(before),'source_unchanged':before==after,'seed_sha256':before['artifacts/t04_obsidian_route/earned_camp_seed.json'],'passed':primary['passed'] and bool(restart and restart['passed']) and before==after};(a.log_dir/'verification.json').write_text(json.dumps(v,indent=2)+'\n');print(json.dumps(v,indent=2));raise SystemExit(0 if v['passed'] else 1)
+v={'primary':primary,'restart':restart,'seconds':round(time.monotonic()-started,2),'source_files':len(before),'source_unchanged':before==after,'seed_sha256':before['artifacts/t04_obsidian_route/earned_camp_seed.json'],'passed':primary['passed'] and bool(restart and restart['passed']) and before==after};(a.log_dir/'verification.json').write_text(json.dumps(v,indent=2)+'\n', encoding="utf-8");print(json.dumps(v,indent=2));raise SystemExit(0 if v['passed'] else 1)

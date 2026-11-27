@@ -51,7 +51,7 @@ class ReleaseBuilderTests(unittest.TestCase):
     def test_timeout_fails_and_preserves_log(self):
         with self.assertRaisesRegex(RuntimeError, 'Timeout'):
             self.command('import time; print("started", flush=True); time.sleep(2)', timeout=0.2)
-        self.assertIn('started', (self.root / 'command.log').read_text())
+        self.assertIn('started', (self.root / 'command.log').read_text(encoding="utf-8"))
 
     def test_clean_output_passes(self):
         self.assertIn('ready', self.command('print("ready")'))
@@ -106,8 +106,8 @@ class ReleaseBuilderTests(unittest.TestCase):
         path = self.write('project.godot', original)
         stage = self.root / 'stage'
         release.stage_project(self.root, stage, [path])
-        self.assertEqual(original, path.read_text())
-        staged = (stage / 'project.godot').read_text()
+        self.assertEqual(original, path.read_text(encoding="utf-8"))
+        staged = (stage / 'project.godot').read_text(encoding="utf-8")
         self.assertNotIn('editor_plugins', staged)
         self.assertIn('Runtime=', staged)
         self.assertIn('[rendering]', staged)
@@ -116,10 +116,10 @@ class ReleaseBuilderTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             release.verify_save(self.root)
         save = self.root / 'pilgrimage_world.json'
-        save.write_text('{}')
+        save.write_text('{}', encoding="utf-8")
         with self.assertRaises(ValueError):
             release.verify_save(self.root)
-        save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}}))
+        save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}}), encoding="utf-8")
         self.assertEqual(save, release.verify_save(self.root))
 
     def test_smoke_requires_real_resume_and_isolated_user_data(self):
@@ -133,12 +133,12 @@ class ReleaseBuilderTests(unittest.TestCase):
             user_data.mkdir(exist_ok=True)
             save = user_data / 'pilgrimage_world.json'
             if not save.exists():
-                save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+                save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}), encoding="utf-8")
             else:
                 # Match production's atomic save writeback after loading World.
-                contents = save.read_text()
-                save.with_name(save.name + '.bak').write_text(contents)
-                save.write_text(json.dumps(json.loads(contents)))
+                contents = save.read_text(encoding="utf-8")
+                save.with_name(save.name + '.bak').write_text(contents, encoding="utf-8")
+                save.write_text(json.dumps(json.loads(contents)), encoding="utf-8")
             return ''
         with patch.object(release, 'run_checked', side_effect=fake_engine) as runner:
             release.smoke_package(self.root / 'game', self.root, 5)
@@ -162,13 +162,13 @@ class ReleaseBuilderTests(unittest.TestCase):
                     user_data = Path(env['XDG_DATA_HOME'])
                     user_data.mkdir(exist_ok=True)
                     (user_data / 'pilgrimage_world.json').write_text(json.dumps(
-                        {'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+                        {'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}), encoding="utf-8")
                     return ''
                 with patch.object(release, 'run_checked', side_effect=fake_engine) as runner:
                     with self.assertRaisesRegex(RuntimeError, r'exit=0, engine_errors=1'):
                         release.smoke_package(self.root / 'game', self.root, 5)
                     self.assertEqual(calls, runner.call_count)
-                self.assertEqual(diagnostics, (self.root / f'{failing_attempt}.log').read_text())
+                self.assertEqual(diagnostics, (self.root / f'{failing_attempt}.log').read_text(encoding="utf-8"))
 
     def test_passive_second_boot_cannot_claim_resume(self):
         def passive_boot(command, log, *, timeout, cwd, env):
@@ -176,9 +176,9 @@ class ReleaseBuilderTests(unittest.TestCase):
             user_data.mkdir(exist_ok=True)
             save = user_data / 'pilgrimage_world.json'
             if not save.exists():
-                save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+                save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}), encoding="utf-8")
                 # A leftover first-start backup must not count as resume evidence.
-                save.with_name(save.name + '.bak').write_text(save.read_text())
+                save.with_name(save.name + '.bak').write_text(save.read_text(encoding="utf-8"), encoding="utf-8")
         with patch.object(release, 'run_checked', side_effect=passive_boot):
             with self.assertRaisesRegex(ValueError, 'write back'):
                 release.smoke_package(self.root / 'game', self.root, 5)
@@ -189,9 +189,9 @@ class ReleaseBuilderTests(unittest.TestCase):
             user_data.mkdir(exist_ok=True)
             save = user_data / 'pilgrimage_world.json'
             if not save.exists():
-                save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+                save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}), encoding="utf-8")
             else:
-                save.with_name(save.name + '.bak').write_text(json.dumps({'story_flags': {}}))
+                save.with_name(save.name + '.bak').write_text(json.dumps({'story_flags': {}}), encoding="utf-8")
         with patch.object(release, 'run_checked', side_effect=wrong_backup):
             with self.assertRaisesRegex(ValueError, 'back up'):
                 release.smoke_package(self.root / 'game', self.root, 5)
@@ -200,14 +200,14 @@ class ReleaseBuilderTests(unittest.TestCase):
         def reset_save(command, log, *, timeout, cwd, env):
             user_data = Path(env['XDG_DATA_HOME'])
             user_data.mkdir(exist_ok=True)
-            (user_data / 'pilgrimage_world.json').write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+            (user_data / 'pilgrimage_world.json').write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}), encoding="utf-8")
         with patch.object(release, 'run_checked', side_effect=reset_save):
             with self.assertRaisesRegex(ValueError, 'resume probe'):
                 release.smoke_package(self.root / 'game', self.root, 5)
 
     def test_license_tree_and_checksums_travel_with_binary(self):
-        (self.root / 'LICENSE').write_text('project license')
-        (self.root / 'THIRD_PARTY_NOTICES.md').write_text('attribution')
+        (self.root / 'LICENSE').write_text('project license', encoding="utf-8")
+        (self.root / 'THIRD_PARTY_NOTICES.md').write_text('attribution', encoding="utf-8")
         self.write('assets/fonts/OFL.txt', 'font license')
         self.write('assets/audio/sfx/kenney/License.txt', 'CC0')
         self.write('addons/MetroidvaniaSystem/LICENSE.txt', 'plugin license')
@@ -229,7 +229,7 @@ class ReleaseBuilderTests(unittest.TestCase):
             self.assertEqual(b'candidate-binary', z.read('candidate/game'))
             if sys.platform != 'win32':
                 self.assertTrue((z.getinfo('candidate/game').external_attr >> 16) & 0o111)
-        self.assertEqual(release.sha256(archive), (self.root / 'candidate.zip.sha256').read_text().split()[0])
+        self.assertEqual(release.sha256(archive), (self.root / 'candidate.zip.sha256').read_text(encoding="utf-8").split()[0])
         unpacked = release.unpack_verified_package(archive, self.root / 'unpacked')
         self.assertEqual(b'candidate-binary', (unpacked / 'game').read_bytes())
         if sys.platform != 'win32':
@@ -244,7 +244,7 @@ class ReleaseBuilderTests(unittest.TestCase):
         return archive
 
     def refresh_checksum(self, archive):
-        archive.with_name(archive.name + '.sha256').write_text(f'{release.sha256(archive)}  {archive.name}\n')
+        archive.with_name(archive.name + '.sha256').write_text(f'{release.sha256(archive)}  {archive.name}\n', encoding="utf-8")
 
     def test_corrupted_archive_rejected_before_unpacking(self):
         archive = self.candidate()

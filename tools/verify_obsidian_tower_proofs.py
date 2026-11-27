@@ -14,4 +14,4 @@ for case in ['wallet','inventory','build','story','charted','shortcuts','checkpo
  else:q[case]='wrong'
  command=[a.engine,'--headless','--audio-driver','Dummy','--fixed-fps','60','--path',str(r/'godot'),'--script',str(r/'godot/scripts/world_obsidian_tower_playback.gd'),'--','--tower-restart-proof='+json.dumps(q,separators=(',',':'))]
  v=subprocess.run(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=180);(a.log_dir/(case+'.log')).write_bytes(v.stdout);text=v.stdout.decode(errors='replace');errors=re.findall(r'^ERROR:.*$',text,re.M);ok=v.returncode==1 and len(errors)==1 and 'WORLD_C05_TOWER_RESTART failures=1 pid_changed=true' in text;results.append({'case':case,'exit':v.returncode,'errors':errors,'passed':ok})
-(a.log_dir/'verification.json').write_text(json.dumps(results,indent=2)+'\n');print(results);raise SystemExit(0 if all(x['passed'] for x in results) else 1)
+(a.log_dir/'verification.json').write_text(json.dumps(results,indent=2)+'\n', encoding="utf-8");print(results);raise SystemExit(0 if all(x['passed'] for x in results) else 1)

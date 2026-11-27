@@ -13,8 +13,8 @@ static func run_background_manifest_refresh(loader: RefCounted, host: Node) -> v
     if not loader._alive(host) or host.get_tree() != tree or loader.shutting_down or loader.phase != "idle":
         loader.manifest_refresh_running = false
         return
-    loader.manifest_refresh_running = false
     var refreshed: bool = await loader._prepare_routes_manifest(host, tree, true)
+    loader.manifest_refresh_running = false
     if not loader._alive(host) or host.get_tree() != tree or loader.phase != "idle":
         return
     if not refreshed:
@@ -41,7 +41,7 @@ static func run_owned_startup(loader: RefCounted, token: RefCounted, host: Node,
     token.finished = true
     if loader.startup_token == token:
         loader.startup_token = null
-        loader._disconnect_startup_frames()
+        loader._disconnect_startup_frames_if_idle()
     if not loader._alive(host):
         loader.phase = "idle"
         return

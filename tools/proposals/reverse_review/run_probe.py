@@ -27,9 +27,9 @@ with tempfile.TemporaryDirectory(prefix='six-region-review-') as temporary:
             result = subprocess.run(command, capture_output=True, text=True, timeout=180)
             rows = [json.loads(s.removeprefix('REVIEW_JSON ')) for s in result.stdout.splitlines() if s.startswith('REVIEW_JSON ')]
             name = config.stem.split('_')[1] + '-' + mode
-            (a.output / (name + '.jsonl')).write_text(''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in rows))
+            (a.output / (name + '.jsonl')).write_text(''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in rows), encoding="utf-8")
             diagnostics.append({'run': name, 'exit': result.returncode, 'records': len(rows), 'ended': bool(rows and rows[-1]['event'] == 'end'), 'stderr': result.stderr})
             print(name, result.returncode, len(rows), flush=True)
-    (a.output / ('diagnostics-' + '-'.join(a.modes) + '.json')).write_text(json.dumps(diagnostics, ensure_ascii=False, indent=2))
+    (a.output / ('diagnostics-' + '-'.join(a.modes) + '.json')).write_text(json.dumps(diagnostics, ensure_ascii=False, indent=2), encoding="utf-8")
     if not all(d['exit'] == 0 and d['ended'] for d in diagnostics):
         raise SystemExit(1)

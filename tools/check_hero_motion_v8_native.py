@@ -23,7 +23,7 @@ def main(default_suites=None, default_output=None, extra_markers=None):
     out.mkdir(parents=True, exist_ok=True)
     captures = out/'actual-attacks'
     captures.mkdir(exist_ok=True)
-    markers = json.loads((ROOT/'tools/godot_suite_success_markers.json').read_text())
+    markers = json.loads((ROOT/'tools/godot_suite_success_markers.json').read_text(encoding="utf-8"))
     if set(extra_markers or {}) & set(markers):
         parser.error('Additional native markers cannot replace registered regressions')
     markers.update(extra_markers or {})
