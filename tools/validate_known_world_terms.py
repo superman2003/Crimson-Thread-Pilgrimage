@@ -44,9 +44,9 @@ def errors(data, evidence):
 
 
 def validate():
-    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text())
+    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text(encoding="utf-8"))
     evidence = {row['id'] for row in story['evidence']}
-    data = json.loads((ROOT / 'godot/data/known_world_terms.json').read_text())
+    data = json.loads((ROOT / 'godot/data/known_world_terms.json').read_text(encoding="utf-8"))
     assert not errors(data, evidence), errors(data, evidence)
     assert len(data['entries']) == 8 and sum(len(row['stages']) for row in data['entries']) == 14
     for fault in ['unseen', 'unconditional', 'duplicate', 'regression', 'grant', 'long', 'no_limit', 'version']:

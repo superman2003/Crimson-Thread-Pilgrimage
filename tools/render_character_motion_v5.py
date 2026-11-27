@@ -37,7 +37,7 @@ CLIPPED = [(C + "broken_string_gardener", "death", 3), (C + "delayed_shadow", "r
 
 def load(root: Path, folder: str) -> dict:
     base = root / "godot/assets/sprites" / folder
-    manifest = json.loads((base / "motion_manifest.json").read_text())
+    manifest = json.loads((base / "motion_manifest.json").read_text(encoding="utf-8"))
     width, height = manifest["canvas"]
     atlases, result = {}, {}
     for animation in manifest["animations"]:

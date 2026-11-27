@@ -793,23 +793,35 @@ func _physics_process(_delta: float) -> void:
         _void_respawn()
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
     if world_mode and not initial_region_ready:
         return
     if journey_clock != null:
-        journey_clock.tick(_delta)
+        journey_clock.tick(delta)
     if is_instance_valid(world_passage) and world_passage.active:
         return
+    _tick_world_streaming(delta)
+    if _handle_modal_overlay_guards():
+        return
+    _tick_dialogue_and_respawns(delta)
+    _poll_overlay_and_action_shortcuts()
+    _tick_player_world_state()
+
+
+func _tick_world_streaming(delta: float) -> void:
     if world_mode and not world_loading and world_prefetch != null:
-        world_prefetch.step(self, _delta)
+        world_prefetch.step(self, delta)
     if world_mode and not world_loading and world_gameplay_residency != null and is_instance_valid(player):
-        world_gameplay_residency.update(self, player.global_position, player.velocity, _delta)
+        world_gameplay_residency.update(self, player.global_position, player.velocity, delta)
+
+
+func _handle_modal_overlay_guards() -> bool:
     if ui_shell != null and ui_shell.has_method("is_remapping_input") and ui_shell.is_remapping_input():
         world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
-        return
+        return true
     if ui_shell != null and ui_shell.has_method("is_browsing_journey_history") and ui_shell.is_browsing_journey_history():
         world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
-        return
+        return true
     # Native transaction dialogs own keyboard focus (Tab also binds inventory).
     # Polling global overlay shortcuts would close the dialog before GUI focus
     # can reach its purchase buttons. Escape keeps its normal close behavior.
@@ -817,20 +829,23 @@ func _process(_delta: float) -> void:
         world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
         if Input.is_action_just_pressed("close_overlay"):
             _close_overlays()
-        return
+        return true
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
-    if world_mode and new_requested and new_journey_dialog != null and not new_journey_dialog.visible:
+    var new_modal_open: bool = ui_shell != null and ui_shell.has_method("has_modal_window") and ui_shell.has_modal_window()
+    if world_mode and new_requested and active_overlay.is_empty() and not world_loading and not chapter_transitioning and not world_portal_request_pending and not new_modal_open and new_journey_dialog != null and not new_journey_dialog.visible:
         new_journey_dialog.popup_centered()
         active_overlay = "new_journey"
         _sync_ui_input_lock()
-    if active_overlay == "new_journey":
-        return
+    return active_overlay == "new_journey"
+
+
+func _tick_dialogue_and_respawns(delta: float) -> void:
     if active_overlay == "dialogue" and dialogue_text_label != null:
-        subtitle_elapsed += _delta
+        subtitle_elapsed += delta
         dialogue_text_label.visible_ratio = clampf(subtitle_elapsed / maxf(0.1, subtitle_seconds), 0.0, 1.0)
-    LEVEL_HUD.tick_lore_banner(self, _delta)
+    LEVEL_HUD.tick_lore_banner(self, delta)
     if pending_enemy_respawn:
         pending_enemy_respawn = false
         LEVEL_RESIDENTS.spawn_normal_enemies(self)
@@ -838,46 +853,53 @@ func _process(_delta: float) -> void:
         if not world_mode and boss_unlocked and not demo_complete and not boss_spawned:
             _spawn_boss()
         _refresh_hud()
+
+
+func _poll_overlay_and_action_shortcuts() -> void:
     # Text entry suppresses polled shortcuts, while fall/room lifecycle work
     # below continues even when a search or scheme-name field owns focus.
-    var typing: bool=ui_shell!=null and ui_shell.has_method("is_text_entry_focused") and ui_shell.is_text_entry_focused()
-    var modal: bool=ui_shell!=null and ui_shell.has_method("has_modal_window") and ui_shell.has_modal_window()
-    if not modal and (not typing or Input.is_action_just_pressed("close_overlay")):
-        if Input.is_action_just_pressed("close_overlay"):
-            _close_overlays()
-        elif Input.is_action_just_pressed("inventory"):
-            if world_mode and active_overlay == "map":
-                world_map_view = not world_map_view
-                _refresh_map_overlay()
-            else:
-                _toggle_backpack()
-        elif Input.is_action_just_pressed("map"):
-            _toggle_map()
-        elif Input.is_action_just_pressed("audio_settings"):
-            _toggle_audio_settings()
-        if active_overlay == "backpack":
-            if Input.is_action_just_pressed("aim_up"):
-                _move_backpack_selection(-1)
-            elif Input.is_action_just_pressed("aim_down"):
-                _move_backpack_selection(1)
-        elif active_overlay == "settings":
-            if Input.is_action_just_pressed("aim_up"):
-                _move_settings_selection(-1)
-            elif Input.is_action_just_pressed("aim_down"):
-                _move_settings_selection(1)
-            if Input.is_action_just_pressed("move_left"):
-                _adjust_settings_volume(-5.0)
-            elif Input.is_action_just_pressed("move_right"):
-                _adjust_settings_volume(5.0)
-        if active_overlay.is_empty():
-            if Input.is_action_just_pressed("tool_cast"):
-                perform_build_action("use_tool")
-            elif Input.is_action_just_pressed("skill_cycle"):
-                perform_build_action("cycle_skill")
-            elif Input.is_action_just_pressed("tool_cycle"):
-                perform_build_action("cycle_tool")
-        if Input.is_action_just_pressed("interact"):
-            _try_interact()
+    var typing: bool = ui_shell != null and ui_shell.has_method("is_text_entry_focused") and ui_shell.is_text_entry_focused()
+    var modal: bool = ui_shell != null and ui_shell.has_method("has_modal_window") and ui_shell.has_modal_window()
+    if modal or (typing and not Input.is_action_just_pressed("close_overlay")):
+        return
+    if Input.is_action_just_pressed("close_overlay"):
+        _close_overlays()
+    elif Input.is_action_just_pressed("inventory"):
+        if world_mode and active_overlay == "map":
+            world_map_view = not world_map_view
+            _refresh_map_overlay()
+        else:
+            _toggle_backpack()
+    elif Input.is_action_just_pressed("map"):
+        _toggle_map()
+    elif Input.is_action_just_pressed("audio_settings"):
+        _toggle_audio_settings()
+    if active_overlay == "backpack":
+        if Input.is_action_just_pressed("aim_up"):
+            _move_backpack_selection(-1)
+        elif Input.is_action_just_pressed("aim_down"):
+            _move_backpack_selection(1)
+    elif active_overlay == "settings":
+        if Input.is_action_just_pressed("aim_up"):
+            _move_settings_selection(-1)
+        elif Input.is_action_just_pressed("aim_down"):
+            _move_settings_selection(1)
+        if Input.is_action_just_pressed("move_left"):
+            _adjust_settings_volume(-5.0)
+        elif Input.is_action_just_pressed("move_right"):
+            _adjust_settings_volume(5.0)
+    if active_overlay.is_empty():
+        if Input.is_action_just_pressed("tool_cast"):
+            perform_build_action("use_tool")
+        elif Input.is_action_just_pressed("skill_cycle"):
+            perform_build_action("cycle_skill")
+        elif Input.is_action_just_pressed("tool_cycle"):
+            perform_build_action("cycle_tool")
+    if Input.is_action_just_pressed("interact"):
+        _try_interact()
+
+
+func _tick_player_world_state() -> void:
     if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
         _void_respawn()
     if player != null and is_instance_valid(player):

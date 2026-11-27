@@ -96,7 +96,7 @@ class ReleaseSaveContractTests(unittest.TestCase):
                 self.assertEqual(['--', '--save-slot=2'], command[7:])
         self.assertEqual(1, len(profiles))
         self.assertFalse(player.user_data.exists(), 'temporary save profile removed after success')
-        self.assertEqual(evidence, json.loads((self.logs / 'save-contract.json').read_text()))
+        self.assertEqual(evidence, json.loads((self.logs / 'save-contract.json').read_text(encoding="utf-8")))
         self.assertEqual(4, evidence['resume_writebacks'])
         self.assertEqual(2, evidence['damaged_cases_preserved'])
         self.assertEqual(2, evidence['new_game_archives_preserved'])
@@ -127,7 +127,7 @@ class ReleaseSaveContractTests(unittest.TestCase):
     def test_reset_instead_of_resume_is_rejected(self):
         def reset(label, save, _):
             if label == 'slot-2-resume':
-                save.write_text(json.dumps(fresh()))
+                save.write_text(json.dumps(fresh()), encoding="utf-8")
                 return True
             return False
         self.rejects(reset, 'exact resume progress')
@@ -139,24 +139,24 @@ class ReleaseSaveContractTests(unittest.TestCase):
             with self.subTest(field=key):
                 def change(label, save, _, key=key, value=value):
                     if label != 'slot-1-resume':return False
-                    data = json.loads(save.read_text())
+                    data = json.loads(save.read_text(encoding="utf-8"))
                     data[key] = value
-                    save.with_name(save.name + '.bak').write_text(json.dumps(data))
-                    save.write_text(json.dumps(data))
+                    save.with_name(save.name + '.bak').write_text(json.dumps(data), encoding="utf-8")
+                    save.write_text(json.dumps(data), encoding="utf-8")
                     return True
                 self.rejects(change, 'exact resume progress')
 
     def test_unrelated_backup_cannot_prove_resume_writeback(self):
         def wrong(label, save, _):
             if label != 'slot-3-resume':return False
-            save.with_name(save.name + '.bak').write_text(json.dumps(fresh()))
+            save.with_name(save.name + '.bak').write_text(json.dumps(fresh()), encoding="utf-8")
             return True
         self.rejects(wrong, 'verified resume backup')
 
     def test_starting_another_slot_cannot_overwrite_a_sibling(self):
         def overwrite(label, save, _):
             if label == 'slot-2-first-start':
-                save.with_name(contract.SAVE_NAMES[1]).write_text(json.dumps(fresh()))
+                save.with_name(contract.SAVE_NAMES[1]).write_text(json.dumps(fresh()), encoding="utf-8")
             return False
         self.rejects(overwrite, 'Slot 2 first start: save evidence changed')
 
@@ -172,7 +172,7 @@ class ReleaseSaveContractTests(unittest.TestCase):
             if label != 'slot-2-first-start':return False
             data = fresh()
             data['story_flags'][contract.PROBE_FLAG + '_1'] = True
-            save.write_text(json.dumps(data))
+            save.write_text(json.dumps(data), encoding="utf-8")
             return True
         self.rejects(inherit, 'inherited another slot probe')
 
@@ -218,7 +218,7 @@ class ReleaseSaveContractTests(unittest.TestCase):
                     if defect != 'missing_earlier':
                         previous.with_name(previous.name + '.earlier_fixture').write_bytes(previous.read_bytes())
                     if defect != 'missing_previous':previous.write_bytes(save.read_bytes())
-                    save.write_text(json.dumps(fresh()))
+                    save.write_text(json.dumps(fresh()), encoding="utf-8")
                     return True
                 self.rejects(broken, message)
 
@@ -248,7 +248,7 @@ class ReleaseSaveContractTests(unittest.TestCase):
         for directory in ('a', 'b'):
             path = self.root / directory / contract.SAVE_NAMES[1]
             path.parent.mkdir()
-            path.write_text(json.dumps(fresh()))
+            path.write_text(json.dumps(fresh()), encoding="utf-8")
         with self.assertRaisesRegex(ValueError, 'exactly one'):
             contract.locate_save(self.root, 1)
 
@@ -257,7 +257,7 @@ class ReleaseSaveContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'slot save'):
             contract.read_save(save)
         for value in ('{bad', '[]', '{}'):
-            save.write_text(value)
+            save.write_text(value, encoding="utf-8")
             with self.subTest(value=value), self.assertRaises(ValueError):
                 contract.read_save(save)
         invalid = [('current_region', ''), ('regions', {}), ('story_flags', []),
@@ -266,20 +266,20 @@ class ReleaseSaveContractTests(unittest.TestCase):
         for key, value in invalid:
             data = fresh()
             data[key] = value
-            save.write_text(json.dumps(data))
+            save.write_text(json.dumps(data), encoding="utf-8")
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 contract.read_save(save)
-        save.write_text(json.dumps(fresh()))
+        save.write_text(json.dumps(fresh()), encoding="utf-8")
         self.assertEqual(fresh(), contract.read_save(save))
 
     def test_workflow_and_export_entry_point_run_both_old_and_new_gates(self):
         root = Path(__file__).resolve().parents[1]
-        workflow = (root / '.github/workflows/release-candidate.yml').read_text()
+        workflow = (root / '.github/workflows/release-candidate.yml').read_text(encoding="utf-8")
         self.assertGreaterEqual(workflow.count("'tools/release_save_contract.py'"), 2)
         self.assertGreaterEqual(workflow.count("'tools/test_release_save_contract.py'"), 2)
         self.assertIn('python tools/test_release_builder.py', workflow)
         self.assertIn('python tools/test_release_save_contract.py', workflow)
-        source = (root / 'tools/build_release.py').read_text()
+        source = (root / 'tools/build_release.py').read_text(encoding="utf-8")
         self.assertIn('smoke_package(unpacked / executable, logs, args.timeout)', source)
         self.assertIn('smoke_save_contract(unpacked / executable, logs, args.timeout, run_checked)', source)
 

@@ -309,7 +309,7 @@ static func notice_hidden_route_clues(level: Node) -> void:
 static func is_hidden_room(level: Node, room_id: String) -> bool:
     if not level.world_mode or room_id.is_empty():
         return false
-    for entry in WORLD_ROUTES_SCRIPT._data().get("hidden_route_plan", []):
+    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
         if entry is Dictionary and String(entry.get("region_id", "")) == String(level.config.get("id", "")) and String(entry.get("hidden_room_id", "")) == room_id:
             return true
     return false

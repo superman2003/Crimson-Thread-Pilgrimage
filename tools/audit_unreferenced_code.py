@@ -20,7 +20,7 @@ def corpus_without(target):
         for pat in pats:
             for p in Path(root).rglob(pat):
                 if '.godot' in p.parts or 'third_party' in p.parts or p.as_posix()==target: continue
-                c.update(word.findall(p.read_text(errors='ignore')))
+                c.update(word.findall(p.read_text(errors='ignore', encoding="utf-8")))
     return c
 def units(text):
     lines=text.split('\n'); out=[]; i=0
@@ -42,7 +42,7 @@ def units(text):
         else: i+=1
     return lines,out
 target=sys.argv[1]; apply='--apply' in sys.argv
-other=corpus_without(target); src=Path(target).read_text(); before=src.count('\n')+1; removed=[]
+other=corpus_without(target); src=Path(target).read_text(encoding="utf-8"); before=src.count('\n')+1; removed=[]
 while True:
     lines,us=units(src); own=Counter(word.findall(src))
     kill=[u for u in us if u[1] not in ENGINE and other[u[1]]==0 and own[u[1]]<=1]
@@ -57,4 +57,4 @@ src=re.sub(r'\n{4,}','\n\n\n',src)
 print(target,'lines',before,'->',src.count('\n')+1,'funcs',sum(r[0]=='func' for r in removed),'consts',sum(r[0]=='const' for r in removed))
 print(' consts:',[r[1] for r in removed if r[0]=='const'])
 print(' funcs:',[(r[1],r[2]) for r in removed if r[0]=='func'])
-if apply: Path(target).write_text(src)
+if apply: Path(target).write_text(src, encoding="utf-8")

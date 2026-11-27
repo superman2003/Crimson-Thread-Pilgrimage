@@ -25,6 +25,19 @@ FORBIDDEN_MT = (
     (re.compile(r'\b(?:bell niche|chime shrine)\b', re.I), 'terminology drift: use Bell Shrine'),
     (re.compile(r'\bweapon slot\b', re.I), 'terminology drift: use Tool slot'),
 )
+SEMANTIC_GUARDS = {
+    '装备': 'Equipment',
+    '绯线攀壁': 'Crimson Wall Climb',
+    '荆棘下刺': 'Thorn Downstrike',
+    '线技费用倍率': 'Thread Art Cost Multiplier',
+    '入口会在战斗时封闭。': 'The entrance closes during combat.',
+    '击败苔脉守卫，取回绯线冲刺。': 'Defeat the Moss Vein Guardian and claim Crimson Dash.',
+    '击败苔钟守母，取回王冠裂片。': 'Defeat the Moss Bell Matriarch and claim the Crown Shard.',
+    '假苔地板一踩就塌。': 'The false moss floor collapses as soon as you step on it.',
+    '巡礼战车沿古道往返。': 'Pilgrim war chariots patrol back and forth along the old road.',
+    '用已取得能力、已获装备、已知任务和持有物资建立成长观察快照，比较两次观察间的变化。个人目标只引用已知条目，不授予成长或自动跟踪未知目标。':
+        'Create a growth snapshot from acquired abilities, equipment, known quests, and carried supplies, then compare two observations. Personal goals reference known entries only. They grant no growth and do not track unknown goals.',
+}
 
 
 def entry_errors(source, text):
@@ -40,12 +53,18 @@ def entry_errors(source, text):
     for pattern, reason in FORBIDDEN_MT:
         if pattern.search(text):
             errors.append(reason)
-    if FORMAT.findall(source) != FORMAT.findall(text):
+    source_fields = [field for field in FORMAT.findall(source) if field != '%%']
+    text_fields = [field for field in FORMAT.findall(text) if field != '%%']
+    if source_fields != text_fields:
         errors.append('format fields changed')
+    if source_fields and '%' in FORMAT.sub('', text):
+        errors.append('literal percent in formatted translation must be escaped as %%')
     if Counter(NAMED.findall(source)) != Counter(NAMED.findall(text)):
         errors.append('named fields changed')
     if MARKUP.findall(source) != MARKUP.findall(text) or source.count('\n') != text.count('\n'):
         errors.append('rich text or line breaks changed')
+    if source in SEMANTIC_GUARDS and text != SEMANTIC_GUARDS[source]:
+        errors.append('reviewed semantic guard changed')
     return errors
 
 
@@ -88,6 +107,10 @@ def main():
         assert entry_errors('钟龛', 'bell niche')
         assert entry_errors('雨铸匠', 'Rainforge Smith')
         assert entry_errors('说明', 'Note，with CJK comma')
+        assert not entry_errors('保留%d', 'Keep %d and 60%%')
+        assert entry_errors('保留%d', 'Keep %d and 60%')
+        assert entry_errors('装备', 'Recorded Time')
+        assert entry_errors('入口会在战斗时封闭。', 'The entrance requires a Crimson Dash.')
         print('UI_TRANSLATIONS self-test OK')
         return 0
     data = json.loads(PATH.read_text(encoding='utf-8'))

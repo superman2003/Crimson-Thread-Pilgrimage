@@ -49,6 +49,19 @@ func _run() -> void:
     player.take_damage(1, player.global_position + Vector2(50, 0))
     _check(player.dash_timer == 0.1, "Ignored damage does not cancel dash")
     player.arrival_guard_timer = 0.0
+    var wall_loop := AudioStreamPlayer2D.new()
+    wall_loop.stream = AudioStreamGenerator.new()
+    player.add_child(wall_loop)
+    wall_loop.play()
+    player.wall_sliding = true
+    player.was_wall_sliding = true
+    player.wall_slide_audio = wall_loop
+    player.ui_input_locked = true
+    player._physics_process(0.016)
+    _check(not player.wall_sliding and not player.was_wall_sliding and not wall_loop.playing,
+        "opening a UI surface stops and retires the wall-slide audio loop")
+    player.ui_input_locked = false
+    player.wall_slide_audio = null
     player.apply_snare(5.0)
     player.respawn_at(Vector2.ZERO)
     _check(player.snare_timer == 5.0, "Generic relocation preserves status effects")

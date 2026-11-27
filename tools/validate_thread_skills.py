@@ -49,7 +49,7 @@ def validate(catalog: dict) -> list[str]:
 
 
 def main() -> int:
-    errors = validate(json.loads((ROOT / "godot/data/build_catalog.json").read_text()))
+    errors = validate(json.loads((ROOT / "godot/data/build_catalog.json").read_text(encoding="utf-8")))
     for error in errors:
         print("FAIL: " + error)
     print(f"THREAD_SKILLS {'FAIL' if errors else 'PASS'}: errors={len(errors)}")

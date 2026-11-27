@@ -13,6 +13,6 @@ subprocess.run([sys.executable,str(Path(__file__).with_name('build.py'))],check=
 after=snapshot()
 changed=[p for p in set(before)|set(after) if before.get(p)!=after.get(p)]
 report={'schema_version':1,'pack_id':'audio_category_music','method':'Second full synthesis and encoding on same toolchain; compare all 29 OGG, manifest, score events and technical report SHA-256','files_compared':len(after),'all_hashes_identical':not changed,'changed_files':sorted(changed),'sha256':after}
-(DOC/'reproducibility.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+(DOC/'reproducibility.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
 assert not changed,changed
 print('PASS: deterministic full rebuild',len(after),'files')

@@ -30,7 +30,7 @@ class StrictNativeMusicRunner(unittest.TestCase):
                         'import sys; print(sys.argv[1]); sys.exit(int(sys.argv[2]))',
                         output, str(code)], None, log, marker)
                     self.assertEqual(actual, expected)
-                    self.assertIn(output, log.read_text())
+                    self.assertIn(output, log.read_text(encoding="utf-8"))
 
 if __name__ == '__main__':
     unittest.main()
