@@ -31,6 +31,9 @@ func _close_requested() -> void:
     var tree := get_tree()
     # No new gameplay/voice admission while releasing the application owners.
     tree.paused = true
+    for child in tree.root.get_children():
+        if child != self and child.has_method("_save_world") and child.get("world_mode") == true and child.get("initial_region_ready") == true and child.get("world_loading") != true and child.get("chapter_transitioning") != true:
+            child._save_world()
     RETIREMENT.retire_tree(tree.root)
     for child in tree.root.get_children():
         if child != self:

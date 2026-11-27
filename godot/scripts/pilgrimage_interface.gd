@@ -131,7 +131,7 @@ var settings_persistence:=preload("res://scripts/settings_persistence.gd").new()
 var settings_save_notice: Label
 var settings_save_retry: Button
 var accessibility_toggles: Dictionary={}
-var accessibility: Dictionary={"hitstop_duration":preload("res://scripts/controller_preferences.gd").DEFAULT_HITSTOP_DURATION,"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"observation_mode":0,"observation_delay":0.35,"observation_distance":1.0,"tutorial_hints":false,"navigation_assist":false}
+var accessibility: Dictionary={"hitstop_duration":preload("res://scripts/controller_preferences.gd").DEFAULT_HITSTOP_DURATION,"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"observation_mode":0,"observation_delay":0.35,"observation_distance":1.0,"tutorial_hints":true,"navigation_assist":false}
 ## Fixture hook for the reading stick; NAN reads real connected pads.
 var reading_axis_override := NAN
 var remap_target := ""
@@ -448,7 +448,7 @@ func _build_settings_accessibility_tail() -> void:
     INTERFACE_SETTINGS.build_settings_accessibility_tail(self)
 
 func _build_settings_controls() -> void:
-    var remap_title:=_label(settings,"按键重映射",Vector2(34,384),Vector2(420,28),17,GOLD)
+    var remap_title:=_label(settings,"按键重映射",Vector2(34,384),Vector2(130,28),17,GOLD)
     remap_title.tooltip_text="选择动作后按键、鼠标按钮或推动扳机；方向键 / 手柄十字键选择。"
     remap_title.mouse_filter=Control.MOUSE_FILTER_PASS
     reset_bindings_button=_button(settings,"恢复默认按键",Vector2(800,381),Vector2(172,28),_reset_bindings)
@@ -890,7 +890,11 @@ func _refresh_quick_action_bindings() -> void:
     var titles := ["构筑", "行囊", "地图", "设置"]
     for index in mini(quick_actions.size(), actions.size()):
         var hint := _short_binding(actions[index])
-        quick_actions[index].text = hint + " " + titles[index]
+        if actions[index] == "audio_settings" and hint.begins_with("键盘 "):
+            hint = _short_binding("inventory") + "→"
+            quick_actions[index].text = hint + titles[index]
+        else:
+            quick_actions[index].text = hint + " " + titles[index]
         quick_actions[index].text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
         quick_actions[index].tooltip_text = quick_actions[index].text
 

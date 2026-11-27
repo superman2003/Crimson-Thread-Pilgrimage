@@ -23,6 +23,14 @@ static func build_bag_frame(ui: Node) -> void:
     ui._label(ui.bag,"器物有用途，旧物有来处。",Vector2(34,101),Vector2(260,26),16,ui.MUTED)
     ui._icon(ui.bag,ART.item("currency"),Vector2(848,31),Vector2(28,28))
     ui.bag_currency=ui._label(ui.bag,"",Vector2(883,32),Vector2(120,30),20,ui.GOLD)
+    var bag_settings: Button = ui._button(ui.bag,"设置",Vector2(604,24),Vector2(104,34),func():
+        if ui.level!=null and is_instance_valid(ui.level):ui.level._toggle_audio_settings())
+    bag_settings.name="BagSettingsButton";bag_settings.add_theme_font_size_override("font_size",TYPE.CONTROL)
+    var bag_pause: Button = ui._button(ui.bag,"暂停菜单",Vector2(718,24),Vector2(116,34),func():
+        if ui.level!=null and is_instance_valid(ui.level) and ui.level.has_method("_open_pause_menu"):
+            ui.level._close_overlays()
+            ui.level._open_pause_menu())
+    bag_pause.name="BagPauseMenuButton";bag_pause.add_theme_font_size_override("font_size",TYPE.CONTROL)
     var categories:= ["全部","织具","遗物","材料","要物","旅记"]
     for i in categories.size():
         var category: String=categories[i]
