@@ -270,8 +270,8 @@ static func refresh_tactical_cards(ui: Node, snapshot: Dictionary, build_state: 
             ui.tactical_icons[index].texture=load(path) if not id.is_empty() and ResourceLoader.exists(path) else null
         var next_name := "未装备" if is_skill else "未携带"
         var next_value := "—"
-        var next_tooltip := ui.tactical_cards[index].tooltip_text
-        var next_modulate := ui.tactical_icons[index].modulate
+        var next_tooltip: String = String(ui.tactical_cards[index].tooltip_text)
+        var next_modulate: Color = ui.tactical_icons[index].modulate
         var active = slot==int(build_state.get("active_skill_slot" if is_skill else "active_tool_slot",0)) and dormant_reason.is_empty()
         var signature = id+str(active)+dormant_reason
         if ui.tactical_signatures[index]!=signature:

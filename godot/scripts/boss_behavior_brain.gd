@@ -61,7 +61,7 @@ func observe(delta: float, player: CharacterBody2D) -> void:
     target = player
     clock += delta
     var frame := Engine.get_physics_frames()
-    var has_los := player != null and actor._has_line_of_sight(player)
+    var has_los: bool = player != null and bool(actor._has_line_of_sight(player))
     _tick_los_frame = frame
     _tick_has_los = has_los
     _tick_eval_frame = -1
@@ -158,7 +158,7 @@ func _ensure_tick_cache() -> void:
     _tick_eval_phase = actor.battle_phase
     _tick_eval_target_id = target_id
     var result: Array[Dictionary] = []
-    var has_los := _tick_has_los if _tick_los_frame == frame else (target != null and actor._has_line_of_sight(target))
+    var has_los: bool = _tick_has_los if _tick_los_frame == frame else (target != null and bool(actor._has_line_of_sight(target)))
     if target != null and not sensed.is_empty() and has_los:
         var seen: Vector2 = sensed.position
         var dx := absf(seen.x - actor.global_position.x)
