@@ -19,6 +19,22 @@ on:
       - '.github/contracts/journey-comparison.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/journey_history_browser.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
+      - 'godot/scripts/journey_archive_comparison.gd'
+      - 'godot/data/item_lore.json'
+      - 'godot/scripts/journey_comparison*.gd'
+      - 'tools/*journey_comparison*.py'
+      - '.github/contracts/journey-comparison.yml'
 permissions:
   contents: read
 concurrency:

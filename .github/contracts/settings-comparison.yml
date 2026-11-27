@@ -12,6 +12,15 @@ on:
       - '.github/contracts/settings-comparison.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/settings_profile*.gd'
+      - 'godot/scripts/settings_comparison*.gd'
+      - 'godot/scripts/controller_preferences.gd'
+      - 'godot/scripts/input_binding_policy.gd'
+      - 'godot/scripts/input_prompt_bindings.gd'
+      - 'tools/run_settings_comparison_contract.py'
+      - 'tools/test_settings_comparison_runner.py'
+      - '.github/contracts/settings-comparison.yml'
 permissions:
   contents: read
 concurrency:

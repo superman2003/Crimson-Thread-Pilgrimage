@@ -10,6 +10,13 @@ on:
       - '.github/contracts/build-receipt.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/build_receipt*.gd'
+      - 'godot/scripts/credits_reader.gd'
+      - 'tools/build_release.py'
+      - 'tools/run_build_receipt_contract.py'
+      - 'tools/test_build_receipt_runner.py'
+      - '.github/contracts/build-receipt.yml'
 permissions:
   contents: read
 concurrency:

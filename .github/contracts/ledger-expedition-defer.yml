@@ -10,6 +10,13 @@ on:
       - '.github/contracts/ledger-expedition-defer.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/expedition_plan.gd'
+      - 'godot/scripts/expedition_desk.gd'
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'godot/scripts/expedition_defer_validation.gd'
+      - 'tools/run_expedition_defer_contract.py'
+      - '.github/contracts/ledger-expedition-defer.yml'
 permissions:
   contents: read
 concurrency:

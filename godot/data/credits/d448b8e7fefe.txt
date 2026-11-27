@@ -6,7 +6,7 @@ This project uses third-party assets and plugins under their own licenses. The g
 
 | Asset | Local path | License / terms | Use |
 |---|---|---|---|
-| Kenney assets | `godot/assets/third_party/kenney_*`, `godot/assets/sprites/ui/kenney` | CC0 1.0 | UI, platform tiles, props |
+| Kenney assets | `godot/assets/third_party/kenney_*`, `godot/assets/sprites/ui/kenney`, `godot/assets/audio/sfx/kenney/{impact,interface,rpg}` | CC0 1.0 | UI, platform tiles, props, footsteps and UI/RPG audio layers (each audio folder retains its original `License.txt`) |
 | GothicVania Cemetery / Ansimuz | `godot/assets/third_party/gothicvania_cemetery`, `godot/assets/sprites/gothicvania` | Public Domain / commercial-friendly local record | CH01 redistributable art, cemetery backgrounds, player/demo sprites |
 | Dark Fantasy Platformer Bestiary | `godot/assets/third_party/dark_fantasy_bestiary` | Creative Commons Attribution; see local NOTICE and original OpenGameArt page | Historical enemy reference keyframes (excluded from desktop release `.pck` exports after original hand-drawn creature art replaced them) |
 | Bread Adventure (texture-derived materials) | See `godot/assets/NOTICE.md` | Apache License 2.0 | Historical texture-derived platform materials; all 13 audio files originally from this pack were replaced on 2026-07-26 by project-generated CC0 synthesis |
@@ -44,8 +44,11 @@ The following audio packs are synthesized offline by project-owned tools with no
 
 | Pack | Local path | Builder | License |
 |---|---|---|---|
-| Crimson Thread Synthesized Music Pack | `godot/assets/audio/bgm/generated` | `tools/generate_music_pack.py` (`npm run build:audio-music`) | CC0 (project-generated) |
+| Crimson Thread Synthesized SFX Pack | `godot/assets/audio/sfx/generated`, `godot/assets/audio/sfx/` (11 core action OGGs) | `tools/generate_sfx_pack.py` | CC0 (project-generated) |
+| Crimson Thread Synthesized Music Pack | `godot/assets/audio/bgm/generated` (legacy offline pack; runtime score uses `bgm/ai_generated/`), `godot/assets/audio/bgm/{ch01_cave_loop,boss_rust_crown_loop}.ogg` | `tools/generate_music_pack.py` (`npm run build:audio-music`) | CC0 (project-generated) |
 | Crimson Thread Synthesized Ambience & Combat Pack | `godot/assets/audio/ambience`, `godot/assets/audio/sfx/generated`, `godot/assets/audio/sfx/generated_footsteps` | `tools/generate_ambience_pack.py` (`npm run build:audio-ambience`) | CC0 (project-generated) |
+| Seal Combat Audio Pack | `godot/assets/audio/seals` | Project-synthesized WAV stems | CC0 (project-generated) |
+| NPC Insect Language Voice Pack | `godot/assets/audio/npc_insect_language_v1` (`godot/scripts/npc_insect_language.gd`) | Project-synthesized phonetic voice stems | CC0 (project-generated) |
 
 ## Restricted local-only assets
 
@@ -131,11 +134,12 @@ shipped in the desktop release payload and maintained separately from the third-
 packs above:
 
 - `godot/assets/sprites/original_creatures/`, `godot/assets/sprites/original_npcs/`,
-  `godot/assets/sprites/original_items/`, `godot/assets/sprites/player/`,
-  `godot/assets/sprites/original_map/`, `godot/assets/sprites/flat_maps/`,
-  `godot/assets/vfx/`: project-authored and `image_gen`-assisted hand-drawn sprite
-  sheets, frame-fit metadata and world artwork generated strictly from project-owned
-  designs and prompts (provenance under `art_requests/`). Superseded legacy atlases
-  and draft sources are excluded from desktop release `.pck` exports.
-- `godot/assets/audio/sfx/npc_voices/` (where generated via `tools/generate_npc_insect_voices.py` /
-  `scripts/npc_insect_language.gd`): project-synthesized phonetic NPC speech stems (CC0).
+  `godot/assets/sprites/original_items/`, `godot/assets/sprites/player/thread_doll_v1/`,
+  `godot/assets/sprites/flat_maps/`, `godot/assets/vfx/`: project-authored and
+  `image_gen`-assisted hand-drawn sprite sheets, frame-fit metadata and world artwork
+  generated strictly from project-owned designs and prompts (provenance under
+  `art_requests/`). Superseded legacy atlases, draft sources and generation receipts
+  are excluded from desktop release `.pck` exports.
+- `godot/assets/audio/npc_insect_language_v1/` (played by `godot/scripts/npc_insect_language.gd`)
+  and `godot/assets/audio/seals/`: project-synthesized phonetic NPC speech stems and
+  seal combat audio cues (CC0).

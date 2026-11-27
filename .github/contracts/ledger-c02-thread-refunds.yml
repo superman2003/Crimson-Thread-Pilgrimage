@@ -22,6 +22,25 @@ on:
       - '.github/contracts/ledger-c02-thread-refunds.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/player_damage.gd'
+      - 'godot/scripts/player_input_buffer.gd'
+      - 'godot/scripts/player_abilities.gd'
+      - 'godot/scripts/player_animation.gd'
+      - 'godot/scripts/player_attack.gd'
+      - 'godot/scripts/player_audio.gd'
+      - 'godot/scripts/player_effects.gd'
+      - 'godot/scripts/player_seals.gd'
+      - 'godot/scripts/player_sprites.gd'
+      - 'godot/scripts/player_traversal.gd'
+      - 'godot/scripts/heal_refund_account*.gd'
+      - 'godot/assets/fonts/**'
+      - 'godot/assets/vfx/**'
+      - 'godot/assets/ui/**'
+      - 'tools/run_heal_refund_contract.py'
+      - 'tools/test_heal_refund_runner.py'
+      - '.github/contracts/ledger-c02-thread-refunds.yml'
 permissions:
   contents: read
 concurrency:

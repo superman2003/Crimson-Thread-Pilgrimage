@@ -9,6 +9,12 @@ on:
       - '.github/contracts/ledger-u04-floors.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/data/demo_ch*.json'
+      - 'godot/scripts/map_directory*.gd'
+      - 'godot/scripts/map_floor_labels*.gd'
+      - 'tools/run_map_floor_contract.py'
+      - '.github/contracts/ledger-u04-floors.yml'
 permissions:
   contents: read
 concurrency:

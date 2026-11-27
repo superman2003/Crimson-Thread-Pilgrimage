@@ -18,6 +18,21 @@ on:
       - '.github/workflows/ledger-u06-audio-volume-save.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/room_reverb_mix.gd'
+      - 'godot/scripts/audio_volume_preferences*.gd'
+      - 'godot/scripts/audio_user_volume_validation.gd'
+      - 'godot/scripts/duck_mix.gd'
+      - 'godot/scripts/music_layer_phase.gd'
+      - 'godot/scripts/audio_retirement.gd'
+      - 'godot/scripts/npc_landmark_schedule.gd'
+      - 'godot/scripts/spatial_enemy_alert.gd'
+      - 'godot/scripts/npc_sound_landmark.gd'
+      - 'godot/scripts/enemy_sound_filter.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'tools/run_audio_volume_save_contract.py'
+      - '.github/workflows/ledger-u06-audio-volume-save.yml'
 permissions:
   contents: read
 concurrency:
@@ -35,9 +50,11 @@ jobs:
           - os: ubuntu-24.04
             archive: Godot_v4.6.1-stable_linux.x86_64.zip
             engine: Godot_v4.6.1-stable_linux.x86_64
+            python: python3
           - os: windows-2022
             archive: Godot_v4.6.1-stable_win64.exe.zip
             engine: Godot_v4.6.1-stable_win64_console.exe
+            python: python
     runs-on: ${{ matrix.os }}
     timeout-minutes: 8
     steps:
@@ -49,7 +66,7 @@ jobs:
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "${{ matrix.archive }}" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/${{ matrix.archive }}"
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
       - name: Native production component contract
-        run: python tools/run_audio_volume_save_contract.py --engine "$RUNNER_TEMP/godot/${{ matrix.engine }}" --log-dir "$RUNNER_TEMP/native-contract"
+        run: ${{ matrix.python }} tools/run_audio_volume_save_contract.py --engine "$RUNNER_TEMP/godot/${{ matrix.engine }}" --log-dir "$RUNNER_TEMP/native-contract"
       - uses: actions/upload-artifact@v6
         if: always()
         with:

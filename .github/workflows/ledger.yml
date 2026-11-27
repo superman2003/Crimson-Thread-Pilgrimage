@@ -18,7 +18,7 @@ on:
       - 'tools/build_ledger.py'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: ledger-${{ github.event_name }}-${{ github.ref }}
@@ -29,6 +29,7 @@ jobs:
   check:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
         with:
@@ -49,6 +50,9 @@ jobs:
   render:
     if: github.event_name == 'push'
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v5
         with:

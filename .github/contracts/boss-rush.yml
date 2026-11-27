@@ -17,6 +17,20 @@ on:
       - '.github/contracts/boss-rush.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/boss_rush*.gd'
+      - 'godot/scripts/achievements.gd'
+      - 'godot/scripts/audio_retirement.gd'
+      - 'godot/scripts/title_card.gd'
+      - 'godot/scripts/journey_progress.gd'
+      - 'godot/scripts/permanent_ability_roles.gd'
+      - 'godot/data/completion_totals.json'
+      - 'godot/data/world_routes.json'
+      - 'godot/data/demo_ch*.json'
+      - 'tools/build_completion_totals.py'
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'tools/run_boss_rush_contract.py'
+      - '.github/contracts/boss-rush.yml'
 permissions:
   contents: read
 concurrency:

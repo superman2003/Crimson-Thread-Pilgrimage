@@ -12,6 +12,15 @@ on:
       - '.github/workflows/ledger-u06-build-shortcut.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/build_shortcut*.gd'
+      - 'godot/scripts/input_binding_policy.gd'
+      - 'godot/scripts/input_prompt_bindings.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/settings_profile*.gd'
+      - 'tools/run_build_shortcut_contract.py'
+      - 'tools/test_build_shortcut_runner.py'
+      - '.github/workflows/ledger-u06-build-shortcut.yml'
 permissions:
   contents: read
 concurrency:

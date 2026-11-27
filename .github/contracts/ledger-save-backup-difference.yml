@@ -17,6 +17,20 @@ on:
       - 'godot/data/permanent_ability_roles.json'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/permanent_ability_roles.gd'
+      - 'godot/scripts/save_backup_difference_validation.gd'
+      - 'godot/scripts/save_desk.gd'
+      - 'godot/scripts/save_inspector.gd'
+      - 'godot/scripts/world_coordinates.gd'
+      - 'godot/scripts/world_state.gd'
+      - 'tools/run_save_backup_difference_contract.py'
+      - '.github/contracts/ledger-save-backup-difference.yml'
+      - 'godot/data/field_contracts.json'
+      - 'godot/data/build_catalog.json'
+      - 'godot/data/material_exchange.json'
+      - 'godot/data/world_layout.json'
+      - 'godot/data/permanent_ability_roles.json'
 permissions:
   contents: read
 concurrency:

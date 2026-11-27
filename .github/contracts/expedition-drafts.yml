@@ -9,6 +9,12 @@ on:
       - '.github/contracts/expedition-drafts.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/expedition_draft*.gd'
+      - 'godot/scripts/expedition_draft_library.gd'
+      - 'godot/scripts/expedition_desk.gd'
+      - 'tools/run_expedition_draft_contract.py'
+      - '.github/contracts/expedition-drafts.yml'
 permissions:
   contents: read
 concurrency:

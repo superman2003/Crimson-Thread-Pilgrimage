@@ -18,6 +18,21 @@ on:
       - 'godot/data/permanent_ability_roles.json'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/field_contract_browser_validation.gd'
+      - 'godot/scripts/field_contract_desk.gd'
+      - 'godot/scripts/field_contracts.gd'
+      - 'godot/scripts/field_transaction.gd'
+      - 'godot/scripts/journey_desk_window.gd'
+      - 'godot/scripts/world_coordinates.gd'
+      - 'godot/scripts/world_state.gd'
+      - 'tools/run_field_contract_browser_contract.py'
+      - '.github/contracts/ledger-field-contract-browser.yml'
+      - 'godot/data/field_contracts.json'
+      - 'godot/data/build_catalog.json'
+      - 'godot/data/material_exchange.json'
+      - 'godot/data/world_layout.json'
+      - 'godot/data/permanent_ability_roles.json'
 permissions:
   contents: read
 concurrency:

@@ -482,7 +482,11 @@ def run_shard(plan_data, shard, engine: Path, work: Path):
 # ------------------------------------------------------------------ lint
 
 def godot_installer(text: str) -> bool:
-    return "godot.zip" in text or ENGINE_NAME in text and "release download" in text
+    return (
+        "godot.zip" in text
+        or "godotengine/godot/releases" in text
+        or (ENGINE_NAME in text and "release download" in text)
+    )
 
 
 def lint(require_concurrency=True):

@@ -16,6 +16,7 @@ asset paths, binary resource dependencies and export plugins are not simulated.
 from __future__ import annotations
 import argparse
 import configparser
+from functools import lru_cache
 import json
 import re
 from pathlib import Path
@@ -25,7 +26,7 @@ REFERENCE = re.compile(r'res://[A-Za-z0-9_./-]+\.(?:gdshaderinc|gdshader|tscn|tr
 TEXT_RESOURCES = {'.gd', '.tscn', '.tres', '.json', '.gdshader', '.gdshaderinc', '.cfg'}
 # Built paths for code or scenes cannot be followed statically; assets and data
 # built from region ids are shipped wholesale by the include filter.
-DYNAMIC = re.compile(r'"res://(?:scripts|scenes)/[^"]*(?:%s|%d)[^"]*"|load\(\s*"res://(?:scripts|scenes)/[^"]*"\s*\+')
+DYNAMIC = re.compile(r'"res://(?:scripts|scenes|journey)/[^"]*(?:%s|%d)[^"]*"|load\(\s*"res://(?:scripts|scenes|journey)/[^"]*"\s*\+')
 DEAD_ASSET_PREFIXES = (
     'res://assets/sprites/bosses/',
     'res://assets/third_party/dark_fantasy_bestiary/',
@@ -86,6 +87,10 @@ def class_names(godot: Path) -> dict[str, str]:
 
 def reachable(godot: Path) -> tuple[set[str], list[str], list[str]]:
     classes = class_names(godot)
+    class_pattern = (
+        re.compile(r'\b(?:' + '|'.join(re.escape(name) for name in sorted(classes, key=len, reverse=True)) + r')\b')
+        if classes else None
+    )
     seen: set[str] = set()
     missing: list[str] = []
     dynamic: list[str] = []
@@ -108,9 +113,11 @@ def reachable(godot: Path) -> tuple[set[str], list[str], list[str]]:
             dynamic.append(resource)
         if path.suffix == '.gd':
             todo.extend(discovered_scripts(godot, text))
-            for name, script in classes.items():
-                if script != resource and re.search(r'\b%s\b' % name, text):
-                    todo.append(script)
+            if class_pattern is not None:
+                for name in set(class_pattern.findall(text)):
+                    script = classes[name]
+                    if script != resource:
+                        todo.append(script)
     return seen, sorted(set(missing)), sorted(dynamic)
 
 
@@ -144,14 +151,31 @@ def presets(godot: Path) -> list[tuple[str, list[str]]]:
     return result
 
 
+def common_exclude_patterns(godot: Path) -> list[str]:
+    cfg = godot / 'export_presets.cfg'
+    if not cfg.is_file():
+        return []
+    export_presets = presets(godot)
+    shared = set(export_presets[0][1])
+    for _, patterns in export_presets[1:]:
+        shared &= set(patterns)
+    return [pattern for pattern in export_presets[0][1] if pattern in shared]
+
+
+@lru_cache(maxsize=None)
+def _compiled_filter(pattern: str) -> re.Pattern[str]:
+    expression = ''.join('.*' if ch == '*' else '[^.]' if ch == '?' else re.escape(ch)
+                         for ch in pattern)
+    return re.compile(expression, re.I)
+
+
 def filter_matches(resource: str, patterns: list[str]) -> bool:
     # Godot 4.6.1 _edit_files_with_filter uses String.matchn on both forms.
     # Unlike Python fnmatch, only * and ? are special; ? cannot match a dot.
+    trimmed = resource.removeprefix('res://')
     for pattern in patterns:
-        expression = ''.join('.*' if ch == '*' else '[^.]' if ch == '?' else re.escape(ch)
-                             for ch in pattern)
-        if any(re.fullmatch(expression, path, re.I) is not None
-               for path in (resource, resource.removeprefix('res://'))):
+        compiled = _compiled_filter(pattern)
+        if compiled.fullmatch(resource) is not None or compiled.fullmatch(trimmed) is not None:
             return True
     return False
 

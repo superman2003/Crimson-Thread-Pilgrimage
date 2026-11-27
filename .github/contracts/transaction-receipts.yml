@@ -14,6 +14,17 @@ on:
       - '.github/contracts/transaction-receipts.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/transaction_receipt*.gd'
+      - 'godot/scripts/field_receipt_owner.gd'
+      - 'godot/scripts/field_transaction.gd'
+      - 'godot/scripts/material_exchange_desk.gd'
+      - 'tools/run_ledger_20261028_05.py'
+      - 'tools/run_field_contract_browser_contract.py'
+      - 'tools/run_material_exchange_maximum_contract.py'
+      - 'tools/run_transaction_receipt_contract.py'
+      - 'tools/test_transaction_receipt_runner.py'
+      - '.github/contracts/transaction-receipts.yml'
 permissions:
   contents: read
 concurrency:

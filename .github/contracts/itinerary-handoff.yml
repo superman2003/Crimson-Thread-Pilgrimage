@@ -11,6 +11,14 @@ on:
       - '.github/contracts/itinerary-handoff.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/itinerary_handoff*.gd'
+      - 'godot/scripts/expedition_plan.gd'
+      - 'godot/journey/features/i_itinerary.gd'
+      - 'godot/journey/fieldwork/itinerary/**'
+      - 'tools/run_itinerary_handoff_contract.py'
+      - 'tools/test_itinerary_handoff_runner.py'
+      - '.github/contracts/itinerary-handoff.yml'
 permissions:
   contents: read
 concurrency:

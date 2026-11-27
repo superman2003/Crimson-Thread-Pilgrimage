@@ -12,6 +12,15 @@ on:
       - 'godot/data/practice_curriculum.json'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'godot/scripts/journey_desk_window.gd'
+      - 'godot/scripts/practice_curriculum.gd'
+      - 'godot/scripts/practice_desk.gd'
+      - 'godot/scripts/practice_review_validation.gd'
+      - 'tools/run_practice_review_contract.py'
+      - '.github/contracts/ledger-practice-review.yml'
+      - 'godot/data/practice_curriculum.json'
 permissions:
   contents: read
 concurrency:

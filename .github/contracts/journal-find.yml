@@ -17,6 +17,20 @@ on:
       - '.github/contracts/journal-find.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/journal_find*.gd'
+      - 'godot/scripts/journal_literal_find.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/interface_bag.gd'
+      - 'godot/scripts/interface_hud.gd'
+      - 'godot/scripts/interface_theme.gd'
+      - 'godot/scripts/interface_build_panel.gd'
+      - 'godot/scripts/interface_build_refresh.gd'
+      - 'godot/scripts/interface_dialogue.gd'
+      - 'godot/scripts/interface_journal.gd'
+      - 'godot/scripts/interface_settings.gd'
+      - 'tools/run_journal_find_contract.py'
+      - '.github/contracts/journal-find.yml'
 permissions:
   contents: read
 concurrency:

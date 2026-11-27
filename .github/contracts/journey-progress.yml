@@ -13,6 +13,16 @@ on:
       - '.github/contracts/journey-progress.yml'
   push:
     branches: [main]
+    paths:
+      - 'godot/scripts/journey_progress*.gd'
+      - 'godot/scripts/permanent_ability_roles.gd'
+      - 'godot/data/completion_totals.json'
+      - 'godot/data/world_routes.json'
+      - 'godot/data/demo_ch*.json'
+      - 'tools/build_completion_totals.py'
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'tools/run_journey_progress_contract.py'
+      - '.github/contracts/journey-progress.yml'
 permissions:
   contents: read
 concurrency:
