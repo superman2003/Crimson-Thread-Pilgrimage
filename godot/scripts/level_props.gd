@@ -114,9 +114,10 @@ static func make_boss_door(level: Node, data: Dictionary) -> Area2D:
     area.add_child(shape)
 
     var sprite := Sprite2D.new()
-    sprite.texture = load(level.SPRITES["boss_gate"])
-    sprite.scale = Vector2(0.82, 0.82)
-    level._apply_original_prop(sprite,"gate_closed",152)
+    level._apply_original_prop(sprite, "gate_closed", 152)
+    if sprite.texture == null:
+        sprite.texture = load(level.SPRITES["boss_gate"])
+        sprite.scale = Vector2(0.82, 0.82)
     area.add_child(sprite)
     return area
 
@@ -153,10 +154,11 @@ static func chapter_exit(level: Node, data: Dictionary) -> void:
 
     var sprite := Sprite2D.new()
     sprite.name = "ChapterExitSprite"
-    sprite.texture = load(level.SPRITES["boss_gate"])
-    sprite.scale = Vector2(0.66, 0.66)
+    level._apply_original_prop(sprite, "gate_open", 138)
+    if sprite.texture == null:
+        sprite.texture = load(level.SPRITES["boss_gate"])
+        sprite.scale = Vector2(0.66, 0.66)
     sprite.modulate = Color(0.48, 1.0, 0.92, 0.84) if kind == "chapter_exit" else Color(1.0, 0.74, 0.96, 0.88)
-    level._apply_original_prop(sprite,"gate_open",138)
     sprite.z_index = 7
     area.add_child(sprite)
 

@@ -3,6 +3,24 @@ extends RefCounted
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
 const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
+const CH06_ECHO_ROOMS := ["echo_moss", "echo_rain", "echo_salt", "echo_string", "echo_obsidian"]
+
+static func _track_ch06_echo_perfection(level: Node, previous_room_id: String, current_room_id: String) -> void:
+    if String(level.config.get("id", "")) != "demo_ch06_silent_crown_core":
+        return
+    if previous_room_id in CH06_ECHO_ROOMS and not bool(level.get_meta("_echo_room_damaged", false)) and level.player != null and level.player.hp > 0:
+        level.story_flags["echo_perfect_" + previous_room_id] = true
+        var all_perfect := true
+        for room_id in CH06_ECHO_ROOMS:
+            if not bool(level.story_flags.get("echo_perfect_" + room_id, false)):
+                all_perfect = false
+                break
+        if all_perfect and not bool(level.story_flags.get("quest_echo_perfect_done", false)):
+            level.story_flags["quest_echo_perfect_done"] = true
+            level._check_wish_board_rewards()
+    level.set_meta("_echo_room_damaged", false)
+    if level.player != null:
+        level.set_meta("_echo_prev_hp", int(level.player.hp))
 
 static func update_room_visit(level: Node) -> void:
     if level.player == null or not is_instance_valid(level.player):
@@ -22,6 +40,7 @@ static func update_room_visit(level: Node) -> void:
         if level.metsys_bridge != null:
             level.metsys_bridge.update_player_position(level.player.global_position, level.current_room_id)
         if level.current_room_id != previous_room_id:
+            _track_ch06_echo_perfection(level, previous_room_id, level.current_room_id)
             level._abort_challenge_if_left_room()
             level._show_tool_encounter_hint()
 

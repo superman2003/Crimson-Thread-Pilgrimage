@@ -87,22 +87,48 @@ static func spawn_ending_gates(level: Node, announce: bool = false) -> void:
         var tint: Color = level.ENDING_GATE_TINTS.get(ending, Color(0.82, 0.90, 1.0, 0.90))
         var sprite := Sprite2D.new()
         sprite.name = "EndingGateSprite"
-        sprite.texture = load(level.SPRITES["boss_gate"])
-        sprite.scale = Vector2(0.66, 0.66)
-        sprite.modulate = tint
         sprite.z_index = 7
+        level._apply_original_prop(sprite, "gate_closed" if ending == "ending_a" else "gate_open", 150.0)
+        sprite.modulate = tint
         area.add_child(sprite)
 
         var glow := Line2D.new()
         glow.name = "EndingGateGlow"
         glow.width = 3.0
-        glow.closed = true
-        glow.default_color = Color(tint.r, tint.g, tint.b, 0.66)
-        glow.points = PackedVector2Array([
-            Vector2(-36, -52), Vector2(36, -52), Vector2(46, 0), Vector2(30, 54), Vector2(-30, 54), Vector2(-46, 0)
-        ])
+        glow.closed = ending != "ending_b"
+        glow.default_color = Color(tint.r, tint.g, tint.b, 0.72)
+        if ending == "ending_a":
+            glow.points = PackedVector2Array([
+                Vector2(-32, 46), Vector2(-34, -18), Vector2(-20, -48), Vector2(0, -56),
+                Vector2(20, -48), Vector2(34, -18), Vector2(32, 46)
+            ])
+        elif ending == "ending_b":
+            glow.points = PackedVector2Array([
+                Vector2(-40, 26), Vector2(-34, -22), Vector2(-10, -48), Vector2(-4, -16),
+                Vector2(8, -46), Vector2(34, -20), Vector2(40, 26)
+            ])
+        else:
+            glow.points = PackedVector2Array([
+                Vector2(0, -56), Vector2(18, -22), Vector2(46, -24), Vector2(24, 4),
+                Vector2(38, 42), Vector2(0, 22), Vector2(-38, 42), Vector2(-24, 4),
+                Vector2(-46, -24), Vector2(-18, -22)
+            ])
         glow.z_index = 8
         area.add_child(glow)
+
+        var crest := Line2D.new()
+        crest.name = "EndingGateCrest"
+        crest.width = 2.0
+        crest.default_color = Color(minf(1.0, tint.r + 0.14), minf(1.0, tint.g + 0.14), minf(1.0, tint.b + 0.14), 0.82)
+        if ending == "ending_a":
+            crest.points = PackedVector2Array([Vector2(0, -42), Vector2(0, 18), Vector2(-10, 28), Vector2(10, 28), Vector2(0, 18)])
+        elif ending == "ending_b":
+            crest.points = PackedVector2Array([Vector2(-24, -10), Vector2(-6, 8), Vector2(6, -12), Vector2(24, 6)])
+        else:
+            crest.closed = true
+            crest.points = PackedVector2Array([Vector2(0, -28), Vector2(24, 0), Vector2(0, 28), Vector2(-24, 0)])
+        crest.z_index = 9
+        area.add_child(crest)
 
         var tween: Tween = level._region_tween()
         tween.set_loops()

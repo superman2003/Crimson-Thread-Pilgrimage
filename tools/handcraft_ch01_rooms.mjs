@@ -25,7 +25,7 @@ export const ROOMS = {
     danger: "开阔中庭利于机动，也利于敌人合围。", next: "四方", setpiece: "倒悬巨钟的空腔",
     traversal_focus: "垂直枢纽分流", pacing_role: "hub" },
   bellbone_station: { name: "钟骨长梯站厅", kind: "transit", depth: 3,
-    objective: "参观封存的钟骨长梯站厅。", guide: "贯穿世界的长梯尚未通行，记住它的位置。",
+    objective: "参观封存的钟骨长梯站厅。", guide: "贯穿旧城的钟骨长梯早已停运，仅余静默站厅。",
     danger: "站厅安静得过分。", next: "中央钟庭", setpiece: "青铜长梯剪影",
     traversal_focus: "世界纵轴锚点", pacing_role: "respite" },
   hub_gallery: { name: "环庭回廊", kind: "corridor", depth: 2,

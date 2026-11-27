@@ -106,6 +106,20 @@ func run() -> void:
 		if child is Area2D and String(child.get_meta("kind", "")) == "ending_gate" and String(child.get_meta("ending", "")) == "ending_b":
 			gate = child
 	check(gate != null, "the 断冠 gate stands behind the crown")
+	var gate_sprite := gate.get_node_or_null("EndingGateSprite") as Sprite2D if gate != null else null
+	var gate_atlas := (gate_sprite.texture as AtlasTexture).atlas.resource_path if gate_sprite != null and gate_sprite.texture is AtlasTexture and (gate_sprite.texture as AtlasTexture).atlas != null else ""
+	check(gate_atlas.contains("original_interactables"), "ending gate uses original hand-painted archway atlas")
+	check(gate != null and gate.get_node_or_null("EndingGateCrest") != null, "ending gate carries its distinct crest")
+	# G-08: both CH06 wish_board entries must be completable through live hooks.
+	var tongue_state: Dictionary = narrative.resolve("npc_crown_tongue", [], ["testimony_06"], {}, {"testimony_06": 1})
+	check(String(tongue_state.get("state", "")) == "tongue_pain", "npc_crown_tongue offers the wish_crown_tongue_pain testimony when holding testimony_06")
+	var tongue_outcome: Dictionary = narrative.completion_outcome(tongue_state, tongue_state.get("lines", []).size() - 1, {})
+	check(tongue_outcome.get("flags", []).has("quest_tongue_pain_done"), "completing tongue_pain grants quest_tongue_pain_done")
+	scene.set_meta("_echo_room_damaged", false)
+	scene.set_meta("_echo_prev_hp", int(scene.player.hp))
+	for echo_id in ["echo_moss", "echo_rain", "echo_salt", "echo_string", "echo_obsidian"]:
+		preload("res://scripts/level_rooms.gd")._track_ch06_echo_perfection(scene, echo_id, "ring_west")
+	check(bool(scene.story_flags.get("quest_echo_perfect_done", false)), "clearing all five CH06 echo rooms without damage completes wish_echo_perfect")
 	scene.player.global_position = gate.global_position
 	await tick(4)
 	scene._activate_ending_gate(gate)

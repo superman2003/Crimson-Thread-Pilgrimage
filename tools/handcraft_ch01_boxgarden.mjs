@@ -433,7 +433,7 @@ function build() {
     lb("朝圣阶（封）· 机关在对侧", "pilgrim_stair_ledge", -50, "8d97a8"),
     lb("窄苔缝：压低身形", "crawl_floor", -60, "b9c79a"),
     lb("中央钟庭：上攀 · 下探 · 西寻 · 东讨", "hub_floor_w", -110, "baf4a6"),
-    lb("钟骨长梯（未通电）", "station_floor", -80, "8d97a8"),
+    lb("钟骨旧站（已停运）", "station_floor", -80, "8d97a8"),
     lb("钟骨折梯 ↑", "ba02", -60, "c7e6ff"),
     lb("钟冠悬廊 · 坠回枢纽", "cw_drop", -60, "a6ecff"),
     lb("盐风走廊：双线跃可达（回访）", "salt_floor", -70, "e8e3c8"),

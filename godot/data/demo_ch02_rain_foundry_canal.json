@@ -1,6 +1,6 @@
 {
   "id": "demo_ch02_rain_foundry_canal",
-  "name": "铸雨渠试玩章",
+  "name": "铸雨渠",
   "world": {
     "width": 7200,
     "height": 5192,
@@ -793,7 +793,7 @@
         168
       ],
       "objective": "参观封存的水线层站厅。",
-      "guide": "贯穿世界的长梯尚未通电，记住它的位置。",
+      "guide": "贯穿旧城的钟骨长梯早已停运，仅余滴水的站厅。",
       "danger": "站厅只有滴水声。",
       "next": "泵房中庭",
       "setpiece": "青铜长梯与水线刻度",
@@ -1599,10 +1599,10 @@
         168
       ],
       "objective": "抵达锤炉的炉底，查看被铸渣封住的滑道口。",
-      "guide": "铸渣滑道通向黑曜巡礼路——现在还封着。",
+      "guide": "通往旧矿层的铸渣滑道早已在停炉后塌封。",
       "danger": "炉渣余温未散。",
       "next": "黑曜巡礼路（单向）",
-      "setpiece": "封存的铸渣滑道口",
+      "setpiece": "塌封的废弃铸渣滑道口",
       "traversal_focus": "跨章捷径锚点",
       "pacing_role": "foreshadow",
       "visit_rects": [
@@ -7281,7 +7281,7 @@
       "color": "a6ecff"
     },
     {
-      "text": "钟骨长梯·水线站（未通电）",
+      "text": "钟骨旧站·水线层（已停运）",
       "position": [
         2250,
         2540
@@ -7361,7 +7361,7 @@
       "color": "9a86b8"
     },
     {
-      "text": "炉底：铸渣滑道（封）→ 黑曜巡礼路",
+      "text": "炉底：废弃铸渣滑道（已塌封）",
       "position": [
         6040,
         4660
@@ -9293,28 +9293,28 @@
       "channel": "雨溢立管",
       "room": "high_water_tower",
       "type": "revisit_gate",
-      "status": "sealed_until_ch03",
+      "status": "open",
       "counterpart": {
         "chapter": "demo_ch03_saltwhite_archive",
-        "room": "wet_cellar"
+        "room": "archive_entry"
       },
       "required_abilities": [
         "silk_wall_grip",
         "echo_hook"
       ],
-      "note": "高位水塔顶的封存立管口，ch3 湿书地窖重做后开通。"
+      "note": "高位水塔顶的雨溢立管通道，借丝壁攀附可前往盐白书库。"
     },
     {
       "id": "anchor_slag_chute",
       "channel": "铸渣滑道",
       "room": "furnace_floor",
       "type": "one_way_shortcut",
-      "status": "sealed_until_ch05",
+      "status": "retired",
       "counterpart": {
         "chapter": "demo_ch05_obsidian_pilgrim_road",
-        "room": "slag_arrival"
+        "room": "retired_mine_shaft"
       },
-      "note": "炉底铸渣滑道口，单向坠向 ch5 巡礼路中段；对端建成前保持封存。"
+      "note": "炉底废弃铸渣滑道口，停炉后已塌封。"
     },
     {
       "id": "anchor_bellbone_waterline",
@@ -9326,7 +9326,7 @@
         "chapter": "world",
         "room": "bellbone_ladder_network"
       },
-      "note": "五站快旅网络的水线层站厅，封存态可参观。"
+      "note": "钟骨旧站水线层站厅，已停运封存。"
     },
     {
       "id": "anchor_mossgrip_export",
