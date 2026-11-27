@@ -106,8 +106,12 @@ func _slot_summary(row: Dictionary, is_current: bool) -> String:
         secs=PROGRESS.recorded(String(row.get("path","")))
     return "%s\n%s · %d%% · %s" % [prefix,region,pct,PROGRESS.clock_text(secs)]
 
+func _game_language_settings() -> Node:
+    var tree: SceneTree = get_tree() if is_inside_tree() else (Engine.get_main_loop() as SceneTree)
+    return tree.root.get_node_or_null("GameLanguageSettings") if tree != null and tree.root != null else null
+
 func _language_button_label() -> String:
-    var startup := get_node_or_null("/root/GameLanguageSettings")
+    var startup := _game_language_settings()
     var prefs: Variant = startup.preferences if startup != null else null
     if prefs == null and FileAccess.file_exists("res://scripts/display_dialog.gd"):
         var display_script: Variant = load("res://scripts/display_dialog.gd")
@@ -120,7 +124,7 @@ func _language_button_label() -> String:
 func _choose_utility(action: String) -> void:
     if is_queued_for_deletion():return
     if action=="language":
-        var startup := get_node_or_null("/root/GameLanguageSettings")
+        var startup := _game_language_settings()
         var prefs: Variant = startup.preferences if startup != null else null
         if prefs == null and FileAccess.file_exists("res://scripts/display_dialog.gd"):
             var display_script: Variant = load("res://scripts/display_dialog.gd")

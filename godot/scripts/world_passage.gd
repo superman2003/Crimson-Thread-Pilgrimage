@@ -476,7 +476,7 @@ static func _handover_staged(passage_ref: WeakRef, entry: Vector2) -> void:
         return
     var host_node: Node = passage.host
     var loader: RefCounted = host_node.world_loader
-    var waited_usec := Time.get_ticks_usec() - passage.staged_wait_started
+    var waited_usec: int = Time.get_ticks_usec() - int(passage.staged_wait_started)
     if loader.phase != "staged":
         # The hidden build failed: load the destination the ordinary way.
         passage.staged = false
