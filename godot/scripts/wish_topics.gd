@@ -233,8 +233,9 @@ static func quote_wish_topic(level: Node, quest: Dictionary, area: Area2D) -> Di
     if level.ui_shell == null or level.ui_shell.dialogue_area != area or level.active_overlay != "dialogue" or not level.ui_shell.dialogue.visible:return failure
     var topics: Dictionary = area.get_meta("dialogue_topics",{})
     if quest.is_empty() or topics.get("quest",{}) != quest:return failure
-    for key in ["item","reward","complete_flag"]:
+    for key in ["item","complete_flag"]:
         if not quest.get(key,"") is String or String(quest.get(key,"")).is_empty():return failure
+    if not quest.get("reward","") is String:return failure
     if not quest.get("consume",false) is bool:return failure
     var plan: Dictionary = level._wish_topic_plan(quest,area)
     var required := String(quest.item)
@@ -242,7 +243,12 @@ static func quote_wish_topic(level: Node, quest: Dictionary, area: Area2D) -> Di
     if not next_build.restore(level.build_system.serialize()).ok:return failure
     next_build.sync_progress(plan.counts,String(level.config.get("id","")),plan.flags)
     var owned: Variant = level.inventory_counts.get(required,0)
-    var text: String = "所需：%s × 1（持有 %s）\n%s\n回礼：%s × 1\n碎钱变化：%+d\n确认后写入归途记录；不会补满当前生命或能量。" % [level._item_display_name(required),str(owned),"交付将消耗一份信物。" if quest.get("consume",false) else "只需出示信物，不消耗持有物。",level._item_display_name(String(quest.reward)),int(plan.currency)-level.currency_count]
+    var reward_id := String(quest.get("reward", ""))
+    var text: String = ""
+    if reward_id.is_empty():
+        text = "所需：%s × 1（持有 %s）\n%s\n碎钱变化：%+d\n确认后写入归途记录；不会补满当前生命或能量。" % [level._item_display_name(required),str(owned),"交付将消耗一份信物。" if quest.get("consume",false) else "只需出示信物，不消耗持有物。",int(plan.currency)-level.currency_count]
+    else:
+        text = "所需：%s × 1（持有 %s）\n%s\n回礼：%s × 1\n碎钱变化：%+d\n确认后写入归途记录；不会补满当前生命或能量。" % [level._item_display_name(required),str(owned),"交付将消耗一份信物。" if quest.get("consume",false) else "只需出示信物，不消耗持有物。",level._item_display_name(reward_id),int(plan.currency)-level.currency_count]
     var profile: Dictionary=next_build.profile()
     text += "\n永久容量：生命 %d → %d；能量 %d → %d" % [level.player.max_hp,int(profile.get("max_hp",level.player.max_hp)),level.player.max_energy,int(profile.get("max_energy",level.player.max_energy))]
     var fingerprint: String = var_to_str([quest,level.inventory_counts,level.story_flags,level.currency_count,level.build_system.serialize(),plan,level.dialogue_text_label.text,level.dialogue_text_label.visible_characters]).sha256_text()

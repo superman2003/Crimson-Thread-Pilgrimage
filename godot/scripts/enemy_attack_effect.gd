@@ -144,14 +144,26 @@ func _physics_process(delta: float) -> void:
     elif target != null:
         var center := target.global_position-Vector2(0,42)
         if not reflected and not hit_player and _hits_player(center):
-            # Consume before callbacks: damage can synchronously re-enter or cancel us.
-            hit_player=true
-            var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, global_position, bool(get_meta("blockable", true)))
-            if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and accepted and target.has_method("apply_snare"):
-                target.apply_snare(snare)
-            if effect_kind=="projectile":
+            var contacted := _apply_player_contact(target, global_position)
+            if contacted and effect_kind=="projectile" and not cancelled and not is_queued_for_deletion():
                 _finish_impact(global_position)
     queue_redraw()
+
+func _apply_player_contact(target: Node2D, contact_pos: Vector2) -> bool:
+    var guard_before := float(target.get("guard_timer")) if target.get("guard_timer") != null else 0.0
+    # Consume before callbacks: damage can synchronously re-enter or cancel us.
+    hit_player = true
+    var accepted: bool = preload("res://scripts/damage_contact.gd").apply(target, damage, contact_pos, bool(get_meta("blockable", true)))
+    if cancelled or is_queued_for_deletion() or not is_instance_valid(target) or target.is_queued_for_deletion():
+        return accepted
+    var guard_after := float(target.get("guard_timer")) if target.get("guard_timer") != null else 0.0
+    var blocked := not accepted and guard_before > 0.0 and guard_after <= 0.0
+    if not accepted and not blocked:
+        hit_player = false
+        return false
+    if accepted and snare > 0 and target.has_method("apply_snare"):
+        target.apply_snare(snare)
+    return true
 
 func _hits_player(center: Vector2) -> bool:
     if effect_kind=="beam":
@@ -374,9 +386,10 @@ func _resolve_swept_projectile(target: Node2D,start: Vector2,finish: Vector2,wal
                 tint=Color(0.94,0.86,0.61);queue_redraw();return true
     var time:=SWEEP.circle_time(start,finish,center,radius+23)
     if time>=limit or time>1:return false
-    global_position=start.lerp(finish,time);hit_player=true
-    var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, global_position, bool(get_meta("blockable", true)))
-    if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and accepted and target.has_method("apply_snare"):target.apply_snare(snare)
+    var hit_pos:=start.lerp(finish,time)
+    if not _apply_player_contact(target, hit_pos):
+        return false
+    global_position=hit_pos
     if not cancelled and not is_queued_for_deletion():_finish_impact(global_position)
     return true
 
@@ -406,11 +419,9 @@ func _advance_wave(delta: float, target: Node2D) -> void:
                 var center := target.global_position - Vector2(0, 42)
                 var time := SWEEP.circle_time(start, finish, center, radius + 23)
                 if time < limit and time <= 1.0:
-                    hit_player = true
                     var contact := start.lerp(finish, time)
-                    var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, contact, bool(get_meta("blockable", true)))
+                    _apply_player_contact(target, contact)
                     if cancelled or is_queued_for_deletion(): return
-                    if is_instance_valid(target) and not target.is_queued_for_deletion() and snare > 0 and accepted and target.has_method("apply_snare"): target.apply_snare(snare)
             if not wall.is_empty():
                 global_position = wall.position
                 cancel()
@@ -458,9 +469,7 @@ func _advance_beam(delta: float, target: Node2D) -> void:
     var active_seconds := maxf(0.0, minf(next_age, duration) - maxf(age, arm_delay))
     age = minf(next_age, duration)
     if active_seconds > 0 and length > 0 and not hit_player and is_instance_valid(target) and not target.is_queued_for_deletion() and _hits_player(target.global_position - Vector2(0, 42)):
-        hit_player = true
-        var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, global_position, bool(get_meta("blockable", true)))
-        if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and accepted and snare > 0 and target.has_method("apply_snare"): target.apply_snare(snare)
+        _apply_player_contact(target, global_position)
     if cancelled or is_queued_for_deletion(): return
     if age >= duration:
         cancel()

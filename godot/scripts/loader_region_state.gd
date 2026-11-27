@@ -140,6 +140,9 @@ static func reset_region_fields(loader: RefCounted, host: Node) -> void:
             continue
         var value: Variant = defaults.get(name)
         host.set(name, value.duplicate(true) if value is Array or value is Dictionary else value)
+    for meta_key in ["_echo_room_damaged", "_echo_prev_hp", "_echo_entry_room"]:
+        if host.has_meta(meta_key):
+            host.remove_meta(meta_key)
     defaults.free()
 
 

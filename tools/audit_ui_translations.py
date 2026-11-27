@@ -13,7 +13,7 @@ PATH = ROOT / 'godot/data/ui_translations.json'
 FORMAT = re.compile(r'%(?:%|[+#0-]*\d*(?:\.\d+)?[sdifxXoc])')
 NAMED = re.compile(r'\{[a-zA-Z_][a-zA-Z_\d:]*\}')
 MARKUP = re.compile(r'\[/?(?:b|i|color|font_size|center|url)(?:=[^\]]+)?\]')
-CJK_PUNCT = re.compile(r'[，。！？；：（）【】《》、]')
+CJK_PUNCT = re.compile(r'[，。！？；：（）【】《》、\u3000「」]')
 FORBIDDEN_MT = (
     (re.compile(r'\binvincible group\b', re.I), 'mistranslation: "无敌群" means no enemy horde, not invincible group'),
     (re.compile(r'\b(?:spork master|candle caster)\b', re.I), 'mistranslation: "孢钟匠" must be Spore Bellmaker'),
@@ -24,6 +24,9 @@ FORBIDDEN_MT = (
     (re.compile(r'\bsalt white\b'), 'terminology drift: use Saltwhite'),
     (re.compile(r'\b(?:bell niche|chime shrine)\b', re.I), 'terminology drift: use Bell Shrine'),
     (re.compile(r'\bweapon slot\b', re.I), 'terminology drift: use Tool slot'),
+    (re.compile(r'\bunfounded testimonies\b', re.I), 'mistranslation: "未发现证言" means undiscovered testimonies, not unfounded'),
+    (re.compile(r'\bcontinuous battle\b', re.I), 'mistranslation: "连战" must be Boss Rush'),
+    (re.compile(r'\bfull armor\b', re.I), 'mistranslation: "全甲" means flawless/unscathed top grade, not full armor'),
 )
 SEMANTIC_GUARDS = {
     '装备': 'Equipment',
@@ -107,6 +110,10 @@ def main():
         assert entry_errors('钟龛', 'bell niche')
         assert entry_errors('雨铸匠', 'Rainforge Smith')
         assert entry_errors('说明', 'Note，with CJK comma')
+        assert entry_errors('方案', 'Plan 「1」')
+        assert entry_errors('已退出连战。', 'Exited the continuous battle.')
+        assert entry_errors('尚有%d条未发现证言', 'There are still %d unfounded testimonies')
+        assert entry_errors('回声复考·全甲', 'Echo retake · Full armor')
         assert not entry_errors('保留%d', 'Keep %d and 60%%')
         assert entry_errors('保留%d', 'Keep %d and 60%')
         assert entry_errors('装备', 'Recorded Time')

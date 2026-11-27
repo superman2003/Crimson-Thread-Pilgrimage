@@ -14,6 +14,7 @@ var layers: Array=[]
 var old_mode: int
 var old_visible: bool
 var label: Label
+var leave_button: Button
 var finished:=false
 var closing:=false
 var elapsed:=0.0
@@ -43,11 +44,14 @@ func begin(real_level: Node,plan: Dictionary,callback: Callable) -> void:
     player.hp_changed.connect(_on_player_hp_changed)
     player.player_respawned.connect(func():finish(false,"练习角色倒下"))
     var camera: Camera2D=player.get_node("Camera2D");camera.position_smoothing_enabled=false;camera.make_current()
+    var feel := get_node_or_null("/root/FeelKit")
+    if feel != null and feel.has_method("register_camera"):
+        feel.register_camera(camera)
     var canvas:=CanvasLayer.new();canvas.layer=100;add_child(canvas)
     var panel:=PanelContainer.new();panel.theme=level.ui_shell.theme;panel.position=Vector2(18,18);canvas.add_child(panel)
     var column:=VBoxContainer.new();panel.add_child(column)
     label=Label.new();label.custom_minimum_size=Vector2(650,70);column.add_child(label)
-    var leave:=Button.new();leave.text="结束并返回原旅途（Esc）";leave.pressed.connect(close);column.add_child(leave)
+    leave_button=Button.new();leave_button.text="结束并返回原旅途（Esc）";leave_button.focus_mode=Control.FOCUS_NONE;leave_button.pressed.connect(close);column.add_child(leave_button)
     _next_wave();queue_redraw()
 
 func _draw() -> void:
@@ -69,7 +73,7 @@ func _next_wave() -> void:
         data.position=[0,0];data.patrol=100;data.leash_radius=1100;data.arena_min_x=ORIGIN.x-560;data.arena_max_x=ORIGIN.x+560
         var actor:=Area2D.new();actor.set_script(preload("res://scripts/enemy_actor.gd"))
         actor.configure(data,level.SPRITES.get(String(data.kind),level.SPRITES.moss_larva),bool(bout.boss),source.profiles.get(String(data.kind),{}))
-        actor.position=ORIGIN+Vector2(140+index*180,0);actor.set_meta("sparring_actor",true);add_child(actor)
+        actor.position=ORIGIN+Vector2(140+index*180,-actor.ground_clearance);actor.set_meta("sparring_actor",true);add_child(actor)
         alive.append(actor);actors.append(actor)
         actor.died.connect(func(_id: String,_boss: bool,_kind: String):_defeated(actor))
 
@@ -103,8 +107,13 @@ func _use_tool() -> bool:
     build.refund_tool(String(result.get("id", "")))
     return false
 
-func _unhandled_key_input(event: InputEvent) -> void:
-    if event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_ESCAPE:close();get_viewport().set_input_as_handled()
+func _input(event: InputEvent) -> void:
+    if closing:return
+    var cancel_key: bool = event is InputEventKey and event.pressed and not event.echo and (event.keycode==KEY_ESCAPE or event.physical_keycode==KEY_ESCAPE)
+    var cancel_pad: bool = event is InputEventJoypadButton and event.pressed and (event.button_index==JOY_BUTTON_START or event.button_index==JOY_BUTTON_BACK or (finished and event.button_index==JOY_BUTTON_B))
+    if cancel_key or cancel_pad:
+        get_viewport().set_input_as_handled()
+        close()
 
 func finish(complete: bool,reason: String) -> void:
     if finished:return
@@ -113,11 +122,18 @@ func finish(complete: bool,reason: String) -> void:
     for actor in actors:
         if is_instance_valid(actor):actor.set_physics_process(false)
     label.text="%s · %.1f 秒 · %s\n练习记录只供复盘；点击返回原旅途。" % [String(bout.title),elapsed,reason]
+    if is_instance_valid(leave_button):
+        leave_button.focus_mode=Control.FOCUS_ALL
+        leave_button.call_deferred("grab_focus")
 
 func close() -> void:
     if closing:return
     closing=true
     if not finished:finish(false,"主动结束")
+    if is_instance_valid(level):
+        level.set_meta("pause_suppress_frame", Engine.get_process_frames())
+    if InputMap.has_action("close_overlay"):
+        Input.action_release("close_overlay")
     _restore_journey()
     if on_return.is_valid():on_return.call(record.duplicate(true))
     preload("res://scripts/audio_retirement.gd").retire_tree(self);queue_free()
@@ -128,7 +144,12 @@ func _restore_journey() -> void:
         for layer in layers:
             var node: Variant=layer.node.get_ref()
             if is_instance_valid(node):node.visible=layer.visible
-        if is_instance_valid(level.player):level.player.get_node("Camera2D").make_current()
+        if is_instance_valid(level.player):
+            var cam: Camera2D = level.player.get_node("Camera2D")
+            cam.make_current()
+            var feel := get_node_or_null("/root/FeelKit")
+            if feel != null and feel.has_method("register_camera"):
+                feel.register_camera(cam)
     for group in paused_groups:
         for reference in paused_groups[group]:
             var node: Variant=reference.get_ref()

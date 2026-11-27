@@ -278,10 +278,13 @@ static func commit_world_dialogue(level: Node) -> void:
         # Only a saved, fully read, fresh conversation earns a short response.
         # A toast never takes control or starts another dialogue/voice sequence.
         var response = WORLD_NARRATIVE_SCRIPT.completion_response(result,displayed_index,flags_before)
+        var gained_currency: int = level.currency_count - currency_before
         if not response.is_empty():
             level._toast(response)
         elif not rewards.is_empty():
             level._toast("心愿达成 · 收到 %d 枚碎钱" % int(rewards.get("currency", 0)))
+        elif gained_currency > 0:
+            level._toast("心愿达成 · 收到 %d 枚碎钱" % gained_currency)
         level._apply_world_npc_state(area)
         level._sync_player_build()
         level._refresh_wish_board_overlay()

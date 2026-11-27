@@ -24,8 +24,9 @@ static func sample_action_input(player: Node, delta: float) -> void:
         player._clear_action_buffer()
     # Latest command replaces the pending command; holding never repeats it.
     # Preserve the existing dash priority when both buttons arrive in one tick.
+    var resumed: bool = player.has_method("_just_resumed_from_pause") and bool(player.call("_just_resumed_from_pause"))
     var action: StringName = &""
-    if Input.is_action_just_pressed("dash") and player.dash_unlocked:
+    if not resumed and Input.is_action_just_pressed("dash") and player.dash_unlocked:
         action = &"dash"
     elif Input.is_action_just_pressed("attack"):
         action = &"attack"
