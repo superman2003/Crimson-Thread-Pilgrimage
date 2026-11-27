@@ -449,15 +449,33 @@ func _physics_process(delta: float) -> void:
     if get_parent().has_method("_world_collision_ready") and not get_parent()._world_collision_ready():
         return
     if ui_input_locked:
-        ground_turn_time = 0.0
-        last_ground_direction = 0
-        wall_sliding = false
-        _update_wall_slide_audio()
-        _interrupt_heal()
-        _stop_phase()
-        if flash_material != null and not bool(_accessibility().get("flash_enabled", true)):
-            flash_material.set_shader_parameter("flash_amount", 0.0)
+        _tick_ui_locked_state()
         return
+    _tick_status_and_cooldown_timers(delta)
+    if death_timer > 0.0:
+        _step_death_state(delta)
+        return
+    var was_on_floor := is_on_floor()
+    _tick_movement_timers_and_gravity(delta)
+    var input_axis := _move_axis()
+    _sample_action_input(delta)
+    _update_wall_slide_and_jumps(input_axis)
+    _step_combat_and_horizontal_motion(delta, input_axis)
+    _finish_physics_frame(delta, input_axis, was_on_floor)
+
+
+func _tick_ui_locked_state() -> void:
+    ground_turn_time = 0.0
+    last_ground_direction = 0
+    wall_sliding = false
+    _update_wall_slide_audio()
+    _interrupt_heal()
+    _stop_phase()
+    if flash_material != null and not bool(_accessibility().get("flash_enabled", true)):
+        flash_material.set_shader_parameter("flash_amount", 0.0)
+
+
+func _tick_status_and_cooldown_timers(delta: float) -> void:
     PLAYER_DAMAGE.update_respawn_reveal(self, delta)
     arrival_guard_timer = maxf(0.0, arrival_guard_timer - delta)
     if build_system != null and build_system.has_method("tick"):
@@ -469,40 +487,39 @@ func _physics_process(delta: float) -> void:
     _update_phase(delta)
     _seal_tick(delta)
     _update_heal(delta)
-    snare_timer=maxf(0,snare_timer-delta)
-    if dash_timer>0:
-        snare_timer=0
-    if death_timer > 0.0:
-        _clear_action_buffer()
-        wall_sliding = false
-        _update_wall_slide_audio()
-        death_timer -= delta
-        if death_timer <= 0.0:
-            _hard_respawn()
-            return
-        _set_death_visibility(death_timer / DEATH_FADE_SECONDS)
-        # A finished non-loop death must hold its terminal pose, not restart
-        # whenever _play sees is_playing() == false during the remaining hold.
-        if sprite.animation != &"death":
-            _play(&"death")
-        return
+    snare_timer = maxf(0, snare_timer - delta)
+    if dash_timer > 0:
+        snare_timer = 0
 
+
+func _step_death_state(delta: float) -> void:
+    _clear_action_buffer()
+    wall_sliding = false
+    _update_wall_slide_audio()
+    death_timer -= delta
+    if death_timer <= 0.0:
+        _hard_respawn()
+        return
+    _set_death_visibility(death_timer / DEATH_FADE_SECONDS)
+    # A finished non-loop death must hold its terminal pose, not restart
+    # whenever _play sees is_playing() == false during the remaining hold.
+    if sprite.animation != &"death":
+        _play(&"death")
+
+
+func _tick_movement_timers_and_gravity(delta: float) -> void:
     if hurt_timer > 0.0:
         hurt_timer -= delta
     if mercy_timer > 0.0:
         mercy_timer -= delta
-
     if self_flash_timer > 0.0:
         self_flash_timer -= delta
         if flash_material != null:
             flash_material.set_shader_parameter("flash_amount", 1.0 if self_flash_timer > 0.017 and bool(_accessibility().get("flash_enabled", true)) else 0.0)
-
-    var was_on_floor := is_on_floor()
     if Input.is_action_just_pressed("jump"):
         jump_buffer_timer = jump_buffer_time
     else:
         jump_buffer_timer = maxf(0.0, jump_buffer_timer - delta)
-
     if is_on_floor():
         air_jump_available = true
         coyote_timer = coyote_time
@@ -510,7 +527,6 @@ func _physics_process(delta: float) -> void:
         coyote_timer = maxf(0.0, coyote_timer - delta)
         if grapple_timer <= 0.0:
             velocity.y += gravity * delta
-
     dash_cooldown = maxf(0.0, dash_cooldown - delta)
     land_timer = maxf(0.0, land_timer - delta)
     grapple_recovery_timer = maxf(0.0, grapple_recovery_timer - delta)
@@ -519,9 +535,9 @@ func _physics_process(delta: float) -> void:
     heal_cooldown = maxf(0.0, heal_cooldown - delta)
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
     hazard_pogo_guard_timer = maxf(0.0, hazard_pogo_guard_timer - delta)
-    var input_axis := _move_axis()
-    _sample_action_input(delta)
 
+
+func _update_wall_slide_and_jumps(input_axis: float) -> void:
     if input_axis != 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0:
         facing = signi(input_axis)
         sprite.flip_h = facing < 0
@@ -567,7 +583,6 @@ func _physics_process(delta: float) -> void:
         _play(&"wall_slide")
         _play_sfx("jump", -6.0)
         MOVEMENT_ART.wall_jump(self, jump_wall_dir)
-
     elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
         PLAYER_INPUT_BUFFER.cancel_attack_recovery(self)
         ability_action.emit("double_thread_jump", global_position, Vector2.UP)
@@ -583,6 +598,8 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
 
+
+func _step_combat_and_horizontal_motion(delta: float, input_axis: float) -> void:
     PLAYER_INPUT_BUFFER.consume_action_input(self, &"dash")
 
     if Input.is_action_just_pressed("bell_guard"):
@@ -617,6 +634,8 @@ func _physics_process(delta: float) -> void:
         var movement_speed := speed * (1.12 if heal_speed_timer > 0.0 and is_on_floor() else 1.0) * (0.58 if snare_timer > 0.0 else 1.0)
         velocity.x = move_toward(velocity.x, input_axis * movement_speed * 0.45, speed * 5.0 * delta)
 
+
+func _finish_physics_frame(delta: float, input_axis: float, was_on_floor: bool) -> void:
     _update_attack(delta)
     var fall_speed := velocity.y
     var platform_motion := get_platform_velocity() * delta if was_on_floor else Vector2.ZERO
