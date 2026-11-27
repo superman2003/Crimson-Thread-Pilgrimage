@@ -16,5 +16,5 @@ with tempfile.TemporaryDirectory() as tmp:
         m=meter(decoded,read(decoded)); m.pop('sha256')
         rows.append({'path':f'godot/assets/audio/sfx/generated/{key}.ogg','source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'decoded_pcm_measurements':m})
 report={'baseline_commit':'3bd62d199662','purpose':'Verify existing real audio and characterize timing/levels; not a judgment of subjective quality. OGG decoded to mono 48k PCM16 for comparable measurement. No baseline sample reused in synthesis.','assets':rows}
-(DOC/'baseline_audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+(DOC/'baseline_audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
 print(f'Inspected {len(rows)} hydrated baseline OGG files.')

@@ -117,5 +117,12 @@ func run() -> void:
     CARD.shown=false
     DirAccess.remove_absolute(ProjectSettings.globalize_path(record2.store.path))
     level.queue_free();await process_frame
+    var ending_record:=fresh_record()
+    check(ending_record.sync(journey(0,0,0.0,0.0,["a"]),1000)==["重鸣"],"first ending is recorded for the installation")
+    check(ending_record.sync(journey(0,0,0.0,0.0,["c"]),1001)==["改写"],"another journey adds a distinct ending")
+    check(ending_record.sync(journey(0,0,0.0,0.0,["b"]),1002)==["断线","三途尽览"],
+        "all endings across separate journeys award the cumulative achievement")
+    check(MODEL.new().sync(journey(0,0,0.0,0.0),1003).is_empty(),"cumulative ending achievement persists across journeys")
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(ending_record.store.path))
     print("ACHIEVEMENTS checks=%d failures=%d" % [checks,failures])
     call_deferred("quit",1 if failures else 0)

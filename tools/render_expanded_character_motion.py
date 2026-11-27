@@ -56,7 +56,7 @@ def main():
             if not motion.exists():
                 if args.partial:continue
                 raise ValueError(str(motion))
-            old=json.loads(path.read_text());new=json.loads(motion.read_text())
+            old=json.loads(path.read_text(encoding="utf-8"));new=json.loads(motion.read_text(encoding="utf-8"))
             anim='talk' if family=='original_npcs' else 'walk'
             if new.get('motion')=='stationary':anim='idle'
             records.append({'id':path.parent.name,'old':old,'new':new,'animation':anim})
@@ -118,6 +118,6 @@ def main():
                 d.text((j*panel_width+12,i*rh+26),str(len(animation['frames']))+' cels / '+str(round(animation['fps'],2))+' fps',fill=(160,177,192))
         pictures.append(image)
     pictures[0].save(OUT/'before-after.webp',save_all=True,append_images=pictures[1:],duration=50,loop=0,quality=90,method=5)
-    (OUT/'preview.json').write_text(json.dumps({'kind':'offline source-atlas preview, not a GPU capture','characters':len(records),'comparison':[r['id'] for r in selected],'baseline':'visible idle feet aligned per version; authored motion and uniform production scale preserved','roster_factor':1.2,'comparison_factor':1.4,'comparison_row_height':rh},indent=2)+'\n')
+    (OUT/'preview.json').write_text(json.dumps({'kind':'offline source-atlas preview, not a GPU capture','characters':len(records),'comparison':[r['id'] for r in selected],'baseline':'visible idle feet aligned per version; authored motion and uniform production scale preserved','roster_factor':1.2,'comparison_factor':1.4,'comparison_row_height':rh},indent=2)+'\n', encoding="utf-8")
     print(f'EXPANDED_MOTION_PREVIEWS characters={len(records)}')
 if __name__=='__main__':main()

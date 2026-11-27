@@ -178,9 +178,12 @@ func _run() -> void:
         _check(not passage.begin("moss_rain_pipe") and not passage.active, "physical entry respects far-side latch")
         descriptor.erase("requires_shortcut")
     var source_checkpoint: Vector2 = scene.active_spawn
+    var source_explore_path: String = String(scene.audio_director._explore_path)
+    var source_audio_was_playing: bool = is_instance_valid(scene.bgm_player) and scene.bgm_player.playing
     # The terminal fallback load (used when no hidden build is available).
     passage.staging_enabled = false
     _check(passage.begin("moss_rain_pipe"), "enter for terminal cancellation fixture")
+    var source_world_state: Dictionary = scene.world_state.data.duplicate(true)
     # Fixture positioning at the terminal only tests rollback; not travel evidence.
     scene.player.global_position = passage.destination_point + Vector2(0, 40)
     passage.step()
@@ -195,12 +198,19 @@ func _run() -> void:
             break
         await process_frame
     _check(passage.active and passage.retry_blocked and String(scene.config.id) == origin_id, "cancelled load restores source and arms explicit retry")
+    _check(String(scene.audio_director._explore_path) == source_explore_path
+        and (not source_audio_was_playing or scene.bgm_player.playing),
+        "cancelled load resumes the source exploration audio")
     var cancelled := STATE.new()
     _check(cancelled.read(SAVE) and cancelled.data.current_region == origin_id, "cancelled terminal never commits destination")
     _check(cancelled.resume_local_position() == source_checkpoint and COORD.region_bounds(origin_id).has_point(COORD.to_world(origin_id, cancelled.resume_local_position())), "rollback retains original in-region checkpoint instead of far terminal")
+    _check(scene.world_state.data == source_world_state, "rollback preserves the complete source journal snapshot")
     _check(scene.player.collision_mask == 64 and not scene.ui_canvas.visible, "cancelled terminal resumes tube isolation")
     passage._return_to_source(true)
     _check(not passage.active and scene.ui_canvas.visible and scene.player.collision_layer == 1, "Esc after rollback restores rebuilt source UI and physics")
+    _check(String(scene.audio_director._explore_path) == source_explore_path
+        and (not source_audio_was_playing or scene.bgm_player.playing),
+        "cancelled segmented transition resumes source exploration audio")
     _check(scene.player.hp == 3 and scene.player.energy == 41 and scene.currency_count == 97, "terminal rollback preserves resources")
     _check(passage.begin("moss_rain_pipe"), "active-passage teardown fixture")
     scene.free()

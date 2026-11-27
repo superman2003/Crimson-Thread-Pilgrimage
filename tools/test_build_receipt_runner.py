@@ -22,17 +22,17 @@ class ReceiptRunnerTests(unittest.TestCase):
             for code,out,err,expected in cases:
                 with self.subTest(code=code,out=out,err=err), redirect_stdout(StringIO()), patch('run_build_receipt_contract.subprocess.run',return_value=CompletedProcess([],code,out,err)):
                     self.assertEqual(invoke(['fixture'],{},log,MARKER),expected)
-                    self.assertEqual(log.read_text(),out+err)
+                    self.assertEqual(log.read_text(encoding="utf-8"),out+err)
     def test_timeout_preserves_both_streams_without_passing(self):
         with tempfile.TemporaryDirectory() as temporary, redirect_stdout(StringIO()):
             log=Path(temporary)/'native.log'
             with patch('run_build_receipt_contract.subprocess.run',side_effect=TimeoutExpired(['fixture'],120,output=b'partial stdout\n',stderr=b'SCRIPT ERROR: partial stderr\n')):
                 self.assertFalse(invoke(['fixture'],{},log,MARKER))
-            self.assertIn('partial stdout',log.read_text())
-            self.assertIn('partial stderr',log.read_text())
-            self.assertIn('timeout',log.read_text())
+            self.assertIn('partial stdout',log.read_text(encoding="utf-8"))
+            self.assertIn('partial stderr',log.read_text(encoding="utf-8"))
+            self.assertIn('timeout',log.read_text(encoding="utf-8"))
     def test_workflow_runs_native_world_and_old_reader(self):
-        workflow=(Path(__file__).resolve().parents[1]/'.github/contracts/build-receipt.yml').read_text()
+        workflow=(Path(__file__).resolve().parents[1]/'.github/contracts/build-receipt.yml').read_text(encoding="utf-8")
         for path in ['tools/run_build_receipt_contract.py','tools/test_build_receipt_runner.py','.github/contracts/build-receipt.yml']:
             self.assertIn("      - '"+path+"'",workflow)
         self.assertIn('tools/run_build_receipt_contract.py --engine',workflow)

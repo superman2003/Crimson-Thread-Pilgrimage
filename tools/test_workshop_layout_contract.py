@@ -10,7 +10,7 @@ import build_ability_places
 from workshop_layout_contract import contracts
 ROOT=Path(__file__).resolve().parents[1]
 class LayoutContracts(unittest.TestCase):
-    def setUp(self):self.data=json.loads((ROOT/'godot/data/world_routes.json').read_text())
+    def setUp(self):self.data=json.loads((ROOT/'godot/data/world_routes.json').read_text(encoding="utf-8"))
     def invalid(self,text):return any(not ok and text in label for ok,label in contracts(self.data))
     def selected(self):return next(l for l in self.data['workshop_layouts'] if l.get('layout_group')=='movement_group_one')
     def test_authored_routes(self):

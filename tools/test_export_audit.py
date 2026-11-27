@@ -26,8 +26,8 @@ def project(root: Path, excludes: str, files: dict[str, str]) -> None:
     (godot / 'scripts').mkdir(parents=True)
     (godot / 'scenes').mkdir()
     (godot / 'shaders').mkdir()
-    (godot / 'project.godot').write_text('[application]\nrun/main_scene="res://scenes/World.tscn"\n\n[autoload]\n\nKit="*res://scripts/kit.gd"\n')
-    (godot / 'export_presets.cfg').write_text(PRESET.format(excludes=excludes))
+    (godot / 'project.godot').write_text('[application]\nrun/main_scene="res://scenes/World.tscn"\n\n[autoload]\n\nKit="*res://scripts/kit.gd"\n', encoding="utf-8")
+    (godot / 'export_presets.cfg').write_text(PRESET.format(excludes=excludes), encoding="utf-8")
     base = {
         'scenes/World.tscn': '[ext_resource type="Script" path="res://scripts/world.gd" id="1"]\n',
         'scripts/world.gd': 'extends Node\nconst S := preload("res://shaders/glow.gdshader")\nvar d := Director.new()\n',
@@ -39,7 +39,7 @@ def project(root: Path, excludes: str, files: dict[str, str]) -> None:
     base.update(files)
     for name, text in base.items():
         (godot / name).parent.mkdir(parents=True, exist_ok=True)
-        (godot / name).write_text(text)
+        (godot / name).write_text(text, encoding="utf-8")
 
 
 class ExportAuditTests(unittest.TestCase):
@@ -162,7 +162,7 @@ class ExportAuditTests(unittest.TestCase):
             with self.subTest(case=label), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
                 project(root, 'scripts/*_playback.gd', {})
-                (root / 'godot/export_presets.cfg').write_text(text)
+                (root / 'godot/export_presets.cfg').write_text(text, encoding="utf-8")
                 report = audit(root)
                 self.assertTrue(report['errors'], label)
                 self.assertIn('invalid audit configuration:', report['errors'][0])
@@ -173,7 +173,7 @@ class ExportAuditTests(unittest.TestCase):
             project(root, 'scripts/*_playback.gd', {})
             cfg = root / 'godot/export_presets.cfg'
             second = PRESET.format(excludes='scripts/*_playback.gd,shaders/*').replace('preset.0', 'preset.1').replace('Linux x86_64', 'Windows x86_64')
-            cfg.write_text(cfg.read_text() + second)
+            cfg.write_text(cfg.read_text(encoding="utf-8") + second, encoding="utf-8")
             report = audit(root)
             self.assertEqual(len(report['presets']), 2)
             self.assertEqual(report['presets']['Linux x86_64']['excluded_runtime'], [])
@@ -194,20 +194,20 @@ class ExportAuditTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             project(root, 'scripts/*_playback.gd', {})
-            (root / 'godot/project.godot').write_text('[application]\n')
+            (root / 'godot/project.godot').write_text('[application]\n', encoding="utf-8")
             self.assertIn('main scene', audit(root)['errors'][0])
 
     def test_cli_returns_failure_and_writes_report_for_empty_presets(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             project(root, 'scripts/*_playback.gd', {})
-            (root / 'godot/export_presets.cfg').write_text('')
+            (root / 'godot/export_presets.cfg').write_text('', encoding="utf-8")
             target = root / 'audit.json'
             result = subprocess.run([sys.executable, str(Path(__file__).with_name('audit_export_contents.py')),
                                      '--root', str(root), '--report', str(target)], capture_output=True, text=True)
             self.assertEqual(result.returncode, 1)
             self.assertIn('EXPORT_AUDIT_FAIL presets=0', result.stdout)
-            self.assertTrue(json.loads(target.read_text())['errors'])
+            self.assertTrue(json.loads(target.read_text(encoding="utf-8"))['errors'])
             self.assertNotIn('Traceback', result.stderr)
 
 

@@ -9,7 +9,7 @@ from build_pack import ROOT, OUT, DOC
 
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--godot');args=ap.parse_args()
- m=json.loads((OUT/'manifest.json').read_text());assert m['schema_version']==1
+ m=json.loads((OUT/'manifest.json').read_text(encoding="utf-8"));assert m['schema_version']==1
  assert [x['region_id'] for x in m['items']]==['ch06','ch05','ch04','ch03','ch02','ch01']
  ns='{http://www.w3.org/2000/svg}'
  allowed={'svg','title','defs','g','path','circle','ellipse','rect','linearGradient','radialGradient','stop','clipPath'}
@@ -26,7 +26,7 @@ def main():
    assert (OUT/item['preview']).stat().st_size<250000
    for layer in item['layers']:
     path=OUT/layer['file'];assert path.parent==OUT
-    src=path.read_text();root=ET.fromstring(src)
+    src=path.read_text(encoding="utf-8");root=ET.fromstring(src)
     assert root.get('viewBox')=='0 0 960 540'
     assert root.get('width')=='960' and root.get('height')=='540'
     assert not re.search(r'\b(?:NaN|Infinity)\b',src)
@@ -56,6 +56,6 @@ def main():
      check['godot_native_raster']='pass';check['native_painted_pixels']=int((arr[:,:,3]>0).sum())
     checks.append(check)
  report={'schema_version':1,'scope':'SVG syntax, rendered clip bounds, dimensions, local references, PNG decode, contrast budgets; optional Godot SVG rasterization only. No gameplay or collision acceptance.','svg_count':len(checks),'preview_count':len(m['items']),'horizontal_tiling':False,'tiling_edge_check':'not applicable: every layer explicitly non-tiling','checks':checks}
- (DOC/'validation_report.json').write_text(json.dumps(report,indent=2)+'\n')
+ (DOC/'validation_report.json').write_text(json.dumps(report,indent=2)+'\n', encoding="utf-8")
  print(json.dumps({'svg_checked':len(checks),'preview_checked':len(m['items']),'godot_native':bool(args.godot),'pass':True}))
 if __name__=='__main__':main()

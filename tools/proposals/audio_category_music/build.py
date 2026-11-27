@@ -255,7 +255,7 @@ def main():
    items.append(item);scores[s['id']]={'seed':SEED+index,'events':c.events}
    print(s['id'],m['bytes'],m['integrated_lufs'],m['technical_pass'],flush=True)
  report=dict(schema_version=1,pack_id='audio_category_music',method='Decoded OGG, EBU R128 loudnorm, 4x polyphase true peak, seam sample-step vs interior slopes; no human listening',environment=dict(numpy=np.__version__,scipy=scipy.__version__,ffmpeg=run(['ffmpeg','-version']).stdout.decode().splitlines()[0]),total_bytes=sum(m['bytes'] for m in metrics),all_technical_checks_pass=all(m['technical_pass'] for m in metrics),tracks=metrics)
- for path,data in [(PACK/'manifest.json',dict(schema_version=1,pack_id='audio_category_music',kind='music',title='六城补全 · 战斗、安坐与见证候选音乐',items=items)),(DOC/'validation.json',report),(DOC/'score_events.json',scores)]:path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+ for path,data in [(PACK/'manifest.json',dict(schema_version=1,pack_id='audio_category_music',kind='music',title='六城补全 · 战斗、安坐与见证候选音乐',items=items)),(DOC/'validation.json',report),(DOC/'score_events.json',scores)]:path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
  assert report['total_bytes']<6000000
  assert report['all_technical_checks_pass'],'See validation.json'
 if __name__=='__main__':main()

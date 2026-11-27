@@ -18,7 +18,7 @@ for a in ('names','helper','const','doc'): ap.add_argument(a)
 ap.add_argument('--source',default='godot/scripts/main_level.gd'); ap.add_argument('--param',default='level'); ap.add_argument('--param-type',default='Node'); ap.add_argument('--coroutines',action='store_true')
 args=ap.parse_args()
 SRC=Path(args.source); MOVE=args.names.split(','); HELPER=args.helper; CONST=args.const; DOC=args.doc; PARAM=args.param
-text=SRC.read_text(); lines=text.split('\n')
+text=SRC.read_text(encoding="utf-8"); lines=text.split('\n')
 members=set()
 for l in lines:
     m=re.match(r'^(?:@\w+(?:\([^)]*\))?\s+)*(?:static\s+)?(?:var|const|func|signal)\s+(\w+)',l)
@@ -143,6 +143,6 @@ helper=body.split('\n'); helper[4:4]=consts
 GD={'true','false','null','and','or','not','if','elif','else','for','while','in','is','as','var','const','func','return','pass','break','continue','match','await','preload','load','print','push_error','push_warning','range','len','str','int','float','bool','min','max','abs','clamp','lerp','sign','round','floor','ceil','sqrt','pow','absf','absi','minf','maxf','mini','maxi','clampf','clampi','lerpf','roundf','roundi','floorf','floori','ceilf','ceili','signf','signi','snappedf','snapped','is_instance_valid','is_equal_approx','is_zero_approx','typeof','weakref','randf','randi','randf_range','randi_range','deg_to_rad','rad_to_deg','sin','cos','tan','atan2','fmod','fposmod','posmod','wrapf','wrapi','move_toward','remap','inverse_lerp','smoothstep','is_finite','is_nan','var_to_str','str_to_var','hash','void','static',PARAM,'super','PI','TAU','INF','NAN','instance_from_id','type_string','error_string','printerr','print_rich','when'}
 left={k:v for k,v in unknown.items() if k not in GD}
 print('UNKNOWN bare identifiers:',left)
-(SRC.parent/f'{HELPER}.gd').write_text('\n'.join(helper).rstrip('\n')+'\n')
-SRC.write_text(out)
+(SRC.parent/f'{HELPER}.gd').write_text('\n'.join(helper).rstrip('\n')+'\n', encoding="utf-8")
+SRC.write_text(out, encoding="utf-8")
 print(SRC.name,'lines',len(lines),'->',out.count('\n')+1,'helper lines',len(helper))

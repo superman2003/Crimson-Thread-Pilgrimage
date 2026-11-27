@@ -6,8 +6,8 @@ from audit_material_exchange import ROOT, validate
 class ExchangeAuditTests(unittest.TestCase):
     def setUp(self):
         data = ROOT / 'godot/data'
-        self.configs = {r: json.loads((data / f'{r}.json').read_text()) for r in json.loads((data / 'world_routes.json').read_text())['chapters']}
-        self.data = json.loads((data / 'material_exchange.json').read_text())
+        self.configs = {r: json.loads((data / f'{r}.json').read_text(encoding="utf-8")) for r in json.loads((data / 'world_routes.json').read_text(encoding="utf-8"))['chapters']}
+        self.data = json.loads((data / 'material_exchange.json').read_text(encoding="utf-8"))
     def test_canonical(self):
         self.assertEqual(validate(self.data, self.configs), [])
     def test_bad_rates_proofs_and_duplicates_fail(self):

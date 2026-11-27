@@ -23,16 +23,16 @@ class ComparisonRunnerTests(unittest.TestCase):
             for code,out,err,expected in cases:
                 with self.subTest(code=code,out=out,err=err),redirect_stdout(StringIO()),patch('run_settings_comparison_contract.subprocess.run',return_value=CompletedProcess([],code,out,err)):
                     self.assertEqual(invoke(['fixture'],{},path,MARKER),expected)
-                    self.assertEqual(path.read_text(),out+err)
+                    self.assertEqual(path.read_text(encoding="utf-8"),out+err)
     def test_timeout_preserves_both_streams_and_cannot_pass(self):
         with tempfile.TemporaryDirectory() as temporary,redirect_stdout(StringIO()):
             path=Path(temporary)/'timeout.log'
             with patch('run_settings_comparison_contract.subprocess.run',side_effect=TimeoutExpired(['fixture'],120,output=b'partial report\n',stderr=b'SCRIPT ERROR: before wait\n')):
                 self.assertFalse(invoke(['fixture'],{},path,MARKER))
-            self.assertIn('partial report',path.read_text());self.assertIn('before wait',path.read_text());self.assertIn('timeout',path.read_text())
+            self.assertIn('partial report',path.read_text(encoding="utf-8"));self.assertIn('before wait',path.read_text(encoding="utf-8"));self.assertIn('timeout',path.read_text(encoding="utf-8"))
     def test_workflow_declares_real_existing_regressions(self):
         root=Path(__file__).resolve().parents[1]
-        text=(root/'.github/contracts/settings-comparison.yml').read_text()
+        text=(root/'.github/contracts/settings-comparison.yml').read_text(encoding="utf-8")
         names=set(re.findall(r'--suite\s+([a-z0-9_/]+)',text))
         self.assertEqual(names,{'settings_profiles','settings_remap','build_slots_ui','ui_world_integration'})
         for name in names:

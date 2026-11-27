@@ -26,4 +26,4 @@ if entry['passed']:
  restart,_=run(['--crown-entry-proof='+json.dumps(proof,separators=(',',':'))],'restart.log',r'^WORLD_C06_ENTRY_RESTART failures=0 pid_changed=true$')
 after=sources()
 for label,data in [('before',before),('after',after)]:(a.log_dir/f'source-{label}.json.gz').write_bytes(gzip.compress(json.dumps(data,indent=2).encode(),mtime=0))
-v={'primary':entry,'restart':restart,'source_files':len(before),'source_unchanged':before==after,'passed':entry['passed'] and bool(restart and restart['passed']) and before==after};(a.log_dir/'verification.json').write_text(json.dumps(v,indent=2)+'\n');print(json.dumps(v,indent=2));raise SystemExit(0 if v['passed'] else 1)
+v={'primary':entry,'restart':restart,'source_files':len(before),'source_unchanged':before==after,'passed':entry['passed'] and bool(restart and restart['passed']) and before==after};(a.log_dir/'verification.json').write_text(json.dumps(v,indent=2)+'\n', encoding="utf-8");print(json.dumps(v,indent=2));raise SystemExit(0 if v['passed'] else 1)

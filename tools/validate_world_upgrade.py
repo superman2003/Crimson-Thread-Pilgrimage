@@ -9,9 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def validate():
-    routes = json.loads((ROOT / 'godot/data/world_routes.json').read_text())
+    routes = json.loads((ROOT / 'godot/data/world_routes.json').read_text(encoding="utf-8"))
     chapters = routes['chapters']
-    bases = {r: json.loads((ROOT / f'godot/data/{r}.json').read_text()) for r in chapters}
+    bases = {r: json.loads((ROOT / f'godot/data/{r}.json').read_text(encoding="utf-8")) for r in chapters}
     errors, checks = [], 0
 
     def check(value, label):

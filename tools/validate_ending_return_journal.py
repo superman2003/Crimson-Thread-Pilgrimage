@@ -30,10 +30,10 @@ def errors(data, quests):
 
 
 def validate():
-    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text())
+    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text(encoding="utf-8"))
     quests = {row['id'] for row in story['quests']}
     assert len(quests) == 5
-    data = json.loads((ROOT / 'godot/data/ending_return_journal.json').read_text())
+    data = json.loads((ROOT / 'godot/data/ending_return_journal.json').read_text(encoding="utf-8"))
     assert not errors(data, quests), errors(data, quests)
     for fault in ['unknown_quest', 'missing_ending', 'grant', 'blank', 'long', 'newline', 'version', 'internal']:
         bad = copy.deepcopy(data)

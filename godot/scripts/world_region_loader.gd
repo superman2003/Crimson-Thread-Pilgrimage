@@ -202,9 +202,18 @@ func _next_process_frame(tree: SceneTree) -> void:
         LOADER_STAGING.enter(self)
 
 
+func _has_startup_frame_waiters() -> bool:
+    return startup_token != null or transition_token != null or phase == "staging" or phase == "unloading" or phase == "committing" or staging_retiring > 0
+
+
+func _disconnect_startup_frames_if_idle() -> void:
+    if not _has_startup_frame_waiters():
+        _disconnect_startup_frames()
+
+
 func _frame_signal(tree: SceneTree) -> Signal:
     # A hidden build or its retirement also waits on frames shutdown can wake.
-    if startup_token == null and transition_token == null and staging.is_empty() and staging_retiring == 0:
+    if not _has_startup_frame_waiters():
         return tree.process_frame
     if _startup_frame_tree != tree:
         _disconnect_startup_frames()

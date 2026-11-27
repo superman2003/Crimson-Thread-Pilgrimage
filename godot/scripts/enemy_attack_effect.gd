@@ -103,7 +103,7 @@ func _physics_process(delta: float) -> void:
     if effect_kind == "projectile" or effect_kind == "wave":
         if returning and age > turn_after and is_instance_valid(owner_actor):
             velocity = velocity.move_toward((owner_actor.global_position-global_position).normalized()*velocity.length(),delta*900.0)
-        if steering>0 and age<0.8 and target!=null:
+        if not reflected and steering>0 and age<0.8 and target!=null:
             var desired := (target.global_position-Vector2(0,42)-global_position).normalized()*velocity.length()
             velocity=velocity.move_toward(desired,steering*delta)
         velocity.y += gravity*delta
@@ -121,6 +121,7 @@ func _physics_process(delta: float) -> void:
                 LEVEL_HOST.of(self)._ensure_collision_segment(previous, global_position)
             var query := PhysicsRayQueryParameters2D.create(previous,global_position,1)
             query.collide_with_areas=false
+            query.exclude=player_bodies(get_tree())
             var wall := get_world_2d().direct_space_state.intersect_ray(query)
             if LEVEL_HOST.of(self).has_method("_rock_ray_hit"):
                 var rock: Dictionary = LEVEL_HOST.of(self)._rock_ray_hit(previous, global_position)

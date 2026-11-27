@@ -53,6 +53,34 @@
 | T04 | 第二新档已从原J前钟龛字节正常返程取得王冠共鸣，实际付费R接通工房、取得奖励与独立恢复通过；正式零死，校准与反向失败保留（[11-06共鸣报告](report/20261106_t04_crown_resonance_return.md)）；原西环校准1次死亡仍保留；尚未完成六区全流程 | 最终Boss与结局；当前版本完整双顺序、不同构筑与陌生玩家记录 |
 | T05 | 已有 Windows/Linux 打包、ZIP 校验、独立启动和读档写回门禁保留；发布引擎／模板增加官方 SHA512 校验重试与完整安装回执，17 项 HTTP／TLS／归档测试及摘要反向验证通过；入口场景与许可文件由 `build_release` 校验，说明里的键位与游戏默认绑定一致（`test_player_guide_bindings`）；玩家启动时先显示标题卡（继续旅途／新旅途／退出），期间世界暂停（`title_card`，11-13）；macOS 候选包（通用架构，未公证；连续 12 次通过后改为正式门禁，11-15）；CI 的 GitHub 官方 action 升到 Node 24 版本（11-15） | 最终候选包的人工实机验收（三平台候选包已由 CI 在每次合并后自动重建）；结局说明待三结局人工验收后补写 |
 
+## 2026-11-26：汇总全项目待手绘美术绘制总清单（V02 / V01 / V03 / B01 子项）
+
+- **目标**：依据当前 `origin/main` 实测清单与运行时源码，将全项目尚待美术手绘/重绘的全部工作项统一收敛为一份面向画师与美术管线 Agent 可直接拆批排期、按脚本验收的总清单，避免散落在多份历史报告与状态表之中。
+- **交付物**：
+  - `docs/report/20261126_art_production_backlog.md`：按 `P0`–`P3` 拆分为 9 个工作包（`ART-01`–`ART-09`），覆盖 7 段强调色丢失豁免项清零、主角三契印（缝名／司铸／校录）专属普攻/下劈/疗伤动作、B01 战术职责（4 种伏击／3 种报警／1 种支援／4 种守点）专属动作、7 种短受击与 8 种短死亡段补帧、核心交互物件与 7 枚能力门牌手绘替换、45 种怪物按运动类型（6 Boss／20 地面／11 飞行／8 驻足）分批转身急停表、25 位 NPC 交互动作拓展表、六区 `flat_maps` 岩体去对称与场景层次修订，以及统一的画风/面积/轮廓/LFS 与自动化验收命令。
+  - `docs/report/20261126_art_production_backlog.json`：同名机器可读 JSON 清单，记录全部角色 `kind`、中文名、章节、运动类型、`canvas` 尺寸、`display_height`、战术职责、豁免源图 SHA-256 与工作包映射，供外部排期或自动化出图脚本直接消费。
+- **边界说明**：本 PR 仅新增美术需求盘点文档与台账记录，不修改游戏运行脚本、不提交二进制素材，也不宣称相关美术条目已完成。
+- **验证**：`python3 tools/build_ledger.py --validate` 与 JSON/字段一致性校验通过。
+
+## 2026-11-26 12:55 (北京时间) — 全项目 v1.0 发布差距与欠缺审查报告
+
+- 新增 [20261126_v1_project_gap_audit.md](../report/20261126_v1_project_gap_audit.md)，围绕显存与发行包体/许可合规、玩家主循环与手柄体验、未完结世界内容与占位美术/英文精修、架构性能与真机验收、以及发行工程/仓库治理/CI 降本五大工作流（`WS-1`–`WS-5`，共 `G-01`–`G-19` 19 项已核实条目）给出具体源码位置、量化证据、修复方案与验收标准，便于后续拆分指派专项推进。
+- 验证：`python tools/build_ledger.py --validate`、`python tools/test_build_ledger.py`、`python tools/ci/contracts.py lint` 均通过。
+
+## 2026-11-26 11:45 (北京时间) — 清理未被引用的历史诊断日志与归档
+
+- 清理 `artifacts/` 下 2,012 个未被引用的历史诊断日志与压缩归档（释放约 163.26 MiB），完整保留 43 个受 CI/验证脚本保护的目录及所有保留 JSON 报告/清单引用的日志路径。
+- 验证：`verify_crown_return_proofs.py`、`test_verify_second_order_crown.py`、`contracts.py lint`、`build_ledger.py --validate`、`npm test`、`npm run test:campaign` 均通过，且保留 `artifacts/**/*.json` 断链为 0。
+
+## 2026-11-25：修复实机与全仓审查发现的游戏、世界加载、本地化与工具缺陷（跨任务缺陷修复）
+
+建立跨章节的缺陷修复 PR，覆盖以下已核实并附带回归验证的缺陷：
+
+- **玩家与战斗系统**：修复冲刺/技能取消后的无敌与碰撞残留、`shockwave` 钟压叠加覆盖分支 B `0.4s` 硬直、`cleave` 误继承上下瞄准方向、`try_resonance` 误继承 `attack_2` 伤害、Boss 试炼重置与半血转阶段时 `vault` 滞空悬停、敌人攻击/追踪弹地形检测未排除全部 `"player"` 分组节点、盐雾遗漏 `"mortar"` 类型、小怪 `"blink"` 未经地形扫描防穿墙，以及模拟训练场治疗回血被误计入受击次数。
+- **世界切换、异步加载与存档安全**：修复分段预加载取消时异步卸载覆盖玩家后续 `world_state`/`build_system` 状态、预加载期间子 `AudioDirector` 抢占全局单例及退场误静音源区域音频、`world_region_loader` 空闲时残留 `process_frame` 监听、`manifest_refresh_running` 竞态与取消检查、`config_read_job` 重复预取、`level_region_build` 误调私有 `_data()`；修复 `level_journey_data` 删除主存档先于归档 `.bak` 备份的顺序风险、`F9` 新旅途快捷键在打开其他界面时穿透触发，以及 `settings_profiles_desk` 应用旧版设置方案未传递补全后快照。
+- **本地化与文本**：全面修复 `godot/data/ui_en_game.json`（`milestones/model.gd` 38 条）与 `godot/data/ui_en_story.json`（`demo_ch01`/`demo_ch02`/`demo_ch05`/`world_routes` 及残留条目共 90 条）整批错位/残缺的英文译文，并在 `tools/audit_ui_translations.py` 增补语义回归守卫。
+- **工具与 CI 健壮性**：修复 `tools/godot_suite_success_markers.json` 重复 `"achievements"` 键、补齐 Windows Python 文本 UTF-8 编码审计、修复 `tools/ci/contracts.py` 无 `--include` 的 `hydrate_runtime_assets.py` 默认全仓拉取 LFS 问题及 Windows 8.3 短路径兼容（同步更新 `map-group-framing.yml` / `spatial-ambience.yml` 显式 `--include`）、修复 `validate_demo_geometry.py` / `validate_generated_godot_runtime.py` 解析 `GROUND_MOTION.GRAVITY`，并使 `test_contracts.py` 与 `test_credits_catalog.py` 在 Windows 无符号链接权限环境下正确跳过 POSIX 专属测试。
+
 ## 2026-11-24：六章普通踏台使用实体碰撞（W02 / W04 子项）
 
 六章的 261 块普通单向地形逐块处理。257 块改为实体，4 块与相邻落点整合。当前关卡配置用显式碰撞角色决定实体踏台。能力壁龛和工房里明确设计为从下方进入的设施继续使用各自的机制。未标记碰撞角色的踏台默认使用实体碰撞。

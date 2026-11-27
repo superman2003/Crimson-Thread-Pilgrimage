@@ -14,7 +14,7 @@ def digest(data):return hashlib.sha256(data).hexdigest()
 def build():
  atlas=Image.new('RGBA',(CELL*8,CELL*3));records={}
  for row,family in enumerate(FAMILIES):
-  stem=SOURCES/('FX_H_'+family);raw=stem.with_suffix('.png').read_bytes();prompt=stem.with_suffix('.txt').read_bytes();meta=json.loads(stem.with_suffix('.json').read_text())
+  stem=SOURCES/('FX_H_'+family);raw=stem.with_suffix('.png').read_bytes();prompt=stem.with_suffix('.txt').read_bytes();meta=json.loads(stem.with_suffix('.json').read_text(encoding="utf-8"))
   if digest(raw)!=meta['image_sha256'] or digest(prompt)!=meta['prompt_sha256']:raise ValueError(f'{family}: delivered source hash differs')
   image=Image.open(io.BytesIO(raw)).convert('RGBA');frames=meta['frames']
   if len(frames)!=8 or list(image.size)!=meta['image_size']:raise ValueError(f'{family}: source dimensions/frame count differ')

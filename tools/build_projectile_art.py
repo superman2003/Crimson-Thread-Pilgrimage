@@ -21,7 +21,7 @@ def build():
     for row, family in enumerate(FAMILIES):
         stem = SOURCES / ('FX_P_' + family)
         raw = stem.with_suffix('.png').read_bytes()
-        meta = json.loads(stem.with_suffix('.json').read_text())
+        meta = json.loads(stem.with_suffix('.json').read_text(encoding="utf-8"))
         if digest(raw) != meta['image_sha256']:
             raise ValueError(f'{family}: source checksum differs from delivered JSON')
         image = Image.open(io.BytesIO(raw)).convert('RGBA')
