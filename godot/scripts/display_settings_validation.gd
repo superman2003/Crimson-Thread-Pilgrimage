@@ -154,7 +154,7 @@ func run() -> void:
     check(audited_english.resolve("装备")=="Equipment","reviewed equipment label translates semantically")
     check(audited_english.resolve("入口会在战斗时封闭。")=="The entrance closes during combat.","reviewed boss-room guide preserves its source meaning")
     var recall_source: String="击败%d位守门者后，可在钟龛选择保留六成的远程召回（当前%d/%d）。" % [6, 4, 6]
-    check(audited_english.resolve(recall_source)=="After defeating 6 Gatewardens, you can choose to retain 60% of the remote recall at the Bell niche (current 4/6).",
+    check(audited_english.resolve(recall_source)=="After defeating 6 Gatewardens, you may choose a 60%-retention remote recall at a Bell Shrine (current 4/6).",
         "formatted recovery text keeps a literal percent sign and all runtime counters")
     var growth_snapshot:="用已取得能力、已获装备、已知任务和持有物资建立成长观察快照，比较两次观察间的变化。个人目标只引用已知条目，不授予成长或自动跟踪未知目标。"
     check(audited_english.resolve(growth_snapshot).begins_with("Create a growth snapshot from acquired abilities"),
