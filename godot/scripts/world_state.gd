@@ -193,7 +193,15 @@ func _write_candidate_locked(candidate: Dictionary, path: String) -> bool:
         return _fail("save changed while preparing candidate; left untouched")
     var installed_hash:=_validated_source_hash
     var absolute := ProjectSettings.globalize_path(path)
-    if FileAccess.file_exists(path) and not _backup_matches(path,before_hash):
+    var directory := DirAccess.open(absolute.get_base_dir())
+    var unchanged := installed_hash == before_hash and directory != null and not directory.is_link(absolute) and _files_identical(temporary,path)
+    var backup_path := path + ".bak"
+    var backup_needed := FileAccess.file_exists(path) and not _backup_matches(path,before_hash)
+    # A duplicate checkpoint is already durable; never overwrite an existing
+    # valid predecessor backup with an identical copy of primary.
+    if unchanged and backup_needed and FileAccess.file_exists(backup_path) and _read_valid_file(backup_path) != null:
+        backup_needed = false
+    if backup_needed:
         var pending:=absolute+".bak.pending"
         var backup_status:=DirAccess.copy_absolute(absolute,pending)
         if backup_status==OK and _file_hash(pending)!=before_hash:backup_status=ERR_FILE_CORRUPT
@@ -202,14 +210,9 @@ func _write_candidate_locked(candidate: Dictionary, path: String) -> bool:
             DirAccess.remove_absolute(pending)
             DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
             return _fail("cannot preserve verified previous save: %s" % backup_status)
-    # A duplicate checkpoint is already durable. Keep its independent verified
-    # backup, retire the verified temporary copy, and avoid a redundant primary
-    # replacement. The ordinary validation and write-lease checks still ran.
     if _file_hash(path) != before_hash:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
         return _fail("save changed while preserving backup; primary left untouched")
-    var directory := DirAccess.open(absolute.get_base_dir())
-    var unchanged := installed_hash == before_hash and directory != null and not directory.is_link(absolute) and _files_identical(temporary,path)
     var rename_status := DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary)) if unchanged else _install_candidate(temporary,absolute)
     if rename_status != OK:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))

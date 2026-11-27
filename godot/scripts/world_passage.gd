@@ -465,44 +465,49 @@ static func _await_staged(passage_ref: WeakRef, loader: RefCounted, entry: Vecto
         waiting.staged_wait_frames += 1
         await loader._frame_signal(tree)
     var passage: Variant = passage_ref.get_ref()
-    if passage == null or loader.shutting_down or not is_instance_valid(passage.host) or not passage.host.is_inside_tree():
+    if passage == null or loader.shutting_down or not passage.is_inside_tree() or passage.is_queued_for_deletion() or not is_instance_valid(passage.host) or not passage.host.is_inside_tree() or passage.host.is_queued_for_deletion():
         return
-    passage._handover_staged(entry)
+    _handover_staged(passage_ref, entry)
 
 
-func _handover_staged(entry: Vector2) -> void:
-    var loader: RefCounted = host.world_loader
-    var waited_usec := Time.get_ticks_usec() - staged_wait_started
+static func _handover_staged(passage_ref: WeakRef, entry: Vector2) -> void:
+    var passage: Variant = passage_ref.get_ref()
+    if passage == null or not passage.is_inside_tree() or passage.is_queued_for_deletion() or not is_instance_valid(passage.host) or not passage.host.is_inside_tree() or passage.host.is_queued_for_deletion():
+        return
+    var host_node: Node = passage.host
+    var loader: RefCounted = host_node.world_loader
+    var waited_usec := Time.get_ticks_usec() - passage.staged_wait_started
     if loader.phase != "staged":
         # The hidden build failed: load the destination the ordinary way.
-        staged = false
-        host.player.process_mode = arrival_previous_player_mode
-        _arrive()
+        passage.staged = false
+        host_node.player.process_mode = passage.arrival_previous_player_mode
+        passage._arrive()
         return
-    var ok: bool = await loader.handover_staged_async(host, entry)
-    if not is_instance_valid(host) or not host.is_inside_tree():
+    var ok: bool = await loader.handover_staged_async(host_node, entry)
+    passage = passage_ref.get_ref()
+    if passage == null or loader.shutting_down or not passage.is_inside_tree() or passage.is_queued_for_deletion() or not is_instance_valid(host_node) or not host_node.is_inside_tree() or host_node.is_queued_for_deletion():
         return
-    loader.last_transition["terminal_wait_frames"] = staged_wait_frames
+    loader.last_transition["terminal_wait_frames"] = passage.staged_wait_frames
     loader.last_transition["terminal_wait_usec"] = waited_usec
-    host.player.process_mode = arrival_previous_player_mode
+    host_node.player.process_mode = passage.arrival_previous_player_mode
     if not ok:
-        staged = false
-        _arrive()
+        passage.staged = false
+        passage._arrive()
         return
-    var world_point := terminal_world_point
-    last_result = {"arrived": true, "distance": travelled, "world_position": world_point, "landing_support": landing_support_key,
-        "staged": true, "terminal_wait_frames": staged_wait_frames}
-    host.player.collision_layer = original_layer
-    host.player.collision_mask = original_mask
-    _clear()
-    host._configure_player_camera()
-    host.player.reset_camera_after_arrival()
+    var world_point: Vector2 = passage.terminal_world_point
+    passage.last_result = {"arrived": true, "distance": passage.travelled, "world_position": world_point, "landing_support": passage.landing_support_key,
+        "staged": true, "terminal_wait_frames": passage.staged_wait_frames}
+    host_node.player.collision_layer = passage.original_layer
+    host_node.player.collision_mask = passage.original_mask
+    passage._clear()
+    host_node._configure_player_camera()
+    host_node.player.reset_camera_after_arrival()
 
 
 func _finish_arrival() -> void:
     var ok: bool = arrival_token != null and arrival_token.succeeded
     _release_arrival_token()
-    if not is_instance_valid(host) or not host.is_inside_tree():
+    if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(host) or not host.is_inside_tree() or host.is_queued_for_deletion() or (host.world_loader != null and host.world_loader.shutting_down):
         return
     var world_point := terminal_world_point
     host.player.process_mode = arrival_previous_player_mode

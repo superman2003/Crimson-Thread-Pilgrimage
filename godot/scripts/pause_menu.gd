@@ -6,12 +6,16 @@ const TYPE := preload("res://scripts/ui_type_scale.gd")
 const TITLE_CARD := preload("res://scripts/title_card.gd")
 const CLOSE_OWNER_NAME := "PilgrimageApplicationClose"
 const NODE_NAME := "PauseMenu"
+static var closed_frame := -1
+static var closed_physics_frame := -1
 signal closed(action: String)
 var level: Node
 var buttons: Dictionary = {}
 var status_label: Label
 var pending_discard_action := ""
 var kept_audio_mode := Node.PROCESS_MODE_INHERIT
+var kept_bgm_mode := Node.PROCESS_MODE_INHERIT
+var holding_pause := false
 var opened_frame := -1
 
 static func is_open(world: Node) -> bool:
@@ -121,25 +125,56 @@ func setup(world: Node) -> void:
     buttons["resume"].call_deferred("grab_focus")
 
 func hold() -> void:
-    var director: Variant = level.get("audio_director")
-    if director is Node and is_instance_valid(director):
-        kept_audio_mode = director.process_mode
-        director.process_mode = Node.PROCESS_MODE_ALWAYS
-    get_tree().paused = true
+    if holding_pause:
+        return
+    if is_instance_valid(level):
+        var director: Variant = level.get("audio_director")
+        if director is Node and is_instance_valid(director):
+            kept_audio_mode = director.process_mode
+            director.process_mode = Node.PROCESS_MODE_ALWAYS
+        var bgm: Variant = level.get("bgm_player")
+        if bgm is Node and is_instance_valid(bgm):
+            kept_bgm_mode = bgm.process_mode
+            bgm.process_mode = Node.PROCESS_MODE_ALWAYS
+    holding_pause = true
+    if get_tree() != null:
+        get_tree().paused = true
 
 func release() -> void:
+    if not holding_pause:
+        return
+    holding_pause = false
     if get_tree() != null:
         get_tree().paused = false
     if is_instance_valid(level):
         var director: Variant = level.get("audio_director")
         if director is Node and is_instance_valid(director):
             director.process_mode = kept_audio_mode
+        var bgm: Variant = level.get("bgm_player")
+        if bgm is Node and is_instance_valid(bgm):
+            bgm.process_mode = kept_bgm_mode
+
+func _exit_tree() -> void:
+    if holding_pause:
+        release()
+
+func _mark_closed() -> void:
+    closed_frame = Engine.get_process_frames()
+    closed_physics_frame = Engine.get_physics_frames()
+    if is_instance_valid(level):
+        level.set_meta("pause_suppress_frame", closed_frame)
+        level.set_meta("pause_resume_physics_frame", closed_physics_frame)
+    for action_name in ["close_overlay", "dash", "jump"]:
+        if InputMap.has_action(action_name):
+            Input.action_release(action_name)
+    if name == NODE_NAME:
+        name = "PauseMenuClosing"
 
 func _input(event: InputEvent) -> void:
     if is_queued_for_deletion() or Engine.get_process_frames() == opened_frame:
         return
     var cancel_key: bool = event is InputEventKey and event.pressed and not event.echo and (event.physical_keycode == KEY_ESCAPE or event.keycode == KEY_ESCAPE)
-    var cancel_pad: bool = event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_B
+    var cancel_pad: bool = event is InputEventJoypadButton and event.pressed and (event.button_index == JOY_BUTTON_B or event.button_index == JOY_BUTTON_START)
     if cancel_key or cancel_pad:
         get_viewport().set_input_as_handled()
         choose("resume")
@@ -162,38 +197,50 @@ func _show_save_failure(action: String) -> void:
         btn.visible = true
         btn.grab_focus()
 
-func _leave_world(action: String) -> void:
+func _leave_world(action: String, discarded: bool = false) -> void:
     if action == "quit":
+        _mark_closed()
         release()
         closed.emit(action)
         queue_free()
         var tree := get_tree()
         if tree != null:
-            if tree.root.get_node_or_null(NodePath(CLOSE_OWNER_NAME)) != null:
-                tree.root.close_requested.emit()
+            var owner := tree.root.get_node_or_null(NodePath(CLOSE_OWNER_NAME))
+            if owner != null:
+                if owner.has_method("request_close"):
+                    owner.call("request_close", true)
+                else:
+                    tree.root.close_requested.emit()
             else:
                 tree.quit()
         return
     if action == "title":
+        _mark_closed()
         release()
         closed.emit(action)
         queue_free()
         if is_instance_valid(level):
-            TITLE_CARD.open(level, true)
+            var has_journey := true
+            if discarded:
+                var save_path := String(level.get("world_save_path")) if level.get("world_save_path") != null else ""
+                if not save_path.is_empty():
+                    has_journey = FileAccess.file_exists(save_path)
+            TITLE_CARD.open(level, has_journey)
 
 func choose(action: String) -> void:
     if is_queued_for_deletion():
         return
     if action == "discard_leave":
         if pending_discard_action == "quit" or pending_discard_action == "title":
-            _leave_world(pending_discard_action)
+            _leave_world(pending_discard_action, true)
         return
     if action == "quit" or action == "title":
         if not _save_if_ready():
             _show_save_failure(action)
             return
-        _leave_world(action)
+        _leave_world(action, false)
         return
+    _mark_closed()
     release()
     if action == "settings" and is_instance_valid(level) and level.has_method("_toggle_audio_settings"):
         level._toggle_audio_settings()

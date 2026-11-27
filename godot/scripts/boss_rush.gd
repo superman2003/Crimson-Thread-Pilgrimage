@@ -4,6 +4,8 @@ extends CanvasLayer
 ## kit), so every run fights under the same conditions and times compare.
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 const RETIRE := preload("res://scripts/audio_retirement.gd")
+const ART := preload("res://scripts/hand_drawn_assets.gd")
+const DIALOG_FOCUS := preload("res://scripts/dialog_focus_bridge.gd")
 const STAGES: Array[String] = [
     "res://data/demo_ch01_moss_bell_court.json", "res://data/demo_ch02_rain_foundry_canal.json",
     "res://data/demo_ch03_saltwhite_archive.json", "res://data/demo_ch04_broken_string_greenhouse.json",
@@ -52,10 +54,15 @@ func begin(world: Node) -> void:
             var level: Node=load("res://scenes/Main.tscn").instantiate()
             level.config_path=path;level.world_mode=false;level.boss_trial_mode=true
             return level
+    var return_slot := int(world.get("world_slot")) if world.get("world_slot") != null and int(world.get("world_slot")) >= 1 and int(world.get("world_slot")) <= 3 else 1
+    var return_path := String(world.get("world_save_path")) if world.get("world_save_path") != null else ""
     if not make_world.is_valid():
         make_world=func():
             var level: Node=load("res://scenes/World.tscn").instantiate()
             level.world_startup_options_enabled=false
+            level.world_slot=return_slot
+            if not return_path.is_empty():
+                level.world_save_path=return_path
             return level
     label=Label.new();label.name="Clock";label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
@@ -75,9 +82,16 @@ func begin(world: Node) -> void:
 
 func _swap(old: Node, new: Node) -> void:
     var tree:=get_tree()
+    var evict_configs: Array = []
     if is_instance_valid(old):
         RETIRE.retire_tree(old)
         old.get_parent().remove_child(old);old.queue_free()
+    if tree!=null and new!=null:
+        var cfg: Variant = new.get("config")
+        if cfg is Dictionary and not cfg.is_empty():
+            evict_configs.append(cfg)
+    if not evict_configs.is_empty():
+        ART.evict_unused_region_assets(evict_configs)
     scene=new
     if new!=null:
         get_parent().add_child(new);tree.current_scene=new
@@ -124,19 +138,24 @@ func _refresh() -> void:
 
 func _finish(cleared: bool) -> void:
     done=true;fighting=false
+    if get_tree()!=null:
+        get_tree().paused=false
     var previous:=best()
     var improved:=cleared and (previous<=0.0 or elapsed<previous)
     var record:=improved and store.writable and store.write({"best_seconds":elapsed})
     var unsaved:=improved and not record
     var result:={"cleared":cleared,"seconds":elapsed,"splits":splits.duplicate(),"best":elapsed if record else previous,"record":record}
     _swap(scene,make_world.call())
+    ART.evict_unused_region_assets([])
     label.visible=false
     if quit_hint!=null:quit_hint.visible=false
     var window:=AcceptDialog.new();window.name="Result";window.title="首领连战"
     window.process_mode=Node.PROCESS_MODE_ALWAYS
     window.dialog_text=("用时 %s%s" % [clock_text(elapsed),"　新纪录" if record else ("　未能保存纪录。"+store.error if unsaved else ("　最佳 "+clock_text(previous) if previous>0.0 else ""))]) if cleared else "已退出连战。"
     add_child(window)
+    DIALOG_FOCUS.install(window)
     var close:=func():
         finished.emit(result);queue_free()
     window.confirmed.connect(close);window.canceled.connect(close)
     window.popup_centered()
+    window.get_ok_button().call_deferred("grab_focus")

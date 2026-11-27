@@ -255,6 +255,11 @@ func _alive(host: Variant) -> bool:
 func _cancel_input() -> void:
     if Input.is_physical_key_pressed(KEY_ESCAPE):
         cancel_transition()
+        return
+    for device in Input.get_connected_joypads():
+        if Input.is_joy_button_pressed(device, JOY_BUTTON_B):
+            cancel_transition()
+            return
 
 
 func _measure_batch(operations: int, started: int, metric: String) -> void:

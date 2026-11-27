@@ -84,10 +84,35 @@ func run() -> void:
         if reopened_card!=null:
             reopened_card.buttons["continue"].pressed.emit();await process_frame
         CARD.shown=false
-        # Re-open and verify resume still releases pause menu cleanly.
+        # Re-open and verify resume still releases pause menu cleanly and sets same-frame suppress guard.
         pause_menu=pause_script.open(level);await process_frame
         pause_menu.buttons["resume"].pressed.emit();await process_frame
         check(not paused and not pause_script.is_open(level) and level.audio_director.process_mode==Node.PROCESS_MODE_INHERIT,"resume releases pause menu cleanly")
+        check(int(level.get_meta("pause_suppress_frame",-1))>=0,"closing pause menu records same-frame reopen suppression")
+        # Freeing PauseMenu while holding pause (e.g. scene swap) must not leave tree paused.
+        pause_menu=pause_script.open(level);await process_frame
+        check(paused,"pause menu holds pause before external removal")
+        level.remove_child(pause_menu);pause_menu.queue_free();await process_frame
+        check(not paused and level.audio_director.process_mode==Node.PROCESS_MODE_INHERIT,"external pause menu exit releases pause cleanly")
+    # Title card slot summary uses play_seconds and compact 2-line layout.
+    var probe_card: Node=CARD.new()
+    var slot_text: String=probe_card._slot_summary({"slot":2,"exists":true,"valid":true,"region_id":"demo_ch02_rain_foundry_canal","completion":45,"play_seconds":3720},false)
+    check(slot_text.count("\n")==1 and slot_text.contains("45%") and slot_text.contains("1:02"),"slot summary renders compact 2-line region, completion, and real playtime")
+    check(probe_card._language_button_label().contains("EN"),"title card language button exposes EN cue for non-Chinese players")
+    probe_card.free()
+    # Unchanged duplicate save preserves independent valid .bak predecessor.
+    var ws_script: Variant=load("res://scripts/world_state.gd")
+    var test_save:="user://title_card_dup_bak_test.json"
+    for suffix in ["",".bak",".tmp",".bak.pending"]:
+        if FileAccess.file_exists(test_save+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(test_save+suffix))
+    var writer: RefCounted=ws_script.new()
+    var s0: Dictionary=writer.data.duplicate(true);s0.currency=10
+    var s1: Dictionary=writer.data.duplicate(true);s1.currency=25
+    check(writer.write_candidate(s0,test_save) and writer.write_candidate(s1,test_save),"two distinct saves install primary and predecessor backup")
+    var bak_before:=FileAccess.get_file_as_string(test_save+".bak")
+    check(writer.write_candidate(s1,test_save) and FileAccess.get_file_as_string(test_save+".bak")==bak_before,"duplicate unchanged save preserves predecessor .bak intact")
+    for suffix in ["",".bak",".tmp",".bak.pending"]:
+        if FileAccess.file_exists(test_save+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(test_save+suffix))
     # Win banner auto-fades after 6.5s.
     if FileAccess.file_exists("res://scripts/level_hud.gd"):
         var hud_script: Variant=load("res://scripts/level_hud.gd")

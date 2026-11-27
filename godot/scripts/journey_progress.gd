@@ -60,6 +60,8 @@ func attach(save_path: String, resume: bool) -> void:
     var value: Variant=payload.get("seconds")
     if payload.size()==1 and typeof(value) in [TYPE_INT,TYPE_FLOAT] and is_finite(float(value)) and float(value)>=0.0:
         seconds=float(value);saved=int(seconds)
+    elif not payload.is_empty():
+        store.writable=false
 
 func tick(delta: float) -> void:
     if is_finite(delta) and delta>0.0:seconds+=minf(delta,1.0)

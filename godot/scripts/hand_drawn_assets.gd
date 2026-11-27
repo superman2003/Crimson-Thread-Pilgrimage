@@ -200,6 +200,7 @@ static func evict_unused_region_assets(configs: Array) -> Dictionary:
         if not keep_textures.has(path) and not texture_requests.has(path):
             textures.erase(key)
             evicted_textures += 1
+    texture_failures.clear()
     return {"evicted_textures": evicted_textures, "evicted_frames": evicted_frames,
         "retained_textures": textures.size(), "retained_frames": frame_cache.size()}
 

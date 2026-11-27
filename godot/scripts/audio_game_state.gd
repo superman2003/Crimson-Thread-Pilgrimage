@@ -10,6 +10,8 @@ static func engage_shrine(director: Node, anchor: Vector2) -> void:
 
 
 static func process(director: Node, delta: float) -> void:
+    if director.is_inside_tree() and director.get_tree().paused:
+        return
     if director._npc_speaker != null:
         var speaker: Node = director._npc_speaker.get_ref()
         if not is_instance_valid(speaker) or not speaker.is_inside_tree() or speaker.is_queued_for_deletion() \

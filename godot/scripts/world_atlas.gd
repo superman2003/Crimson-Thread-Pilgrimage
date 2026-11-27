@@ -39,6 +39,12 @@ static func _synchronize_route_cache() -> bool:
         route_generation = current_generation
     return current_generation >= 0
 
+static func clear_caches() -> void:
+    configurations.clear()
+    geometry.clear()
+    room_contours.clear()
+    route_generation = -1
+
 static func configuration(id: String) -> Dictionary:
     if not _synchronize_route_cache():
         return {}
@@ -46,8 +52,10 @@ static func configuration(id: String) -> Dictionary:
         var path := ROUTES.cached_config_path(id)
         if path.is_empty():
             return {}
-        var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
-        configurations[id] = ROUTES.apply_to_owned_cached(raw)
+        var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+        if not (parsed is Dictionary):
+            return {}
+        configurations[id] = ROUTES.apply_to_owned_cached(parsed)
     return configurations[id]
 
 static func terrain(id: String) -> Array[PackedVector2Array]:

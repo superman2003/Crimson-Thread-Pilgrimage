@@ -158,6 +158,7 @@ static func transition_to_next_chapter(level: Node, next_config_path: String) ->
     next_scene.set("carried_inventory_enabled", true)
     next_scene.set("carried_inventory_counts", level.inventory_counts.duplicate(true))
     next_scene.set("carried_currency", level.currency_count)
+    level._release_region_audio()
     parent_node.add_child(next_scene)
     level.queue_free()
 
