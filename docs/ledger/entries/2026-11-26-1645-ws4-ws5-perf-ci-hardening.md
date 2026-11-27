@@ -1,0 +1,12 @@
+## 2026-11-26：完成 WS-4 / WS-5 切房零深拷贝优化、发布元数据与日志、仓库清理、CI LFS 降本及存档防篡改加固（G-13 / G-16 / G-17 / G-18 / G-19）
+
+- **目标**：关闭 1.0 审计中性能热点（G-13）、打包元数据与文件日志（G-16）、仓库临时/损坏死脚本清理（G-17）、CI 全量 LFS 与分片冗余及 ObjectDB 泄漏（G-18）、存档输入边界防篡改与夜间长跑（G-19）五项工程与质量缺口。
+- **改动**：
+  - **G-13 消除 293 KB 路由清单深拷贝**：在 `godot/scripts/world_routes.gd` 新增按需读取接口 `cached_region_list()` 与零深拷贝查询 `has_hidden_room()`；更新 `godot/scripts/level_region_build.gd` 全部 4 处热点（`spawn_seal_practice_targets`、`spawn_tool_practice_targets`、`spawn_hidden_route_clues`、`is_hidden_room`），进房与建区不再重复深拷贝完整 `world_routes.json`。
+  - **G-16 打包元数据、文件日志与受控打包输入**：在 `godot/project.godot` 补齐 `config/version="1.0.0"`、将 `config/features` 与 `gl_compatibility` 对齐为 `"GL Compatibility"` 并开启 `[debug] file_logging/enable_file_logging=true`；更新 `godot/export_presets.cfg`（Windows 开启 `application/modify_resources=true` 与 `1.0.0.0` 产品/版本信息，macOS 升级至 `1.0.0`）；在 `tools/build_release.py` 中优先按 `git ls-files` 收集受版本控制的运行期文件（保留非 git 临时目录回退），防止未追踪本地杂文件误打入候选包。
+  - **G-17 仓库与工具卫生**：移除误追踪的根目录临时脚本 `tmp_check_contracts.mjs` 与零引用失效脚本 `tools/capture_combat_pose_review.py`。
+  - **G-18 CI LFS 降本、分片去重与 ObjectDB 零泄漏**：将剩余 14 份 `.github/contracts/*.yml` 合同全部从 `lfs: true` 改为按需 `git lfs pull --include='godot/assets/**'`（全仓 0 份 `lfs: true` 合同）；让 `.github/actions/hydrate-lfs/action.yml` 兼容 Windows/macOS/Linux Python 路径并在 `.github/workflows/release-candidate.yml` 三端接入缓存复用的 `hydrate-lfs`；在 `.github/workflows/godot-integration.yml` 为 JS/Python 检查与 MetSys 冷启动检查补充 `matrix.shard == 1` 守卫避免 3 倍重复执行；在 `godot/scripts/boss_trial_validation.gd` 退出前正确回收音频并 `await process_frame`，消除退出时 ObjectDB 泄漏警告。
+  - **G-19 存档篡改边界校验与夜间长跑**：在 `godot/scripts/world_state.gd::_valid_data()` 增加 `hp`（`0..100` 整数）、`energy`（`0..1000` 整数）、`currency`（`0..9999999`）及合法区域标识符 `_valid_region_id()` 校验（同时保持对已移除但格式合法区域的回退兼容），在 `save_recovery_validation.gd` 新增 6 项 `tampered_bounds` 回归用例；为 `.github/workflows/runtime-lifecycle-soak.yml` 新增每日定时 `schedule`（北京时间 03:00）300 秒长跑。
+- **验证**：
+  - CI 与工具单测：`tools/ci/contracts.py lint`、`tools/test_integration_workflow.py`、`tools/test_lfs_cache_workflows.py`、`tools/test_release_builder.py`、`tools/test_build_macos_candidate.py`、`tools/test_export_audit.py`、`tools/audit_export_contents.py`、`tools/build_ledger.py --validate`、`tools/test_build_ledger.py`、`npm test`、`npm run test:campaign` 全部通过。
+  - Godot 回归套件：`boss_trial`、`save_recovery`、`save_product`、`world_state`、`world_streaming`、`world_neighbor_gameplay`、`world_prepare_budget`、`world_residency_inventory`、`hidden_routes` 全部通过（0 失败、0 ObjectDB 泄漏）。

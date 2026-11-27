@@ -129,9 +129,8 @@ static func finish_region_geometry(level: Node) -> void:
 
 
 static func spawn_seal_practice_targets(level: Node) -> void:
-    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("seal_practice_plan", []):
-        if String(entry.get("region_id", "")) != String(level.config.get("id", "")):
-            continue
+    var region_id := String(level.config.get("id", ""))
+    for entry in WORLD_ROUTES_SCRIPT.cached_region_list("seal_practice_plan", region_id):
         var target := Area2D.new()
         target.set_script(load("res://scripts/seal_training_target.gd"))
         target.name = String(entry.training_id)
@@ -164,17 +163,12 @@ static func spawn_seal_practice_targets(level: Node) -> void:
 
 
 static func spawn_tool_practice_targets(level: Node) -> void:
-    # cached_data() deep-copies the whole route manifest, so read it once per
-    # region and keep only this region's rooms for the per-cast / per-room checks.
-    var routes: Dictionary = WORLD_ROUTES_SCRIPT.cached_data()
+    var region_id := String(level.config.get("id", ""))
     level.tool_practice_rooms.clear()
     level.tool_encounter_hints.clear()
-    for entry in routes.get("tool_encounter_plan", []):
-        if String(entry.get("region_id", "")) == String(level.config.get("id", "")):
-            level.tool_encounter_hints[String(entry.get("room_id", ""))] = entry
-    for entry in routes.get("tool_practice_plan", []):
-        if String(entry.get("region_id", "")) != String(level.config.get("id", "")):
-            continue
+    for entry in WORLD_ROUTES_SCRIPT.cached_region_list("tool_encounter_plan", region_id):
+        level.tool_encounter_hints[String(entry.get("room_id", ""))] = entry
+    for entry in WORLD_ROUTES_SCRIPT.cached_region_list("tool_practice_plan", region_id):
         level.tool_practice_rooms[String(entry.get("room_id", ""))] = true
         var target := Area2D.new()
         target.set_script(load("res://scripts/tool_training_target.gd"))
@@ -277,9 +271,8 @@ static func commit_history_prop(level: Node, area: Area2D) -> void:
 
 static func spawn_hidden_route_clues(level: Node) -> void:
     level.hidden_route_clues.clear()
-    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
-        if String(entry.get("region_id", "")) != String(level.config.get("id", "")):
-            continue
+    var region_id := String(level.config.get("id", ""))
+    for entry in WORLD_ROUTES_SCRIPT.cached_region_list("hidden_route_plan", region_id):
         var clue := Node2D.new()
         clue.set_script(level.HIDDEN_ROUTE_CLUE_SCRIPT)
         clue.name = "HiddenClue_" + String(entry.id)
@@ -309,10 +302,7 @@ static func notice_hidden_route_clues(level: Node) -> void:
 static func is_hidden_room(level: Node, room_id: String) -> bool:
     if not level.world_mode or room_id.is_empty():
         return false
-    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
-        if entry is Dictionary and String(entry.get("region_id", "")) == String(level.config.get("id", "")) and String(entry.get("hidden_room_id", "")) == room_id:
-            return true
-    return false
+    return WORLD_ROUTES_SCRIPT.has_hidden_room(String(level.config.get("id", "")), room_id)
 
 
 static func mark_hidden_route_found(level: Node) -> void:

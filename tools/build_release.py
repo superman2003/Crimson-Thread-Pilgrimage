@@ -38,9 +38,33 @@ def excluded(path: Path) -> bool:
             or path.suffix in {".log", ".tmp", ".bak"})
 
 
+def _git_tracked_project_files(project: Path) -> list[Path] | None:
+    repo_root = project.parent
+    if not (repo_root / '.git').exists():
+        return None
+    try:
+        res = subprocess.run(
+            ['git', 'ls-files', '-z', '--', project.name],
+            cwd=repo_root, capture_output=True, check=True, timeout=30
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    tracked = []
+    for raw in res.stdout.split(b'\0'):
+        if not raw:
+            continue
+        candidate = repo_root / raw.decode('utf-8', errors='surrogateescape')
+        if candidate.exists():
+            tracked.append(candidate)
+    return sorted(tracked)
+
+
 def runtime_files(project: Path) -> list[Path]:
     files = []
-    for path in sorted(project.rglob('*')):
+    candidates = _git_tracked_project_files(project)
+    if candidates is None:
+        candidates = sorted(project.rglob('*'))
+    for path in candidates:
         relative = path.relative_to(project)
         if excluded(relative):
             continue

@@ -48,7 +48,7 @@ jobs:
         if: ${{ !cancelled() }}
         run: python3 -m pip install -r tools/requirements-hero.txt
       - name: Validate JavaScript and chapter structure
-        if: ${{ !cancelled() }}
+        if: matrix.shard == 1 && !cancelled()
         run: |
           python3 tools/test_ci_shards.py
           python3 tools/test_integration_workflow.py
@@ -71,7 +71,7 @@ jobs:
           python3 tools/build_combat_motion_v7.py --check
           python3 tools/build_boss_behavior_motion.py --check
       - name: Validate cold and warm MetSys editor lifecycle
-        if: ${{ !cancelled() }}
+        if: matrix.shard == 1 && !cancelled()
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/test_metsys_probe_contract.py

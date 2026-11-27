@@ -1,5 +1,6 @@
 extends SceneTree
 const ART := preload("res://scripts/hand_drawn_assets.gd")
+const AUDIO := preload("res://scripts/audio_retirement.gd")
 
 const MAIN_SCENE := preload("res://scenes/Main.tscn")
 const BOSS_TRIAL_CONFIG_PATH := "res://data/demo_ch01_boss_trial.json"
@@ -32,7 +33,7 @@ func _run() -> void:
     await process_frame
     await process_frame
     await process_frame
-    _sample_boss_tactics(scene)
+    await _sample_boss_tactics(scene)
     var state: Dictionary = scene.get_demo_state()
     _assert_boss_trial_state(state, "initial")
     scene._reset_encounters_after_player_death()
@@ -44,6 +45,11 @@ func _run() -> void:
     _assert_true(scene.player.camera_focus.locks.has("boss_arena"), "after death reset trial camera lock is restored")
     _assert_boss01_directional_manifest("runtime")
     if failure_count > 0:
+        AUDIO.retire_tree(scene)
+        scene.queue_free()
+        await process_frame
+        await process_frame
+        await AUDIO.drain(self)
         quit(1)
         return
     print("BOSS_TRIAL_VALIDATION_PASS config=%s spawn=%s boss=%s boss_spawned=%s" % [
@@ -52,7 +58,11 @@ func _run() -> void:
         str(state.get("boss_position", [])),
         str(state.get("boss_spawned", false))
     ])
+    AUDIO.retire_tree(scene)
     scene.queue_free()
+    await process_frame
+    await process_frame
+    await AUDIO.drain(self)
     quit(0)
 
 
@@ -85,20 +95,26 @@ func _sample_boss_tactics(scene: Node) -> void:
     _assert_true(boss != null, "boss tactic sample has boss")
     if player == null or boss == null:
         return
+    var prev_invuln: bool = bool(player.get("debug_invulnerable"))
+    player.set("debug_invulnerable", true)
     var seen_decisions := {}
     var seen_tactics := {}
     var sample_offsets := [-34.0, -260.0, 230.0, -82.0, 310.0]
+    var uses_brain: bool = boss.has_method("_boss_behavior_enabled") and bool(boss._boss_behavior_enabled())
     for offset in sample_offsets:
         boss.set("state", "patrol")
         boss.set("active_attack", {})
         boss.set("attack_has_hit", false)
         boss.set("attack_desire", 0.0)
+        boss.set("boss_tactic_timer", 0.0)
         var cooldowns: Dictionary = boss.get("cooldowns")
         for key in cooldowns.keys():
             cooldowns[key] = 1.2
         boss.set("cooldowns", cooldowns)
         player.global_position = boss.global_position + Vector2(offset, 0.0)
-        await _advance_frames(scene, 18)
+        await _advance_frames(scene, 6)
+        if uses_brain and boss.has_method("_move_boss_tactical"):
+            boss._move_boss_tactical(0.05, player)
         var state: Dictionary = scene.get_demo_state()
         var decision := String(state.get("boss_last_ai_decision", ""))
         var tactic := String(state.get("boss_tactic", ""))
@@ -106,6 +122,7 @@ func _sample_boss_tactics(scene: Node) -> void:
             seen_decisions[decision] = true
         if not tactic.is_empty():
             seen_tactics[tactic] = true
+    player.set("debug_invulnerable", prev_invuln)
     _assert_true(seen_tactics.size() >= 2, "boss tactical AI changes intent")
     _assert_true(seen_decisions.size() >= 2, "boss tactical AI changes decisions")
     _assert_true(seen_tactics.has("evade") or seen_decisions.has("tactic:evade"), "boss can evade close pressure")
@@ -113,6 +130,7 @@ func _sample_boss_tactics(scene: Node) -> void:
 
 func _advance_frames(scene: Node, frame_count: int) -> void:
     for _i in range(frame_count):
+        await physics_frame
         await process_frame
 
 
