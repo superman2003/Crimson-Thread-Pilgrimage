@@ -80,6 +80,22 @@ class ExportAuditTests(unittest.TestCase):
         report = self.run_audit('')
         self.assertIn('Linux x86_64: development-only file shipped: res://scripts/route_playback.gd', report['errors'])
 
+    def test_metsys_editor_scripts_and_dead_assets_must_be_excluded(self):
+        files = {
+            'addons/MetroidvaniaSystem/EditorExtension/EditorPanel.gd': 'extends Control\n',
+            'assets/sprites/bosses/legacy/atlas.png': 'binary',
+            'assets/sprites/original_creatures/moss_larva/atlas.png': 'binary',
+        }
+        report = self.run_audit('scripts/*_playback.gd', files)
+        self.assertIn('Linux x86_64: development-only file shipped: res://addons/MetroidvaniaSystem/EditorExtension/EditorPanel.gd', report['errors'])
+        self.assertIn('Linux x86_64: dead or superseded asset shipped: res://assets/sprites/bosses/legacy/atlas.png', report['errors'])
+        self.assertIn('Linux x86_64: dead or superseded asset shipped: res://assets/sprites/original_creatures/moss_larva/atlas.png', report['errors'])
+        clean = self.run_audit(
+            'scripts/*_playback.gd,addons/MetroidvaniaSystem/EditorExtension/*,assets/sprites/bosses/*,assets/sprites/original_creatures/*/atlas.png',
+            files,
+        )
+        self.assertEqual(clean['errors'], [])
+
     def test_excluding_runtime_code_is_rejected(self):
         report = self.run_audit('scripts/*_playback.gd,scripts/director.gd')
         self.assertIn('Linux x86_64: runtime file excluded from export: res://scripts/director.gd', report['errors'])

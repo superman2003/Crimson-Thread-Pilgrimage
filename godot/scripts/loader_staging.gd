@@ -11,6 +11,7 @@ extends RefCounted
 ## touched, so there is no snapshot to restore.
 const REGION_STATE := preload("res://scripts/region_state.gd")
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
+const LOADER_REGION_STATE := preload("res://scripts/loader_region_state.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const LEVEL_HUD_BUILD := preload("res://scripts/level_hud_build.gd")
 
@@ -253,6 +254,8 @@ static func handover_async(loader: RefCounted, host: Node, arrival: Vector2 = Ve
     loader.phase = "publishing"
     var publish_started := Time.get_ticks_usec()
     host._publish_region()
+    var art_eviction: Dictionary = LOADER_REGION_STATE.evict_unused_character_art(loader, host)
+    loader.last_transition["character_art_evicted"] = int(art_eviction.get("evicted_textures", 0))
     step_usec["publish"] = Time.get_ticks_usec() - publish_started
     loader.last_transition["handover_step_usec"] = step_usec
     # The destination's residency was configured for the generation after the

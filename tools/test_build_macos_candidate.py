@@ -4,13 +4,15 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+import zipfile
 
 import build_macos_candidate as mac
 
 ROOT = Path(__file__).resolve().parents[1]
 APP = '绯线巡礼 - 互联世界.app'
 GOOD = [APP + '/', APP + '/Contents/Info.plist', APP + '/Contents/MacOS/绯线巡礼 - 互联世界',
-        APP + '/Contents/Resources/绯线巡礼 - 互联世界.pck']
+        APP + '/Contents/Resources/绯线巡礼 - 互联世界.pck',
+        *(APP + '/' + item for item in mac.LEGAL_REQUIRED)]
 
 
 class Bundle(unittest.TestCase):
@@ -21,6 +23,55 @@ class Bundle(unittest.TestCase):
         self.assertIn('no executable under Contents/MacOS', mac.bundle_problems([n for n in GOOD if '/MacOS/' not in n]))
         self.assertIn('no Info.plist', mac.bundle_problems([n for n in GOOD if not n.endswith('Info.plist')]))
         self.assertIn('no game data (.pck) under Contents/Resources', mac.bundle_problems([n for n in GOOD if not n.endswith('.pck')]))
+        for required in mac.LEGAL_REQUIRED:
+            with self.subTest(required=required):
+                problems = mac.bundle_problems([n for n in GOOD if not n.endswith(required)])
+                self.assertTrue(any(required in problem for problem in problems))
+
+    def test_populate_legal_bundle_copies_notices_guide_and_manifest(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder) / 'repo'
+            (root / 'godot/assets/fonts').mkdir(parents=True)
+            (root / 'docs').mkdir(parents=True)
+            (root / 'LICENSE').write_text('MIT\n', encoding='utf-8')
+            (root / 'THIRD_PARTY_NOTICES.md').write_text('# Notices\n', encoding='utf-8')
+            (root / 'godot/assets/fonts/OFL-NotoSerifCJK.txt').write_text('SIL OFL 1.1\n', encoding='utf-8')
+            (root / 'docs/RELEASE_PLAYER_GUIDE.md').write_text('# Guide\n', encoding='utf-8')
+            engine_txt = Path(folder) / 'GODOT_ENGINE.txt'
+            engine_txt.write_text('Godot Engine MIT\n', encoding='utf-8')
+            app = Path(folder) / APP
+            (app / 'Contents/Resources').mkdir(parents=True)
+            legal = mac.populate_legal_bundle(app, root, engine_txt, {'target': 'macos'})
+            self.assertTrue((legal / 'licenses/LICENSE').is_file())
+            self.assertTrue((legal / 'licenses/THIRD_PARTY_NOTICES.md').is_file())
+            self.assertTrue((legal / 'licenses/GODOT_ENGINE.txt').is_file())
+            self.assertTrue((legal / 'licenses/godot/assets/fonts/OFL-NotoSerifCJK.txt').is_file())
+            self.assertTrue((legal / 'README.md').is_file())
+            self.assertTrue((legal / 'BUILD_MANIFEST.json').is_file())
+
+    def test_zip_member_names_recovers_utf8_when_ditto_omits_utf8_flag(self):
+        with tempfile.TemporaryDirectory() as folder:
+            archive = Path(folder) / 'ditto-like.zip'
+            with zipfile.ZipFile(archive, 'w') as zf:
+                for member in GOOD:
+                    info = zipfile.ZipInfo(member)
+                    zf.writestr(info, b'x')
+            # Strip ZIP UTF-8 general purpose bit (0x800) in both local and central headers like macOS ditto.
+            raw = bytearray(archive.read_bytes())
+            for sig in (b'PK\x03\x04', b'PK\x01\x02'):
+                idx = 0
+                flag_off = 6 if sig == b'PK\x03\x04' else 8
+                while True:
+                    idx = raw.find(sig, idx)
+                    if idx < 0:
+                        break
+                    flags = int.from_bytes(raw[idx + flag_off:idx + flag_off + 2], 'little') & ~0x800
+                    raw[idx + flag_off:idx + flag_off + 2] = flags.to_bytes(2, 'little')
+                    idx += 4
+            archive.write_bytes(bytes(raw))
+            names = mac.zip_member_names(archive)
+            self.assertEqual(mac.bundle_name(names), APP)
+            self.assertEqual(mac.bundle_problems(names), [])
 
     def test_the_bundle_takes_the_project_name_and_must_stand_alone(self):
         self.assertEqual(mac.bundle_name(GOOD), APP)

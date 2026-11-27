@@ -213,12 +213,30 @@ func _write_candidate_locked(candidate: Dictionary, path: String) -> bool:
     var rename_status := DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary)) if unchanged else _install_candidate(temporary,absolute)
     if rename_status != OK:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
+        if not unchanged and not before_hash.is_empty() and _file_hash(path) != before_hash:
+            _rollback_primary_from_backup(path, absolute, before_hash)
         return _fail("cannot install save: %s" % rename_status)
     # Only actual readers/recovery acquire a lease; writer-only legacy callers retain authority.
     if _source_hashes.has(source_key):_remember_source(path,installed_hash)
     _remember_verified(path,installed_hash)
     last_error = ""
     return true
+
+func _rollback_primary_from_backup(path: String, absolute: String, expected_hash: String) -> bool:
+    var backup := path + ".bak"
+    if not FileAccess.file_exists(backup) or _file_hash(backup) != expected_hash:
+        return false
+    var staging := path + ".rollback.tmp"
+    var staging_abs := ProjectSettings.globalize_path(staging)
+    var copy_status := DirAccess.copy_absolute(absolute + ".bak", staging_abs)
+    if copy_status != OK or _file_hash(staging) != expected_hash:
+        DirAccess.remove_absolute(staging_abs)
+        return false
+    var restore_status := _install_candidate(staging, absolute)
+    if restore_status != OK:
+        DirAccess.remove_absolute(staging_abs)
+        return false
+    return _file_hash(path) == expected_hash
 
 func _install_candidate(temporary: String, absolute: String) -> Error:
     return DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary),absolute)

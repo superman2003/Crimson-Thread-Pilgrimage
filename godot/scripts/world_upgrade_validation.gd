@@ -58,11 +58,14 @@ func _transition_busy() -> bool:
     return scene.world_portal_request_pending or scene.chapter_transitioning or scene.world_loading or (is_instance_valid(loader) and loader.phase != "idle")
 
 func _settle_transition() -> bool:
-    for frame in range(2000):
+    var deadline := Time.get_ticks_msec() + 45000
+    var frame := 0
+    while frame < 2000 or Time.get_ticks_msec() < deadline:
         if is_instance_valid(current_scene) and current_scene.get("world_mode") == true:
             scene = current_scene
         if not _transition_busy():
             return true
+        frame += 1
         await process_frame
     _assert(false, "budgeted portal request/preflight/transition did not settle before action probe")
     _release()

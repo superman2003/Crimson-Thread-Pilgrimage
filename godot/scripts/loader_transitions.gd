@@ -3,6 +3,7 @@ extends RefCounted
 ## Moved out of world_region_loader.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
 const CHARACTER_ART_WARM_JOB := preload("res://scripts/character_art_warm_job.gd")
+const LOADER_REGION_STATE := preload("res://scripts/loader_region_state.gd")
 const PREFETCH := preload("res://scripts/world_prefetch.gd")
 const RESOURCE_JOB := preload("res://scripts/background_resource_job.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -321,6 +322,8 @@ static func replace_region_async(loader: RefCounted, host: Node, path: String, e
             host.story_flags[String(flag)] = publish_flags[flag]
         host._refresh_world_portals()
     host._publish_region()
+    var art_eviction: Dictionary = LOADER_REGION_STATE.evict_unused_character_art(loader, host)
+    loader.last_transition["character_art_evicted"] = int(art_eviction.get("evicted_textures", 0))
     loader.last_transition["publish_usec"] = Time.get_ticks_usec() - committed_at
     loader.last_transition["commit_usec"] = int(loader.last_transition.get("commit_work_usec", 0)) + int(loader.last_transition.publish_usec)
     host.player.reset_camera_after_arrival()

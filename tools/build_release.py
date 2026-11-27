@@ -28,14 +28,38 @@ RESTRICTED = (
 LFS_POINTER = b"version https://git-lfs.github.com/spec/v1"
 ENGINE_ERROR = re.compile(r"^\s*(?:SCRIPT ERROR:|ERROR:|Parse Error:|USER ERROR:).*$", re.MULTILINE)
 ANSI = re.compile(r'\x1b\[[0-?]*[ -/]*[@-~]')
-DEV_SCRIPT = re.compile(r"(?:^(?:capture|preview)_.*|.*(?:_validation|_capture|_preview))\.gd(?:\.uid)?$")
+DEV_SCRIPT = re.compile(r"(?:^(?:capture|preview)_.*|.*(?:_validation|_capture|_preview|_playback|_probe|_fixture|_helper|_checks))\.gd(?:\.uid)?$")
+DEAD_ASSET_DIRS = (
+    ("assets", "sprites", "bosses"),
+    ("assets", "third_party", "dark_fantasy_bestiary"),
+    ("assets", "sprites", "generated_supplements_20261017"),
+    ("assets", "audio", "bgm", "generated"),
+    ("assets", "sprites", "lumen"),
+    ("data", "generated"),
+)
+SUPERSEDED_CREATURE_ATLASES = frozenset({
+    "atlas.png", "motion_expanded.png", "motion_runtime.png", "hurt_death.png",
+    "attacks.png", "motion_repair.png", "special_motion_expanded.png",
+    "attack_0_isolated.png", "attack_1_isolated.png", "motion_attack_expanded.png",
+    "motion_recover.png", "motion_supplement.png", "motion_sparse.png",
+})
 
 
 def excluded(path: Path) -> bool:
-    return (any(part.startswith('.') for part in path.parts)
-            or path.parts[0] in {"tests", "tools"}
+    parts = path.parts
+    if (any(part.startswith('.') for part in parts)
+            or parts[0] in {"tests", "tools"}
             or bool(DEV_SCRIPT.search(path.name))
-            or path.suffix in {".log", ".tmp", ".bak"})
+            or path.suffix in {".log", ".tmp", ".bak"}):
+        return True
+    if any(parts[:len(prefix)] == prefix for prefix in DEAD_ASSET_DIRS):
+        return True
+    if len(parts) >= 4 and parts[:3] == ("assets", "sprites", "original_creatures"):
+        if "sources" in parts[4:] or path.name in SUPERSEDED_CREATURE_ATLASES:
+            return True
+    if len(parts) >= 4 and parts[:3] == ("assets", "sprites", "original_npcs") and path.name == "greet_rest.png":
+        return True
+    return False
 
 
 def _git_tracked_project_files(project: Path) -> list[Path] | None:
@@ -84,7 +108,8 @@ def notice_files(root: Path) -> list[Path]:
     files = [root / 'LICENSE', root / 'THIRD_PARTY_NOTICES.md']
     for path in sorted((root / 'godot').rglob('*')):
         if path.is_file() and not excluded(path.relative_to(root / 'godot')):
-            if path.stem.lower() in {'license', 'notice', 'ofl', 'public-license'}:
+            stem = path.stem.lower()
+            if stem in {'license', 'notice', 'ofl', 'public-license'} or stem.startswith('ofl-'):
                 files.append(path)
     return files
 
@@ -93,7 +118,8 @@ def validate_source(root: Path) -> list[Path]:
     project = root / 'godot'
     required = ['project.godot', 'export_presets.cfg', 'scenes/World.tscn',
                 'data/world_routes.json', 'data/world_narrative.json', 'data/build_catalog.json',
-                'assets/NOTICE.md', 'assets/fonts/OFL.txt', 'addons/MetroidvaniaSystem/LICENSE.txt']
+                'assets/NOTICE.md', 'assets/fonts/OFL.txt', 'assets/fonts/OFL-NotoSerifCJK.txt',
+                'addons/MetroidvaniaSystem/LICENSE.txt']
     for name in required:
         if not (project / name).is_file():
             raise ValueError(f"Missing release input: godot/{name}")
@@ -163,9 +189,10 @@ def smoke_package(binary: Path, logs: Path, timeout: float) -> None:
     with tempfile.TemporaryDirectory(prefix='pilgrimage-player-') as temporary:
         isolated = Path(temporary)
         user_data = isolated / 'user-data'
-        env = dict(os.environ, XDG_DATA_HOME=str(user_data), XDG_CONFIG_HOME=str(isolated / 'config'),
-                   XDG_CACHE_HOME=str(isolated / 'cache'), APPDATA=str(user_data),
-                   LOCALAPPDATA=str(isolated / 'local-data'), GODOT_SILENCE_ROOT_WARNING='1')
+        env = dict(os.environ, HOME=str(user_data), XDG_DATA_HOME=str(user_data),
+                   XDG_CONFIG_HOME=str(isolated / 'config'), XDG_CACHE_HOME=str(isolated / 'cache'),
+                   APPDATA=str(user_data), LOCALAPPDATA=str(isolated / 'local-data'),
+                   GODOT_SILENCE_ROOT_WARNING='1')
         for attempt in ['first-start', 'resume']:
             # Give asynchronous config/art preparation real worker time and
             # enough bounded frame slices before checking publication on disk.

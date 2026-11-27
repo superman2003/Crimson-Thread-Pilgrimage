@@ -6,8 +6,26 @@ const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## methods of the same names, so callers and validations are unaffected.
 const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
+const HAND_DRAWN_ASSETS := preload("res://scripts/hand_drawn_assets.gd")
 const PLAYER_ART_WARM_JOB := preload("res://scripts/player_art_warm_job.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
+
+
+static func evict_unused_character_art(loader: RefCounted, host: Node) -> Dictionary:
+    var keep_configs: Array = []
+    if host.config is Dictionary and not host.config.is_empty():
+        keep_configs.append(host.config)
+    if not loader.staging.is_empty():
+        var staged_state: Variant = loader.staging.get("state", {})
+        if staged_state is Dictionary:
+            var staged_config: Variant = staged_state.get("config", {})
+            if staged_config is Dictionary and not staged_config.is_empty():
+                keep_configs.append(staged_config)
+    if host.world_prefetch != null and host.world_prefetch.configs is Dictionary:
+        for record in host.world_prefetch.configs.values():
+            if record is Dictionary and record.get("raw", {}) is Dictionary and not record.raw.is_empty():
+                keep_configs.append(record.raw)
+    return HAND_DRAWN_ASSETS.evict_unused_region_assets(keep_configs)
 
 static func snapshot(loader: RefCounted, host: Node) -> Dictionary:
     return {"region_id": loader.active_region_id, "generation": loader.generation, "phase": loader.phase,
@@ -99,6 +117,8 @@ static func replace_region(loader: RefCounted, host: Node, path: String, entry: 
     host.transition_entry_message = "旧路重新接通 · " + String(target.get("name", ""))
     loader.phase = "loading"
     host._initialize_region(target)
+    var art_eviction: Dictionary = evict_unused_character_art(loader, host)
+    loader.last_transition["character_art_evicted"] = int(art_eviction.get("evicted_textures", 0))
     host.chapter_transitioning = false
     host.player.reset_camera_after_arrival()
     host.process_mode = previous_mode

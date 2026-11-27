@@ -5,6 +5,11 @@ const LOOP_ENTRIES_PATH := "res://data/character_loop_entries.json"
 static var textures: Dictionary = {}
 static var frame_cache: Dictionary = {}
 static var manifest_cache: Dictionary = {}
+# Keep at most the active region and one recently departed region warm so
+# border backtracking (A <-> B) does not thrash texture decodes while six-region
+# traversal remains strictly bounded.
+const MAX_RETAINED_REGIONS := 2
+static var recent_region_assets: Array = []
 # Immutable artwork is shared across region leases. At most two background
 # texture requests survive cancellation; no caller waits on an unfinished get.
 const MAX_TEXTURE_REQUESTS := 2
@@ -111,6 +116,124 @@ static func shutdown_texture_requests() -> void:
         var job: RefCounted = texture_requests[path]
         _accept_texture(path, job.finish())
     texture_requests.clear()
+
+
+static func _collect_enemy_dicts(node: Variant, out: Array) -> void:
+    if node is Array:
+        for item in node:
+            _collect_enemy_dicts(item, out)
+    elif node is Dictionary:
+        if node.has("kind") and node["kind"] is String and not String(node["kind"]).is_empty():
+            out.append(node)
+        for key in ["enemy_spawns", "enemies", "spawns", "waves", "wave_enemies", "encounters", "ambushes", "gauntlets", "arenas", "optional_challenges"]:
+            if node.has(key):
+                _collect_enemy_dicts(node[key], out)
+
+
+static func collect_region_assets(config: Dictionary) -> Dictionary:
+    var manifests: Dictionary = {}
+    var keep_textures: Dictionary = {}
+    if config.is_empty():
+        return {"manifests": manifests, "textures": keep_textures}
+    var enemy_entries: Array = []
+    _collect_enemy_dicts(config.get("enemy_spawns", []), enemy_entries)
+    var boss: Variant = config.get("boss", {})
+    if boss is Dictionary and not boss.is_empty():
+        enemy_entries.append(boss)
+    for key in ["encounters", "waves", "ambushes", "gauntlets", "arenas", "optional_challenges"]:
+        if config.has(key):
+            _collect_enemy_dicts(config[key], enemy_entries)
+    for enemy in enemy_entries:
+        for mpath in character_manifests("enemy", enemy):
+            manifests[mpath] = true
+            for apath in atlas_paths(mpath):
+                keep_textures[apath] = true
+    for npc in config.get("npcs", []):
+        if not npc is Dictionary:
+            continue
+        for mpath in character_manifests("npc", npc):
+            manifests[mpath] = true
+            for apath in atlas_paths(mpath):
+                keep_textures[apath] = true
+    return {"manifests": manifests, "textures": keep_textures}
+
+
+static func evict_unused_region_assets(configs: Array) -> Dictionary:
+    var keep_manifests: Dictionary = {}
+    var keep_textures: Dictionary = {}
+    var recorded_primary := false
+    for entry in configs:
+        if entry is Dictionary and not entry.is_empty():
+            var assets := collect_region_assets(entry)
+            if not recorded_primary:
+                recorded_primary = true
+                var region_id := String(entry.get("id", ""))
+                if not region_id.is_empty():
+                    for idx in range(recent_region_assets.size() - 1, -1, -1):
+                        if String(recent_region_assets[idx].get("id", "")) == region_id:
+                            recent_region_assets.remove_at(idx)
+                    recent_region_assets.append({"id": region_id, "manifests": assets.manifests, "textures": assets.textures})
+                    while recent_region_assets.size() > MAX_RETAINED_REGIONS:
+                        recent_region_assets.pop_front()
+            for mpath in assets.manifests:
+                keep_manifests[mpath] = true
+            for apath in assets.textures:
+                keep_textures[apath] = true
+    for retained in recent_region_assets:
+        for mpath in retained.get("manifests", {}):
+            keep_manifests[mpath] = true
+        for apath in retained.get("textures", {}):
+            keep_textures[apath] = true
+    var evicted_frames := 0
+    for key in frame_cache.keys():
+        var path := String(key)
+        if not path.begins_with("res://assets/sprites/original_creatures/") and not path.begins_with("res://assets/sprites/original_npcs/"):
+            continue
+        if not keep_manifests.has(path):
+            frame_cache.erase(key)
+            evicted_frames += 1
+    var evicted_textures := 0
+    for key in textures.keys():
+        var path := String(key)
+        if not path.begins_with("res://assets/sprites/original_creatures/") and not path.begins_with("res://assets/sprites/original_npcs/") and not path.begins_with("res://assets/vfx/minor_enemy_skills/"):
+            continue
+        if not keep_textures.has(path) and not texture_requests.has(path):
+            textures.erase(key)
+            evicted_textures += 1
+    return {"evicted_textures": evicted_textures, "evicted_frames": evicted_frames,
+        "retained_textures": textures.size(), "retained_frames": frame_cache.size()}
+
+
+## Report cached texture/frame counts, an uncompressed RGBA8 pixel-footprint
+## estimate (`estimated_rgba_bytes = w * h * 4`, not compressed GPU VRAM), and
+## Godot's RenderingServer texture memory counter (`rendering_texture_mem_bytes`,
+## which is 0 under the headless Dummy renderer and non-zero only on a real GPU backend).
+static func cache_stats() -> Dictionary:
+    var seen_rids: Dictionary = {}
+    var estimated_rgba_bytes := 0
+    for value in textures.values():
+        if value is Texture2D:
+            var rid: RID = value.get_rid()
+            if not seen_rids.has(rid):
+                seen_rids[rid] = true
+                estimated_rgba_bytes += value.get_width() * value.get_height() * 4
+    var rendering_texture_mem_bytes := int(RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED))
+    return {
+        "textures": textures.size(),
+        "frames": frame_cache.size(),
+        "estimated_rgba_bytes": estimated_rgba_bytes,
+        "rendering_texture_mem_bytes": rendering_texture_mem_bytes,
+        "gpu_metric_available": rendering_texture_mem_bytes > 0,
+    }
+
+
+static func clear_caches() -> void:
+    shutdown_texture_requests()
+    textures.clear()
+    frame_cache.clear()
+    manifest_cache.clear()
+    texture_failures.clear()
+    recent_region_assets.clear()
 
 
 static func manifest(path: String) -> Dictionary:

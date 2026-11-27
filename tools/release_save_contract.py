@@ -88,7 +88,7 @@ def smoke_save_contract(binary: Path, logs: Path, timeout: float, run_checked) -
     with tempfile.TemporaryDirectory(prefix='pilgrimage-save-contract-') as temporary:
         isolated = Path(temporary)
         user_data = isolated / 'user-data'
-        env = dict(os.environ, XDG_DATA_HOME=str(user_data), APPDATA=str(user_data),
+        env = dict(os.environ, HOME=str(user_data), XDG_DATA_HOME=str(user_data), APPDATA=str(user_data),
                    LOCALAPPDATA=str(isolated / 'local-data'), XDG_CONFIG_HOME=str(isolated / 'config'),
                    XDG_CACHE_HOME=str(isolated / 'cache'), GODOT_SILENCE_ROOT_WARNING='1')
         saves: dict[int, Path] = {}
