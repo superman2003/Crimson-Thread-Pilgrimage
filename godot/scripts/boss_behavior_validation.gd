@@ -201,6 +201,17 @@ func run() -> void:
         actor.remove_meta("world_residency_active")
         actor.reset_for_respawn()
         check(brain.history.is_empty() and brain.sensed.is_empty() and brain.tree.status==-1,kind+" respawn clears plan/memory/tree status")
+        # Mid-vault Phase 2 transition must land the boss back on the arena floor.
+        actor.battle_phase=1
+        actor.max_hp=10000
+        actor.hp=4900
+        actor.state="active"
+        actor.active_attack={"id":"vault_phase_test","type":"vault","active":0.4}
+        actor.attack_start_position=Vector2(500,300)
+        actor.position=Vector2(500,180)
+        actor._physics_process(1.0/60)
+        check(actor.battle_phase==2 and actor.state=="patrol" and absf(actor.position.y-300.0)<=1.0,kind+" phase 2 mid-vault lands cleanly on the floor")
+        actor.reset_for_respawn()
         report.append({"kind":kind,"attacks":starts,"skills":used.size(),"branches":branches.keys()})
         var tree_id: int=brain.tree.get_instance_id()
         RETIRE.retire_tree(actor)

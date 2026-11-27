@@ -3,6 +3,7 @@ extends SceneTree
 const AUDIO := preload("res://scripts/audio_director.gd")
 const RETIREMENT := preload("res://scripts/audio_retirement.gd")
 const ART := preload("res://scripts/player_guard_art.gd")
+const MOVEMENT_ART := preload("res://scripts/player_movement_art.gd")
 const POLICY := preload("res://scripts/combat_visual_policy.gd")
 var checks := 0
 var failures := 0
@@ -30,6 +31,9 @@ func reset() -> void:
     player.active_skill.clear()
 
 func _run() -> void:
+    check(MOVEMENT_ART.side_from_wall_normal(Vector2(0.7, -0.7)) == -1, "diagonal left wall normal keeps its side")
+    check(MOVEMENT_ART.side_from_wall_normal(Vector2(-0.7, -0.7)) == 1, "diagonal right wall normal keeps its side")
+    check(MOVEMENT_ART.side_from_wall_normal(Vector2(0.0, -1.0)) == 0, "horizontal surface has no wall side")
     stage = Node2D.new(); root.add_child(stage)
     player = load("res://scenes/Player.tscn").instantiate()
     for argument in OS.get_cmdline_user_args():
@@ -74,6 +78,19 @@ func _run() -> void:
         reset(); player.facing = direction; player._try_guard()
         player.take_damage(1, player.global_position + Vector2(direction * 60, 0), false)
         check(player.hp == hp - 1 and guards().is_empty(), "unblockable hit remains damaging and clears presentation")
+    reset()
+    player.active_skill = {"kind": "tool"}
+    player.attack_duration = 0.1
+    player.attack_timer = 0.1
+    player.attack_windup = 0.1
+    player.attack_active_time = 0.0
+    player._update_attack(0.2)
+    check(player.active_skill.is_empty(), "completed tool state clears before another combat action")
+    check(player._try_guard(), "guard starts after a tool expires")
+    var post_tool_hp: int = player.hp
+    player.take_damage(1, player.global_position + Vector2(player.facing * 60, 0))
+    check(player.hp == post_tool_hp and player.energy == 96,
+        "perfect bell guard after another skill retains its energy refund")
     for duration in [.3, .5, .9]:
         reset(); player.active_skill = {"kind": "defense", "duration": duration}; player._apply_special_skill()
         check(is_equal_approx(player.guard_timer, minf(.65, duration)), "ward keeps its actual configured duration")

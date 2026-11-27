@@ -155,7 +155,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sources", type=Path)
     args = parser.parse_args()
-    sources = json.loads(args.sources.read_text()) if args.sources else {}
+    sources = json.loads(args.sources.read_text(encoding="utf-8")) if args.sources else {}
     for theme in THEMES:
         folder = ART_ROOT / theme
         folder.mkdir(parents=True, exist_ok=True)

@@ -25,10 +25,13 @@ static func land(player: Node2D, fall_speed: float) -> Node2D: return _attach(pl
 static func wall_jump(player: Node2D, contact_side: int) -> Node2D:
     clear_wall(player); player.set_meta(SIDE_META,0)
     return _attach(player,"wall_grip",contact_side,false,false,0)
+static func side_from_wall_normal(normal: Vector2) -> int:
+    if is_zero_approx(normal.x): return 0
+    return -1 if normal.x > 0.0 else 1
 static func wall_state(player: Node2D) -> void:
     var side := 0
     if player.wall_sliding and player.is_on_wall() and not player.is_on_floor() and not player.ui_input_locked:
-        side=signi(-player.get_wall_normal().x)
+        side=side_from_wall_normal(player.get_wall_normal())
     if side==int(player.get_meta(SIDE_META,0)):return
     clear_wall(player); player.set_meta(SIDE_META,side)
     # Latch the edge even when a full cosmetic budget rejects admission.
@@ -64,7 +67,7 @@ class MotionVisual extends Node2D:
     var paint_frame:Callable
     func valid_owner(player: Node) -> bool:
         if not is_instance_valid(player) or player.is_queued_for_deletion() or player.death_timer>0:return false
-        return not held or (not player.ui_input_locked and player.wall_sliding and not player.is_on_floor() and player.is_on_wall() and signi(-player.get_wall_normal().x)==direction)
+        return not held or (not player.ui_input_locked and player.wall_sliding and not player.is_on_floor() and player.is_on_wall() and -int(signf(player.get_wall_normal().x))==direction)
     func _process(delta: float) -> void:
         var player:Node=owner_ref.get_ref()
         if not valid_owner(player):

@@ -25,7 +25,7 @@ class FrameFitInputs(unittest.TestCase):
         self.assertEqual(offsets, sorted(offsets))
         with tempfile.TemporaryDirectory() as folder:
             for name in fit.ACTIVE_LAYERS:
-                (Path(folder) / name).write_text("{}")
+                (Path(folder) / name).write_text("{}", encoding="utf-8")
             self.assertEqual(fit.active_manifest(Path(folder)).name, fit.ACTIVE_LAYERS[0])
 
     def test_stationary_base_does_not_move_when_scaled(self):

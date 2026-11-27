@@ -18,7 +18,7 @@ def build(check=False):
     return build_grounded(check)
 
 def build_legacy(check=False):
-    record=json.loads((FOLDER/'run_generation.json').read_text())
+    record=json.loads((FOLDER/'run_generation.json').read_text(encoding="utf-8"))
     sheet=Image.open(FOLDER/record['sheet']).convert('RGBA')
     reference=Image.open(FOLDER/record['reference']).convert('RGBA')
     target_height=reference.getchannel('A').getbbox()[3]-reference.getchannel('A').getbbox()[1]
@@ -46,7 +46,7 @@ def build_legacy(check=False):
         else:path.write_bytes(data)
     if len(hashes)!=8:raise ValueError('duplicate run poses')
     manifest_path=ROOT/'godot/assets/sprites/player/generated_hero_v3/manifest.json'
-    manifest=json.loads(manifest_path.read_text())
+    manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
     animation=next(a for a in manifest['animations'] if a['name']=='run')
     frames=['res://assets/sprites/player/generated_hero_motion_v4/runtime_run/run_%02d.png'%i for i in range(8)]
     if check:
@@ -55,7 +55,7 @@ def build_legacy(check=False):
         animation['frames']=frames
         # Ground motion is distance-driven; fps is only the standalone preview rate.
         animation['fps']=16
-        manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+        manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print('HERO_EXPANDED_RUN poses=8 canvas=384x384 shared_scale=%.9f'%scale)
 
 if __name__=='__main__':

@@ -61,11 +61,13 @@ static func cast_selected_skill(player: Node, slot: int = -1) -> bool:
     player.crosscut_refund_paid = false
     if player._crest() == "bell" and player._seal_mechanism_ready() and String(payload.get("id", "")) == "shockwave" and player.bell_pressure > 0:
         player.attack_damage += player.bell_pressure
-        player.active_skill["stagger"] = player.bell_pressure * 0.3
+        player.active_skill["stagger"] = float(player.active_skill.get("stagger", 0.0)) + player.bell_pressure * 0.3
         player.bell_pressure = 0
     player.attack_range = float(payload.get("range", 126.0))
-    if bool(player.active_skill.get("empowered", false)) and String(payload.get("id", "")) == "cleave":
-        player.attack_range *= 1.35
+    if String(payload.get("id", "")) == "cleave":
+        player.current_attack_direction = Vector2(player.facing, 0)
+        if bool(player.active_skill.get("empowered", false)):
+            player.attack_range *= 1.35
     if String(payload.get("id", "")) == "crosscut":
         player.attack_forward_offset = 0.0
         player.attack_range *= 2.0
@@ -265,6 +267,7 @@ static func try_resonance(player: Node) -> bool:
     player.resonance_cooldown = 1.4
     player._start_attack(&"attack_2", false)
     player.active_skill = {"kind": "resonance", "range": 160.0, "damage": 1}
+    player.attack_damage = int(player.active_skill.damage)
     player.skill_effect_started = false
     player.ability_action.emit("crown_resonance", player.global_position, Vector2(player.facing, 0))
     ABILITY_ART.resonance(player)

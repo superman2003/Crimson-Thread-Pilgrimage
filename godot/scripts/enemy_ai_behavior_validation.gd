@@ -50,6 +50,12 @@ func run() -> void:
     moth.last_player_command = "jump"
     target.position = Vector2(420, 180)
     check(moth._attack_candidate_score(dust, target) > moth._attack_candidate_score(dive, target), "airborne player draws the anti-air fan")
+    var fan_only := spawn("bronze_moth", "ai_fog_fan", 300)
+    fan_only.ai_commands = [command(fan_only, "moth_dust")]
+    fan_only.apply_target_interference(1.0)
+    check(fan_only._target_player() == null, "salt fog interrupts a fan-only ranged enemy")
+    fan_only.interference_timer = 0.0
+    check(fan_only._target_player() == target, "fan-only enemy resumes targeting after salt fog ends")
     target.position = Vector2(400, 300)
     var larva := spawn("moss_larva", "ai_larva", 330)
     # Use the production Player's fields: cooldown is recovery after a heal,

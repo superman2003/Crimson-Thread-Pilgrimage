@@ -49,7 +49,7 @@ SHEETS = {
 
 def run_scale():
     """Same shared scale that build_expanded_hero_run.py derives for run_sheet.png."""
-    record = json.loads((V4 / 'run_generation.json').read_text())
+    record = json.loads((V4 / 'run_generation.json').read_text(encoding="utf-8"))
     reference = Image.open(V4 / record['reference']).convert('RGBA').getchannel('A').getbbox()
     sheet = Image.open(V4 / record['sheet']).convert('RGBA')
     x, y, w, h = record['regions'][0]
@@ -124,7 +124,7 @@ def blade(rgba):
 
 
 def build(check=False):
-    record = json.loads((SOURCE / 'generation_manifest.json').read_text())
+    record = json.loads((SOURCE / 'generation_manifest.json').read_text(encoding="utf-8"))
     assets = {asset['file']: asset for asset in record['assets']}
     base = run_scale()
     OUTDIR.mkdir(exist_ok=True)
@@ -185,7 +185,7 @@ def build(check=False):
         OUTDIR / 'registration.json': json.dumps(registration, ensure_ascii=False, indent=2) + '\n',
         OUTDIR / 'blade_anchors.json': json.dumps({'source_size': [CANVAS, CANVAS], 'animations': anchors}, indent=2) + '\n',
     }
-    manifest = json.loads(MANIFEST.read_text())
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     animations = {animation['name']: animation for animation in manifest['animations']}
     for name, spec in SHEETS.items():
         frames = [RES + f'{name}_{index:02d}.png' for index in range(len(assets[spec['file']]['regions']))]
@@ -198,12 +198,12 @@ def build(check=False):
             manifest['animations'].append({'name': name, 'fps': spec['fps'], 'loop': spec.get('loop', False), 'frames': frames})
     for path, text in outputs.items():
         if check:
-            if path.read_text() != text:
+            if path.read_text(encoding="utf-8") != text:
                 raise ValueError(f'{path}: rebuild')
         else:
-            path.write_text(text)
+            path.write_text(text, encoding="utf-8")
     if not check:
-        MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
+        MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding="utf-8")
     print('HERO_SUPPLEMENT_MOTION animations=%d frames=%d run_scale=%.9f' % (len(SHEETS), len(hashes), base))
 
 

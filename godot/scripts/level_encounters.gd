@@ -132,6 +132,7 @@ static func reset_encounters_after_player_death(level: Node) -> void:
                 level.player.restore_at_save_point()
             if level.player.has_method("reset_camera_after_arrival"):
                 level.player.reset_camera_after_arrival()
+        level._set_boss_arena_locked(true)
         level._defer_region_call("_respawn_boss_trial_boss")
         level._toast("试炼重置 · 守门者已经归位。")
     else:

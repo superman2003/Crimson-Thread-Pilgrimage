@@ -15,7 +15,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-reliability-') as temporary:
         base = Path(temporary)
         project = base / 'project'; project.mkdir()
-        (project/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Reliability fixtures"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
+        (project/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Reliability fixtures"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n', encoding="utf-8")
         for name in DEPS:
             target = project/name;target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT/'godot'/name, target)
@@ -27,7 +27,7 @@ def main():
             good = result.returncode == 0
         except subprocess.TimeoutExpired as exc:
             output = str(exc)+'\nERROR: native fixture timeout\n';good = False
-        (args.log_dir/'native.log').write_text(output)
+        (args.log_dir/'native.log').write_text(output, encoding="utf-8")
         print(output, end='')
         good = good and re.search(MARKER, output, re.M) is not None
         good = good and re.search(r'^\s*(?:SCRIPT ERROR|ERROR|USER ERROR):', output, re.M) is None

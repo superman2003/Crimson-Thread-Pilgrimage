@@ -45,7 +45,7 @@ def resident_bytes(pid):
         finally:
             kernel.CloseHandle(handle)
     try:
-        return int(Path(f'/proc/{pid}/statm').read_text().split()[1]) * os.sysconf('SC_PAGE_SIZE')
+        return int(Path(f'/proc/{pid}/statm').read_text(encoding="utf-8").split()[1]) * os.sysconf('SC_PAGE_SIZE')
     except (OSError, ValueError, IndexError):
         return None
 

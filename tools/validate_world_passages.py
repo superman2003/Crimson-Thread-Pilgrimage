@@ -46,7 +46,7 @@ def validate(data, routes, layout):
     return errors
 
 if __name__ == '__main__':
-    errors = validate(*(json.loads((ROOT / 'godot/data' / file).read_text()) for file in ('world_passages.json', 'world_routes.json', 'world_layout.json')))
+    errors = validate(*(json.loads((ROOT / 'godot/data' / file).read_text(encoding="utf-8")) for file in ('world_passages.json', 'world_routes.json', 'world_layout.json')))
     for error in errors: print('FAIL:', error)
     print(f'WORLD_PASSAGE_CONTRACT failures={len(errors)}')
     raise SystemExit(bool(errors))

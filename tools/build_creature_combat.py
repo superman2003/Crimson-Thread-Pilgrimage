@@ -194,20 +194,20 @@ for kind,entry in PROFILES.items():
         {'flight':'aerial','stationary':'ranged'}.get(entry['locomotion'],'patrol'))
 
 def main():
-    (DATA/'original_creature_combat.json').write_text(json.dumps(PROFILES,ensure_ascii=False,indent=2)+'\n')
+    (DATA/'original_creature_combat.json').write_text(json.dumps(PROFILES,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     for path in DATA.rglob('demo*.json'):
-        data=json.loads(path.read_text());changed=False
+        data=json.loads(path.read_text(encoding="utf-8"));changed=False
         for actor in data.get('enemy_spawns',[])+([data['boss']] if isinstance(data.get('boss'),dict) else []):
             kind=actor.get('kind','')
             if kind not in PROFILES:continue
             data.setdefault('ai_profiles',{})[kind]=PROFILES[kind]
             actor['locomotion']=PROFILES[kind]['locomotion'];actor['combat_identity']=PROFILES[kind]['combat_identity'];changed=True
-        if changed:path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
-    path=DATA/'original_creature_designs.json';data=json.loads(path.read_text())
+        if changed:path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
+    path=DATA/'original_creature_designs.json';data=json.loads(path.read_text(encoding="utf-8"))
     for design in data['designs']:
         design['motion']=PROFILES[design['kind']]['locomotion']
         if design['boss']:design['special_animations']=['heavy','cast','phase']
-    path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+    path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print('Distinct combat profiles:',len(PROFILES),'attacks:',sum(len(p['attacks']) for p in PROFILES.values()))
 
 if __name__=='__main__':main()
