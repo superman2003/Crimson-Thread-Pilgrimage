@@ -467,6 +467,8 @@ func _physics_process(delta: float) -> void:
 func _tick_ui_locked_state() -> void:
     ground_turn_time = 0.0
     last_ground_direction = 0
+    wall_sliding = false
+    _update_wall_slide_audio()
     _interrupt_heal()
     _stop_phase()
     if flash_material != null and not bool(_accessibility().get("flash_enabled", true)):

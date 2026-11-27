@@ -47,7 +47,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-reliability-') as temporary:
         base = Path(temporary)
         project = base / 'project'; project.mkdir()
-        (project/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Thread action budget"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
+        (project/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Thread action budget"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n', encoding="utf-8")
         queue=list(DEPS); seen=set()
         while queue:
             name=queue.pop()

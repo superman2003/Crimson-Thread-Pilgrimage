@@ -1,0 +1,26 @@
+name: Explicit Python text encodings
+
+on:
+  pull_request:
+    paths:
+      - 'tools/**/*.py'
+      - '.github/contracts/python-text-encoding.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: python-text-encoding-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          lfs: false
+      - name: Audit text file encodings
+        run: python3 tools/audit_python_text_encoding.py --self-test && python3 tools/audit_python_text_encoding.py

@@ -441,12 +441,19 @@ func _step_enemy(delta: float) -> void:
 func _check_boss_phase_transition() -> void:
     if not (is_boss and battle_phase == 1 and hp <= max_hp * float(ai_profile.get("phase_threshold", 0.55))):
         return
+    var interrupted_vault: bool = state == "active" and String(active_attack.get("type", "")) == "vault"
     if boss_brain != null:
         boss_brain.reset_plan()
     battle_phase = 2
     phase_pause = 0.9
     _cancel_attack_effects()
     _clear_telegraph()
+    if interrupted_vault:
+        if is_inside_tree():
+            global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self, global_position, Vector2(global_position.x, attack_start_position.y))
+        else:
+            global_position.y = attack_start_position.y
+        reset_physics_interpolation()
     state = "patrol"
     active_attack = {}
     attack_recovery = false

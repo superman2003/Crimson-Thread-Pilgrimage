@@ -172,6 +172,9 @@ static func run(tree: SceneTree, main: Node, desk: Node) -> void:
     var quote:=model.quote("旧方案",ui,3)
     tree.check(quote.ok and String("\n".join(quote.lines)).contains("沿用当前构筑输入") and model.profiles["旧方案"]==old_profile,"legacy named profile quotes current build input without rewriting the stored profile")
     tree.check(model.apply("旧方案",ui,3,quote.snapshot).ok and CODEC.capture({INPUT.ACTION:"构筑"})==expected_build,"real legacy profile application preserves the current custom build input")
+    var all_scope:=model.quote("旧方案",ui,0)
+    tree.check(all_scope.ok and model.apply("旧方案",ui,0,all_scope.snapshot).ok,
+        "legacy named profile also applies with the all-settings scope")
     var persisted:=ConfigFile.new()
     tree.check(persisted.load(ui.accessibility_path)==OK and persisted.has_section_key("bindings",INPUT.ACTION),"legacy application writes a complete current binding set to actual preferences")
     quote=model.quote("旧方案",ui,3)

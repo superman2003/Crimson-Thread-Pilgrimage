@@ -23,7 +23,7 @@ def main(rebuild=False):
     errors=[]; reports=[]
     def check(ok,message):
         if not ok:errors.append(message)
-    m=json.loads((PACK/'manifest.json').read_text())
+    m=json.loads((PACK/'manifest.json').read_text(encoding="utf-8"))
     check(m['schema_version']==1 and m['pack_id']=='reverse_motion_v2','manifest version/pack')
     check(len(m['items'])==9,'nine actions required')
     check({(i['crest_id'],i['action']) for i in m['items']}=={(c,a) for c in ('crimson','bell','salt') for a in ('needle','down','heal')},'three-by-three coverage')
@@ -84,7 +84,7 @@ def main(rebuild=False):
     report={'pack_id':'reverse_motion_v2','status':'pass' if not errors else 'fail','technical_scope':'Offline source, alpha, bounds, geometry, phase timing, binary size and deterministic rebuild only.',
             'runtime_verified':False,'invulnerability_implied':False,'checks':{'nine_actions':len(reports),'total_frames':72,'png_bytes_including_contact_sheet':png_bytes,'deterministic_rebuild':reproducible},
             'atlases':reports,'errors':errors}
-    REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print(json.dumps({'status':report['status'],'errors':errors,'png_bytes':png_bytes,'reproducible':reproducible},ensure_ascii=False))
     return bool(errors)
 

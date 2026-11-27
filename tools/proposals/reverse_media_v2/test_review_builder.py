@@ -57,7 +57,7 @@ class ReviewBuilderChecks(unittest.TestCase):
             self.read()
 
     def test_lfs_pointer_rejected(self):
-        (self.pack / "atlas.png").write_text("version https://git-lfs.github.com/spec/v1\noid sha256:abc\nsize 10\n")
+        (self.pack / "atlas.png").write_text("version https://git-lfs.github.com/spec/v1\noid sha256:abc\nsize 10\n", encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "LFS pointer"):
             self.read()
 
@@ -83,18 +83,18 @@ class ReviewBuilderChecks(unittest.TestCase):
 
     def test_external_svg_reference_rejected(self):
         path = self.pack / "layer.svg"
-        path.write_text('<svg xmlns="http://www.w3.org/2000/svg"><image href="https://example.com/a.png"/></svg>')
+        path.write_text('<svg xmlns="http://www.w3.org/2000/svg"><image href="https://example.com/a.png"/></svg>', encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "external"):
             builder.check_svg(path)
 
     def test_internal_svg_gradient_allowed(self):
         path = self.pack / "layer.svg"
-        path.write_text('<svg xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g"/></defs><rect fill="url(#g)"/></svg>')
+        path.write_text('<svg xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g"/></defs><rect fill="url(#g)"/></svg>', encoding="utf-8")
         builder.check_svg(path)
 
     def test_scripted_svg_rejected(self):
         path = self.pack / "layer.svg"
-        path.write_text('<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>')
+        path.write_text('<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>', encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "Active SVG"):
             builder.check_svg(path)
 

@@ -250,8 +250,8 @@ class ReleaseDownload(unittest.TestCase):
                 self.assertEqual((self.root/'engine'/editor).read_bytes(), b'editor executable')
                 self.assertEqual((self.root/'templates'/template).read_bytes(), b'release executable')
                 self.assertFalse((self.root/'escape').exists())
-                self.assertIn('GODOT=',(self.root/'github-env').read_text())
-                self.assertEqual(json.loads((self.root/'engine/install-receipt.json').read_text()),receipt)
+                self.assertIn('GODOT=',(self.root/'github-env').read_text(encoding="utf-8"))
+                self.assertEqual(json.loads((self.root/'engine/install-receipt.json').read_text(encoding="utf-8")),receipt)
                 self.assertEqual(receipt['binary_sha512'][template],digest(b'release executable'))
 
     def test_mismatched_editor_template_pair_is_rejected_before_network(self):
@@ -262,7 +262,7 @@ class ReleaseDownload(unittest.TestCase):
     def test_missing_selected_template_does_not_publish_env_or_stale_receipt(self):
         editor,template=self.prepare_install({'templates/unrelated':b'other'})
         (self.root/'engine').mkdir()
-        (self.root/'engine/install-receipt.json').write_text('old successful receipt')
+        (self.root/'engine/install-receipt.json').write_text('old successful receipt', encoding="utf-8")
         with self.assertRaises(KeyError):
             self.install(editor,template)
         self.assertFalse((self.root/'github-env').exists())

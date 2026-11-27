@@ -20,7 +20,7 @@ def validate(data):
 if __name__=="__main__":
     from validate_observed_echoes import validate as validate_observed
     validate_observed()
-    data=json.loads((ROOT/"godot/data/protagonist_voice.json").read_text())
+    data=json.loads((ROOT/"godot/data/protagonist_voice.json").read_text(encoding="utf-8"))
     errors=validate(data)
     print("PROTAGONIST_REFLECTIONS errors="+str(len(errors)))
     raise SystemExit(bool(errors))

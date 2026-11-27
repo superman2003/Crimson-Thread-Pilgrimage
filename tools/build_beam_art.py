@@ -42,7 +42,7 @@ def collar(pieces,widths):
 def build():
     atlas=Image.new('RGBA',(1024,512));records={}
     for row,family in enumerate(FAMILIES):
-        stem=SOURCES/('FX_B_'+family);raw=stem.with_suffix('.png').read_bytes();prompt=stem.with_suffix('.txt').read_bytes();meta=json.loads(stem.with_suffix('.json').read_text())
+        stem=SOURCES/('FX_B_'+family);raw=stem.with_suffix('.png').read_bytes();prompt=stem.with_suffix('.txt').read_bytes();meta=json.loads(stem.with_suffix('.json').read_text(encoding="utf-8"))
         if digest(raw)!=meta['image_sha256'] or digest(prompt)!=meta['prompt_sha256']:raise ValueError(f'{family}: source checksum differs')
         image=Image.open(io.BytesIO(raw)).convert('RGBA');frames=meta['frames']
         if len(frames)!=4 or list(image.size)!=meta['image_size']:raise ValueError(f'{family}: dimensions/frame count differs')

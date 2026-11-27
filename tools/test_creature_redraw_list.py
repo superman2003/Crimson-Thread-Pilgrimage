@@ -20,7 +20,7 @@ class ReportSafety(unittest.TestCase):
             precious=root/'precious.jpg'; precious.write_bytes(b'private photo')
             unrelated=out/'photo.jpg'; unrelated.write_bytes(b'unrelated image')
             old=out/'creature__walk.jpg'; old.write_bytes(b'old sheet')
-            (out/'.creature-redraw-sheets.json').write_text(json.dumps([old.name, 'photo.jpg', '../precious.jpg']))
+            (out/'.creature-redraw-sheets.json').write_text(json.dumps([old.name, 'photo.jpg', '../precious.jpg']), encoding="utf-8")
             report.finish_sheets(out, set(), {old.name})
             self.assertFalse(old.exists())
             self.assertEqual(unrelated.read_bytes(), b'unrelated image')
@@ -36,16 +36,16 @@ class ReportSafety(unittest.TestCase):
     def test_manifest_and_atlas_edits_invalidate_size_measurements(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary); path=root/'motion_v8_manifest.json'
-            data=manifest(['idle']); path.write_text(json.dumps(data))
+            data=manifest(['idle']); path.write_text(json.dumps(data), encoding="utf-8")
             table=dict(manifest=path.name, manifest_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
                        atlas_sha256={'atlas.png':'original pixels'}, frames={})
-            (root/report.fit.OUTPUT).write_text(json.dumps(table))
+            (root/report.fit.OUTPUT).write_text(json.dumps(table), encoding="utf-8")
             with patch.object(report.fit, 'atlas_digests', return_value={'atlas.png':'original pixels'}):
                 self.assertEqual(report.checked_fit(root,path,data), {})
             with patch.object(report.fit, 'atlas_digests', return_value={'atlas.png':'new pixels'}):
                 with self.assertRaisesRegex(ValueError, 'build_creature_frame_fit.py'):
                     report.checked_fit(root,path,data)
-            path.write_text(json.dumps(data)+'\n')
+            path.write_text(json.dumps(data)+'\n', encoding="utf-8")
             with patch.object(report.fit, 'atlas_digests', return_value=table['atlas_sha256']):
                 with self.assertRaisesRegex(ValueError, 'stale'):
                     report.checked_fit(root,path,data)

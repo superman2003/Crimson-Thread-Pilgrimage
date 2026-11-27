@@ -22,7 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          lfs: true
+          lfs: false
+      - name: Pull required Godot assets
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
       - name: Validate declared regression inputs
         run: python3 tools/test_thread_budget_workflow.py
       - name: Install Godot 4.6.1

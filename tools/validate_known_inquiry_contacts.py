@@ -42,9 +42,9 @@ def errors(data, story, chapters):
 
 
 def validate():
-    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text())
-    chapters = {('demo_' + guardian['region']): json.loads((ROOT / ('godot/data/demo_' + guardian['region'] + '.json')).read_text()) for guardian in story['guardians']}
-    data = json.loads((ROOT / 'godot/data/known_inquiry_contacts.json').read_text())
+    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text(encoding="utf-8"))
+    chapters = {('demo_' + guardian['region']): json.loads((ROOT / ('godot/data/demo_' + guardian['region'] + '.json')).read_text(encoding="utf-8")) for guardian in story['guardians']}
+    data = json.loads((ROOT / 'godot/data/known_inquiry_contacts.json').read_text(encoding="utf-8"))
     assert not errors(data, story, chapters), errors(data, story, chapters)
     for fault in ['unknown', 'region', 'outer_room', 'room', 'grant', 'version']:
         bad = copy.deepcopy(data)

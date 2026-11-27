@@ -120,7 +120,7 @@ static func preflight_async(loader: RefCounted, path: String, entry: Vector2, pr
             # frames before admitting the next one, never queue unbounded work.
             var ticket := 0
             while true:
-                if ticket == 0 and not loader.config_read_job.busy():
+                if ticket == 0 and not loader.config_read_job.busy() and not loader.config_read_job.has_pending_ticket():
                     ticket = loader.config_read_job.request(path)
                     if ticket == 0:
                         loader.last_error = "无法启动区域后台读取。"

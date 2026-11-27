@@ -35,9 +35,9 @@ def validate(data, configs):
 
 def audit():
     data_dir = ROOT / 'godot/data'
-    regions = json.loads((data_dir / 'world_routes.json').read_text())['chapters']
-    configs = {region: json.loads((data_dir / f'{region}.json').read_text()) for region in regions}
-    return validate(json.loads((data_dir / 'material_exchange.json').read_text()), configs)
+    regions = json.loads((data_dir / 'world_routes.json').read_text(encoding="utf-8"))['chapters']
+    configs = {region: json.loads((data_dir / f'{region}.json').read_text(encoding="utf-8")) for region in regions}
+    return validate(json.loads((data_dir / 'material_exchange.json').read_text(encoding="utf-8")), configs)
 
 
 if __name__ == '__main__':

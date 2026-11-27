@@ -48,9 +48,9 @@ def errors(data, topics, story):
 
 
 def validate():
-    data = json.loads((ROOT / 'godot/data/guardian_identities.json').read_text())
-    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text())
-    topics = {row['id']: row for file in (ROOT / 'godot/data/inquiries').glob('*.json') for row in json.loads(file.read_text())['entries']}
+    data = json.loads((ROOT / 'godot/data/guardian_identities.json').read_text(encoding="utf-8"))
+    story = json.loads((ROOT / 'godot/data/world_narrative.json').read_text(encoding="utf-8"))
+    topics = {row['id']: row for file in (ROOT / 'godot/data/inquiries').glob('*.json') for row in json.loads(file.read_text(encoding="utf-8"))['entries']}
     assert not errors(data, topics, story), errors(data, topics, story)
     for fault in ['fight', 'region', 'unheard', 'future', 'duplicate', 'grant', 'blank', 'version']:
         bad = copy.deepcopy(data)

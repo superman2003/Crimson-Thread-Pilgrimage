@@ -49,7 +49,7 @@ def main():
             except subprocess.TimeoutExpired as error:
                 output = (error.stdout or b'').decode(errors='replace') + '\nPROCESS TIMEOUT\n'
                 good = False
-            (args.log_dir / f'{name}.log').write_text(output)
+            (args.log_dir / f'{name}.log').write_text(output, encoding="utf-8")
             failures += not good
             print(f'{name}: {"PASS" if good else "FAIL"}', flush=True)
     print(f'FIELDWORK_RUNNER tests={len(names)} failures={failures}', flush=True)

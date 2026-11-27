@@ -34,12 +34,12 @@ class BuildShortcutRunnerTests(unittest.TestCase):
             command = [sys.executable, '-c',
                        'import sys,time; print("SCRIPT ERROR: before wait",file=sys.stderr,flush=True); time.sleep(5)']
             self.assertFalse(invoke(command, None, log, MARKER, timeout=1))
-            self.assertIn('SCRIPT ERROR: before wait', log.read_text())
-            self.assertIn('exceeded', log.read_text())
+            self.assertIn('SCRIPT ERROR: before wait', log.read_text(encoding="utf-8"))
+            self.assertIn('exceeded', log.read_text(encoding="utf-8"))
 
     def test_workflow_watches_its_own_entry_points(self):
         workflow = Path(__file__).resolve().parents[1] / '.github/workflows/ledger-u06-build-shortcut.yml'
-        text = workflow.read_text()
+        text = workflow.read_text(encoding="utf-8")
         for path in ('tools/run_build_shortcut_contract.py', 'tools/test_build_shortcut_runner.py',
                      '.github/workflows/ledger-u06-build-shortcut.yml'):
             self.assertIn("      - '" + path + "'", text)

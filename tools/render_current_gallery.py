@@ -38,7 +38,7 @@ def save(im, name):
 
 def cutout(kind):
     folder = ROOT / 'godot/assets/sprites/original_creatures' / kind
-    manifest = json.loads((folder / 'manifest.json').read_text())
+    manifest = json.loads((folder / 'manifest.json').read_text(encoding="utf-8"))
     idle = next(a for a in manifest['animations'] if a['name'] == 'idle')
     frame = idle['frames'][0]
     source = ROOT / 'godot' / frame['atlas'].removeprefix('res://')
@@ -166,13 +166,13 @@ def main():
         render_maps_only()
         return
     OUT.mkdir(parents=True, exist_ok=True)
-    designs = json.loads((ROOT / 'godot/data/original_creature_designs.json').read_text())['designs']
+    designs = json.loads((ROOT / 'godot/data/original_creature_designs.json').read_text(encoding="utf-8"))['designs']
     monsters = [d for d in designs if not d['boss']]
     bosses = [d for d in designs if d['boss']]
     assert len(monsters) == 40 and len(bosses) == 6
     assert len({d['kind'] for d in designs}) == 46
     for stem in STEMS:
-        boss = json.loads((ROOT / 'godot/data' / (stem + '.json')).read_text())['boss']
+        boss = json.loads((ROOT / 'godot/data' / (stem + '.json')).read_text(encoding="utf-8"))['boss']
         next(d for d in bosses if d['kind'] == boss['kind'])['display_name'] = boss['name']
     sheet(monsters, '40 种小怪 · 六章素材总览', 'monsters_all.jpg', 8, (350, 330))
     sheet(bosses, '6 位 Boss · 六章素材总览', 'bosses_all.jpg', 3, (650, 500))
@@ -180,7 +180,7 @@ def main():
     overview = Image.new('RGB', (2400, 1590), BG)
     for index, (stem, theme) in enumerate(zip(STEMS, THEMES)):
         config_path = ROOT / 'godot/data' / (stem + '.json')
-        config = json.loads(config_path.read_text())
+        config = json.loads(config_path.read_text(encoding="utf-8"))
         map_file = full_map(config, index + 1)
         enemy_file = f'ch{index + 1:02d}_enemies.jpg'
         chapter_monsters = [d for d in monsters if d['theme'] == theme]
@@ -194,7 +194,7 @@ def main():
                          'config_sha256': hashlib.sha256(config_path.read_bytes()).hexdigest()})
     save(overview, 'map_overview.jpg')
     (OUT / 'index.json').write_text(json.dumps({'monster_count': 40, 'boss_count': 6,
-        'map_type': 'configuration layout diagram, not gameplay screenshot', 'chapters': chapters}, ensure_ascii=False, indent=2) + '\n')
+        'map_type': 'configuration layout diagram, not gameplay screenshot', 'chapters': chapters}, ensure_ascii=False, indent=2) + '\n', encoding="utf-8")
     print(f'Rendered {len(list(OUT.glob("*.jpg")))} images; 40 monsters, 6 bosses, 6 complete layouts.')
 
 

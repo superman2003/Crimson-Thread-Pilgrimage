@@ -6,7 +6,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'godot/assets/vfx/player_movement'
 def main():
-    manifest = json.loads((OUT / 'manifest.json').read_text())
+    manifest = json.loads((OUT / 'manifest.json').read_text(encoding="utf-8"))
     atlas = Image.new('RGBA', (1152, 576))
     for family, source in manifest['sources'].items():
         path = ROOT / source['path']

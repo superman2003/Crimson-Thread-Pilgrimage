@@ -101,9 +101,21 @@ def read_player_physics() -> PlayerPhysics:
 
     def export_float(name: str) -> float:
         match = re.search(rf"@export\s+var\s+{re.escape(name)}:\s*float\s*=\s*(-?\d+(?:\.\d+)?)", source)
-        if not match:
-            fail(f"missing player physics export: {name}")
-        return float(match.group(1))
+        if match:
+            return float(match.group(1))
+        ref = re.search(rf"@export\s+var\s+{re.escape(name)}:\s*float\s*=\s*([A-Z_][A-Z0-9_]*)\.([A-Z_][A-Z0-9_]*)", source)
+        if ref:
+            alias, const_name = ref.group(1), ref.group(2)
+            preload = re.search(rf'const\s+{re.escape(alias)}\s*:?=\s*preload\("res://([^"]+)"\)', source)
+            if preload:
+                const_source = (ROOT / "godot" / preload.group(1)).read_text(encoding="utf-8")
+                const_match = re.search(
+                    rf"const\s+{re.escape(const_name)}(?:\s*:\s*float)?\s*:?=\s*(-?\d+(?:\.\d+)?)",
+                    const_source,
+                )
+                if const_match:
+                    return float(const_match.group(1))
+        fail(f"missing player physics export: {name}")
 
     return PlayerPhysics(
         speed=export_float("speed"),

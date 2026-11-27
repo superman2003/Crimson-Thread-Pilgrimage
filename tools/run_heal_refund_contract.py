@@ -20,7 +20,7 @@ def invoke(command, env, log, marker=None):
         output = value.decode(errors='replace') if isinstance(value, bytes) else value
         output += '\nERROR: Heal refund contract exceeded 120 seconds\n'
         good = False
-    log.write_text(output)
+    log.write_text(output, encoding="utf-8")
     plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', output)
     good = good and not re.search(r'^\s*(?:ERROR|SCRIPT ERROR|USER ERROR):', plain, re.M)
     if marker is not None:
@@ -61,7 +61,7 @@ def main():
         (project / 'project.godot').write_text(
             'config_version=5\n[application]\nconfig/name="Heal refund contracts"\n'
             '[autoload]\nBeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"\nBeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"\n'
-            '[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
+            '[rendering]\nrenderer/rendering_method="gl_compatibility"\n', encoding="utf-8")
         env = dict(os.environ, XDG_DATA_HOME=str(Path(scratch) / 'userdata'))
         base = [engine, '--headless', '--audio-driver', 'Dummy', '--path', str(project)]
         if not invoke(base + ['--editor', '--recovery-mode', '--import', '--quit'], env,

@@ -7,7 +7,7 @@ PACK=ROOT/'assets/proposals/audio_category_sfx'
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def rms(v):return math.sqrt(sum(x*x for x in v)/len(v))
 def main():
-    m=json.loads((PACK/'manifest.json').read_text()); results=[]; ids=set()
+    m=json.loads((PACK/'manifest.json').read_text(encoding="utf-8")); results=[]; ids=set()
     for item in m['items']:
         assert item['loop'] is False and item['license']=='CC0-1.0' and item['human_listening_review']=='pending'
         assert item['region_id'] in ['global','ch01','ch02','ch03','ch04','ch05','ch06']
@@ -30,6 +30,6 @@ def main():
         assert all(digest(PACK/p)==digest(output/p) for p in paths)
     report=dict(schema_version=1,pack_id=m['pack_id'],item_count=len(results),wav_bytes=sum((PACK/i['file']).stat().st_size for i in m['items']),checks='PCM WAV headers, independent ffmpeg decode exact match, peak/head-tail RMS/non-silence, unique IDs and content hashes, temporary deterministic full rebuild',deterministic_rebuild_files=len(results)+1,deterministic_rebuild_identical=True,human_listening_review='pending',runtime_integration='not performed',python_version=sys.version.split()[0],ffmpeg_version=subprocess.check_output(['ffmpeg','-version'],text=True).splitlines()[0],items=results)
     assert len({r['sha256'] for r in results})==len(results)
-    (ROOT/'docs/proposals/audio_category_sfx/validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    (ROOT/'docs/proposals/audio_category_sfx/validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print(json.dumps({k:v for k,v in report.items() if k!='items'},ensure_ascii=False))
 if __name__=='__main__':main()
