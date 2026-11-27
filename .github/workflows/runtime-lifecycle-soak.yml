@@ -13,6 +13,9 @@ on:
       - 'tools/runtime_soak_metrics.py'
       - 'tools/test_runtime_soak_metrics.py'
       - '.github/workflows/runtime-lifecycle-soak.yml'
+  schedule:
+    # Nightly soak at 03:00 UTC+8 (19:00 UTC)
+    - cron: '0 19 * * *'
   workflow_dispatch:
     inputs:
       seconds:
@@ -52,9 +55,9 @@ jobs:
       - name: Strict resource imports
         run: |
           python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 900 --log-dir "$RUNNER_TEMP/soak-import"
-      - name: PR smoke or requested wall-clock soak
+      - name: PR smoke, nightly soak, or requested wall-clock soak
         env:
-          SOAK_SECONDS: ${{ github.event_name == 'workflow_dispatch' && inputs.seconds || '1' }}
+          SOAK_SECONDS: ${{ github.event_name == 'workflow_dispatch' && inputs.seconds || (github.event_name == 'schedule' && '300' || '1') }}
         run: |
           python3 tools/run_runtime_soak.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --seconds "$SOAK_SECONDS" --log-dir "$RUNNER_TEMP/runtime-soak"
       - name: Preserve all evidence including failures

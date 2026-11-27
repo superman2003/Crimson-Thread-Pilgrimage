@@ -32,7 +32,7 @@ class MaterialConversionPlanRunnerTests(unittest.TestCase):
             self.assertIn('partial report',path.read_text(encoding="utf-8"));self.assertIn('before wait',path.read_text(encoding="utf-8"));self.assertIn('timeout',path.read_text(encoding="utf-8"))
     def test_workflow_declares_real_existing_regressions(self):
         root=Path(__file__).resolve().parents[1]
-        text=(root/'.github/workflows/material-conversion-plan-wip.yml').read_text(encoding="utf-8")
+        text=(root/'.github/workflows/material-conversion-plan.yml').read_text(encoding="utf-8")
         names=set(re.findall(r'--suite\s+([a-z0-9_/]+)',text))
         self.assertEqual(names,{'material_exchange','field_contracts','ui_world_integration'})
         for name in names:

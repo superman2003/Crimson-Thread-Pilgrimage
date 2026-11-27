@@ -3,10 +3,14 @@ extends CanvasLayer
 ## Only a player launching the game sees it. Validations instantiate World
 ## themselves, and a headless run has nobody to press a button.
 const TYPE := preload("res://scripts/ui_type_scale.gd")
+const PROGRESS := preload("res://scripts/journey_progress.gd")
+const CLOSE_OWNER_NAME := "PilgrimageApplicationClose"
 static var shown := false
 signal chosen(action: String)
 var level: Node
 var buttons := {}
+var slot_buttons := {}
+var utility_buttons := {}
 var kept_audio_mode := Node.PROCESS_MODE_INHERIT
 
 static func wanted(world: Node, display: String, arguments: PackedStringArray) -> bool:
@@ -49,7 +53,111 @@ func setup(world: Node, has_journey: bool) -> void:
         button.add_theme_font_size_override("font_size",TYPE.TITLE)
         button.pressed.connect(func():choose(action))
         column.add_child(button);buttons[action]=button
+    if world.has_method("get_save_slots"):
+        var slots_heading:=Label.new();slots_heading.text="存档槽"
+        slots_heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+        slots_heading.add_theme_font_size_override("font_size",TYPE.CAPTION)
+        column.add_child(slots_heading)
+        var slots_row:=HBoxContainer.new();slots_row.alignment=BoxContainer.ALIGNMENT_CENTER
+        slots_row.add_theme_constant_override("separation",10);column.add_child(slots_row)
+        var active_slot:=int(world.get("world_slot")) if world.get("world_slot")!=null else 1
+        for row_val in world.call("get_save_slots"):
+            var row: Dictionary=row_val
+            var slot_idx:=int(row.get("slot",1))
+            var summary:=_slot_summary(row,slot_idx==active_slot)
+            var slot_btn:=Button.new();slot_btn.text=summary;slot_btn.custom_minimum_size=Vector2(210,56)
+            slot_btn.add_theme_font_size_override("font_size",TYPE.CAPTION)
+            slot_btn.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+            slot_btn.pressed.connect(func():select_slot(slot_idx))
+            slots_row.add_child(slot_btn);slot_buttons[slot_idx]=slot_btn
+    if shell is Control and is_instance_valid(shell):
+        var util_row:=HBoxContainer.new();util_row.alignment=BoxContainer.ALIGNMENT_CENTER
+        util_row.add_theme_constant_override("separation",10);column.add_child(util_row)
+        for util in [["settings","设置"],["language",_language_button_label()],["credits","来源与许可"]]:
+            var uid:=String(util[0])
+            var ubtn:=Button.new();ubtn.text=String(util[1]);ubtn.custom_minimum_size=Vector2(132,34)
+            ubtn.add_theme_font_size_override("font_size",TYPE.CONTROL)
+            ubtn.pressed.connect(func():_choose_utility(uid))
+            util_row.add_child(ubtn);utility_buttons[uid]=ubtn
     buttons["continue"].call_deferred("grab_focus")
+
+func _slot_summary(row: Dictionary, is_current: bool) -> String:
+    var slot_idx:=int(row.get("slot",1))
+    var prefix:="▶ 槽位 %d" % slot_idx if is_current else "槽位 %d" % slot_idx
+    if not bool(row.get("exists",false)):
+        return prefix + "\n尚无记录"
+    if not bool(row.get("valid",false)):
+        return prefix + "\n记录需恢复"
+    var region:=String(row.get("current_region",""))
+    if FileAccess.file_exists("res://scripts/save_inspector.gd"):
+        var inspector_script: Variant=load("res://scripts/save_inspector.gd")
+        if inspector_script!=null:
+            region=String(inspector_script.describe(row))
+    var path:=String(row.get("path",""))
+    var secs:=PROGRESS.recorded(path) if not path.is_empty() else 0
+    return "%s\n%s · %s" % [prefix,region,PROGRESS.clock_text(secs)]
+
+func _language_button_label() -> String:
+    var startup := get_node_or_null("/root/GameLanguageSettings")
+    var prefs: Variant = startup.preferences if startup != null else null
+    if prefs == null and FileAccess.file_exists("res://scripts/display_dialog.gd"):
+        var display_script: Variant = load("res://scripts/display_dialog.gd")
+        if display_script != null:
+            prefs = display_script.language
+    if prefs != null and String(prefs.locale) == "en":
+        return "Language: EN"
+    return "语言：中文"
+
+func _choose_utility(action: String) -> void:
+    if is_queued_for_deletion():return
+    if action=="language":
+        var startup := get_node_or_null("/root/GameLanguageSettings")
+        var prefs: Variant = startup.preferences if startup != null else null
+        if prefs == null and FileAccess.file_exists("res://scripts/display_dialog.gd"):
+            var display_script: Variant = load("res://scripts/display_dialog.gd")
+            if display_script != null:
+                prefs = display_script.language
+        if prefs == null and FileAccess.file_exists("res://scripts/ui_language.gd"):
+            var lang_script: Variant = load("res://scripts/ui_language.gd")
+            if lang_script != null:
+                prefs = lang_script.new()
+                prefs.initialize()
+        if prefs == null:
+            return
+        var next_locale := "en" if String(prefs.locale) != "en" else "zh_CN"
+        prefs.choose(next_locale)
+        if utility_buttons.has("language"):
+            utility_buttons["language"].text = _language_button_label()
+        return
+    if action=="settings":
+        release()
+        if is_instance_valid(level) and level.has_method("_toggle_audio_settings"):
+            level._toggle_audio_settings()
+        chosen.emit("settings");queue_free()
+        return
+    if action=="credits":
+        release()
+        if is_instance_valid(level) and level.has_method("_toggle_audio_settings"):
+            level._toggle_audio_settings()
+            var shell: Variant = level.get("ui_shell")
+            if shell is Control and is_instance_valid(shell):
+                var desk: Node = (shell as Control).get_node_or_null("CreditsReader")
+                if desk != null and desk.has_method("open"):
+                    desk.call_deferred("open")
+        chosen.emit("credits");queue_free()
+
+func select_slot(slot_idx: int) -> void:
+    if is_queued_for_deletion():return
+    var active_slot:=int(level.get("world_slot")) if is_instance_valid(level) and level.get("world_slot")!=null else 1
+    if slot_idx == active_slot:
+        choose("continue");return
+    release()
+    if is_instance_valid(level) and level.has_method("select_save_slot"):
+        if not level.select_save_slot(slot_idx):
+            # Target slot damaged or blocked; open Settings so player sees recovery UI.
+            if level.has_method("_toggle_audio_settings"):
+                level._toggle_audio_settings()
+    chosen.emit("slot_%d" % slot_idx);queue_free()
 
 ## The world waits behind the card: enemies cannot reach a player who has not
 ## pressed anything yet. Music keeps playing.
@@ -67,7 +175,13 @@ func release() -> void:
 func choose(action: String) -> void:
     if is_queued_for_deletion():return
     if action=="quit":
-        chosen.emit(action);get_tree().quit();return
+        chosen.emit(action)
+        var tree:=get_tree()
+        if tree!=null and tree.root.get_node_or_null(NodePath(CLOSE_OWNER_NAME))!=null:
+            tree.root.close_requested.emit()
+        elif tree!=null:
+            tree.quit()
+        return
     if action=="achievements":
         show_achievements();return
     release()
@@ -88,10 +202,19 @@ func show_achievements() -> void:
     var window:=get_node_or_null("Achievements") as AcceptDialog
     if window==null:
         window=AcceptDialog.new();window.name="Achievements";window.title="成就";window.min_size=Vector2i(460,420)
-        window.process_mode=Node.PROCESS_MODE_ALWAYS;add_child(window)
-        var list:=ItemList.new();list.name="List";list.custom_minimum_size=Vector2(420,340);window.add_child(list)
+        window.process_mode=Node.PROCESS_MODE_ALWAYS
+        var shell: Variant=level.get("ui_shell") if is_instance_valid(level) else null
+        if shell is Control and is_instance_valid(shell) and shell.theme!=null:
+            window.theme=shell.theme
+        add_child(window)
+        var column:=VBoxContainer.new();window.add_child(column)
+        var list:=ItemList.new();list.name="List";list.custom_minimum_size=Vector2(420,340);column.add_child(list)
+        if FileAccess.file_exists("res://scripts/settings_dialog_layout.gd"):
+            var layout_script: Variant=load("res://scripts/settings_dialog_layout.gd")
+            if layout_script!=null:
+                layout_script.install(window,column,Vector2i(460,420))
         window.visibility_changed.connect(func():
             if not window.visible and buttons.has("achievements"):buttons["achievements"].grab_focus())
-    var list:=window.get_node("List") as ItemList
+    var list:=window.find_child("List",true,false) as ItemList
     preload("res://scripts/achievements.gd").fill(list)
     window.popup_centered();list.grab_focus()

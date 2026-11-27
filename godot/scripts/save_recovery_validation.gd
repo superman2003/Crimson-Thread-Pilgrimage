@@ -99,6 +99,8 @@ func run() -> void:
 	clean()
 	new_journeys()
 	clean()
+	tampered_bounds()
+	clean()
 	check(await AUDIO.drain(self), "the fixture releases playback")
 	print("SAVE_RECOVERY checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
@@ -264,3 +266,18 @@ func new_journeys() -> void:
 	var fresh := WORLD.new()
 	check(not fresh.read(SAVE) and fresh.last_error == "missing", "the next journey cannot recover an old slot backup")
 	subject.free()
+
+func tampered_bounds() -> void:
+	for case_data in [
+		["extreme_hp", func(d: Dictionary): d.hp = 1e308],
+		["huge_hp", func(d: Dictionary): d.hp = 9999],
+		["negative_energy", func(d: Dictionary): d.energy = -50],
+		["huge_energy", func(d: Dictionary): d.energy = 50000],
+		["huge_currency", func(d: Dictionary): d.currency = 100000000],
+		["traversal_region", func(d: Dictionary): d.current_region = "../escape"; d.world_location = {}],
+	]:
+		var mutated: Dictionary = journey().duplicate(true)
+		(case_data[1] as Callable).call(mutated)
+		write_raw(JSON.stringify(mutated))
+		var reader := WORLD.new()
+		check(not reader.read(SAVE), "tampered save rejected: " + String(case_data[0]))

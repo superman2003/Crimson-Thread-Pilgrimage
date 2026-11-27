@@ -54,7 +54,7 @@ class CachedHydrationWorkflows(unittest.TestCase):
         self.assertLess(steps.index(cached), next(i for i, s in enumerate(steps) if 'audit_motion_scale_consistency.py' in s.get('run', '')))
 
     def test_static_jobs_do_not_download_assets_native_jobs_still_hydrate(self):
-        for name in ('material-conversion-plan-wip.yml', 'settings-dialog-layout.yml'):
+        for name in ('material-conversion-plan.yml', 'settings-dialog-layout.yml'):
             jobs = workflow(name)['jobs']
             for key, job in jobs.items():
                 with self.subTest(workflow=name, job=key):

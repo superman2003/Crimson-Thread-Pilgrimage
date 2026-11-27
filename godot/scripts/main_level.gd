@@ -607,6 +607,7 @@ const LEVEL_REGION_BUILD := preload("res://scripts/level_region_build.gd")
 const LEVEL_DIALOGUE := preload("res://scripts/level_dialogue.gd")
 const LEVEL_ENCOUNTERS := preload("res://scripts/level_encounters.gd")
 const LEVEL_HUD := preload("res://scripts/level_hud.gd")
+const PAUSE_MENU := preload("res://scripts/pause_menu.gd")
 const LEVEL_BUILD := preload("res://scripts/level_build.gd")
 const LEVEL_SAVE_SLOTS := preload("res://scripts/level_save_slots.gd")
 const LEVEL_GROUND := preload("res://scripts/level_ground.gd")
@@ -846,6 +847,7 @@ func _tick_dialogue_and_respawns(delta: float) -> void:
         subtitle_elapsed += delta
         dialogue_text_label.visible_ratio = clampf(subtitle_elapsed / maxf(0.1, subtitle_seconds), 0.0, 1.0)
     LEVEL_HUD.tick_lore_banner(self, delta)
+    LEVEL_HUD.tick_win_label(self, delta)
     if pending_enemy_respawn:
         pending_enemy_respawn = false
         LEVEL_RESIDENTS.spawn_normal_enemies(self)
@@ -863,7 +865,10 @@ func _poll_overlay_and_action_shortcuts() -> void:
     if modal or (typing and not Input.is_action_just_pressed("close_overlay")):
         return
     if Input.is_action_just_pressed("close_overlay"):
-        _close_overlays()
+        if not active_overlay.is_empty():
+            _close_overlays()
+        elif Input.is_physical_key_pressed(KEY_ESCAPE) and not world_loading and not chapter_transitioning:
+            _open_pause_menu()
     elif Input.is_action_just_pressed("inventory"):
         if world_mode and active_overlay == "map":
             world_map_view = not world_map_view
@@ -880,14 +885,18 @@ func _poll_overlay_and_action_shortcuts() -> void:
         elif Input.is_action_just_pressed("aim_down"):
             _move_backpack_selection(1)
     elif active_overlay == "settings":
-        if Input.is_action_just_pressed("aim_up"):
-            _move_settings_selection(-1)
-        elif Input.is_action_just_pressed("aim_down"):
-            _move_settings_selection(1)
-        if Input.is_action_just_pressed("move_left"):
-            _adjust_settings_volume(-5.0)
-        elif Input.is_action_just_pressed("move_right"):
-            _adjust_settings_volume(5.0)
+        var focused: Control = get_viewport().gui_get_focus_owner() if get_viewport() != null else null
+        var sliders_dict: Dictionary = ui_shell.get("settings_sliders") if ui_shell != null and ui_shell.get("settings_sliders") is Dictionary else {}
+        var audio_focused: bool = focused == null or sliders_dict.values().has(focused)
+        if audio_focused:
+            if Input.is_action_just_pressed("aim_up"):
+                _move_settings_selection(-1)
+            elif Input.is_action_just_pressed("aim_down"):
+                _move_settings_selection(1)
+            if Input.is_action_just_pressed("move_left"):
+                _adjust_settings_volume(-5.0)
+            elif Input.is_action_just_pressed("move_right"):
+                _adjust_settings_volume(5.0)
     if active_overlay.is_empty():
         if Input.is_action_just_pressed("tool_cast"):
             perform_build_action("use_tool")
@@ -1454,6 +1463,10 @@ func _build_settings_overlay() -> void:
 
 func _toggle_audio_settings() -> void:
     LEVEL_OVERLAYS.toggle_audio_settings(self)
+
+
+func _open_pause_menu() -> Node:
+    return PAUSE_MENU.open(self)
 
 
 func _settings_selection_clamped() -> int:

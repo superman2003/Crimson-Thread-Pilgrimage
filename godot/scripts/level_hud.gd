@@ -119,6 +119,34 @@ static func tick_lore_banner(level: Node, delta: float) -> void:
         level.lore_banner_label.visible = false
 
 
+static func tick_win_label(level: Node, delta: float) -> void:
+    if level.win_label == null or not is_instance_valid(level.win_label):
+        return
+    if not level.win_label.visible:
+        if level.win_label.has_meta("win_display_age"):
+            level.win_label.remove_meta("win_display_age")
+            level.win_label.remove_meta("win_display_text")
+        level.win_label.modulate.a = 1.0
+        return
+    var text := String(level.win_label.text)
+    if String(level.win_label.get_meta("win_display_text", "")) != text:
+        level.win_label.set_meta("win_display_text", text)
+        level.win_label.set_meta("win_display_age", 0.0)
+        level.win_label.modulate.a = 1.0
+        return
+    var age := float(level.win_label.get_meta("win_display_age", 0.0)) + maxf(delta, 0.0)
+    level.win_label.set_meta("win_display_age", age)
+    if age >= 6.5:
+        level.win_label.visible = false
+        level.win_label.modulate.a = 1.0
+        level.win_label.remove_meta("win_display_age")
+        level.win_label.remove_meta("win_display_text")
+    elif age > 5.0:
+        level.win_label.modulate.a = clampf(1.0 - (age - 5.0) / 1.5, 0.0, 1.0)
+    else:
+        level.win_label.modulate.a = 1.0
+
+
 static func spawn_pickup_effect(level: Node, world_position: Vector2) -> void:
     var ring := Line2D.new()
     ring.name = "PickupEffectRing"

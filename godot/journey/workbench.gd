@@ -12,6 +12,7 @@ var feature_scripts: Dictionary = {}
 var pending_paths: Array[String] = []
 var feature_job := preload("res://scripts/background_resource_job.gd").new()
 var loading_feature := false
+var discard_loading_feature := false
 var context: RefCounted
 var features: Dictionary = {}
 var selected := "chronicle"
@@ -24,6 +25,8 @@ var menu: VBoxContainer
 var status: Label
 var elapsed := 0.0
 var refreshing := false
+var activated := false
+var background_recording := false
 
 func _ready() -> void:
     process_mode = Node.PROCESS_MODE_ALWAYS
@@ -40,21 +43,58 @@ func _discover_world() -> void:
     for node in get_tree().root.get_children():
         if node.get_script() != null and node.get_script().resource_path == "res://scripts/main_level.gd" and bool(node.get("world_mode")):
             owner_ref = weakref(node)
-            if feature_scripts.is_empty():
-                _discover_features()
             return
 
 func _owner() -> Node:
     var node: Node = owner_ref.get_ref() if owner_ref != null else null
     return node if is_instance_valid(node) and not node.is_queued_for_deletion() else null
 
+func _has_active_session() -> bool:
+    for feature in features.values():
+        if feature == null:
+            continue
+        var live: Variant = feature.get("live")
+        if live is Dictionary and not live.is_empty():
+            return true
+        if live is Object and is_instance_valid(live):
+            return true
+        var active_state: Variant = feature.get("active")
+        if active_state is Dictionary and not active_state.is_empty():
+            return true
+        var session: Variant = feature.get("session")
+        if session is Object and is_instance_valid(session):
+            return true
+    return false
+
+func _should_tick_observers() -> bool:
+    if not activated:
+        return false
+    if is_instance_valid(dialog) and dialog.visible:
+        return true
+    return background_recording or _has_active_session()
+
 func _process(delta: float) -> void:
-    elapsed += delta
-    if not pending_paths.is_empty() or loading_feature:
-        _warm_feature()
+    if not activated:
+        # Idle fast-path during normal gameplay: zero 30-module preloads, zero
+        # 10 Hz deep copies, and zero synchronous auxiliary disk writes.
+        _rebind_ui()
+        var idle_owner := _owner()
+        if idle_owner == null:
+            _retire_ui()
+            _discover_world()
+        return
     # Region arrival can replace the UI shell; rebind the entry on the next
     # frame rather than the next 0.1 s observation tick.
     _rebind_ui()
+    var dialog_open: bool = is_instance_valid(dialog) and dialog.visible
+    if dialog_open:
+        if not pending_paths.is_empty() or loading_feature:
+            _warm_feature()
+    elif loading_feature and feature_job.ready():
+        feature_job.take()
+        loading_feature = false
+        discard_loading_feature = false
+    elapsed += delta
     if elapsed < 0.1:
         return
     var step := elapsed
@@ -68,6 +108,9 @@ func _process(delta: float) -> void:
         return
     if context != null and context.store.scope != String(owner.world_save_path).sha256_text():
         _retire()
+        return
+    if not _should_tick_observers():
+        return
     if context == null:
         _attach(owner)
     if context == null:
@@ -91,8 +134,6 @@ func bind_region_ui(owner: Node) -> void:
     if _owner() != owner:
         _retire()
         owner_ref = weakref(owner)
-    if feature_scripts.is_empty():
-        _discover_features()
     if not is_instance_valid(entry) or bound_ui_ref == null or bound_ui_ref.get_ref() != owner.ui_shell:
         _retire_ui()
         _attach_ui(owner)
@@ -115,6 +156,9 @@ func _warm_feature() -> void:
             return
         script = feature_job.take().get("resource") as Script
         loading_feature = false
+        if discard_loading_feature:
+            discard_loading_feature = false
+            return
     elif not pending_paths.is_empty():
         var path: String = pending_paths.pop_front()
         if feature_job.start(path, "GDScript") == OK:
@@ -166,6 +210,9 @@ func open() -> void:
     var owner := _owner()
     if owner == null or owner.active_overlay != "settings":
         return
+    activated = true
+    discard_loading_feature = false
+    _discover_features()
     # The entry is bound during HUD construction; the context otherwise waits
     # for the next observation tick, so an early press would do nothing.
     if context == null and bool(owner.get("initial_region_ready")):
@@ -197,6 +244,7 @@ func _build_dialog(owner: Node) -> void:
     var outer := UI.column(margin, true)
     var heading := UI.row(outer)
     UI.label(heading, "巡礼工作台", true)
+    UI.toggle(heading, "探索时后台记录", background_recording, func(value: bool): background_recording = value)
     UI.button(heading, "返回设置", close)
     var split := HSplitContainer.new()
     split.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -263,6 +311,14 @@ func _message(message: String) -> void:
         status.text = message
 
 func close() -> void:
+    pending_paths.clear()
+    if loading_feature:
+        if feature_job.ready():
+            feature_job.take()
+            loading_feature = false
+            discard_loading_feature = false
+        else:
+            discard_loading_feature = true
     if is_instance_valid(dialog):
         dialog.hide()
     for feature in features.values():
@@ -285,6 +341,9 @@ func _retire_ui() -> void:
 
 func _retire() -> void:
     _retire_ui()
+    activated = false
+    pending_paths.clear()
+    discard_loading_feature = false
     for feature in features.values():
         feature.shutdown()
     features.clear()

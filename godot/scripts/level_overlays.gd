@@ -127,6 +127,15 @@ static func close_overlays(level: Node) -> void:
     var ending_story = LEVEL_HOST.find(level, "EndingStoryDesk")
     if ending_story != null:
         ending_story.hide()
+    var new_journey = level.get("new_journey_dialog")
+    if new_journey is Window and is_instance_valid(new_journey) and new_journey.visible:
+        new_journey.hide()
+    var pause_menu: Node = level.get_node_or_null("PauseMenu")
+    if is_instance_valid(pause_menu) and not pause_menu.is_queued_for_deletion():
+        pause_menu.visible = false
+        if pause_menu.has_method("release"):
+            pause_menu.call("release")
+        pause_menu.queue_free()
     level._notify_dialogue_closed()
     level.active_overlay = ""
     if level.backpack_panel != null:

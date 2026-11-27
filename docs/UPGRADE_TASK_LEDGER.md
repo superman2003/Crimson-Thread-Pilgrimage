@@ -62,6 +62,19 @@
 - **边界说明**：本 PR 仅新增美术需求盘点文档与台账记录，不修改游戏运行脚本、不提交二进制素材，也不宣称相关美术条目已完成。
 - **验证**：`python3 tools/build_ledger.py --validate` 与 JSON/字段一致性校验通过。
 
+## 2026-11-26：完成 WS-4 / WS-5 切房零深拷贝优化、发布元数据与日志、仓库清理、CI LFS 降本及存档防篡改加固（G-13 / G-16 / G-17 / G-18 / G-19）
+
+- **目标**：关闭 1.0 审计中性能热点（G-13）、打包元数据与文件日志（G-16）、仓库临时/损坏死脚本清理（G-17）、CI 全量 LFS 与分片冗余及 ObjectDB 泄漏（G-18）、存档输入边界防篡改与夜间长跑（G-19）五项工程与质量缺口。
+- **改动**：
+  - **G-13 消除 293 KB 路由清单深拷贝**：在 `godot/scripts/world_routes.gd` 新增按需读取接口 `cached_region_list()` 与零深拷贝查询 `has_hidden_room()`；更新 `godot/scripts/level_region_build.gd` 全部 4 处热点（`spawn_seal_practice_targets`、`spawn_tool_practice_targets`、`spawn_hidden_route_clues`、`is_hidden_room`），进房与建区不再重复深拷贝完整 `world_routes.json`。
+  - **G-16 打包元数据、文件日志与受控打包输入**：在 `godot/project.godot` 补齐 `config/version="1.0.0"`、将 `config/features` 与 `gl_compatibility` 对齐为 `"GL Compatibility"` 并开启 `[debug] file_logging/enable_file_logging=true`；更新 `godot/export_presets.cfg`（Windows 开启 `application/modify_resources=true` 与 `1.0.0.0` 产品/版本信息，macOS 升级至 `1.0.0`）；在 `tools/build_release.py` 中优先按 `git ls-files` 收集受版本控制的运行期文件（保留非 git 临时目录回退），防止未追踪本地杂文件误打入候选包。
+  - **G-17 仓库与工具卫生**：移除误追踪的根目录临时脚本 `tmp_check_contracts.mjs` 与零引用失效脚本 `tools/capture_combat_pose_review.py`。
+  - **G-18 CI LFS 降本、分片去重与 ObjectDB 零泄漏**：将剩余 14 份 `.github/contracts/*.yml` 合同全部从 `lfs: true` 改为按需 `git lfs pull --include='godot/assets/**'`（全仓 0 份 `lfs: true` 合同）；让 `.github/actions/hydrate-lfs/action.yml` 兼容 Windows/macOS/Linux Python 路径并在 `.github/workflows/release-candidate.yml` 三端接入缓存复用的 `hydrate-lfs`；在 `.github/workflows/godot-integration.yml` 为 JS/Python 检查与 MetSys 冷启动检查补充 `matrix.shard == 1` 守卫避免 3 倍重复执行；在 `godot/scripts/boss_trial_validation.gd` 退出前正确回收音频并 `await process_frame`，消除退出时 ObjectDB 泄漏警告。
+  - **G-19 存档篡改边界校验与夜间长跑**：在 `godot/scripts/world_state.gd::_valid_data()` 增加 `hp`（`0..100` 整数）、`energy`（`0..1000` 整数）、`currency`（`0..9999999`）及合法区域标识符 `_valid_region_id()` 校验（同时保持对已移除但格式合法区域的回退兼容），在 `save_recovery_validation.gd` 新增 6 项 `tampered_bounds` 回归用例；为 `.github/workflows/runtime-lifecycle-soak.yml` 新增每日定时 `schedule`（北京时间 03:00）300 秒长跑。
+- **验证**：
+  - CI 与工具单测：`tools/ci/contracts.py lint`、`tools/test_integration_workflow.py`、`tools/test_lfs_cache_workflows.py`、`tools/test_release_builder.py`、`tools/test_build_macos_candidate.py`、`tools/test_export_audit.py`、`tools/audit_export_contents.py`、`tools/build_ledger.py --validate`、`tools/test_build_ledger.py`、`npm test`、`npm run test:campaign` 全部通过。
+  - Godot 回归套件：`boss_trial`、`save_recovery`、`save_product`、`world_state`、`world_streaming`、`world_neighbor_gameplay`、`world_prepare_budget`、`world_residency_inventory`、`hidden_routes` 全部通过（0 失败、0 ObjectDB 泄漏）。
+
 ## 2026-11-26 12:55 (北京时间) — 全项目 v1.0 发布差距与欠缺审查报告
 
 - 新增 [20261126_v1_project_gap_audit.md](../report/20261126_v1_project_gap_audit.md)，围绕显存与发行包体/许可合规、玩家主循环与手柄体验、未完结世界内容与占位美术/英文精修、架构性能与真机验收、以及发行工程/仓库治理/CI 降本五大工作流（`WS-1`–`WS-5`，共 `G-01`–`G-19` 19 项已核实条目）给出具体源码位置、量化证据、修复方案与验收标准，便于后续拆分指派专项推进。
@@ -71,6 +84,12 @@
 
 - 清理 `artifacts/` 下 2,012 个未被引用的历史诊断日志与压缩归档（释放约 163.26 MiB），完整保留 43 个受 CI/验证脚本保护的目录及所有保留 JSON 报告/清单引用的日志路径。
 - 验证：`verify_crown_return_proofs.py`、`test_verify_second_order_crown.py`、`contracts.py lint`、`build_ledger.py --validate`、`npm test`、`npm run test:campaign` 均通过，且保留 `artifacts/**/*.json` 断链为 0。
+
+## 2026-11-26：CI 预算对齐、发布版免伤加固与产物清理工具（T03 子项）
+
+将 `material-conversion-plan-wip.yml` 整理为 `material-conversion-plan.yml`，清理该工作流与 `settings-dialog-layout.yml` 的过期 WIP 分支监听，并将两者的冷资源导入超时统一对齐到 900 秒、任务上限调整为 30 分钟，修复近期 `main` 推送的冷导入超时失败。
+
+`player_damage.gd` 限制 `debug_invulnerable` 仅在 Godot debug/editor 构建生效，防止发布版误启用。新增 `tools/ci/prune_unreferenced_artifact_logs.py` 及专项单元测试，在清理未引用诊断日志时一并保护 CI/验证脚本目录、文档路径前缀、`artifacts/**/*.json` 证据引用和动态路径模板，并显式使用 UTF-8 解码。
 
 ## 2026-11-25：修复实机与全仓审查发现的游戏、世界加载、本地化与工具缺陷（跨任务缺陷修复）
 

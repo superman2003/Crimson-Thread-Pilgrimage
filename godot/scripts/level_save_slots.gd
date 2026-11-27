@@ -4,6 +4,24 @@ extends RefCounted
 ## methods of the same names, so callers and validations are unaffected.
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 
+
+static func remember_last_slot(slot: int) -> void:
+    if slot < 1 or slot > 3:
+        return
+    var store := preload("res://scripts/journey_desk_store.gd").new()
+    store.configure("last_slot", "installation")
+    store.write({"slot": slot})
+
+
+static func read_last_slot() -> int:
+    var store := preload("res://scripts/journey_desk_store.gd").new()
+    store.configure("last_slot", "installation")
+    var saved := store.read()
+    var value: Variant = saved.get("slot")
+    if saved.size() == 1 and typeof(value) in [TYPE_INT, TYPE_FLOAT] and int(value) >= 1 and int(value) <= 3:
+        return int(value)
+    return 0
+
 static func get_save_slots(level: Node) -> Array:
     var result: Array=[]
     for index in range(1,4):
@@ -65,6 +83,7 @@ static func select_save_slot(level: Node, index: int) -> bool:
     if not level._save_world():
         level._toast("当前进度未能写入，尚未切换存档槽。")
         return false
+    remember_last_slot(index)
     level.chapter_transitioning = true
     level._defer_region_call("_replace_with_save_slot", [index])
     return true

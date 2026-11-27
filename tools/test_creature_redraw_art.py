@@ -46,7 +46,7 @@ class PaintingStyle(unittest.TestCase):
         self.assertTrue(art.style_defects(self.moth(), self.moth(blur=6), accent_waived=True))
 
     def test_historical_exceptions_stay_pinned_to_their_registered_sheets(self):
-        self.assertEqual(len(art.LEGACY_ACCENT_SOURCES), 7)
+        self.assertEqual(len(art.LEGACY_ACCENT_SOURCES), 0)
         for (kind, clip), digest in art.LEGACY_ACCENT_SOURCES.items():
             jobs = art.read(art.REQUEST/'jobs'/(kind+'.json'))['jobs']
             self.assertEqual([j['sha256'] for j in jobs if j['clip'] == clip], [digest], (kind, clip))

@@ -14,7 +14,8 @@ runs:
         LFS_INCLUDE: ${{ inputs.include }}
       run: |
         git lfs install --skip-smudge
-        python3 tools/ci/lfs_cache.py --include="$LFS_INCLUDE"
+        PY=$(command -v python3 >/dev/null 2>&1 && echo python3 || echo python)
+        "$PY" tools/ci/lfs_cache.py --include="$LFS_INCLUDE"
     - name: Restore LFS objects
       id: cache
       if: steps.key.outputs.count != '0'
@@ -31,7 +32,9 @@ runs:
       shell: bash
       env:
         LFS_INCLUDE: ${{ inputs.include }}
-      run: python3 tools/hydrate_runtime_assets.py --include="$LFS_INCLUDE"
+      run: |
+        PY=$(command -v python3 >/dev/null 2>&1 && echo python3 || echo python)
+        "$PY" tools/hydrate_runtime_assets.py --include="$LFS_INCLUDE"
     # Save before long Godot tests, so a failed test does not waste downloads.
     # PR caches are scoped to their merge ref; main caches serve later PRs.
     - name: Save successfully hydrated LFS objects

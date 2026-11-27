@@ -5,10 +5,20 @@ var failures:=0
 class World extends Node:
     var audio_director:=Node.new()
     var new_journey_dialog:=ConfirmationDialog.new()
+    var win_label: Label = null
     var active_overlay:=""
     var locks:=0
+    var world_mode:=true
+    var initial_region_ready:=true
+    var world_loading:=false
+    var chapter_transitioning:=false
+    var save_ok:=true
+    var save_calls:=0
     func _ready() -> void:add_child(audio_director);add_child(new_journey_dialog)
     func _sync_ui_input_lock() -> void:locks+=1
+    func _save_world() -> bool:
+        save_calls+=1
+        return save_ok
 func _initialize() -> void:call_deferred("run")
 func check(ok: bool,label: String) -> void:
     checks+=1
@@ -51,6 +61,48 @@ func run() -> void:
     card.buttons["continue"].pressed.emit();await process_frame
     check(not paused,"start releases the world")
     CARD.shown=false
+    # Pause menu holds the world without triggering ui_input_locked (preserving active heals) and restores audio mode.
+    if FileAccess.file_exists("res://scripts/pause_menu.gd"):
+        var pause_script: Variant=load("res://scripts/pause_menu.gd")
+        var pause_menu: Node=pause_script.open(level);await process_frame
+        check(paused and pause_script.is_open(level) and level.audio_director.process_mode==Node.PROCESS_MODE_ALWAYS,"pause menu holds world while keeping audio processing")
+        check(level.locks==1 and level.active_overlay=="","pause menu does not trigger ui_input_locked or cancel active heals")
+        # Save failure must abort both return-to-title and quit instead of discarding unsaved progress.
+        level.save_ok=false
+        var closed_actions: Array[String]=[]
+        pause_menu.closed.connect(func(action: String):closed_actions.append(action))
+        pause_menu.buttons["title"].pressed.emit();await process_frame
+        check(paused and pause_script.is_open(level) and closed_actions.is_empty() and level.get_node_or_null("TitleCard")==null,"save failure aborts return-to-title and keeps pause menu open")
+        check(pause_menu.status_label.visible and pause_menu.buttons["discard_leave"].visible,"save failure shows warning and explicit discard escape hatch")
+        pause_menu.buttons["quit"].pressed.emit();await process_frame
+        check(paused and pause_script.is_open(level) and closed_actions.is_empty(),"save failure aborts quit without losing unsaved progress")
+        # Once saving succeeds, returning to title proceeds cleanly.
+        level.save_ok=true
+        pause_menu.buttons["title"].pressed.emit();await process_frame
+        check(not pause_script.is_open(level) and closed_actions==["title"] and level.get_node_or_null("TitleCard")!=null,"successful save closes pause menu and opens title card")
+        var reopened_card: Node=level.get_node_or_null("TitleCard")
+        if reopened_card!=null:
+            reopened_card.buttons["continue"].pressed.emit();await process_frame
+        CARD.shown=false
+        # Re-open and verify resume still releases pause menu cleanly.
+        pause_menu=pause_script.open(level);await process_frame
+        pause_menu.buttons["resume"].pressed.emit();await process_frame
+        check(not paused and not pause_script.is_open(level) and level.audio_director.process_mode==Node.PROCESS_MODE_INHERIT,"resume releases pause menu cleanly")
+    # Win banner auto-fades after 6.5s.
+    if FileAccess.file_exists("res://scripts/level_hud.gd"):
+        var hud_script: Variant=load("res://scripts/level_hud.gd")
+        var win := Label.new()
+        win.text = "守门者已败"
+        win.visible = true
+        level.win_label = win
+        hud_script.tick_win_label(level, 0.1)
+        check(win.visible and is_equal_approx(win.modulate.a, 1.0), "win banner stays fully visible immediately")
+        hud_script.tick_win_label(level, 5.75)
+        check(win.visible and win.modulate.a < 0.75 and win.modulate.a > 0.25, "win banner fades smoothly after 5 seconds")
+        hud_script.tick_win_label(level, 1.0)
+        check(not win.visible and is_equal_approx(win.modulate.a, 1.0), "win banner hides after fade completes")
+        level.win_label = null
+        win.free()
     level.queue_free();await process_frame
     print("TITLE_CARD checks=%d failures=%d" % [checks,failures])
     call_deferred("quit",1 if failures else 0)
