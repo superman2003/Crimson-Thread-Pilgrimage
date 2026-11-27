@@ -228,7 +228,7 @@ def svg_atlas(key):
             '<title>Original motion research: '+key+'</title>'+''.join(frames)+'</svg>'),geometry
 
 def save_json(path,data):
-    path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+    path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
 
 def font(size):
     return ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',size)
@@ -264,7 +264,7 @@ def build():
     for key in POSES:
         svg,geometry=svg_atlas(key)
         source=PACK/'sources'/f'{key}.svg'; dest=PACK/'atlases'/f'{key}.png'
-        source.write_text(svg+'\n')
+        source.write_text(svg+'\n', encoding="utf-8")
         subprocess.run(['inkscape',str(source),'--export-type=png',f'--export-filename={dest}','--export-background-opacity=0'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
         im=Image.open(dest).convert('RGBA'); im.save(dest,optimize=True)
         crest,action=key.split('_'); fps,start,end,description=META[key]

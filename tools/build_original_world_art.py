@@ -7,7 +7,7 @@ from build_original_creature_art import atlas_frames
 ROOT=Path(__file__).resolve().parents[1];GODOT=ROOT/'godot'
 
 def main():
-    data=json.loads((GODOT/'data/original_world_art_designs.json').read_text());count=0
+    data=json.loads((GODOT/'data/original_world_art_designs.json').read_text(encoding="utf-8"));count=0
     for npc in data['npcs']:
         folder=GODOT/'assets/sprites/original_npcs'/npc['id'];path=folder/'atlas.png'
         if not path.exists():continue
@@ -23,7 +23,7 @@ def main():
                           {'name':'talk','fps':4,'loop':True,'frames':frames[2:4]},
                           {'name':'greet','fps':4,'loop':False,'frames':[frames[4]]},
                           {'name':'rest','fps':3,'loop':False,'frames':[frames[5]]}]}
-        (folder/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');count+=1
+        (folder/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n', encoding="utf-8");count+=1
     icons={}
     for group in data['item_atlases']:
         path=GODOT/'assets/sprites/original_items'/(group['id']+'.png')
@@ -32,12 +32,12 @@ def main():
         for item,region in zip(group['items'],raw):
             icons[item[0]]={'atlas':'res://assets/sprites/original_items/'+group['id']+'.png','region':region}
     folder=GODOT/'assets/sprites/original_items';folder.mkdir(parents=True,exist_ok=True)
-    (folder/'manifest.json').write_text(json.dumps(icons,ensure_ascii=False,indent=2)+'\n')
+    (folder/'manifest.json').write_text(json.dumps(icons,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print('NPC animations:',count,'item icons:',len(icons))
     props=GODOT/'assets/sprites/original_interactables'
     if (props/'atlas.png').exists():
         raw,_=atlas_frames(props/'atlas.png',4,2)
         names=['rest_bell','rest_root','lever_closed','lever_open','gate_closed','gate_open','chest_closed','chest_open']
-        (props/'manifest.json').write_text(json.dumps({k:{'atlas':'res://assets/sprites/original_interactables/atlas.png','region':r} for k,r in zip(names,raw)},indent=2)+'\n')
+        (props/'manifest.json').write_text(json.dumps({k:{'atlas':'res://assets/sprites/original_interactables/atlas.png','region':r} for k,r in zip(names,raw)},indent=2)+'\n', encoding="utf-8")
 
 if __name__=='__main__':main()

@@ -23,8 +23,8 @@ for phase in range(5):
  text=(d/f'phase_{phase}.log').read_text(encoding='utf-8',errors='replace');errors=re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$',text,re.M);m=re.findall(r'^G02_PHASE_PROOF (.+)$',text,re.M);marker=f'WORLD_G02_DEATH failures=0 deaths={1 if phase<3 else 0} damage_suppression=false';passed=code==0 and not errors and marker in text and bool(m)
  results.append(dict(phase=phase,exit=code,seconds=round(time.monotonic()-t,2),timeout=180,errors=errors,warnings=text.count('ObjectDB instances leaked'),passed=passed,command=command))
  if not passed:break
- proof=json.loads(m[-1]);(d/f'phase_{phase}_proof.json').write_text(json.dumps(proof,indent=2)+'\n');snap=re.findall(r'^G02_SNAPSHOT (.+)$',text,re.M)[-1].strip();shutil.copyfile(snap,d/f'phase_{phase}_save.json')
+ proof=json.loads(m[-1]);(d/f'phase_{phase}_proof.json').write_text(json.dumps(proof,indent=2)+'\n', encoding="utf-8");snap=re.findall(r'^G02_SNAPSHOT (.+)$',text,re.M)[-1].strip();shutil.copyfile(snap,d/f'phase_{phase}_save.json')
 after=sources()
 for name,value in [('before',before),('after',after)]:(d/f'source-{name}.json.gz').write_bytes(gzip.compress((json.dumps(value,indent=2)+'\n').encode(),mtime=0))
 result=dict(phases=results,seconds=round(time.monotonic()-started,2),source_files=len(before),source_unchanged=before==after,passed=len(results)==5 and all(v['passed'] for v in results) and before==after)
-(d/'verification.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2));raise SystemExit(0 if result['passed'] else 1)
+(d/'verification.json').write_text(json.dumps(result,indent=2)+'\n', encoding="utf-8");print(json.dumps(result,indent=2));raise SystemExit(0 if result['passed'] else 1)

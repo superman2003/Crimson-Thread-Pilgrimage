@@ -41,6 +41,8 @@ func _run() -> void:
     await process_frame
     state = scene.get_demo_state()
     _assert_boss_trial_state(state, "after death reset")
+    _assert_true(is_instance_valid(scene.boss_arena_lock_body), "after death reset trial wall is restored")
+    _assert_true(scene.player.camera_focus.locks.has("boss_arena"), "after death reset trial camera lock is restored")
     _assert_boss01_directional_manifest("runtime")
     if failure_count > 0:
         AUDIO.retire_tree(scene)

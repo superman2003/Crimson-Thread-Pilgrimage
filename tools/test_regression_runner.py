@@ -22,9 +22,9 @@ class CompletionContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as scratch:
             root = Path(scratch)
             (root / 'art').mkdir(); (root / 'skip').mkdir(); (root / '.godot').mkdir()
-            (root / 'art' / 'done.png').write_bytes(b''); (root / 'art' / 'done.png.import').write_text('')
-            (root / 'art' / 'fresh.png').write_bytes(b''); (root / 'art' / 'notes.json').write_text('{}')
-            (root / 'skip' / '.gdignore').write_text(''); (root / 'skip' / 'raw.png').write_bytes(b'')
+            (root / 'art' / 'done.png').write_bytes(b''); (root / 'art' / 'done.png.import').write_text('', encoding="utf-8")
+            (root / 'art' / 'fresh.png').write_bytes(b''); (root / 'art' / 'notes.json').write_text('{}', encoding="utf-8")
+            (root / 'skip' / '.gdignore').write_text('', encoding="utf-8"); (root / 'skip' / 'raw.png').write_bytes(b'')
             (root / '.godot' / 'cache.png').write_bytes(b'')
             self.assertEqual(runner.unimported_assets(root), ['art/fresh.png'])
 
@@ -151,10 +151,10 @@ class CompletionContractTests(unittest.TestCase):
             'interpolation_arrival',
             'six_region_route_redesign',
         }
-        # Keep the original 186-suite floor exact while counting each explicitly
-        # registered ledger addition. The duplicate and marker checks below still
-        # reject a missing base suite, an unknown addition or invalid completion.
-        self.assertEqual(len(all_suites), 188 + len(set(all_suites) & combat_additions))
+        # Keep the audited baseline floor exact while counting explicitly
+        # registered suites. Duplicate and marker checks reject missing suites
+        # and invalid completion contracts.
+        self.assertEqual(len(all_suites), 190 + len(set(all_suites) & combat_additions))
         self.assertIn("ai_music_pack", DEFAULT_SUITES)
         self.assertIn("enemy_combat_continuity", DEFAULT_SUITES)
         self.assertIn("boss_combat_identity", DEFAULT_SUITES)
@@ -162,6 +162,8 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("character_motion_v8", DEFAULT_SUITES)
         self.assertIn("shrine_return_world", DEFAULT_SUITES)
         self.assertIn("grounded_run", DEFAULT_SUITES)
+        self.assertIn("achievements", DEFAULT_SUITES)
+        self.assertIn("sparring_tool_acceptance", DEFAULT_SUITES)
 
         self.assertIn("legacy_travel_rewards", DEFAULT_SUITES)
         self.assertIn("application_close", DEFAULT_SUITES)
@@ -246,7 +248,7 @@ class RunnerTests(unittest.TestCase):
     def run_engine(self, body, suite='enemy_visibility', timeout='2', missing_display=False):
         with tempfile.TemporaryDirectory() as directory:
             engine = Path(directory) / 'fake-godot'
-            engine.write_text('#!' + sys.executable + '\n' + body)
+            engine.write_text('#!' + sys.executable + '\n' + body, encoding="utf-8")
             engine.chmod(0o755)
             renderer = ['--software-gl'] if missing_display else []
             env = dict(os.environ, PATH=directory) if missing_display else None
@@ -306,7 +308,7 @@ class RunnerTests(unittest.TestCase):
                 + 'assert "--fixed-fps" not in sys.argv, "audio needs wall-clock timing"\n'
                 + 'print("AUDIO RETIREMENT PASS: fixture, failures=0")\n'
                 + 'print("PLAYER_ACTION_SFX_SYNC_PASS checks=17")\n'
-            )
+            , encoding="utf-8")
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
@@ -362,7 +364,7 @@ class RunnerTests(unittest.TestCase):
                 + 'print("WORLD_WORKSHOP_GROUP_ONE checks=400 failures=0 rooms=10 disk_restarts=10 enemy_removal=true fixture_positioning=true elapsed_ms=1234")\n'
                 + 'print("WORLD_WORKSHOP_GROUP_TWO checks=400 failures=0 rooms=9 disk_restarts=9 enemy_removal=true fixture_positioning=true elapsed_ms=1234")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
-            )
+            , encoding="utf-8")
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
@@ -370,7 +372,7 @@ class RunnerTests(unittest.TestCase):
                 self.assertIn(suite, DEFAULT_SUITES)
                 failures = run_suites(str(engine), [suite], 2, logs, root / 'scratch', True, {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
                 self.assertEqual(failures, [])
-                args = captured.read_text().splitlines()
+                args = captured.read_text(encoding="utf-8").splitlines()
                 self.assertIn('--disable-render-loop', args)
                 self.assertEqual(args[args.index('--fixed-fps') + 1], '60')
                 self.assertEqual(args[args.index('--rendering-method') + 1], 'gl_compatibility')
@@ -402,7 +404,7 @@ class RunnerTests(unittest.TestCase):
                 + 'print("PLAYER_MOTION_CONTINUITY checks=1 failures=0")\n'
                 + 'print("PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=simulated physical_feel=unverified")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
-            )
+            , encoding="utf-8")
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
@@ -411,7 +413,7 @@ class RunnerTests(unittest.TestCase):
                     failures = run_suites(str(engine), [suite], 2, logs, root / 'scratch', True,
                                           {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
                     self.assertEqual(failures, [])
-                    arguments = captured.read_text().splitlines()
+                    arguments = captured.read_text(encoding="utf-8").splitlines()
                     self.assertNotIn('--disable-render-loop', arguments)
                     self.assertIn('--fixed-fps', arguments)
                     self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
@@ -447,14 +449,14 @@ class RunnerTests(unittest.TestCase):
                 '#!' + sys.executable + '\nimport sys\n'
                 + 'print("ROOM_CAMERA_STABILITY checks=86 failures=0 player_integration=true metrics={}")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
-            )
+            , encoding="utf-8")
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
             failures = run_suites(str(engine), ['room_camera_stability'], 2, logs, root / 'scratch', True,
                                   {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
             self.assertEqual(failures, [])
-            arguments = captured.read_text().splitlines()
+            arguments = captured.read_text(encoding="utf-8").splitlines()
             self.assertEqual(arguments[-2:], ['--', '--player'])
             self.assertNotIn('--disable-render-loop', arguments)
             self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
@@ -474,12 +476,12 @@ class RunnerTests(unittest.TestCase):
                     '#!' + sys.executable + '\nimport sys\n'
                     + f'print({marker!r})\n'
                     + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
-                )
+                , encoding="utf-8")
                 engine.chmod(0o755)
                 logs = root / 'logs'
                 logs.mkdir()
                 run_suites(str(engine), [suite], 2, logs, root / 'scratch', False, {})
-                arguments = captured.read_text().splitlines()
+                arguments = captured.read_text(encoding="utf-8").splitlines()
                 self.assertIn('--fixed-fps', arguments)
                 self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
 
@@ -507,14 +509,14 @@ class RunnerTests(unittest.TestCase):
                 '#!' + sys.executable + '\nimport sys\n'
                 + 'print("PLAYER_LAYERED_IDLE_VALIDATION checks=214 failures=0 real_gl=true pixels_complete=true")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
-            )
+            , encoding="utf-8")
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
             failures = run_suites(str(engine), ['player_layered_idle'], 2, logs, root / 'scratch', True,
                                   {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
             self.assertEqual(failures, [])
-            arguments = captured.read_text().splitlines()
+            arguments = captured.read_text(encoding="utf-8").splitlines()
             self.assertNotIn('--disable-render-loop', arguments)
             self.assertNotIn('--headless', arguments)
             self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
@@ -530,14 +532,14 @@ class RunnerTests(unittest.TestCase):
                 '#!' + sys.executable + '\nimport sys\n'
                 + f'print({marker!r})\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
-            )
+            , encoding="utf-8")
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
             failures = run_suites(str(engine), ['enemy_atlas_integrity'], 2, logs, root / 'scratch', True,
                                   {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
             self.assertEqual(failures, [])
-            arguments = captured.read_text().splitlines()
+            arguments = captured.read_text(encoding="utf-8").splitlines()
             self.assertNotIn('--disable-render-loop', arguments)
             self.assertNotIn('--headless', arguments)
             self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
@@ -575,7 +577,7 @@ class RunnerTests(unittest.TestCase):
                 + 'print("WORLD_NEIGHBOR_GAMEPLAY_STRESS checks=1 failures=0")\n'
                 + 'print("WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=1 failures=0")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
-            )
+            , encoding="utf-8")
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
@@ -590,7 +592,7 @@ class RunnerTests(unittest.TestCase):
                         {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'},
                     )
                     self.assertEqual(failures, [])
-                    args = captured.read_text().splitlines()
+                    args = captured.read_text(encoding="utf-8").splitlines()
                     self.assertIn('--rendering-method', args)
                     self.assertIn('gl_compatibility', args)
                     self.assertEqual('--disable-render-loop' in args, should_disable)
@@ -603,7 +605,7 @@ class RunnerTests(unittest.TestCase):
             original = b'{"fixture": "original"}'
             script = root / 'godot/scripts/world_catalog_background_validation.gd'
             script.parent.mkdir(parents=True)
-            script.write_text('fixture')
+            script.write_text('fixture', encoding="utf-8")
             logs = root / 'logs'
             logs.mkdir()
             engine = root / 'fake-godot'
@@ -620,7 +622,7 @@ class RunnerTests(unittest.TestCase):
                     os.utime(source, ns=stamps)
                     engine.write_text('#!' + sys.executable + '\n'
                                       + f'open({str(source)!r}, "wb").write(b"changed")\n'
-                                      + body + '\n')
+                                      + body + '\n', encoding="utf-8")
                     engine.chmod(0o755)
                     with patch.object(runner, 'ROOT', root):
                         failures = runner.run_suites(str(engine), ['world_catalog_background'],
@@ -646,7 +648,7 @@ class RunnerTests(unittest.TestCase):
             marker = Path(directory) / 'ran'
             engine = Path(directory) / 'fake-godot'
             engine.write_text('#!' + sys.executable + '\n'
-                              + f'open({str(marker)!r}, "w").close()\n')
+                              + f'open({str(marker)!r}, "w").close()\n', encoding="utf-8")
             engine.chmod(0o755)
             for timeout in ('nan', 'inf', '-inf', '0', '-1'):
                 with self.subTest(timeout=timeout):
@@ -665,7 +667,7 @@ class RunnerTests(unittest.TestCase):
             logs = Path(directory) / 'logs'
             engine = Path(directory) / 'fake-godot'
             engine.write_text('#!' + sys.executable + '\n'
-                              + f'open({str(marker)!r}, "w").close()\n')
+                              + f'open({str(marker)!r}, "w").close()\n', encoding="utf-8")
             engine.chmod(0o755)
             for suite in ('../escape', 'tests/../../escape', '/absolute', 'Bad_Name', 'two words'):
                 with self.subTest(suite=suite):
@@ -693,7 +695,7 @@ class RunnerTests(unittest.TestCase):
     def test_python_tool_signal_is_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             script = Path(directory) / 'terminated.py'
-            script.write_text('import os, signal\nos.kill(os.getpid(), signal.SIGTERM)\n')
+            script.write_text('import os, signal\nos.kill(os.getpid(), signal.SIGTERM)\n', encoding="utf-8")
             result = subprocess.run(['node', str(ROOT / 'tools/run_python_tool.mjs'), str(script)], text=True, capture_output=True, env=dict(os.environ, PYTHON=sys.executable), timeout=10)
             self.assertEqual(result.returncode, 1)
             self.assertIn('terminated by signal', result.stderr)

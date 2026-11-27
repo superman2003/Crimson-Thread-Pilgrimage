@@ -21,14 +21,14 @@ def main():
         (project/'project.godot').write_text(
             'config_version=5\n[application]\nconfig/name="Reliability fixtures"\n'
             '[autoload]\nGameLanguageSettings="*res://scripts/game_language_settings.gd"\n'
-            '[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
+            '[rendering]\nrenderer/rendering_method="gl_compatibility"\n', encoding="utf-8")
         for name in DEPS:
             target = project/name;target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT/'godot'/name, target)
         env = dict(os.environ, XDG_DATA_HOME=str(base/'userdata'), APPDATA=str(base/'userdata'), GODOT_SILENCE_ROOT_WARNING='1')
         command = [args.engine, '--headless', '--audio-driver', 'Dummy', '--path', str(project), '--script', 'res://scripts/display_settings_validation.gd']
         imported = subprocess.run(command[:-2]+['--editor','--recovery-mode','--import','--quit'], env=env, capture_output=True, text=True, timeout=120)
-        (args.log_dir/'import.log').write_text(imported.stdout+imported.stderr)
+        (args.log_dir/'import.log').write_text(imported.stdout+imported.stderr, encoding="utf-8")
         if imported.returncode or re.search(r'^\s*(?:SCRIPT ERROR|ERROR):', imported.stdout+imported.stderr,re.M):
             print(imported.stdout+imported.stderr);return 1
         try:
@@ -37,7 +37,7 @@ def main():
             good = result.returncode == 0
         except subprocess.TimeoutExpired as exc:
             output = str(exc)+'\nERROR: native fixture timeout\n';good = False
-        (args.log_dir/'native.log').write_text(output)
+        (args.log_dir/'native.log').write_text(output, encoding="utf-8")
         print(output, end='')
         good = good and re.search(MARKER, output, re.M) is not None
         good = good and re.search(r'(?:^\s*(?:SCRIPT ERROR|ERROR|USER ERROR):|ObjectDB instances leaked|Resources still in use)', output, re.M) is None
@@ -45,7 +45,7 @@ def main():
             restarted = subprocess.run(command + ['--', '--verify-language-restart'], env=env,
                                        capture_output=True, text=True, timeout=120)
             boot = restarted.stdout + restarted.stderr
-            (args.log_dir/'restart.log').write_text(boot)
+            (args.log_dir/'restart.log').write_text(boot, encoding="utf-8")
             print(boot, end='')
             good = (restarted.returncode == 0 and re.search(r'^LANGUAGE_RESTART failures=0$', boot, re.M) is not None
                     and re.search(r'^\s*(?:SCRIPT ERROR|ERROR|USER ERROR):', boot, re.M) is None)
@@ -58,7 +58,7 @@ def main():
                 shown = rendered.stdout+rendered.stderr
             except subprocess.TimeoutExpired as exc:
                 shown = str(exc)+'\nERROR: colour assist timeout\n'
-            (args.log_dir/'colour.log').write_text(shown)
+            (args.log_dir/'colour.log').write_text(shown, encoding="utf-8")
             print(shown, end='')
             good = (re.search(r'^COLOUR_ASSIST checks=[1-9][0-9]* failures=0$', shown, re.M) is not None
                     and re.search(r'^\s*(?:SCRIPT ERROR|ERROR|USER ERROR):', shown, re.M) is None)

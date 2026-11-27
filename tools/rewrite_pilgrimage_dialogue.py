@@ -258,7 +258,7 @@ def repair_delivery_sources(data):
 def main():
     count=0
     for path in (ROOT/'godot/data').rglob('demo*.json'):
-        data=json.loads(path.read_text());changed=False
+        data=json.loads(path.read_text(encoding="utf-8"));changed=False
         for npc in data.get('npcs',[]):
             id=npc['id']
             if id not in VOICES:continue
@@ -280,7 +280,7 @@ def main():
             data['map_title']=TITLES.get(data.get('art_theme',''),'巡礼地图')+' · 巡礼地图'
             data['chapter_name']=TITLES.get(data.get('art_theme',''),'绯线巡礼')
             data['interaction_design']={'key':'F','selection':'nearest_available','story_items':'manual_pickup','materials':'automatic_pickup','dialogue_choices':['continue','route','wish']}
-            path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+            path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n', encoding="utf-8")
     print('NPC dialogue records rewritten:',count,'distinct voices:',len(VOICES),'interactive wishes:',len(QUESTS))
 
 if __name__=='__main__':main()

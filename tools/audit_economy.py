@@ -185,7 +185,7 @@ def main() -> int:
     args = parser.parse_args()
     report, errors = audit()
     if args.report:
-        Path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+        Path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for error in errors:
         print("FAIL: " + error)
     print(f"ECONOMY_AUDIT {'FAIL' if errors else 'PASS'}: income={report['one_time_income']} sinks={report['one_time_sinks']} "

@@ -27,7 +27,7 @@ def software_gl(log_dir: Path):
                 continue
     if display is None:
         raise RuntimeError('No free X display port')
-    with (log_dir / 'xvfb.log').open('w') as log:
+    with (log_dir / 'xvfb.log').open('w', encoding="utf-8") as log:
         # Clients connect over TCP and may not share the server's IPC namespace.
         # Do not advertise MIT-SHM: stale/unshareable segments otherwise produce
         # BadShmSeg even when the actual rendered game assertions all pass.

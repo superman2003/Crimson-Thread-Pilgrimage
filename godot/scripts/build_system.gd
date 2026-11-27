@@ -316,7 +316,7 @@ func equip_passives(ids: Array) -> Dictionary:
         var family := String(catalog.passives[id].family)
         var placed := false
         for slot in range(next[family].size()):
-            if _slot_unlocked(family, slot) and _slot_accepts(family, slot, id):
+            if _slot_unlocked(family, slot) and _slot_accepts(family, slot, id) and String(next[family][slot]).is_empty():
                 next[family][slot] = id
                 placed = true
                 break

@@ -342,8 +342,7 @@ static func run_owned_passage_transition(loader: RefCounted, token: RefCounted, 
     token.finished = true
     if loader.transition_token == token:
         loader.transition_token = null
-        if loader.startup_token == null:
-            loader._disconnect_startup_frames()
+        loader._disconnect_startup_frames_if_idle()
     if token.cancelled or not loader._alive(host):
         loader.phase = "idle"
         loader.cancel_requested = false
@@ -360,8 +359,7 @@ static func run_owned_transition(loader: RefCounted, token: RefCounted, host: No
     token.finished = true
     if loader.transition_token == token:
         loader.transition_token = null
-        if loader.startup_token == null:
-            loader._disconnect_startup_frames()
+        loader._disconnect_startup_frames_if_idle()
     if loader._alive(host):
         host.world_portal_request_pending = false
     if token.cancelled or not loader._alive(host):

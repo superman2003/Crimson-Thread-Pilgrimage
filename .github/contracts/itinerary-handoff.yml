@@ -24,8 +24,10 @@ jobs:
       - uses: actions/checkout@v5
         with:
           lfs: false
-      - name: Hydrate runtime assets
-        run: git lfs pull --include='godot/assets/**'
+      - name: Pull required Godot assets
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
       - name: Runner failure propagation
         run: python3 tools/test_itinerary_handoff_runner.py
       - name: Install pinned Godot 4.6.1
