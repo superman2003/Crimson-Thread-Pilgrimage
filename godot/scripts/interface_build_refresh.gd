@@ -4,6 +4,207 @@ const NAMED_TEXT := preload("res://scripts/user_named_text.gd")
 ## Moved out of pilgrimage_interface.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
 
+static func _render_field_build_view(ui: Node, system: Variant, snapshot: Dictionary) -> void:
+    for tab in ui.build_tabs:tab.hide()
+    for button in ui.family_selector_buttons:button.hide()
+    for button in ui.build_slot_buttons:button.hide()
+    ui.clear_family_slot_button.hide()
+    ui.resupply_preview_button.hide()
+    ui.resupply_confirm_button.hide()
+    ui.resupply_planner_button.hide()
+    ui.build_summary.text="巡行配置 · 碎钱 %d" % int(ui.level.currency_count)
+    ui.build_detail.text="在钟龛调整装备；校习找织线学徒、雨铸匠或蜂蜡商人。"
+    var current_skill: String = build_entry_name(ui, system,"skills",String(snapshot.get("skill","")))
+    var current_tool: String = build_entry_name(ui, system,"tools",String(snapshot.get("tool","")))
+    var cycle_skill: Button = ui._button(ui.build_grid,"切换技能 · 当前 %s" % current_skill,Vector2.ZERO,Vector2(563,58),func():ui._perform_build_action("cycle_skill",""))
+    cycle_skill.custom_minimum_size=Vector2(563,64)
+    cycle_skill.focus_mode=Control.FOCUS_ALL
+    var cycle_tool: Button = ui._button(ui.build_grid,"切换战具 · 当前 %s" % current_tool,Vector2.ZERO,Vector2(563,58),func():ui._perform_build_action("cycle_tool",""))
+    cycle_tool.custom_minimum_size=Vector2(563,64)
+    cycle_tool.focus_mode=Control.FOCUS_ALL
+    var current_focus = ui.get_viewport().gui_get_focus_owner()
+    if ui.build_panel.visible and (current_focus==null or not ui.build_panel.is_ancestor_of(current_focus)):cycle_skill.grab_focus()
+
+
+static func _sync_workstation_controls(ui: Node, snapshot: Dictionary, at_artisan: bool, family_id: String, slots: Array, has_typed_layout: bool) -> void:
+    for tab in ui.build_tabs:tab.visible=not at_artisan or String(tab.get_meta("build_category",""))=="强化"
+    if at_artisan:
+        ui.build_summary.text="工匠 · 碎钱 %d · 校习技能 · 改制战具" % int(ui.level.currency_count)
+    else:
+        ui.build_summary.text="碎钱 %d · 饰品容量 %d / %d · %s" % [int(ui.level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0)),ui._all_family_count_summary(snapshot)]
+    ui._ensure_family_slot_buttons(snapshot,family_id,slots) if has_typed_layout else ui._ensure_family_slot_buttons(snapshot,"",[])
+    for index in ui.family_selector_buttons.size():
+        var family_button: Button=ui.family_selector_buttons[index]
+        var accessory_id: String=["combat_accessory","travel_accessory"][index]
+        var family_info: Dictionary = ui._family_row(snapshot,accessory_id)
+        family_button.text=String(family_info.get("name",accessory_id))
+        family_button.visible=ui.build_category=="铭饰"
+        family_button.add_theme_stylebox_override("normal",ui._tab_style(ui.build_family==accessory_id))
+    ui.clear_family_slot_button.visible=has_typed_layout and not slots.is_empty()
+    if ui.clear_family_slot_button.visible:
+        var selected_slot: Dictionary=slots[ui.build_assign_slot]
+        ui.clear_family_slot_button.disabled=not bool(selected_slot.get("unlocked",false)) or String(selected_slot.get("equipped_id","")).is_empty()
+    var skill_family: Dictionary = ui._family_row(snapshot,"thread_skill")
+    var tool_family: Dictionary = ui._family_row(snapshot,"tool")
+    if not skill_family.is_empty():ui.build_tabs[1].text=String(skill_family.get("name","技能"))
+    if not tool_family.is_empty():ui.build_tabs[2].text=String(tool_family.get("name","战具"))
+    for index in ui.build_slot_buttons.size():
+        if not has_typed_layout:ui.build_slot_buttons[index].visible=ui.build_category in ["技能","战具"] and index<2
+    ui.craft_cart_button.visible=ui.build_category=="强化"
+    ui.resupply_planner_button.visible=ui.build_category=="战具"
+    ui.resupply_preview_button.visible=ui.build_category=="战具"
+    ui.resupply_confirm_button.visible=ui.build_category=="战具"
+    ui.resupply_confirm_button.disabled=ui.resupply_quote.is_empty() or not bool(ui.resupply_quote.get("ok",false))
+
+
+static func _collect_build_entries(ui: Node, snapshot: Dictionary, at_artisan: bool) -> Dictionary:
+    var entries: Array=[]
+    var action:=""
+    match ui.build_category:
+        "契印":entries=snapshot.get("crests",[]);action="switch_crest"
+        "技能":entries=ui._family_options(snapshot,"thread_skill");action="equip_family_slot"
+        "战具":entries=ui._family_options(snapshot,"tool");action="equip_family_slot"
+        "铭饰":entries=ui._family_options(snapshot,ui.build_family);action="equip_family_slot"
+        "强化":
+            entries=snapshot.get("recipes",[])
+            action="transact"
+            # E04: beside an artisan, that artisan's own 改制 come first.
+            var here:=String(ui.level.call("near_artisan_id")) if at_artisan and ui.level.has_method("near_artisan_id") else ""
+            if not here.is_empty():
+                var own: Array=[]
+                var rest: Array=[]
+                for recipe in entries:(own if String(recipe.get("artisan",""))==here else rest).append(recipe)
+                entries=own+rest
+        "构筑":
+            for id in ui._loadout_names(snapshot):
+                var loadouts: Array=snapshot.get("loadouts",[])
+                entries.append({"id":id,"name":id,"description":"保存当前契印、技能、战具和铭饰。恢复时仍会检查解锁与槽位条件。","unlocked":true,"exists":loadouts.has(id)})
+    return {"entries":entries,"action":action}
+
+
+static func _filter_build_entries(ui: Node, system: Variant, snapshot: Dictionary, entries: Array, family_id: String, slots: Array, has_typed_layout: bool) -> Array:
+    if ui.equipment_search!=null and ui.equipment_search.visible:
+        var selected_slot: Dictionary=slots[ui.build_assign_slot] if has_typed_layout and ui.build_assign_slot<slots.size() else {}
+        var validator:=Callable()
+        if system!=null and system.has_method("quote_family_slot"):
+            validator=func(entry: Dictionary,family: String,slot: Dictionary):
+                return bool(system.quote_family_slot(String(entry.get("id","")),family,int(slot.get("index",ui.build_assign_slot)),true).ok)
+        var filtered = ui.equipment_filter.select(entries,family_id,selected_slot,ui.equipment_search.text,ui.equipment_compatible.button_pressed,validator)
+        entries=filtered.entries
+        ui.equipment_compatible.text="仅可装入此槽 · %d/%d" % [filtered.shown,filtered.total]
+        if entries.is_empty():
+            ui.build_heading.text="没有匹配装备"
+            ui.build_detail.text=String(filtered.empty_reason)
+            # A locked target slot still names what opens it, filter or not.
+            if not selected_slot.is_empty() and not bool(selected_slot.get("unlocked",true)):
+                for hint in ui._slot_unlock_hints(snapshot,selected_slot):ui.build_detail.text+="\n◇ "+hint
+            ui.build_emblem.texture=null
+    if entries.is_empty() and (ui.equipment_search==null or not ui.equipment_search.visible):ui.build_detail.text="此页暂无可用条目。"
+    return entries
+
+
+static func _format_build_entry_label(ui: Node, snapshot: Dictionary, entry: Dictionary, id: String, compatible: Array, has_typed_layout: bool) -> String:
+    var text:=String(entry.get("name",id))
+    if not bool(entry.get("unlocked",true)):text="◇ "+text+" · 未解锁"
+    elif bool(entry.get("selected",false)):text="◆ "+text+" · 已装备"
+    var equipped_slots: String = entry_equipped_slots(ui, snapshot,id)
+    if not equipped_slots.is_empty():text+=" · 位置 "+equipped_slots
+    if entry.has("cost"):text+=" · 容量 %d" % int(entry.cost)
+    if entry.has("count"):
+        text+=" · %d/%d 次" % [int(entry.count),int(entry.get("capacity",entry.count))]
+        if int(entry.count)<=0:text+=" · 已用尽"
+    if entry.get("branch","") is String and not String(entry.get("branch","")).is_empty():text+=" · 校习："+String(entry.get("branches",{}).get(String(entry.branch),{}).get("name",""))
+    if String(entry.get("kind",""))=="skill_branch":
+        if bool(entry.get("current",false)):text="◆ "+text+" · 当前方向"
+        elif not ui._skill_practiced(String(entry.get("target",""))):text+=" · 需先练熟"
+    elif String(entry.get("kind","")) in ["tool_capacity","slot_part","passive"]:
+        if bool(entry.get("crafted",false)):text="◆ "+text+" · 已制作"
+        else:
+            text+=" · "+String(entry.get("artisan_name","工匠"))
+            if not ui._has_patterns(entry):text+=" · 缺图样"
+    if has_typed_layout and not compatible.is_empty() and not compatible.has(id):text="× "+text+" · 不兼容"
+    return text
+
+
+static func _create_build_entry_button(ui: Node, system: Variant, snapshot: Dictionary, entry: Dictionary, action: String, family_id: String, slots: Array, has_typed_layout: bool, seal_page: bool) -> Button:
+    var id:=String(entry.get("id",entry.get("name","")))
+    var slot: Dictionary=slots[ui.build_assign_slot] if has_typed_layout and ui.build_assign_slot<slots.size() else {}
+    var compatible: Array=slot.get("compatible",[]) if not slot.is_empty() else []
+    var item_family:=String(entry.get("slot_family",family_id))
+    var can_assign: bool=bool(entry.get("unlocked",true)) and (not has_typed_layout or (bool(slot.get("unlocked",false)) and item_family==family_id and (compatible.is_empty() or compatible.has(id))))
+    if has_typed_layout:
+        can_assign=can_assign and ui.equipment_filter.can_assign(entry,family_id,slot)
+        if system!=null and system.has_method("quote_family_slot"):
+            can_assign=bool(system.quote_family_slot(id,family_id,ui.build_assign_slot,true).ok)
+    var text := _format_build_entry_label(ui, snapshot, entry, id, compatible, has_typed_layout)
+    var button = ui._button(ui.build_grid,text,Vector2.ZERO,Vector2(563,54),func():
+        ui.build_selection=id
+        if not bool(entry.get("unlocked",true)):
+            ui._show_build_detail(entry)
+            return
+        if has_typed_layout and not can_assign:
+            ui._show_build_detail(entry)
+            return
+        if has_typed_layout:
+            ui._perform_build_action("equip_family_slot",id,{"family":family_id,"slot":ui.build_assign_slot})
+        else:
+            var fallback_action: String=action
+            if ui.build_category=="技能":fallback_action="select_skill"
+            elif ui.build_category=="战具":fallback_action="select_tool"
+            elif ui.build_category=="铭饰":fallback_action="equip_passive"
+            if ui.build_category=="构筑":ui._open_loadout_restore(id)
+            else:ui._perform_build_action(fallback_action,id,ui.build_assign_slot if ui.build_category in ["技能","战具"] else -1))
+    button.custom_minimum_size=Vector2(563,64)
+    if seal_page:
+        button.custom_minimum_size=Vector2(230,66)
+        button.size_flags_horizontal=Control.SIZE_SHRINK_BEGIN
+        button.set_meta("inscription_tab",true)
+    button.alignment=HORIZONTAL_ALIGNMENT_LEFT
+    button.add_theme_font_size_override("font_size",17)
+    button.set_meta("build_id",id)
+    button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+    button.disabled=not can_assign and ui.build_category in ["技能","战具","铭饰"]
+    var icon_path:="res://assets/ui/seals/%s.svg" % id
+    if ResourceLoader.exists(icon_path):
+        button.icon=load(icon_path)
+        button.expand_icon=true
+        button.add_theme_constant_override("icon_max_width",30)
+    button.tooltip_text=String(entry.get("description",""))
+    button.mouse_entered.connect(func():ui._show_build_detail(entry))
+    button.focus_entered.connect(func():
+        ui.build_selection=id
+        ui._show_build_detail(entry))
+    if bool(entry.get("selected",false)):button.add_theme_stylebox_override("normal",ui._style(Color(.2,.065,.055,.2),ui.RED,2))
+    return button
+
+
+static func _attach_loadout_entry_controls(ui: Node, button: Button, entry: Dictionary, id: String) -> Button:
+    var name_value:=id
+    var preview: Dictionary = loadout_quote(ui, id)
+    button.disabled=not bool(preview.get("can_restore",false))
+    button.tooltip_text=String(preview.get("reason","可在钟龛恢复"))
+    var save: Button = ui._button(ui.build_grid,("覆盖" if bool(entry.get("exists",false)) else "保存为")+"「%s」" % id,Vector2.ZERO,Vector2(563,36),func():ui._request_loadout_change("save_loadout",name_value))
+    save.custom_minimum_size=Vector2(563,36)
+    save.set_meta("build_id",id)
+    save.focus_entered.connect(func():
+        ui.build_selection=id
+        ui._show_build_detail(entry))
+    save.mouse_entered.connect(func():ui._show_build_detail(entry))
+    button.text="恢复「%s」%s" % [id,"" if bool(entry.get("exists",false)) else " · 尚未保存"]
+    if bool(entry.get("exists",false)):
+        NAMED_TEXT.bind(button, "恢复「%s」%s", [id, ""], [], button.tooltip_text)
+        NAMED_TEXT.bind(save, "覆盖「%s」", [id])
+        var remove: Button = ui._button(ui.build_grid,"删除「%s」" % id,Vector2.ZERO,Vector2(563,30),func():ui._request_loadout_change("delete_loadout",name_value))
+        NAMED_TEXT.bind(remove, "删除「%s」", [id])
+        remove.custom_minimum_size=Vector2(563,30)
+        remove.set_meta("loadout_delete",id)
+        var manage: Button = ui._button(ui.build_grid,"重命名 / 复制「%s」" % id,Vector2.ZERO,Vector2(563,30),func():ui._open_loadout_manager(name_value))
+        NAMED_TEXT.bind(manage, "重命名 / 复制「%s」", [id])
+        manage.custom_minimum_size=Vector2(563,30)
+        manage.set_meta("loadout_manage",id)
+    return save
+
+
 static func refresh_build(ui: Node) -> void:
     if ui.build_grid==null:return
     if is_instance_valid(ui.build_heading):
@@ -29,194 +230,29 @@ static func refresh_build(ui: Node) -> void:
     ui.build_detail.position=Vector2(646,245 if seal_page else 340)
     ui.build_detail.size=Vector2(418,280 if seal_page else 185)
     if not at_workstation and not at_artisan:
-        for tab in ui.build_tabs:tab.hide()
-        for button in ui.family_selector_buttons:button.hide()
-        for button in ui.build_slot_buttons:button.hide()
-        ui.clear_family_slot_button.hide()
-        ui.resupply_preview_button.hide()
-        ui.resupply_confirm_button.hide()
-        ui.resupply_planner_button.hide()
-        ui.build_summary.text="巡行配置 · 碎钱 %d" % int(ui.level.currency_count)
-        ui.build_detail.text="在钟龛调整装备；校习找织线学徒、雨铸匠或蜂蜡商人。"
-        var current_skill: String = build_entry_name(ui, system,"skills",String(snapshot.get("skill","")))
-        var current_tool: String = build_entry_name(ui, system,"tools",String(snapshot.get("tool","")))
-        var cycle_skill: Button = ui._button(ui.build_grid,"切换技能 · 当前 %s" % current_skill,Vector2.ZERO,Vector2(563,58),func():ui._perform_build_action("cycle_skill",""))
-        cycle_skill.custom_minimum_size=Vector2(563,64)
-        cycle_skill.focus_mode=Control.FOCUS_ALL
-        var cycle_tool: Button = ui._button(ui.build_grid,"切换战具 · 当前 %s" % current_tool,Vector2.ZERO,Vector2(563,58),func():ui._perform_build_action("cycle_tool",""))
-        cycle_tool.custom_minimum_size=Vector2(563,64)
-        cycle_tool.focus_mode=Control.FOCUS_ALL
-        var current_focus = ui.get_viewport().gui_get_focus_owner()
-        if ui.build_panel.visible and (current_focus==null or not ui.build_panel.is_ancestor_of(current_focus)):cycle_skill.grab_focus()
+        _render_field_build_view(ui, system, snapshot)
         return
     if at_artisan and ui.build_category!="强化":
         ui.build_category="强化"
         ui.build_selection=""
-    for tab in ui.build_tabs:tab.visible=not at_artisan or String(tab.get_meta("build_category",""))=="强化"
-    if at_artisan:
-        ui.build_summary.text="工匠 · 碎钱 %d · 校习技能 · 改制战具" % int(ui.level.currency_count)
-    else:
-        ui.build_summary.text="碎钱 %d · 饰品容量 %d / %d · %s" % [int(ui.level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0)),ui._all_family_count_summary(snapshot)]
     var family_id: String = ui._build_family_for_page()
     var slots = ui._family_slots(snapshot,family_id) if not family_id.is_empty() else []
     var has_typed_layout: bool=snapshot.get("slot_layout",{}).has(family_id) if snapshot.get("slot_layout",{}) is Dictionary and not family_id.is_empty() else false
-    ui._ensure_family_slot_buttons(snapshot,family_id,slots) if has_typed_layout else ui._ensure_family_slot_buttons(snapshot,"",[])
-    for index in ui.family_selector_buttons.size():
-        var family_button: Button=ui.family_selector_buttons[index]
-        var accessory_id: String=["combat_accessory","travel_accessory"][index]
-        var family_info: Dictionary = ui._family_row(snapshot,accessory_id)
-        family_button.text=String(family_info.get("name",accessory_id))
-        family_button.visible=ui.build_category=="铭饰"
-        family_button.add_theme_stylebox_override("normal",ui._tab_style(ui.build_family==accessory_id))
-    ui.clear_family_slot_button.visible=has_typed_layout and not slots.is_empty()
-    if ui.clear_family_slot_button.visible:
-        var selected_slot: Dictionary=slots[ui.build_assign_slot]
-        ui.clear_family_slot_button.disabled=not bool(selected_slot.get("unlocked",false)) or String(selected_slot.get("equipped_id","")).is_empty()
-    var skill_family: Dictionary = ui._family_row(snapshot,"thread_skill")
-    var tool_family: Dictionary = ui._family_row(snapshot,"tool")
-    if not skill_family.is_empty():ui.build_tabs[1].text=String(skill_family.get("name","技能"))
-    if not tool_family.is_empty():ui.build_tabs[2].text=String(tool_family.get("name","战具"))
-    for index in ui.build_slot_buttons.size():
-        if not has_typed_layout:ui.build_slot_buttons[index].visible=ui.build_category in ["技能","战具"] and index<2
-    ui.craft_cart_button.visible=ui.build_category=="强化"
-    ui.resupply_planner_button.visible=ui.build_category=="战具"
-    ui.resupply_preview_button.visible=ui.build_category=="战具"
-    ui.resupply_confirm_button.visible=ui.build_category=="战具"
-    ui.resupply_confirm_button.disabled=ui.resupply_quote.is_empty() or not bool(ui.resupply_quote.get("ok",false))
-    var entries: Array=[]
-    var action:=""
-    match ui.build_category:
-        "契印":entries=snapshot.get("crests",[]);action="switch_crest"
-        "技能":entries=ui._family_options(snapshot,"thread_skill");action="equip_family_slot"
-        "战具":entries=ui._family_options(snapshot,"tool");action="equip_family_slot"
-        "铭饰":entries=ui._family_options(snapshot,ui.build_family);action="equip_family_slot"
-        "强化":
-            entries=snapshot.get("recipes",[])
-            action="transact"
-            # E04: beside an artisan, that artisan's own 改制 come first.
-            var here:=String(ui.level.call("near_artisan_id")) if at_artisan and ui.level.has_method("near_artisan_id") else ""
-            if not here.is_empty():
-                var own: Array=[]
-                var rest: Array=[]
-                for recipe in entries:(own if String(recipe.get("artisan",""))==here else rest).append(recipe)
-                entries=own+rest
-        "构筑":
-            for id in ui._loadout_names(snapshot):
-                var loadouts: Array=snapshot.get("loadouts",[])
-                entries.append({"id":id,"name":id,"description":"保存当前契印、技能、战具和铭饰。恢复时仍会检查解锁与槽位条件。","unlocked":true,"exists":loadouts.has(id)})
+    _sync_workstation_controls(ui, snapshot, at_artisan, family_id, slots, has_typed_layout)
+    var collected := _collect_build_entries(ui, snapshot, at_artisan)
+    var entries: Array = collected.entries
+    var action: String = collected.action
     for tab in ui.build_tabs:tab.add_theme_stylebox_override("normal",ui._tab_style(String(tab.get_meta("build_category",""))==ui.build_category))
-    if ui.equipment_search!=null and ui.equipment_search.visible:
-        var selected_slot: Dictionary=slots[ui.build_assign_slot] if has_typed_layout and ui.build_assign_slot<slots.size() else {}
-        var validator:=Callable()
-        if system!=null and system.has_method("quote_family_slot"):
-            validator=func(entry: Dictionary,family: String,slot: Dictionary):
-                return bool(system.quote_family_slot(String(entry.get("id","")),family,int(slot.get("index",ui.build_assign_slot)),true).ok)
-        var filtered = ui.equipment_filter.select(entries,family_id,selected_slot,ui.equipment_search.text,ui.equipment_compatible.button_pressed,validator)
-        entries=filtered.entries
-        ui.equipment_compatible.text="仅可装入此槽 · %d/%d" % [filtered.shown,filtered.total]
-        if entries.is_empty():
-            ui.build_heading.text="没有匹配装备"
-            ui.build_detail.text=String(filtered.empty_reason)
-            # A locked target slot still names what opens it, filter or not.
-            if not selected_slot.is_empty() and not bool(selected_slot.get("unlocked",true)):
-                for hint in ui._slot_unlock_hints(snapshot,selected_slot):ui.build_detail.text+="\n◇ "+hint
-            ui.build_emblem.texture=null
-    if entries.is_empty() and (ui.equipment_search==null or not ui.equipment_search.visible):ui.build_detail.text="此页暂无可用条目。"
+    entries = _filter_build_entries(ui, system, snapshot, entries, family_id, slots, has_typed_layout)
     var first: Button
     for entry_value in entries:
         var entry: Dictionary=entry_value
         var id:=String(entry.get("id",entry.get("name","")))
-        var text:=String(entry.get("name",id))
-        if not bool(entry.get("unlocked",true)):text="◇ "+text+" · 未解锁"
-        elif bool(entry.get("selected",false)):text="◆ "+text+" · 已装备"
-        var equipped_slots: String = entry_equipped_slots(ui, snapshot,id)
-        if not equipped_slots.is_empty():text+=" · 位置 "+equipped_slots
-        if entry.has("cost"):text+=" · 容量 %d" % int(entry.cost)
-        if entry.has("count"):
-            text+=" · %d/%d 次" % [int(entry.count),int(entry.get("capacity",entry.count))]
-            if int(entry.count)<=0:text+=" · 已用尽"
-        if entry.get("branch","") is String and not String(entry.get("branch","")).is_empty():text+=" · 校习："+String(entry.get("branches",{}).get(String(entry.branch),{}).get("name",""))
-        if String(entry.get("kind",""))=="skill_branch":
-            if bool(entry.get("current",false)):text="◆ "+text+" · 当前方向"
-            elif not ui._skill_practiced(String(entry.get("target",""))):text+=" · 需先练熟"
-        elif String(entry.get("kind","")) in ["tool_capacity","slot_part","passive"]:
-            if bool(entry.get("crafted",false)):text="◆ "+text+" · 已制作"
-            else:
-                text+=" · "+String(entry.get("artisan_name","工匠"))
-                if not ui._has_patterns(entry):text+=" · 缺图样"
-        var slot: Dictionary=slots[ui.build_assign_slot] if has_typed_layout and ui.build_assign_slot<slots.size() else {}
-        var compatible: Array=slot.get("compatible",[]) if not slot.is_empty() else []
-        var item_family:=String(entry.get("slot_family",family_id))
-        var can_assign: bool=bool(entry.get("unlocked",true)) and (not has_typed_layout or (bool(slot.get("unlocked",false)) and item_family==family_id and (compatible.is_empty() or compatible.has(id))))
-        if has_typed_layout:
-            can_assign=can_assign and ui.equipment_filter.can_assign(entry,family_id,slot)
-            if system!=null and system.has_method("quote_family_slot"):
-                can_assign=bool(system.quote_family_slot(id,family_id,ui.build_assign_slot,true).ok)
-        if has_typed_layout and not compatible.is_empty() and not compatible.has(id):text="× "+text+" · 不兼容"
-        var button = ui._button(ui.build_grid,text,Vector2.ZERO,Vector2(563,54),func():
-            ui.build_selection=id
-            if not bool(entry.get("unlocked",true)):
-                ui._show_build_detail(entry)
-                return
-            if has_typed_layout and not can_assign:
-                ui._show_build_detail(entry)
-                return
-            if has_typed_layout:
-                ui._perform_build_action("equip_family_slot",id,{"family":family_id,"slot":ui.build_assign_slot})
-            else:
-                var fallback_action: String=action
-                if ui.build_category=="技能":fallback_action="select_skill"
-                elif ui.build_category=="战具":fallback_action="select_tool"
-                elif ui.build_category=="铭饰":fallback_action="equip_passive"
-                if ui.build_category=="构筑":ui._open_loadout_restore(id)
-                else:ui._perform_build_action(fallback_action,id,ui.build_assign_slot if ui.build_category in ["技能","战具"] else -1))
-        button.custom_minimum_size=Vector2(563,64)
-        if seal_page:
-            button.custom_minimum_size=Vector2(230,66)
-            button.size_flags_horizontal=Control.SIZE_SHRINK_BEGIN
-            button.set_meta("inscription_tab",true)
-        button.alignment=HORIZONTAL_ALIGNMENT_LEFT
-        button.add_theme_font_size_override("font_size",17)
-        button.set_meta("build_id",id)
-        button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-        button.disabled=not can_assign and ui.build_category in ["技能","战具","铭饰"]
-        var icon_path:="res://assets/ui/seals/%s.svg" % id
-        if ResourceLoader.exists(icon_path):
-            button.icon=load(icon_path)
-            button.expand_icon=true
-            button.add_theme_constant_override("icon_max_width",30)
-        button.tooltip_text=String(entry.get("description",""))
-        button.mouse_entered.connect(func():ui._show_build_detail(entry))
-        button.focus_entered.connect(func():
-            ui.build_selection=id
-            ui._show_build_detail(entry))
-        if bool(entry.get("selected",false)):button.add_theme_stylebox_override("normal",ui._style(Color(.2,.065,.055,.2),ui.RED,2))
+        var button := _create_build_entry_button(ui, system, snapshot, entry, action, family_id, slots, has_typed_layout, seal_page)
         if first==null or id==ui.build_selection:first=button
         if ui.build_category=="构筑":
-            var name_value:=id
-            var preview: Dictionary = loadout_quote(ui, id)
-            button.disabled=not bool(preview.get("can_restore",false))
-            button.tooltip_text=String(preview.get("reason","可在钟龛恢复"))
-            var save: Button = ui._button(ui.build_grid,("覆盖" if bool(entry.get("exists",false)) else "保存为")+"「%s」" % id,Vector2.ZERO,Vector2(563,36),func():ui._request_loadout_change("save_loadout",name_value))
-            save.custom_minimum_size=Vector2(563,36)
-            save.set_meta("build_id",id)
-            save.focus_entered.connect(func():
-                ui.build_selection=id
-                ui._show_build_detail(entry))
-            save.mouse_entered.connect(func():ui._show_build_detail(entry))
+            var save := _attach_loadout_entry_controls(ui, button, entry, id)
             if first==button and button.disabled:first=save
-            button.text="恢复「%s」%s" % [id,"" if bool(entry.get("exists",false)) else " · 尚未保存"]
-            if bool(entry.get("exists",false)):
-                NAMED_TEXT.bind(button, "恢复「%s」%s", [id, ""], [], button.tooltip_text)
-                NAMED_TEXT.bind(save, "覆盖「%s」", [id])
-                var remove: Button = ui._button(ui.build_grid,"删除「%s」" % id,Vector2.ZERO,Vector2(563,30),func():ui._request_loadout_change("delete_loadout",name_value))
-                NAMED_TEXT.bind(remove, "删除「%s」", [id])
-                remove.custom_minimum_size=Vector2(563,30)
-                remove.set_meta("loadout_delete",id)
-                var manage: Button = ui._button(ui.build_grid,"重命名 / 复制「%s」" % id,Vector2.ZERO,Vector2(563,30),func():ui._open_loadout_manager(name_value))
-                NAMED_TEXT.bind(manage, "重命名 / 复制「%s」", [id])
-                manage.custom_minimum_size=Vector2(563,30)
-                manage.set_meta("loadout_manage",id)
     ui._wire_equipment_result_focus()
     if first!=null:
         var current_focus = ui.get_viewport().gui_get_focus_owner()
@@ -390,80 +426,65 @@ static func loadout_preview(ui: Node, build: Dictionary, system: RefCounted) -> 
     return "\n".join(lines)
 
 
-static func show_build_detail(ui: Node, entry: Dictionary) -> void:
-    if ui.build_art!=null and entry.has("slots"):
-        ui.build_art.seal_id=String(entry.get("id","crimson"))
-        ui.build_art.queue_redraw()
-    var entry_name:=String(entry.get("name",entry.get("id","")))
-    var player_named: bool = ui.build_category == "构筑" and entry.get("exists", false) and not NAMED_TEXT.is_default_loadout(entry_name)
-    ui.build_heading.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED if player_named else Node.AUTO_TRANSLATE_MODE_INHERIT
-    ui.build_heading.text=entry_name
-    var icon_path:="res://assets/ui/seals/%s.svg" % String(entry.get("id",""))
-    ui.build_emblem.texture=load(icon_path) if ResourceLoader.exists(icon_path) else null
-    var lines: Array[String]=[String(entry.get("description",""))]
-    var snapshot: Dictionary = ui._build_snapshot()
-    var family_id: String = ui._build_family_for_page()
-    if not family_id.is_empty() and snapshot.get("slot_layout",{}) is Dictionary and snapshot.slot_layout.get(family_id) is Array:
-        var slots: Array=snapshot.slot_layout[family_id]
-        var family_info: Dictionary = ui._family_row(snapshot,family_id)
-        var family_names: Dictionary={"tool":"战具","combat_accessory":"战斗饰件","travel_accessory":"行旅饰件","thread_skill":"线技"}
-        var family_name:=String(family_info.get("name",family_names.get(family_id,family_id)))
-        lines.append("\n装备类别：%s" % family_name)
-        lines.append(ui._family_count_summary(snapshot,family_id,slots))
-        if ui.build_assign_slot<slots.size():
-            var target_slot: Dictionary=slots[ui.build_assign_slot]
-            var equipped_id:=String(target_slot.get("equipped_id",""))
-            var current_entry: Dictionary = ui._family_entry(snapshot,family_id,equipped_id)
-            lines.append("\n目标位置：%d · %s" % [ui.build_assign_slot+1,"已解锁" if bool(target_slot.get("unlocked",false)) else "未解锁"])
-            lines.append("当前装备：%s" % String(current_entry.get("name",equipped_id if not equipped_id.is_empty() else "空")))
-            if not bool(target_slot.get("unlocked",false)):
-                lines.append("该槽位尚未解锁，无法装备。")
-                for hint in ui._slot_unlock_hints(snapshot,target_slot):lines.append("◇ "+hint)
-            var compatible: Array=target_slot.get("compatible",[])
-            if not compatible.is_empty():lines.append("兼容条目："+"、".join(ui._family_option_names(snapshot,family_id,compatible)))
-            if not compatible.is_empty() and not compatible.has(String(entry.get("id",""))):
-                lines.append("此条目与目标位置不兼容，装备请求会被拒绝。")
-            if entry.has("cost"):
-                var used:=int(snapshot.get("slots_used",0))
-                var total:=int(snapshot.get("slots_total",0))
-                var old_cost:=int(current_entry.get("cost",0))
-                var projected:=used-old_cost+int(entry.cost)
-                lines.append("容量比较：当前 %d / %d · 替换后 %d / %d" % [used,total,projected,total])
-    if ui.build_category=="构筑":
-        var system: Variant=ui.level.call("get_build_system")
-        lines.append("\n当前整体配置\n"+loadout_preview(ui, system.state,system))
-        var saved_value: Variant=system.state.loadouts.get(String(entry.get("id","")),{})
-        var saved_build: Dictionary=saved_value if saved_value is Dictionary else {}
-        if not saved_build.is_empty():lines.append("\n已保存配置\n"+loadout_preview(ui, saved_build,system))
-        var preview: Dictionary = loadout_quote(ui, String(entry.get("id","")))
-        lines.append("\n恢复条件："+("可以恢复 · 不花碎钱或材料" if bool(preview.get("can_restore",false)) else String(preview.get("reason","当前不可恢复"))))
-        if bool(preview.get("ok",false)):lines.append("\n实际变化\n"+"\n".join(ui._loadout_difference_text(preview,system)))
-        var projected: Dictionary=preview.get("profile",{})
-        if not projected.is_empty():
-            lines.append("生命上限：%d → %d" % [int(ui.level.player.max_hp),int(projected.get("max_hp",ui.level.player.max_hp))])
-            lines.append("绯线上限：%d → %d" % [int(ui.level.player.max_energy),int(projected.get("max_energy",ui.level.player.max_energy))])
-            lines.append("地面移动：%d%% → %d%%" % [int(round(float(ui.level.player.build_profile.get("move_mult",1.0))*100)),int(round(float(projected.get("move_mult",1.0))*100))])
-        lines.append("恢复不补充生命、绯线或次数，不清空冷却；超出新上限的生命与绯线会截断。")
-    if entry.has("mechanism_unlocked") and not bool(entry.mechanism_unlocked):lines.append("\n◇ 专属机制尚未修复：基础战斗与永久探索能力仍可使用，完成来源委托后启用。")
-    if entry.has("slots"):
-        for crest in snapshot.get("crests",[]):
-            if String(crest.get("id",""))!=String(snapshot.get("crest","")):continue
-            lines.append("\n契印基础值 · 当前 → 所选")
-            for pair in [["slots","铭饰槽"],["max_hp","生命"],["max_energy","绯线容量"],["heal_cost","治疗耗能"],["heal_amount","治疗恢复"]]:
-                lines.append("%s：%s → %s" % [pair[1],str(crest.get(pair[0],0)),str(entry.get(pair[0],0))])
-            lines.append("治疗时间：%.2f → %.2f 秒" % [float(crest.get("heal_duration",0)),float(entry.get("heal_duration",0))])
-            lines.append("铭饰效果在装备后合并计算。")
-    if String(entry.get("kind",""))=="skill_branch" and entry.has("target"):
-        for skill in snapshot.get("skills",[]):
-            if String(skill.get("id",""))==String(entry.target):
-                lines.append_array(ui._skill_branch_lines(skill,entry))
-    if String(entry.get("kind","")) in ["tool_capacity","slot_part","passive"]:lines.append_array(ui._craft_lines(entry,snapshot))
-    if not bool(entry.get("unlocked",true)):
-        var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))
-        if not String(entry.get("unlock_item","")).is_empty():unlock_hint="需要取得「%s」。" % ui.level._item_display_name(String(entry.unlock_item))
-        lines.append("\n尚未解锁 · "+unlock_hint)
-    for field in [["source","来源"],["attack_description","攻击"],["mechanism","专属机制"],["heal_effect","治疗完成"],["risk","动作风险与代价"],["synergy","契印协同"],["practice","练习"],["encounter","适合遭遇"]]:
-        if entry.has(field[0]):lines.append("\n%s：%s" % [field[1],str(entry[field[0]])])
+static func _append_slot_layout_detail(ui: Node, snapshot: Dictionary, entry: Dictionary, family_id: String, lines: Array[String]) -> void:
+    if family_id.is_empty() or not (snapshot.get("slot_layout",{}) is Dictionary) or not (snapshot.slot_layout.get(family_id) is Array):
+        return
+    var slots: Array=snapshot.slot_layout[family_id]
+    var family_info: Dictionary = ui._family_row(snapshot,family_id)
+    var family_names: Dictionary={"tool":"战具","combat_accessory":"战斗饰件","travel_accessory":"行旅饰件","thread_skill":"线技"}
+    var family_name:=String(family_info.get("name",family_names.get(family_id,family_id)))
+    lines.append("\n装备类别：%s" % family_name)
+    lines.append(ui._family_count_summary(snapshot,family_id,slots))
+    if ui.build_assign_slot>=slots.size():
+        return
+    var target_slot: Dictionary=slots[ui.build_assign_slot]
+    var equipped_id:=String(target_slot.get("equipped_id",""))
+    var current_entry: Dictionary = ui._family_entry(snapshot,family_id,equipped_id)
+    lines.append("\n目标位置：%d · %s" % [ui.build_assign_slot+1,"已解锁" if bool(target_slot.get("unlocked",false)) else "未解锁"])
+    lines.append("当前装备：%s" % String(current_entry.get("name",equipped_id if not equipped_id.is_empty() else "空")))
+    if not bool(target_slot.get("unlocked",false)):
+        lines.append("该槽位尚未解锁，无法装备。")
+        for hint in ui._slot_unlock_hints(snapshot,target_slot):lines.append("◇ "+hint)
+    var compatible: Array=target_slot.get("compatible",[])
+    if not compatible.is_empty():lines.append("兼容条目："+"、".join(ui._family_option_names(snapshot,family_id,compatible)))
+    if not compatible.is_empty() and not compatible.has(String(entry.get("id",""))):
+        lines.append("此条目与目标位置不兼容，装备请求会被拒绝。")
+    if entry.has("cost"):
+        var used:=int(snapshot.get("slots_used",0))
+        var total:=int(snapshot.get("slots_total",0))
+        var old_cost:=int(current_entry.get("cost",0))
+        var projected:=used-old_cost+int(entry.cost)
+        lines.append("容量比较：当前 %d / %d · 替换后 %d / %d" % [used,total,projected,total])
+
+
+static func _append_loadout_detail(ui: Node, entry: Dictionary, lines: Array[String]) -> void:
+    var system: Variant=ui.level.call("get_build_system")
+    lines.append("\n当前整体配置\n"+loadout_preview(ui, system.state,system))
+    var saved_value: Variant=system.state.loadouts.get(String(entry.get("id","")),{})
+    var saved_build: Dictionary=saved_value if saved_value is Dictionary else {}
+    if not saved_build.is_empty():lines.append("\n已保存配置\n"+loadout_preview(ui, saved_build,system))
+    var preview: Dictionary = loadout_quote(ui, String(entry.get("id","")))
+    lines.append("\n恢复条件："+("可以恢复 · 不花碎钱或材料" if bool(preview.get("can_restore",false)) else String(preview.get("reason","当前不可恢复"))))
+    if bool(preview.get("ok",false)):lines.append("\n实际变化\n"+"\n".join(ui._loadout_difference_text(preview,system)))
+    var projected: Dictionary=preview.get("profile",{})
+    if not projected.is_empty():
+        lines.append("生命上限：%d → %d" % [int(ui.level.player.max_hp),int(projected.get("max_hp",ui.level.player.max_hp))])
+        lines.append("绯线上限：%d → %d" % [int(ui.level.player.max_energy),int(projected.get("max_energy",ui.level.player.max_energy))])
+        lines.append("地面移动：%d%% → %d%%" % [int(round(float(ui.level.player.build_profile.get("move_mult",1.0))*100)),int(round(float(projected.get("move_mult",1.0))*100))])
+    lines.append("恢复不补充生命、绯线或次数，不清空冷却；超出新上限的生命与绯线会截断。")
+
+
+static func _append_crest_comparison_detail(snapshot: Dictionary, entry: Dictionary, lines: Array[String]) -> void:
+    for crest in snapshot.get("crests",[]):
+        if String(crest.get("id",""))!=String(snapshot.get("crest","")):continue
+        lines.append("\n契印基础值 · 当前 → 所选")
+        for pair in [["slots","铭饰槽"],["max_hp","生命"],["max_energy","绯线容量"],["heal_cost","治疗耗能"],["heal_amount","治疗恢复"]]:
+            lines.append("%s：%s → %s" % [pair[1],str(crest.get(pair[0],0)),str(entry.get(pair[0],0))])
+        lines.append("治疗时间：%.2f → %.2f 秒" % [float(crest.get("heal_duration",0)),float(entry.get("heal_duration",0))])
+        lines.append("铭饰效果在装备后合并计算。")
+
+
+static func _append_entry_stats_detail(ui: Node, snapshot: Dictionary, entry: Dictionary, family_id: String, lines: Array[String]) -> void:
     if not family_id.is_empty():lines.append("\n确认后装备到所选位置 %d；上方按钮选择位置。" % (ui.build_assign_slot+1))
     if ui.build_category=="战具":lines.append("补给需碎钱与材料；换装不会补充次数。")
     if entry.has("cost"):
@@ -481,6 +502,39 @@ static func show_build_detail(ui: Node, entry: Dictionary) -> void:
         var materials: Dictionary=entry.materials
         for material in materials:lines.append("材料 %s：需要 %d / 持有 %d" % [ui.level._item_display_name(String(material)),int(materials[material]),int(ui.level.inventory_counts.get(material,0))])
     if bool(entry.get("selected",false)):lines.append("\n当前已装备。")
+
+
+static func show_build_detail(ui: Node, entry: Dictionary) -> void:
+    if ui.build_art!=null and entry.has("slots"):
+        ui.build_art.seal_id=String(entry.get("id","crimson"))
+        ui.build_art.queue_redraw()
+    var entry_name:=String(entry.get("name",entry.get("id","")))
+    var player_named: bool = ui.build_category == "构筑" and entry.get("exists", false) and not NAMED_TEXT.is_default_loadout(entry_name)
+    ui.build_heading.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED if player_named else Node.AUTO_TRANSLATE_MODE_INHERIT
+    ui.build_heading.text=entry_name
+    var icon_path:="res://assets/ui/seals/%s.svg" % String(entry.get("id",""))
+    ui.build_emblem.texture=load(icon_path) if ResourceLoader.exists(icon_path) else null
+    var lines: Array[String]=[String(entry.get("description",""))]
+    var snapshot: Dictionary = ui._build_snapshot()
+    var family_id: String = ui._build_family_for_page()
+    _append_slot_layout_detail(ui, snapshot, entry, family_id, lines)
+    if ui.build_category=="构筑":
+        _append_loadout_detail(ui, entry, lines)
+    if entry.has("mechanism_unlocked") and not bool(entry.mechanism_unlocked):lines.append("\n◇ 专属机制尚未修复：基础战斗与永久探索能力仍可使用，完成来源委托后启用。")
+    if entry.has("slots"):
+        _append_crest_comparison_detail(snapshot, entry, lines)
+    if String(entry.get("kind",""))=="skill_branch" and entry.has("target"):
+        for skill in snapshot.get("skills",[]):
+            if String(skill.get("id",""))==String(entry.target):
+                lines.append_array(ui._skill_branch_lines(skill,entry))
+    if String(entry.get("kind","")) in ["tool_capacity","slot_part","passive"]:lines.append_array(ui._craft_lines(entry,snapshot))
+    if not bool(entry.get("unlocked",true)):
+        var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))
+        if not String(entry.get("unlock_item","")).is_empty():unlock_hint="需要取得「%s」。" % ui.level._item_display_name(String(entry.unlock_item))
+        lines.append("\n尚未解锁 · "+unlock_hint)
+    for field in [["source","来源"],["attack_description","攻击"],["mechanism","专属机制"],["heal_effect","治疗完成"],["risk","动作风险与代价"],["synergy","契印协同"],["practice","练习"],["encounter","适合遭遇"]]:
+        if entry.has(field[0]):lines.append("\n%s：%s" % [field[1],str(entry[field[0]])])
+    _append_entry_stats_detail(ui, snapshot, entry, family_id, lines)
     ui.build_detail.text="\n".join(lines)
 
 
