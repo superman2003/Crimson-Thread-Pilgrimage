@@ -137,7 +137,10 @@ func _show_page() -> void:
     get_ok_button().disabled = false
     get_ok_button().text = "下一幕" if not is_last else "回到六城"
     get_cancel_button().text = "回到六城"
+    var cancel_had_focus := get_cancel_button().has_focus()
     get_cancel_button().visible = not is_last
+    if is_last and cancel_had_focus:
+        get_ok_button().grab_focus()
     if is_instance_valid(credits_button):
         credits_button.visible = is_last
 

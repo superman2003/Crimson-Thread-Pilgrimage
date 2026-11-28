@@ -71,6 +71,28 @@ func run_checks() -> void:
     check(scene.story_flags.get("ending_chosen", "") == "ending_b", "retry commits the requested ending")
     check(bool(scene.story_flags.get("world_crown_severed", false)) and not bool(scene.story_flags.get("world_bells_restored", false)), "ending commits only its world consequences")
     check(scene.win_label.visible and scene.win_label.text == scene.world_narrative.story_data.endings.ending_b.message, "confirmed ending displays authored conclusion")
+    const ENDING_DESK := preload("res://scripts/ending_story_desk.gd")
+    ENDING_DESK.open(scene, gate)
+    await process_frame
+    var desk = preload("res://scripts/level_host.gd").find(scene, ENDING_DESK.NAME)
+    check(is_instance_valid(desk), "reopening a completed ending creates its real story window")
+    if is_instance_valid(desk):
+        check(desk.get_ok_button().has_focus(), "reopen focuses advance, not return")
+        check(desk.get_cancel_button().visible and desk.get_ok_button().text == "下一幕" and not desk.credits_button.visible,
+            "early epilogue pages keep leave and advance actions")
+        var page_count: int = desk.pages.size()
+        for advance in range(1, page_count):
+            desk.get_cancel_button().grab_focus()
+            desk._confirm()
+        check(not desk.get_cancel_button().visible and desk.get_ok_button().text == "回到六城" and desk.credits_button.visible,
+            "last epilogue page has only one return action and still offers credits")
+        check(desk.get_ok_button().has_focus(), "hiding the previously focused cancel leaves focus on the visible return")
+        desk._show_preview(scene)
+        check(desk.get_cancel_button().visible and desk.get_cancel_button().text == "继续探索",
+            "preview restores the cancel action after a completed epilogue")
+        desk.hide()
+        desk.free()
+    scene.active_overlay = ""
     gate.set_meta("ending", "ending_a")
     scene._activate_ending_gate(gate)
     check(scene.story_flags.get("ending_chosen", "") == "ending_b", "another gate cannot replace the committed choice")
