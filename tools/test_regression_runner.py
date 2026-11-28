@@ -154,7 +154,8 @@ class CompletionContractTests(unittest.TestCase):
         # Keep the audited baseline floor exact while counting explicitly
         # registered suites. Duplicate and marker checks reject missing suites
         # and invalid completion contracts.
-        self.assertEqual(len(all_suites), 190 + len(set(all_suites) & combat_additions))
+        self.assertEqual(len(all_suites), 191 + len(set(all_suites) & combat_additions))
+        self.assertIn('world_boss_rush_cache', DEFAULT_SUITES)
         self.assertIn("ai_music_pack", DEFAULT_SUITES)
         self.assertIn("enemy_combat_continuity", DEFAULT_SUITES)
         self.assertIn("boss_combat_identity", DEFAULT_SUITES)
