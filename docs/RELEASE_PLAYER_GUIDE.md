@@ -4,9 +4,9 @@
 
 ## 启动
 
-完整解压压缩包。Windows 双击 `CrimsonThreadPilgrimage.exe`；Linux 运行 `./CrimsonThreadPilgrimage.x86_64`（若解压工具未保留权限，先执行 `chmod +x CrimsonThreadPilgrimage.x86_64`）。可执行文件与同名 `.pck` 必须放在一起，不需要安装 Godot 或下载源码。
+完整解压压缩包。Windows 双击 `CrimsonThreadPilgrimage.exe`；Linux 运行 `./CrimsonThreadPilgrimage.x86_64`（若解压工具未保留权限，先执行 `chmod +x CrimsonThreadPilgrimage.x86_64`）；macOS 解压后打开 `.app` 应用包（许可证、说明与清单位于 `Contents/Resources/legal/`）。可执行文件与同名 `.pck` 必须放在一起，不需要安装 Godot 或下载源码。
 
-只支持 Windows/Linux x86_64；需要可运行 Godot 4.6 Compatibility 渲染器的图形环境。Windows 包未签名。macOS、移动端及 Web 不在本候选包范围内。
+支持 Windows/Linux x86_64 与实验性 macOS 通用包（Apple Silicon / Intel）；需要可运行 Godot 4.6 Compatibility 渲染器的图形环境。Windows 包未签名；macOS 实验包仅做 ad-hoc 签名且未公证，首次打开可能触发 Gatekeeper 提示。移动端及 Web 不在本候选包范围内。
 
 ## 操作和设置
 
@@ -26,7 +26,8 @@
 记录保存在 Godot 的用户数据目录，通常为：
 
 - Windows：`%APPDATA%/Godot/app_userdata/绯线巡礼 - 互联世界/`
-- Linux：`~/.local/share/godot/app_userdata/绯线巡礼 - 互联世界/`（设置 `XDG_DATA_HOME` 时遵循该目录）。
+- Linux：`~/.local/share/godot/app_userdata/绯线巡礼 - 互联世界/`（设置 `XDG_DATA_HOME` 时遵循该目录）
+- macOS：`~/Library/Application Support/Godot/app_userdata/绯线巡礼 - 互联世界/`。
 
 升级前退出游戏，备份整个用户数据目录。不要仅备份一个 JSON：该目录还可能包含槽位、设置、备份和既往旅途。候选版沿用现有游戏存档位置；新数据版本未必能被旧构建读取。
 

@@ -15,6 +15,7 @@ from unittest.mock import patch
 import zipfile
 
 import build_release as release
+from audit_export_contents import filter_matches, presets
 
 
 class ReleaseBuilderTests(unittest.TestCase):
@@ -100,6 +101,31 @@ class ReleaseBuilderTests(unittest.TestCase):
             self.write(path)
         files = [p.relative_to(self.project).as_posix() for p in release.runtime_files(self.project)]
         self.assertEqual(sorted(kept), sorted(files))
+
+    def test_desktop_keeps_only_the_kenney_save_icon(self):
+        project = release.ROOT / 'godot'
+        prefix = 'addons/MetroidvaniaSystem/Themes/Kenney'
+        keep = {f'{prefix}/Symbols/Save.png', f'{prefix}/Symbols/Save.png.import'}
+        candidates = {
+            path.relative_to(project).as_posix()
+            for path in (project / prefix).rglob('*') if path.is_file()
+        }
+        self.assertTrue(keep <= candidates)
+        self.assertIn(f'{prefix}/Theme.tres', candidates)
+        self.assertIn(f'{prefix}/PlayerLocation.tscn', candidates)
+        for preset, patterns in presets(project):
+            with self.subTest(preset=preset):
+                self.assertEqual(
+                    keep, {path for path in candidates if not filter_matches('res://' + path, patterns)}
+                )
+        for path in candidates:
+            self.write(path)
+        self.write('export_presets.cfg', (project / 'export_presets.cfg').read_text(encoding='utf-8'))
+        staged = {
+            path.relative_to(self.project).as_posix() for path in release.runtime_files(self.project)
+            if path.is_relative_to(self.project / prefix)
+        }
+        self.assertEqual(keep, staged)
 
     def test_staging_preserves_autoload_and_disables_only_editor_plugins(self):
         original = '[autoload]\nRuntime="*res://runtime.gd"\n[editor_plugins]\nenabled=PackedStringArray("plugin.cfg")\n[rendering]\nrenderer="gl_compatibility"\n'

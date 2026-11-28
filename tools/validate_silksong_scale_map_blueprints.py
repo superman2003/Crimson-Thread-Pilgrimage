@@ -66,9 +66,21 @@ def validate_layout_naturalness(chapter_id: str, rooms: list[dict[str, Any]], cl
     return {"x_buckets": len(x_buckets), "y_buckets": len(y_buckets), "wide_clusters": wide_clusters, "tall_clusters": tall_clusters}
 
 
+def resolve_artifact_path(value: str) -> Path:
+    if not value:
+        return Path("")
+    candidate = Path(value)
+    if candidate.is_absolute():
+        return candidate
+    rooted = ROOT / candidate
+    if rooted.exists():
+        return rooted
+    return OUT_DIR / candidate
+
+
 def validate_chapter(chapter_id: str, item: dict[str, Any]) -> dict[str, Any]:
-    json_path = Path(item["json"])
-    png_path = Path(item["png"])
+    json_path = resolve_artifact_path(str(item.get("json", "")))
+    png_path = resolve_artifact_path(str(item.get("png", "")))
     bp = load_json(json_path)
     stats = image_stats(png_path)
     rooms = bp.get("rooms", [])
@@ -113,15 +125,21 @@ def validate_chapter(chapter_id: str, item: dict[str, Any]) -> dict[str, Any]:
             if key not in room:
                 fail(f"{chapter_id} 房间 {room.get('id')} 缺字段 {key}")
         micro = room.get("micro_layout")
-        if not micro:
-            fail(f"{chapter_id} 房间 {room.get('id')} 缺少 micro_layout")
-        for key in ["doors", "platforms", "hazards", "enemies", "pickups", "design_note"]:
-            if key not in micro:
-                fail(f"{chapter_id} 房间 {room.get('id')} micro_layout 缺字段 {key}")
-        if not micro["doors"]:
-            fail(f"{chapter_id} 房间 {room.get('id')} 缺少门位")
-        if not micro["platforms"]:
-            fail(f"{chapter_id} 房间 {room.get('id')} 缺少平台")
+        if micro is not None:
+            if not isinstance(micro, dict):
+                fail(f"{chapter_id} 房间 {room.get('id')} micro_layout 类型无效")
+            for key in ["doors", "platforms", "hazards", "enemies", "pickups", "design_note"]:
+                if key not in micro:
+                    fail(f"{chapter_id} 房间 {room.get('id')} micro_layout 缺字段 {key}")
+            if not micro["doors"]:
+                fail(f"{chapter_id} 房间 {room.get('id')} 缺少门位")
+            if not micro["platforms"]:
+                fail(f"{chapter_id} 房间 {room.get('id')} 缺少平台")
+        else:
+            if not room.get("exits"):
+                fail(f"{chapter_id} 房间 {room.get('id')} 缺少出口")
+            if not room.get("design_goal"):
+                fail(f"{chapter_id} 房间 {room.get('id')} 缺少 design_goal")
     for placement in placements:
         for key in ["type", "kind", "x", "y", "label", "visible_on_map", "room"]:
             if key not in placement:
@@ -143,7 +161,7 @@ def validate_chapter(chapter_id: str, item: dict[str, Any]) -> dict[str, Any]:
     detail_path_value = item.get("detail_sheet_png")
     if not detail_path_value:
         fail(f"{chapter_id} 索引缺少 detail_sheet_png")
-    detail_stats = image_stats(Path(detail_path_value))
+    detail_stats = image_stats(resolve_artifact_path(str(detail_path_value)))
     if detail_stats["width"] < 9000 or detail_stats["height"] < 4000:
         fail(f"{chapter_id} 房间细节图册尺寸不足：{detail_stats['width']}x{detail_stats['height']}")
     if detail_stats["non_bg_ratio"] < 0.08:
@@ -171,7 +189,7 @@ def main() -> None:
     chapters = index.get("chapters", {})
     if len(chapters) != 6:
         fail(f"索引章节数量不是 6：{len(chapters)}")
-    overview = Path(index.get("overview_png", ""))
+    overview = resolve_artifact_path(str(index.get("overview_png", "")))
     overview_stats = image_stats(overview)
     if overview_stats["width"] < 7680 or overview_stats["height"] < 4320:
         fail(f"总览图尺寸不足：{overview_stats['width']}x{overview_stats['height']}")

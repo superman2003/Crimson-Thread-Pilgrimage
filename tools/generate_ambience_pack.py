@@ -39,6 +39,8 @@ from __future__ import annotations
 
 import json
 import math
+import os
+import shutil
 import subprocess
 import wave
 import zlib
@@ -69,7 +71,22 @@ AMB_DIR = ROOT / "godot" / "assets" / "audio" / "ambience"
 SFX_DIR = ROOT / "godot" / "assets" / "audio" / "sfx" / "generated"
 FOOT_DIR = ROOT / "godot" / "assets" / "audio" / "sfx" / "generated_footsteps"
 INVENTORY = ROOT / "output" / "audio_preview" / "ambience_pack_inventory.json"
-FFMPEG = "C:/Users/Administrator/Desktop/ffmpeg-8.0.1-essentials_build/bin/ffmpeg.exe"
+
+
+def ffmpeg_bin() -> str:
+    env_bin = os.environ.get("CTP_FFMPEG", "").strip()
+    if env_bin:
+        candidate = Path(env_bin)
+        if candidate.is_file():
+            return str(candidate)
+        found_env = shutil.which(env_bin)
+        if found_env:
+            return found_env
+        raise FileNotFoundError(f"CTP_FFMPEG points to missing executable: {env_bin}")
+    found = shutil.which("ffmpeg")
+    if found:
+        return found
+    raise FileNotFoundError("ffmpeg not found on PATH; install ffmpeg or set CTP_FFMPEG")
 
 
 # ---------------------------------------------------------------- primitives
@@ -236,7 +253,7 @@ def write_wav(path: Path, samples: np.ndarray) -> int:
 
 def to_ogg(wav_path: Path, ogg_path: Path) -> int:
     subprocess.run(
-        [FFMPEG, "-y", "-loglevel", "error", "-i", str(wav_path),
+        [ffmpeg_bin(), "-y", "-loglevel", "error", "-i", str(wav_path),
          "-ar", str(SR), "-ac", "1", "-q:a", "4",
          # bitexact muxing: fixed ogg serial + no encoder tag -> idempotent rerun
          "-fflags", "+bitexact", "-flags:a", "+bitexact", str(ogg_path)],
@@ -247,7 +264,7 @@ def to_ogg(wav_path: Path, ogg_path: Path) -> int:
 
 def decode_ogg(path: Path) -> np.ndarray:
     p = subprocess.run(
-        [FFMPEG, "-v", "error", "-i", str(path), "-f", "f32le",
+        [ffmpeg_bin(), "-v", "error", "-i", str(path), "-f", "f32le",
          "-ac", "1", "-ar", str(SR), "-"],
         capture_output=True, check=True)
     return np.frombuffer(p.stdout, dtype=np.float32).astype(float)

@@ -77,7 +77,13 @@ def audit(root: Path = TOOLS) -> list[str]:
     for path in sorted(root.rglob("*.py")):
         if "__pycache__" in path.parts:
             continue
-        for line, function in missing_text_encoding(path.read_text(encoding="utf-8-sig"), path):
+        raw = path.read_bytes()
+        if raw.startswith(b"\xef\xbb\xbf"):
+            errors.append(f"{path.relative_to(ROOT)}:1: remove UTF-8 BOM from Python source")
+            text = raw.decode("utf-8-sig")
+        else:
+            text = raw.decode("utf-8")
+        for line, function in missing_text_encoding(text, path):
             errors.append(f"{path.relative_to(ROOT)}:{line}: {function} needs encoding=\"utf-8\"")
     return errors
 

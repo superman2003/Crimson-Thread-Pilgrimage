@@ -183,6 +183,19 @@ class Selection(unittest.TestCase):
         self.assertTrue(c.selected(contract, [], "workflow_dispatch"))
         self.assertTrue(c.selected(contract, ["tools/ci/contracts.py"], "pull_request"), "runner changes re-run everything")
 
+    def test_push_inherits_pr_filters_only_without_override(self):
+        inherited = self.contract(on_push=True)
+        self.assertTrue(c.selected(inherited, ["godot/a.gd"], "push"))
+        self.assertFalse(c.selected(inherited, ["docs/a.md"], "push"))
+        explicit = self.contract(on_push=True, push_paths=["docs/**"])
+        self.assertTrue(c.selected(explicit, ["docs/a.md"], "push"))
+        self.assertFalse(c.selected(explicit, ["godot/a.gd"], "push"))
+        self.assertFalse(c.selected(self.contract(on_push=True, push_paths=[]), ["godot/a.gd"], "push"))
+        ignored = self.contract(on_push=True, pr_paths=None, pr_ignore=["docs/**"])
+        self.assertFalse(c.selected(ignored, ["docs/a.md"], "push"))
+        self.assertTrue(c.selected(ignored, ["godot/a.gd"], "push"))
+        self.assertTrue(c.selected(self.contract(on_push=True, pr_paths=None), ["docs/a.md"], "push"))
+
     def test_plan_balances_by_minutes(self):
         contracts = [self.contract(id=f"c{i}") for i in range(6)]
         timings = {"c0": 40, "c1": 20, "c2": 10, "c3": 10, "c4": 5, "c5": 5}

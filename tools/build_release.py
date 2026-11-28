@@ -14,6 +14,7 @@ import subprocess
 import sys
 import tempfile
 import zipfile
+from audit_export_contents import common_exclude_patterns, filter_matches
 from release_save_contract import smoke_save_contract
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -85,6 +86,7 @@ def _git_tracked_project_files(project: Path) -> list[Path] | None:
 
 def runtime_files(project: Path) -> list[Path]:
     files = []
+    preset_excludes = common_exclude_patterns(project)
     candidates = _git_tracked_project_files(project)
     if candidates is None:
         candidates = sorted(project.rglob('*'))
@@ -96,6 +98,8 @@ def runtime_files(project: Path) -> list[Path]:
             raise ValueError(f"Release input must not be a symlink: {relative}")
         if any(relative == Path(p) or Path(p) in relative.parents for p in RESTRICTED):
             raise ValueError(f"Restricted/local-only release input: {relative}")
+        if preset_excludes and filter_matches('res://' + relative.as_posix(), preset_excludes):
+            continue
         if path.is_file():
             with path.open('rb') as source:
                 if source.read(len(LFS_POINTER)) == LFS_POINTER:

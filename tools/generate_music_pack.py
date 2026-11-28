@@ -55,6 +55,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
 import shutil
 import subprocess
@@ -85,7 +86,6 @@ OGG_DIR = BGM_ROOT / "generated"
 LEGACY_BGM_KEYS = {"ch01_cave_loop", "boss_rust_crown_loop"}
 WAV_DIR = ROOT / "output" / "audio_preview" / "music_wav_build"
 INVENTORY = ROOT / "output" / "audio_preview" / "music_pack_inventory.json"
-FFMPEG = Path("C:/Users/Administrator/Desktop/ffmpeg-8.0.1-essentials_build/bin/ffmpeg.exe")
 
 
 # ---------------------------------------------------------------- primitives
@@ -229,12 +229,19 @@ def write_wav(path: Path, samples: np.ndarray) -> int:
 
 
 def ffmpeg_bin() -> str:
-    if FFMPEG.exists():
-        return str(FFMPEG)
+    env_bin = os.environ.get("CTP_FFMPEG", "").strip()
+    if env_bin:
+        candidate = Path(env_bin)
+        if candidate.is_file():
+            return str(candidate)
+        found_env = shutil.which(env_bin)
+        if found_env:
+            return found_env
+        raise FileNotFoundError(f"CTP_FFMPEG points to missing executable: {env_bin}")
     found = shutil.which("ffmpeg")
     if found:
         return found
-    raise FileNotFoundError(f"ffmpeg not found at {FFMPEG} and not on PATH")
+    raise FileNotFoundError("ffmpeg not found on PATH; install ffmpeg or set CTP_FFMPEG")
 
 
 def encode_ogg(wav_path: Path, ogg_path: Path) -> int:
