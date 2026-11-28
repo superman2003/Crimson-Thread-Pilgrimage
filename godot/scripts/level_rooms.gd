@@ -9,7 +9,7 @@ static func _track_ch06_echo_perfection(level: Node, previous_room_id: String, c
     if String(level.config.get("id", "")) != "demo_ch06_silent_crown_core":
         return
     var entry_room := String(level.get_meta("_echo_entry_room", ""))
-    var traversed := entry_room.is_empty() or current_room_id != entry_room
+    var traversed := not entry_room.is_empty() and current_room_id != entry_room
     if previous_room_id in CH06_ECHO_ROOMS and traversed and not bool(level.get_meta("_echo_room_damaged", false)) and level.player != null and level.player.hp > 0:
         level.story_flags["echo_perfect_" + previous_room_id] = true
         var all_perfect := true
