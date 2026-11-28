@@ -339,6 +339,7 @@ var attack_cancel_lock := 0.0
 ## Diagnostic: swings whose recovery was cut by a jump or dash.
 var recovery_cancel_count := 0
 var hurt_timer: float = 0.0
+var guard_contact_grace := false
 var death_timer: float = 0.0
 # Presentation only: do not add a gameplay lock or change the 0.9-second death.
 const DEATH_FADE_SECONDS := 0.16
@@ -1046,6 +1047,10 @@ func _spawn_land_vfx() -> void:
 
 func practice_guard_contact(source_position: Vector2) -> bool:
     return PLAYER_DAMAGE.practice_guard_contact(self, source_position)
+
+
+func has_guard_contact_grace() -> bool:
+    return guard_contact_grace and hurt_timer > 0.0
 
 
 func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> bool:

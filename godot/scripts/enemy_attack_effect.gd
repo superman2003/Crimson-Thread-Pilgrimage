@@ -1,4 +1,5 @@
 extends Node2D
+const DAMAGE_CONTACT := preload("res://scripts/damage_contact.gd")
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
 
 const SWEEP := preload("res://scripts/attack_sweep.gd")
@@ -151,14 +152,17 @@ func _physics_process(delta: float) -> void:
 
 func _apply_player_contact(target: Node2D, contact_pos: Vector2) -> bool:
     var guard_before := float(target.get("guard_timer")) if target.get("guard_timer") != null else 0.0
+    # The recovery window belongs to a successful guard, not a fresh wound.
+    var guard_grace: bool = target.has_method("has_guard_contact_grace") and target.call("has_guard_contact_grace")
     # Consume before callbacks: damage can synchronously re-enter or cancel us.
     hit_player = true
-    var accepted: bool = preload("res://scripts/damage_contact.gd").apply(target, damage, contact_pos, bool(get_meta("blockable", true)))
+    var receipt := DAMAGE_CONTACT.receive(target, damage, contact_pos, bool(get_meta("blockable", true)))
+    var accepted := receipt == DAMAGE_CONTACT.Receipt.WOUND
     if cancelled or is_queued_for_deletion() or not is_instance_valid(target) or target.is_queued_for_deletion():
         return accepted
     var guard_after := float(target.get("guard_timer")) if target.get("guard_timer") != null else 0.0
-    var blocked := not accepted and guard_before > 0.0 and guard_after <= 0.0
-    if not accepted and not blocked:
+    var blocked := guard_before > 0.0 and guard_after <= 0.0
+    if receipt == DAMAGE_CONTACT.Receipt.REJECTED and not blocked and not guard_grace:
         hit_player = false
         return false
     if accepted and snare > 0 and target.has_method("apply_snare"):

@@ -6,6 +6,15 @@ class Target extends CharacterBody2D:
     var hits := 0
     var ui_input_locked := false
     func take_damage(_amount: int, _point: Vector2, _blockable: bool) -> void: hits += 1
+class ReceiptTarget extends CharacterBody2D:
+    var protected := true
+    var guard_grace := false
+    var hp := 3
+    func has_guard_contact_grace() -> bool: return guard_grace
+    func take_damage(amount: int, _point: Vector2, _blockable: bool) -> bool:
+        if protected: return false
+        hp -= amount
+        return true
 class Stage extends Node2D:
     var chapter_terrain: Node = null
     var probes := 0
@@ -55,6 +64,26 @@ func run() -> void:
     node = wave(stage); node._physics_process(NAN); node._physics_process(-1)
     check(node.age == 0 and node.position == Vector2.ZERO, "invalid steps do not poison wave")
     check(stage.probes > 10, "production streaming warmup called on swept segments")
+    node.free(); player.remove_from_group("player")
+    var receipt_target := ReceiptTarget.new()
+    receipt_target.position = Vector2(150, 42)
+    stage.add_child(receipt_target); receipt_target.add_to_group("player")
+    wall.free()
+    await physics_frame; await process_frame
+    node = wave(stage); node.damage = 1
+    node._physics_process(0.13)
+    check(not node.hit_player and receipt_target.hp == 3, "ordinary immunity does not consume a live wave")
+    receipt_target.protected = false
+    node._physics_process(0.04)
+    check(node.hit_player and receipt_target.hp == 2, "a later eligible contact can wound once")
+    node.free()
+    node = wave(stage); node.damage = 1
+    receipt_target.protected = true; receipt_target.guard_grace = true
+    node._physics_process(0.13)
+    check(node.hit_player and receipt_target.hp == 2, "successful guard recovery absorbs overlapping attacks")
+    receipt_target.protected = false; receipt_target.guard_grace = false
+    node._physics_process(0.04)
+    check(receipt_target.hp == 2, "absorbed attack cannot re-hit when guard recovery ends")
     node.free(); stage.free()
     print("ENEMY_WAVE_SWEEP checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)

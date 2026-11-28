@@ -46,6 +46,7 @@ static func take_damage(player: Node, amount: int, source_position: Vector2, blo
             player.ability_action.emit("bell_guard", player.global_position, Vector2(player.facing, 0))
         player.guard_timer = 0.0
         player.hurt_timer = 0.12
+        player.guard_contact_grace = true
         if String(player.active_skill.get("kind", "")) == "defense":
             player.attack_timer = minf(player.attack_timer, float(player.active_skill.get("recovery", 0.15)))
         player._play_sfx("guard_perfect" if perfect else "guard_block", -5.0, 1.0, "player_guard", 0)
@@ -54,6 +55,7 @@ static func take_damage(player: Node, amount: int, source_position: Vector2, blo
         GUARD_ART.blocked(player, perfect)
         player.combat_observed.emit({"kind":"guard","perfect":perfect})
         return false
+    player.guard_contact_grace = false
     GUARD_ART.clear(player)
     CONTACT_ART.clear_player(player)
     ABILITY_ART.clear(player)
