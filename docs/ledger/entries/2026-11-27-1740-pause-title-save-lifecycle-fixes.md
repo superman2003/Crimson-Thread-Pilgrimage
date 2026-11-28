@@ -9,3 +9,4 @@
 - **验证**：本地执行 `title_card_validation.gd`、`boss_rush_validation.gd`、`audit_ui_translations.py`、`test_ui_text_colors.py`、`audit_export_contents.py`、`build_ledger.py --validate`、`npm run test:campaign` 均通过。
 
 CI 复验：补齐首领连战、标题页和成就隔离工程的脚本依赖。切区不再预热仅供内容审计的旧地形图集；运行时仍要求复用实际渲染材质。
+后续集成复验：六区运行时的岩体使用共享墨绘材质，不预热按区的旧岩体贴图。保留背景、平台和装饰三个真实区域资源，并分别核对建区复用、两邻区缓存和旧请求退场。云机定向运行 `world_async_loading` 479 项、`world_streaming` 3218 项均通过。

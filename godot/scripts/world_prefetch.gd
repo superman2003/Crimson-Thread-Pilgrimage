@@ -29,9 +29,9 @@ const RADIUS := 1400.0
 const MAX_REGIONS := 2
 const MAX_JOBS := 2
 const BUDGET_US := 2000
-# Keep only textures consumed by the live region. The legacy terrain atlas
-# is used by content audits, not the terrain renderer.
-const TEXTURES := ["rock_mass_large.png", "background.png", "platform_atlas.png", "decor_atlas.png"]
+# Only region-local textures consumed by live art. The terrain and rock
+# faces use the shared ink atlas in world_rock_material.gd.
+const TEXTURES := ["background.png", "platform_atlas.png", "decor_atlas.png"]
 var desired: Dictionary = {}
 var configs: Dictionary = {}
 var retained: Dictionary = {}

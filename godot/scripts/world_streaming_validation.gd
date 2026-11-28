@@ -7,6 +7,7 @@ const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const STATE := preload("res://scripts/world_state.gd")
 const PATH := "user://world_streaming_validation.json"
 const PREFETCH_READY_MSEC := 8000
+const EXPECTED_NEIGHBOR_TEXTURES := 6 # Two neighbors, three live textures each.
 var checks := 0
 var failures: Array[String] = []
 var metrics: Array = []
@@ -139,11 +140,19 @@ func _prefetch_checks() -> void:
         scene.world_prefetch.step(scene, 1.0 / 60)
         max_reads = maxi(max_reads, scene.world_prefetch.config_reads - before)
         var status: Dictionary = scene.world_prefetch.snapshot()
-        if status.regions == 2 and status.jobs == 0 and status.queued == 0 and status.textures == 10:
+        if status.regions == 2 and status.jobs == 0 and status.queued == 0 and status.textures == EXPECTED_NEIGHBOR_TEXTURES:
             break
         await process_frame
     var status: Dictionary = scene.world_prefetch.snapshot()
-    _check(status.regions == 2 and status.textures == 10 and status.failures == 0, "two neighboring themes warmed successfully")
+    _check(status.regions == 2 and status.textures == EXPECTED_NEIGHBOR_TEXTURES and status.jobs == 0 and status.queued == 0 and status.failures == 0, "two neighboring themes warmed successfully")
+    for region_id in scene.world_prefetch.configs:
+        var cached: Dictionary = scene.world_prefetch.retained.get(region_id, {})
+        var names: Array[String] = []
+        for path in cached:
+            if cached[path] is Texture2D:
+                names.append(String(path).get_file())
+        names.sort()
+        _check(names == ["background.png", "decor_atlas.png", "platform_atlas.png"], String(region_id) + " retains exactly its live regional art")
     _check(status.jobs <= 2 and status.max_jobs <= 2 and max_reads <= 1, "bounded worker jobs and config reads")
     _check(LEVEL_HOST.children(scene).size() == nodes and String(scene.config.id) == source, "prefetch does not attach neighbor nodes to active tree")
     _check(scene.story_flags == journal and scene.inventory_counts == inventory, "prefetch cannot grant maps, journals or abilities")
@@ -211,7 +220,7 @@ func _prefetch_checks() -> void:
                 var theme := String(record.raw.get("art_theme", ""))
                 if theme == "moss_bell":
                     theme = "moss_cavern"
-                var texture_path := "res://assets/sprites/flat_maps/%s/%s" % [theme, scene.world_prefetch.TEXTURES[0]]
+                var texture_path := "res://assets/sprites/flat_maps/%s/background.png" % theme
                 scene.world_prefetch.queue.append({"region": region_id, "path": texture_path,
                     "generation": scene.world_prefetch.generation, "stamp": record.stamp})
                 stale_request_queued = true
