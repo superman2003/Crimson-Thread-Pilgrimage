@@ -15,6 +15,7 @@ from unittest.mock import patch
 import zipfile
 
 import build_release as release
+from audit_export_contents import filter_matches, presets
 
 
 class ReleaseBuilderTests(unittest.TestCase):
@@ -100,6 +101,20 @@ class ReleaseBuilderTests(unittest.TestCase):
             self.write(path)
         files = [p.relative_to(self.project).as_posix() for p in release.runtime_files(self.project)]
         self.assertEqual(sorted(kept), sorted(files))
+
+    def test_desktop_presets_keep_dependencies_of_retained_map_theme(self):
+        project = release.ROOT / 'godot'
+        theme = 'addons/MetroidvaniaSystem/Themes/Kenney/Theme.tres'
+        references = re.findall(r'^\[ext_resource .*?path="(res://[^"]+)"',
+                                (project / theme).read_text(encoding='utf-8'),
+                                re.MULTILINE)
+        self.assertTrue(references)
+        for preset, patterns in presets(project):
+            with self.subTest(preset=preset):
+                if filter_matches('res://' + theme, patterns):
+                    continue
+                excluded = [path for path in references if filter_matches(path, patterns)]
+                self.assertEqual([], excluded, 'Retained theme has excluded dependencies')
 
     def test_staging_preserves_autoload_and_disables_only_editor_plugins(self):
         original = '[autoload]\nRuntime="*res://runtime.gd"\n[editor_plugins]\nenabled=PackedStringArray("plugin.cfg")\n[rendering]\nrenderer="gl_compatibility"\n'
