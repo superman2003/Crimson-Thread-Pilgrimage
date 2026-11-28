@@ -92,8 +92,11 @@ func _run() -> void:
 	var last_frame := Time.get_ticks_usec()
 	var max_observed_frame_gap := 0
 	var frames := 0
+	var first_loading_text := ""
 	while frames < 600 and is_instance_valid(host) and not bool(host.initial_region_ready):
 		await process_frame
+		if first_loading_text.is_empty() and is_instance_valid(host.world_loader.loading_label):
+			first_loading_text = host.world_loader.loading_label.text
 		var now := Time.get_ticks_usec()
 		max_observed_frame_gap = maxi(max_observed_frame_gap, now - last_frame)
 		last_frame = now
@@ -101,6 +104,8 @@ func _run() -> void:
 	var total_startup_usec := Time.get_ticks_usec() - total_started
 	var loader: RefCounted = host.world_loader
 	var metrics: Dictionary = loader.last_transition.duplicate(true)
+	_check(first_loading_text == "正在准备旅途…" and not first_loading_text.contains("Esc"),
+		"first startup canvas does not display a return hint: " + first_loading_text)
 	_check(sync_player_ready, "synchronous baseline reaches first player during add_child")
 	_check(bool(host.initial_region_ready) and not host.world_loading, "budgeted first region publishes and releases loading gate")
 	_check(loader.startup_token == null and loader._startup_frame_tree == null,
