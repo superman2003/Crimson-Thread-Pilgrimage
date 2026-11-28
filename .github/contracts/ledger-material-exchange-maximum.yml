@@ -24,27 +24,6 @@ on:
       - 'godot/data/permanent_ability_roles.json'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/build_system.gd'
-      - 'godot/scripts/build_loadouts.gd'
-      - 'godot/scripts/build_persistence.gd'
-      - 'godot/scripts/build_transactions.gd'
-      - 'godot/scripts/field_contracts.gd'
-      - 'godot/scripts/field_transaction.gd'
-      - 'godot/scripts/journey_desk_window.gd'
-      - 'godot/scripts/material_exchange.gd'
-      - 'godot/scripts/material_exchange_desk.gd'
-      - 'godot/scripts/material_exchange_maximum_validation.gd'
-      - 'godot/scripts/resupply_budget.gd'
-      - 'godot/scripts/world_coordinates.gd'
-      - 'godot/scripts/world_state.gd'
-      - 'tools/run_material_exchange_maximum_contract.py'
-      - '.github/contracts/ledger-material-exchange-maximum.yml'
-      - 'godot/data/field_contracts.json'
-      - 'godot/data/build_catalog.json'
-      - 'godot/data/material_exchange.json'
-      - 'godot/data/world_layout.json'
-      - 'godot/data/permanent_ability_roles.json'
 permissions:
   contents: read
 concurrency:

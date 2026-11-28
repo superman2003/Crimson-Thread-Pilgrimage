@@ -11,14 +11,6 @@ on:
       - '.github/contracts/ledger-20261028-02.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/practice_curriculum.gd'
-      - 'godot/scripts/practice_desk.gd'
-      - 'godot/scripts/practice_attempt_review.gd'
-      - 'godot/scripts/ledger_20261028_02_validation.gd'
-      - 'tools/run_ledger_20261028_02.py'
-      - 'godot/data/**'
-      - '.github/contracts/ledger-20261028-02.yml'
 permissions:
   contents: read
 concurrency:

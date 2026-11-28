@@ -19,22 +19,6 @@ on:
       - 'godot/scripts/interface_settings.gd'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/journal_batch_read.gd'
-      - 'godot/scripts/journal_batch_read_validation.gd'
-      - 'godot/scripts/journal_catalog.gd'
-      - 'godot/scripts/journal_query.gd'
-      - 'tools/run_journal_batch_read_contract.py'
-      - '.github/contracts/ledger-journal-batch-read.yml'
-      - 'godot/scripts/pilgrimage_interface.gd'
-      - 'godot/scripts/interface_bag.gd'
-      - 'godot/scripts/interface_hud.gd'
-      - 'godot/scripts/interface_theme.gd'
-      - 'godot/scripts/interface_build_panel.gd'
-      - 'godot/scripts/interface_build_refresh.gd'
-      - 'godot/scripts/interface_dialogue.gd'
-      - 'godot/scripts/interface_journal.gd'
-      - 'godot/scripts/interface_settings.gd'
 permissions:
   contents: read
 concurrency:

@@ -12,15 +12,6 @@ on:
       - '.github/contracts/known-wish.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/known_wish*.gd'
-      - 'godot/scripts/goal_desk.gd'
-      - 'godot/scripts/world_routes.gd'
-      - 'godot/data/demo_ch*.json'
-      - 'tools/run_ledger_20261028_08.py'
-      - 'tools/run_known_wish_contract.py'
-      - 'tools/test_known_wish_runner.py'
-      - '.github/contracts/known-wish.yml'
 permissions:
   contents: read
 concurrency:

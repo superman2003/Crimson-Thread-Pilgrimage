@@ -23,26 +23,6 @@ on:
       - '.github/contracts/credits-reader.yml'
   push:
     branches: [main]
-    paths:
-      - 'LICENSE'
-      - 'THIRD_PARTY_NOTICES.md'
-      - 'godot/**/LICENSE*'
-      - 'godot/**/NOTICE*'
-      - 'godot/**/OFL*'
-      - 'godot/data/credits/**'
-      - 'godot/scripts/credits*.gd'
-      - 'godot/scripts/pilgrimage_interface.gd'
-      - 'godot/scripts/interface_bag.gd'
-      - 'godot/scripts/interface_hud.gd'
-      - 'godot/scripts/interface_theme.gd'
-      - 'godot/scripts/interface_build_panel.gd'
-      - 'godot/scripts/interface_build_refresh.gd'
-      - 'godot/scripts/interface_dialogue.gd'
-      - 'godot/scripts/interface_journal.gd'
-      - 'godot/scripts/interface_settings.gd'
-      - 'tools/*credits*.py'
-      - 'tools/build_release.py'
-      - '.github/contracts/credits-reader.yml'
 permissions:
   contents: read
 concurrency:

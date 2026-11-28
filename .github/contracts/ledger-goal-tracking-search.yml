@@ -9,12 +9,6 @@ on:
       - '.github/contracts/ledger-goal-tracking-search.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/goal_desk*.gd'
-      - 'godot/scripts/goal_tracking_search_validation.gd'
-      - 'godot/scripts/journey_desk_store.gd'
-      - 'tools/run_goal_tracking_search_contract.py'
-      - '.github/contracts/ledger-goal-tracking-search.yml'
 permissions:
   contents: read
 concurrency:

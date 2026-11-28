@@ -9,12 +9,6 @@ on:
       - '.github/contracts/ledger-danger-caption-groups.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/danger_captions.gd'
-      - 'godot/scripts/danger_caption_groups*.gd'
-      - 'godot/scripts/controller_preferences.gd'
-      - 'tools/run_danger_caption_groups_contract.py'
-      - '.github/contracts/ledger-danger-caption-groups.yml'
 permissions:
   contents: read
 concurrency:

@@ -13,16 +13,6 @@ on:
       - '.github/contracts/ledger-e02-resupply-budget.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/build_system.gd'
-      - 'godot/scripts/build_loadouts.gd'
-      - 'godot/scripts/build_persistence.gd'
-      - 'godot/scripts/build_transactions.gd'
-      - 'godot/scripts/resupply*.gd'
-      - 'godot/scripts/journey_desk_store.gd'
-      - 'godot/data/build_catalog.json'
-      - 'tools/run_resupply_budget_contract.py'
-      - '.github/contracts/ledger-e02-resupply-budget.yml'
 permissions:
   contents: read
 concurrency:

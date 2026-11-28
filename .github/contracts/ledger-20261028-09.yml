@@ -10,13 +10,6 @@ on:
       - '.github/contracts/ledger-20261028-09.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/map_directory_dialog.gd'
-      - 'godot/scripts/map_known_checklist.gd'
-      - 'godot/scripts/ledger_20261028_09_validation.gd'
-      - 'tools/run_ledger_20261028_09.py'
-      - 'godot/data/**'
-      - '.github/contracts/ledger-20261028-09.yml'
 permissions:
   contents: read
 concurrency:

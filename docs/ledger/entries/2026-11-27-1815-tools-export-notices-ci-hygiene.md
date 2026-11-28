@@ -11,3 +11,5 @@
 - **验证**：本地通过 `contracts.py lint`、`test_contracts.py`、`audit_python_text_encoding.py`（含 `--self-test`）、`test_export_audit.py`、`audit_export_contents.py`、`test_release_builder.py`、`test_build_macos_candidate.py`、`test_credits_catalog.py`、`build_credits_catalog.py --check`、`test_lfs_cache_workflows.py`、`test_integration_workflow.py`、`test_build_shortcut_runner.py`、`validate_silksong_scale_map_blueprints.py`、`build_ledger.py --validate`、`test_build_ledger.py` 与 `build_release.py --check`。
 
 发布门复验：Kenney 插件示例主题、场景及其未用贴图一并从三端暂存／导出排除，只保留运行时用到的 `Symbols/Save.png` 及其导入配置。按真实文件树测试三个预设及发行暂存，不压低导出审计。行程交接夹具的后台加载等待另开提交。
+
+推送筛选留在合同调度器统一处理：未显式设置时继承 PR 筛选，保留显式覆盖、空列表与全量重跑规则。去掉 58 处重复的筛选列表，所有既有合同的有效筛选未变。

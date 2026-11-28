@@ -10,13 +10,6 @@ on:
       - '.github/contracts/thread-budget.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/thread_*budget*.gd'
-      - 'godot/scripts/resource_purpose*.gd'
-      - 'tools/run_thread_budget_contract.py'
-      - 'tools/run_ledger_20261028_10.py'
-      - 'tools/test_thread_budget_workflow.py'
-      - '.github/contracts/thread-budget.yml'
 permissions:
   contents: read
 concurrency:

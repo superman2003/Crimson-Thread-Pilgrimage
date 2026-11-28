@@ -10,13 +10,6 @@ on:
       - '.github/contracts/ledger-20261028-03.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/expedition_desk.gd'
-      - 'godot/scripts/expedition_route_review.gd'
-      - 'godot/scripts/ledger_20261028_03_validation.gd'
-      - 'tools/run_ledger_20261028_03.py'
-      - 'godot/data/**'
-      - '.github/contracts/ledger-20261028-03.yml'
 permissions:
   contents: read
 concurrency:

@@ -26,29 +26,6 @@ on:
       - '.github/contracts/display-settings.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/display_*.gd'
-      - 'godot/scripts/ui_language.gd'
-      - 'godot/scripts/game_translation.gd'
-      - 'godot/scripts/game_language_settings.gd'
-      - 'godot/data/ui_en_*.json'
-      - 'tools/ui_translation_sources.py'
-      - 'godot/data/ui_translations.json'
-      - 'tools/audit_ui_translations.py'
-      - 'godot/scripts/colour_assist*.gd'
-      - 'godot/shaders/colour_assist.gdshader'
-      - 'godot/scripts/journey_desk_store.gd'
-      - 'godot/scripts/pilgrimage_interface.gd'
-      - 'godot/scripts/interface_bag.gd'
-      - 'godot/scripts/interface_hud.gd'
-      - 'godot/scripts/interface_theme.gd'
-      - 'godot/scripts/interface_build_panel.gd'
-      - 'godot/scripts/interface_build_refresh.gd'
-      - 'godot/scripts/interface_dialogue.gd'
-      - 'godot/scripts/interface_journal.gd'
-      - 'godot/scripts/interface_settings.gd'
-      - 'tools/run_display_settings_contract.py'
-      - '.github/contracts/display-settings.yml'
 permissions:
   contents: read
 concurrency:

@@ -11,14 +11,6 @@ on:
       - '.github/contracts/goal-update.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/goal_update*.gd'
-      - 'godot/scripts/goal_desk.gd'
-      - 'godot/scripts/goal_watchlist_review.gd'
-      - 'tools/run_ledger_20261028_08.py'
-      - 'tools/run_goal_update_contract.py'
-      - 'tools/test_goal_update_runner.py'
-      - '.github/contracts/goal-update.yml'
 permissions:
   contents: read
 concurrency:

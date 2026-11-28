@@ -8,11 +8,6 @@ on:
       - '.github/contracts/journey-window-layout.yml'
   push:
     branches: [main]
-    paths:
-      - 'godot/scripts/journey_desk_window.gd'
-      - 'godot/scripts/journey_window*.gd'
-      - 'tools/*journey_window*.py'
-      - '.github/contracts/journey-window-layout.yml'
 permissions:
   contents: read
 concurrency:

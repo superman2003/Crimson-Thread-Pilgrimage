@@ -323,7 +323,11 @@ def selected(contract: Contract, files, event: str) -> bool:
     if event == "push":
         if not contract.on_push:
             return False
-        return filter_hits(files, contract.push_paths)
+        # Source contracts are scheduled here, not as standalone workflows.
+        # An explicit push list overrides PR filters; a missing list inherits
+        # them without copying every path into the source file twice.
+        if contract.push_paths is not None:
+            return filter_hits(files, contract.push_paths)
     if contract.pr_ignore is not None:
         return filter_hits(files, contract.pr_ignore, ignore=True)
     return filter_hits(files, contract.pr_paths)
