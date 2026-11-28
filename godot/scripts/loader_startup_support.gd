@@ -157,4 +157,7 @@ static func show_loading_canvas(loader: RefCounted, host: Node) -> void:
     loader.loading_label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
     loader.loading_label.add_theme_font_size_override("font_size", 21)
     loader.loading_canvas.add_child(loader.loading_label)
-    loader.loading_label.text = "正在接通旧路…\nEsc 返回来路"
+    if loader.phase == "startup":
+        loader.loading_label.text = "正在准备旅途…"
+    else:
+        loader.loading_label.text = "正在接通旧路…\nEsc 返回来路"
