@@ -4,7 +4,6 @@ extends CanvasLayer
 ## kit), so every run fights under the same conditions and times compare.
 const TYPE := preload("res://scripts/ui_type_scale.gd")
 const RETIRE := preload("res://scripts/audio_retirement.gd")
-const ART := preload("res://scripts/hand_drawn_assets.gd")
 const DIALOG_FOCUS := preload("res://scripts/dialog_focus_bridge.gd")
 const STAGES: Array[String] = [
     "res://data/demo_ch01_moss_bell_court.json", "res://data/demo_ch02_rain_foundry_canal.json",
@@ -82,18 +81,14 @@ func begin(world: Node) -> void:
 
 func _swap(old: Node, new: Node) -> void:
     var tree:=get_tree()
-    var evict_configs: Array = []
     if is_instance_valid(old):
         RETIRE.retire_tree(old)
         old.get_parent().remove_child(old);old.queue_free()
-    if tree!=null and new!=null:
-        var cfg: Variant = new.get("config")
-        if cfg is Dictionary and not cfg.is_empty():
-            evict_configs.append(cfg)
-    if not evict_configs.is_empty():
-        ART.evict_unused_region_assets(evict_configs)
     scene=new
-    if new!=null:
+    if new!=null and tree!=null:
+        # Main publishes synchronously; the returning World may publish later
+        # than this dialog and controller. Let the new scene own its eviction.
+        new.set_meta("boss_rush_cache_boundary", true)
         get_parent().add_child(new);tree.current_scene=new
 
 func _next() -> void:
@@ -146,7 +141,6 @@ func _finish(cleared: bool) -> void:
     var unsaved:=improved and not record
     var result:={"cleared":cleared,"seconds":elapsed,"splits":splits.duplicate(),"best":elapsed if record else previous,"record":record}
     _swap(scene,make_world.call())
-    ART.evict_unused_region_assets([])
     label.visible=false
     if quit_hint!=null:quit_hint.visible=false
     var window:=AcceptDialog.new();window.name="Result";window.title="首领连战"

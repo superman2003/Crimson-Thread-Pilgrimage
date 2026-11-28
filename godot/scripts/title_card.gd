@@ -119,7 +119,7 @@ func _language_button_label() -> String:
             prefs = display_script.language
     if prefs != null and String(prefs.locale) == "en":
         return "Language: EN"
-    return "语言：中文" + " / EN"
+    return "语言：中文 / EN"
 
 func _choose_utility(action: String) -> void:
     if is_queued_for_deletion():return

@@ -158,7 +158,9 @@ static func collect_region_assets(config: Dictionary) -> Dictionary:
     return {"manifests": manifests, "textures": keep_textures}
 
 
-static func evict_unused_region_assets(configs: Array) -> Dictionary:
+static func evict_unused_region_assets(configs: Array, retain_recent := true) -> Dictionary:
+    if not retain_recent:
+        recent_region_assets.clear()
     var keep_manifests: Dictionary = {}
     var keep_textures: Dictionary = {}
     var recorded_primary := false
