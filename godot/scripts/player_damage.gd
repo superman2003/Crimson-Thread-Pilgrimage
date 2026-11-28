@@ -46,12 +46,16 @@ static func take_damage(player: Node, amount: int, source_position: Vector2, blo
             player.ability_action.emit("bell_guard", player.global_position, Vector2(player.facing, 0))
         player.guard_timer = 0.0
         player.hurt_timer = 0.12
+        player.guard_contact_grace = true
+        if String(player.active_skill.get("kind", "")) == "defense":
+            player.attack_timer = minf(player.attack_timer, float(player.active_skill.get("recovery", 0.15)))
         player._play_sfx("guard_perfect" if perfect else "guard_block", -5.0, 1.0, "player_guard", 0)
         if perfect and player.footstep_material == "salt":
             player._play_sfx("ch03_beat_guard_ring", -10.0)
         GUARD_ART.blocked(player, perfect)
         player.combat_observed.emit({"kind":"guard","perfect":perfect})
         return false
+    player.guard_contact_grace = false
     GUARD_ART.clear(player)
     CONTACT_ART.clear_player(player)
     ABILITY_ART.clear(player)
@@ -71,6 +75,7 @@ static func take_damage(player: Node, amount: int, source_position: Vector2, blo
     amount = maxi(1, amount + player.difficulty_damage_bonus)
     var hp_before_damage = player.hp
     player.hp = maxi(0, player.hp - amount)
+    player.set_meta("_last_hurt_frame", Engine.get_physics_frames())
     player.hp_changed.emit(player.hp)
     player.combat_observed.emit({"kind":"hurt","damage":hp_before_damage-player.hp,"lethal":player.hp<=0})
     # P0 生死攸关音：声部抢占最高优先级。
@@ -199,6 +204,7 @@ static func update_respawn_reveal(player: Node, delta: float) -> void:
 
 
 static func hard_respawn(player: Node) -> void:
+    player.guard_contact_grace = false
     player.snare_timer = 0.0
     player.hp = player.max_hp
     player.energy = 0
@@ -215,6 +221,7 @@ static func hard_respawn(player: Node) -> void:
 
 
 static func restore_at_save_point(player: Node) -> void:
+    player.guard_contact_grace = false
     player._reset_traversal_state()
     player.snare_timer = 0.0
     player.hp = player.max_hp

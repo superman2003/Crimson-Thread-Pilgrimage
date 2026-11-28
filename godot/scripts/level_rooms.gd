@@ -8,7 +8,9 @@ const CH06_ECHO_ROOMS := ["echo_moss", "echo_rain", "echo_salt", "echo_string", 
 static func _track_ch06_echo_perfection(level: Node, previous_room_id: String, current_room_id: String) -> void:
     if String(level.config.get("id", "")) != "demo_ch06_silent_crown_core":
         return
-    if previous_room_id in CH06_ECHO_ROOMS and not bool(level.get_meta("_echo_room_damaged", false)) and level.player != null and level.player.hp > 0:
+    var entry_room := String(level.get_meta("_echo_entry_room", ""))
+    var traversed := not entry_room.is_empty() and current_room_id != entry_room
+    if previous_room_id in CH06_ECHO_ROOMS and traversed and not bool(level.get_meta("_echo_room_damaged", false)) and level.player != null and level.player.hp > 0:
         level.story_flags["echo_perfect_" + previous_room_id] = true
         var all_perfect := true
         for room_id in CH06_ECHO_ROOMS:
@@ -19,6 +21,7 @@ static func _track_ch06_echo_perfection(level: Node, previous_room_id: String, c
             level.story_flags["quest_echo_perfect_done"] = true
             level._check_wish_board_rewards()
     level.set_meta("_echo_room_damaged", false)
+    level.set_meta("_echo_entry_room", previous_room_id if current_room_id in CH06_ECHO_ROOMS else "")
     if level.player != null:
         level.set_meta("_echo_prev_hp", int(level.player.hp))
 

@@ -1,8 +1,13 @@
 extends RefCounted
 const LIMIT := 10
+static var _recipes_cache: Array = []
+
 static func recipes() -> Array:
-    var data: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/material_exchange.json"))
-    return data.recipes.duplicate(true)
+    if _recipes_cache.is_empty():
+        var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/material_exchange.json"))
+        if parsed is Dictionary and parsed.get("recipes") is Array:
+            _recipes_cache = parsed.recipes
+    return _recipes_cache.duplicate(true)
 
 static func entries(level: Node) -> Array:
     var rows: Array=[]

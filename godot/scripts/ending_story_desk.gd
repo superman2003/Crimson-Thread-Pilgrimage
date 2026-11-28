@@ -61,7 +61,10 @@ static func open(level: Node, gate: Area2D) -> void:
     else:
         desk._show_preview(level)
     desk.popup_centered()
-    desk.get_cancel_button().grab_focus()
+    if selected == requested:
+        desk.get_ok_button().grab_focus()
+    else:
+        desk.get_cancel_button().grab_focus()
 
 func _quote(level: Node) -> Dictionary:
     var result: Dictionary = level.world_narrative.evaluate_ending(ending, level.inventory_counts, level.story_flags)
@@ -96,6 +99,7 @@ func _show_preview(level: Node, notice: String = "") -> void:
     get_ok_button().text = "确认承担这一结果"
     get_ok_button().disabled = not bool(quote.get("available", false))
     get_cancel_button().text = "继续探索"
+    get_cancel_button().visible = true
     if is_instance_valid(credits_button):
         credits_button.visible = false
 
@@ -116,7 +120,7 @@ func _journey_summary() -> String:
     for region_data in data.get("regions", {}).values():
         if region_data is Dictionary and bool(region_data.get("boss_defeated", false)):
             bosses += 1
-    return "\n\n──────────\n本段巡礼结语 · 完成度 %d%% · 用时 %s · 击败守门者 %d / 6" % [pct, PROGRESS.clock_text(secs), mini(bosses, 6)]
+    return "\n\n──────────\n" + ("本段巡礼结语 · 完成度 %d%% · 用时 %s · 击败守门者 %d / 6" % [pct, PROGRESS.clock_text(secs), mini(bosses, 6)])
 
 func _show_page() -> void:
     if pages.is_empty():
@@ -133,6 +137,10 @@ func _show_page() -> void:
     get_ok_button().disabled = false
     get_ok_button().text = "下一幕" if not is_last else "回到六城"
     get_cancel_button().text = "回到六城"
+    var cancel_had_focus := get_cancel_button().has_focus()
+    get_cancel_button().visible = not is_last
+    if is_last and cancel_had_focus:
+        get_ok_button().grab_focus()
     if is_instance_valid(credits_button):
         credits_button.visible = is_last
 

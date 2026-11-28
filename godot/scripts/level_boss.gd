@@ -77,7 +77,8 @@ static func start_boss_trial(level: Node) -> void:
         if level.boss_trial_mode or not level.config.get("interactives", []).is_empty():
             level._set_boss_arena_locked(true)
     level._update_room_visit()
-    level._toast("试炼开始 · 苔钟守母已苏醒。")
+    var boss_name: String = level._boss_display_name(level.config.get("boss", {})) if level.config.get("boss") is Dictionary else "苔钟守母"
+    level._toast("试炼开始 · %s已苏醒。" % boss_name)
     level._refresh_hud()
 
 

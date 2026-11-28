@@ -72,9 +72,10 @@ static func configure(actor: Node, data: Dictionary, sprite_path: String, boss_f
             actor.hurtbox_size=Vector2(125 if actor.is_boss else 48,h*.84)
     actor.hurtbox_authored = data.has("hurtbox_size") or data.has("hurtbox_offset")
     actor.ai_profile["lure_eligible"] = bool(data.get("lure_eligible", actor.ai_profile.get("lure_eligible", not actor.is_boss and actor.locomotion != "stationary")))
-    actor.is_elite = bool(data.get("elite", false)) and not actor.is_boss and actor.ai_profile.get("elite") is Dictionary
+    actor.is_elite = bool(data.get("elite", false)) and not actor.is_boss
     if actor.is_elite:
-        apply_elite_profile(actor, actor.ai_profile.elite)
+        var elite_profile: Dictionary = actor.ai_profile.elite if actor.ai_profile.get("elite") is Dictionary else {"hp_mult": 1.75, "damage_bonus": 1}
+        apply_elite_profile(actor, elite_profile)
     actor.ai_commands = actor.ai_profile.get("attacks", [])
     for command in actor.ai_commands:
         actor.cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))

@@ -339,6 +339,7 @@ var attack_cancel_lock := 0.0
 ## Diagnostic: swings whose recovery was cut by a jump or dash.
 var recovery_cancel_count := 0
 var hurt_timer: float = 0.0
+var guard_contact_grace := false
 var death_timer: float = 0.0
 # Presentation only: do not add a gameplay lock or change the 0.9-second death.
 const DEATH_FADE_SECONDS := 0.16
@@ -507,16 +508,27 @@ func _step_death_state(delta: float) -> void:
         _play(&"death")
 
 
+func _just_resumed_from_pause() -> bool:
+    var node: Node = get_parent()
+    while node != null:
+        if node.has_meta("pause_resume_physics_frame"):
+            return int(node.get_meta("pause_resume_physics_frame", -1)) == Engine.get_physics_frames()
+        node = node.get_parent()
+    return false
+
+
 func _tick_movement_timers_and_gravity(delta: float) -> void:
     if hurt_timer > 0.0:
-        hurt_timer -= delta
+        hurt_timer = maxf(0.0, hurt_timer - delta)
+    if hurt_timer <= 0.0:
+        guard_contact_grace = false
     if mercy_timer > 0.0:
         mercy_timer -= delta
     if self_flash_timer > 0.0:
         self_flash_timer -= delta
         if flash_material != null:
             flash_material.set_shader_parameter("flash_amount", 1.0 if self_flash_timer > 0.017 and bool(_accessibility().get("flash_enabled", true)) else 0.0)
-    if Input.is_action_just_pressed("jump"):
+    if not _just_resumed_from_pause() and Input.is_action_just_pressed("jump"):
         jump_buffer_timer = jump_buffer_time
     else:
         jump_buffer_timer = maxf(0.0, jump_buffer_timer - delta)
@@ -1037,6 +1049,10 @@ func _spawn_land_vfx() -> void:
 
 func practice_guard_contact(source_position: Vector2) -> bool:
     return PLAYER_DAMAGE.practice_guard_contact(self, source_position)
+
+
+func has_guard_contact_grace() -> bool:
+    return guard_contact_grace and hurt_timer > 0.0
 
 
 func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> bool:

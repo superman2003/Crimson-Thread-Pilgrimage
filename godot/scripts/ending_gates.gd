@@ -201,7 +201,7 @@ static func activate_ending_gate(level: Node, area: Area2D) -> void:
     if not gate_available:
         var reject := String(area.get_meta("reject_message", ""))
         if reject.is_empty():
-            reject = "此门未应：缺少 " + "、".join(missing)
+            reject = "此门未应 · 缺少：" + " / ".join(missing)
         # 门拒绝=取消音（音频规格 §4.5 ui_menu_cancel，Kenney Interface）。
         level._play_sfx("ui_menu_cancel", -4.0)
         level._toast(reject)

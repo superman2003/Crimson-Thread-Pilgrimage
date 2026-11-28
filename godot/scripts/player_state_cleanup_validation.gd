@@ -65,10 +65,20 @@ func _run() -> void:
     player.apply_snare(5.0)
     player.respawn_at(Vector2.ZERO)
     _check(player.snare_timer == 5.0, "Generic relocation preserves status effects")
+    player.guard_contact_grace = true
+    player.hurt_timer = 0.01
+    player._tick_movement_timers_and_gravity(0.02)
+    _check(player.hurt_timer == 0.0 and not player.guard_contact_grace, "Guard grace clears when the recovery timer expires")
+    player.guard_contact_grace = true
+    player.hurt_timer = 0.12
     player.restore_at_save_point()
     _check(player.snare_timer == 0.0 and player.hp == player.max_hp and player.energy == player.max_energy, "Full save-point restoration clears snare")
     player.apply_snare(5.0)
+    _check(not player.guard_contact_grace, "Save point clears guard grace")
+    player.guard_contact_grace = true
+    player.hurt_timer = 0.12
     player._hard_respawn()
+    _check(not player.guard_contact_grace, "Death respawn clears guard grace")
     _check(player.snare_timer == 0.0 and player.hp == player.max_hp and player.energy == 0, "Death respawn clears snare and retains normal restoration rules")
     player.queue_free()
     await process_frame
