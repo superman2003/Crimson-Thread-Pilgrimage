@@ -180,6 +180,46 @@ func check_grounded_locomotion(stage: Node2D) -> void:
     await process_frame
 
 
+func check_waterwheel_gait(stage: Node2D) -> void:
+    const PATH := "res://assets/sprites/original_creatures/waterwheel_knight/motion_redraw_manifest.json"
+    const ATLAS := "res://assets/sprites/original_creatures/waterwheel_knight/waterwheel_gait_00.png"
+    var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/demo_ch02_rain_foundry_canal.json"))
+    check(ART.collect_region_assets(config).textures.has(ATLAS), "waterwheel gait atlas belongs to production prewarm")
+    var bank := ART.frames(PATH)
+    check(bank != null, "production waterwheel frame bank loads")
+    if bank == null:return
+    for action in [&"turn", &"brake"]:
+        var present := bank.has_animation(action) and bank.get_frame_count(action) == 7
+        check(present, "ordinary waterwheel has seven authored cels: " + String(action))
+        if not present:continue
+        var expected := 0.18 if action == &"turn" else 0.16
+        check(not bank.get_animation_loop(action) and is_equal_approx(7.0 / bank.get_animation_speed(action), expected),
+            "ordinary waterwheel gesture is a short, non-looping transition: " + String(action))
+        var regions := {}
+        var fixed_canvas := true
+        for i in range(7):
+            var texture: AtlasTexture = bank.get_frame_texture(action, i)
+            fixed_canvas = fixed_canvas and texture.get_size() == Vector2(376,230)
+            if i > 0:regions[texture.region] = true
+        check(fixed_canvas and regions.size()==6, "six distinct waterwheel drawings retain the logical canvas: " + String(action))
+    if not bank.has_animation(&"brake"):return
+    var knight := ENEMY.new()
+    knight.configure({"kind":"waterwheel_knight","id":"gait_subpixel_contact"}, "")
+    knight.position=Vector2(80,300)
+    stage.add_child(knight)
+    knight.set_physics_process(false)
+    knight._set_enemy_animation("walk")
+    var last_walk := current_texture(knight)
+    knight.motion_transitions.tick(knight,Vector2(.05,0),"patrol")
+    knight._set_enemy_animation("idle")
+    knight.motion_transitions.tick(knight,Vector2.ZERO,"patrol")
+    check(knight.animated_sprite.animation==&"brake" and current_texture(knight)==last_walk,
+        "subpixel walking step followed by the real stop preserves the last visible pose")
+    check(knight.position==Vector2(80,300),"authored brake never moves the gameplay actor")
+    knight.queue_free()
+
+
+
 func run() -> void:
     for argument in OS.get_cmdline_user_args():
         if String(argument).begins_with("--output="):output=String(argument).trim_prefix("--output=")
@@ -188,6 +228,7 @@ func run() -> void:
     RenderingServer.set_default_clear_color(Color(.06,.08,.09))
     var stage := Stage.new()
     root.add_child(stage)
+    check_waterwheel_gait(stage)
     var actors: Array = []
     for index in 2:
         var actor := ENEMY.new()
