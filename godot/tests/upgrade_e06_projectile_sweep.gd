@@ -23,7 +23,9 @@ class Target extends CharacterBody2D:
     var ui_input_locked:=false
     var hits:=0
     var parrying:=false
-    func take_damage(_damage,_point,_blockable):hits+=1
+    func take_damage(damage: int, _point: Vector2, _blockable: bool) -> void:
+        hp -= damage
+        hits += 1
     func can_deflect_projectile():return parrying
 class Enemy extends Node2D:
     var hits:=0
@@ -41,7 +43,7 @@ func run() -> void:
         var end:=Vector2(18000.0/fps,0)
         check(shot._resolve_swept_projectile(player,Vector2.ZERO,end,{}) and shot.hit_player,"fast shot hits across physics rates")
         shot.free()
-    check(player.hits==3,"each shot damages only once")
+    check(player.hits==3 and player.hp==7,"each shot delivers one paid wound")
     var shot:=Shot.new();host.add_child(shot);shot.set_physics_process(false)
     check(not shot._resolve_swept_projectile(player,Vector2.ZERO,Vector2(200,0),{"position":Vector2(20,0)}),"earlier wall blocks player")
     check(shot._resolve_swept_projectile(player,Vector2.ZERO,Vector2(200,0),{"position":Vector2(180,0)}),"player before later wall remains hittable")
