@@ -7,3 +7,5 @@
   - **标题页显示与语言引导**：在 `godot/scripts/title_card.gd` 修复 `_slot_summary` 读取 `play_seconds` 与紧凑两行格式（不再恒显 `0:00` 或 3 行溢出/英文漏中），中文态语言按钮增加 `/ EN` 提示，保持 `bgm_player` 在标题页持续播放；在 `godot/scripts/audio_game_state.gd` 暂停时冻结音频状态轮询。
   - **异步退场与显存/缓存回收**：在 `godot/scripts/world_passage.gd`、`level_travel_async.gd`、`loader_transitions.gd`、`loader_staging.gd`、`loader_startup.gd`、`world_region_loader.gd` 修复 `_exit_tree()` 期间未守卫的 `await` 唤醒、回滚失败误恢复 `process_mode`、启动与取消预建后释放 `region_texture_hold` 并补齐手柄 B 取消切区；移除 `godot/scripts/chapter_terrain.gd` 未使用的 `terrain_atlas.png` 加载并避免空数组排序；清理 `hand_drawn_assets.gd` `texture_failures`、为 `world_atlas.gd`/`world_rock_material.gd` 增加安全解析与 `clear_caches()`，并在 `level_activation.gd` 切章前释放旧场景音频。
 - **验证**：本地执行 `title_card_validation.gd`、`boss_rush_validation.gd`、`audit_ui_translations.py`、`test_ui_text_colors.py`、`audit_export_contents.py`、`build_ledger.py --validate`、`npm run test:campaign` 均通过。
+
+CI 复验：补齐首领连战、标题页和成就隔离工程的脚本依赖。切区不再预热仅供内容审计的旧地形图集；运行时仍要求复用实际渲染材质。
