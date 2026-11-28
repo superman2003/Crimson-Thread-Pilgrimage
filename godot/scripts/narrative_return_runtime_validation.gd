@@ -71,6 +71,21 @@ func run_checks() -> void:
     check(scene.story_flags.get("ending_chosen", "") == "ending_b", "retry commits the requested ending")
     check(bool(scene.story_flags.get("world_crown_severed", false)) and not bool(scene.story_flags.get("world_bells_restored", false)), "ending commits only its world consequences")
     check(scene.win_label.visible and scene.win_label.text == scene.world_narrative.story_data.endings.ending_b.message, "confirmed ending displays authored conclusion")
+    var desk = preload("res://scripts/ending_story_desk.gd").new()
+    scene.add_child(desk)
+    desk.host_ref = weakref(scene)
+    desk.ending = "ending_b"
+    scene.active_overlay = "ending_story"
+    desk._show_epilogue(scene)
+    check(desk.get_cancel_button().visible and desk.get_ok_button().text == "下一幕" and not desk.credits_button.visible, "early epilogue pages keep leave and advance actions")
+    var page_count: int = desk.pages.size()
+    for advance in range(1, page_count):
+        desk._confirm()
+    check(not desk.get_cancel_button().visible and desk.get_ok_button().text == "回到六城" and desk.credits_button.visible, "last epilogue page has only one return action and still offers credits")
+    desk._show_preview(scene)
+    check(desk.get_cancel_button().visible and desk.get_cancel_button().text == "继续探索", "preview restores the cancel action after a completed epilogue")
+    scene.active_overlay = ""
+    desk.free()
     gate.set_meta("ending", "ending_a")
     scene._activate_ending_gate(gate)
     check(scene.story_flags.get("ending_chosen", "") == "ending_b", "another gate cannot replace the committed choice")
