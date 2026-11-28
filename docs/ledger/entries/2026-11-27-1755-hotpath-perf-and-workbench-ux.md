@@ -8,3 +8,5 @@
   - **Boss AI、房间查表与暗室/暗道绘制优化**：在 `godot/scripts/boss_behavior_brain.gd` 缓存单物理帧 LOS 与 `eligible_commands()`/`overdue_command()` 结果；在 `godot/scripts/map_overlay.gd` 为 `map_room_by_id()` 建 O(1) 字典索引；在 `godot/scripts/cave_world.gd` 复用单份 `PhysicsRayQueryParameters2D`；在 `godot/scripts/hidden_route_clue.gd` 常量化材质表并剔除离屏重绘。
   - **旅途工作台优化与手柄可达**：在 `godot/journey/workbench.gd` 用原始 `attached_save_path` 替换 10Hz `sha256_text()`、打开工作台时为当前侧栏模块按钮设置初始焦点；在 `godot/scripts/reading_scroll.gd` 将 `JourneyWorkbenchWindow` 纳入右摇杆滚动目标。
 - **验证**：本地执行 `audit_ui_translations.py`、`test_ui_text_colors.py`、`audit_export_contents.py`、`build_ledger.py --validate`、`npm run test:campaign` 均通过。
+
+CI 复验：更新负对照替换点，禁用重构后的材质分支，保留真实 GL 正向检查和语义失效验证。
