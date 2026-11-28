@@ -367,6 +367,50 @@ def leg_change(drawings, canvas):
     return round(float(statistics.mean(audit.change(a, b) for a, b in zip(legs, legs[1:]+legs[:1]))), 4)
 
 
+def append_authored_transitions(manifest, delivery, folder):
+    """Register new one-shots from approved production cels, not a replaced baseline clip."""
+    if not delivery:
+        return
+    name = delivery['atlas']
+    if Path(name).name != name or Path(name).suffix != '.png':
+        raise ValueError('Authored transition atlas must be a local PNG')
+    path = folder / name
+    if sha256(path.read_bytes()).hexdigest() != delivery['sha256']:
+        raise ValueError('Authored transition atlas changed')
+    res_path = 'res://' + path.relative_to(ROOT / 'godot').as_posix()
+    old = {clip['name']: clip for clip in manifest['animations']}
+    seen = set()
+    with Image.open(path) as src:
+        page = src.convert('RGBA')
+    cw, ch = manifest['canvas']
+    for clip in delivery['clips']:
+        name = clip['name']
+        entry = old.get(clip['entry'])
+        if (clip['entry'] != {'turn': 'idle', 'brake': 'walk'}.get(name)
+                or name in old or name in seen
+                or entry is None or not entry['loop'] or not entry['frames']
+                or not 0 < clip['fps'] <= 60 or not clip['cels']):
+            raise ValueError('Invalid or duplicate authored transition: ' + name)
+        frames = [deepcopy(entry['frames'][0])]
+        hashes = set()
+        for cel in clip['cels']:
+            x, y, w, h = cel['region']
+            left, top, pad_w, pad_h = cel['margin']
+            if not (0 <= x < x+w <= page.width and 0 <= y < y+h <= page.height
+                    and 0 <= left <= pad_w == cw-w and 0 <= top <= pad_h == ch-h):
+                raise ValueError('Authored transition cel outside atlas or rig: ' + name)
+            pixels = page.crop((x, y, x+w, y+h))
+            if pixels.getchannel('A').getbbox() is None:
+                raise ValueError('Empty authored transition cel: ' + name)
+            digest = sha256(pixels.tobytes()).hexdigest()
+            if digest in hashes:
+                raise ValueError('Repeated authored transition cel: ' + name)
+            hashes.add(digest)
+            frames.append(dict(atlas=res_path, region=cel['region'], margin=cel['margin']))
+        manifest['animations'].append(dict(name=name, fps=clip['fps'], loop=False, frames=frames))
+        seen.add(name)
+
+
 def build(kind, check=False):
     spec_path = REQUEST/'jobs'/(kind+'.json')
     spec = read(spec_path)
@@ -465,6 +509,7 @@ def build(kind, check=False):
         packed.update(frames)
         release_outputs.append(output)
     manifest = replace_frames(base, packed)
+    append_authored_transitions(manifest, spec.get('authored_transitions'), fit.CREATURES/kind)
     manifest['redraw_record'] = dict(schema=1, baseline=path.name, baseline_sha256=spec['baseline_sha256'],
                                     spec=spec_path.relative_to(ROOT).as_posix(), clips=summary)
     outputs = [(fit.CREATURES/kind/LAYER, manifest)]
