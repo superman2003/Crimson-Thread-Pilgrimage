@@ -83,6 +83,7 @@ func run() -> void:
     await _alarm()
     await _occlusion_and_disengage()
     await _guard_post()
+    await _crown_door_post()
     await _support()
     await _role_cues()
     await _sfx_occlusion()
@@ -249,6 +250,45 @@ func _guard_post() -> void:
     sentinel.memory_timer = 0.0
     step(sentinel, null, 20)
     check(sentinel.last_ai_decision == "hold_post" and absf(sentinel.global_position.x - 300.0) <= 6.0, "the guard keeps its post after its memory expires")
+    await clear_stage()
+
+func _crown_door_post() -> void:
+    var chapter: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/demo_ch06_silent_crown_core.json"))
+    var row: Dictionary = {}
+    for enemy in chapter.enemy_spawns:
+        if enemy.get("id") == "E14":
+            row = enemy
+            break
+    check(row.get("encounter_role") == "boss_door_guard", "fixture uses the actual crown door sentry")
+    if row.is_empty():return
+    var guard := spawn(String(row.kind), "E14", Vector2(300, 300), false, row)
+    var frames: SpriteFrames = guard.animated_sprite.sprite_frames
+    for pose in [&"turn", &"brake"]:
+        check(frames.has_animation(pose) and frames.get_frame_count(pose) == 7 and not frames.get_animation_loop(pose), "production knight loads its finite painted " + String(pose) + " gesture")
+    guard.attack_desire = 0
+    var commands: Array = guard.ai_commands
+    check(commands.size() == 2 and commands[0].id == "echo_wheel_guard" and commands[1].id == "echo_wheel_wave" and commands[0].windup == 0.8 and commands[1].windup == 0.9 and commands[0].recover == 1.15 and commands[1].recover == 1.1, "the authored shield and wave still retain their original readable warning and recovery")
+    for command in commands:
+        guard.cooldowns[command.id] = 100.0
+    target.position = Vector2(322, 300)
+    await physics_frame
+    step(guard, target, 25)
+    check(guard.last_ai_decision == "guard:hold" and absf(guard.global_position.x - 300.0) < 0.01, "near player no longer triggers backpedaling at the door")
+    target.position = Vector2(401, 300)
+    await physics_frame
+    step(guard, target, 25)
+    check(guard.global_position.x > 310.0 and guard.global_position.x <= 326.1, "sentry may take a short deliberate step but stays inside its post band")
+    target.position = Vector2(420, 300)
+    await physics_frame
+    step(guard, target, 40)
+    check(guard.last_ai_decision == "hold_post" and absf(guard.global_position.x - 300.0) <= 6.0, "leash loss returns normally to its post")
+    check(guard.direction == -1, "the guard does not snap to an arbitrary right facing when arriving home")
+    target.position = Vector2(375, 300)
+    await physics_frame
+    guard.attack_desire = 2.0
+    guard.cooldowns["echo_wheel_guard"] = 0.0
+    step(guard, target)
+    check(guard.state == "windup" and guard.active_attack.get("id") == "echo_wheel_guard" and guard.attack_direction == 1, "a visible intruder still triggers the real shield attack in the right direction")
     await clear_stage()
 
 func _support() -> void:
