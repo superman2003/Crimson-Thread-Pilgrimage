@@ -1,6 +1,7 @@
 extends SceneTree
 const LEVEL_HOST := preload("res://scripts/level_host.gd")
 ## Configuration/ownership fixtures; not natural exploration or FPS evidence.
+const GAMEPLAY := preload("res://scripts/world_gameplay_prefetch.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
 const VALIDATOR := preload("res://scripts/world_config_validator.gd")
@@ -18,6 +19,7 @@ func _initialize() -> void:
 func _run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     _clean()
+    _source_stamp_policy()
     scene = load("res://scenes/World.tscn").instantiate()
     scene.world_resume = false
     scene.world_save_path = SAVE
@@ -149,6 +151,20 @@ func _run() -> void:
     else:
         for failure in failures: push_error(failure)
         quit(1)
+
+func _source_stamp_policy() -> void:
+    var packed := "res://data/demo_ch02_rain_foundry_canal.json"
+    var stamp := FileAccess.get_modified_time(packed)
+    _check(stamp >= 0 and GAMEPLAY.source_stamp_matches(packed, stamp, false), "development prefetch accepts a matching resource timestamp")
+    _check(not GAMEPLAY.source_stamp_matches(packed, stamp + 1, false), "development prefetch rejects stale resource timestamps")
+    _check(GAMEPLAY.source_stamp_matches(packed, stamp + 1, true), "packaged immutable resource skips repeated timestamp comparisons")
+    var file := FileAccess.open(BAD, FileAccess.WRITE)
+    file.store_string("{}")
+    file.close()
+    var writable_stamp := FileAccess.get_modified_time(BAD)
+    _check(GAMEPLAY.source_stamp_matches(BAD, writable_stamp, true), "a matching writable source remains valid in a packaged build")
+    _check(not GAMEPLAY.source_stamp_matches(BAD, writable_stamp + 1, true), "a writable source still rejects a stale stamp in a packaged build")
+    DirAccess.remove_absolute(BAD)
 
 func _route_entity_invalidation_probe() -> void:
     var previous_phase: String = scene.world_loader.phase

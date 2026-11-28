@@ -48,7 +48,7 @@ jobs:
           from pathlib import Path
           sys.path.insert(0, "tools")
           from software_gl import software_gl
-          config=json.loads(r'''{"test":"tests/upgrade_e07_clue_materials.gd","mutation":{"path":"godot/scripts/hidden_route_clue.gd","before":"if region.contains(key):return","after":"if false:return","exit_code":1,"caught":true},"marker":"UPGRADE_upgrade_e07_clue_materials"}''')
+          config=json.loads(r'''{"test":"tests/upgrade_e07_clue_materials.gd","mutation":{"path":"godot/scripts/hidden_route_clue.gd","before":"if region.contains(key):","after":"if false:","exit_code":1,"caught":true},"marker":"UPGRADE_upgrade_e07_clue_materials"}''')
           logs=Path(os.environ["RUNNER_TEMP"])/"upgrade-e07"
           logs.mkdir(parents=True,exist_ok=True)
           base=[os.environ["GODOT"],"--path","godot","--audio-driver","Dummy"]

@@ -49,10 +49,23 @@ func setup(owner_actor: Area2D) -> void:
     tree.add_child(root)
     add_child(tree)
 
+var _tick_los_frame := -1
+var _tick_has_los := false
+var _tick_eval_frame := -1
+var _tick_eval_phase := -1
+var _tick_eval_target_id := 0
+var _tick_eligible: Array[Dictionary] = []
+var _tick_overdue := ""
+
 func observe(delta: float, player: CharacterBody2D) -> void:
     target = player
     clock += delta
-    if player == null or not actor._has_line_of_sight(player):
+    var frame := Engine.get_physics_frames()
+    var has_los: bool = player != null and bool(actor._has_line_of_sight(player))
+    _tick_los_frame = frame
+    _tick_has_los = has_los
+    _tick_eval_frame = -1
+    if not has_los:
         samples.clear()
         sensed.clear()
         return
@@ -83,6 +96,8 @@ func reset_plan(clear_memory: bool = true) -> void:
         tree.status = -1
         tree.last_tick = -1
     intent = "observe"
+    _tick_los_frame = -1
+    _tick_eval_frame = -1
     if clear_memory:
         samples.clear()
         sensed.clear()
@@ -134,41 +149,55 @@ func intent_allowed(id: String) -> bool:
     tree.blackboard.set_value("intent", id)
     return true
 
-func eligible_commands() -> Array[Dictionary]:
+func _ensure_tick_cache() -> void:
+    var frame := Engine.get_physics_frames()
+    var target_id := target.get_instance_id() if target != null and is_instance_valid(target) else 0
+    if _tick_eval_frame == frame and _tick_eval_phase == actor.battle_phase and _tick_eval_target_id == target_id:
+        return
+    _tick_eval_frame = frame
+    _tick_eval_phase = actor.battle_phase
+    _tick_eval_target_id = target_id
     var result: Array[Dictionary] = []
-    if target == null or sensed.is_empty() or not actor._has_line_of_sight(target):
-        return result
-    var seen: Vector2 = sensed.position
-    var dx := absf(seen.x - actor.global_position.x)
-    var dy := absf(seen.y - actor.global_position.y)
-    for command: Dictionary in actor.ai_commands:
-        if int(command.get("phase", 1)) > actor.battle_phase:
-            continue
-        if float(actor.cooldowns.get(command.id, 0.0)) > 0.0:
-            continue
-        if dx < float(command.get("min_range", 0)) or dx > float(command.get("range", 70)) or dy > actor._command_vertical_tolerance(command):
-            continue
-        # Revalidate current geometry too; delayed memory cannot force a whiff
-        # from outside the move's authored targeting envelope.
-        if actor._attack_can_reach_target(command, target):
-            result.append(command)
-    if history.size() >= 2 and history[-1] == history[-2] and result.size() > 1:
-        result = result.filter(func(c: Dictionary) -> bool: return c.id != history[-1])
-    return result
-
-func overdue_command() -> String:
+    var has_los: bool = _tick_has_los if _tick_los_frame == frame else (target != null and bool(actor._has_line_of_sight(target)))
+    if target != null and not sensed.is_empty() and has_los:
+        var seen: Vector2 = sensed.position
+        var dx := absf(seen.x - actor.global_position.x)
+        var dy := absf(seen.y - actor.global_position.y)
+        for command: Dictionary in actor.ai_commands:
+            if int(command.get("phase", 1)) > actor.battle_phase:
+                continue
+            if float(actor.cooldowns.get(command.id, 0.0)) > 0.0:
+                continue
+            if dx < float(command.get("min_range", 0)) or dx > float(command.get("range", 70)) or dy > actor._command_vertical_tolerance(command):
+                continue
+            # Revalidate current geometry too; delayed memory cannot force a whiff
+            # from outside the move's authored targeting envelope.
+            if actor._attack_can_reach_target(command, target):
+                result.append(command)
+        if history.size() >= 2 and history[-1] == history[-2] and result.size() > 1:
+            result = result.filter(func(c: Dictionary) -> bool: return c.id != history[-1])
+    _tick_eligible = result
     var best := ""
     var age := 3
-    for command: Dictionary in eligible_commands():
+    for command: Dictionary in result:
         var count := int(neglected.get(command.id, 0))
         if count > age:
             age = count
             best = command.id
-    return best
+    _tick_overdue = best
+
+func eligible_commands() -> Array[Dictionary]:
+    _ensure_tick_cache()
+    return _tick_eligible
+
+func overdue_command() -> String:
+    _ensure_tick_cache()
+    return _tick_overdue
 
 func select_command(preferences: Array) -> Dictionary:
-    var eligible := eligible_commands()
-    var overdue := overdue_command()
+    _ensure_tick_cache()
+    var eligible := _tick_eligible
+    var overdue := _tick_overdue
     if not overdue.is_empty() and overdue not in preferences:
         return {}
     if not overdue.is_empty():
@@ -182,12 +211,14 @@ func select_command(preferences: Array) -> Dictionary:
     return {}
 
 func record_attack(command: Dictionary) -> void:
-    for other: Dictionary in eligible_commands():
+    var eligible := eligible_commands()
+    for other: Dictionary in eligible:
         neglected[other.id] = 0 if other.id == command.id else int(neglected.get(other.id, 0)) + 1
     history.append(command.id)
     while history.size() > 12:
         history.pop_front()
     attack_count += 1
+    _tick_eval_frame = -1
     tree.blackboard.set_value("attack_history", history.duplicate())
     tree.blackboard.set_value("neglected", neglected.duplicate())
 

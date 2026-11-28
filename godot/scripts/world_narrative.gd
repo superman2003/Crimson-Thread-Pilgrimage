@@ -397,8 +397,11 @@ func _effective_flags(flags: Dictionary) -> Dictionary:
 ## and gives the destination explicitly rather than only promising migration.
 func npc_world_state(npc_id: String, flags: Dictionary) -> Dictionary:
     var entry: Dictionary = entries.get(npc_id, {})
+    var states: Variant = entry.get("world_states", [])
+    if not (states is Array) or states.is_empty():
+        return {}
     var effective_flags := _effective_flags(flags)
-    for value in entry.get("world_states", []):
+    for value in states:
         var state: Dictionary = value
         if _matches(state, [], effective_flags, {}):
             return state.duplicate(true)

@@ -82,5 +82,6 @@ static func apply(label: Variant, heal: Dictionary, energy: int, maximum: int, o
         label.text = String(view.text)
     if label.tooltip_text != String(view.detail):
         label.tooltip_text = String(view.detail)
-    label.set_meta("heal_reservation", state.duplicate(true))
+    if label.get_meta("heal_reservation", {}) != state:
+        label.set_meta("heal_reservation", state.duplicate(true))
     return state

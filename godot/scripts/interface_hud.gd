@@ -181,9 +181,15 @@ static func refresh_combat_status(ui: Node, player: Node) -> void:
         var status: String = {"ready":"可用 +%d" % int(heal.get("amount",1)),"channeling":"治疗中 %.1fs" % float(heal.get("remaining",0.0)),
             "dead":"等待复生","busy":"动作中","full_health":"生命已满","energy":"缺 %d 绯线" % int(heal.get("missing_energy",0)),
             "airborne":"落地后可用","moving":"停稳后可用","cooldown":"冷却 %.1fs" % float(heal.get("cooldown",0.0))}.get(reason,"动作中")
-        ui.healing_status.text="[%s] 治疗 %d · %s" % [ui._short_binding("heal"),int(heal.get("cost",0)),status]
-        ui.healing_status.tooltip_text="消耗 %d 绯线 · 恢复 %d 生命 · %.2f秒\n中断损失 %d 绯线；移动、跳跃、冲刺或受击会中断。" % [int(heal.get("cost",0)),int(heal.get("amount",0)),float(heal.get("duration",0.0)),int(heal.get("interrupt_loss",0))]
-        ui.healing_status.add_theme_color_override("font_color",ui.GOLD if bool(heal.get("available",false)) else ui.IVORY if reason=="channeling" else ui.MUTED)
+        var heal_text := "[%s] 治疗 %d · %s" % [ui._short_binding("heal"),int(heal.get("cost",0)),status]
+        if ui.healing_status.text != heal_text:
+            ui.healing_status.text = heal_text
+        var heal_tip := "消耗 %d 绯线 · 恢复 %d 生命 · %.2f秒\n中断损失 %d 绯线；移动、跳跃、冲刺或受击会中断。" % [int(heal.get("cost",0)),int(heal.get("amount",0)),float(heal.get("duration",0.0)),int(heal.get("interrupt_loss",0))]
+        if ui.healing_status.tooltip_text != heal_tip:
+            ui.healing_status.tooltip_text = heal_tip
+        var heal_color: Color = ui.GOLD if bool(heal.get("available",false)) else ui.IVORY if reason=="channeling" else ui.MUTED
+        if ui.healing_status.get_theme_color("font_color") != heal_color:
+            ui.healing_status.add_theme_color_override("font_color", heal_color)
     ui.healing_bar.visible=bool(state.get("heal_active",false)) and ui.level.active_overlay==""
     ui.healing_bar.value=clampf(float(state.get("heal_progress",0)),0,1)
     if ui.healing_bar.visible:ui.combat_status.text+=" · 治疗中"
@@ -262,8 +268,10 @@ static func refresh_tactical_cards(ui: Node, snapshot: Dictionary, build_state: 
         if ui.tactical_icons[index].get_meta("asset_id","")!=id:
             ui.tactical_icons[index].set_meta("asset_id",id)
             ui.tactical_icons[index].texture=load(path) if not id.is_empty() and ResourceLoader.exists(path) else null
-        ui.tactical_names[index].text="未装备" if is_skill else "未携带"
-        ui.tactical_values[index].text="—"
+        var next_name := "未装备" if is_skill else "未携带"
+        var next_value := "—"
+        var next_tooltip: String = String(ui.tactical_cards[index].tooltip_text)
+        var next_modulate: Color = ui.tactical_icons[index].modulate
         var active = slot==int(build_state.get("active_skill_slot" if is_skill else "active_tool_slot",0)) and dormant_reason.is_empty()
         var signature = id+str(active)+dormant_reason
         if ui.tactical_signatures[index]!=signature:
@@ -276,21 +284,29 @@ static func refresh_tactical_cards(ui: Node, snapshot: Dictionary, build_state: 
         for item in snapshot.get("skills" if is_skill else "tools",[]):
             if String(item.get("id",""))!=id:continue
             var item_name:=String(item.get("name",id))
-            ui.tactical_names[index].text=("休眠 · "+item_name) if not dormant_reason.is_empty() else item_name
-            ui.tactical_cards[index].tooltip_text="未激活："+dormant_reason if not dormant_reason.is_empty() else item_name
+            next_name=("休眠 · "+item_name) if not dormant_reason.is_empty() else item_name
+            next_tooltip="未激活："+dormant_reason if not dormant_reason.is_empty() else item_name
             if not dormant_reason.is_empty():
-                ui.tactical_values[index].text=dormant_reason
-                ui.tactical_icons[index].modulate=Color(0.45,0.45,0.45)
+                next_value=dormant_reason
+                next_modulate=Color(0.45,0.45,0.45)
                 break
             if is_skill:
                 var remaining:=float(system.cooldowns.get(id,0)) if system!=null else 0.0
                 var readiness: Dictionary = ui._skill_readiness(item,remaining,active)
-                ui.tactical_values[index].text=String(readiness.text)
-                ui.tactical_cards[index].tooltip_text=item_name+" · "+String(readiness.detail)
-                ui.tactical_icons[index].modulate=Color.WHITE if readiness.available else Color(0.45,0.45,0.45)
+                next_value=String(readiness.text)
+                next_tooltip=item_name+" · "+String(readiness.detail)
+                next_modulate=Color.WHITE if readiness.available else Color(0.45,0.45,0.45)
             else:
                 var count := int(item.get("count",0))
                 var readiness: Dictionary = ui.level.get_tool_readiness(id) if ui.level.has_method("get_tool_readiness") else {"available":count>0,"text":"" if count>0 else "已用尽","detail":""}
-                ui.tactical_values[index].text=String(readiness.text) if not String(readiness.text).is_empty() else "× %d" % count
-                ui.tactical_cards[index].tooltip_text=item_name+" · 剩余 %d / %d 次。" % [count,int(item.get("capacity",count))]+String(readiness.detail)
-                ui.tactical_icons[index].modulate=Color.WHITE if bool(readiness.available) else Color(0.45,0.45,0.45)
+                next_value=String(readiness.text) if not String(readiness.text).is_empty() else "× %d" % count
+                next_tooltip=item_name+" · 剩余 %d / %d 次。" % [count,int(item.get("capacity",count))]+String(readiness.detail)
+                next_modulate=Color.WHITE if bool(readiness.available) else Color(0.45,0.45,0.45)
+        if ui.tactical_names[index].text != next_name:
+            ui.tactical_names[index].text = next_name
+        if ui.tactical_values[index].text != next_value:
+            ui.tactical_values[index].text = next_value
+        if ui.tactical_cards[index].tooltip_text != next_tooltip:
+            ui.tactical_cards[index].tooltip_text = next_tooltip
+        if ui.tactical_icons[index].modulate != next_modulate:
+            ui.tactical_icons[index].modulate = next_modulate

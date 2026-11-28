@@ -94,7 +94,9 @@ func update(host: Node2D, focus: Vector2, velocity: Vector2, delta: float, eager
     for id in records:
         if upcoming.intersects(records[id].bounds) and not resident.has(id):
             pending.append(id)
-    pending.sort_custom(func(a, b): return records[a].bounds.get_center().distance_squared_to(host.to_local(focus)) < records[b].bounds.get_center().distance_squared_to(host.to_local(focus)))
+    if pending.size() > 1:
+        var local_focus: Vector2 = host.to_local(focus)
+        pending.sort_custom(func(a, b): return records[a].bounds.get_center().distance_squared_to(local_focus) < records[b].bounds.get_center().distance_squared_to(local_focus))
     started = Time.get_ticks_usec()
     var created := 0
     for id in pending:
