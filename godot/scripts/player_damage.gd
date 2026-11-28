@@ -204,6 +204,7 @@ static func update_respawn_reveal(player: Node, delta: float) -> void:
 
 
 static func hard_respawn(player: Node) -> void:
+    player.guard_contact_grace = false
     player.snare_timer = 0.0
     player.hp = player.max_hp
     player.energy = 0
@@ -220,6 +221,7 @@ static func hard_respawn(player: Node) -> void:
 
 
 static func restore_at_save_point(player: Node) -> void:
+    player.guard_contact_grace = false
     player._reset_traversal_state()
     player.snare_timer = 0.0
     player.hp = player.max_hp

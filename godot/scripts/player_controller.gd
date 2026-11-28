@@ -519,7 +519,9 @@ func _just_resumed_from_pause() -> bool:
 
 func _tick_movement_timers_and_gravity(delta: float) -> void:
     if hurt_timer > 0.0:
-        hurt_timer -= delta
+        hurt_timer = maxf(0.0, hurt_timer - delta)
+    if hurt_timer <= 0.0:
+        guard_contact_grace = false
     if mercy_timer > 0.0:
         mercy_timer -= delta
     if self_flash_timer > 0.0:

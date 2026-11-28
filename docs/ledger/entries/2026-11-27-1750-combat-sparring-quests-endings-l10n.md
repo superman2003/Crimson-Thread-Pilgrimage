@@ -16,3 +16,5 @@
     - `godot/scripts/ending_story_desk.gd`、`ending_gates.gd`：隐藏尾声末页重复取消按钮、重看尾声默认聚焦“下一幕”、拆分结局结语与多条件门拒绝提示以消除英文模式漏中。
     - `godot/data/ui_en_game.json`、`ui_en_story.json`、`tools/audit_ui_translations.py`：修正全角空格/引号、`unfounded testimonies`、`continuous battle`、`Full armor`、`Rosin`、`Hidden Moss Court Echo Lamp` 等译文并加固审计守卫。
 - **验证**：本地执行 `audit_ui_translations.py --self-test`、`audit_ui_translations.py`、`test_ui_text_colors.py`、`display_settings_validation.gd`、`audit_export_contents.py`、`build_ledger.py --validate`、`npm run test:campaign` 均通过。
+
+CI 复验：区分实际伤害、旧式接触回调及免疫拒绝。格挡后的短保护窗口仍拦截同一波命中，普通免疫不提前消耗危险物；只有实际伤害才施加缠绕。 格挡保护标记也在计时到期、钟龛恢复和死亡重生时显式清理。
