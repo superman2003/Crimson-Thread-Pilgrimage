@@ -8,7 +8,6 @@ const ROCK := preload("res://scripts/world_rock_material.gd")
 var material_theme := "moss_cavern"
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 var landforms: Array = []
-var atlas: Texture2D
 var regions: Array = []
 var walk_distance := 0.0
 var ramp_count := 0
@@ -58,7 +57,6 @@ func prepare_config(config: Dictionary, theme: String, enable_streaming: bool = 
     landforms = config.get("terrain", [])
     var directory := "res://assets/sprites/flat_maps/" + theme + "/"
     var data := ART.manifest(directory + "manifest.json")
-    atlas = null
     regions = data.get("terrain_regions", [])
     for platform in config.get("platforms", []):
         var terrain_id := String(platform.get("terrain_id", ""))
