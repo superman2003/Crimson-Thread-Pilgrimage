@@ -509,7 +509,10 @@ static func _run_prepare_jobs_budgeted_async(loader: RefCounted, host: Node, tar
         loader.last_transition["max_prepare_operations"] = maxi(int(loader.last_transition["max_prepare_operations"]), prepare_operations)
         loader.last_transition["max_prepare_batch_usec"] = maxi(int(loader.last_transition["max_prepare_batch_usec"]), prepare_batch_usec)
         if is_instance_valid(loader.loading_label):
-            loader.loading_label.text = ("正在接通旧路… 准备 %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… 准备 %d / %d") % [prepare_cursor, prepare_jobs.size()]
+            if loader.phase == "startup":
+                loader.loading_label.text = "正在准备旅途… %d / %d" % [prepare_cursor, prepare_jobs.size()]
+            else:
+                loader.loading_label.text = ("正在接通旧路… 准备 %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… 准备 %d / %d") % [prepare_cursor, prepare_jobs.size()]
         # Synchronous batches, including the final one, retain their boundary
         # before build. Catalog tasks have already yielded after their final
         # merge; waiting a second empty frame delays every cold region read.
@@ -602,7 +605,10 @@ static func _run_build_jobs_budgeted_async(loader: RefCounted, host: Node, prepa
         loader.last_transition["build_cursor"] = cursor
         loader.last_transition["build_batches"] += 1
         if is_instance_valid(loader.loading_label):
-            loader.loading_label.text = ("正在接通旧路… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
+            if loader.phase == "startup":
+                loader.loading_label.text = "正在加载旅途… %d / %d" % [cursor, jobs.size()]
+            else:
+                loader.loading_label.text = ("正在接通旧路… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
         await loader._next_process_frame(host.get_tree())
         if not loader._catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
             loader._discard_catalog_staging(host, catalog_read_ahead)
@@ -670,7 +676,10 @@ static func finish_budgeted(loader: RefCounted, host: Node, cancellable: bool) -
         loader.last_transition["commit_batches"] = int(loader.last_transition.get("commit_batches", 0)) + 1
         loader._measure_batch(operations, started, "max_commit_operations")
         if is_instance_valid(loader.loading_label):
-            loader.loading_label.text = ("正在整理行囊… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
+            if loader.phase == "startup":
+                loader.loading_label.text = "正在整理行囊… %d / %d" % [cursor, jobs.size()]
+            else:
+                loader.loading_label.text = ("正在整理行囊… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
         # Even the last batch yields before publication, so Escape/host exit
         # cannot publish a destination whose fully constructed UI was cancelled.
         await loader._next_process_frame(host.get_tree())
