@@ -44,6 +44,48 @@ func finish(actor) -> void:
     check(actor.motion_transitions.active.is_empty(),"real animation clock finishes gesture")
 
 
+func check_committed_lunge_at_territory_edge(stage: Node2D) -> void:
+    # Authored field knight: CH02 E06 wheel charge clips the left patrol edge.
+    var region: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/demo_ch02_rain_foundry_canal.json"))
+    var spawn: Dictionary = {}
+    for candidate in region.enemy_spawns:
+        if candidate.id == "E06":
+            spawn = candidate
+            break
+    var knight := ENEMY.new()
+    knight.configure(spawn, String(spawn.sprite), false, region.ai_profiles.waterwheel_knight)
+    knight.position = Vector2(700,450)
+    stage.add_child(knight)
+    knight.set_physics_process(false)
+    var charge: Dictionary = {}
+    for command in knight.ai_commands:
+        if command.id == "wheel_charge":
+            charge = command
+            break
+    check(not charge.is_empty(),"field knight has its authored wheel charge")
+    if charge.is_empty():return
+    knight.platform_min_x = 698.0
+    knight.platform_max_x = 800.0
+    knight.direction = -1
+    knight._set_sprite_flip(true)
+    knight._begin_attack(charge)
+    knight._update_windup(float(charge.windup)+.001)
+    var flip := knight.animated_sprite.flip_h
+    knight._update_active(1.0/60.0)
+    check(is_equal_approx(knight.position.x,698.0),"wheel charge still stops at the authored platform edge")
+    check(knight.state=="active" and knight.attack_direction==-1 and knight.direction==-1,
+        "hitting the territory edge keeps the committed attack direction")
+    check(knight.animated_sprite.flip_h==flip,"active wheel charge does not mirror for one frame at the edge")
+    check(is_equal_approx(knight.state_timer,float(charge.active)-1.0/60.0),"edge contact consumes only the normal attack time")
+    knight._update_active(float(charge.active))
+    check(knight.state=="recover" and knight.animated_sprite.flip_h==flip,"authored recovery stays on the warning side")
+    knight.state="patrol"
+    knight.position.x=697.0
+    knight._clamp_movement_bounds()
+    check(knight.direction==1 and knight.animated_sprite.flip_h!=flip,"ordinary patrol still reverses at its territory boundary")
+    knight.queue_free()
+
+
 func check_grounded_locomotion(stage: Node2D) -> void:
     const GROUND_Y := 860.0
     var terrain := StaticBody2D.new()
@@ -315,6 +357,7 @@ func run() -> void:
     face(twin,not twin.animated_sprite.flip_h)
     twin.take_hit(9999,1)
     check(twin.dying and twin.motion_transitions.active.is_empty() and twin.animated_sprite.animation==&"death","lethal hit immediately replaces the movement gesture with death")
+    check_committed_lunge_at_territory_edge(stage)
     await check_grounded_locomotion(stage)
     if not output.is_empty():
         DirAccess.make_dir_recursive_absolute(output)

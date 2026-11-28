@@ -335,8 +335,11 @@ static func clamp_movement_bounds(actor: Node) -> void:
         var next_position = actor.global_position
         next_position.x = clamped_x
         actor.global_position = next_position
-        actor.direction *= -1
-        actor._set_sprite_flip(actor.direction < 0)
+        # Territory still limits a lunge or its skid. Only locomotion bounces
+        # its facing; the attack's authored aim and pose own combat turns.
+        if not actor._is_attack_state():
+            actor.direction *= -1
+            actor._set_sprite_flip(actor.direction < 0)
 
 
 static func movement_limits(actor: Node) -> Vector2:
