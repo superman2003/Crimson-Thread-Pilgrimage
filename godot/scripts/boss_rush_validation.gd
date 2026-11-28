@@ -97,7 +97,9 @@ func run() -> void:
     check(unsaved.get_node("Result").dialog_text.contains("未能保存") and is_equal_approx(best(),total),"a failed record write reports the failure and retains the previous best")
     unsaved.get_node("Result").confirmed.emit();await frames()
     made.clear();var quitter:=rush(current_scene,2);await frames()
+    paused=true
     quitter.quit_held=RUSH.QUIT_HOLD;quitter._finish(false);await frames()
+    check(not paused and quitter.get_node("Result").has_meta("dialog_focus_bridge"),"quitting boss rush clears paused state and bridges result dialog for gamepad")
     check(quitter.get_node("Result").dialog_text=="已退出连战。" and is_equal_approx(best(),total) and current_scene is World,"quitting returns to the journey and records nothing")
     quitter.get_node("Result").canceled.emit();await frames()
     var store:=preload("res://scripts/journey_desk_store.gd").new();store.configure("boss_rush","installation")

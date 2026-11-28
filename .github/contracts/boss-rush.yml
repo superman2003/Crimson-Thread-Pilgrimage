@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/boss_rush*.gd'
+      - 'godot/scripts/dialog_focus_bridge.gd'
       - 'godot/scripts/achievements.gd'
       - 'godot/scripts/audio_retirement.gd'
       - 'godot/scripts/title_card.gd'
@@ -40,6 +41,7 @@ jobs:
             /godot/scripts/achievement_notice.gd
             /godot/scripts/title_card.gd
             /godot/scripts/boss_rush.gd
+            /godot/scripts/dialog_focus_bridge.gd
             /godot/scripts/audio_retirement.gd
             /godot/scripts/ui_type_scale.gd
             /godot/scripts/boss_rush_validation.gd

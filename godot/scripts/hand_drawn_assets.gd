@@ -158,7 +158,9 @@ static func collect_region_assets(config: Dictionary) -> Dictionary:
     return {"manifests": manifests, "textures": keep_textures}
 
 
-static func evict_unused_region_assets(configs: Array) -> Dictionary:
+static func evict_unused_region_assets(configs: Array, retain_recent := true) -> Dictionary:
+    if not retain_recent:
+        recent_region_assets.clear()
     var keep_manifests: Dictionary = {}
     var keep_textures: Dictionary = {}
     var recorded_primary := false
@@ -200,6 +202,7 @@ static func evict_unused_region_assets(configs: Array) -> Dictionary:
         if not keep_textures.has(path) and not texture_requests.has(path):
             textures.erase(key)
             evicted_textures += 1
+    texture_failures.clear()
     return {"evicted_textures": evicted_textures, "evicted_frames": evicted_frames,
         "retained_textures": textures.size(), "retained_frames": frame_cache.size()}
 

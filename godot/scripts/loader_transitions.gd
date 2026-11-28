@@ -270,7 +270,7 @@ static func replace_region_async(loader: RefCounted, host: Node, path: String, e
             if not await loader._prepare_routes_manifest(host, host.get_tree()):
                 if loader._alive(host):
                     loader._show_startup_error(host)
-                    host.process_mode = previous_mode
+                    host.process_mode = Node.PROCESS_MODE_DISABLED
                 else:
                     loader._clear_loading_canvas()
                 return false
@@ -297,7 +297,7 @@ static func replace_region_async(loader: RefCounted, host: Node, path: String, e
             if loader._alive(host):
                 loader.last_error = "返回来路时区域准备失败。"
                 loader._show_startup_error(host)
-                host.process_mode = previous_mode
+                host.process_mode = Node.PROCESS_MODE_DISABLED
             else:
                 loader._clear_loading_canvas()
             return false
@@ -309,7 +309,7 @@ static func replace_region_async(loader: RefCounted, host: Node, path: String, e
             if loader._alive(host):
                 loader.last_error = "返回来路时区域交接失败。"
                 loader._show_startup_error(host)
-                host.process_mode = previous_mode
+                host.process_mode = Node.PROCESS_MODE_DISABLED
             else:
                 loader._clear_loading_canvas()
             return false
@@ -323,6 +323,7 @@ static func replace_region_async(loader: RefCounted, host: Node, path: String, e
         host._refresh_world_portals()
     host._publish_region()
     var art_eviction: Dictionary = LOADER_REGION_STATE.evict_unused_character_art(loader, host)
+    loader.region_texture_hold.clear()
     loader.last_transition["character_art_evicted"] = int(art_eviction.get("evicted_textures", 0))
     loader.last_transition["publish_usec"] = Time.get_ticks_usec() - committed_at
     loader.last_transition["commit_usec"] = int(loader.last_transition.get("commit_work_usec", 0)) + int(loader.last_transition.publish_usec)
@@ -373,4 +374,5 @@ static func run_owned_transition(loader: RefCounted, token: RefCounted, host: No
         host.chapter_transitioning = false
         if is_instance_valid(host.audio_director):
             host.audio_director.cancel_chapter_transition()
-        host._toast(loader.last_error)
+        if loader.phase != "startup_error":
+            host._toast(loader.last_error)

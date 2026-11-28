@@ -55,10 +55,13 @@ func _run() -> void:
         _check(metric.max_build_operations <= 8 and metric.max_unload_operations <= 8 and metric.batches > 2, id + " bounded multi-frame operations")
         _check(metric.max_commit_operations <= 8 and metric.commit_batches > 2 and metric.commit_cursor == metric.commit_jobs, id + " arrival/UI jobs are bounded and complete across frames")
         var theme_textures: Array = scene.world_loader.region_texture_paths(String(scene._art_theme_id()))
-        _check(theme_textures.size() >= 4 and int(metric.get("region_texture_held", -1)) == theme_textures.size() and int(metric.get("region_texture_failures", 0)) == 0, id + " destination theme textures are resident before the build phase (%d/%d)" % [int(metric.get("region_texture_held", -1)), theme_textures.size()])
-        var resident := true
-        for texture_path in theme_textures: resident = resident and ResourceLoader.has_cached(texture_path)
-        _check(resident, id + " built region reuses the warmed theme textures")
+        var filenames: Array[String] = []
+        for warm_path in theme_textures:
+            filenames.append(String(warm_path).get_file())
+        _check(filenames == ["background.png", "platform_atlas.png", "decor_atlas.png"], id + " only warms the three live regional textures")
+        _check(int(metric.get("region_texture_held", -1)) == 3 and int(metric.get("region_texture_failures", 0)) == 0, id + " destination art is resident before build (%d/3)" % int(metric.get("region_texture_held", -1)))
+        for texture_path in theme_textures:
+            _check(ResourceLoader.has_cached(texture_path), id + " built region retains warmed " + String(texture_path).get_file())
         var actual := _geometry_signature()
         var ui := _ui_signature()
         scene._travel_world(path, entry)

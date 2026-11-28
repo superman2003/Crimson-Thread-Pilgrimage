@@ -5,6 +5,7 @@ extends RefCounted
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const VARIANT_COPY_JOB := preload("res://scripts/world_variant_copy_job.gd")
+const LOADER_REGION_STATE := preload("res://scripts/loader_region_state.gd")
 
 static func run_background_manifest_refresh(loader: RefCounted, host: Node) -> void:
     var tree := host.get_tree()
@@ -113,6 +114,8 @@ static func initialize_startup_region(loader: RefCounted, host: Node, restore_pr
         return false
     if built:
         host._publish_region()
+        LOADER_REGION_STATE.evict_unused_character_art(loader, host)
+        loader.region_texture_hold.clear()
     else:
         host.world_catalog = startup_source_catalog
         host.world_catalog_prepare_staging = {}

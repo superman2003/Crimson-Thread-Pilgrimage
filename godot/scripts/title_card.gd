@@ -12,6 +12,9 @@ var buttons := {}
 var slot_buttons := {}
 var utility_buttons := {}
 var kept_audio_mode := Node.PROCESS_MODE_INHERIT
+var kept_bgm_mode := Node.PROCESS_MODE_INHERIT
+var holding_pause := false
+var launch_card := false
 
 static func wanted(world: Node, display: String, arguments: PackedStringArray) -> bool:
     if shown or display=="headless":return false
@@ -24,7 +27,10 @@ static func wanted(world: Node, display: String, arguments: PackedStringArray) -
 static func present(world: Node, has_journey: bool) -> Node:
     var arguments:=OS.get_cmdline_args();arguments.append_array(OS.get_cmdline_user_args())
     if not wanted(world,DisplayServer.get_name(),arguments):return null
-    return open(world,has_journey)
+    var card := open(world,has_journey)
+    if card != null:
+        card.launch_card = true
+    return card
 
 static func open(world: Node, has_journey: bool) -> Node:
     shown=true
@@ -88,17 +94,24 @@ func _slot_summary(row: Dictionary, is_current: bool) -> String:
         return prefix + "\n尚无记录"
     if not bool(row.get("valid",false)):
         return prefix + "\n记录需恢复"
-    var region:=String(row.get("current_region",""))
+    var region_id:=String(row.get("region_id",row.get("current_region","")))
+    var region:="旧旅途区域"
     if FileAccess.file_exists("res://scripts/save_inspector.gd"):
         var inspector_script: Variant=load("res://scripts/save_inspector.gd")
         if inspector_script!=null:
-            region=String(inspector_script.describe(row))
-    var path:=String(row.get("path",""))
-    var secs:=PROGRESS.recorded(path) if not path.is_empty() else 0
-    return "%s\n%s · %s" % [prefix,region,PROGRESS.clock_text(secs)]
+            region=String(inspector_script.REGION_NAMES.get(region_id,"旧旅途区域"))
+    var pct:=int(row.get("completion",0))
+    var secs:=int(row.get("play_seconds",0))
+    if secs<=0 and not String(row.get("path","")).is_empty():
+        secs=PROGRESS.recorded(String(row.get("path","")))
+    return "%s\n%s · %d%% · %s" % [prefix,region,pct,PROGRESS.clock_text(secs)]
+
+func _game_language_settings() -> Node:
+    var tree: SceneTree = get_tree() if is_inside_tree() else (Engine.get_main_loop() as SceneTree)
+    return tree.root.get_node_or_null("GameLanguageSettings") if tree != null and tree.root != null else null
 
 func _language_button_label() -> String:
-    var startup := get_node_or_null("/root/GameLanguageSettings")
+    var startup := _game_language_settings()
     var prefs: Variant = startup.preferences if startup != null else null
     if prefs == null and FileAccess.file_exists("res://scripts/display_dialog.gd"):
         var display_script: Variant = load("res://scripts/display_dialog.gd")
@@ -106,12 +119,12 @@ func _language_button_label() -> String:
             prefs = display_script.language
     if prefs != null and String(prefs.locale) == "en":
         return "Language: EN"
-    return "语言：中文"
+    return "语言：中文 / EN"
 
 func _choose_utility(action: String) -> void:
     if is_queued_for_deletion():return
     if action=="language":
-        var startup := get_node_or_null("/root/GameLanguageSettings")
+        var startup := _game_language_settings()
         var prefs: Variant = startup.preferences if startup != null else null
         if prefs == null and FileAccess.file_exists("res://scripts/display_dialog.gd"):
             var display_script: Variant = load("res://scripts/display_dialog.gd")
@@ -153,7 +166,13 @@ func select_slot(slot_idx: int) -> void:
         choose("continue");return
     release()
     if is_instance_valid(level) and level.has_method("select_save_slot"):
-        if not level.select_save_slot(slot_idx):
+        var skip_save: bool = launch_card or level.get("world_save_blocked") == true
+        var switched := false
+        if skip_save:
+            switched = bool(level.call("select_save_slot", slot_idx, true))
+        else:
+            switched = bool(level.select_save_slot(slot_idx))
+        if not switched:
             # Target slot damaged or blocked; open Settings so player sees recovery UI.
             if level.has_method("_toggle_audio_settings"):
                 level._toggle_audio_settings()
@@ -162,25 +181,51 @@ func select_slot(slot_idx: int) -> void:
 ## The world waits behind the card: enemies cannot reach a player who has not
 ## pressed anything yet. Music keeps playing.
 func hold() -> void:
-    var director: Variant=level.get("audio_director")
-    if director is Node and is_instance_valid(director):
-        kept_audio_mode=director.process_mode;director.process_mode=Node.PROCESS_MODE_ALWAYS
-    get_tree().paused=true
+    if holding_pause:return
+    if is_instance_valid(level):
+        var director: Variant=level.get("audio_director")
+        if director is Node and is_instance_valid(director):
+            kept_audio_mode=director.process_mode;director.process_mode=Node.PROCESS_MODE_ALWAYS
+        var bgm: Variant=level.get("bgm_player")
+        if bgm is Node and is_instance_valid(bgm):
+            kept_bgm_mode=bgm.process_mode;bgm.process_mode=Node.PROCESS_MODE_ALWAYS
+    holding_pause=true
+    if get_tree()!=null:
+        get_tree().paused=true
 
 func release() -> void:
-    get_tree().paused=false
-    var director: Variant=level.get("audio_director")
-    if director is Node and is_instance_valid(director):director.process_mode=kept_audio_mode
+    if not holding_pause:return
+    holding_pause=false
+    if get_tree()!=null:
+        get_tree().paused=false
+    if is_instance_valid(level):
+        level.set_meta("pause_resume_physics_frame", Engine.get_physics_frames())
+        var director: Variant=level.get("audio_director")
+        if director is Node and is_instance_valid(director):director.process_mode=kept_audio_mode
+        var bgm: Variant=level.get("bgm_player")
+        if bgm is Node and is_instance_valid(bgm):bgm.process_mode=kept_bgm_mode
+    for action_name in ["jump", "dash"]:
+        if InputMap.has_action(action_name):
+            Input.action_release(action_name)
+
+func _exit_tree() -> void:
+    if holding_pause:
+        release()
 
 func choose(action: String) -> void:
     if is_queued_for_deletion():return
     if action=="quit":
         chosen.emit(action)
         var tree:=get_tree()
-        if tree!=null and tree.root.get_node_or_null(NodePath(CLOSE_OWNER_NAME))!=null:
-            tree.root.close_requested.emit()
-        elif tree!=null:
-            tree.quit()
+        if tree!=null:
+            var owner:=tree.root.get_node_or_null(NodePath(CLOSE_OWNER_NAME))
+            if owner!=null:
+                if owner.has_method("request_close"):
+                    owner.call("request_close", true)
+                else:
+                    tree.root.close_requested.emit()
+            else:
+                tree.quit()
         return
     if action=="achievements":
         show_achievements();return

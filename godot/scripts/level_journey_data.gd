@@ -18,6 +18,9 @@ static func build_new_journey_dialog(level: Node) -> void:
     level.new_journey_dialog.canceled.connect(func():
         level.active_overlay = ""
         level._sync_ui_input_lock())
+    level.new_journey_dialog.about_to_popup.connect(func():
+        if is_instance_valid(level.new_journey_dialog):
+            level.new_journey_dialog.get_cancel_button().call_deferred("grab_focus"))
 
 
 static func preserve_previous_journey(level: Node) -> bool:

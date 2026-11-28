@@ -209,16 +209,23 @@ static func defer_region_call(level: Node, method: StringName, arguments: Array 
 
 static func run_region_deferred(level: Node, generation: int, method: StringName, arguments: Array) -> void:
     var portal_request := method in ["_request_world_travel", "_travel_world_async"]
+    var slot_replace := method == &"_replace_with_save_slot"
     if level._walking_world_passage():
         if portal_request:
             level.world_portal_request_pending = false
+        if slot_replace:
+            level.chapter_transitioning = false
         return
     if level.world_loader != null and level.world_loader.generation != generation:
         if portal_request:
             level.world_portal_request_pending = false
+        if slot_replace:
+            level.chapter_transitioning = false
         return
     for argument in arguments:
         if typeof(argument) == TYPE_OBJECT and not is_instance_valid(argument):
+            if slot_replace:
+                level.chapter_transitioning = false
             return
     level.callv(method, arguments)
 

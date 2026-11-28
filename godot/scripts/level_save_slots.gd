@@ -70,8 +70,8 @@ static func get_journey_history(level: Node) -> Dictionary:
     return preload("res://scripts/journey_history.gd").summaries(level.world_save_path)
 
 
-static func select_save_slot(level: Node, index: int) -> bool:
-    if not level.world_mode or index < 1 or index > 3 or level.chapter_transitioning or level.player.hp <= 0:
+static func select_save_slot(level: Node, index: int, skip_current_save: bool = false) -> bool:
+    if not level.world_mode or index < 1 or index > 3 or level.world_loading or level.chapter_transitioning or level.player == null or level.player.hp <= 0:
         return false
     var path = WORLD_STATE_SCRIPT.slot_path(index)
     if path == level.world_save_path:
@@ -80,7 +80,7 @@ static func select_save_slot(level: Node, index: int) -> bool:
     if not candidate.read(path) and (candidate.last_error != "missing" or candidate.read(path + ".bak")):
         level._toast("该旅途记录无法读取，已保留原文件；请先恢复该槽备份。")
         return false
-    if not level._save_world():
+    if not skip_current_save and not level._save_world():
         level._toast("当前进度未能写入，尚未切换存档槽。")
         return false
     remember_last_slot(index)
@@ -117,6 +117,7 @@ static func restore_save_backup(level: Node, index: int = 0) -> bool:
     if not recovered.restore_backup(path):
         level._toast("备份恢复失败：" + recovered.last_error)
         return false
+    remember_last_slot(slot)
     level.chapter_transitioning = true
     level._defer_region_call("_replace_with_save_slot", [slot, path])
     return true

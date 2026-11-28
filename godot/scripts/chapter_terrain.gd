@@ -8,7 +8,6 @@ const ROCK := preload("res://scripts/world_rock_material.gd")
 var material_theme := "moss_cavern"
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 var landforms: Array = []
-var atlas: Texture2D
 var regions: Array = []
 var walk_distance := 0.0
 var ramp_count := 0
@@ -58,7 +57,6 @@ func prepare_config(config: Dictionary, theme: String, enable_streaming: bool = 
     landforms = config.get("terrain", [])
     var directory := "res://assets/sprites/flat_maps/" + theme + "/"
     var data := ART.manifest(directory + "manifest.json")
-    atlas = ART.texture(directory + "terrain_atlas.png")
     regions = data.get("terrain_regions", [])
     for platform in config.get("platforms", []):
         var terrain_id := String(platform.get("terrain_id", ""))
@@ -163,7 +161,8 @@ func refresh_visual_chunks(bounds: Rect2, eager: bool = false) -> void:
     for key in visual_chunks:
         if not resident_chunks.has(key) and load_bounds.intersects(visual_chunks[key].bounds):
             pending.append(key)
-    pending.sort_custom(func(a, b): return visual_chunks[a].bounds.get_center().distance_squared_to(bounds.get_center()) < visual_chunks[b].bounds.get_center().distance_squared_to(bounds.get_center()))
+    if pending.size() > 1:
+        pending.sort_custom(func(a, b): return visual_chunks[a].bounds.get_center().distance_squared_to(bounds.get_center()) < visual_chunks[b].bounds.get_center().distance_squared_to(bounds.get_center()))
     var started := Time.get_ticks_usec()
     var created := 0
     for key in pending:
@@ -272,7 +271,8 @@ func update_collision_window(focus: Vector2, velocity: Vector2, delta: float, ea
     for index in range(collision_records.size()):
         if not resident_collisions.has(index) and critical_bounds.grow(COLLISION_PRELOAD).intersects(collision_records[index].bounds):
             pending.append(index)
-    pending.sort_custom(func(a, b): return collision_records[a].bounds.get_center().distance_squared_to(point) < collision_records[b].bounds.get_center().distance_squared_to(point))
+    if pending.size() > 1:
+        pending.sort_custom(func(a, b): return collision_records[a].bounds.get_center().distance_squared_to(point) < collision_records[b].bounds.get_center().distance_squared_to(point))
     started = Time.get_ticks_usec()
     count = 0
     for index in pending:

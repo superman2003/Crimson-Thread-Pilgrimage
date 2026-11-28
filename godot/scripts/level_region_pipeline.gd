@@ -3,6 +3,7 @@ extends RefCounted
 ## Moved out of main_level.gd unchanged in behaviour; it keeps one-line
 ## methods of the same names, so callers and validations are unaffected.
 const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
+const ART := preload("res://scripts/hand_drawn_assets.gd")
 const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
 const DEATH_RECALL := preload("res://scripts/death_recall.gd")
 const MAP_PLAYER_PINS := preload("res://scripts/map_player_pins_runtime.gd")
@@ -300,6 +301,9 @@ static func publish_region(level: Node) -> void:
     level._show_chapter_entry_message()
     level.world_loading = false
     level.initial_region_ready = true
+    if level.has_meta("boss_rush_cache_boundary") and not level.config.is_empty():
+        level.remove_meta("boss_rush_cache_boundary")
+        ART.evict_unused_region_assets([level.config], false)
     if level.world_mode:
         if not level.world_initial_error.is_empty():
             level._toast(level.world_initial_error)

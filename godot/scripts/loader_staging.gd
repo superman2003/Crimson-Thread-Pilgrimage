@@ -151,6 +151,7 @@ static func _drop(loader: RefCounted) -> void:
         host.build_system.restore(staging.build)
         host.world_catalog = staging.catalog
     loader.staging = {}
+    loader.region_texture_hold.clear()
     _retire(loader, staging.root)
 
 

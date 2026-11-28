@@ -3,8 +3,11 @@ extends Node
 const RETIREMENT := preload("res://scripts/audio_retirement.gd")
 const AUDIO := preload("res://scripts/audio_director.gd")
 const HAND_DRAWN_ASSETS := preload("res://scripts/hand_drawn_assets.gd")
+const WORLD_ATLAS := preload("res://scripts/world_atlas.gd")
+const WORLD_ROCK_MATERIAL := preload("res://scripts/world_rock_material.gd")
 const OWNER_NAME := "PilgrimageApplicationClose"
 var closing := false
+var skip_next_save := false
 
 static func install(tree: SceneTree) -> void:
     # The main scene installs from _ready while root is still adding children,
@@ -25,16 +28,26 @@ func _ready() -> void:
     get_tree().auto_accept_quit = false
     get_tree().root.close_requested.connect(_close_requested)
 
+func request_close(skip_save: bool = false) -> void:
+    skip_next_save = skip_save
+    _close_requested()
+
 func _close_requested() -> void:
     if closing:
         return
     closing = true
+    var skip_save := skip_next_save
+    skip_next_save = false
     var tree := get_tree()
     # No new gameplay/voice admission while releasing the application owners.
     tree.paused = true
-    for child in tree.root.get_children():
-        if child != self and child.has_method("_save_world") and child.get("world_mode") == true and child.get("initial_region_ready") == true and child.get("world_loading") != true and child.get("chapter_transitioning") != true:
-            child._save_world()
+    if not skip_save:
+        for child in tree.root.get_children():
+            if child != self and child.has_method("_save_world") and child.get("world_mode") == true and child.get("initial_region_ready") == true and child.get("world_loading") != true and child.get("chapter_transitioning") != true:
+                var title_card: Node = child.get_node_or_null("TitleCard")
+                if title_card != null and not title_card.is_queued_for_deletion():
+                    continue
+                child._save_world()
     RETIREMENT.retire_tree(tree.root)
     for child in tree.root.get_children():
         if child != self:
@@ -45,6 +58,8 @@ func _close_requested() -> void:
     AUDIO._stream_cache.clear()
     AUDIO._npc_voice_cache.clear()
     HAND_DRAWN_ASSETS.clear_caches()
+    WORLD_ATLAS.clear_caches()
+    WORLD_ROCK_MATERIAL.clear_caches()
     var drained := await RETIREMENT.drain(tree)
     if OS.is_stdout_verbose():
         print("APPLICATION_CLOSE drained=%s pending=%d" % [str(drained), RETIREMENT.pending.size()])

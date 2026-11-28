@@ -830,7 +830,10 @@ func _poll_overlay_and_action_shortcuts() -> void:
         if not active_overlay.is_empty():
             _close_overlays()
         elif Input.is_physical_key_pressed(KEY_ESCAPE) and not world_loading and not chapter_transitioning:
-            _open_pause_menu()
+            var frame := Engine.get_process_frames()
+            var rush_active := get_tree() != null and get_tree().root.get_node_or_null("BossRush") != null
+            if not rush_active and frame != PAUSE_MENU.closed_frame and frame != int(get_meta("pause_suppress_frame", -1)):
+                _open_pause_menu()
     elif Input.is_action_just_pressed("inventory"):
         if world_mode and active_overlay == "map":
             world_map_view = not world_map_view
@@ -2343,8 +2346,8 @@ func get_journey_archive_detail(file: String, sha: String) -> Dictionary:
 func get_journey_history() -> Dictionary:
     return LEVEL_SAVE_SLOTS.get_journey_history(self)
 
-func select_save_slot(index: int) -> bool:
-    return LEVEL_SAVE_SLOTS.select_save_slot(self, index)
+func select_save_slot(index: int, skip_current_save: bool = false) -> bool:
+    return LEVEL_SAVE_SLOTS.select_save_slot(self, index, skip_current_save)
 
 func _replace_with_save_slot(index: int, path_override: String = "", resume: bool = true) -> void:
     LEVEL_SAVE_SLOTS.replace_with_save_slot(self, index, path_override, resume)

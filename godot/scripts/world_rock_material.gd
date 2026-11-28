@@ -8,6 +8,9 @@ const TINTS := {"moss_cavern": Vector3(1,1,1), "rain_foundry": Vector3(0.78,0.95
     "obsidian_pilgrim": Vector3(1.02,0.81,1.04), "silent_crown": Vector3(0.90,0.99,1.20)}
 static var materials: Dictionary = {}
 
+static func clear_caches() -> void:
+    materials.clear()
+
 static func for_theme(theme: String) -> ShaderMaterial:
     if materials.has(theme): return materials[theme]
     var atlas: Texture2D = ART.texture(INK_ROCK)
