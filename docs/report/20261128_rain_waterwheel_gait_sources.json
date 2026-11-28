@@ -1,0 +1,221 @@
+{
+  "species": "waterwheel_knight",
+  "references": [
+    {
+      "role": "idle",
+      "sha256": "b8ce6fd3a41df14d2d4d2a6499bb5f5ad5a92ebb3a65ce3f53bb65b12699db52"
+    },
+    {
+      "role": "walk",
+      "sha256": "8859aa4f71f4c2e32b2d5fc5e1285f6a9f87d79dddea0ec55ceaafc0816a7020"
+    }
+  ],
+  "motion": {
+    "turn": {
+      "generator": "built-in image_gen",
+      "raw_sha256": "1282ec2752ea68a6df795ac036855f0ad60687e5c9e450c740d35f40d7c286c7",
+      "prompt": "Make a production transparent sprite contact sheet for the EXACT original Waterwheel Knight in these two reference cels (idle and walking), not an alternate creature. Match steel beetle helmet, exactly two swept antennae, dark visor slit, worn brass/rim wooden six-to-eight-spoke ROUND wheel shield on near viewer-left arm, short crescent axe the size and design of reference in far hand on viewer right, navy cloth cape trailing viewer left, compact short legs, brown boots. Same exquisite 2D painted ink contour, bronze wear and slate plates, no reimagining, no new gold filigree or eye glow. True transparent RGBA, no checkerboard drawn, no floor, no shadows, no VFX, no numbers, no frame grid. Exactly six physically separate whole characters, three columns and two rows equally spaced, equal scale, feet on a stable baseline within each tile, wide empty margins. First row 1,2,3 and second row 4,5,6. Keep every axe, antenna and cape inside its tile. Draw six consecutive frames of a grounded in-place turn in an orthographic side-view game. Start facing right and rotate to a mostly front-looking near-neutral bridge by frame 4; frames 5 and 6 return shoulders toward equivalent right-looking silhouette (engine mirrors the second half). Cels 1–3 progressively shift helm, shoulders and round shield about 12, 27, 42 degrees toward camera; cel 4 a foreshortened near-frontal compressed stance, shield still on viewer left and axe visible on viewer right, cel 5 relaxes to shallow 25-degree and cel 6 very close to the reference right-looking idle; not a walk, no silhouette warping, keep same head size and feet clustered. Subtle lever of the shield, one planted foot pivots under the weight.",
+      "cells": [
+        {
+          "source_cell": 1,
+          "crop": [
+            84,
+            61,
+            485,
+            446
+          ],
+          "region": [
+            3,
+            3,
+            198,
+            190
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 2,
+          "crop": [
+            67,
+            60,
+            463,
+            446
+          ],
+          "region": [
+            253,
+            3,
+            195,
+            190
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 3,
+          "crop": [
+            50,
+            60,
+            432,
+            447
+          ],
+          "region": [
+            503,
+            3,
+            188,
+            190
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 4,
+          "crop": [
+            85,
+            46,
+            477,
+            437
+          ],
+          "region": [
+            3,
+            203,
+            190,
+            190
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 5,
+          "crop": [
+            64,
+            46,
+            466,
+            437
+          ],
+          "region": [
+            253,
+            203,
+            195,
+            190
+          ],
+          "mirrored": true
+        },
+        {
+          "source_cell": 6,
+          "crop": [
+            52,
+            48,
+            450,
+            437
+          ],
+          "region": [
+            503,
+            203,
+            194,
+            190
+          ],
+          "mirrored": true
+        }
+      ]
+    },
+    "brake": {
+      "generator": "built-in image_gen",
+      "raw_sha256": "1b4f24eb83fec1060d6e34049ce0d338bdaf5374beadf12c89024fcef221060a",
+      "prompt": "Make a production transparent sprite contact sheet for the EXACT original Waterwheel Knight in these two reference cels (idle and walking), not an alternate creature. Match steel beetle helmet, exactly two swept antennae, dark visor slit, worn brass/rim wooden six-to-eight-spoke ROUND wheel shield on near viewer-left arm, short crescent axe the size and design of reference in far hand on viewer right, navy cloth cape trailing viewer left, compact short legs, brown boots. Same exquisite 2D painted ink contour, bronze wear and slate plates, no reimagining, no new gold filigree or eye glow. True transparent RGBA, no checkerboard drawn, no floor, no shadows, no VFX, no numbers, no frame grid. Exactly six physically separate whole characters, three columns and two rows equally spaced, equal scale, feet on a stable baseline within each tile, wide empty margins. First row 1,2,3 and second row 4,5,6. Keep every axe, antenna and cape inside its tile. Draw six consecutive frames of a grounded right-facing walk decelerating then settling to the reference idle. Frame 1 boot reaches forward a little; 2 heel plants and armor leans a touch; 3 leading knee absorbs the weight and shield dips only a few pixels; 4 trailing foot catches up; 5 chest comes upright with small lag in axe and cape; 6 visually very close to reference idle. Nearly exact side camera and right-facing for all six. This is a restrained half-step brake, NOT an attack, a lunge, or a massive squat. Keep the body center in the same place; the motion is in ankle, knee, axe angle and shoulder. High identity fidelity matters more than dramatic motion.",
+      "cells": [
+        {
+          "source_cell": 1,
+          "crop": [
+            84,
+            66,
+            484,
+            447
+          ],
+          "region": [
+            3,
+            403,
+            197,
+            188
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 2,
+          "crop": [
+            56,
+            73,
+            458,
+            447
+          ],
+          "region": [
+            253,
+            403,
+            201,
+            187
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 3,
+          "crop": [
+            30,
+            76,
+            433,
+            446
+          ],
+          "region": [
+            503,
+            403,
+            203,
+            186
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 4,
+          "crop": [
+            77,
+            68,
+            488,
+            444
+          ],
+          "region": [
+            3,
+            603,
+            204,
+            187
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 5,
+          "crop": [
+            62,
+            69,
+            468,
+            441
+          ],
+          "region": [
+            253,
+            603,
+            205,
+            188
+          ],
+          "mirrored": false
+        },
+        {
+          "source_cell": 6,
+          "crop": [
+            37,
+            69,
+            443,
+            444
+          ],
+          "region": [
+            503,
+            603,
+            206,
+            190
+          ],
+          "mirrored": false
+        }
+      ]
+    }
+  }
+}

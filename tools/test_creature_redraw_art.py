@@ -65,6 +65,29 @@ class PaintingStyle(unittest.TestCase):
 
 
 class DeliveryContracts(unittest.TestCase):
+    def test_waterwheel_new_clips_survive_strict_redraw_reconstruction(self):
+        kind = 'waterwheel_knight'
+        manifest = art.build(kind, check=True)
+        clips = {clip['name']: clip for clip in manifest['animations']}
+        for name, entry in [('turn', 'idle'), ('brake', 'walk')]:
+            with self.subTest(name=name):
+                self.assertEqual(clips[name]['frames'][0], clips[entry]['frames'][0])
+                self.assertFalse(clips[name]['loop'])
+                self.assertEqual(len(clips[name]['frames']), 7)
+
+    def test_authored_transitions_reject_changed_atlas_and_invalid_cel(self):
+        kind = 'waterwheel_knight'
+        folder = art.fit.CREATURES / kind
+        registered = art.read(art.REQUEST / 'jobs' / (kind + '.json'))['authored_transitions']
+        manifest = art.read(folder / art.LAYER)
+        manifest['animations'] = [c for c in manifest['animations'] if c['name'] not in {'turn', 'brake'}]
+        with self.assertRaisesRegex(ValueError, 'atlas changed'):
+            art.append_authored_transitions(manifest, dict(registered, sha256='0'*64), folder)
+        original = art.read(art.REQUEST / 'jobs' / (kind + '.json'))['authored_transitions']
+        original['clips'][0]['cels'][0]['region'][0] = -1
+        with self.assertRaisesRegex(ValueError, 'cel outside atlas or rig'):
+            art.append_authored_transitions(manifest, original, folder)
+
     def test_partial_pollen_windup_keeps_its_active_attack_handoff(self):
         from audit_creature_redraw_handoffs import MAX_CHANGE, measure
         manifest = art.read(art.fit.CREATURES/'pollen_lutist'/art.LAYER)

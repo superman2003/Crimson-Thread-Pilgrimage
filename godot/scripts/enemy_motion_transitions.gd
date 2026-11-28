@@ -74,7 +74,11 @@ func _begin(actor, action: StringName, wanted: bool, start_texture: Texture2D, s
 
 func tick(actor, motion: Vector2, previous_state: String) -> void:
     if not actor.original_visual or not is_instance_valid(actor.animated_sprite):return
-    var moving := motion.length_squared() > .01
+    # A grounded gait can finish with a sub-tenth-pixel step before deciding
+    # to idle. Keep that last walking step armed; a stationary idle remains
+    # ineligible and tiny vertical settlement cannot hold the flag.
+    var moving: bool = motion.length_squared() > .01 or (
+        actor.locomotion == "ground" and pending_loop == &"walk" and absf(motion.x) > .001)
     if not active.is_empty():
         # An ordinary hit keeps its visible pose and white flash. Its short
         # empty-attack recovery may finish the gesture without changing size.
