@@ -102,19 +102,30 @@ class ReleaseBuilderTests(unittest.TestCase):
         files = [p.relative_to(self.project).as_posix() for p in release.runtime_files(self.project)]
         self.assertEqual(sorted(kept), sorted(files))
 
-    def test_desktop_presets_keep_dependencies_of_retained_map_theme(self):
+    def test_desktop_keeps_only_the_kenney_save_icon(self):
         project = release.ROOT / 'godot'
-        theme = 'addons/MetroidvaniaSystem/Themes/Kenney/Theme.tres'
-        references = re.findall(r'^\[ext_resource .*?path="(res://[^"]+)"',
-                                (project / theme).read_text(encoding='utf-8'),
-                                re.MULTILINE)
-        self.assertTrue(references)
+        prefix = 'addons/MetroidvaniaSystem/Themes/Kenney'
+        keep = {f'{prefix}/Symbols/Save.png', f'{prefix}/Symbols/Save.png.import'}
+        candidates = {
+            path.relative_to(project).as_posix()
+            for path in (project / prefix).rglob('*') if path.is_file()
+        }
+        self.assertTrue(keep <= candidates)
+        self.assertIn(f'{prefix}/Theme.tres', candidates)
+        self.assertIn(f'{prefix}/PlayerLocation.tscn', candidates)
         for preset, patterns in presets(project):
             with self.subTest(preset=preset):
-                if filter_matches('res://' + theme, patterns):
-                    continue
-                excluded = [path for path in references if filter_matches(path, patterns)]
-                self.assertEqual([], excluded, 'Retained theme has excluded dependencies')
+                self.assertEqual(
+                    keep, {path for path in candidates if not filter_matches('res://' + path, patterns)}
+                )
+        for path in candidates:
+            self.write(path)
+        self.write('export_presets.cfg', (project / 'export_presets.cfg').read_text(encoding='utf-8'))
+        staged = {
+            path.relative_to(self.project).as_posix() for path in release.runtime_files(self.project)
+            if path.is_relative_to(self.project / prefix)
+        }
+        self.assertEqual(keep, staged)
 
     def test_staging_preserves_autoload_and_disables_only_editor_plugins(self):
         original = '[autoload]\nRuntime="*res://runtime.gd"\n[editor_plugins]\nenabled=PackedStringArray("plugin.cfg")\n[rendering]\nrenderer="gl_compatibility"\n'

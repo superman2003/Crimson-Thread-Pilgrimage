@@ -24,16 +24,7 @@ func run() -> void:
     await physics_frame;await physics_frame
     world._toggle_audio_settings();await process_frame
     var workbench: Node=root.get_node("JourneyWorkbench");workbench.open();workbench.context.update()
-    # The real workbench loads non-observer features in the background.
-    var feature_deadline := Time.get_ticks_msec() + 15000
-    while not workbench.features.has("i_itinerary") and Time.get_ticks_msec() < feature_deadline:
-        await create_timer(0.02, true).timeout
-    var feature: RefCounted=workbench.features.get("i_itinerary")
-    if feature == null:
-        check(false,"Workbench loads the itinerary feature")
-        RETIRE.retire_tree(world);world.queue_free();await process_frame
-        await RETIRE.drain(self)
-        quit(1);return
+    var feature: RefCounted=workbench.features.i_itinerary
     var payload:=DOMAIN.capture(workbench.context.snapshot());payload.start=room_ids[0];payload.stops=room_ids.slice(1)
     # Choose known connected nodes from the actual captured graph, not invented map rows.
     check(DOMAIN.validate(payload),"real World produces valid itinerary source")
