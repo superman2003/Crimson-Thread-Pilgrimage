@@ -34,6 +34,43 @@ func command(enemy: Area2D, attack_id: String) -> Dictionary:
             return item
     return {}
 
+func check_authored_hover(region_file: String, id: String, kind: String) -> void:
+    var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + region_file + ".json"))
+    var flyer: Area2D = ENEMY.new()
+    flyer.configure({"id": id,"kind": kind,"hp": 6}, "", false, data.ai_profiles[kind])
+    flyer.position = Vector2(280, 230)
+    stage.add_child(flyer)
+    flyer.set_physics_process(false)
+    var sprite: AnimatedSprite2D = flyer.animated_sprite
+    check(sprite != null and sprite.sprite_frames.has_animation("idle"), kind + " has the original hover loop")
+    if sprite == null:
+        flyer.free()
+        return
+    for side in [-1,1]:
+        target.position = flyer.position + Vector2(side * 95,0)
+        var old_x: float = flyer.position.x
+        flyer._move_in_combat(1.0/60.0,target)
+        check(flyer.last_ai_decision == "space" and (flyer.position.x-old_x)*side < 0.0,
+            kind + " still retreats from the player")
+        check(sprite.animation == &"idle" and bool(sprite.flip_h) == ((side < 0) != flyer.sprite_faces_left),
+            kind + " hovers facing the player while strafing on either side")
+        sprite.set_frame_and_progress(3,.25)
+        target.position = flyer.position + Vector2(side * 125,0)
+        flyer._move_in_combat(1.0/60.0,target)
+        check(flyer.last_ai_decision == "threaten" and sprite.animation == &"idle" and sprite.frame == 3,
+            kind + " strafe-to-threat does not restart the hover cycle")
+    target.position = flyer.position + Vector2(-180,0)
+    var approach_x: float = flyer.position.x
+    flyer._move_in_combat(1.0/60.0,target)
+    check(flyer.position.x < approach_x and sprite.animation == &"walk",kind + " real approach still uses its travel clip")
+    flyer._face_target(target)
+    var attack: Dictionary = flyer.ai_commands[0]
+    flyer._begin_attack(attack)
+    check(flyer.state == "windup" and flyer.attack_direction == -1 and sprite.animation != &"idle"
+        and is_equal_approx(flyer.state_timer,float(attack.windup)),kind + " windup interrupts hover and keeps aim and timing")
+    flyer.free()
+
+
 func run() -> void:
     stage = Node2D.new()
     root.add_child(stage)
@@ -42,6 +79,9 @@ func run() -> void:
     target.position = Vector2(400, 300)
     stage.add_child(target)
     await process_frame
+
+    check_authored_hover("demo_ch01_moss_bell_court", "hover_moth", "bronze_moth")
+    check_authored_hover("demo_ch02_rain_foundry_canal", "hover_mote", "bell_mote")
 
     # Situational scoring.
     var moth := spawn("bronze_moth", "ai_moth", 300)

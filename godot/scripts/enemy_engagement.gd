@@ -319,13 +319,20 @@ static func move_in_combat(actor: Node, delta: float, target: CharacterBody2D) -
         actor.last_ai_decision = "space"
     else:
         actor.last_ai_decision = "threaten"
+    # An authored aerial strafe uses the same hover cycle as holding range.
+    # Keep the threat in view instead of turning with every tiny retreat.
+    var hover_strafe: bool = actor.locomotion == "flight" and not actor.is_boss \
+        and bool(actor.ai_profile.get("present_combat_hover", false)) and actor.last_ai_decision == "space"
     if moved and movement_direction != 0.0:
         actor.direction = -1 if movement_direction < 0.0 else 1
-        actor._set_sprite_flip(actor.direction < 0)
+        if not hover_strafe:
+            actor._set_sprite_flip(actor.direction < 0)
     elif target != null:
         actor._face_target(target)
     actor._clamp_movement_bounds()
-    actor._set_enemy_animation("walk" if moved else "idle")
+    if hover_strafe and not is_zero_approx(dx):
+        actor._set_sprite_flip(dx < 0.0)
+    actor._set_enemy_animation("walk" if moved and not hover_strafe else "idle")
 
 
 static func ally_queue_offset(actor: Node, target: CharacterBody2D) -> float:
