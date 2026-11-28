@@ -69,7 +69,12 @@ func _lease_current(id: String, cache: Dictionary) -> bool:
         and is_same(cache.raw, record.get("raw")) and is_same(cache.prepared, record.get("prepared")) \
         and cache.entry == candidate.entry and cache.path == candidate.path \
         and cache.path == record.get("path", candidate.path) and cache.stamp == record.stamp \
-        and cache.stamp == FileAccess.get_modified_time(cache.path)
+        and source_stamp_matches(cache.path, cache.stamp, OS.has_feature("standalone"))
+
+static func source_stamp_matches(path: String, expected: int, standalone: bool) -> bool:
+    # Published res:// content in a release pack is immutable. Still check
+    # writable sources and hot reload in development.
+    return (standalone and path.begins_with("res://")) or expected == FileAccess.get_modified_time(path)
 
 static func plan(config: Dictionary, entry: Vector2) -> Array:
     var pending: Array = []

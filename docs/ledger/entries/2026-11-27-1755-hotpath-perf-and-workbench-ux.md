@@ -10,3 +10,5 @@
 - **验证**：本地执行 `audit_ui_translations.py`、`test_ui_text_colors.py`、`audit_export_contents.py`、`build_ledger.py --validate`、`npm run test:campaign` 均通过。
 
 CI 复验：更新负对照替换点，禁用重构后的材质分支，保留真实 GL 正向检查和语义失效验证。
+
+补齐前台预热之后的玩法预热租约：发行包内不可变的 res:// 不再每帧查时间戳，开发态和可写资源仍复核，租约代际、入口及数据同一性条件不变。
