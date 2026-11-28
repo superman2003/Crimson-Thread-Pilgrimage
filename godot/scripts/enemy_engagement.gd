@@ -83,8 +83,11 @@ static func update_patrol_or_aggro(actor: Node, delta: float, target: CharacterB
     # While answering a call, only leaving the territory sends an ally home; the
     # player's own position (outside this leash) must not cancel the search.
     if actor._should_return_to_spawn(null if actor.alarm_search else target, aggro_range):
-        actor.last_ai_decision = "return"
-        actor._return_to_spawn(delta)
+        if post_guard_enabled(actor):
+            return_to_post(actor, delta, "hold_post")
+        else:
+            actor.last_ai_decision = "return"
+            actor._return_to_spawn(delta)
         return
     if engaged:
         if not tracking and actor.tactical_role == "ambush":
@@ -277,6 +280,33 @@ static func investigate(actor: Node, delta: float) -> void:
     actor._set_enemy_animation("walk")
 
 
+# Only authored sentries opt in: a door guard should hold the choke rather
+# than use the free-roaming melee footwork on a very short patrol strip.
+static func post_guard_enabled(actor: Node) -> bool:
+    return not actor.is_boss and actor.tactical_role == "guard" and actor.locomotion == "ground" \
+        and float(actor.ai_profile.get("guard_post_advance", 0.0)) > 0.0
+
+
+static func move_at_guard_post(actor: Node, delta: float, target: CharacterBody2D) -> void:
+    var advance := minf(float(actor.ai_profile.get("guard_post_advance", 0.0)), maxf(actor.leash_radius, 0.0))
+    var x: float = actor.global_position.x
+    var target_x: float = target.global_position.x
+    var home: float = actor.spawn_position.x
+    var direction := signf(target_x - x)
+    var spacing := float(actor.ai_profile.get("preferred_range", 54.0))
+    var goal := clampf(target_x - direction * spacing, home - advance, home + advance)
+    actor._face_target(target)
+    # No reactive backpedal around the player. The existing motor plants and
+    # brakes on the limit; the same attack selector still owns all strikes.
+    if direction * (goal - x) > 6.0 and absf(target_x - x) > spacing + 14.0:
+        actor.last_ai_decision = "guard:advance"
+        actor.walk_horizontally(direction * actor._movement_speed() * 0.65, delta, goal)
+        actor._set_enemy_animation("walk")
+    else:
+        actor.last_ai_decision = "guard:hold"
+        actor._set_enemy_animation("idle")
+
+
 static func move_in_combat(actor: Node, delta: float, target: CharacterBody2D) -> void:
     if actor.locomotion == "stationary":
         actor.last_ai_decision="hold_position"
@@ -284,6 +314,9 @@ static func move_in_combat(actor: Node, delta: float, target: CharacterBody2D) -
         return
     if actor._boss_tactical_enabled():
         actor._move_boss_tactical(delta, target)
+        return
+    if post_guard_enabled(actor):
+        move_at_guard_post(actor, delta, target)
         return
     var preferred := float(actor.ai_profile.get("preferred_range", 54.0))
     var dx = target.global_position.x - actor.global_position.x

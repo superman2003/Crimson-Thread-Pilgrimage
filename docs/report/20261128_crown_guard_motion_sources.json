@@ -1,0 +1,329 @@
+{
+  "turn": {
+    "sha256": "27bdf3f02b4b388997c1cea8180e24c13e57bee7afdeb69cb9ac992e5ee51b06",
+    "generator": "built-in image_gen",
+    "prompt": "Create six new raster animation cels for the supplied existing echo waterwheel knight in the same painterly 2D game, not a redesign. Image one is the exact geometric onion template; image two is the full-color design and scale reference. A clear in-place turn across six different sequential hand-painted drawings: face slightly right / right three-quarter / almost front with the wheel and blade foreshortened / front crossing to left / left three-quarter / almost the final left side pose. The rider plants first then the feet pivot; cape lags a fraction. The two opposed translucent silhouettes supplied in image one are guides, not multiple characters. Use this exact 1536×1024 canvas, a precisely aligned 3 × 2 grid of 512px tiles, ignore empty margins otherwise. Each sprite is centered near x=256,+512,+1024, its boot soles y=400 or y=912, highest crest y=120 or y=632, in every cell (no labels). Keep all four bright green registration squares precisely in their original corner locations and sizes. Remove guide outlines, ground line, ghosts and all background; output true alpha everywhere outside the painted figure and the four small green squares. Painted helmet two long carved tines, dark eye hole, bone-toned metal, deep crimson torn cape, weathered bronze circular shield with floral spokes, one slim sword, exact existing proportions. Full feet and horns in all six panels. No copying/mirroring endpoints as stand-ins, no transparency within body, no new graphics or objects.",
+    "prompt_sha256": "33fdb3eb20b18e4444855a9284db1b77b9e747624dba7532ff726e784234c3d4",
+    "references": [
+      {
+        "sha256": "c08cafd3f6f3357ffe922b25cdf2bbb223ac0c833e27ff17af0c96651b11e742",
+        "role": "production onion guide"
+      },
+      {
+        "sha256": "69efefffd254d9fdc21f1e47956ae96dc51265317f6b60aaf876a3b5bb6d097f",
+        "role": "production painted model reference"
+      }
+    ],
+    "affine": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        -0.0,
+        1.000513,
+        -0.512558
+      ]
+    ],
+    "registration": "affine6_inverse12_v1",
+    "cells": [
+      {
+        "animation": "turn",
+        "after": 0,
+        "slot": 0,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            14339,
+            16603,
+            14339
+          ],
+          "area_ratio": 1.158,
+          "ground": 220,
+          "centre_x": 153.6,
+          "colour_drift": 5.7
+        },
+        "margin_xy": [
+          54,
+          12
+        ]
+      },
+      {
+        "animation": "turn",
+        "after": 1,
+        "slot": 1,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            14339,
+            15373,
+            14339
+          ],
+          "area_ratio": 1.072,
+          "ground": 219,
+          "centre_x": 143.4,
+          "colour_drift": 10.5
+        },
+        "margin_xy": [
+          54,
+          11
+        ]
+      },
+      {
+        "animation": "turn",
+        "after": 2,
+        "slot": 2,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            14339,
+            15119,
+            14339
+          ],
+          "area_ratio": 1.054,
+          "ground": 219,
+          "centre_x": 135.5,
+          "colour_drift": 13.0
+        },
+        "margin_xy": [
+          52,
+          11
+        ]
+      },
+      {
+        "animation": "turn",
+        "after": 3,
+        "slot": 3,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            14339,
+            15963,
+            14339
+          ],
+          "area_ratio": 1.113,
+          "ground": 221,
+          "centre_x": 162.1,
+          "colour_drift": 16.6
+        },
+        "margin_xy": [
+          85,
+          10
+        ]
+      },
+      {
+        "animation": "turn",
+        "after": 4,
+        "slot": 4,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            14339,
+            16541,
+            14339
+          ],
+          "area_ratio": 1.154,
+          "ground": 220,
+          "centre_x": 146.0,
+          "colour_drift": 19.1
+        },
+        "margin_xy": [
+          77,
+          8
+        ]
+      },
+      {
+        "animation": "turn",
+        "after": 5,
+        "slot": 5,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            14339,
+            15442,
+            14339
+          ],
+          "area_ratio": 1.077,
+          "ground": 220,
+          "centre_x": 141.5,
+          "colour_drift": 9.0
+        },
+        "margin_xy": [
+          44,
+          8
+        ]
+      }
+    ]
+  },
+  "brake": {
+    "sha256": "97a9ed6495f98da9cd5b83df1fc6e3b8e354b633f1b5bbe18447e5c61383ad9b",
+    "generator": "built-in image_gen",
+    "prompt": "Create six new raster animation cels for the supplied existing echo waterwheel knight in the same painterly 2D game, not a redesign. Image one is the exact geometric onion template; image two is the full-color design and scale reference. Six different sequential hand-painted drawings of brisk walk easing to a stop while facing right. 1 front metal boot plants, 2 weight rolls onto it and breast/helmet overshoot by a tiny amount, 3 trailing foot gathers and shield dips, 4 shoulders and shield settle, 5 red cape catches up, 6 steady upright guarding stance. Restrained physical momentum, not cartoon squash. No sliding. Use this exact 1536×1024 canvas, a precisely aligned 3 × 2 grid of 512px tiles, ignore empty margins otherwise. Each sprite is centered near x=256,+512,+1024, its boot soles y=400 or y=912, highest crest y=120 or y=632, in every cell (no labels). Keep all four bright green registration squares precisely in their original corner locations and sizes. Remove guide outlines, ground line, ghosts and all background; output true alpha everywhere outside the painted figure and the four small green squares. Painted helmet two long carved tines, dark eye hole, bone-toned metal, deep crimson torn cape, weathered bronze circular shield with floral spokes, one slim sword, exact existing proportions. Full feet and horns in all six panels. No copying/mirroring endpoints as stand-ins, no transparency within body, no new graphics or objects.",
+    "prompt_sha256": "b02bf0626fa1b8d07172118fff7a50174f578d478027741ef07d90357fdda46b",
+    "references": [
+      {
+        "sha256": "0988ae07524737fbd9a6201df6e767170b69d3c78db1de636ad6761d9631eb15",
+        "role": "production onion guide"
+      },
+      {
+        "sha256": "94aee1e1e63f8c80218bd8e3978347103e0385fd783a9754338586e38448d7a3",
+        "role": "production painted model reference"
+      }
+    ],
+    "affine": [
+      [
+        1.000336,
+        -0.000513,
+        0.004175
+      ],
+      [
+        -0.000168,
+        1.000769,
+        0.110708
+      ]
+    ],
+    "registration": "affine6_inverse12_v1",
+    "cells": [
+      {
+        "animation": "brake",
+        "after": 0,
+        "slot": 0,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            13294,
+            14397,
+            14339
+          ],
+          "area_ratio": 1.043,
+          "ground": 218,
+          "centre_x": 157.4,
+          "colour_drift": 7.8
+        },
+        "margin_xy": [
+          63,
+          20
+        ]
+      },
+      {
+        "animation": "brake",
+        "after": 1,
+        "slot": 1,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            13294,
+            13935,
+            14339
+          ],
+          "area_ratio": 1.009,
+          "ground": 218,
+          "centre_x": 154.6,
+          "colour_drift": 9.0
+        },
+        "margin_xy": [
+          60,
+          23
+        ]
+      },
+      {
+        "animation": "brake",
+        "after": 2,
+        "slot": 2,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            13294,
+            13899,
+            14339
+          ],
+          "area_ratio": 1.007,
+          "ground": 218,
+          "centre_x": 150.9,
+          "colour_drift": 8.0
+        },
+        "margin_xy": [
+          60,
+          20
+        ]
+      },
+      {
+        "animation": "brake",
+        "after": 3,
+        "slot": 3,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            13294,
+            14152,
+            14339
+          ],
+          "area_ratio": 1.025,
+          "ground": 221,
+          "centre_x": 158.6,
+          "colour_drift": 7.4
+        },
+        "margin_xy": [
+          72,
+          19
+        ]
+      },
+      {
+        "animation": "brake",
+        "after": 4,
+        "slot": 4,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            13294,
+            14201,
+            14339
+          ],
+          "area_ratio": 1.029,
+          "ground": 221,
+          "centre_x": 156.1,
+          "colour_drift": 7.5
+        },
+        "margin_xy": [
+          70,
+          19
+        ]
+      },
+      {
+        "animation": "brake",
+        "after": 5,
+        "slot": 5,
+        "accepted": true,
+        "reasons": [],
+        "metrics": {
+          "solid_area": [
+            13294,
+            14163,
+            14339
+          ],
+          "area_ratio": 1.026,
+          "ground": 221,
+          "centre_x": 149.8,
+          "colour_drift": 7.5
+        },
+        "margin_xy": [
+          72,
+          18
+        ]
+      }
+    ]
+  },
+  "atlas_sha256": "0e6e1194fdba865e4f20e91e180d73755a1d40970dfaf3ed5258ab765d161ef3"
+}

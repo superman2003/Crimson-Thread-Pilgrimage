@@ -1,6 +1,7 @@
 extends RefCounted
 const RESOURCE_JOB := preload("res://scripts/background_resource_job.gd")
 const LOOP_ENTRIES_PATH := "res://data/character_loop_entries.json"
+const GESTURE_OVERLAY := "/motion_gesture_overlay.json"
 
 static var textures: Dictionary = {}
 static var frame_cache: Dictionary = {}
@@ -39,7 +40,10 @@ static func character_manifests(kind: String, data: Dictionary) -> Array[String]
     elif kind == "enemy":
         var path := character_manifest("original_creatures", String(data.get("kind", "moss_larva")))
         if not FileAccess.file_exists(path): path = String(data.get("sprite", ""))
-        if not path.is_empty(): result.append(path)
+        if not path.is_empty():
+            result.append(path)
+            var overlay := _gesture_overlay(path)
+            if not overlay.is_empty() and FileAccess.file_exists(overlay): result.append(overlay)
         var skill_manifest := "res://assets/vfx/minor_enemy_skills/manifest.json"
         if FileAccess.file_exists(skill_manifest):
             var skill_path := String(manifest(skill_manifest).get("creatures", {}).get(String(data.get("kind", "")), {}).get("texture", ""))
@@ -280,6 +284,12 @@ static func frame(value: Variant) -> Texture2D:
     atlas.filter_clip = true
     return atlas
 
+# Optional locomotion cels are an additive layer: never change a generated
+# core sheet, its fit registry, or attack/idle/walk selections.
+static func _gesture_overlay(path: String) -> String:
+    return path.get_base_dir() + GESTURE_OVERLAY if path.begins_with("res://assets/sprites/original_creatures/") else ""
+
+
 static func frames(path: String) -> SpriteFrames:
     if frame_cache.has(path):
         return frame_cache[path]
@@ -288,8 +298,15 @@ static func frames(path: String) -> SpriteFrames:
         return null
     var result := SpriteFrames.new()
     result.remove_animation("default")
-    for value in data.get("animations", []):
+    var animations: Array = data.get("animations", []).duplicate()
+    var overlay := _gesture_overlay(path)
+    if not overlay.is_empty() and FileAccess.file_exists(overlay):
+        for value in manifest(overlay).get("animations", []):
+            if value is Dictionary and String(value.get("name", "")) in ["turn", "brake"] and not bool(value.get("loop", true)):
+                animations.append(value)
+    for value in animations:
         var name := String(value.get("name", "idle"))
+        if result.has_animation(name): continue
         result.add_animation(name)
         result.set_animation_speed(name, float(value.get("fps", 8)))
         result.set_animation_loop(name, bool(value.get("loop", true)))
